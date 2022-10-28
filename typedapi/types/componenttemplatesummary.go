@@ -17,75 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/_types/ComponentTemplate.ts#L38-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/_types/ComponentTemplate.ts#L38-L45
 type ComponentTemplateSummary struct {
-	Aliases  map[string]AliasDefinition  `json:"aliases,omitempty"`
-	Mappings *TypeMapping                `json:"mappings,omitempty"`
-	Meta_    *Metadata                   `json:"_meta,omitempty"`
-	Settings map[IndexName]IndexSettings `json:"settings,omitempty"`
-	Version  *VersionNumber              `json:"version,omitempty"`
+	Aliases  map[string]AliasDefinition `json:"aliases,omitempty"`
+	Mappings *TypeMapping               `json:"mappings,omitempty"`
+	Meta_    map[string]interface{}     `json:"_meta,omitempty"`
+	Settings map[string]IndexSettings   `json:"settings,omitempty"`
+	Version  *int64                     `json:"version,omitempty"`
 }
 
-// ComponentTemplateSummaryBuilder holds ComponentTemplateSummary struct and provides a builder API.
-type ComponentTemplateSummaryBuilder struct {
-	v *ComponentTemplateSummary
-}
-
-// NewComponentTemplateSummary provides a builder for the ComponentTemplateSummary struct.
-func NewComponentTemplateSummaryBuilder() *ComponentTemplateSummaryBuilder {
-	r := ComponentTemplateSummaryBuilder{
-		&ComponentTemplateSummary{
-			Aliases:  make(map[string]AliasDefinition, 0),
-			Settings: make(map[IndexName]IndexSettings, 0),
-		},
+// NewComponentTemplateSummary returns a ComponentTemplateSummary.
+func NewComponentTemplateSummary() *ComponentTemplateSummary {
+	r := &ComponentTemplateSummary{
+		Aliases:  make(map[string]AliasDefinition, 0),
+		Settings: make(map[string]IndexSettings, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ComponentTemplateSummary struct
-func (rb *ComponentTemplateSummaryBuilder) Build() ComponentTemplateSummary {
-	return *rb.v
-}
-
-func (rb *ComponentTemplateSummaryBuilder) Aliases(values map[string]*AliasDefinitionBuilder) *ComponentTemplateSummaryBuilder {
-	tmp := make(map[string]AliasDefinition, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aliases = tmp
-	return rb
-}
-
-func (rb *ComponentTemplateSummaryBuilder) Mappings(mappings *TypeMappingBuilder) *ComponentTemplateSummaryBuilder {
-	v := mappings.Build()
-	rb.v.Mappings = &v
-	return rb
-}
-
-func (rb *ComponentTemplateSummaryBuilder) Meta_(meta_ *MetadataBuilder) *ComponentTemplateSummaryBuilder {
-	v := meta_.Build()
-	rb.v.Meta_ = &v
-	return rb
-}
-
-func (rb *ComponentTemplateSummaryBuilder) Settings(values map[IndexName]*IndexSettingsBuilder) *ComponentTemplateSummaryBuilder {
-	tmp := make(map[IndexName]IndexSettings, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Settings = tmp
-	return rb
-}
-
-func (rb *ComponentTemplateSummaryBuilder) Version(version VersionNumber) *ComponentTemplateSummaryBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

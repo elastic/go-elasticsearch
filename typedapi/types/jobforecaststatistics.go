@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JobForecastStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Job.ts#L120-L127
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Job.ts#L120-L127
 type JobForecastStatistics struct {
 	ForecastedJobs   int              `json:"forecasted_jobs"`
 	MemoryBytes      *JobStatistics   `json:"memory_bytes,omitempty"`
@@ -34,56 +34,11 @@ type JobForecastStatistics struct {
 	Total            int64            `json:"total"`
 }
 
-// JobForecastStatisticsBuilder holds JobForecastStatistics struct and provides a builder API.
-type JobForecastStatisticsBuilder struct {
-	v *JobForecastStatistics
-}
-
-// NewJobForecastStatistics provides a builder for the JobForecastStatistics struct.
-func NewJobForecastStatisticsBuilder() *JobForecastStatisticsBuilder {
-	r := JobForecastStatisticsBuilder{
-		&JobForecastStatistics{
-			Status: make(map[string]int64, 0),
-		},
+// NewJobForecastStatistics returns a JobForecastStatistics.
+func NewJobForecastStatistics() *JobForecastStatistics {
+	r := &JobForecastStatistics{
+		Status: make(map[string]int64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the JobForecastStatistics struct
-func (rb *JobForecastStatisticsBuilder) Build() JobForecastStatistics {
-	return *rb.v
-}
-
-func (rb *JobForecastStatisticsBuilder) ForecastedJobs(forecastedjobs int) *JobForecastStatisticsBuilder {
-	rb.v.ForecastedJobs = forecastedjobs
-	return rb
-}
-
-func (rb *JobForecastStatisticsBuilder) MemoryBytes(memorybytes *JobStatisticsBuilder) *JobForecastStatisticsBuilder {
-	v := memorybytes.Build()
-	rb.v.MemoryBytes = &v
-	return rb
-}
-
-func (rb *JobForecastStatisticsBuilder) ProcessingTimeMs(processingtimems *JobStatisticsBuilder) *JobForecastStatisticsBuilder {
-	v := processingtimems.Build()
-	rb.v.ProcessingTimeMs = &v
-	return rb
-}
-
-func (rb *JobForecastStatisticsBuilder) Records(records *JobStatisticsBuilder) *JobForecastStatisticsBuilder {
-	v := records.Build()
-	rb.v.Records = &v
-	return rb
-}
-
-func (rb *JobForecastStatisticsBuilder) Status(value map[string]int64) *JobForecastStatisticsBuilder {
-	rb.v.Status = value
-	return rb
-}
-
-func (rb *JobForecastStatisticsBuilder) Total(total int64) *JobForecastStatisticsBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

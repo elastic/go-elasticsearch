@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PassThroughInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L344-L349
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L344-L349
 type PassThroughInferenceUpdateOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
@@ -33,37 +33,9 @@ type PassThroughInferenceUpdateOptions struct {
 	Tokenization *NlpTokenizationUpdateOptions `json:"tokenization,omitempty"`
 }
 
-// PassThroughInferenceUpdateOptionsBuilder holds PassThroughInferenceUpdateOptions struct and provides a builder API.
-type PassThroughInferenceUpdateOptionsBuilder struct {
-	v *PassThroughInferenceUpdateOptions
-}
+// NewPassThroughInferenceUpdateOptions returns a PassThroughInferenceUpdateOptions.
+func NewPassThroughInferenceUpdateOptions() *PassThroughInferenceUpdateOptions {
+	r := &PassThroughInferenceUpdateOptions{}
 
-// NewPassThroughInferenceUpdateOptions provides a builder for the PassThroughInferenceUpdateOptions struct.
-func NewPassThroughInferenceUpdateOptionsBuilder() *PassThroughInferenceUpdateOptionsBuilder {
-	r := PassThroughInferenceUpdateOptionsBuilder{
-		&PassThroughInferenceUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PassThroughInferenceUpdateOptions struct
-func (rb *PassThroughInferenceUpdateOptionsBuilder) Build() PassThroughInferenceUpdateOptions {
-	return *rb.v
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *PassThroughInferenceUpdateOptionsBuilder) ResultsField(resultsfield string) *PassThroughInferenceUpdateOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options to update when inferring
-
-func (rb *PassThroughInferenceUpdateOptionsBuilder) Tokenization(tokenization *NlpTokenizationUpdateOptionsBuilder) *PassThroughInferenceUpdateOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

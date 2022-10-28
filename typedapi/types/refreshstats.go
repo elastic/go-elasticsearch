@@ -17,71 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RefreshStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Stats.ts#L168-L175
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L168-L175
 type RefreshStats struct {
-	ExternalTotal             int64                   `json:"external_total"`
-	ExternalTotalTimeInMillis DurationValueUnitMillis `json:"external_total_time_in_millis"`
-	Listeners                 int64                   `json:"listeners"`
-	Total                     int64                   `json:"total"`
-	TotalTime                 *Duration               `json:"total_time,omitempty"`
-	TotalTimeInMillis         DurationValueUnitMillis `json:"total_time_in_millis"`
+	ExternalTotal             int64     `json:"external_total"`
+	ExternalTotalTimeInMillis int64     `json:"external_total_time_in_millis"`
+	Listeners                 int64     `json:"listeners"`
+	Total                     int64     `json:"total"`
+	TotalTime                 *Duration `json:"total_time,omitempty"`
+	TotalTimeInMillis         int64     `json:"total_time_in_millis"`
 }
 
-// RefreshStatsBuilder holds RefreshStats struct and provides a builder API.
-type RefreshStatsBuilder struct {
-	v *RefreshStats
-}
+// NewRefreshStats returns a RefreshStats.
+func NewRefreshStats() *RefreshStats {
+	r := &RefreshStats{}
 
-// NewRefreshStats provides a builder for the RefreshStats struct.
-func NewRefreshStatsBuilder() *RefreshStatsBuilder {
-	r := RefreshStatsBuilder{
-		&RefreshStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RefreshStats struct
-func (rb *RefreshStatsBuilder) Build() RefreshStats {
-	return *rb.v
-}
-
-func (rb *RefreshStatsBuilder) ExternalTotal(externaltotal int64) *RefreshStatsBuilder {
-	rb.v.ExternalTotal = externaltotal
-	return rb
-}
-
-func (rb *RefreshStatsBuilder) ExternalTotalTimeInMillis(externaltotaltimeinmillis *DurationValueUnitMillisBuilder) *RefreshStatsBuilder {
-	v := externaltotaltimeinmillis.Build()
-	rb.v.ExternalTotalTimeInMillis = v
-	return rb
-}
-
-func (rb *RefreshStatsBuilder) Listeners(listeners int64) *RefreshStatsBuilder {
-	rb.v.Listeners = listeners
-	return rb
-}
-
-func (rb *RefreshStatsBuilder) Total(total int64) *RefreshStatsBuilder {
-	rb.v.Total = total
-	return rb
-}
-
-func (rb *RefreshStatsBuilder) TotalTime(totaltime *DurationBuilder) *RefreshStatsBuilder {
-	v := totaltime.Build()
-	rb.v.TotalTime = &v
-	return rb
-}
-
-func (rb *RefreshStatsBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *RefreshStatsBuilder {
-	v := totaltimeinmillis.Build()
-	rb.v.TotalTimeInMillis = v
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanWithinQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/span.ts#L74-L77
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L74-L77
 type SpanWithinQuery struct {
 	Big        *SpanQuery `json:"big,omitempty"`
 	Boost      *float32   `json:"boost,omitempty"`
@@ -32,43 +32,9 @@ type SpanWithinQuery struct {
 	QueryName_ *string    `json:"_name,omitempty"`
 }
 
-// SpanWithinQueryBuilder holds SpanWithinQuery struct and provides a builder API.
-type SpanWithinQueryBuilder struct {
-	v *SpanWithinQuery
-}
+// NewSpanWithinQuery returns a SpanWithinQuery.
+func NewSpanWithinQuery() *SpanWithinQuery {
+	r := &SpanWithinQuery{}
 
-// NewSpanWithinQuery provides a builder for the SpanWithinQuery struct.
-func NewSpanWithinQueryBuilder() *SpanWithinQueryBuilder {
-	r := SpanWithinQueryBuilder{
-		&SpanWithinQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanWithinQuery struct
-func (rb *SpanWithinQueryBuilder) Build() SpanWithinQuery {
-	return *rb.v
-}
-
-func (rb *SpanWithinQueryBuilder) Big(big *SpanQueryBuilder) *SpanWithinQueryBuilder {
-	v := big.Build()
-	rb.v.Big = &v
-	return rb
-}
-
-func (rb *SpanWithinQueryBuilder) Boost(boost float32) *SpanWithinQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SpanWithinQueryBuilder) Little(little *SpanQueryBuilder) *SpanWithinQueryBuilder {
-	v := little.Build()
-	rb.v.Little = &v
-	return rb
-}
-
-func (rb *SpanWithinQueryBuilder) QueryName_(queryname_ string) *SpanWithinQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

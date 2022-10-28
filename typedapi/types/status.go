@@ -17,88 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Status type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/snapshot/_types/SnapshotStatus.ts#L26-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotStatus.ts#L26-L35
 type Status struct {
 	IncludeGlobalState bool                          `json:"include_global_state"`
 	Indices            map[string]SnapshotIndexStats `json:"indices"`
 	Repository         string                        `json:"repository"`
-	ShardsStats        ShardsStats                   `json:"shards_stats"`
+	ShardsStats        SnapshotShardsStats           `json:"shards_stats"`
 	Snapshot           string                        `json:"snapshot"`
 	State              string                        `json:"state"`
 	Stats              SnapshotStats                 `json:"stats"`
-	Uuid               Uuid                          `json:"uuid"`
+	Uuid               string                        `json:"uuid"`
 }
 
-// StatusBuilder holds Status struct and provides a builder API.
-type StatusBuilder struct {
-	v *Status
-}
-
-// NewStatus provides a builder for the Status struct.
-func NewStatusBuilder() *StatusBuilder {
-	r := StatusBuilder{
-		&Status{
-			Indices: make(map[string]SnapshotIndexStats, 0),
-		},
+// NewStatus returns a Status.
+func NewStatus() *Status {
+	r := &Status{
+		Indices: make(map[string]SnapshotIndexStats, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Status struct
-func (rb *StatusBuilder) Build() Status {
-	return *rb.v
-}
-
-func (rb *StatusBuilder) IncludeGlobalState(includeglobalstate bool) *StatusBuilder {
-	rb.v.IncludeGlobalState = includeglobalstate
-	return rb
-}
-
-func (rb *StatusBuilder) Indices(values map[string]*SnapshotIndexStatsBuilder) *StatusBuilder {
-	tmp := make(map[string]SnapshotIndexStats, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Indices = tmp
-	return rb
-}
-
-func (rb *StatusBuilder) Repository(repository string) *StatusBuilder {
-	rb.v.Repository = repository
-	return rb
-}
-
-func (rb *StatusBuilder) ShardsStats(shardsstats *ShardsStatsBuilder) *StatusBuilder {
-	v := shardsstats.Build()
-	rb.v.ShardsStats = v
-	return rb
-}
-
-func (rb *StatusBuilder) Snapshot(snapshot string) *StatusBuilder {
-	rb.v.Snapshot = snapshot
-	return rb
-}
-
-func (rb *StatusBuilder) State(state string) *StatusBuilder {
-	rb.v.State = state
-	return rb
-}
-
-func (rb *StatusBuilder) Stats(stats *SnapshotStatsBuilder) *StatusBuilder {
-	v := stats.Build()
-	rb.v.Stats = v
-	return rb
-}
-
-func (rb *StatusBuilder) Uuid(uuid Uuid) *StatusBuilder {
-	rb.v.Uuid = uuid
-	return rb
+	return r
 }

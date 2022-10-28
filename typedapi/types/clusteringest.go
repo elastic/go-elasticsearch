@@ -17,50 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterIngest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L144-L147
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L144-L147
 type ClusterIngest struct {
 	NumberOfPipelines int                         `json:"number_of_pipelines"`
 	ProcessorStats    map[string]ClusterProcessor `json:"processor_stats"`
 }
 
-// ClusterIngestBuilder holds ClusterIngest struct and provides a builder API.
-type ClusterIngestBuilder struct {
-	v *ClusterIngest
-}
-
-// NewClusterIngest provides a builder for the ClusterIngest struct.
-func NewClusterIngestBuilder() *ClusterIngestBuilder {
-	r := ClusterIngestBuilder{
-		&ClusterIngest{
-			ProcessorStats: make(map[string]ClusterProcessor, 0),
-		},
+// NewClusterIngest returns a ClusterIngest.
+func NewClusterIngest() *ClusterIngest {
+	r := &ClusterIngest{
+		ProcessorStats: make(map[string]ClusterProcessor, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterIngest struct
-func (rb *ClusterIngestBuilder) Build() ClusterIngest {
-	return *rb.v
-}
-
-func (rb *ClusterIngestBuilder) NumberOfPipelines(numberofpipelines int) *ClusterIngestBuilder {
-	rb.v.NumberOfPipelines = numberofpipelines
-	return rb
-}
-
-func (rb *ClusterIngestBuilder) ProcessorStats(values map[string]*ClusterProcessorBuilder) *ClusterIngestBuilder {
-	tmp := make(map[string]ClusterProcessor, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.ProcessorStats = tmp
-	return rb
+	return r
 }

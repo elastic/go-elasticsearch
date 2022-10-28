@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package createapikey
@@ -31,20 +31,17 @@ import (
 
 // Request holds the request body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L51
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L51
 type Request struct {
 
 	// Expiration Expiration time for the API key. By default, API keys never expire.
 	Expiration *types.Duration `json:"expiration,omitempty"`
-
 	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
 	// nested data structure. Within the metadata object, keys beginning with _ are
 	// reserved for system usage.
-	Metadata *types.Metadata `json:"metadata,omitempty"`
-
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	// Name Specifies the name for this API key.
-	Name *types.Name `json:"name,omitempty"`
-
+	Name *string `json:"name,omitempty"`
 	// RoleDescriptors An array of role descriptors for this API key. This parameter is optional.
 	// When it is not specified or is an empty array, then the API key will have a
 	// point in time snapshot of permissions of the authenticated user. If you
@@ -56,23 +53,16 @@ type Request struct {
 	RoleDescriptors map[string]types.RoleDescriptor `json:"role_descriptors,omitempty"`
 }
 
-// RequestBuilder is the builder API for the createapikey.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			RoleDescriptors: make(map[string]types.RoleDescriptor, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		RoleDescriptors: make(map[string]types.RoleDescriptor, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -81,35 +71,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Expiration(expiration *types.DurationBuilder) *RequestBuilder {
-	v := expiration.Build()
-	rb.v.Expiration = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Metadata(metadata *types.MetadataBuilder) *RequestBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Name(name types.Name) *RequestBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *RequestBuilder) RoleDescriptors(values map[string]*types.RoleDescriptorBuilder) *RequestBuilder {
-	tmp := make(map[string]types.RoleDescriptor, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.RoleDescriptors = tmp
-	return rb
 }

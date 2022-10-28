@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,52 +28,20 @@ import (
 
 // RoleTemplateInlineScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/Privileges.ts#L128-L133
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/Privileges.ts#L152-L157
 type RoleTemplateInlineScript struct {
 	Lang    *scriptlanguage.ScriptLanguage `json:"lang,omitempty"`
 	Options map[string]string              `json:"options,omitempty"`
 	Params  map[string]interface{}         `json:"params,omitempty"`
-	Source  QueryContainer                 `json:"source"`
+	Source  RoleTemplateInlineQuery        `json:"source"`
 }
 
-// RoleTemplateInlineScriptBuilder holds RoleTemplateInlineScript struct and provides a builder API.
-type RoleTemplateInlineScriptBuilder struct {
-	v *RoleTemplateInlineScript
-}
-
-// NewRoleTemplateInlineScript provides a builder for the RoleTemplateInlineScript struct.
-func NewRoleTemplateInlineScriptBuilder() *RoleTemplateInlineScriptBuilder {
-	r := RoleTemplateInlineScriptBuilder{
-		&RoleTemplateInlineScript{
-			Options: make(map[string]string, 0),
-			Params:  make(map[string]interface{}, 0),
-		},
+// NewRoleTemplateInlineScript returns a RoleTemplateInlineScript.
+func NewRoleTemplateInlineScript() *RoleTemplateInlineScript {
+	r := &RoleTemplateInlineScript{
+		Options: make(map[string]string, 0),
+		Params:  make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the RoleTemplateInlineScript struct
-func (rb *RoleTemplateInlineScriptBuilder) Build() RoleTemplateInlineScript {
-	return *rb.v
-}
-
-func (rb *RoleTemplateInlineScriptBuilder) Lang(lang scriptlanguage.ScriptLanguage) *RoleTemplateInlineScriptBuilder {
-	rb.v.Lang = &lang
-	return rb
-}
-
-func (rb *RoleTemplateInlineScriptBuilder) Options(value map[string]string) *RoleTemplateInlineScriptBuilder {
-	rb.v.Options = value
-	return rb
-}
-
-func (rb *RoleTemplateInlineScriptBuilder) Params(value map[string]interface{}) *RoleTemplateInlineScriptBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *RoleTemplateInlineScriptBuilder) Source(arg QueryContainer) *RoleTemplateInlineScriptBuilder {
-	rb.v.Source = arg
-	return rb
+	return r
 }

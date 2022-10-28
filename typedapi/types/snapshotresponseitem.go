@@ -17,55 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SnapshotResponseItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/snapshot/get/SnapshotGetResponse.ts#L42-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/get/SnapshotGetResponse.ts#L42-L46
 type SnapshotResponseItem struct {
 	Error      *ErrorCause    `json:"error,omitempty"`
-	Repository Name           `json:"repository"`
+	Repository string         `json:"repository"`
 	Snapshots  []SnapshotInfo `json:"snapshots,omitempty"`
 }
 
-// SnapshotResponseItemBuilder holds SnapshotResponseItem struct and provides a builder API.
-type SnapshotResponseItemBuilder struct {
-	v *SnapshotResponseItem
-}
+// NewSnapshotResponseItem returns a SnapshotResponseItem.
+func NewSnapshotResponseItem() *SnapshotResponseItem {
+	r := &SnapshotResponseItem{}
 
-// NewSnapshotResponseItem provides a builder for the SnapshotResponseItem struct.
-func NewSnapshotResponseItemBuilder() *SnapshotResponseItemBuilder {
-	r := SnapshotResponseItemBuilder{
-		&SnapshotResponseItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SnapshotResponseItem struct
-func (rb *SnapshotResponseItemBuilder) Build() SnapshotResponseItem {
-	return *rb.v
-}
-
-func (rb *SnapshotResponseItemBuilder) Error(error *ErrorCauseBuilder) *SnapshotResponseItemBuilder {
-	v := error.Build()
-	rb.v.Error = &v
-	return rb
-}
-
-func (rb *SnapshotResponseItemBuilder) Repository(repository Name) *SnapshotResponseItemBuilder {
-	rb.v.Repository = repository
-	return rb
-}
-
-func (rb *SnapshotResponseItemBuilder) Snapshots(snapshots []SnapshotInfoBuilder) *SnapshotResponseItemBuilder {
-	tmp := make([]SnapshotInfo, len(snapshots))
-	for _, value := range snapshots {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Snapshots = tmp
-	return rb
+	return r
 }

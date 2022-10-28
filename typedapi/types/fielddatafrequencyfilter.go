@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FielddataFrequencyFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/FielddataFrequencyFilter.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/FielddataFrequencyFilter.ts#L22-L26
 type FielddataFrequencyFilter struct {
 	Max            float64 `json:"max"`
 	Min            float64 `json:"min"`
 	MinSegmentSize int     `json:"min_segment_size"`
 }
 
-// FielddataFrequencyFilterBuilder holds FielddataFrequencyFilter struct and provides a builder API.
-type FielddataFrequencyFilterBuilder struct {
-	v *FielddataFrequencyFilter
-}
+// NewFielddataFrequencyFilter returns a FielddataFrequencyFilter.
+func NewFielddataFrequencyFilter() *FielddataFrequencyFilter {
+	r := &FielddataFrequencyFilter{}
 
-// NewFielddataFrequencyFilter provides a builder for the FielddataFrequencyFilter struct.
-func NewFielddataFrequencyFilterBuilder() *FielddataFrequencyFilterBuilder {
-	r := FielddataFrequencyFilterBuilder{
-		&FielddataFrequencyFilter{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FielddataFrequencyFilter struct
-func (rb *FielddataFrequencyFilterBuilder) Build() FielddataFrequencyFilter {
-	return *rb.v
-}
-
-func (rb *FielddataFrequencyFilterBuilder) Max(max float64) *FielddataFrequencyFilterBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *FielddataFrequencyFilterBuilder) Min(min float64) *FielddataFrequencyFilterBuilder {
-	rb.v.Min = min
-	return rb
-}
-
-func (rb *FielddataFrequencyFilterBuilder) MinSegmentSize(minsegmentsize int) *FielddataFrequencyFilterBuilder {
-	rb.v.MinSegmentSize = minsegmentsize
-	return rb
+	return r
 }

@@ -17,18 +17,18 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MachineLearning type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L354-L361
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L354-L361
 type MachineLearning struct {
 	Available              bool                     `json:"available"`
 	DataFrameAnalyticsJobs MlDataFrameAnalyticsJobs `json:"data_frame_analytics_jobs"`
-	Datafeeds              map[string]Datafeed      `json:"datafeeds"`
+	Datafeeds              map[string]XpackDatafeed `json:"datafeeds"`
 	Enabled                bool                     `json:"enabled"`
 	Inference              MlInference              `json:"inference"`
 	// Jobs Job usage statistics. The `_all` entry is always present and gathers
@@ -37,72 +37,12 @@ type MachineLearning struct {
 	NodeCount int                 `json:"node_count"`
 }
 
-// MachineLearningBuilder holds MachineLearning struct and provides a builder API.
-type MachineLearningBuilder struct {
-	v *MachineLearning
-}
-
-// NewMachineLearning provides a builder for the MachineLearning struct.
-func NewMachineLearningBuilder() *MachineLearningBuilder {
-	r := MachineLearningBuilder{
-		&MachineLearning{
-			Datafeeds: make(map[string]Datafeed, 0),
-			Jobs:      make(map[string]JobUsage, 0),
-		},
+// NewMachineLearning returns a MachineLearning.
+func NewMachineLearning() *MachineLearning {
+	r := &MachineLearning{
+		Datafeeds: make(map[string]XpackDatafeed, 0),
+		Jobs:      make(map[string]JobUsage, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the MachineLearning struct
-func (rb *MachineLearningBuilder) Build() MachineLearning {
-	return *rb.v
-}
-
-func (rb *MachineLearningBuilder) Available(available bool) *MachineLearningBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *MachineLearningBuilder) DataFrameAnalyticsJobs(dataframeanalyticsjobs *MlDataFrameAnalyticsJobsBuilder) *MachineLearningBuilder {
-	v := dataframeanalyticsjobs.Build()
-	rb.v.DataFrameAnalyticsJobs = v
-	return rb
-}
-
-func (rb *MachineLearningBuilder) Datafeeds(values map[string]*DatafeedBuilder) *MachineLearningBuilder {
-	tmp := make(map[string]Datafeed, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Datafeeds = tmp
-	return rb
-}
-
-func (rb *MachineLearningBuilder) Enabled(enabled bool) *MachineLearningBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *MachineLearningBuilder) Inference(inference *MlInferenceBuilder) *MachineLearningBuilder {
-	v := inference.Build()
-	rb.v.Inference = v
-	return rb
-}
-
-// Jobs Job usage statistics. The `_all` entry is always present and gathers
-// statistics for all jobs.
-
-func (rb *MachineLearningBuilder) Jobs(values map[string]*JobUsageBuilder) *MachineLearningBuilder {
-	tmp := make(map[string]JobUsage, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Jobs = tmp
-	return rb
-}
-
-func (rb *MachineLearningBuilder) NodeCount(nodecount int) *MachineLearningBuilder {
-	rb.v.NodeCount = nodecount
-	return rb
+	return r
 }

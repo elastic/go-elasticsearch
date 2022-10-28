@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putwatch
@@ -31,40 +31,27 @@ import (
 
 // Request holds the request body struct for the package putwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L54
 type Request struct {
-	Actions map[string]types.Action `json:"actions,omitempty"`
-
-	Condition *types.ConditionContainer `json:"condition,omitempty"`
-
-	Input *types.InputContainer `json:"input,omitempty"`
-
-	Metadata *types.Metadata `json:"metadata,omitempty"`
-
-	ThrottlePeriod *string `json:"throttle_period,omitempty"`
-
-	Transform *types.TransformContainer `json:"transform,omitempty"`
-
-	Trigger *types.TriggerContainer `json:"trigger,omitempty"`
+	Actions        map[string]types.WatcherAction `json:"actions,omitempty"`
+	Condition      *types.WatcherCondition        `json:"condition,omitempty"`
+	Input          *types.WatcherInput            `json:"input,omitempty"`
+	Metadata       map[string]interface{}         `json:"metadata,omitempty"`
+	ThrottlePeriod *string                        `json:"throttle_period,omitempty"`
+	Transform      *types.TransformContainer      `json:"transform,omitempty"`
+	Trigger        *types.TriggerContainer        `json:"trigger,omitempty"`
 }
 
-// RequestBuilder is the builder API for the putwatch.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			Actions: make(map[string]types.Action, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		Actions: make(map[string]types.WatcherAction, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -73,53 +60,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Actions(values map[string]*types.ActionBuilder) *RequestBuilder {
-	tmp := make(map[string]types.Action, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Actions = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) Condition(condition *types.ConditionContainerBuilder) *RequestBuilder {
-	v := condition.Build()
-	rb.v.Condition = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Input(input *types.InputContainerBuilder) *RequestBuilder {
-	v := input.Build()
-	rb.v.Input = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Metadata(metadata *types.MetadataBuilder) *RequestBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ThrottlePeriod(throttleperiod string) *RequestBuilder {
-	rb.v.ThrottlePeriod = &throttleperiod
-	return rb
-}
-
-func (rb *RequestBuilder) Transform(transform *types.TransformContainerBuilder) *RequestBuilder {
-	v := transform.Build()
-	rb.v.Transform = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Trigger(trigger *types.TriggerContainerBuilder) *RequestBuilder {
-	v := trigger.Build()
-	rb.v.Trigger = &v
-	return rb
 }

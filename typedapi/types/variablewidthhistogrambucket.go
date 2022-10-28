@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,16 +29,16 @@ import (
 
 // VariableWidthHistogramBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L357-L364
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L365-L372
 type VariableWidthHistogramBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Key          float64                     `json:"key"`
-	KeyAsString  *string                     `json:"key_as_string,omitempty"`
-	Max          float64                     `json:"max"`
-	MaxAsString  *string                     `json:"max_as_string,omitempty"`
-	Min          float64                     `json:"min"`
-	MinAsString  *string                     `json:"min_as_string,omitempty"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	Key          float64              `json:"key"`
+	KeyAsString  *string              `json:"key_as_string,omitempty"`
+	Max          float64              `json:"max"`
+	MaxAsString  *string              `json:"max_as_string,omitempty"`
+	Min          float64              `json:"min"`
+	MinAsString  *string              `json:"min_as_string,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -69,67 +69,11 @@ func (s VariableWidthHistogramBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// VariableWidthHistogramBucketBuilder holds VariableWidthHistogramBucket struct and provides a builder API.
-type VariableWidthHistogramBucketBuilder struct {
-	v *VariableWidthHistogramBucket
-}
-
-// NewVariableWidthHistogramBucket provides a builder for the VariableWidthHistogramBucket struct.
-func NewVariableWidthHistogramBucketBuilder() *VariableWidthHistogramBucketBuilder {
-	r := VariableWidthHistogramBucketBuilder{
-		&VariableWidthHistogramBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewVariableWidthHistogramBucket returns a VariableWidthHistogramBucket.
+func NewVariableWidthHistogramBucket() *VariableWidthHistogramBucket {
+	r := &VariableWidthHistogramBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the VariableWidthHistogramBucket struct
-func (rb *VariableWidthHistogramBucketBuilder) Build() VariableWidthHistogramBucket {
-	return *rb.v
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *VariableWidthHistogramBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) DocCount(doccount int64) *VariableWidthHistogramBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) Key(key float64) *VariableWidthHistogramBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) KeyAsString(keyasstring string) *VariableWidthHistogramBucketBuilder {
-	rb.v.KeyAsString = &keyasstring
-	return rb
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) Max(max float64) *VariableWidthHistogramBucketBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) MaxAsString(maxasstring string) *VariableWidthHistogramBucketBuilder {
-	rb.v.MaxAsString = &maxasstring
-	return rb
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) Min(min float64) *VariableWidthHistogramBucketBuilder {
-	rb.v.Min = min
-	return rb
-}
-
-func (rb *VariableWidthHistogramBucketBuilder) MinAsString(minasstring string) *VariableWidthHistogramBucketBuilder {
-	rb.v.MinAsString = &minasstring
-	return rb
+	return r
 }

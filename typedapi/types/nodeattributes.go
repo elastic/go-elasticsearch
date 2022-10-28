@@ -17,92 +17,36 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+
 // NodeAttributes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Node.ts#L41-L57
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Node.ts#L41-L57
 type NodeAttributes struct {
 	// Attributes Lists node attributes.
 	Attributes map[string]string `json:"attributes"`
 	// EphemeralId The ephemeral ID of the node.
-	EphemeralId Id     `json:"ephemeral_id"`
+	EphemeralId string `json:"ephemeral_id"`
 	ExternalId  string `json:"external_id"`
 	// Id The unique identifier of the node.
-	Id *NodeId `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 	// Name The unique identifier of the node.
-	Name  NodeName   `json:"name"`
-	Roles *NodeRoles `json:"roles,omitempty"`
+	Name  string              `json:"name"`
+	Roles []noderole.NodeRole `json:"roles,omitempty"`
 	// TransportAddress The host and port where transport HTTP connections are accepted.
-	TransportAddress TransportAddress `json:"transport_address"`
+	TransportAddress string `json:"transport_address"`
 }
 
-// NodeAttributesBuilder holds NodeAttributes struct and provides a builder API.
-type NodeAttributesBuilder struct {
-	v *NodeAttributes
-}
-
-// NewNodeAttributes provides a builder for the NodeAttributes struct.
-func NewNodeAttributesBuilder() *NodeAttributesBuilder {
-	r := NodeAttributesBuilder{
-		&NodeAttributes{
-			Attributes: make(map[string]string, 0),
-		},
+// NewNodeAttributes returns a NodeAttributes.
+func NewNodeAttributes() *NodeAttributes {
+	r := &NodeAttributes{
+		Attributes: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NodeAttributes struct
-func (rb *NodeAttributesBuilder) Build() NodeAttributes {
-	return *rb.v
-}
-
-// Attributes Lists node attributes.
-
-func (rb *NodeAttributesBuilder) Attributes(value map[string]string) *NodeAttributesBuilder {
-	rb.v.Attributes = value
-	return rb
-}
-
-// EphemeralId The ephemeral ID of the node.
-
-func (rb *NodeAttributesBuilder) EphemeralId(ephemeralid Id) *NodeAttributesBuilder {
-	rb.v.EphemeralId = ephemeralid
-	return rb
-}
-
-func (rb *NodeAttributesBuilder) ExternalId(externalid string) *NodeAttributesBuilder {
-	rb.v.ExternalId = externalid
-	return rb
-}
-
-// Id The unique identifier of the node.
-
-func (rb *NodeAttributesBuilder) Id(id NodeId) *NodeAttributesBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Name The unique identifier of the node.
-
-func (rb *NodeAttributesBuilder) Name(name NodeName) *NodeAttributesBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *NodeAttributesBuilder) Roles(roles *NodeRolesBuilder) *NodeAttributesBuilder {
-	v := roles.Build()
-	rb.v.Roles = &v
-	return rb
-}
-
-// TransportAddress The host and port where transport HTTP connections are accepted.
-
-func (rb *NodeAttributesBuilder) TransportAddress(transportaddress TransportAddress) *NodeAttributesBuilder {
-	rb.v.TransportAddress = transportaddress
-	return rb
+	return r
 }

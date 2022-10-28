@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Ensemble type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_trained_model/types.ts#L93-L99
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model/types.ts#L93-L99
 type Ensemble struct {
 	AggregateOutput      *AggregateOutput `json:"aggregate_output,omitempty"`
 	ClassificationLabels []string         `json:"classification_labels,omitempty"`
@@ -33,51 +33,9 @@ type Ensemble struct {
 	TrainedModels        []TrainedModel   `json:"trained_models"`
 }
 
-// EnsembleBuilder holds Ensemble struct and provides a builder API.
-type EnsembleBuilder struct {
-	v *Ensemble
-}
+// NewEnsemble returns a Ensemble.
+func NewEnsemble() *Ensemble {
+	r := &Ensemble{}
 
-// NewEnsemble provides a builder for the Ensemble struct.
-func NewEnsembleBuilder() *EnsembleBuilder {
-	r := EnsembleBuilder{
-		&Ensemble{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Ensemble struct
-func (rb *EnsembleBuilder) Build() Ensemble {
-	return *rb.v
-}
-
-func (rb *EnsembleBuilder) AggregateOutput(aggregateoutput *AggregateOutputBuilder) *EnsembleBuilder {
-	v := aggregateoutput.Build()
-	rb.v.AggregateOutput = &v
-	return rb
-}
-
-func (rb *EnsembleBuilder) ClassificationLabels(classification_labels ...string) *EnsembleBuilder {
-	rb.v.ClassificationLabels = classification_labels
-	return rb
-}
-
-func (rb *EnsembleBuilder) FeatureNames(feature_names ...string) *EnsembleBuilder {
-	rb.v.FeatureNames = feature_names
-	return rb
-}
-
-func (rb *EnsembleBuilder) TargetType(targettype string) *EnsembleBuilder {
-	rb.v.TargetType = &targettype
-	return rb
-}
-
-func (rb *EnsembleBuilder) TrainedModels(trained_models []TrainedModelBuilder) *EnsembleBuilder {
-	tmp := make([]TrainedModel, len(trained_models))
-	for _, value := range trained_models {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.TrainedModels = tmp
-	return rb
+	return r
 }

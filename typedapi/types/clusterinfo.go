@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/allocation_explain/types.ts#L48-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L48-L54
 type ClusterInfo struct {
 	Nodes             map[string]NodeDiskUsage `json:"nodes"`
 	ReservedSizes     []ReservedSize           `json:"reserved_sizes"`
@@ -33,59 +33,14 @@ type ClusterInfo struct {
 	ShardSizes        map[string]int64         `json:"shard_sizes"`
 }
 
-// ClusterInfoBuilder holds ClusterInfo struct and provides a builder API.
-type ClusterInfoBuilder struct {
-	v *ClusterInfo
-}
-
-// NewClusterInfo provides a builder for the ClusterInfo struct.
-func NewClusterInfoBuilder() *ClusterInfoBuilder {
-	r := ClusterInfoBuilder{
-		&ClusterInfo{
-			Nodes:             make(map[string]NodeDiskUsage, 0),
-			ShardDataSetSizes: make(map[string]string, 0),
-			ShardPaths:        make(map[string]string, 0),
-			ShardSizes:        make(map[string]int64, 0),
-		},
+// NewClusterInfo returns a ClusterInfo.
+func NewClusterInfo() *ClusterInfo {
+	r := &ClusterInfo{
+		Nodes:             make(map[string]NodeDiskUsage, 0),
+		ShardDataSetSizes: make(map[string]string, 0),
+		ShardPaths:        make(map[string]string, 0),
+		ShardSizes:        make(map[string]int64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterInfo struct
-func (rb *ClusterInfoBuilder) Build() ClusterInfo {
-	return *rb.v
-}
-
-func (rb *ClusterInfoBuilder) Nodes(values map[string]*NodeDiskUsageBuilder) *ClusterInfoBuilder {
-	tmp := make(map[string]NodeDiskUsage, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Nodes = tmp
-	return rb
-}
-
-func (rb *ClusterInfoBuilder) ReservedSizes(reserved_sizes []ReservedSizeBuilder) *ClusterInfoBuilder {
-	tmp := make([]ReservedSize, len(reserved_sizes))
-	for _, value := range reserved_sizes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.ReservedSizes = tmp
-	return rb
-}
-
-func (rb *ClusterInfoBuilder) ShardDataSetSizes(value map[string]string) *ClusterInfoBuilder {
-	rb.v.ShardDataSetSizes = value
-	return rb
-}
-
-func (rb *ClusterInfoBuilder) ShardPaths(value map[string]string) *ClusterInfoBuilder {
-	rb.v.ShardPaths = value
-	return rb
-}
-
-func (rb *ClusterInfoBuilder) ShardSizes(value map[string]int64) *ClusterInfoBuilder {
-	rb.v.ShardSizes = value
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,60 +28,19 @@ import (
 
 // MinBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L186-L186
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L186-L186
 type MinBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath         `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta        *Metadata            `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Format      *string                `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Name        *string                `json:"name,omitempty"`
 }
 
-// MinBucketAggregationBuilder holds MinBucketAggregation struct and provides a builder API.
-type MinBucketAggregationBuilder struct {
-	v *MinBucketAggregation
-}
+// NewMinBucketAggregation returns a MinBucketAggregation.
+func NewMinBucketAggregation() *MinBucketAggregation {
+	r := &MinBucketAggregation{}
 
-// NewMinBucketAggregation provides a builder for the MinBucketAggregation struct.
-func NewMinBucketAggregationBuilder() *MinBucketAggregationBuilder {
-	r := MinBucketAggregationBuilder{
-		&MinBucketAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MinBucketAggregation struct
-func (rb *MinBucketAggregationBuilder) Build() MinBucketAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *MinBucketAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *MinBucketAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *MinBucketAggregationBuilder) Format(format string) *MinBucketAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *MinBucketAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *MinBucketAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *MinBucketAggregationBuilder) Meta(meta *MetadataBuilder) *MinBucketAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *MinBucketAggregationBuilder) Name(name string) *MinBucketAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

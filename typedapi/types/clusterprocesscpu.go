@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterProcessCpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L252-L254
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L252-L254
 type ClusterProcessCpu struct {
 	Percent int `json:"percent"`
 }
 
-// ClusterProcessCpuBuilder holds ClusterProcessCpu struct and provides a builder API.
-type ClusterProcessCpuBuilder struct {
-	v *ClusterProcessCpu
-}
+// NewClusterProcessCpu returns a ClusterProcessCpu.
+func NewClusterProcessCpu() *ClusterProcessCpu {
+	r := &ClusterProcessCpu{}
 
-// NewClusterProcessCpu provides a builder for the ClusterProcessCpu struct.
-func NewClusterProcessCpuBuilder() *ClusterProcessCpuBuilder {
-	r := ClusterProcessCpuBuilder{
-		&ClusterProcessCpu{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterProcessCpu struct
-func (rb *ClusterProcessCpuBuilder) Build() ClusterProcessCpu {
-	return *rb.v
-}
-
-func (rb *ClusterProcessCpuBuilder) Percent(percent int) *ClusterProcessCpuBuilder {
-	rb.v.Percent = percent
-	return rb
+	return r
 }

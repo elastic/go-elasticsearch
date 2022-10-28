@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankFeatureFunctionSigmoid type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/specialized.ts#L149-L152
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/specialized.ts#L149-L152
 type RankFeatureFunctionSigmoid struct {
 	Exponent float32 `json:"exponent"`
 	Pivot    float32 `json:"pivot"`
 }
 
-// RankFeatureFunctionSigmoidBuilder holds RankFeatureFunctionSigmoid struct and provides a builder API.
-type RankFeatureFunctionSigmoidBuilder struct {
-	v *RankFeatureFunctionSigmoid
-}
+// NewRankFeatureFunctionSigmoid returns a RankFeatureFunctionSigmoid.
+func NewRankFeatureFunctionSigmoid() *RankFeatureFunctionSigmoid {
+	r := &RankFeatureFunctionSigmoid{}
 
-// NewRankFeatureFunctionSigmoid provides a builder for the RankFeatureFunctionSigmoid struct.
-func NewRankFeatureFunctionSigmoidBuilder() *RankFeatureFunctionSigmoidBuilder {
-	r := RankFeatureFunctionSigmoidBuilder{
-		&RankFeatureFunctionSigmoid{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankFeatureFunctionSigmoid struct
-func (rb *RankFeatureFunctionSigmoidBuilder) Build() RankFeatureFunctionSigmoid {
-	return *rb.v
-}
-
-func (rb *RankFeatureFunctionSigmoidBuilder) Exponent(exponent float32) *RankFeatureFunctionSigmoidBuilder {
-	rb.v.Exponent = exponent
-	return rb
-}
-
-func (rb *RankFeatureFunctionSigmoidBuilder) Pivot(pivot float32) *RankFeatureFunctionSigmoidBuilder {
-	rb.v.Pivot = pivot
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,38 +27,5 @@ package types
 //	map[string]MultiTermsBucket
 //	[]MultiTermsBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsMultiTermsBucket interface{}
-
-// BucketsMultiTermsBucketBuilder holds BucketsMultiTermsBucket struct and provides a builder API.
-type BucketsMultiTermsBucketBuilder struct {
-	v BucketsMultiTermsBucket
-}
-
-// NewBucketsMultiTermsBucket provides a builder for the BucketsMultiTermsBucket struct.
-func NewBucketsMultiTermsBucketBuilder() *BucketsMultiTermsBucketBuilder {
-	return &BucketsMultiTermsBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsMultiTermsBucket struct
-func (u *BucketsMultiTermsBucketBuilder) Build() BucketsMultiTermsBucket {
-	return u.v
-}
-
-func (u *BucketsMultiTermsBucketBuilder) Map(values map[string]*MultiTermsBucketBuilder) *BucketsMultiTermsBucketBuilder {
-	tmp := make(map[string]MultiTermsBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsMultiTermsBucketBuilder) MultiTermsBuckets(multitermsbuckets []MultiTermsBucketBuilder) *BucketsMultiTermsBucketBuilder {
-	tmp := make([]MultiTermsBucket, len(multitermsbuckets))
-	for _, value := range multitermsbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}

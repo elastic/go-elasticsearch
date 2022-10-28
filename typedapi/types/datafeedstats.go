@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,64 +28,19 @@ import (
 
 // DatafeedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Datafeed.ts#L140-L147
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Datafeed.ts#L140-L147
 type DatafeedStats struct {
 	AssignmentExplanation *string                     `json:"assignment_explanation,omitempty"`
-	DatafeedId            Id                          `json:"datafeed_id"`
+	DatafeedId            string                      `json:"datafeed_id"`
 	Node                  *DiscoveryNode              `json:"node,omitempty"`
 	RunningState          *DatafeedRunningState       `json:"running_state,omitempty"`
 	State                 datafeedstate.DatafeedState `json:"state"`
 	TimingStats           DatafeedTimingStats         `json:"timing_stats"`
 }
 
-// DatafeedStatsBuilder holds DatafeedStats struct and provides a builder API.
-type DatafeedStatsBuilder struct {
-	v *DatafeedStats
-}
+// NewDatafeedStats returns a DatafeedStats.
+func NewDatafeedStats() *DatafeedStats {
+	r := &DatafeedStats{}
 
-// NewDatafeedStats provides a builder for the DatafeedStats struct.
-func NewDatafeedStatsBuilder() *DatafeedStatsBuilder {
-	r := DatafeedStatsBuilder{
-		&DatafeedStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DatafeedStats struct
-func (rb *DatafeedStatsBuilder) Build() DatafeedStats {
-	return *rb.v
-}
-
-func (rb *DatafeedStatsBuilder) AssignmentExplanation(assignmentexplanation string) *DatafeedStatsBuilder {
-	rb.v.AssignmentExplanation = &assignmentexplanation
-	return rb
-}
-
-func (rb *DatafeedStatsBuilder) DatafeedId(datafeedid Id) *DatafeedStatsBuilder {
-	rb.v.DatafeedId = datafeedid
-	return rb
-}
-
-func (rb *DatafeedStatsBuilder) Node(node *DiscoveryNodeBuilder) *DatafeedStatsBuilder {
-	v := node.Build()
-	rb.v.Node = &v
-	return rb
-}
-
-func (rb *DatafeedStatsBuilder) RunningState(runningstate *DatafeedRunningStateBuilder) *DatafeedStatsBuilder {
-	v := runningstate.Build()
-	rb.v.RunningState = &v
-	return rb
-}
-
-func (rb *DatafeedStatsBuilder) State(state datafeedstate.DatafeedState) *DatafeedStatsBuilder {
-	rb.v.State = state
-	return rb
-}
-
-func (rb *DatafeedStatsBuilder) TimingStats(timingstats *DatafeedTimingStatsBuilder) *DatafeedStatsBuilder {
-	v := timingstats.Build()
-	rb.v.TimingStats = v
-	return rb
+	return r
 }

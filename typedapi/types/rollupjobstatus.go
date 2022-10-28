@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,45 +28,18 @@ import (
 
 // RollupJobStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/rollup/get_jobs/types.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/get_jobs/types.ts#L60-L64
 type RollupJobStatus struct {
 	CurrentPosition map[string]interface{}            `json:"current_position,omitempty"`
 	JobState        indexingjobstate.IndexingJobState `json:"job_state"`
 	UpgradedDocId   *bool                             `json:"upgraded_doc_id,omitempty"`
 }
 
-// RollupJobStatusBuilder holds RollupJobStatus struct and provides a builder API.
-type RollupJobStatusBuilder struct {
-	v *RollupJobStatus
-}
-
-// NewRollupJobStatus provides a builder for the RollupJobStatus struct.
-func NewRollupJobStatusBuilder() *RollupJobStatusBuilder {
-	r := RollupJobStatusBuilder{
-		&RollupJobStatus{
-			CurrentPosition: make(map[string]interface{}, 0),
-		},
+// NewRollupJobStatus returns a RollupJobStatus.
+func NewRollupJobStatus() *RollupJobStatus {
+	r := &RollupJobStatus{
+		CurrentPosition: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the RollupJobStatus struct
-func (rb *RollupJobStatusBuilder) Build() RollupJobStatus {
-	return *rb.v
-}
-
-func (rb *RollupJobStatusBuilder) CurrentPosition(value map[string]interface{}) *RollupJobStatusBuilder {
-	rb.v.CurrentPosition = value
-	return rb
-}
-
-func (rb *RollupJobStatusBuilder) JobState(jobstate indexingjobstate.IndexingJobState) *RollupJobStatusBuilder {
-	rb.v.JobState = jobstate
-	return rb
-}
-
-func (rb *RollupJobStatusBuilder) UpgradedDocId(upgradeddocid bool) *RollupJobStatusBuilder {
-	rb.v.UpgradedDocId = &upgradeddocid
-	return rb
+	return r
 }

@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanGapQuery type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/span.ts#L40-L42
-type SpanGapQuery map[Field]int
-
-// SpanGapQueryBuilder holds SpanGapQuery struct and provides a builder API.
-type SpanGapQueryBuilder struct {
-	v SpanGapQuery
-}
-
-// NewSpanGapQuery provides a builder for the SpanGapQuery struct.
-func NewSpanGapQueryBuilder() *SpanGapQueryBuilder {
-	return &SpanGapQueryBuilder{}
-}
-
-// Build finalize the chain and returns the SpanGapQuery struct
-func (b *SpanGapQueryBuilder) Build() SpanGapQuery {
-	return b.v
-}
-
-func (b *SpanGapQueryBuilder) SpanGapQuery(value SpanGapQuery) *SpanGapQueryBuilder {
-	b.v = value
-	return b
-}
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L40-L42
+type SpanGapQuery map[string]int

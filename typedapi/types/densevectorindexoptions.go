@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/DenseVectorIndexOptions.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/DenseVectorIndexOptions.ts#L22-L26
 type DenseVectorIndexOptions struct {
 	EfConstruction int    `json:"ef_construction"`
 	M              int    `json:"m"`
 	Type           string `json:"type"`
 }
 
-// DenseVectorIndexOptionsBuilder holds DenseVectorIndexOptions struct and provides a builder API.
-type DenseVectorIndexOptionsBuilder struct {
-	v *DenseVectorIndexOptions
-}
+// NewDenseVectorIndexOptions returns a DenseVectorIndexOptions.
+func NewDenseVectorIndexOptions() *DenseVectorIndexOptions {
+	r := &DenseVectorIndexOptions{}
 
-// NewDenseVectorIndexOptions provides a builder for the DenseVectorIndexOptions struct.
-func NewDenseVectorIndexOptionsBuilder() *DenseVectorIndexOptionsBuilder {
-	r := DenseVectorIndexOptionsBuilder{
-		&DenseVectorIndexOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DenseVectorIndexOptions struct
-func (rb *DenseVectorIndexOptionsBuilder) Build() DenseVectorIndexOptions {
-	return *rb.v
-}
-
-func (rb *DenseVectorIndexOptionsBuilder) EfConstruction(efconstruction int) *DenseVectorIndexOptionsBuilder {
-	rb.v.EfConstruction = efconstruction
-	return rb
-}
-
-func (rb *DenseVectorIndexOptionsBuilder) M(m int) *DenseVectorIndexOptionsBuilder {
-	rb.v.M = m
-	return rb
-}
-
-func (rb *DenseVectorIndexOptionsBuilder) Type_(type_ string) *DenseVectorIndexOptionsBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

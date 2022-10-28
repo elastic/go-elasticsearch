@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L302-L313
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L302-L313
 type NodeInfoJvmMemory struct {
 	DirectMax          *ByteSize `json:"direct_max,omitempty"`
 	DirectMaxInBytes   int64     `json:"direct_max_in_bytes"`
@@ -38,76 +38,9 @@ type NodeInfoJvmMemory struct {
 	NonHeapMaxInBytes  int64     `json:"non_heap_max_in_bytes"`
 }
 
-// NodeInfoJvmMemoryBuilder holds NodeInfoJvmMemory struct and provides a builder API.
-type NodeInfoJvmMemoryBuilder struct {
-	v *NodeInfoJvmMemory
-}
+// NewNodeInfoJvmMemory returns a NodeInfoJvmMemory.
+func NewNodeInfoJvmMemory() *NodeInfoJvmMemory {
+	r := &NodeInfoJvmMemory{}
 
-// NewNodeInfoJvmMemory provides a builder for the NodeInfoJvmMemory struct.
-func NewNodeInfoJvmMemoryBuilder() *NodeInfoJvmMemoryBuilder {
-	r := NodeInfoJvmMemoryBuilder{
-		&NodeInfoJvmMemory{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoJvmMemory struct
-func (rb *NodeInfoJvmMemoryBuilder) Build() NodeInfoJvmMemory {
-	return *rb.v
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) DirectMax(directmax *ByteSizeBuilder) *NodeInfoJvmMemoryBuilder {
-	v := directmax.Build()
-	rb.v.DirectMax = &v
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) DirectMaxInBytes(directmaxinbytes int64) *NodeInfoJvmMemoryBuilder {
-	rb.v.DirectMaxInBytes = directmaxinbytes
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) HeapInit(heapinit *ByteSizeBuilder) *NodeInfoJvmMemoryBuilder {
-	v := heapinit.Build()
-	rb.v.HeapInit = &v
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) HeapInitInBytes(heapinitinbytes int64) *NodeInfoJvmMemoryBuilder {
-	rb.v.HeapInitInBytes = heapinitinbytes
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) HeapMax(heapmax *ByteSizeBuilder) *NodeInfoJvmMemoryBuilder {
-	v := heapmax.Build()
-	rb.v.HeapMax = &v
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) HeapMaxInBytes(heapmaxinbytes int64) *NodeInfoJvmMemoryBuilder {
-	rb.v.HeapMaxInBytes = heapmaxinbytes
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) NonHeapInit(nonheapinit *ByteSizeBuilder) *NodeInfoJvmMemoryBuilder {
-	v := nonheapinit.Build()
-	rb.v.NonHeapInit = &v
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) NonHeapInitInBytes(nonheapinitinbytes int64) *NodeInfoJvmMemoryBuilder {
-	rb.v.NonHeapInitInBytes = nonheapinitinbytes
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) NonHeapMax(nonheapmax *ByteSizeBuilder) *NodeInfoJvmMemoryBuilder {
-	v := nonheapmax.Build()
-	rb.v.NonHeapMax = &v
-	return rb
-}
-
-func (rb *NodeInfoJvmMemoryBuilder) NonHeapMaxInBytes(nonheapmaxinbytes int64) *NodeInfoJvmMemoryBuilder {
-	rb.v.NonHeapMaxInBytes = nonheapmaxinbytes
-	return rb
+	return r
 }

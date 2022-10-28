@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putnode
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package putnode
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L77
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/shutdown/put_node/ShutdownPutNodeRequest.ts#L25-L77
 type Request struct {
 
 	// AllocationDelay Only valid if type is restart.
@@ -42,12 +42,10 @@ type Request struct {
 	// If you specify both a restart allocation delay and an index-level allocation
 	// delay, the longer of the two is used.
 	AllocationDelay *string `json:"allocation_delay,omitempty"`
-
 	// Reason A human-readable reason that the node is being shut down.
 	// This field provides information for other cluster operators; it does not
 	// affect the shut down process.
 	Reason string `json:"reason"`
-
 	// TargetNodeName Only valid if type is replace.
 	// Specifies the name of the node that is replacing the node being shut down.
 	// Shards from the shut down node are only allowed to be allocated to the target
@@ -55,7 +53,6 @@ type Request struct {
 	// During relocation of data certain allocation rules are ignored, such as disk
 	// watermarks or user attribute filtering rules.
 	TargetNodeName *string `json:"target_node_name,omitempty"`
-
 	// Type Valid values are restart, remove, or replace.
 	// Use restart when you need to temporarily shut down a node to perform an
 	// upgrade, make configuration changes, or perform other maintenance.
@@ -71,21 +68,14 @@ type Request struct {
 	Type type_.Type `json:"type"`
 }
 
-// RequestBuilder is the builder API for the putnode.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -94,29 +84,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AllocationDelay(allocationdelay string) *RequestBuilder {
-	rb.v.AllocationDelay = &allocationdelay
-	return rb
-}
-
-func (rb *RequestBuilder) Reason(reason string) *RequestBuilder {
-	rb.v.Reason = reason
-	return rb
-}
-
-func (rb *RequestBuilder) TargetNodeName(targetnodename string) *RequestBuilder {
-	rb.v.TargetNodeName = &targetnodename
-	return rb
-}
-
-func (rb *RequestBuilder) Type_(type_ type_.Type) *RequestBuilder {
-	rb.v.Type = type_
-	return rb
 }

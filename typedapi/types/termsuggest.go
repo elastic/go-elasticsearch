@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermSuggest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L64-L69
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L64-L69
 type TermSuggest struct {
 	Length  int                 `json:"length"`
 	Offset  int                 `json:"offset"`
@@ -32,41 +32,9 @@ type TermSuggest struct {
 	Text    string              `json:"text"`
 }
 
-// TermSuggestBuilder holds TermSuggest struct and provides a builder API.
-type TermSuggestBuilder struct {
-	v *TermSuggest
-}
+// NewTermSuggest returns a TermSuggest.
+func NewTermSuggest() *TermSuggest {
+	r := &TermSuggest{}
 
-// NewTermSuggest provides a builder for the TermSuggest struct.
-func NewTermSuggestBuilder() *TermSuggestBuilder {
-	r := TermSuggestBuilder{
-		&TermSuggest{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermSuggest struct
-func (rb *TermSuggestBuilder) Build() TermSuggest {
-	return *rb.v
-}
-
-func (rb *TermSuggestBuilder) Length(length int) *TermSuggestBuilder {
-	rb.v.Length = length
-	return rb
-}
-
-func (rb *TermSuggestBuilder) Offset(offset int) *TermSuggestBuilder {
-	rb.v.Offset = offset
-	return rb
-}
-
-func (rb *TermSuggestBuilder) Options(arg []TermSuggestOption) *TermSuggestBuilder {
-	rb.v.Options = arg
-	return rb
-}
-
-func (rb *TermSuggestBuilder) Text(text string) *TermSuggestBuilder {
-	rb.v.Text = text
-	return rb
+	return r
 }

@@ -17,16 +17,16 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PercentilesAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L112-L117
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L112-L117
 type PercentilesAggregation struct {
-	Field    *Field     `json:"field,omitempty"`
+	Field    *string    `json:"field,omitempty"`
 	Format   *string    `json:"format,omitempty"`
 	Hdr      *HdrMethod `json:"hdr,omitempty"`
 	Keyed    *bool      `json:"keyed,omitempty"`
@@ -36,65 +36,9 @@ type PercentilesAggregation struct {
 	Tdigest  *TDigest   `json:"tdigest,omitempty"`
 }
 
-// PercentilesAggregationBuilder holds PercentilesAggregation struct and provides a builder API.
-type PercentilesAggregationBuilder struct {
-	v *PercentilesAggregation
-}
+// NewPercentilesAggregation returns a PercentilesAggregation.
+func NewPercentilesAggregation() *PercentilesAggregation {
+	r := &PercentilesAggregation{}
 
-// NewPercentilesAggregation provides a builder for the PercentilesAggregation struct.
-func NewPercentilesAggregationBuilder() *PercentilesAggregationBuilder {
-	r := PercentilesAggregationBuilder{
-		&PercentilesAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PercentilesAggregation struct
-func (rb *PercentilesAggregationBuilder) Build() PercentilesAggregation {
-	return *rb.v
-}
-
-func (rb *PercentilesAggregationBuilder) Field(field Field) *PercentilesAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *PercentilesAggregationBuilder) Format(format string) *PercentilesAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *PercentilesAggregationBuilder) Hdr(hdr *HdrMethodBuilder) *PercentilesAggregationBuilder {
-	v := hdr.Build()
-	rb.v.Hdr = &v
-	return rb
-}
-
-func (rb *PercentilesAggregationBuilder) Keyed(keyed bool) *PercentilesAggregationBuilder {
-	rb.v.Keyed = &keyed
-	return rb
-}
-
-func (rb *PercentilesAggregationBuilder) Missing(missing *MissingBuilder) *PercentilesAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *PercentilesAggregationBuilder) Percents(percents ...float64) *PercentilesAggregationBuilder {
-	rb.v.Percents = percents
-	return rb
-}
-
-func (rb *PercentilesAggregationBuilder) Script(script *ScriptBuilder) *PercentilesAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *PercentilesAggregationBuilder) Tdigest(tdigest *TDigestBuilder) *PercentilesAggregationBuilder {
-	v := tdigest.Build()
-	rb.v.Tdigest = &v
-	return rb
+	return r
 }

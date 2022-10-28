@@ -17,84 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DissectProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L187-L192
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L187-L192
 type DissectProcessor struct {
-	AppendSeparator string               `json:"append_separator"`
-	Field           Field                `json:"field"`
+	AppendSeparator *string              `json:"append_separator,omitempty"`
+	Description     *string              `json:"description,omitempty"`
+	Field           string               `json:"field"`
 	If              *string              `json:"if,omitempty"`
 	IgnoreFailure   *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing   bool                 `json:"ignore_missing"`
+	IgnoreMissing   *bool                `json:"ignore_missing,omitempty"`
 	OnFailure       []ProcessorContainer `json:"on_failure,omitempty"`
 	Pattern         string               `json:"pattern"`
 	Tag             *string              `json:"tag,omitempty"`
 }
 
-// DissectProcessorBuilder holds DissectProcessor struct and provides a builder API.
-type DissectProcessorBuilder struct {
-	v *DissectProcessor
-}
+// NewDissectProcessor returns a DissectProcessor.
+func NewDissectProcessor() *DissectProcessor {
+	r := &DissectProcessor{}
 
-// NewDissectProcessor provides a builder for the DissectProcessor struct.
-func NewDissectProcessorBuilder() *DissectProcessorBuilder {
-	r := DissectProcessorBuilder{
-		&DissectProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DissectProcessor struct
-func (rb *DissectProcessorBuilder) Build() DissectProcessor {
-	return *rb.v
-}
-
-func (rb *DissectProcessorBuilder) AppendSeparator(appendseparator string) *DissectProcessorBuilder {
-	rb.v.AppendSeparator = appendseparator
-	return rb
-}
-
-func (rb *DissectProcessorBuilder) Field(field Field) *DissectProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DissectProcessorBuilder) If_(if_ string) *DissectProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *DissectProcessorBuilder) IgnoreFailure(ignorefailure bool) *DissectProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *DissectProcessorBuilder) IgnoreMissing(ignoremissing bool) *DissectProcessorBuilder {
-	rb.v.IgnoreMissing = ignoremissing
-	return rb
-}
-
-func (rb *DissectProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *DissectProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *DissectProcessorBuilder) Pattern(pattern string) *DissectProcessorBuilder {
-	rb.v.Pattern = pattern
-	return rb
-}
-
-func (rb *DissectProcessorBuilder) Tag(tag string) *DissectProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
+	return r
 }

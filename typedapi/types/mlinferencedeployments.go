@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlInferenceDeployments type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L213-L218
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L213-L218
 type MlInferenceDeployments struct {
 	Count           int                          `json:"count"`
 	InferenceCounts JobStatistics                `json:"inference_counts"`
@@ -32,44 +32,9 @@ type MlInferenceDeployments struct {
 	TimeMs          MlInferenceDeploymentsTimeMs `json:"time_ms"`
 }
 
-// MlInferenceDeploymentsBuilder holds MlInferenceDeployments struct and provides a builder API.
-type MlInferenceDeploymentsBuilder struct {
-	v *MlInferenceDeployments
-}
+// NewMlInferenceDeployments returns a MlInferenceDeployments.
+func NewMlInferenceDeployments() *MlInferenceDeployments {
+	r := &MlInferenceDeployments{}
 
-// NewMlInferenceDeployments provides a builder for the MlInferenceDeployments struct.
-func NewMlInferenceDeploymentsBuilder() *MlInferenceDeploymentsBuilder {
-	r := MlInferenceDeploymentsBuilder{
-		&MlInferenceDeployments{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MlInferenceDeployments struct
-func (rb *MlInferenceDeploymentsBuilder) Build() MlInferenceDeployments {
-	return *rb.v
-}
-
-func (rb *MlInferenceDeploymentsBuilder) Count(count int) *MlInferenceDeploymentsBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *MlInferenceDeploymentsBuilder) InferenceCounts(inferencecounts *JobStatisticsBuilder) *MlInferenceDeploymentsBuilder {
-	v := inferencecounts.Build()
-	rb.v.InferenceCounts = v
-	return rb
-}
-
-func (rb *MlInferenceDeploymentsBuilder) ModelSizesBytes(modelsizesbytes *JobStatisticsBuilder) *MlInferenceDeploymentsBuilder {
-	v := modelsizesbytes.Build()
-	rb.v.ModelSizesBytes = v
-	return rb
-}
-
-func (rb *MlInferenceDeploymentsBuilder) TimeMs(timems *MlInferenceDeploymentsTimeMsBuilder) *MlInferenceDeploymentsBuilder {
-	v := timems.Build()
-	rb.v.TimeMs = v
-	return rb
+	return r
 }

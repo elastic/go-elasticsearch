@@ -17,93 +17,30 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StringStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L669-L680
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L684-L695
 type StringStatsAggregate struct {
-	AvgLength         float64            `json:"avg_length,omitempty"`
-	AvgLengthAsString *string            `json:"avg_length_as_string,omitempty"`
-	Count             int64              `json:"count"`
-	Distribution      map[string]float64 `json:"distribution,omitempty"`
-	Entropy           float64            `json:"entropy,omitempty"`
-	MaxLength         int                `json:"max_length,omitempty"`
-	MaxLengthAsString *string            `json:"max_length_as_string,omitempty"`
-	Meta              *Metadata          `json:"meta,omitempty"`
-	MinLength         int                `json:"min_length,omitempty"`
-	MinLengthAsString *string            `json:"min_length_as_string,omitempty"`
+	AvgLength         float64                `json:"avg_length,omitempty"`
+	AvgLengthAsString *string                `json:"avg_length_as_string,omitempty"`
+	Count             int64                  `json:"count"`
+	Distribution      map[string]float64     `json:"distribution,omitempty"`
+	Entropy           float64                `json:"entropy,omitempty"`
+	MaxLength         int                    `json:"max_length,omitempty"`
+	MaxLengthAsString *string                `json:"max_length_as_string,omitempty"`
+	Meta              map[string]interface{} `json:"meta,omitempty"`
+	MinLength         int                    `json:"min_length,omitempty"`
+	MinLengthAsString *string                `json:"min_length_as_string,omitempty"`
 }
 
-// StringStatsAggregateBuilder holds StringStatsAggregate struct and provides a builder API.
-type StringStatsAggregateBuilder struct {
-	v *StringStatsAggregate
-}
+// NewStringStatsAggregate returns a StringStatsAggregate.
+func NewStringStatsAggregate() *StringStatsAggregate {
+	r := &StringStatsAggregate{}
 
-// NewStringStatsAggregate provides a builder for the StringStatsAggregate struct.
-func NewStringStatsAggregateBuilder() *StringStatsAggregateBuilder {
-	r := StringStatsAggregateBuilder{
-		&StringStatsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the StringStatsAggregate struct
-func (rb *StringStatsAggregateBuilder) Build() StringStatsAggregate {
-	return *rb.v
-}
-
-func (rb *StringStatsAggregateBuilder) AvgLength(avglength float64) *StringStatsAggregateBuilder {
-	rb.v.AvgLength = avglength
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) AvgLengthAsString(avglengthasstring string) *StringStatsAggregateBuilder {
-	rb.v.AvgLengthAsString = &avglengthasstring
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) Count(count int64) *StringStatsAggregateBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) Distribution(distribution map[string]float64) *StringStatsAggregateBuilder {
-	rb.v.Distribution = distribution
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) Entropy(entropy float64) *StringStatsAggregateBuilder {
-	rb.v.Entropy = entropy
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) MaxLength(maxlength int) *StringStatsAggregateBuilder {
-	rb.v.MaxLength = maxlength
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) MaxLengthAsString(maxlengthasstring string) *StringStatsAggregateBuilder {
-	rb.v.MaxLengthAsString = &maxlengthasstring
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) Meta(meta *MetadataBuilder) *StringStatsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) MinLength(minlength int) *StringStatsAggregateBuilder {
-	rb.v.MinLength = minlength
-	return rb
-}
-
-func (rb *StringStatsAggregateBuilder) MinLengthAsString(minlengthasstring string) *StringStatsAggregateBuilder {
-	rb.v.MinLengthAsString = &minlengthasstring
-	return rb
+	return r
 }

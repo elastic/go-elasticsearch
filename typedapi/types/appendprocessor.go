@@ -17,17 +17,18 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AppendProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L89-L93
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L90-L94
 type AppendProcessor struct {
 	AllowDuplicates *bool                `json:"allow_duplicates,omitempty"`
-	Field           Field                `json:"field"`
+	Description     *string              `json:"description,omitempty"`
+	Field           string               `json:"field"`
 	If              *string              `json:"if,omitempty"`
 	IgnoreFailure   *bool                `json:"ignore_failure,omitempty"`
 	OnFailure       []ProcessorContainer `json:"on_failure,omitempty"`
@@ -35,60 +36,9 @@ type AppendProcessor struct {
 	Value           []interface{}        `json:"value"`
 }
 
-// AppendProcessorBuilder holds AppendProcessor struct and provides a builder API.
-type AppendProcessorBuilder struct {
-	v *AppendProcessor
-}
+// NewAppendProcessor returns a AppendProcessor.
+func NewAppendProcessor() *AppendProcessor {
+	r := &AppendProcessor{}
 
-// NewAppendProcessor provides a builder for the AppendProcessor struct.
-func NewAppendProcessorBuilder() *AppendProcessorBuilder {
-	r := AppendProcessorBuilder{
-		&AppendProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AppendProcessor struct
-func (rb *AppendProcessorBuilder) Build() AppendProcessor {
-	return *rb.v
-}
-
-func (rb *AppendProcessorBuilder) AllowDuplicates(allowduplicates bool) *AppendProcessorBuilder {
-	rb.v.AllowDuplicates = &allowduplicates
-	return rb
-}
-
-func (rb *AppendProcessorBuilder) Field(field Field) *AppendProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *AppendProcessorBuilder) If_(if_ string) *AppendProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *AppendProcessorBuilder) IgnoreFailure(ignorefailure bool) *AppendProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *AppendProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *AppendProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *AppendProcessorBuilder) Tag(tag string) *AppendProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *AppendProcessorBuilder) Value(value ...interface{}) *AppendProcessorBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

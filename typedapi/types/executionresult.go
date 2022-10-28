@@ -17,70 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExecutionResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Execution.ts#L60-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Execution.ts#L60-L66
 type ExecutionResult struct {
 	Actions           []ExecutionResultAction  `json:"actions"`
 	Condition         ExecutionResultCondition `json:"condition"`
-	ExecutionDuration DurationValueUnitMillis  `json:"execution_duration"`
+	ExecutionDuration int64                    `json:"execution_duration"`
 	ExecutionTime     DateTime                 `json:"execution_time"`
 	Input             ExecutionResultInput     `json:"input"`
 }
 
-// ExecutionResultBuilder holds ExecutionResult struct and provides a builder API.
-type ExecutionResultBuilder struct {
-	v *ExecutionResult
-}
+// NewExecutionResult returns a ExecutionResult.
+func NewExecutionResult() *ExecutionResult {
+	r := &ExecutionResult{}
 
-// NewExecutionResult provides a builder for the ExecutionResult struct.
-func NewExecutionResultBuilder() *ExecutionResultBuilder {
-	r := ExecutionResultBuilder{
-		&ExecutionResult{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExecutionResult struct
-func (rb *ExecutionResultBuilder) Build() ExecutionResult {
-	return *rb.v
-}
-
-func (rb *ExecutionResultBuilder) Actions(actions []ExecutionResultActionBuilder) *ExecutionResultBuilder {
-	tmp := make([]ExecutionResultAction, len(actions))
-	for _, value := range actions {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Actions = tmp
-	return rb
-}
-
-func (rb *ExecutionResultBuilder) Condition(condition *ExecutionResultConditionBuilder) *ExecutionResultBuilder {
-	v := condition.Build()
-	rb.v.Condition = v
-	return rb
-}
-
-func (rb *ExecutionResultBuilder) ExecutionDuration(executionduration *DurationValueUnitMillisBuilder) *ExecutionResultBuilder {
-	v := executionduration.Build()
-	rb.v.ExecutionDuration = v
-	return rb
-}
-
-func (rb *ExecutionResultBuilder) ExecutionTime(executiontime *DateTimeBuilder) *ExecutionResultBuilder {
-	v := executiontime.Build()
-	rb.v.ExecutionTime = v
-	return rb
-}
-
-func (rb *ExecutionResultBuilder) Input(input *ExecutionResultInputBuilder) *ExecutionResultBuilder {
-	v := input.Build()
-	rb.v.Input = v
-	return rb
+	return r
 }

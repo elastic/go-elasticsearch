@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FetchProfileDebug type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L159-L162
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L159-L162
 type FetchProfileDebug struct {
 	FastPath     *int     `json:"fast_path,omitempty"`
 	StoredFields []string `json:"stored_fields,omitempty"`
 }
 
-// FetchProfileDebugBuilder holds FetchProfileDebug struct and provides a builder API.
-type FetchProfileDebugBuilder struct {
-	v *FetchProfileDebug
-}
+// NewFetchProfileDebug returns a FetchProfileDebug.
+func NewFetchProfileDebug() *FetchProfileDebug {
+	r := &FetchProfileDebug{}
 
-// NewFetchProfileDebug provides a builder for the FetchProfileDebug struct.
-func NewFetchProfileDebugBuilder() *FetchProfileDebugBuilder {
-	r := FetchProfileDebugBuilder{
-		&FetchProfileDebug{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FetchProfileDebug struct
-func (rb *FetchProfileDebugBuilder) Build() FetchProfileDebug {
-	return *rb.v
-}
-
-func (rb *FetchProfileDebugBuilder) FastPath(fastpath int) *FetchProfileDebugBuilder {
-	rb.v.FastPath = &fastpath
-	return rb
-}
-
-func (rb *FetchProfileDebugBuilder) StoredFields(stored_fields ...string) *FetchProfileDebugBuilder {
-	rb.v.StoredFields = stored_fields
-	return rb
+	return r
 }

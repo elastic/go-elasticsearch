@@ -17,54 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelInferenceFeatureImportance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L404-L408
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L404-L408
 type TrainedModelInferenceFeatureImportance struct {
 	Classes     []TrainedModelInferenceClassImportance `json:"classes,omitempty"`
 	FeatureName string                                 `json:"feature_name"`
 	Importance  *float64                               `json:"importance,omitempty"`
 }
 
-// TrainedModelInferenceFeatureImportanceBuilder holds TrainedModelInferenceFeatureImportance struct and provides a builder API.
-type TrainedModelInferenceFeatureImportanceBuilder struct {
-	v *TrainedModelInferenceFeatureImportance
-}
+// NewTrainedModelInferenceFeatureImportance returns a TrainedModelInferenceFeatureImportance.
+func NewTrainedModelInferenceFeatureImportance() *TrainedModelInferenceFeatureImportance {
+	r := &TrainedModelInferenceFeatureImportance{}
 
-// NewTrainedModelInferenceFeatureImportance provides a builder for the TrainedModelInferenceFeatureImportance struct.
-func NewTrainedModelInferenceFeatureImportanceBuilder() *TrainedModelInferenceFeatureImportanceBuilder {
-	r := TrainedModelInferenceFeatureImportanceBuilder{
-		&TrainedModelInferenceFeatureImportance{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelInferenceFeatureImportance struct
-func (rb *TrainedModelInferenceFeatureImportanceBuilder) Build() TrainedModelInferenceFeatureImportance {
-	return *rb.v
-}
-
-func (rb *TrainedModelInferenceFeatureImportanceBuilder) Classes(classes []TrainedModelInferenceClassImportanceBuilder) *TrainedModelInferenceFeatureImportanceBuilder {
-	tmp := make([]TrainedModelInferenceClassImportance, len(classes))
-	for _, value := range classes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Classes = tmp
-	return rb
-}
-
-func (rb *TrainedModelInferenceFeatureImportanceBuilder) FeatureName(featurename string) *TrainedModelInferenceFeatureImportanceBuilder {
-	rb.v.FeatureName = featurename
-	return rb
-}
-
-func (rb *TrainedModelInferenceFeatureImportanceBuilder) Importance(importance float64) *TrainedModelInferenceFeatureImportanceBuilder {
-	rb.v.Importance = &importance
-	return rb
+	return r
 }

@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlJobForecasts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L164-L167
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L164-L167
 type MlJobForecasts struct {
 	ForecastedJobs int64 `json:"forecasted_jobs"`
 	Total          int64 `json:"total"`
 }
 
-// MlJobForecastsBuilder holds MlJobForecasts struct and provides a builder API.
-type MlJobForecastsBuilder struct {
-	v *MlJobForecasts
-}
+// NewMlJobForecasts returns a MlJobForecasts.
+func NewMlJobForecasts() *MlJobForecasts {
+	r := &MlJobForecasts{}
 
-// NewMlJobForecasts provides a builder for the MlJobForecasts struct.
-func NewMlJobForecastsBuilder() *MlJobForecastsBuilder {
-	r := MlJobForecastsBuilder{
-		&MlJobForecasts{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MlJobForecasts struct
-func (rb *MlJobForecastsBuilder) Build() MlJobForecasts {
-	return *rb.v
-}
-
-func (rb *MlJobForecastsBuilder) ForecastedJobs(forecastedjobs int64) *MlJobForecastsBuilder {
-	rb.v.ForecastedJobs = forecastedjobs
-	return rb
-}
-
-func (rb *MlJobForecastsBuilder) Total(total int64) *MlJobForecastsBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

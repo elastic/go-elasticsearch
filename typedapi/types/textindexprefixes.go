@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TextIndexPrefixes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L242-L245
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L242-L245
 type TextIndexPrefixes struct {
 	MaxChars int `json:"max_chars"`
 	MinChars int `json:"min_chars"`
 }
 
-// TextIndexPrefixesBuilder holds TextIndexPrefixes struct and provides a builder API.
-type TextIndexPrefixesBuilder struct {
-	v *TextIndexPrefixes
-}
+// NewTextIndexPrefixes returns a TextIndexPrefixes.
+func NewTextIndexPrefixes() *TextIndexPrefixes {
+	r := &TextIndexPrefixes{}
 
-// NewTextIndexPrefixes provides a builder for the TextIndexPrefixes struct.
-func NewTextIndexPrefixesBuilder() *TextIndexPrefixesBuilder {
-	r := TextIndexPrefixesBuilder{
-		&TextIndexPrefixes{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TextIndexPrefixes struct
-func (rb *TextIndexPrefixesBuilder) Build() TextIndexPrefixes {
-	return *rb.v
-}
-
-func (rb *TextIndexPrefixesBuilder) MaxChars(maxchars int) *TextIndexPrefixesBuilder {
-	rb.v.MaxChars = maxchars
-	return rb
-}
-
-func (rb *TextIndexPrefixesBuilder) MinChars(minchars int) *TextIndexPrefixesBuilder {
-	rb.v.MinChars = minchars
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package getoverallbuckets
@@ -31,46 +31,33 @@ import (
 
 // Request holds the request body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 	AllowNoMatch *bool `json:"allow_no_match,omitempty"`
-
 	// BucketSpan Refer to the description for the `bucket_span` query parameter.
 	BucketSpan *types.Duration `json:"bucket_span,omitempty"`
-
 	// End Refer to the description for the `end` query parameter.
 	End *types.DateTime `json:"end,omitempty"`
-
 	// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 	ExcludeInterim *bool `json:"exclude_interim,omitempty"`
-
 	// OverallScore Refer to the description for the `overall_score` query parameter.
 	OverallScore string `json:"overall_score,omitempty"`
-
 	// Start Refer to the description for the `start` query parameter.
 	Start *types.DateTime `json:"start,omitempty"`
-
 	// TopN Refer to the description for the `top_n` query parameter.
 	TopN *int `json:"top_n,omitempty"`
 }
 
-// RequestBuilder is the builder API for the getoverallbuckets.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -79,47 +66,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) AllowNoMatch(allownomatch bool) *RequestBuilder {
-	rb.v.AllowNoMatch = &allownomatch
-	return rb
-}
-
-func (rb *RequestBuilder) BucketSpan(bucketspan *types.DurationBuilder) *RequestBuilder {
-	v := bucketspan.Build()
-	rb.v.BucketSpan = &v
-	return rb
-}
-
-func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
-	v := end.Build()
-	rb.v.End = &v
-	return rb
-}
-
-func (rb *RequestBuilder) ExcludeInterim(excludeinterim bool) *RequestBuilder {
-	rb.v.ExcludeInterim = &excludeinterim
-	return rb
-}
-
-func (rb *RequestBuilder) OverallScore(arg string) *RequestBuilder {
-	rb.v.OverallScore = arg
-	return rb
-}
-
-func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
-	v := start.Build()
-	rb.v.Start = &v
-	return rb
-}
-
-func (rb *RequestBuilder) TopN(topn int) *RequestBuilder {
-	rb.v.TopN = &topn
-	return rb
 }

@@ -17,40 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexSegment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/segments/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/segments/types.ts#L24-L26
 type IndexSegment struct {
 	Shards map[string][]ShardsSegment `json:"shards"`
 }
 
-// IndexSegmentBuilder holds IndexSegment struct and provides a builder API.
-type IndexSegmentBuilder struct {
-	v *IndexSegment
-}
-
-// NewIndexSegment provides a builder for the IndexSegment struct.
-func NewIndexSegmentBuilder() *IndexSegmentBuilder {
-	r := IndexSegmentBuilder{
-		&IndexSegment{
-			Shards: make(map[string][]ShardsSegment, 0),
-		},
+// NewIndexSegment returns a IndexSegment.
+func NewIndexSegment() *IndexSegment {
+	r := &IndexSegment{
+		Shards: make(map[string][]ShardsSegment, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IndexSegment struct
-func (rb *IndexSegmentBuilder) Build() IndexSegment {
-	return *rb.v
-}
-
-func (rb *IndexSegmentBuilder) Shards(value map[string][]ShardsSegment) *IndexSegmentBuilder {
-	rb.v.Shards = value
-	return rb
+	return r
 }

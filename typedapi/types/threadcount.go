@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ThreadCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L397-L404
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L397-L404
 type ThreadCount struct {
 	Active    *int64 `json:"active,omitempty"`
 	Completed *int64 `json:"completed,omitempty"`
@@ -34,51 +34,9 @@ type ThreadCount struct {
 	Threads   *int64 `json:"threads,omitempty"`
 }
 
-// ThreadCountBuilder holds ThreadCount struct and provides a builder API.
-type ThreadCountBuilder struct {
-	v *ThreadCount
-}
+// NewThreadCount returns a ThreadCount.
+func NewThreadCount() *ThreadCount {
+	r := &ThreadCount{}
 
-// NewThreadCount provides a builder for the ThreadCount struct.
-func NewThreadCountBuilder() *ThreadCountBuilder {
-	r := ThreadCountBuilder{
-		&ThreadCount{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ThreadCount struct
-func (rb *ThreadCountBuilder) Build() ThreadCount {
-	return *rb.v
-}
-
-func (rb *ThreadCountBuilder) Active(active int64) *ThreadCountBuilder {
-	rb.v.Active = &active
-	return rb
-}
-
-func (rb *ThreadCountBuilder) Completed(completed int64) *ThreadCountBuilder {
-	rb.v.Completed = &completed
-	return rb
-}
-
-func (rb *ThreadCountBuilder) Largest(largest int64) *ThreadCountBuilder {
-	rb.v.Largest = &largest
-	return rb
-}
-
-func (rb *ThreadCountBuilder) Queue(queue int64) *ThreadCountBuilder {
-	rb.v.Queue = &queue
-	return rb
-}
-
-func (rb *ThreadCountBuilder) Rejected(rejected int64) *ThreadCountBuilder {
-	rb.v.Rejected = &rejected
-	return rb
-}
-
-func (rb *ThreadCountBuilder) Threads(threads int64) *ThreadCountBuilder {
-	rb.v.Threads = &threads
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FileSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L280-L285
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L280-L285
 type FileSystem struct {
 	Data      []DataPathStats  `json:"data,omitempty"`
 	IoStats   *IoStats         `json:"io_stats,omitempty"`
@@ -32,47 +32,9 @@ type FileSystem struct {
 	Total     *FileSystemTotal `json:"total,omitempty"`
 }
 
-// FileSystemBuilder holds FileSystem struct and provides a builder API.
-type FileSystemBuilder struct {
-	v *FileSystem
-}
+// NewFileSystem returns a FileSystem.
+func NewFileSystem() *FileSystem {
+	r := &FileSystem{}
 
-// NewFileSystem provides a builder for the FileSystem struct.
-func NewFileSystemBuilder() *FileSystemBuilder {
-	r := FileSystemBuilder{
-		&FileSystem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FileSystem struct
-func (rb *FileSystemBuilder) Build() FileSystem {
-	return *rb.v
-}
-
-func (rb *FileSystemBuilder) Data(data []DataPathStatsBuilder) *FileSystemBuilder {
-	tmp := make([]DataPathStats, len(data))
-	for _, value := range data {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Data = tmp
-	return rb
-}
-
-func (rb *FileSystemBuilder) IoStats(iostats *IoStatsBuilder) *FileSystemBuilder {
-	v := iostats.Build()
-	rb.v.IoStats = &v
-	return rb
-}
-
-func (rb *FileSystemBuilder) Timestamp(timestamp int64) *FileSystemBuilder {
-	rb.v.Timestamp = &timestamp
-	return rb
-}
-
-func (rb *FileSystemBuilder) Total(total *FileSystemTotalBuilder) *FileSystemBuilder {
-	v := total.Build()
-	rb.v.Total = &v
-	return rb
+	return r
 }

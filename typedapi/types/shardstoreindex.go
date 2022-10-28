@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardStoreIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search_shards/SearchShardsResponse.ts#L33-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search_shards/SearchShardsResponse.ts#L33-L36
 type ShardStoreIndex struct {
-	Aliases []Name          `json:"aliases,omitempty"`
-	Filter  *QueryContainer `json:"filter,omitempty"`
+	Aliases []string `json:"aliases,omitempty"`
+	Filter  *Query   `json:"filter,omitempty"`
 }
 
-// ShardStoreIndexBuilder holds ShardStoreIndex struct and provides a builder API.
-type ShardStoreIndexBuilder struct {
-	v *ShardStoreIndex
-}
+// NewShardStoreIndex returns a ShardStoreIndex.
+func NewShardStoreIndex() *ShardStoreIndex {
+	r := &ShardStoreIndex{}
 
-// NewShardStoreIndex provides a builder for the ShardStoreIndex struct.
-func NewShardStoreIndexBuilder() *ShardStoreIndexBuilder {
-	r := ShardStoreIndexBuilder{
-		&ShardStoreIndex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardStoreIndex struct
-func (rb *ShardStoreIndexBuilder) Build() ShardStoreIndex {
-	return *rb.v
-}
-
-func (rb *ShardStoreIndexBuilder) Aliases(aliases ...Name) *ShardStoreIndexBuilder {
-	rb.v.Aliases = aliases
-	return rb
-}
-
-func (rb *ShardStoreIndexBuilder) Filter(filter *QueryContainerBuilder) *ShardStoreIndexBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
+	return r
 }

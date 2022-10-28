@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataStreamsStatsItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L36-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L36-L42
 type DataStreamsStatsItem struct {
-	BackingIndices   int                 `json:"backing_indices"`
-	DataStream       Name                `json:"data_stream"`
-	MaximumTimestamp EpochTimeUnitMillis `json:"maximum_timestamp"`
-	StoreSize        *ByteSize           `json:"store_size,omitempty"`
-	StoreSizeBytes   int                 `json:"store_size_bytes"`
+	BackingIndices   int       `json:"backing_indices"`
+	DataStream       string    `json:"data_stream"`
+	MaximumTimestamp int64     `json:"maximum_timestamp"`
+	StoreSize        *ByteSize `json:"store_size,omitempty"`
+	StoreSizeBytes   int       `json:"store_size_bytes"`
 }
 
-// DataStreamsStatsItemBuilder holds DataStreamsStatsItem struct and provides a builder API.
-type DataStreamsStatsItemBuilder struct {
-	v *DataStreamsStatsItem
-}
+// NewDataStreamsStatsItem returns a DataStreamsStatsItem.
+func NewDataStreamsStatsItem() *DataStreamsStatsItem {
+	r := &DataStreamsStatsItem{}
 
-// NewDataStreamsStatsItem provides a builder for the DataStreamsStatsItem struct.
-func NewDataStreamsStatsItemBuilder() *DataStreamsStatsItemBuilder {
-	r := DataStreamsStatsItemBuilder{
-		&DataStreamsStatsItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataStreamsStatsItem struct
-func (rb *DataStreamsStatsItemBuilder) Build() DataStreamsStatsItem {
-	return *rb.v
-}
-
-func (rb *DataStreamsStatsItemBuilder) BackingIndices(backingindices int) *DataStreamsStatsItemBuilder {
-	rb.v.BackingIndices = backingindices
-	return rb
-}
-
-func (rb *DataStreamsStatsItemBuilder) DataStream(datastream Name) *DataStreamsStatsItemBuilder {
-	rb.v.DataStream = datastream
-	return rb
-}
-
-func (rb *DataStreamsStatsItemBuilder) MaximumTimestamp(maximumtimestamp *EpochTimeUnitMillisBuilder) *DataStreamsStatsItemBuilder {
-	v := maximumtimestamp.Build()
-	rb.v.MaximumTimestamp = v
-	return rb
-}
-
-func (rb *DataStreamsStatsItemBuilder) StoreSize(storesize *ByteSizeBuilder) *DataStreamsStatsItemBuilder {
-	v := storesize.Build()
-	rb.v.StoreSize = &v
-	return rb
-}
-
-func (rb *DataStreamsStatsItemBuilder) StoreSizeBytes(storesizebytes int) *DataStreamsStatsItemBuilder {
-	rb.v.StoreSizeBytes = storesizebytes
-	return rb
+	return r
 }

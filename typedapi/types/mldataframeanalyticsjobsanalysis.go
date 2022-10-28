@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MlDataFrameAnalyticsJobsAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L176-L180
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L176-L180
 type MlDataFrameAnalyticsJobsAnalysis struct {
 	Classification   *int `json:"classification,omitempty"`
 	OutlierDetection *int `json:"outlier_detection,omitempty"`
 	Regression       *int `json:"regression,omitempty"`
 }
 
-// MlDataFrameAnalyticsJobsAnalysisBuilder holds MlDataFrameAnalyticsJobsAnalysis struct and provides a builder API.
-type MlDataFrameAnalyticsJobsAnalysisBuilder struct {
-	v *MlDataFrameAnalyticsJobsAnalysis
-}
+// NewMlDataFrameAnalyticsJobsAnalysis returns a MlDataFrameAnalyticsJobsAnalysis.
+func NewMlDataFrameAnalyticsJobsAnalysis() *MlDataFrameAnalyticsJobsAnalysis {
+	r := &MlDataFrameAnalyticsJobsAnalysis{}
 
-// NewMlDataFrameAnalyticsJobsAnalysis provides a builder for the MlDataFrameAnalyticsJobsAnalysis struct.
-func NewMlDataFrameAnalyticsJobsAnalysisBuilder() *MlDataFrameAnalyticsJobsAnalysisBuilder {
-	r := MlDataFrameAnalyticsJobsAnalysisBuilder{
-		&MlDataFrameAnalyticsJobsAnalysis{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MlDataFrameAnalyticsJobsAnalysis struct
-func (rb *MlDataFrameAnalyticsJobsAnalysisBuilder) Build() MlDataFrameAnalyticsJobsAnalysis {
-	return *rb.v
-}
-
-func (rb *MlDataFrameAnalyticsJobsAnalysisBuilder) Classification(classification int) *MlDataFrameAnalyticsJobsAnalysisBuilder {
-	rb.v.Classification = &classification
-	return rb
-}
-
-func (rb *MlDataFrameAnalyticsJobsAnalysisBuilder) OutlierDetection(outlierdetection int) *MlDataFrameAnalyticsJobsAnalysisBuilder {
-	rb.v.OutlierDetection = &outlierdetection
-	return rb
-}
-
-func (rb *MlDataFrameAnalyticsJobsAnalysisBuilder) Regression(regression int) *MlDataFrameAnalyticsJobsAnalysisBuilder {
-	rb.v.Regression = &regression
-	return rb
+	return r
 }

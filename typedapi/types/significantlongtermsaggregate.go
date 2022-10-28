@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SignificantLongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L572-L574
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L587-L589
 type SignificantLongTermsAggregate struct {
 	BgCount  *int64                            `json:"bg_count,omitempty"`
 	Buckets  BucketsSignificantLongTermsBucket `json:"buckets"`
 	DocCount *int64                            `json:"doc_count,omitempty"`
-	Meta     *Metadata                         `json:"meta,omitempty"`
+	Meta     map[string]interface{}            `json:"meta,omitempty"`
 }
 
-// SignificantLongTermsAggregateBuilder holds SignificantLongTermsAggregate struct and provides a builder API.
-type SignificantLongTermsAggregateBuilder struct {
-	v *SignificantLongTermsAggregate
-}
+// NewSignificantLongTermsAggregate returns a SignificantLongTermsAggregate.
+func NewSignificantLongTermsAggregate() *SignificantLongTermsAggregate {
+	r := &SignificantLongTermsAggregate{}
 
-// NewSignificantLongTermsAggregate provides a builder for the SignificantLongTermsAggregate struct.
-func NewSignificantLongTermsAggregateBuilder() *SignificantLongTermsAggregateBuilder {
-	r := SignificantLongTermsAggregateBuilder{
-		&SignificantLongTermsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SignificantLongTermsAggregate struct
-func (rb *SignificantLongTermsAggregateBuilder) Build() SignificantLongTermsAggregate {
-	return *rb.v
-}
-
-func (rb *SignificantLongTermsAggregateBuilder) BgCount(bgcount int64) *SignificantLongTermsAggregateBuilder {
-	rb.v.BgCount = &bgcount
-	return rb
-}
-
-func (rb *SignificantLongTermsAggregateBuilder) Buckets(buckets *BucketsSignificantLongTermsBucketBuilder) *SignificantLongTermsAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *SignificantLongTermsAggregateBuilder) DocCount(doccount int64) *SignificantLongTermsAggregateBuilder {
-	rb.v.DocCount = &doccount
-	return rb
-}
-
-func (rb *SignificantLongTermsAggregateBuilder) Meta(meta *MetadataBuilder) *SignificantLongTermsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

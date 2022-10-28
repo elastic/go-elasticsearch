@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SearchTransform type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Transform.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Transform.ts#L46-L49
 type SearchTransform struct {
 	Request SearchInputRequestDefinition `json:"request"`
 	Timeout Duration                     `json:"timeout"`
 }
 
-// SearchTransformBuilder holds SearchTransform struct and provides a builder API.
-type SearchTransformBuilder struct {
-	v *SearchTransform
-}
+// NewSearchTransform returns a SearchTransform.
+func NewSearchTransform() *SearchTransform {
+	r := &SearchTransform{}
 
-// NewSearchTransform provides a builder for the SearchTransform struct.
-func NewSearchTransformBuilder() *SearchTransformBuilder {
-	r := SearchTransformBuilder{
-		&SearchTransform{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SearchTransform struct
-func (rb *SearchTransformBuilder) Build() SearchTransform {
-	return *rb.v
-}
-
-func (rb *SearchTransformBuilder) Request(request *SearchInputRequestDefinitionBuilder) *SearchTransformBuilder {
-	v := request.Build()
-	rb.v.Request = v
-	return rb
-}
-
-func (rb *SearchTransformBuilder) Timeout(timeout *DurationBuilder) *SearchTransformBuilder {
-	v := timeout.Build()
-	rb.v.Timeout = v
-	return rb
+	return r
 }

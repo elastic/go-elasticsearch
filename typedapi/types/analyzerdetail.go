@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AnalyzerDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/analyze/types.ts#L32-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/analyze/types.ts#L32-L35
 type AnalyzerDetail struct {
 	Name   string                `json:"name"`
 	Tokens []ExplainAnalyzeToken `json:"tokens"`
 }
 
-// AnalyzerDetailBuilder holds AnalyzerDetail struct and provides a builder API.
-type AnalyzerDetailBuilder struct {
-	v *AnalyzerDetail
-}
+// NewAnalyzerDetail returns a AnalyzerDetail.
+func NewAnalyzerDetail() *AnalyzerDetail {
+	r := &AnalyzerDetail{}
 
-// NewAnalyzerDetail provides a builder for the AnalyzerDetail struct.
-func NewAnalyzerDetailBuilder() *AnalyzerDetailBuilder {
-	r := AnalyzerDetailBuilder{
-		&AnalyzerDetail{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AnalyzerDetail struct
-func (rb *AnalyzerDetailBuilder) Build() AnalyzerDetail {
-	return *rb.v
-}
-
-func (rb *AnalyzerDetailBuilder) Name(name string) *AnalyzerDetailBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *AnalyzerDetailBuilder) Tokens(tokens []ExplainAnalyzeTokenBuilder) *AnalyzerDetailBuilder {
-	tmp := make([]ExplainAnalyzeToken, len(tokens))
-	for _, value := range tokens {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Tokens = tmp
-	return rb
+	return r
 }

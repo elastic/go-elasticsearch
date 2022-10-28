@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DiskUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/allocation_explain/types.ts#L62-L69
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L62-L69
 type DiskUsage struct {
 	FreeBytes       int64   `json:"free_bytes"`
 	FreeDiskPercent float64 `json:"free_disk_percent"`
@@ -34,51 +34,9 @@ type DiskUsage struct {
 	UsedDiskPercent float64 `json:"used_disk_percent"`
 }
 
-// DiskUsageBuilder holds DiskUsage struct and provides a builder API.
-type DiskUsageBuilder struct {
-	v *DiskUsage
-}
+// NewDiskUsage returns a DiskUsage.
+func NewDiskUsage() *DiskUsage {
+	r := &DiskUsage{}
 
-// NewDiskUsage provides a builder for the DiskUsage struct.
-func NewDiskUsageBuilder() *DiskUsageBuilder {
-	r := DiskUsageBuilder{
-		&DiskUsage{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DiskUsage struct
-func (rb *DiskUsageBuilder) Build() DiskUsage {
-	return *rb.v
-}
-
-func (rb *DiskUsageBuilder) FreeBytes(freebytes int64) *DiskUsageBuilder {
-	rb.v.FreeBytes = freebytes
-	return rb
-}
-
-func (rb *DiskUsageBuilder) FreeDiskPercent(freediskpercent float64) *DiskUsageBuilder {
-	rb.v.FreeDiskPercent = freediskpercent
-	return rb
-}
-
-func (rb *DiskUsageBuilder) Path(path string) *DiskUsageBuilder {
-	rb.v.Path = path
-	return rb
-}
-
-func (rb *DiskUsageBuilder) TotalBytes(totalbytes int64) *DiskUsageBuilder {
-	rb.v.TotalBytes = totalbytes
-	return rb
-}
-
-func (rb *DiskUsageBuilder) UsedBytes(usedbytes int64) *DiskUsageBuilder {
-	rb.v.UsedBytes = usedbytes
-	return rb
-}
-
-func (rb *DiskUsageBuilder) UsedDiskPercent(useddiskpercent float64) *DiskUsageBuilder {
-	rb.v.UsedDiskPercent = useddiskpercent
-	return rb
+	return r
 }

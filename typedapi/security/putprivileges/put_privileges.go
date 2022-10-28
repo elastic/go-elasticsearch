@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 // Adds or updates application privileges.
@@ -51,7 +51,7 @@ type PutPrivileges struct {
 
 	buf *gobytes.Buffer
 
-	req *map[string]map[string]types.Actions
+	req map[string]map[string]types.PrivilegesActions
 	raw json.RawMessage
 
 	paramSet int
@@ -93,7 +93,7 @@ func (r *PutPrivileges) Raw(raw json.RawMessage) *PutPrivileges {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *PutPrivileges) Request(req *map[string]map[string]types.Actions) *PutPrivileges {
+func (r *PutPrivileges) Request(req map[string]map[string]types.PrivilegesActions) *PutPrivileges {
 	r.req = req
 
 	return r

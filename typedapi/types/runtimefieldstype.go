@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RuntimeFieldsType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L264-L279
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L264-L279
 type RuntimeFieldsType struct {
 	CharsMax        int64    `json:"chars_max"`
 	CharsTotal      int64    `json:"chars_total"`
@@ -35,98 +35,16 @@ type RuntimeFieldsType struct {
 	Lang            []string `json:"lang"`
 	LinesMax        int64    `json:"lines_max"`
 	LinesTotal      int64    `json:"lines_total"`
-	Name            Field    `json:"name"`
+	Name            string   `json:"name"`
 	ScriptlessCount int64    `json:"scriptless_count"`
 	ShadowedCount   int64    `json:"shadowed_count"`
 	SourceMax       int64    `json:"source_max"`
 	SourceTotal     int64    `json:"source_total"`
 }
 
-// RuntimeFieldsTypeBuilder holds RuntimeFieldsType struct and provides a builder API.
-type RuntimeFieldsTypeBuilder struct {
-	v *RuntimeFieldsType
-}
+// NewRuntimeFieldsType returns a RuntimeFieldsType.
+func NewRuntimeFieldsType() *RuntimeFieldsType {
+	r := &RuntimeFieldsType{}
 
-// NewRuntimeFieldsType provides a builder for the RuntimeFieldsType struct.
-func NewRuntimeFieldsTypeBuilder() *RuntimeFieldsTypeBuilder {
-	r := RuntimeFieldsTypeBuilder{
-		&RuntimeFieldsType{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RuntimeFieldsType struct
-func (rb *RuntimeFieldsTypeBuilder) Build() RuntimeFieldsType {
-	return *rb.v
-}
-
-func (rb *RuntimeFieldsTypeBuilder) CharsMax(charsmax int64) *RuntimeFieldsTypeBuilder {
-	rb.v.CharsMax = charsmax
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) CharsTotal(charstotal int64) *RuntimeFieldsTypeBuilder {
-	rb.v.CharsTotal = charstotal
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) Count(count int64) *RuntimeFieldsTypeBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) DocMax(docmax int64) *RuntimeFieldsTypeBuilder {
-	rb.v.DocMax = docmax
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) DocTotal(doctotal int64) *RuntimeFieldsTypeBuilder {
-	rb.v.DocTotal = doctotal
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) IndexCount(indexcount int64) *RuntimeFieldsTypeBuilder {
-	rb.v.IndexCount = indexcount
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) Lang(lang ...string) *RuntimeFieldsTypeBuilder {
-	rb.v.Lang = lang
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) LinesMax(linesmax int64) *RuntimeFieldsTypeBuilder {
-	rb.v.LinesMax = linesmax
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) LinesTotal(linestotal int64) *RuntimeFieldsTypeBuilder {
-	rb.v.LinesTotal = linestotal
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) Name(name Field) *RuntimeFieldsTypeBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) ScriptlessCount(scriptlesscount int64) *RuntimeFieldsTypeBuilder {
-	rb.v.ScriptlessCount = scriptlesscount
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) ShadowedCount(shadowedcount int64) *RuntimeFieldsTypeBuilder {
-	rb.v.ShadowedCount = shadowedcount
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) SourceMax(sourcemax int64) *RuntimeFieldsTypeBuilder {
-	rb.v.SourceMax = sourcemax
-	return rb
-}
-
-func (rb *RuntimeFieldsTypeBuilder) SourceTotal(sourcetotal int64) *RuntimeFieldsTypeBuilder {
-	rb.v.SourceTotal = sourcetotal
-	return rb
+	return r
 }

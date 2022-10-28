@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoOSCPU type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L331-L340
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L331-L340
 type NodeInfoOSCPU struct {
 	CacheSize        string `json:"cache_size"`
 	CacheSizeInBytes int    `json:"cache_size_in_bytes"`
@@ -36,61 +36,9 @@ type NodeInfoOSCPU struct {
 	Vendor           string `json:"vendor"`
 }
 
-// NodeInfoOSCPUBuilder holds NodeInfoOSCPU struct and provides a builder API.
-type NodeInfoOSCPUBuilder struct {
-	v *NodeInfoOSCPU
-}
+// NewNodeInfoOSCPU returns a NodeInfoOSCPU.
+func NewNodeInfoOSCPU() *NodeInfoOSCPU {
+	r := &NodeInfoOSCPU{}
 
-// NewNodeInfoOSCPU provides a builder for the NodeInfoOSCPU struct.
-func NewNodeInfoOSCPUBuilder() *NodeInfoOSCPUBuilder {
-	r := NodeInfoOSCPUBuilder{
-		&NodeInfoOSCPU{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoOSCPU struct
-func (rb *NodeInfoOSCPUBuilder) Build() NodeInfoOSCPU {
-	return *rb.v
-}
-
-func (rb *NodeInfoOSCPUBuilder) CacheSize(cachesize string) *NodeInfoOSCPUBuilder {
-	rb.v.CacheSize = cachesize
-	return rb
-}
-
-func (rb *NodeInfoOSCPUBuilder) CacheSizeInBytes(cachesizeinbytes int) *NodeInfoOSCPUBuilder {
-	rb.v.CacheSizeInBytes = cachesizeinbytes
-	return rb
-}
-
-func (rb *NodeInfoOSCPUBuilder) CoresPerSocket(corespersocket int) *NodeInfoOSCPUBuilder {
-	rb.v.CoresPerSocket = corespersocket
-	return rb
-}
-
-func (rb *NodeInfoOSCPUBuilder) Mhz(mhz int) *NodeInfoOSCPUBuilder {
-	rb.v.Mhz = mhz
-	return rb
-}
-
-func (rb *NodeInfoOSCPUBuilder) Model(model string) *NodeInfoOSCPUBuilder {
-	rb.v.Model = model
-	return rb
-}
-
-func (rb *NodeInfoOSCPUBuilder) TotalCores(totalcores int) *NodeInfoOSCPUBuilder {
-	rb.v.TotalCores = totalcores
-	return rb
-}
-
-func (rb *NodeInfoOSCPUBuilder) TotalSockets(totalsockets int) *NodeInfoOSCPUBuilder {
-	rb.v.TotalSockets = totalsockets
-	return rb
-}
-
-func (rb *NodeInfoOSCPUBuilder) Vendor(vendor string) *NodeInfoOSCPUBuilder {
-	rb.v.Vendor = vendor
-	return rb
+	return r
 }

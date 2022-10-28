@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KuromojiPartOfSpeechTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/kuromoji-plugin.ts#L37-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/kuromoji-plugin.ts#L37-L40
 type KuromojiPartOfSpeechTokenFilter struct {
-	Stoptags []string       `json:"stoptags"`
-	Type     string         `json:"type,omitempty"`
-	Version  *VersionString `json:"version,omitempty"`
+	Stoptags []string `json:"stoptags"`
+	Type     string   `json:"type,omitempty"`
+	Version  *string  `json:"version,omitempty"`
 }
 
-// KuromojiPartOfSpeechTokenFilterBuilder holds KuromojiPartOfSpeechTokenFilter struct and provides a builder API.
-type KuromojiPartOfSpeechTokenFilterBuilder struct {
-	v *KuromojiPartOfSpeechTokenFilter
-}
+// NewKuromojiPartOfSpeechTokenFilter returns a KuromojiPartOfSpeechTokenFilter.
+func NewKuromojiPartOfSpeechTokenFilter() *KuromojiPartOfSpeechTokenFilter {
+	r := &KuromojiPartOfSpeechTokenFilter{}
 
-// NewKuromojiPartOfSpeechTokenFilter provides a builder for the KuromojiPartOfSpeechTokenFilter struct.
-func NewKuromojiPartOfSpeechTokenFilterBuilder() *KuromojiPartOfSpeechTokenFilterBuilder {
-	r := KuromojiPartOfSpeechTokenFilterBuilder{
-		&KuromojiPartOfSpeechTokenFilter{},
-	}
+	r.Type = "kuromoji_part_of_speech"
 
-	r.v.Type = "kuromoji_part_of_speech"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KuromojiPartOfSpeechTokenFilter struct
-func (rb *KuromojiPartOfSpeechTokenFilterBuilder) Build() KuromojiPartOfSpeechTokenFilter {
-	return *rb.v
-}
-
-func (rb *KuromojiPartOfSpeechTokenFilterBuilder) Stoptags(stoptags ...string) *KuromojiPartOfSpeechTokenFilterBuilder {
-	rb.v.Stoptags = stoptags
-	return rb
-}
-
-func (rb *KuromojiPartOfSpeechTokenFilterBuilder) Version(version VersionString) *KuromojiPartOfSpeechTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

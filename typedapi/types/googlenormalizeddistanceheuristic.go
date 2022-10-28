@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GoogleNormalizedDistanceHeuristic type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L326-L328
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L326-L328
 type GoogleNormalizedDistanceHeuristic struct {
 	BackgroundIsSuperset *bool `json:"background_is_superset,omitempty"`
 }
 
-// GoogleNormalizedDistanceHeuristicBuilder holds GoogleNormalizedDistanceHeuristic struct and provides a builder API.
-type GoogleNormalizedDistanceHeuristicBuilder struct {
-	v *GoogleNormalizedDistanceHeuristic
-}
+// NewGoogleNormalizedDistanceHeuristic returns a GoogleNormalizedDistanceHeuristic.
+func NewGoogleNormalizedDistanceHeuristic() *GoogleNormalizedDistanceHeuristic {
+	r := &GoogleNormalizedDistanceHeuristic{}
 
-// NewGoogleNormalizedDistanceHeuristic provides a builder for the GoogleNormalizedDistanceHeuristic struct.
-func NewGoogleNormalizedDistanceHeuristicBuilder() *GoogleNormalizedDistanceHeuristicBuilder {
-	r := GoogleNormalizedDistanceHeuristicBuilder{
-		&GoogleNormalizedDistanceHeuristic{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GoogleNormalizedDistanceHeuristic struct
-func (rb *GoogleNormalizedDistanceHeuristicBuilder) Build() GoogleNormalizedDistanceHeuristic {
-	return *rb.v
-}
-
-func (rb *GoogleNormalizedDistanceHeuristicBuilder) BackgroundIsSuperset(backgroundissuperset bool) *GoogleNormalizedDistanceHeuristicBuilder {
-	rb.v.BackgroundIsSuperset = &backgroundissuperset
-	return rb
+	return r
 }

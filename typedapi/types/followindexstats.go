@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FollowIndexStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ccr/_types/FollowIndexStats.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/_types/FollowIndexStats.ts#L30-L33
 type FollowIndexStats struct {
-	Index  IndexName    `json:"index"`
-	Shards []ShardStats `json:"shards"`
+	Index  string          `json:"index"`
+	Shards []CcrShardStats `json:"shards"`
 }
 
-// FollowIndexStatsBuilder holds FollowIndexStats struct and provides a builder API.
-type FollowIndexStatsBuilder struct {
-	v *FollowIndexStats
-}
+// NewFollowIndexStats returns a FollowIndexStats.
+func NewFollowIndexStats() *FollowIndexStats {
+	r := &FollowIndexStats{}
 
-// NewFollowIndexStats provides a builder for the FollowIndexStats struct.
-func NewFollowIndexStatsBuilder() *FollowIndexStatsBuilder {
-	r := FollowIndexStatsBuilder{
-		&FollowIndexStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FollowIndexStats struct
-func (rb *FollowIndexStatsBuilder) Build() FollowIndexStats {
-	return *rb.v
-}
-
-func (rb *FollowIndexStatsBuilder) Index(index IndexName) *FollowIndexStatsBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *FollowIndexStatsBuilder) Shards(shards []ShardStatsBuilder) *FollowIndexStatsBuilder {
-	tmp := make([]ShardStats, len(shards))
-	for _, value := range shards {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Shards = tmp
-	return rb
+	return r
 }

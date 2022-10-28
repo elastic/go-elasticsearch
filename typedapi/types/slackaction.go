@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SlackAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L91-L94
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L91-L94
 type SlackAction struct {
 	Account *string      `json:"account,omitempty"`
 	Message SlackMessage `json:"message"`
 }
 
-// SlackActionBuilder holds SlackAction struct and provides a builder API.
-type SlackActionBuilder struct {
-	v *SlackAction
-}
+// NewSlackAction returns a SlackAction.
+func NewSlackAction() *SlackAction {
+	r := &SlackAction{}
 
-// NewSlackAction provides a builder for the SlackAction struct.
-func NewSlackActionBuilder() *SlackActionBuilder {
-	r := SlackActionBuilder{
-		&SlackAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SlackAction struct
-func (rb *SlackActionBuilder) Build() SlackAction {
-	return *rb.v
-}
-
-func (rb *SlackActionBuilder) Account(account string) *SlackActionBuilder {
-	rb.v.Account = &account
-	return rb
-}
-
-func (rb *SlackActionBuilder) Message(message *SlackMessageBuilder) *SlackActionBuilder {
-	v := message.Build()
-	rb.v.Message = v
-	return rb
+	return r
 }

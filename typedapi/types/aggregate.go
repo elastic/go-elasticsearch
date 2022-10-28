@@ -17,497 +17,219 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Aggregate holds the union for the following types:
 //
-//	AdjacencyMatrixAggregate
-//	AutoDateHistogramAggregate
-//	AvgAggregate
-//	BoxPlotAggregate
-//	BucketMetricValueAggregate
 //	CardinalityAggregate
-//	ChildrenAggregate
-//	CompositeAggregate
-//	CumulativeCardinalityAggregate
-//	DateHistogramAggregate
-//	DateRangeAggregate
-//	DerivativeAggregate
-//	DoubleTermsAggregate
-//	ExtendedStatsAggregate
-//	ExtendedStatsBucketAggregate
-//	FilterAggregate
-//	FiltersAggregate
-//	GeoBoundsAggregate
-//	GeoCentroidAggregate
-//	GeoDistanceAggregate
-//	GeoHashGridAggregate
-//	GeoLineAggregate
-//	GeoTileGridAggregate
-//	GlobalAggregate
-//	HdrPercentileRanksAggregate
 //	HdrPercentilesAggregate
-//	HistogramAggregate
-//	InferenceAggregate
-//	IpPrefixAggregate
-//	IpRangeAggregate
-//	LongRareTermsAggregate
-//	LongTermsAggregate
-//	MatrixStatsAggregate
-//	MaxAggregate
+//	HdrPercentileRanksAggregate
+//	TDigestPercentilesAggregate
+//	TDigestPercentileRanksAggregate
+//	PercentilesBucketAggregate
 //	MedianAbsoluteDeviationAggregate
 //	MinAggregate
-//	MissingAggregate
-//	MultiTermsAggregate
-//	NestedAggregate
-//	ParentAggregate
-//	PercentilesBucketAggregate
-//	RangeAggregate
-//	RateAggregate
-//	ReverseNestedAggregate
-//	SamplerAggregate
-//	ScriptedMetricAggregate
-//	SignificantLongTermsAggregate
-//	SignificantStringTermsAggregate
+//	MaxAggregate
+//	SumAggregate
+//	AvgAggregate
+//	WeightedAvgAggregate
+//	ValueCountAggregate
 //	SimpleValueAggregate
+//	DerivativeAggregate
+//	BucketMetricValueAggregate
 //	StatsAggregate
 //	StatsBucketAggregate
-//	StringRareTermsAggregate
-//	StringStatsAggregate
-//	StringTermsAggregate
-//	SumAggregate
-//	TDigestPercentileRanksAggregate
-//	TDigestPercentilesAggregate
-//	TTestAggregate
-//	TopHitsAggregate
-//	TopMetricsAggregate
-//	UnmappedRareTermsAggregate
-//	UnmappedSamplerAggregate
-//	UnmappedSignificantTermsAggregate
-//	UnmappedTermsAggregate
-//	ValueCountAggregate
+//	ExtendedStatsAggregate
+//	ExtendedStatsBucketAggregate
+//	GeoBoundsAggregate
+//	GeoCentroidAggregate
+//	HistogramAggregate
+//	DateHistogramAggregate
+//	AutoDateHistogramAggregate
 //	VariableWidthHistogramAggregate
-//	WeightedAvgAggregate
+//	StringTermsAggregate
+//	LongTermsAggregate
+//	DoubleTermsAggregate
+//	UnmappedTermsAggregate
+//	LongRareTermsAggregate
+//	StringRareTermsAggregate
+//	UnmappedRareTermsAggregate
+//	MultiTermsAggregate
+//	MissingAggregate
+//	NestedAggregate
+//	ReverseNestedAggregate
+//	GlobalAggregate
+//	FilterAggregate
+//	ChildrenAggregate
+//	ParentAggregate
+//	SamplerAggregate
+//	UnmappedSamplerAggregate
+//	GeoHashGridAggregate
+//	GeoTileGridAggregate
+//	GeoHexGridAggregate
+//	RangeAggregate
+//	DateRangeAggregate
+//	GeoDistanceAggregate
+//	IpRangeAggregate
+//	IpPrefixAggregate
+//	FiltersAggregate
+//	AdjacencyMatrixAggregate
+//	SignificantLongTermsAggregate
+//	SignificantStringTermsAggregate
+//	UnmappedSignificantTermsAggregate
+//	CompositeAggregate
+//	ScriptedMetricAggregate
+//	TopHitsAggregate
+//	InferenceAggregate
+//	StringStatsAggregate
+//	BoxPlotAggregate
+//	TopMetricsAggregate
+//	TTestAggregate
+//	RateAggregate
+//	CumulativeCardinalityAggregate
+//	MatrixStatsAggregate
+//	GeoLineAggregate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L31-L114
-type Aggregate interface{}
-
-// AggregateBuilder holds Aggregate struct and provides a builder API.
-type AggregateBuilder struct {
-	v Aggregate
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L38-L122
+type Aggregate interface {
+	isAggregate()
 }
 
-// NewAggregate provides a builder for the Aggregate struct.
-func NewAggregateBuilder() *AggregateBuilder {
-	return &AggregateBuilder{}
-}
-
-// Build finalize the chain and returns the Aggregate struct
-func (u *AggregateBuilder) Build() Aggregate {
-	return u.v
-}
+func (i CardinalityAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) AdjacencyMatrixAggregate(adjacencymatrixaggregate *AdjacencyMatrixAggregateBuilder) *AggregateBuilder {
-	v := adjacencymatrixaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i HdrPercentilesAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) AutoDateHistogramAggregate(autodatehistogramaggregate *AutoDateHistogramAggregateBuilder) *AggregateBuilder {
-	v := autodatehistogramaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i HdrPercentileRanksAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) AvgAggregate(avgaggregate *AvgAggregateBuilder) *AggregateBuilder {
-	v := avgaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i TDigestPercentilesAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) BoxPlotAggregate(boxplotaggregate *BoxPlotAggregateBuilder) *AggregateBuilder {
-	v := boxplotaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i TDigestPercentileRanksAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) BucketMetricValueAggregate(bucketmetricvalueaggregate *BucketMetricValueAggregateBuilder) *AggregateBuilder {
-	v := bucketmetricvalueaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i PercentilesBucketAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) CardinalityAggregate(cardinalityaggregate *CardinalityAggregateBuilder) *AggregateBuilder {
-	v := cardinalityaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i MedianAbsoluteDeviationAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) ChildrenAggregate(childrenaggregate *ChildrenAggregateBuilder) *AggregateBuilder {
-	v := childrenaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i MinAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) CompositeAggregate(compositeaggregate *CompositeAggregateBuilder) *AggregateBuilder {
-	v := compositeaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i MaxAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) CumulativeCardinalityAggregate(cumulativecardinalityaggregate *CumulativeCardinalityAggregateBuilder) *AggregateBuilder {
-	v := cumulativecardinalityaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i SumAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) DateHistogramAggregate(datehistogramaggregate *DateHistogramAggregateBuilder) *AggregateBuilder {
-	v := datehistogramaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i AvgAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) DateRangeAggregate(daterangeaggregate *DateRangeAggregateBuilder) *AggregateBuilder {
-	v := daterangeaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i WeightedAvgAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) DerivativeAggregate(derivativeaggregate *DerivativeAggregateBuilder) *AggregateBuilder {
-	v := derivativeaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i ValueCountAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) DoubleTermsAggregate(doubletermsaggregate *DoubleTermsAggregateBuilder) *AggregateBuilder {
-	v := doubletermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i SimpleValueAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) ExtendedStatsAggregate(extendedstatsaggregate *ExtendedStatsAggregateBuilder) *AggregateBuilder {
-	v := extendedstatsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i DerivativeAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) ExtendedStatsBucketAggregate(extendedstatsbucketaggregate *ExtendedStatsBucketAggregateBuilder) *AggregateBuilder {
-	v := extendedstatsbucketaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i BucketMetricValueAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) FilterAggregate(filteraggregate *FilterAggregateBuilder) *AggregateBuilder {
-	v := filteraggregate.Build()
-	u.v = &v
-	return u
-}
+func (i StatsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) FiltersAggregate(filtersaggregate *FiltersAggregateBuilder) *AggregateBuilder {
-	v := filtersaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i StatsBucketAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) GeoBoundsAggregate(geoboundsaggregate *GeoBoundsAggregateBuilder) *AggregateBuilder {
-	v := geoboundsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i ExtendedStatsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) GeoCentroidAggregate(geocentroidaggregate *GeoCentroidAggregateBuilder) *AggregateBuilder {
-	v := geocentroidaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i ExtendedStatsBucketAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) GeoDistanceAggregate(geodistanceaggregate *GeoDistanceAggregateBuilder) *AggregateBuilder {
-	v := geodistanceaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GeoBoundsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) GeoHashGridAggregate(geohashgridaggregate *GeoHashGridAggregateBuilder) *AggregateBuilder {
-	v := geohashgridaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GeoCentroidAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) GeoLineAggregate(geolineaggregate *GeoLineAggregateBuilder) *AggregateBuilder {
-	v := geolineaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i HistogramAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) GeoTileGridAggregate(geotilegridaggregate *GeoTileGridAggregateBuilder) *AggregateBuilder {
-	v := geotilegridaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i DateHistogramAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) GlobalAggregate(globalaggregate *GlobalAggregateBuilder) *AggregateBuilder {
-	v := globalaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i AutoDateHistogramAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) HdrPercentileRanksAggregate(hdrpercentileranksaggregate *HdrPercentileRanksAggregateBuilder) *AggregateBuilder {
-	v := hdrpercentileranksaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i VariableWidthHistogramAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) HdrPercentilesAggregate(hdrpercentilesaggregate *HdrPercentilesAggregateBuilder) *AggregateBuilder {
-	v := hdrpercentilesaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i StringTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) HistogramAggregate(histogramaggregate *HistogramAggregateBuilder) *AggregateBuilder {
-	v := histogramaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i LongTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) InferenceAggregate(inferenceaggregate *InferenceAggregateBuilder) *AggregateBuilder {
-	v := inferenceaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i DoubleTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) IpPrefixAggregate(ipprefixaggregate *IpPrefixAggregateBuilder) *AggregateBuilder {
-	v := ipprefixaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i UnmappedTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) IpRangeAggregate(iprangeaggregate *IpRangeAggregateBuilder) *AggregateBuilder {
-	v := iprangeaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i LongRareTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) LongRareTermsAggregate(longraretermsaggregate *LongRareTermsAggregateBuilder) *AggregateBuilder {
-	v := longraretermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i StringRareTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) LongTermsAggregate(longtermsaggregate *LongTermsAggregateBuilder) *AggregateBuilder {
-	v := longtermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i UnmappedRareTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) MatrixStatsAggregate(matrixstatsaggregate *MatrixStatsAggregateBuilder) *AggregateBuilder {
-	v := matrixstatsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i MultiTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) MaxAggregate(maxaggregate *MaxAggregateBuilder) *AggregateBuilder {
-	v := maxaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i MissingAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) MedianAbsoluteDeviationAggregate(medianabsolutedeviationaggregate *MedianAbsoluteDeviationAggregateBuilder) *AggregateBuilder {
-	v := medianabsolutedeviationaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i NestedAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) MinAggregate(minaggregate *MinAggregateBuilder) *AggregateBuilder {
-	v := minaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i ReverseNestedAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) MissingAggregate(missingaggregate *MissingAggregateBuilder) *AggregateBuilder {
-	v := missingaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GlobalAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) MultiTermsAggregate(multitermsaggregate *MultiTermsAggregateBuilder) *AggregateBuilder {
-	v := multitermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i FilterAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) NestedAggregate(nestedaggregate *NestedAggregateBuilder) *AggregateBuilder {
-	v := nestedaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i ChildrenAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) ParentAggregate(parentaggregate *ParentAggregateBuilder) *AggregateBuilder {
-	v := parentaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i ParentAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) PercentilesBucketAggregate(percentilesbucketaggregate *PercentilesBucketAggregateBuilder) *AggregateBuilder {
-	v := percentilesbucketaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i SamplerAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) RangeAggregate(rangeaggregate *RangeAggregateBuilder) *AggregateBuilder {
-	v := rangeaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i UnmappedSamplerAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) RateAggregate(rateaggregate *RateAggregateBuilder) *AggregateBuilder {
-	v := rateaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GeoHashGridAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) ReverseNestedAggregate(reversenestedaggregate *ReverseNestedAggregateBuilder) *AggregateBuilder {
-	v := reversenestedaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GeoTileGridAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) SamplerAggregate(sampleraggregate *SamplerAggregateBuilder) *AggregateBuilder {
-	v := sampleraggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GeoHexGridAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) ScriptedMetricAggregate(scriptedmetricaggregate *ScriptedMetricAggregateBuilder) *AggregateBuilder {
-	v := scriptedmetricaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i RangeAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) SignificantLongTermsAggregate(significantlongtermsaggregate *SignificantLongTermsAggregateBuilder) *AggregateBuilder {
-	v := significantlongtermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i DateRangeAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) SignificantStringTermsAggregate(significantstringtermsaggregate *SignificantStringTermsAggregateBuilder) *AggregateBuilder {
-	v := significantstringtermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GeoDistanceAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) SimpleValueAggregate(simplevalueaggregate *SimpleValueAggregateBuilder) *AggregateBuilder {
-	v := simplevalueaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i IpRangeAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) StatsAggregate(statsaggregate *StatsAggregateBuilder) *AggregateBuilder {
-	v := statsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i IpPrefixAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) StatsBucketAggregate(statsbucketaggregate *StatsBucketAggregateBuilder) *AggregateBuilder {
-	v := statsbucketaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i FiltersAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) StringRareTermsAggregate(stringraretermsaggregate *StringRareTermsAggregateBuilder) *AggregateBuilder {
-	v := stringraretermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i AdjacencyMatrixAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) StringStatsAggregate(stringstatsaggregate *StringStatsAggregateBuilder) *AggregateBuilder {
-	v := stringstatsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i SignificantLongTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) StringTermsAggregate(stringtermsaggregate *StringTermsAggregateBuilder) *AggregateBuilder {
-	v := stringtermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i SignificantStringTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) SumAggregate(sumaggregate *SumAggregateBuilder) *AggregateBuilder {
-	v := sumaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i UnmappedSignificantTermsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) TDigestPercentileRanksAggregate(tdigestpercentileranksaggregate *TDigestPercentileRanksAggregateBuilder) *AggregateBuilder {
-	v := tdigestpercentileranksaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i CompositeAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) TDigestPercentilesAggregate(tdigestpercentilesaggregate *TDigestPercentilesAggregateBuilder) *AggregateBuilder {
-	v := tdigestpercentilesaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i ScriptedMetricAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) TTestAggregate(ttestaggregate *TTestAggregateBuilder) *AggregateBuilder {
-	v := ttestaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i TopHitsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) TopHitsAggregate(tophitsaggregate *TopHitsAggregateBuilder) *AggregateBuilder {
-	v := tophitsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i InferenceAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) TopMetricsAggregate(topmetricsaggregate *TopMetricsAggregateBuilder) *AggregateBuilder {
-	v := topmetricsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i StringStatsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) UnmappedRareTermsAggregate(unmappedraretermsaggregate *UnmappedRareTermsAggregateBuilder) *AggregateBuilder {
-	v := unmappedraretermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i BoxPlotAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) UnmappedSamplerAggregate(unmappedsampleraggregate *UnmappedSamplerAggregateBuilder) *AggregateBuilder {
-	v := unmappedsampleraggregate.Build()
-	u.v = &v
-	return u
-}
+func (i TopMetricsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) UnmappedSignificantTermsAggregate(unmappedsignificanttermsaggregate *UnmappedSignificantTermsAggregateBuilder) *AggregateBuilder {
-	v := unmappedsignificanttermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i TTestAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) UnmappedTermsAggregate(unmappedtermsaggregate *UnmappedTermsAggregateBuilder) *AggregateBuilder {
-	v := unmappedtermsaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i RateAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) ValueCountAggregate(valuecountaggregate *ValueCountAggregateBuilder) *AggregateBuilder {
-	v := valuecountaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i CumulativeCardinalityAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) VariableWidthHistogramAggregate(variablewidthhistogramaggregate *VariableWidthHistogramAggregateBuilder) *AggregateBuilder {
-	v := variablewidthhistogramaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i MatrixStatsAggregate) isAggregate() {}
 
-func (u *AggregateBuilder) WeightedAvgAggregate(weightedavgaggregate *WeightedAvgAggregateBuilder) *AggregateBuilder {
-	v := weightedavgaggregate.Build()
-	u.v = &v
-	return u
-}
+func (i GeoLineAggregate) isAggregate() {}

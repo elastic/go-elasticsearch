@@ -17,57 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SpanFieldMaskingQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/span.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/span.ts#L30-L33
 type SpanFieldMaskingQuery struct {
 	Boost      *float32   `json:"boost,omitempty"`
-	Field      Field      `json:"field"`
+	Field      string     `json:"field"`
 	Query      *SpanQuery `json:"query,omitempty"`
 	QueryName_ *string    `json:"_name,omitempty"`
 }
 
-// SpanFieldMaskingQueryBuilder holds SpanFieldMaskingQuery struct and provides a builder API.
-type SpanFieldMaskingQueryBuilder struct {
-	v *SpanFieldMaskingQuery
-}
+// NewSpanFieldMaskingQuery returns a SpanFieldMaskingQuery.
+func NewSpanFieldMaskingQuery() *SpanFieldMaskingQuery {
+	r := &SpanFieldMaskingQuery{}
 
-// NewSpanFieldMaskingQuery provides a builder for the SpanFieldMaskingQuery struct.
-func NewSpanFieldMaskingQueryBuilder() *SpanFieldMaskingQueryBuilder {
-	r := SpanFieldMaskingQueryBuilder{
-		&SpanFieldMaskingQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SpanFieldMaskingQuery struct
-func (rb *SpanFieldMaskingQueryBuilder) Build() SpanFieldMaskingQuery {
-	return *rb.v
-}
-
-func (rb *SpanFieldMaskingQueryBuilder) Boost(boost float32) *SpanFieldMaskingQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *SpanFieldMaskingQueryBuilder) Field(field Field) *SpanFieldMaskingQueryBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *SpanFieldMaskingQueryBuilder) Query(query *SpanQueryBuilder) *SpanFieldMaskingQueryBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *SpanFieldMaskingQueryBuilder) QueryName_(queryname_ string) *SpanFieldMaskingQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

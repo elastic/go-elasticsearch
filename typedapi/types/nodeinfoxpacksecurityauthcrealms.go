@@ -17,66 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoXpackSecurityAuthcRealms type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L250-L254
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L250-L254
 type NodeInfoXpackSecurityAuthcRealms struct {
 	File   map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"file,omitempty"`
 	Native map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"native,omitempty"`
 	Pki    map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"pki,omitempty"`
 }
 
-// NodeInfoXpackSecurityAuthcRealmsBuilder holds NodeInfoXpackSecurityAuthcRealms struct and provides a builder API.
-type NodeInfoXpackSecurityAuthcRealmsBuilder struct {
-	v *NodeInfoXpackSecurityAuthcRealms
-}
-
-// NewNodeInfoXpackSecurityAuthcRealms provides a builder for the NodeInfoXpackSecurityAuthcRealms struct.
-func NewNodeInfoXpackSecurityAuthcRealmsBuilder() *NodeInfoXpackSecurityAuthcRealmsBuilder {
-	r := NodeInfoXpackSecurityAuthcRealmsBuilder{
-		&NodeInfoXpackSecurityAuthcRealms{
-			File:   make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
-			Native: make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
-			Pki:    make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
-		},
+// NewNodeInfoXpackSecurityAuthcRealms returns a NodeInfoXpackSecurityAuthcRealms.
+func NewNodeInfoXpackSecurityAuthcRealms() *NodeInfoXpackSecurityAuthcRealms {
+	r := &NodeInfoXpackSecurityAuthcRealms{
+		File:   make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
+		Native: make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
+		Pki:    make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoXpackSecurityAuthcRealms struct
-func (rb *NodeInfoXpackSecurityAuthcRealmsBuilder) Build() NodeInfoXpackSecurityAuthcRealms {
-	return *rb.v
-}
-
-func (rb *NodeInfoXpackSecurityAuthcRealmsBuilder) File(values map[string]*NodeInfoXpackSecurityAuthcRealmsStatusBuilder) *NodeInfoXpackSecurityAuthcRealmsBuilder {
-	tmp := make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.File = tmp
-	return rb
-}
-
-func (rb *NodeInfoXpackSecurityAuthcRealmsBuilder) Native(values map[string]*NodeInfoXpackSecurityAuthcRealmsStatusBuilder) *NodeInfoXpackSecurityAuthcRealmsBuilder {
-	tmp := make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Native = tmp
-	return rb
-}
-
-func (rb *NodeInfoXpackSecurityAuthcRealmsBuilder) Pki(values map[string]*NodeInfoXpackSecurityAuthcRealmsStatusBuilder) *NodeInfoXpackSecurityAuthcRealmsBuilder {
-	tmp := make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Pki = tmp
-	return rb
+	return r
 }

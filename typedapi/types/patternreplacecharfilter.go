@@ -17,59 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PatternReplaceCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/char_filters.ts#L53-L58
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/char_filters.ts#L53-L58
 type PatternReplaceCharFilter struct {
-	Flags       *string        `json:"flags,omitempty"`
-	Pattern     string         `json:"pattern"`
-	Replacement *string        `json:"replacement,omitempty"`
-	Type        string         `json:"type,omitempty"`
-	Version     *VersionString `json:"version,omitempty"`
+	Flags       *string `json:"flags,omitempty"`
+	Pattern     string  `json:"pattern"`
+	Replacement *string `json:"replacement,omitempty"`
+	Type        string  `json:"type,omitempty"`
+	Version     *string `json:"version,omitempty"`
 }
 
-// PatternReplaceCharFilterBuilder holds PatternReplaceCharFilter struct and provides a builder API.
-type PatternReplaceCharFilterBuilder struct {
-	v *PatternReplaceCharFilter
-}
+// NewPatternReplaceCharFilter returns a PatternReplaceCharFilter.
+func NewPatternReplaceCharFilter() *PatternReplaceCharFilter {
+	r := &PatternReplaceCharFilter{}
 
-// NewPatternReplaceCharFilter provides a builder for the PatternReplaceCharFilter struct.
-func NewPatternReplaceCharFilterBuilder() *PatternReplaceCharFilterBuilder {
-	r := PatternReplaceCharFilterBuilder{
-		&PatternReplaceCharFilter{},
-	}
+	r.Type = "pattern_replace"
 
-	r.v.Type = "pattern_replace"
-
-	return &r
-}
-
-// Build finalize the chain and returns the PatternReplaceCharFilter struct
-func (rb *PatternReplaceCharFilterBuilder) Build() PatternReplaceCharFilter {
-	return *rb.v
-}
-
-func (rb *PatternReplaceCharFilterBuilder) Flags(flags string) *PatternReplaceCharFilterBuilder {
-	rb.v.Flags = &flags
-	return rb
-}
-
-func (rb *PatternReplaceCharFilterBuilder) Pattern(pattern string) *PatternReplaceCharFilterBuilder {
-	rb.v.Pattern = pattern
-	return rb
-}
-
-func (rb *PatternReplaceCharFilterBuilder) Replacement(replacement string) *PatternReplaceCharFilterBuilder {
-	rb.v.Replacement = &replacement
-	return rb
-}
-
-func (rb *PatternReplaceCharFilterBuilder) Version(version VersionString) *PatternReplaceCharFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

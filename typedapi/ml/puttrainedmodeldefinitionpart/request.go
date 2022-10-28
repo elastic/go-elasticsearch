@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package puttrainedmodeldefinitionpart
@@ -29,34 +29,25 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodeldefinitionpart
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/put_trained_model_definition_part/MlPutTrainedModelDefinitionPartRequest.ts#L24-L57
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_trained_model_definition_part/MlPutTrainedModelDefinitionPartRequest.ts#L24-L57
 type Request struct {
 
 	// Definition The definition part for the model. Must be a base64 encoded string.
 	Definition string `json:"definition"`
-
 	// TotalDefinitionLength The total uncompressed definition length in bytes. Not base64 encoded.
 	TotalDefinitionLength int64 `json:"total_definition_length"`
-
 	// TotalParts The total number of parts that will be uploaded. Must be greater than 0.
 	TotalParts int `json:"total_parts"`
 }
 
-// RequestBuilder is the builder API for the puttrainedmodeldefinitionpart.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -65,24 +56,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Definition(definition string) *RequestBuilder {
-	rb.v.Definition = definition
-	return rb
-}
-
-func (rb *RequestBuilder) TotalDefinitionLength(totaldefinitionlength int64) *RequestBuilder {
-	rb.v.TotalDefinitionLength = totaldefinitionlength
-	return rb
-}
-
-func (rb *RequestBuilder) TotalParts(totalparts int) *RequestBuilder {
-	rb.v.TotalParts = totalparts
-	return rb
 }

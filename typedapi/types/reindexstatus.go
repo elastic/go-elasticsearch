@@ -17,115 +17,33 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ReindexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/reindex_rethrottle/types.ts#L37-L51
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/reindex_rethrottle/types.ts#L37-L51
 type ReindexStatus struct {
-	Batches              int64                   `json:"batches"`
-	Created              int64                   `json:"created"`
-	Deleted              int64                   `json:"deleted"`
-	Noops                int64                   `json:"noops"`
-	RequestsPerSecond    float32                 `json:"requests_per_second"`
-	Retries              Retries                 `json:"retries"`
-	Throttled            *Duration               `json:"throttled,omitempty"`
-	ThrottledMillis      DurationValueUnitMillis `json:"throttled_millis"`
-	ThrottledUntil       *Duration               `json:"throttled_until,omitempty"`
-	ThrottledUntilMillis DurationValueUnitMillis `json:"throttled_until_millis"`
-	Total                int64                   `json:"total"`
-	Updated              int64                   `json:"updated"`
-	VersionConflicts     int64                   `json:"version_conflicts"`
+	Batches              int64     `json:"batches"`
+	Created              int64     `json:"created"`
+	Deleted              int64     `json:"deleted"`
+	Noops                int64     `json:"noops"`
+	RequestsPerSecond    float32   `json:"requests_per_second"`
+	Retries              Retries   `json:"retries"`
+	Throttled            *Duration `json:"throttled,omitempty"`
+	ThrottledMillis      int64     `json:"throttled_millis"`
+	ThrottledUntil       *Duration `json:"throttled_until,omitempty"`
+	ThrottledUntilMillis int64     `json:"throttled_until_millis"`
+	Total                int64     `json:"total"`
+	Updated              int64     `json:"updated"`
+	VersionConflicts     int64     `json:"version_conflicts"`
 }
 
-// ReindexStatusBuilder holds ReindexStatus struct and provides a builder API.
-type ReindexStatusBuilder struct {
-	v *ReindexStatus
-}
+// NewReindexStatus returns a ReindexStatus.
+func NewReindexStatus() *ReindexStatus {
+	r := &ReindexStatus{}
 
-// NewReindexStatus provides a builder for the ReindexStatus struct.
-func NewReindexStatusBuilder() *ReindexStatusBuilder {
-	r := ReindexStatusBuilder{
-		&ReindexStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ReindexStatus struct
-func (rb *ReindexStatusBuilder) Build() ReindexStatus {
-	return *rb.v
-}
-
-func (rb *ReindexStatusBuilder) Batches(batches int64) *ReindexStatusBuilder {
-	rb.v.Batches = batches
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) Created(created int64) *ReindexStatusBuilder {
-	rb.v.Created = created
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) Deleted(deleted int64) *ReindexStatusBuilder {
-	rb.v.Deleted = deleted
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) Noops(noops int64) *ReindexStatusBuilder {
-	rb.v.Noops = noops
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) RequestsPerSecond(requestspersecond float32) *ReindexStatusBuilder {
-	rb.v.RequestsPerSecond = requestspersecond
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) Retries(retries *RetriesBuilder) *ReindexStatusBuilder {
-	v := retries.Build()
-	rb.v.Retries = v
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) Throttled(throttled *DurationBuilder) *ReindexStatusBuilder {
-	v := throttled.Build()
-	rb.v.Throttled = &v
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) ThrottledMillis(throttledmillis *DurationValueUnitMillisBuilder) *ReindexStatusBuilder {
-	v := throttledmillis.Build()
-	rb.v.ThrottledMillis = v
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) ThrottledUntil(throttleduntil *DurationBuilder) *ReindexStatusBuilder {
-	v := throttleduntil.Build()
-	rb.v.ThrottledUntil = &v
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) ThrottledUntilMillis(throttleduntilmillis *DurationValueUnitMillisBuilder) *ReindexStatusBuilder {
-	v := throttleduntilmillis.Build()
-	rb.v.ThrottledUntilMillis = v
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) Total(total int64) *ReindexStatusBuilder {
-	rb.v.Total = total
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) Updated(updated int64) *ReindexStatusBuilder {
-	rb.v.Updated = updated
-	return rb
-}
-
-func (rb *ReindexStatusBuilder) VersionConflicts(versionconflicts int64) *ReindexStatusBuilder {
-	rb.v.VersionConflicts = versionconflicts
-	return rb
+	return r
 }

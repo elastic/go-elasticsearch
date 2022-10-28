@@ -17,61 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/usage/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/usage/types.ts#L25-L30
 type NodeUsage struct {
 	Aggregations map[string]interface{} `json:"aggregations"`
 	RestActions  map[string]int         `json:"rest_actions"`
-	Since        EpochTimeUnitMillis    `json:"since"`
-	Timestamp    EpochTimeUnitMillis    `json:"timestamp"`
+	Since        int64                  `json:"since"`
+	Timestamp    int64                  `json:"timestamp"`
 }
 
-// NodeUsageBuilder holds NodeUsage struct and provides a builder API.
-type NodeUsageBuilder struct {
-	v *NodeUsage
-}
-
-// NewNodeUsage provides a builder for the NodeUsage struct.
-func NewNodeUsageBuilder() *NodeUsageBuilder {
-	r := NodeUsageBuilder{
-		&NodeUsage{
-			Aggregations: make(map[string]interface{}, 0),
-			RestActions:  make(map[string]int, 0),
-		},
+// NewNodeUsage returns a NodeUsage.
+func NewNodeUsage() *NodeUsage {
+	r := &NodeUsage{
+		Aggregations: make(map[string]interface{}, 0),
+		RestActions:  make(map[string]int, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the NodeUsage struct
-func (rb *NodeUsageBuilder) Build() NodeUsage {
-	return *rb.v
-}
-
-func (rb *NodeUsageBuilder) Aggregations(value map[string]interface{}) *NodeUsageBuilder {
-	rb.v.Aggregations = value
-	return rb
-}
-
-func (rb *NodeUsageBuilder) RestActions(value map[string]int) *NodeUsageBuilder {
-	rb.v.RestActions = value
-	return rb
-}
-
-func (rb *NodeUsageBuilder) Since(since *EpochTimeUnitMillisBuilder) *NodeUsageBuilder {
-	v := since.Build()
-	rb.v.Since = v
-	return rb
-}
-
-func (rb *NodeUsageBuilder) Timestamp(timestamp *EpochTimeUnitMillisBuilder) *NodeUsageBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = v
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MasterRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/master/types.ts#L20-L39
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/master/types.ts#L20-L39
 type MasterRecord struct {
 	// Host host name
 	Host *string `json:"host,omitempty"`
@@ -36,49 +36,9 @@ type MasterRecord struct {
 	Node *string `json:"node,omitempty"`
 }
 
-// MasterRecordBuilder holds MasterRecord struct and provides a builder API.
-type MasterRecordBuilder struct {
-	v *MasterRecord
-}
+// NewMasterRecord returns a MasterRecord.
+func NewMasterRecord() *MasterRecord {
+	r := &MasterRecord{}
 
-// NewMasterRecord provides a builder for the MasterRecord struct.
-func NewMasterRecordBuilder() *MasterRecordBuilder {
-	r := MasterRecordBuilder{
-		&MasterRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MasterRecord struct
-func (rb *MasterRecordBuilder) Build() MasterRecord {
-	return *rb.v
-}
-
-// Host host name
-
-func (rb *MasterRecordBuilder) Host(host string) *MasterRecordBuilder {
-	rb.v.Host = &host
-	return rb
-}
-
-// Id node id
-
-func (rb *MasterRecordBuilder) Id(id string) *MasterRecordBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-// Ip ip address
-
-func (rb *MasterRecordBuilder) Ip(ip string) *MasterRecordBuilder {
-	rb.v.Ip = &ip
-	return rb
-}
-
-// Node node name
-
-func (rb *MasterRecordBuilder) Node(node string) *MasterRecordBuilder {
-	rb.v.Node = &node
-	return rb
+	return r
 }

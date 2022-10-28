@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermsGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/rollup/_types/Groupings.ts#L40-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/_types/Groupings.ts#L40-L42
 type TermsGrouping struct {
-	Fields Fields `json:"fields"`
+	Fields []string `json:"fields"`
 }
 
-// TermsGroupingBuilder holds TermsGrouping struct and provides a builder API.
-type TermsGroupingBuilder struct {
-	v *TermsGrouping
-}
+// NewTermsGrouping returns a TermsGrouping.
+func NewTermsGrouping() *TermsGrouping {
+	r := &TermsGrouping{}
 
-// NewTermsGrouping provides a builder for the TermsGrouping struct.
-func NewTermsGroupingBuilder() *TermsGroupingBuilder {
-	r := TermsGroupingBuilder{
-		&TermsGrouping{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsGrouping struct
-func (rb *TermsGroupingBuilder) Build() TermsGrouping {
-	return *rb.v
-}
-
-func (rb *TermsGroupingBuilder) Fields(fields *FieldsBuilder) *TermsGroupingBuilder {
-	v := fields.Build()
-	rb.v.Fields = v
-	return rb
+	return r
 }

@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiBucketAggregateBaseGeoHashGridBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L326-L328
 type MultiBucketAggregateBaseGeoHashGridBucket struct {
 	Buckets BucketsGeoHashGridBucket `json:"buckets"`
-	Meta    *Metadata                `json:"meta,omitempty"`
+	Meta    map[string]interface{}   `json:"meta,omitempty"`
 }
 
-// MultiBucketAggregateBaseGeoHashGridBucketBuilder holds MultiBucketAggregateBaseGeoHashGridBucket struct and provides a builder API.
-type MultiBucketAggregateBaseGeoHashGridBucketBuilder struct {
-	v *MultiBucketAggregateBaseGeoHashGridBucket
-}
+// NewMultiBucketAggregateBaseGeoHashGridBucket returns a MultiBucketAggregateBaseGeoHashGridBucket.
+func NewMultiBucketAggregateBaseGeoHashGridBucket() *MultiBucketAggregateBaseGeoHashGridBucket {
+	r := &MultiBucketAggregateBaseGeoHashGridBucket{}
 
-// NewMultiBucketAggregateBaseGeoHashGridBucket provides a builder for the MultiBucketAggregateBaseGeoHashGridBucket struct.
-func NewMultiBucketAggregateBaseGeoHashGridBucketBuilder() *MultiBucketAggregateBaseGeoHashGridBucketBuilder {
-	r := MultiBucketAggregateBaseGeoHashGridBucketBuilder{
-		&MultiBucketAggregateBaseGeoHashGridBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiBucketAggregateBaseGeoHashGridBucket struct
-func (rb *MultiBucketAggregateBaseGeoHashGridBucketBuilder) Build() MultiBucketAggregateBaseGeoHashGridBucket {
-	return *rb.v
-}
-
-func (rb *MultiBucketAggregateBaseGeoHashGridBucketBuilder) Buckets(buckets *BucketsGeoHashGridBucketBuilder) *MultiBucketAggregateBaseGeoHashGridBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *MultiBucketAggregateBaseGeoHashGridBucketBuilder) Meta(meta *MetadataBuilder) *MultiBucketAggregateBaseGeoHashGridBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

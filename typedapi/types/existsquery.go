@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExistsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/term.ts#L36-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L36-L38
 type ExistsQuery struct {
 	Boost      *float32 `json:"boost,omitempty"`
-	Field      Field    `json:"field"`
+	Field      string   `json:"field"`
 	QueryName_ *string  `json:"_name,omitempty"`
 }
 
-// ExistsQueryBuilder holds ExistsQuery struct and provides a builder API.
-type ExistsQueryBuilder struct {
-	v *ExistsQuery
-}
+// NewExistsQuery returns a ExistsQuery.
+func NewExistsQuery() *ExistsQuery {
+	r := &ExistsQuery{}
 
-// NewExistsQuery provides a builder for the ExistsQuery struct.
-func NewExistsQueryBuilder() *ExistsQueryBuilder {
-	r := ExistsQueryBuilder{
-		&ExistsQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExistsQuery struct
-func (rb *ExistsQueryBuilder) Build() ExistsQuery {
-	return *rb.v
-}
-
-func (rb *ExistsQueryBuilder) Boost(boost float32) *ExistsQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *ExistsQueryBuilder) Field(field Field) *ExistsQueryBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *ExistsQueryBuilder) QueryName_(queryname_ string) *ExistsQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

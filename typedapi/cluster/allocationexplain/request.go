@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package allocationexplain
@@ -25,44 +25,32 @@ package allocationexplain
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package allocationexplain
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/allocation_explain/ClusterAllocationExplainRequest.ts#L24-L61
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/ClusterAllocationExplainRequest.ts#L24-L61
 type Request struct {
 
 	// CurrentNode Specifies the node ID or the name of the node to only explain a shard that is
 	// currently located on the specified node.
 	CurrentNode *string `json:"current_node,omitempty"`
-
 	// Index Specifies the name of the index that you would like an explanation for.
-	Index *types.IndexName `json:"index,omitempty"`
-
+	Index *string `json:"index,omitempty"`
 	// Primary If true, returns explanation for the primary shard for the given shard ID.
 	Primary *bool `json:"primary,omitempty"`
-
 	// Shard Specifies the ID of the shard that you would like an explanation for.
 	Shard *int `json:"shard,omitempty"`
 }
 
-// RequestBuilder is the builder API for the allocationexplain.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -71,29 +59,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) CurrentNode(currentnode string) *RequestBuilder {
-	rb.v.CurrentNode = &currentnode
-	return rb
-}
-
-func (rb *RequestBuilder) Index(index types.IndexName) *RequestBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *RequestBuilder) Primary(primary bool) *RequestBuilder {
-	rb.v.Primary = &primary
-	return rb
-}
-
-func (rb *RequestBuilder) Shard(shard int) *RequestBuilder {
-	rb.v.Shard = &shard
-	return rb
 }

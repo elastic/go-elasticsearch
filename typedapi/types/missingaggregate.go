@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // MissingAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L474-L475
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L482-L483
 type MissingAggregate struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Meta         *Metadata                   `json:"meta,omitempty"`
+	Aggregations map[string]Aggregate   `json:"-"`
+	DocCount     int64                  `json:"doc_count"`
+	Meta         map[string]interface{} `json:"meta,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,43 +64,11 @@ func (s MissingAggregate) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// MissingAggregateBuilder holds MissingAggregate struct and provides a builder API.
-type MissingAggregateBuilder struct {
-	v *MissingAggregate
-}
-
-// NewMissingAggregate provides a builder for the MissingAggregate struct.
-func NewMissingAggregateBuilder() *MissingAggregateBuilder {
-	r := MissingAggregateBuilder{
-		&MissingAggregate{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewMissingAggregate returns a MissingAggregate.
+func NewMissingAggregate() *MissingAggregate {
+	r := &MissingAggregate{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the MissingAggregate struct
-func (rb *MissingAggregateBuilder) Build() MissingAggregate {
-	return *rb.v
-}
-
-func (rb *MissingAggregateBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *MissingAggregateBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *MissingAggregateBuilder) DocCount(doccount int64) *MissingAggregateBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *MissingAggregateBuilder) Meta(meta *MetadataBuilder) *MissingAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

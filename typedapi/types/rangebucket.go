@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,12 +29,12 @@ import (
 
 // RangeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L518-L525
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L533-L540
 type RangeBucket struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	From         *float64                    `json:"from,omitempty"`
-	FromAsString *string                     `json:"from_as_string,omitempty"`
+	Aggregations map[string]Aggregate `json:"-"`
+	DocCount     int64                `json:"doc_count"`
+	From         *float64             `json:"from,omitempty"`
+	FromAsString *string              `json:"from_as_string,omitempty"`
 	// Key The bucket key. Present if the aggregation is _not_ keyed
 	Key        *string  `json:"key,omitempty"`
 	To         *float64 `json:"to,omitempty"`
@@ -69,64 +69,11 @@ func (s RangeBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// RangeBucketBuilder holds RangeBucket struct and provides a builder API.
-type RangeBucketBuilder struct {
-	v *RangeBucket
-}
-
-// NewRangeBucket provides a builder for the RangeBucket struct.
-func NewRangeBucketBuilder() *RangeBucketBuilder {
-	r := RangeBucketBuilder{
-		&RangeBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewRangeBucket returns a RangeBucket.
+func NewRangeBucket() *RangeBucket {
+	r := &RangeBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the RangeBucket struct
-func (rb *RangeBucketBuilder) Build() RangeBucket {
-	return *rb.v
-}
-
-func (rb *RangeBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *RangeBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *RangeBucketBuilder) DocCount(doccount int64) *RangeBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *RangeBucketBuilder) From(from float64) *RangeBucketBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-func (rb *RangeBucketBuilder) FromAsString(fromasstring string) *RangeBucketBuilder {
-	rb.v.FromAsString = &fromasstring
-	return rb
-}
-
-// Key The bucket key. Present if the aggregation is _not_ keyed
-
-func (rb *RangeBucketBuilder) Key(key string) *RangeBucketBuilder {
-	rb.v.Key = &key
-	return rb
-}
-
-func (rb *RangeBucketBuilder) To(to float64) *RangeBucketBuilder {
-	rb.v.To = &to
-	return rb
-}
-
-func (rb *RangeBucketBuilder) ToAsString(toasstring string) *RangeBucketBuilder {
-	rb.v.ToAsString = &toasstring
-	return rb
+	return r
 }

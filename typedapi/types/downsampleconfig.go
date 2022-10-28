@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DownsampleConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/Downsample.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/Downsample.ts#L22-L24
 type DownsampleConfig struct {
-	FixedInterval DurationLarge `json:"fixed_interval"`
+	FixedInterval string `json:"fixed_interval"`
 }
 
-// DownsampleConfigBuilder holds DownsampleConfig struct and provides a builder API.
-type DownsampleConfigBuilder struct {
-	v *DownsampleConfig
-}
+// NewDownsampleConfig returns a DownsampleConfig.
+func NewDownsampleConfig() *DownsampleConfig {
+	r := &DownsampleConfig{}
 
-// NewDownsampleConfig provides a builder for the DownsampleConfig struct.
-func NewDownsampleConfigBuilder() *DownsampleConfigBuilder {
-	r := DownsampleConfigBuilder{
-		&DownsampleConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DownsampleConfig struct
-func (rb *DownsampleConfigBuilder) Build() DownsampleConfig {
-	return *rb.v
-}
-
-func (rb *DownsampleConfigBuilder) FixedInterval(fixedinterval DurationLarge) *DownsampleConfigBuilder {
-	rb.v.FixedInterval = fixedinterval
-	return rb
+	return r
 }

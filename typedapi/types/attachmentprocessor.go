@@ -17,102 +17,32 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AttachmentProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L95-L103
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L96-L104
 type AttachmentProcessor struct {
-	Field             Field                `json:"field"`
+	Description       *string              `json:"description,omitempty"`
+	Field             string               `json:"field"`
 	If                *string              `json:"if,omitempty"`
 	IgnoreFailure     *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing     *bool                `json:"ignore_missing,omitempty"`
 	IndexedChars      *int64               `json:"indexed_chars,omitempty"`
-	IndexedCharsField *Field               `json:"indexed_chars_field,omitempty"`
+	IndexedCharsField *string              `json:"indexed_chars_field,omitempty"`
 	OnFailure         []ProcessorContainer `json:"on_failure,omitempty"`
 	Properties        []string             `json:"properties,omitempty"`
 	ResourceName      *string              `json:"resource_name,omitempty"`
 	Tag               *string              `json:"tag,omitempty"`
-	TargetField       *Field               `json:"target_field,omitempty"`
+	TargetField       *string              `json:"target_field,omitempty"`
 }
 
-// AttachmentProcessorBuilder holds AttachmentProcessor struct and provides a builder API.
-type AttachmentProcessorBuilder struct {
-	v *AttachmentProcessor
-}
+// NewAttachmentProcessor returns a AttachmentProcessor.
+func NewAttachmentProcessor() *AttachmentProcessor {
+	r := &AttachmentProcessor{}
 
-// NewAttachmentProcessor provides a builder for the AttachmentProcessor struct.
-func NewAttachmentProcessorBuilder() *AttachmentProcessorBuilder {
-	r := AttachmentProcessorBuilder{
-		&AttachmentProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AttachmentProcessor struct
-func (rb *AttachmentProcessorBuilder) Build() AttachmentProcessor {
-	return *rb.v
-}
-
-func (rb *AttachmentProcessorBuilder) Field(field Field) *AttachmentProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) If_(if_ string) *AttachmentProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) IgnoreFailure(ignorefailure bool) *AttachmentProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) IgnoreMissing(ignoremissing bool) *AttachmentProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) IndexedChars(indexedchars int64) *AttachmentProcessorBuilder {
-	rb.v.IndexedChars = &indexedchars
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) IndexedCharsField(indexedcharsfield Field) *AttachmentProcessorBuilder {
-	rb.v.IndexedCharsField = &indexedcharsfield
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *AttachmentProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) Properties(properties ...string) *AttachmentProcessorBuilder {
-	rb.v.Properties = properties
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) ResourceName(resourcename string) *AttachmentProcessorBuilder {
-	rb.v.ResourceName = &resourcename
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) Tag(tag string) *AttachmentProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *AttachmentProcessorBuilder) TargetField(targetfield Field) *AttachmentProcessorBuilder {
-	rb.v.TargetField = &targetfield
-	return rb
+	return r
 }

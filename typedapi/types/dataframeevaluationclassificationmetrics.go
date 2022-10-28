@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationClassificationMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeEvaluation.ts#L73-L78
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L73-L78
 type DataframeEvaluationClassificationMetrics struct {
 	// Accuracy Accuracy of predictions (per-class and overall).
 	Accuracy map[string]interface{} `json:"accuracy,omitempty"`
@@ -40,64 +40,14 @@ type DataframeEvaluationClassificationMetrics struct {
 	Recall map[string]interface{} `json:"recall,omitempty"`
 }
 
-// DataframeEvaluationClassificationMetricsBuilder holds DataframeEvaluationClassificationMetrics struct and provides a builder API.
-type DataframeEvaluationClassificationMetricsBuilder struct {
-	v *DataframeEvaluationClassificationMetrics
-}
-
-// NewDataframeEvaluationClassificationMetrics provides a builder for the DataframeEvaluationClassificationMetrics struct.
-func NewDataframeEvaluationClassificationMetricsBuilder() *DataframeEvaluationClassificationMetricsBuilder {
-	r := DataframeEvaluationClassificationMetricsBuilder{
-		&DataframeEvaluationClassificationMetrics{
-			Accuracy:                  make(map[string]interface{}, 0),
-			MulticlassConfusionMatrix: make(map[string]interface{}, 0),
-			Precision:                 make(map[string]interface{}, 0),
-			Recall:                    make(map[string]interface{}, 0),
-		},
+// NewDataframeEvaluationClassificationMetrics returns a DataframeEvaluationClassificationMetrics.
+func NewDataframeEvaluationClassificationMetrics() *DataframeEvaluationClassificationMetrics {
+	r := &DataframeEvaluationClassificationMetrics{
+		Accuracy:                  make(map[string]interface{}, 0),
+		MulticlassConfusionMatrix: make(map[string]interface{}, 0),
+		Precision:                 make(map[string]interface{}, 0),
+		Recall:                    make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationClassificationMetrics struct
-func (rb *DataframeEvaluationClassificationMetricsBuilder) Build() DataframeEvaluationClassificationMetrics {
-	return *rb.v
-}
-
-// Accuracy Accuracy of predictions (per-class and overall).
-
-func (rb *DataframeEvaluationClassificationMetricsBuilder) Accuracy(value map[string]interface{}) *DataframeEvaluationClassificationMetricsBuilder {
-	rb.v.Accuracy = value
-	return rb
-}
-
-// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
-// score and optionally the curve. It is calculated for a specific class
-// (provided as "class_name") treated as positive.
-
-func (rb *DataframeEvaluationClassificationMetricsBuilder) AucRoc(aucroc *DataframeEvaluationClassificationMetricsAucRocBuilder) *DataframeEvaluationClassificationMetricsBuilder {
-	v := aucroc.Build()
-	rb.v.AucRoc = &v
-	return rb
-}
-
-// MulticlassConfusionMatrix Multiclass confusion matrix.
-
-func (rb *DataframeEvaluationClassificationMetricsBuilder) MulticlassConfusionMatrix(value map[string]interface{}) *DataframeEvaluationClassificationMetricsBuilder {
-	rb.v.MulticlassConfusionMatrix = value
-	return rb
-}
-
-// Precision Precision of predictions (per-class and average).
-
-func (rb *DataframeEvaluationClassificationMetricsBuilder) Precision(value map[string]interface{}) *DataframeEvaluationClassificationMetricsBuilder {
-	rb.v.Precision = value
-	return rb
-}
-
-// Recall Recall of predictions (per-class and average).
-
-func (rb *DataframeEvaluationClassificationMetricsBuilder) Recall(value map[string]interface{}) *DataframeEvaluationClassificationMetricsBuilder {
-	rb.v.Recall = value
-	return rb
+	return r
 }

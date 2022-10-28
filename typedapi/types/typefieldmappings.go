@@ -17,44 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TypeFieldMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/get_field_mapping/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/get_field_mapping/types.ts#L24-L26
 type TypeFieldMappings struct {
-	Mappings map[Field]FieldMapping `json:"mappings"`
+	Mappings map[string]FieldMapping `json:"mappings"`
 }
 
-// TypeFieldMappingsBuilder holds TypeFieldMappings struct and provides a builder API.
-type TypeFieldMappingsBuilder struct {
-	v *TypeFieldMappings
-}
-
-// NewTypeFieldMappings provides a builder for the TypeFieldMappings struct.
-func NewTypeFieldMappingsBuilder() *TypeFieldMappingsBuilder {
-	r := TypeFieldMappingsBuilder{
-		&TypeFieldMappings{
-			Mappings: make(map[Field]FieldMapping, 0),
-		},
+// NewTypeFieldMappings returns a TypeFieldMappings.
+func NewTypeFieldMappings() *TypeFieldMappings {
+	r := &TypeFieldMappings{
+		Mappings: make(map[string]FieldMapping, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TypeFieldMappings struct
-func (rb *TypeFieldMappingsBuilder) Build() TypeFieldMappings {
-	return *rb.v
-}
-
-func (rb *TypeFieldMappingsBuilder) Mappings(values map[Field]*FieldMappingBuilder) *TypeFieldMappingsBuilder {
-	tmp := make(map[Field]FieldMapping, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Mappings = tmp
-	return rb
+	return r
 }

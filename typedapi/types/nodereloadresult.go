@@ -17,42 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeReloadResult holds the union for the following types:
 //
-//	NodeReloadError
 //	Stats
+//	NodeReloadError
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/NodeReloadResult.ts#L29-L30
-type NodeReloadResult interface{}
-
-// NodeReloadResultBuilder holds NodeReloadResult struct and provides a builder API.
-type NodeReloadResultBuilder struct {
-	v NodeReloadResult
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/NodeReloadResult.ts#L29-L30
+type NodeReloadResult interface {
+	isNodeReloadResult()
 }
 
-// NewNodeReloadResult provides a builder for the NodeReloadResult struct.
-func NewNodeReloadResultBuilder() *NodeReloadResultBuilder {
-	return &NodeReloadResultBuilder{}
-}
+func (i Stats) isNodeReloadResult() {}
 
-// Build finalize the chain and returns the NodeReloadResult struct
-func (u *NodeReloadResultBuilder) Build() NodeReloadResult {
-	return u.v
-}
-
-func (u *NodeReloadResultBuilder) NodeReloadError(nodereloaderror *NodeReloadErrorBuilder) *NodeReloadResultBuilder {
-	v := nodereloaderror.Build()
-	u.v = &v
-	return u
-}
-
-func (u *NodeReloadResultBuilder) Stats(stats *StatsBuilder) *NodeReloadResultBuilder {
-	v := stats.Build()
-	u.v = &v
-	return u
-}
+func (i NodeReloadError) isNodeReloadResult() {}

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // NlpTokenizationUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L315-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L315-L320
 type NlpTokenizationUpdateOptions struct {
 	// Span Span options to apply
 	Span *int `json:"span,omitempty"`
@@ -36,35 +36,9 @@ type NlpTokenizationUpdateOptions struct {
 	Truncate *tokenizationtruncate.TokenizationTruncate `json:"truncate,omitempty"`
 }
 
-// NlpTokenizationUpdateOptionsBuilder holds NlpTokenizationUpdateOptions struct and provides a builder API.
-type NlpTokenizationUpdateOptionsBuilder struct {
-	v *NlpTokenizationUpdateOptions
-}
+// NewNlpTokenizationUpdateOptions returns a NlpTokenizationUpdateOptions.
+func NewNlpTokenizationUpdateOptions() *NlpTokenizationUpdateOptions {
+	r := &NlpTokenizationUpdateOptions{}
 
-// NewNlpTokenizationUpdateOptions provides a builder for the NlpTokenizationUpdateOptions struct.
-func NewNlpTokenizationUpdateOptionsBuilder() *NlpTokenizationUpdateOptionsBuilder {
-	r := NlpTokenizationUpdateOptionsBuilder{
-		&NlpTokenizationUpdateOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NlpTokenizationUpdateOptions struct
-func (rb *NlpTokenizationUpdateOptionsBuilder) Build() NlpTokenizationUpdateOptions {
-	return *rb.v
-}
-
-// Span Span options to apply
-
-func (rb *NlpTokenizationUpdateOptionsBuilder) Span(span int) *NlpTokenizationUpdateOptionsBuilder {
-	rb.v.Span = &span
-	return rb
-}
-
-// Truncate Truncate options to apply
-
-func (rb *NlpTokenizationUpdateOptionsBuilder) Truncate(truncate tokenizationtruncate.TokenizationTruncate) *NlpTokenizationUpdateOptionsBuilder {
-	rb.v.Truncate = &truncate
-	return rb
+	return r
 }

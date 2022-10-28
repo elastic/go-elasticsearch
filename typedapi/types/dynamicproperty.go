@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -32,17 +32,17 @@ import (
 
 // DynamicProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/core.ts#L275-L306
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L275-L306
 type DynamicProperty struct {
 	Analyzer            *string                        `json:"analyzer,omitempty"`
 	Boost               *float64                       `json:"boost,omitempty"`
 	Coerce              *bool                          `json:"coerce,omitempty"`
-	CopyTo              *Fields                        `json:"copy_to,omitempty"`
+	CopyTo              []string                       `json:"copy_to,omitempty"`
 	DocValues           *bool                          `json:"doc_values,omitempty"`
 	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
 	Enabled             *bool                          `json:"enabled,omitempty"`
-	Fields              map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields              map[string]Property            `json:"fields,omitempty"`
 	Format              *string                        `json:"format,omitempty"`
 	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed     *bool                          `json:"ignore_malformed,omitempty"`
@@ -50,7 +50,7 @@ type DynamicProperty struct {
 	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
 	IndexPhrases        *bool                          `json:"index_phrases,omitempty"`
 	IndexPrefixes       *TextIndexPrefixes             `json:"index_prefixes,omitempty"`
-	LocalMetadata       *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata       map[string]interface{}         `json:"local_metadata,omitempty"`
 	Locale              *string                        `json:"locale,omitempty"`
 	// Meta Metadata about the field.
 	Meta                 map[string]string                          `json:"meta,omitempty"`
@@ -59,7 +59,7 @@ type DynamicProperty struct {
 	OnScriptError        *onscripterror.OnScriptError               `json:"on_script_error,omitempty"`
 	PositionIncrementGap *int                                       `json:"position_increment_gap,omitempty"`
 	PrecisionStep        *int                                       `json:"precision_step,omitempty"`
-	Properties           map[PropertyName]Property                  `json:"properties,omitempty"`
+	Properties           map[string]Property                        `json:"properties,omitempty"`
 	Script               *Script                                    `json:"script,omitempty"`
 	SearchAnalyzer       *string                                    `json:"search_analyzer,omitempty"`
 	SearchQuoteAnalyzer  *string                                    `json:"search_quote_analyzer,omitempty"`
@@ -70,202 +70,15 @@ type DynamicProperty struct {
 	Type                 string                                     `json:"type,omitempty"`
 }
 
-// DynamicPropertyBuilder holds DynamicProperty struct and provides a builder API.
-type DynamicPropertyBuilder struct {
-	v *DynamicProperty
-}
-
-// NewDynamicProperty provides a builder for the DynamicProperty struct.
-func NewDynamicPropertyBuilder() *DynamicPropertyBuilder {
-	r := DynamicPropertyBuilder{
-		&DynamicProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewDynamicProperty returns a DynamicProperty.
+func NewDynamicProperty() *DynamicProperty {
+	r := &DynamicProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "{dynamic_property}"
+	r.Type = "{dynamic_property}"
 
-	return &r
-}
-
-// Build finalize the chain and returns the DynamicProperty struct
-func (rb *DynamicPropertyBuilder) Build() DynamicProperty {
-	return *rb.v
-}
-
-func (rb *DynamicPropertyBuilder) Analyzer(analyzer string) *DynamicPropertyBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Boost(boost float64) *DynamicPropertyBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Coerce(coerce bool) *DynamicPropertyBuilder {
-	rb.v.Coerce = &coerce
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) CopyTo(copyto *FieldsBuilder) *DynamicPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) DocValues(docvalues bool) *DynamicPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *DynamicPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) EagerGlobalOrdinals(eagerglobalordinals bool) *DynamicPropertyBuilder {
-	rb.v.EagerGlobalOrdinals = &eagerglobalordinals
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Enabled(enabled bool) *DynamicPropertyBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *DynamicPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Format(format string) *DynamicPropertyBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) IgnoreAbove(ignoreabove int) *DynamicPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *DynamicPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Index(index bool) *DynamicPropertyBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) IndexOptions(indexoptions indexoptions.IndexOptions) *DynamicPropertyBuilder {
-	rb.v.IndexOptions = &indexoptions
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) IndexPhrases(indexphrases bool) *DynamicPropertyBuilder {
-	rb.v.IndexPhrases = &indexphrases
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) IndexPrefixes(indexprefixes *TextIndexPrefixesBuilder) *DynamicPropertyBuilder {
-	v := indexprefixes.Build()
-	rb.v.IndexPrefixes = &v
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *DynamicPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Locale(locale string) *DynamicPropertyBuilder {
-	rb.v.Locale = &locale
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *DynamicPropertyBuilder) Meta(value map[string]string) *DynamicPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Norms(norms bool) *DynamicPropertyBuilder {
-	rb.v.Norms = &norms
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) NullValue(nullvalue *FieldValueBuilder) *DynamicPropertyBuilder {
-	v := nullvalue.Build()
-	rb.v.NullValue = &v
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) OnScriptError(onscripterror onscripterror.OnScriptError) *DynamicPropertyBuilder {
-	rb.v.OnScriptError = &onscripterror
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) PositionIncrementGap(positionincrementgap int) *DynamicPropertyBuilder {
-	rb.v.PositionIncrementGap = &positionincrementgap
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) PrecisionStep(precisionstep int) *DynamicPropertyBuilder {
-	rb.v.PrecisionStep = &precisionstep
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *DynamicPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Script(script *ScriptBuilder) *DynamicPropertyBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) SearchAnalyzer(searchanalyzer string) *DynamicPropertyBuilder {
-	rb.v.SearchAnalyzer = &searchanalyzer
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) SearchQuoteAnalyzer(searchquoteanalyzer string) *DynamicPropertyBuilder {
-	rb.v.SearchQuoteAnalyzer = &searchquoteanalyzer
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Similarity(similarity string) *DynamicPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) Store(store bool) *DynamicPropertyBuilder {
-	rb.v.Store = &store
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) TermVector(termvector termvectoroption.TermVectorOption) *DynamicPropertyBuilder {
-	rb.v.TermVector = &termvector
-	return rb
-}
-
-func (rb *DynamicPropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *DynamicPropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

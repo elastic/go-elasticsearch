@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package invalidateapikey
@@ -25,42 +25,28 @@ package invalidateapikey
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package invalidateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L37
 type Request struct {
-	Id *types.Id `json:"id,omitempty"`
-
-	Ids []types.Id `json:"ids,omitempty"`
-
-	Name *types.Name `json:"name,omitempty"`
-
-	Owner *bool `json:"owner,omitempty"`
-
-	RealmName *string `json:"realm_name,omitempty"`
-
-	Username *types.Username `json:"username,omitempty"`
+	Id        *string  `json:"id,omitempty"`
+	Ids       []string `json:"ids,omitempty"`
+	Name      *string  `json:"name,omitempty"`
+	Owner     *bool    `json:"owner,omitempty"`
+	RealmName *string  `json:"realm_name,omitempty"`
+	Username  *string  `json:"username,omitempty"`
 }
 
-// RequestBuilder is the builder API for the invalidateapikey.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -69,39 +55,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Id(id types.Id) *RequestBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *RequestBuilder) Ids(ids ...types.Id) *RequestBuilder {
-	rb.v.Ids = ids
-	return rb
-}
-
-func (rb *RequestBuilder) Name(name types.Name) *RequestBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *RequestBuilder) Owner(owner bool) *RequestBuilder {
-	rb.v.Owner = &owner
-	return rb
-}
-
-func (rb *RequestBuilder) RealmName(realmname string) *RequestBuilder {
-	rb.v.RealmName = &realmname
-	return rb
-}
-
-func (rb *RequestBuilder) Username(username types.Username) *RequestBuilder {
-	rb.v.Username = &username
-	return rb
 }

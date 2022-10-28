@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Vertex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/graph/_types/Vertex.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/graph/_types/Vertex.ts#L23-L28
 type Vertex struct {
 	Depth  int64   `json:"depth"`
-	Field  Field   `json:"field"`
+	Field  string  `json:"field"`
 	Term   string  `json:"term"`
 	Weight float64 `json:"weight"`
 }
 
-// VertexBuilder holds Vertex struct and provides a builder API.
-type VertexBuilder struct {
-	v *Vertex
-}
+// NewVertex returns a Vertex.
+func NewVertex() *Vertex {
+	r := &Vertex{}
 
-// NewVertex provides a builder for the Vertex struct.
-func NewVertexBuilder() *VertexBuilder {
-	r := VertexBuilder{
-		&Vertex{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Vertex struct
-func (rb *VertexBuilder) Build() Vertex {
-	return *rb.v
-}
-
-func (rb *VertexBuilder) Depth(depth int64) *VertexBuilder {
-	rb.v.Depth = depth
-	return rb
-}
-
-func (rb *VertexBuilder) Field(field Field) *VertexBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *VertexBuilder) Term(term string) *VertexBuilder {
-	rb.v.Term = term
-	return rb
-}
-
-func (rb *VertexBuilder) Weight(weight float64) *VertexBuilder {
-	rb.v.Weight = weight
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,46 +28,19 @@ import (
 
 // KeepTypesTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L217-L221
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L217-L221
 type KeepTypesTokenFilter struct {
 	Mode    *keeptypesmode.KeepTypesMode `json:"mode,omitempty"`
 	Type    string                       `json:"type,omitempty"`
 	Types   []string                     `json:"types,omitempty"`
-	Version *VersionString               `json:"version,omitempty"`
+	Version *string                      `json:"version,omitempty"`
 }
 
-// KeepTypesTokenFilterBuilder holds KeepTypesTokenFilter struct and provides a builder API.
-type KeepTypesTokenFilterBuilder struct {
-	v *KeepTypesTokenFilter
-}
+// NewKeepTypesTokenFilter returns a KeepTypesTokenFilter.
+func NewKeepTypesTokenFilter() *KeepTypesTokenFilter {
+	r := &KeepTypesTokenFilter{}
 
-// NewKeepTypesTokenFilter provides a builder for the KeepTypesTokenFilter struct.
-func NewKeepTypesTokenFilterBuilder() *KeepTypesTokenFilterBuilder {
-	r := KeepTypesTokenFilterBuilder{
-		&KeepTypesTokenFilter{},
-	}
+	r.Type = "keep_types"
 
-	r.v.Type = "keep_types"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KeepTypesTokenFilter struct
-func (rb *KeepTypesTokenFilterBuilder) Build() KeepTypesTokenFilter {
-	return *rb.v
-}
-
-func (rb *KeepTypesTokenFilterBuilder) Mode(mode keeptypesmode.KeepTypesMode) *KeepTypesTokenFilterBuilder {
-	rb.v.Mode = &mode
-	return rb
-}
-
-func (rb *KeepTypesTokenFilterBuilder) Types(types ...string) *KeepTypesTokenFilterBuilder {
-	rb.v.Types = types
-	return rb
-}
-
-func (rb *KeepTypesTokenFilterBuilder) Version(version VersionString) *KeepTypesTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

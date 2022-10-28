@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterFileSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L34-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L34-L38
 type ClusterFileSystem struct {
 	AvailableInBytes int64 `json:"available_in_bytes"`
 	FreeInBytes      int64 `json:"free_in_bytes"`
 	TotalInBytes     int64 `json:"total_in_bytes"`
 }
 
-// ClusterFileSystemBuilder holds ClusterFileSystem struct and provides a builder API.
-type ClusterFileSystemBuilder struct {
-	v *ClusterFileSystem
-}
+// NewClusterFileSystem returns a ClusterFileSystem.
+func NewClusterFileSystem() *ClusterFileSystem {
+	r := &ClusterFileSystem{}
 
-// NewClusterFileSystem provides a builder for the ClusterFileSystem struct.
-func NewClusterFileSystemBuilder() *ClusterFileSystemBuilder {
-	r := ClusterFileSystemBuilder{
-		&ClusterFileSystem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterFileSystem struct
-func (rb *ClusterFileSystemBuilder) Build() ClusterFileSystem {
-	return *rb.v
-}
-
-func (rb *ClusterFileSystemBuilder) AvailableInBytes(availableinbytes int64) *ClusterFileSystemBuilder {
-	rb.v.AvailableInBytes = availableinbytes
-	return rb
-}
-
-func (rb *ClusterFileSystemBuilder) FreeInBytes(freeinbytes int64) *ClusterFileSystemBuilder {
-	rb.v.FreeInBytes = freeinbytes
-	return rb
-}
-
-func (rb *ClusterFileSystemBuilder) TotalInBytes(totalinbytes int64) *ClusterFileSystemBuilder {
-	rb.v.TotalInBytes = totalinbytes
-	return rb
+	return r
 }

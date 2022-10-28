@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PainlessContextSetup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/scripts_painless_execute/types.ts#L25-L29
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/scripts_painless_execute/types.ts#L25-L29
 type PainlessContextSetup struct {
-	Document interface{}    `json:"document,omitempty"`
-	Index    IndexName      `json:"index"`
-	Query    QueryContainer `json:"query"`
+	Document interface{} `json:"document,omitempty"`
+	Index    string      `json:"index"`
+	Query    Query       `json:"query"`
 }
 
-// PainlessContextSetupBuilder holds PainlessContextSetup struct and provides a builder API.
-type PainlessContextSetupBuilder struct {
-	v *PainlessContextSetup
-}
+// NewPainlessContextSetup returns a PainlessContextSetup.
+func NewPainlessContextSetup() *PainlessContextSetup {
+	r := &PainlessContextSetup{}
 
-// NewPainlessContextSetup provides a builder for the PainlessContextSetup struct.
-func NewPainlessContextSetupBuilder() *PainlessContextSetupBuilder {
-	r := PainlessContextSetupBuilder{
-		&PainlessContextSetup{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PainlessContextSetup struct
-func (rb *PainlessContextSetupBuilder) Build() PainlessContextSetup {
-	return *rb.v
-}
-
-func (rb *PainlessContextSetupBuilder) Document(document interface{}) *PainlessContextSetupBuilder {
-	rb.v.Document = document
-	return rb
-}
-
-func (rb *PainlessContextSetupBuilder) Index(index IndexName) *PainlessContextSetupBuilder {
-	rb.v.Index = index
-	return rb
-}
-
-func (rb *PainlessContextSetupBuilder) Query(query *QueryContainerBuilder) *PainlessContextSetupBuilder {
-	v := query.Build()
-	rb.v.Query = v
-	return rb
+	return r
 }

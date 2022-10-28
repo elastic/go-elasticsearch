@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,65 +29,21 @@ import (
 
 // IndicesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/stats/types.ts#L89-L98
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L89-L98
 type IndicesStats struct {
 	Health    *healthstatus.HealthStatus             `json:"health,omitempty"`
 	Primaries *IndexStats                            `json:"primaries,omitempty"`
-	Shards    map[string][]ShardStats                `json:"shards,omitempty"`
+	Shards    map[string][]IndicesShardStats         `json:"shards,omitempty"`
 	Status    *indexmetadatastate.IndexMetadataState `json:"status,omitempty"`
 	Total     *IndexStats                            `json:"total,omitempty"`
-	Uuid      *Uuid                                  `json:"uuid,omitempty"`
+	Uuid      *string                                `json:"uuid,omitempty"`
 }
 
-// IndicesStatsBuilder holds IndicesStats struct and provides a builder API.
-type IndicesStatsBuilder struct {
-	v *IndicesStats
-}
-
-// NewIndicesStats provides a builder for the IndicesStats struct.
-func NewIndicesStatsBuilder() *IndicesStatsBuilder {
-	r := IndicesStatsBuilder{
-		&IndicesStats{
-			Shards: make(map[string][]ShardStats, 0),
-		},
+// NewIndicesStats returns a IndicesStats.
+func NewIndicesStats() *IndicesStats {
+	r := &IndicesStats{
+		Shards: make(map[string][]IndicesShardStats, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IndicesStats struct
-func (rb *IndicesStatsBuilder) Build() IndicesStats {
-	return *rb.v
-}
-
-func (rb *IndicesStatsBuilder) Health(health healthstatus.HealthStatus) *IndicesStatsBuilder {
-	rb.v.Health = &health
-	return rb
-}
-
-func (rb *IndicesStatsBuilder) Primaries(primaries *IndexStatsBuilder) *IndicesStatsBuilder {
-	v := primaries.Build()
-	rb.v.Primaries = &v
-	return rb
-}
-
-func (rb *IndicesStatsBuilder) Shards(value map[string][]ShardStats) *IndicesStatsBuilder {
-	rb.v.Shards = value
-	return rb
-}
-
-func (rb *IndicesStatsBuilder) Status(status indexmetadatastate.IndexMetadataState) *IndicesStatsBuilder {
-	rb.v.Status = &status
-	return rb
-}
-
-func (rb *IndicesStatsBuilder) Total(total *IndexStatsBuilder) *IndicesStatsBuilder {
-	v := total.Build()
-	rb.v.Total = &v
-	return rb
-}
-
-func (rb *IndicesStatsBuilder) Uuid(uuid Uuid) *IndicesStatsBuilder {
-	rb.v.Uuid = &uuid
-	return rb
+	return r
 }

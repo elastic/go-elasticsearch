@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,73 +29,20 @@ import (
 
 // GeoDistanceAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L176-L182
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L176-L182
 type GeoDistanceAggregation struct {
 	DistanceType *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	Field        *Field                           `json:"field,omitempty"`
-	Meta         *Metadata                        `json:"meta,omitempty"`
+	Field        *string                          `json:"field,omitempty"`
+	Meta         map[string]interface{}           `json:"meta,omitempty"`
 	Name         *string                          `json:"name,omitempty"`
 	Origin       *GeoLocation                     `json:"origin,omitempty"`
 	Ranges       []AggregationRange               `json:"ranges,omitempty"`
 	Unit         *distanceunit.DistanceUnit       `json:"unit,omitempty"`
 }
 
-// GeoDistanceAggregationBuilder holds GeoDistanceAggregation struct and provides a builder API.
-type GeoDistanceAggregationBuilder struct {
-	v *GeoDistanceAggregation
-}
+// NewGeoDistanceAggregation returns a GeoDistanceAggregation.
+func NewGeoDistanceAggregation() *GeoDistanceAggregation {
+	r := &GeoDistanceAggregation{}
 
-// NewGeoDistanceAggregation provides a builder for the GeoDistanceAggregation struct.
-func NewGeoDistanceAggregationBuilder() *GeoDistanceAggregationBuilder {
-	r := GeoDistanceAggregationBuilder{
-		&GeoDistanceAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoDistanceAggregation struct
-func (rb *GeoDistanceAggregationBuilder) Build() GeoDistanceAggregation {
-	return *rb.v
-}
-
-func (rb *GeoDistanceAggregationBuilder) DistanceType(distancetype geodistancetype.GeoDistanceType) *GeoDistanceAggregationBuilder {
-	rb.v.DistanceType = &distancetype
-	return rb
-}
-
-func (rb *GeoDistanceAggregationBuilder) Field(field Field) *GeoDistanceAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *GeoDistanceAggregationBuilder) Meta(meta *MetadataBuilder) *GeoDistanceAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *GeoDistanceAggregationBuilder) Name(name string) *GeoDistanceAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *GeoDistanceAggregationBuilder) Origin(origin *GeoLocationBuilder) *GeoDistanceAggregationBuilder {
-	v := origin.Build()
-	rb.v.Origin = &v
-	return rb
-}
-
-func (rb *GeoDistanceAggregationBuilder) Ranges(ranges []AggregationRangeBuilder) *GeoDistanceAggregationBuilder {
-	tmp := make([]AggregationRange, len(ranges))
-	for _, value := range ranges {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Ranges = tmp
-	return rb
-}
-
-func (rb *GeoDistanceAggregationBuilder) Unit(unit distanceunit.DistanceUnit) *GeoDistanceAggregationBuilder {
-	rb.v.Unit = &unit
-	return rb
+	return r
 }

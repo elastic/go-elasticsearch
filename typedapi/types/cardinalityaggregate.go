@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CardinalityAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L129-L132
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L137-L140
 type CardinalityAggregate struct {
-	Meta  *Metadata `json:"meta,omitempty"`
-	Value int64     `json:"value"`
+	Meta  map[string]interface{} `json:"meta,omitempty"`
+	Value int64                  `json:"value"`
 }
 
-// CardinalityAggregateBuilder holds CardinalityAggregate struct and provides a builder API.
-type CardinalityAggregateBuilder struct {
-	v *CardinalityAggregate
-}
+// NewCardinalityAggregate returns a CardinalityAggregate.
+func NewCardinalityAggregate() *CardinalityAggregate {
+	r := &CardinalityAggregate{}
 
-// NewCardinalityAggregate provides a builder for the CardinalityAggregate struct.
-func NewCardinalityAggregateBuilder() *CardinalityAggregateBuilder {
-	r := CardinalityAggregateBuilder{
-		&CardinalityAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CardinalityAggregate struct
-func (rb *CardinalityAggregateBuilder) Build() CardinalityAggregate {
-	return *rb.v
-}
-
-func (rb *CardinalityAggregateBuilder) Meta(meta *MetadataBuilder) *CardinalityAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *CardinalityAggregateBuilder) Value(value int64) *CardinalityAggregateBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

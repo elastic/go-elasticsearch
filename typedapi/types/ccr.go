@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Ccr type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L319-L322
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L319-L322
 type Ccr struct {
 	AutoFollowPatternsCount int  `json:"auto_follow_patterns_count"`
 	Available               bool `json:"available"`
@@ -32,41 +32,9 @@ type Ccr struct {
 	FollowerIndicesCount    int  `json:"follower_indices_count"`
 }
 
-// CcrBuilder holds Ccr struct and provides a builder API.
-type CcrBuilder struct {
-	v *Ccr
-}
+// NewCcr returns a Ccr.
+func NewCcr() *Ccr {
+	r := &Ccr{}
 
-// NewCcr provides a builder for the Ccr struct.
-func NewCcrBuilder() *CcrBuilder {
-	r := CcrBuilder{
-		&Ccr{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Ccr struct
-func (rb *CcrBuilder) Build() Ccr {
-	return *rb.v
-}
-
-func (rb *CcrBuilder) AutoFollowPatternsCount(autofollowpatternscount int) *CcrBuilder {
-	rb.v.AutoFollowPatternsCount = autofollowpatternscount
-	return rb
-}
-
-func (rb *CcrBuilder) Available(available bool) *CcrBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *CcrBuilder) Enabled(enabled bool) *CcrBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *CcrBuilder) FollowerIndicesCount(followerindicescount int) *CcrBuilder {
-	rb.v.FollowerIndicesCount = followerindicescount
-	return rb
+	return r
 }

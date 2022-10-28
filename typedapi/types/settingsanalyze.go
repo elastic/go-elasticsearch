@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SettingsAnalyze type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L226-L229
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L226-L229
 type SettingsAnalyze struct {
 	MaxTokenCount *int `json:"max_token_count,omitempty"`
 }
 
-// SettingsAnalyzeBuilder holds SettingsAnalyze struct and provides a builder API.
-type SettingsAnalyzeBuilder struct {
-	v *SettingsAnalyze
-}
+// NewSettingsAnalyze returns a SettingsAnalyze.
+func NewSettingsAnalyze() *SettingsAnalyze {
+	r := &SettingsAnalyze{}
 
-// NewSettingsAnalyze provides a builder for the SettingsAnalyze struct.
-func NewSettingsAnalyzeBuilder() *SettingsAnalyzeBuilder {
-	r := SettingsAnalyzeBuilder{
-		&SettingsAnalyze{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SettingsAnalyze struct
-func (rb *SettingsAnalyzeBuilder) Build() SettingsAnalyze {
-	return *rb.v
-}
-
-func (rb *SettingsAnalyzeBuilder) MaxTokenCount(maxtokencount int) *SettingsAnalyzeBuilder {
-	rb.v.MaxTokenCount = &maxtokencount
-	return rb
+	return r
 }

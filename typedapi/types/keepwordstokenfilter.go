@@ -17,59 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KeepWordsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L223-L228
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L223-L228
 type KeepWordsTokenFilter struct {
-	KeepWords     []string       `json:"keep_words,omitempty"`
-	KeepWordsCase *bool          `json:"keep_words_case,omitempty"`
-	KeepWordsPath *string        `json:"keep_words_path,omitempty"`
-	Type          string         `json:"type,omitempty"`
-	Version       *VersionString `json:"version,omitempty"`
+	KeepWords     []string `json:"keep_words,omitempty"`
+	KeepWordsCase *bool    `json:"keep_words_case,omitempty"`
+	KeepWordsPath *string  `json:"keep_words_path,omitempty"`
+	Type          string   `json:"type,omitempty"`
+	Version       *string  `json:"version,omitempty"`
 }
 
-// KeepWordsTokenFilterBuilder holds KeepWordsTokenFilter struct and provides a builder API.
-type KeepWordsTokenFilterBuilder struct {
-	v *KeepWordsTokenFilter
-}
+// NewKeepWordsTokenFilter returns a KeepWordsTokenFilter.
+func NewKeepWordsTokenFilter() *KeepWordsTokenFilter {
+	r := &KeepWordsTokenFilter{}
 
-// NewKeepWordsTokenFilter provides a builder for the KeepWordsTokenFilter struct.
-func NewKeepWordsTokenFilterBuilder() *KeepWordsTokenFilterBuilder {
-	r := KeepWordsTokenFilterBuilder{
-		&KeepWordsTokenFilter{},
-	}
+	r.Type = "keep"
 
-	r.v.Type = "keep"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KeepWordsTokenFilter struct
-func (rb *KeepWordsTokenFilterBuilder) Build() KeepWordsTokenFilter {
-	return *rb.v
-}
-
-func (rb *KeepWordsTokenFilterBuilder) KeepWords(keep_words ...string) *KeepWordsTokenFilterBuilder {
-	rb.v.KeepWords = keep_words
-	return rb
-}
-
-func (rb *KeepWordsTokenFilterBuilder) KeepWordsCase(keepwordscase bool) *KeepWordsTokenFilterBuilder {
-	rb.v.KeepWordsCase = &keepwordscase
-	return rb
-}
-
-func (rb *KeepWordsTokenFilterBuilder) KeepWordsPath(keepwordspath string) *KeepWordsTokenFilterBuilder {
-	rb.v.KeepWordsPath = &keepwordspath
-	return rb
-}
-
-func (rb *KeepWordsTokenFilterBuilder) Version(version VersionString) *KeepWordsTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardsTotalStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/stats/types.ts#L170-L172
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L170-L172
 type ShardsTotalStats struct {
 	TotalCount int64 `json:"total_count"`
 }
 
-// ShardsTotalStatsBuilder holds ShardsTotalStats struct and provides a builder API.
-type ShardsTotalStatsBuilder struct {
-	v *ShardsTotalStats
-}
+// NewShardsTotalStats returns a ShardsTotalStats.
+func NewShardsTotalStats() *ShardsTotalStats {
+	r := &ShardsTotalStats{}
 
-// NewShardsTotalStats provides a builder for the ShardsTotalStats struct.
-func NewShardsTotalStatsBuilder() *ShardsTotalStatsBuilder {
-	r := ShardsTotalStatsBuilder{
-		&ShardsTotalStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardsTotalStats struct
-func (rb *ShardsTotalStatsBuilder) Build() ShardsTotalStats {
-	return *rb.v
-}
-
-func (rb *ShardsTotalStatsBuilder) TotalCount(totalcount int64) *ShardsTotalStatsBuilder {
-	rb.v.TotalCount = totalcount
-	return rb
+	return r
 }

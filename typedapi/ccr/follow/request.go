@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package follow
@@ -31,48 +31,30 @@ import (
 
 // Request holds the request body struct for the package follow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L52
 type Request struct {
-	LeaderIndex *types.IndexName `json:"leader_index,omitempty"`
-
-	MaxOutstandingReadRequests *int64 `json:"max_outstanding_read_requests,omitempty"`
-
-	MaxOutstandingWriteRequests *int64 `json:"max_outstanding_write_requests,omitempty"`
-
-	MaxReadRequestOperationCount *int64 `json:"max_read_request_operation_count,omitempty"`
-
-	MaxReadRequestSize *string `json:"max_read_request_size,omitempty"`
-
-	MaxRetryDelay *types.Duration `json:"max_retry_delay,omitempty"`
-
-	MaxWriteBufferCount *int64 `json:"max_write_buffer_count,omitempty"`
-
-	MaxWriteBufferSize *string `json:"max_write_buffer_size,omitempty"`
-
-	MaxWriteRequestOperationCount *int64 `json:"max_write_request_operation_count,omitempty"`
-
-	MaxWriteRequestSize *string `json:"max_write_request_size,omitempty"`
-
-	ReadPollTimeout *types.Duration `json:"read_poll_timeout,omitempty"`
-
-	RemoteCluster *string `json:"remote_cluster,omitempty"`
+	LeaderIndex                   *string         `json:"leader_index,omitempty"`
+	MaxOutstandingReadRequests    *int64          `json:"max_outstanding_read_requests,omitempty"`
+	MaxOutstandingWriteRequests   *int64          `json:"max_outstanding_write_requests,omitempty"`
+	MaxReadRequestOperationCount  *int64          `json:"max_read_request_operation_count,omitempty"`
+	MaxReadRequestSize            *string         `json:"max_read_request_size,omitempty"`
+	MaxRetryDelay                 *types.Duration `json:"max_retry_delay,omitempty"`
+	MaxWriteBufferCount           *int64          `json:"max_write_buffer_count,omitempty"`
+	MaxWriteBufferSize            *string         `json:"max_write_buffer_size,omitempty"`
+	MaxWriteRequestOperationCount *int64          `json:"max_write_request_operation_count,omitempty"`
+	MaxWriteRequestSize           *string         `json:"max_write_request_size,omitempty"`
+	ReadPollTimeout               *types.Duration `json:"read_poll_timeout,omitempty"`
+	RemoteCluster                 *string         `json:"remote_cluster,omitempty"`
 }
 
-// RequestBuilder is the builder API for the follow.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -81,71 +63,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) LeaderIndex(leaderindex types.IndexName) *RequestBuilder {
-	rb.v.LeaderIndex = &leaderindex
-	return rb
-}
-
-func (rb *RequestBuilder) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *RequestBuilder {
-	rb.v.MaxOutstandingReadRequests = &maxoutstandingreadrequests
-	return rb
-}
-
-func (rb *RequestBuilder) MaxOutstandingWriteRequests(maxoutstandingwriterequests int64) *RequestBuilder {
-	rb.v.MaxOutstandingWriteRequests = &maxoutstandingwriterequests
-	return rb
-}
-
-func (rb *RequestBuilder) MaxReadRequestOperationCount(maxreadrequestoperationcount int64) *RequestBuilder {
-	rb.v.MaxReadRequestOperationCount = &maxreadrequestoperationcount
-	return rb
-}
-
-func (rb *RequestBuilder) MaxReadRequestSize(maxreadrequestsize string) *RequestBuilder {
-	rb.v.MaxReadRequestSize = &maxreadrequestsize
-	return rb
-}
-
-func (rb *RequestBuilder) MaxRetryDelay(maxretrydelay *types.DurationBuilder) *RequestBuilder {
-	v := maxretrydelay.Build()
-	rb.v.MaxRetryDelay = &v
-	return rb
-}
-
-func (rb *RequestBuilder) MaxWriteBufferCount(maxwritebuffercount int64) *RequestBuilder {
-	rb.v.MaxWriteBufferCount = &maxwritebuffercount
-	return rb
-}
-
-func (rb *RequestBuilder) MaxWriteBufferSize(maxwritebuffersize string) *RequestBuilder {
-	rb.v.MaxWriteBufferSize = &maxwritebuffersize
-	return rb
-}
-
-func (rb *RequestBuilder) MaxWriteRequestOperationCount(maxwriterequestoperationcount int64) *RequestBuilder {
-	rb.v.MaxWriteRequestOperationCount = &maxwriterequestoperationcount
-	return rb
-}
-
-func (rb *RequestBuilder) MaxWriteRequestSize(maxwriterequestsize string) *RequestBuilder {
-	rb.v.MaxWriteRequestSize = &maxwriterequestsize
-	return rb
-}
-
-func (rb *RequestBuilder) ReadPollTimeout(readpolltimeout *types.DurationBuilder) *RequestBuilder {
-	v := readpolltimeout.Build()
-	rb.v.ReadPollTimeout = &v
-	return rb
-}
-
-func (rb *RequestBuilder) RemoteCluster(remotecluster string) *RequestBuilder {
-	rb.v.RemoteCluster = &remotecluster
-	return rb
 }

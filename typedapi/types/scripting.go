@@ -17,60 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Scripting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L383-L388
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L383-L388
 type Scripting struct {
-	CacheEvictions            *int64    `json:"cache_evictions,omitempty"`
-	CompilationLimitTriggered *int64    `json:"compilation_limit_triggered,omitempty"`
-	Compilations              *int64    `json:"compilations,omitempty"`
-	Contexts                  []Context `json:"contexts,omitempty"`
+	CacheEvictions            *int64         `json:"cache_evictions,omitempty"`
+	CompilationLimitTriggered *int64         `json:"compilation_limit_triggered,omitempty"`
+	Compilations              *int64         `json:"compilations,omitempty"`
+	Contexts                  []NodesContext `json:"contexts,omitempty"`
 }
 
-// ScriptingBuilder holds Scripting struct and provides a builder API.
-type ScriptingBuilder struct {
-	v *Scripting
-}
+// NewScripting returns a Scripting.
+func NewScripting() *Scripting {
+	r := &Scripting{}
 
-// NewScripting provides a builder for the Scripting struct.
-func NewScriptingBuilder() *ScriptingBuilder {
-	r := ScriptingBuilder{
-		&Scripting{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Scripting struct
-func (rb *ScriptingBuilder) Build() Scripting {
-	return *rb.v
-}
-
-func (rb *ScriptingBuilder) CacheEvictions(cacheevictions int64) *ScriptingBuilder {
-	rb.v.CacheEvictions = &cacheevictions
-	return rb
-}
-
-func (rb *ScriptingBuilder) CompilationLimitTriggered(compilationlimittriggered int64) *ScriptingBuilder {
-	rb.v.CompilationLimitTriggered = &compilationlimittriggered
-	return rb
-}
-
-func (rb *ScriptingBuilder) Compilations(compilations int64) *ScriptingBuilder {
-	rb.v.Compilations = &compilations
-	return rb
-}
-
-func (rb *ScriptingBuilder) Contexts(contexts []ContextBuilder) *ScriptingBuilder {
-	tmp := make([]Context, len(contexts))
-	for _, value := range contexts {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Contexts = tmp
-	return rb
+	return r
 }

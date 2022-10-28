@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeReloadError type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/NodeReloadResult.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/NodeReloadResult.ts#L24-L27
 type NodeReloadError struct {
-	Name            Name        `json:"name"`
+	Name            string      `json:"name"`
 	ReloadException *ErrorCause `json:"reload_exception,omitempty"`
 }
 
-// NodeReloadErrorBuilder holds NodeReloadError struct and provides a builder API.
-type NodeReloadErrorBuilder struct {
-	v *NodeReloadError
-}
+// NewNodeReloadError returns a NodeReloadError.
+func NewNodeReloadError() *NodeReloadError {
+	r := &NodeReloadError{}
 
-// NewNodeReloadError provides a builder for the NodeReloadError struct.
-func NewNodeReloadErrorBuilder() *NodeReloadErrorBuilder {
-	r := NodeReloadErrorBuilder{
-		&NodeReloadError{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeReloadError struct
-func (rb *NodeReloadErrorBuilder) Build() NodeReloadError {
-	return *rb.v
-}
-
-func (rb *NodeReloadErrorBuilder) Name(name Name) *NodeReloadErrorBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *NodeReloadErrorBuilder) ReloadException(reloadexception *ErrorCauseBuilder) *NodeReloadErrorBuilder {
-	v := reloadexception.Build()
-	rb.v.ReloadException = &v
-	return rb
+	return r
 }

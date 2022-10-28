@@ -17,53 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/char_filters.ts#L47-L51
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/char_filters.ts#L47-L51
 type MappingCharFilter struct {
-	Mappings     []string       `json:"mappings,omitempty"`
-	MappingsPath *string        `json:"mappings_path,omitempty"`
-	Type         string         `json:"type,omitempty"`
-	Version      *VersionString `json:"version,omitempty"`
+	Mappings     []string `json:"mappings,omitempty"`
+	MappingsPath *string  `json:"mappings_path,omitempty"`
+	Type         string   `json:"type,omitempty"`
+	Version      *string  `json:"version,omitempty"`
 }
 
-// MappingCharFilterBuilder holds MappingCharFilter struct and provides a builder API.
-type MappingCharFilterBuilder struct {
-	v *MappingCharFilter
-}
+// NewMappingCharFilter returns a MappingCharFilter.
+func NewMappingCharFilter() *MappingCharFilter {
+	r := &MappingCharFilter{}
 
-// NewMappingCharFilter provides a builder for the MappingCharFilter struct.
-func NewMappingCharFilterBuilder() *MappingCharFilterBuilder {
-	r := MappingCharFilterBuilder{
-		&MappingCharFilter{},
-	}
+	r.Type = "mapping"
 
-	r.v.Type = "mapping"
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingCharFilter struct
-func (rb *MappingCharFilterBuilder) Build() MappingCharFilter {
-	return *rb.v
-}
-
-func (rb *MappingCharFilterBuilder) Mappings(mappings ...string) *MappingCharFilterBuilder {
-	rb.v.Mappings = mappings
-	return rb
-}
-
-func (rb *MappingCharFilterBuilder) MappingsPath(mappingspath string) *MappingCharFilterBuilder {
-	rb.v.MappingsPath = &mappingspath
-	return rb
-}
-
-func (rb *MappingCharFilterBuilder) Version(version VersionString) *MappingCharFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

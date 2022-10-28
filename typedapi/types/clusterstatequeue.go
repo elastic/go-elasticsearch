@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterStateQueue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L108-L112
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L108-L112
 type ClusterStateQueue struct {
 	Committed *int64 `json:"committed,omitempty"`
 	Pending   *int64 `json:"pending,omitempty"`
 	Total     *int64 `json:"total,omitempty"`
 }
 
-// ClusterStateQueueBuilder holds ClusterStateQueue struct and provides a builder API.
-type ClusterStateQueueBuilder struct {
-	v *ClusterStateQueue
-}
+// NewClusterStateQueue returns a ClusterStateQueue.
+func NewClusterStateQueue() *ClusterStateQueue {
+	r := &ClusterStateQueue{}
 
-// NewClusterStateQueue provides a builder for the ClusterStateQueue struct.
-func NewClusterStateQueueBuilder() *ClusterStateQueueBuilder {
-	r := ClusterStateQueueBuilder{
-		&ClusterStateQueue{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterStateQueue struct
-func (rb *ClusterStateQueueBuilder) Build() ClusterStateQueue {
-	return *rb.v
-}
-
-func (rb *ClusterStateQueueBuilder) Committed(committed int64) *ClusterStateQueueBuilder {
-	rb.v.Committed = &committed
-	return rb
-}
-
-func (rb *ClusterStateQueueBuilder) Pending(pending int64) *ClusterStateQueueBuilder {
-	rb.v.Pending = &pending
-	return rb
-}
-
-func (rb *ClusterStateQueueBuilder) Total(total int64) *ClusterStateQueueBuilder {
-	rb.v.Total = &total
-	return rb
+	return r
 }

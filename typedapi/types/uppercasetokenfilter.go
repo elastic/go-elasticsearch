@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // UppercaseTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L338-L340
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L338-L340
 type UppercaseTokenFilter struct {
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// UppercaseTokenFilterBuilder holds UppercaseTokenFilter struct and provides a builder API.
-type UppercaseTokenFilterBuilder struct {
-	v *UppercaseTokenFilter
-}
+// NewUppercaseTokenFilter returns a UppercaseTokenFilter.
+func NewUppercaseTokenFilter() *UppercaseTokenFilter {
+	r := &UppercaseTokenFilter{}
 
-// NewUppercaseTokenFilter provides a builder for the UppercaseTokenFilter struct.
-func NewUppercaseTokenFilterBuilder() *UppercaseTokenFilterBuilder {
-	r := UppercaseTokenFilterBuilder{
-		&UppercaseTokenFilter{},
-	}
+	r.Type = "uppercase"
 
-	r.v.Type = "uppercase"
-
-	return &r
-}
-
-// Build finalize the chain and returns the UppercaseTokenFilter struct
-func (rb *UppercaseTokenFilterBuilder) Build() UppercaseTokenFilter {
-	return *rb.v
-}
-
-func (rb *UppercaseTokenFilterBuilder) Version(version VersionString) *UppercaseTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,91 +28,24 @@ import (
 
 // DateRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/term.ts#L72-L81
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L72-L81
 type DateRangeQuery struct {
 	Boost      *float32                     `json:"boost,omitempty"`
-	Format     *DateFormat                  `json:"format,omitempty"`
-	From       DateMath                     `json:"from,omitempty"`
-	Gt         *DateMath                    `json:"gt,omitempty"`
-	Gte        *DateMath                    `json:"gte,omitempty"`
-	Lt         *DateMath                    `json:"lt,omitempty"`
-	Lte        *DateMath                    `json:"lte,omitempty"`
+	Format     *string                      `json:"format,omitempty"`
+	From       string                       `json:"from,omitempty"`
+	Gt         *string                      `json:"gt,omitempty"`
+	Gte        *string                      `json:"gte,omitempty"`
+	Lt         *string                      `json:"lt,omitempty"`
+	Lte        *string                      `json:"lte,omitempty"`
 	QueryName_ *string                      `json:"_name,omitempty"`
 	Relation   *rangerelation.RangeRelation `json:"relation,omitempty"`
-	TimeZone   *TimeZone                    `json:"time_zone,omitempty"`
-	To         DateMath                     `json:"to,omitempty"`
+	TimeZone   *string                      `json:"time_zone,omitempty"`
+	To         string                       `json:"to,omitempty"`
 }
 
-// DateRangeQueryBuilder holds DateRangeQuery struct and provides a builder API.
-type DateRangeQueryBuilder struct {
-	v *DateRangeQuery
-}
+// NewDateRangeQuery returns a DateRangeQuery.
+func NewDateRangeQuery() *DateRangeQuery {
+	r := &DateRangeQuery{}
 
-// NewDateRangeQuery provides a builder for the DateRangeQuery struct.
-func NewDateRangeQueryBuilder() *DateRangeQueryBuilder {
-	r := DateRangeQueryBuilder{
-		&DateRangeQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DateRangeQuery struct
-func (rb *DateRangeQueryBuilder) Build() DateRangeQuery {
-	return *rb.v
-}
-
-func (rb *DateRangeQueryBuilder) Boost(boost float32) *DateRangeQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) Format(format DateFormat) *DateRangeQueryBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) From(from DateMath) *DateRangeQueryBuilder {
-	rb.v.From = from
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) Gt(gt DateMath) *DateRangeQueryBuilder {
-	rb.v.Gt = &gt
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) Gte(gte DateMath) *DateRangeQueryBuilder {
-	rb.v.Gte = &gte
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) Lt(lt DateMath) *DateRangeQueryBuilder {
-	rb.v.Lt = &lt
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) Lte(lte DateMath) *DateRangeQueryBuilder {
-	rb.v.Lte = &lte
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) QueryName_(queryname_ string) *DateRangeQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) Relation(relation rangerelation.RangeRelation) *DateRangeQueryBuilder {
-	rb.v.Relation = &relation
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) TimeZone(timezone TimeZone) *DateRangeQueryBuilder {
-	rb.v.TimeZone = &timezone
-	return rb
-}
-
-func (rb *DateRangeQueryBuilder) To(to DateMath) *DateRangeQueryBuilder {
-	rb.v.To = to
-	return rb
+	return r
 }

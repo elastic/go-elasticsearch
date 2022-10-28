@@ -17,53 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LimitTokenCountTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L248-L252
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L248-L252
 type LimitTokenCountTokenFilter struct {
-	ConsumeAllTokens *bool          `json:"consume_all_tokens,omitempty"`
-	MaxTokenCount    *int           `json:"max_token_count,omitempty"`
-	Type             string         `json:"type,omitempty"`
-	Version          *VersionString `json:"version,omitempty"`
+	ConsumeAllTokens *bool   `json:"consume_all_tokens,omitempty"`
+	MaxTokenCount    *int    `json:"max_token_count,omitempty"`
+	Type             string  `json:"type,omitempty"`
+	Version          *string `json:"version,omitempty"`
 }
 
-// LimitTokenCountTokenFilterBuilder holds LimitTokenCountTokenFilter struct and provides a builder API.
-type LimitTokenCountTokenFilterBuilder struct {
-	v *LimitTokenCountTokenFilter
-}
+// NewLimitTokenCountTokenFilter returns a LimitTokenCountTokenFilter.
+func NewLimitTokenCountTokenFilter() *LimitTokenCountTokenFilter {
+	r := &LimitTokenCountTokenFilter{}
 
-// NewLimitTokenCountTokenFilter provides a builder for the LimitTokenCountTokenFilter struct.
-func NewLimitTokenCountTokenFilterBuilder() *LimitTokenCountTokenFilterBuilder {
-	r := LimitTokenCountTokenFilterBuilder{
-		&LimitTokenCountTokenFilter{},
-	}
+	r.Type = "limit"
 
-	r.v.Type = "limit"
-
-	return &r
-}
-
-// Build finalize the chain and returns the LimitTokenCountTokenFilter struct
-func (rb *LimitTokenCountTokenFilterBuilder) Build() LimitTokenCountTokenFilter {
-	return *rb.v
-}
-
-func (rb *LimitTokenCountTokenFilterBuilder) ConsumeAllTokens(consumealltokens bool) *LimitTokenCountTokenFilterBuilder {
-	rb.v.ConsumeAllTokens = &consumealltokens
-	return rb
-}
-
-func (rb *LimitTokenCountTokenFilterBuilder) MaxTokenCount(maxtokencount int) *LimitTokenCountTokenFilterBuilder {
-	rb.v.MaxTokenCount = &maxtokencount
-	return rb
-}
-
-func (rb *LimitTokenCountTokenFilterBuilder) Version(version VersionString) *LimitTokenCountTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

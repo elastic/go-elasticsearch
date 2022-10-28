@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,13 +29,13 @@ import (
 
 // LongTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L397-L400
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L405-L408
 type LongTermsBucket struct {
-	Aggregations  map[AggregateName]Aggregate `json:"-"`
-	DocCount      int64                       `json:"doc_count"`
-	DocCountError *int64                      `json:"doc_count_error,omitempty"`
-	Key           int64                       `json:"key"`
-	KeyAsString   *string                     `json:"key_as_string,omitempty"`
+	Aggregations  map[string]Aggregate `json:"-"`
+	DocCount      int64                `json:"doc_count"`
+	DocCountError *int64               `json:"doc_count_error,omitempty"`
+	Key           int64                `json:"key"`
+	KeyAsString   *string              `json:"key_as_string,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -66,52 +66,11 @@ func (s LongTermsBucket) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// LongTermsBucketBuilder holds LongTermsBucket struct and provides a builder API.
-type LongTermsBucketBuilder struct {
-	v *LongTermsBucket
-}
-
-// NewLongTermsBucket provides a builder for the LongTermsBucket struct.
-func NewLongTermsBucketBuilder() *LongTermsBucketBuilder {
-	r := LongTermsBucketBuilder{
-		&LongTermsBucket{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewLongTermsBucket returns a LongTermsBucket.
+func NewLongTermsBucket() *LongTermsBucket {
+	r := &LongTermsBucket{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the LongTermsBucket struct
-func (rb *LongTermsBucketBuilder) Build() LongTermsBucket {
-	return *rb.v
-}
-
-func (rb *LongTermsBucketBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *LongTermsBucketBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *LongTermsBucketBuilder) DocCount(doccount int64) *LongTermsBucketBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *LongTermsBucketBuilder) DocCountError(doccounterror int64) *LongTermsBucketBuilder {
-	rb.v.DocCountError = &doccounterror
-	return rb
-}
-
-func (rb *LongTermsBucketBuilder) Key(key int64) *LongTermsBucketBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *LongTermsBucketBuilder) KeyAsString(keyasstring string) *LongTermsBucketBuilder {
-	rb.v.KeyAsString = &keyasstring
-	return rb
+	return r
 }

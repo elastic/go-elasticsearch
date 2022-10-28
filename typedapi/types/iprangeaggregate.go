@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IpRangeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L540-L542
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L555-L557
 type IpRangeAggregate struct {
-	Buckets BucketsIpRangeBucket `json:"buckets"`
-	Meta    *Metadata            `json:"meta,omitempty"`
+	Buckets BucketsIpRangeBucket   `json:"buckets"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// IpRangeAggregateBuilder holds IpRangeAggregate struct and provides a builder API.
-type IpRangeAggregateBuilder struct {
-	v *IpRangeAggregate
-}
+// NewIpRangeAggregate returns a IpRangeAggregate.
+func NewIpRangeAggregate() *IpRangeAggregate {
+	r := &IpRangeAggregate{}
 
-// NewIpRangeAggregate provides a builder for the IpRangeAggregate struct.
-func NewIpRangeAggregateBuilder() *IpRangeAggregateBuilder {
-	r := IpRangeAggregateBuilder{
-		&IpRangeAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IpRangeAggregate struct
-func (rb *IpRangeAggregateBuilder) Build() IpRangeAggregate {
-	return *rb.v
-}
-
-func (rb *IpRangeAggregateBuilder) Buckets(buckets *BucketsIpRangeBucketBuilder) *IpRangeAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *IpRangeAggregateBuilder) Meta(meta *MetadataBuilder) *IpRangeAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

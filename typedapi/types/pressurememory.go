@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PressureMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L65-L74
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L65-L74
 type PressureMemory struct {
 	AllInBytes                            *int64 `json:"all_in_bytes,omitempty"`
 	CombinedCoordinatingAndPrimaryInBytes *int64 `json:"combined_coordinating_and_primary_in_bytes,omitempty"`
@@ -36,61 +36,9 @@ type PressureMemory struct {
 	ReplicaRejections                     *int64 `json:"replica_rejections,omitempty"`
 }
 
-// PressureMemoryBuilder holds PressureMemory struct and provides a builder API.
-type PressureMemoryBuilder struct {
-	v *PressureMemory
-}
+// NewPressureMemory returns a PressureMemory.
+func NewPressureMemory() *PressureMemory {
+	r := &PressureMemory{}
 
-// NewPressureMemory provides a builder for the PressureMemory struct.
-func NewPressureMemoryBuilder() *PressureMemoryBuilder {
-	r := PressureMemoryBuilder{
-		&PressureMemory{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PressureMemory struct
-func (rb *PressureMemoryBuilder) Build() PressureMemory {
-	return *rb.v
-}
-
-func (rb *PressureMemoryBuilder) AllInBytes(allinbytes int64) *PressureMemoryBuilder {
-	rb.v.AllInBytes = &allinbytes
-	return rb
-}
-
-func (rb *PressureMemoryBuilder) CombinedCoordinatingAndPrimaryInBytes(combinedcoordinatingandprimaryinbytes int64) *PressureMemoryBuilder {
-	rb.v.CombinedCoordinatingAndPrimaryInBytes = &combinedcoordinatingandprimaryinbytes
-	return rb
-}
-
-func (rb *PressureMemoryBuilder) CoordinatingInBytes(coordinatinginbytes int64) *PressureMemoryBuilder {
-	rb.v.CoordinatingInBytes = &coordinatinginbytes
-	return rb
-}
-
-func (rb *PressureMemoryBuilder) CoordinatingRejections(coordinatingrejections int64) *PressureMemoryBuilder {
-	rb.v.CoordinatingRejections = &coordinatingrejections
-	return rb
-}
-
-func (rb *PressureMemoryBuilder) PrimaryInBytes(primaryinbytes int64) *PressureMemoryBuilder {
-	rb.v.PrimaryInBytes = &primaryinbytes
-	return rb
-}
-
-func (rb *PressureMemoryBuilder) PrimaryRejections(primaryrejections int64) *PressureMemoryBuilder {
-	rb.v.PrimaryRejections = &primaryrejections
-	return rb
-}
-
-func (rb *PressureMemoryBuilder) ReplicaInBytes(replicainbytes int64) *PressureMemoryBuilder {
-	rb.v.ReplicaInBytes = &replicainbytes
-	return rb
-}
-
-func (rb *PressureMemoryBuilder) ReplicaRejections(replicarejections int64) *PressureMemoryBuilder {
-	rb.v.ReplicaRejections = &replicarejections
-	return rb
+	return r
 }

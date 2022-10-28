@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsLongTermsBucket holds the union for the following types:
 //
-//	[]LongTermsBucket
 //	map[string]LongTermsBucket
+//	[]LongTermsBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsLongTermsBucket interface{}
-
-// BucketsLongTermsBucketBuilder holds BucketsLongTermsBucket struct and provides a builder API.
-type BucketsLongTermsBucketBuilder struct {
-	v BucketsLongTermsBucket
-}
-
-// NewBucketsLongTermsBucket provides a builder for the BucketsLongTermsBucket struct.
-func NewBucketsLongTermsBucketBuilder() *BucketsLongTermsBucketBuilder {
-	return &BucketsLongTermsBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsLongTermsBucket struct
-func (u *BucketsLongTermsBucketBuilder) Build() BucketsLongTermsBucket {
-	return u.v
-}
-
-func (u *BucketsLongTermsBucketBuilder) LongTermsBuckets(longtermsbuckets []LongTermsBucketBuilder) *BucketsLongTermsBucketBuilder {
-	tmp := make([]LongTermsBucket, len(longtermsbuckets))
-	for _, value := range longtermsbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsLongTermsBucketBuilder) Map(values map[string]*LongTermsBucketBuilder) *BucketsLongTermsBucketBuilder {
-	tmp := make(map[string]LongTermsBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

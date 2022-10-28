@@ -17,44 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
-
-import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/waitforactiveshardoptions"
-)
 
 // WaitForActiveShards holds the union for the following types:
 //
 //	int
 //	waitforactiveshardoptions.WaitForActiveShardOptions
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/common.ts#L122-L123
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L122-L123
 type WaitForActiveShards interface{}
-
-// WaitForActiveShardsBuilder holds WaitForActiveShards struct and provides a builder API.
-type WaitForActiveShardsBuilder struct {
-	v WaitForActiveShards
-}
-
-// NewWaitForActiveShards provides a builder for the WaitForActiveShards struct.
-func NewWaitForActiveShardsBuilder() *WaitForActiveShardsBuilder {
-	return &WaitForActiveShardsBuilder{}
-}
-
-// Build finalize the chain and returns the WaitForActiveShards struct
-func (u *WaitForActiveShardsBuilder) Build() WaitForActiveShards {
-	return u.v
-}
-
-func (u *WaitForActiveShardsBuilder) Int(int int) *WaitForActiveShardsBuilder {
-	u.v = &int
-	return u
-}
-
-func (u *WaitForActiveShardsBuilder) WaitForActiveShardOptions(waitforactiveshardoptions waitforactiveshardoptions.WaitForActiveShardOptions) *WaitForActiveShardsBuilder {
-	u.v = &waitforactiveshardoptions
-	return u
-}

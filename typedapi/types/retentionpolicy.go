@@ -17,55 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RetentionPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/transform/_types/Transform.ts#L88-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/_types/Transform.ts#L88-L96
 type RetentionPolicy struct {
 	// Field The date field that is used to calculate the age of the document.
-	Field Field `json:"field"`
+	Field string `json:"field"`
 	// MaxAge Specifies the maximum age of a document in the destination index. Documents
 	// that are older than the configured
 	// value are removed from the destination index.
 	MaxAge Duration `json:"max_age"`
 }
 
-// RetentionPolicyBuilder holds RetentionPolicy struct and provides a builder API.
-type RetentionPolicyBuilder struct {
-	v *RetentionPolicy
-}
+// NewRetentionPolicy returns a RetentionPolicy.
+func NewRetentionPolicy() *RetentionPolicy {
+	r := &RetentionPolicy{}
 
-// NewRetentionPolicy provides a builder for the RetentionPolicy struct.
-func NewRetentionPolicyBuilder() *RetentionPolicyBuilder {
-	r := RetentionPolicyBuilder{
-		&RetentionPolicy{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RetentionPolicy struct
-func (rb *RetentionPolicyBuilder) Build() RetentionPolicy {
-	return *rb.v
-}
-
-// Field The date field that is used to calculate the age of the document.
-
-func (rb *RetentionPolicyBuilder) Field(field Field) *RetentionPolicyBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-// MaxAge Specifies the maximum age of a document in the destination index. Documents
-// that are older than the configured
-// value are removed from the destination index.
-
-func (rb *RetentionPolicyBuilder) MaxAge(maxage *DurationBuilder) *RetentionPolicyBuilder {
-	v := maxage.Build()
-	rb.v.MaxAge = v
-	return rb
+	return r
 }

@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsHistogramBucket holds the union for the following types:
 //
-//	[]HistogramBucket
 //	map[string]HistogramBucket
+//	[]HistogramBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsHistogramBucket interface{}
-
-// BucketsHistogramBucketBuilder holds BucketsHistogramBucket struct and provides a builder API.
-type BucketsHistogramBucketBuilder struct {
-	v BucketsHistogramBucket
-}
-
-// NewBucketsHistogramBucket provides a builder for the BucketsHistogramBucket struct.
-func NewBucketsHistogramBucketBuilder() *BucketsHistogramBucketBuilder {
-	return &BucketsHistogramBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsHistogramBucket struct
-func (u *BucketsHistogramBucketBuilder) Build() BucketsHistogramBucket {
-	return u.v
-}
-
-func (u *BucketsHistogramBucketBuilder) HistogramBuckets(histogrambuckets []HistogramBucketBuilder) *BucketsHistogramBucketBuilder {
-	tmp := make([]HistogramBucket, len(histogrambuckets))
-	for _, value := range histogrambuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsHistogramBucketBuilder) Map(values map[string]*HistogramBucketBuilder) *BucketsHistogramBucketBuilder {
-	tmp := make(map[string]HistogramBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

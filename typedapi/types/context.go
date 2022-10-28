@@ -17,41 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Context holds the union for the following types:
 //
-//	GeoLocation
 //	string
+//	GeoLocation
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L148-L153
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L148-L153
 type Context interface{}
-
-// ContextBuilder holds Context struct and provides a builder API.
-type ContextBuilder struct {
-	v Context
-}
-
-// NewContext provides a builder for the Context struct.
-func NewContextBuilder() *ContextBuilder {
-	return &ContextBuilder{}
-}
-
-// Build finalize the chain and returns the Context struct
-func (u *ContextBuilder) Build() Context {
-	return u.v
-}
-
-func (u *ContextBuilder) GeoLocation(geolocation *GeoLocationBuilder) *ContextBuilder {
-	v := geolocation.Build()
-	u.v = &v
-	return u
-}
-
-func (u *ContextBuilder) String(string string) *ContextBuilder {
-	u.v = &string
-	return u
-}

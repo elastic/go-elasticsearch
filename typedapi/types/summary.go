@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,37 +28,16 @@ import (
 
 // Summary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/enrich/_types/Policy.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/enrich/_types/Policy.ts#L23-L25
 type Summary struct {
-	Config map[policytype.PolicyType]Policy `json:"config"`
+	Config map[policytype.PolicyType]EnrichPolicy `json:"config"`
 }
 
-// SummaryBuilder holds Summary struct and provides a builder API.
-type SummaryBuilder struct {
-	v *Summary
-}
-
-// NewSummary provides a builder for the Summary struct.
-func NewSummaryBuilder() *SummaryBuilder {
-	r := SummaryBuilder{
-		&Summary{
-			Config: make(map[policytype.PolicyType]Policy, 0),
-		},
+// NewSummary returns a Summary.
+func NewSummary() *Summary {
+	r := &Summary{
+		Config: make(map[policytype.PolicyType]EnrichPolicy, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Summary struct
-func (rb *SummaryBuilder) Build() Summary {
-	return *rb.v
-}
-
-func (rb *SummaryBuilder) Config(values map[policytype.PolicyType]*PolicyBuilder) *SummaryBuilder {
-	tmp := make(map[policytype.PolicyType]Policy, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Config = tmp
-	return rb
+	return r
 }

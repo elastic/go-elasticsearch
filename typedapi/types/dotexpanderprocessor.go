@@ -17,16 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DotExpanderProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L194-L197
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L194-L197
 type DotExpanderProcessor struct {
-	Field         Field                `json:"field"`
+	Description   *string              `json:"description,omitempty"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
@@ -34,55 +35,9 @@ type DotExpanderProcessor struct {
 	Tag           *string              `json:"tag,omitempty"`
 }
 
-// DotExpanderProcessorBuilder holds DotExpanderProcessor struct and provides a builder API.
-type DotExpanderProcessorBuilder struct {
-	v *DotExpanderProcessor
-}
+// NewDotExpanderProcessor returns a DotExpanderProcessor.
+func NewDotExpanderProcessor() *DotExpanderProcessor {
+	r := &DotExpanderProcessor{}
 
-// NewDotExpanderProcessor provides a builder for the DotExpanderProcessor struct.
-func NewDotExpanderProcessorBuilder() *DotExpanderProcessorBuilder {
-	r := DotExpanderProcessorBuilder{
-		&DotExpanderProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DotExpanderProcessor struct
-func (rb *DotExpanderProcessorBuilder) Build() DotExpanderProcessor {
-	return *rb.v
-}
-
-func (rb *DotExpanderProcessorBuilder) Field(field Field) *DotExpanderProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DotExpanderProcessorBuilder) If_(if_ string) *DotExpanderProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *DotExpanderProcessorBuilder) IgnoreFailure(ignorefailure bool) *DotExpanderProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *DotExpanderProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *DotExpanderProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *DotExpanderProcessorBuilder) Path(path string) *DotExpanderProcessorBuilder {
-	rb.v.Path = &path
-	return rb
-}
-
-func (rb *DotExpanderProcessorBuilder) Tag(tag string) *DotExpanderProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
+	return r
 }

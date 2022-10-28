@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Phase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ilm/_types/Phase.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ilm/_types/Phase.ts#L25-L33
 type Phase struct {
-	Actions        *Actions        `json:"actions,omitempty"`
+	Actions        *IlmActions     `json:"actions,omitempty"`
 	Configurations *Configurations `json:"configurations,omitempty"`
-	MinAge         int64           `json:"min_age,omitempty"`
+	MinAge         Duration        `json:"min_age,omitempty"`
 }
 
-// PhaseBuilder holds Phase struct and provides a builder API.
-type PhaseBuilder struct {
-	v *Phase
-}
+// NewPhase returns a Phase.
+func NewPhase() *Phase {
+	r := &Phase{}
 
-// NewPhase provides a builder for the Phase struct.
-func NewPhaseBuilder() *PhaseBuilder {
-	r := PhaseBuilder{
-		&Phase{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Phase struct
-func (rb *PhaseBuilder) Build() Phase {
-	return *rb.v
-}
-
-func (rb *PhaseBuilder) Actions(actions *ActionsBuilder) *PhaseBuilder {
-	v := actions.Build()
-	rb.v.Actions = &v
-	return rb
-}
-
-func (rb *PhaseBuilder) Configurations(configurations *ConfigurationsBuilder) *PhaseBuilder {
-	v := configurations.Build()
-	rb.v.Configurations = &v
-	return rb
-}
-
-func (rb *PhaseBuilder) MinAge(arg int64) *PhaseBuilder {
-	rb.v.MinAge = arg
-	return rb
+	return r
 }

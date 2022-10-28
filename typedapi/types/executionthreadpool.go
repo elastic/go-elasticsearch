@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExecutionThreadPool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Execution.ts#L94-L97
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Execution.ts#L94-L97
 type ExecutionThreadPool struct {
 	MaxSize   int64 `json:"max_size"`
 	QueueSize int64 `json:"queue_size"`
 }
 
-// ExecutionThreadPoolBuilder holds ExecutionThreadPool struct and provides a builder API.
-type ExecutionThreadPoolBuilder struct {
-	v *ExecutionThreadPool
-}
+// NewExecutionThreadPool returns a ExecutionThreadPool.
+func NewExecutionThreadPool() *ExecutionThreadPool {
+	r := &ExecutionThreadPool{}
 
-// NewExecutionThreadPool provides a builder for the ExecutionThreadPool struct.
-func NewExecutionThreadPoolBuilder() *ExecutionThreadPoolBuilder {
-	r := ExecutionThreadPoolBuilder{
-		&ExecutionThreadPool{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExecutionThreadPool struct
-func (rb *ExecutionThreadPoolBuilder) Build() ExecutionThreadPool {
-	return *rb.v
-}
-
-func (rb *ExecutionThreadPoolBuilder) MaxSize(maxsize int64) *ExecutionThreadPoolBuilder {
-	rb.v.MaxSize = maxsize
-	return rb
-}
-
-func (rb *ExecutionThreadPoolBuilder) QueueSize(queuesize int64) *ExecutionThreadPoolBuilder {
-	rb.v.QueueSize = queuesize
-	return rb
+	return r
 }

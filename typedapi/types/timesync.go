@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TimeSync type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/transform/_types/Transform.ts#L175-L187
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/transform/_types/Transform.ts#L175-L187
 type TimeSync struct {
 	// Delay The time delay between the current time and the latest input data time.
 	Delay *Duration `json:"delay,omitempty"`
@@ -33,43 +33,12 @@ type TimeSync struct {
 	// that contains the ingest timestamp. If you use a different field, you might
 	// need to set the delay such that it
 	// accounts for data transmission delays.
-	Field Field `json:"field"`
+	Field string `json:"field"`
 }
 
-// TimeSyncBuilder holds TimeSync struct and provides a builder API.
-type TimeSyncBuilder struct {
-	v *TimeSync
-}
+// NewTimeSync returns a TimeSync.
+func NewTimeSync() *TimeSync {
+	r := &TimeSync{}
 
-// NewTimeSync provides a builder for the TimeSync struct.
-func NewTimeSyncBuilder() *TimeSyncBuilder {
-	r := TimeSyncBuilder{
-		&TimeSync{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TimeSync struct
-func (rb *TimeSyncBuilder) Build() TimeSync {
-	return *rb.v
-}
-
-// Delay The time delay between the current time and the latest input data time.
-
-func (rb *TimeSyncBuilder) Delay(delay *DurationBuilder) *TimeSyncBuilder {
-	v := delay.Build()
-	rb.v.Delay = &v
-	return rb
-}
-
-// Field The date field that is used to identify new documents in the source. In
-// general, it’s a good idea to use a field
-// that contains the ingest timestamp. If you use a different field, you might
-// need to set the delay such that it
-// accounts for data transmission delays.
-
-func (rb *TimeSyncBuilder) Field(field Field) *TimeSyncBuilder {
-	rb.v.Field = field
-	return rb
+	return r
 }

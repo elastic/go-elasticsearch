@@ -17,65 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketCorrelationAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L114-L120
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L114-L120
 type BucketCorrelationAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath `json:"buckets_path,omitempty"`
+	BucketsPath *string `json:"buckets_path,omitempty"`
 	// Function The correlation function to execute.
 	Function BucketCorrelationFunction `json:"function"`
-	Meta     *Metadata                 `json:"meta,omitempty"`
+	Meta     map[string]interface{}    `json:"meta,omitempty"`
 	Name     *string                   `json:"name,omitempty"`
 }
 
-// BucketCorrelationAggregationBuilder holds BucketCorrelationAggregation struct and provides a builder API.
-type BucketCorrelationAggregationBuilder struct {
-	v *BucketCorrelationAggregation
-}
+// NewBucketCorrelationAggregation returns a BucketCorrelationAggregation.
+func NewBucketCorrelationAggregation() *BucketCorrelationAggregation {
+	r := &BucketCorrelationAggregation{}
 
-// NewBucketCorrelationAggregation provides a builder for the BucketCorrelationAggregation struct.
-func NewBucketCorrelationAggregationBuilder() *BucketCorrelationAggregationBuilder {
-	r := BucketCorrelationAggregationBuilder{
-		&BucketCorrelationAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BucketCorrelationAggregation struct
-func (rb *BucketCorrelationAggregationBuilder) Build() BucketCorrelationAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *BucketCorrelationAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *BucketCorrelationAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-// Function The correlation function to execute.
-
-func (rb *BucketCorrelationAggregationBuilder) Function(function *BucketCorrelationFunctionBuilder) *BucketCorrelationAggregationBuilder {
-	v := function.Build()
-	rb.v.Function = v
-	return rb
-}
-
-func (rb *BucketCorrelationAggregationBuilder) Meta(meta *MetadataBuilder) *BucketCorrelationAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *BucketCorrelationAggregationBuilder) Name(name string) *BucketCorrelationAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

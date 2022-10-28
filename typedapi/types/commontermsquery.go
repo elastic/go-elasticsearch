@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // CommonTermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L33-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L33-L43
 type CommonTermsQuery struct {
 	Analyzer           *string             `json:"analyzer,omitempty"`
 	Boost              *float32            `json:"boost,omitempty"`
@@ -40,62 +40,9 @@ type CommonTermsQuery struct {
 	QueryName_         *string             `json:"_name,omitempty"`
 }
 
-// CommonTermsQueryBuilder holds CommonTermsQuery struct and provides a builder API.
-type CommonTermsQueryBuilder struct {
-	v *CommonTermsQuery
-}
+// NewCommonTermsQuery returns a CommonTermsQuery.
+func NewCommonTermsQuery() *CommonTermsQuery {
+	r := &CommonTermsQuery{}
 
-// NewCommonTermsQuery provides a builder for the CommonTermsQuery struct.
-func NewCommonTermsQueryBuilder() *CommonTermsQueryBuilder {
-	r := CommonTermsQueryBuilder{
-		&CommonTermsQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CommonTermsQuery struct
-func (rb *CommonTermsQueryBuilder) Build() CommonTermsQuery {
-	return *rb.v
-}
-
-func (rb *CommonTermsQueryBuilder) Analyzer(analyzer string) *CommonTermsQueryBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *CommonTermsQueryBuilder) Boost(boost float32) *CommonTermsQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *CommonTermsQueryBuilder) CutoffFrequency(cutofffrequency float64) *CommonTermsQueryBuilder {
-	rb.v.CutoffFrequency = &cutofffrequency
-	return rb
-}
-
-func (rb *CommonTermsQueryBuilder) HighFreqOperator(highfreqoperator operator.Operator) *CommonTermsQueryBuilder {
-	rb.v.HighFreqOperator = &highfreqoperator
-	return rb
-}
-
-func (rb *CommonTermsQueryBuilder) LowFreqOperator(lowfreqoperator operator.Operator) *CommonTermsQueryBuilder {
-	rb.v.LowFreqOperator = &lowfreqoperator
-	return rb
-}
-
-func (rb *CommonTermsQueryBuilder) MinimumShouldMatch(minimumshouldmatch *MinimumShouldMatchBuilder) *CommonTermsQueryBuilder {
-	v := minimumshouldmatch.Build()
-	rb.v.MinimumShouldMatch = &v
-	return rb
-}
-
-func (rb *CommonTermsQueryBuilder) Query(query string) *CommonTermsQueryBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *CommonTermsQueryBuilder) QueryName_(queryname_ string) *CommonTermsQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
+	return r
 }

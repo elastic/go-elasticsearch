@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,45 +28,18 @@ import (
 
 // FieldMetric type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/rollup/_types/Metric.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/_types/Metric.ts#L30-L35
 type FieldMetric struct {
 	// Field The field to collect metrics for. This must be a numeric of some kind.
-	Field Field `json:"field"`
+	Field string `json:"field"`
 	// Metrics An array of metrics to collect for the field. At least one metric must be
 	// configured.
 	Metrics []metric.Metric `json:"metrics"`
 }
 
-// FieldMetricBuilder holds FieldMetric struct and provides a builder API.
-type FieldMetricBuilder struct {
-	v *FieldMetric
-}
+// NewFieldMetric returns a FieldMetric.
+func NewFieldMetric() *FieldMetric {
+	r := &FieldMetric{}
 
-// NewFieldMetric provides a builder for the FieldMetric struct.
-func NewFieldMetricBuilder() *FieldMetricBuilder {
-	r := FieldMetricBuilder{
-		&FieldMetric{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldMetric struct
-func (rb *FieldMetricBuilder) Build() FieldMetric {
-	return *rb.v
-}
-
-// Field The field to collect metrics for. This must be a numeric of some kind.
-
-func (rb *FieldMetricBuilder) Field(field Field) *FieldMetricBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-// Metrics An array of metrics to collect for the field. At least one metric must be
-// configured.
-
-func (rb *FieldMetricBuilder) Metrics(metrics ...metric.Metric) *FieldMetricBuilder {
-	rb.v.Metrics = metrics
-	return rb
+	return r
 }

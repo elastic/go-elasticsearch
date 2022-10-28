@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WarmerStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Stats.ts#L252-L257
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L252-L257
 type WarmerStats struct {
-	Current           int64                   `json:"current"`
-	Total             int64                   `json:"total"`
-	TotalTime         *Duration               `json:"total_time,omitempty"`
-	TotalTimeInMillis DurationValueUnitMillis `json:"total_time_in_millis"`
+	Current           int64     `json:"current"`
+	Total             int64     `json:"total"`
+	TotalTime         *Duration `json:"total_time,omitempty"`
+	TotalTimeInMillis int64     `json:"total_time_in_millis"`
 }
 
-// WarmerStatsBuilder holds WarmerStats struct and provides a builder API.
-type WarmerStatsBuilder struct {
-	v *WarmerStats
-}
+// NewWarmerStats returns a WarmerStats.
+func NewWarmerStats() *WarmerStats {
+	r := &WarmerStats{}
 
-// NewWarmerStats provides a builder for the WarmerStats struct.
-func NewWarmerStatsBuilder() *WarmerStatsBuilder {
-	r := WarmerStatsBuilder{
-		&WarmerStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WarmerStats struct
-func (rb *WarmerStatsBuilder) Build() WarmerStats {
-	return *rb.v
-}
-
-func (rb *WarmerStatsBuilder) Current(current int64) *WarmerStatsBuilder {
-	rb.v.Current = current
-	return rb
-}
-
-func (rb *WarmerStatsBuilder) Total(total int64) *WarmerStatsBuilder {
-	rb.v.Total = total
-	return rb
-}
-
-func (rb *WarmerStatsBuilder) TotalTime(totaltime *DurationBuilder) *WarmerStatsBuilder {
-	v := totaltime.Build()
-	rb.v.TotalTime = &v
-	return rb
-}
-
-func (rb *WarmerStatsBuilder) TotalTimeInMillis(totaltimeinmillis *DurationValueUnitMillisBuilder) *WarmerStatsBuilder {
-	v := totaltimeinmillis.Build()
-	rb.v.TotalTimeInMillis = v
-	return rb
+	return r
 }

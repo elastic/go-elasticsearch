@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ThreadPoolRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/thread_pool/types.ts#L22-L123
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/thread_pool/types.ts#L22-L123
 type ThreadPoolRecord struct {
 	// Active number of active threads
 	Active *string `json:"active,omitempty"`
@@ -47,7 +47,7 @@ type ThreadPoolRecord struct {
 	// Name thread pool name
 	Name *string `json:"name,omitempty"`
 	// NodeId persistent node id
-	NodeId *NodeId `json:"node_id,omitempty"`
+	NodeId *string `json:"node_id,omitempty"`
 	// NodeName node name
 	NodeName *string `json:"node_name,omitempty"`
 	// Pid process id
@@ -68,161 +68,9 @@ type ThreadPoolRecord struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// ThreadPoolRecordBuilder holds ThreadPoolRecord struct and provides a builder API.
-type ThreadPoolRecordBuilder struct {
-	v *ThreadPoolRecord
-}
+// NewThreadPoolRecord returns a ThreadPoolRecord.
+func NewThreadPoolRecord() *ThreadPoolRecord {
+	r := &ThreadPoolRecord{}
 
-// NewThreadPoolRecord provides a builder for the ThreadPoolRecord struct.
-func NewThreadPoolRecordBuilder() *ThreadPoolRecordBuilder {
-	r := ThreadPoolRecordBuilder{
-		&ThreadPoolRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ThreadPoolRecord struct
-func (rb *ThreadPoolRecordBuilder) Build() ThreadPoolRecord {
-	return *rb.v
-}
-
-// Active number of active threads
-
-func (rb *ThreadPoolRecordBuilder) Active(active string) *ThreadPoolRecordBuilder {
-	rb.v.Active = &active
-	return rb
-}
-
-// Completed number of completed tasks
-
-func (rb *ThreadPoolRecordBuilder) Completed(completed string) *ThreadPoolRecordBuilder {
-	rb.v.Completed = &completed
-	return rb
-}
-
-// Core core number of threads in a scaling thread pool
-
-func (rb *ThreadPoolRecordBuilder) Core(core string) *ThreadPoolRecordBuilder {
-	rb.v.Core = core
-	return rb
-}
-
-// EphemeralNodeId ephemeral node id
-
-func (rb *ThreadPoolRecordBuilder) EphemeralNodeId(ephemeralnodeid string) *ThreadPoolRecordBuilder {
-	rb.v.EphemeralNodeId = &ephemeralnodeid
-	return rb
-}
-
-// Host host name
-
-func (rb *ThreadPoolRecordBuilder) Host(host string) *ThreadPoolRecordBuilder {
-	rb.v.Host = &host
-	return rb
-}
-
-// Ip ip address
-
-func (rb *ThreadPoolRecordBuilder) Ip(ip string) *ThreadPoolRecordBuilder {
-	rb.v.Ip = &ip
-	return rb
-}
-
-// KeepAlive thread keep alive time
-
-func (rb *ThreadPoolRecordBuilder) KeepAlive(keepalive string) *ThreadPoolRecordBuilder {
-	rb.v.KeepAlive = keepalive
-	return rb
-}
-
-// Largest highest number of seen active threads
-
-func (rb *ThreadPoolRecordBuilder) Largest(largest string) *ThreadPoolRecordBuilder {
-	rb.v.Largest = &largest
-	return rb
-}
-
-// Max maximum number of threads in a scaling thread pool
-
-func (rb *ThreadPoolRecordBuilder) Max(max string) *ThreadPoolRecordBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-// Name thread pool name
-
-func (rb *ThreadPoolRecordBuilder) Name(name string) *ThreadPoolRecordBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-// NodeId persistent node id
-
-func (rb *ThreadPoolRecordBuilder) NodeId(nodeid NodeId) *ThreadPoolRecordBuilder {
-	rb.v.NodeId = &nodeid
-	return rb
-}
-
-// NodeName node name
-
-func (rb *ThreadPoolRecordBuilder) NodeName(nodename string) *ThreadPoolRecordBuilder {
-	rb.v.NodeName = &nodename
-	return rb
-}
-
-// Pid process id
-
-func (rb *ThreadPoolRecordBuilder) Pid(pid string) *ThreadPoolRecordBuilder {
-	rb.v.Pid = &pid
-	return rb
-}
-
-// PoolSize number of threads
-
-func (rb *ThreadPoolRecordBuilder) PoolSize(poolsize string) *ThreadPoolRecordBuilder {
-	rb.v.PoolSize = &poolsize
-	return rb
-}
-
-// Port bound transport port
-
-func (rb *ThreadPoolRecordBuilder) Port(port string) *ThreadPoolRecordBuilder {
-	rb.v.Port = &port
-	return rb
-}
-
-// Queue number of tasks currently in queue
-
-func (rb *ThreadPoolRecordBuilder) Queue(queue string) *ThreadPoolRecordBuilder {
-	rb.v.Queue = &queue
-	return rb
-}
-
-// QueueSize maximum number of tasks permitted in queue
-
-func (rb *ThreadPoolRecordBuilder) QueueSize(queuesize string) *ThreadPoolRecordBuilder {
-	rb.v.QueueSize = &queuesize
-	return rb
-}
-
-// Rejected number of rejected tasks
-
-func (rb *ThreadPoolRecordBuilder) Rejected(rejected string) *ThreadPoolRecordBuilder {
-	rb.v.Rejected = &rejected
-	return rb
-}
-
-// Size number of threads in a fixed thread pool
-
-func (rb *ThreadPoolRecordBuilder) Size(size string) *ThreadPoolRecordBuilder {
-	rb.v.Size = size
-	return rb
-}
-
-// Type thread pool type
-
-func (rb *ThreadPoolRecordBuilder) Type_(type_ string) *ThreadPoolRecordBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

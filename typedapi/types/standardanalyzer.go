@@ -17,48 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StandardAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/analyzers.ts#L95-L99
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L95-L99
 type StandardAnalyzer struct {
-	MaxTokenLength *int       `json:"max_token_length,omitempty"`
-	Stopwords      *StopWords `json:"stopwords,omitempty"`
-	Type           string     `json:"type,omitempty"`
+	MaxTokenLength *int     `json:"max_token_length,omitempty"`
+	Stopwords      []string `json:"stopwords,omitempty"`
+	Type           string   `json:"type,omitempty"`
 }
 
-// StandardAnalyzerBuilder holds StandardAnalyzer struct and provides a builder API.
-type StandardAnalyzerBuilder struct {
-	v *StandardAnalyzer
-}
+// NewStandardAnalyzer returns a StandardAnalyzer.
+func NewStandardAnalyzer() *StandardAnalyzer {
+	r := &StandardAnalyzer{}
 
-// NewStandardAnalyzer provides a builder for the StandardAnalyzer struct.
-func NewStandardAnalyzerBuilder() *StandardAnalyzerBuilder {
-	r := StandardAnalyzerBuilder{
-		&StandardAnalyzer{},
-	}
+	r.Type = "standard"
 
-	r.v.Type = "standard"
-
-	return &r
-}
-
-// Build finalize the chain and returns the StandardAnalyzer struct
-func (rb *StandardAnalyzerBuilder) Build() StandardAnalyzer {
-	return *rb.v
-}
-
-func (rb *StandardAnalyzerBuilder) MaxTokenLength(maxtokenlength int) *StandardAnalyzerBuilder {
-	rb.v.MaxTokenLength = &maxtokenlength
-	return rb
-}
-
-func (rb *StandardAnalyzerBuilder) Stopwords(stopwords *StopWordsBuilder) *StandardAnalyzerBuilder {
-	v := stopwords.Build()
-	rb.v.Stopwords = &v
-	return rb
+	return r
 }

@@ -17,78 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DateHistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/rollup/_types/Groupings.ts#L30-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/rollup/_types/Groupings.ts#L30-L38
 type DateHistogramGrouping struct {
 	CalendarInterval *Duration `json:"calendar_interval,omitempty"`
 	Delay            *Duration `json:"delay,omitempty"`
-	Field            Field     `json:"field"`
+	Field            string    `json:"field"`
 	FixedInterval    *Duration `json:"fixed_interval,omitempty"`
 	Format           *string   `json:"format,omitempty"`
 	Interval         *Duration `json:"interval,omitempty"`
-	TimeZone         *TimeZone `json:"time_zone,omitempty"`
+	TimeZone         *string   `json:"time_zone,omitempty"`
 }
 
-// DateHistogramGroupingBuilder holds DateHistogramGrouping struct and provides a builder API.
-type DateHistogramGroupingBuilder struct {
-	v *DateHistogramGrouping
-}
+// NewDateHistogramGrouping returns a DateHistogramGrouping.
+func NewDateHistogramGrouping() *DateHistogramGrouping {
+	r := &DateHistogramGrouping{}
 
-// NewDateHistogramGrouping provides a builder for the DateHistogramGrouping struct.
-func NewDateHistogramGroupingBuilder() *DateHistogramGroupingBuilder {
-	r := DateHistogramGroupingBuilder{
-		&DateHistogramGrouping{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DateHistogramGrouping struct
-func (rb *DateHistogramGroupingBuilder) Build() DateHistogramGrouping {
-	return *rb.v
-}
-
-func (rb *DateHistogramGroupingBuilder) CalendarInterval(calendarinterval *DurationBuilder) *DateHistogramGroupingBuilder {
-	v := calendarinterval.Build()
-	rb.v.CalendarInterval = &v
-	return rb
-}
-
-func (rb *DateHistogramGroupingBuilder) Delay(delay *DurationBuilder) *DateHistogramGroupingBuilder {
-	v := delay.Build()
-	rb.v.Delay = &v
-	return rb
-}
-
-func (rb *DateHistogramGroupingBuilder) Field(field Field) *DateHistogramGroupingBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *DateHistogramGroupingBuilder) FixedInterval(fixedinterval *DurationBuilder) *DateHistogramGroupingBuilder {
-	v := fixedinterval.Build()
-	rb.v.FixedInterval = &v
-	return rb
-}
-
-func (rb *DateHistogramGroupingBuilder) Format(format string) *DateHistogramGroupingBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *DateHistogramGroupingBuilder) Interval(interval *DurationBuilder) *DateHistogramGroupingBuilder {
-	v := interval.Build()
-	rb.v.Interval = &v
-	return rb
-}
-
-func (rb *DateHistogramGroupingBuilder) TimeZone(timezone TimeZone) *DateHistogramGroupingBuilder {
-	rb.v.TimeZone = &timezone
-	return rb
+	return r
 }

@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L48-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L48-L48
 type AverageAggregation struct {
-	Field   *Field   `json:"field,omitempty"`
+	Field   *string  `json:"field,omitempty"`
 	Format  *string  `json:"format,omitempty"`
 	Missing *Missing `json:"missing,omitempty"`
 	Script  *Script  `json:"script,omitempty"`
 }
 
-// AverageAggregationBuilder holds AverageAggregation struct and provides a builder API.
-type AverageAggregationBuilder struct {
-	v *AverageAggregation
-}
+// NewAverageAggregation returns a AverageAggregation.
+func NewAverageAggregation() *AverageAggregation {
+	r := &AverageAggregation{}
 
-// NewAverageAggregation provides a builder for the AverageAggregation struct.
-func NewAverageAggregationBuilder() *AverageAggregationBuilder {
-	r := AverageAggregationBuilder{
-		&AverageAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AverageAggregation struct
-func (rb *AverageAggregationBuilder) Build() AverageAggregation {
-	return *rb.v
-}
-
-func (rb *AverageAggregationBuilder) Field(field Field) *AverageAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *AverageAggregationBuilder) Format(format string) *AverageAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *AverageAggregationBuilder) Missing(missing *MissingBuilder) *AverageAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *AverageAggregationBuilder) Script(script *ScriptBuilder) *AverageAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

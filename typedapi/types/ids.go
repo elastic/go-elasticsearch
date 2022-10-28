@@ -17,32 +17,12 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Ids type alias.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/common.ts#L56-L56
-type Ids []Id
-
-// IdsBuilder holds Ids struct and provides a builder API.
-type IdsBuilder struct {
-	v Ids
-}
-
-// NewIds provides a builder for the Ids struct.
-func NewIdsBuilder() *IdsBuilder {
-	return &IdsBuilder{}
-}
-
-// Build finalize the chain and returns the Ids struct
-func (b *IdsBuilder) Build() Ids {
-	return b.v
-}
-
-func (b *IdsBuilder) Ids(value Ids) *IdsBuilder {
-	b.v = value
-	return b
-}
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L56-L56
+type Ids []string

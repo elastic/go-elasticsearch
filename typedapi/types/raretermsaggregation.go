@@ -17,90 +17,29 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RareTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L303-L311
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L303-L311
 type RareTermsAggregation struct {
-	Exclude     *TermsExclude `json:"exclude,omitempty"`
-	Field       *Field        `json:"field,omitempty"`
-	Include     *TermsInclude `json:"include,omitempty"`
-	MaxDocCount *int64        `json:"max_doc_count,omitempty"`
-	Meta        *Metadata     `json:"meta,omitempty"`
-	Missing     *Missing      `json:"missing,omitempty"`
-	Name        *string       `json:"name,omitempty"`
-	Precision   *float64      `json:"precision,omitempty"`
-	ValueType   *string       `json:"value_type,omitempty"`
+	Exclude     []string               `json:"exclude,omitempty"`
+	Field       *string                `json:"field,omitempty"`
+	Include     *TermsInclude          `json:"include,omitempty"`
+	MaxDocCount *int64                 `json:"max_doc_count,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Missing     *Missing               `json:"missing,omitempty"`
+	Name        *string                `json:"name,omitempty"`
+	Precision   *float64               `json:"precision,omitempty"`
+	ValueType   *string                `json:"value_type,omitempty"`
 }
 
-// RareTermsAggregationBuilder holds RareTermsAggregation struct and provides a builder API.
-type RareTermsAggregationBuilder struct {
-	v *RareTermsAggregation
-}
+// NewRareTermsAggregation returns a RareTermsAggregation.
+func NewRareTermsAggregation() *RareTermsAggregation {
+	r := &RareTermsAggregation{}
 
-// NewRareTermsAggregation provides a builder for the RareTermsAggregation struct.
-func NewRareTermsAggregationBuilder() *RareTermsAggregationBuilder {
-	r := RareTermsAggregationBuilder{
-		&RareTermsAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RareTermsAggregation struct
-func (rb *RareTermsAggregationBuilder) Build() RareTermsAggregation {
-	return *rb.v
-}
-
-func (rb *RareTermsAggregationBuilder) Exclude(exclude *TermsExcludeBuilder) *RareTermsAggregationBuilder {
-	v := exclude.Build()
-	rb.v.Exclude = &v
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) Field(field Field) *RareTermsAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) Include(include *TermsIncludeBuilder) *RareTermsAggregationBuilder {
-	v := include.Build()
-	rb.v.Include = &v
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) MaxDocCount(maxdoccount int64) *RareTermsAggregationBuilder {
-	rb.v.MaxDocCount = &maxdoccount
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) Meta(meta *MetadataBuilder) *RareTermsAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) Missing(missing *MissingBuilder) *RareTermsAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) Name(name string) *RareTermsAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) Precision(precision float64) *RareTermsAggregationBuilder {
-	rb.v.Precision = &precision
-	return rb
-}
-
-func (rb *RareTermsAggregationBuilder) ValueType(valuetype string) *RareTermsAggregationBuilder {
-	rb.v.ValueType = &valuetype
-	return rb
+	return r
 }

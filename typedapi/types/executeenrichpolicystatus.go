@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,31 +28,14 @@ import (
 
 // ExecuteEnrichPolicyStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/enrich/execute_policy/types.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/enrich/execute_policy/types.ts#L20-L22
 type ExecuteEnrichPolicyStatus struct {
 	Phase enrichpolicyphase.EnrichPolicyPhase `json:"phase"`
 }
 
-// ExecuteEnrichPolicyStatusBuilder holds ExecuteEnrichPolicyStatus struct and provides a builder API.
-type ExecuteEnrichPolicyStatusBuilder struct {
-	v *ExecuteEnrichPolicyStatus
-}
+// NewExecuteEnrichPolicyStatus returns a ExecuteEnrichPolicyStatus.
+func NewExecuteEnrichPolicyStatus() *ExecuteEnrichPolicyStatus {
+	r := &ExecuteEnrichPolicyStatus{}
 
-// NewExecuteEnrichPolicyStatus provides a builder for the ExecuteEnrichPolicyStatus struct.
-func NewExecuteEnrichPolicyStatusBuilder() *ExecuteEnrichPolicyStatusBuilder {
-	r := ExecuteEnrichPolicyStatusBuilder{
-		&ExecuteEnrichPolicyStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExecuteEnrichPolicyStatus struct
-func (rb *ExecuteEnrichPolicyStatusBuilder) Build() ExecuteEnrichPolicyStatus {
-	return *rb.v
-}
-
-func (rb *ExecuteEnrichPolicyStatusBuilder) Phase(phase enrichpolicyphase.EnrichPolicyPhase) *ExecuteEnrichPolicyStatusBuilder {
-	rb.v.Phase = phase
-	return rb
+	return r
 }

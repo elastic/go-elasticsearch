@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AdaptiveSelection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L163-L171
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L163-L171
 type AdaptiveSelection struct {
 	AvgQueueSize      *int64  `json:"avg_queue_size,omitempty"`
 	AvgResponseTime   *int64  `json:"avg_response_time,omitempty"`
@@ -35,56 +35,9 @@ type AdaptiveSelection struct {
 	Rank              *string `json:"rank,omitempty"`
 }
 
-// AdaptiveSelectionBuilder holds AdaptiveSelection struct and provides a builder API.
-type AdaptiveSelectionBuilder struct {
-	v *AdaptiveSelection
-}
+// NewAdaptiveSelection returns a AdaptiveSelection.
+func NewAdaptiveSelection() *AdaptiveSelection {
+	r := &AdaptiveSelection{}
 
-// NewAdaptiveSelection provides a builder for the AdaptiveSelection struct.
-func NewAdaptiveSelectionBuilder() *AdaptiveSelectionBuilder {
-	r := AdaptiveSelectionBuilder{
-		&AdaptiveSelection{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AdaptiveSelection struct
-func (rb *AdaptiveSelectionBuilder) Build() AdaptiveSelection {
-	return *rb.v
-}
-
-func (rb *AdaptiveSelectionBuilder) AvgQueueSize(avgqueuesize int64) *AdaptiveSelectionBuilder {
-	rb.v.AvgQueueSize = &avgqueuesize
-	return rb
-}
-
-func (rb *AdaptiveSelectionBuilder) AvgResponseTime(avgresponsetime int64) *AdaptiveSelectionBuilder {
-	rb.v.AvgResponseTime = &avgresponsetime
-	return rb
-}
-
-func (rb *AdaptiveSelectionBuilder) AvgResponseTimeNs(avgresponsetimens int64) *AdaptiveSelectionBuilder {
-	rb.v.AvgResponseTimeNs = &avgresponsetimens
-	return rb
-}
-
-func (rb *AdaptiveSelectionBuilder) AvgServiceTime(avgservicetime string) *AdaptiveSelectionBuilder {
-	rb.v.AvgServiceTime = &avgservicetime
-	return rb
-}
-
-func (rb *AdaptiveSelectionBuilder) AvgServiceTimeNs(avgservicetimens int64) *AdaptiveSelectionBuilder {
-	rb.v.AvgServiceTimeNs = &avgservicetimens
-	return rb
-}
-
-func (rb *AdaptiveSelectionBuilder) OutgoingSearches(outgoingsearches int64) *AdaptiveSelectionBuilder {
-	rb.v.OutgoingSearches = &outgoingsearches
-	return rb
-}
-
-func (rb *AdaptiveSelectionBuilder) Rank(rank string) *AdaptiveSelectionBuilder {
-	rb.v.Rank = &rank
-	return rb
+	return r
 }

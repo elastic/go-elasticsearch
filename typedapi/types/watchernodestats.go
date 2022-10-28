@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,70 +28,19 @@ import (
 
 // WatcherNodeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/stats/types.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/stats/types.ts#L33-L40
 type WatcherNodeStats struct {
 	CurrentWatches      []WatchRecordStats        `json:"current_watches,omitempty"`
 	ExecutionThreadPool ExecutionThreadPool       `json:"execution_thread_pool"`
-	NodeId              Id                        `json:"node_id"`
+	NodeId              string                    `json:"node_id"`
 	QueuedWatches       []WatchRecordQueuedStats  `json:"queued_watches,omitempty"`
 	WatchCount          int64                     `json:"watch_count"`
 	WatcherState        watcherstate.WatcherState `json:"watcher_state"`
 }
 
-// WatcherNodeStatsBuilder holds WatcherNodeStats struct and provides a builder API.
-type WatcherNodeStatsBuilder struct {
-	v *WatcherNodeStats
-}
+// NewWatcherNodeStats returns a WatcherNodeStats.
+func NewWatcherNodeStats() *WatcherNodeStats {
+	r := &WatcherNodeStats{}
 
-// NewWatcherNodeStats provides a builder for the WatcherNodeStats struct.
-func NewWatcherNodeStatsBuilder() *WatcherNodeStatsBuilder {
-	r := WatcherNodeStatsBuilder{
-		&WatcherNodeStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WatcherNodeStats struct
-func (rb *WatcherNodeStatsBuilder) Build() WatcherNodeStats {
-	return *rb.v
-}
-
-func (rb *WatcherNodeStatsBuilder) CurrentWatches(current_watches []WatchRecordStatsBuilder) *WatcherNodeStatsBuilder {
-	tmp := make([]WatchRecordStats, len(current_watches))
-	for _, value := range current_watches {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.CurrentWatches = tmp
-	return rb
-}
-
-func (rb *WatcherNodeStatsBuilder) ExecutionThreadPool(executionthreadpool *ExecutionThreadPoolBuilder) *WatcherNodeStatsBuilder {
-	v := executionthreadpool.Build()
-	rb.v.ExecutionThreadPool = v
-	return rb
-}
-
-func (rb *WatcherNodeStatsBuilder) NodeId(nodeid Id) *WatcherNodeStatsBuilder {
-	rb.v.NodeId = nodeid
-	return rb
-}
-
-func (rb *WatcherNodeStatsBuilder) QueuedWatches(queued_watches []WatchRecordQueuedStatsBuilder) *WatcherNodeStatsBuilder {
-	tmp := make([]WatchRecordQueuedStats, len(queued_watches))
-	for _, value := range queued_watches {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.QueuedWatches = tmp
-	return rb
-}
-
-func (rb *WatcherNodeStatsBuilder) WatchCount(watchcount int64) *WatcherNodeStatsBuilder {
-	rb.v.WatchCount = watchcount
-	return rb
-}
-
-func (rb *WatcherNodeStatsBuilder) WatcherState(watcherstate watcherstate.WatcherState) *WatcherNodeStatsBuilder {
-	rb.v.WatcherState = watcherstate
-	return rb
+	return r
 }

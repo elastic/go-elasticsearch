@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AggregationBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/profile.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/profile.ts#L23-L36
 type AggregationBreakdown struct {
 	BuildAggregation        int64  `json:"build_aggregation"`
 	BuildAggregationCount   int64  `json:"build_aggregation_count"`
@@ -40,81 +40,9 @@ type AggregationBreakdown struct {
 	ReduceCount             int64  `json:"reduce_count"`
 }
 
-// AggregationBreakdownBuilder holds AggregationBreakdown struct and provides a builder API.
-type AggregationBreakdownBuilder struct {
-	v *AggregationBreakdown
-}
+// NewAggregationBreakdown returns a AggregationBreakdown.
+func NewAggregationBreakdown() *AggregationBreakdown {
+	r := &AggregationBreakdown{}
 
-// NewAggregationBreakdown provides a builder for the AggregationBreakdown struct.
-func NewAggregationBreakdownBuilder() *AggregationBreakdownBuilder {
-	r := AggregationBreakdownBuilder{
-		&AggregationBreakdown{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AggregationBreakdown struct
-func (rb *AggregationBreakdownBuilder) Build() AggregationBreakdown {
-	return *rb.v
-}
-
-func (rb *AggregationBreakdownBuilder) BuildAggregation(buildaggregation int64) *AggregationBreakdownBuilder {
-	rb.v.BuildAggregation = buildaggregation
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) BuildAggregationCount(buildaggregationcount int64) *AggregationBreakdownBuilder {
-	rb.v.BuildAggregationCount = buildaggregationcount
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) BuildLeafCollector(buildleafcollector int64) *AggregationBreakdownBuilder {
-	rb.v.BuildLeafCollector = buildleafcollector
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) BuildLeafCollectorCount(buildleafcollectorcount int64) *AggregationBreakdownBuilder {
-	rb.v.BuildLeafCollectorCount = buildleafcollectorcount
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) Collect(collect int64) *AggregationBreakdownBuilder {
-	rb.v.Collect = collect
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) CollectCount(collectcount int64) *AggregationBreakdownBuilder {
-	rb.v.CollectCount = collectcount
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) Initialize(initialize int64) *AggregationBreakdownBuilder {
-	rb.v.Initialize = initialize
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) InitializeCount(initializecount int64) *AggregationBreakdownBuilder {
-	rb.v.InitializeCount = initializecount
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) PostCollection(postcollection int64) *AggregationBreakdownBuilder {
-	rb.v.PostCollection = &postcollection
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) PostCollectionCount(postcollectioncount int64) *AggregationBreakdownBuilder {
-	rb.v.PostCollectionCount = &postcollectioncount
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) Reduce(reduce int64) *AggregationBreakdownBuilder {
-	rb.v.Reduce = reduce
-	return rb
-}
-
-func (rb *AggregationBreakdownBuilder) ReduceCount(reducecount int64) *AggregationBreakdownBuilder {
-	rb.v.ReduceCount = reducecount
-	return rb
+	return r
 }

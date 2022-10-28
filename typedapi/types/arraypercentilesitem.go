@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ArrayPercentilesItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L151-L155
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L159-L163
 type ArrayPercentilesItem struct {
 	Key           string  `json:"key"`
 	Value         float64 `json:"value,omitempty"`
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 
-// ArrayPercentilesItemBuilder holds ArrayPercentilesItem struct and provides a builder API.
-type ArrayPercentilesItemBuilder struct {
-	v *ArrayPercentilesItem
-}
+// NewArrayPercentilesItem returns a ArrayPercentilesItem.
+func NewArrayPercentilesItem() *ArrayPercentilesItem {
+	r := &ArrayPercentilesItem{}
 
-// NewArrayPercentilesItem provides a builder for the ArrayPercentilesItem struct.
-func NewArrayPercentilesItemBuilder() *ArrayPercentilesItemBuilder {
-	r := ArrayPercentilesItemBuilder{
-		&ArrayPercentilesItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ArrayPercentilesItem struct
-func (rb *ArrayPercentilesItemBuilder) Build() ArrayPercentilesItem {
-	return *rb.v
-}
-
-func (rb *ArrayPercentilesItemBuilder) Key(key string) *ArrayPercentilesItemBuilder {
-	rb.v.Key = key
-	return rb
-}
-
-func (rb *ArrayPercentilesItemBuilder) Value(value float64) *ArrayPercentilesItemBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *ArrayPercentilesItemBuilder) ValueAsString(valueasstring string) *ArrayPercentilesItemBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

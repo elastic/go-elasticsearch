@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PendingTasksRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cat/pending_tasks/types.ts#L20-L41
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/pending_tasks/types.ts#L20-L41
 type PendingTasksRecord struct {
 	// InsertOrder task insertion order
 	InsertOrder *string `json:"insertOrder,omitempty"`
@@ -36,49 +36,9 @@ type PendingTasksRecord struct {
 	TimeInQueue *string `json:"timeInQueue,omitempty"`
 }
 
-// PendingTasksRecordBuilder holds PendingTasksRecord struct and provides a builder API.
-type PendingTasksRecordBuilder struct {
-	v *PendingTasksRecord
-}
+// NewPendingTasksRecord returns a PendingTasksRecord.
+func NewPendingTasksRecord() *PendingTasksRecord {
+	r := &PendingTasksRecord{}
 
-// NewPendingTasksRecord provides a builder for the PendingTasksRecord struct.
-func NewPendingTasksRecordBuilder() *PendingTasksRecordBuilder {
-	r := PendingTasksRecordBuilder{
-		&PendingTasksRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PendingTasksRecord struct
-func (rb *PendingTasksRecordBuilder) Build() PendingTasksRecord {
-	return *rb.v
-}
-
-// InsertOrder task insertion order
-
-func (rb *PendingTasksRecordBuilder) InsertOrder(insertorder string) *PendingTasksRecordBuilder {
-	rb.v.InsertOrder = &insertorder
-	return rb
-}
-
-// Priority task priority
-
-func (rb *PendingTasksRecordBuilder) Priority(priority string) *PendingTasksRecordBuilder {
-	rb.v.Priority = &priority
-	return rb
-}
-
-// Source task source
-
-func (rb *PendingTasksRecordBuilder) Source(source string) *PendingTasksRecordBuilder {
-	rb.v.Source = &source
-	return rb
-}
-
-// TimeInQueue how long task has been in queue
-
-func (rb *PendingTasksRecordBuilder) TimeInQueue(timeinqueue string) *PendingTasksRecordBuilder {
-	rb.v.TimeInQueue = &timeinqueue
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingLimitSettingsDimensionFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L464-L470
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L464-L470
 type MappingLimitSettingsDimensionFields struct {
 	// Limit [preview] This functionality is in technical preview and may be changed or
 	// removed in a future release. Elastic will
@@ -33,31 +33,9 @@ type MappingLimitSettingsDimensionFields struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-// MappingLimitSettingsDimensionFieldsBuilder holds MappingLimitSettingsDimensionFields struct and provides a builder API.
-type MappingLimitSettingsDimensionFieldsBuilder struct {
-	v *MappingLimitSettingsDimensionFields
-}
+// NewMappingLimitSettingsDimensionFields returns a MappingLimitSettingsDimensionFields.
+func NewMappingLimitSettingsDimensionFields() *MappingLimitSettingsDimensionFields {
+	r := &MappingLimitSettingsDimensionFields{}
 
-// NewMappingLimitSettingsDimensionFields provides a builder for the MappingLimitSettingsDimensionFields struct.
-func NewMappingLimitSettingsDimensionFieldsBuilder() *MappingLimitSettingsDimensionFieldsBuilder {
-	r := MappingLimitSettingsDimensionFieldsBuilder{
-		&MappingLimitSettingsDimensionFields{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingLimitSettingsDimensionFields struct
-func (rb *MappingLimitSettingsDimensionFieldsBuilder) Build() MappingLimitSettingsDimensionFields {
-	return *rb.v
-}
-
-// Limit [preview] This functionality is in technical preview and may be changed or
-// removed in a future release. Elastic will
-// apply best effort to fix any issues, but features in technical preview are
-// not subject to the support SLA of official GA features.
-
-func (rb *MappingLimitSettingsDimensionFieldsBuilder) Limit(limit int) *MappingLimitSettingsDimensionFieldsBuilder {
-	rb.v.Limit = &limit
-	return rb
+	return r
 }

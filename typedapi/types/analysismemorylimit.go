@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AnalysisMemoryLimit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Analysis.ts#L117-L122
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Analysis.ts#L117-L122
 type AnalysisMemoryLimit struct {
 	// ModelMemoryLimit Limits can be applied for the resources required to hold the mathematical
 	// models in memory. These limits are approximate and can be set per job. They
@@ -33,31 +33,9 @@ type AnalysisMemoryLimit struct {
 	ModelMemoryLimit string `json:"model_memory_limit"`
 }
 
-// AnalysisMemoryLimitBuilder holds AnalysisMemoryLimit struct and provides a builder API.
-type AnalysisMemoryLimitBuilder struct {
-	v *AnalysisMemoryLimit
-}
+// NewAnalysisMemoryLimit returns a AnalysisMemoryLimit.
+func NewAnalysisMemoryLimit() *AnalysisMemoryLimit {
+	r := &AnalysisMemoryLimit{}
 
-// NewAnalysisMemoryLimit provides a builder for the AnalysisMemoryLimit struct.
-func NewAnalysisMemoryLimitBuilder() *AnalysisMemoryLimitBuilder {
-	r := AnalysisMemoryLimitBuilder{
-		&AnalysisMemoryLimit{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AnalysisMemoryLimit struct
-func (rb *AnalysisMemoryLimitBuilder) Build() AnalysisMemoryLimit {
-	return *rb.v
-}
-
-// ModelMemoryLimit Limits can be applied for the resources required to hold the mathematical
-// models in memory. These limits are approximate and can be set per job. They
-// do not control the memory used by other processes, for example the
-// Elasticsearch Java processes.
-
-func (rb *AnalysisMemoryLimitBuilder) ModelMemoryLimit(modelmemorylimit string) *AnalysisMemoryLimitBuilder {
-	rb.v.ModelMemoryLimit = modelmemorylimit
-	return rb
+	return r
 }

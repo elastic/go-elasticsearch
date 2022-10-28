@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingLimitSettingsNestedFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L436-L444
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L436-L444
 type MappingLimitSettingsNestedFields struct {
 	// Limit The maximum number of distinct nested mappings in an index. The nested type
 	// should only be used in special cases, when
@@ -34,32 +34,9 @@ type MappingLimitSettingsNestedFields struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-// MappingLimitSettingsNestedFieldsBuilder holds MappingLimitSettingsNestedFields struct and provides a builder API.
-type MappingLimitSettingsNestedFieldsBuilder struct {
-	v *MappingLimitSettingsNestedFields
-}
+// NewMappingLimitSettingsNestedFields returns a MappingLimitSettingsNestedFields.
+func NewMappingLimitSettingsNestedFields() *MappingLimitSettingsNestedFields {
+	r := &MappingLimitSettingsNestedFields{}
 
-// NewMappingLimitSettingsNestedFields provides a builder for the MappingLimitSettingsNestedFields struct.
-func NewMappingLimitSettingsNestedFieldsBuilder() *MappingLimitSettingsNestedFieldsBuilder {
-	r := MappingLimitSettingsNestedFieldsBuilder{
-		&MappingLimitSettingsNestedFields{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingLimitSettingsNestedFields struct
-func (rb *MappingLimitSettingsNestedFieldsBuilder) Build() MappingLimitSettingsNestedFields {
-	return *rb.v
-}
-
-// Limit The maximum number of distinct nested mappings in an index. The nested type
-// should only be used in special cases, when
-// arrays of objects need to be queried independently of each other. To
-// safeguard against poorly designed mappings, this
-// setting limits the number of unique nested types per index.
-
-func (rb *MappingLimitSettingsNestedFieldsBuilder) Limit(limit int) *MappingLimitSettingsNestedFieldsBuilder {
-	rb.v.Limit = &limit
-	return rb
+	return r
 }

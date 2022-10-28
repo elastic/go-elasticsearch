@@ -17,69 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsMatch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L99-L108
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L99-L108
 type IntervalsMatch struct {
 	Analyzer *string          `json:"analyzer,omitempty"`
 	Filter   *IntervalsFilter `json:"filter,omitempty"`
 	MaxGaps  *int             `json:"max_gaps,omitempty"`
 	Ordered  *bool            `json:"ordered,omitempty"`
 	Query    string           `json:"query"`
-	UseField *Field           `json:"use_field,omitempty"`
+	UseField *string          `json:"use_field,omitempty"`
 }
 
-// IntervalsMatchBuilder holds IntervalsMatch struct and provides a builder API.
-type IntervalsMatchBuilder struct {
-	v *IntervalsMatch
-}
+// NewIntervalsMatch returns a IntervalsMatch.
+func NewIntervalsMatch() *IntervalsMatch {
+	r := &IntervalsMatch{}
 
-// NewIntervalsMatch provides a builder for the IntervalsMatch struct.
-func NewIntervalsMatchBuilder() *IntervalsMatchBuilder {
-	r := IntervalsMatchBuilder{
-		&IntervalsMatch{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsMatch struct
-func (rb *IntervalsMatchBuilder) Build() IntervalsMatch {
-	return *rb.v
-}
-
-func (rb *IntervalsMatchBuilder) Analyzer(analyzer string) *IntervalsMatchBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *IntervalsMatchBuilder) Filter(filter *IntervalsFilterBuilder) *IntervalsMatchBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *IntervalsMatchBuilder) MaxGaps(maxgaps int) *IntervalsMatchBuilder {
-	rb.v.MaxGaps = &maxgaps
-	return rb
-}
-
-func (rb *IntervalsMatchBuilder) Ordered(ordered bool) *IntervalsMatchBuilder {
-	rb.v.Ordered = &ordered
-	return rb
-}
-
-func (rb *IntervalsMatchBuilder) Query(query string) *IntervalsMatchBuilder {
-	rb.v.Query = query
-	return rb
-}
-
-func (rb *IntervalsMatchBuilder) UseField(usefield Field) *IntervalsMatchBuilder {
-	rb.v.UseField = &usefield
-	return rb
+	return r
 }

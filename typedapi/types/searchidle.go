@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SearchIdle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L236-L239
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L236-L239
 type SearchIdle struct {
 	After *Duration `json:"after,omitempty"`
 }
 
-// SearchIdleBuilder holds SearchIdle struct and provides a builder API.
-type SearchIdleBuilder struct {
-	v *SearchIdle
-}
+// NewSearchIdle returns a SearchIdle.
+func NewSearchIdle() *SearchIdle {
+	r := &SearchIdle{}
 
-// NewSearchIdle provides a builder for the SearchIdle struct.
-func NewSearchIdleBuilder() *SearchIdleBuilder {
-	r := SearchIdleBuilder{
-		&SearchIdle{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SearchIdle struct
-func (rb *SearchIdleBuilder) Build() SearchIdle {
-	return *rb.v
-}
-
-func (rb *SearchIdleBuilder) After(after *DurationBuilder) *SearchIdleBuilder {
-	v := after.Build()
-	rb.v.After = &v
-	return rb
+	return r
 }

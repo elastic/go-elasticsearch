@@ -17,58 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L390-L395
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L398-L403
 type LongTermsAggregate struct {
 	Buckets                 BucketsLongTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                 `json:"doc_count_error_upper_bound,omitempty"`
-	Meta                    *Metadata              `json:"meta,omitempty"`
+	Meta                    map[string]interface{} `json:"meta,omitempty"`
 	SumOtherDocCount        *int64                 `json:"sum_other_doc_count,omitempty"`
 }
 
-// LongTermsAggregateBuilder holds LongTermsAggregate struct and provides a builder API.
-type LongTermsAggregateBuilder struct {
-	v *LongTermsAggregate
-}
+// NewLongTermsAggregate returns a LongTermsAggregate.
+func NewLongTermsAggregate() *LongTermsAggregate {
+	r := &LongTermsAggregate{}
 
-// NewLongTermsAggregate provides a builder for the LongTermsAggregate struct.
-func NewLongTermsAggregateBuilder() *LongTermsAggregateBuilder {
-	r := LongTermsAggregateBuilder{
-		&LongTermsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LongTermsAggregate struct
-func (rb *LongTermsAggregateBuilder) Build() LongTermsAggregate {
-	return *rb.v
-}
-
-func (rb *LongTermsAggregateBuilder) Buckets(buckets *BucketsLongTermsBucketBuilder) *LongTermsAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *LongTermsAggregateBuilder) DocCountErrorUpperBound(doccounterrorupperbound int64) *LongTermsAggregateBuilder {
-	rb.v.DocCountErrorUpperBound = &doccounterrorupperbound
-	return rb
-}
-
-func (rb *LongTermsAggregateBuilder) Meta(meta *MetadataBuilder) *LongTermsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *LongTermsAggregateBuilder) SumOtherDocCount(sumotherdoccount int64) *LongTermsAggregateBuilder {
-	rb.v.SumOtherDocCount = &sumotherdoccount
-	return rb
+	return r
 }

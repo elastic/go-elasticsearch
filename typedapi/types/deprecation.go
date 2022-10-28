@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // Deprecation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/migration/deprecations/types.ts#L29-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/migration/deprecations/types.ts#L29-L35
 type Deprecation struct {
 	Details string `json:"details"`
 	// Level The level property describes the significance of the issue.
@@ -37,43 +37,9 @@ type Deprecation struct {
 	Url     string                            `json:"url"`
 }
 
-// DeprecationBuilder holds Deprecation struct and provides a builder API.
-type DeprecationBuilder struct {
-	v *Deprecation
-}
+// NewDeprecation returns a Deprecation.
+func NewDeprecation() *Deprecation {
+	r := &Deprecation{}
 
-// NewDeprecation provides a builder for the Deprecation struct.
-func NewDeprecationBuilder() *DeprecationBuilder {
-	r := DeprecationBuilder{
-		&Deprecation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Deprecation struct
-func (rb *DeprecationBuilder) Build() Deprecation {
-	return *rb.v
-}
-
-func (rb *DeprecationBuilder) Details(details string) *DeprecationBuilder {
-	rb.v.Details = details
-	return rb
-}
-
-// Level The level property describes the significance of the issue.
-
-func (rb *DeprecationBuilder) Level(level deprecationlevel.DeprecationLevel) *DeprecationBuilder {
-	rb.v.Level = level
-	return rb
-}
-
-func (rb *DeprecationBuilder) Message(message string) *DeprecationBuilder {
-	rb.v.Message = message
-	return rb
-}
-
-func (rb *DeprecationBuilder) Url(url string) *DeprecationBuilder {
-	rb.v.Url = url
-	return rb
+	return r
 }

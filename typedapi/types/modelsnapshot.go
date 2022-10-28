@@ -17,26 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ModelSnapshot type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Model.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Model.ts#L25-L46
 type ModelSnapshot struct {
 	// Description An optional description of the job.
 	Description *string `json:"description,omitempty"`
 	// JobId A numerical character string that uniquely identifies the job that the
 	// snapshot was created for.
-	JobId Id `json:"job_id"`
+	JobId string `json:"job_id"`
 	// LatestRecordTimeStamp The timestamp of the latest processed record.
 	LatestRecordTimeStamp *int `json:"latest_record_time_stamp,omitempty"`
 	// LatestResultTimeStamp The timestamp of the latest bucket result.
 	LatestResultTimeStamp *int `json:"latest_result_time_stamp,omitempty"`
 	// MinVersion The minimum version required to be able to restore the model snapshot.
-	MinVersion VersionString `json:"min_version"`
+	MinVersion string `json:"min_version"`
 	// ModelSizeStats Summary information describing the model.
 	ModelSizeStats *ModelSizeStats `json:"model_size_stats,omitempty"`
 	// Retain If true, this snapshot will not be deleted during automatic cleanup of
@@ -46,100 +46,14 @@ type ModelSnapshot struct {
 	// SnapshotDocCount For internal use only.
 	SnapshotDocCount int64 `json:"snapshot_doc_count"`
 	// SnapshotId A numerical character string that uniquely identifies the model snapshot.
-	SnapshotId Id `json:"snapshot_id"`
+	SnapshotId string `json:"snapshot_id"`
 	// Timestamp The creation timestamp for the snapshot.
 	Timestamp int64 `json:"timestamp"`
 }
 
-// ModelSnapshotBuilder holds ModelSnapshot struct and provides a builder API.
-type ModelSnapshotBuilder struct {
-	v *ModelSnapshot
-}
+// NewModelSnapshot returns a ModelSnapshot.
+func NewModelSnapshot() *ModelSnapshot {
+	r := &ModelSnapshot{}
 
-// NewModelSnapshot provides a builder for the ModelSnapshot struct.
-func NewModelSnapshotBuilder() *ModelSnapshotBuilder {
-	r := ModelSnapshotBuilder{
-		&ModelSnapshot{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ModelSnapshot struct
-func (rb *ModelSnapshotBuilder) Build() ModelSnapshot {
-	return *rb.v
-}
-
-// Description An optional description of the job.
-
-func (rb *ModelSnapshotBuilder) Description(description string) *ModelSnapshotBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-// JobId A numerical character string that uniquely identifies the job that the
-// snapshot was created for.
-
-func (rb *ModelSnapshotBuilder) JobId(jobid Id) *ModelSnapshotBuilder {
-	rb.v.JobId = jobid
-	return rb
-}
-
-// LatestRecordTimeStamp The timestamp of the latest processed record.
-
-func (rb *ModelSnapshotBuilder) LatestRecordTimeStamp(latestrecordtimestamp int) *ModelSnapshotBuilder {
-	rb.v.LatestRecordTimeStamp = &latestrecordtimestamp
-	return rb
-}
-
-// LatestResultTimeStamp The timestamp of the latest bucket result.
-
-func (rb *ModelSnapshotBuilder) LatestResultTimeStamp(latestresulttimestamp int) *ModelSnapshotBuilder {
-	rb.v.LatestResultTimeStamp = &latestresulttimestamp
-	return rb
-}
-
-// MinVersion The minimum version required to be able to restore the model snapshot.
-
-func (rb *ModelSnapshotBuilder) MinVersion(minversion VersionString) *ModelSnapshotBuilder {
-	rb.v.MinVersion = minversion
-	return rb
-}
-
-// ModelSizeStats Summary information describing the model.
-
-func (rb *ModelSnapshotBuilder) ModelSizeStats(modelsizestats *ModelSizeStatsBuilder) *ModelSnapshotBuilder {
-	v := modelsizestats.Build()
-	rb.v.ModelSizeStats = &v
-	return rb
-}
-
-// Retain If true, this snapshot will not be deleted during automatic cleanup of
-// snapshots older than model_snapshot_retention_days. However, this snapshot
-// will be deleted when the job is deleted. The default value is false.
-
-func (rb *ModelSnapshotBuilder) Retain(retain bool) *ModelSnapshotBuilder {
-	rb.v.Retain = retain
-	return rb
-}
-
-// SnapshotDocCount For internal use only.
-
-func (rb *ModelSnapshotBuilder) SnapshotDocCount(snapshotdoccount int64) *ModelSnapshotBuilder {
-	rb.v.SnapshotDocCount = snapshotdoccount
-	return rb
-}
-
-// SnapshotId A numerical character string that uniquely identifies the model snapshot.
-
-func (rb *ModelSnapshotBuilder) SnapshotId(snapshotid Id) *ModelSnapshotBuilder {
-	rb.v.SnapshotId = snapshotid
-	return rb
-}
-
-// Timestamp The creation timestamp for the snapshot.
-
-func (rb *ModelSnapshotBuilder) Timestamp(timestamp int64) *ModelSnapshotBuilder {
-	rb.v.Timestamp = timestamp
-	return rb
+	return r
 }

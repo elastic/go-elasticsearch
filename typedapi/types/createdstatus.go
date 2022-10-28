@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CreatedStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/CreatedStatus.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/CreatedStatus.ts#L20-L22
 type CreatedStatus struct {
 	Created bool `json:"created"`
 }
 
-// CreatedStatusBuilder holds CreatedStatus struct and provides a builder API.
-type CreatedStatusBuilder struct {
-	v *CreatedStatus
-}
+// NewCreatedStatus returns a CreatedStatus.
+func NewCreatedStatus() *CreatedStatus {
+	r := &CreatedStatus{}
 
-// NewCreatedStatus provides a builder for the CreatedStatus struct.
-func NewCreatedStatusBuilder() *CreatedStatusBuilder {
-	r := CreatedStatusBuilder{
-		&CreatedStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CreatedStatus struct
-func (rb *CreatedStatusBuilder) Build() CreatedStatus {
-	return *rb.v
-}
-
-func (rb *CreatedStatusBuilder) Created(created bool) *CreatedStatusBuilder {
-	rb.v.Created = created
-	return rb
+	return r
 }

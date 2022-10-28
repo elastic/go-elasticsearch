@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalMetric type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/rank_eval/types.ts#L90-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L90-L96
 type RankEvalMetric struct {
 	Dcg                    *RankEvalMetricDiscountedCumulativeGain `json:"dcg,omitempty"`
 	ExpectedReciprocalRank *RankEvalMetricExpectedReciprocalRank   `json:"expected_reciprocal_rank,omitempty"`
@@ -33,51 +33,9 @@ type RankEvalMetric struct {
 	Recall                 *RankEvalMetricRecall                   `json:"recall,omitempty"`
 }
 
-// RankEvalMetricBuilder holds RankEvalMetric struct and provides a builder API.
-type RankEvalMetricBuilder struct {
-	v *RankEvalMetric
-}
+// NewRankEvalMetric returns a RankEvalMetric.
+func NewRankEvalMetric() *RankEvalMetric {
+	r := &RankEvalMetric{}
 
-// NewRankEvalMetric provides a builder for the RankEvalMetric struct.
-func NewRankEvalMetricBuilder() *RankEvalMetricBuilder {
-	r := RankEvalMetricBuilder{
-		&RankEvalMetric{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalMetric struct
-func (rb *RankEvalMetricBuilder) Build() RankEvalMetric {
-	return *rb.v
-}
-
-func (rb *RankEvalMetricBuilder) Dcg(dcg *RankEvalMetricDiscountedCumulativeGainBuilder) *RankEvalMetricBuilder {
-	v := dcg.Build()
-	rb.v.Dcg = &v
-	return rb
-}
-
-func (rb *RankEvalMetricBuilder) ExpectedReciprocalRank(expectedreciprocalrank *RankEvalMetricExpectedReciprocalRankBuilder) *RankEvalMetricBuilder {
-	v := expectedreciprocalrank.Build()
-	rb.v.ExpectedReciprocalRank = &v
-	return rb
-}
-
-func (rb *RankEvalMetricBuilder) MeanReciprocalRank(meanreciprocalrank *RankEvalMetricMeanReciprocalRankBuilder) *RankEvalMetricBuilder {
-	v := meanreciprocalrank.Build()
-	rb.v.MeanReciprocalRank = &v
-	return rb
-}
-
-func (rb *RankEvalMetricBuilder) Precision(precision *RankEvalMetricPrecisionBuilder) *RankEvalMetricBuilder {
-	v := precision.Build()
-	rb.v.Precision = &v
-	return rb
-}
-
-func (rb *RankEvalMetricBuilder) Recall(recall *RankEvalMetricRecallBuilder) *RankEvalMetricBuilder {
-	v := recall.Build()
-	rb.v.Recall = &v
-	return rb
+	return r
 }

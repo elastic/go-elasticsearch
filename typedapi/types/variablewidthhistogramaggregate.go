@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // VariableWidthHistogramAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L353-L355
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L361-L363
 type VariableWidthHistogramAggregate struct {
 	Buckets BucketsVariableWidthHistogramBucket `json:"buckets"`
-	Meta    *Metadata                           `json:"meta,omitempty"`
+	Meta    map[string]interface{}              `json:"meta,omitempty"`
 }
 
-// VariableWidthHistogramAggregateBuilder holds VariableWidthHistogramAggregate struct and provides a builder API.
-type VariableWidthHistogramAggregateBuilder struct {
-	v *VariableWidthHistogramAggregate
-}
+// NewVariableWidthHistogramAggregate returns a VariableWidthHistogramAggregate.
+func NewVariableWidthHistogramAggregate() *VariableWidthHistogramAggregate {
+	r := &VariableWidthHistogramAggregate{}
 
-// NewVariableWidthHistogramAggregate provides a builder for the VariableWidthHistogramAggregate struct.
-func NewVariableWidthHistogramAggregateBuilder() *VariableWidthHistogramAggregateBuilder {
-	r := VariableWidthHistogramAggregateBuilder{
-		&VariableWidthHistogramAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the VariableWidthHistogramAggregate struct
-func (rb *VariableWidthHistogramAggregateBuilder) Build() VariableWidthHistogramAggregate {
-	return *rb.v
-}
-
-func (rb *VariableWidthHistogramAggregateBuilder) Buckets(buckets *BucketsVariableWidthHistogramBucketBuilder) *VariableWidthHistogramAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *VariableWidthHistogramAggregateBuilder) Meta(meta *MetadataBuilder) *VariableWidthHistogramAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

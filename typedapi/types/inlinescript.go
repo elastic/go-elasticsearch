@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // InlineScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Scripting.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Scripting.ts#L45-L50
 type InlineScript struct {
 	Lang    *scriptlanguage.ScriptLanguage `json:"lang,omitempty"`
 	Options map[string]string              `json:"options,omitempty"`
@@ -36,44 +36,12 @@ type InlineScript struct {
 	Source  string                         `json:"source"`
 }
 
-// InlineScriptBuilder holds InlineScript struct and provides a builder API.
-type InlineScriptBuilder struct {
-	v *InlineScript
-}
-
-// NewInlineScript provides a builder for the InlineScript struct.
-func NewInlineScriptBuilder() *InlineScriptBuilder {
-	r := InlineScriptBuilder{
-		&InlineScript{
-			Options: make(map[string]string, 0),
-			Params:  make(map[string]interface{}, 0),
-		},
+// NewInlineScript returns a InlineScript.
+func NewInlineScript() *InlineScript {
+	r := &InlineScript{
+		Options: make(map[string]string, 0),
+		Params:  make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the InlineScript struct
-func (rb *InlineScriptBuilder) Build() InlineScript {
-	return *rb.v
-}
-
-func (rb *InlineScriptBuilder) Lang(lang scriptlanguage.ScriptLanguage) *InlineScriptBuilder {
-	rb.v.Lang = &lang
-	return rb
-}
-
-func (rb *InlineScriptBuilder) Options(value map[string]string) *InlineScriptBuilder {
-	rb.v.Options = value
-	return rb
-}
-
-func (rb *InlineScriptBuilder) Params(value map[string]interface{}) *InlineScriptBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *InlineScriptBuilder) Source(source string) *InlineScriptBuilder {
-	rb.v.Source = source
-	return rb
+	return r
 }

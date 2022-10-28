@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationRegressionMetricsHuber type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeEvaluation.ts#L117-L120
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L117-L120
 type DataframeEvaluationRegressionMetricsHuber struct {
 	// Delta Approximates 1/2 (prediction - actual)2 for values much less than delta and
 	// approximates a straight line with slope delta for values much larger than
@@ -32,30 +32,9 @@ type DataframeEvaluationRegressionMetricsHuber struct {
 	Delta *float64 `json:"delta,omitempty"`
 }
 
-// DataframeEvaluationRegressionMetricsHuberBuilder holds DataframeEvaluationRegressionMetricsHuber struct and provides a builder API.
-type DataframeEvaluationRegressionMetricsHuberBuilder struct {
-	v *DataframeEvaluationRegressionMetricsHuber
-}
+// NewDataframeEvaluationRegressionMetricsHuber returns a DataframeEvaluationRegressionMetricsHuber.
+func NewDataframeEvaluationRegressionMetricsHuber() *DataframeEvaluationRegressionMetricsHuber {
+	r := &DataframeEvaluationRegressionMetricsHuber{}
 
-// NewDataframeEvaluationRegressionMetricsHuber provides a builder for the DataframeEvaluationRegressionMetricsHuber struct.
-func NewDataframeEvaluationRegressionMetricsHuberBuilder() *DataframeEvaluationRegressionMetricsHuberBuilder {
-	r := DataframeEvaluationRegressionMetricsHuberBuilder{
-		&DataframeEvaluationRegressionMetricsHuber{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationRegressionMetricsHuber struct
-func (rb *DataframeEvaluationRegressionMetricsHuberBuilder) Build() DataframeEvaluationRegressionMetricsHuber {
-	return *rb.v
-}
-
-// Delta Approximates 1/2 (prediction - actual)2 for values much less than delta and
-// approximates a straight line with slope delta for values much larger than
-// delta. Defaults to 1. Delta needs to be greater than 0.
-
-func (rb *DataframeEvaluationRegressionMetricsHuberBuilder) Delta(delta float64) *DataframeEvaluationRegressionMetricsHuberBuilder {
-	rb.v.Delta = &delta
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CategorizeTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L436-L500
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L436-L500
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
 	// before being categorized.
@@ -50,7 +50,7 @@ type CategorizeTextAggregation struct {
 	// pattern_replace character filters.
 	CategorizationFilters []string `json:"categorization_filters,omitempty"`
 	// Field The semi-structured text field to categorize.
-	Field Field `json:"field"`
+	Field string `json:"field"`
 	// MaxMatchedTokens The maximum number of token positions to match on before attempting to merge
 	// categories. Larger
 	// values will use more memory and create narrower categories. Max allowed value
@@ -61,8 +61,8 @@ type CategorizeTextAggregation struct {
 	// Smaller values use less memory and create fewer categories. Larger values
 	// will use more memory and
 	// create narrower categories. Max allowed value is 100.
-	MaxUniqueTokens *int      `json:"max_unique_tokens,omitempty"`
-	Meta            *Metadata `json:"meta,omitempty"`
+	MaxUniqueTokens *int                   `json:"max_unique_tokens,omitempty"`
+	Meta            map[string]interface{} `json:"meta,omitempty"`
 	// MinDocCount The minimum number of documents for a bucket to be returned to the results.
 	MinDocCount *int    `json:"min_doc_count,omitempty"`
 	Name        *string `json:"name,omitempty"`
@@ -82,135 +82,9 @@ type CategorizeTextAggregation struct {
 	Size *int `json:"size,omitempty"`
 }
 
-// CategorizeTextAggregationBuilder holds CategorizeTextAggregation struct and provides a builder API.
-type CategorizeTextAggregationBuilder struct {
-	v *CategorizeTextAggregation
-}
+// NewCategorizeTextAggregation returns a CategorizeTextAggregation.
+func NewCategorizeTextAggregation() *CategorizeTextAggregation {
+	r := &CategorizeTextAggregation{}
 
-// NewCategorizeTextAggregation provides a builder for the CategorizeTextAggregation struct.
-func NewCategorizeTextAggregationBuilder() *CategorizeTextAggregationBuilder {
-	r := CategorizeTextAggregationBuilder{
-		&CategorizeTextAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CategorizeTextAggregation struct
-func (rb *CategorizeTextAggregationBuilder) Build() CategorizeTextAggregation {
-	return *rb.v
-}
-
-// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
-// before being categorized.
-// The syntax is very similar to that used to define the analyzer in the
-// [Analyze
-// endpoint](https://www.elastic.co/guide/en/elasticsearch/reference/8.0/indices-analyze.html).
-// This property
-// cannot be used at the same time as categorization_filters.
-
-func (rb *CategorizeTextAggregationBuilder) CategorizationAnalyzer(categorizationanalyzer *CategorizeTextAnalyzerBuilder) *CategorizeTextAggregationBuilder {
-	v := categorizationanalyzer.Build()
-	rb.v.CategorizationAnalyzer = &v
-	return rb
-}
-
-// CategorizationFilters This property expects an array of regular expressions. The expressions are
-// used to filter out matching
-// sequences from the categorization field values. You can use this
-// functionality to fine tune the categorization
-// by excluding sequences from consideration when categories are defined. For
-// example, you can exclude SQL
-// statements that appear in your log files. This property cannot be used at the
-// same time as categorization_analyzer.
-// If you only want to define simple regular expression filters that are applied
-// prior to tokenization, setting
-// this property is the easiest method. If you also want to customize the
-// tokenizer or post-tokenization filtering,
-// use the categorization_analyzer property instead and include the filters as
-// pattern_replace character filters.
-
-func (rb *CategorizeTextAggregationBuilder) CategorizationFilters(categorization_filters ...string) *CategorizeTextAggregationBuilder {
-	rb.v.CategorizationFilters = categorization_filters
-	return rb
-}
-
-// Field The semi-structured text field to categorize.
-
-func (rb *CategorizeTextAggregationBuilder) Field(field Field) *CategorizeTextAggregationBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-// MaxMatchedTokens The maximum number of token positions to match on before attempting to merge
-// categories. Larger
-// values will use more memory and create narrower categories. Max allowed value
-// is 100.
-
-func (rb *CategorizeTextAggregationBuilder) MaxMatchedTokens(maxmatchedtokens int) *CategorizeTextAggregationBuilder {
-	rb.v.MaxMatchedTokens = &maxmatchedtokens
-	return rb
-}
-
-// MaxUniqueTokens The maximum number of unique tokens at any position up to max_matched_tokens.
-// Must be larger than 1.
-// Smaller values use less memory and create fewer categories. Larger values
-// will use more memory and
-// create narrower categories. Max allowed value is 100.
-
-func (rb *CategorizeTextAggregationBuilder) MaxUniqueTokens(maxuniquetokens int) *CategorizeTextAggregationBuilder {
-	rb.v.MaxUniqueTokens = &maxuniquetokens
-	return rb
-}
-
-func (rb *CategorizeTextAggregationBuilder) Meta(meta *MetadataBuilder) *CategorizeTextAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-// MinDocCount The minimum number of documents for a bucket to be returned to the results.
-
-func (rb *CategorizeTextAggregationBuilder) MinDocCount(mindoccount int) *CategorizeTextAggregationBuilder {
-	rb.v.MinDocCount = &mindoccount
-	return rb
-}
-
-func (rb *CategorizeTextAggregationBuilder) Name(name string) *CategorizeTextAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-// ShardMinDocCount The minimum number of documents for a bucket to be returned from the shard
-// before merging.
-
-func (rb *CategorizeTextAggregationBuilder) ShardMinDocCount(shardmindoccount int) *CategorizeTextAggregationBuilder {
-	rb.v.ShardMinDocCount = &shardmindoccount
-	return rb
-}
-
-// ShardSize The number of categorization buckets to return from each shard before merging
-// all the results.
-
-func (rb *CategorizeTextAggregationBuilder) ShardSize(shardsize int) *CategorizeTextAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
-}
-
-// SimilarityThreshold The minimum percentage of tokens that must match for text to be added to the
-// category bucket. Must
-// be between 1 and 100. The larger the value the narrower the categories.
-// Larger values will increase memory
-// usage and create narrower categories.
-
-func (rb *CategorizeTextAggregationBuilder) SimilarityThreshold(similaritythreshold int) *CategorizeTextAggregationBuilder {
-	rb.v.SimilarityThreshold = &similaritythreshold
-	return rb
-}
-
-// Size The number of buckets to return.
-
-func (rb *CategorizeTextAggregationBuilder) Size(size int) *CategorizeTextAggregationBuilder {
-	rb.v.Size = &size
-	return rb
+	return r
 }

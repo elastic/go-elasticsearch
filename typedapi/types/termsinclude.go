@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,36 +28,5 @@ package types
 //	[]string
 //	TermsPartition
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L418-L419
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L418-L419
 type TermsInclude interface{}
-
-// TermsIncludeBuilder holds TermsInclude struct and provides a builder API.
-type TermsIncludeBuilder struct {
-	v TermsInclude
-}
-
-// NewTermsInclude provides a builder for the TermsInclude struct.
-func NewTermsIncludeBuilder() *TermsIncludeBuilder {
-	return &TermsIncludeBuilder{}
-}
-
-// Build finalize the chain and returns the TermsInclude struct
-func (u *TermsIncludeBuilder) Build() TermsInclude {
-	return u.v
-}
-
-func (u *TermsIncludeBuilder) String(string string) *TermsIncludeBuilder {
-	u.v = &string
-	return u
-}
-
-func (u *TermsIncludeBuilder) Strings(strings ...string) *TermsIncludeBuilder {
-	u.v = strings
-	return u
-}
-
-func (u *TermsIncludeBuilder) TermsPartition(termspartition *TermsPartitionBuilder) *TermsIncludeBuilder {
-	v := termspartition.Build()
-	u.v = &v
-	return u
-}

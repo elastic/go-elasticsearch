@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FileDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/recovery/types.ts#L50-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/recovery/types.ts#L50-L54
 type FileDetails struct {
 	Length    int64  `json:"length"`
 	Name      string `json:"name"`
 	Recovered int64  `json:"recovered"`
 }
 
-// FileDetailsBuilder holds FileDetails struct and provides a builder API.
-type FileDetailsBuilder struct {
-	v *FileDetails
-}
+// NewFileDetails returns a FileDetails.
+func NewFileDetails() *FileDetails {
+	r := &FileDetails{}
 
-// NewFileDetails provides a builder for the FileDetails struct.
-func NewFileDetailsBuilder() *FileDetailsBuilder {
-	r := FileDetailsBuilder{
-		&FileDetails{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FileDetails struct
-func (rb *FileDetailsBuilder) Build() FileDetails {
-	return *rb.v
-}
-
-func (rb *FileDetailsBuilder) Length(length int64) *FileDetailsBuilder {
-	rb.v.Length = length
-	return rb
-}
-
-func (rb *FileDetailsBuilder) Name(name string) *FileDetailsBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *FileDetailsBuilder) Recovered(recovered int64) *FileDetailsBuilder {
-	rb.v.Recovered = recovered
-	return rb
+	return r
 }

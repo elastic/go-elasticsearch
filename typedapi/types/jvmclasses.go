@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // JvmClasses type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L351-L355
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L351-L355
 type JvmClasses struct {
 	CurrentLoadedCount *int64 `json:"current_loaded_count,omitempty"`
 	TotalLoadedCount   *int64 `json:"total_loaded_count,omitempty"`
 	TotalUnloadedCount *int64 `json:"total_unloaded_count,omitempty"`
 }
 
-// JvmClassesBuilder holds JvmClasses struct and provides a builder API.
-type JvmClassesBuilder struct {
-	v *JvmClasses
-}
+// NewJvmClasses returns a JvmClasses.
+func NewJvmClasses() *JvmClasses {
+	r := &JvmClasses{}
 
-// NewJvmClasses provides a builder for the JvmClasses struct.
-func NewJvmClassesBuilder() *JvmClassesBuilder {
-	r := JvmClassesBuilder{
-		&JvmClasses{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JvmClasses struct
-func (rb *JvmClassesBuilder) Build() JvmClasses {
-	return *rb.v
-}
-
-func (rb *JvmClassesBuilder) CurrentLoadedCount(currentloadedcount int64) *JvmClassesBuilder {
-	rb.v.CurrentLoadedCount = &currentloadedcount
-	return rb
-}
-
-func (rb *JvmClassesBuilder) TotalLoadedCount(totalloadedcount int64) *JvmClassesBuilder {
-	rb.v.TotalLoadedCount = &totalloadedcount
-	return rb
-}
-
-func (rb *JvmClassesBuilder) TotalUnloadedCount(totalunloadedcount int64) *JvmClassesBuilder {
-	rb.v.TotalUnloadedCount = &totalunloadedcount
-	return rb
+	return r
 }

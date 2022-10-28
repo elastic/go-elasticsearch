@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,77 +29,21 @@ import (
 
 // NodeShutdownStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
 type NodeShutdownStatus struct {
-	NodeId                NodeId                        `json:"node_id"`
+	NodeId                string                        `json:"node_id"`
 	PersistentTasks       PersistentTaskStatus          `json:"persistent_tasks"`
 	Plugins               PluginsStatus                 `json:"plugins"`
 	Reason                string                        `json:"reason"`
 	ShardMigration        ShardMigrationStatus          `json:"shard_migration"`
-	ShutdownStartedmillis EpochTimeUnitMillis           `json:"shutdown_startedmillis"`
+	ShutdownStartedmillis int64                         `json:"shutdown_startedmillis"`
 	Status                shutdownstatus.ShutdownStatus `json:"status"`
 	Type                  shutdowntype.ShutdownType     `json:"type"`
 }
 
-// NodeShutdownStatusBuilder holds NodeShutdownStatus struct and provides a builder API.
-type NodeShutdownStatusBuilder struct {
-	v *NodeShutdownStatus
-}
+// NewNodeShutdownStatus returns a NodeShutdownStatus.
+func NewNodeShutdownStatus() *NodeShutdownStatus {
+	r := &NodeShutdownStatus{}
 
-// NewNodeShutdownStatus provides a builder for the NodeShutdownStatus struct.
-func NewNodeShutdownStatusBuilder() *NodeShutdownStatusBuilder {
-	r := NodeShutdownStatusBuilder{
-		&NodeShutdownStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeShutdownStatus struct
-func (rb *NodeShutdownStatusBuilder) Build() NodeShutdownStatus {
-	return *rb.v
-}
-
-func (rb *NodeShutdownStatusBuilder) NodeId(nodeid NodeId) *NodeShutdownStatusBuilder {
-	rb.v.NodeId = nodeid
-	return rb
-}
-
-func (rb *NodeShutdownStatusBuilder) PersistentTasks(persistenttasks *PersistentTaskStatusBuilder) *NodeShutdownStatusBuilder {
-	v := persistenttasks.Build()
-	rb.v.PersistentTasks = v
-	return rb
-}
-
-func (rb *NodeShutdownStatusBuilder) Plugins(plugins *PluginsStatusBuilder) *NodeShutdownStatusBuilder {
-	v := plugins.Build()
-	rb.v.Plugins = v
-	return rb
-}
-
-func (rb *NodeShutdownStatusBuilder) Reason(reason string) *NodeShutdownStatusBuilder {
-	rb.v.Reason = reason
-	return rb
-}
-
-func (rb *NodeShutdownStatusBuilder) ShardMigration(shardmigration *ShardMigrationStatusBuilder) *NodeShutdownStatusBuilder {
-	v := shardmigration.Build()
-	rb.v.ShardMigration = v
-	return rb
-}
-
-func (rb *NodeShutdownStatusBuilder) ShutdownStartedmillis(shutdownstartedmillis *EpochTimeUnitMillisBuilder) *NodeShutdownStatusBuilder {
-	v := shutdownstartedmillis.Build()
-	rb.v.ShutdownStartedmillis = v
-	return rb
-}
-
-func (rb *NodeShutdownStatusBuilder) Status(status shutdownstatus.ShutdownStatus) *NodeShutdownStatusBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *NodeShutdownStatusBuilder) Type_(type_ shutdowntype.ShutdownType) *NodeShutdownStatusBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

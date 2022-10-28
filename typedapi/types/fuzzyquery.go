@@ -17,81 +17,28 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FuzzyQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/term.ts#L40-L51
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L40-L51
 type FuzzyQuery struct {
-	Boost          *float32               `json:"boost,omitempty"`
-	Fuzziness      *Fuzziness             `json:"fuzziness,omitempty"`
-	MaxExpansions  *int                   `json:"max_expansions,omitempty"`
-	PrefixLength   *int                   `json:"prefix_length,omitempty"`
-	QueryName_     *string                `json:"_name,omitempty"`
-	Rewrite        *MultiTermQueryRewrite `json:"rewrite,omitempty"`
-	Transpositions *bool                  `json:"transpositions,omitempty"`
-	Value          string                 `json:"value"`
+	Boost          *float32   `json:"boost,omitempty"`
+	Fuzziness      *Fuzziness `json:"fuzziness,omitempty"`
+	MaxExpansions  *int       `json:"max_expansions,omitempty"`
+	PrefixLength   *int       `json:"prefix_length,omitempty"`
+	QueryName_     *string    `json:"_name,omitempty"`
+	Rewrite        *string    `json:"rewrite,omitempty"`
+	Transpositions *bool      `json:"transpositions,omitempty"`
+	Value          string     `json:"value"`
 }
 
-// FuzzyQueryBuilder holds FuzzyQuery struct and provides a builder API.
-type FuzzyQueryBuilder struct {
-	v *FuzzyQuery
-}
+// NewFuzzyQuery returns a FuzzyQuery.
+func NewFuzzyQuery() *FuzzyQuery {
+	r := &FuzzyQuery{}
 
-// NewFuzzyQuery provides a builder for the FuzzyQuery struct.
-func NewFuzzyQueryBuilder() *FuzzyQueryBuilder {
-	r := FuzzyQueryBuilder{
-		&FuzzyQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FuzzyQuery struct
-func (rb *FuzzyQueryBuilder) Build() FuzzyQuery {
-	return *rb.v
-}
-
-func (rb *FuzzyQueryBuilder) Boost(boost float32) *FuzzyQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *FuzzyQueryBuilder) Fuzziness(fuzziness *FuzzinessBuilder) *FuzzyQueryBuilder {
-	v := fuzziness.Build()
-	rb.v.Fuzziness = &v
-	return rb
-}
-
-func (rb *FuzzyQueryBuilder) MaxExpansions(maxexpansions int) *FuzzyQueryBuilder {
-	rb.v.MaxExpansions = &maxexpansions
-	return rb
-}
-
-func (rb *FuzzyQueryBuilder) PrefixLength(prefixlength int) *FuzzyQueryBuilder {
-	rb.v.PrefixLength = &prefixlength
-	return rb
-}
-
-func (rb *FuzzyQueryBuilder) QueryName_(queryname_ string) *FuzzyQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *FuzzyQueryBuilder) Rewrite(rewrite MultiTermQueryRewrite) *FuzzyQueryBuilder {
-	rb.v.Rewrite = &rewrite
-	return rb
-}
-
-func (rb *FuzzyQueryBuilder) Transpositions(transpositions bool) *FuzzyQueryBuilder {
-	rb.v.Transpositions = &transpositions
-	return rb
-}
-
-func (rb *FuzzyQueryBuilder) Value(arg string) *FuzzyQueryBuilder {
-	rb.v.Value = arg
-	return rb
+	return r
 }

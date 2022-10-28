@@ -17,53 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PhraseSuggestCollate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L180-L184
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L180-L184
 type PhraseSuggestCollate struct {
 	Params map[string]interface{}    `json:"params,omitempty"`
 	Prune  *bool                     `json:"prune,omitempty"`
 	Query  PhraseSuggestCollateQuery `json:"query"`
 }
 
-// PhraseSuggestCollateBuilder holds PhraseSuggestCollate struct and provides a builder API.
-type PhraseSuggestCollateBuilder struct {
-	v *PhraseSuggestCollate
-}
-
-// NewPhraseSuggestCollate provides a builder for the PhraseSuggestCollate struct.
-func NewPhraseSuggestCollateBuilder() *PhraseSuggestCollateBuilder {
-	r := PhraseSuggestCollateBuilder{
-		&PhraseSuggestCollate{
-			Params: make(map[string]interface{}, 0),
-		},
+// NewPhraseSuggestCollate returns a PhraseSuggestCollate.
+func NewPhraseSuggestCollate() *PhraseSuggestCollate {
+	r := &PhraseSuggestCollate{
+		Params: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the PhraseSuggestCollate struct
-func (rb *PhraseSuggestCollateBuilder) Build() PhraseSuggestCollate {
-	return *rb.v
-}
-
-func (rb *PhraseSuggestCollateBuilder) Params(value map[string]interface{}) *PhraseSuggestCollateBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *PhraseSuggestCollateBuilder) Prune(prune bool) *PhraseSuggestCollateBuilder {
-	rb.v.Prune = &prune
-	return rb
-}
-
-func (rb *PhraseSuggestCollateBuilder) Query(query *PhraseSuggestCollateQueryBuilder) *PhraseSuggestCollateBuilder {
-	v := query.Build()
-	rb.v.Query = v
-	return rb
+	return r
 }

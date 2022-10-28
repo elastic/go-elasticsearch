@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // KuromojiTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/kuromoji-plugin.ts#L58-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/kuromoji-plugin.ts#L58-L67
 type KuromojiTokenizer struct {
 	DiscardCompoundToken *bool                                             `json:"discard_compound_token,omitempty"`
 	DiscardPunctuation   *bool                                             `json:"discard_punctuation,omitempty"`
@@ -38,66 +38,14 @@ type KuromojiTokenizer struct {
 	Type                 string                                            `json:"type,omitempty"`
 	UserDictionary       *string                                           `json:"user_dictionary,omitempty"`
 	UserDictionaryRules  []string                                          `json:"user_dictionary_rules,omitempty"`
-	Version              *VersionString                                    `json:"version,omitempty"`
+	Version              *string                                           `json:"version,omitempty"`
 }
 
-// KuromojiTokenizerBuilder holds KuromojiTokenizer struct and provides a builder API.
-type KuromojiTokenizerBuilder struct {
-	v *KuromojiTokenizer
-}
+// NewKuromojiTokenizer returns a KuromojiTokenizer.
+func NewKuromojiTokenizer() *KuromojiTokenizer {
+	r := &KuromojiTokenizer{}
 
-// NewKuromojiTokenizer provides a builder for the KuromojiTokenizer struct.
-func NewKuromojiTokenizerBuilder() *KuromojiTokenizerBuilder {
-	r := KuromojiTokenizerBuilder{
-		&KuromojiTokenizer{},
-	}
+	r.Type = "kuromoji_tokenizer"
 
-	r.v.Type = "kuromoji_tokenizer"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KuromojiTokenizer struct
-func (rb *KuromojiTokenizerBuilder) Build() KuromojiTokenizer {
-	return *rb.v
-}
-
-func (rb *KuromojiTokenizerBuilder) DiscardCompoundToken(discardcompoundtoken bool) *KuromojiTokenizerBuilder {
-	rb.v.DiscardCompoundToken = &discardcompoundtoken
-	return rb
-}
-
-func (rb *KuromojiTokenizerBuilder) DiscardPunctuation(discardpunctuation bool) *KuromojiTokenizerBuilder {
-	rb.v.DiscardPunctuation = &discardpunctuation
-	return rb
-}
-
-func (rb *KuromojiTokenizerBuilder) Mode(mode kuromojitokenizationmode.KuromojiTokenizationMode) *KuromojiTokenizerBuilder {
-	rb.v.Mode = mode
-	return rb
-}
-
-func (rb *KuromojiTokenizerBuilder) NbestCost(nbestcost int) *KuromojiTokenizerBuilder {
-	rb.v.NbestCost = &nbestcost
-	return rb
-}
-
-func (rb *KuromojiTokenizerBuilder) NbestExamples(nbestexamples string) *KuromojiTokenizerBuilder {
-	rb.v.NbestExamples = &nbestexamples
-	return rb
-}
-
-func (rb *KuromojiTokenizerBuilder) UserDictionary(userdictionary string) *KuromojiTokenizerBuilder {
-	rb.v.UserDictionary = &userdictionary
-	return rb
-}
-
-func (rb *KuromojiTokenizerBuilder) UserDictionaryRules(user_dictionary_rules ...string) *KuromojiTokenizerBuilder {
-	rb.v.UserDictionaryRules = user_dictionary_rules
-	return rb
-}
-
-func (rb *KuromojiTokenizerBuilder) Version(version VersionString) *KuromojiTokenizerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

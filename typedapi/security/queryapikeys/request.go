@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package queryapikeys
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L67
 type Request struct {
 
 	// From Starting document offset. By default, you cannot page through more than
@@ -39,38 +39,27 @@ type Request struct {
 	// hits using the from and size parameters. To page through more hits, use the
 	// search_after parameter.
 	From *int `json:"from,omitempty"`
-
 	// Query A query to filter which API keys to return.
 	// The query supports a subset of query types, including match_all, bool, term,
 	// terms, ids, prefix, wildcard, and range.
 	// You can query all public information associated with an API key
-	Query *types.QueryContainer `json:"query,omitempty"`
-
-	SearchAfter *types.SortResults `json:"search_after,omitempty"`
-
+	Query       *types.Query       `json:"query,omitempty"`
+	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
 	// Size The number of hits to return. By default, you cannot page through more
 	// than 10,000 hits using the from and size parameters. To page through more
 	// hits, use the search_after parameter.
-	Size *int `json:"size,omitempty"`
-
-	Sort *types.Sort `json:"sort,omitempty"`
+	Size *int                     `json:"size,omitempty"`
+	Sort []types.SortCombinations `json:"sort,omitempty"`
 }
 
-// RequestBuilder is the builder API for the queryapikeys.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -79,37 +68,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) From(from int) *RequestBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-func (rb *RequestBuilder) Query(query *types.QueryContainerBuilder) *RequestBuilder {
-	v := query.Build()
-	rb.v.Query = &v
-	return rb
-}
-
-func (rb *RequestBuilder) SearchAfter(searchafter *types.SortResultsBuilder) *RequestBuilder {
-	v := searchafter.Build()
-	rb.v.SearchAfter = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Size(size int) *RequestBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *RequestBuilder) Sort(sort *types.SortBuilder) *RequestBuilder {
-	v := sort.Build()
-	rb.v.Sort = &v
-	return rb
 }

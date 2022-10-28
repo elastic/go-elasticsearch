@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,98 +29,30 @@ import (
 
 // AggregateMetricDoubleProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/complex.ts#L59-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/complex.ts#L59-L64
 type AggregateMetricDoubleProperty struct {
 	DefaultMetric string                         `json:"default_metric"`
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta             map[string]string                          `json:"meta,omitempty"`
 	Metrics          []string                                   `json:"metrics"`
-	Properties       map[PropertyName]Property                  `json:"properties,omitempty"`
+	Properties       map[string]Property                        `json:"properties,omitempty"`
 	TimeSeriesMetric *timeseriesmetrictype.TimeSeriesMetricType `json:"time_series_metric,omitempty"`
 	Type             string                                     `json:"type,omitempty"`
 }
 
-// AggregateMetricDoublePropertyBuilder holds AggregateMetricDoubleProperty struct and provides a builder API.
-type AggregateMetricDoublePropertyBuilder struct {
-	v *AggregateMetricDoubleProperty
-}
-
-// NewAggregateMetricDoubleProperty provides a builder for the AggregateMetricDoubleProperty struct.
-func NewAggregateMetricDoublePropertyBuilder() *AggregateMetricDoublePropertyBuilder {
-	r := AggregateMetricDoublePropertyBuilder{
-		&AggregateMetricDoubleProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewAggregateMetricDoubleProperty returns a AggregateMetricDoubleProperty.
+func NewAggregateMetricDoubleProperty() *AggregateMetricDoubleProperty {
+	r := &AggregateMetricDoubleProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "aggregate_metric_double"
+	r.Type = "aggregate_metric_double"
 
-	return &r
-}
-
-// Build finalize the chain and returns the AggregateMetricDoubleProperty struct
-func (rb *AggregateMetricDoublePropertyBuilder) Build() AggregateMetricDoubleProperty {
-	return *rb.v
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) DefaultMetric(defaultmetric string) *AggregateMetricDoublePropertyBuilder {
-	rb.v.DefaultMetric = defaultmetric
-	return rb
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *AggregateMetricDoublePropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *AggregateMetricDoublePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) IgnoreAbove(ignoreabove int) *AggregateMetricDoublePropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *AggregateMetricDoublePropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *AggregateMetricDoublePropertyBuilder) Meta(value map[string]string) *AggregateMetricDoublePropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) Metrics(metrics ...string) *AggregateMetricDoublePropertyBuilder {
-	rb.v.Metrics = metrics
-	return rb
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *AggregateMetricDoublePropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *AggregateMetricDoublePropertyBuilder) TimeSeriesMetric(timeseriesmetric timeseriesmetrictype.TimeSeriesMetricType) *AggregateMetricDoublePropertyBuilder {
-	rb.v.TimeSeriesMetric = &timeseriesmetric
-	return rb
+	return r
 }

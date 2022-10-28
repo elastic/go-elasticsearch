@@ -17,17 +17,17 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ScriptedMetricAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L137-L143
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L137-L143
 type ScriptedMetricAggregation struct {
 	CombineScript *Script                `json:"combine_script,omitempty"`
-	Field         *Field                 `json:"field,omitempty"`
+	Field         *string                `json:"field,omitempty"`
 	InitScript    *Script                `json:"init_script,omitempty"`
 	MapScript     *Script                `json:"map_script,omitempty"`
 	Missing       *Missing               `json:"missing,omitempty"`
@@ -36,69 +36,11 @@ type ScriptedMetricAggregation struct {
 	Script        *Script                `json:"script,omitempty"`
 }
 
-// ScriptedMetricAggregationBuilder holds ScriptedMetricAggregation struct and provides a builder API.
-type ScriptedMetricAggregationBuilder struct {
-	v *ScriptedMetricAggregation
-}
-
-// NewScriptedMetricAggregation provides a builder for the ScriptedMetricAggregation struct.
-func NewScriptedMetricAggregationBuilder() *ScriptedMetricAggregationBuilder {
-	r := ScriptedMetricAggregationBuilder{
-		&ScriptedMetricAggregation{
-			Params: make(map[string]interface{}, 0),
-		},
+// NewScriptedMetricAggregation returns a ScriptedMetricAggregation.
+func NewScriptedMetricAggregation() *ScriptedMetricAggregation {
+	r := &ScriptedMetricAggregation{
+		Params: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ScriptedMetricAggregation struct
-func (rb *ScriptedMetricAggregationBuilder) Build() ScriptedMetricAggregation {
-	return *rb.v
-}
-
-func (rb *ScriptedMetricAggregationBuilder) CombineScript(combinescript *ScriptBuilder) *ScriptedMetricAggregationBuilder {
-	v := combinescript.Build()
-	rb.v.CombineScript = &v
-	return rb
-}
-
-func (rb *ScriptedMetricAggregationBuilder) Field(field Field) *ScriptedMetricAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *ScriptedMetricAggregationBuilder) InitScript(initscript *ScriptBuilder) *ScriptedMetricAggregationBuilder {
-	v := initscript.Build()
-	rb.v.InitScript = &v
-	return rb
-}
-
-func (rb *ScriptedMetricAggregationBuilder) MapScript(mapscript *ScriptBuilder) *ScriptedMetricAggregationBuilder {
-	v := mapscript.Build()
-	rb.v.MapScript = &v
-	return rb
-}
-
-func (rb *ScriptedMetricAggregationBuilder) Missing(missing *MissingBuilder) *ScriptedMetricAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *ScriptedMetricAggregationBuilder) Params(value map[string]interface{}) *ScriptedMetricAggregationBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *ScriptedMetricAggregationBuilder) ReduceScript(reducescript *ScriptBuilder) *ScriptedMetricAggregationBuilder {
-	v := reducescript.Build()
-	rb.v.ReduceScript = &v
-	return rb
-}
-
-func (rb *ScriptedMetricAggregationBuilder) Script(script *ScriptBuilder) *ScriptedMetricAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CoordsGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Geo.ts#L135-L140
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L138-L143
 type CoordsGeoBounds struct {
 	Bottom float64 `json:"bottom"`
 	Left   float64 `json:"left"`
@@ -32,41 +32,9 @@ type CoordsGeoBounds struct {
 	Top    float64 `json:"top"`
 }
 
-// CoordsGeoBoundsBuilder holds CoordsGeoBounds struct and provides a builder API.
-type CoordsGeoBoundsBuilder struct {
-	v *CoordsGeoBounds
-}
+// NewCoordsGeoBounds returns a CoordsGeoBounds.
+func NewCoordsGeoBounds() *CoordsGeoBounds {
+	r := &CoordsGeoBounds{}
 
-// NewCoordsGeoBounds provides a builder for the CoordsGeoBounds struct.
-func NewCoordsGeoBoundsBuilder() *CoordsGeoBoundsBuilder {
-	r := CoordsGeoBoundsBuilder{
-		&CoordsGeoBounds{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CoordsGeoBounds struct
-func (rb *CoordsGeoBoundsBuilder) Build() CoordsGeoBounds {
-	return *rb.v
-}
-
-func (rb *CoordsGeoBoundsBuilder) Bottom(bottom float64) *CoordsGeoBoundsBuilder {
-	rb.v.Bottom = bottom
-	return rb
-}
-
-func (rb *CoordsGeoBoundsBuilder) Left(left float64) *CoordsGeoBoundsBuilder {
-	rb.v.Left = left
-	return rb
-}
-
-func (rb *CoordsGeoBoundsBuilder) Right(right float64) *CoordsGeoBoundsBuilder {
-	rb.v.Right = right
-	return rb
-}
-
-func (rb *CoordsGeoBoundsBuilder) Top(top float64) *CoordsGeoBoundsBuilder {
-	rb.v.Top = top
-	return rb
+	return r
 }

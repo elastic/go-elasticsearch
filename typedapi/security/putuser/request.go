@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package putuser
@@ -25,46 +25,30 @@ package putuser
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putuser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/put_user/SecurityPutUserRequest.ts#L23-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/put_user/SecurityPutUserRequest.ts#L23-L45
 type Request struct {
-	Email string `json:"email,omitempty"`
-
-	Enabled *bool `json:"enabled,omitempty"`
-
-	FullName string `json:"full_name,omitempty"`
-
-	Metadata *types.Metadata `json:"metadata,omitempty"`
-
-	Password *types.Password `json:"password,omitempty"`
-
-	PasswordHash *string `json:"password_hash,omitempty"`
-
-	Roles []string `json:"roles,omitempty"`
-
-	Username *types.Username `json:"username,omitempty"`
+	Email        string                 `json:"email,omitempty"`
+	Enabled      *bool                  `json:"enabled,omitempty"`
+	FullName     string                 `json:"full_name,omitempty"`
+	Metadata     map[string]interface{} `json:"metadata,omitempty"`
+	Password     *string                `json:"password,omitempty"`
+	PasswordHash *string                `json:"password_hash,omitempty"`
+	Roles        []string               `json:"roles,omitempty"`
+	Username     *string                `json:"username,omitempty"`
 }
 
-// RequestBuilder is the builder API for the putuser.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -73,50 +57,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Email(email string) *RequestBuilder {
-	rb.v.Email = email
-	return rb
-}
-
-func (rb *RequestBuilder) Enabled(enabled bool) *RequestBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-func (rb *RequestBuilder) FullName(fullname string) *RequestBuilder {
-	rb.v.FullName = fullname
-	return rb
-}
-
-func (rb *RequestBuilder) Metadata(metadata *types.MetadataBuilder) *RequestBuilder {
-	v := metadata.Build()
-	rb.v.Metadata = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Password(password types.Password) *RequestBuilder {
-	rb.v.Password = &password
-	return rb
-}
-
-func (rb *RequestBuilder) PasswordHash(passwordhash string) *RequestBuilder {
-	rb.v.PasswordHash = &passwordhash
-	return rb
-}
-
-func (rb *RequestBuilder) Roles(roles ...string) *RequestBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-func (rb *RequestBuilder) Username(username types.Username) *RequestBuilder {
-	rb.v.Username = &username
-	return rb
 }

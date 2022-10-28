@@ -17,66 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Term type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/termvectors/types.ts#L34-L40
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/termvectors/types.ts#L34-L40
 type Term struct {
-	DocFreq  *int     `json:"doc_freq,omitempty"`
-	Score    *float64 `json:"score,omitempty"`
-	TermFreq int      `json:"term_freq"`
-	Tokens   []Token  `json:"tokens,omitempty"`
-	Ttf      *int     `json:"ttf,omitempty"`
+	DocFreq  *int               `json:"doc_freq,omitempty"`
+	Score    *float64           `json:"score,omitempty"`
+	TermFreq int                `json:"term_freq"`
+	Tokens   []TermVectorsToken `json:"tokens,omitempty"`
+	Ttf      *int               `json:"ttf,omitempty"`
 }
 
-// TermBuilder holds Term struct and provides a builder API.
-type TermBuilder struct {
-	v *Term
-}
+// NewTerm returns a Term.
+func NewTerm() *Term {
+	r := &Term{}
 
-// NewTerm provides a builder for the Term struct.
-func NewTermBuilder() *TermBuilder {
-	r := TermBuilder{
-		&Term{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Term struct
-func (rb *TermBuilder) Build() Term {
-	return *rb.v
-}
-
-func (rb *TermBuilder) DocFreq(docfreq int) *TermBuilder {
-	rb.v.DocFreq = &docfreq
-	return rb
-}
-
-func (rb *TermBuilder) Score(score float64) *TermBuilder {
-	rb.v.Score = &score
-	return rb
-}
-
-func (rb *TermBuilder) TermFreq(termfreq int) *TermBuilder {
-	rb.v.TermFreq = termfreq
-	return rb
-}
-
-func (rb *TermBuilder) Tokens(tokens []TokenBuilder) *TermBuilder {
-	tmp := make([]Token, len(tokens))
-	for _, value := range tokens {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Tokens = tmp
-	return rb
-}
-
-func (rb *TermBuilder) Ttf(ttf int) *TermBuilder {
-	rb.v.Ttf = &ttf
-	return rb
+	return r
 }

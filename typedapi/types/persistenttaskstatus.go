@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,31 +28,14 @@ import (
 
 // PersistentTaskStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L56-L58
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L56-L58
 type PersistentTaskStatus struct {
 	Status shutdownstatus.ShutdownStatus `json:"status"`
 }
 
-// PersistentTaskStatusBuilder holds PersistentTaskStatus struct and provides a builder API.
-type PersistentTaskStatusBuilder struct {
-	v *PersistentTaskStatus
-}
+// NewPersistentTaskStatus returns a PersistentTaskStatus.
+func NewPersistentTaskStatus() *PersistentTaskStatus {
+	r := &PersistentTaskStatus{}
 
-// NewPersistentTaskStatus provides a builder for the PersistentTaskStatus struct.
-func NewPersistentTaskStatusBuilder() *PersistentTaskStatusBuilder {
-	r := PersistentTaskStatusBuilder{
-		&PersistentTaskStatus{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PersistentTaskStatus struct
-func (rb *PersistentTaskStatusBuilder) Build() PersistentTaskStatus {
-	return *rb.v
-}
-
-func (rb *PersistentTaskStatusBuilder) Status(status shutdownstatus.ShutdownStatus) *PersistentTaskStatusBuilder {
-	rb.v.Status = status
-	return rb
+	return r
 }

@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodesCredentialsFileToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/get_service_credentials/types.ts#L30-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_service_credentials/types.ts#L30-L32
 type NodesCredentialsFileToken struct {
 	Nodes []string `json:"nodes"`
 }
 
-// NodesCredentialsFileTokenBuilder holds NodesCredentialsFileToken struct and provides a builder API.
-type NodesCredentialsFileTokenBuilder struct {
-	v *NodesCredentialsFileToken
-}
+// NewNodesCredentialsFileToken returns a NodesCredentialsFileToken.
+func NewNodesCredentialsFileToken() *NodesCredentialsFileToken {
+	r := &NodesCredentialsFileToken{}
 
-// NewNodesCredentialsFileToken provides a builder for the NodesCredentialsFileToken struct.
-func NewNodesCredentialsFileTokenBuilder() *NodesCredentialsFileTokenBuilder {
-	r := NodesCredentialsFileTokenBuilder{
-		&NodesCredentialsFileToken{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodesCredentialsFileToken struct
-func (rb *NodesCredentialsFileTokenBuilder) Build() NodesCredentialsFileToken {
-	return *rb.v
-}
-
-func (rb *NodesCredentialsFileTokenBuilder) Nodes(nodes ...string) *NodesCredentialsFileTokenBuilder {
-	rb.v.Nodes = nodes
-	return rb
+	return r
 }

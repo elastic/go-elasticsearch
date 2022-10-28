@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,14 +29,14 @@ import (
 
 // InlineGetDictUserDefined type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/common.ts#L286-L295
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L286-L295
 type InlineGetDictUserDefined struct {
 	Fields                   map[string]interface{} `json:"fields,omitempty"`
 	Found                    bool                   `json:"found"`
 	InlineGetDictUserDefined map[string]interface{} `json:"-"`
 	PrimaryTerm_             *int64                 `json:"_primary_term,omitempty"`
-	Routing_                 *Routing               `json:"_routing,omitempty"`
-	SeqNo_                   *SequenceNumber        `json:"_seq_no,omitempty"`
+	Routing_                 *string                `json:"_routing,omitempty"`
+	SeqNo_                   *int64                 `json:"_seq_no,omitempty"`
 	Source_                  map[string]interface{} `json:"_source"`
 }
 
@@ -68,60 +68,13 @@ func (s InlineGetDictUserDefined) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// InlineGetDictUserDefinedBuilder holds InlineGetDictUserDefined struct and provides a builder API.
-type InlineGetDictUserDefinedBuilder struct {
-	v *InlineGetDictUserDefined
-}
-
-// NewInlineGetDictUserDefined provides a builder for the InlineGetDictUserDefined struct.
-func NewInlineGetDictUserDefinedBuilder() *InlineGetDictUserDefinedBuilder {
-	r := InlineGetDictUserDefinedBuilder{
-		&InlineGetDictUserDefined{
-			Fields:                   make(map[string]interface{}, 0),
-			InlineGetDictUserDefined: make(map[string]interface{}, 0),
-			Source_:                  make(map[string]interface{}, 0),
-		},
+// NewInlineGetDictUserDefined returns a InlineGetDictUserDefined.
+func NewInlineGetDictUserDefined() *InlineGetDictUserDefined {
+	r := &InlineGetDictUserDefined{
+		Fields:                   make(map[string]interface{}, 0),
+		InlineGetDictUserDefined: make(map[string]interface{}, 0),
+		Source_:                  make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the InlineGetDictUserDefined struct
-func (rb *InlineGetDictUserDefinedBuilder) Build() InlineGetDictUserDefined {
-	return *rb.v
-}
-
-func (rb *InlineGetDictUserDefinedBuilder) Fields(value map[string]interface{}) *InlineGetDictUserDefinedBuilder {
-	rb.v.Fields = value
-	return rb
-}
-
-func (rb *InlineGetDictUserDefinedBuilder) Found(found bool) *InlineGetDictUserDefinedBuilder {
-	rb.v.Found = found
-	return rb
-}
-
-func (rb *InlineGetDictUserDefinedBuilder) InlineGetDictUserDefined(value map[string]interface{}) *InlineGetDictUserDefinedBuilder {
-	rb.v.InlineGetDictUserDefined = value
-	return rb
-}
-
-func (rb *InlineGetDictUserDefinedBuilder) PrimaryTerm_(primaryterm_ int64) *InlineGetDictUserDefinedBuilder {
-	rb.v.PrimaryTerm_ = &primaryterm_
-	return rb
-}
-
-func (rb *InlineGetDictUserDefinedBuilder) Routing_(routing_ Routing) *InlineGetDictUserDefinedBuilder {
-	rb.v.Routing_ = &routing_
-	return rb
-}
-
-func (rb *InlineGetDictUserDefinedBuilder) SeqNo_(seqno_ SequenceNumber) *InlineGetDictUserDefinedBuilder {
-	rb.v.SeqNo_ = &seqno_
-	return rb
-}
-
-func (rb *InlineGetDictUserDefinedBuilder) Source_(value map[string]interface{}) *InlineGetDictUserDefinedBuilder {
-	rb.v.Source_ = value
-	return rb
+	return r
 }

@@ -17,56 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TransformContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Transform.ts#L27-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Transform.ts#L27-L34
 type TransformContainer struct {
 	Chain  []TransformContainer `json:"chain,omitempty"`
 	Script *ScriptTransform     `json:"script,omitempty"`
 	Search *SearchTransform     `json:"search,omitempty"`
 }
 
-// TransformContainerBuilder holds TransformContainer struct and provides a builder API.
-type TransformContainerBuilder struct {
-	v *TransformContainer
-}
+// NewTransformContainer returns a TransformContainer.
+func NewTransformContainer() *TransformContainer {
+	r := &TransformContainer{}
 
-// NewTransformContainer provides a builder for the TransformContainer struct.
-func NewTransformContainerBuilder() *TransformContainerBuilder {
-	r := TransformContainerBuilder{
-		&TransformContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TransformContainer struct
-func (rb *TransformContainerBuilder) Build() TransformContainer {
-	return *rb.v
-}
-
-func (rb *TransformContainerBuilder) Chain(chain []TransformContainerBuilder) *TransformContainerBuilder {
-	tmp := make([]TransformContainer, len(chain))
-	for _, value := range chain {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Chain = tmp
-	return rb
-}
-
-func (rb *TransformContainerBuilder) Script(script *ScriptTransformBuilder) *TransformContainerBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
-}
-
-func (rb *TransformContainerBuilder) Search(search *SearchTransformBuilder) *TransformContainerBuilder {
-	v := search.Build()
-	rb.v.Search = &v
-	return rb
+	return r
 }

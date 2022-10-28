@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package updateuserprofiledata
@@ -29,36 +29,28 @@ import (
 
 // Request holds the request body struct for the package updateuserprofiledata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/update_user_profile_data/Request.ts#L27-L70
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/update_user_profile_data/Request.ts#L27-L70
 type Request struct {
 
 	// Data Non-searchable data that you want to associate with the user profile.
 	// This field supports a nested data structure.
 	Data map[string]interface{} `json:"data,omitempty"`
-
 	// Labels Searchable data that you want to associate with the user profile. This
 	// field supports a nested data structure.
 	Labels map[string]interface{} `json:"labels,omitempty"`
 }
 
-// RequestBuilder is the builder API for the updateuserprofiledata.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{
-			Data:   make(map[string]interface{}, 0),
-			Labels: make(map[string]interface{}, 0),
-		},
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{
+		Data:   make(map[string]interface{}, 0),
+		Labels: make(map[string]interface{}, 0),
 	}
-	return &r
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -67,19 +59,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Data(value map[string]interface{}) *RequestBuilder {
-	rb.v.Data = value
-	return rb
-}
-
-func (rb *RequestBuilder) Labels(value map[string]interface{}) *RequestBuilder {
-	rb.v.Labels = value
-	return rb
 }

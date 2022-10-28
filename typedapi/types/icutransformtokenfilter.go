@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,46 +28,19 @@ import (
 
 // IcuTransformTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/icu-plugin.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/icu-plugin.ts#L24-L28
 type IcuTransformTokenFilter struct {
 	Dir     *icutransformdirection.IcuTransformDirection `json:"dir,omitempty"`
 	Id      string                                       `json:"id"`
 	Type    string                                       `json:"type,omitempty"`
-	Version *VersionString                               `json:"version,omitempty"`
+	Version *string                                      `json:"version,omitempty"`
 }
 
-// IcuTransformTokenFilterBuilder holds IcuTransformTokenFilter struct and provides a builder API.
-type IcuTransformTokenFilterBuilder struct {
-	v *IcuTransformTokenFilter
-}
+// NewIcuTransformTokenFilter returns a IcuTransformTokenFilter.
+func NewIcuTransformTokenFilter() *IcuTransformTokenFilter {
+	r := &IcuTransformTokenFilter{}
 
-// NewIcuTransformTokenFilter provides a builder for the IcuTransformTokenFilter struct.
-func NewIcuTransformTokenFilterBuilder() *IcuTransformTokenFilterBuilder {
-	r := IcuTransformTokenFilterBuilder{
-		&IcuTransformTokenFilter{},
-	}
+	r.Type = "icu_transform"
 
-	r.v.Type = "icu_transform"
-
-	return &r
-}
-
-// Build finalize the chain and returns the IcuTransformTokenFilter struct
-func (rb *IcuTransformTokenFilterBuilder) Build() IcuTransformTokenFilter {
-	return *rb.v
-}
-
-func (rb *IcuTransformTokenFilterBuilder) Dir(dir icutransformdirection.IcuTransformDirection) *IcuTransformTokenFilterBuilder {
-	rb.v.Dir = &dir
-	return rb
-}
-
-func (rb *IcuTransformTokenFilterBuilder) Id(id string) *IcuTransformTokenFilterBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *IcuTransformTokenFilterBuilder) Version(version VersionString) *IcuTransformTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

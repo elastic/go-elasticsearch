@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AnalyzeToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/analyze/types.ts#L37-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/analyze/types.ts#L37-L44
 type AnalyzeToken struct {
 	EndOffset      int64  `json:"end_offset"`
 	Position       int64  `json:"position"`
@@ -34,51 +34,9 @@ type AnalyzeToken struct {
 	Type           string `json:"type"`
 }
 
-// AnalyzeTokenBuilder holds AnalyzeToken struct and provides a builder API.
-type AnalyzeTokenBuilder struct {
-	v *AnalyzeToken
-}
+// NewAnalyzeToken returns a AnalyzeToken.
+func NewAnalyzeToken() *AnalyzeToken {
+	r := &AnalyzeToken{}
 
-// NewAnalyzeToken provides a builder for the AnalyzeToken struct.
-func NewAnalyzeTokenBuilder() *AnalyzeTokenBuilder {
-	r := AnalyzeTokenBuilder{
-		&AnalyzeToken{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AnalyzeToken struct
-func (rb *AnalyzeTokenBuilder) Build() AnalyzeToken {
-	return *rb.v
-}
-
-func (rb *AnalyzeTokenBuilder) EndOffset(endoffset int64) *AnalyzeTokenBuilder {
-	rb.v.EndOffset = endoffset
-	return rb
-}
-
-func (rb *AnalyzeTokenBuilder) Position(position int64) *AnalyzeTokenBuilder {
-	rb.v.Position = position
-	return rb
-}
-
-func (rb *AnalyzeTokenBuilder) PositionLength(positionlength int64) *AnalyzeTokenBuilder {
-	rb.v.PositionLength = &positionlength
-	return rb
-}
-
-func (rb *AnalyzeTokenBuilder) StartOffset(startoffset int64) *AnalyzeTokenBuilder {
-	rb.v.StartOffset = startoffset
-	return rb
-}
-
-func (rb *AnalyzeTokenBuilder) Token(token string) *AnalyzeTokenBuilder {
-	rb.v.Token = token
-	return rb
-}
-
-func (rb *AnalyzeTokenBuilder) Type_(type_ string) *AnalyzeTokenBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

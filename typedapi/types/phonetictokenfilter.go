@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,7 +31,7 @@ import (
 
 // PhoneticTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/phonetic-plugin.ts#L64-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/phonetic-plugin.ts#L64-L72
 type PhoneticTokenFilter struct {
 	Encoder     phoneticencoder.PhoneticEncoder     `json:"encoder"`
 	Languageset []phoneticlanguage.PhoneticLanguage `json:"languageset"`
@@ -40,61 +40,14 @@ type PhoneticTokenFilter struct {
 	Replace     *bool                               `json:"replace,omitempty"`
 	RuleType    phoneticruletype.PhoneticRuleType   `json:"rule_type"`
 	Type        string                              `json:"type,omitempty"`
-	Version     *VersionString                      `json:"version,omitempty"`
+	Version     *string                             `json:"version,omitempty"`
 }
 
-// PhoneticTokenFilterBuilder holds PhoneticTokenFilter struct and provides a builder API.
-type PhoneticTokenFilterBuilder struct {
-	v *PhoneticTokenFilter
-}
+// NewPhoneticTokenFilter returns a PhoneticTokenFilter.
+func NewPhoneticTokenFilter() *PhoneticTokenFilter {
+	r := &PhoneticTokenFilter{}
 
-// NewPhoneticTokenFilter provides a builder for the PhoneticTokenFilter struct.
-func NewPhoneticTokenFilterBuilder() *PhoneticTokenFilterBuilder {
-	r := PhoneticTokenFilterBuilder{
-		&PhoneticTokenFilter{},
-	}
+	r.Type = "phonetic"
 
-	r.v.Type = "phonetic"
-
-	return &r
-}
-
-// Build finalize the chain and returns the PhoneticTokenFilter struct
-func (rb *PhoneticTokenFilterBuilder) Build() PhoneticTokenFilter {
-	return *rb.v
-}
-
-func (rb *PhoneticTokenFilterBuilder) Encoder(encoder phoneticencoder.PhoneticEncoder) *PhoneticTokenFilterBuilder {
-	rb.v.Encoder = encoder
-	return rb
-}
-
-func (rb *PhoneticTokenFilterBuilder) Languageset(languageset ...phoneticlanguage.PhoneticLanguage) *PhoneticTokenFilterBuilder {
-	rb.v.Languageset = languageset
-	return rb
-}
-
-func (rb *PhoneticTokenFilterBuilder) MaxCodeLen(maxcodelen int) *PhoneticTokenFilterBuilder {
-	rb.v.MaxCodeLen = &maxcodelen
-	return rb
-}
-
-func (rb *PhoneticTokenFilterBuilder) NameType(nametype phoneticnametype.PhoneticNameType) *PhoneticTokenFilterBuilder {
-	rb.v.NameType = nametype
-	return rb
-}
-
-func (rb *PhoneticTokenFilterBuilder) Replace(replace bool) *PhoneticTokenFilterBuilder {
-	rb.v.Replace = &replace
-	return rb
-}
-
-func (rb *PhoneticTokenFilterBuilder) RuleType(ruletype phoneticruletype.PhoneticRuleType) *PhoneticTokenFilterBuilder {
-	rb.v.RuleType = ruletype
-	return rb
-}
-
-func (rb *PhoneticTokenFilterBuilder) Version(version VersionString) *PhoneticTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ClusterProcess type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/cluster/stats/types.ts#L247-L250
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L247-L250
 type ClusterProcess struct {
 	Cpu                 ClusterProcessCpu                 `json:"cpu"`
 	OpenFileDescriptors ClusterProcessOpenFileDescriptors `json:"open_file_descriptors"`
 }
 
-// ClusterProcessBuilder holds ClusterProcess struct and provides a builder API.
-type ClusterProcessBuilder struct {
-	v *ClusterProcess
-}
+// NewClusterProcess returns a ClusterProcess.
+func NewClusterProcess() *ClusterProcess {
+	r := &ClusterProcess{}
 
-// NewClusterProcess provides a builder for the ClusterProcess struct.
-func NewClusterProcessBuilder() *ClusterProcessBuilder {
-	r := ClusterProcessBuilder{
-		&ClusterProcess{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ClusterProcess struct
-func (rb *ClusterProcessBuilder) Build() ClusterProcess {
-	return *rb.v
-}
-
-func (rb *ClusterProcessBuilder) Cpu(cpu *ClusterProcessCpuBuilder) *ClusterProcessBuilder {
-	v := cpu.Build()
-	rb.v.Cpu = v
-	return rb
-}
-
-func (rb *ClusterProcessBuilder) OpenFileDescriptors(openfiledescriptors *ClusterProcessOpenFileDescriptorsBuilder) *ClusterProcessBuilder {
-	v := openfiledescriptors.Build()
-	rb.v.OpenFileDescriptors = v
-	return rb
+	return r
 }

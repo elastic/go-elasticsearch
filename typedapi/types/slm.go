@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Slm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L431-L434
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L431-L434
 type Slm struct {
 	Available   bool        `json:"available"`
 	Enabled     bool        `json:"enabled"`
@@ -32,42 +32,9 @@ type Slm struct {
 	PolicyStats *Statistics `json:"policy_stats,omitempty"`
 }
 
-// SlmBuilder holds Slm struct and provides a builder API.
-type SlmBuilder struct {
-	v *Slm
-}
+// NewSlm returns a Slm.
+func NewSlm() *Slm {
+	r := &Slm{}
 
-// NewSlm provides a builder for the Slm struct.
-func NewSlmBuilder() *SlmBuilder {
-	r := SlmBuilder{
-		&Slm{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Slm struct
-func (rb *SlmBuilder) Build() Slm {
-	return *rb.v
-}
-
-func (rb *SlmBuilder) Available(available bool) *SlmBuilder {
-	rb.v.Available = available
-	return rb
-}
-
-func (rb *SlmBuilder) Enabled(enabled bool) *SlmBuilder {
-	rb.v.Enabled = enabled
-	return rb
-}
-
-func (rb *SlmBuilder) PolicyCount(policycount int) *SlmBuilder {
-	rb.v.PolicyCount = &policycount
-	return rb
-}
-
-func (rb *SlmBuilder) PolicyStats(policystats *StatisticsBuilder) *SlmBuilder {
-	v := policystats.Build()
-	rb.v.PolicyStats = &v
-	return rb
+	return r
 }

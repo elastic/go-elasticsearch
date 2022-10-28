@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,63 +28,19 @@ import (
 
 // BucketSortAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L154-L159
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L154-L159
 type BucketSortAggregation struct {
-	From      *int                 `json:"from,omitempty"`
-	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta      *Metadata            `json:"meta,omitempty"`
-	Name      *string              `json:"name,omitempty"`
-	Size      *int                 `json:"size,omitempty"`
-	Sort      *Sort                `json:"sort,omitempty"`
+	From      *int                   `json:"from,omitempty"`
+	GapPolicy *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Meta      map[string]interface{} `json:"meta,omitempty"`
+	Name      *string                `json:"name,omitempty"`
+	Size      *int                   `json:"size,omitempty"`
+	Sort      []SortCombinations     `json:"sort,omitempty"`
 }
 
-// BucketSortAggregationBuilder holds BucketSortAggregation struct and provides a builder API.
-type BucketSortAggregationBuilder struct {
-	v *BucketSortAggregation
-}
+// NewBucketSortAggregation returns a BucketSortAggregation.
+func NewBucketSortAggregation() *BucketSortAggregation {
+	r := &BucketSortAggregation{}
 
-// NewBucketSortAggregation provides a builder for the BucketSortAggregation struct.
-func NewBucketSortAggregationBuilder() *BucketSortAggregationBuilder {
-	r := BucketSortAggregationBuilder{
-		&BucketSortAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BucketSortAggregation struct
-func (rb *BucketSortAggregationBuilder) Build() BucketSortAggregation {
-	return *rb.v
-}
-
-func (rb *BucketSortAggregationBuilder) From(from int) *BucketSortAggregationBuilder {
-	rb.v.From = &from
-	return rb
-}
-
-func (rb *BucketSortAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *BucketSortAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *BucketSortAggregationBuilder) Meta(meta *MetadataBuilder) *BucketSortAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *BucketSortAggregationBuilder) Name(name string) *BucketSortAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *BucketSortAggregationBuilder) Size(size int) *BucketSortAggregationBuilder {
-	rb.v.Size = &size
-	return rb
-}
-
-func (rb *BucketSortAggregationBuilder) Sort(sort *SortBuilder) *BucketSortAggregationBuilder {
-	v := sort.Build()
-	rb.v.Sort = &v
-	return rb
+	return r
 }

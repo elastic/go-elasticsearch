@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeClassificationSummaryAccuracy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L70-L73
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L70-L73
 type DataframeClassificationSummaryAccuracy struct {
 	Classes         []DataframeEvaluationClass `json:"classes"`
 	OverallAccuracy float64                    `json:"overall_accuracy"`
 }
 
-// DataframeClassificationSummaryAccuracyBuilder holds DataframeClassificationSummaryAccuracy struct and provides a builder API.
-type DataframeClassificationSummaryAccuracyBuilder struct {
-	v *DataframeClassificationSummaryAccuracy
-}
+// NewDataframeClassificationSummaryAccuracy returns a DataframeClassificationSummaryAccuracy.
+func NewDataframeClassificationSummaryAccuracy() *DataframeClassificationSummaryAccuracy {
+	r := &DataframeClassificationSummaryAccuracy{}
 
-// NewDataframeClassificationSummaryAccuracy provides a builder for the DataframeClassificationSummaryAccuracy struct.
-func NewDataframeClassificationSummaryAccuracyBuilder() *DataframeClassificationSummaryAccuracyBuilder {
-	r := DataframeClassificationSummaryAccuracyBuilder{
-		&DataframeClassificationSummaryAccuracy{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeClassificationSummaryAccuracy struct
-func (rb *DataframeClassificationSummaryAccuracyBuilder) Build() DataframeClassificationSummaryAccuracy {
-	return *rb.v
-}
-
-func (rb *DataframeClassificationSummaryAccuracyBuilder) Classes(classes []DataframeEvaluationClassBuilder) *DataframeClassificationSummaryAccuracyBuilder {
-	tmp := make([]DataframeEvaluationClass, len(classes))
-	for _, value := range classes {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Classes = tmp
-	return rb
-}
-
-func (rb *DataframeClassificationSummaryAccuracyBuilder) OverallAccuracy(overallaccuracy float64) *DataframeClassificationSummaryAccuracyBuilder {
-	rb.v.OverallAccuracy = overallaccuracy
-	return rb
+	return r
 }

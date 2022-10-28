@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WatchRecordQueuedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/stats/types.ts#L50-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/stats/types.ts#L50-L52
 type WatchRecordQueuedStats struct {
 	ExecutionTime DateTime `json:"execution_time"`
 }
 
-// WatchRecordQueuedStatsBuilder holds WatchRecordQueuedStats struct and provides a builder API.
-type WatchRecordQueuedStatsBuilder struct {
-	v *WatchRecordQueuedStats
-}
+// NewWatchRecordQueuedStats returns a WatchRecordQueuedStats.
+func NewWatchRecordQueuedStats() *WatchRecordQueuedStats {
+	r := &WatchRecordQueuedStats{}
 
-// NewWatchRecordQueuedStats provides a builder for the WatchRecordQueuedStats struct.
-func NewWatchRecordQueuedStatsBuilder() *WatchRecordQueuedStatsBuilder {
-	r := WatchRecordQueuedStatsBuilder{
-		&WatchRecordQueuedStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WatchRecordQueuedStats struct
-func (rb *WatchRecordQueuedStatsBuilder) Build() WatchRecordQueuedStats {
-	return *rb.v
-}
-
-func (rb *WatchRecordQueuedStatsBuilder) ExecutionTime(executiontime *DateTimeBuilder) *WatchRecordQueuedStatsBuilder {
-	v := executiontime.Build()
-	rb.v.ExecutionTime = v
-	return rb
+	return r
 }

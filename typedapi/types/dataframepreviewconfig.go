@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframePreviewConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/preview_data_frame_analytics/types.ts#L27-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/preview_data_frame_analytics/types.ts#L27-L33
 type DataframePreviewConfig struct {
 	Analysis         DataframeAnalysisContainer       `json:"analysis"`
 	AnalyzedFields   *DataframeAnalysisAnalyzedFields `json:"analyzed_fields,omitempty"`
@@ -33,49 +33,9 @@ type DataframePreviewConfig struct {
 	Source           DataframeAnalyticsSource         `json:"source"`
 }
 
-// DataframePreviewConfigBuilder holds DataframePreviewConfig struct and provides a builder API.
-type DataframePreviewConfigBuilder struct {
-	v *DataframePreviewConfig
-}
+// NewDataframePreviewConfig returns a DataframePreviewConfig.
+func NewDataframePreviewConfig() *DataframePreviewConfig {
+	r := &DataframePreviewConfig{}
 
-// NewDataframePreviewConfig provides a builder for the DataframePreviewConfig struct.
-func NewDataframePreviewConfigBuilder() *DataframePreviewConfigBuilder {
-	r := DataframePreviewConfigBuilder{
-		&DataframePreviewConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframePreviewConfig struct
-func (rb *DataframePreviewConfigBuilder) Build() DataframePreviewConfig {
-	return *rb.v
-}
-
-func (rb *DataframePreviewConfigBuilder) Analysis(analysis *DataframeAnalysisContainerBuilder) *DataframePreviewConfigBuilder {
-	v := analysis.Build()
-	rb.v.Analysis = v
-	return rb
-}
-
-func (rb *DataframePreviewConfigBuilder) AnalyzedFields(analyzedfields *DataframeAnalysisAnalyzedFieldsBuilder) *DataframePreviewConfigBuilder {
-	v := analyzedfields.Build()
-	rb.v.AnalyzedFields = &v
-	return rb
-}
-
-func (rb *DataframePreviewConfigBuilder) MaxNumThreads(maxnumthreads int) *DataframePreviewConfigBuilder {
-	rb.v.MaxNumThreads = &maxnumthreads
-	return rb
-}
-
-func (rb *DataframePreviewConfigBuilder) ModelMemoryLimit(modelmemorylimit string) *DataframePreviewConfigBuilder {
-	rb.v.ModelMemoryLimit = &modelmemorylimit
-	return rb
-}
-
-func (rb *DataframePreviewConfigBuilder) Source(source *DataframeAnalyticsSourceBuilder) *DataframePreviewConfigBuilder {
-	v := source.Build()
-	rb.v.Source = v
-	return rb
+	return r
 }

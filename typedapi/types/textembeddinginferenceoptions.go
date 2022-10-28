@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TextEmbeddingInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L217-L223
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L217-L223
 type TextEmbeddingInferenceOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
@@ -33,37 +33,9 @@ type TextEmbeddingInferenceOptions struct {
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
 }
 
-// TextEmbeddingInferenceOptionsBuilder holds TextEmbeddingInferenceOptions struct and provides a builder API.
-type TextEmbeddingInferenceOptionsBuilder struct {
-	v *TextEmbeddingInferenceOptions
-}
+// NewTextEmbeddingInferenceOptions returns a TextEmbeddingInferenceOptions.
+func NewTextEmbeddingInferenceOptions() *TextEmbeddingInferenceOptions {
+	r := &TextEmbeddingInferenceOptions{}
 
-// NewTextEmbeddingInferenceOptions provides a builder for the TextEmbeddingInferenceOptions struct.
-func NewTextEmbeddingInferenceOptionsBuilder() *TextEmbeddingInferenceOptionsBuilder {
-	r := TextEmbeddingInferenceOptionsBuilder{
-		&TextEmbeddingInferenceOptions{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TextEmbeddingInferenceOptions struct
-func (rb *TextEmbeddingInferenceOptionsBuilder) Build() TextEmbeddingInferenceOptions {
-	return *rb.v
-}
-
-// ResultsField The field that is added to incoming documents to contain the inference
-// prediction. Defaults to predicted_value.
-
-func (rb *TextEmbeddingInferenceOptionsBuilder) ResultsField(resultsfield string) *TextEmbeddingInferenceOptionsBuilder {
-	rb.v.ResultsField = &resultsfield
-	return rb
-}
-
-// Tokenization The tokenization options
-
-func (rb *TextEmbeddingInferenceOptionsBuilder) Tokenization(tokenization *TokenizationConfigContainerBuilder) *TextEmbeddingInferenceOptionsBuilder {
-	v := tokenization.Build()
-	rb.v.Tokenization = &v
-	return rb
+	return r
 }

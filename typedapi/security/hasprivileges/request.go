@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package hasprivileges
@@ -32,31 +32,22 @@ import (
 
 // Request holds the request body struct for the package hasprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/has_privileges/SecurityHasPrivilegesRequest.ts#L25-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/has_privileges/SecurityHasPrivilegesRequest.ts#L25-L42
 type Request struct {
 	Application []types.ApplicationPrivilegesCheck `json:"application,omitempty"`
-
 	// Cluster A list of the cluster privileges that you want to check.
 	Cluster []clusterprivilege.ClusterPrivilege `json:"cluster,omitempty"`
-
-	Index []types.IndexPrivilegesCheck `json:"index,omitempty"`
+	Index   []types.IndexPrivilegesCheck        `json:"index,omitempty"`
 }
 
-// RequestBuilder is the builder API for the hasprivileges.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -65,32 +56,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Application(application []types.ApplicationPrivilegesCheckBuilder) *RequestBuilder {
-	tmp := make([]types.ApplicationPrivilegesCheck, len(application))
-	for _, value := range application {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Application = tmp
-	return rb
-}
-
-func (rb *RequestBuilder) Cluster(cluster ...clusterprivilege.ClusterPrivilege) *RequestBuilder {
-	rb.v.Cluster = cluster
-	return rb
-}
-
-func (rb *RequestBuilder) Index(index []types.IndexPrivilegesCheckBuilder) *RequestBuilder {
-	tmp := make([]types.IndexPrivilegesCheck, len(index))
-	for _, value := range index {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Index = tmp
-	return rb
 }

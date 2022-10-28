@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardSequenceNumber type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/stats/types.ts#L164-L168
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L164-L168
 type ShardSequenceNumber struct {
-	GlobalCheckpoint int64          `json:"global_checkpoint"`
-	LocalCheckpoint  int64          `json:"local_checkpoint"`
-	MaxSeqNo         SequenceNumber `json:"max_seq_no"`
+	GlobalCheckpoint int64 `json:"global_checkpoint"`
+	LocalCheckpoint  int64 `json:"local_checkpoint"`
+	MaxSeqNo         int64 `json:"max_seq_no"`
 }
 
-// ShardSequenceNumberBuilder holds ShardSequenceNumber struct and provides a builder API.
-type ShardSequenceNumberBuilder struct {
-	v *ShardSequenceNumber
-}
+// NewShardSequenceNumber returns a ShardSequenceNumber.
+func NewShardSequenceNumber() *ShardSequenceNumber {
+	r := &ShardSequenceNumber{}
 
-// NewShardSequenceNumber provides a builder for the ShardSequenceNumber struct.
-func NewShardSequenceNumberBuilder() *ShardSequenceNumberBuilder {
-	r := ShardSequenceNumberBuilder{
-		&ShardSequenceNumber{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardSequenceNumber struct
-func (rb *ShardSequenceNumberBuilder) Build() ShardSequenceNumber {
-	return *rb.v
-}
-
-func (rb *ShardSequenceNumberBuilder) GlobalCheckpoint(globalcheckpoint int64) *ShardSequenceNumberBuilder {
-	rb.v.GlobalCheckpoint = globalcheckpoint
-	return rb
-}
-
-func (rb *ShardSequenceNumberBuilder) LocalCheckpoint(localcheckpoint int64) *ShardSequenceNumberBuilder {
-	rb.v.LocalCheckpoint = localcheckpoint
-	return rb
-}
-
-func (rb *ShardSequenceNumberBuilder) MaxSeqNo(maxseqno SequenceNumber) *ShardSequenceNumberBuilder {
-	rb.v.MaxSeqNo = maxseqno
-	return rb
+	return r
 }

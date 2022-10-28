@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IoStatDevice type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L292-L299
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L292-L299
 type IoStatDevice struct {
 	DeviceName      *string `json:"device_name,omitempty"`
 	Operations      *int64  `json:"operations,omitempty"`
@@ -34,51 +34,9 @@ type IoStatDevice struct {
 	WriteOperations *int64  `json:"write_operations,omitempty"`
 }
 
-// IoStatDeviceBuilder holds IoStatDevice struct and provides a builder API.
-type IoStatDeviceBuilder struct {
-	v *IoStatDevice
-}
+// NewIoStatDevice returns a IoStatDevice.
+func NewIoStatDevice() *IoStatDevice {
+	r := &IoStatDevice{}
 
-// NewIoStatDevice provides a builder for the IoStatDevice struct.
-func NewIoStatDeviceBuilder() *IoStatDeviceBuilder {
-	r := IoStatDeviceBuilder{
-		&IoStatDevice{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IoStatDevice struct
-func (rb *IoStatDeviceBuilder) Build() IoStatDevice {
-	return *rb.v
-}
-
-func (rb *IoStatDeviceBuilder) DeviceName(devicename string) *IoStatDeviceBuilder {
-	rb.v.DeviceName = &devicename
-	return rb
-}
-
-func (rb *IoStatDeviceBuilder) Operations(operations int64) *IoStatDeviceBuilder {
-	rb.v.Operations = &operations
-	return rb
-}
-
-func (rb *IoStatDeviceBuilder) ReadKilobytes(readkilobytes int64) *IoStatDeviceBuilder {
-	rb.v.ReadKilobytes = &readkilobytes
-	return rb
-}
-
-func (rb *IoStatDeviceBuilder) ReadOperations(readoperations int64) *IoStatDeviceBuilder {
-	rb.v.ReadOperations = &readoperations
-	return rb
-}
-
-func (rb *IoStatDeviceBuilder) WriteKilobytes(writekilobytes int64) *IoStatDeviceBuilder {
-	rb.v.WriteKilobytes = &writekilobytes
-	return rb
-}
-
-func (rb *IoStatDeviceBuilder) WriteOperations(writeoperations int64) *IoStatDeviceBuilder {
-	rb.v.WriteOperations = &writeoperations
-	return rb
+	return r
 }

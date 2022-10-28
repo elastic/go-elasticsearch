@@ -17,19 +17,19 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SearchTemplateRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Input.ts#L128-L145
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Input.ts#L128-L145
 type SearchTemplateRequestBody struct {
 	Explain *bool `json:"explain,omitempty"`
 	// Id ID of the search template to use. If no source is specified,
 	// this parameter is required.
-	Id      *Id                    `json:"id,omitempty"`
+	Id      *string                `json:"id,omitempty"`
 	Params  map[string]interface{} `json:"params,omitempty"`
 	Profile *bool                  `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
@@ -38,55 +38,11 @@ type SearchTemplateRequestBody struct {
 	Source *string `json:"source,omitempty"`
 }
 
-// SearchTemplateRequestBodyBuilder holds SearchTemplateRequestBody struct and provides a builder API.
-type SearchTemplateRequestBodyBuilder struct {
-	v *SearchTemplateRequestBody
-}
-
-// NewSearchTemplateRequestBody provides a builder for the SearchTemplateRequestBody struct.
-func NewSearchTemplateRequestBodyBuilder() *SearchTemplateRequestBodyBuilder {
-	r := SearchTemplateRequestBodyBuilder{
-		&SearchTemplateRequestBody{
-			Params: make(map[string]interface{}, 0),
-		},
+// NewSearchTemplateRequestBody returns a SearchTemplateRequestBody.
+func NewSearchTemplateRequestBody() *SearchTemplateRequestBody {
+	r := &SearchTemplateRequestBody{
+		Params: make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the SearchTemplateRequestBody struct
-func (rb *SearchTemplateRequestBodyBuilder) Build() SearchTemplateRequestBody {
-	return *rb.v
-}
-
-func (rb *SearchTemplateRequestBodyBuilder) Explain(explain bool) *SearchTemplateRequestBodyBuilder {
-	rb.v.Explain = &explain
-	return rb
-}
-
-// Id ID of the search template to use. If no source is specified,
-// this parameter is required.
-
-func (rb *SearchTemplateRequestBodyBuilder) Id(id Id) *SearchTemplateRequestBodyBuilder {
-	rb.v.Id = &id
-	return rb
-}
-
-func (rb *SearchTemplateRequestBodyBuilder) Params(value map[string]interface{}) *SearchTemplateRequestBodyBuilder {
-	rb.v.Params = value
-	return rb
-}
-
-func (rb *SearchTemplateRequestBodyBuilder) Profile(profile bool) *SearchTemplateRequestBodyBuilder {
-	rb.v.Profile = &profile
-	return rb
-}
-
-// Source An inline search template. Supports the same parameters as the search API's
-// request body. Also supports Mustache variables. If no id is specified, this
-// parameter is required.
-
-func (rb *SearchTemplateRequestBodyBuilder) Source(source string) *SearchTemplateRequestBodyBuilder {
-	rb.v.Source = &source
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,58 +28,21 @@ import (
 
 // EdgeNGramTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/tokenizers.ts#L30-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L30-L36
 type EdgeNGramTokenizer struct {
 	CustomTokenChars *string               `json:"custom_token_chars,omitempty"`
 	MaxGram          int                   `json:"max_gram"`
 	MinGram          int                   `json:"min_gram"`
 	TokenChars       []tokenchar.TokenChar `json:"token_chars"`
 	Type             string                `json:"type,omitempty"`
-	Version          *VersionString        `json:"version,omitempty"`
+	Version          *string               `json:"version,omitempty"`
 }
 
-// EdgeNGramTokenizerBuilder holds EdgeNGramTokenizer struct and provides a builder API.
-type EdgeNGramTokenizerBuilder struct {
-	v *EdgeNGramTokenizer
-}
+// NewEdgeNGramTokenizer returns a EdgeNGramTokenizer.
+func NewEdgeNGramTokenizer() *EdgeNGramTokenizer {
+	r := &EdgeNGramTokenizer{}
 
-// NewEdgeNGramTokenizer provides a builder for the EdgeNGramTokenizer struct.
-func NewEdgeNGramTokenizerBuilder() *EdgeNGramTokenizerBuilder {
-	r := EdgeNGramTokenizerBuilder{
-		&EdgeNGramTokenizer{},
-	}
+	r.Type = "edge_ngram"
 
-	r.v.Type = "edge_ngram"
-
-	return &r
-}
-
-// Build finalize the chain and returns the EdgeNGramTokenizer struct
-func (rb *EdgeNGramTokenizerBuilder) Build() EdgeNGramTokenizer {
-	return *rb.v
-}
-
-func (rb *EdgeNGramTokenizerBuilder) CustomTokenChars(customtokenchars string) *EdgeNGramTokenizerBuilder {
-	rb.v.CustomTokenChars = &customtokenchars
-	return rb
-}
-
-func (rb *EdgeNGramTokenizerBuilder) MaxGram(maxgram int) *EdgeNGramTokenizerBuilder {
-	rb.v.MaxGram = maxgram
-	return rb
-}
-
-func (rb *EdgeNGramTokenizerBuilder) MinGram(mingram int) *EdgeNGramTokenizerBuilder {
-	rb.v.MinGram = mingram
-	return rb
-}
-
-func (rb *EdgeNGramTokenizerBuilder) TokenChars(token_chars ...tokenchar.TokenChar) *EdgeNGramTokenizerBuilder {
-	rb.v.TokenChars = token_chars
-	return rb
-}
-
-func (rb *EdgeNGramTokenizerBuilder) Version(version VersionString) *EdgeNGramTokenizerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

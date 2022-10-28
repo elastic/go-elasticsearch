@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoDateHistogramAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L347-L351
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L355-L359
 type AutoDateHistogramAggregate struct {
 	Buckets  BucketsDateHistogramBucket `json:"buckets"`
-	Interval DurationLarge              `json:"interval"`
-	Meta     *Metadata                  `json:"meta,omitempty"`
+	Interval string                     `json:"interval"`
+	Meta     map[string]interface{}     `json:"meta,omitempty"`
 }
 
-// AutoDateHistogramAggregateBuilder holds AutoDateHistogramAggregate struct and provides a builder API.
-type AutoDateHistogramAggregateBuilder struct {
-	v *AutoDateHistogramAggregate
-}
+// NewAutoDateHistogramAggregate returns a AutoDateHistogramAggregate.
+func NewAutoDateHistogramAggregate() *AutoDateHistogramAggregate {
+	r := &AutoDateHistogramAggregate{}
 
-// NewAutoDateHistogramAggregate provides a builder for the AutoDateHistogramAggregate struct.
-func NewAutoDateHistogramAggregateBuilder() *AutoDateHistogramAggregateBuilder {
-	r := AutoDateHistogramAggregateBuilder{
-		&AutoDateHistogramAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AutoDateHistogramAggregate struct
-func (rb *AutoDateHistogramAggregateBuilder) Build() AutoDateHistogramAggregate {
-	return *rb.v
-}
-
-func (rb *AutoDateHistogramAggregateBuilder) Buckets(buckets *BucketsDateHistogramBucketBuilder) *AutoDateHistogramAggregateBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *AutoDateHistogramAggregateBuilder) Interval(interval DurationLarge) *AutoDateHistogramAggregateBuilder {
-	rb.v.Interval = interval
-	return rb
-}
-
-func (rb *AutoDateHistogramAggregateBuilder) Meta(meta *MetadataBuilder) *AutoDateHistogramAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

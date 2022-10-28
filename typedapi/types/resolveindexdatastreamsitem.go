@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ResolveIndexDataStreamsItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/resolve_index/ResolveIndexResponse.ts#L42-L46
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/resolve_index/ResolveIndexResponse.ts#L42-L46
 type ResolveIndexDataStreamsItem struct {
-	BackingIndices Indices        `json:"backing_indices"`
-	Name           DataStreamName `json:"name"`
-	TimestampField Field          `json:"timestamp_field"`
+	BackingIndices []string `json:"backing_indices"`
+	Name           string   `json:"name"`
+	TimestampField string   `json:"timestamp_field"`
 }
 
-// ResolveIndexDataStreamsItemBuilder holds ResolveIndexDataStreamsItem struct and provides a builder API.
-type ResolveIndexDataStreamsItemBuilder struct {
-	v *ResolveIndexDataStreamsItem
-}
+// NewResolveIndexDataStreamsItem returns a ResolveIndexDataStreamsItem.
+func NewResolveIndexDataStreamsItem() *ResolveIndexDataStreamsItem {
+	r := &ResolveIndexDataStreamsItem{}
 
-// NewResolveIndexDataStreamsItem provides a builder for the ResolveIndexDataStreamsItem struct.
-func NewResolveIndexDataStreamsItemBuilder() *ResolveIndexDataStreamsItemBuilder {
-	r := ResolveIndexDataStreamsItemBuilder{
-		&ResolveIndexDataStreamsItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ResolveIndexDataStreamsItem struct
-func (rb *ResolveIndexDataStreamsItemBuilder) Build() ResolveIndexDataStreamsItem {
-	return *rb.v
-}
-
-func (rb *ResolveIndexDataStreamsItemBuilder) BackingIndices(backingindices *IndicesBuilder) *ResolveIndexDataStreamsItemBuilder {
-	v := backingindices.Build()
-	rb.v.BackingIndices = v
-	return rb
-}
-
-func (rb *ResolveIndexDataStreamsItemBuilder) Name(name DataStreamName) *ResolveIndexDataStreamsItemBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *ResolveIndexDataStreamsItemBuilder) TimestampField(timestampfield Field) *ResolveIndexDataStreamsItemBuilder {
-	rb.v.TimestampField = timestampfield
-	return rb
+	return r
 }

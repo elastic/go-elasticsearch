@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexMappingRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/get_mapping/IndicesGetMappingResponse.ts#L28-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/get_mapping/IndicesGetMappingResponse.ts#L28-L31
 type IndexMappingRecord struct {
 	Item     *TypeMapping `json:"item,omitempty"`
 	Mappings TypeMapping  `json:"mappings"`
 }
 
-// IndexMappingRecordBuilder holds IndexMappingRecord struct and provides a builder API.
-type IndexMappingRecordBuilder struct {
-	v *IndexMappingRecord
-}
+// NewIndexMappingRecord returns a IndexMappingRecord.
+func NewIndexMappingRecord() *IndexMappingRecord {
+	r := &IndexMappingRecord{}
 
-// NewIndexMappingRecord provides a builder for the IndexMappingRecord struct.
-func NewIndexMappingRecordBuilder() *IndexMappingRecordBuilder {
-	r := IndexMappingRecordBuilder{
-		&IndexMappingRecord{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexMappingRecord struct
-func (rb *IndexMappingRecordBuilder) Build() IndexMappingRecord {
-	return *rb.v
-}
-
-func (rb *IndexMappingRecordBuilder) Item(item *TypeMappingBuilder) *IndexMappingRecordBuilder {
-	v := item.Build()
-	rb.v.Item = &v
-	return rb
-}
-
-func (rb *IndexMappingRecordBuilder) Mappings(mappings *TypeMappingBuilder) *IndexMappingRecordBuilder {
-	v := mappings.Build()
-	rb.v.Mappings = v
-	return rb
+	return r
 }

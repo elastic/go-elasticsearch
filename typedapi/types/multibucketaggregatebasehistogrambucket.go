@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiBucketAggregateBaseHistogramBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L326-L328
 type MultiBucketAggregateBaseHistogramBucket struct {
 	Buckets BucketsHistogramBucket `json:"buckets"`
-	Meta    *Metadata              `json:"meta,omitempty"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// MultiBucketAggregateBaseHistogramBucketBuilder holds MultiBucketAggregateBaseHistogramBucket struct and provides a builder API.
-type MultiBucketAggregateBaseHistogramBucketBuilder struct {
-	v *MultiBucketAggregateBaseHistogramBucket
-}
+// NewMultiBucketAggregateBaseHistogramBucket returns a MultiBucketAggregateBaseHistogramBucket.
+func NewMultiBucketAggregateBaseHistogramBucket() *MultiBucketAggregateBaseHistogramBucket {
+	r := &MultiBucketAggregateBaseHistogramBucket{}
 
-// NewMultiBucketAggregateBaseHistogramBucket provides a builder for the MultiBucketAggregateBaseHistogramBucket struct.
-func NewMultiBucketAggregateBaseHistogramBucketBuilder() *MultiBucketAggregateBaseHistogramBucketBuilder {
-	r := MultiBucketAggregateBaseHistogramBucketBuilder{
-		&MultiBucketAggregateBaseHistogramBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiBucketAggregateBaseHistogramBucket struct
-func (rb *MultiBucketAggregateBaseHistogramBucketBuilder) Build() MultiBucketAggregateBaseHistogramBucket {
-	return *rb.v
-}
-
-func (rb *MultiBucketAggregateBaseHistogramBucketBuilder) Buckets(buckets *BucketsHistogramBucketBuilder) *MultiBucketAggregateBaseHistogramBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *MultiBucketAggregateBaseHistogramBucketBuilder) Meta(meta *MetadataBuilder) *MultiBucketAggregateBaseHistogramBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

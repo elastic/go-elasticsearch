@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MultiBucketAggregateBaseCompositeBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L326-L328
 type MultiBucketAggregateBaseCompositeBucket struct {
 	Buckets BucketsCompositeBucket `json:"buckets"`
-	Meta    *Metadata              `json:"meta,omitempty"`
+	Meta    map[string]interface{} `json:"meta,omitempty"`
 }
 
-// MultiBucketAggregateBaseCompositeBucketBuilder holds MultiBucketAggregateBaseCompositeBucket struct and provides a builder API.
-type MultiBucketAggregateBaseCompositeBucketBuilder struct {
-	v *MultiBucketAggregateBaseCompositeBucket
-}
+// NewMultiBucketAggregateBaseCompositeBucket returns a MultiBucketAggregateBaseCompositeBucket.
+func NewMultiBucketAggregateBaseCompositeBucket() *MultiBucketAggregateBaseCompositeBucket {
+	r := &MultiBucketAggregateBaseCompositeBucket{}
 
-// NewMultiBucketAggregateBaseCompositeBucket provides a builder for the MultiBucketAggregateBaseCompositeBucket struct.
-func NewMultiBucketAggregateBaseCompositeBucketBuilder() *MultiBucketAggregateBaseCompositeBucketBuilder {
-	r := MultiBucketAggregateBaseCompositeBucketBuilder{
-		&MultiBucketAggregateBaseCompositeBucket{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MultiBucketAggregateBaseCompositeBucket struct
-func (rb *MultiBucketAggregateBaseCompositeBucketBuilder) Build() MultiBucketAggregateBaseCompositeBucket {
-	return *rb.v
-}
-
-func (rb *MultiBucketAggregateBaseCompositeBucketBuilder) Buckets(buckets *BucketsCompositeBucketBuilder) *MultiBucketAggregateBaseCompositeBucketBuilder {
-	v := buckets.Build()
-	rb.v.Buckets = v
-	return rb
-}
-
-func (rb *MultiBucketAggregateBaseCompositeBucketBuilder) Meta(meta *MetadataBuilder) *MultiBucketAggregateBaseCompositeBucketBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

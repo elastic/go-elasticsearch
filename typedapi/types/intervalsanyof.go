@@ -17,49 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsAnyOf type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L58-L61
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L58-L61
 type IntervalsAnyOf struct {
-	Filter    *IntervalsFilter     `json:"filter,omitempty"`
-	Intervals []IntervalsContainer `json:"intervals"`
+	Filter    *IntervalsFilter `json:"filter,omitempty"`
+	Intervals []Intervals      `json:"intervals"`
 }
 
-// IntervalsAnyOfBuilder holds IntervalsAnyOf struct and provides a builder API.
-type IntervalsAnyOfBuilder struct {
-	v *IntervalsAnyOf
-}
+// NewIntervalsAnyOf returns a IntervalsAnyOf.
+func NewIntervalsAnyOf() *IntervalsAnyOf {
+	r := &IntervalsAnyOf{}
 
-// NewIntervalsAnyOf provides a builder for the IntervalsAnyOf struct.
-func NewIntervalsAnyOfBuilder() *IntervalsAnyOfBuilder {
-	r := IntervalsAnyOfBuilder{
-		&IntervalsAnyOf{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsAnyOf struct
-func (rb *IntervalsAnyOfBuilder) Build() IntervalsAnyOf {
-	return *rb.v
-}
-
-func (rb *IntervalsAnyOfBuilder) Filter(filter *IntervalsFilterBuilder) *IntervalsAnyOfBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *IntervalsAnyOfBuilder) Intervals(intervals []IntervalsContainerBuilder) *IntervalsAnyOfBuilder {
-	tmp := make([]IntervalsContainer, len(intervals))
-	for _, value := range intervals {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Intervals = tmp
-	return rb
+	return r
 }

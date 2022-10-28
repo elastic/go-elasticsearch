@@ -17,69 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsFuzzy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L88-L97
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L88-L97
 type IntervalsFuzzy struct {
 	Analyzer       *string    `json:"analyzer,omitempty"`
 	Fuzziness      *Fuzziness `json:"fuzziness,omitempty"`
 	PrefixLength   *int       `json:"prefix_length,omitempty"`
 	Term           string     `json:"term"`
 	Transpositions *bool      `json:"transpositions,omitempty"`
-	UseField       *Field     `json:"use_field,omitempty"`
+	UseField       *string    `json:"use_field,omitempty"`
 }
 
-// IntervalsFuzzyBuilder holds IntervalsFuzzy struct and provides a builder API.
-type IntervalsFuzzyBuilder struct {
-	v *IntervalsFuzzy
-}
+// NewIntervalsFuzzy returns a IntervalsFuzzy.
+func NewIntervalsFuzzy() *IntervalsFuzzy {
+	r := &IntervalsFuzzy{}
 
-// NewIntervalsFuzzy provides a builder for the IntervalsFuzzy struct.
-func NewIntervalsFuzzyBuilder() *IntervalsFuzzyBuilder {
-	r := IntervalsFuzzyBuilder{
-		&IntervalsFuzzy{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsFuzzy struct
-func (rb *IntervalsFuzzyBuilder) Build() IntervalsFuzzy {
-	return *rb.v
-}
-
-func (rb *IntervalsFuzzyBuilder) Analyzer(analyzer string) *IntervalsFuzzyBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *IntervalsFuzzyBuilder) Fuzziness(fuzziness *FuzzinessBuilder) *IntervalsFuzzyBuilder {
-	v := fuzziness.Build()
-	rb.v.Fuzziness = &v
-	return rb
-}
-
-func (rb *IntervalsFuzzyBuilder) PrefixLength(prefixlength int) *IntervalsFuzzyBuilder {
-	rb.v.PrefixLength = &prefixlength
-	return rb
-}
-
-func (rb *IntervalsFuzzyBuilder) Term(term string) *IntervalsFuzzyBuilder {
-	rb.v.Term = term
-	return rb
-}
-
-func (rb *IntervalsFuzzyBuilder) Transpositions(transpositions bool) *IntervalsFuzzyBuilder {
-	rb.v.Transpositions = &transpositions
-	return rb
-}
-
-func (rb *IntervalsFuzzyBuilder) UseField(usefield Field) *IntervalsFuzzyBuilder {
-	rb.v.UseField = &usefield
-	return rb
+	return r
 }

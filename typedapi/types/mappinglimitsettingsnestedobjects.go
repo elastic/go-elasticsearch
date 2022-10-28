@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MappingLimitSettingsNestedObjects type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L446-L453
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L446-L453
 type MappingLimitSettingsNestedObjects struct {
 	// Limit The maximum number of nested JSON objects that a single document can contain
 	// across all nested types. This limit helps
@@ -33,31 +33,9 @@ type MappingLimitSettingsNestedObjects struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-// MappingLimitSettingsNestedObjectsBuilder holds MappingLimitSettingsNestedObjects struct and provides a builder API.
-type MappingLimitSettingsNestedObjectsBuilder struct {
-	v *MappingLimitSettingsNestedObjects
-}
+// NewMappingLimitSettingsNestedObjects returns a MappingLimitSettingsNestedObjects.
+func NewMappingLimitSettingsNestedObjects() *MappingLimitSettingsNestedObjects {
+	r := &MappingLimitSettingsNestedObjects{}
 
-// NewMappingLimitSettingsNestedObjects provides a builder for the MappingLimitSettingsNestedObjects struct.
-func NewMappingLimitSettingsNestedObjectsBuilder() *MappingLimitSettingsNestedObjectsBuilder {
-	r := MappingLimitSettingsNestedObjectsBuilder{
-		&MappingLimitSettingsNestedObjects{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MappingLimitSettingsNestedObjects struct
-func (rb *MappingLimitSettingsNestedObjectsBuilder) Build() MappingLimitSettingsNestedObjects {
-	return *rb.v
-}
-
-// Limit The maximum number of nested JSON objects that a single document can contain
-// across all nested types. This limit helps
-// to prevent out of memory errors when a document contains too many nested
-// objects.
-
-func (rb *MappingLimitSettingsNestedObjectsBuilder) Limit(limit int) *MappingLimitSettingsNestedObjectsBuilder {
-	rb.v.Limit = &limit
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AnalyzeDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/analyze/types.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/analyze/types.ts#L24-L30
 type AnalyzeDetail struct {
 	Analyzer       *AnalyzerDetail    `json:"analyzer,omitempty"`
 	Charfilters    []CharFilterDetail `json:"charfilters,omitempty"`
@@ -33,56 +33,9 @@ type AnalyzeDetail struct {
 	Tokenizer      *TokenDetail       `json:"tokenizer,omitempty"`
 }
 
-// AnalyzeDetailBuilder holds AnalyzeDetail struct and provides a builder API.
-type AnalyzeDetailBuilder struct {
-	v *AnalyzeDetail
-}
+// NewAnalyzeDetail returns a AnalyzeDetail.
+func NewAnalyzeDetail() *AnalyzeDetail {
+	r := &AnalyzeDetail{}
 
-// NewAnalyzeDetail provides a builder for the AnalyzeDetail struct.
-func NewAnalyzeDetailBuilder() *AnalyzeDetailBuilder {
-	r := AnalyzeDetailBuilder{
-		&AnalyzeDetail{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AnalyzeDetail struct
-func (rb *AnalyzeDetailBuilder) Build() AnalyzeDetail {
-	return *rb.v
-}
-
-func (rb *AnalyzeDetailBuilder) Analyzer(analyzer *AnalyzerDetailBuilder) *AnalyzeDetailBuilder {
-	v := analyzer.Build()
-	rb.v.Analyzer = &v
-	return rb
-}
-
-func (rb *AnalyzeDetailBuilder) Charfilters(charfilters []CharFilterDetailBuilder) *AnalyzeDetailBuilder {
-	tmp := make([]CharFilterDetail, len(charfilters))
-	for _, value := range charfilters {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Charfilters = tmp
-	return rb
-}
-
-func (rb *AnalyzeDetailBuilder) CustomAnalyzer(customanalyzer bool) *AnalyzeDetailBuilder {
-	rb.v.CustomAnalyzer = customanalyzer
-	return rb
-}
-
-func (rb *AnalyzeDetailBuilder) Tokenfilters(tokenfilters []TokenDetailBuilder) *AnalyzeDetailBuilder {
-	tmp := make([]TokenDetail, len(tokenfilters))
-	for _, value := range tokenfilters {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Tokenfilters = tmp
-	return rb
-}
-
-func (rb *AnalyzeDetailBuilder) Tokenizer(tokenizer *TokenDetailBuilder) *AnalyzeDetailBuilder {
-	v := tokenizer.Build()
-	rb.v.Tokenizer = &v
-	return rb
+	return r
 }

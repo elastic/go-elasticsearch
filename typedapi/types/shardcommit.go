@@ -17,58 +17,26 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardCommit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/stats/types.ts#L100-L105
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L100-L105
 type ShardCommit struct {
 	Generation int               `json:"generation"`
-	Id         Id                `json:"id"`
+	Id         string            `json:"id"`
 	NumDocs    int64             `json:"num_docs"`
 	UserData   map[string]string `json:"user_data"`
 }
 
-// ShardCommitBuilder holds ShardCommit struct and provides a builder API.
-type ShardCommitBuilder struct {
-	v *ShardCommit
-}
-
-// NewShardCommit provides a builder for the ShardCommit struct.
-func NewShardCommitBuilder() *ShardCommitBuilder {
-	r := ShardCommitBuilder{
-		&ShardCommit{
-			UserData: make(map[string]string, 0),
-		},
+// NewShardCommit returns a ShardCommit.
+func NewShardCommit() *ShardCommit {
+	r := &ShardCommit{
+		UserData: make(map[string]string, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ShardCommit struct
-func (rb *ShardCommitBuilder) Build() ShardCommit {
-	return *rb.v
-}
-
-func (rb *ShardCommitBuilder) Generation(generation int) *ShardCommitBuilder {
-	rb.v.Generation = generation
-	return rb
-}
-
-func (rb *ShardCommitBuilder) Id(id Id) *ShardCommitBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ShardCommitBuilder) NumDocs(numdocs int64) *ShardCommitBuilder {
-	rb.v.NumDocs = numdocs
-	return rb
-}
-
-func (rb *ShardCommitBuilder) UserData(value map[string]string) *ShardCommitBuilder {
-	rb.v.UserData = value
-	return rb
+	return r
 }

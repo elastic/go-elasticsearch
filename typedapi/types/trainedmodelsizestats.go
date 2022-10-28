@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/TrainedModel.ts#L120-L125
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L120-L125
 type TrainedModelSizeStats struct {
 	// ModelSizeBytes The size of the model in bytes.
 	ModelSizeBytes ByteSize `json:"model_size_bytes"`
@@ -32,36 +32,9 @@ type TrainedModelSizeStats struct {
 	RequiredNativeMemoryBytes int `json:"required_native_memory_bytes"`
 }
 
-// TrainedModelSizeStatsBuilder holds TrainedModelSizeStats struct and provides a builder API.
-type TrainedModelSizeStatsBuilder struct {
-	v *TrainedModelSizeStats
-}
+// NewTrainedModelSizeStats returns a TrainedModelSizeStats.
+func NewTrainedModelSizeStats() *TrainedModelSizeStats {
+	r := &TrainedModelSizeStats{}
 
-// NewTrainedModelSizeStats provides a builder for the TrainedModelSizeStats struct.
-func NewTrainedModelSizeStatsBuilder() *TrainedModelSizeStatsBuilder {
-	r := TrainedModelSizeStatsBuilder{
-		&TrainedModelSizeStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelSizeStats struct
-func (rb *TrainedModelSizeStatsBuilder) Build() TrainedModelSizeStats {
-	return *rb.v
-}
-
-// ModelSizeBytes The size of the model in bytes.
-
-func (rb *TrainedModelSizeStatsBuilder) ModelSizeBytes(modelsizebytes *ByteSizeBuilder) *TrainedModelSizeStatsBuilder {
-	v := modelsizebytes.Build()
-	rb.v.ModelSizeBytes = v
-	return rb
-}
-
-// RequiredNativeMemoryBytes The amount of memory required to load the model in bytes.
-
-func (rb *TrainedModelSizeStatsBuilder) RequiredNativeMemoryBytes(requirednativememorybytes int) *TrainedModelSizeStatsBuilder {
-	rb.v.RequiredNativeMemoryBytes = requirednativememorybytes
-	return rb
+	return r
 }

@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Counter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L35-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L35-L38
 type Counter struct {
 	Active int64 `json:"active"`
 	Total  int64 `json:"total"`
 }
 
-// CounterBuilder holds Counter struct and provides a builder API.
-type CounterBuilder struct {
-	v *Counter
-}
+// NewCounter returns a Counter.
+func NewCounter() *Counter {
+	r := &Counter{}
 
-// NewCounter provides a builder for the Counter struct.
-func NewCounterBuilder() *CounterBuilder {
-	r := CounterBuilder{
-		&Counter{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Counter struct
-func (rb *CounterBuilder) Build() Counter {
-	return *rb.v
-}
-
-func (rb *CounterBuilder) Active(active int64) *CounterBuilder {
-	rb.v.Active = active
-	return rb
-}
-
-func (rb *CounterBuilder) Total(total int64) *CounterBuilder {
-	rb.v.Total = total
-	return rb
+	return r
 }

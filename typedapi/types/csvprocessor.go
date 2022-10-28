@@ -17,18 +17,18 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // CsvProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/_types/Processors.ts#L153-L162
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/_types/Processors.ts#L154-L162
 type CsvProcessor struct {
 	Description   *string              `json:"description,omitempty"`
 	EmptyValue    interface{}          `json:"empty_value,omitempty"`
-	Field         Field                `json:"field"`
+	Field         string               `json:"field"`
 	If            *string              `json:"if,omitempty"`
 	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
 	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
@@ -36,90 +36,13 @@ type CsvProcessor struct {
 	Quote         *string              `json:"quote,omitempty"`
 	Separator     *string              `json:"separator,omitempty"`
 	Tag           *string              `json:"tag,omitempty"`
-	TargetFields  Fields               `json:"target_fields"`
-	Trim          bool                 `json:"trim"`
+	TargetFields  []string             `json:"target_fields"`
+	Trim          *bool                `json:"trim,omitempty"`
 }
 
-// CsvProcessorBuilder holds CsvProcessor struct and provides a builder API.
-type CsvProcessorBuilder struct {
-	v *CsvProcessor
-}
+// NewCsvProcessor returns a CsvProcessor.
+func NewCsvProcessor() *CsvProcessor {
+	r := &CsvProcessor{}
 
-// NewCsvProcessor provides a builder for the CsvProcessor struct.
-func NewCsvProcessorBuilder() *CsvProcessorBuilder {
-	r := CsvProcessorBuilder{
-		&CsvProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the CsvProcessor struct
-func (rb *CsvProcessorBuilder) Build() CsvProcessor {
-	return *rb.v
-}
-
-func (rb *CsvProcessorBuilder) Description(description string) *CsvProcessorBuilder {
-	rb.v.Description = &description
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) EmptyValue(emptyvalue interface{}) *CsvProcessorBuilder {
-	rb.v.EmptyValue = emptyvalue
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) Field(field Field) *CsvProcessorBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) If_(if_ string) *CsvProcessorBuilder {
-	rb.v.If = &if_
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) IgnoreFailure(ignorefailure bool) *CsvProcessorBuilder {
-	rb.v.IgnoreFailure = &ignorefailure
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) IgnoreMissing(ignoremissing bool) *CsvProcessorBuilder {
-	rb.v.IgnoreMissing = &ignoremissing
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) OnFailure(on_failure []ProcessorContainerBuilder) *CsvProcessorBuilder {
-	tmp := make([]ProcessorContainer, len(on_failure))
-	for _, value := range on_failure {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.OnFailure = tmp
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) Quote(quote string) *CsvProcessorBuilder {
-	rb.v.Quote = &quote
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) Separator(separator string) *CsvProcessorBuilder {
-	rb.v.Separator = &separator
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) Tag(tag string) *CsvProcessorBuilder {
-	rb.v.Tag = &tag
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) TargetFields(targetfields *FieldsBuilder) *CsvProcessorBuilder {
-	v := targetfields.Build()
-	rb.v.TargetFields = v
-	return rb
-}
-
-func (rb *CsvProcessorBuilder) Trim(trim bool) *CsvProcessorBuilder {
-	rb.v.Trim = trim
-	return rb
+	return r
 }

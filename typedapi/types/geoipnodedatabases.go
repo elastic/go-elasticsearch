@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoIpNodeDatabases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ingest/geo_ip_stats/types.ts#L37-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ingest/geo_ip_stats/types.ts#L37-L43
 type GeoIpNodeDatabases struct {
 	// Databases Downloaded databases for the node.
 	Databases []GeoIpNodeDatabaseName `json:"databases"`
@@ -34,41 +34,9 @@ type GeoIpNodeDatabases struct {
 	FilesInTemp []string `json:"files_in_temp"`
 }
 
-// GeoIpNodeDatabasesBuilder holds GeoIpNodeDatabases struct and provides a builder API.
-type GeoIpNodeDatabasesBuilder struct {
-	v *GeoIpNodeDatabases
-}
+// NewGeoIpNodeDatabases returns a GeoIpNodeDatabases.
+func NewGeoIpNodeDatabases() *GeoIpNodeDatabases {
+	r := &GeoIpNodeDatabases{}
 
-// NewGeoIpNodeDatabases provides a builder for the GeoIpNodeDatabases struct.
-func NewGeoIpNodeDatabasesBuilder() *GeoIpNodeDatabasesBuilder {
-	r := GeoIpNodeDatabasesBuilder{
-		&GeoIpNodeDatabases{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoIpNodeDatabases struct
-func (rb *GeoIpNodeDatabasesBuilder) Build() GeoIpNodeDatabases {
-	return *rb.v
-}
-
-// Databases Downloaded databases for the node.
-
-func (rb *GeoIpNodeDatabasesBuilder) Databases(databases []GeoIpNodeDatabaseNameBuilder) *GeoIpNodeDatabasesBuilder {
-	tmp := make([]GeoIpNodeDatabaseName, len(databases))
-	for _, value := range databases {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Databases = tmp
-	return rb
-}
-
-// FilesInTemp Downloaded database files, including related license files. Elasticsearch
-// stores these files in the node’s temporary directory:
-// $ES_TMPDIR/geoip-databases/<node_id>.
-
-func (rb *GeoIpNodeDatabasesBuilder) FilesInTemp(files_in_temp ...string) *GeoIpNodeDatabasesBuilder {
-	rb.v.FilesInTemp = files_in_temp
-	return rb
+	return r
 }

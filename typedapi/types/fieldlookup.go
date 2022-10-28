@@ -17,56 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/abstractions.ts#L164-L169
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/abstractions.ts#L164-L169
 type FieldLookup struct {
-	Id      Id         `json:"id"`
-	Index   *IndexName `json:"index,omitempty"`
-	Path    *Field     `json:"path,omitempty"`
-	Routing *Routing   `json:"routing,omitempty"`
+	Id      string  `json:"id"`
+	Index   *string `json:"index,omitempty"`
+	Path    *string `json:"path,omitempty"`
+	Routing *string `json:"routing,omitempty"`
 }
 
-// FieldLookupBuilder holds FieldLookup struct and provides a builder API.
-type FieldLookupBuilder struct {
-	v *FieldLookup
-}
+// NewFieldLookup returns a FieldLookup.
+func NewFieldLookup() *FieldLookup {
+	r := &FieldLookup{}
 
-// NewFieldLookup provides a builder for the FieldLookup struct.
-func NewFieldLookupBuilder() *FieldLookupBuilder {
-	r := FieldLookupBuilder{
-		&FieldLookup{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldLookup struct
-func (rb *FieldLookupBuilder) Build() FieldLookup {
-	return *rb.v
-}
-
-func (rb *FieldLookupBuilder) Id(id Id) *FieldLookupBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *FieldLookupBuilder) Index(index IndexName) *FieldLookupBuilder {
-	rb.v.Index = &index
-	return rb
-}
-
-func (rb *FieldLookupBuilder) Path(path Field) *FieldLookupBuilder {
-	rb.v.Path = &path
-	return rb
-}
-
-func (rb *FieldLookupBuilder) Routing(routing Routing) *FieldLookupBuilder {
-	rb.v.Routing = &routing
-	return rb
+	return r
 }

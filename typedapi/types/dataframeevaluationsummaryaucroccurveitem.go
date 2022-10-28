@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationSummaryAucRocCurveItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L54-L58
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L54-L58
 type DataframeEvaluationSummaryAucRocCurveItem struct {
 	Fpr       float64 `json:"fpr"`
 	Threshold float64 `json:"threshold"`
 	Tpr       float64 `json:"tpr"`
 }
 
-// DataframeEvaluationSummaryAucRocCurveItemBuilder holds DataframeEvaluationSummaryAucRocCurveItem struct and provides a builder API.
-type DataframeEvaluationSummaryAucRocCurveItemBuilder struct {
-	v *DataframeEvaluationSummaryAucRocCurveItem
-}
+// NewDataframeEvaluationSummaryAucRocCurveItem returns a DataframeEvaluationSummaryAucRocCurveItem.
+func NewDataframeEvaluationSummaryAucRocCurveItem() *DataframeEvaluationSummaryAucRocCurveItem {
+	r := &DataframeEvaluationSummaryAucRocCurveItem{}
 
-// NewDataframeEvaluationSummaryAucRocCurveItem provides a builder for the DataframeEvaluationSummaryAucRocCurveItem struct.
-func NewDataframeEvaluationSummaryAucRocCurveItemBuilder() *DataframeEvaluationSummaryAucRocCurveItemBuilder {
-	r := DataframeEvaluationSummaryAucRocCurveItemBuilder{
-		&DataframeEvaluationSummaryAucRocCurveItem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationSummaryAucRocCurveItem struct
-func (rb *DataframeEvaluationSummaryAucRocCurveItemBuilder) Build() DataframeEvaluationSummaryAucRocCurveItem {
-	return *rb.v
-}
-
-func (rb *DataframeEvaluationSummaryAucRocCurveItemBuilder) Fpr(fpr float64) *DataframeEvaluationSummaryAucRocCurveItemBuilder {
-	rb.v.Fpr = fpr
-	return rb
-}
-
-func (rb *DataframeEvaluationSummaryAucRocCurveItemBuilder) Threshold(threshold float64) *DataframeEvaluationSummaryAucRocCurveItemBuilder {
-	rb.v.Threshold = threshold
-	return rb
-}
-
-func (rb *DataframeEvaluationSummaryAucRocCurveItemBuilder) Tpr(tpr float64) *DataframeEvaluationSummaryAucRocCurveItemBuilder {
-	rb.v.Tpr = tpr
-	return rb
+	return r
 }

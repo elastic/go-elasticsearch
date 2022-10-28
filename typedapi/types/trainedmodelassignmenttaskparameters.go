@@ -17,21 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelAssignmentTaskParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/TrainedModel.ts#L299-L325
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L299-L325
 type TrainedModelAssignmentTaskParameters struct {
 	// CacheSize The size of the trained model cache.
 	CacheSize ByteSize `json:"cache_size"`
 	// ModelBytes The size of the trained model in bytes.
 	ModelBytes int `json:"model_bytes"`
 	// ModelId The unique identifier for the trained model.
-	ModelId Id `json:"model_id"`
+	ModelId string `json:"model_id"`
 	// NumberOfAllocations The total number of allocations this model is assigned across ML nodes.
 	NumberOfAllocations int `json:"number_of_allocations"`
 	// QueueCapacity Number of inference requests are allowed in the queue at a time.
@@ -40,64 +40,9 @@ type TrainedModelAssignmentTaskParameters struct {
 	ThreadsPerAllocation int `json:"threads_per_allocation"`
 }
 
-// TrainedModelAssignmentTaskParametersBuilder holds TrainedModelAssignmentTaskParameters struct and provides a builder API.
-type TrainedModelAssignmentTaskParametersBuilder struct {
-	v *TrainedModelAssignmentTaskParameters
-}
+// NewTrainedModelAssignmentTaskParameters returns a TrainedModelAssignmentTaskParameters.
+func NewTrainedModelAssignmentTaskParameters() *TrainedModelAssignmentTaskParameters {
+	r := &TrainedModelAssignmentTaskParameters{}
 
-// NewTrainedModelAssignmentTaskParameters provides a builder for the TrainedModelAssignmentTaskParameters struct.
-func NewTrainedModelAssignmentTaskParametersBuilder() *TrainedModelAssignmentTaskParametersBuilder {
-	r := TrainedModelAssignmentTaskParametersBuilder{
-		&TrainedModelAssignmentTaskParameters{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelAssignmentTaskParameters struct
-func (rb *TrainedModelAssignmentTaskParametersBuilder) Build() TrainedModelAssignmentTaskParameters {
-	return *rb.v
-}
-
-// CacheSize The size of the trained model cache.
-
-func (rb *TrainedModelAssignmentTaskParametersBuilder) CacheSize(cachesize *ByteSizeBuilder) *TrainedModelAssignmentTaskParametersBuilder {
-	v := cachesize.Build()
-	rb.v.CacheSize = v
-	return rb
-}
-
-// ModelBytes The size of the trained model in bytes.
-
-func (rb *TrainedModelAssignmentTaskParametersBuilder) ModelBytes(modelbytes int) *TrainedModelAssignmentTaskParametersBuilder {
-	rb.v.ModelBytes = modelbytes
-	return rb
-}
-
-// ModelId The unique identifier for the trained model.
-
-func (rb *TrainedModelAssignmentTaskParametersBuilder) ModelId(modelid Id) *TrainedModelAssignmentTaskParametersBuilder {
-	rb.v.ModelId = modelid
-	return rb
-}
-
-// NumberOfAllocations The total number of allocations this model is assigned across ML nodes.
-
-func (rb *TrainedModelAssignmentTaskParametersBuilder) NumberOfAllocations(numberofallocations int) *TrainedModelAssignmentTaskParametersBuilder {
-	rb.v.NumberOfAllocations = numberofallocations
-	return rb
-}
-
-// QueueCapacity Number of inference requests are allowed in the queue at a time.
-
-func (rb *TrainedModelAssignmentTaskParametersBuilder) QueueCapacity(queuecapacity int) *TrainedModelAssignmentTaskParametersBuilder {
-	rb.v.QueueCapacity = queuecapacity
-	return rb
-}
-
-// ThreadsPerAllocation Number of threads per allocation.
-
-func (rb *TrainedModelAssignmentTaskParametersBuilder) ThreadsPerAllocation(threadsperallocation int) *TrainedModelAssignmentTaskParametersBuilder {
-	rb.v.ThreadsPerAllocation = threadsperallocation
-	return rb
+	return r
 }

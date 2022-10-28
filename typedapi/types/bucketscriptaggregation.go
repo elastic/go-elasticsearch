@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,67 +28,20 @@ import (
 
 // BucketScriptAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L71-L73
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L71-L73
 type BucketScriptAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath         `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta        *Metadata            `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
-	Script      *Script              `json:"script,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Format      *string                `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Name        *string                `json:"name,omitempty"`
+	Script      *Script                `json:"script,omitempty"`
 }
 
-// BucketScriptAggregationBuilder holds BucketScriptAggregation struct and provides a builder API.
-type BucketScriptAggregationBuilder struct {
-	v *BucketScriptAggregation
-}
+// NewBucketScriptAggregation returns a BucketScriptAggregation.
+func NewBucketScriptAggregation() *BucketScriptAggregation {
+	r := &BucketScriptAggregation{}
 
-// NewBucketScriptAggregation provides a builder for the BucketScriptAggregation struct.
-func NewBucketScriptAggregationBuilder() *BucketScriptAggregationBuilder {
-	r := BucketScriptAggregationBuilder{
-		&BucketScriptAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BucketScriptAggregation struct
-func (rb *BucketScriptAggregationBuilder) Build() BucketScriptAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *BucketScriptAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *BucketScriptAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *BucketScriptAggregationBuilder) Format(format string) *BucketScriptAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *BucketScriptAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *BucketScriptAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *BucketScriptAggregationBuilder) Meta(meta *MetadataBuilder) *BucketScriptAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *BucketScriptAggregationBuilder) Name(name string) *BucketScriptAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *BucketScriptAggregationBuilder) Script(script *ScriptBuilder) *BucketScriptAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsLongRareTermsBucket holds the union for the following types:
 //
-//	[]LongRareTermsBucket
 //	map[string]LongRareTermsBucket
+//	[]LongRareTermsBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsLongRareTermsBucket interface{}
-
-// BucketsLongRareTermsBucketBuilder holds BucketsLongRareTermsBucket struct and provides a builder API.
-type BucketsLongRareTermsBucketBuilder struct {
-	v BucketsLongRareTermsBucket
-}
-
-// NewBucketsLongRareTermsBucket provides a builder for the BucketsLongRareTermsBucket struct.
-func NewBucketsLongRareTermsBucketBuilder() *BucketsLongRareTermsBucketBuilder {
-	return &BucketsLongRareTermsBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsLongRareTermsBucket struct
-func (u *BucketsLongRareTermsBucketBuilder) Build() BucketsLongRareTermsBucket {
-	return u.v
-}
-
-func (u *BucketsLongRareTermsBucketBuilder) LongRareTermsBuckets(longraretermsbuckets []LongRareTermsBucketBuilder) *BucketsLongRareTermsBucketBuilder {
-	tmp := make([]LongRareTermsBucket, len(longraretermsbuckets))
-	for _, value := range longraretermsbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsLongRareTermsBucketBuilder) Map(values map[string]*LongRareTermsBucketBuilder) *BucketsLongRareTermsBucketBuilder {
-	tmp := make(map[string]LongRareTermsBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

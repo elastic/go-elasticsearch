@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package getmodelsnapshots
@@ -31,39 +31,28 @@ import (
 
 // Request holds the request body struct for the package getmodelsnapshots
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L96
 type Request struct {
 
 	// Desc Refer to the description for the `desc` query parameter.
 	Desc *bool `json:"desc,omitempty"`
-
 	// End Refer to the description for the `end` query parameter.
-	End *types.DateTime `json:"end,omitempty"`
-
-	Page *types.Page `json:"page,omitempty"`
-
+	End  *types.DateTime `json:"end,omitempty"`
+	Page *types.Page     `json:"page,omitempty"`
 	// Sort Refer to the description for the `sort` query parameter.
-	Sort *types.Field `json:"sort,omitempty"`
-
+	Sort *string `json:"sort,omitempty"`
 	// Start Refer to the description for the `start` query parameter.
 	Start *types.DateTime `json:"start,omitempty"`
 }
 
-// RequestBuilder is the builder API for the getmodelsnapshots.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -72,37 +61,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Desc(desc bool) *RequestBuilder {
-	rb.v.Desc = &desc
-	return rb
-}
-
-func (rb *RequestBuilder) End(end *types.DateTimeBuilder) *RequestBuilder {
-	v := end.Build()
-	rb.v.End = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Page(page *types.PageBuilder) *RequestBuilder {
-	v := page.Build()
-	rb.v.Page = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Sort(sort types.Field) *RequestBuilder {
-	rb.v.Sort = &sort
-	return rb
-}
-
-func (rb *RequestBuilder) Start(start *types.DateTimeBuilder) *RequestBuilder {
-	v := start.Build()
-	rb.v.Start = &v
-	return rb
 }

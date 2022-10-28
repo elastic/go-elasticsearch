@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IpFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L159-L162
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L159-L162
 type IpFilter struct {
 	Http      bool `json:"http"`
 	Transport bool `json:"transport"`
 }
 
-// IpFilterBuilder holds IpFilter struct and provides a builder API.
-type IpFilterBuilder struct {
-	v *IpFilter
-}
+// NewIpFilter returns a IpFilter.
+func NewIpFilter() *IpFilter {
+	r := &IpFilter{}
 
-// NewIpFilter provides a builder for the IpFilter struct.
-func NewIpFilterBuilder() *IpFilterBuilder {
-	r := IpFilterBuilder{
-		&IpFilter{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IpFilter struct
-func (rb *IpFilterBuilder) Build() IpFilter {
-	return *rb.v
-}
-
-func (rb *IpFilterBuilder) Http(http bool) *IpFilterBuilder {
-	rb.v.Http = http
-	return rb
-}
-
-func (rb *IpFilterBuilder) Transport(transport bool) *IpFilterBuilder {
-	rb.v.Transport = transport
-	return rb
+	return r
 }

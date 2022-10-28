@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationOutlierDetectionMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeEvaluation.ts#L80-L83
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeEvaluation.ts#L80-L83
 type DataframeEvaluationOutlierDetectionMetrics struct {
 	// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
 	// score and optionally the curve. It is calculated for a specific class
@@ -38,56 +38,13 @@ type DataframeEvaluationOutlierDetectionMetrics struct {
 	Recall map[string]interface{} `json:"recall,omitempty"`
 }
 
-// DataframeEvaluationOutlierDetectionMetricsBuilder holds DataframeEvaluationOutlierDetectionMetrics struct and provides a builder API.
-type DataframeEvaluationOutlierDetectionMetricsBuilder struct {
-	v *DataframeEvaluationOutlierDetectionMetrics
-}
-
-// NewDataframeEvaluationOutlierDetectionMetrics provides a builder for the DataframeEvaluationOutlierDetectionMetrics struct.
-func NewDataframeEvaluationOutlierDetectionMetricsBuilder() *DataframeEvaluationOutlierDetectionMetricsBuilder {
-	r := DataframeEvaluationOutlierDetectionMetricsBuilder{
-		&DataframeEvaluationOutlierDetectionMetrics{
-			ConfusionMatrix: make(map[string]interface{}, 0),
-			Precision:       make(map[string]interface{}, 0),
-			Recall:          make(map[string]interface{}, 0),
-		},
+// NewDataframeEvaluationOutlierDetectionMetrics returns a DataframeEvaluationOutlierDetectionMetrics.
+func NewDataframeEvaluationOutlierDetectionMetrics() *DataframeEvaluationOutlierDetectionMetrics {
+	r := &DataframeEvaluationOutlierDetectionMetrics{
+		ConfusionMatrix: make(map[string]interface{}, 0),
+		Precision:       make(map[string]interface{}, 0),
+		Recall:          make(map[string]interface{}, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationOutlierDetectionMetrics struct
-func (rb *DataframeEvaluationOutlierDetectionMetricsBuilder) Build() DataframeEvaluationOutlierDetectionMetrics {
-	return *rb.v
-}
-
-// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
-// score and optionally the curve. It is calculated for a specific class
-// (provided as "class_name") treated as positive.
-
-func (rb *DataframeEvaluationOutlierDetectionMetricsBuilder) AucRoc(aucroc *DataframeEvaluationClassificationMetricsAucRocBuilder) *DataframeEvaluationOutlierDetectionMetricsBuilder {
-	v := aucroc.Build()
-	rb.v.AucRoc = &v
-	return rb
-}
-
-// ConfusionMatrix Accuracy of predictions (per-class and overall).
-
-func (rb *DataframeEvaluationOutlierDetectionMetricsBuilder) ConfusionMatrix(value map[string]interface{}) *DataframeEvaluationOutlierDetectionMetricsBuilder {
-	rb.v.ConfusionMatrix = value
-	return rb
-}
-
-// Precision Precision of predictions (per-class and average).
-
-func (rb *DataframeEvaluationOutlierDetectionMetricsBuilder) Precision(value map[string]interface{}) *DataframeEvaluationOutlierDetectionMetricsBuilder {
-	rb.v.Precision = value
-	return rb
-}
-
-// Recall Recall of predictions (per-class and average).
-
-func (rb *DataframeEvaluationOutlierDetectionMetricsBuilder) Recall(value map[string]interface{}) *DataframeEvaluationOutlierDetectionMetricsBuilder {
-	rb.v.Recall = value
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,24 +28,15 @@ package types
 //	CommonGramsTokenFilter
 //	ConditionTokenFilter
 //	DelimitedPayloadTokenFilter
-//	DictionaryDecompounderTokenFilter
 //	EdgeNGramTokenFilter
 //	ElisionTokenFilter
 //	FingerprintTokenFilter
 //	HunspellTokenFilter
 //	HyphenationDecompounderTokenFilter
-//	IcuCollationTokenFilter
-//	IcuFoldingTokenFilter
-//	IcuNormalizationTokenFilter
-//	IcuTokenizer
-//	IcuTransformTokenFilter
-//	KStemTokenFilter
 //	KeepTypesTokenFilter
 //	KeepWordsTokenFilter
 //	KeywordMarkerTokenFilter
-//	KuromojiPartOfSpeechTokenFilter
-//	KuromojiReadingFormTokenFilter
-//	KuromojiStemmerTokenFilter
+//	KStemTokenFilter
 //	LengthTokenFilter
 //	LimitTokenCountTokenFilter
 //	LowercaseTokenFilter
@@ -54,7 +45,6 @@ package types
 //	NoriPartOfSpeechTokenFilter
 //	PatternCaptureTokenFilter
 //	PatternReplaceTokenFilter
-//	PhoneticTokenFilter
 //	PorterStemTokenFilter
 //	PredicateTokenFilter
 //	RemoveDuplicatesTokenFilter
@@ -72,309 +62,114 @@ package types
 //	UppercaseTokenFilter
 //	WordDelimiterGraphTokenFilter
 //	WordDelimiterTokenFilter
+//	KuromojiStemmerTokenFilter
+//	KuromojiReadingFormTokenFilter
+//	KuromojiPartOfSpeechTokenFilter
+//	IcuTokenizer
+//	IcuCollationTokenFilter
+//	IcuFoldingTokenFilter
+//	IcuNormalizationTokenFilter
+//	IcuTransformTokenFilter
+//	PhoneticTokenFilter
+//	DictionaryDecompounderTokenFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/token_filters.ts#L346-L399
-type TokenFilterDefinition interface{}
-
-// TokenFilterDefinitionBuilder holds TokenFilterDefinition struct and provides a builder API.
-type TokenFilterDefinitionBuilder struct {
-	v TokenFilterDefinition
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/token_filters.ts#L346-L399
+type TokenFilterDefinition interface {
+	isTokenFilterDefinition()
 }
 
-// NewTokenFilterDefinition provides a builder for the TokenFilterDefinition struct.
-func NewTokenFilterDefinitionBuilder() *TokenFilterDefinitionBuilder {
-	return &TokenFilterDefinitionBuilder{}
-}
+func (i AsciiFoldingTokenFilter) isTokenFilterDefinition() {}
 
-// Build finalize the chain and returns the TokenFilterDefinition struct
-func (u *TokenFilterDefinitionBuilder) Build() TokenFilterDefinition {
-	return u.v
-}
+func (i CommonGramsTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) AsciiFoldingTokenFilter(asciifoldingtokenfilter *AsciiFoldingTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := asciifoldingtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i ConditionTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) CommonGramsTokenFilter(commongramstokenfilter *CommonGramsTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := commongramstokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i DelimitedPayloadTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) ConditionTokenFilter(conditiontokenfilter *ConditionTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := conditiontokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i EdgeNGramTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) DelimitedPayloadTokenFilter(delimitedpayloadtokenfilter *DelimitedPayloadTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := delimitedpayloadtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i ElisionTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) DictionaryDecompounderTokenFilter(dictionarydecompoundertokenfilter *DictionaryDecompounderTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := dictionarydecompoundertokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i FingerprintTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) EdgeNGramTokenFilter(edgengramtokenfilter *EdgeNGramTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := edgengramtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i HunspellTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) ElisionTokenFilter(elisiontokenfilter *ElisionTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := elisiontokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i HyphenationDecompounderTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) FingerprintTokenFilter(fingerprinttokenfilter *FingerprintTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := fingerprinttokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KeepTypesTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) HunspellTokenFilter(hunspelltokenfilter *HunspellTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := hunspelltokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KeepWordsTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) HyphenationDecompounderTokenFilter(hyphenationdecompoundertokenfilter *HyphenationDecompounderTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := hyphenationdecompoundertokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KeywordMarkerTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) IcuCollationTokenFilter(icucollationtokenfilter *IcuCollationTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := icucollationtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KStemTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) IcuFoldingTokenFilter(icufoldingtokenfilter *IcuFoldingTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := icufoldingtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i LengthTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) IcuNormalizationTokenFilter(icunormalizationtokenfilter *IcuNormalizationTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := icunormalizationtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i LimitTokenCountTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) IcuTokenizer(icutokenizer *IcuTokenizerBuilder) *TokenFilterDefinitionBuilder {
-	v := icutokenizer.Build()
-	u.v = &v
-	return u
-}
+func (i LowercaseTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) IcuTransformTokenFilter(icutransformtokenfilter *IcuTransformTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := icutransformtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i MultiplexerTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) KStemTokenFilter(kstemtokenfilter *KStemTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := kstemtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i NGramTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) KeepTypesTokenFilter(keeptypestokenfilter *KeepTypesTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := keeptypestokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i NoriPartOfSpeechTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) KeepWordsTokenFilter(keepwordstokenfilter *KeepWordsTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := keepwordstokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i PatternCaptureTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) KeywordMarkerTokenFilter(keywordmarkertokenfilter *KeywordMarkerTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := keywordmarkertokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i PatternReplaceTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) KuromojiPartOfSpeechTokenFilter(kuromojipartofspeechtokenfilter *KuromojiPartOfSpeechTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := kuromojipartofspeechtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i PorterStemTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) KuromojiReadingFormTokenFilter(kuromojireadingformtokenfilter *KuromojiReadingFormTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := kuromojireadingformtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i PredicateTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) KuromojiStemmerTokenFilter(kuromojistemmertokenfilter *KuromojiStemmerTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := kuromojistemmertokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i RemoveDuplicatesTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) LengthTokenFilter(lengthtokenfilter *LengthTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := lengthtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i ReverseTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) LimitTokenCountTokenFilter(limittokencounttokenfilter *LimitTokenCountTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := limittokencounttokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i ShingleTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) LowercaseTokenFilter(lowercasetokenfilter *LowercaseTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := lowercasetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i SnowballTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) MultiplexerTokenFilter(multiplexertokenfilter *MultiplexerTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := multiplexertokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i StemmerOverrideTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) NGramTokenFilter(ngramtokenfilter *NGramTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := ngramtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i StemmerTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) NoriPartOfSpeechTokenFilter(noripartofspeechtokenfilter *NoriPartOfSpeechTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := noripartofspeechtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i StopTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) PatternCaptureTokenFilter(patterncapturetokenfilter *PatternCaptureTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := patterncapturetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i SynonymGraphTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) PatternReplaceTokenFilter(patternreplacetokenfilter *PatternReplaceTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := patternreplacetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i SynonymTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) PhoneticTokenFilter(phonetictokenfilter *PhoneticTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := phonetictokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i TrimTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) PorterStemTokenFilter(porterstemtokenfilter *PorterStemTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := porterstemtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i TruncateTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) PredicateTokenFilter(predicatetokenfilter *PredicateTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := predicatetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i UniqueTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) RemoveDuplicatesTokenFilter(removeduplicatestokenfilter *RemoveDuplicatesTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := removeduplicatestokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i UppercaseTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) ReverseTokenFilter(reversetokenfilter *ReverseTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := reversetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i WordDelimiterGraphTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) ShingleTokenFilter(shingletokenfilter *ShingleTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := shingletokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i WordDelimiterTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) SnowballTokenFilter(snowballtokenfilter *SnowballTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := snowballtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KuromojiStemmerTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) StemmerOverrideTokenFilter(stemmeroverridetokenfilter *StemmerOverrideTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := stemmeroverridetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KuromojiReadingFormTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) StemmerTokenFilter(stemmertokenfilter *StemmerTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := stemmertokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i KuromojiPartOfSpeechTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) StopTokenFilter(stoptokenfilter *StopTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := stoptokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i IcuTokenizer) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) SynonymGraphTokenFilter(synonymgraphtokenfilter *SynonymGraphTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := synonymgraphtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i IcuCollationTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) SynonymTokenFilter(synonymtokenfilter *SynonymTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := synonymtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i IcuFoldingTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) TrimTokenFilter(trimtokenfilter *TrimTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := trimtokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i IcuNormalizationTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) TruncateTokenFilter(truncatetokenfilter *TruncateTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := truncatetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i IcuTransformTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) UniqueTokenFilter(uniquetokenfilter *UniqueTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := uniquetokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i PhoneticTokenFilter) isTokenFilterDefinition() {}
 
-func (u *TokenFilterDefinitionBuilder) UppercaseTokenFilter(uppercasetokenfilter *UppercaseTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := uppercasetokenfilter.Build()
-	u.v = &v
-	return u
-}
-
-func (u *TokenFilterDefinitionBuilder) WordDelimiterGraphTokenFilter(worddelimitergraphtokenfilter *WordDelimiterGraphTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := worddelimitergraphtokenfilter.Build()
-	u.v = &v
-	return u
-}
-
-func (u *TokenFilterDefinitionBuilder) WordDelimiterTokenFilter(worddelimitertokenfilter *WordDelimiterTokenFilterBuilder) *TokenFilterDefinitionBuilder {
-	v := worddelimitertokenfilter.Build()
-	u.v = &v
-	return u
-}
+func (i DictionaryDecompounderTokenFilter) isTokenFilterDefinition() {}

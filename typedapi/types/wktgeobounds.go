@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // WktGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Geo.ts#L131-L133
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L134-L136
 type WktGeoBounds struct {
 	Wkt string `json:"wkt"`
 }
 
-// WktGeoBoundsBuilder holds WktGeoBounds struct and provides a builder API.
-type WktGeoBoundsBuilder struct {
-	v *WktGeoBounds
-}
+// NewWktGeoBounds returns a WktGeoBounds.
+func NewWktGeoBounds() *WktGeoBounds {
+	r := &WktGeoBounds{}
 
-// NewWktGeoBounds provides a builder for the WktGeoBounds struct.
-func NewWktGeoBoundsBuilder() *WktGeoBoundsBuilder {
-	r := WktGeoBoundsBuilder{
-		&WktGeoBounds{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the WktGeoBounds struct
-func (rb *WktGeoBoundsBuilder) Build() WktGeoBounds {
-	return *rb.v
-}
-
-func (rb *WktGeoBoundsBuilder) Wkt(wkt string) *WktGeoBoundsBuilder {
-	rb.v.Wkt = wkt
-	return rb
+	return r
 }

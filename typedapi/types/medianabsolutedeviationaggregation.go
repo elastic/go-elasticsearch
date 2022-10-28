@@ -17,64 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // MedianAbsoluteDeviationAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L99-L101
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L99-L101
 type MedianAbsoluteDeviationAggregation struct {
 	Compression *float64 `json:"compression,omitempty"`
-	Field       *Field   `json:"field,omitempty"`
+	Field       *string  `json:"field,omitempty"`
 	Format      *string  `json:"format,omitempty"`
 	Missing     *Missing `json:"missing,omitempty"`
 	Script      *Script  `json:"script,omitempty"`
 }
 
-// MedianAbsoluteDeviationAggregationBuilder holds MedianAbsoluteDeviationAggregation struct and provides a builder API.
-type MedianAbsoluteDeviationAggregationBuilder struct {
-	v *MedianAbsoluteDeviationAggregation
-}
+// NewMedianAbsoluteDeviationAggregation returns a MedianAbsoluteDeviationAggregation.
+func NewMedianAbsoluteDeviationAggregation() *MedianAbsoluteDeviationAggregation {
+	r := &MedianAbsoluteDeviationAggregation{}
 
-// NewMedianAbsoluteDeviationAggregation provides a builder for the MedianAbsoluteDeviationAggregation struct.
-func NewMedianAbsoluteDeviationAggregationBuilder() *MedianAbsoluteDeviationAggregationBuilder {
-	r := MedianAbsoluteDeviationAggregationBuilder{
-		&MedianAbsoluteDeviationAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MedianAbsoluteDeviationAggregation struct
-func (rb *MedianAbsoluteDeviationAggregationBuilder) Build() MedianAbsoluteDeviationAggregation {
-	return *rb.v
-}
-
-func (rb *MedianAbsoluteDeviationAggregationBuilder) Compression(compression float64) *MedianAbsoluteDeviationAggregationBuilder {
-	rb.v.Compression = &compression
-	return rb
-}
-
-func (rb *MedianAbsoluteDeviationAggregationBuilder) Field(field Field) *MedianAbsoluteDeviationAggregationBuilder {
-	rb.v.Field = &field
-	return rb
-}
-
-func (rb *MedianAbsoluteDeviationAggregationBuilder) Format(format string) *MedianAbsoluteDeviationAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *MedianAbsoluteDeviationAggregationBuilder) Missing(missing *MissingBuilder) *MedianAbsoluteDeviationAggregationBuilder {
-	v := missing.Build()
-	rb.v.Missing = &v
-	return rb
-}
-
-func (rb *MedianAbsoluteDeviationAggregationBuilder) Script(script *ScriptBuilder) *MedianAbsoluteDeviationAggregationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

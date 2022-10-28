@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TrainedModelInferenceClassImportance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L399-L402
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L399-L402
 type TrainedModelInferenceClassImportance struct {
 	ClassName  string  `json:"class_name"`
 	Importance float64 `json:"importance"`
 }
 
-// TrainedModelInferenceClassImportanceBuilder holds TrainedModelInferenceClassImportance struct and provides a builder API.
-type TrainedModelInferenceClassImportanceBuilder struct {
-	v *TrainedModelInferenceClassImportance
-}
+// NewTrainedModelInferenceClassImportance returns a TrainedModelInferenceClassImportance.
+func NewTrainedModelInferenceClassImportance() *TrainedModelInferenceClassImportance {
+	r := &TrainedModelInferenceClassImportance{}
 
-// NewTrainedModelInferenceClassImportance provides a builder for the TrainedModelInferenceClassImportance struct.
-func NewTrainedModelInferenceClassImportanceBuilder() *TrainedModelInferenceClassImportanceBuilder {
-	r := TrainedModelInferenceClassImportanceBuilder{
-		&TrainedModelInferenceClassImportance{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelInferenceClassImportance struct
-func (rb *TrainedModelInferenceClassImportanceBuilder) Build() TrainedModelInferenceClassImportance {
-	return *rb.v
-}
-
-func (rb *TrainedModelInferenceClassImportanceBuilder) ClassName(classname string) *TrainedModelInferenceClassImportanceBuilder {
-	rb.v.ClassName = classname
-	return rb
-}
-
-func (rb *TrainedModelInferenceClassImportanceBuilder) Importance(importance float64) *TrainedModelInferenceClassImportanceBuilder {
-	rb.v.Importance = importance
-	return rb
+	return r
 }

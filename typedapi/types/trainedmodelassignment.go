@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // TrainedModelAssignment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/TrainedModel.ts#L379-L393
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L379-L393
 type TrainedModelAssignment struct {
 	// AssignmentState The overall assignment state.
 	AssignmentState deploymentassignmentstate.DeploymentAssignmentState `json:"assignment_state"`
@@ -39,55 +39,11 @@ type TrainedModelAssignment struct {
 	TaskParameters TrainedModelAssignmentTaskParameters `json:"task_parameters"`
 }
 
-// TrainedModelAssignmentBuilder holds TrainedModelAssignment struct and provides a builder API.
-type TrainedModelAssignmentBuilder struct {
-	v *TrainedModelAssignment
-}
-
-// NewTrainedModelAssignment provides a builder for the TrainedModelAssignment struct.
-func NewTrainedModelAssignmentBuilder() *TrainedModelAssignmentBuilder {
-	r := TrainedModelAssignmentBuilder{
-		&TrainedModelAssignment{
-			RoutingTable: make(map[string]TrainedModelAssignmentRoutingTable, 0),
-		},
+// NewTrainedModelAssignment returns a TrainedModelAssignment.
+func NewTrainedModelAssignment() *TrainedModelAssignment {
+	r := &TrainedModelAssignment{
+		RoutingTable: make(map[string]TrainedModelAssignmentRoutingTable, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelAssignment struct
-func (rb *TrainedModelAssignmentBuilder) Build() TrainedModelAssignment {
-	return *rb.v
-}
-
-// AssignmentState The overall assignment state.
-
-func (rb *TrainedModelAssignmentBuilder) AssignmentState(assignmentstate deploymentassignmentstate.DeploymentAssignmentState) *TrainedModelAssignmentBuilder {
-	rb.v.AssignmentState = assignmentstate
-	return rb
-}
-
-// RoutingTable The allocation state for each node.
-
-func (rb *TrainedModelAssignmentBuilder) RoutingTable(values map[string]*TrainedModelAssignmentRoutingTableBuilder) *TrainedModelAssignmentBuilder {
-	tmp := make(map[string]TrainedModelAssignmentRoutingTable, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.RoutingTable = tmp
-	return rb
-}
-
-// StartTime The timestamp when the deployment started.
-
-func (rb *TrainedModelAssignmentBuilder) StartTime(starttime *DateTimeBuilder) *TrainedModelAssignmentBuilder {
-	v := starttime.Build()
-	rb.v.StartTime = v
-	return rb
-}
-
-func (rb *TrainedModelAssignmentBuilder) TaskParameters(taskparameters *TrainedModelAssignmentTaskParametersBuilder) *TrainedModelAssignmentBuilder {
-	v := taskparameters.Build()
-	rb.v.TaskParameters = v
-	return rb
+	return r
 }

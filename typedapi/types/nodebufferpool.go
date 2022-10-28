@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeBufferPool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L310-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L310-L316
 type NodeBufferPool struct {
 	Count                *int64  `json:"count,omitempty"`
 	TotalCapacity        *string `json:"total_capacity,omitempty"`
@@ -33,46 +33,9 @@ type NodeBufferPool struct {
 	UsedInBytes          *int64  `json:"used_in_bytes,omitempty"`
 }
 
-// NodeBufferPoolBuilder holds NodeBufferPool struct and provides a builder API.
-type NodeBufferPoolBuilder struct {
-	v *NodeBufferPool
-}
+// NewNodeBufferPool returns a NodeBufferPool.
+func NewNodeBufferPool() *NodeBufferPool {
+	r := &NodeBufferPool{}
 
-// NewNodeBufferPool provides a builder for the NodeBufferPool struct.
-func NewNodeBufferPoolBuilder() *NodeBufferPoolBuilder {
-	r := NodeBufferPoolBuilder{
-		&NodeBufferPool{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeBufferPool struct
-func (rb *NodeBufferPoolBuilder) Build() NodeBufferPool {
-	return *rb.v
-}
-
-func (rb *NodeBufferPoolBuilder) Count(count int64) *NodeBufferPoolBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *NodeBufferPoolBuilder) TotalCapacity(totalcapacity string) *NodeBufferPoolBuilder {
-	rb.v.TotalCapacity = &totalcapacity
-	return rb
-}
-
-func (rb *NodeBufferPoolBuilder) TotalCapacityInBytes(totalcapacityinbytes int64) *NodeBufferPoolBuilder {
-	rb.v.TotalCapacityInBytes = &totalcapacityinbytes
-	return rb
-}
-
-func (rb *NodeBufferPoolBuilder) Used(used string) *NodeBufferPoolBuilder {
-	rb.v.Used = &used
-	return rb
-}
-
-func (rb *NodeBufferPoolBuilder) UsedInBytes(usedinbytes int64) *NodeBufferPoolBuilder {
-	rb.v.UsedInBytes = &usedinbytes
-	return rb
+	return r
 }

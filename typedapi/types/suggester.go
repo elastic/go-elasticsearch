@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // Suggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L101-L104
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L101-L104
 type Suggester struct {
 	Suggesters map[string]FieldSuggester `json:"-"`
 	// Text Global suggest text, to avoid repetition when the same text is used in
@@ -65,40 +65,11 @@ func (s Suggester) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// SuggesterBuilder holds Suggester struct and provides a builder API.
-type SuggesterBuilder struct {
-	v *Suggester
-}
-
-// NewSuggester provides a builder for the Suggester struct.
-func NewSuggesterBuilder() *SuggesterBuilder {
-	r := SuggesterBuilder{
-		&Suggester{
-			Suggesters: make(map[string]FieldSuggester, 0),
-		},
+// NewSuggester returns a Suggester.
+func NewSuggester() *Suggester {
+	r := &Suggester{
+		Suggesters: make(map[string]FieldSuggester, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Suggester struct
-func (rb *SuggesterBuilder) Build() Suggester {
-	return *rb.v
-}
-
-func (rb *SuggesterBuilder) Suggesters(values map[string]*FieldSuggesterBuilder) *SuggesterBuilder {
-	tmp := make(map[string]FieldSuggester, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Suggesters = tmp
-	return rb
-}
-
-// Text Global suggest text, to avoid repetition when the same text is used in
-// several suggesters
-
-func (rb *SuggesterBuilder) Text(text string) *SuggesterBuilder {
-	rb.v.Text = &text
-	return rb
+	return r
 }

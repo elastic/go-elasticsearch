@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KuromojiStemmerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/kuromoji-plugin.ts#L47-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/kuromoji-plugin.ts#L47-L50
 type KuromojiStemmerTokenFilter struct {
-	MinimumLength int            `json:"minimum_length"`
-	Type          string         `json:"type,omitempty"`
-	Version       *VersionString `json:"version,omitempty"`
+	MinimumLength int     `json:"minimum_length"`
+	Type          string  `json:"type,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
-// KuromojiStemmerTokenFilterBuilder holds KuromojiStemmerTokenFilter struct and provides a builder API.
-type KuromojiStemmerTokenFilterBuilder struct {
-	v *KuromojiStemmerTokenFilter
-}
+// NewKuromojiStemmerTokenFilter returns a KuromojiStemmerTokenFilter.
+func NewKuromojiStemmerTokenFilter() *KuromojiStemmerTokenFilter {
+	r := &KuromojiStemmerTokenFilter{}
 
-// NewKuromojiStemmerTokenFilter provides a builder for the KuromojiStemmerTokenFilter struct.
-func NewKuromojiStemmerTokenFilterBuilder() *KuromojiStemmerTokenFilterBuilder {
-	r := KuromojiStemmerTokenFilterBuilder{
-		&KuromojiStemmerTokenFilter{},
-	}
+	r.Type = "kuromoji_stemmer"
 
-	r.v.Type = "kuromoji_stemmer"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KuromojiStemmerTokenFilter struct
-func (rb *KuromojiStemmerTokenFilterBuilder) Build() KuromojiStemmerTokenFilter {
-	return *rb.v
-}
-
-func (rb *KuromojiStemmerTokenFilterBuilder) MinimumLength(minimumlength int) *KuromojiStemmerTokenFilterBuilder {
-	rb.v.MinimumLength = minimumlength
-	return rb
-}
-
-func (rb *KuromojiStemmerTokenFilterBuilder) Version(version VersionString) *KuromojiStemmerTokenFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

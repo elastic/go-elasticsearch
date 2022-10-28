@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsAuthorization type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Authorization.ts#L45-L57
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Authorization.ts#L45-L57
 type DataframeAnalyticsAuthorization struct {
 	// ApiKey If an API key was used for the most recent update to the job, its name and
 	// identifier are listed in the response.
@@ -37,46 +37,9 @@ type DataframeAnalyticsAuthorization struct {
 	ServiceAccount *string `json:"service_account,omitempty"`
 }
 
-// DataframeAnalyticsAuthorizationBuilder holds DataframeAnalyticsAuthorization struct and provides a builder API.
-type DataframeAnalyticsAuthorizationBuilder struct {
-	v *DataframeAnalyticsAuthorization
-}
+// NewDataframeAnalyticsAuthorization returns a DataframeAnalyticsAuthorization.
+func NewDataframeAnalyticsAuthorization() *DataframeAnalyticsAuthorization {
+	r := &DataframeAnalyticsAuthorization{}
 
-// NewDataframeAnalyticsAuthorization provides a builder for the DataframeAnalyticsAuthorization struct.
-func NewDataframeAnalyticsAuthorizationBuilder() *DataframeAnalyticsAuthorizationBuilder {
-	r := DataframeAnalyticsAuthorizationBuilder{
-		&DataframeAnalyticsAuthorization{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsAuthorization struct
-func (rb *DataframeAnalyticsAuthorizationBuilder) Build() DataframeAnalyticsAuthorization {
-	return *rb.v
-}
-
-// ApiKey If an API key was used for the most recent update to the job, its name and
-// identifier are listed in the response.
-
-func (rb *DataframeAnalyticsAuthorizationBuilder) ApiKey(apikey *ApiKeyAuthorizationBuilder) *DataframeAnalyticsAuthorizationBuilder {
-	v := apikey.Build()
-	rb.v.ApiKey = &v
-	return rb
-}
-
-// Roles If a user ID was used for the most recent update to the job, its roles at the
-// time of the update are listed in the response.
-
-func (rb *DataframeAnalyticsAuthorizationBuilder) Roles(roles ...string) *DataframeAnalyticsAuthorizationBuilder {
-	rb.v.Roles = roles
-	return rb
-}
-
-// ServiceAccount If a service account was used for the most recent update to the job, the
-// account name is listed in the response.
-
-func (rb *DataframeAnalyticsAuthorizationBuilder) ServiceAccount(serviceaccount string) *DataframeAnalyticsAuthorizationBuilder {
-	rb.v.ServiceAccount = &serviceaccount
-	return rb
+	return r
 }

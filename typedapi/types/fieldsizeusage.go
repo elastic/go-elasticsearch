@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldSizeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Stats.ts#L59-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L59-L62
 type FieldSizeUsage struct {
 	Size        *ByteSize `json:"size,omitempty"`
 	SizeInBytes int64     `json:"size_in_bytes"`
 }
 
-// FieldSizeUsageBuilder holds FieldSizeUsage struct and provides a builder API.
-type FieldSizeUsageBuilder struct {
-	v *FieldSizeUsage
-}
+// NewFieldSizeUsage returns a FieldSizeUsage.
+func NewFieldSizeUsage() *FieldSizeUsage {
+	r := &FieldSizeUsage{}
 
-// NewFieldSizeUsage provides a builder for the FieldSizeUsage struct.
-func NewFieldSizeUsageBuilder() *FieldSizeUsageBuilder {
-	r := FieldSizeUsageBuilder{
-		&FieldSizeUsage{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldSizeUsage struct
-func (rb *FieldSizeUsageBuilder) Build() FieldSizeUsage {
-	return *rb.v
-}
-
-func (rb *FieldSizeUsageBuilder) Size(size *ByteSizeBuilder) *FieldSizeUsageBuilder {
-	v := size.Build()
-	rb.v.Size = &v
-	return rb
-}
-
-func (rb *FieldSizeUsageBuilder) SizeInBytes(sizeinbytes int64) *FieldSizeUsageBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
+	return r
 }

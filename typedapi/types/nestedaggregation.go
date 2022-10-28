@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NestedAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L280-L282
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L280-L282
 type NestedAggregation struct {
-	Meta *Metadata `json:"meta,omitempty"`
-	Name *string   `json:"name,omitempty"`
-	Path *Field    `json:"path,omitempty"`
+	Meta map[string]interface{} `json:"meta,omitempty"`
+	Name *string                `json:"name,omitempty"`
+	Path *string                `json:"path,omitempty"`
 }
 
-// NestedAggregationBuilder holds NestedAggregation struct and provides a builder API.
-type NestedAggregationBuilder struct {
-	v *NestedAggregation
-}
+// NewNestedAggregation returns a NestedAggregation.
+func NewNestedAggregation() *NestedAggregation {
+	r := &NestedAggregation{}
 
-// NewNestedAggregation provides a builder for the NestedAggregation struct.
-func NewNestedAggregationBuilder() *NestedAggregationBuilder {
-	r := NestedAggregationBuilder{
-		&NestedAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NestedAggregation struct
-func (rb *NestedAggregationBuilder) Build() NestedAggregation {
-	return *rb.v
-}
-
-func (rb *NestedAggregationBuilder) Meta(meta *MetadataBuilder) *NestedAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *NestedAggregationBuilder) Name(name string) *NestedAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *NestedAggregationBuilder) Path(path Field) *NestedAggregationBuilder {
-	rb.v.Path = &path
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalMetricPrecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/rank_eval/types.ts#L42-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L42-L52
 type RankEvalMetricPrecision struct {
 	// IgnoreUnlabeled Controls how unlabeled documents in the search results are counted. If set to
 	// true, unlabeled documents are ignored and neither count as relevant or
@@ -38,46 +38,9 @@ type RankEvalMetricPrecision struct {
 	RelevantRatingThreshold *int `json:"relevant_rating_threshold,omitempty"`
 }
 
-// RankEvalMetricPrecisionBuilder holds RankEvalMetricPrecision struct and provides a builder API.
-type RankEvalMetricPrecisionBuilder struct {
-	v *RankEvalMetricPrecision
-}
+// NewRankEvalMetricPrecision returns a RankEvalMetricPrecision.
+func NewRankEvalMetricPrecision() *RankEvalMetricPrecision {
+	r := &RankEvalMetricPrecision{}
 
-// NewRankEvalMetricPrecision provides a builder for the RankEvalMetricPrecision struct.
-func NewRankEvalMetricPrecisionBuilder() *RankEvalMetricPrecisionBuilder {
-	r := RankEvalMetricPrecisionBuilder{
-		&RankEvalMetricPrecision{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalMetricPrecision struct
-func (rb *RankEvalMetricPrecisionBuilder) Build() RankEvalMetricPrecision {
-	return *rb.v
-}
-
-// IgnoreUnlabeled Controls how unlabeled documents in the search results are counted. If set to
-// true, unlabeled documents are ignored and neither count as relevant or
-// irrelevant. Set to false (the default), they are treated as irrelevant.
-
-func (rb *RankEvalMetricPrecisionBuilder) IgnoreUnlabeled(ignoreunlabeled bool) *RankEvalMetricPrecisionBuilder {
-	rb.v.IgnoreUnlabeled = &ignoreunlabeled
-	return rb
-}
-
-// K Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
-
-func (rb *RankEvalMetricPrecisionBuilder) K(k int) *RankEvalMetricPrecisionBuilder {
-	rb.v.K = &k
-	return rb
-}
-
-// RelevantRatingThreshold Sets the rating threshold above which documents are considered to be
-// "relevant".
-
-func (rb *RankEvalMetricPrecisionBuilder) RelevantRatingThreshold(relevantratingthreshold int) *RankEvalMetricPrecisionBuilder {
-	rb.v.RelevantRatingThreshold = &relevantratingthreshold
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Jvm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L318-L327
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L318-L327
 type Jvm struct {
 	BufferPools    map[string]NodeBufferPool `json:"buffer_pools,omitempty"`
 	Classes        *JvmClasses               `json:"classes,omitempty"`
@@ -36,71 +36,11 @@ type Jvm struct {
 	UptimeInMillis *int64                    `json:"uptime_in_millis,omitempty"`
 }
 
-// JvmBuilder holds Jvm struct and provides a builder API.
-type JvmBuilder struct {
-	v *Jvm
-}
-
-// NewJvm provides a builder for the Jvm struct.
-func NewJvmBuilder() *JvmBuilder {
-	r := JvmBuilder{
-		&Jvm{
-			BufferPools: make(map[string]NodeBufferPool, 0),
-		},
+// NewJvm returns a Jvm.
+func NewJvm() *Jvm {
+	r := &Jvm{
+		BufferPools: make(map[string]NodeBufferPool, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the Jvm struct
-func (rb *JvmBuilder) Build() Jvm {
-	return *rb.v
-}
-
-func (rb *JvmBuilder) BufferPools(values map[string]*NodeBufferPoolBuilder) *JvmBuilder {
-	tmp := make(map[string]NodeBufferPool, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.BufferPools = tmp
-	return rb
-}
-
-func (rb *JvmBuilder) Classes(classes *JvmClassesBuilder) *JvmBuilder {
-	v := classes.Build()
-	rb.v.Classes = &v
-	return rb
-}
-
-func (rb *JvmBuilder) Gc(gc *GarbageCollectorBuilder) *JvmBuilder {
-	v := gc.Build()
-	rb.v.Gc = &v
-	return rb
-}
-
-func (rb *JvmBuilder) Mem(mem *JvmMemoryStatsBuilder) *JvmBuilder {
-	v := mem.Build()
-	rb.v.Mem = &v
-	return rb
-}
-
-func (rb *JvmBuilder) Threads(threads *JvmThreadsBuilder) *JvmBuilder {
-	v := threads.Build()
-	rb.v.Threads = &v
-	return rb
-}
-
-func (rb *JvmBuilder) Timestamp(timestamp int64) *JvmBuilder {
-	rb.v.Timestamp = &timestamp
-	return rb
-}
-
-func (rb *JvmBuilder) Uptime(uptime string) *JvmBuilder {
-	rb.v.Uptime = &uptime
-	return rb
-}
-
-func (rb *JvmBuilder) UptimeInMillis(uptimeinmillis int64) *JvmBuilder {
-	rb.v.UptimeInMillis = &uptimeinmillis
-	return rb
+	return r
 }

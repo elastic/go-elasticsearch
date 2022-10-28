@@ -17,51 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TTestAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L711-L715
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L726-L730
 type TTestAggregate struct {
-	Meta          *Metadata `json:"meta,omitempty"`
-	Value         float64   `json:"value,omitempty"`
-	ValueAsString *string   `json:"value_as_string,omitempty"`
+	Meta          map[string]interface{} `json:"meta,omitempty"`
+	Value         float64                `json:"value,omitempty"`
+	ValueAsString *string                `json:"value_as_string,omitempty"`
 }
 
-// TTestAggregateBuilder holds TTestAggregate struct and provides a builder API.
-type TTestAggregateBuilder struct {
-	v *TTestAggregate
-}
+// NewTTestAggregate returns a TTestAggregate.
+func NewTTestAggregate() *TTestAggregate {
+	r := &TTestAggregate{}
 
-// NewTTestAggregate provides a builder for the TTestAggregate struct.
-func NewTTestAggregateBuilder() *TTestAggregateBuilder {
-	r := TTestAggregateBuilder{
-		&TTestAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TTestAggregate struct
-func (rb *TTestAggregateBuilder) Build() TTestAggregate {
-	return *rb.v
-}
-
-func (rb *TTestAggregateBuilder) Meta(meta *MetadataBuilder) *TTestAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *TTestAggregateBuilder) Value(value float64) *TTestAggregateBuilder {
-	rb.v.Value = value
-	return rb
-}
-
-func (rb *TTestAggregateBuilder) ValueAsString(valueasstring string) *TTestAggregateBuilder {
-	rb.v.ValueAsString = &valueasstring
-	return rb
+	return r
 }

@@ -17,48 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeEvaluationSummaryAucRoc type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L50-L52
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L50-L52
 type DataframeEvaluationSummaryAucRoc struct {
 	Curve []DataframeEvaluationSummaryAucRocCurveItem `json:"curve,omitempty"`
 	Value float64                                     `json:"value"`
 }
 
-// DataframeEvaluationSummaryAucRocBuilder holds DataframeEvaluationSummaryAucRoc struct and provides a builder API.
-type DataframeEvaluationSummaryAucRocBuilder struct {
-	v *DataframeEvaluationSummaryAucRoc
-}
+// NewDataframeEvaluationSummaryAucRoc returns a DataframeEvaluationSummaryAucRoc.
+func NewDataframeEvaluationSummaryAucRoc() *DataframeEvaluationSummaryAucRoc {
+	r := &DataframeEvaluationSummaryAucRoc{}
 
-// NewDataframeEvaluationSummaryAucRoc provides a builder for the DataframeEvaluationSummaryAucRoc struct.
-func NewDataframeEvaluationSummaryAucRocBuilder() *DataframeEvaluationSummaryAucRocBuilder {
-	r := DataframeEvaluationSummaryAucRocBuilder{
-		&DataframeEvaluationSummaryAucRoc{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeEvaluationSummaryAucRoc struct
-func (rb *DataframeEvaluationSummaryAucRocBuilder) Build() DataframeEvaluationSummaryAucRoc {
-	return *rb.v
-}
-
-func (rb *DataframeEvaluationSummaryAucRocBuilder) Curve(curve []DataframeEvaluationSummaryAucRocCurveItemBuilder) *DataframeEvaluationSummaryAucRocBuilder {
-	tmp := make([]DataframeEvaluationSummaryAucRocCurveItem, len(curve))
-	for _, value := range curve {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Curve = tmp
-	return rb
-}
-
-func (rb *DataframeEvaluationSummaryAucRocBuilder) Value(value float64) *DataframeEvaluationSummaryAucRocBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

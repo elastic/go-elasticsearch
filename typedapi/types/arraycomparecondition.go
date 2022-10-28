@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -31,7 +31,7 @@ import (
 
 // ArrayCompareCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Conditions.ts#L32-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Conditions.ts#L32-L36
 type ArrayCompareCondition struct {
 	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"-"`
 	Path                  string                                           `json:"path"`
@@ -65,37 +65,11 @@ func (s ArrayCompareCondition) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// ArrayCompareConditionBuilder holds ArrayCompareCondition struct and provides a builder API.
-type ArrayCompareConditionBuilder struct {
-	v *ArrayCompareCondition
-}
-
-// NewArrayCompareCondition provides a builder for the ArrayCompareCondition struct.
-func NewArrayCompareConditionBuilder() *ArrayCompareConditionBuilder {
-	r := ArrayCompareConditionBuilder{
-		&ArrayCompareCondition{
-			ArrayCompareCondition: make(map[conditionop.ConditionOp]ArrayCompareOpParams, 0),
-		},
+// NewArrayCompareCondition returns a ArrayCompareCondition.
+func NewArrayCompareCondition() *ArrayCompareCondition {
+	r := &ArrayCompareCondition{
+		ArrayCompareCondition: make(map[conditionop.ConditionOp]ArrayCompareOpParams, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the ArrayCompareCondition struct
-func (rb *ArrayCompareConditionBuilder) Build() ArrayCompareCondition {
-	return *rb.v
-}
-
-func (rb *ArrayCompareConditionBuilder) ArrayCompareCondition(values map[conditionop.ConditionOp]*ArrayCompareOpParamsBuilder) *ArrayCompareConditionBuilder {
-	tmp := make(map[conditionop.ConditionOp]ArrayCompareOpParams, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.ArrayCompareCondition = tmp
-	return rb
-}
-
-func (rb *ArrayCompareConditionBuilder) Path(path string) *ArrayCompareConditionBuilder {
-	rb.v.Path = path
-	return rb
+	return r
 }

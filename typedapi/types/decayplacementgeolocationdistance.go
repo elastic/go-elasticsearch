@@ -17,57 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DecayPlacementGeoLocationDistance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/compound.ts#L77-L82
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/compound.ts#L77-L82
 type DecayPlacementGeoLocationDistance struct {
 	Decay  *float64     `json:"decay,omitempty"`
-	Offset *Distance    `json:"offset,omitempty"`
+	Offset *string      `json:"offset,omitempty"`
 	Origin *GeoLocation `json:"origin,omitempty"`
-	Scale  *Distance    `json:"scale,omitempty"`
+	Scale  *string      `json:"scale,omitempty"`
 }
 
-// DecayPlacementGeoLocationDistanceBuilder holds DecayPlacementGeoLocationDistance struct and provides a builder API.
-type DecayPlacementGeoLocationDistanceBuilder struct {
-	v *DecayPlacementGeoLocationDistance
-}
+// NewDecayPlacementGeoLocationDistance returns a DecayPlacementGeoLocationDistance.
+func NewDecayPlacementGeoLocationDistance() *DecayPlacementGeoLocationDistance {
+	r := &DecayPlacementGeoLocationDistance{}
 
-// NewDecayPlacementGeoLocationDistance provides a builder for the DecayPlacementGeoLocationDistance struct.
-func NewDecayPlacementGeoLocationDistanceBuilder() *DecayPlacementGeoLocationDistanceBuilder {
-	r := DecayPlacementGeoLocationDistanceBuilder{
-		&DecayPlacementGeoLocationDistance{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DecayPlacementGeoLocationDistance struct
-func (rb *DecayPlacementGeoLocationDistanceBuilder) Build() DecayPlacementGeoLocationDistance {
-	return *rb.v
-}
-
-func (rb *DecayPlacementGeoLocationDistanceBuilder) Decay(decay float64) *DecayPlacementGeoLocationDistanceBuilder {
-	rb.v.Decay = &decay
-	return rb
-}
-
-func (rb *DecayPlacementGeoLocationDistanceBuilder) Offset(offset Distance) *DecayPlacementGeoLocationDistanceBuilder {
-	rb.v.Offset = &offset
-	return rb
-}
-
-func (rb *DecayPlacementGeoLocationDistanceBuilder) Origin(origin *GeoLocationBuilder) *DecayPlacementGeoLocationDistanceBuilder {
-	v := origin.Build()
-	rb.v.Origin = &v
-	return rb
-}
-
-func (rb *DecayPlacementGeoLocationDistanceBuilder) Scale(scale Distance) *DecayPlacementGeoLocationDistanceBuilder {
-	rb.v.Scale = &scale
-	return rb
+	return r
 }

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TokenizationConfigContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/inference.ts#L97-L114
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/inference.ts#L97-L114
 type TokenizationConfigContainer struct {
 	// Bert Indicates BERT tokenization and its options
 	Bert *NlpBertTokenizationConfig `json:"bert,omitempty"`
@@ -34,45 +34,9 @@ type TokenizationConfigContainer struct {
 	Roberta *NlpRobertaTokenizationConfig `json:"roberta,omitempty"`
 }
 
-// TokenizationConfigContainerBuilder holds TokenizationConfigContainer struct and provides a builder API.
-type TokenizationConfigContainerBuilder struct {
-	v *TokenizationConfigContainer
-}
+// NewTokenizationConfigContainer returns a TokenizationConfigContainer.
+func NewTokenizationConfigContainer() *TokenizationConfigContainer {
+	r := &TokenizationConfigContainer{}
 
-// NewTokenizationConfigContainer provides a builder for the TokenizationConfigContainer struct.
-func NewTokenizationConfigContainerBuilder() *TokenizationConfigContainerBuilder {
-	r := TokenizationConfigContainerBuilder{
-		&TokenizationConfigContainer{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TokenizationConfigContainer struct
-func (rb *TokenizationConfigContainerBuilder) Build() TokenizationConfigContainer {
-	return *rb.v
-}
-
-// Bert Indicates BERT tokenization and its options
-
-func (rb *TokenizationConfigContainerBuilder) Bert(bert *NlpBertTokenizationConfigBuilder) *TokenizationConfigContainerBuilder {
-	v := bert.Build()
-	rb.v.Bert = &v
-	return rb
-}
-
-// Mpnet Indicates MPNET tokenization and its options
-
-func (rb *TokenizationConfigContainerBuilder) Mpnet(mpnet *NlpBertTokenizationConfigBuilder) *TokenizationConfigContainerBuilder {
-	v := mpnet.Build()
-	rb.v.Mpnet = &v
-	return rb
-}
-
-// Roberta Indicates RoBERTa tokenization and its options
-
-func (rb *TokenizationConfigContainerBuilder) Roberta(roberta *NlpRobertaTokenizationConfigBuilder) *TokenizationConfigContainerBuilder {
-	v := roberta.Build()
-	rb.v.Roberta = &v
-	return rb
+	return r
 }

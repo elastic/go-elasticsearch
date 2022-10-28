@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeoLine type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Geo.ts#L59-L65
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Geo.ts#L59-L65
 type GeoLine struct {
 	// Coordinates Array of `[lon, lat]` coordinates
 	Coordinates [][]float64 `json:"coordinates"`
@@ -32,35 +32,9 @@ type GeoLine struct {
 	Type string `json:"type"`
 }
 
-// GeoLineBuilder holds GeoLine struct and provides a builder API.
-type GeoLineBuilder struct {
-	v *GeoLine
-}
+// NewGeoLine returns a GeoLine.
+func NewGeoLine() *GeoLine {
+	r := &GeoLine{}
 
-// NewGeoLine provides a builder for the GeoLine struct.
-func NewGeoLineBuilder() *GeoLineBuilder {
-	r := GeoLineBuilder{
-		&GeoLine{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeoLine struct
-func (rb *GeoLineBuilder) Build() GeoLine {
-	return *rb.v
-}
-
-// Coordinates Array of `[lon, lat]` coordinates
-
-func (rb *GeoLineBuilder) Coordinates(coordinates ...[]float64) *GeoLineBuilder {
-	rb.v.Coordinates = coordinates
-	return rb
-}
-
-// Type Always `"LineString"`
-
-func (rb *GeoLineBuilder) Type_(type_ string) *GeoLineBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

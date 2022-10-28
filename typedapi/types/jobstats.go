@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // JobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/Job.ts#L96-L107
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Job.ts#L96-L107
 type JobStats struct {
 	AssignmentExplanation *string               `json:"assignment_explanation,omitempty"`
 	DataCounts            DataCounts            `json:"data_counts"`
@@ -42,77 +42,9 @@ type JobStats struct {
 	TimingStats           JobTimingStats        `json:"timing_stats"`
 }
 
-// JobStatsBuilder holds JobStats struct and provides a builder API.
-type JobStatsBuilder struct {
-	v *JobStats
-}
+// NewJobStats returns a JobStats.
+func NewJobStats() *JobStats {
+	r := &JobStats{}
 
-// NewJobStats provides a builder for the JobStats struct.
-func NewJobStatsBuilder() *JobStatsBuilder {
-	r := JobStatsBuilder{
-		&JobStats{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the JobStats struct
-func (rb *JobStatsBuilder) Build() JobStats {
-	return *rb.v
-}
-
-func (rb *JobStatsBuilder) AssignmentExplanation(assignmentexplanation string) *JobStatsBuilder {
-	rb.v.AssignmentExplanation = &assignmentexplanation
-	return rb
-}
-
-func (rb *JobStatsBuilder) DataCounts(datacounts *DataCountsBuilder) *JobStatsBuilder {
-	v := datacounts.Build()
-	rb.v.DataCounts = v
-	return rb
-}
-
-func (rb *JobStatsBuilder) Deleting(deleting bool) *JobStatsBuilder {
-	rb.v.Deleting = &deleting
-	return rb
-}
-
-func (rb *JobStatsBuilder) ForecastsStats(forecastsstats *JobForecastStatisticsBuilder) *JobStatsBuilder {
-	v := forecastsstats.Build()
-	rb.v.ForecastsStats = v
-	return rb
-}
-
-func (rb *JobStatsBuilder) JobId(jobid string) *JobStatsBuilder {
-	rb.v.JobId = jobid
-	return rb
-}
-
-func (rb *JobStatsBuilder) ModelSizeStats(modelsizestats *ModelSizeStatsBuilder) *JobStatsBuilder {
-	v := modelsizestats.Build()
-	rb.v.ModelSizeStats = v
-	return rb
-}
-
-func (rb *JobStatsBuilder) Node(node *DiscoveryNodeBuilder) *JobStatsBuilder {
-	v := node.Build()
-	rb.v.Node = &v
-	return rb
-}
-
-func (rb *JobStatsBuilder) OpenTime(opentime *DateTimeBuilder) *JobStatsBuilder {
-	v := opentime.Build()
-	rb.v.OpenTime = &v
-	return rb
-}
-
-func (rb *JobStatsBuilder) State(state jobstate.JobState) *JobStatsBuilder {
-	rb.v.State = state
-	return rb
-}
-
-func (rb *JobStatsBuilder) TimingStats(timingstats *JobTimingStatsBuilder) *JobStatsBuilder {
-	v := timingstats.Build()
-	rb.v.TimingStats = v
-	return rb
+	return r
 }

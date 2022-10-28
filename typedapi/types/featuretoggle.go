@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FeatureToggle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/xpack/usage/types.ts#L40-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/xpack/usage/types.ts#L40-L42
 type FeatureToggle struct {
 	Enabled bool `json:"enabled"`
 }
 
-// FeatureToggleBuilder holds FeatureToggle struct and provides a builder API.
-type FeatureToggleBuilder struct {
-	v *FeatureToggle
-}
+// NewFeatureToggle returns a FeatureToggle.
+func NewFeatureToggle() *FeatureToggle {
+	r := &FeatureToggle{}
 
-// NewFeatureToggle provides a builder for the FeatureToggle struct.
-func NewFeatureToggleBuilder() *FeatureToggleBuilder {
-	r := FeatureToggleBuilder{
-		&FeatureToggle{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FeatureToggle struct
-func (rb *FeatureToggleBuilder) Build() FeatureToggle {
-	return *rb.v
-}
-
-func (rb *FeatureToggleBuilder) Enabled(enabled bool) *FeatureToggleBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

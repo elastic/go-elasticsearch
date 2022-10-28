@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/dynamic-template.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/dynamic-template.ts#L22-L30
 type DynamicTemplate struct {
 	Mapping          *Property            `json:"mapping,omitempty"`
 	Match            *string              `json:"match,omitempty"`
@@ -39,57 +39,9 @@ type DynamicTemplate struct {
 	Unmatch          *string              `json:"unmatch,omitempty"`
 }
 
-// DynamicTemplateBuilder holds DynamicTemplate struct and provides a builder API.
-type DynamicTemplateBuilder struct {
-	v *DynamicTemplate
-}
+// NewDynamicTemplate returns a DynamicTemplate.
+func NewDynamicTemplate() *DynamicTemplate {
+	r := &DynamicTemplate{}
 
-// NewDynamicTemplate provides a builder for the DynamicTemplate struct.
-func NewDynamicTemplateBuilder() *DynamicTemplateBuilder {
-	r := DynamicTemplateBuilder{
-		&DynamicTemplate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DynamicTemplate struct
-func (rb *DynamicTemplateBuilder) Build() DynamicTemplate {
-	return *rb.v
-}
-
-func (rb *DynamicTemplateBuilder) Mapping(mapping *PropertyBuilder) *DynamicTemplateBuilder {
-	v := mapping.Build()
-	rb.v.Mapping = &v
-	return rb
-}
-
-func (rb *DynamicTemplateBuilder) Match(match string) *DynamicTemplateBuilder {
-	rb.v.Match = &match
-	return rb
-}
-
-func (rb *DynamicTemplateBuilder) MatchMappingType(matchmappingtype string) *DynamicTemplateBuilder {
-	rb.v.MatchMappingType = &matchmappingtype
-	return rb
-}
-
-func (rb *DynamicTemplateBuilder) MatchPattern(matchpattern matchtype.MatchType) *DynamicTemplateBuilder {
-	rb.v.MatchPattern = &matchpattern
-	return rb
-}
-
-func (rb *DynamicTemplateBuilder) PathMatch(pathmatch string) *DynamicTemplateBuilder {
-	rb.v.PathMatch = &pathmatch
-	return rb
-}
-
-func (rb *DynamicTemplateBuilder) PathUnmatch(pathunmatch string) *DynamicTemplateBuilder {
-	rb.v.PathUnmatch = &pathunmatch
-	return rb
-}
-
-func (rb *DynamicTemplateBuilder) Unmatch(unmatch string) *DynamicTemplateBuilder {
-	rb.v.Unmatch = &unmatch
-	return rb
+	return r
 }

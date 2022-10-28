@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SourceFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/SourceFilter.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/SourceFilter.ts#L23-L31
 type SourceFilter struct {
-	Excludes *Fields `json:"excludes,omitempty"`
-	Includes *Fields `json:"includes,omitempty"`
+	Excludes []string `json:"excludes,omitempty"`
+	Includes []string `json:"includes,omitempty"`
 }
 
-// SourceFilterBuilder holds SourceFilter struct and provides a builder API.
-type SourceFilterBuilder struct {
-	v *SourceFilter
-}
+// NewSourceFilter returns a SourceFilter.
+func NewSourceFilter() *SourceFilter {
+	r := &SourceFilter{}
 
-// NewSourceFilter provides a builder for the SourceFilter struct.
-func NewSourceFilterBuilder() *SourceFilterBuilder {
-	r := SourceFilterBuilder{
-		&SourceFilter{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SourceFilter struct
-func (rb *SourceFilterBuilder) Build() SourceFilter {
-	return *rb.v
-}
-
-func (rb *SourceFilterBuilder) Excludes(excludes *FieldsBuilder) *SourceFilterBuilder {
-	v := excludes.Build()
-	rb.v.Excludes = &v
-	return rb
-}
-
-func (rb *SourceFilterBuilder) Includes(includes *FieldsBuilder) *SourceFilterBuilder {
-	v := includes.Build()
-	rb.v.Includes = &v
-	return rb
+	return r
 }

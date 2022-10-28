@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TransientMetadataConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/_types/TransientMetadataConfig.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/TransientMetadataConfig.ts#L20-L22
 type TransientMetadataConfig struct {
 	Enabled bool `json:"enabled"`
 }
 
-// TransientMetadataConfigBuilder holds TransientMetadataConfig struct and provides a builder API.
-type TransientMetadataConfigBuilder struct {
-	v *TransientMetadataConfig
-}
+// NewTransientMetadataConfig returns a TransientMetadataConfig.
+func NewTransientMetadataConfig() *TransientMetadataConfig {
+	r := &TransientMetadataConfig{}
 
-// NewTransientMetadataConfig provides a builder for the TransientMetadataConfig struct.
-func NewTransientMetadataConfigBuilder() *TransientMetadataConfigBuilder {
-	r := TransientMetadataConfigBuilder{
-		&TransientMetadataConfig{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TransientMetadataConfig struct
-func (rb *TransientMetadataConfigBuilder) Build() TransientMetadataConfig {
-	return *rb.v
-}
-
-func (rb *TransientMetadataConfigBuilder) Enabled(enabled bool) *TransientMetadataConfigBuilder {
-	rb.v.Enabled = enabled
-	return rb
+	return r
 }

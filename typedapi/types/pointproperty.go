@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,123 +28,34 @@ import (
 
 // PointProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/geo.ts#L62-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/geo.ts#L62-L67
 type PointProperty struct {
-	CopyTo          *Fields                        `json:"copy_to,omitempty"`
+	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields          map[PropertyName]Property      `json:"fields,omitempty"`
+	Fields          map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
-	LocalMetadata   *Metadata                      `json:"local_metadata,omitempty"`
+	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string         `json:"meta,omitempty"`
-	NullValue  *string                   `json:"null_value,omitempty"`
-	Properties map[PropertyName]Property `json:"properties,omitempty"`
-	Similarity *string                   `json:"similarity,omitempty"`
-	Store      *bool                     `json:"store,omitempty"`
-	Type       string                    `json:"type,omitempty"`
+	Meta       map[string]string   `json:"meta,omitempty"`
+	NullValue  *string             `json:"null_value,omitempty"`
+	Properties map[string]Property `json:"properties,omitempty"`
+	Similarity *string             `json:"similarity,omitempty"`
+	Store      *bool               `json:"store,omitempty"`
+	Type       string              `json:"type,omitempty"`
 }
 
-// PointPropertyBuilder holds PointProperty struct and provides a builder API.
-type PointPropertyBuilder struct {
-	v *PointProperty
-}
-
-// NewPointProperty provides a builder for the PointProperty struct.
-func NewPointPropertyBuilder() *PointPropertyBuilder {
-	r := PointPropertyBuilder{
-		&PointProperty{
-			Fields:     make(map[PropertyName]Property, 0),
-			Meta:       make(map[string]string, 0),
-			Properties: make(map[PropertyName]Property, 0),
-		},
+// NewPointProperty returns a PointProperty.
+func NewPointProperty() *PointProperty {
+	r := &PointProperty{
+		Fields:     make(map[string]Property, 0),
+		Meta:       make(map[string]string, 0),
+		Properties: make(map[string]Property, 0),
 	}
 
-	r.v.Type = "point"
+	r.Type = "point"
 
-	return &r
-}
-
-// Build finalize the chain and returns the PointProperty struct
-func (rb *PointPropertyBuilder) Build() PointProperty {
-	return *rb.v
-}
-
-func (rb *PointPropertyBuilder) CopyTo(copyto *FieldsBuilder) *PointPropertyBuilder {
-	v := copyto.Build()
-	rb.v.CopyTo = &v
-	return rb
-}
-
-func (rb *PointPropertyBuilder) DocValues(docvalues bool) *PointPropertyBuilder {
-	rb.v.DocValues = &docvalues
-	return rb
-}
-
-func (rb *PointPropertyBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *PointPropertyBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *PointPropertyBuilder) Fields(values map[PropertyName]*PropertyBuilder) *PointPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Fields = tmp
-	return rb
-}
-
-func (rb *PointPropertyBuilder) IgnoreAbove(ignoreabove int) *PointPropertyBuilder {
-	rb.v.IgnoreAbove = &ignoreabove
-	return rb
-}
-
-func (rb *PointPropertyBuilder) IgnoreMalformed(ignoremalformed bool) *PointPropertyBuilder {
-	rb.v.IgnoreMalformed = &ignoremalformed
-	return rb
-}
-
-func (rb *PointPropertyBuilder) IgnoreZValue(ignorezvalue bool) *PointPropertyBuilder {
-	rb.v.IgnoreZValue = &ignorezvalue
-	return rb
-}
-
-func (rb *PointPropertyBuilder) LocalMetadata(localmetadata *MetadataBuilder) *PointPropertyBuilder {
-	v := localmetadata.Build()
-	rb.v.LocalMetadata = &v
-	return rb
-}
-
-// Meta Metadata about the field.
-
-func (rb *PointPropertyBuilder) Meta(value map[string]string) *PointPropertyBuilder {
-	rb.v.Meta = value
-	return rb
-}
-
-func (rb *PointPropertyBuilder) NullValue(nullvalue string) *PointPropertyBuilder {
-	rb.v.NullValue = &nullvalue
-	return rb
-}
-
-func (rb *PointPropertyBuilder) Properties(values map[PropertyName]*PropertyBuilder) *PointPropertyBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *PointPropertyBuilder) Similarity(similarity string) *PointPropertyBuilder {
-	rb.v.Similarity = &similarity
-	return rb
-}
-
-func (rb *PointPropertyBuilder) Store(store bool) *PointPropertyBuilder {
-	rb.v.Store = &store
-	return rb
+	return r
 }

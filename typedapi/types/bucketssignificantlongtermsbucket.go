@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,38 +27,5 @@ package types
 //	map[string]SignificantLongTermsBucket
 //	[]SignificantLongTermsBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsSignificantLongTermsBucket interface{}
-
-// BucketsSignificantLongTermsBucketBuilder holds BucketsSignificantLongTermsBucket struct and provides a builder API.
-type BucketsSignificantLongTermsBucketBuilder struct {
-	v BucketsSignificantLongTermsBucket
-}
-
-// NewBucketsSignificantLongTermsBucket provides a builder for the BucketsSignificantLongTermsBucket struct.
-func NewBucketsSignificantLongTermsBucketBuilder() *BucketsSignificantLongTermsBucketBuilder {
-	return &BucketsSignificantLongTermsBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsSignificantLongTermsBucket struct
-func (u *BucketsSignificantLongTermsBucketBuilder) Build() BucketsSignificantLongTermsBucket {
-	return u.v
-}
-
-func (u *BucketsSignificantLongTermsBucketBuilder) Map(values map[string]*SignificantLongTermsBucketBuilder) *BucketsSignificantLongTermsBucketBuilder {
-	tmp := make(map[string]SignificantLongTermsBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsSignificantLongTermsBucketBuilder) SignificantLongTermsBuckets(significantlongtermsbuckets []SignificantLongTermsBucketBuilder) *BucketsSignificantLongTermsBucketBuilder {
-	tmp := make([]SignificantLongTermsBucket, len(significantlongtermsbuckets))
-	for _, value := range significantlongtermsbuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}

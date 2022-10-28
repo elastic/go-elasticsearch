@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketCorrelationFunctionCountCorrelationIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L134-L152
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L134-L152
 type BucketCorrelationFunctionCountCorrelationIndicator struct {
 	// DocCount The total number of documents that initially created the expectations. It’s
 	// required to be greater
@@ -45,53 +45,9 @@ type BucketCorrelationFunctionCountCorrelationIndicator struct {
 	Fractions []float64 `json:"fractions,omitempty"`
 }
 
-// BucketCorrelationFunctionCountCorrelationIndicatorBuilder holds BucketCorrelationFunctionCountCorrelationIndicator struct and provides a builder API.
-type BucketCorrelationFunctionCountCorrelationIndicatorBuilder struct {
-	v *BucketCorrelationFunctionCountCorrelationIndicator
-}
+// NewBucketCorrelationFunctionCountCorrelationIndicator returns a BucketCorrelationFunctionCountCorrelationIndicator.
+func NewBucketCorrelationFunctionCountCorrelationIndicator() *BucketCorrelationFunctionCountCorrelationIndicator {
+	r := &BucketCorrelationFunctionCountCorrelationIndicator{}
 
-// NewBucketCorrelationFunctionCountCorrelationIndicator provides a builder for the BucketCorrelationFunctionCountCorrelationIndicator struct.
-func NewBucketCorrelationFunctionCountCorrelationIndicatorBuilder() *BucketCorrelationFunctionCountCorrelationIndicatorBuilder {
-	r := BucketCorrelationFunctionCountCorrelationIndicatorBuilder{
-		&BucketCorrelationFunctionCountCorrelationIndicator{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the BucketCorrelationFunctionCountCorrelationIndicator struct
-func (rb *BucketCorrelationFunctionCountCorrelationIndicatorBuilder) Build() BucketCorrelationFunctionCountCorrelationIndicator {
-	return *rb.v
-}
-
-// DocCount The total number of documents that initially created the expectations. It’s
-// required to be greater
-// than or equal to the sum of all values in the buckets_path as this is the
-// originating superset of data
-// to which the term values are correlated.
-
-func (rb *BucketCorrelationFunctionCountCorrelationIndicatorBuilder) DocCount(doccount int) *BucketCorrelationFunctionCountCorrelationIndicatorBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-// Expectations An array of numbers with which to correlate the configured `bucket_path`
-// values.
-// The length of this value must always equal the number of buckets returned by
-// the `bucket_path`.
-
-func (rb *BucketCorrelationFunctionCountCorrelationIndicatorBuilder) Expectations(expectations ...float64) *BucketCorrelationFunctionCountCorrelationIndicatorBuilder {
-	rb.v.Expectations = expectations
-	return rb
-}
-
-// Fractions An array of fractions to use when averaging and calculating variance. This
-// should be used if
-// the pre-calculated data and the buckets_path have known gaps. The length of
-// fractions, if provided,
-// must equal expectations.
-
-func (rb *BucketCorrelationFunctionCountCorrelationIndicatorBuilder) Fractions(fractions ...float64) *BucketCorrelationFunctionCountCorrelationIndicatorBuilder {
-	rb.v.Fractions = fractions
-	return rb
+	return r
 }

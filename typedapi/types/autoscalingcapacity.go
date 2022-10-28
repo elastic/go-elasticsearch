@@ -17,46 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AutoscalingCapacity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L38-L41
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L38-L41
 type AutoscalingCapacity struct {
 	Node  AutoscalingResources `json:"node"`
 	Total AutoscalingResources `json:"total"`
 }
 
-// AutoscalingCapacityBuilder holds AutoscalingCapacity struct and provides a builder API.
-type AutoscalingCapacityBuilder struct {
-	v *AutoscalingCapacity
-}
+// NewAutoscalingCapacity returns a AutoscalingCapacity.
+func NewAutoscalingCapacity() *AutoscalingCapacity {
+	r := &AutoscalingCapacity{}
 
-// NewAutoscalingCapacity provides a builder for the AutoscalingCapacity struct.
-func NewAutoscalingCapacityBuilder() *AutoscalingCapacityBuilder {
-	r := AutoscalingCapacityBuilder{
-		&AutoscalingCapacity{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AutoscalingCapacity struct
-func (rb *AutoscalingCapacityBuilder) Build() AutoscalingCapacity {
-	return *rb.v
-}
-
-func (rb *AutoscalingCapacityBuilder) Node(node *AutoscalingResourcesBuilder) *AutoscalingCapacityBuilder {
-	v := node.Build()
-	rb.v.Node = v
-	return rb
-}
-
-func (rb *AutoscalingCapacityBuilder) Total(total *AutoscalingResourcesBuilder) *AutoscalingCapacityBuilder {
-	v := total.Build()
-	rb.v.Total = v
-	return rb
+	return r
 }

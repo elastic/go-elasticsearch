@@ -17,38 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoBootstrap type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L193-L195
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L193-L195
 type NodeInfoBootstrap struct {
 	MemoryLock string `json:"memory_lock"`
 }
 
-// NodeInfoBootstrapBuilder holds NodeInfoBootstrap struct and provides a builder API.
-type NodeInfoBootstrapBuilder struct {
-	v *NodeInfoBootstrap
-}
+// NewNodeInfoBootstrap returns a NodeInfoBootstrap.
+func NewNodeInfoBootstrap() *NodeInfoBootstrap {
+	r := &NodeInfoBootstrap{}
 
-// NewNodeInfoBootstrap provides a builder for the NodeInfoBootstrap struct.
-func NewNodeInfoBootstrapBuilder() *NodeInfoBootstrapBuilder {
-	r := NodeInfoBootstrapBuilder{
-		&NodeInfoBootstrap{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoBootstrap struct
-func (rb *NodeInfoBootstrapBuilder) Build() NodeInfoBootstrap {
-	return *rb.v
-}
-
-func (rb *NodeInfoBootstrapBuilder) MemoryLock(memorylock string) *NodeInfoBootstrapBuilder {
-	rb.v.MemoryLock = memorylock
-	return rb
+	return r
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -30,50 +30,17 @@ import (
 
 // IndexSegmentSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSegmentSort.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSegmentSort.ts#L22-L27
 type IndexSegmentSort struct {
-	Field   *Fields                                 `json:"field,omitempty"`
+	Field   []string                                `json:"field,omitempty"`
 	Missing []segmentsortmissing.SegmentSortMissing `json:"missing,omitempty"`
 	Mode    []segmentsortmode.SegmentSortMode       `json:"mode,omitempty"`
 	Order   []segmentsortorder.SegmentSortOrder     `json:"order,omitempty"`
 }
 
-// IndexSegmentSortBuilder holds IndexSegmentSort struct and provides a builder API.
-type IndexSegmentSortBuilder struct {
-	v *IndexSegmentSort
-}
+// NewIndexSegmentSort returns a IndexSegmentSort.
+func NewIndexSegmentSort() *IndexSegmentSort {
+	r := &IndexSegmentSort{}
 
-// NewIndexSegmentSort provides a builder for the IndexSegmentSort struct.
-func NewIndexSegmentSortBuilder() *IndexSegmentSortBuilder {
-	r := IndexSegmentSortBuilder{
-		&IndexSegmentSort{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexSegmentSort struct
-func (rb *IndexSegmentSortBuilder) Build() IndexSegmentSort {
-	return *rb.v
-}
-
-func (rb *IndexSegmentSortBuilder) Field(field *FieldsBuilder) *IndexSegmentSortBuilder {
-	v := field.Build()
-	rb.v.Field = &v
-	return rb
-}
-
-func (rb *IndexSegmentSortBuilder) Missing(arg []segmentsortmissing.SegmentSortMissing) *IndexSegmentSortBuilder {
-	rb.v.Missing = arg
-	return rb
-}
-
-func (rb *IndexSegmentSortBuilder) Mode(arg []segmentsortmode.SegmentSortMode) *IndexSegmentSortBuilder {
-	rb.v.Mode = arg
-	return rb
-}
-
-func (rb *IndexSegmentSortBuilder) Order(arg []segmentsortorder.SegmentSortOrder) *IndexSegmentSortBuilder {
-	rb.v.Order = arg
-	return rb
+	return r
 }

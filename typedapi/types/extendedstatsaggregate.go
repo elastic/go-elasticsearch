@@ -17,21 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ExtendedStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L269-L287
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L277-L295
 type ExtendedStatsAggregate struct {
 	Avg                        float64                          `json:"avg,omitempty"`
 	AvgAsString                *string                          `json:"avg_as_string,omitempty"`
 	Count                      int64                            `json:"count"`
 	Max                        float64                          `json:"max,omitempty"`
 	MaxAsString                *string                          `json:"max_as_string,omitempty"`
-	Meta                       *Metadata                        `json:"meta,omitempty"`
+	Meta                       map[string]interface{}           `json:"meta,omitempty"`
 	Min                        float64                          `json:"min,omitempty"`
 	MinAsString                *string                          `json:"min_as_string,omitempty"`
 	StdDeviation               float64                          `json:"std_deviation,omitempty"`
@@ -52,144 +52,9 @@ type ExtendedStatsAggregate struct {
 	VarianceSamplingAsString   *string                          `json:"variance_sampling_as_string,omitempty"`
 }
 
-// ExtendedStatsAggregateBuilder holds ExtendedStatsAggregate struct and provides a builder API.
-type ExtendedStatsAggregateBuilder struct {
-	v *ExtendedStatsAggregate
-}
+// NewExtendedStatsAggregate returns a ExtendedStatsAggregate.
+func NewExtendedStatsAggregate() *ExtendedStatsAggregate {
+	r := &ExtendedStatsAggregate{}
 
-// NewExtendedStatsAggregate provides a builder for the ExtendedStatsAggregate struct.
-func NewExtendedStatsAggregateBuilder() *ExtendedStatsAggregateBuilder {
-	r := ExtendedStatsAggregateBuilder{
-		&ExtendedStatsAggregate{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExtendedStatsAggregate struct
-func (rb *ExtendedStatsAggregateBuilder) Build() ExtendedStatsAggregate {
-	return *rb.v
-}
-
-func (rb *ExtendedStatsAggregateBuilder) Avg(avg float64) *ExtendedStatsAggregateBuilder {
-	rb.v.Avg = avg
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) AvgAsString(avgasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.AvgAsString = &avgasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) Count(count int64) *ExtendedStatsAggregateBuilder {
-	rb.v.Count = count
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) Max(max float64) *ExtendedStatsAggregateBuilder {
-	rb.v.Max = max
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) MaxAsString(maxasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.MaxAsString = &maxasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) Meta(meta *MetadataBuilder) *ExtendedStatsAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) Min(min float64) *ExtendedStatsAggregateBuilder {
-	rb.v.Min = min
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) MinAsString(minasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.MinAsString = &minasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) StdDeviation(stddeviation float64) *ExtendedStatsAggregateBuilder {
-	rb.v.StdDeviation = stddeviation
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) StdDeviationAsString(stddeviationasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.StdDeviationAsString = &stddeviationasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) StdDeviationBounds(stddeviationbounds *StandardDeviationBoundsBuilder) *ExtendedStatsAggregateBuilder {
-	v := stddeviationbounds.Build()
-	rb.v.StdDeviationBounds = &v
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) StdDeviationBoundsAsString(stddeviationboundsasstring *StandardDeviationBoundsAsStringBuilder) *ExtendedStatsAggregateBuilder {
-	v := stddeviationboundsasstring.Build()
-	rb.v.StdDeviationBoundsAsString = &v
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) StdDeviationPopulation(stddeviationpopulation float64) *ExtendedStatsAggregateBuilder {
-	rb.v.StdDeviationPopulation = stddeviationpopulation
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) StdDeviationSampling(stddeviationsampling float64) *ExtendedStatsAggregateBuilder {
-	rb.v.StdDeviationSampling = stddeviationsampling
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) Sum(sum float64) *ExtendedStatsAggregateBuilder {
-	rb.v.Sum = sum
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) SumAsString(sumasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.SumAsString = &sumasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) SumOfSquares(sumofsquares float64) *ExtendedStatsAggregateBuilder {
-	rb.v.SumOfSquares = sumofsquares
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) SumOfSquaresAsString(sumofsquaresasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.SumOfSquaresAsString = &sumofsquaresasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) Variance(variance float64) *ExtendedStatsAggregateBuilder {
-	rb.v.Variance = variance
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) VarianceAsString(varianceasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.VarianceAsString = &varianceasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) VariancePopulation(variancepopulation float64) *ExtendedStatsAggregateBuilder {
-	rb.v.VariancePopulation = variancepopulation
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) VariancePopulationAsString(variancepopulationasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.VariancePopulationAsString = &variancepopulationasstring
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) VarianceSampling(variancesampling float64) *ExtendedStatsAggregateBuilder {
-	rb.v.VarianceSampling = variancesampling
-	return rb
-}
-
-func (rb *ExtendedStatsAggregateBuilder) VarianceSamplingAsString(variancesamplingasstring string) *ExtendedStatsAggregateBuilder {
-	rb.v.VarianceSamplingAsString = &variancesamplingasstring
-	return rb
+	return r
 }

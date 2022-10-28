@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // TrainedModelAssignmentRoutingTable type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/TrainedModel.ts#L350-L368
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/TrainedModel.ts#L350-L368
 type TrainedModelAssignmentRoutingTable struct {
 	// CurrentAllocations Current number of allocations.
 	CurrentAllocations int `json:"current_allocations"`
@@ -41,50 +41,9 @@ type TrainedModelAssignmentRoutingTable struct {
 	TargetAllocations int `json:"target_allocations"`
 }
 
-// TrainedModelAssignmentRoutingTableBuilder holds TrainedModelAssignmentRoutingTable struct and provides a builder API.
-type TrainedModelAssignmentRoutingTableBuilder struct {
-	v *TrainedModelAssignmentRoutingTable
-}
+// NewTrainedModelAssignmentRoutingTable returns a TrainedModelAssignmentRoutingTable.
+func NewTrainedModelAssignmentRoutingTable() *TrainedModelAssignmentRoutingTable {
+	r := &TrainedModelAssignmentRoutingTable{}
 
-// NewTrainedModelAssignmentRoutingTable provides a builder for the TrainedModelAssignmentRoutingTable struct.
-func NewTrainedModelAssignmentRoutingTableBuilder() *TrainedModelAssignmentRoutingTableBuilder {
-	r := TrainedModelAssignmentRoutingTableBuilder{
-		&TrainedModelAssignmentRoutingTable{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TrainedModelAssignmentRoutingTable struct
-func (rb *TrainedModelAssignmentRoutingTableBuilder) Build() TrainedModelAssignmentRoutingTable {
-	return *rb.v
-}
-
-// CurrentAllocations Current number of allocations.
-
-func (rb *TrainedModelAssignmentRoutingTableBuilder) CurrentAllocations(currentallocations int) *TrainedModelAssignmentRoutingTableBuilder {
-	rb.v.CurrentAllocations = currentallocations
-	return rb
-}
-
-// Reason The reason for the current state. It is usually populated only when the
-// `routing_state` is `failed`.
-
-func (rb *TrainedModelAssignmentRoutingTableBuilder) Reason(reason string) *TrainedModelAssignmentRoutingTableBuilder {
-	rb.v.Reason = reason
-	return rb
-}
-
-// RoutingState The current routing state.
-
-func (rb *TrainedModelAssignmentRoutingTableBuilder) RoutingState(routingstate routingstate.RoutingState) *TrainedModelAssignmentRoutingTableBuilder {
-	rb.v.RoutingState = routingstate
-	return rb
-}
-
-// TargetAllocations Target number of allocations.
-
-func (rb *TrainedModelAssignmentRoutingTableBuilder) TargetAllocations(targetallocations int) *TrainedModelAssignmentRoutingTableBuilder {
-	rb.v.TargetAllocations = targetallocations
-	return rb
+	return r
 }

@@ -17,62 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // PrefixQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/term.ts#L57-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L57-L66
 type PrefixQuery struct {
-	Boost           *float32               `json:"boost,omitempty"`
-	CaseInsensitive *bool                  `json:"case_insensitive,omitempty"`
-	QueryName_      *string                `json:"_name,omitempty"`
-	Rewrite         *MultiTermQueryRewrite `json:"rewrite,omitempty"`
-	Value           string                 `json:"value"`
+	Boost           *float32 `json:"boost,omitempty"`
+	CaseInsensitive *bool    `json:"case_insensitive,omitempty"`
+	QueryName_      *string  `json:"_name,omitempty"`
+	Rewrite         *string  `json:"rewrite,omitempty"`
+	Value           string   `json:"value"`
 }
 
-// PrefixQueryBuilder holds PrefixQuery struct and provides a builder API.
-type PrefixQueryBuilder struct {
-	v *PrefixQuery
-}
+// NewPrefixQuery returns a PrefixQuery.
+func NewPrefixQuery() *PrefixQuery {
+	r := &PrefixQuery{}
 
-// NewPrefixQuery provides a builder for the PrefixQuery struct.
-func NewPrefixQueryBuilder() *PrefixQueryBuilder {
-	r := PrefixQueryBuilder{
-		&PrefixQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PrefixQuery struct
-func (rb *PrefixQueryBuilder) Build() PrefixQuery {
-	return *rb.v
-}
-
-func (rb *PrefixQueryBuilder) Boost(boost float32) *PrefixQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *PrefixQueryBuilder) CaseInsensitive(caseinsensitive bool) *PrefixQueryBuilder {
-	rb.v.CaseInsensitive = &caseinsensitive
-	return rb
-}
-
-func (rb *PrefixQueryBuilder) QueryName_(queryname_ string) *PrefixQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *PrefixQueryBuilder) Rewrite(rewrite MultiTermQueryRewrite) *PrefixQueryBuilder {
-	rb.v.Rewrite = &rewrite
-	return rb
-}
-
-func (rb *PrefixQueryBuilder) Value(value string) *PrefixQueryBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

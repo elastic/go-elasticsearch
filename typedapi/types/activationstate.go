@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ActivationState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Activation.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Activation.ts#L24-L27
 type ActivationState struct {
 	Active    bool     `json:"active"`
 	Timestamp DateTime `json:"timestamp"`
 }
 
-// ActivationStateBuilder holds ActivationState struct and provides a builder API.
-type ActivationStateBuilder struct {
-	v *ActivationState
-}
+// NewActivationState returns a ActivationState.
+func NewActivationState() *ActivationState {
+	r := &ActivationState{}
 
-// NewActivationState provides a builder for the ActivationState struct.
-func NewActivationStateBuilder() *ActivationStateBuilder {
-	r := ActivationStateBuilder{
-		&ActivationState{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ActivationState struct
-func (rb *ActivationStateBuilder) Build() ActivationState {
-	return *rb.v
-}
-
-func (rb *ActivationStateBuilder) Active(active bool) *ActivationStateBuilder {
-	rb.v.Active = active
-	return rb
-}
-
-func (rb *ActivationStateBuilder) Timestamp(timestamp *DateTimeBuilder) *ActivationStateBuilder {
-	v := timestamp.Build()
-	rb.v.Timestamp = v
-	return rb
+	return r
 }

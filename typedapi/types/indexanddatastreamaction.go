@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexAndDataStreamAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/modify_data_stream/types.ts#L28-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/modify_data_stream/types.ts#L28-L31
 type IndexAndDataStreamAction struct {
-	DataStream DataStreamName `json:"data_stream"`
-	Index      IndexName      `json:"index"`
+	DataStream string `json:"data_stream"`
+	Index      string `json:"index"`
 }
 
-// IndexAndDataStreamActionBuilder holds IndexAndDataStreamAction struct and provides a builder API.
-type IndexAndDataStreamActionBuilder struct {
-	v *IndexAndDataStreamAction
-}
+// NewIndexAndDataStreamAction returns a IndexAndDataStreamAction.
+func NewIndexAndDataStreamAction() *IndexAndDataStreamAction {
+	r := &IndexAndDataStreamAction{}
 
-// NewIndexAndDataStreamAction provides a builder for the IndexAndDataStreamAction struct.
-func NewIndexAndDataStreamActionBuilder() *IndexAndDataStreamActionBuilder {
-	r := IndexAndDataStreamActionBuilder{
-		&IndexAndDataStreamAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IndexAndDataStreamAction struct
-func (rb *IndexAndDataStreamActionBuilder) Build() IndexAndDataStreamAction {
-	return *rb.v
-}
-
-func (rb *IndexAndDataStreamActionBuilder) DataStream(datastream DataStreamName) *IndexAndDataStreamActionBuilder {
-	rb.v.DataStream = datastream
-	return rb
-}
-
-func (rb *IndexAndDataStreamActionBuilder) Index(index IndexName) *IndexAndDataStreamActionBuilder {
-	rb.v.Index = index
-	return rb
+	return r
 }

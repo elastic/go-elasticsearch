@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeAnalyticsMemoryEstimation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/_types/DataframeAnalytics.ts#L70-L75
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/DataframeAnalytics.ts#L70-L75
 type DataframeAnalyticsMemoryEstimation struct {
 	// ExpectedMemoryWithDisk Estimated memory usage under the assumption that overflowing to disk is
 	// allowed during data frame analytics. expected_memory_with_disk is usually
@@ -36,39 +36,9 @@ type DataframeAnalyticsMemoryEstimation struct {
 	ExpectedMemoryWithoutDisk string `json:"expected_memory_without_disk"`
 }
 
-// DataframeAnalyticsMemoryEstimationBuilder holds DataframeAnalyticsMemoryEstimation struct and provides a builder API.
-type DataframeAnalyticsMemoryEstimationBuilder struct {
-	v *DataframeAnalyticsMemoryEstimation
-}
+// NewDataframeAnalyticsMemoryEstimation returns a DataframeAnalyticsMemoryEstimation.
+func NewDataframeAnalyticsMemoryEstimation() *DataframeAnalyticsMemoryEstimation {
+	r := &DataframeAnalyticsMemoryEstimation{}
 
-// NewDataframeAnalyticsMemoryEstimation provides a builder for the DataframeAnalyticsMemoryEstimation struct.
-func NewDataframeAnalyticsMemoryEstimationBuilder() *DataframeAnalyticsMemoryEstimationBuilder {
-	r := DataframeAnalyticsMemoryEstimationBuilder{
-		&DataframeAnalyticsMemoryEstimation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeAnalyticsMemoryEstimation struct
-func (rb *DataframeAnalyticsMemoryEstimationBuilder) Build() DataframeAnalyticsMemoryEstimation {
-	return *rb.v
-}
-
-// ExpectedMemoryWithDisk Estimated memory usage under the assumption that overflowing to disk is
-// allowed during data frame analytics. expected_memory_with_disk is usually
-// smaller than expected_memory_without_disk as using disk allows to limit the
-// main memory needed to perform data frame analytics.
-
-func (rb *DataframeAnalyticsMemoryEstimationBuilder) ExpectedMemoryWithDisk(expectedmemorywithdisk string) *DataframeAnalyticsMemoryEstimationBuilder {
-	rb.v.ExpectedMemoryWithDisk = expectedmemorywithdisk
-	return rb
-}
-
-// ExpectedMemoryWithoutDisk Estimated memory usage under the assumption that the whole data frame
-// analytics should happen in memory (i.e. without overflowing to disk).
-
-func (rb *DataframeAnalyticsMemoryEstimationBuilder) ExpectedMemoryWithoutDisk(expectedmemorywithoutdisk string) *DataframeAnalyticsMemoryEstimationBuilder {
-	rb.v.ExpectedMemoryWithoutDisk = expectedmemorywithoutdisk
-	return rb
+	return r
 }

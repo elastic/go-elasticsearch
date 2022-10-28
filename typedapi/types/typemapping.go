@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // TypeMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/mapping/TypeMapping.ts#L34-L55
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/TypeMapping.ts#L34-L55
 type TypeMapping struct {
 	AllField             *AllField                      `json:"all_field,omitempty"`
 	DataStreamTimestamp_ *DataStreamTimestamp           `json:"_data_stream_timestamp,omitempty"`
@@ -39,129 +39,21 @@ type TypeMapping struct {
 	Enabled              *bool                          `json:"enabled,omitempty"`
 	FieldNames_          *FieldNamesField               `json:"_field_names,omitempty"`
 	IndexField           *IndexField                    `json:"index_field,omitempty"`
-	Meta_                *Metadata                      `json:"_meta,omitempty"`
+	Meta_                map[string]interface{}         `json:"_meta,omitempty"`
 	NumericDetection     *bool                          `json:"numeric_detection,omitempty"`
-	Properties           map[PropertyName]Property      `json:"properties,omitempty"`
+	Properties           map[string]Property            `json:"properties,omitempty"`
 	Routing_             *RoutingField                  `json:"_routing,omitempty"`
 	Runtime              map[string]RuntimeField        `json:"runtime,omitempty"`
 	Size_                *SizeField                     `json:"_size,omitempty"`
 	Source_              *SourceField                   `json:"_source,omitempty"`
 }
 
-// TypeMappingBuilder holds TypeMapping struct and provides a builder API.
-type TypeMappingBuilder struct {
-	v *TypeMapping
-}
-
-// NewTypeMapping provides a builder for the TypeMapping struct.
-func NewTypeMappingBuilder() *TypeMappingBuilder {
-	r := TypeMappingBuilder{
-		&TypeMapping{
-			Properties: make(map[PropertyName]Property, 0),
-			Runtime:    make(map[string]RuntimeField, 0),
-		},
+// NewTypeMapping returns a TypeMapping.
+func NewTypeMapping() *TypeMapping {
+	r := &TypeMapping{
+		Properties: make(map[string]Property, 0),
+		Runtime:    make(map[string]RuntimeField, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TypeMapping struct
-func (rb *TypeMappingBuilder) Build() TypeMapping {
-	return *rb.v
-}
-
-func (rb *TypeMappingBuilder) AllField(allfield *AllFieldBuilder) *TypeMappingBuilder {
-	v := allfield.Build()
-	rb.v.AllField = &v
-	return rb
-}
-
-func (rb *TypeMappingBuilder) DataStreamTimestamp_(datastreamtimestamp_ *DataStreamTimestampBuilder) *TypeMappingBuilder {
-	v := datastreamtimestamp_.Build()
-	rb.v.DataStreamTimestamp_ = &v
-	return rb
-}
-
-func (rb *TypeMappingBuilder) DateDetection(datedetection bool) *TypeMappingBuilder {
-	rb.v.DateDetection = &datedetection
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Dynamic(dynamic dynamicmapping.DynamicMapping) *TypeMappingBuilder {
-	rb.v.Dynamic = &dynamic
-	return rb
-}
-
-func (rb *TypeMappingBuilder) DynamicDateFormats(dynamic_date_formats ...string) *TypeMappingBuilder {
-	rb.v.DynamicDateFormats = dynamic_date_formats
-	return rb
-}
-
-func (rb *TypeMappingBuilder) DynamicTemplates(arg []map[string]DynamicTemplate) *TypeMappingBuilder {
-	rb.v.DynamicTemplates = arg
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Enabled(enabled bool) *TypeMappingBuilder {
-	rb.v.Enabled = &enabled
-	return rb
-}
-
-func (rb *TypeMappingBuilder) FieldNames_(fieldnames_ *FieldNamesFieldBuilder) *TypeMappingBuilder {
-	v := fieldnames_.Build()
-	rb.v.FieldNames_ = &v
-	return rb
-}
-
-func (rb *TypeMappingBuilder) IndexField(indexfield *IndexFieldBuilder) *TypeMappingBuilder {
-	v := indexfield.Build()
-	rb.v.IndexField = &v
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Meta_(meta_ *MetadataBuilder) *TypeMappingBuilder {
-	v := meta_.Build()
-	rb.v.Meta_ = &v
-	return rb
-}
-
-func (rb *TypeMappingBuilder) NumericDetection(numericdetection bool) *TypeMappingBuilder {
-	rb.v.NumericDetection = &numericdetection
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Properties(values map[PropertyName]*PropertyBuilder) *TypeMappingBuilder {
-	tmp := make(map[PropertyName]Property, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Properties = tmp
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Routing_(routing_ *RoutingFieldBuilder) *TypeMappingBuilder {
-	v := routing_.Build()
-	rb.v.Routing_ = &v
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Runtime(values map[string]*RuntimeFieldBuilder) *TypeMappingBuilder {
-	tmp := make(map[string]RuntimeField, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Runtime = tmp
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Size_(size_ *SizeFieldBuilder) *TypeMappingBuilder {
-	v := size_.Build()
-	rb.v.Size_ = &v
-	return rb
-}
-
-func (rb *TypeMappingBuilder) Source_(source_ *SourceFieldBuilder) *TypeMappingBuilder {
-	v := source_.Build()
-	rb.v.Source_ = &v
-	return rb
+	return r
 }

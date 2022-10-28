@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Connection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/graph/_types/Connection.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/graph/_types/Connection.ts#L22-L27
 type Connection struct {
 	DocCount int64   `json:"doc_count"`
 	Source   int64   `json:"source"`
@@ -32,41 +32,9 @@ type Connection struct {
 	Weight   float64 `json:"weight"`
 }
 
-// ConnectionBuilder holds Connection struct and provides a builder API.
-type ConnectionBuilder struct {
-	v *Connection
-}
+// NewConnection returns a Connection.
+func NewConnection() *Connection {
+	r := &Connection{}
 
-// NewConnection provides a builder for the Connection struct.
-func NewConnectionBuilder() *ConnectionBuilder {
-	r := ConnectionBuilder{
-		&Connection{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Connection struct
-func (rb *ConnectionBuilder) Build() Connection {
-	return *rb.v
-}
-
-func (rb *ConnectionBuilder) DocCount(doccount int64) *ConnectionBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *ConnectionBuilder) Source(source int64) *ConnectionBuilder {
-	rb.v.Source = source
-	return rb
-}
-
-func (rb *ConnectionBuilder) Target(target int64) *ConnectionBuilder {
-	rb.v.Target = target
-	return rb
-}
-
-func (rb *ConnectionBuilder) Weight(weight float64) *ConnectionBuilder {
-	rb.v.Weight = weight
-	return rb
+	return r
 }

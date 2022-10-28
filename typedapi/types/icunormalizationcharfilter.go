@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,46 +29,19 @@ import (
 
 // IcuNormalizationCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/icu-plugin.ts#L40-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/icu-plugin.ts#L40-L44
 type IcuNormalizationCharFilter struct {
 	Mode    *icunormalizationmode.IcuNormalizationMode `json:"mode,omitempty"`
 	Name    *icunormalizationtype.IcuNormalizationType `json:"name,omitempty"`
 	Type    string                                     `json:"type,omitempty"`
-	Version *VersionString                             `json:"version,omitempty"`
+	Version *string                                    `json:"version,omitempty"`
 }
 
-// IcuNormalizationCharFilterBuilder holds IcuNormalizationCharFilter struct and provides a builder API.
-type IcuNormalizationCharFilterBuilder struct {
-	v *IcuNormalizationCharFilter
-}
+// NewIcuNormalizationCharFilter returns a IcuNormalizationCharFilter.
+func NewIcuNormalizationCharFilter() *IcuNormalizationCharFilter {
+	r := &IcuNormalizationCharFilter{}
 
-// NewIcuNormalizationCharFilter provides a builder for the IcuNormalizationCharFilter struct.
-func NewIcuNormalizationCharFilterBuilder() *IcuNormalizationCharFilterBuilder {
-	r := IcuNormalizationCharFilterBuilder{
-		&IcuNormalizationCharFilter{},
-	}
+	r.Type = "icu_normalizer"
 
-	r.v.Type = "icu_normalizer"
-
-	return &r
-}
-
-// Build finalize the chain and returns the IcuNormalizationCharFilter struct
-func (rb *IcuNormalizationCharFilterBuilder) Build() IcuNormalizationCharFilter {
-	return *rb.v
-}
-
-func (rb *IcuNormalizationCharFilterBuilder) Mode(mode icunormalizationmode.IcuNormalizationMode) *IcuNormalizationCharFilterBuilder {
-	rb.v.Mode = &mode
-	return rb
-}
-
-func (rb *IcuNormalizationCharFilterBuilder) Name(name icunormalizationtype.IcuNormalizationType) *IcuNormalizationCharFilterBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *IcuNormalizationCharFilterBuilder) Version(version VersionString) *IcuNormalizationCharFilterBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

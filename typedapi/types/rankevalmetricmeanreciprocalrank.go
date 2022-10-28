@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RankEvalMetricMeanReciprocalRank type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/rank_eval/types.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/rank_eval/types.ts#L60-L64
 type RankEvalMetricMeanReciprocalRank struct {
 	// K Sets the maximum number of documents retrieved per query. This value will act
 	// in place of the usual size parameter in the query.
@@ -34,37 +34,9 @@ type RankEvalMetricMeanReciprocalRank struct {
 	RelevantRatingThreshold *int `json:"relevant_rating_threshold,omitempty"`
 }
 
-// RankEvalMetricMeanReciprocalRankBuilder holds RankEvalMetricMeanReciprocalRank struct and provides a builder API.
-type RankEvalMetricMeanReciprocalRankBuilder struct {
-	v *RankEvalMetricMeanReciprocalRank
-}
+// NewRankEvalMetricMeanReciprocalRank returns a RankEvalMetricMeanReciprocalRank.
+func NewRankEvalMetricMeanReciprocalRank() *RankEvalMetricMeanReciprocalRank {
+	r := &RankEvalMetricMeanReciprocalRank{}
 
-// NewRankEvalMetricMeanReciprocalRank provides a builder for the RankEvalMetricMeanReciprocalRank struct.
-func NewRankEvalMetricMeanReciprocalRankBuilder() *RankEvalMetricMeanReciprocalRankBuilder {
-	r := RankEvalMetricMeanReciprocalRankBuilder{
-		&RankEvalMetricMeanReciprocalRank{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RankEvalMetricMeanReciprocalRank struct
-func (rb *RankEvalMetricMeanReciprocalRankBuilder) Build() RankEvalMetricMeanReciprocalRank {
-	return *rb.v
-}
-
-// K Sets the maximum number of documents retrieved per query. This value will act
-// in place of the usual size parameter in the query.
-
-func (rb *RankEvalMetricMeanReciprocalRankBuilder) K(k int) *RankEvalMetricMeanReciprocalRankBuilder {
-	rb.v.K = &k
-	return rb
-}
-
-// RelevantRatingThreshold Sets the rating threshold above which documents are considered to be
-// "relevant".
-
-func (rb *RankEvalMetricMeanReciprocalRankBuilder) RelevantRatingThreshold(relevantratingthreshold int) *RankEvalMetricMeanReciprocalRankBuilder {
-	rb.v.RelevantRatingThreshold = &relevantratingthreshold
-	return rb
+	return r
 }

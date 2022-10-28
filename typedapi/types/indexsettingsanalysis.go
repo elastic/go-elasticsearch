@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IndexSettingsAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/_types/IndexSettings.ts#L310-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSettings.ts#L310-L316
 type IndexSettingsAnalysis struct {
 	Analyzer   map[string]Analyzer    `json:"analyzer,omitempty"`
 	CharFilter map[string]CharFilter  `json:"char_filter,omitempty"`
@@ -33,72 +33,15 @@ type IndexSettingsAnalysis struct {
 	Tokenizer  map[string]Tokenizer   `json:"tokenizer,omitempty"`
 }
 
-// IndexSettingsAnalysisBuilder holds IndexSettingsAnalysis struct and provides a builder API.
-type IndexSettingsAnalysisBuilder struct {
-	v *IndexSettingsAnalysis
-}
-
-// NewIndexSettingsAnalysis provides a builder for the IndexSettingsAnalysis struct.
-func NewIndexSettingsAnalysisBuilder() *IndexSettingsAnalysisBuilder {
-	r := IndexSettingsAnalysisBuilder{
-		&IndexSettingsAnalysis{
-			Analyzer:   make(map[string]Analyzer, 0),
-			CharFilter: make(map[string]CharFilter, 0),
-			Filter:     make(map[string]TokenFilter, 0),
-			Normalizer: make(map[string]Normalizer, 0),
-			Tokenizer:  make(map[string]Tokenizer, 0),
-		},
+// NewIndexSettingsAnalysis returns a IndexSettingsAnalysis.
+func NewIndexSettingsAnalysis() *IndexSettingsAnalysis {
+	r := &IndexSettingsAnalysis{
+		Analyzer:   make(map[string]Analyzer, 0),
+		CharFilter: make(map[string]CharFilter, 0),
+		Filter:     make(map[string]TokenFilter, 0),
+		Normalizer: make(map[string]Normalizer, 0),
+		Tokenizer:  make(map[string]Tokenizer, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the IndexSettingsAnalysis struct
-func (rb *IndexSettingsAnalysisBuilder) Build() IndexSettingsAnalysis {
-	return *rb.v
-}
-
-func (rb *IndexSettingsAnalysisBuilder) Analyzer(values map[string]*AnalyzerBuilder) *IndexSettingsAnalysisBuilder {
-	tmp := make(map[string]Analyzer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Analyzer = tmp
-	return rb
-}
-
-func (rb *IndexSettingsAnalysisBuilder) CharFilter(values map[string]*CharFilterBuilder) *IndexSettingsAnalysisBuilder {
-	tmp := make(map[string]CharFilter, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.CharFilter = tmp
-	return rb
-}
-
-func (rb *IndexSettingsAnalysisBuilder) Filter(values map[string]*TokenFilterBuilder) *IndexSettingsAnalysisBuilder {
-	tmp := make(map[string]TokenFilter, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Filter = tmp
-	return rb
-}
-
-func (rb *IndexSettingsAnalysisBuilder) Normalizer(values map[string]*NormalizerBuilder) *IndexSettingsAnalysisBuilder {
-	tmp := make(map[string]Normalizer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Normalizer = tmp
-	return rb
-}
-
-func (rb *IndexSettingsAnalysisBuilder) Tokenizer(values map[string]*TokenizerBuilder) *IndexSettingsAnalysisBuilder {
-	tmp := make(map[string]Tokenizer, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Tokenizer = tmp
-	return rb
+	return r
 }

@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // FieldMemoryUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/Stats.ts#L76-L79
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Stats.ts#L76-L79
 type FieldMemoryUsage struct {
 	MemorySize        *ByteSize `json:"memory_size,omitempty"`
 	MemorySizeInBytes int64     `json:"memory_size_in_bytes"`
 }
 
-// FieldMemoryUsageBuilder holds FieldMemoryUsage struct and provides a builder API.
-type FieldMemoryUsageBuilder struct {
-	v *FieldMemoryUsage
-}
+// NewFieldMemoryUsage returns a FieldMemoryUsage.
+func NewFieldMemoryUsage() *FieldMemoryUsage {
+	r := &FieldMemoryUsage{}
 
-// NewFieldMemoryUsage provides a builder for the FieldMemoryUsage struct.
-func NewFieldMemoryUsageBuilder() *FieldMemoryUsageBuilder {
-	r := FieldMemoryUsageBuilder{
-		&FieldMemoryUsage{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the FieldMemoryUsage struct
-func (rb *FieldMemoryUsageBuilder) Build() FieldMemoryUsage {
-	return *rb.v
-}
-
-func (rb *FieldMemoryUsageBuilder) MemorySize(memorysize *ByteSizeBuilder) *FieldMemoryUsageBuilder {
-	v := memorysize.Build()
-	rb.v.MemorySize = &v
-	return rb
-}
-
-func (rb *FieldMemoryUsageBuilder) MemorySizeInBytes(memorysizeinbytes int64) *FieldMemoryUsageBuilder {
-	rb.v.MemorySizeInBytes = memorysizeinbytes
-	return rb
+	return r
 }

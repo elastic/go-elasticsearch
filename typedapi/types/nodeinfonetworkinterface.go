@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // NodeInfoNetworkInterface type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/info/types.ts#L325-L329
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L325-L329
 type NodeInfoNetworkInterface struct {
 	Address    string `json:"address"`
 	MacAddress string `json:"mac_address"`
-	Name       Name   `json:"name"`
+	Name       string `json:"name"`
 }
 
-// NodeInfoNetworkInterfaceBuilder holds NodeInfoNetworkInterface struct and provides a builder API.
-type NodeInfoNetworkInterfaceBuilder struct {
-	v *NodeInfoNetworkInterface
-}
+// NewNodeInfoNetworkInterface returns a NodeInfoNetworkInterface.
+func NewNodeInfoNetworkInterface() *NodeInfoNetworkInterface {
+	r := &NodeInfoNetworkInterface{}
 
-// NewNodeInfoNetworkInterface provides a builder for the NodeInfoNetworkInterface struct.
-func NewNodeInfoNetworkInterfaceBuilder() *NodeInfoNetworkInterfaceBuilder {
-	r := NodeInfoNetworkInterfaceBuilder{
-		&NodeInfoNetworkInterface{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the NodeInfoNetworkInterface struct
-func (rb *NodeInfoNetworkInterfaceBuilder) Build() NodeInfoNetworkInterface {
-	return *rb.v
-}
-
-func (rb *NodeInfoNetworkInterfaceBuilder) Address(address string) *NodeInfoNetworkInterfaceBuilder {
-	rb.v.Address = address
-	return rb
-}
-
-func (rb *NodeInfoNetworkInterfaceBuilder) MacAddress(macaddress string) *NodeInfoNetworkInterfaceBuilder {
-	rb.v.MacAddress = macaddress
-	return rb
-}
-
-func (rb *NodeInfoNetworkInterfaceBuilder) Name(name Name) *NodeInfoNetworkInterfaceBuilder {
-	rb.v.Name = name
-	return rb
+	return r
 }

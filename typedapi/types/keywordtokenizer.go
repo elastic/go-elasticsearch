@@ -17,47 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KeywordTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/tokenizers.ts#L61-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L61-L64
 type KeywordTokenizer struct {
-	BufferSize int            `json:"buffer_size"`
-	Type       string         `json:"type,omitempty"`
-	Version    *VersionString `json:"version,omitempty"`
+	BufferSize int     `json:"buffer_size"`
+	Type       string  `json:"type,omitempty"`
+	Version    *string `json:"version,omitempty"`
 }
 
-// KeywordTokenizerBuilder holds KeywordTokenizer struct and provides a builder API.
-type KeywordTokenizerBuilder struct {
-	v *KeywordTokenizer
-}
+// NewKeywordTokenizer returns a KeywordTokenizer.
+func NewKeywordTokenizer() *KeywordTokenizer {
+	r := &KeywordTokenizer{}
 
-// NewKeywordTokenizer provides a builder for the KeywordTokenizer struct.
-func NewKeywordTokenizerBuilder() *KeywordTokenizerBuilder {
-	r := KeywordTokenizerBuilder{
-		&KeywordTokenizer{},
-	}
+	r.Type = "keyword"
 
-	r.v.Type = "keyword"
-
-	return &r
-}
-
-// Build finalize the chain and returns the KeywordTokenizer struct
-func (rb *KeywordTokenizerBuilder) Build() KeywordTokenizer {
-	return *rb.v
-}
-
-func (rb *KeywordTokenizerBuilder) BufferSize(buffersize int) *KeywordTokenizerBuilder {
-	rb.v.BufferSize = buffersize
-	return rb
-}
-
-func (rb *KeywordTokenizerBuilder) Version(version VersionString) *KeywordTokenizerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

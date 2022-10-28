@@ -17,46 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TopMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L705-L709
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L720-L724
 type TopMetrics struct {
 	Metrics map[string]FieldValue `json:"metrics"`
 	Sort    []FieldValue          `json:"sort"`
 }
 
-// TopMetricsBuilder holds TopMetrics struct and provides a builder API.
-type TopMetricsBuilder struct {
-	v *TopMetrics
-}
-
-// NewTopMetrics provides a builder for the TopMetrics struct.
-func NewTopMetricsBuilder() *TopMetricsBuilder {
-	r := TopMetricsBuilder{
-		&TopMetrics{
-			Metrics: make(map[string]FieldValue, 0),
-		},
+// NewTopMetrics returns a TopMetrics.
+func NewTopMetrics() *TopMetrics {
+	r := &TopMetrics{
+		Metrics: make(map[string]FieldValue, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the TopMetrics struct
-func (rb *TopMetricsBuilder) Build() TopMetrics {
-	return *rb.v
-}
-
-func (rb *TopMetricsBuilder) Metrics(value map[string]FieldValue) *TopMetricsBuilder {
-	rb.v.Metrics = value
-	return rb
-}
-
-func (rb *TopMetricsBuilder) Sort(sort ...FieldValue) *TopMetricsBuilder {
-	rb.v.Sort = sort
-	return rb
+	return r
 }

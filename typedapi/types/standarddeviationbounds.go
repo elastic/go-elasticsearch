@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // StandardDeviationBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L251-L258
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L259-L266
 type StandardDeviationBounds struct {
 	Lower           float64 `json:"lower,omitempty"`
 	LowerPopulation float64 `json:"lower_population,omitempty"`
@@ -34,51 +34,9 @@ type StandardDeviationBounds struct {
 	UpperSampling   float64 `json:"upper_sampling,omitempty"`
 }
 
-// StandardDeviationBoundsBuilder holds StandardDeviationBounds struct and provides a builder API.
-type StandardDeviationBoundsBuilder struct {
-	v *StandardDeviationBounds
-}
+// NewStandardDeviationBounds returns a StandardDeviationBounds.
+func NewStandardDeviationBounds() *StandardDeviationBounds {
+	r := &StandardDeviationBounds{}
 
-// NewStandardDeviationBounds provides a builder for the StandardDeviationBounds struct.
-func NewStandardDeviationBoundsBuilder() *StandardDeviationBoundsBuilder {
-	r := StandardDeviationBoundsBuilder{
-		&StandardDeviationBounds{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the StandardDeviationBounds struct
-func (rb *StandardDeviationBoundsBuilder) Build() StandardDeviationBounds {
-	return *rb.v
-}
-
-func (rb *StandardDeviationBoundsBuilder) Lower(lower float64) *StandardDeviationBoundsBuilder {
-	rb.v.Lower = lower
-	return rb
-}
-
-func (rb *StandardDeviationBoundsBuilder) LowerPopulation(lowerpopulation float64) *StandardDeviationBoundsBuilder {
-	rb.v.LowerPopulation = lowerpopulation
-	return rb
-}
-
-func (rb *StandardDeviationBoundsBuilder) LowerSampling(lowersampling float64) *StandardDeviationBoundsBuilder {
-	rb.v.LowerSampling = lowersampling
-	return rb
-}
-
-func (rb *StandardDeviationBoundsBuilder) Upper(upper float64) *StandardDeviationBoundsBuilder {
-	rb.v.Upper = upper
-	return rb
-}
-
-func (rb *StandardDeviationBoundsBuilder) UpperPopulation(upperpopulation float64) *StandardDeviationBoundsBuilder {
-	rb.v.UpperPopulation = upperpopulation
-	return rb
-}
-
-func (rb *StandardDeviationBoundsBuilder) UpperSampling(uppersampling float64) *StandardDeviationBoundsBuilder {
-	rb.v.UpperSampling = uppersampling
-	return rb
+	return r
 }

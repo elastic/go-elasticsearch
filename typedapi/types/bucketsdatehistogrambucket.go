@@ -17,48 +17,15 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // BucketsDateHistogramBucket holds the union for the following types:
 //
-//	[]DateHistogramBucket
 //	map[string]DateHistogramBucket
+//	[]DateHistogramBucket
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L307-L316
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L315-L324
 type BucketsDateHistogramBucket interface{}
-
-// BucketsDateHistogramBucketBuilder holds BucketsDateHistogramBucket struct and provides a builder API.
-type BucketsDateHistogramBucketBuilder struct {
-	v BucketsDateHistogramBucket
-}
-
-// NewBucketsDateHistogramBucket provides a builder for the BucketsDateHistogramBucket struct.
-func NewBucketsDateHistogramBucketBuilder() *BucketsDateHistogramBucketBuilder {
-	return &BucketsDateHistogramBucketBuilder{}
-}
-
-// Build finalize the chain and returns the BucketsDateHistogramBucket struct
-func (u *BucketsDateHistogramBucketBuilder) Build() BucketsDateHistogramBucket {
-	return u.v
-}
-
-func (u *BucketsDateHistogramBucketBuilder) DateHistogramBuckets(datehistogrambuckets []DateHistogramBucketBuilder) *BucketsDateHistogramBucketBuilder {
-	tmp := make([]DateHistogramBucket, len(datehistogrambuckets))
-	for _, value := range datehistogrambuckets {
-		tmp = append(tmp, value.Build())
-	}
-	u.v = tmp
-	return u
-}
-
-func (u *BucketsDateHistogramBucketBuilder) Map(values map[string]*DateHistogramBucketBuilder) *BucketsDateHistogramBucketBuilder {
-	tmp := make(map[string]DateHistogramBucket, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	u.v = tmp
-	return u
-}

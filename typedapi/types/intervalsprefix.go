@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // IntervalsPrefix type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/fulltext.ts#L110-L114
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L110-L114
 type IntervalsPrefix struct {
 	Analyzer *string `json:"analyzer,omitempty"`
 	Prefix   string  `json:"prefix"`
-	UseField *Field  `json:"use_field,omitempty"`
+	UseField *string `json:"use_field,omitempty"`
 }
 
-// IntervalsPrefixBuilder holds IntervalsPrefix struct and provides a builder API.
-type IntervalsPrefixBuilder struct {
-	v *IntervalsPrefix
-}
+// NewIntervalsPrefix returns a IntervalsPrefix.
+func NewIntervalsPrefix() *IntervalsPrefix {
+	r := &IntervalsPrefix{}
 
-// NewIntervalsPrefix provides a builder for the IntervalsPrefix struct.
-func NewIntervalsPrefixBuilder() *IntervalsPrefixBuilder {
-	r := IntervalsPrefixBuilder{
-		&IntervalsPrefix{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the IntervalsPrefix struct
-func (rb *IntervalsPrefixBuilder) Build() IntervalsPrefix {
-	return *rb.v
-}
-
-func (rb *IntervalsPrefixBuilder) Analyzer(analyzer string) *IntervalsPrefixBuilder {
-	rb.v.Analyzer = &analyzer
-	return rb
-}
-
-func (rb *IntervalsPrefixBuilder) Prefix(prefix string) *IntervalsPrefixBuilder {
-	rb.v.Prefix = prefix
-	return rb
-}
-
-func (rb *IntervalsPrefixBuilder) UseField(usefield Field) *IntervalsPrefixBuilder {
-	rb.v.UseField = &usefield
-	return rb
+	return r
 }

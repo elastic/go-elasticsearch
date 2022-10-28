@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,66 +28,20 @@ import (
 
 // SerialDifferencingAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L280-L282
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L280-L282
 type SerialDifferencingAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath         `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Lag         *int                 `json:"lag,omitempty"`
-	Meta        *Metadata            `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Format      *string                `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Lag         *int                   `json:"lag,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Name        *string                `json:"name,omitempty"`
 }
 
-// SerialDifferencingAggregationBuilder holds SerialDifferencingAggregation struct and provides a builder API.
-type SerialDifferencingAggregationBuilder struct {
-	v *SerialDifferencingAggregation
-}
+// NewSerialDifferencingAggregation returns a SerialDifferencingAggregation.
+func NewSerialDifferencingAggregation() *SerialDifferencingAggregation {
+	r := &SerialDifferencingAggregation{}
 
-// NewSerialDifferencingAggregation provides a builder for the SerialDifferencingAggregation struct.
-func NewSerialDifferencingAggregationBuilder() *SerialDifferencingAggregationBuilder {
-	r := SerialDifferencingAggregationBuilder{
-		&SerialDifferencingAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SerialDifferencingAggregation struct
-func (rb *SerialDifferencingAggregationBuilder) Build() SerialDifferencingAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *SerialDifferencingAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *SerialDifferencingAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *SerialDifferencingAggregationBuilder) Format(format string) *SerialDifferencingAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *SerialDifferencingAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *SerialDifferencingAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *SerialDifferencingAggregationBuilder) Lag(lag int) *SerialDifferencingAggregationBuilder {
-	rb.v.Lag = &lag
-	return rb
-}
-
-func (rb *SerialDifferencingAggregationBuilder) Meta(meta *MetadataBuilder) *SerialDifferencingAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *SerialDifferencingAggregationBuilder) Name(name string) *SerialDifferencingAggregationBuilder {
-	rb.v.Name = &name
-	return rb
+	return r
 }

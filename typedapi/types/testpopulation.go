@@ -17,52 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TestPopulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/metric.ts#L159-L163
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/metric.ts#L159-L163
 type TestPopulation struct {
-	Field  Field           `json:"field"`
-	Filter *QueryContainer `json:"filter,omitempty"`
-	Script *Script         `json:"script,omitempty"`
+	Field  string  `json:"field"`
+	Filter *Query  `json:"filter,omitempty"`
+	Script *Script `json:"script,omitempty"`
 }
 
-// TestPopulationBuilder holds TestPopulation struct and provides a builder API.
-type TestPopulationBuilder struct {
-	v *TestPopulation
-}
+// NewTestPopulation returns a TestPopulation.
+func NewTestPopulation() *TestPopulation {
+	r := &TestPopulation{}
 
-// NewTestPopulation provides a builder for the TestPopulation struct.
-func NewTestPopulationBuilder() *TestPopulationBuilder {
-	r := TestPopulationBuilder{
-		&TestPopulation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TestPopulation struct
-func (rb *TestPopulationBuilder) Build() TestPopulation {
-	return *rb.v
-}
-
-func (rb *TestPopulationBuilder) Field(field Field) *TestPopulationBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *TestPopulationBuilder) Filter(filter *QueryContainerBuilder) *TestPopulationBuilder {
-	v := filter.Build()
-	rb.v.Filter = &v
-	return rb
-}
-
-func (rb *TestPopulationBuilder) Script(script *ScriptBuilder) *TestPopulationBuilder {
-	v := script.Build()
-	rb.v.Script = &v
-	return rb
+	return r
 }

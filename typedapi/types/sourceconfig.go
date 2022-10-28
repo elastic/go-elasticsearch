@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -27,31 +27,5 @@ package types
 //	bool
 //	SourceFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/SourceFilter.ts#L33-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/SourceFilter.ts#L33-L37
 type SourceConfig interface{}
-
-// SourceConfigBuilder holds SourceConfig struct and provides a builder API.
-type SourceConfigBuilder struct {
-	v SourceConfig
-}
-
-// NewSourceConfig provides a builder for the SourceConfig struct.
-func NewSourceConfigBuilder() *SourceConfigBuilder {
-	return &SourceConfigBuilder{}
-}
-
-// Build finalize the chain and returns the SourceConfig struct
-func (u *SourceConfigBuilder) Build() SourceConfig {
-	return u.v
-}
-
-func (u *SourceConfigBuilder) Bool(bool bool) *SourceConfigBuilder {
-	u.v = &bool
-	return u
-}
-
-func (u *SourceConfigBuilder) SourceFilter(sourcefilter *SourceFilterBuilder) *SourceConfigBuilder {
-	v := sourcefilter.Build()
-	u.v = &v
-	return u
-}

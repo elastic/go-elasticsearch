@@ -17,74 +17,27 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // RegexpQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/term.ts#L102-L114
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L102-L114
 type RegexpQuery struct {
-	Boost                 *float32               `json:"boost,omitempty"`
-	CaseInsensitive       *bool                  `json:"case_insensitive,omitempty"`
-	Flags                 *string                `json:"flags,omitempty"`
-	MaxDeterminizedStates *int                   `json:"max_determinized_states,omitempty"`
-	QueryName_            *string                `json:"_name,omitempty"`
-	Rewrite               *MultiTermQueryRewrite `json:"rewrite,omitempty"`
-	Value                 string                 `json:"value"`
+	Boost                 *float32 `json:"boost,omitempty"`
+	CaseInsensitive       *bool    `json:"case_insensitive,omitempty"`
+	Flags                 *string  `json:"flags,omitempty"`
+	MaxDeterminizedStates *int     `json:"max_determinized_states,omitempty"`
+	QueryName_            *string  `json:"_name,omitempty"`
+	Rewrite               *string  `json:"rewrite,omitempty"`
+	Value                 string   `json:"value"`
 }
 
-// RegexpQueryBuilder holds RegexpQuery struct and provides a builder API.
-type RegexpQueryBuilder struct {
-	v *RegexpQuery
-}
+// NewRegexpQuery returns a RegexpQuery.
+func NewRegexpQuery() *RegexpQuery {
+	r := &RegexpQuery{}
 
-// NewRegexpQuery provides a builder for the RegexpQuery struct.
-func NewRegexpQueryBuilder() *RegexpQueryBuilder {
-	r := RegexpQueryBuilder{
-		&RegexpQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the RegexpQuery struct
-func (rb *RegexpQueryBuilder) Build() RegexpQuery {
-	return *rb.v
-}
-
-func (rb *RegexpQueryBuilder) Boost(boost float32) *RegexpQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *RegexpQueryBuilder) CaseInsensitive(caseinsensitive bool) *RegexpQueryBuilder {
-	rb.v.CaseInsensitive = &caseinsensitive
-	return rb
-}
-
-func (rb *RegexpQueryBuilder) Flags(flags string) *RegexpQueryBuilder {
-	rb.v.Flags = &flags
-	return rb
-}
-
-func (rb *RegexpQueryBuilder) MaxDeterminizedStates(maxdeterminizedstates int) *RegexpQueryBuilder {
-	rb.v.MaxDeterminizedStates = &maxdeterminizedstates
-	return rb
-}
-
-func (rb *RegexpQueryBuilder) QueryName_(queryname_ string) *RegexpQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *RegexpQueryBuilder) Rewrite(rewrite MultiTermQueryRewrite) *RegexpQueryBuilder {
-	rb.v.Rewrite = &rewrite
-	return rb
-}
-
-func (rb *RegexpQueryBuilder) Value(value string) *RegexpQueryBuilder {
-	rb.v.Value = value
-	return rb
+	return r
 }

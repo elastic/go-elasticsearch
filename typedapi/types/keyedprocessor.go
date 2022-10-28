@@ -17,45 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // KeyedProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L151-L154
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L151-L154
 type KeyedProcessor struct {
 	Stats *Processor `json:"stats,omitempty"`
 	Type  *string    `json:"type,omitempty"`
 }
 
-// KeyedProcessorBuilder holds KeyedProcessor struct and provides a builder API.
-type KeyedProcessorBuilder struct {
-	v *KeyedProcessor
-}
+// NewKeyedProcessor returns a KeyedProcessor.
+func NewKeyedProcessor() *KeyedProcessor {
+	r := &KeyedProcessor{}
 
-// NewKeyedProcessor provides a builder for the KeyedProcessor struct.
-func NewKeyedProcessorBuilder() *KeyedProcessorBuilder {
-	r := KeyedProcessorBuilder{
-		&KeyedProcessor{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the KeyedProcessor struct
-func (rb *KeyedProcessorBuilder) Build() KeyedProcessor {
-	return *rb.v
-}
-
-func (rb *KeyedProcessorBuilder) Stats(stats *ProcessorBuilder) *KeyedProcessorBuilder {
-	v := stats.Build()
-	rb.v.Stats = &v
-	return rb
-}
-
-func (rb *KeyedProcessorBuilder) Type_(type_ string) *KeyedProcessorBuilder {
-	rb.v.Type = &type_
-	return rb
+	return r
 }

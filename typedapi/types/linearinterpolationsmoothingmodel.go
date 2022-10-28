@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // LinearInterpolationSmoothingModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L216-L220
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L216-L220
 type LinearInterpolationSmoothingModel struct {
 	BigramLambda  float64 `json:"bigram_lambda"`
 	TrigramLambda float64 `json:"trigram_lambda"`
 	UnigramLambda float64 `json:"unigram_lambda"`
 }
 
-// LinearInterpolationSmoothingModelBuilder holds LinearInterpolationSmoothingModel struct and provides a builder API.
-type LinearInterpolationSmoothingModelBuilder struct {
-	v *LinearInterpolationSmoothingModel
-}
+// NewLinearInterpolationSmoothingModel returns a LinearInterpolationSmoothingModel.
+func NewLinearInterpolationSmoothingModel() *LinearInterpolationSmoothingModel {
+	r := &LinearInterpolationSmoothingModel{}
 
-// NewLinearInterpolationSmoothingModel provides a builder for the LinearInterpolationSmoothingModel struct.
-func NewLinearInterpolationSmoothingModelBuilder() *LinearInterpolationSmoothingModelBuilder {
-	r := LinearInterpolationSmoothingModelBuilder{
-		&LinearInterpolationSmoothingModel{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the LinearInterpolationSmoothingModel struct
-func (rb *LinearInterpolationSmoothingModelBuilder) Build() LinearInterpolationSmoothingModel {
-	return *rb.v
-}
-
-func (rb *LinearInterpolationSmoothingModelBuilder) BigramLambda(bigramlambda float64) *LinearInterpolationSmoothingModelBuilder {
-	rb.v.BigramLambda = bigramlambda
-	return rb
-}
-
-func (rb *LinearInterpolationSmoothingModelBuilder) TrigramLambda(trigramlambda float64) *LinearInterpolationSmoothingModelBuilder {
-	rb.v.TrigramLambda = trigramlambda
-	return rb
-}
-
-func (rb *LinearInterpolationSmoothingModelBuilder) UnigramLambda(unigramlambda float64) *LinearInterpolationSmoothingModelBuilder {
-	rb.v.UnigramLambda = unigramlambda
-	return rb
+	return r
 }

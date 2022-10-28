@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // ExecutionResultAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Execution.ts#L74-L86
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Execution.ts#L74-L86
 type ExecutionResultAction struct {
 	Email     *EmailResult                            `json:"email,omitempty"`
 	Error     *ErrorCause                             `json:"error,omitempty"`
-	Id        Id                                      `json:"id"`
+	Id        string                                  `json:"id"`
 	Index     *IndexResult                            `json:"index,omitempty"`
 	Logging   *LoggingResult                          `json:"logging,omitempty"`
 	Pagerduty *PagerDutyResult                        `json:"pagerduty,omitempty"`
@@ -44,83 +44,9 @@ type ExecutionResultAction struct {
 	Webhook   *WebhookResult                          `json:"webhook,omitempty"`
 }
 
-// ExecutionResultActionBuilder holds ExecutionResultAction struct and provides a builder API.
-type ExecutionResultActionBuilder struct {
-	v *ExecutionResultAction
-}
+// NewExecutionResultAction returns a ExecutionResultAction.
+func NewExecutionResultAction() *ExecutionResultAction {
+	r := &ExecutionResultAction{}
 
-// NewExecutionResultAction provides a builder for the ExecutionResultAction struct.
-func NewExecutionResultActionBuilder() *ExecutionResultActionBuilder {
-	r := ExecutionResultActionBuilder{
-		&ExecutionResultAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ExecutionResultAction struct
-func (rb *ExecutionResultActionBuilder) Build() ExecutionResultAction {
-	return *rb.v
-}
-
-func (rb *ExecutionResultActionBuilder) Email(email *EmailResultBuilder) *ExecutionResultActionBuilder {
-	v := email.Build()
-	rb.v.Email = &v
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Error(error *ErrorCauseBuilder) *ExecutionResultActionBuilder {
-	v := error.Build()
-	rb.v.Error = &v
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Id(id Id) *ExecutionResultActionBuilder {
-	rb.v.Id = id
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Index(index *IndexResultBuilder) *ExecutionResultActionBuilder {
-	v := index.Build()
-	rb.v.Index = &v
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Logging(logging *LoggingResultBuilder) *ExecutionResultActionBuilder {
-	v := logging.Build()
-	rb.v.Logging = &v
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Pagerduty(pagerduty *PagerDutyResultBuilder) *ExecutionResultActionBuilder {
-	v := pagerduty.Build()
-	rb.v.Pagerduty = &v
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Reason(reason string) *ExecutionResultActionBuilder {
-	rb.v.Reason = &reason
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Slack(slack *SlackResultBuilder) *ExecutionResultActionBuilder {
-	v := slack.Build()
-	rb.v.Slack = &v
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Status(status actionstatusoptions.ActionStatusOptions) *ExecutionResultActionBuilder {
-	rb.v.Status = status
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Type_(type_ actiontype.ActionType) *ExecutionResultActionBuilder {
-	rb.v.Type = type_
-	return rb
-}
-
-func (rb *ExecutionResultActionBuilder) Webhook(webhook *WebhookResultBuilder) *ExecutionResultActionBuilder {
-	v := webhook.Build()
-	rb.v.Webhook = &v
-	return rb
+	return r
 }

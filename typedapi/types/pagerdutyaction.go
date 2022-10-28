@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // PagerDutyAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Actions.ts#L54-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Actions.ts#L54-L54
 type PagerDutyAction struct {
 	Account       *string                                `json:"account,omitempty"`
 	AttachPayload bool                                   `json:"attach_payload"`
@@ -41,71 +41,9 @@ type PagerDutyAction struct {
 	Proxy         *PagerDutyEventProxy                   `json:"proxy,omitempty"`
 }
 
-// PagerDutyActionBuilder holds PagerDutyAction struct and provides a builder API.
-type PagerDutyActionBuilder struct {
-	v *PagerDutyAction
-}
+// NewPagerDutyAction returns a PagerDutyAction.
+func NewPagerDutyAction() *PagerDutyAction {
+	r := &PagerDutyAction{}
 
-// NewPagerDutyAction provides a builder for the PagerDutyAction struct.
-func NewPagerDutyActionBuilder() *PagerDutyActionBuilder {
-	r := PagerDutyActionBuilder{
-		&PagerDutyAction{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the PagerDutyAction struct
-func (rb *PagerDutyActionBuilder) Build() PagerDutyAction {
-	return *rb.v
-}
-
-func (rb *PagerDutyActionBuilder) Account(account string) *PagerDutyActionBuilder {
-	rb.v.Account = &account
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) AttachPayload(attachpayload bool) *PagerDutyActionBuilder {
-	rb.v.AttachPayload = attachpayload
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) Client(client string) *PagerDutyActionBuilder {
-	rb.v.Client = &client
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) ClientUrl(clienturl string) *PagerDutyActionBuilder {
-	rb.v.ClientUrl = &clienturl
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) Contexts(contexts []PagerDutyContextBuilder) *PagerDutyActionBuilder {
-	tmp := make([]PagerDutyContext, len(contexts))
-	for _, value := range contexts {
-		tmp = append(tmp, value.Build())
-	}
-	rb.v.Contexts = tmp
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) Description(description string) *PagerDutyActionBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) EventType(eventtype pagerdutyeventtype.PagerDutyEventType) *PagerDutyActionBuilder {
-	rb.v.EventType = &eventtype
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) IncidentKey(incidentkey string) *PagerDutyActionBuilder {
-	rb.v.IncidentKey = incidentkey
-	return rb
-}
-
-func (rb *PagerDutyActionBuilder) Proxy(proxy *PagerDutyEventProxyBuilder) *PagerDutyActionBuilder {
-	v := proxy.Build()
-	rb.v.Proxy = &v
-	return rb
+	return r
 }

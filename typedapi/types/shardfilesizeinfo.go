@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // ShardFileSizeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/indices/stats/types.ts#L112-L119
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/stats/types.ts#L112-L119
 type ShardFileSizeInfo struct {
 	AverageSizeInBytes *int64 `json:"average_size_in_bytes,omitempty"`
 	Count              *int64 `json:"count,omitempty"`
@@ -34,51 +34,9 @@ type ShardFileSizeInfo struct {
 	SizeInBytes        int64  `json:"size_in_bytes"`
 }
 
-// ShardFileSizeInfoBuilder holds ShardFileSizeInfo struct and provides a builder API.
-type ShardFileSizeInfoBuilder struct {
-	v *ShardFileSizeInfo
-}
+// NewShardFileSizeInfo returns a ShardFileSizeInfo.
+func NewShardFileSizeInfo() *ShardFileSizeInfo {
+	r := &ShardFileSizeInfo{}
 
-// NewShardFileSizeInfo provides a builder for the ShardFileSizeInfo struct.
-func NewShardFileSizeInfoBuilder() *ShardFileSizeInfoBuilder {
-	r := ShardFileSizeInfoBuilder{
-		&ShardFileSizeInfo{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the ShardFileSizeInfo struct
-func (rb *ShardFileSizeInfoBuilder) Build() ShardFileSizeInfo {
-	return *rb.v
-}
-
-func (rb *ShardFileSizeInfoBuilder) AverageSizeInBytes(averagesizeinbytes int64) *ShardFileSizeInfoBuilder {
-	rb.v.AverageSizeInBytes = &averagesizeinbytes
-	return rb
-}
-
-func (rb *ShardFileSizeInfoBuilder) Count(count int64) *ShardFileSizeInfoBuilder {
-	rb.v.Count = &count
-	return rb
-}
-
-func (rb *ShardFileSizeInfoBuilder) Description(description string) *ShardFileSizeInfoBuilder {
-	rb.v.Description = description
-	return rb
-}
-
-func (rb *ShardFileSizeInfoBuilder) MaxSizeInBytes(maxsizeinbytes int64) *ShardFileSizeInfoBuilder {
-	rb.v.MaxSizeInBytes = &maxsizeinbytes
-	return rb
-}
-
-func (rb *ShardFileSizeInfoBuilder) MinSizeInBytes(minsizeinbytes int64) *ShardFileSizeInfoBuilder {
-	rb.v.MinSizeInBytes = &minsizeinbytes
-	return rb
-}
-
-func (rb *ShardFileSizeInfoBuilder) SizeInBytes(sizeinbytes int64) *ShardFileSizeInfoBuilder {
-	rb.v.SizeInBytes = sizeinbytes
-	return rb
+	return r
 }

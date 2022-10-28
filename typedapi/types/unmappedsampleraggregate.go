@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -29,11 +29,11 @@ import (
 
 // UnmappedSamplerAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/Aggregate.ts#L492-L493
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L500-L501
 type UnmappedSamplerAggregate struct {
-	Aggregations map[AggregateName]Aggregate `json:"-"`
-	DocCount     int64                       `json:"doc_count"`
-	Meta         *Metadata                   `json:"meta,omitempty"`
+	Aggregations map[string]Aggregate   `json:"-"`
+	DocCount     int64                  `json:"doc_count"`
+	Meta         map[string]interface{} `json:"meta,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -64,43 +64,11 @@ func (s UnmappedSamplerAggregate) MarshalJSON() ([]byte, error) {
 	return data, nil
 }
 
-// UnmappedSamplerAggregateBuilder holds UnmappedSamplerAggregate struct and provides a builder API.
-type UnmappedSamplerAggregateBuilder struct {
-	v *UnmappedSamplerAggregate
-}
-
-// NewUnmappedSamplerAggregate provides a builder for the UnmappedSamplerAggregate struct.
-func NewUnmappedSamplerAggregateBuilder() *UnmappedSamplerAggregateBuilder {
-	r := UnmappedSamplerAggregateBuilder{
-		&UnmappedSamplerAggregate{
-			Aggregations: make(map[AggregateName]Aggregate, 0),
-		},
+// NewUnmappedSamplerAggregate returns a UnmappedSamplerAggregate.
+func NewUnmappedSamplerAggregate() *UnmappedSamplerAggregate {
+	r := &UnmappedSamplerAggregate{
+		Aggregations: make(map[string]Aggregate, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the UnmappedSamplerAggregate struct
-func (rb *UnmappedSamplerAggregateBuilder) Build() UnmappedSamplerAggregate {
-	return *rb.v
-}
-
-func (rb *UnmappedSamplerAggregateBuilder) Aggregations(values map[AggregateName]*AggregateBuilder) *UnmappedSamplerAggregateBuilder {
-	tmp := make(map[AggregateName]Aggregate, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.Aggregations = tmp
-	return rb
-}
-
-func (rb *UnmappedSamplerAggregateBuilder) DocCount(doccount int64) *UnmappedSamplerAggregateBuilder {
-	rb.v.DocCount = doccount
-	return rb
-}
-
-func (rb *UnmappedSamplerAggregateBuilder) Meta(meta *MetadataBuilder) *UnmappedSamplerAggregateBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
+	return r
 }

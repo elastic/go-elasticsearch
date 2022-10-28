@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // OperatingSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/nodes/_types/Stats.ts#L367-L373
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/_types/Stats.ts#L367-L373
 type OperatingSystem struct {
 	Cgroup    *Cgroup              `json:"cgroup,omitempty"`
 	Cpu       *Cpu                 `json:"cpu,omitempty"`
@@ -33,50 +33,9 @@ type OperatingSystem struct {
 	Timestamp *int64               `json:"timestamp,omitempty"`
 }
 
-// OperatingSystemBuilder holds OperatingSystem struct and provides a builder API.
-type OperatingSystemBuilder struct {
-	v *OperatingSystem
-}
+// NewOperatingSystem returns a OperatingSystem.
+func NewOperatingSystem() *OperatingSystem {
+	r := &OperatingSystem{}
 
-// NewOperatingSystem provides a builder for the OperatingSystem struct.
-func NewOperatingSystemBuilder() *OperatingSystemBuilder {
-	r := OperatingSystemBuilder{
-		&OperatingSystem{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the OperatingSystem struct
-func (rb *OperatingSystemBuilder) Build() OperatingSystem {
-	return *rb.v
-}
-
-func (rb *OperatingSystemBuilder) Cgroup(cgroup *CgroupBuilder) *OperatingSystemBuilder {
-	v := cgroup.Build()
-	rb.v.Cgroup = &v
-	return rb
-}
-
-func (rb *OperatingSystemBuilder) Cpu(cpu *CpuBuilder) *OperatingSystemBuilder {
-	v := cpu.Build()
-	rb.v.Cpu = &v
-	return rb
-}
-
-func (rb *OperatingSystemBuilder) Mem(mem *ExtendedMemoryStatsBuilder) *OperatingSystemBuilder {
-	v := mem.Build()
-	rb.v.Mem = &v
-	return rb
-}
-
-func (rb *OperatingSystemBuilder) Swap(swap *MemoryStatsBuilder) *OperatingSystemBuilder {
-	v := swap.Build()
-	rb.v.Swap = &v
-	return rb
-}
-
-func (rb *OperatingSystemBuilder) Timestamp(timestamp int64) *OperatingSystemBuilder {
-	rb.v.Timestamp = &timestamp
-	return rb
+	return r
 }

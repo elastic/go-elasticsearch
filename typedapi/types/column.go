@@ -17,44 +17,22 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // Column type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/sql/types.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/sql/types.ts#L23-L26
 type Column struct {
-	Name Name   `json:"name"`
+	Name string `json:"name"`
 	Type string `json:"type"`
 }
 
-// ColumnBuilder holds Column struct and provides a builder API.
-type ColumnBuilder struct {
-	v *Column
-}
+// NewColumn returns a Column.
+func NewColumn() *Column {
+	r := &Column{}
 
-// NewColumn provides a builder for the Column struct.
-func NewColumnBuilder() *ColumnBuilder {
-	r := ColumnBuilder{
-		&Column{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the Column struct
-func (rb *ColumnBuilder) Build() Column {
-	return *rb.v
-}
-
-func (rb *ColumnBuilder) Name(name Name) *ColumnBuilder {
-	rb.v.Name = name
-	return rb
-}
-
-func (rb *ColumnBuilder) Type_(type_ string) *ColumnBuilder {
-	rb.v.Type = type_
-	return rb
+	return r
 }

@@ -17,39 +17,21 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SearchInputRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/watcher/_types/Input.ts#L147-L149
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Input.ts#L147-L149
 type SearchInputRequestBody struct {
-	Query QueryContainer `json:"query"`
+	Query Query `json:"query"`
 }
 
-// SearchInputRequestBodyBuilder holds SearchInputRequestBody struct and provides a builder API.
-type SearchInputRequestBodyBuilder struct {
-	v *SearchInputRequestBody
-}
+// NewSearchInputRequestBody returns a SearchInputRequestBody.
+func NewSearchInputRequestBody() *SearchInputRequestBody {
+	r := &SearchInputRequestBody{}
 
-// NewSearchInputRequestBody provides a builder for the SearchInputRequestBody struct.
-func NewSearchInputRequestBodyBuilder() *SearchInputRequestBodyBuilder {
-	r := SearchInputRequestBodyBuilder{
-		&SearchInputRequestBody{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the SearchInputRequestBody struct
-func (rb *SearchInputRequestBodyBuilder) Build() SearchInputRequestBody {
-	return *rb.v
-}
-
-func (rb *SearchInputRequestBodyBuilder) Query(query *QueryContainerBuilder) *SearchInputRequestBodyBuilder {
-	v := query.Build()
-	rb.v.Query = v
-	return rb
+	return r
 }

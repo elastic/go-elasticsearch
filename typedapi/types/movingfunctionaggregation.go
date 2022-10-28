@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,78 +28,22 @@ import (
 
 // MovingFunctionAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/pipeline.ts#L250-L254
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/pipeline.ts#L250-L254
 type MovingFunctionAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath         `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta        *Metadata            `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
-	Script      *string              `json:"script,omitempty"`
-	Shift       *int                 `json:"shift,omitempty"`
-	Window      *int                 `json:"window,omitempty"`
+	BucketsPath *string                `json:"buckets_path,omitempty"`
+	Format      *string                `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
+	Meta        map[string]interface{} `json:"meta,omitempty"`
+	Name        *string                `json:"name,omitempty"`
+	Script      *string                `json:"script,omitempty"`
+	Shift       *int                   `json:"shift,omitempty"`
+	Window      *int                   `json:"window,omitempty"`
 }
 
-// MovingFunctionAggregationBuilder holds MovingFunctionAggregation struct and provides a builder API.
-type MovingFunctionAggregationBuilder struct {
-	v *MovingFunctionAggregation
-}
+// NewMovingFunctionAggregation returns a MovingFunctionAggregation.
+func NewMovingFunctionAggregation() *MovingFunctionAggregation {
+	r := &MovingFunctionAggregation{}
 
-// NewMovingFunctionAggregation provides a builder for the MovingFunctionAggregation struct.
-func NewMovingFunctionAggregationBuilder() *MovingFunctionAggregationBuilder {
-	r := MovingFunctionAggregationBuilder{
-		&MovingFunctionAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the MovingFunctionAggregation struct
-func (rb *MovingFunctionAggregationBuilder) Build() MovingFunctionAggregation {
-	return *rb.v
-}
-
-// BucketsPath Path to the buckets that contain one set of values to correlate.
-
-func (rb *MovingFunctionAggregationBuilder) BucketsPath(bucketspath *BucketsPathBuilder) *MovingFunctionAggregationBuilder {
-	v := bucketspath.Build()
-	rb.v.BucketsPath = &v
-	return rb
-}
-
-func (rb *MovingFunctionAggregationBuilder) Format(format string) *MovingFunctionAggregationBuilder {
-	rb.v.Format = &format
-	return rb
-}
-
-func (rb *MovingFunctionAggregationBuilder) GapPolicy(gappolicy gappolicy.GapPolicy) *MovingFunctionAggregationBuilder {
-	rb.v.GapPolicy = &gappolicy
-	return rb
-}
-
-func (rb *MovingFunctionAggregationBuilder) Meta(meta *MetadataBuilder) *MovingFunctionAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *MovingFunctionAggregationBuilder) Name(name string) *MovingFunctionAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *MovingFunctionAggregationBuilder) Script(script string) *MovingFunctionAggregationBuilder {
-	rb.v.Script = &script
-	return rb
-}
-
-func (rb *MovingFunctionAggregationBuilder) Shift(shift int) *MovingFunctionAggregationBuilder {
-	rb.v.Shift = &shift
-	return rb
-}
-
-func (rb *MovingFunctionAggregationBuilder) Window(window int) *MovingFunctionAggregationBuilder {
-	rb.v.Window = &window
-	return rb
+	return r
 }

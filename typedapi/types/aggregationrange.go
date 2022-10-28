@@ -17,50 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // AggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L297-L301
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L297-L301
 type AggregationRange struct {
 	From string  `json:"from,omitempty"`
 	Key  *string `json:"key,omitempty"`
 	To   string  `json:"to,omitempty"`
 }
 
-// AggregationRangeBuilder holds AggregationRange struct and provides a builder API.
-type AggregationRangeBuilder struct {
-	v *AggregationRange
-}
+// NewAggregationRange returns a AggregationRange.
+func NewAggregationRange() *AggregationRange {
+	r := &AggregationRange{}
 
-// NewAggregationRange provides a builder for the AggregationRange struct.
-func NewAggregationRangeBuilder() *AggregationRangeBuilder {
-	r := AggregationRangeBuilder{
-		&AggregationRange{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the AggregationRange struct
-func (rb *AggregationRangeBuilder) Build() AggregationRange {
-	return *rb.v
-}
-
-func (rb *AggregationRangeBuilder) From(arg string) *AggregationRangeBuilder {
-	rb.v.From = arg
-	return rb
-}
-
-func (rb *AggregationRangeBuilder) Key(key string) *AggregationRangeBuilder {
-	rb.v.Key = &key
-	return rb
-}
-
-func (rb *AggregationRangeBuilder) To(arg string) *AggregationRangeBuilder {
-	rb.v.To = arg
-	return rb
+	return r
 }

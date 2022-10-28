@@ -17,41 +17,24 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // SimpleAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/analysis/analyzers.ts#L83-L86
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/analyzers.ts#L83-L86
 type SimpleAnalyzer struct {
-	Type    string         `json:"type,omitempty"`
-	Version *VersionString `json:"version,omitempty"`
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-// SimpleAnalyzerBuilder holds SimpleAnalyzer struct and provides a builder API.
-type SimpleAnalyzerBuilder struct {
-	v *SimpleAnalyzer
-}
+// NewSimpleAnalyzer returns a SimpleAnalyzer.
+func NewSimpleAnalyzer() *SimpleAnalyzer {
+	r := &SimpleAnalyzer{}
 
-// NewSimpleAnalyzer provides a builder for the SimpleAnalyzer struct.
-func NewSimpleAnalyzerBuilder() *SimpleAnalyzerBuilder {
-	r := SimpleAnalyzerBuilder{
-		&SimpleAnalyzer{},
-	}
+	r.Type = "simple"
 
-	r.v.Type = "simple"
-
-	return &r
-}
-
-// Build finalize the chain and returns the SimpleAnalyzer struct
-func (rb *SimpleAnalyzerBuilder) Build() SimpleAnalyzer {
-	return *rb.v
-}
-
-func (rb *SimpleAnalyzerBuilder) Version(version VersionString) *SimpleAnalyzerBuilder {
-	rb.v.Version = &version
-	return rb
+	return r
 }

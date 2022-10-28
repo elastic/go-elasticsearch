@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
@@ -28,38 +28,13 @@ package types
 //	PhraseSuggest
 //	TermSuggest
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_global/search/_types/suggester.ts#L34-L40
-type Suggest interface{}
-
-// SuggestBuilder holds Suggest struct and provides a builder API.
-type SuggestBuilder struct {
-	v Suggest
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/suggester.ts#L34-L40
+type Suggest interface {
+	isSuggest()
 }
 
-// NewSuggest provides a builder for the Suggest struct.
-func NewSuggestBuilder() *SuggestBuilder {
-	return &SuggestBuilder{}
-}
+func (i CompletionSuggest) isSuggest() {}
 
-// Build finalize the chain and returns the Suggest struct
-func (u *SuggestBuilder) Build() Suggest {
-	return u.v
-}
+func (i PhraseSuggest) isSuggest() {}
 
-func (u *SuggestBuilder) CompletionSuggest(completionsuggest *CompletionSuggestBuilder) *SuggestBuilder {
-	v := completionsuggest.Build()
-	u.v = &v
-	return u
-}
-
-func (u *SuggestBuilder) PhraseSuggest(phrasesuggest *PhraseSuggestBuilder) *SuggestBuilder {
-	v := phrasesuggest.Build()
-	u.v = &v
-	return u
-}
-
-func (u *SuggestBuilder) TermSuggest(termsuggest *TermSuggestBuilder) *SuggestBuilder {
-	v := termsuggest.Build()
-	u.v = &v
-	return u
-}
+func (i TermSuggest) isSuggest() {}

@@ -17,63 +17,25 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // TermsSetQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/query_dsl/term.ts#L139-L143
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/term.ts#L139-L143
 type TermsSetQuery struct {
 	Boost                    *float32 `json:"boost,omitempty"`
-	MinimumShouldMatchField  *Field   `json:"minimum_should_match_field,omitempty"`
+	MinimumShouldMatchField  *string  `json:"minimum_should_match_field,omitempty"`
 	MinimumShouldMatchScript *Script  `json:"minimum_should_match_script,omitempty"`
 	QueryName_               *string  `json:"_name,omitempty"`
 	Terms                    []string `json:"terms"`
 }
 
-// TermsSetQueryBuilder holds TermsSetQuery struct and provides a builder API.
-type TermsSetQueryBuilder struct {
-	v *TermsSetQuery
-}
+// NewTermsSetQuery returns a TermsSetQuery.
+func NewTermsSetQuery() *TermsSetQuery {
+	r := &TermsSetQuery{}
 
-// NewTermsSetQuery provides a builder for the TermsSetQuery struct.
-func NewTermsSetQueryBuilder() *TermsSetQueryBuilder {
-	r := TermsSetQueryBuilder{
-		&TermsSetQuery{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the TermsSetQuery struct
-func (rb *TermsSetQueryBuilder) Build() TermsSetQuery {
-	return *rb.v
-}
-
-func (rb *TermsSetQueryBuilder) Boost(boost float32) *TermsSetQueryBuilder {
-	rb.v.Boost = &boost
-	return rb
-}
-
-func (rb *TermsSetQueryBuilder) MinimumShouldMatchField(minimumshouldmatchfield Field) *TermsSetQueryBuilder {
-	rb.v.MinimumShouldMatchField = &minimumshouldmatchfield
-	return rb
-}
-
-func (rb *TermsSetQueryBuilder) MinimumShouldMatchScript(minimumshouldmatchscript *ScriptBuilder) *TermsSetQueryBuilder {
-	v := minimumshouldmatchscript.Build()
-	rb.v.MinimumShouldMatchScript = &v
-	return rb
-}
-
-func (rb *TermsSetQueryBuilder) QueryName_(queryname_ string) *TermsSetQueryBuilder {
-	rb.v.QueryName_ = &queryname_
-	return rb
-}
-
-func (rb *TermsSetQueryBuilder) Terms(terms ...string) *TermsSetQueryBuilder {
-	rb.v.Terms = terms
-	return rb
+	return r
 }

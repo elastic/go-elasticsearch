@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // DataframeOutlierDetectionSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/ml/evaluate_data_frame/types.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/evaluate_data_frame/types.ts#L24-L29
 type DataframeOutlierDetectionSummary struct {
 	AucRoc          *DataframeEvaluationSummaryAucRoc   `json:"auc_roc,omitempty"`
 	ConfusionMatrix map[string]ConfusionMatrixThreshold `json:"confusion_matrix,omitempty"`
@@ -32,50 +32,13 @@ type DataframeOutlierDetectionSummary struct {
 	Recall          map[string]float64                  `json:"recall,omitempty"`
 }
 
-// DataframeOutlierDetectionSummaryBuilder holds DataframeOutlierDetectionSummary struct and provides a builder API.
-type DataframeOutlierDetectionSummaryBuilder struct {
-	v *DataframeOutlierDetectionSummary
-}
-
-// NewDataframeOutlierDetectionSummary provides a builder for the DataframeOutlierDetectionSummary struct.
-func NewDataframeOutlierDetectionSummaryBuilder() *DataframeOutlierDetectionSummaryBuilder {
-	r := DataframeOutlierDetectionSummaryBuilder{
-		&DataframeOutlierDetectionSummary{
-			ConfusionMatrix: make(map[string]ConfusionMatrixThreshold, 0),
-			Precision:       make(map[string]float64, 0),
-			Recall:          make(map[string]float64, 0),
-		},
+// NewDataframeOutlierDetectionSummary returns a DataframeOutlierDetectionSummary.
+func NewDataframeOutlierDetectionSummary() *DataframeOutlierDetectionSummary {
+	r := &DataframeOutlierDetectionSummary{
+		ConfusionMatrix: make(map[string]ConfusionMatrixThreshold, 0),
+		Precision:       make(map[string]float64, 0),
+		Recall:          make(map[string]float64, 0),
 	}
 
-	return &r
-}
-
-// Build finalize the chain and returns the DataframeOutlierDetectionSummary struct
-func (rb *DataframeOutlierDetectionSummaryBuilder) Build() DataframeOutlierDetectionSummary {
-	return *rb.v
-}
-
-func (rb *DataframeOutlierDetectionSummaryBuilder) AucRoc(aucroc *DataframeEvaluationSummaryAucRocBuilder) *DataframeOutlierDetectionSummaryBuilder {
-	v := aucroc.Build()
-	rb.v.AucRoc = &v
-	return rb
-}
-
-func (rb *DataframeOutlierDetectionSummaryBuilder) ConfusionMatrix(values map[string]*ConfusionMatrixThresholdBuilder) *DataframeOutlierDetectionSummaryBuilder {
-	tmp := make(map[string]ConfusionMatrixThreshold, len(values))
-	for key, builder := range values {
-		tmp[key] = builder.Build()
-	}
-	rb.v.ConfusionMatrix = tmp
-	return rb
-}
-
-func (rb *DataframeOutlierDetectionSummaryBuilder) Precision(value map[string]float64) *DataframeOutlierDetectionSummaryBuilder {
-	rb.v.Precision = value
-	return rb
-}
-
-func (rb *DataframeOutlierDetectionSummaryBuilder) Recall(value map[string]float64) *DataframeOutlierDetectionSummaryBuilder {
-	rb.v.Recall = value
-	return rb
+	return r
 }

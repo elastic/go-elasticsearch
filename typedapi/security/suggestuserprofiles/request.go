@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package suggestuserprofiles
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package suggestuserprofiles
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/security/suggest_user_profiles/Request.ts#L24-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/suggest_user_profiles/Request.ts#L24-L66
 type Request struct {
 
 	// Data List of filters for the `data` field of the profile document.
@@ -39,36 +39,26 @@ type Request struct {
 	// use `data=<key>` to retrieve content nested under the specified `<key>`.
 	// By default returns no `data` content.
 	Data []string `json:"data,omitempty"`
-
 	// Hint Extra search criteria to improve relevance of the suggestion result.
 	// Profiles matching the spcified hint are ranked higher in the response.
 	// Profiles not matching the hint don't exclude the profile from the response
 	// as long as the profile matches the `name` field query.
 	Hint *types.Hint `json:"hint,omitempty"`
-
 	// Name Query string used to match name-related fields in user profile documents.
 	// Name-related fields are the user's `username`, `full_name`, and `email`.
 	Name *string `json:"name,omitempty"`
-
 	// Size Number of profiles to return.
 	Size *int64 `json:"size,omitempty"`
 }
 
-// RequestBuilder is the builder API for the suggestuserprofiles.Request
-type RequestBuilder struct {
-	v *Request
-}
-
-// NewRequest returns a RequestBuilder which can be chained and built to retrieve a RequestBuilder
-func NewRequestBuilder() *RequestBuilder {
-	r := RequestBuilder{
-		&Request{},
-	}
-	return &r
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
+	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
+func (rb *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
@@ -77,30 +67,4 @@ func (rb *RequestBuilder) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-// Build finalize the chain and returns the Request struct.
-func (rb *RequestBuilder) Build() *Request {
-	return rb.v
-}
-
-func (rb *RequestBuilder) Data(arg []string) *RequestBuilder {
-	rb.v.Data = arg
-	return rb
-}
-
-func (rb *RequestBuilder) Hint(hint *types.HintBuilder) *RequestBuilder {
-	v := hint.Build()
-	rb.v.Hint = &v
-	return rb
-}
-
-func (rb *RequestBuilder) Name(name string) *RequestBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-func (rb *RequestBuilder) Size(size int64) *RequestBuilder {
-	rb.v.Size = &size
-	return rb
 }

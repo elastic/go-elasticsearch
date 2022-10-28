@@ -17,23 +17,23 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/93ed2b29c9e75f49cd340f06286d6ead5965f900
+// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
 
 
 package types
 
 // GeohexGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/93ed2b29c9e75f49cd340f06286d6ead5965f900/specification/_types/aggregations/bucket.ts#L200-L226
+// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/bucket.ts#L200-L226
 type GeohexGridAggregation struct {
 	// Bounds Bounding box used to filter the geo-points in each bucket.
 	Bounds *GeoBounds `json:"bounds,omitempty"`
 	// Field Field containing indexed geo-point values. Must be explicitly
 	// mapped as a `geo_point` field. If the field contains an array
 	// `geohex_grid` aggregates all array values.
-	Field Field     `json:"field"`
-	Meta  *Metadata `json:"meta,omitempty"`
-	Name  *string   `json:"name,omitempty"`
+	Field string                 `json:"field"`
+	Meta  map[string]interface{} `json:"meta,omitempty"`
+	Name  *string                `json:"name,omitempty"`
 	// Precision Integer zoom of the key used to defined cells or buckets
 	// in the results. Value should be between 0-15.
 	Precision *int `json:"precision,omitempty"`
@@ -43,71 +43,9 @@ type GeohexGridAggregation struct {
 	Size *int `json:"size,omitempty"`
 }
 
-// GeohexGridAggregationBuilder holds GeohexGridAggregation struct and provides a builder API.
-type GeohexGridAggregationBuilder struct {
-	v *GeohexGridAggregation
-}
+// NewGeohexGridAggregation returns a GeohexGridAggregation.
+func NewGeohexGridAggregation() *GeohexGridAggregation {
+	r := &GeohexGridAggregation{}
 
-// NewGeohexGridAggregation provides a builder for the GeohexGridAggregation struct.
-func NewGeohexGridAggregationBuilder() *GeohexGridAggregationBuilder {
-	r := GeohexGridAggregationBuilder{
-		&GeohexGridAggregation{},
-	}
-
-	return &r
-}
-
-// Build finalize the chain and returns the GeohexGridAggregation struct
-func (rb *GeohexGridAggregationBuilder) Build() GeohexGridAggregation {
-	return *rb.v
-}
-
-// Bounds Bounding box used to filter the geo-points in each bucket.
-
-func (rb *GeohexGridAggregationBuilder) Bounds(bounds *GeoBoundsBuilder) *GeohexGridAggregationBuilder {
-	v := bounds.Build()
-	rb.v.Bounds = &v
-	return rb
-}
-
-// Field Field containing indexed geo-point values. Must be explicitly
-// mapped as a `geo_point` field. If the field contains an array
-// `geohex_grid` aggregates all array values.
-
-func (rb *GeohexGridAggregationBuilder) Field(field Field) *GeohexGridAggregationBuilder {
-	rb.v.Field = field
-	return rb
-}
-
-func (rb *GeohexGridAggregationBuilder) Meta(meta *MetadataBuilder) *GeohexGridAggregationBuilder {
-	v := meta.Build()
-	rb.v.Meta = &v
-	return rb
-}
-
-func (rb *GeohexGridAggregationBuilder) Name(name string) *GeohexGridAggregationBuilder {
-	rb.v.Name = &name
-	return rb
-}
-
-// Precision Integer zoom of the key used to defined cells or buckets
-// in the results. Value should be between 0-15.
-
-func (rb *GeohexGridAggregationBuilder) Precision(precision int) *GeohexGridAggregationBuilder {
-	rb.v.Precision = &precision
-	return rb
-}
-
-// ShardSize Number of buckets returned from each shard.
-
-func (rb *GeohexGridAggregationBuilder) ShardSize(shardsize int) *GeohexGridAggregationBuilder {
-	rb.v.ShardSize = &shardsize
-	return rb
-}
-
-// Size Maximum number of buckets to return.
-
-func (rb *GeohexGridAggregationBuilder) Size(size int) *GeohexGridAggregationBuilder {
-	rb.v.Size = &size
-	return rb
+	return r
 }
