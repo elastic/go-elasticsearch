@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Clones an index
@@ -135,11 +135,13 @@ func (r *Clone) HttpRequest(ctx context.Context) (*http.Request, error) {
 	switch {
 	case r.paramSet == indexMask|targetMask:
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.index))
+
+		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_clone")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.target))
+
+		path.WriteString(r.target)
 
 		method = http.MethodPut
 	}

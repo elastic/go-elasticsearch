@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package types
@@ -28,17 +28,16 @@ import (
 
 // DoubleRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/range.ts#L34-L36
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/mapping/range.ts#L34-L36
 type DoubleRangeProperty struct {
-	Boost         *float64                       `json:"boost,omitempty"`
-	Coerce        *bool                          `json:"coerce,omitempty"`
-	CopyTo        []string                       `json:"copy_to,omitempty"`
-	DocValues     *bool                          `json:"doc_values,omitempty"`
-	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
-	Fields        map[string]Property            `json:"fields,omitempty"`
-	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	Index         *bool                          `json:"index,omitempty"`
-	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
+	Boost       *float64                       `json:"boost,omitempty"`
+	Coerce      *bool                          `json:"coerce,omitempty"`
+	CopyTo      []string                       `json:"copy_to,omitempty"`
+	DocValues   *bool                          `json:"doc_values,omitempty"`
+	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	Fields      map[string]Property            `json:"fields,omitempty"`
+	IgnoreAbove *int                           `json:"ignore_above,omitempty"`
+	Index       *bool                          `json:"index,omitempty"`
 	// Meta Metadata about the field.
 	Meta       map[string]string   `json:"meta,omitempty"`
 	Properties map[string]Property `json:"properties,omitempty"`

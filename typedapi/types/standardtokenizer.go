@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package types
 
 // StandardTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/tokenizers.ts#L104-L107
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/analysis/tokenizers.ts#L104-L107
 type StandardTokenizer struct {
 	MaxTokenLength *int    `json:"max_token_length,omitempty"`
 	Type           string  `json:"type,omitempty"`

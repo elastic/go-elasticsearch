@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // SortOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L82-L91
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/sort.ts#L82-L91
 type SortOptions struct {
 	Doc_         *ScoreSort           `json:"_doc,omitempty"`
 	GeoDistance_ *GeoDistanceSort     `json:"_geo_distance,omitempty"`

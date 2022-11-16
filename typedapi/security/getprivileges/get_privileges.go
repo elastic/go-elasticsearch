@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Retrieves application privileges.
@@ -113,7 +113,8 @@ func (r *GetPrivileges) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("/")
 		path.WriteString("privilege")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.application))
+
+		path.WriteString(r.application)
 
 		method = http.MethodGet
 	case r.paramSet == applicationMask|nameMask:
@@ -122,9 +123,11 @@ func (r *GetPrivileges) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("/")
 		path.WriteString("privilege")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.application))
+
+		path.WriteString(r.application)
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.name))
+
+		path.WriteString(r.name)
 
 		method = http.MethodGet
 	}

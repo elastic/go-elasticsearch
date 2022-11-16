@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Closes one or more anomaly detection jobs. A job can be opened and closed
@@ -137,7 +137,8 @@ func (r *CloseJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.jobid))
+
+		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("_close")
 

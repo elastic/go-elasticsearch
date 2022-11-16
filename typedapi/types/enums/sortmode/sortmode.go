@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Package sortmode
@@ -25,9 +25,9 @@ package sortmode
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/sort.ts#L103-L112
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/sort.ts#L103-L112
 type SortMode struct {
-	name string
+	Name string
 }
 
 var (
@@ -67,5 +67,5 @@ func (s *SortMode) UnmarshalText(text []byte) error {
 }
 
 func (s SortMode) String() string {
-	return s.name
+	return s.Name
 }

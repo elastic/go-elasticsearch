@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Returns information about indices: number of primaries and replicas, document
@@ -40,6 +40,7 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -116,7 +117,8 @@ func (r *Indices) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("indices")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.index))
+
+		path.WriteString(r.index)
 
 		method = http.MethodGet
 	}
@@ -238,6 +240,14 @@ func (r *Indices) IncludeUnloadedSegments(b bool) *Indices {
 // API name: pri
 func (r *Indices) Pri(b bool) *Indices {
 	r.values.Set("pri", strconv.FormatBool(b))
+
+	return r
+}
+
+// Time The unit in which to display time values
+// API name: time
+func (r *Indices) Time(enum timeunit.TimeUnit) *Indices {
+	r.values.Set("time", enum.String())
 
 	return r
 }

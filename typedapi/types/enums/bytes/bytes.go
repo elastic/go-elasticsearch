@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Package bytes
@@ -25,9 +25,9 @@ package bytes
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L149-L167
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/common.ts#L149-L167
 type Bytes struct {
-	name string
+	Name string
 }
 
 var (
@@ -71,5 +71,5 @@ func (b *Bytes) UnmarshalText(text []byte) error {
 }
 
 func (b Bytes) String() string {
-	return b.name
+	return b.Name
 }

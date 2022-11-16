@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package mtermvectors
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package mtermvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/mtermvectors/MultiTermVectorsRequest.ts#L31-L58
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_global/mtermvectors/MultiTermVectorsRequest.ts#L31-L58
 type Request struct {
 	Docs []types.MTermVectorsOperation `json:"docs,omitempty"`
 	Ids  []string                      `json:"ids,omitempty"`

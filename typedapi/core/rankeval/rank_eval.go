@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Allows to evaluate the quality of ranked search results over a set of typical
@@ -63,15 +63,13 @@ type RankEval struct {
 }
 
 // NewRankEval type alias for index.
-type NewRankEval func(index string) *RankEval
+type NewRankEval func() *RankEval
 
 // NewRankEvalFunc returns a new instance of RankEval with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
 func NewRankEvalFunc(tp elastictransport.Interface) NewRankEval {
-	return func(index string) *RankEval {
+	return func() *RankEval {
 		n := New(tp)
-
-		n.Index(index)
 
 		return n
 	}
@@ -138,7 +136,8 @@ func (r *RankEval) HttpRequest(ctx context.Context) (*http.Request, error) {
 		method = http.MethodPost
 	case r.paramSet == indexMask:
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.index))
+
+		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_rank_eval")
 

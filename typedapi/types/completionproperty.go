@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // CompletionProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L27-L35
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/mapping/specialized.ts#L27-L35
 type CompletionProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	Contexts       []SuggestContext               `json:"contexts,omitempty"`
@@ -37,7 +37,6 @@ type CompletionProperty struct {
 	Dynamic        *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields         map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove    *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata  map[string]interface{}         `json:"local_metadata,omitempty"`
 	MaxInputLength *int                           `json:"max_input_length,omitempty"`
 	// Meta Metadata about the field.
 	Meta                       map[string]string   `json:"meta,omitempty"`

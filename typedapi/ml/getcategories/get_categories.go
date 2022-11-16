@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Retrieves anomaly detection job results for one or more categories.
@@ -138,13 +138,15 @@ func (r *GetCategories) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("/")
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.jobid))
+
+		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("results")
 		path.WriteString("/")
 		path.WriteString("categories")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.categoryid))
+
+		path.WriteString(r.categoryid)
 
 		method = http.MethodPost
 	case r.paramSet == jobidMask:
@@ -153,7 +155,8 @@ func (r *GetCategories) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("/")
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.jobid))
+
+		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("results")
 		path.WriteString("/")

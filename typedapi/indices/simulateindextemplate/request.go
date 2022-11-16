@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package simulateindextemplate
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package simulateindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateRequest.ts#L33-L71
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateRequest.ts#L33-L71
 type Request struct {
 	AllowAutoCreate *bool                       `json:"allow_auto_create,omitempty"`
 	ComposedOf      []string                    `json:"composed_of,omitempty"`

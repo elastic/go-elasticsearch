@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package types
 
 // Configuration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/slm/_types/SnapshotLifecycle.ts#L99-L129
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/slm/_types/SnapshotLifecycle.ts#L99-L129
 type Configuration struct {
 	// FeatureStates A list of feature states to be included in this snapshot. A list of features
 	// available for inclusion in the snapshot and their descriptions be can be

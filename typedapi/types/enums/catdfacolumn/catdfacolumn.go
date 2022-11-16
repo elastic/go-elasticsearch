@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Package catdfacolumn
@@ -25,9 +25,9 @@ package catdfacolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cat/_types/CatBase.ts#L472-L557
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/cat/_types/CatBase.ts#L472-L557
 type CatDfaColumn struct {
-	name string
+	Name string
 }
 
 var (
@@ -111,5 +111,5 @@ func (c *CatDfaColumn) UnmarshalText(text []byte) error {
 }
 
 func (c CatDfaColumn) String() string {
-	return c.name
+	return c.Name
 }

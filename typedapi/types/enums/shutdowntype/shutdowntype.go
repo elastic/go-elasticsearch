@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Package shutdowntype
@@ -25,9 +25,9 @@ package shutdowntype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L40-L43
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L40-L43
 type ShutdownType struct {
-	name string
+	Name string
 }
 
 var (
@@ -55,5 +55,5 @@ func (s *ShutdownType) UnmarshalText(text []byte) error {
 }
 
 func (s ShutdownType) String() string {
-	return s.name
+	return s.Name
 }

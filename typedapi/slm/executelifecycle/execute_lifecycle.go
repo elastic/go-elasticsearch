@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Immediately creates a snapshot according to the lifecycle policy, without
@@ -107,7 +107,8 @@ func (r *ExecuteLifecycle) HttpRequest(ctx context.Context) (*http.Request, erro
 		path.WriteString("/")
 		path.WriteString("policy")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.policyid))
+
+		path.WriteString(r.policyid)
 		path.WriteString("/")
 		path.WriteString("_execute")
 

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Returns an index template.
@@ -107,7 +107,8 @@ func (r *GetIndexTemplate) HttpRequest(ctx context.Context) (*http.Request, erro
 		path.WriteString("/")
 		path.WriteString("_index_template")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.name))
+
+		path.WriteString(r.name)
 
 		method = http.MethodGet
 	}

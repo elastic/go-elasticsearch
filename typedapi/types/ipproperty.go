@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // IpProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/specialized.ts#L59-L72
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/mapping/specialized.ts#L59-L72
 type IpProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -39,7 +39,6 @@ type IpProperty struct {
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string            `json:"meta,omitempty"`
 	NullValue     *string                      `json:"null_value,omitempty"`

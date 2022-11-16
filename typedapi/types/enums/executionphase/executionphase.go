@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Package executionphase
@@ -25,9 +25,9 @@ package executionphase
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Execution.ts#L49-L58
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/watcher/_types/Execution.ts#L49-L58
 type ExecutionPhase struct {
-	name string
+	Name string
 }
 
 var (
@@ -79,5 +79,5 @@ func (e *ExecutionPhase) UnmarshalText(text []byte) error {
 }
 
 func (e ExecutionPhase) String() string {
-	return e.name
+	return e.Name
 }

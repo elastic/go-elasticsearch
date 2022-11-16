@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package reloadsecuresettings
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package reloadsecuresettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L39
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L39
 type Request struct {
 	SecureSettingsPassword *string `json:"secure_settings_password,omitempty"`
 }

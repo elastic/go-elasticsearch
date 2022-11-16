@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Creates part of a trained model definition
@@ -139,11 +139,13 @@ func (r *PutTrainedModelDefinitionPart) HttpRequest(ctx context.Context) (*http.
 		path.WriteString("/")
 		path.WriteString("trained_models")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.modelid))
+
+		path.WriteString(r.modelid)
 		path.WriteString("/")
 		path.WriteString("definition")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.part))
+
+		path.WriteString(r.part)
 
 		method = http.MethodPut
 	}

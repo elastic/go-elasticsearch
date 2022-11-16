@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // DateProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L61-L71
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/mapping/core.ts#L61-L71
 type DateProperty struct {
 	Boost           *float64                       `json:"boost,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -40,7 +40,6 @@ type DateProperty struct {
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	Index           *bool                          `json:"index,omitempty"`
-	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	Locale          *string                        `json:"locale,omitempty"`
 	// Meta Metadata about the field.
 	Meta          map[string]string   `json:"meta,omitempty"`

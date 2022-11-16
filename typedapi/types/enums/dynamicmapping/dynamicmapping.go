@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/555082f38110f65b60d470107d211fc354a5c55a
 
 
 // Package dynamicmapping
@@ -25,9 +25,9 @@ package dynamicmapping
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/dynamic-template.ts#L37-L46
+// https://github.com/elastic/elasticsearch-specification/blob/555082f38110f65b60d470107d211fc354a5c55a/specification/_types/mapping/dynamic-template.ts#L37-L46
 type DynamicMapping struct {
-	name string
+	Name string
 }
 
 var (
@@ -63,5 +63,5 @@ func (d *DynamicMapping) UnmarshalText(text []byte) error {
 }
 
 func (d DynamicMapping) String() string {
-	return d.name
+	return d.Name
 }
