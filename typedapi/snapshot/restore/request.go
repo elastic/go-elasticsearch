@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package restore
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package restore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L50
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L50
 type Request struct {
 	IgnoreIndexSettings []string             `json:"ignore_index_settings,omitempty"`
 	IgnoreUnavailable   *bool                `json:"ignore_unavailable,omitempty"`

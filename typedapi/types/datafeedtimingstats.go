@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
 
 // DatafeedTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Datafeed.ts#L149-L156
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ml/_types/Datafeed.ts#L149-L156
 type DatafeedTimingStats struct {
 	AverageSearchTimePerBucketMs          *float64 `json:"average_search_time_per_bucket_ms,omitempty"`
 	BucketCount                           int64    `json:"bucket_count"`

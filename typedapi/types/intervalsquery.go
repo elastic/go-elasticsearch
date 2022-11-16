@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
 
 // IntervalsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/query_dsl/fulltext.ts#L116-L125
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/query_dsl/fulltext.ts#L116-L125
 type IntervalsQuery struct {
 	AllOf      *IntervalsAllOf    `json:"all_of,omitempty"`
 	AnyOf      *IntervalsAnyOf    `json:"any_of,omitempty"`

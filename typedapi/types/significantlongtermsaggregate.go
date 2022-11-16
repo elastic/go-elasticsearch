@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
 
 // SignificantLongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/aggregations/Aggregate.ts#L587-L589
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/aggregations/Aggregate.ts#L587-L589
 type SignificantLongTermsAggregate struct {
 	BgCount  *int64                            `json:"bg_count,omitempty"`
 	Buckets  BucketsSignificantLongTermsBucket `json:"buckets"`

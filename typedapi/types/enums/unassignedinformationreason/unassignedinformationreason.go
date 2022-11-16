@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Package unassignedinformationreason
@@ -25,9 +25,9 @@ package unassignedinformationreason
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L127-L146
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/cluster/allocation_explain/types.ts#L127-L146
 type UnassignedInformationReason struct {
-	name string
+	Name string
 }
 
 var (
@@ -107,5 +107,5 @@ func (u *UnassignedInformationReason) UnmarshalText(text []byte) error {
 }
 
 func (u UnassignedInformationReason) String() string {
-	return u.name
+	return u.Name
 }

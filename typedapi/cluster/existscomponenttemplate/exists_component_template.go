@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Returns information about whether a particular component template exist
@@ -104,7 +104,8 @@ func (r *ExistsComponentTemplate) HttpRequest(ctx context.Context) (*http.Reques
 		path.WriteString("/")
 		path.WriteString("_component_template")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.name))
+
+		path.WriteString(r.name)
 
 		method = http.MethodHead
 	}

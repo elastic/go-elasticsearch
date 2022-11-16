@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
 
 // UserProfileWithMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/_types/UserProfile.ts#L50-L53
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/security/_types/UserProfile.ts#L50-L53
 type UserProfileWithMetadata struct {
 	Data             map[string]interface{} `json:"data"`
 	Doc_             UserProfileHitMetadata `json:"_doc"`

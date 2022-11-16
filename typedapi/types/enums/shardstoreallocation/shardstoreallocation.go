@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Package shardstoreallocation
@@ -25,9 +25,9 @@ package shardstoreallocation
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/shard_stores/types.ts#L40-L44
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/indices/shard_stores/types.ts#L40-L44
 type ShardStoreAllocation struct {
-	name string
+	Name string
 }
 
 var (
@@ -59,5 +59,5 @@ func (s *ShardStoreAllocation) UnmarshalText(text []byte) error {
 }
 
 func (s ShardStoreAllocation) String() string {
-	return s.name
+	return s.Name
 }

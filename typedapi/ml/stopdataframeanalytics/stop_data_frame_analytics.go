@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Stops one or more data frame analytics jobs.
@@ -108,7 +108,8 @@ func (r *StopDataFrameAnalytics) HttpRequest(ctx context.Context) (*http.Request
 		path.WriteString("/")
 		path.WriteString("analytics")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.id))
+
+		path.WriteString(r.id)
 		path.WriteString("/")
 		path.WriteString("_stop")
 

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Retrieves information about service accounts.
@@ -106,9 +106,11 @@ func (r *GetServiceAccounts) HttpRequest(ctx context.Context) (*http.Request, er
 		path.WriteString("/")
 		path.WriteString("service")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.namespace))
+
+		path.WriteString(r.namespace)
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.service))
+
+		path.WriteString(r.service)
 
 		method = http.MethodGet
 	case r.paramSet == namespaceMask:
@@ -117,7 +119,8 @@ func (r *GetServiceAccounts) HttpRequest(ctx context.Context) (*http.Request, er
 		path.WriteString("/")
 		path.WriteString("service")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.namespace))
+
+		path.WriteString(r.namespace)
 
 		method = http.MethodGet
 	case r.paramSet == 0:

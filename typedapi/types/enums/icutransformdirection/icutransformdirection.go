@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Package icutransformdirection
@@ -25,9 +25,9 @@ package icutransformdirection
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/icu-plugin.ts#L73-L76
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/analysis/icu-plugin.ts#L73-L76
 type IcuTransformDirection struct {
-	name string
+	Name string
 }
 
 var (
@@ -55,5 +55,5 @@ func (i *IcuTransformDirection) UnmarshalText(text []byte) error {
 }
 
 func (i IcuTransformDirection) String() string {
-	return i.name
+	return i.Name
 }

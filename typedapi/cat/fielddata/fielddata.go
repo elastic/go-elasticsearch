@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Shows how much heap memory is currently being used by fielddata on every data
@@ -114,7 +114,8 @@ func (r *Fielddata) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("fielddata")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.fields))
+
+		path.WriteString(r.fields)
 
 		method = http.MethodGet
 	}

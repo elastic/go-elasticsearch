@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // GeoPointProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/geo.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/mapping/geo.ts#L23-L28
 type GeoPointProperty struct {
 	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
@@ -37,7 +37,6 @@ type GeoPointProperty struct {
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
-	LocalMetadata   map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta       map[string]string   `json:"meta,omitempty"`
 	NullValue  *GeoLocation        `json:"null_value,omitempty"`

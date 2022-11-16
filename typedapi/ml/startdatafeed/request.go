@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package startdatafeed
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package startdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
 type Request struct {
 
 	// End Refer to the description for the `end` query parameter.

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package samlinvalidate
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package samlinvalidate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/saml_invalidate/Request.ts#L22-L43
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/security/saml_invalidate/Request.ts#L22-L43
 type Request struct {
 
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realm in

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
 
 // ShardsStatsSummaryItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/snapshot/_types/SnapshotShardsStatus.ts#L37-L40
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/snapshot/_types/SnapshotShardsStatus.ts#L37-L40
 type ShardsStatsSummaryItem struct {
 	FileCount   int64 `json:"file_count"`
 	SizeInBytes int64 `json:"size_in_bytes"`

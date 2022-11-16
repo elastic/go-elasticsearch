@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // NodeAllocationExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/allocation_explain/types.ts#L97-L106
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/cluster/allocation_explain/types.ts#L97-L106
 type NodeAllocationExplanation struct {
 	Deciders         []AllocationDecision `json:"deciders"`
 	NodeAttributes   map[string]string    `json:"node_attributes"`

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Creates a new model alias (or reassigns an existing one) to refer to the
@@ -113,11 +113,13 @@ func (r *PutTrainedModelAlias) HttpRequest(ctx context.Context) (*http.Request, 
 		path.WriteString("/")
 		path.WriteString("trained_models")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.modelid))
+
+		path.WriteString(r.modelid)
 		path.WriteString("/")
 		path.WriteString("model_aliases")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.modelalias))
+
+		path.WriteString(r.modelalias)
 
 		method = http.MethodPut
 	}

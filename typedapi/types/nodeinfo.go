@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
@@ -26,7 +26,7 @@ import "github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
 
 // NodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/nodes/info/types.ts#L30-L66
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/nodes/info/types.ts#L30-L66
 type NodeInfo struct {
 	Aggregations map[string]NodeInfoAggregation `json:"aggregations,omitempty"`
 	Attributes   map[string]string              `json:"attributes"`

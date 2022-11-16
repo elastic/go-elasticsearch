@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package putcomponenttemplate
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package putcomponenttemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/put_component_template/ClusterPutComponentTemplateRequest.ts#L29-L54
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/cluster/put_component_template/ClusterPutComponentTemplateRequest.ts#L29-L54
 type Request struct {
 	Aliases  map[string]types.AliasDefinition `json:"aliases,omitempty"`
 	Mappings *types.TypeMapping               `json:"mappings,omitempty"`

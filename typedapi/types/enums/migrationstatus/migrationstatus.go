@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Package migrationstatus
@@ -25,9 +25,9 @@ package migrationstatus
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L30-L35
 type MigrationStatus struct {
-	name string
+	Name string
 }
 
 var (
@@ -63,5 +63,5 @@ func (m *MigrationStatus) UnmarshalText(text []byte) error {
 }
 
 func (m MigrationStatus) String() string {
-	return m.name
+	return m.Name
 }

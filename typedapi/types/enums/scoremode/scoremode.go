@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Package scoremode
@@ -25,9 +25,9 @@ package scoremode
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_global/search/_types/rescoring.ts#L36-L42
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_global/search/_types/rescoring.ts#L36-L42
 type ScoreMode struct {
-	name string
+	Name string
 }
 
 var (
@@ -67,5 +67,5 @@ func (s *ScoreMode) UnmarshalText(text []byte) error {
 }
 
 func (s ScoreMode) String() string {
-	return s.name
+	return s.Name
 }

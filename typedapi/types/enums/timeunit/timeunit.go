@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Package timeunit
@@ -25,9 +25,9 @@ package timeunit
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Time.ts#L69-L84
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/Time.ts#L69-L84
 type TimeUnit struct {
-	name string
+	Name string
 }
 
 var (
@@ -75,5 +75,5 @@ func (t *TimeUnit) UnmarshalText(text []byte) error {
 }
 
 func (t TimeUnit) String() string {
-	return t.name
+	return t.Name
 }

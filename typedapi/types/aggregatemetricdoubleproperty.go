@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package types
@@ -29,13 +29,12 @@ import (
 
 // AggregateMetricDoubleProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/complex.ts#L59-L64
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/mapping/complex.ts#L59-L64
 type AggregateMetricDoubleProperty struct {
 	DefaultMetric string                         `json:"default_metric"`
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields        map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove   *int                           `json:"ignore_above,omitempty"`
-	LocalMetadata map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta             map[string]string                          `json:"meta,omitempty"`
 	Metrics          []string                                   `json:"metrics"`

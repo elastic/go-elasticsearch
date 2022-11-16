@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Updates an alias to point to a new index when the existing index
@@ -136,18 +136,21 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 	switch {
 	case r.paramSet == aliasMask:
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.alias))
+
+		path.WriteString(r.alias)
 		path.WriteString("/")
 		path.WriteString("_rollover")
 
 		method = http.MethodPost
 	case r.paramSet == aliasMask|newindexMask:
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.alias))
+
+		path.WriteString(r.alias)
 		path.WriteString("/")
 		path.WriteString("_rollover")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.newindex))
+
+		path.WriteString(r.newindex)
 
 		method = http.MethodPost
 	}

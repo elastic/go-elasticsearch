@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Package actionstatusoptions
@@ -25,9 +25,9 @@ package actionstatusoptions
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Action.ts#L99-L104
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/watcher/_types/Action.ts#L99-L104
 type ActionStatusOptions struct {
-	name string
+	Name string
 }
 
 var (
@@ -63,5 +63,5 @@ func (a *ActionStatusOptions) UnmarshalText(text []byte) error {
 }
 
 func (a ActionStatusOptions) String() string {
-	return a.name
+	return a.Name
 }

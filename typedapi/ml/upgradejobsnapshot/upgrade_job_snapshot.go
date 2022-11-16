@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Upgrades a given job snapshot to the current major version.
@@ -111,11 +111,13 @@ func (r *UpgradeJobSnapshot) HttpRequest(ctx context.Context) (*http.Request, er
 		path.WriteString("/")
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.jobid))
+
+		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("model_snapshots")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.snapshotid))
+
+		path.WriteString(r.snapshotid)
 		path.WriteString("/")
 		path.WriteString("_upgrade")
 

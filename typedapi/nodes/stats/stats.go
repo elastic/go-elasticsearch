@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 // Returns statistical information about nodes in the cluster.
@@ -117,7 +117,8 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("_nodes")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.nodeid))
+
+		path.WriteString(r.nodeid)
 		path.WriteString("/")
 		path.WriteString("stats")
 
@@ -128,18 +129,21 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("stats")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.metric))
+
+		path.WriteString(r.metric)
 
 		method = http.MethodGet
 	case r.paramSet == nodeidMask|metricMask:
 		path.WriteString("/")
 		path.WriteString("_nodes")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.nodeid))
+
+		path.WriteString(r.nodeid)
 		path.WriteString("/")
 		path.WriteString("stats")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.metric))
+
+		path.WriteString(r.metric)
 
 		method = http.MethodGet
 	case r.paramSet == metricMask|indexmetricMask:
@@ -148,22 +152,27 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("stats")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.metric))
+
+		path.WriteString(r.metric)
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.indexmetric))
+
+		path.WriteString(r.indexmetric)
 
 		method = http.MethodGet
 	case r.paramSet == nodeidMask|metricMask|indexmetricMask:
 		path.WriteString("/")
 		path.WriteString("_nodes")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.nodeid))
+
+		path.WriteString(r.nodeid)
 		path.WriteString("/")
 		path.WriteString("stats")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.metric))
+
+		path.WriteString(r.metric)
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.indexmetric))
+
+		path.WriteString(r.indexmetric)
 
 		method = http.MethodGet
 	}

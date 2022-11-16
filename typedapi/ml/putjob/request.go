@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
 
 
 package putjob
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/put_job/MlPutJobRequest.ts#L30-L111
+// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ml/put_job/MlPutJobRequest.ts#L30-L111
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when there
