@@ -2,7 +2,7 @@
 ==== Types
 
 Requests and responses are relying on a collection of structures generated from the https://github.com/elastic/elasticsearch-specification[elasticsearch-specification] in the `types` package.
-Each type comes with json tags and a builder.
+Each type comes with json tags.
 
 ==== Enums
 
@@ -20,4 +20,3 @@ refresh.Waitfor => "wait_for"
 ==== Unions
 
 To capture the expressiveness of the API union fields are represented by a type alias to an interface.
-Each type alias comes with a builder that lists the possible types for the underlying value.
