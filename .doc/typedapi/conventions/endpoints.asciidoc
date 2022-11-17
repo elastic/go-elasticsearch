@@ -3,7 +3,7 @@
 
 All the available endpoints are generated in separate packages and assembled in the client. The `core` namespace is duplicated at the root of the client for convenient access.
 
-Each endpoint follows a factory pattern which returns a pointer to a new instance each time. This leads to a builder pattern allowing to directly chain the options before running your query.
+Each endpoint follows a factory pattern which returns a pointer to a new instance each time.
 
 [source,go]
 -----
