@@ -1,3 +1,45 @@
+# 8.5.0
+
+## API
+
+* `ML.StartTrainedModelDeployment`: Description of `NumberOfAllocations` has been changed in "The total number of allocations this model is assigned across machine learning nodes".
+* `Security.GetAPIKey`: Added `WithLimitedBy` boolean parameter. Flag to show the limited-by role descriptors of API Keys.
+* `Security.GetUser`: Added `WithProfileUID` boolean parameter. Flag to retrieve profile uid (if exists) associated to the user.
+* `Security.GetUserProfile`: Changed the description of uid parameter, a comma-separated list of unique identifier for user profiles.
+* `Security.QueryAPIKeys`: Added `WithLimitedBy` boolean parameter. Flag to show the limited-by role descriptors of API Keys.
+* `TextStructureFindStructure`: Added `EcsCompatibility` string parameter. Optional parameter to specify the compatibility mode with ECS Grok patterns - may be either 'v1' or 'disabled'.
+
+**Promoted to stable**
+
+* `ML.InferTrainedModel`
+* `ML.PutTrainedModelDefinitionPart`
+* `ML.PutTrainedModelVocabulary`
+* `ML.StartTrainedModelDeployment`
+* `ML.StopTrainedModelDeployment`
+* `Security.activateUserProfile`
+* `Security.DisableUserProfile`
+* `Security.EnableUserProfile`
+* `Security.GetUserProfile`
+* `Security.HasPrivilegesUserProfile`
+* `Security.SuggestUserProfiles`
+* `Security.UpdateUserProfileData`
+
+**New APIs**
+
+* `ML.ClearTrainedModelDeploymentCache` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/clear-trained-model-deployment-cache.html).
+* `Security.BulkUpdateAPIKeys` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html).
+* `Indices.Downsample` (Experimental API) [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html)
+
+## Typed API
+
+Following multiple feedbacks we decided to remove the builder API for the type tree.
+
+In its place, work has started to further simplify the type tree by removing redundant type aliases. The API also now comes with a helper package named `some` that allows to call for inline pointers on primitive types.
+
+In addition, a bug was fixed preventing the use of wildcards in index names, and enums are now extensible by default.
+
+The Typed API remains in `alpha` stage while its development continues.
+
 # 8.4.0
 
 ## API
