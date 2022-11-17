@@ -62,6 +62,7 @@ var skipFiles = []string{
 	"health/40_useractions.yml",            // internal
 	"health/40_diagnosis.yml",              // internal
 	"cluster.desired_nodes/20_dry_run.yml", // internal
+	"search.aggregation/500_percentiles_bucket.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -451,4 +452,11 @@ analytics/histogram.yml:
 # incompatible storage
 searchable_snapshots/20_synthetic_source.yml:
   - Tests searchable snapshots usage stats
+
+# invalid maps
+get/100_synthetic_source.yml:
+  - indexed dense vectors
+  - non-indexed dense vectors
+search/400_synthetic_source.yml:
+  - stored keyword without sibling fields
 `
