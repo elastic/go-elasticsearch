@@ -9,8 +9,8 @@ Notice how using the builder for the `IntegerNumberProperty` will automatically 
 res, err := es.Indices.Create("test-index").
     Request(&create.Request{
         Mappings: &types.TypeMapping{
-            Properties: map[types.PropertyName]types.PropertyBuilder{
-                "price": types.NewIntegerNumberPropertyBuilder().Build(),
+            Properties: map[string]types.Property{
+                "price": types.NewIntegerNumberProperty(),
             },
         },
     }).
