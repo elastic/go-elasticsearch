@@ -90,7 +90,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		cfg := BulkIndexerConfig{
 			NumWorkers:    1,
-			FlushBytes:    50,
+			FlushBytes:    38 * 2,    // 38 bytes header + body, times 2 to match 2 responses per file in testdata
 			FlushInterval: time.Hour, // Disable auto-flushing, because response doesn't match number of items
 			Client:        es}
 		if os.Getenv("DEBUG") != "" {
@@ -568,7 +568,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		// Stats don't include the retries in client
 		if stats.NumRequests != 1 {
-			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 3, stats.NumRequests)
+			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 1, stats.NumRequests)
 		}
 	})
 
@@ -692,7 +692,8 @@ func TestBulkIndexer(t *testing.T) {
 					buf: bytes.NewBuffer(make([]byte, 0, 5e+6)),
 					aux: make([]byte, 0, 512),
 				}
-				if err := w.writeMeta(tt.args.item); err != nil {
+				tt.args.item.marshallMeta()
+				if err := w.writeMeta(&tt.args.item); err != nil {
 					t.Errorf("Unexpected error: %v", err)
 				}
 
