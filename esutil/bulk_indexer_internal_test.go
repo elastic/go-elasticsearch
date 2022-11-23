@@ -851,6 +851,50 @@ func TestBulkIndexer(t *testing.T) {
 		}
 		bi.Close(context.Background())
 	})
+
+	t.Run("Oversized Payload", func(t *testing.T) {
+		esConfig := elasticsearch.Config{
+			Transport: &mockTransport{
+				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
+					return &http.Response{
+						StatusCode: http.StatusOK,
+						Status:     "200 OK",
+						Body:       io.NopCloser(bytes.NewBuffer(nil)),
+					}, nil
+				},
+			},
+		}
+
+		client, err := elasticsearch.NewClient(esConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		logbuf := bytes.Buffer{}
+		cfg := BulkIndexerConfig{
+			NumWorkers:  1,
+			Client:      client,
+			Header:      http.Header{"X-Test": []string{"TestValue"}},
+			FlushBytes:  1,
+			DebugLogger: log.New(&logbuf, "", 0),
+		}
+		bi, err := NewBulkIndexer(cfg)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		bi.Add(context.Background(), BulkIndexerItem{
+			Action:     "index",
+			DocumentID: strconv.Itoa(1),
+			Body:       strings.NewReader(`{"title":"foo"}`),
+		})
+		ctx, _ := context.WithTimeout(context.Background(), time.Second*60)
+		bi.Close(ctx)
+
+		if !bytes.Contains(logbuf.Bytes(), []byte("[worker-001] Oversize Payload in item [index:1]")) {
+			t.Fatalf("Expected detection of oversize payload, got: \n%s", logbuf.String())
+		}
+	})
 }
 
 type customJSONDecoder struct{}

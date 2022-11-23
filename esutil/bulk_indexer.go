@@ -440,7 +440,8 @@ func (w *worker) run() {
 				w.bi.config.DebugLogger.Printf("[worker-%03d] Received item [%s:%s]\n", w.id, item.Action, item.DocumentID)
 			}
 
-			if w.buf.Len() > 0 && w.buf.Len()+item.payloadLength >= w.bi.config.FlushBytes {
+			oversizePayload := w.bi.config.FlushBytes <= item.payloadLength
+			if !oversizePayload && w.buf.Len() > 0 && w.buf.Len()+item.payloadLength >= w.bi.config.FlushBytes {
 				if err := w.flush(ctx); err != nil {
 					w.mu.Unlock()
 					if w.bi.config.OnError != nil {
@@ -469,6 +470,19 @@ func (w *worker) run() {
 			}
 
 			w.items = append(w.items, item)
+			// Should the item payload exceed the configured FlushBytes flush happens instantly.
+			if oversizePayload {
+				if w.bi.config.DebugLogger != nil {
+					w.bi.config.DebugLogger.Printf("[worker-%03d] Oversize Payload in item [%s:%s]\n", w.id, item.Action, item.DocumentID)
+				}
+				if err := w.flush(ctx); err != nil {
+					w.mu.Unlock()
+					if w.bi.config.OnError != nil {
+						w.bi.config.OnError(ctx, err)
+					}
+					continue
+				}
+			}
 			w.mu.Unlock()
 		}
 	}()
