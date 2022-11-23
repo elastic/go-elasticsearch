@@ -888,8 +888,7 @@ func TestBulkIndexer(t *testing.T) {
 			DocumentID: strconv.Itoa(1),
 			Body:       strings.NewReader(`{"title":"foo"}`),
 		})
-		ctx, _ := context.WithTimeout(context.Background(), time.Second*60)
-		bi.Close(ctx)
+		bi.Close(context.Background())
 
 		if !bytes.Contains(logbuf.Bytes(), []byte("[worker-001] Oversize Payload in item [index:1]")) {
 			t.Fatalf("Expected detection of oversize payload, got: \n%s", logbuf.String())
