@@ -72,7 +72,6 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
 					Index:  indexName,
 					Client: es,
-					// FlushBytes: 3e+6,
 				})
 
 				numItems := 100000
