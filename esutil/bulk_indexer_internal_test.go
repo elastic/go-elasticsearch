@@ -90,7 +90,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		cfg := BulkIndexerConfig{
 			NumWorkers:    1,
-			FlushBytes:    38 * 2,    // 38 bytes header + body, times 2 to match 2 responses per file in testdata
+			FlushBytes:    39 * 2,    // 38 bytes header + body, times 2 to match 2 responses per file in testdata
 			FlushInterval: time.Hour, // Disable auto-flushing, because response doesn't match number of items
 			Client:        es}
 		if os.Getenv("DEBUG") != "" {
@@ -525,7 +525,7 @@ func TestBulkIndexer(t *testing.T) {
 		}
 		es, _ := elasticsearch.NewClient(esCfg)
 
-		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 50, Client: es}
+		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 28*2, Client: es}
 		if os.Getenv("DEBUG") != "" {
 			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
@@ -892,6 +892,36 @@ func TestBulkIndexer(t *testing.T) {
 
 		if !bytes.Contains(logbuf.Bytes(), []byte("[worker-001] Oversize Payload in item [index:1]")) {
 			t.Fatalf("Expected detection of oversize payload, got: \n%s", logbuf.String())
+		}
+	})
+}
+
+func TestBulkIndexerItem(t *testing.T) {
+	body := `{"body":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}`
+	t.Run("correct computeLength size", func(t *testing.T) {
+		expectedLength := 266
+		bi := BulkIndexerItem{
+			Action:     "index",
+			DocumentID: strconv.Itoa(1),
+			Body:       strings.NewReader(body),
+		}
+		bi.marshallMeta()
+		bi.computeLength()
+		if bi.payloadLength != expectedLength {
+			t.Fatalf("invalid length, expected %d, got %d", expectedLength, bi.payloadLength)
+		}
+	})
+	t.Run("empty reader length should be meta length plus newlines", func(t *testing.T) {
+		expectedLength := 23
+		bi := BulkIndexerItem{
+			Action:     "index",
+			DocumentID: strconv.Itoa(1),
+			Body:       strings.NewReader(""),
+		}
+		bi.marshallMeta()
+		bi.computeLength()
+		if bi.payloadLength != expectedLength {
+			t.Fatalf("invalid length, expected %d, got %d", expectedLength, bi.payloadLength)
 		}
 	})
 }
