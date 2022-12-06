@@ -21,6 +21,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -179,22 +180,25 @@ func (item *BulkIndexerItem) marshallMeta() {
 // computeLength calculate the size of the body and the metadata.
 func (item *BulkIndexerItem) computeLength() error {
 	if item.Body != nil {
-		var buf bytes.Buffer
-		_, err := io.Copy(&buf, item.Body)
+		// TODO propagate buf len to config to allow for performance gains.
+		var buf = make([]byte, 1<<4)
+		for {
+			n, err := item.Body.Read(buf)
+			if errors.Is(err, io.EOF) {
+				break
+			} else if err != nil {
+				return err
+			}
+			item.payloadLength += n
+		}
+		_, err := item.Body.Seek(0, io.SeekStart)
 		if err != nil {
 			return err
 		}
-
-		_, err = item.Body.Seek(0, io.SeekStart)
-		if err != nil {
-			return err
-		}
-		item.payloadLength = buf.Len()
-		return nil
 	}
 	item.payloadLength += len(item.meta.Bytes())
-	// Add two bytes to account for newlines.
-	item.payloadLength += 2
+	// Add one byte to account for newline at the end of payload.
+	item.payloadLength++
 
 	return nil
 }
