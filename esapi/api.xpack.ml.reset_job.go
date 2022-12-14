@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.6.0: DO NOT EDIT
+// Code generated from specification version 8.7.0: DO NOT EDIT
 
 package esapi
 
@@ -47,7 +47,8 @@ type MLResetJob func(job_id string, o ...func(*MLResetJobRequest)) (*Response, e
 type MLResetJobRequest struct {
 	JobID string
 
-	WaitForCompletion *bool
+	DeleteUserAnnotations *bool
+	WaitForCompletion     *bool
 
 	Pretty     bool
 	Human      bool
@@ -81,6 +82,10 @@ func (r MLResetJobRequest) Do(ctx context.Context, transport Transport) (*Respon
 	path.WriteString("_reset")
 
 	params = make(map[string]string)
+
+	if r.DeleteUserAnnotations != nil {
+		params["delete_user_annotations"] = strconv.FormatBool(*r.DeleteUserAnnotations)
+	}
 
 	if r.WaitForCompletion != nil {
 		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
@@ -149,6 +154,13 @@ func (r MLResetJobRequest) Do(ctx context.Context, transport Transport) (*Respon
 func (f MLResetJob) WithContext(v context.Context) func(*MLResetJobRequest) {
 	return func(r *MLResetJobRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDeleteUserAnnotations - should annotations added by the user be deleted.
+func (f MLResetJob) WithDeleteUserAnnotations(v bool) func(*MLResetJobRequest) {
+	return func(r *MLResetJobRequest) {
+		r.DeleteUserAnnotations = &v
 	}
 }
 

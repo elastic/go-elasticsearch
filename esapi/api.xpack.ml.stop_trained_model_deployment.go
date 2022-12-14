@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.6.0: DO NOT EDIT
+// Code generated from specification version 8.7.0: DO NOT EDIT
 
 package esapi
 
@@ -40,8 +40,6 @@ func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployme
 // ----- API Definition -------------------------------------------------------
 
 // MLStopTrainedModelDeployment - Stop a trained model deployment.
-//
-// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/stop-trained-model-deployment.html.
 type MLStopTrainedModelDeployment func(model_id string, o ...func(*MLStopTrainedModelDeploymentRequest)) (*Response, error)

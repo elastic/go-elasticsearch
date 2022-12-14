@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.6.0: DO NOT EDIT
+// Code generated from specification version 8.7.0: DO NOT EDIT
 
 package esapi
 
@@ -41,8 +41,6 @@ func newMLStartTrainedModelDeploymentFunc(t Transport) MLStartTrainedModelDeploy
 
 // MLStartTrainedModelDeployment - Start a trained model deployment.
 //
-// This API is beta.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html.
 type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrainedModelDeploymentRequest)) (*Response, error)
 
@@ -52,6 +50,7 @@ type MLStartTrainedModelDeploymentRequest struct {
 
 	CacheSize            string
 	NumberOfAllocations  *int
+	Priority             string
 	QueueCapacity        *int
 	ThreadsPerAllocation *int
 	Timeout              time.Duration
@@ -98,6 +97,10 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 
 	if r.NumberOfAllocations != nil {
 		params["number_of_allocations"] = strconv.FormatInt(int64(*r.NumberOfAllocations), 10)
+	}
+
+	if r.Priority != "" {
+		params["priority"] = r.Priority
 	}
 
 	if r.QueueCapacity != nil {
@@ -193,6 +196,13 @@ func (f MLStartTrainedModelDeployment) WithCacheSize(v string) func(*MLStartTrai
 func (f MLStartTrainedModelDeployment) WithNumberOfAllocations(v int) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.NumberOfAllocations = &v
+	}
+}
+
+// WithPriority - the deployment priority..
+func (f MLStartTrainedModelDeployment) WithPriority(v string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.Priority = v
 	}
 }
 
