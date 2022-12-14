@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.6.0: DO NOT EDIT
+// Code generated from specification version 8.7.0: DO NOT EDIT
 
 package esapi
 
@@ -47,8 +47,9 @@ type MLDeleteJob func(job_id string, o ...func(*MLDeleteJobRequest)) (*Response,
 type MLDeleteJobRequest struct {
 	JobID string
 
-	Force             *bool
-	WaitForCompletion *bool
+	DeleteUserAnnotations *bool
+	Force                 *bool
+	WaitForCompletion     *bool
 
 	Pretty     bool
 	Human      bool
@@ -80,6 +81,10 @@ func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Respo
 	path.WriteString(r.JobID)
 
 	params = make(map[string]string)
+
+	if r.DeleteUserAnnotations != nil {
+		params["delete_user_annotations"] = strconv.FormatBool(*r.DeleteUserAnnotations)
+	}
 
 	if r.Force != nil {
 		params["force"] = strconv.FormatBool(*r.Force)
@@ -152,6 +157,13 @@ func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Respo
 func (f MLDeleteJob) WithContext(v context.Context) func(*MLDeleteJobRequest) {
 	return func(r *MLDeleteJobRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDeleteUserAnnotations - should annotations added by the user be deleted.
+func (f MLDeleteJob) WithDeleteUserAnnotations(v bool) func(*MLDeleteJobRequest) {
+	return func(r *MLDeleteJobRequest) {
+		r.DeleteUserAnnotations = &v
 	}
 }
 
