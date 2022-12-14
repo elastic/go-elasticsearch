@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // HttpInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Input.ts#L44-L48
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/watcher/_types/Input.ts#L44-L48
 type HttpInput struct {
 	Extract             []string                                 `json:"extract,omitempty"`
 	Request             *HttpInputRequestDefinition              `json:"request,omitempty"`

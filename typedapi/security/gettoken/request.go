@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 package gettoken
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package gettoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L39
 type Request struct {
 	GrantType      *accesstokengranttype.AccessTokenGrantType `json:"grant_type,omitempty"`
 	KerberosTicket *string                                    `json:"kerberos_ticket,omitempty"`

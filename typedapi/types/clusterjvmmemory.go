@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 package types
 
 // ClusterJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/cluster/stats/types.ts#L156-L159
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/cluster/stats/types.ts#L156-L159
 type ClusterJvmMemory struct {
 	HeapMaxInBytes  int64 `json:"heap_max_in_bytes"`
 	HeapUsedInBytes int64 `json:"heap_used_in_bytes"`

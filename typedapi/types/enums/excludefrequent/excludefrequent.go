@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package excludefrequent
@@ -25,9 +25,9 @@ package excludefrequent
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/_types/Detector.ts#L82-L87
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/ml/_types/Detector.ts#L82-L87
 type ExcludeFrequent struct {
-	name string
+	Name string
 }
 
 var (
@@ -63,5 +63,5 @@ func (e *ExcludeFrequent) UnmarshalText(text []byte) error {
 }
 
 func (e ExcludeFrequent) String() string {
-	return e.name
+	return e.Name
 }

@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Simulate matching the given index name against the index templates in the
@@ -137,7 +137,8 @@ func (r *SimulateIndexTemplate) HttpRequest(ctx context.Context) (*http.Request,
 		path.WriteString("/")
 		path.WriteString("_simulate_index")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.name))
+
+		path.WriteString(r.name)
 
 		method = http.MethodPost
 	}

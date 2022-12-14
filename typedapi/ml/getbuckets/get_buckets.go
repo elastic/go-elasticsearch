@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Retrieves anomaly detection job results for one or more buckets.
@@ -138,13 +138,15 @@ func (r *GetBuckets) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.jobid))
+
+		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("results")
 		path.WriteString("/")
 		path.WriteString("buckets")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.timestamp))
+
+		path.WriteString(r.timestamp)
 
 		method = http.MethodPost
 	case r.paramSet == jobidMask:
@@ -153,7 +155,8 @@ func (r *GetBuckets) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.jobid))
+
+		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("results")
 		path.WriteString("/")

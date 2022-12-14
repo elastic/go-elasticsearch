@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Clear the cache of searchable snapshots.
@@ -109,7 +109,8 @@ func (r *ClearCache) HttpRequest(ctx context.Context) (*http.Request, error) {
 		method = http.MethodPost
 	case r.paramSet == indexMask:
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.index))
+
+		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_searchable_snapshots")
 		path.WriteString("/")

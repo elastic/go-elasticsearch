@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Explicitly clears the search context for a scroll.
@@ -139,7 +139,8 @@ func (r *ClearScroll) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("scroll")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.scrollid))
+
+		path.WriteString(r.scrollid)
 
 		method = http.MethodDelete
 	}

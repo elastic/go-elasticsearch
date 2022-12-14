@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // IcuNormalizationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/analysis/icu-plugin.ts#L35-L38
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/_types/analysis/icu-plugin.ts#L35-L38
 type IcuNormalizationTokenFilter struct {
 	Name    icunormalizationtype.IcuNormalizationType `json:"name"`
 	Type    string                                    `json:"type,omitempty"`

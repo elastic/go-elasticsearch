@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package type_
@@ -25,9 +25,9 @@ package type_
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/shutdown/_types/types.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/shutdown/_types/types.ts#L20-L24
 type Type struct {
-	name string
+	Name string
 }
 
 var (
@@ -59,5 +59,5 @@ func (t *Type) UnmarshalText(text []byte) error {
 }
 
 func (t Type) String() string {
-	return t.name
+	return t.Name
 }

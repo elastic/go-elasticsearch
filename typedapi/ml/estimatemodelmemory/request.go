@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 package estimatemodelmemory
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package estimatemodelmemory
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L61
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L61
 type Request struct {
 
 	// AnalysisConfig For a list of the properties that you can specify in the

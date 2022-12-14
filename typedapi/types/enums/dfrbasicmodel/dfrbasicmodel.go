@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package dfrbasicmodel
@@ -25,9 +25,9 @@ package dfrbasicmodel
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/Similarity.ts#L32-L40
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/_types/Similarity.ts#L32-L40
 type DFRBasicModel struct {
-	name string
+	Name string
 }
 
 var (
@@ -75,5 +75,5 @@ func (d *DFRBasicModel) UnmarshalText(text []byte) error {
 }
 
 func (d DFRBasicModel) String() string {
-	return d.name
+	return d.Name
 }

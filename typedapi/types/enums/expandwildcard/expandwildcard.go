@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package expandwildcard
@@ -25,9 +25,9 @@ package expandwildcard
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/common.ts#L181-L195
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/_types/common.ts#L181-L195
 type ExpandWildcard struct {
-	name string
+	Name string
 }
 
 var (
@@ -67,5 +67,5 @@ func (e *ExpandWildcard) UnmarshalText(text []byte) error {
 }
 
 func (e ExpandWildcard) String() string {
-	return e.name
+	return e.Name
 }

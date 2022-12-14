@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package indicesblockoptions
@@ -25,9 +25,9 @@ package indicesblockoptions
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/add_block/IndicesAddBlockRequest.ts#L43-L48
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/indices/add_block/IndicesAddBlockRequest.ts#L43-L48
 type IndicesBlockOptions struct {
-	name string
+	Name string
 }
 
 var (
@@ -63,5 +63,5 @@ func (i *IndicesBlockOptions) UnmarshalText(text []byte) error {
 }
 
 func (i IndicesBlockOptions) String() string {
-	return i.name
+	return i.Name
 }

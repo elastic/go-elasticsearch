@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package indexoptions
@@ -25,9 +25,9 @@ package indexoptions
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L235-L240
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/_types/mapping/core.ts#L235-L240
 type IndexOptions struct {
-	name string
+	Name string
 }
 
 var (
@@ -63,5 +63,5 @@ func (i *IndexOptions) UnmarshalText(text []byte) error {
 }
 
 func (i IndexOptions) String() string {
-	return i.name
+	return i.Name
 }
