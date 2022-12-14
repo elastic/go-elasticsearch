@@ -55,13 +55,6 @@ var skipFiles = []string{
 	"search.aggregation/350_variable_width_histogram.yml",
 	"cluster.desired_nodes/10_basic.yml",   // incompatible $ stash replacement
 	"api_key/12_grant.yml",                 // incompatible $ stash replacement, need bearer token integration
-	"user_profile/10_basic.yml",            // internal
-	"health/10_basic.yml",                  // internal
-	"health/20_component.yml",              // internal
-	"health/30_feature.yml",                // internal
-	"health/40_useractions.yml",            // internal
-	"health/40_diagnosis.yml",              // internal
-	"cluster.desired_nodes/20_dry_run.yml", // internal
 }
 
 // TODO: Comments into descriptions for `Skip()`

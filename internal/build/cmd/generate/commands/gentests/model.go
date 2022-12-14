@@ -193,6 +193,10 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 						}
 					case "do":
 						for _, vvv := range vv.(map[interface{}]interface{}) {
+							key := utils.MapKeys(vvv)[0]
+							if strings.HasPrefix(key, "_internal") {
+								ts.Skip = true
+							}
 							steps = append(steps, NewAction(vvv))
 						}
 					case "is_true", "is_false", "match", "lt", "gt", "lte", "gte":
