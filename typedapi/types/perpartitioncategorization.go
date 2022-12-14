@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package types
 
 // PerPartitionCategorization type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ml/_types/Analysis.ts#L93-L102
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Analysis.ts#L93-L102
 type PerPartitionCategorization struct {
 	// Enabled To enable this setting, you must also set the `partition_field_name` property
 	// to the same value in every detector that uses the keyword `mlcategory`.

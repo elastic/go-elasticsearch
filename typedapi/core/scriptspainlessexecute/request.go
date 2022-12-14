@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package scriptspainlessexecute
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package scriptspainlessexecute
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L24-L35
 type Request struct {
 	Context      *string                     `json:"context,omitempty"`
 	ContextSetup *types.PainlessContextSetup `json:"context_setup,omitempty"`

@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package types
 
 // LinearInterpolationSmoothingModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_global/search/_types/suggester.ts#L216-L220
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/suggester.ts#L216-L220
 type LinearInterpolationSmoothingModel struct {
 	BigramLambda  float64 `json:"bigram_lambda"`
 	TrigramLambda float64 `json:"trigram_lambda"`

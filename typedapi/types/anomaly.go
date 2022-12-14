@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package types
 
 // Anomaly type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ml/_types/Anomaly.ts#L24-L51
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Anomaly.ts#L24-L55
 type Anomaly struct {
 	Actual []float64 `json:"actual,omitempty"`
 	// AnomalyScoreExplanation Information about the factors impacting the initial anomaly score.
@@ -37,19 +37,22 @@ type Anomaly struct {
 	FieldName               *string             `json:"field_name,omitempty"`
 	Function                *string             `json:"function,omitempty"`
 	FunctionDescription     *string             `json:"function_description,omitempty"`
-	Influencers             []Influence         `json:"influencers,omitempty"`
-	InitialRecordScore      float64             `json:"initial_record_score"`
-	IsInterim               bool                `json:"is_interim"`
-	JobId                   string              `json:"job_id"`
-	OverFieldName           *string             `json:"over_field_name,omitempty"`
-	OverFieldValue          *string             `json:"over_field_value,omitempty"`
-	PartitionFieldName      *string             `json:"partition_field_name,omitempty"`
-	PartitionFieldValue     *string             `json:"partition_field_value,omitempty"`
-	Probability             float64             `json:"probability"`
-	RecordScore             float64             `json:"record_score"`
-	ResultType              string              `json:"result_type"`
-	Timestamp               int64               `json:"timestamp"`
-	Typical                 []float64           `json:"typical,omitempty"`
+	// GeoResults If the detector function is `lat_long`, this object contains comma delimited
+	// strings for the latitude and longitude of the actual and typical values.
+	GeoResults          *GeoResults `json:"geo_results,omitempty"`
+	Influencers         []Influence `json:"influencers,omitempty"`
+	InitialRecordScore  float64     `json:"initial_record_score"`
+	IsInterim           bool        `json:"is_interim"`
+	JobId               string      `json:"job_id"`
+	OverFieldName       *string     `json:"over_field_name,omitempty"`
+	OverFieldValue      *string     `json:"over_field_value,omitempty"`
+	PartitionFieldName  *string     `json:"partition_field_name,omitempty"`
+	PartitionFieldValue *string     `json:"partition_field_value,omitempty"`
+	Probability         float64     `json:"probability"`
+	RecordScore         float64     `json:"record_score"`
+	ResultType          string      `json:"result_type"`
+	Timestamp           int64       `json:"timestamp"`
+	Typical             []float64   `json:"typical,omitempty"`
 }
 
 // NewAnomaly returns a Anomaly.

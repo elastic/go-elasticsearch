@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package queryapikeys
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L67
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L67
 type Request struct {
 
 	// From Starting document offset. By default, you cannot page through more than

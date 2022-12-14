@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package types
 
 // BucketKsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/aggregations/pipeline.ts#L79-L112
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/pipeline.ts#L79-L112
 type BucketKsAggregation struct {
 	// Alternative A list of string values indicating which K-S test alternative to calculate.
 	// The valid values
@@ -34,7 +34,7 @@ type BucketKsAggregation struct {
 	// hypotheses.
 	Alternative []string `json:"alternative,omitempty"`
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *string `json:"buckets_path,omitempty"`
+	BucketsPath *BucketsPath `json:"buckets_path,omitempty"`
 	// Fractions A list of doubles indicating the distribution of the samples with which to
 	// compare to the `buckets_path` results.
 	// In typical usage this is the overall proportion of documents in each bucket,

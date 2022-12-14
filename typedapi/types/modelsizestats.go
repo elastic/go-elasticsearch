@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // ModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ml/_types/Model.ts#L56-L78
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Model.ts#L56-L78
 type ModelSizeStats struct {
 	AssignmentMemoryBasis         *string                                   `json:"assignment_memory_basis,omitempty"`
 	BucketAllocationFailuresCount int64                                     `json:"bucket_allocation_failures_count"`

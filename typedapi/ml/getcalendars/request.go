@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package getcalendars
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package getcalendars
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ml/get_calendars/MlGetCalendarsRequest.ts#L25-L51
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/get_calendars/MlGetCalendarsRequest.ts#L25-L51
 type Request struct {
 
 	// Page This object is supported only when you omit the calendar identifier.

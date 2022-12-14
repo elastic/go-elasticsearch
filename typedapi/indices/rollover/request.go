@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package rollover
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package rollover
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/indices/rollover/IndicesRolloverRequest.ts#L29-L51
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/rollover/IndicesRolloverRequest.ts#L29-L51
 type Request struct {
 	Aliases    map[string]types.Alias    `json:"aliases,omitempty"`
 	Conditions *types.RolloverConditions `json:"conditions,omitempty"`

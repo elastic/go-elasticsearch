@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package types
@@ -28,10 +28,10 @@ import (
 
 // MinBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_types/aggregations/pipeline.ts#L186-L186
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/pipeline.ts#L186-L186
 type MinBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *string                `json:"buckets_path,omitempty"`
+	BucketsPath *BucketsPath           `json:"buckets_path,omitempty"`
 	Format      *string                `json:"format,omitempty"`
 	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
 	Meta        map[string]interface{} `json:"meta,omitempty"`

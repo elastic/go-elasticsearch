@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package updatebyquery
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L85
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L85
 type Request struct {
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
 	MaxDocs   *int64               `json:"max_docs,omitempty"`

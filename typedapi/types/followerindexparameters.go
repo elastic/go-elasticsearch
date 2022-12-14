@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ca0cc05d3ae3fa06c2cd7be91905b656a474334
+// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
 
 
 package types
 
 // FollowerIndexParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ca0cc05d3ae3fa06c2cd7be91905b656a474334/specification/ccr/follow_info/types.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ccr/follow_info/types.ts#L38-L49
 type FollowerIndexParameters struct {
 	MaxOutstandingReadRequests    int      `json:"max_outstanding_read_requests"`
 	MaxOutstandingWriteRequests   int      `json:"max_outstanding_write_requests"`
