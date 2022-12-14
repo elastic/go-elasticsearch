@@ -52,6 +52,7 @@ type MLStartTrainedModelDeploymentRequest struct {
 
 	CacheSize            string
 	NumberOfAllocations  *int
+	Priority             string
 	QueueCapacity        *int
 	ThreadsPerAllocation *int
 	Timeout              time.Duration
@@ -98,6 +99,10 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 
 	if r.NumberOfAllocations != nil {
 		params["number_of_allocations"] = strconv.FormatInt(int64(*r.NumberOfAllocations), 10)
+	}
+
+	if r.Priority != "" {
+		params["priority"] = r.Priority
 	}
 
 	if r.QueueCapacity != nil {
@@ -193,6 +198,13 @@ func (f MLStartTrainedModelDeployment) WithCacheSize(v string) func(*MLStartTrai
 func (f MLStartTrainedModelDeployment) WithNumberOfAllocations(v int) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.NumberOfAllocations = &v
+	}
+}
+
+// WithPriority - the deployment priority..
+func (f MLStartTrainedModelDeployment) WithPriority(v string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.Priority = v
 	}
 }
 
