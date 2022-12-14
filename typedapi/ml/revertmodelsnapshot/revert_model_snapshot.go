@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Reverts to a specific snapshot.
@@ -140,11 +140,13 @@ func (r *RevertModelSnapshot) HttpRequest(ctx context.Context) (*http.Request, e
 		path.WriteString("/")
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.jobid))
+
+		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("model_snapshots")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.snapshotid))
+
+		path.WriteString(r.snapshotid)
 		path.WriteString("/")
 		path.WriteString("_revert")
 

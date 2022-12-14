@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package segmentsortmissing
@@ -25,9 +25,9 @@ package segmentsortmissing
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/indices/_types/IndexSegmentSort.ts#L43-L48
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/indices/_types/IndexSegmentSort.ts#L43-L48
 type SegmentSortMissing struct {
-	name string
+	Name string
 }
 
 var (
@@ -55,5 +55,5 @@ func (s *SegmentSortMissing) UnmarshalText(text []byte) error {
 }
 
 func (s SegmentSortMissing) String() string {
-	return s.name
+	return s.Name
 }

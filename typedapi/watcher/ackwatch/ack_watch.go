@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Acknowledges a watch, manually throttling the execution of the watch's
@@ -110,7 +110,8 @@ func (r *AckWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("watch")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.watchid))
+
+		path.WriteString(r.watchid)
 		path.WriteString("/")
 		path.WriteString("_ack")
 
@@ -121,11 +122,13 @@ func (r *AckWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("watch")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.watchid))
+
+		path.WriteString(r.watchid)
 		path.WriteString("/")
 		path.WriteString("_ack")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.actionid))
+
+		path.WriteString(r.actionid)
 
 		method = http.MethodPut
 	}

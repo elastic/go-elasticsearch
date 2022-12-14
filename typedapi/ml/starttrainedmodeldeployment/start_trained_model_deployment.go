@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Start a trained model deployment.
@@ -108,7 +108,8 @@ func (r *StartTrainedModelDeployment) HttpRequest(ctx context.Context) (*http.Re
 		path.WriteString("/")
 		path.WriteString("trained_models")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.modelid))
+
+		path.WriteString(r.modelid)
 		path.WriteString("/")
 		path.WriteString("deployment")
 		path.WriteString("/")

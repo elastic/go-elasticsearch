@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Allows you to split an existing index into a new index with more primary
@@ -137,11 +137,13 @@ func (r *Split) HttpRequest(ctx context.Context) (*http.Request, error) {
 	switch {
 	case r.paramSet == indexMask|targetMask:
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.index))
+
+		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_split")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.target))
+
+		path.WriteString(r.target)
 
 		method = http.MethodPut
 	}

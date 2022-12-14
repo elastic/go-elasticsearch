@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Package actiontype
@@ -25,9 +25,9 @@ package actiontype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/watcher/_types/Action.ts#L61-L68
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/watcher/_types/Action.ts#L61-L68
 type ActionType struct {
-	name string
+	Name string
 }
 
 var (
@@ -71,5 +71,5 @@ func (a *ActionType) UnmarshalText(text []byte) error {
 }
 
 func (a ActionType) String() string {
-	return a.name
+	return a.Name
 }

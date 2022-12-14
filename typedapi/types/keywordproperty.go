@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 package types
@@ -29,7 +29,7 @@ import (
 
 // KeywordProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ec3159eb31c62611202a4fb157ea88fa6ff78e1a/specification/_types/mapping/core.ts#L89-L104
+// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/_types/mapping/core.ts#L89-L104
 type KeywordProperty struct {
 	Boost               *float64                       `json:"boost,omitempty"`
 	CopyTo              []string                       `json:"copy_to,omitempty"`
@@ -40,7 +40,6 @@ type KeywordProperty struct {
 	IgnoreAbove         *int                           `json:"ignore_above,omitempty"`
 	Index               *bool                          `json:"index,omitempty"`
 	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
-	LocalMetadata       map[string]interface{}         `json:"local_metadata,omitempty"`
 	// Meta Metadata about the field.
 	Meta                     map[string]string   `json:"meta,omitempty"`
 	Normalizer               *string             `json:"normalizer,omitempty"`

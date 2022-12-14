@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Evicts tokens from the service account token caches.
@@ -115,15 +115,18 @@ func (r *ClearCachedServiceTokens) HttpRequest(ctx context.Context) (*http.Reque
 		path.WriteString("/")
 		path.WriteString("service")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.namespace))
+
+		path.WriteString(r.namespace)
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.service))
+
+		path.WriteString(r.service)
 		path.WriteString("/")
 		path.WriteString("credential")
 		path.WriteString("/")
 		path.WriteString("token")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.name))
+
+		path.WriteString(r.name)
 		path.WriteString("/")
 		path.WriteString("_clear_cache")
 

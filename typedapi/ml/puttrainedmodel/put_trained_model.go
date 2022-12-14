@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Creates an inference trained model.
@@ -135,7 +135,8 @@ func (r *PutTrainedModel) HttpRequest(ctx context.Context) (*http.Request, error
 		path.WriteString("/")
 		path.WriteString("trained_models")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.modelid))
+
+		path.WriteString(r.modelid)
 
 		method = http.MethodPut
 	}

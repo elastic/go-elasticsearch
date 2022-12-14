@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Returns the specified policy definition. Includes the policy version and last
@@ -105,7 +105,8 @@ func (r *GetLifecycle) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("policy")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.policy))
+
+		path.WriteString(r.policy)
 
 		method = http.MethodGet
 	case r.paramSet == 0:

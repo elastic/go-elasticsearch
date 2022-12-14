@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Cancels a task, if it can be cancelled through an API.
@@ -109,7 +109,8 @@ func (r *Cancel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 		path.WriteString("_tasks")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.taskid))
+
+		path.WriteString(r.taskid)
 		path.WriteString("/")
 		path.WriteString("_cancel")
 

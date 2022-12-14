@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ec3159eb31c62611202a4fb157ea88fa6ff78e1a
+// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
 
 
 // Evicts users from the user cache. Can completely clear the cache or evict
@@ -107,7 +107,8 @@ func (r *ClearCachedRealms) HttpRequest(ctx context.Context) (*http.Request, err
 		path.WriteString("/")
 		path.WriteString("realm")
 		path.WriteString("/")
-		path.WriteString(url.PathEscape(r.realms))
+
+		path.WriteString(r.realms)
 		path.WriteString("/")
 		path.WriteString("_clear_cache")
 
