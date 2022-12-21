@@ -21,7 +21,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -179,17 +178,12 @@ func (item *BulkIndexerItem) marshallMeta() {
 func (item *BulkIndexerItem) computeLength() error {
 	if item.Body != nil {
 		// TODO propagate buf len to config to allow for performance gains.
-		var buf = make([]byte, 1<<4)
-		for {
-			n, err := item.Body.Read(buf)
-			if errors.Is(err, io.EOF) {
-				break
-			} else if err != nil {
-				return err
-			}
-			item.payloadLength += n
+		n, err := item.Body.Seek(0, io.SeekEnd)
+		if err != nil {
+			return err
 		}
-		_, err := item.Body.Seek(0, io.SeekStart)
+		item.payloadLength += int(n)
+		_, err = item.Body.Seek(0, io.SeekStart)
 		if err != nil {
 			return err
 		}
