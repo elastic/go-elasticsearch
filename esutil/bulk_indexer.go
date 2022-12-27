@@ -21,7 +21,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -117,18 +116,19 @@ type BulkIndexerItem struct {
 
 // marshallMeta format as JSON the item metadata.
 func (item *BulkIndexerItem) marshallMeta() {
-	var aux []byte
+	// Pre-allocate a buffer large enough for most use cases.
+	// 'aux = aux[:0]' resets the length without changing the capacity.
+	aux := make([]byte, 0, 256)
+
 	item.meta.WriteRune('{')
-	aux = strconv.AppendQuote(aux, item.Action)
-	item.meta.Write(aux)
-	aux = nil
+	item.meta.Write(strconv.AppendQuote(aux, item.Action))
+	aux = aux[:0]
 	item.meta.WriteRune(':')
 	item.meta.WriteRune('{')
 	if item.DocumentID != "" {
 		item.meta.WriteString(`"_id":`)
-		aux = strconv.AppendQuote(aux, item.DocumentID)
-		item.meta.Write(aux)
-		aux = nil
+		item.meta.Write(strconv.AppendQuote(aux, item.DocumentID))
+		aux = aux[:0]
 	}
 
 	if item.DocumentID != "" && item.Version != nil {
@@ -140,9 +140,8 @@ func (item *BulkIndexerItem) marshallMeta() {
 	if item.DocumentID != "" && item.VersionType != "" {
 		item.meta.WriteRune(',')
 		item.meta.WriteString(`"version_type":`)
-		aux = strconv.AppendQuote(aux, item.VersionType)
-		item.meta.Write(aux)
-		aux = nil
+		item.meta.Write(strconv.AppendQuote(aux, item.VersionType))
+		aux = aux[:0]
 	}
 
 	if item.Routing != "" {
@@ -150,27 +149,24 @@ func (item *BulkIndexerItem) marshallMeta() {
 			item.meta.WriteRune(',')
 		}
 		item.meta.WriteString(`"routing":`)
-		aux = strconv.AppendQuote(aux, item.Routing)
-		item.meta.Write(aux)
-		aux = nil
+		item.meta.Write(strconv.AppendQuote(aux, item.Routing))
+		aux = aux[:0]
 	}
 	if item.Index != "" {
 		if item.DocumentID != "" || item.Routing != "" {
 			item.meta.WriteRune(',')
 		}
 		item.meta.WriteString(`"_index":`)
-		aux = strconv.AppendQuote(aux, item.Index)
-		item.meta.Write(aux)
-		aux = nil
+		item.meta.Write(strconv.AppendQuote(aux, item.Index))
+		aux = aux[:0]
 	}
 	if item.RetryOnConflict != nil && item.Action == "update" {
 		if item.DocumentID != "" || item.Routing != "" || item.Index != "" {
 			item.meta.WriteString(",")
 		}
 		item.meta.WriteString(`"retry_on_conflict":`)
-		aux = strconv.AppendInt(aux, int64(*item.RetryOnConflict), 10)
-		item.meta.Write(aux)
-		aux = nil
+		item.meta.Write(strconv.AppendInt(aux, int64(*item.RetryOnConflict), 10))
+		aux = aux[:0]
 	}
 	item.meta.WriteRune('}')
 	item.meta.WriteRune('}')
@@ -180,18 +176,12 @@ func (item *BulkIndexerItem) marshallMeta() {
 // computeLength calculate the size of the body and the metadata.
 func (item *BulkIndexerItem) computeLength() error {
 	if item.Body != nil {
-		// TODO propagate buf len to config to allow for performance gains.
-		var buf = make([]byte, 1<<4)
-		for {
-			n, err := item.Body.Read(buf)
-			if errors.Is(err, io.EOF) {
-				break
-			} else if err != nil {
-				return err
-			}
-			item.payloadLength += n
+		n, err := item.Body.Seek(0, io.SeekEnd)
+		if err != nil {
+			return err
 		}
-		_, err := item.Body.Seek(0, io.SeekStart)
+		item.payloadLength += int(n)
+		_, err = item.Body.Seek(0, io.SeekStart)
 		if err != nil {
 			return err
 		}
