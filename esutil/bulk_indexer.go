@@ -610,7 +610,7 @@ func (w *worker) flush(ctx context.Context) error {
 		atomic.AddUint64(&w.bi.stats.numFailed, uint64(len(w.items)))
 		// TODO(karmi): Wrap error (include response struct)
 		if w.bi.config.OnError != nil {
-			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", err))
+			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", res.String()))
 		}
 		return fmt.Errorf("flush: %s", res.String())
 	}
