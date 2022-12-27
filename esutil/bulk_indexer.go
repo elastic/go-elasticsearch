@@ -174,7 +174,6 @@ func (item *BulkIndexerItem) marshallMeta() {
 // computeLength calculate the size of the body and the metadata.
 func (item *BulkIndexerItem) computeLength() error {
 	if item.Body != nil {
-		// TODO propagate buf len to config to allow for performance gains.
 		n, err := item.Body.Seek(0, io.SeekEnd)
 		if err != nil {
 			return err
