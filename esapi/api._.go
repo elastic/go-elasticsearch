@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.7.0 (dfe9d76): DO NOT EDIT
+// Code generated from specification version 8.7.0 (04f88e7): DO NOT EDIT
 
 package esapi
 
@@ -83,6 +83,7 @@ type API struct {
 	GetScript                          GetScript
 	GetSource                          GetSource
 	GraphExplore                       GraphExplore
+	Health                             Health
 	Index                              Index
 	Info                               Info
 	KnnSearch                          KnnSearch
@@ -586,6 +587,7 @@ func New(t Transport) *API {
 		GetScript:                          newGetScriptFunc(t),
 		GetSource:                          newGetSourceFunc(t),
 		GraphExplore:                       newGraphExploreFunc(t),
+		Health:                             newHealthFunc(t),
 		Index:                              newIndexFunc(t),
 		Info:                               newInfoFunc(t),
 		KnnSearch:                          newKnnSearchFunc(t),
