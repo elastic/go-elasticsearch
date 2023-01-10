@@ -17,7 +17,7 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
+// https://github.com/elastic/elasticsearch-specification/tree/7f49eec1f23a5ae155001c058b3196d85981d5c2
 
 
 package types
@@ -28,7 +28,7 @@ import (
 
 // NlpRobertaTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/ml/_types/inference.ts#L145-L172
+// https://github.com/elastic/elasticsearch-specification/blob/7f49eec1f23a5ae155001c058b3196d85981d5c2/specification/ml/_types/inference.ts#L145-L172
 type NlpRobertaTokenizationConfig struct {
 	// AddPrefixSpace Should the tokenizer prefix input with a space character
 	AddPrefixSpace *bool `json:"add_prefix_space,omitempty"`

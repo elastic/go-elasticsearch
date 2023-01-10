@@ -17,14 +17,14 @@
 
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e
+// https://github.com/elastic/elasticsearch-specification/tree/7f49eec1f23a5ae155001c058b3196d85981d5c2
 
 
 package types
 
 // Retention type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/d63a0e35ee85d84c83d0612ff3c0641a7a1e7e2e/specification/slm/_types/SnapshotLifecycle.ts#L84-L97
+// https://github.com/elastic/elasticsearch-specification/blob/7f49eec1f23a5ae155001c058b3196d85981d5c2/specification/slm/_types/SnapshotLifecycle.ts#L84-L97
 type Retention struct {
 	// ExpireAfter Time period after which a snapshot is considered expired and eligible for
 	// deletion. SLM deletes expired snapshots based on the slm.retention_schedule.
