@@ -469,4 +469,7 @@ indices.stats/70_write_load.yml:
 
 search/400_synthetic_source.yml:
   - stored keyword without sibling fields
+
+health/10_usage.yml:
+  - Usage stats on the health API
 `
