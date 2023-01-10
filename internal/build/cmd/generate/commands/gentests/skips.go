@@ -52,9 +52,11 @@ var skipFiles = []string{
 	"indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
 	"eql/10_basic.yml",
 	"field_caps/50_fieldtype_filter.yml", // Incompatible test, need handling for double escaping keys with dots
-	"search.aggregation/350_variable_width_histogram.yml",
-	"cluster.desired_nodes/10_basic.yml",   // incompatible $ stash replacement
-	"api_key/12_grant.yml",                 // incompatible $ stash replacement, need bearer token integration
+	"aggregations/variable_width_histogram.yml",
+	"cluster.desired_nodes/10_basic.yml",  // incompatible $ stash replacement
+	"api_key/12_grant.yml",                // incompatible $ stash replacement, need bearer token integration
+	"aggregations/percentiles_bucket.yml", // incompatible maps
+	"user_profile/10_basic.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -121,16 +123,16 @@ cat.aliases/20_headers.yml:
   - Simple alias with yaml body through Accept header
 
 # Incorrect int instead of float in match (aggregations.date_range.buckets.0.from: 1000000); TODO: PR
-search.aggregation/40_range.yml:
+aggregations/range.yml:
   - Date range
   - Min and max long range bounds
 
 # Mismatch in number parsing, 8623000 != 8.623e+06
-search.aggregation/340_geo_distance.yml:
+aggregations/geo_distance.yml:
   - avg_bucket
 
 # .key in map issue
-search.aggregation/200_top_hits.yml:
+aggregations/top_hits.yml:
   - explain
 
 # No support for headers per request yet
@@ -162,6 +164,8 @@ test/indices.put_template/10_basic.yml:
 cat.templates/10_basic.yml:
   - "Sort templates"
   - "Multiple template"
+ml/trained_model_cat_apis.yml:
+  - Test cat trained models
 
 # Missing test setup
 cluster.voting_config_exclusions/10_basic.yml:
@@ -348,8 +352,14 @@ runtime_fields/10_keyword.yml:
 vector-tile/10_basic.yml:
 vector-tile/20_aggregations.yml:
 
-# Test uses "n" as a property name, which is parsed as 'false' in the Go YAML library;
-search.aggregation/10_histogram.yml:
+# Test uses a char as a property name, which is parsed as 'false' in the Go YAML library;
+aggregations/derivative.yml:
+  - in histogram
+  - partially mapped
+aggregations/histogram.yml:
+  - histogram profiler
+aggregations/moving_fn.yml:
+  - in histogram
 
 # Getting "no matching index template found for data stream [invalid-data-stream]"
 data_stream/10_basic.yml:
@@ -444,4 +454,19 @@ analytics/histogram.yml:
 # incompatible storage
 searchable_snapshots/20_synthetic_source.yml:
   - Tests searchable snapshots usage stats
+
+# incompatible float format
+aggregations/max_metric.yml:
+  - Merging results with unmapped fields
+
+# unsupported file upload
+get/100_synthetic_source.yml:
+  - indexed dense vectors
+  - non-indexed dense vectors
+
+indices.stats/70_write_load.yml:
+  - Write load average is tracked at shard level
+
+search/400_synthetic_source.yml:
+  - stored keyword without sibling fields
 `
