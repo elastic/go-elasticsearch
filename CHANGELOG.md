@@ -1,3 +1,18 @@
+# 8.6.0
+
+## API
+
+* `ML.StartTrainedModelDeployment`: Added `WithPriority`
+
+**New APIs**
+* `ML.UpdateTrainedModelDeployment`: Updates certain properties of trained model deployment.
+
+
+## Client
+**BulkIndexer**
+
+Improvements were made to the BulkIndexer memory usage to allow better handling under burst use cases. Thanks to @christos68k and @rockdaboot !
+
 # 8.5.0
 
 ## API
