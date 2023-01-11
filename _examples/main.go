@@ -61,6 +61,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error getting response: %s", err)
 	}
+	defer res.Body.Close()
 	// Check response status
 	if res.IsError() {
 		log.Fatalf("Error: %s", res.String())
@@ -83,16 +84,18 @@ func main() {
 			defer wg.Done()
 
 			// Build the request body.
-			var b strings.Builder
-			b.WriteString(`{"title" : "`)
-			b.WriteString(title)
-			b.WriteString(`"}`)
+			data, err := json.Marshal(struct {
+				Title string `json:"title"`
+			}{Title: title})
+			if err != nil {
+				log.Fatalf("Error marshaling document: %s", err)
+			}
 
 			// Set up the request object.
 			req := esapi.IndexRequest{
 				Index:      "test",
 				DocumentID: strconv.Itoa(i + 1),
-				Body:       strings.NewReader(b.String()),
+				Body:       bytes.NewReader(data),
 				Refresh:    "true",
 			}
 

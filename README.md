@@ -247,7 +247,9 @@ func main() {
       defer wg.Done()
 
       // Build the request body.      
-      data, err := json.Marshal(struct{ Title string }{Title: title})
+      data, err := json.Marshal(struct {
+          Title string `json:"title"`
+      }{Title: title})
       if err != nil {
         log.Fatalf("Error marshaling document: %s", err)
       }
