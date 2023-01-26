@@ -643,7 +643,9 @@ func (w *worker) flush(ctx context.Context) error {
 
 func (w *worker) notifyItemsOnError(ctx context.Context, err error) {
 	for _, item := range w.items {
-		item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+		if item.OnFailure != nil {
+			item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+		}
 	}
 }
 
