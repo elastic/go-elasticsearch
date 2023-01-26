@@ -89,6 +89,7 @@ type Config struct {
 	RetryOnError  func(*http.Request, error) bool // Optional function allowing to indicate which error should be retried. Default: nil.
 
 	CompressRequestBody bool // Default: false.
+	CompressRequestBodyLevel int // Default: gzip.DefaultCompression.
 
 	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
 	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
@@ -275,6 +276,7 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		RetryBackoff:  cfg.RetryBackoff,
 
 		CompressRequestBody: cfg.CompressRequestBody,
+		CompressRequestBodyLevel: cfg.CompressRequestBodyLevel,
 
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
