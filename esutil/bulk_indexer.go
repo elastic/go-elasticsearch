@@ -573,6 +573,7 @@ func (w *worker) flush(ctx context.Context) error {
 		if w.bi.config.OnError != nil {
 			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", err))
 		}
+		w.notifyItemsOnError(ctx, fmt.Errorf("flush: %s", err))
 		return fmt.Errorf("flush: %s", err)
 	}
 	if res.Body != nil {
@@ -584,6 +585,7 @@ func (w *worker) flush(ctx context.Context) error {
 		if w.bi.config.OnError != nil {
 			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", res.String()))
 		}
+		w.notifyItemsOnError(ctx, fmt.Errorf("flush: %s", res.String()))
 		return fmt.Errorf("flush: %s", res.String())
 	}
 
@@ -592,6 +594,7 @@ func (w *worker) flush(ctx context.Context) error {
 		if w.bi.config.OnError != nil {
 			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", err))
 		}
+		w.notifyItemsOnError(ctx, fmt.Errorf("flush: %s", err))
 		return fmt.Errorf("flush: error parsing response body: %s", err)
 	}
 
@@ -636,6 +639,12 @@ func (w *worker) flush(ctx context.Context) error {
 	}
 
 	return err
+}
+
+func (w *worker) notifyItemsOnError(ctx context.Context, err error) {
+	for _, item := range w.items {
+		item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
+	}
 }
 
 type defaultJSONDecoder struct{}
