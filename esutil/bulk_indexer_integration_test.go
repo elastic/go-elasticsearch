@@ -21,6 +21,7 @@
 package esutil_test
 
 import (
+	"compress/gzip"
 	"context"
 	"fmt"
 	"os"
@@ -41,14 +42,20 @@ func TestBulkIndexerIntegration(t *testing.T) {
 	testCases := []struct {
 		name                       string
 		CompressRequestBodyEnabled bool
+		CompressRequestBodyLevel   int
 	}{
 		{
 			name:                       "Without body compression",
 			CompressRequestBodyEnabled: false,
 		},
 		{
-			name:                       "With body compression",
+			name:                       "With body compression (default)",
 			CompressRequestBodyEnabled: true,
+		},
+		{
+			name:                       "With body compression (BestSpeed)",
+			CompressRequestBodyEnabled: true,
+			CompressRequestBodyLevel:   gzip.BestSpeed,
 		},
 	}
 
@@ -59,8 +66,9 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				indexName := "test-bulk-integration"
 
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
-					CompressRequestBody: tt.CompressRequestBodyEnabled,
-					Logger:              &elastictransport.ColorLogger{Output: os.Stdout},
+					CompressRequestBody:      tt.CompressRequestBodyEnabled,
+					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
 				es.Indices.Delete([]string{indexName}, es.Indices.Delete.WithIgnoreUnavailable(true))
@@ -124,8 +132,9 @@ func TestBulkIndexerIntegration(t *testing.T) {
 
 			t.Run("Multiple indices", func(t *testing.T) {
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
-					CompressRequestBody: tt.CompressRequestBodyEnabled,
-					Logger:              &elastictransport.ColorLogger{Output: os.Stdout},
+					CompressRequestBody:      tt.CompressRequestBodyEnabled,
+					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
 				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
@@ -192,8 +201,9 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				var index string = "test-index-a"
 
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
-					CompressRequestBody: tt.CompressRequestBodyEnabled,
-					Logger:              &elastictransport.ColorLogger{Output: os.Stdout},
+					CompressRequestBody:      tt.CompressRequestBodyEnabled,
+					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
 				es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))
