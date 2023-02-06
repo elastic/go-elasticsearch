@@ -331,19 +331,7 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 		bi.wg.Wait()
 	}
 
-	for _, w := range bi.workers {
-		w.mu.Lock()
-		if w.buf.Len() > 0 {
-			if err := w.flush(ctx); err != nil {
-				w.mu.Unlock()
-				if bi.config.OnError != nil {
-					bi.config.OnError(ctx, err)
-				}
-				continue
-			}
-		}
-		w.mu.Unlock()
-	}
+	bi.flush(ctx)
 	return nil
 }
 
@@ -388,22 +376,33 @@ func (bi *bulkIndexer) init() {
 				if bi.config.DebugLogger != nil {
 					bi.config.DebugLogger.Printf("[indexer] Auto-flushing workers after %s\n", bi.config.FlushInterval)
 				}
-				for _, w := range bi.workers {
-					w.mu.Lock()
-					if w.buf.Len() > 0 {
-						if err := w.flush(ctx); err != nil {
-							w.mu.Unlock()
-							if bi.config.OnError != nil {
-								bi.config.OnError(ctx, err)
-							}
-							continue
-						}
-					}
-					w.mu.Unlock()
-				}
+				bi.flush(ctx)
 			}
 		}
 	}()
+}
+
+func (bi *bulkIndexer) flush(ctx context.Context) {
+	var wg sync.WaitGroup
+	wg.Add(len(bi.workers))
+	for _, w := range bi.workers {
+		w := w
+		go func() {
+			defer wg.Done()
+			w.mu.Lock()
+			if w.buf.Len() > 0 {
+				if err := w.flush(ctx); err != nil {
+					w.mu.Unlock()
+					if bi.config.OnError != nil {
+						bi.config.OnError(ctx, err)
+					}
+					return
+				}
+			}
+			w.mu.Unlock()
+		}()
+	}
+	wg.Wait()
 }
 
 // worker represents an indexer worker.
