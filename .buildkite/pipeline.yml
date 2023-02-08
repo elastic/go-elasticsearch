@@ -1,0 +1,3 @@
+steps:
+  - label: ":elasticsearch: :golang: Elasticsearch Go Test Suite"
+    command: "echo 'My first pipeline!'"
