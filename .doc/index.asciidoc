@@ -2,6 +2,8 @@
 
 :doctype:           book
 
+include::{docs-root}/shared/versions/stack/{source_branch}.asciidoc[]
+
 include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 
 include::overview.asciidoc[]
