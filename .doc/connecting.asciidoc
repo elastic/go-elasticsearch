@@ -219,8 +219,8 @@ You can also include the username and password in the endpoint URL:
 
 HTTP Bearer authentication uses the `ServiceToken` parameter by passing the token
 as a string. This authentication method is used by
-https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-create-service-token.html[Service Account Tokens]
-and https://www.elastic.co/guide/en/elasticsearch/reference/master/security-api-get-token.html[Bearer Tokens].
+https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/security-api-create-service-token.html[Service Account Tokens]
+and https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/security-api-get-token.html[Bearer Tokens].
 
 [source,go]
 ------------------------------------
