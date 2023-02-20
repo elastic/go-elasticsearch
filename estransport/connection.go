@@ -139,15 +139,16 @@ func (cp *statusConnectionPool) Next() (*Connection, error) {
 //
 func (cp *statusConnectionPool) OnSuccess(c *Connection) error {
 	c.Lock()
-	defer c.Unlock()
 
 	// Short-circuit for live connection
 	if !c.IsDead {
+		c.Unlock()
 		return nil
 	}
 
 	c.markAsHealthy()
-
+        c.Unlock()
+	
 	cp.Lock()
 	defer cp.Unlock()
 	return cp.resurrect(c, true)
@@ -240,6 +241,31 @@ func (cp *statusConnectionPool) resurrect(c *Connection, removeDead bool) error 
 	}
 
 	c.markAsLive()
+	cp.live = append(cp.live, c)
+
+	if removeDead {
+		index := -1
+		for i, conn := range cp.dead {
+			if conn == c {
+				index = i
+			}
+		}
+		if index >= 0 {
+			// Remove item; https://github.com/golang/go/wiki/SliceTricks
+			copy(cp.dead[index:], cp.dead[index+1:])
+			cp.dead = cp.dead[:len(cp.dead)-1]
+		}
+	}
+
+	return nil
+}
+
+func (cp *statusConnectionPool) resurrect2(c *Connection, removeDead bool) error {
+	if debugLogger != nil {
+		debugLogger.Logf("Resurrecting %s\n", c.URL)
+	}
+
+	//c.markAsLive()
 	cp.live = append(cp.live, c)
 
 	if removeDead {
