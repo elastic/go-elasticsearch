@@ -152,6 +152,11 @@ func (cp *statusConnectionPool) OnSuccess(c *Connection) error {
 	cp.Lock()
 	defer cp.Unlock()
 	c.Lock()
+	// check again
+	if !c.IsDead {
+		c.Unlock()
+		return nil
+	}
 	defer c.Unlock()
 	return cp.resurrect(c, true)
 }
