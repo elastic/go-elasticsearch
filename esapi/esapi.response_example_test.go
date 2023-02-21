@@ -35,7 +35,7 @@ func ExampleResponse_IsError() {
 	}
 	defer res.Body.Close()
 
-	// Handle error response (4xx, 5xx)
+	// Handle error response (3xx, 4xx, 5xx)
 	//
 	if res.IsError() {
 		log.Fatalf("ERROR: %s", res.Status())
