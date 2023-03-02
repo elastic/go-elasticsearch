@@ -99,7 +99,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		cfg := BulkIndexerConfig{
 			NumWorkers:    1,
-			FlushBytes:    39 * 2,    // 38 bytes header + body, times 2 to match 2 responses per file in testdata
+			FlushBytes:    50,
 			FlushInterval: time.Hour, // Disable auto-flushing, because response doesn't match number of items
 			Client:        es}
 		if os.Getenv("DEBUG") != "" {
@@ -576,7 +576,7 @@ func TestBulkIndexer(t *testing.T) {
 		}
 		es, _ := elasticsearch.NewClient(esCfg)
 
-		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 28*2, Client: es}
+		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 50, Client: es}
 		if os.Getenv("DEBUG") != "" {
 			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
@@ -619,7 +619,7 @@ func TestBulkIndexer(t *testing.T) {
 
 		// Stats don't include the retries in client
 		if stats.NumRequests != 1 {
-			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 1, stats.NumRequests)
+			t.Errorf("Unexpected NumRequests: want=%d, got=%d", 3, stats.NumRequests)
 		}
 	})
 
@@ -743,8 +743,7 @@ func TestBulkIndexer(t *testing.T) {
 					buf: bytes.NewBuffer(make([]byte, 0, 5e+6)),
 					aux: make([]byte, 0, 512),
 				}
-				tt.args.item.marshallMeta()
-				if err := w.writeMeta(&tt.args.item); err != nil {
+				if err := w.writeMeta(tt.args.item); err != nil {
 					t.Errorf("Unexpected error: %v", err)
 				}
 
@@ -909,79 +908,6 @@ func TestBulkIndexer(t *testing.T) {
 			log.Fatal(err)
 		}
 		bi.Close(context.Background())
-	})
-
-	t.Run("Oversized Payload", func(t *testing.T) {
-		esConfig := elasticsearch.Config{
-			Transport: &mockTransport{
-				RoundTripFunc: func(request *http.Request) (*http.Response, error) {
-					return &http.Response{
-						StatusCode: http.StatusOK,
-						Status:     "200 OK",
-						Body:       io.NopCloser(bytes.NewBuffer(nil)),
-					}, nil
-				},
-			},
-		}
-
-		client, err := elasticsearch.NewClient(esConfig)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		logbuf := bytes.Buffer{}
-		cfg := BulkIndexerConfig{
-			NumWorkers:  1,
-			Client:      client,
-			Header:      http.Header{"X-Test": []string{"TestValue"}},
-			FlushBytes:  1,
-			DebugLogger: log.New(&logbuf, "", 0),
-		}
-		bi, err := NewBulkIndexer(cfg)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		bi.Add(context.Background(), BulkIndexerItem{
-			Action:     "index",
-			DocumentID: strconv.Itoa(1),
-			Body:       strings.NewReader(`{"title":"foo"}`),
-		})
-		bi.Close(context.Background())
-
-		if !bytes.Contains(logbuf.Bytes(), []byte("[worker-001] Oversize Payload in item [index:1]")) {
-			t.Fatalf("Expected detection of oversize payload, got: \n%s", logbuf.String())
-		}
-	})
-}
-
-func TestBulkIndexerItem(t *testing.T) {
-	body := `{"body":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}`
-	t.Run("correct computeLength size", func(t *testing.T) {
-		expectedLength := 266
-		bi := BulkIndexerItem{
-			Action:     "index",
-			DocumentID: strconv.Itoa(1),
-			Body:       strings.NewReader(body),
-		}
-		bi.marshallMeta()
-		bi.computeLength()
-		if bi.payloadLength != expectedLength {
-			t.Fatalf("invalid length, expected %d, got %d", expectedLength, bi.payloadLength)
-		}
-	})
-	t.Run("empty reader length should be meta length plus newlines", func(t *testing.T) {
-		expectedLength := 23
-		bi := BulkIndexerItem{
-			Action:     "index",
-			DocumentID: strconv.Itoa(1),
-			Body:       strings.NewReader(""),
-		}
-		bi.marshallMeta()
-		bi.computeLength()
-		if bi.payloadLength != expectedLength {
-			t.Fatalf("invalid length, expected %d, got %d", expectedLength, bi.payloadLength)
-		}
 	})
 }
 

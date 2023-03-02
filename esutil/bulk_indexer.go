@@ -37,6 +37,7 @@ import (
 )
 
 // BulkIndexer represents a parallel, asynchronous, efficient indexer for Elasticsearch.
+//
 type BulkIndexer interface {
 	// Add adds an item to the indexer. It returns an error when the item cannot be added.
 	// Use the OnSuccess and OnFailure callbacks to get the operation result for the item.
@@ -55,6 +56,7 @@ type BulkIndexer interface {
 }
 
 // BulkIndexerConfig represents configuration of the indexer.
+//
 type BulkIndexerConfig struct {
 	NumWorkers    int           // The number of workers. Defaults to runtime.NumCPU().
 	FlushBytes    int           // The flush threshold in bytes. Defaults to 5MB.
@@ -86,6 +88,7 @@ type BulkIndexerConfig struct {
 }
 
 // BulkIndexerStats represents the indexer statistics.
+//
 type BulkIndexerStats struct {
 	NumAdded    uint64
 	NumFlushed  uint64
@@ -98,6 +101,7 @@ type BulkIndexerStats struct {
 }
 
 // BulkIndexerItem represents an indexer item.
+//
 type BulkIndexerItem struct {
 	Index           string
 	Action          string
@@ -107,93 +111,13 @@ type BulkIndexerItem struct {
 	VersionType     string
 	Body            io.Reader
 	RetryOnConflict *int
-	meta            bytes.Buffer // Item metadata header
-	payloadLength   int          // Item payload total length metadata+newline+body length
 
 	OnSuccess func(context.Context, BulkIndexerItem, BulkIndexerResponseItem)        // Per item
 	OnFailure func(context.Context, BulkIndexerItem, BulkIndexerResponseItem, error) // Per item
 }
 
-// marshallMeta format as JSON the item metadata.
-func (item *BulkIndexerItem) marshallMeta() {
-	// Pre-allocate a buffer large enough for most use cases.
-	// 'aux = aux[:0]' resets the length without changing the capacity.
-	aux := make([]byte, 0, 256)
-
-	item.meta.WriteRune('{')
-	item.meta.Write(strconv.AppendQuote(aux, item.Action))
-	aux = aux[:0]
-	item.meta.WriteRune(':')
-	item.meta.WriteRune('{')
-	if item.DocumentID != "" {
-		item.meta.WriteString(`"_id":`)
-		item.meta.Write(strconv.AppendQuote(aux, item.DocumentID))
-		aux = aux[:0]
-	}
-
-	if item.DocumentID != "" && item.Version != nil {
-		item.meta.WriteRune(',')
-		item.meta.WriteString(`"version":`)
-		item.meta.WriteString(strconv.FormatInt(*item.Version, 10))
-	}
-
-	if item.DocumentID != "" && item.VersionType != "" {
-		item.meta.WriteRune(',')
-		item.meta.WriteString(`"version_type":`)
-		item.meta.Write(strconv.AppendQuote(aux, item.VersionType))
-		aux = aux[:0]
-	}
-
-	if item.Routing != "" {
-		if item.DocumentID != "" {
-			item.meta.WriteRune(',')
-		}
-		item.meta.WriteString(`"routing":`)
-		item.meta.Write(strconv.AppendQuote(aux, item.Routing))
-		aux = aux[:0]
-	}
-	if item.Index != "" {
-		if item.DocumentID != "" || item.Routing != "" {
-			item.meta.WriteRune(',')
-		}
-		item.meta.WriteString(`"_index":`)
-		item.meta.Write(strconv.AppendQuote(aux, item.Index))
-		aux = aux[:0]
-	}
-	if item.RetryOnConflict != nil && item.Action == "update" {
-		if item.DocumentID != "" || item.Routing != "" || item.Index != "" {
-			item.meta.WriteString(",")
-		}
-		item.meta.WriteString(`"retry_on_conflict":`)
-		item.meta.Write(strconv.AppendInt(aux, int64(*item.RetryOnConflict), 10))
-		aux = aux[:0]
-	}
-	item.meta.WriteRune('}')
-	item.meta.WriteRune('}')
-	item.meta.WriteRune('\n')
-}
-
-// computeLength calculate the size of the body and the metadata.
-func (item *BulkIndexerItem) computeLength() error {
-	if item.Body != nil {
-		n, err := item.Body.Seek(0, io.SeekEnd)
-		if err != nil {
-			return err
-		}
-		item.payloadLength += int(n)
-		_, err = item.Body.Seek(0, io.SeekStart)
-		if err != nil {
-			return err
-		}
-	}
-	item.payloadLength += len(item.meta.Bytes())
-	// Add one byte to account for newline at the end of payload.
-	item.payloadLength++
-
-	return nil
-}
-
 // BulkIndexerResponse represents the Elasticsearch response.
+//
 type BulkIndexerResponse struct {
 	Took      int                                  `json:"took"`
 	HasErrors bool                                 `json:"errors"`
@@ -201,6 +125,7 @@ type BulkIndexerResponse struct {
 }
 
 // BulkIndexerResponseItem represents the Elasticsearch response item.
+//
 type BulkIndexerResponseItem struct {
 	Index      string `json:"_index"`
 	DocumentID string `json:"_id"`
@@ -227,11 +152,13 @@ type BulkIndexerResponseItem struct {
 }
 
 // BulkResponseJSONDecoder defines the interface for custom JSON decoders.
+//
 type BulkResponseJSONDecoder interface {
 	UnmarshalFromReader(io.Reader, *BulkIndexerResponse) error
 }
 
 // BulkIndexerDebugLogger defines the interface for a debugging logger.
+//
 type BulkIndexerDebugLogger interface {
 	Printf(string, ...interface{})
 }
@@ -259,6 +186,7 @@ type bulkIndexerStats struct {
 }
 
 // NewBulkIndexer creates a new bulk indexer.
+//
 func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	if cfg.Client == nil {
 		cfg.Client, _ = elasticsearch.NewDefaultClient()
@@ -294,15 +222,9 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 // Add adds an item to the indexer.
 //
 // Adding an item after a call to Close() will panic.
+//
 func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 	atomic.AddUint64(&bi.stats.numAdded, 1)
-
-	// Serialize metadata to JSON
-	item.marshallMeta()
-	// Compute length for body & metadata
-	if err := item.computeLength(); err != nil {
-		return err
-	}
 
 	select {
 	case <-ctx.Done():
@@ -318,6 +240,7 @@ func (bi *bulkIndexer) Add(ctx context.Context, item BulkIndexerItem) error {
 
 // Close stops the periodic flush, closes the indexer queue channel,
 // notifies the done channel and calls flush on all writers.
+//
 func (bi *bulkIndexer) Close(ctx context.Context) error {
 	bi.ticker.Stop()
 	close(bi.queue)
@@ -350,6 +273,7 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 }
 
 // Stats returns indexer statistics.
+//
 func (bi *bulkIndexer) Stats() BulkIndexerStats {
 	return BulkIndexerStats{
 		NumAdded:    atomic.LoadUint64(&bi.stats.numAdded),
@@ -364,6 +288,7 @@ func (bi *bulkIndexer) Stats() BulkIndexerStats {
 }
 
 // init initializes the bulk indexer.
+//
 func (bi *bulkIndexer) init() {
 	bi.queue = make(chan BulkIndexerItem, bi.config.NumWorkers)
 
@@ -409,6 +334,7 @@ func (bi *bulkIndexer) init() {
 }
 
 // worker represents an indexer worker.
+//
 type worker struct {
 	id    int
 	ch    <-chan BulkIndexerItem
@@ -420,6 +346,7 @@ type worker struct {
 }
 
 // run launches the worker in a goroutine.
+//
 func (w *worker) run() {
 	go func() {
 		ctx := context.Background()
@@ -436,18 +363,7 @@ func (w *worker) run() {
 				w.bi.config.DebugLogger.Printf("[worker-%03d] Received item [%s:%s]\n", w.id, item.Action, item.DocumentID)
 			}
 
-			oversizePayload := w.bi.config.FlushBytes <= item.payloadLength
-			if !oversizePayload && w.buf.Len() > 0 && w.buf.Len()+item.payloadLength >= w.bi.config.FlushBytes {
-				if err := w.flush(ctx); err != nil {
-					w.mu.Unlock()
-					if w.bi.config.OnError != nil {
-						w.bi.config.OnError(ctx, err)
-					}
-					continue
-				}
-			}
-
-			if err := w.writeMeta(&item); err != nil {
+			if err := w.writeMeta(item); err != nil {
 				if item.OnFailure != nil {
 					item.OnFailure(ctx, item, BulkIndexerResponseItem{}, err)
 				}
@@ -466,11 +382,7 @@ func (w *worker) run() {
 			}
 
 			w.items = append(w.items, item)
-			// Should the item payload exceed the configured FlushBytes flush happens instantly.
-			if oversizePayload {
-				if w.bi.config.DebugLogger != nil {
-					w.bi.config.DebugLogger.Printf("[worker-%03d] Oversize Payload in item [%s:%s]\n", w.id, item.Action, item.DocumentID)
-				}
+			if w.buf.Len() >= w.bi.config.FlushBytes {
 				if err := w.flush(ctx); err != nil {
 					w.mu.Unlock()
 					if w.bi.config.OnError != nil {
@@ -484,15 +396,71 @@ func (w *worker) run() {
 	}()
 }
 
-// writeMeta writes the item metadata to the buffer; it must be called under a lock.
-func (w *worker) writeMeta(item *BulkIndexerItem) error {
-	if _, err := w.buf.Write(item.meta.Bytes()); err != nil {
-		return err
+// writeMeta formats and writes the item metadata to the buffer; it must be called under a lock.
+//
+func (w *worker) writeMeta(item BulkIndexerItem) error {
+	w.buf.WriteRune('{')
+	w.aux = strconv.AppendQuote(w.aux, item.Action)
+	w.buf.Write(w.aux)
+	w.aux = w.aux[:0]
+	w.buf.WriteRune(':')
+	w.buf.WriteRune('{')
+	if item.DocumentID != "" {
+		w.buf.WriteString(`"_id":`)
+		w.aux = strconv.AppendQuote(w.aux, item.DocumentID)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
 	}
+
+	if item.DocumentID != "" && item.Version != nil {
+		w.buf.WriteRune(',')
+		w.buf.WriteString(`"version":`)
+		w.buf.WriteString(strconv.FormatInt(*item.Version, 10))
+	}
+
+	if item.DocumentID != "" && item.VersionType != "" {
+		w.buf.WriteRune(',')
+		w.buf.WriteString(`"version_type":`)
+		w.aux = strconv.AppendQuote(w.aux, item.VersionType)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
+
+	if item.Routing != "" {
+		if item.DocumentID != "" {
+			w.buf.WriteRune(',')
+		}
+		w.buf.WriteString(`"routing":`)
+		w.aux = strconv.AppendQuote(w.aux, item.Routing)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
+	if item.Index != "" {
+		if item.DocumentID != "" || item.Routing != "" {
+			w.buf.WriteRune(',')
+		}
+		w.buf.WriteString(`"_index":`)
+		w.aux = strconv.AppendQuote(w.aux, item.Index)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
+	if item.RetryOnConflict != nil && item.Action == "update" {
+		if item.DocumentID != "" || item.Routing != "" || item.Index != "" {
+			w.buf.WriteString(",")
+		}
+		w.buf.WriteString(`"retry_on_conflict":`)
+		w.aux = strconv.AppendInt(w.aux, int64(*item.RetryOnConflict), 10)
+		w.buf.Write(w.aux)
+		w.aux = w.aux[:0]
+	}
+	w.buf.WriteRune('}')
+	w.buf.WriteRune('}')
+	w.buf.WriteRune('\n')
 	return nil
 }
 
 // writeBody writes the item body to the buffer; it must be called under a lock.
+//
 func (w *worker) writeBody(item *BulkIndexerItem) error {
 	if item.Body != nil {
 
@@ -524,6 +492,7 @@ func (w *worker) writeBody(item *BulkIndexerItem) error {
 }
 
 // flush writes out the worker buffer; it must be called under a lock.
+//
 func (w *worker) flush(ctx context.Context) error {
 	if w.bi.config.OnFlushStart != nil {
 		ctx = w.bi.config.OnFlushStart(ctx)
@@ -546,12 +515,8 @@ func (w *worker) flush(ctx context.Context) error {
 	)
 
 	defer func() {
-		w.items = nil
-		if w.buf.Cap() > w.bi.config.FlushBytes {
-			w.buf = bytes.NewBuffer(make([]byte, 0, w.bi.config.FlushBytes))
-		} else {
-			w.buf.Reset()
-		}
+		w.items = w.items[:0]
+		w.buf.Reset()
 	}()
 
 	if w.bi.config.DebugLogger != nil {
