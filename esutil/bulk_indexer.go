@@ -574,7 +574,7 @@ func (w *worker) flush(ctx context.Context) error {
 			w.bi.config.OnError(ctx, fmt.Errorf("flush: %s", err))
 		}
 		w.notifyItemsOnError(ctx, err)
-		return fmt.Errorf("flush: %s", fmt.Errorf("flush: %s", err))
+		return fmt.Errorf("flush: %s", err)
 	}
 	if res.Body != nil {
 		defer res.Body.Close()
