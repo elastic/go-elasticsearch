@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // WatchStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/watcher/_types/Watch.ts#L49-L56
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/_types/Watch.ts#L49-L56
 type WatchStatus struct {
 	Actions          WatcherStatusActions `json:"actions"`
 	ExecutionState   *string              `json:"execution_state,omitempty"`
-	LastChecked      *DateTime            `json:"last_checked,omitempty"`
-	LastMetCondition *DateTime            `json:"last_met_condition,omitempty"`
+	LastChecked      DateTime             `json:"last_checked,omitempty"`
+	LastMetCondition DateTime             `json:"last_met_condition,omitempty"`
 	State            ActivationState      `json:"state"`
 	Version          int64                `json:"version"`
 }

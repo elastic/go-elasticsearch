@@ -15,31 +15,119 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/termsaggregationcollectmode"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // MultiTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/bucket.ts#L265-L274
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/bucket.ts#L265-L274
 type MultiTermsAggregation struct {
 	CollectMode           *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
-	Meta                  map[string]interface{}                                   `json:"meta,omitempty"`
+	Meta                  map[string]json.RawMessage                               `json:"meta,omitempty"`
 	MinDocCount           *int64                                                   `json:"min_doc_count,omitempty"`
 	Name                  *string                                                  `json:"name,omitempty"`
-	Order                 *AggregateOrder                                          `json:"order,omitempty"`
+	Order                 AggregateOrder                                           `json:"order,omitempty"`
 	ShardMinDocCount      *int64                                                   `json:"shard_min_doc_count,omitempty"`
 	ShardSize             *int                                                     `json:"shard_size,omitempty"`
 	ShowTermDocCountError *bool                                                    `json:"show_term_doc_count_error,omitempty"`
 	Size                  *int                                                     `json:"size,omitempty"`
 	Terms                 []MultiTermLookup                                        `json:"terms"`
+}
+
+func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "collect_mode":
+			if err := dec.Decode(&s.CollectMode); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "min_doc_count":
+			if err := dec.Decode(&s.MinDocCount); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "order":
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+
+			case '{':
+				o := make(map[string]sortorder.SortOrder, 0)
+				localDec.Decode(o)
+				s.Order = o
+
+			case '[':
+				o := make([]map[string]sortorder.SortOrder, 0)
+				localDec.Decode(&o)
+				s.Order = o
+			}
+
+		case "shard_min_doc_count":
+			if err := dec.Decode(&s.ShardMinDocCount); err != nil {
+				return err
+			}
+
+		case "shard_size":
+			if err := dec.Decode(&s.ShardSize); err != nil {
+				return err
+			}
+
+		case "show_term_doc_count_error":
+			if err := dec.Decode(&s.ShowTermDocCountError); err != nil {
+				return err
+			}
+
+		case "size":
+			if err := dec.Decode(&s.Size); err != nil {
+				return err
+			}
+
+		case "terms":
+			if err := dec.Decode(&s.Terms); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewMultiTermsAggregation returns a MultiTermsAggregation.

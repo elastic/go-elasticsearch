@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Returns information about whether a document source exists in an index.
 package existssource
@@ -26,6 +24,7 @@ package existssource
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
@@ -146,8 +146,8 @@ func (r *ExistsSource) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r ExistsSource) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r ExistsSource) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -161,10 +161,40 @@ func (r ExistsSource) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a existssource.Response
+func (r ExistsSource) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r ExistsSource) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -210,8 +240,8 @@ func (r *ExistsSource) Index(v string) *ExistsSource {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *ExistsSource) Preference(value string) *ExistsSource {
-	r.values.Set("preference", value)
+func (r *ExistsSource) Preference(v string) *ExistsSource {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -234,8 +264,8 @@ func (r *ExistsSource) Refresh(b bool) *ExistsSource {
 
 // Routing Specific routing value
 // API name: routing
-func (r *ExistsSource) Routing(value string) *ExistsSource {
-	r.values.Set("routing", value)
+func (r *ExistsSource) Routing(v string) *ExistsSource {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -243,32 +273,32 @@ func (r *ExistsSource) Routing(value string) *ExistsSource {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return
 // API name: _source
-func (r *ExistsSource) Source_(value string) *ExistsSource {
-	r.values.Set("_source", value)
+func (r *ExistsSource) Source_(v string) *ExistsSource {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // SourceExcludes_ A list of fields to exclude from the returned _source field
 // API name: _source_excludes
-func (r *ExistsSource) SourceExcludes_(value string) *ExistsSource {
-	r.values.Set("_source_excludes", value)
+func (r *ExistsSource) SourceExcludes_(v string) *ExistsSource {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // SourceIncludes_ A list of fields to extract and return from the _source field
 // API name: _source_includes
-func (r *ExistsSource) SourceIncludes_(value string) *ExistsSource {
-	r.values.Set("_source_includes", value)
+func (r *ExistsSource) SourceIncludes_(v string) *ExistsSource {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *ExistsSource) Version(value string) *ExistsSource {
-	r.values.Set("version", value)
+func (r *ExistsSource) Version(v string) *ExistsSource {
+	r.values.Set("version", v)
 
 	return r
 }

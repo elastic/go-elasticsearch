@@ -15,20 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
 )
 
 // FieldCapability type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/field_caps/types.ts#L23-L81
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/field_caps/types.ts#L23-L81
 type FieldCapability struct {
 	// Aggregatable Whether this field can be aggregated on all indices.
 	Aggregatable bool `json:"aggregatable"`
@@ -39,7 +39,7 @@ type FieldCapability struct {
 	// values. A value length of 1 indicates that all indices had the same value for
 	// this key, while a length of 2 or more indicates that not all indices had the
 	// same value for this key.
-	Meta map[string]interface{} `json:"meta,omitempty"`
+	Meta map[string]json.RawMessage `json:"meta,omitempty"`
 	// MetadataField Whether this field is registered as a metadata field.
 	MetadataField *bool `json:"metadata_field,omitempty"`
 	// MetricConflictsIndices The list of indices where this field is present if these indices

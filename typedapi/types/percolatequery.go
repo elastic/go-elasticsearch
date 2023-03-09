@@ -15,28 +15,30 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // PercolateQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/specialized.ts#L110-L120
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/specialized.ts#L110-L120
 type PercolateQuery struct {
-	Boost      *float32      `json:"boost,omitempty"`
-	Document   interface{}   `json:"document,omitempty"`
-	Documents  []interface{} `json:"documents,omitempty"`
-	Field      string        `json:"field"`
-	Id         *string       `json:"id,omitempty"`
-	Index      *string       `json:"index,omitempty"`
-	Name       *string       `json:"name,omitempty"`
-	Preference *string       `json:"preference,omitempty"`
-	QueryName_ *string       `json:"_name,omitempty"`
-	Routing    *string       `json:"routing,omitempty"`
-	Version    *int64        `json:"version,omitempty"`
+	Boost      *float32          `json:"boost,omitempty"`
+	Document   json.RawMessage   `json:"document,omitempty"`
+	Documents  []json.RawMessage `json:"documents,omitempty"`
+	Field      string            `json:"field"`
+	Id         *string           `json:"id,omitempty"`
+	Index      *string           `json:"index,omitempty"`
+	Name       *string           `json:"name,omitempty"`
+	Preference *string           `json:"preference,omitempty"`
+	QueryName_ *string           `json:"_name,omitempty"`
+	Routing    *string           `json:"routing,omitempty"`
+	Version    *int64            `json:"version,omitempty"`
 }
 
 // NewPercolateQuery returns a PercolateQuery.

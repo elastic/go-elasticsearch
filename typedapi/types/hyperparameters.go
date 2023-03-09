@@ -15,31 +15,29 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // Hyperparameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/DataframeAnalytics.ts#L395-L410
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeAnalytics.ts#L395-L410
 type Hyperparameters struct {
-	Alpha                                  *float64 `json:"alpha,omitempty"`
-	DownsampleFactor                       *float64 `json:"downsample_factor,omitempty"`
-	Eta                                    *float64 `json:"eta,omitempty"`
-	EtaGrowthRatePerTree                   *float64 `json:"eta_growth_rate_per_tree,omitempty"`
-	FeatureBagFraction                     *float64 `json:"feature_bag_fraction,omitempty"`
-	Gamma                                  *float64 `json:"gamma,omitempty"`
-	Lambda                                 *float64 `json:"lambda,omitempty"`
+	Alpha                                  *Float64 `json:"alpha,omitempty"`
+	DownsampleFactor                       *Float64 `json:"downsample_factor,omitempty"`
+	Eta                                    *Float64 `json:"eta,omitempty"`
+	EtaGrowthRatePerTree                   *Float64 `json:"eta_growth_rate_per_tree,omitempty"`
+	FeatureBagFraction                     *Float64 `json:"feature_bag_fraction,omitempty"`
+	Gamma                                  *Float64 `json:"gamma,omitempty"`
+	Lambda                                 *Float64 `json:"lambda,omitempty"`
 	MaxAttemptsToAddTree                   *int     `json:"max_attempts_to_add_tree,omitempty"`
 	MaxOptimizationRoundsPerHyperparameter *int     `json:"max_optimization_rounds_per_hyperparameter,omitempty"`
 	MaxTrees                               *int     `json:"max_trees,omitempty"`
 	NumFolds                               *int     `json:"num_folds,omitempty"`
 	NumSplitsPerFeature                    *int     `json:"num_splits_per_feature,omitempty"`
 	SoftTreeDepthLimit                     *int     `json:"soft_tree_depth_limit,omitempty"`
-	SoftTreeDepthTolerance                 *float64 `json:"soft_tree_depth_tolerance,omitempty"`
+	SoftTreeDepthTolerance                 *Float64 `json:"soft_tree_depth_tolerance,omitempty"`
 }
 
 // NewHyperparameters returns a Hyperparameters.

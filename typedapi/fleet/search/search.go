@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Search API where the search will only be executed after specified checkpoints
 // are available due to a refresh. This API is designed for internal use by the
@@ -31,12 +29,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
@@ -60,7 +60,7 @@ type Search struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -85,6 +85,8 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // Search API where the search will only be executed after specified checkpoints
 // are available due to a refresh. This API is designed for internal use by the
 // fleet server project.
+//
+//
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -98,7 +100,7 @@ func New(tp elastictransport.Interface) *Search {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Search) Raw(raw json.RawMessage) *Search {
+func (r *Search) Raw(raw io.Reader) *Search {
 	r.raw = raw
 
 	return r
@@ -121,7 +123,7 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -179,8 +181,8 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Search) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Search) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -192,6 +194,38 @@ func (r Search) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a search.Response
+func (r Search) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	r.TypedKeys(true)
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Search headers map.
@@ -219,8 +253,8 @@ func (r *Search) AllowNoIndices(b bool) *Search {
 }
 
 // API name: analyzer
-func (r *Search) Analyzer(value string) *Search {
-	r.values.Set("analyzer", value)
+func (r *Search) Analyzer(v string) *Search {
+	r.values.Set("analyzer", v)
 
 	return r
 }
@@ -233,8 +267,8 @@ func (r *Search) AnalyzeWildcard(b bool) *Search {
 }
 
 // API name: batched_reduce_size
-func (r *Search) BatchedReduceSize(value string) *Search {
-	r.values.Set("batched_reduce_size", value)
+func (r *Search) BatchedReduceSize(v string) *Search {
+	r.values.Set("batched_reduce_size", v)
 
 	return r
 }
@@ -254,22 +288,22 @@ func (r *Search) DefaultOperator(enum operator.Operator) *Search {
 }
 
 // API name: df
-func (r *Search) Df(value string) *Search {
-	r.values.Set("df", value)
+func (r *Search) Df(v string) *Search {
+	r.values.Set("df", v)
 
 	return r
 }
 
 // API name: docvalue_fields
-func (r *Search) DocvalueFields(value string) *Search {
-	r.values.Set("docvalue_fields", value)
+func (r *Search) DocvalueFields(v string) *Search {
+	r.values.Set("docvalue_fields", v)
 
 	return r
 }
 
 // API name: expand_wildcards
-func (r *Search) ExpandWildcards(value string) *Search {
-	r.values.Set("expand_wildcards", value)
+func (r *Search) ExpandWildcards(v string) *Search {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -303,29 +337,29 @@ func (r *Search) Lenient(b bool) *Search {
 }
 
 // API name: max_concurrent_shard_requests
-func (r *Search) MaxConcurrentShardRequests(value string) *Search {
-	r.values.Set("max_concurrent_shard_requests", value)
+func (r *Search) MaxConcurrentShardRequests(v string) *Search {
+	r.values.Set("max_concurrent_shard_requests", v)
 
 	return r
 }
 
 // API name: min_compatible_shard_node
-func (r *Search) MinCompatibleShardNode(value string) *Search {
-	r.values.Set("min_compatible_shard_node", value)
+func (r *Search) MinCompatibleShardNode(v string) *Search {
+	r.values.Set("min_compatible_shard_node", v)
 
 	return r
 }
 
 // API name: preference
-func (r *Search) Preference(value string) *Search {
-	r.values.Set("preference", value)
+func (r *Search) Preference(v string) *Search {
+	r.values.Set("preference", v)
 
 	return r
 }
 
 // API name: pre_filter_shard_size
-func (r *Search) PreFilterShardSize(value string) *Search {
-	r.values.Set("pre_filter_shard_size", value)
+func (r *Search) PreFilterShardSize(v string) *Search {
+	r.values.Set("pre_filter_shard_size", v)
 
 	return r
 }
@@ -338,15 +372,15 @@ func (r *Search) RequestCache(b bool) *Search {
 }
 
 // API name: routing
-func (r *Search) Routing(value string) *Search {
-	r.values.Set("routing", value)
+func (r *Search) Routing(v string) *Search {
+	r.values.Set("routing", v)
 
 	return r
 }
 
 // API name: scroll
-func (r *Search) Scroll(value string) *Search {
-	r.values.Set("scroll", value)
+func (r *Search) Scroll(v string) *Search {
+	r.values.Set("scroll", v)
 
 	return r
 }
@@ -359,23 +393,23 @@ func (r *Search) SearchType(enum searchtype.SearchType) *Search {
 }
 
 // API name: stats
-func (r *Search) Stats(value string) *Search {
-	r.values.Set("stats", value)
+func (r *Search) Stats(v string) *Search {
+	r.values.Set("stats", v)
 
 	return r
 }
 
 // API name: stored_fields
-func (r *Search) StoredFields(value string) *Search {
-	r.values.Set("stored_fields", value)
+func (r *Search) StoredFields(v string) *Search {
+	r.values.Set("stored_fields", v)
 
 	return r
 }
 
 // SuggestField Specifies which field to use for suggestions.
 // API name: suggest_field
-func (r *Search) SuggestField(value string) *Search {
-	r.values.Set("suggest_field", value)
+func (r *Search) SuggestField(v string) *Search {
+	r.values.Set("suggest_field", v)
 
 	return r
 }
@@ -388,37 +422,37 @@ func (r *Search) SuggestMode(enum suggestmode.SuggestMode) *Search {
 }
 
 // API name: suggest_size
-func (r *Search) SuggestSize(value string) *Search {
-	r.values.Set("suggest_size", value)
+func (r *Search) SuggestSize(v string) *Search {
+	r.values.Set("suggest_size", v)
 
 	return r
 }
 
 // SuggestText The source text for which the suggestions should be returned.
 // API name: suggest_text
-func (r *Search) SuggestText(value string) *Search {
-	r.values.Set("suggest_text", value)
+func (r *Search) SuggestText(v string) *Search {
+	r.values.Set("suggest_text", v)
 
 	return r
 }
 
 // API name: terminate_after
-func (r *Search) TerminateAfter(value string) *Search {
-	r.values.Set("terminate_after", value)
+func (r *Search) TerminateAfter(v string) *Search {
+	r.values.Set("terminate_after", v)
 
 	return r
 }
 
 // API name: timeout
-func (r *Search) Timeout(value string) *Search {
-	r.values.Set("timeout", value)
+func (r *Search) Timeout(v string) *Search {
+	r.values.Set("timeout", v)
 
 	return r
 }
 
 // API name: track_total_hits
-func (r *Search) TrackTotalHits(value string) *Search {
-	r.values.Set("track_total_hits", value)
+func (r *Search) TrackTotalHits(v string) *Search {
+	r.values.Set("track_total_hits", v)
 
 	return r
 }
@@ -452,22 +486,22 @@ func (r *Search) Version(b bool) *Search {
 }
 
 // API name: _source
-func (r *Search) Source_(value string) *Search {
-	r.values.Set("_source", value)
+func (r *Search) Source_(v string) *Search {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // API name: _source_excludes
-func (r *Search) SourceExcludes_(value string) *Search {
-	r.values.Set("_source_excludes", value)
+func (r *Search) SourceExcludes_(v string) *Search {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // API name: _source_includes
-func (r *Search) SourceIncludes_(value string) *Search {
-	r.values.Set("_source_includes", value)
+func (r *Search) SourceIncludes_(v string) *Search {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
@@ -480,8 +514,8 @@ func (r *Search) SeqNoPrimaryTerm(b bool) *Search {
 }
 
 // API name: q
-func (r *Search) Q(value string) *Search {
-	r.values.Set("q", value)
+func (r *Search) Q(v string) *Search {
+	r.values.Set("q", v)
 
 	return r
 }
@@ -501,8 +535,8 @@ func (r *Search) From(i int) *Search {
 }
 
 // API name: sort
-func (r *Search) Sort(value string) *Search {
-	r.values.Set("sort", value)
+func (r *Search) Sort(v string) *Search {
+	r.values.Set("sort", v)
 
 	return r
 }
@@ -513,8 +547,8 @@ func (r *Search) Sort(value string) *Search {
 // empty list which will cause
 // Elasticsearch to immediately execute the search.
 // API name: wait_for_checkpoints
-func (r *Search) WaitForCheckpoints(value string) *Search {
-	r.values.Set("wait_for_checkpoints", value)
+func (r *Search) WaitForCheckpoints(v string) *Search {
+	r.values.Set("wait_for_checkpoints", v)
 
 	return r
 }

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Starts one or more datafeeds.
 package startdatafeed
@@ -29,11 +27,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -53,7 +53,7 @@ type StartDatafeed struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -91,7 +91,7 @@ func New(tp elastictransport.Interface) *StartDatafeed {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *StartDatafeed) Raw(raw json.RawMessage) *StartDatafeed {
+func (r *StartDatafeed) Raw(raw io.Reader) *StartDatafeed {
 	r.raw = raw
 
 	return r
@@ -114,7 +114,7 @@ func (r *StartDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) 
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -174,8 +174,8 @@ func (r *StartDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) 
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r StartDatafeed) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r StartDatafeed) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -187,6 +187,36 @@ func (r StartDatafeed) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a startdatafeed.Response
+func (r StartDatafeed) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the StartDatafeed headers map.
@@ -226,8 +256,8 @@ func (r *StartDatafeed) DatafeedId(v string) *StartDatafeed {
 // datafeed
 // runs continuously.
 // API name: end
-func (r *StartDatafeed) End(value string) *StartDatafeed {
-	r.values.Set("end", value)
+func (r *StartDatafeed) End(v string) *StartDatafeed {
+	r.values.Set("end", v)
 
 	return r
 }
@@ -243,16 +273,16 @@ func (r *StartDatafeed) End(value string) *StartDatafeed {
 // processed record, the datafeed continues from 1 millisecond after the
 // timestamp of the latest processed record.
 // API name: start
-func (r *StartDatafeed) Start(value string) *StartDatafeed {
-	r.values.Set("start", value)
+func (r *StartDatafeed) Start(v string) *StartDatafeed {
+	r.values.Set("start", v)
 
 	return r
 }
 
 // Timeout Specifies the amount of time to wait until a datafeed starts.
 // API name: timeout
-func (r *StartDatafeed) Timeout(value string) *StartDatafeed {
-	r.values.Set("timeout", value)
+func (r *StartDatafeed) Timeout(v string) *StartDatafeed {
+	r.values.Set("timeout", v)
 
 	return r
 }

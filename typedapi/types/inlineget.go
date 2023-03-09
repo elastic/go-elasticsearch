@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -29,15 +27,15 @@ import (
 
 // InlineGet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/common.ts#L286-L295
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/common.ts#L286-L295
 type InlineGet struct {
-	Fields       map[string]interface{} `json:"fields,omitempty"`
-	Found        bool                   `json:"found"`
-	Metadata     map[string]interface{} `json:"-"`
-	PrimaryTerm_ *int64                 `json:"_primary_term,omitempty"`
-	Routing_     *string                `json:"_routing,omitempty"`
-	SeqNo_       *int64                 `json:"_seq_no,omitempty"`
-	Source_      interface{}            `json:"_source,omitempty"`
+	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
+	Found        bool                       `json:"found"`
+	Metadata     map[string]json.RawMessage `json:"-"`
+	PrimaryTerm_ *int64                     `json:"_primary_term,omitempty"`
+	Routing_     *string                    `json:"_routing,omitempty"`
+	SeqNo_       *int64                     `json:"_seq_no,omitempty"`
+	Source_      json.RawMessage            `json:"_source,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -71,8 +69,8 @@ func (s InlineGet) MarshalJSON() ([]byte, error) {
 // NewInlineGet returns a InlineGet.
 func NewInlineGet() *InlineGet {
 	r := &InlineGet{
-		Fields:   make(map[string]interface{}, 0),
-		Metadata: make(map[string]interface{}, 0),
+		Fields:   make(map[string]json.RawMessage, 0),
+		Metadata: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

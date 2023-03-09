@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Returns information about a snapshot.
 package get
@@ -26,6 +24,7 @@ package get
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/snapshotsort"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
@@ -147,8 +147,8 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Get) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Get) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -162,10 +162,40 @@ func (r Get) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a get.Response
+func (r Get) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Get) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -226,8 +256,8 @@ func (r *Get) IgnoreUnavailable(b bool) *Get {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *Get) MasterTimeout(value string) *Get {
-	r.values.Set("master_timeout", value)
+func (r *Get) MasterTimeout(v string) *Get {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
@@ -299,8 +329,8 @@ func (r *Get) Order(enum sortorder.SortOrder) *Get {
 // After Offset identifier to start pagination from as returned by the next field in
 // the response body.
 // API name: after
-func (r *Get) After(value string) *Get {
-	r.values.Set("after", value)
+func (r *Get) After(v string) *Get {
+	r.values.Set("after", v)
 
 	return r
 }
@@ -320,8 +350,8 @@ func (r *Get) Offset(i int) *Get {
 // name, a millisecond time value or a number when sorting by index- or shard
 // count.
 // API name: from_sort_value
-func (r *Get) FromSortValue(value string) *Get {
-	r.values.Set("from_sort_value", value)
+func (r *Get) FromSortValue(v string) *Get {
+	r.values.Set("from_sort_value", v)
 
 	return r
 }
@@ -332,8 +362,8 @@ func (r *Get) FromSortValue(value string) *Get {
 // SLM policy you can use the special pattern _none that will match all
 // snapshots without an SLM policy.
 // API name: slm_policy_filter
-func (r *Get) SlmPolicyFilter(value string) *Get {
-	r.values.Set("slm_policy_filter", value)
+func (r *Get) SlmPolicyFilter(v string) *Get {
+	r.values.Set("slm_policy_filter", v)
 
 	return r
 }

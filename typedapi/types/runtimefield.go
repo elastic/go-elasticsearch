@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -28,11 +26,19 @@ import (
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/mapping/RuntimeFields.ts#L26-L30
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/mapping/RuntimeFields.ts#L26-L38
 type RuntimeField struct {
-	Format *string                           `json:"format,omitempty"`
-	Script *Script                           `json:"script,omitempty"`
-	Type   runtimefieldtype.RuntimeFieldType `json:"type"`
+	// FetchFields For type `lookup`
+	FetchFields []RuntimeFieldFetchFields `json:"fetch_fields,omitempty"`
+	Format      *string                   `json:"format,omitempty"`
+	// InputField For type `lookup`
+	InputField *string `json:"input_field,omitempty"`
+	Script     Script  `json:"script,omitempty"`
+	// TargetField For type `lookup`
+	TargetField *string `json:"target_field,omitempty"`
+	// TargetIndex For type `lookup`
+	TargetIndex *string                           `json:"target_index,omitempty"`
+	Type        runtimefieldtype.RuntimeFieldType `json:"type"`
 }
 
 // NewRuntimeField returns a RuntimeField.

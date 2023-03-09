@@ -15,24 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // DateHistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/rollup/_types/Groupings.ts#L30-L38
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/_types/Groupings.ts#L30-L38
 type DateHistogramGrouping struct {
-	CalendarInterval *Duration `json:"calendar_interval,omitempty"`
-	Delay            *Duration `json:"delay,omitempty"`
-	Field            string    `json:"field"`
-	FixedInterval    *Duration `json:"fixed_interval,omitempty"`
-	Format           *string   `json:"format,omitempty"`
-	Interval         *Duration `json:"interval,omitempty"`
-	TimeZone         *string   `json:"time_zone,omitempty"`
+	CalendarInterval Duration `json:"calendar_interval,omitempty"`
+	Delay            Duration `json:"delay,omitempty"`
+	Field            string   `json:"field"`
+	FixedInterval    Duration `json:"fixed_interval,omitempty"`
+	Format           *string  `json:"format,omitempty"`
+	Interval         Duration `json:"interval,omitempty"`
+	TimeZone         *string  `json:"time_zone,omitempty"`
 }
 
 // NewDateHistogramGrouping returns a DateHistogramGrouping.

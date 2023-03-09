@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Updates a document with a script or partial document.
 package update
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
@@ -58,7 +58,7 @@ type Update struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -99,7 +99,7 @@ func New(tp elastictransport.Interface) *Update {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Update) Raw(raw json.RawMessage) *Update {
+func (r *Update) Raw(raw io.Reader) *Update {
 	r.raw = raw
 
 	return r
@@ -122,7 +122,7 @@ func (r *Update) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -181,8 +181,8 @@ func (r *Update) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Update) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Update) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -194,6 +194,36 @@ func (r Update) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a update.Response
+func (r Update) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Update headers map.
@@ -223,24 +253,24 @@ func (r *Update) Index(v string) *Update {
 
 // IfPrimaryTerm Only perform the operation if the document has this primary term.
 // API name: if_primary_term
-func (r *Update) IfPrimaryTerm(value string) *Update {
-	r.values.Set("if_primary_term", value)
+func (r *Update) IfPrimaryTerm(v string) *Update {
+	r.values.Set("if_primary_term", v)
 
 	return r
 }
 
 // IfSeqNo Only perform the operation if the document has this sequence number.
 // API name: if_seq_no
-func (r *Update) IfSeqNo(value string) *Update {
-	r.values.Set("if_seq_no", value)
+func (r *Update) IfSeqNo(v string) *Update {
+	r.values.Set("if_seq_no", v)
 
 	return r
 }
 
 // Lang The script language.
 // API name: lang
-func (r *Update) Lang(value string) *Update {
-	r.values.Set("lang", value)
+func (r *Update) Lang(v string) *Update {
+	r.values.Set("lang", v)
 
 	return r
 }
@@ -275,8 +305,8 @@ func (r *Update) RetryOnConflict(i int) *Update {
 
 // Routing Custom value used to route operations to a specific shard.
 // API name: routing
-func (r *Update) Routing(value string) *Update {
-	r.values.Set("routing", value)
+func (r *Update) Routing(v string) *Update {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -285,8 +315,8 @@ func (r *Update) Routing(value string) *Update {
 // This guarantees Elasticsearch waits for at least the timeout before failing.
 // The actual wait time could be longer, particularly when multiple waits occur.
 // API name: timeout
-func (r *Update) Timeout(value string) *Update {
-	r.values.Set("timeout", value)
+func (r *Update) Timeout(v string) *Update {
+	r.values.Set("timeout", v)
 
 	return r
 }
@@ -297,8 +327,8 @@ func (r *Update) Timeout(value string) *Update {
 // index
 // (number_of_replicas+1). Defaults to 1 meaning the primary shard.
 // API name: wait_for_active_shards
-func (r *Update) WaitForActiveShards(value string) *Update {
-	r.values.Set("wait_for_active_shards", value)
+func (r *Update) WaitForActiveShards(v string) *Update {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }
@@ -307,24 +337,24 @@ func (r *Update) WaitForActiveShards(value string) *Update {
 // comma-separated
 // list of the fields you want to retrieve.
 // API name: _source
-func (r *Update) Source_(value string) *Update {
-	r.values.Set("_source", value)
+func (r *Update) Source_(v string) *Update {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // SourceExcludes_ Specify the source fields you want to exclude.
 // API name: _source_excludes
-func (r *Update) SourceExcludes_(value string) *Update {
-	r.values.Set("_source_excludes", value)
+func (r *Update) SourceExcludes_(v string) *Update {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // SourceIncludes_ Specify the source fields you want to retrieve.
 // API name: _source_includes
-func (r *Update) SourceIncludes_(value string) *Update {
-	r.values.Set("_source_includes", value)
+func (r *Update) SourceIncludes_(v string) *Update {
+	r.values.Set("_source_includes", v)
 
 	return r
 }

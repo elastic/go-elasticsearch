@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Retrieves information about model snapshots.
 package getmodelsnapshots
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -56,7 +56,7 @@ type GetModelSnapshots struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -95,7 +95,7 @@ func New(tp elastictransport.Interface) *GetModelSnapshots {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *GetModelSnapshots) Raw(raw json.RawMessage) *GetModelSnapshots {
+func (r *GetModelSnapshots) Raw(raw io.Reader) *GetModelSnapshots {
 	r.raw = raw
 
 	return r
@@ -118,7 +118,7 @@ func (r *GetModelSnapshots) HttpRequest(ctx context.Context) (*http.Request, err
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -193,8 +193,8 @@ func (r *GetModelSnapshots) HttpRequest(ctx context.Context) (*http.Request, err
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetModelSnapshots) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetModelSnapshots) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -206,6 +206,36 @@ func (r GetModelSnapshots) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a getmodelsnapshots.Response
+func (r GetModelSnapshots) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the GetModelSnapshots headers map.
@@ -247,8 +277,8 @@ func (r *GetModelSnapshots) Desc(b bool) *GetModelSnapshots {
 
 // End Returns snapshots with timestamps earlier than this time.
 // API name: end
-func (r *GetModelSnapshots) End(value string) *GetModelSnapshots {
-	r.values.Set("end", value)
+func (r *GetModelSnapshots) End(v string) *GetModelSnapshots {
+	r.values.Set("end", v)
 
 	return r
 }
@@ -272,16 +302,16 @@ func (r *GetModelSnapshots) Size(i int) *GetModelSnapshots {
 // Sort Specifies the sort field for the requested snapshots. By default, the
 // snapshots are sorted by their timestamp.
 // API name: sort
-func (r *GetModelSnapshots) Sort(value string) *GetModelSnapshots {
-	r.values.Set("sort", value)
+func (r *GetModelSnapshots) Sort(v string) *GetModelSnapshots {
+	r.values.Set("sort", v)
 
 	return r
 }
 
 // Start Returns snapshots with timestamps after this time.
 // API name: start
-func (r *GetModelSnapshots) Start(value string) *GetModelSnapshots {
-	r.values.Set("start", value)
+func (r *GetModelSnapshots) Start(v string) *GetModelSnapshots {
+	r.values.Set("start", v)
 
 	return r
 }

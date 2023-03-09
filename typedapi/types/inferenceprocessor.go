@@ -15,32 +15,34 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // InferenceProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ingest/_types/Processors.ts#L237-L242
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ingest/_types/Processors.ts#L237-L242
 type InferenceProcessor struct {
-	Description     *string                `json:"description,omitempty"`
-	FieldMap        map[string]interface{} `json:"field_map,omitempty"`
-	If              *string                `json:"if,omitempty"`
-	IgnoreFailure   *bool                  `json:"ignore_failure,omitempty"`
-	InferenceConfig *InferenceConfig       `json:"inference_config,omitempty"`
-	ModelId         string                 `json:"model_id"`
-	OnFailure       []ProcessorContainer   `json:"on_failure,omitempty"`
-	Tag             *string                `json:"tag,omitempty"`
-	TargetField     *string                `json:"target_field,omitempty"`
+	Description     *string                    `json:"description,omitempty"`
+	FieldMap        map[string]json.RawMessage `json:"field_map,omitempty"`
+	If              *string                    `json:"if,omitempty"`
+	IgnoreFailure   *bool                      `json:"ignore_failure,omitempty"`
+	InferenceConfig *InferenceConfig           `json:"inference_config,omitempty"`
+	ModelId         string                     `json:"model_id"`
+	OnFailure       []ProcessorContainer       `json:"on_failure,omitempty"`
+	Tag             *string                    `json:"tag,omitempty"`
+	TargetField     *string                    `json:"target_field,omitempty"`
 }
 
 // NewInferenceProcessor returns a InferenceProcessor.
 func NewInferenceProcessor() *InferenceProcessor {
 	r := &InferenceProcessor{
-		FieldMap: make(map[string]interface{}, 0),
+		FieldMap: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

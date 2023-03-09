@@ -15,24 +15,26 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // RoleDescriptorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/_types/RoleDescriptor.ts#L38-L47
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/_types/RoleDescriptor.ts#L38-L47
 type RoleDescriptorRead struct {
-	Applications      []ApplicationPrivileges  `json:"applications,omitempty"`
-	Cluster           []string                 `json:"cluster"`
-	Global            []GlobalPrivilege        `json:"global,omitempty"`
-	Indices           []IndicesPrivileges      `json:"indices"`
-	Metadata          map[string]interface{}   `json:"metadata,omitempty"`
-	RunAs             []string                 `json:"run_as,omitempty"`
-	TransientMetadata *TransientMetadataConfig `json:"transient_metadata,omitempty"`
+	Applications      []ApplicationPrivileges    `json:"applications,omitempty"`
+	Cluster           []string                   `json:"cluster"`
+	Global            []GlobalPrivilege          `json:"global,omitempty"`
+	Indices           []IndicesPrivileges        `json:"indices"`
+	Metadata          map[string]json.RawMessage `json:"metadata,omitempty"`
+	RunAs             []string                   `json:"run_as,omitempty"`
+	TransientMetadata *TransientMetadataConfig   `json:"transient_metadata,omitempty"`
 }
 
 // NewRoleDescriptorRead returns a RoleDescriptorRead.

@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // SuggestFuzziness type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/suggester.ts#L138-L144
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search/_types/suggester.ts#L138-L144
 type SuggestFuzziness struct {
-	Fuzziness      *Fuzziness `json:"fuzziness,omitempty"`
-	MinLength      *int       `json:"min_length,omitempty"`
-	PrefixLength   *int       `json:"prefix_length,omitempty"`
-	Transpositions *bool      `json:"transpositions,omitempty"`
-	UnicodeAware   *bool      `json:"unicode_aware,omitempty"`
+	Fuzziness      Fuzziness `json:"fuzziness,omitempty"`
+	MinLength      *int      `json:"min_length,omitempty"`
+	PrefixLength   *int      `json:"prefix_length,omitempty"`
+	Transpositions *bool     `json:"transpositions,omitempty"`
+	UnicodeAware   *bool     `json:"unicode_aware,omitempty"`
 }
 
 // NewSuggestFuzziness returns a SuggestFuzziness.

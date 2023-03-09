@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // TopMetricsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/metric.ts#L186-L190
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/metric.ts#L186-L190
 type TopMetricsAggregation struct {
 	Field   *string            `json:"field,omitempty"`
 	Metrics []TopMetricsValue  `json:"metrics,omitempty"`
-	Missing *Missing           `json:"missing,omitempty"`
-	Script  *Script            `json:"script,omitempty"`
+	Missing Missing            `json:"missing,omitempty"`
+	Script  Script             `json:"script,omitempty"`
 	Size    *int               `json:"size,omitempty"`
 	Sort    []SortCombinations `json:"sort,omitempty"`
 }

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -29,15 +27,15 @@ import (
 
 // InlineGetDictUserDefined type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/common.ts#L286-L295
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/common.ts#L286-L295
 type InlineGetDictUserDefined struct {
-	Fields                   map[string]interface{} `json:"fields,omitempty"`
-	Found                    bool                   `json:"found"`
-	InlineGetDictUserDefined map[string]interface{} `json:"-"`
-	PrimaryTerm_             *int64                 `json:"_primary_term,omitempty"`
-	Routing_                 *string                `json:"_routing,omitempty"`
-	SeqNo_                   *int64                 `json:"_seq_no,omitempty"`
-	Source_                  map[string]interface{} `json:"_source"`
+	Fields                   map[string]json.RawMessage `json:"fields,omitempty"`
+	Found                    bool                       `json:"found"`
+	InlineGetDictUserDefined map[string]json.RawMessage `json:"-"`
+	PrimaryTerm_             *int64                     `json:"_primary_term,omitempty"`
+	Routing_                 *string                    `json:"_routing,omitempty"`
+	SeqNo_                   *int64                     `json:"_seq_no,omitempty"`
+	Source_                  map[string]json.RawMessage `json:"_source"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -71,9 +69,9 @@ func (s InlineGetDictUserDefined) MarshalJSON() ([]byte, error) {
 // NewInlineGetDictUserDefined returns a InlineGetDictUserDefined.
 func NewInlineGetDictUserDefined() *InlineGetDictUserDefined {
 	r := &InlineGetDictUserDefined{
-		Fields:                   make(map[string]interface{}, 0),
-		InlineGetDictUserDefined: make(map[string]interface{}, 0),
-		Source_:                  make(map[string]interface{}, 0),
+		Fields:                   make(map[string]json.RawMessage, 0),
+		InlineGetDictUserDefined: make(map[string]json.RawMessage, 0),
+		Source_:                  make(map[string]json.RawMessage, 0),
 	}
 
 	return r

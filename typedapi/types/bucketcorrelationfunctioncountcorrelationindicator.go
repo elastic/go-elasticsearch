@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // BucketCorrelationFunctionCountCorrelationIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/pipeline.ts#L134-L152
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/pipeline.ts#L134-L152
 type BucketCorrelationFunctionCountCorrelationIndicator struct {
 	// DocCount The total number of documents that initially created the expectations. It’s
 	// required to be greater
@@ -36,13 +34,13 @@ type BucketCorrelationFunctionCountCorrelationIndicator struct {
 	// values.
 	// The length of this value must always equal the number of buckets returned by
 	// the `bucket_path`.
-	Expectations []float64 `json:"expectations"`
+	Expectations []Float64 `json:"expectations"`
 	// Fractions An array of fractions to use when averaging and calculating variance. This
 	// should be used if
 	// the pre-calculated data and the buckets_path have known gaps. The length of
 	// fractions, if provided,
 	// must equal expectations.
-	Fractions []float64 `json:"fractions,omitempty"`
+	Fractions []Float64 `json:"fractions,omitempty"`
 }
 
 // NewBucketCorrelationFunctionCountCorrelationIndicator returns a BucketCorrelationFunctionCountCorrelationIndicator.

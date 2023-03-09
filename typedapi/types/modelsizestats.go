@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -29,7 +27,7 @@ import (
 
 // ModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Model.ts#L56-L78
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Model.ts#L56-L78
 type ModelSizeStats struct {
 	AssignmentMemoryBasis         *string                                   `json:"assignment_memory_basis,omitempty"`
 	BucketAllocationFailuresCount int64                                     `json:"bucket_allocation_failures_count"`
@@ -42,9 +40,9 @@ type ModelSizeStats struct {
 	LogTime                       DateTime                                  `json:"log_time"`
 	MemoryStatus                  memorystatus.MemoryStatus                 `json:"memory_status"`
 	ModelBytes                    ByteSize                                  `json:"model_bytes"`
-	ModelBytesExceeded            *ByteSize                                 `json:"model_bytes_exceeded,omitempty"`
-	ModelBytesMemoryLimit         *ByteSize                                 `json:"model_bytes_memory_limit,omitempty"`
-	PeakModelBytes                *ByteSize                                 `json:"peak_model_bytes,omitempty"`
+	ModelBytesExceeded            ByteSize                                  `json:"model_bytes_exceeded,omitempty"`
+	ModelBytesMemoryLimit         ByteSize                                  `json:"model_bytes_memory_limit,omitempty"`
+	PeakModelBytes                ByteSize                                  `json:"peak_model_bytes,omitempty"`
 	RareCategoryCount             int                                       `json:"rare_category_count"`
 	ResultType                    string                                    `json:"result_type"`
 	Timestamp                     *int64                                    `json:"timestamp,omitempty"`

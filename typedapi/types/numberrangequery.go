@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -28,17 +26,17 @@ import (
 
 // NumberRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/term.ts#L83-L90
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/term.ts#L83-L90
 type NumberRangeQuery struct {
 	Boost      *float32                     `json:"boost,omitempty"`
-	From       float64                      `json:"from,omitempty"`
-	Gt         *float64                     `json:"gt,omitempty"`
-	Gte        *float64                     `json:"gte,omitempty"`
-	Lt         *float64                     `json:"lt,omitempty"`
-	Lte        *float64                     `json:"lte,omitempty"`
+	From       Float64                      `json:"from,omitempty"`
+	Gt         *Float64                     `json:"gt,omitempty"`
+	Gte        *Float64                     `json:"gte,omitempty"`
+	Lt         *Float64                     `json:"lt,omitempty"`
+	Lte        *Float64                     `json:"lte,omitempty"`
 	QueryName_ *string                      `json:"_name,omitempty"`
 	Relation   *rangerelation.RangeRelation `json:"relation,omitempty"`
-	To         float64                      `json:"to,omitempty"`
+	To         Float64                      `json:"to,omitempty"`
 }
 
 // NewNumberRangeQuery returns a NumberRangeQuery.

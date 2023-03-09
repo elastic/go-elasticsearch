@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // MLDatafeed type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Datafeed.ts#L37-L58
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Datafeed.ts#L37-L58
 type MLDatafeed struct {
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	// Authorization The security privileges that the datafeed uses to run its queries. If Elastic
@@ -34,14 +32,14 @@ type MLDatafeed struct {
 	ChunkingConfig         *ChunkingConfig         `json:"chunking_config,omitempty"`
 	DatafeedId             string                  `json:"datafeed_id"`
 	DelayedDataCheckConfig DelayedDataCheckConfig  `json:"delayed_data_check_config"`
-	Frequency              *Duration               `json:"frequency,omitempty"`
+	Frequency              Duration                `json:"frequency,omitempty"`
 	Indexes                []string                `json:"indexes,omitempty"`
 	Indices                []string                `json:"indices"`
 	IndicesOptions         *IndicesOptions         `json:"indices_options,omitempty"`
 	JobId                  string                  `json:"job_id"`
 	MaxEmptySearches       *int                    `json:"max_empty_searches,omitempty"`
 	Query                  Query                   `json:"query"`
-	QueryDelay             *Duration               `json:"query_delay,omitempty"`
+	QueryDelay             Duration                `json:"query_delay,omitempty"`
 	RuntimeMappings        map[string]RuntimeField `json:"runtime_mappings,omitempty"`
 	ScriptFields           map[string]ScriptField  `json:"script_fields,omitempty"`
 	ScrollSize             *int                    `json:"scroll_size,omitempty"`

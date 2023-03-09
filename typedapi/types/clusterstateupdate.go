@@ -15,32 +15,30 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // ClusterStateUpdate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/_types/Stats.ts#L120-L136
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/_types/Stats.ts#L126-L142
 type ClusterStateUpdate struct {
-	CommitTime                    *Duration `json:"commit_time,omitempty"`
-	CommitTimeMillis              *int64    `json:"commit_time_millis,omitempty"`
-	CompletionTime                *Duration `json:"completion_time,omitempty"`
-	CompletionTimeMillis          *int64    `json:"completion_time_millis,omitempty"`
-	ComputationTime               *Duration `json:"computation_time,omitempty"`
-	ComputationTimeMillis         *int64    `json:"computation_time_millis,omitempty"`
-	ContextConstructionTime       *Duration `json:"context_construction_time,omitempty"`
-	ContextConstructionTimeMillis *int64    `json:"context_construction_time_millis,omitempty"`
-	Count                         int64     `json:"count"`
-	MasterApplyTime               *Duration `json:"master_apply_time,omitempty"`
-	MasterApplyTimeMillis         *int64    `json:"master_apply_time_millis,omitempty"`
-	NotificationTime              *Duration `json:"notification_time,omitempty"`
-	NotificationTimeMillis        *int64    `json:"notification_time_millis,omitempty"`
-	PublicationTime               *Duration `json:"publication_time,omitempty"`
-	PublicationTimeMillis         *int64    `json:"publication_time_millis,omitempty"`
+	CommitTime                    Duration `json:"commit_time,omitempty"`
+	CommitTimeMillis              *int64   `json:"commit_time_millis,omitempty"`
+	CompletionTime                Duration `json:"completion_time,omitempty"`
+	CompletionTimeMillis          *int64   `json:"completion_time_millis,omitempty"`
+	ComputationTime               Duration `json:"computation_time,omitempty"`
+	ComputationTimeMillis         *int64   `json:"computation_time_millis,omitempty"`
+	ContextConstructionTime       Duration `json:"context_construction_time,omitempty"`
+	ContextConstructionTimeMillis *int64   `json:"context_construction_time_millis,omitempty"`
+	Count                         int64    `json:"count"`
+	MasterApplyTime               Duration `json:"master_apply_time,omitempty"`
+	MasterApplyTimeMillis         *int64   `json:"master_apply_time_millis,omitempty"`
+	NotificationTime              Duration `json:"notification_time,omitempty"`
+	NotificationTimeMillis        *int64   `json:"notification_time_millis,omitempty"`
+	PublicationTime               Duration `json:"publication_time,omitempty"`
+	PublicationTimeMillis         *int64   `json:"publication_time_millis,omitempty"`
 }
 
 // NewClusterStateUpdate returns a ClusterStateUpdate.

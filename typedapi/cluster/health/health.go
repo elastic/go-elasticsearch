@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Returns basic information about the health of the cluster.
 package health
@@ -26,6 +24,7 @@ package health
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/level"
@@ -147,8 +147,8 @@ func (r *Health) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Health) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Health) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -162,10 +162,40 @@ func (r Health) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a health.Response
+func (r Health) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Health) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -204,8 +234,8 @@ func (r *Health) Index(v string) *Health {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Health) ExpandWildcards(value string) *Health {
-	r.values.Set("expand_wildcards", value)
+func (r *Health) ExpandWildcards(v string) *Health {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -231,8 +261,8 @@ func (r *Health) Local(b bool) *Health {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *Health) MasterTimeout(value string) *Health {
-	r.values.Set("master_timeout", value)
+func (r *Health) MasterTimeout(v string) *Health {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
@@ -240,8 +270,8 @@ func (r *Health) MasterTimeout(value string) *Health {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *Health) Timeout(value string) *Health {
-	r.values.Set("timeout", value)
+func (r *Health) Timeout(v string) *Health {
+	r.values.Set("timeout", v)
 
 	return r
 }
@@ -249,8 +279,8 @@ func (r *Health) Timeout(value string) *Health {
 // WaitForActiveShards A number controlling to how many active shards to wait for, all to wait for
 // all shards in the cluster to be active, or 0 to not wait.
 // API name: wait_for_active_shards
-func (r *Health) WaitForActiveShards(value string) *Health {
-	r.values.Set("wait_for_active_shards", value)
+func (r *Health) WaitForActiveShards(v string) *Health {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }
@@ -268,8 +298,8 @@ func (r *Health) WaitForEvents(enum waitforevents.WaitForEvents) *Health {
 // accepts >=N, <=N, >N and <N. Alternatively, it is possible to use ge(N),
 // le(N), gt(N) and lt(N) notation.
 // API name: wait_for_nodes
-func (r *Health) WaitForNodes(value string) *Health {
-	r.values.Set("wait_for_nodes", value)
+func (r *Health) WaitForNodes(v string) *Health {
+	r.values.Set("wait_for_nodes", v)
 
 	return r
 }

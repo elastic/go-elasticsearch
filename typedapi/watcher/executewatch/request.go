@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package executewatch
 
@@ -32,14 +30,14 @@ import (
 
 // Request holds the request body struct for the package executewatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L80
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L80
 type Request struct {
 
 	// ActionModes Determines how to handle the watch actions as part of the watch execution.
 	ActionModes map[string]actionexecutionmode.ActionExecutionMode `json:"action_modes,omitempty"`
 	// AlternativeInput When present, the watch uses this object as a payload instead of executing
 	// its own input.
-	AlternativeInput map[string]interface{} `json:"alternative_input,omitempty"`
+	AlternativeInput map[string]json.RawMessage `json:"alternative_input,omitempty"`
 	// IgnoreCondition When set to `true`, the watch execution uses the always condition. This can
 	// also be specified as an HTTP parameter.
 	IgnoreCondition *bool `json:"ignore_condition,omitempty"`
@@ -61,13 +59,13 @@ type Request struct {
 func NewRequest() *Request {
 	r := &Request{
 		ActionModes:      make(map[string]actionexecutionmode.ActionExecutionMode, 0),
-		AlternativeInput: make(map[string]interface{}, 0),
+		AlternativeInput: make(map[string]json.RawMessage, 0),
 	}
 	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

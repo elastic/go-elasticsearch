@@ -15,22 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // Role type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/get_role/types.ts#L29-L39
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/get_role/types.ts#L29-L39
 type Role struct {
 	Applications      []ApplicationPrivileges                   `json:"applications"`
 	Cluster           []string                                  `json:"cluster"`
 	Global            map[string]map[string]map[string][]string `json:"global,omitempty"`
 	Indices           []IndicesPrivileges                       `json:"indices"`
-	Metadata          map[string]interface{}                    `json:"metadata"`
+	Metadata          map[string]json.RawMessage                `json:"metadata"`
 	RoleTemplates     []RoleTemplate                            `json:"role_templates,omitempty"`
 	RunAs             []string                                  `json:"run_as"`
 	TransientMetadata TransientMetadataConfig                   `json:"transient_metadata"`

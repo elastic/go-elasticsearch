@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // SegmentsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cat/segments/types.ts#L22-L96
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cat/segments/types.ts#L22-L96
 type SegmentsRecord struct {
 	// Committed is segment committed
 	Committed *string `json:"committed,omitempty"`
@@ -51,9 +49,9 @@ type SegmentsRecord struct {
 	// Shard shard name
 	Shard *string `json:"shard,omitempty"`
 	// Size segment size in bytes
-	Size *ByteSize `json:"size,omitempty"`
+	Size ByteSize `json:"size,omitempty"`
 	// SizeMemory segment memory in bytes
-	SizeMemory *ByteSize `json:"size.memory,omitempty"`
+	SizeMemory ByteSize `json:"size.memory,omitempty"`
 	// Version version
 	Version *string `json:"version,omitempty"`
 }

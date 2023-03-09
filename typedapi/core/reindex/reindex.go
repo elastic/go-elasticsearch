@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Allows to copy documents from one index to another, optionally filtering the
 // source
@@ -33,12 +31,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -54,7 +54,7 @@ type Reindex struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 }
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *Reindex {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Reindex) Raw(raw json.RawMessage) *Reindex {
+func (r *Reindex) Raw(raw io.Reader) *Reindex {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *Reindex) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -168,8 +168,8 @@ func (r *Reindex) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Reindex) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Reindex) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -181,6 +181,36 @@ func (r Reindex) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a reindex.Response
+func (r Reindex) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Reindex headers map.
@@ -201,16 +231,16 @@ func (r *Reindex) Refresh(b bool) *Reindex {
 // RequestsPerSecond The throttle to set on this request in sub-requests per second. -1 means no
 // throttle.
 // API name: requests_per_second
-func (r *Reindex) RequestsPerSecond(value string) *Reindex {
-	r.values.Set("requests_per_second", value)
+func (r *Reindex) RequestsPerSecond(v string) *Reindex {
+	r.values.Set("requests_per_second", v)
 
 	return r
 }
 
 // Scroll Control how long to keep the search context alive
 // API name: scroll
-func (r *Reindex) Scroll(value string) *Reindex {
-	r.values.Set("scroll", value)
+func (r *Reindex) Scroll(v string) *Reindex {
+	r.values.Set("scroll", v)
 
 	return r
 }
@@ -218,8 +248,8 @@ func (r *Reindex) Scroll(value string) *Reindex {
 // Slices The number of slices this task should be divided into. Defaults to 1, meaning
 // the task isn't sliced into subtasks. Can be set to `auto`.
 // API name: slices
-func (r *Reindex) Slices(value string) *Reindex {
-	r.values.Set("slices", value)
+func (r *Reindex) Slices(v string) *Reindex {
+	r.values.Set("slices", v)
 
 	return r
 }
@@ -227,8 +257,8 @@ func (r *Reindex) Slices(value string) *Reindex {
 // Timeout Time each individual bulk request should wait for shards that are
 // unavailable.
 // API name: timeout
-func (r *Reindex) Timeout(value string) *Reindex {
-	r.values.Set("timeout", value)
+func (r *Reindex) Timeout(v string) *Reindex {
+	r.values.Set("timeout", v)
 
 	return r
 }
@@ -238,8 +268,8 @@ func (r *Reindex) Timeout(value string) *Reindex {
 // `all` for all shard copies, otherwise set to any non-negative value less than
 // or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
-func (r *Reindex) WaitForActiveShards(value string) *Reindex {
-	r.values.Set("wait_for_active_shards", value)
+func (r *Reindex) WaitForActiveShards(v string) *Reindex {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }

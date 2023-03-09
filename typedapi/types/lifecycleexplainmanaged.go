@@ -15,49 +15,51 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // LifecycleExplainManaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ilm/explain_lifecycle/types.ts#L26-L52
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ilm/explain_lifecycle/types.ts#L26-L52
 type LifecycleExplainManaged struct {
 	Action                  *string                         `json:"action,omitempty"`
-	ActionTime              *DateTime                       `json:"action_time,omitempty"`
+	ActionTime              DateTime                        `json:"action_time,omitempty"`
 	ActionTimeMillis        *int64                          `json:"action_time_millis,omitempty"`
-	Age                     *Duration                       `json:"age,omitempty"`
+	Age                     Duration                        `json:"age,omitempty"`
 	FailedStep              *string                         `json:"failed_step,omitempty"`
 	FailedStepRetryCount    *int                            `json:"failed_step_retry_count,omitempty"`
 	Index                   *string                         `json:"index,omitempty"`
-	IndexCreationDate       *DateTime                       `json:"index_creation_date,omitempty"`
+	IndexCreationDate       DateTime                        `json:"index_creation_date,omitempty"`
 	IndexCreationDateMillis *int64                          `json:"index_creation_date_millis,omitempty"`
 	IsAutoRetryableError    *bool                           `json:"is_auto_retryable_error,omitempty"`
-	LifecycleDate           *DateTime                       `json:"lifecycle_date,omitempty"`
+	LifecycleDate           DateTime                        `json:"lifecycle_date,omitempty"`
 	LifecycleDateMillis     *int64                          `json:"lifecycle_date_millis,omitempty"`
-	Managed                 string                          `json:"managed,omitempty"`
+	Managed                 bool                            `json:"managed,omitempty"`
 	Phase                   string                          `json:"phase"`
 	PhaseExecution          *LifecycleExplainPhaseExecution `json:"phase_execution,omitempty"`
-	PhaseTime               *DateTime                       `json:"phase_time,omitempty"`
+	PhaseTime               DateTime                        `json:"phase_time,omitempty"`
 	PhaseTimeMillis         *int64                          `json:"phase_time_millis,omitempty"`
 	Policy                  string                          `json:"policy"`
 	Step                    *string                         `json:"step,omitempty"`
-	StepInfo                map[string]interface{}          `json:"step_info,omitempty"`
-	StepTime                *DateTime                       `json:"step_time,omitempty"`
+	StepInfo                map[string]json.RawMessage      `json:"step_info,omitempty"`
+	StepTime                DateTime                        `json:"step_time,omitempty"`
 	StepTimeMillis          *int64                          `json:"step_time_millis,omitempty"`
-	TimeSinceIndexCreation  *Duration                       `json:"time_since_index_creation,omitempty"`
+	TimeSinceIndexCreation  Duration                        `json:"time_since_index_creation,omitempty"`
 }
 
 // NewLifecycleExplainManaged returns a LifecycleExplainManaged.
 func NewLifecycleExplainManaged() *LifecycleExplainManaged {
 	r := &LifecycleExplainManaged{
-		StepInfo: make(map[string]interface{}, 0),
+		StepInfo: make(map[string]json.RawMessage, 0),
 	}
 
-	r.Managed = "true"
+	r.Managed = true
 
 	return r
 }

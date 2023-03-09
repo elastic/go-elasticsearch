@@ -15,24 +15,26 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // User type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/_types/User.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/_types/User.ts#L23-L31
 type User struct {
-	Email      string                 `json:"email,omitempty"`
-	Enabled    bool                   `json:"enabled"`
-	FullName   string                 `json:"full_name,omitempty"`
-	Metadata   map[string]interface{} `json:"metadata"`
-	ProfileUid *string                `json:"profile_uid,omitempty"`
-	Roles      []string               `json:"roles"`
-	Username   string                 `json:"username"`
+	Email      string                     `json:"email,omitempty"`
+	Enabled    bool                       `json:"enabled"`
+	FullName   string                     `json:"full_name,omitempty"`
+	Metadata   map[string]json.RawMessage `json:"metadata"`
+	ProfileUid *string                    `json:"profile_uid,omitempty"`
+	Roles      []string                   `json:"roles"`
+	Username   string                     `json:"username"`
 }
 
 // NewUser returns a User.

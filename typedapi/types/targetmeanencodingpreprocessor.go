@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // TargetMeanEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/put_trained_model/types.ts#L49-L54
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/put_trained_model/types.ts#L49-L54
 type TargetMeanEncodingPreprocessor struct {
-	DefaultValue float64            `json:"default_value"`
+	DefaultValue Float64            `json:"default_value"`
 	FeatureName  string             `json:"feature_name"`
 	Field        string             `json:"field"`
-	TargetMap    map[string]float64 `json:"target_map"`
+	TargetMap    map[string]Float64 `json:"target_map"`
 }
 
 // NewTargetMeanEncodingPreprocessor returns a TargetMeanEncodingPreprocessor.
 func NewTargetMeanEncodingPreprocessor() *TargetMeanEncodingPreprocessor {
 	r := &TargetMeanEncodingPreprocessor{
-		TargetMap: make(map[string]float64, 0),
+		TargetMap: make(map[string]Float64, 0),
 	}
 
 	return r

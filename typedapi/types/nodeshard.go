@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -28,17 +26,18 @@ import (
 
 // NodeShard type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Node.ts#L59-L69
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/Node.ts#L59-L70
 type NodeShard struct {
-	AllocationId   map[string]string                   `json:"allocation_id,omitempty"`
-	Index          string                              `json:"index"`
-	Node           *string                             `json:"node,omitempty"`
-	Primary        bool                                `json:"primary"`
-	RecoverySource map[string]string                   `json:"recovery_source,omitempty"`
-	RelocatingNode string                              `json:"relocating_node,omitempty"`
-	Shard          int                                 `json:"shard"`
-	State          shardroutingstate.ShardRoutingState `json:"state"`
-	UnassignedInfo *UnassignedInformation              `json:"unassigned_info,omitempty"`
+	AllocationId          map[string]string                   `json:"allocation_id,omitempty"`
+	Index                 string                              `json:"index"`
+	Node                  *string                             `json:"node,omitempty"`
+	Primary               bool                                `json:"primary"`
+	RecoverySource        map[string]string                   `json:"recovery_source,omitempty"`
+	RelocatingNode        string                              `json:"relocating_node,omitempty"`
+	RelocationFailureInfo *RelocationFailureInfo              `json:"relocation_failure_info,omitempty"`
+	Shard                 int                                 `json:"shard"`
+	State                 shardroutingstate.ShardRoutingState `json:"state"`
+	UnassignedInfo        *UnassignedInformation              `json:"unassigned_info,omitempty"`
 }
 
 // NewNodeShard returns a NodeShard.

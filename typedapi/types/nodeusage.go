@@ -15,27 +15,29 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // NodeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/usage/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/usage/types.ts#L25-L30
 type NodeUsage struct {
-	Aggregations map[string]interface{} `json:"aggregations"`
-	RestActions  map[string]int         `json:"rest_actions"`
-	Since        int64                  `json:"since"`
-	Timestamp    int64                  `json:"timestamp"`
+	Aggregations map[string]json.RawMessage `json:"aggregations"`
+	RestActions  map[string]int             `json:"rest_actions"`
+	Since        int64                      `json:"since"`
+	Timestamp    int64                      `json:"timestamp"`
 }
 
 // NewNodeUsage returns a NodeUsage.
 func NewNodeUsage() *NodeUsage {
 	r := &NodeUsage{
-		Aggregations: make(map[string]interface{}, 0),
+		Aggregations: make(map[string]json.RawMessage, 0),
 		RestActions:  make(map[string]int, 0),
 	}
 

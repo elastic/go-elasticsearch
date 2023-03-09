@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Creates or updates a document in an index.
 package index
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/optype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
@@ -60,7 +60,7 @@ type Index struct {
 	buf *gobytes.Buffer
 
 	req interface{}
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -99,7 +99,7 @@ func New(tp elastictransport.Interface) *Index {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Index) Raw(raw json.RawMessage) *Index {
+func (r *Index) Raw(raw io.Reader) *Index {
 	r.raw = raw
 
 	return r
@@ -122,7 +122,7 @@ func (r *Index) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -189,8 +189,8 @@ func (r *Index) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Index) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Index) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -202,6 +202,36 @@ func (r Index) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a index.Response
+func (r Index) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Index headers map.
@@ -232,8 +262,8 @@ func (r *Index) Index(v string) *Index {
 // IfPrimaryTerm only perform the index operation if the last operation that has changed the
 // document has the specified primary term
 // API name: if_primary_term
-func (r *Index) IfPrimaryTerm(value string) *Index {
-	r.values.Set("if_primary_term", value)
+func (r *Index) IfPrimaryTerm(v string) *Index {
+	r.values.Set("if_primary_term", v)
 
 	return r
 }
@@ -241,8 +271,8 @@ func (r *Index) IfPrimaryTerm(value string) *Index {
 // IfSeqNo only perform the index operation if the last operation that has changed the
 // document has the specified sequence number
 // API name: if_seq_no
-func (r *Index) IfSeqNo(value string) *Index {
-	r.values.Set("if_seq_no", value)
+func (r *Index) IfSeqNo(v string) *Index {
+	r.values.Set("if_seq_no", v)
 
 	return r
 }
@@ -258,8 +288,8 @@ func (r *Index) OpType(enum optype.OpType) *Index {
 
 // Pipeline The pipeline id to preprocess incoming documents with
 // API name: pipeline
-func (r *Index) Pipeline(value string) *Index {
-	r.values.Set("pipeline", value)
+func (r *Index) Pipeline(v string) *Index {
+	r.values.Set("pipeline", v)
 
 	return r
 }
@@ -276,24 +306,24 @@ func (r *Index) Refresh(enum refresh.Refresh) *Index {
 
 // Routing Specific routing value
 // API name: routing
-func (r *Index) Routing(value string) *Index {
-	r.values.Set("routing", value)
+func (r *Index) Routing(v string) *Index {
+	r.values.Set("routing", v)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Index) Timeout(value string) *Index {
-	r.values.Set("timeout", value)
+func (r *Index) Timeout(v string) *Index {
+	r.values.Set("timeout", v)
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *Index) Version(value string) *Index {
-	r.values.Set("version", value)
+func (r *Index) Version(v string) *Index {
+	r.values.Set("version", v)
 
 	return r
 }
@@ -311,8 +341,8 @@ func (r *Index) VersionType(enum versiontype.VersionType) *Index {
 // `all` for all shard copies, otherwise set to any non-negative value less than
 // or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
-func (r *Index) WaitForActiveShards(value string) *Index {
-	r.values.Set("wait_for_active_shards", value)
+func (r *Index) WaitForActiveShards(v string) *Index {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }

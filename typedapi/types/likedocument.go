@@ -15,22 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
 // LikeDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/specialized.ts#L91-L101
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/specialized.ts#L91-L101
 type LikeDocument struct {
-	Doc              interface{}              `json:"doc,omitempty"`
+	Doc              json.RawMessage          `json:"doc,omitempty"`
 	Fields           []string                 `json:"fields,omitempty"`
 	Id_              *string                  `json:"_id,omitempty"`
 	Index_           *string                  `json:"_index,omitempty"`

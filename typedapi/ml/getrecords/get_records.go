@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Retrieves anomaly records for an anomaly detection job.
 package getrecords
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type GetRecords struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *GetRecords {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *GetRecords) Raw(raw json.RawMessage) *GetRecords {
+func (r *GetRecords) Raw(raw io.Reader) *GetRecords {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *GetRecords) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -177,8 +177,8 @@ func (r *GetRecords) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetRecords) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetRecords) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -190,6 +190,36 @@ func (r GetRecords) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a getrecords.Response
+func (r GetRecords) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the GetRecords headers map.
@@ -219,8 +249,8 @@ func (r *GetRecords) Desc(b bool) *GetRecords {
 // End Returns records with timestamps earlier than this time. The default value
 // means results are not limited to specific timestamps.
 // API name: end
-func (r *GetRecords) End(value string) *GetRecords {
-	r.values.Set("end", value)
+func (r *GetRecords) End(v string) *GetRecords {
+	r.values.Set("end", v)
 
 	return r
 }
@@ -243,8 +273,8 @@ func (r *GetRecords) From(i int) *GetRecords {
 
 // RecordScore Returns records with anomaly scores greater or equal than this value.
 // API name: record_score
-func (r *GetRecords) RecordScore(value string) *GetRecords {
-	r.values.Set("record_score", value)
+func (r *GetRecords) RecordScore(v string) *GetRecords {
+	r.values.Set("record_score", v)
 
 	return r
 }
@@ -259,8 +289,8 @@ func (r *GetRecords) Size(i int) *GetRecords {
 
 // Sort Specifies the sort field for the requested records.
 // API name: sort
-func (r *GetRecords) Sort(value string) *GetRecords {
-	r.values.Set("sort", value)
+func (r *GetRecords) Sort(v string) *GetRecords {
+	r.values.Set("sort", v)
 
 	return r
 }
@@ -268,8 +298,8 @@ func (r *GetRecords) Sort(value string) *GetRecords {
 // Start Returns records with timestamps after this time. The default value means
 // results are not limited to specific timestamps.
 // API name: start
-func (r *GetRecords) Start(value string) *GetRecords {
-	r.values.Set("start", value)
+func (r *GetRecords) Start(v string) *GetRecords {
+	r.values.Set("start", v)
 
 	return r
 }

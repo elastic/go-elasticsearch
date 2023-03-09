@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Retrieves information about the scheduled events in calendars.
 package getcalendarevents
@@ -26,6 +24,7 @@ package getcalendarevents
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -140,8 +140,8 @@ func (r *GetCalendarEvents) HttpRequest(ctx context.Context) (*http.Request, err
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetCalendarEvents) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetCalendarEvents) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -155,10 +155,40 @@ func (r GetCalendarEvents) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a getcalendarevents.Response
+func (r GetCalendarEvents) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r GetCalendarEvents) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -197,8 +227,8 @@ func (r *GetCalendarEvents) CalendarId(v string) *GetCalendarEvents {
 
 // End Specifies to get events with timestamps earlier than this time.
 // API name: end
-func (r *GetCalendarEvents) End(value string) *GetCalendarEvents {
-	r.values.Set("end", value)
+func (r *GetCalendarEvents) End(v string) *GetCalendarEvents {
+	r.values.Set("end", v)
 
 	return r
 }
@@ -214,8 +244,8 @@ func (r *GetCalendarEvents) From(i int) *GetCalendarEvents {
 // JobId Specifies to get events for a specific anomaly detection job identifier or
 // job group. It must be used with a calendar identifier of `_all` or `*`.
 // API name: job_id
-func (r *GetCalendarEvents) JobId(value string) *GetCalendarEvents {
-	r.values.Set("job_id", value)
+func (r *GetCalendarEvents) JobId(v string) *GetCalendarEvents {
+	r.values.Set("job_id", v)
 
 	return r
 }
@@ -230,8 +260,8 @@ func (r *GetCalendarEvents) Size(i int) *GetCalendarEvents {
 
 // Start Specifies to get events with timestamps after this time.
 // API name: start
-func (r *GetCalendarEvents) Start(value string) *GetCalendarEvents {
-	r.values.Set("start", value)
+func (r *GetCalendarEvents) Start(v string) *GetCalendarEvents {
+	r.values.Set("start", v)
 
 	return r
 }

@@ -15,16 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // AnalysisConfigRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Analysis.ts#L79-L91
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Analysis.ts#L79-L91
 type AnalysisConfigRead struct {
 	// BucketSpan The size of the interval that the analysis is aggregated into, typically
 	// between `5m` and `1h`. This value should be either a whole number of days or
@@ -32,7 +38,6 @@ type AnalysisConfigRead struct {
 	// whole number of buckets in one day. If the anomaly detection job uses a
 	// datafeed with aggregations, this value must also be divisible by the interval
 	// of the date histogram aggregation.
-	// * @server_default 5m
 	BucketSpan Duration `json:"bucket_span"`
 	// CategorizationAnalyzer If `categorization_field_name` is specified, you can also define the analyzer
 	// that is used to interpret the categorization field. This property cannot be
@@ -41,7 +46,7 @@ type AnalysisConfigRead struct {
 	// categorization process. The `categorization_analyzer` field can be specified
 	// either as a string or as an object. If it is a string, it must refer to a
 	// built-in analyzer or one added by another plugin.
-	CategorizationAnalyzer *CategorizationAnalyzer `json:"categorization_analyzer,omitempty"`
+	CategorizationAnalyzer CategorizationAnalyzer `json:"categorization_analyzer,omitempty"`
 	// CategorizationFieldName If this property is specified, the values of the specified field will be
 	// categorized. The resulting categories must be used in a detector by setting
 	// `by_field_name`, `over_field_name`, or `partition_field_name` to the keyword
@@ -76,13 +81,13 @@ type AnalysisConfigRead struct {
 	// you specify a non-zero value, it must be greater than or equal to one second.
 	// NOTE: Latency is applicable only when you send data by using the post data
 	// API.
-	Latency *Duration `json:"latency,omitempty"`
+	Latency Duration `json:"latency,omitempty"`
 	// ModelPruneWindow Advanced configuration option. Affects the pruning of models that have not
 	// been updated for the given time duration. The value must be set to a multiple
 	// of the `bucket_span`. If set too low, important information may be removed
 	// from the model. For jobs created in 8.1 and later, the default value is the
 	// greater of `30d` or 20 times `bucket_span`.
-	ModelPruneWindow *Duration `json:"model_prune_window,omitempty"`
+	ModelPruneWindow Duration `json:"model_prune_window,omitempty"`
 	// MultivariateByFields This functionality is reserved for internal use. It is not supported for use
 	// in customer environments and is not subject to the support SLA of official GA
 	// features. If set to `true`, the analysis will automatically find correlations
@@ -105,6 +110,94 @@ type AnalysisConfigRead struct {
 	// `summary_count_field_name` property cannot be used with the `metric`
 	// function.
 	SummaryCountFieldName *string `json:"summary_count_field_name,omitempty"`
+}
+
+func (s *AnalysisConfigRead) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "bucket_span":
+			if err := dec.Decode(&s.BucketSpan); err != nil {
+				return err
+			}
+
+		case "categorization_analyzer":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+			case '{':
+				o := NewCategorizationAnalyzerDefinition()
+				if err := localDec.Decode(o); err != nil {
+					return err
+				}
+				s.CategorizationAnalyzer = *o
+
+			default:
+				if err := localDec.Decode(&s.CategorizationAnalyzer); err != nil {
+					return err
+				}
+			}
+
+		case "categorization_field_name":
+			if err := dec.Decode(&s.CategorizationFieldName); err != nil {
+				return err
+			}
+
+		case "categorization_filters":
+			if err := dec.Decode(&s.CategorizationFilters); err != nil {
+				return err
+			}
+
+		case "detectors":
+			if err := dec.Decode(&s.Detectors); err != nil {
+				return err
+			}
+
+		case "influencers":
+			if err := dec.Decode(&s.Influencers); err != nil {
+				return err
+			}
+
+		case "latency":
+			if err := dec.Decode(&s.Latency); err != nil {
+				return err
+			}
+
+		case "model_prune_window":
+			if err := dec.Decode(&s.ModelPruneWindow); err != nil {
+				return err
+			}
+
+		case "multivariate_by_fields":
+			if err := dec.Decode(&s.MultivariateByFields); err != nil {
+				return err
+			}
+
+		case "per_partition_categorization":
+			if err := dec.Decode(&s.PerPartitionCategorization); err != nil {
+				return err
+			}
+
+		case "summary_count_field_name":
+			if err := dec.Decode(&s.SummaryCountFieldName); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewAnalysisConfigRead returns a AnalysisConfigRead.

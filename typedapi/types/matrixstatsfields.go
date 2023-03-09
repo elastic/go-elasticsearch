@@ -15,32 +15,30 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // MatrixStatsFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L754-L763
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L754-L763
 type MatrixStatsFields struct {
-	Correlation map[string]float64 `json:"correlation"`
+	Correlation map[string]Float64 `json:"correlation"`
 	Count       int64              `json:"count"`
-	Covariance  map[string]float64 `json:"covariance"`
-	Kurtosis    float64            `json:"kurtosis"`
-	Mean        float64            `json:"mean"`
+	Covariance  map[string]Float64 `json:"covariance"`
+	Kurtosis    Float64            `json:"kurtosis"`
+	Mean        Float64            `json:"mean"`
 	Name        string             `json:"name"`
-	Skewness    float64            `json:"skewness"`
-	Variance    float64            `json:"variance"`
+	Skewness    Float64            `json:"skewness"`
+	Variance    Float64            `json:"variance"`
 }
 
 // NewMatrixStatsFields returns a MatrixStatsFields.
 func NewMatrixStatsFields() *MatrixStatsFields {
 	r := &MatrixStatsFields{
-		Correlation: make(map[string]float64, 0),
-		Covariance:  make(map[string]float64, 0),
+		Correlation: make(map[string]Float64, 0),
+		Covariance:  make(map[string]Float64, 0),
 	}
 
 	return r

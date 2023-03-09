@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // SettingsSimilarityBm25 type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/IndexSettings.ts#L180-L185
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/_types/IndexSettings.ts#L180-L185
 type SettingsSimilarityBm25 struct {
-	B                float64 `json:"b"`
+	B                Float64 `json:"b"`
 	DiscountOverlaps bool    `json:"discount_overlaps"`
-	K1               float64 `json:"k1"`
+	K1               Float64 `json:"k1"`
 	Type             string  `json:"type,omitempty"`
 }
 

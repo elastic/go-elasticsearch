@@ -15,27 +15,29 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // StringStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L684-L695
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L684-L695
 type StringStatsAggregate struct {
-	AvgLength         float64                `json:"avg_length,omitempty"`
-	AvgLengthAsString *string                `json:"avg_length_as_string,omitempty"`
-	Count             int64                  `json:"count"`
-	Distribution      map[string]float64     `json:"distribution,omitempty"`
-	Entropy           float64                `json:"entropy,omitempty"`
-	MaxLength         int                    `json:"max_length,omitempty"`
-	MaxLengthAsString *string                `json:"max_length_as_string,omitempty"`
-	Meta              map[string]interface{} `json:"meta,omitempty"`
-	MinLength         int                    `json:"min_length,omitempty"`
-	MinLengthAsString *string                `json:"min_length_as_string,omitempty"`
+	AvgLength         Float64                    `json:"avg_length,omitempty"`
+	AvgLengthAsString *string                    `json:"avg_length_as_string,omitempty"`
+	Count             int64                      `json:"count"`
+	Distribution      map[string]Float64         `json:"distribution,omitempty"`
+	Entropy           Float64                    `json:"entropy,omitempty"`
+	MaxLength         int                        `json:"max_length,omitempty"`
+	MaxLengthAsString *string                    `json:"max_length_as_string,omitempty"`
+	Meta              map[string]json.RawMessage `json:"meta,omitempty"`
+	MinLength         int                        `json:"min_length,omitempty"`
+	MinLengthAsString *string                    `json:"min_length_as_string,omitempty"`
 }
 
 // NewStringStatsAggregate returns a StringStatsAggregate.

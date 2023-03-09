@@ -15,20 +15,74 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // CompositeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L617-L622
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L617-L622
 type CompositeAggregate struct {
-	AfterKey map[string]FieldValue  `json:"after_key,omitempty"`
-	Buckets  BucketsCompositeBucket `json:"buckets"`
-	Meta     map[string]interface{} `json:"meta,omitempty"`
+	AfterKey map[string]FieldValue      `json:"after_key,omitempty"`
+	Buckets  BucketsCompositeBucket     `json:"buckets"`
+	Meta     map[string]json.RawMessage `json:"meta,omitempty"`
+}
+
+func (s *CompositeAggregate) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "after_key":
+			if err := dec.Decode(&s.AfterKey); err != nil {
+				return err
+			}
+
+		case "buckets":
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+
+			case '{':
+				o := make(map[string]CompositeBucket, 0)
+				localDec.Decode(o)
+				s.Buckets = o
+
+			case '[':
+				o := []CompositeBucket{}
+				localDec.Decode(&o)
+				s.Buckets = o
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewCompositeAggregate returns a CompositeAggregate.

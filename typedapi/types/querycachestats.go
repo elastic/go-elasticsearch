@@ -15,25 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // QueryCacheStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Stats.ts#L150-L159
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/Stats.ts#L150-L159
 type QueryCacheStats struct {
-	CacheCount        int       `json:"cache_count"`
-	CacheSize         int       `json:"cache_size"`
-	Evictions         int       `json:"evictions"`
-	HitCount          int       `json:"hit_count"`
-	MemorySize        *ByteSize `json:"memory_size,omitempty"`
-	MemorySizeInBytes int       `json:"memory_size_in_bytes"`
-	MissCount         int       `json:"miss_count"`
-	TotalCount        int       `json:"total_count"`
+	CacheCount        int      `json:"cache_count"`
+	CacheSize         int      `json:"cache_size"`
+	Evictions         int      `json:"evictions"`
+	HitCount          int      `json:"hit_count"`
+	MemorySize        ByteSize `json:"memory_size,omitempty"`
+	MemorySizeInBytes int      `json:"memory_size_in_bytes"`
+	MissCount         int      `json:"miss_count"`
+	TotalCount        int      `json:"total_count"`
 }
 
 // NewQueryCacheStats returns a QueryCacheStats.

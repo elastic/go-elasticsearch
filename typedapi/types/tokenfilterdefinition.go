@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -73,103 +71,5 @@ package types
 //	PhoneticTokenFilter
 //	DictionaryDecompounderTokenFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/analysis/token_filters.ts#L346-L399
-type TokenFilterDefinition interface {
-	isTokenFilterDefinition()
-}
-
-func (i AsciiFoldingTokenFilter) isTokenFilterDefinition() {}
-
-func (i CommonGramsTokenFilter) isTokenFilterDefinition() {}
-
-func (i ConditionTokenFilter) isTokenFilterDefinition() {}
-
-func (i DelimitedPayloadTokenFilter) isTokenFilterDefinition() {}
-
-func (i EdgeNGramTokenFilter) isTokenFilterDefinition() {}
-
-func (i ElisionTokenFilter) isTokenFilterDefinition() {}
-
-func (i FingerprintTokenFilter) isTokenFilterDefinition() {}
-
-func (i HunspellTokenFilter) isTokenFilterDefinition() {}
-
-func (i HyphenationDecompounderTokenFilter) isTokenFilterDefinition() {}
-
-func (i KeepTypesTokenFilter) isTokenFilterDefinition() {}
-
-func (i KeepWordsTokenFilter) isTokenFilterDefinition() {}
-
-func (i KeywordMarkerTokenFilter) isTokenFilterDefinition() {}
-
-func (i KStemTokenFilter) isTokenFilterDefinition() {}
-
-func (i LengthTokenFilter) isTokenFilterDefinition() {}
-
-func (i LimitTokenCountTokenFilter) isTokenFilterDefinition() {}
-
-func (i LowercaseTokenFilter) isTokenFilterDefinition() {}
-
-func (i MultiplexerTokenFilter) isTokenFilterDefinition() {}
-
-func (i NGramTokenFilter) isTokenFilterDefinition() {}
-
-func (i NoriPartOfSpeechTokenFilter) isTokenFilterDefinition() {}
-
-func (i PatternCaptureTokenFilter) isTokenFilterDefinition() {}
-
-func (i PatternReplaceTokenFilter) isTokenFilterDefinition() {}
-
-func (i PorterStemTokenFilter) isTokenFilterDefinition() {}
-
-func (i PredicateTokenFilter) isTokenFilterDefinition() {}
-
-func (i RemoveDuplicatesTokenFilter) isTokenFilterDefinition() {}
-
-func (i ReverseTokenFilter) isTokenFilterDefinition() {}
-
-func (i ShingleTokenFilter) isTokenFilterDefinition() {}
-
-func (i SnowballTokenFilter) isTokenFilterDefinition() {}
-
-func (i StemmerOverrideTokenFilter) isTokenFilterDefinition() {}
-
-func (i StemmerTokenFilter) isTokenFilterDefinition() {}
-
-func (i StopTokenFilter) isTokenFilterDefinition() {}
-
-func (i SynonymGraphTokenFilter) isTokenFilterDefinition() {}
-
-func (i SynonymTokenFilter) isTokenFilterDefinition() {}
-
-func (i TrimTokenFilter) isTokenFilterDefinition() {}
-
-func (i TruncateTokenFilter) isTokenFilterDefinition() {}
-
-func (i UniqueTokenFilter) isTokenFilterDefinition() {}
-
-func (i UppercaseTokenFilter) isTokenFilterDefinition() {}
-
-func (i WordDelimiterGraphTokenFilter) isTokenFilterDefinition() {}
-
-func (i WordDelimiterTokenFilter) isTokenFilterDefinition() {}
-
-func (i KuromojiStemmerTokenFilter) isTokenFilterDefinition() {}
-
-func (i KuromojiReadingFormTokenFilter) isTokenFilterDefinition() {}
-
-func (i KuromojiPartOfSpeechTokenFilter) isTokenFilterDefinition() {}
-
-func (i IcuTokenizer) isTokenFilterDefinition() {}
-
-func (i IcuCollationTokenFilter) isTokenFilterDefinition() {}
-
-func (i IcuFoldingTokenFilter) isTokenFilterDefinition() {}
-
-func (i IcuNormalizationTokenFilter) isTokenFilterDefinition() {}
-
-func (i IcuTransformTokenFilter) isTokenFilterDefinition() {}
-
-func (i PhoneticTokenFilter) isTokenFilterDefinition() {}
-
-func (i DictionaryDecompounderTokenFilter) isTokenFilterDefinition() {}
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/analysis/token_filters.ts#L346-L399
+type TokenFilterDefinition interface{}

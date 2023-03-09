@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // NodesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cat/nodes/types.ts#L23-L541
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cat/nodes/types.ts#L23-L541
 type NodesRecord struct {
 	// Build es build hash
 	Build *string `json:"build,omitempty"`
@@ -43,13 +41,13 @@ type NodesRecord struct {
 	// Cpu recent cpu usage
 	Cpu *string `json:"cpu,omitempty"`
 	// DiskAvail available disk space
-	DiskAvail *ByteSize `json:"disk.avail,omitempty"`
+	DiskAvail ByteSize `json:"disk.avail,omitempty"`
 	// DiskTotal total disk space
-	DiskTotal *ByteSize `json:"disk.total,omitempty"`
+	DiskTotal ByteSize `json:"disk.total,omitempty"`
 	// DiskUsed used disk space
-	DiskUsed *ByteSize `json:"disk.used,omitempty"`
+	DiskUsed ByteSize `json:"disk.used,omitempty"`
 	// DiskUsedPercent used disk space percentage
-	DiskUsedPercent *Percentage `json:"disk.used_percent,omitempty"`
+	DiskUsedPercent Percentage `json:"disk.used_percent,omitempty"`
 	// FielddataEvictions fielddata evictions
 	FielddataEvictions *string `json:"fielddata.evictions,omitempty"`
 	// FielddataMemorySize used fielddata cache
@@ -59,7 +57,7 @@ type NodesRecord struct {
 	// FileDescMax max file descriptors
 	FileDescMax *string `json:"file_desc.max,omitempty"`
 	// FileDescPercent used file descriptor ratio
-	FileDescPercent *Percentage `json:"file_desc.percent,omitempty"`
+	FileDescPercent Percentage `json:"file_desc.percent,omitempty"`
 	// Flavor es distribution flavor
 	Flavor *string `json:"flavor,omitempty"`
 	// FlushTotal number of flushes
@@ -85,7 +83,7 @@ type NodesRecord struct {
 	// HeapMax max configured heap
 	HeapMax *string `json:"heap.max,omitempty"`
 	// HeapPercent used heap ratio
-	HeapPercent *Percentage `json:"heap.percent,omitempty"`
+	HeapPercent Percentage `json:"heap.percent,omitempty"`
 	// HttpAddress bound http address
 	HttpAddress *string `json:"http_address,omitempty"`
 	// Id unique node id
@@ -108,12 +106,12 @@ type NodesRecord struct {
 	Ip *string `json:"ip,omitempty"`
 	// Jdk jdk version
 	Jdk *string `json:"jdk,omitempty"`
-	// Load15m 15m load avg
-	Load15m *string `json:"load_15m,omitempty"`
-	// Load1m 1m load avg
-	Load1m *string `json:"load_1m,omitempty"`
-	// Load5m 5m load avg
-	Load5m *string `json:"load_5m,omitempty"`
+	// Load15M 15m load avg
+	Load15M *string `json:"load_15m,omitempty"`
+	// Load1M 1m load avg
+	Load1M *string `json:"load_1m,omitempty"`
+	// Load5M 5m load avg
+	Load5M *string `json:"load_5m,omitempty"`
 	// Master *:current master
 	Master *string `json:"master,omitempty"`
 	// MergesCurrent number of current merges
@@ -151,7 +149,7 @@ type NodesRecord struct {
 	// RamMax total machine memory
 	RamMax *string `json:"ram.max,omitempty"`
 	// RamPercent used machine memory ratio
-	RamPercent *Percentage `json:"ram.percent,omitempty"`
+	RamPercent Percentage `json:"ram.percent,omitempty"`
 	// RefreshExternalTime time spent in external refreshes
 	RefreshExternalTime *string `json:"refresh.external_time,omitempty"`
 	// RefreshExternalTotal total external refreshes

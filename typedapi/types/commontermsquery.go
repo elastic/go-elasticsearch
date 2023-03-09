@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -28,16 +26,16 @@ import (
 
 // CommonTermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/fulltext.ts#L33-L43
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/fulltext.ts#L33-L43
 type CommonTermsQuery struct {
-	Analyzer           *string             `json:"analyzer,omitempty"`
-	Boost              *float32            `json:"boost,omitempty"`
-	CutoffFrequency    *float64            `json:"cutoff_frequency,omitempty"`
-	HighFreqOperator   *operator.Operator  `json:"high_freq_operator,omitempty"`
-	LowFreqOperator    *operator.Operator  `json:"low_freq_operator,omitempty"`
-	MinimumShouldMatch *MinimumShouldMatch `json:"minimum_should_match,omitempty"`
-	Query              string              `json:"query"`
-	QueryName_         *string             `json:"_name,omitempty"`
+	Analyzer           *string            `json:"analyzer,omitempty"`
+	Boost              *float32           `json:"boost,omitempty"`
+	CutoffFrequency    *Float64           `json:"cutoff_frequency,omitempty"`
+	HighFreqOperator   *operator.Operator `json:"high_freq_operator,omitempty"`
+	LowFreqOperator    *operator.Operator `json:"low_freq_operator,omitempty"`
+	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
+	Query              string             `json:"query"`
+	QueryName_         *string            `json:"_name,omitempty"`
 }
 
 // NewCommonTermsQuery returns a CommonTermsQuery.

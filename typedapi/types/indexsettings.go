@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexcheckonstartup"
+
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexcheckonstartup"
 )
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/IndexSettings.ts#L69-L168
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/_types/IndexSettings.ts#L69-L168
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -41,16 +39,16 @@ type IndexSettings struct {
 	Blocks             *IndexSettingBlocks                      `json:"blocks,omitempty"`
 	CheckOnStartup     *indexcheckonstartup.IndexCheckOnStartup `json:"check_on_startup,omitempty"`
 	Codec              *string                                  `json:"codec,omitempty"`
-	CreationDate       *StringifiedEpochTimeUnitMillis          `json:"creation_date,omitempty"`
-	CreationDateString *DateTime                                `json:"creation_date_string,omitempty"`
+	CreationDate       StringifiedEpochTimeUnitMillis           `json:"creation_date,omitempty"`
+	CreationDateString DateTime                                 `json:"creation_date_string,omitempty"`
 	DefaultPipeline    *string                                  `json:"default_pipeline,omitempty"`
 	FinalPipeline      *string                                  `json:"final_pipeline,omitempty"`
 	Format             string                                   `json:"format,omitempty"`
-	GcDeletes          *Duration                                `json:"gc_deletes,omitempty"`
+	GcDeletes          Duration                                 `json:"gc_deletes,omitempty"`
 	Hidden             string                                   `json:"hidden,omitempty"`
 	Highlight          *SettingsHighlight                       `json:"highlight,omitempty"`
 	Index              *IndexSettings                           `json:"index,omitempty"`
-	IndexSettings      map[string]interface{}                   `json:"-"`
+	IndexSettings      map[string]json.RawMessage               `json:"-"`
 	// IndexingPressure Configure indexing back pressure limits.
 	IndexingPressure              *IndicesIndexingPressure `json:"indexing_pressure,omitempty"`
 	IndexingSlowlog               *SlowlogSettings         `json:"indexing.slowlog,omitempty"`
@@ -78,7 +76,7 @@ type IndexSettings struct {
 	ProvidedName            *string               `json:"provided_name,omitempty"`
 	Queries                 *Queries              `json:"queries,omitempty"`
 	QueryString             *SettingsQueryString  `json:"query_string,omitempty"`
-	RefreshInterval         *Duration             `json:"refresh_interval,omitempty"`
+	RefreshInterval         Duration              `json:"refresh_interval,omitempty"`
 	Routing                 *IndexRouting         `json:"routing,omitempty"`
 	RoutingPartitionSize    *int                  `json:"routing_partition_size,omitempty"`
 	RoutingPath             []string              `json:"routing_path,omitempty"`
@@ -132,7 +130,7 @@ func (s IndexSettings) MarshalJSON() ([]byte, error) {
 // NewIndexSettings returns a IndexSettings.
 func NewIndexSettings() *IndexSettings {
 	r := &IndexSettings{
-		IndexSettings: make(map[string]interface{}, 0),
+		IndexSettings: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Clears all or specific caches for one or more indices.
 package clearcache
@@ -26,6 +24,7 @@ package clearcache
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -143,8 +143,8 @@ func (r *ClearCache) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r ClearCache) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r ClearCache) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -158,10 +158,40 @@ func (r ClearCache) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a clearcache.Response
+func (r ClearCache) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r ClearCache) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -207,8 +237,8 @@ func (r *ClearCache) AllowNoIndices(b bool) *ClearCache {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *ClearCache) ExpandWildcards(value string) *ClearCache {
-	r.values.Set("expand_wildcards", value)
+func (r *ClearCache) ExpandWildcards(v string) *ClearCache {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -224,8 +254,8 @@ func (r *ClearCache) Fielddata(b bool) *ClearCache {
 // Fields A comma-separated list of fields to clear when using the `fielddata`
 // parameter (default: all)
 // API name: fields
-func (r *ClearCache) Fields(value string) *ClearCache {
-	r.values.Set("fields", value)
+func (r *ClearCache) Fields(v string) *ClearCache {
+	r.values.Set("fields", v)
 
 	return r
 }

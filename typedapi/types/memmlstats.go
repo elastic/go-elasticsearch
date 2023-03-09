@@ -15,40 +15,38 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // MemMlStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/get_memory_stats/types.ts#L90-L111
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/get_memory_stats/types.ts#L90-L111
 type MemMlStats struct {
 	// AnomalyDetectors Amount of native memory set aside for anomaly detection jobs.
-	AnomalyDetectors *ByteSize `json:"anomaly_detectors,omitempty"`
+	AnomalyDetectors ByteSize `json:"anomaly_detectors,omitempty"`
 	// AnomalyDetectorsInBytes Amount of native memory, in bytes, set aside for anomaly detection jobs.
 	AnomalyDetectorsInBytes int `json:"anomaly_detectors_in_bytes"`
 	// DataFrameAnalytics Amount of native memory set aside for data frame analytics jobs.
-	DataFrameAnalytics *ByteSize `json:"data_frame_analytics,omitempty"`
+	DataFrameAnalytics ByteSize `json:"data_frame_analytics,omitempty"`
 	// DataFrameAnalyticsInBytes Amount of native memory, in bytes, set aside for data frame analytics jobs.
 	DataFrameAnalyticsInBytes int `json:"data_frame_analytics_in_bytes"`
 	// Max Maximum amount of native memory (separate to the JVM heap) that may be used
 	// by machine learning native processes.
-	Max *ByteSize `json:"max,omitempty"`
+	Max ByteSize `json:"max,omitempty"`
 	// MaxInBytes Maximum amount of native memory (separate to the JVM heap), in bytes, that
 	// may be used by machine learning native processes.
 	MaxInBytes int `json:"max_in_bytes"`
 	// NativeCodeOverhead Amount of native memory set aside for loading machine learning native code
 	// shared libraries.
-	NativeCodeOverhead *ByteSize `json:"native_code_overhead,omitempty"`
+	NativeCodeOverhead ByteSize `json:"native_code_overhead,omitempty"`
 	// NativeCodeOverheadInBytes Amount of native memory, in bytes, set aside for loading machine learning
 	// native code shared libraries.
 	NativeCodeOverheadInBytes int `json:"native_code_overhead_in_bytes"`
 	// NativeInference Amount of native memory set aside for trained models that have a PyTorch
 	// model_type.
-	NativeInference *ByteSize `json:"native_inference,omitempty"`
+	NativeInference ByteSize `json:"native_inference,omitempty"`
 	// NativeInferenceInBytes Amount of native memory, in bytes, set aside for trained models that have a
 	// PyTorch model_type.
 	NativeInferenceInBytes int `json:"native_inference_in_bytes"`

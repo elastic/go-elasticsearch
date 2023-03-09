@@ -15,16 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // TrainedModelStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/TrainedModel.ts#L42-L60
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/TrainedModel.ts#L42-L60
 type TrainedModelStats struct {
 	// DeploymentStats A collection of deployment stats, which is present when the models are
 	// deployed.
@@ -34,7 +36,7 @@ type TrainedModelStats struct {
 	// Ingest A collection of ingest stats for the model across all nodes.
 	// The values are summations of the individual node statistics.
 	// The format matches the ingest section in the nodes stats API.
-	Ingest map[string]interface{} `json:"ingest,omitempty"`
+	Ingest map[string]json.RawMessage `json:"ingest,omitempty"`
 	// ModelId The unique identifier of the trained model.
 	ModelId string `json:"model_id"`
 	// ModelSizeStats A collection of model size stats.
@@ -46,7 +48,7 @@ type TrainedModelStats struct {
 // NewTrainedModelStats returns a TrainedModelStats.
 func NewTrainedModelStats() *TrainedModelStats {
 	r := &TrainedModelStats{
-		Ingest: make(map[string]interface{}, 0),
+		Ingest: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Retrieves anomaly detection job results for one or more influencers.
 package getinfluencers
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type GetInfluencers struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *GetInfluencers {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *GetInfluencers) Raw(raw json.RawMessage) *GetInfluencers {
+func (r *GetInfluencers) Raw(raw io.Reader) *GetInfluencers {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *GetInfluencers) HttpRequest(ctx context.Context) (*http.Request, error)
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -177,8 +177,8 @@ func (r *GetInfluencers) HttpRequest(ctx context.Context) (*http.Request, error)
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetInfluencers) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetInfluencers) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -190,6 +190,36 @@ func (r GetInfluencers) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a getinfluencers.Response
+func (r GetInfluencers) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the GetInfluencers headers map.
@@ -220,8 +250,8 @@ func (r *GetInfluencers) Desc(b bool) *GetInfluencers {
 // The default value means it is unset and results are not limited to
 // specific timestamps.
 // API name: end
-func (r *GetInfluencers) End(value string) *GetInfluencers {
-	r.values.Set("end", value)
+func (r *GetInfluencers) End(v string) *GetInfluencers {
+	r.values.Set("end", v)
 
 	return r
 }
@@ -238,8 +268,8 @@ func (r *GetInfluencers) ExcludeInterim(b bool) *GetInfluencers {
 // InfluencerScore Returns influencers with anomaly scores greater than or equal to this
 // value.
 // API name: influencer_score
-func (r *GetInfluencers) InfluencerScore(value string) *GetInfluencers {
-	r.values.Set("influencer_score", value)
+func (r *GetInfluencers) InfluencerScore(v string) *GetInfluencers {
+	r.values.Set("influencer_score", v)
 
 	return r
 }
@@ -263,8 +293,8 @@ func (r *GetInfluencers) Size(i int) *GetInfluencers {
 // Sort Specifies the sort field for the requested influencers. By default, the
 // influencers are sorted by the `influencer_score` value.
 // API name: sort
-func (r *GetInfluencers) Sort(value string) *GetInfluencers {
-	r.values.Set("sort", value)
+func (r *GetInfluencers) Sort(v string) *GetInfluencers {
+	r.values.Set("sort", v)
 
 	return r
 }
@@ -272,8 +302,8 @@ func (r *GetInfluencers) Sort(value string) *GetInfluencers {
 // Start Returns influencers with timestamps after this time. The default value
 // means it is unset and results are not limited to specific timestamps.
 // API name: start
-func (r *GetInfluencers) Start(value string) *GetInfluencers {
-	r.values.Set("start", value)
+func (r *GetInfluencers) Start(v string) *GetInfluencers {
+	r.values.Set("start", v)
 
 	return r
 }

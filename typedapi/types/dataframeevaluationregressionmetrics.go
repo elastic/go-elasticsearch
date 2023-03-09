@@ -15,35 +15,37 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // DataframeEvaluationRegressionMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/DataframeEvaluation.ts#L92-L110
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeEvaluation.ts#L92-L110
 type DataframeEvaluationRegressionMetrics struct {
 	// Huber Pseudo Huber loss function.
 	Huber *DataframeEvaluationRegressionMetricsHuber `json:"huber,omitempty"`
 	// Mse Average squared difference between the predicted values and the actual
 	// (ground truth) value. For more information, read this wiki article.
-	Mse map[string]interface{} `json:"mse,omitempty"`
+	Mse map[string]json.RawMessage `json:"mse,omitempty"`
 	// Msle Average squared difference between the logarithm of the predicted values and
 	// the logarithm of the actual (ground truth) value.
 	Msle *DataframeEvaluationRegressionMetricsMsle `json:"msle,omitempty"`
 	// RSquared Proportion of the variance in the dependent variable that is predictable from
 	// the independent variables.
-	RSquared map[string]interface{} `json:"r_squared,omitempty"`
+	RSquared map[string]json.RawMessage `json:"r_squared,omitempty"`
 }
 
 // NewDataframeEvaluationRegressionMetrics returns a DataframeEvaluationRegressionMetrics.
 func NewDataframeEvaluationRegressionMetrics() *DataframeEvaluationRegressionMetrics {
 	r := &DataframeEvaluationRegressionMetrics{
-		Mse:      make(map[string]interface{}, 0),
-		RSquared: make(map[string]interface{}, 0),
+		Mse:      make(map[string]json.RawMessage, 0),
+		RSquared: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

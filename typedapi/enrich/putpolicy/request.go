@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package putpolicy
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putpolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/enrich/put_policy/PutEnrichPolicyRequest.ts#L24-L38
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/enrich/put_policy/PutEnrichPolicyRequest.ts#L24-L38
 type Request struct {
 	GeoMatch *types.EnrichPolicy `json:"geo_match,omitempty"`
 	Match    *types.EnrichPolicy `json:"match,omitempty"`
@@ -45,7 +43,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

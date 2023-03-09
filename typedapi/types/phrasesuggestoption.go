@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // PhraseSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/suggester.ts#L86-L91
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search/_types/suggester.ts#L86-L91
 type PhraseSuggestOption struct {
 	CollateMatch *bool   `json:"collate_match,omitempty"`
 	Highlighted  *string `json:"highlighted,omitempty"`
-	Score        float64 `json:"score"`
+	Score        Float64 `json:"score"`
 	Text         string  `json:"text"`
 }
 

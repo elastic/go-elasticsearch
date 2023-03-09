@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // IndexSettingsLifecycleStep type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/IndexSettings.ts#L302-L308
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/_types/IndexSettings.ts#L302-L308
 type IndexSettingsLifecycleStep struct {
 	// WaitTimeThreshold Time to wait for the cluster to resolve allocation issues during an ILM
 	// shrink action. Must be greater than 1h (1 hour).
 	// See Shard allocation for shrink.
-	WaitTimeThreshold *Duration `json:"wait_time_threshold,omitempty"`
+	WaitTimeThreshold Duration `json:"wait_time_threshold,omitempty"`
 }
 
 // NewIndexSettingsLifecycleStep returns a IndexSettingsLifecycleStep.

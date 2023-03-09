@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // Phase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ilm/_types/Phase.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ilm/_types/Phase.ts#L25-L33
 type Phase struct {
 	Actions        *IlmActions     `json:"actions,omitempty"`
 	Configurations *Configurations `json:"configurations,omitempty"`
-	MinAge         Duration        `json:"min_age,omitempty"`
+	MinAge         *Duration       `json:"min_age,omitempty"`
 }
 
 // NewPhase returns a Phase.

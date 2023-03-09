@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Gets stats for anomaly detection job model snapshot upgrades that are in
 // progress.
@@ -27,6 +25,7 @@ package getmodelsnapshotupgradestats
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -37,6 +36,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -154,8 +154,8 @@ func (r *GetModelSnapshotUpgradeStats) HttpRequest(ctx context.Context) (*http.R
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetModelSnapshotUpgradeStats) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetModelSnapshotUpgradeStats) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -169,10 +169,40 @@ func (r GetModelSnapshotUpgradeStats) Do(ctx context.Context) (*http.Response, e
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a getmodelsnapshotupgradestats.Response
+func (r GetModelSnapshotUpgradeStats) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r GetModelSnapshotUpgradeStats) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -221,9 +251,9 @@ func (r *GetModelSnapshotUpgradeStats) SnapshotId(v string) *GetModelSnapshotUpg
 
 // AllowNoMatch Specifies what to do when the request:
 //
-//   - Contains wildcard expressions and there are no jobs that match.
-//   - Contains the _all string or no identifiers and there are no matches.
-//   - Contains wildcard expressions and there are only partial matches.
+//  -  Contains wildcard expressions and there are no jobs that match.
+//  -  Contains the _all string or no identifiers and there are no matches.
+//  -  Contains wildcard expressions and there are only partial matches.
 //
 // The default value is true, which returns an empty jobs array when there are
 // no matches and the subset of results

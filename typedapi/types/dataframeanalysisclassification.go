@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // DataframeAnalysisClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/DataframeAnalytics.ts#L227-L236
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeAnalytics.ts#L227-L236
 type DataframeAnalysisClassification struct {
 	// Alpha Advanced configuration option. Machine learning uses loss guided tree
 	// growing, which means that the decision trees grow where the regularized loss
@@ -32,7 +30,7 @@ type DataframeAnalysisClassification struct {
 	// a multiplier of the tree depth. Higher alpha values result in shallower trees
 	// and faster training times. By default, this value is calculated during
 	// hyperparameter optimization. It must be greater than or equal to zero.
-	Alpha                    *float64 `json:"alpha,omitempty"`
+	Alpha                    *Float64 `json:"alpha,omitempty"`
 	ClassAssignmentObjective *string  `json:"class_assignment_objective,omitempty"`
 	// DependentVariable Defines which field of the document is to be predicted. It must match one of
 	// the fields in the index being used to train. If this field is missing from a
@@ -51,7 +49,7 @@ type DataframeAnalysisClassification struct {
 	// result in poor convergence for the ensemble and so require more trees. By
 	// default, this value is calculated during hyperparameter optimization. It must
 	// be greater than zero and less than or equal to 1.
-	DownsampleFactor *float64 `json:"downsample_factor,omitempty"`
+	DownsampleFactor *Float64 `json:"downsample_factor,omitempty"`
 	// EarlyStoppingEnabled Advanced configuration option. Specifies whether the training process should
 	// finish if it is not finding any better performing models. If disabled, the
 	// training process can take significantly longer and the chance of finding a
@@ -62,16 +60,16 @@ type DataframeAnalysisClassification struct {
 	// However, larger forests cause slower training. By default, this value is
 	// calculated during hyperparameter optimization. It must be a value between
 	// 0.001 and 1.
-	Eta *float64 `json:"eta,omitempty"`
+	Eta *Float64 `json:"eta,omitempty"`
 	// EtaGrowthRatePerTree Advanced configuration option. Specifies the rate at which `eta` increases
 	// for each new tree that is added to the forest. For example, a rate of 1.05
 	// increases `eta` by 5% for each extra tree. By default, this value is
 	// calculated during hyperparameter optimization. It must be between 0.5 and 2.
-	EtaGrowthRatePerTree *float64 `json:"eta_growth_rate_per_tree,omitempty"`
+	EtaGrowthRatePerTree *Float64 `json:"eta_growth_rate_per_tree,omitempty"`
 	// FeatureBagFraction Advanced configuration option. Defines the fraction of features that will be
 	// used when selecting a random bag for each candidate split. By default, this
 	// value is calculated during hyperparameter optimization.
-	FeatureBagFraction *float64 `json:"feature_bag_fraction,omitempty"`
+	FeatureBagFraction *Float64 `json:"feature_bag_fraction,omitempty"`
 	// FeatureProcessors Advanced configuration option. A collection of feature preprocessors that
 	// modify one or more included fields. The analysis uses the resulting one or
 	// more features instead of the original document field. However, these features
@@ -88,7 +86,7 @@ type DataframeAnalysisClassification struct {
 	// training to prefer small trees. A small gamma value results in larger
 	// individual trees and slower training. By default, this value is calculated
 	// during hyperparameter optimization. It must be a nonnegative value.
-	Gamma *float64 `json:"gamma,omitempty"`
+	Gamma *Float64 `json:"gamma,omitempty"`
 	// Lambda Advanced configuration option. Regularization parameter to prevent
 	// overfitting on the training data set. Multiplies an L2 regularization term
 	// which applies to leaf weights of the individual trees in the forest. A high
@@ -98,7 +96,7 @@ type DataframeAnalysisClassification struct {
 	// variable. A small lambda value results in large individual trees and slower
 	// training. By default, this value is calculated during hyperparameter
 	// optimization. It must be a nonnegative value.
-	Lambda *float64 `json:"lambda,omitempty"`
+	Lambda *Float64 `json:"lambda,omitempty"`
 	// MaxOptimizationRoundsPerHyperparameter Advanced configuration option. A multiplier responsible for determining the
 	// maximum number of hyperparameter optimization steps in the Bayesian
 	// optimization procedure. The maximum number of steps is determined based on
@@ -129,7 +127,7 @@ type DataframeAnalysisClassification struct {
 	// By default, it is randomly generated. Set it to a specific value to use the
 	// same training data each time you start a job (assuming other related
 	// parameters such as `source` and `analyzed_fields` are the same).
-	RandomizeSeed *float64 `json:"randomize_seed,omitempty"`
+	RandomizeSeed *Float64 `json:"randomize_seed,omitempty"`
 	// SoftTreeDepthLimit Advanced configuration option. Machine learning uses loss guided tree
 	// growing, which means that the decision trees grow where the regularized loss
 	// decreases most quickly. This soft limit combines with the
@@ -142,12 +140,12 @@ type DataframeAnalysisClassification struct {
 	// regularized loss increases when the tree depth exceeds
 	// `soft_tree_depth_limit`. By default, this value is calculated during
 	// hyperparameter optimization. It must be greater than or equal to 0.01.
-	SoftTreeDepthTolerance *float64 `json:"soft_tree_depth_tolerance,omitempty"`
+	SoftTreeDepthTolerance *Float64 `json:"soft_tree_depth_tolerance,omitempty"`
 	// TrainingPercent Defines what percentage of the eligible documents that will be used for
 	// training. Documents that are ignored by the analysis (for example those that
 	// contain arrays with more than one value) won’t be included in the calculation
 	// for used percentage.
-	TrainingPercent *Percentage `json:"training_percent,omitempty"`
+	TrainingPercent Percentage `json:"training_percent,omitempty"`
 }
 
 // NewDataframeAnalysisClassification returns a DataframeAnalysisClassification.

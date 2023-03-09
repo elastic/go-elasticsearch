@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Returns the information about the capabilities of fields among multiple
 // indices.
@@ -30,12 +28,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -55,7 +55,7 @@ type FieldCaps struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *FieldCaps {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *FieldCaps) Raw(raw json.RawMessage) *FieldCaps {
+func (r *FieldCaps) Raw(raw io.Reader) *FieldCaps {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *FieldCaps) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -176,8 +176,8 @@ func (r *FieldCaps) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r FieldCaps) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r FieldCaps) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -189,6 +189,36 @@ func (r FieldCaps) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a fieldcaps.Response
+func (r FieldCaps) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the FieldCaps headers map.
@@ -226,8 +256,8 @@ func (r *FieldCaps) AllowNoIndices(b bool) *FieldCaps {
 // data streams, this argument determines whether wildcard expressions match
 // hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
-func (r *FieldCaps) ExpandWildcards(value string) *FieldCaps {
-	r.values.Set("expand_wildcards", value)
+func (r *FieldCaps) ExpandWildcards(v string) *FieldCaps {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -235,8 +265,8 @@ func (r *FieldCaps) ExpandWildcards(value string) *FieldCaps {
 // Fields Comma-separated list of fields to retrieve capabilities for. Wildcard (`*`)
 // expressions are supported.
 // API name: fields
-func (r *FieldCaps) Fields(value string) *FieldCaps {
-	r.values.Set("fields", value)
+func (r *FieldCaps) Fields(v string) *FieldCaps {
+	r.values.Set("fields", v)
 
 	return r
 }
@@ -260,16 +290,16 @@ func (r *FieldCaps) IncludeUnmapped(b bool) *FieldCaps {
 // Filters An optional set of filters: can include
 // +metadata,-metadata,-nested,-multifield,-parent
 // API name: filters
-func (r *FieldCaps) Filters(value string) *FieldCaps {
-	r.values.Set("filters", value)
+func (r *FieldCaps) Filters(v string) *FieldCaps {
+	r.values.Set("filters", v)
 
 	return r
 }
 
 // Types Only return results for fields that have one of the types in the list
 // API name: types
-func (r *FieldCaps) Types(value string) *FieldCaps {
-	r.values.Set("types", value)
+func (r *FieldCaps) Types(v string) *FieldCaps {
+	r.values.Set("types", v)
 
 	return r
 }

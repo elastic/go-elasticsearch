@@ -15,26 +15,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // NodeInfoSettingsNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/info/types.ts#L148-L152
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/info/types.ts#L148-L152
 type NodeInfoSettingsNode struct {
-	Attr                 map[string]interface{} `json:"attr"`
-	MaxLocalStorageNodes *string                `json:"max_local_storage_nodes,omitempty"`
-	Name                 string                 `json:"name"`
+	Attr                 map[string]json.RawMessage `json:"attr"`
+	MaxLocalStorageNodes *string                    `json:"max_local_storage_nodes,omitempty"`
+	Name                 string                     `json:"name"`
 }
 
 // NewNodeInfoSettingsNode returns a NodeInfoSettingsNode.
 func NewNodeInfoSettingsNode() *NodeInfoSettingsNode {
 	r := &NodeInfoSettingsNode{
-		Attr: make(map[string]interface{}, 0),
+		Attr: make(map[string]json.RawMessage, 0),
 	}
 
 	return r
