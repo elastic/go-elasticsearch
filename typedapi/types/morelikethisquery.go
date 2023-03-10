@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,11 +26,11 @@ import (
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/specialized.ts#L62-L89
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/specialized.ts#L62-L89
 type MoreLikeThisQuery struct {
 	Analyzer               *string                  `json:"analyzer,omitempty"`
 	Boost                  *float32                 `json:"boost,omitempty"`
-	BoostTerms             *float64                 `json:"boost_terms,omitempty"`
+	BoostTerms             *Float64                 `json:"boost_terms,omitempty"`
 	FailOnUnsupportedField *bool                    `json:"fail_on_unsupported_field,omitempty"`
 	Fields                 []string                 `json:"fields,omitempty"`
 	Include                *bool                    `json:"include,omitempty"`
@@ -43,7 +41,7 @@ type MoreLikeThisQuery struct {
 	MinDocFreq             *int                     `json:"min_doc_freq,omitempty"`
 	MinTermFreq            *int                     `json:"min_term_freq,omitempty"`
 	MinWordLength          *int                     `json:"min_word_length,omitempty"`
-	MinimumShouldMatch     *MinimumShouldMatch      `json:"minimum_should_match,omitempty"`
+	MinimumShouldMatch     MinimumShouldMatch       `json:"minimum_should_match,omitempty"`
 	PerFieldAnalyzer       map[string]string        `json:"per_field_analyzer,omitempty"`
 	QueryName_             *string                  `json:"_name,omitempty"`
 	Routing                *string                  `json:"routing,omitempty"`

@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // Influencer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Influencer.ts#L31-L83
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Influencer.ts#L31-L83
 type Influencer struct {
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 	// is specified in the job.
@@ -44,12 +42,12 @@ type Influencer struct {
 	// across detectors. Unlike `initial_influencer_score`, this value is updated by
 	// a re-normalization process as new
 	// data is analyzed.
-	InfluencerScore float64 `json:"influencer_score"`
+	InfluencerScore Float64 `json:"influencer_score"`
 	// InitialInfluencerScore A normalized score between 0-100, which is based on the probability of the
 	// influencer aggregated across detectors.
 	// This is the initial value that was calculated at the time the bucket was
 	// processed.
-	InitialInfluencerScore float64 `json:"initial_influencer_score"`
+	InitialInfluencerScore Float64 `json:"initial_influencer_score"`
 	// IsInterim If true, this is an interim result. In other words, the results are
 	// calculated based on partial input data.
 	IsInterim bool `json:"is_interim"`
@@ -60,7 +58,7 @@ type Influencer struct {
 	// precision of over 300 decimal places, so the `influencer_score` is provided
 	// as a human-readable and friendly
 	// interpretation of this value.
-	Probability float64 `json:"probability"`
+	Probability Float64 `json:"probability"`
 	// ResultType Internal. This value is always set to `influencer`.
 	ResultType string `json:"result_type"`
 	// Timestamp The start time of the bucket for which these results were calculated.

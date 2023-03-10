@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // HitsMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/hits.ts#L66-L72
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/hits.ts#L66-L72
 type HitsMetadata struct {
 	Hits     []Hit   `json:"hits"`
-	MaxScore float64 `json:"max_score,omitempty"`
+	MaxScore Float64 `json:"max_score,omitempty"`
 	// Total Total hit count information, present only if `track_total_hits` wasn't
 	// `false` in the search request.
-	Total TotalHits `json:"total,omitempty"`
+	Total *TotalHits `json:"total,omitempty"`
 }
 
 // NewHitsMetadata returns a HitsMetadata.

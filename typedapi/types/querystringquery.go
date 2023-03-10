@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -29,7 +27,7 @@ import (
 
 // QueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/fulltext.ts#L233-L269
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/fulltext.ts#L233-L269
 type QueryStringQuery struct {
 	AllowLeadingWildcard            *bool                        `json:"allow_leading_wildcard,omitempty"`
 	AnalyzeWildcard                 *bool                        `json:"analyze_wildcard,omitempty"`
@@ -41,21 +39,21 @@ type QueryStringQuery struct {
 	EnablePositionIncrements        *bool                        `json:"enable_position_increments,omitempty"`
 	Escape                          *bool                        `json:"escape,omitempty"`
 	Fields                          []string                     `json:"fields,omitempty"`
-	Fuzziness                       *Fuzziness                   `json:"fuzziness,omitempty"`
+	Fuzziness                       Fuzziness                    `json:"fuzziness,omitempty"`
 	FuzzyMaxExpansions              *int                         `json:"fuzzy_max_expansions,omitempty"`
 	FuzzyPrefixLength               *int                         `json:"fuzzy_prefix_length,omitempty"`
 	FuzzyRewrite                    *string                      `json:"fuzzy_rewrite,omitempty"`
 	FuzzyTranspositions             *bool                        `json:"fuzzy_transpositions,omitempty"`
 	Lenient                         *bool                        `json:"lenient,omitempty"`
 	MaxDeterminizedStates           *int                         `json:"max_determinized_states,omitempty"`
-	MinimumShouldMatch              *MinimumShouldMatch          `json:"minimum_should_match,omitempty"`
-	PhraseSlop                      *float64                     `json:"phrase_slop,omitempty"`
+	MinimumShouldMatch              MinimumShouldMatch           `json:"minimum_should_match,omitempty"`
+	PhraseSlop                      *Float64                     `json:"phrase_slop,omitempty"`
 	Query                           string                       `json:"query"`
 	QueryName_                      *string                      `json:"_name,omitempty"`
 	QuoteAnalyzer                   *string                      `json:"quote_analyzer,omitempty"`
 	QuoteFieldSuffix                *string                      `json:"quote_field_suffix,omitempty"`
 	Rewrite                         *string                      `json:"rewrite,omitempty"`
-	TieBreaker                      *float64                     `json:"tie_breaker,omitempty"`
+	TieBreaker                      *Float64                     `json:"tie_breaker,omitempty"`
 	TimeZone                        *string                      `json:"time_zone,omitempty"`
 	Type                            *textquerytype.TextQueryType `json:"type,omitempty"`
 }

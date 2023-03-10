@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package startdatafeed
 
@@ -31,15 +29,15 @@ import (
 
 // Request holds the request body struct for the package startdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
 type Request struct {
 
 	// End Refer to the description for the `end` query parameter.
-	End *types.DateTime `json:"end,omitempty"`
+	End types.DateTime `json:"end,omitempty"`
 	// Start Refer to the description for the `start` query parameter.
-	Start *types.DateTime `json:"start,omitempty"`
+	Start types.DateTime `json:"start,omitempty"`
 	// Timeout Refer to the description for the `timeout` query parameter.
-	Timeout *types.Duration `json:"timeout,omitempty"`
+	Timeout types.Duration `json:"timeout,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -49,7 +47,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

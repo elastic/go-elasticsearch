@@ -15,35 +15,60 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shardstoreallocation"
+
+	"encoding/json"
+	"fmt"
 )
 
 // ShardStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/shard_stores/types.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/shard_stores/types.ts#L30-L34
 type ShardStore struct {
-	Allocation       shardstoreallocation.ShardStoreAllocation `json:"allocation"`
-	AllocationId     string                                    `json:"allocation_id"`
-	Attributes       map[string]interface{}                    `json:"attributes"`
-	Id               string                                    `json:"id"`
-	LegacyVersion    int64                                     `json:"legacy_version"`
-	Name             string                                    `json:"name"`
-	StoreException   ShardStoreException                       `json:"store_exception"`
-	TransportAddress string                                    `json:"transport_address"`
+	Allocation     shardstoreallocation.ShardStoreAllocation `json:"allocation"`
+	AllocationId   *string                                   `json:"allocation_id,omitempty"`
+	ShardStore     map[string]ShardStoreNode                 `json:"-"`
+	StoreException *ShardStoreException                      `json:"store_exception,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ShardStore) MarshalJSON() ([]byte, error) {
+	type opt ShardStore
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]interface{}, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.ShardStore {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewShardStore returns a ShardStore.
 func NewShardStore() *ShardStore {
 	r := &ShardStore{
-		Attributes: make(map[string]interface{}, 0),
+		ShardStore: make(map[string]ShardStoreNode, 0),
 	}
 
 	return r

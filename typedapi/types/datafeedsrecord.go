@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // DatafeedsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cat/ml_datafeeds/types.ts#L22-L83
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/ml_datafeeds/types.ts#L22-L83
 type DatafeedsRecord struct {
 	// AssignmentExplanation why the datafeed is or is not assigned to a node
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`

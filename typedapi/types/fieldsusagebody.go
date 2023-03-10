@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -29,7 +27,7 @@ import (
 
 // FieldsUsageBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L32-L36
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/field_usage_stats/IndicesFieldUsageStatsResponse.ts#L32-L36
 type FieldsUsageBody struct {
 	FieldsUsageBody map[string]UsageStatsIndex `json:"-"`
 	Shards_         ShardStatistics            `json:"_shards"`

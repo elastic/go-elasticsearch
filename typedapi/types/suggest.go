@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,13 +26,5 @@ package types
 //	PhraseSuggest
 //	TermSuggest
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/suggester.ts#L34-L40
-type Suggest interface {
-	isSuggest()
-}
-
-func (i CompletionSuggest) isSuggest() {}
-
-func (i PhraseSuggest) isSuggest() {}
-
-func (i TermSuggest) isSuggest() {}
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/suggester.ts#L34-L40
+type Suggest interface{}

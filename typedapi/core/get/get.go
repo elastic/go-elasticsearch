@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns a document.
 package get
@@ -26,6 +24,7 @@ package get
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
@@ -146,8 +146,8 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Get) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Get) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -161,10 +161,40 @@ func (r Get) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a get.Response
+func (r Get) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Get) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -210,8 +240,8 @@ func (r *Get) Index(v string) *Get {
 // Preference Specifies the node or shard the operation should be performed on. Random by
 // default.
 // API name: preference
-func (r *Get) Preference(value string) *Get {
-	r.values.Set("preference", value)
+func (r *Get) Preference(v string) *Get {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -235,8 +265,8 @@ func (r *Get) Refresh(b bool) *Get {
 
 // Routing Target the specified primary shard.
 // API name: routing
-func (r *Get) Routing(value string) *Get {
-	r.values.Set("routing", value)
+func (r *Get) Routing(v string) *Get {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -244,32 +274,32 @@ func (r *Get) Routing(value string) *Get {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return.
 // API name: _source
-func (r *Get) Source_(value string) *Get {
-	r.values.Set("_source", value)
+func (r *Get) Source_(v string) *Get {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // SourceExcludes_ A comma-separated list of source fields to exclude in the response.
 // API name: _source_excludes
-func (r *Get) SourceExcludes_(value string) *Get {
-	r.values.Set("_source_excludes", value)
+func (r *Get) SourceExcludes_(v string) *Get {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // SourceIncludes_ A comma-separated list of source fields to include in the response.
 // API name: _source_includes
-func (r *Get) SourceIncludes_(value string) *Get {
-	r.values.Set("_source_includes", value)
+func (r *Get) SourceIncludes_(v string) *Get {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
 
 // StoredFields A comma-separated list of stored fields to return in the response
 // API name: stored_fields
-func (r *Get) StoredFields(value string) *Get {
-	r.values.Set("stored_fields", value)
+func (r *Get) StoredFields(v string) *Get {
+	r.values.Set("stored_fields", v)
 
 	return r
 }
@@ -277,8 +307,8 @@ func (r *Get) StoredFields(value string) *Get {
 // Version Explicit version number for concurrency control. The specified version must
 // match the current version of the document for the request to succeed.
 // API name: version
-func (r *Get) Version(value string) *Get {
-	r.values.Set("version", value)
+func (r *Get) Version(v string) *Get {
+	r.values.Set("version", v)
 
 	return r
 }

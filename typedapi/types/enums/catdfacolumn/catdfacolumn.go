@@ -15,17 +15,15 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Package catdfacolumn
 package catdfacolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cat/_types/CatBase.ts#L472-L557
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/_types/CatBase.ts#L472-L557
 type CatDfaColumn struct {
 	Name string
 }
@@ -45,13 +43,13 @@ var (
 
 	Modelmemorylimit = CatDfaColumn{"model_memory_limit"}
 
-	NodeAddress = CatDfaColumn{"node.address"}
+	Nodeaddress = CatDfaColumn{"node.address"}
 
-	NodeEphemeralid = CatDfaColumn{"node.ephemeral_id"}
+	Nodeephemeralid = CatDfaColumn{"node.ephemeral_id"}
 
-	NodeId = CatDfaColumn{"node.id"}
+	Nodeid = CatDfaColumn{"node.id"}
 
-	NodeName = CatDfaColumn{"node.name"}
+	Nodename = CatDfaColumn{"node.name"}
 
 	Progress = CatDfaColumn{"progress"}
 
@@ -86,13 +84,13 @@ func (c *CatDfaColumn) UnmarshalText(text []byte) error {
 	case "model_memory_limit":
 		*c = Modelmemorylimit
 	case "node.address":
-		*c = NodeAddress
+		*c = Nodeaddress
 	case "node.ephemeral_id":
-		*c = NodeEphemeralid
+		*c = Nodeephemeralid
 	case "node.id":
-		*c = NodeId
+		*c = Nodeid
 	case "node.name":
-		*c = NodeName
+		*c = Nodename
 	case "progress":
 		*c = Progress
 	case "source_index":

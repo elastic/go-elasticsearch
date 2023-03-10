@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Performs an update on every document in the index without changing the
 // source,
@@ -31,12 +29,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conflicts"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
@@ -60,7 +60,7 @@ type UpdateByQuery struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -100,7 +100,7 @@ func New(tp elastictransport.Interface) *UpdateByQuery {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *UpdateByQuery) Raw(raw json.RawMessage) *UpdateByQuery {
+func (r *UpdateByQuery) Raw(raw io.Reader) *UpdateByQuery {
 	r.raw = raw
 
 	return r
@@ -123,7 +123,7 @@ func (r *UpdateByQuery) HttpRequest(ctx context.Context) (*http.Request, error) 
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -179,8 +179,8 @@ func (r *UpdateByQuery) HttpRequest(ctx context.Context) (*http.Request, error) 
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r UpdateByQuery) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r UpdateByQuery) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -192,6 +192,36 @@ func (r UpdateByQuery) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a updatebyquery.Response
+func (r UpdateByQuery) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the UpdateByQuery headers map.
@@ -222,8 +252,8 @@ func (r *UpdateByQuery) AllowNoIndices(b bool) *UpdateByQuery {
 
 // Analyzer The analyzer to use for the query string
 // API name: analyzer
-func (r *UpdateByQuery) Analyzer(value string) *UpdateByQuery {
-	r.values.Set("analyzer", value)
+func (r *UpdateByQuery) Analyzer(v string) *UpdateByQuery {
+	r.values.Set("analyzer", v)
 
 	return r
 }
@@ -256,8 +286,8 @@ func (r *UpdateByQuery) DefaultOperator(enum operator.Operator) *UpdateByQuery {
 // Df The field to use as default where no field prefix is given in the query
 // string
 // API name: df
-func (r *UpdateByQuery) Df(value string) *UpdateByQuery {
-	r.values.Set("df", value)
+func (r *UpdateByQuery) Df(v string) *UpdateByQuery {
+	r.values.Set("df", v)
 
 	return r
 }
@@ -265,16 +295,16 @@ func (r *UpdateByQuery) Df(value string) *UpdateByQuery {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *UpdateByQuery) ExpandWildcards(value string) *UpdateByQuery {
-	r.values.Set("expand_wildcards", value)
+func (r *UpdateByQuery) ExpandWildcards(v string) *UpdateByQuery {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
 
 // From Starting offset (default: 0)
 // API name: from
-func (r *UpdateByQuery) From(value string) *UpdateByQuery {
-	r.values.Set("from", value)
+func (r *UpdateByQuery) From(v string) *UpdateByQuery {
+	r.values.Set("from", v)
 
 	return r
 }
@@ -299,16 +329,16 @@ func (r *UpdateByQuery) Lenient(b bool) *UpdateByQuery {
 
 // MaxDocs Maximum number of documents to process (default: all documents)
 // API name: max_docs
-func (r *UpdateByQuery) MaxDocs(value string) *UpdateByQuery {
-	r.values.Set("max_docs", value)
+func (r *UpdateByQuery) MaxDocs(v string) *UpdateByQuery {
+	r.values.Set("max_docs", v)
 
 	return r
 }
 
 // Pipeline Ingest pipeline to set on index requests made by this action. (default: none)
 // API name: pipeline
-func (r *UpdateByQuery) Pipeline(value string) *UpdateByQuery {
-	r.values.Set("pipeline", value)
+func (r *UpdateByQuery) Pipeline(v string) *UpdateByQuery {
+	r.values.Set("pipeline", v)
 
 	return r
 }
@@ -316,8 +346,8 @@ func (r *UpdateByQuery) Pipeline(value string) *UpdateByQuery {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *UpdateByQuery) Preference(value string) *UpdateByQuery {
-	r.values.Set("preference", value)
+func (r *UpdateByQuery) Preference(v string) *UpdateByQuery {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -342,16 +372,16 @@ func (r *UpdateByQuery) RequestCache(b bool) *UpdateByQuery {
 // RequestsPerSecond The throttle to set on this request in sub-requests per second. -1 means no
 // throttle.
 // API name: requests_per_second
-func (r *UpdateByQuery) RequestsPerSecond(value string) *UpdateByQuery {
-	r.values.Set("requests_per_second", value)
+func (r *UpdateByQuery) RequestsPerSecond(v string) *UpdateByQuery {
+	r.values.Set("requests_per_second", v)
 
 	return r
 }
 
 // Routing A comma-separated list of specific routing values
 // API name: routing
-func (r *UpdateByQuery) Routing(value string) *UpdateByQuery {
-	r.values.Set("routing", value)
+func (r *UpdateByQuery) Routing(v string) *UpdateByQuery {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -359,24 +389,24 @@ func (r *UpdateByQuery) Routing(value string) *UpdateByQuery {
 // Scroll Specify how long a consistent view of the index should be maintained for
 // scrolled search
 // API name: scroll
-func (r *UpdateByQuery) Scroll(value string) *UpdateByQuery {
-	r.values.Set("scroll", value)
+func (r *UpdateByQuery) Scroll(v string) *UpdateByQuery {
+	r.values.Set("scroll", v)
 
 	return r
 }
 
 // ScrollSize Size on the scroll request powering the update by query
 // API name: scroll_size
-func (r *UpdateByQuery) ScrollSize(value string) *UpdateByQuery {
-	r.values.Set("scroll_size", value)
+func (r *UpdateByQuery) ScrollSize(v string) *UpdateByQuery {
+	r.values.Set("scroll_size", v)
 
 	return r
 }
 
 // SearchTimeout Explicit timeout for each search request. Defaults to no timeout.
 // API name: search_timeout
-func (r *UpdateByQuery) SearchTimeout(value string) *UpdateByQuery {
-	r.values.Set("search_timeout", value)
+func (r *UpdateByQuery) SearchTimeout(v string) *UpdateByQuery {
+	r.values.Set("search_timeout", v)
 
 	return r
 }
@@ -392,24 +422,24 @@ func (r *UpdateByQuery) SearchType(enum searchtype.SearchType) *UpdateByQuery {
 // Slices The number of slices this task should be divided into. Defaults to 1, meaning
 // the task isn't sliced into subtasks. Can be set to `auto`.
 // API name: slices
-func (r *UpdateByQuery) Slices(value string) *UpdateByQuery {
-	r.values.Set("slices", value)
+func (r *UpdateByQuery) Slices(v string) *UpdateByQuery {
+	r.values.Set("slices", v)
 
 	return r
 }
 
 // Sort A comma-separated list of <field>:<direction> pairs
 // API name: sort
-func (r *UpdateByQuery) Sort(value string) *UpdateByQuery {
-	r.values.Set("sort", value)
+func (r *UpdateByQuery) Sort(v string) *UpdateByQuery {
+	r.values.Set("sort", v)
 
 	return r
 }
 
 // Stats Specific 'tag' of the request for logging and statistical purposes
 // API name: stats
-func (r *UpdateByQuery) Stats(value string) *UpdateByQuery {
-	r.values.Set("stats", value)
+func (r *UpdateByQuery) Stats(v string) *UpdateByQuery {
+	r.values.Set("stats", v)
 
 	return r
 }
@@ -417,8 +447,8 @@ func (r *UpdateByQuery) Stats(value string) *UpdateByQuery {
 // TerminateAfter The maximum number of documents to collect for each shard, upon reaching
 // which the query execution will terminate early.
 // API name: terminate_after
-func (r *UpdateByQuery) TerminateAfter(value string) *UpdateByQuery {
-	r.values.Set("terminate_after", value)
+func (r *UpdateByQuery) TerminateAfter(v string) *UpdateByQuery {
+	r.values.Set("terminate_after", v)
 
 	return r
 }
@@ -426,8 +456,8 @@ func (r *UpdateByQuery) TerminateAfter(value string) *UpdateByQuery {
 // Timeout Time each individual bulk request should wait for shards that are
 // unavailable.
 // API name: timeout
-func (r *UpdateByQuery) Timeout(value string) *UpdateByQuery {
-	r.values.Set("timeout", value)
+func (r *UpdateByQuery) Timeout(v string) *UpdateByQuery {
+	r.values.Set("timeout", v)
 
 	return r
 }
@@ -455,8 +485,8 @@ func (r *UpdateByQuery) VersionType(b bool) *UpdateByQuery {
 // less than or equal to the total number of copies for the shard (number of
 // replicas + 1)
 // API name: wait_for_active_shards
-func (r *UpdateByQuery) WaitForActiveShards(value string) *UpdateByQuery {
-	r.values.Set("wait_for_active_shards", value)
+func (r *UpdateByQuery) WaitForActiveShards(v string) *UpdateByQuery {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }

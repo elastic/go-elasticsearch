@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // FielddataFrequencyFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/FielddataFrequencyFilter.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/_types/FielddataFrequencyFilter.ts#L22-L26
 type FielddataFrequencyFilter struct {
-	Max            float64 `json:"max"`
-	Min            float64 `json:"min"`
+	Max            Float64 `json:"max"`
+	Min            Float64 `json:"min"`
 	MinSegmentSize int     `json:"min_segment_size"`
 }
 

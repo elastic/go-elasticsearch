@@ -15,20 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // ChildrenAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/bucket.ts#L73-L75
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/bucket.ts#L73-L75
 type ChildrenAggregation struct {
-	Meta map[string]interface{} `json:"meta,omitempty"`
-	Name *string                `json:"name,omitempty"`
-	Type *string                `json:"type,omitempty"`
+	Meta map[string]json.RawMessage `json:"meta,omitempty"`
+	Name *string                    `json:"name,omitempty"`
+	Type *string                    `json:"type,omitempty"`
 }
 
 // NewChildrenAggregation returns a ChildrenAggregation.

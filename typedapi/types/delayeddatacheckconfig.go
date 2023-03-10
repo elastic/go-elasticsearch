@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // DelayedDataCheckConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Datafeed.ts#L119-L130
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Datafeed.ts#L119-L130
 type DelayedDataCheckConfig struct {
 	// CheckWindow The window of time that is searched for late data. This window of time ends
 	// with the latest finalized bucket.
@@ -32,7 +30,7 @@ type DelayedDataCheckConfig struct {
 	// calculated when the real-time datafeed runs.
 	// In particular, the default `check_window` span calculation is based on the
 	// maximum of `2h` or `8 * bucket_span`.
-	CheckWindow *Duration `json:"check_window,omitempty"`
+	CheckWindow Duration `json:"check_window,omitempty"`
 	// Enabled Specifies whether the datafeed periodically checks for delayed data.
 	Enabled bool `json:"enabled"`
 }

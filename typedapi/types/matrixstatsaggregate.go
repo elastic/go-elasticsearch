@@ -15,20 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // MatrixStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L748-L752
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/Aggregate.ts#L748-L752
 type MatrixStatsAggregate struct {
-	DocCount int64                  `json:"doc_count"`
-	Fields   []MatrixStatsFields    `json:"fields"`
-	Meta     map[string]interface{} `json:"meta,omitempty"`
+	DocCount int64                      `json:"doc_count"`
+	Fields   []MatrixStatsFields        `json:"fields,omitempty"`
+	Meta     map[string]json.RawMessage `json:"meta,omitempty"`
 }
 
 // NewMatrixStatsAggregate returns a MatrixStatsAggregate.

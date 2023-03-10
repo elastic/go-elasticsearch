@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Start a trained model deployment.
 package starttrainedmodeldeployment
@@ -26,6 +24,7 @@ package starttrainedmodeldeployment
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,8 +35,10 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentallocationstate"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/trainingpriority"
 )
 
 const (
@@ -150,8 +151,8 @@ func (r *StartTrainedModelDeployment) HttpRequest(ctx context.Context) (*http.Re
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r StartTrainedModelDeployment) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r StartTrainedModelDeployment) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -165,10 +166,40 @@ func (r StartTrainedModelDeployment) Do(ctx context.Context) (*http.Response, er
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a starttrainedmodeldeployment.Response
+func (r StartTrainedModelDeployment) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r StartTrainedModelDeployment) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -209,8 +240,8 @@ func (r *StartTrainedModelDeployment) ModelId(v string) *StartTrainedModelDeploy
 // cache,
 // `0b` can be provided.
 // API name: cache_size
-func (r *StartTrainedModelDeployment) CacheSize(value string) *StartTrainedModelDeployment {
-	r.values.Set("cache_size", value)
+func (r *StartTrainedModelDeployment) CacheSize(v string) *StartTrainedModelDeployment {
+	r.values.Set("cache_size", v)
 
 	return r
 }
@@ -225,6 +256,14 @@ func (r *StartTrainedModelDeployment) CacheSize(value string) *StartTrainedModel
 // API name: number_of_allocations
 func (r *StartTrainedModelDeployment) NumberOfAllocations(i int) *StartTrainedModelDeployment {
 	r.values.Set("number_of_allocations", strconv.Itoa(i))
+
+	return r
+}
+
+// Priority The deployment priority.
+// API name: priority
+func (r *StartTrainedModelDeployment) Priority(enum trainingpriority.TrainingPriority) *StartTrainedModelDeployment {
+	r.values.Set("priority", enum.String())
 
 	return r
 }
@@ -258,8 +297,8 @@ func (r *StartTrainedModelDeployment) ThreadsPerAllocation(i int) *StartTrainedM
 
 // Timeout Specifies the amount of time to wait for the model to deploy.
 // API name: timeout
-func (r *StartTrainedModelDeployment) Timeout(value string) *StartTrainedModelDeployment {
-	r.values.Set("timeout", value)
+func (r *StartTrainedModelDeployment) Timeout(v string) *StartTrainedModelDeployment {
+	r.values.Set("timeout", v)
 
 	return r
 }

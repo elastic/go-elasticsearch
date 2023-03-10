@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Allows to get multiple documents in one request.
 package mget
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type Mget struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -90,7 +90,7 @@ func New(tp elastictransport.Interface) *Mget {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Mget) Raw(raw json.RawMessage) *Mget {
+func (r *Mget) Raw(raw io.Reader) *Mget {
 	r.raw = raw
 
 	return r
@@ -113,7 +113,7 @@ func (r *Mget) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -174,8 +174,8 @@ func (r *Mget) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Mget) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Mget) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -187,6 +187,36 @@ func (r Mget) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a mget.Response
+func (r Mget) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Mget headers map.
@@ -209,8 +239,8 @@ func (r *Mget) Index(v string) *Mget {
 // Preference Specifies the node or shard the operation should be performed on. Random by
 // default.
 // API name: preference
-func (r *Mget) Preference(value string) *Mget {
-	r.values.Set("preference", value)
+func (r *Mget) Preference(v string) *Mget {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -233,8 +263,8 @@ func (r *Mget) Refresh(b bool) *Mget {
 
 // Routing Custom value used to route operations to a specific shard.
 // API name: routing
-func (r *Mget) Routing(value string) *Mget {
-	r.values.Set("routing", value)
+func (r *Mget) Routing(v string) *Mget {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -242,8 +272,8 @@ func (r *Mget) Routing(value string) *Mget {
 // Source_ True or false to return the `_source` field or not, or a list of fields to
 // return.
 // API name: _source
-func (r *Mget) Source_(value string) *Mget {
-	r.values.Set("_source", value)
+func (r *Mget) Source_(v string) *Mget {
+	r.values.Set("_source", v)
 
 	return r
 }
@@ -252,8 +282,8 @@ func (r *Mget) Source_(value string) *Mget {
 // You can also use this parameter to exclude fields from the subset specified
 // in `_source_includes` query parameter.
 // API name: _source_excludes
-func (r *Mget) SourceExcludes_(value string) *Mget {
-	r.values.Set("_source_excludes", value)
+func (r *Mget) SourceExcludes_(v string) *Mget {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
@@ -264,8 +294,8 @@ func (r *Mget) SourceExcludes_(value string) *Mget {
 // parameter.
 // If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_includes
-func (r *Mget) SourceIncludes_(value string) *Mget {
-	r.values.Set("_source_includes", value)
+func (r *Mget) SourceIncludes_(v string) *Mget {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
@@ -273,8 +303,8 @@ func (r *Mget) SourceIncludes_(value string) *Mget {
 // StoredFields If `true`, retrieves the document fields stored in the index rather than the
 // document `_source`.
 // API name: stored_fields
-func (r *Mget) StoredFields(value string) *Mget {
-	r.values.Set("stored_fields", value)
+func (r *Mget) StoredFields(v string) *Mget {
+	r.values.Set("stored_fields", v)
 
 	return r
 }

@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // NodeInfoHttp type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/info/types.ts#L295-L300
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/info/types.ts#L295-L300
 type NodeInfoHttp struct {
-	BoundAddress            []string  `json:"bound_address"`
-	MaxContentLength        *ByteSize `json:"max_content_length,omitempty"`
-	MaxContentLengthInBytes int64     `json:"max_content_length_in_bytes"`
-	PublishAddress          string    `json:"publish_address"`
+	BoundAddress            []string `json:"bound_address"`
+	MaxContentLength        ByteSize `json:"max_content_length,omitempty"`
+	MaxContentLengthInBytes int64    `json:"max_content_length_in_bytes"`
+	PublishAddress          string   `json:"publish_address"`
 }
 
 // NewNodeInfoHttp returns a NodeInfoHttp.

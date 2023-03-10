@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -29,11 +27,11 @@ import (
 
 // HttpInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/watcher/_types/Input.ts#L72-L86
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Input.ts#L72-L86
 type HttpInputRequestDefinition struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
-	ConnectionTimeout *Duration                          `json:"connection_timeout,omitempty"`
+	ConnectionTimeout Duration                           `json:"connection_timeout,omitempty"`
 	Headers           map[string]string                  `json:"headers,omitempty"`
 	Host              *string                            `json:"host,omitempty"`
 	Method            *httpinputmethod.HttpInputMethod   `json:"method,omitempty"`
@@ -41,7 +39,7 @@ type HttpInputRequestDefinition struct {
 	Path              *string                            `json:"path,omitempty"`
 	Port              *uint                              `json:"port,omitempty"`
 	Proxy             *HttpInputProxy                    `json:"proxy,omitempty"`
-	ReadTimeout       *Duration                          `json:"read_timeout,omitempty"`
+	ReadTimeout       Duration                           `json:"read_timeout,omitempty"`
 	Scheme            *connectionscheme.ConnectionScheme `json:"scheme,omitempty"`
 	Url               *string                            `json:"url,omitempty"`
 }

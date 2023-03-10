@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // MgetOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/mget/types.ts#L32-L55
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/mget/types.ts#L32-L55
 type MgetOperation struct {
 	// Id_ The unique document ID.
 	Id_ string `json:"_id"`
@@ -38,7 +36,7 @@ type MgetOperation struct {
 	// used during indexing.
 	Routing *string `json:"routing,omitempty"`
 	// Source_ If `false`, excludes all _source fields.
-	Source_ *SourceConfig `json:"_source,omitempty"`
+	Source_ SourceConfig `json:"_source,omitempty"`
 	// StoredFields The stored fields you want to retrieve.
 	StoredFields []string                 `json:"stored_fields,omitempty"`
 	Version      *int64                   `json:"version,omitempty"`

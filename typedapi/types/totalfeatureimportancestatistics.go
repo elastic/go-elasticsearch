@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // TotalFeatureImportanceStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/TrainedModel.ts#L237-L244
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/TrainedModel.ts#L238-L245
 type TotalFeatureImportanceStatistics struct {
 	// Max The maximum importance value across all the training data for this feature.
 	Max int `json:"max"`
 	// MeanMagnitude The average magnitude of this feature across all the training data. This
 	// value is the average of the absolute values of the importance for this
 	// feature.
-	MeanMagnitude float64 `json:"mean_magnitude"`
+	MeanMagnitude Float64 `json:"mean_magnitude"`
 	// Min The minimum importance value across all the training data for this feature.
 	Min int `json:"min"`
 }

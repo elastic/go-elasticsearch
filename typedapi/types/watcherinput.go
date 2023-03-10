@@ -15,27 +15,29 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // WatcherInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/watcher/_types/Input.ts#L90-L98
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Input.ts#L90-L98
 type WatcherInput struct {
-	Chain  *ChainInput            `json:"chain,omitempty"`
-	Http   *HttpInput             `json:"http,omitempty"`
-	Search *SearchInput           `json:"search,omitempty"`
-	Simple map[string]interface{} `json:"simple,omitempty"`
+	Chain  *ChainInput                `json:"chain,omitempty"`
+	Http   *HttpInput                 `json:"http,omitempty"`
+	Search *SearchInput               `json:"search,omitempty"`
+	Simple map[string]json.RawMessage `json:"simple,omitempty"`
 }
 
 // NewWatcherInput returns a WatcherInput.
 func NewWatcherInput() *WatcherInput {
 	r := &WatcherInput{
-		Simple: make(map[string]interface{}, 0),
+		Simple: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

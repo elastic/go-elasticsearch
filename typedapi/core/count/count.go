@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns number of documents matching a query.
 package count
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
 )
@@ -56,7 +56,7 @@ type Count struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *Count {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Count) Raw(raw json.RawMessage) *Count {
+func (r *Count) Raw(raw io.Reader) *Count {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *Count) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -176,8 +176,8 @@ func (r *Count) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Count) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Count) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -189,6 +189,36 @@ func (r Count) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a count.Response
+func (r Count) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Count headers map.
@@ -218,8 +248,8 @@ func (r *Count) AllowNoIndices(b bool) *Count {
 
 // Analyzer The analyzer to use for the query string
 // API name: analyzer
-func (r *Count) Analyzer(value string) *Count {
-	r.values.Set("analyzer", value)
+func (r *Count) Analyzer(v string) *Count {
+	r.values.Set("analyzer", v)
 
 	return r
 }
@@ -244,8 +274,8 @@ func (r *Count) DefaultOperator(enum operator.Operator) *Count {
 // Df The field to use as default where no field prefix is given in the query
 // string
 // API name: df
-func (r *Count) Df(value string) *Count {
-	r.values.Set("df", value)
+func (r *Count) Df(v string) *Count {
+	r.values.Set("df", v)
 
 	return r
 }
@@ -253,8 +283,8 @@ func (r *Count) Df(value string) *Count {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Count) ExpandWildcards(value string) *Count {
-	r.values.Set("expand_wildcards", value)
+func (r *Count) ExpandWildcards(v string) *Count {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -288,8 +318,8 @@ func (r *Count) Lenient(b bool) *Count {
 
 // MinScore Include only documents with a specific `_score` value in the result
 // API name: min_score
-func (r *Count) MinScore(value string) *Count {
-	r.values.Set("min_score", value)
+func (r *Count) MinScore(v string) *Count {
+	r.values.Set("min_score", v)
 
 	return r
 }
@@ -297,16 +327,16 @@ func (r *Count) MinScore(value string) *Count {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *Count) Preference(value string) *Count {
-	r.values.Set("preference", value)
+func (r *Count) Preference(v string) *Count {
+	r.values.Set("preference", v)
 
 	return r
 }
 
 // Routing A comma-separated list of specific routing values
 // API name: routing
-func (r *Count) Routing(value string) *Count {
-	r.values.Set("routing", value)
+func (r *Count) Routing(v string) *Count {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -314,16 +344,16 @@ func (r *Count) Routing(value string) *Count {
 // TerminateAfter The maximum count for each shard, upon reaching which the query execution
 // will terminate early
 // API name: terminate_after
-func (r *Count) TerminateAfter(value string) *Count {
-	r.values.Set("terminate_after", value)
+func (r *Count) TerminateAfter(v string) *Count {
+	r.values.Set("terminate_after", v)
 
 	return r
 }
 
 // Q Query in the Lucene query string syntax
 // API name: q
-func (r *Count) Q(value string) *Count {
-	r.values.Set("q", value)
+func (r *Count) Q(v string) *Count {
+	r.values.Set("q", v)
 
 	return r
 }

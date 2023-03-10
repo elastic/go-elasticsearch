@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,10 +26,11 @@ import (
 
 // TrainedModelAssignment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/TrainedModel.ts#L379-L393
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/TrainedModel.ts#L387-L402
 type TrainedModelAssignment struct {
 	// AssignmentState The overall assignment state.
-	AssignmentState deploymentassignmentstate.DeploymentAssignmentState `json:"assignment_state"`
+	AssignmentState        deploymentassignmentstate.DeploymentAssignmentState `json:"assignment_state"`
+	MaxAssignedAllocations *int                                                `json:"max_assigned_allocations,omitempty"`
 	// RoutingTable The allocation state for each node.
 	RoutingTable map[string]TrainedModelAssignmentRoutingTable `json:"routing_table"`
 	// StartTime The timestamp when the deployment started.

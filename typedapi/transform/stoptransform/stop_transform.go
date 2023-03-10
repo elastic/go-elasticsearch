@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Stops one or more transforms.
 package stoptransform
@@ -26,6 +24,7 @@ package stoptransform
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -138,8 +138,8 @@ func (r *StopTransform) HttpRequest(ctx context.Context) (*http.Request, error) 
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r StopTransform) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r StopTransform) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -153,10 +153,40 @@ func (r StopTransform) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a stoptransform.Response
+func (r StopTransform) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r StopTransform) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -225,8 +255,8 @@ func (r *StopTransform) Force(b bool) *StopTransform {
 // request continues processing and
 // eventually moves the transform to a STOPPED state.
 // API name: timeout
-func (r *StopTransform) Timeout(value string) *StopTransform {
-	r.values.Set("timeout", value)
+func (r *StopTransform) Timeout(v string) *StopTransform {
+	r.values.Set("timeout", v)
 
 	return r
 }

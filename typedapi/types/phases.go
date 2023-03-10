@@ -15,19 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // Phases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ilm/_types/Phase.ts#L35-L40
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ilm/_types/Phase.ts#L35-L41
 type Phases struct {
 	Cold   *Phase `json:"cold,omitempty"`
 	Delete *Phase `json:"delete,omitempty"`
+	Frozen *Phase `json:"frozen,omitempty"`
 	Hot    *Phase `json:"hot,omitempty"`
 	Warm   *Phase `json:"warm,omitempty"`
 }

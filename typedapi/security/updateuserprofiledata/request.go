@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package updateuserprofiledata
 
@@ -29,28 +27,28 @@ import (
 
 // Request holds the request body struct for the package updateuserprofiledata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/update_user_profile_data/Request.ts#L27-L70
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/update_user_profile_data/Request.ts#L27-L70
 type Request struct {
 
 	// Data Non-searchable data that you want to associate with the user profile.
 	// This field supports a nested data structure.
-	Data map[string]interface{} `json:"data,omitempty"`
+	Data map[string]json.RawMessage `json:"data,omitempty"`
 	// Labels Searchable data that you want to associate with the user profile. This
 	// field supports a nested data structure.
-	Labels map[string]interface{} `json:"labels,omitempty"`
+	Labels map[string]json.RawMessage `json:"labels,omitempty"`
 }
 
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{
-		Data:   make(map[string]interface{}, 0),
-		Labels: make(map[string]interface{}, 0),
+		Data:   make(map[string]json.RawMessage, 0),
+		Labels: make(map[string]json.RawMessage, 0),
 	}
 	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

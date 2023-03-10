@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns information about the tasks currently executing on one or more nodes
 // in the cluster.
@@ -27,6 +25,7 @@ package tasks
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -37,6 +36,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -129,8 +129,8 @@ func (r *Tasks) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Tasks) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Tasks) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -144,10 +144,40 @@ func (r Tasks) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a tasks.Response
+func (r Tasks) Do(ctx context.Context) (Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(&response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Tasks) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -175,8 +205,8 @@ func (r *Tasks) Header(key, value string) *Tasks {
 // Actions A comma-separated list of actions that should be returned. Leave empty to
 // return all.
 // API name: actions
-func (r *Tasks) Actions(value string) *Tasks {
-	r.values.Set("actions", value)
+func (r *Tasks) Actions(v string) *Tasks {
+	r.values.Set("actions", v)
 
 	return r
 }
@@ -190,15 +220,15 @@ func (r *Tasks) Detailed(b bool) *Tasks {
 }
 
 // API name: node_id
-func (r *Tasks) NodeId(value string) *Tasks {
-	r.values.Set("node_id", value)
+func (r *Tasks) NodeId(v string) *Tasks {
+	r.values.Set("node_id", v)
 
 	return r
 }
 
 // API name: parent_task
-func (r *Tasks) ParentTask(value string) *Tasks {
-	r.values.Set("parent_task", value)
+func (r *Tasks) ParentTask(v string) *Tasks {
+	r.values.Set("parent_task", v)
 
 	return r
 }

@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // KnnQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Knn.ts#L24-L37
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Knn.ts#L26-L41
 type KnnQuery struct {
 	// Boost Boost value to apply to kNN scores
 	Boost *float32 `json:"boost,omitempty"`
@@ -37,7 +35,10 @@ type KnnQuery struct {
 	// NumCandidates The number of nearest neighbor candidates to consider per shard
 	NumCandidates int64 `json:"num_candidates"`
 	// QueryVector The query vector
-	QueryVector []float64 `json:"query_vector"`
+	QueryVector []float32 `json:"query_vector,omitempty"`
+	// QueryVectorBuilder The query vector builder. You must provide a query_vector_builder or
+	// query_vector, but not both.
+	QueryVectorBuilder *QueryVectorBuilder `json:"query_vector_builder,omitempty"`
 }
 
 // NewKnnQuery returns a KnnQuery.

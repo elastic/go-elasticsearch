@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // BucketInfluencer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Bucket.ts#L80-L128
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Bucket.ts#L80-L128
 type BucketInfluencer struct {
 	// AnomalyScore A normalized score between 0-100, which is calculated for each bucket
 	// influencer. This score might be updated as
 	// newer data is analyzed.
-	AnomalyScore float64 `json:"anomaly_score"`
+	AnomalyScore Float64 `json:"anomaly_score"`
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 	// is specified in the job.
 	BucketSpan int64 `json:"bucket_span"`
@@ -38,7 +36,7 @@ type BucketInfluencer struct {
 	// InitialAnomalyScore The score between 0-100 for each bucket influencer. This score is the initial
 	// value that was calculated at the
 	// time the bucket was processed.
-	InitialAnomalyScore float64 `json:"initial_anomaly_score"`
+	InitialAnomalyScore Float64 `json:"initial_anomaly_score"`
 	// IsInterim If true, this is an interim result. In other words, the results are
 	// calculated based on partial input data.
 	IsInterim bool `json:"is_interim"`
@@ -49,15 +47,15 @@ type BucketInfluencer struct {
 	// of over 300 decimal places, so the `anomaly_score` is provided as a
 	// human-readable and friendly interpretation of
 	// this.
-	Probability float64 `json:"probability"`
+	Probability Float64 `json:"probability"`
 	// RawAnomalyScore Internal.
-	RawAnomalyScore float64 `json:"raw_anomaly_score"`
+	RawAnomalyScore Float64 `json:"raw_anomaly_score"`
 	// ResultType Internal. This value is always set to `bucket_influencer`.
 	ResultType string `json:"result_type"`
 	// Timestamp The start time of the bucket for which these results were calculated.
 	Timestamp int64 `json:"timestamp"`
 	// TimestampString The start time of the bucket for which these results were calculated.
-	TimestampString *DateTime `json:"timestamp_string,omitempty"`
+	TimestampString DateTime `json:"timestamp_string,omitempty"`
 }
 
 // NewBucketInfluencer returns a BucketInfluencer.

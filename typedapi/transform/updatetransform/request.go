@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package updatetransform
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatetransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/transform/update_transform/UpdateTransformRequest.ts#L31-L105
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/transform/update_transform/UpdateTransformRequest.ts#L31-L105
 type Request struct {
 
 	// Description Free text description of the transform.
@@ -42,9 +40,9 @@ type Request struct {
 	// transform is running continuously. Also determines the retry interval in
 	// the event of transient failures while the transform is searching or
 	// indexing. The minimum value is 1s and the maximum is 1h.
-	Frequency *types.Duration `json:"frequency,omitempty"`
+	Frequency types.Duration `json:"frequency,omitempty"`
 	// Meta_ Defines optional transform metadata.
-	Meta_ map[string]interface{} `json:"_meta,omitempty"`
+	Meta_ map[string]json.RawMessage `json:"_meta,omitempty"`
 	// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
 	// criteria is deleted from the destination index.
 	RetentionPolicy types.RetentionPolicyContainer `json:"retention_policy,omitempty"`
@@ -63,7 +61,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

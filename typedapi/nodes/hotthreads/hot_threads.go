@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns information about hot threads on each node in the cluster.
 package hotthreads
@@ -26,6 +24,7 @@ package hotthreads
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/threadtype"
 )
@@ -145,8 +145,8 @@ func (r *HotThreads) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r HotThreads) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r HotThreads) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -160,10 +160,40 @@ func (r HotThreads) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a hotthreads.Response
+func (r HotThreads) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r HotThreads) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -208,16 +238,16 @@ func (r *HotThreads) IgnoreIdleThreads(b bool) *HotThreads {
 
 // Interval The interval to do the second sampling of threads.
 // API name: interval
-func (r *HotThreads) Interval(value string) *HotThreads {
-	r.values.Set("interval", value)
+func (r *HotThreads) Interval(v string) *HotThreads {
+	r.values.Set("interval", v)
 
 	return r
 }
 
 // Snapshots Number of samples of thread stacktrace.
 // API name: snapshots
-func (r *HotThreads) Snapshots(value string) *HotThreads {
-	r.values.Set("snapshots", value)
+func (r *HotThreads) Snapshots(v string) *HotThreads {
+	r.values.Set("snapshots", v)
 
 	return r
 }
@@ -226,16 +256,16 @@ func (r *HotThreads) Snapshots(value string) *HotThreads {
 // is received before the timeout expires, the request fails and
 // returns an error.
 // API name: master_timeout
-func (r *HotThreads) MasterTimeout(value string) *HotThreads {
-	r.values.Set("master_timeout", value)
+func (r *HotThreads) MasterTimeout(v string) *HotThreads {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
 
 // Threads Specifies the number of hot threads to provide information for.
 // API name: threads
-func (r *HotThreads) Threads(value string) *HotThreads {
-	r.values.Set("threads", value)
+func (r *HotThreads) Threads(v string) *HotThreads {
+	r.values.Set("threads", v)
 
 	return r
 }
@@ -243,8 +273,8 @@ func (r *HotThreads) Threads(value string) *HotThreads {
 // Timeout Period to wait for a response. If no response is received
 // before the timeout expires, the request fails and returns an error.
 // API name: timeout
-func (r *HotThreads) Timeout(value string) *HotThreads {
-	r.values.Set("timeout", value)
+func (r *HotThreads) Timeout(v string) *HotThreads {
+	r.values.Set("timeout", v)
 
 	return r
 }

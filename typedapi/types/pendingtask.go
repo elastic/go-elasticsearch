@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // PendingTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cluster/pending_tasks/types.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/pending_tasks/types.ts#L23-L30
 type PendingTask struct {
-	Executing         bool      `json:"executing"`
-	InsertOrder       int       `json:"insert_order"`
-	Priority          string    `json:"priority"`
-	Source            string    `json:"source"`
-	TimeInQueue       *Duration `json:"time_in_queue,omitempty"`
-	TimeInQueueMillis int64     `json:"time_in_queue_millis"`
+	Executing         bool     `json:"executing"`
+	InsertOrder       int      `json:"insert_order"`
+	Priority          string   `json:"priority"`
+	Source            string   `json:"source"`
+	TimeInQueue       Duration `json:"time_in_queue,omitempty"`
+	TimeInQueueMillis int64    `json:"time_in_queue_millis"`
 }
 
 // NewPendingTask returns a PendingTask.

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns the source of a document.
 package getsource
@@ -26,6 +24,7 @@ package getsource
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
@@ -146,8 +146,8 @@ func (r *GetSource) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetSource) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetSource) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -161,10 +161,40 @@ func (r GetSource) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a getsource.Response
+func (r GetSource) Do(ctx context.Context) (Response, error) {
+
+	response := new(Response)
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(&response)
+		if err != nil {
+			return nil, err
+		}
+
+		return *response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r GetSource) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -210,8 +240,8 @@ func (r *GetSource) Index(v string) *GetSource {
 // Preference Specifies the node or shard the operation should be performed on. Random by
 // default.
 // API name: preference
-func (r *GetSource) Preference(value string) *GetSource {
-	r.values.Set("preference", value)
+func (r *GetSource) Preference(v string) *GetSource {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -235,8 +265,8 @@ func (r *GetSource) Refresh(b bool) *GetSource {
 
 // Routing Target the specified primary shard.
 // API name: routing
-func (r *GetSource) Routing(value string) *GetSource {
-	r.values.Set("routing", value)
+func (r *GetSource) Routing(v string) *GetSource {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -244,31 +274,31 @@ func (r *GetSource) Routing(value string) *GetSource {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return.
 // API name: _source
-func (r *GetSource) Source_(value string) *GetSource {
-	r.values.Set("_source", value)
+func (r *GetSource) Source_(v string) *GetSource {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // SourceExcludes_ A comma-separated list of source fields to exclude in the response.
 // API name: _source_excludes
-func (r *GetSource) SourceExcludes_(value string) *GetSource {
-	r.values.Set("_source_excludes", value)
+func (r *GetSource) SourceExcludes_(v string) *GetSource {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // SourceIncludes_ A comma-separated list of source fields to include in the response.
 // API name: _source_includes
-func (r *GetSource) SourceIncludes_(value string) *GetSource {
-	r.values.Set("_source_includes", value)
+func (r *GetSource) SourceIncludes_(v string) *GetSource {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
 
 // API name: stored_fields
-func (r *GetSource) StoredFields(value string) *GetSource {
-	r.values.Set("stored_fields", value)
+func (r *GetSource) StoredFields(v string) *GetSource {
+	r.values.Set("stored_fields", v)
 
 	return r
 }
@@ -276,8 +306,8 @@ func (r *GetSource) StoredFields(value string) *GetSource {
 // Version Explicit version number for concurrency control. The specified version must
 // match the current version of the document for the request to succeed.
 // API name: version
-func (r *GetSource) Version(value string) *GetSource {
-	r.values.Set("version", value)
+func (r *GetSource) Version(v string) *GetSource {
+	r.values.Set("version", v)
 
 	return r
 }

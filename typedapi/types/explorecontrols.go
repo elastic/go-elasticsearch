@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // ExploreControls type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/graph/_types/ExploreControls.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/graph/_types/ExploreControls.ts#L24-L29
 type ExploreControls struct {
 	SampleDiversity *SampleDiversity `json:"sample_diversity,omitempty"`
 	SampleSize      *int             `json:"sample_size,omitempty"`
-	Timeout         *Duration        `json:"timeout,omitempty"`
+	Timeout         Duration         `json:"timeout,omitempty"`
 	UseSignificance bool             `json:"use_significance"`
 }
 

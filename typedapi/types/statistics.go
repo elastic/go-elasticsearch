@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // Statistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
 type Statistics struct {
-	Policy                        *string   `json:"policy,omitempty"`
-	RetentionDeletionTime         *Duration `json:"retention_deletion_time,omitempty"`
-	RetentionDeletionTimeMillis   *int64    `json:"retention_deletion_time_millis,omitempty"`
-	RetentionFailed               *int64    `json:"retention_failed,omitempty"`
-	RetentionRuns                 *int64    `json:"retention_runs,omitempty"`
-	RetentionTimedOut             *int64    `json:"retention_timed_out,omitempty"`
-	TotalSnapshotDeletionFailures *int64    `json:"total_snapshot_deletion_failures,omitempty"`
-	TotalSnapshotsDeleted         *int64    `json:"total_snapshots_deleted,omitempty"`
-	TotalSnapshotsFailed          *int64    `json:"total_snapshots_failed,omitempty"`
-	TotalSnapshotsTaken           *int64    `json:"total_snapshots_taken,omitempty"`
+	Policy                        *string  `json:"policy,omitempty"`
+	RetentionDeletionTime         Duration `json:"retention_deletion_time,omitempty"`
+	RetentionDeletionTimeMillis   *int64   `json:"retention_deletion_time_millis,omitempty"`
+	RetentionFailed               *int64   `json:"retention_failed,omitempty"`
+	RetentionRuns                 *int64   `json:"retention_runs,omitempty"`
+	RetentionTimedOut             *int64   `json:"retention_timed_out,omitempty"`
+	TotalSnapshotDeletionFailures *int64   `json:"total_snapshot_deletion_failures,omitempty"`
+	TotalSnapshotsDeleted         *int64   `json:"total_snapshots_deleted,omitempty"`
+	TotalSnapshotsFailed          *int64   `json:"total_snapshots_failed,omitempty"`
+	TotalSnapshotsTaken           *int64   `json:"total_snapshots_taken,omitempty"`
 }
 
 // NewStatistics returns a Statistics.

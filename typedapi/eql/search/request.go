@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package search
 
@@ -32,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/eql/search/EqlSearchRequest.ts#L28-L115
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/eql/search/EqlSearchRequest.ts#L28-L115
 type Request struct {
 	CaseSensitive *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
@@ -44,9 +42,9 @@ type Request struct {
 	Fields []types.FieldAndFormat `json:"fields,omitempty"`
 	// Filter Query, written in Query DSL, used to filter the events on which the EQL query
 	// runs.
-	Filter           []types.Query   `json:"filter,omitempty"`
-	KeepAlive        *types.Duration `json:"keep_alive,omitempty"`
-	KeepOnCompletion *bool           `json:"keep_on_completion,omitempty"`
+	Filter           []types.Query  `json:"filter,omitempty"`
+	KeepAlive        types.Duration `json:"keep_alive,omitempty"`
+	KeepOnCompletion *bool          `json:"keep_on_completion,omitempty"`
 	// Query EQL query you wish to run.
 	Query           string                         `json:"query"`
 	ResultPosition  *resultposition.ResultPosition `json:"result_position,omitempty"`
@@ -57,8 +55,8 @@ type Request struct {
 	// TiebreakerField Field used to sort hits with the same timestamp in ascending order
 	TiebreakerField *string `json:"tiebreaker_field,omitempty"`
 	// TimestampField Field containing event timestamp. Default "@timestamp"
-	TimestampField           *string         `json:"timestamp_field,omitempty"`
-	WaitForCompletionTimeout *types.Duration `json:"wait_for_completion_timeout,omitempty"`
+	TimestampField           *string        `json:"timestamp_field,omitempty"`
+	WaitForCompletionTimeout types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -68,7 +66,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

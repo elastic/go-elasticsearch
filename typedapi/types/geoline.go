@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // GeoLine type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Geo.ts#L59-L65
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Geo.ts#L59-L65
 type GeoLine struct {
 	// Coordinates Array of `[lon, lat]` coordinates
-	Coordinates [][]float64 `json:"coordinates"`
+	Coordinates [][]Float64 `json:"coordinates"`
 	// Type Always `"LineString"`
 	Type string `json:"type"`
 }

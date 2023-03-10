@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package query
 
@@ -31,12 +29,14 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/sql/query/QuerySqlRequest.ts#L28-L111
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/sql/query/QuerySqlRequest.ts#L28-L115
 type Request struct {
 
 	// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on
 	// the data in the local cluster only.
-	Catalog  *string `json:"catalog,omitempty"`
+	Catalog *string `json:"catalog,omitempty"`
+	// Columnar If true, the results in a columnar fashion: one row represents all the values
+	// of a certain column from the current page of results.
 	Columnar *bool   `json:"columnar,omitempty"`
 	Cursor   *string `json:"cursor,omitempty"`
 	// FetchSize The maximum number of rows (or entries) to return in one response
@@ -50,19 +50,19 @@ type Request struct {
 	// IndexUsingFrozen If true, the search can run on frozen indices. Defaults to false.
 	IndexUsingFrozen *bool `json:"index_using_frozen,omitempty"`
 	// KeepAlive Retention period for an async or saved synchronous search.
-	KeepAlive *types.Duration `json:"keep_alive,omitempty"`
+	KeepAlive types.Duration `json:"keep_alive,omitempty"`
 	// KeepOnCompletion If true, Elasticsearch stores synchronous searches if you also specify the
 	// wait_for_completion_timeout parameter. If false, Elasticsearch only stores
 	// async searches that don’t finish before the wait_for_completion_timeout.
 	KeepOnCompletion *bool `json:"keep_on_completion,omitempty"`
 	// PageTimeout The timeout before a pagination request fails.
-	PageTimeout *types.Duration `json:"page_timeout,omitempty"`
+	PageTimeout types.Duration `json:"page_timeout,omitempty"`
 	// Params Values for parameters in the query.
-	Params map[string]interface{} `json:"params,omitempty"`
+	Params map[string]json.RawMessage `json:"params,omitempty"`
 	// Query SQL query to execute
 	Query *string `json:"query,omitempty"`
 	// RequestTimeout The timeout before the request fails.
-	RequestTimeout *types.Duration `json:"request_timeout,omitempty"`
+	RequestTimeout types.Duration `json:"request_timeout,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
 	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
@@ -72,19 +72,19 @@ type Request struct {
 	// WaitForCompletionTimeout Period to wait for complete results. Defaults to no timeout, meaning the
 	// request waits for complete search results. If the search doesn’t finish
 	// within this period, the search becomes async.
-	WaitForCompletionTimeout *types.Duration `json:"wait_for_completion_timeout,omitempty"`
+	WaitForCompletionTimeout types.Duration `json:"wait_for_completion_timeout,omitempty"`
 }
 
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{
-		Params: make(map[string]interface{}, 0),
+		Params: make(map[string]json.RawMessage, 0),
 	}
 	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

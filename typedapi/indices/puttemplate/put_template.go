@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Creates or updates an index template.
 package puttemplate
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type PutTemplate struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *PutTemplate {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *PutTemplate) Raw(raw json.RawMessage) *PutTemplate {
+func (r *PutTemplate) Raw(raw io.Reader) *PutTemplate {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *PutTemplate) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -171,8 +171,8 @@ func (r *PutTemplate) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r PutTemplate) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r PutTemplate) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -184,6 +184,36 @@ func (r PutTemplate) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a puttemplate.Response
+func (r PutTemplate) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the PutTemplate headers map.
@@ -220,15 +250,15 @@ func (r *PutTemplate) FlatSettings(b bool) *PutTemplate {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *PutTemplate) MasterTimeout(value string) *PutTemplate {
-	r.values.Set("master_timeout", value)
+func (r *PutTemplate) MasterTimeout(v string) *PutTemplate {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
 
 // API name: timeout
-func (r *PutTemplate) Timeout(value string) *PutTemplate {
-	r.values.Set("timeout", value)
+func (r *PutTemplate) Timeout(v string) *PutTemplate {
+	r.values.Set("timeout", v)
 
 	return r
 }

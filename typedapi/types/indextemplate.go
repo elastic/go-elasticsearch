@@ -15,22 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // IndexTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/IndexTemplate.ts#L27-L37
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/_types/IndexTemplate.ts#L27-L37
 type IndexTemplate struct {
 	AllowAutoCreate *bool                                 `json:"allow_auto_create,omitempty"`
 	ComposedOf      []string                              `json:"composed_of"`
 	DataStream      *IndexTemplateDataStreamConfiguration `json:"data_stream,omitempty"`
 	IndexPatterns   []string                              `json:"index_patterns"`
-	Meta_           map[string]interface{}                `json:"_meta,omitempty"`
+	Meta_           map[string]json.RawMessage            `json:"_meta,omitempty"`
 	Priority        *int64                                `json:"priority,omitempty"`
 	Template        *IndexTemplateSummary                 `json:"template,omitempty"`
 	Version         *int64                                `json:"version,omitempty"`

@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geovalidationmethod"
+
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geovalidationmethod"
 )
 
 // GeoPolygonQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/geo.ts#L63-L71
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/geo.ts#L63-L71
 type GeoPolygonQuery struct {
 	Boost            *float32                                 `json:"boost,omitempty"`
 	GeoPolygonQuery  map[string]GeoPolygonPoints              `json:"-"`

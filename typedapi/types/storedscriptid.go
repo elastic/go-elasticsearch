@@ -15,25 +15,27 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // StoredScriptId type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Scripting.ts#L52-L54
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Scripting.ts#L52-L54
 type StoredScriptId struct {
-	Id     string                 `json:"id"`
-	Params map[string]interface{} `json:"params,omitempty"`
+	Id     string                     `json:"id"`
+	Params map[string]json.RawMessage `json:"params,omitempty"`
 }
 
 // NewStoredScriptId returns a StoredScriptId.
 func NewStoredScriptId() *StoredScriptId {
 	r := &StoredScriptId{
-		Params: make(map[string]interface{}, 0),
+		Params: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

@@ -15,21 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // IpRangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/bucket.ts#L249-L252
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/bucket.ts#L249-L252
 type IpRangeAggregation struct {
-	Field  *string                   `json:"field,omitempty"`
-	Meta   map[string]interface{}    `json:"meta,omitempty"`
-	Name   *string                   `json:"name,omitempty"`
-	Ranges []IpRangeAggregationRange `json:"ranges,omitempty"`
+	Field  *string                    `json:"field,omitempty"`
+	Meta   map[string]json.RawMessage `json:"meta,omitempty"`
+	Name   *string                    `json:"name,omitempty"`
+	Ranges []IpRangeAggregationRange  `json:"ranges,omitempty"`
 }
 
 // NewIpRangeAggregation returns a IpRangeAggregation.

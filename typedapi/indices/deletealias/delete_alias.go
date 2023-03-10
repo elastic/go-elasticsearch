@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Deletes an alias.
 package deletealias
@@ -26,6 +24,7 @@ package deletealias
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -35,6 +34,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -154,8 +154,8 @@ func (r *DeleteAlias) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r DeleteAlias) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r DeleteAlias) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -169,10 +169,40 @@ func (r DeleteAlias) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a deletealias.Response
+func (r DeleteAlias) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r DeleteAlias) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -219,16 +249,16 @@ func (r *DeleteAlias) Name(v string) *DeleteAlias {
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *DeleteAlias) MasterTimeout(value string) *DeleteAlias {
-	r.values.Set("master_timeout", value)
+func (r *DeleteAlias) MasterTimeout(v string) *DeleteAlias {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
 
 // Timeout Explicit timestamp for the document
 // API name: timeout
-func (r *DeleteAlias) Timeout(value string) *DeleteAlias {
-	r.values.Set("timeout", value)
+func (r *DeleteAlias) Timeout(v string) *DeleteAlias {
+	r.values.Set("timeout", v)
 
 	return r
 }

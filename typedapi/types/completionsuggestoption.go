@@ -15,34 +15,36 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // CompletionSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/suggester.ts#L73-L84
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/suggester.ts#L73-L84
 type CompletionSuggestOption struct {
-	CollateMatch *bool                  `json:"collate_match,omitempty"`
-	Contexts     map[string][]Context   `json:"contexts,omitempty"`
-	Fields       map[string]interface{} `json:"fields,omitempty"`
-	Id_          *string                `json:"_id,omitempty"`
-	Index_       *string                `json:"_index,omitempty"`
-	Routing_     *string                `json:"_routing,omitempty"`
-	Score        *float64               `json:"score,omitempty"`
-	Score_       *float64               `json:"_score,omitempty"`
-	Source_      interface{}            `json:"_source,omitempty"`
-	Text         string                 `json:"text"`
+	CollateMatch *bool                      `json:"collate_match,omitempty"`
+	Contexts     map[string][]Context       `json:"contexts,omitempty"`
+	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
+	Id_          *string                    `json:"_id,omitempty"`
+	Index_       *string                    `json:"_index,omitempty"`
+	Routing_     *string                    `json:"_routing,omitempty"`
+	Score        *Float64                   `json:"score,omitempty"`
+	Score_       *Float64                   `json:"_score,omitempty"`
+	Source_      json.RawMessage            `json:"_source,omitempty"`
+	Text         string                     `json:"text"`
 }
 
 // NewCompletionSuggestOption returns a CompletionSuggestOption.
 func NewCompletionSuggestOption() *CompletionSuggestOption {
 	r := &CompletionSuggestOption{
 		Contexts: make(map[string][]Context, 0),
-		Fields:   make(map[string]interface{}, 0),
+		Fields:   make(map[string]json.RawMessage, 0),
 	}
 
 	return r

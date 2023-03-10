@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Updates the attributes of multiple existing API keys.
 package bulkupdateapikeys
@@ -134,8 +132,8 @@ func (r *BulkUpdateApiKeys) HttpRequest(ctx context.Context) (*http.Request, err
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r BulkUpdateApiKeys) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r BulkUpdateApiKeys) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -152,7 +150,7 @@ func (r BulkUpdateApiKeys) Do(ctx context.Context) (*http.Response, error) {
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r BulkUpdateApiKeys) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err

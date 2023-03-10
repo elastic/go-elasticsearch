@@ -15,30 +15,32 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // HitsEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/eql/_types/EqlHits.ts#L41-L49
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/eql/_types/EqlHits.ts#L41-L49
 type HitsEvent struct {
-	Fields map[string][]interface{} `json:"fields,omitempty"`
+	Fields map[string][]json.RawMessage `json:"fields,omitempty"`
 	// Id_ Unique identifier for the event. This ID is only unique within the index.
 	Id_ string `json:"_id"`
 	// Index_ Name of the index containing the event.
 	Index_ string `json:"_index"`
 	// Source_ Original JSON body passed for the event at index time.
-	Source_ interface{} `json:"_source,omitempty"`
+	Source_ json.RawMessage `json:"_source,omitempty"`
 }
 
 // NewHitsEvent returns a HitsEvent.
 func NewHitsEvent() *HitsEvent {
 	r := &HitsEvent{
-		Fields: make(map[string][]interface{}, 0),
+		Fields: make(map[string][]json.RawMessage, 0),
 	}
 
 	return r

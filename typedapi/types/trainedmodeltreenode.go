@@ -15,26 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // TrainedModelTreeNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/put_trained_model/types.ts#L81-L91
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/put_trained_model/types.ts#L81-L91
 type TrainedModelTreeNode struct {
 	DecisionType *string  `json:"decision_type,omitempty"`
 	DefaultLeft  *bool    `json:"default_left,omitempty"`
-	LeafValue    *float64 `json:"leaf_value,omitempty"`
+	LeafValue    *Float64 `json:"leaf_value,omitempty"`
 	LeftChild    *int     `json:"left_child,omitempty"`
 	NodeIndex    int      `json:"node_index"`
 	RightChild   *int     `json:"right_child,omitempty"`
 	SplitFeature *int     `json:"split_feature,omitempty"`
 	SplitGain    *int     `json:"split_gain,omitempty"`
-	Threshold    *float64 `json:"threshold,omitempty"`
+	Threshold    *Float64 `json:"threshold,omitempty"`
 }
 
 // NewTrainedModelTreeNode returns a TrainedModelTreeNode.

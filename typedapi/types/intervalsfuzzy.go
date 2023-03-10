@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // IntervalsFuzzy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/fulltext.ts#L88-L97
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/fulltext.ts#L88-L97
 type IntervalsFuzzy struct {
-	Analyzer       *string    `json:"analyzer,omitempty"`
-	Fuzziness      *Fuzziness `json:"fuzziness,omitempty"`
-	PrefixLength   *int       `json:"prefix_length,omitempty"`
-	Term           string     `json:"term"`
-	Transpositions *bool      `json:"transpositions,omitempty"`
-	UseField       *string    `json:"use_field,omitempty"`
+	Analyzer       *string   `json:"analyzer,omitempty"`
+	Fuzziness      Fuzziness `json:"fuzziness,omitempty"`
+	PrefixLength   *int      `json:"prefix_length,omitempty"`
+	Term           string    `json:"term"`
+	Transpositions *bool     `json:"transpositions,omitempty"`
+	UseField       *string   `json:"use_field,omitempty"`
 }
 
 // NewIntervalsFuzzy returns a IntervalsFuzzy.

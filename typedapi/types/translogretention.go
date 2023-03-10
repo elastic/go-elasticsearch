@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // TranslogRetention type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/IndexSettings.ts#L373-L392
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/_types/IndexSettings.ts#L373-L392
 type TranslogRetention struct {
 	// Age This controls the maximum duration for which translog files are kept by each
 	// shard. Keeping more
@@ -35,7 +33,7 @@ type TranslogRetention struct {
 	// is ignored, and should not be set, if soft deletes are enabled. Soft deletes
 	// are enabled by default in
 	// indices created in Elasticsearch versions 7.0.0 and later.
-	Age *Duration `json:"age,omitempty"`
+	Age Duration `json:"age,omitempty"`
 	// Size This controls the total size of translog files to keep for each shard.
 	// Keeping more translog files increases
 	// the chance of performing an operation based sync when recovering a replica.
@@ -45,7 +43,7 @@ type TranslogRetention struct {
 	// set, if soft deletes are enabled. Soft deletes are enabled by default in
 	// indices created in Elasticsearch
 	// versions 7.0.0 and later.
-	Size *ByteSize `json:"size,omitempty"`
+	Size ByteSize `json:"size,omitempty"`
 }
 
 // NewTranslogRetention returns a TranslogRetention.

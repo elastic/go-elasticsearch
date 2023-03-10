@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package searchtemplate
 
@@ -29,14 +27,14 @@ import (
 
 // Request holds the request body struct for the package searchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search_template/SearchTemplateRequest.ts#L32-L96
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search_template/SearchTemplateRequest.ts#L32-L96
 type Request struct {
 	Explain *bool `json:"explain,omitempty"`
 	// Id ID of the search template to use. If no source is specified,
 	// this parameter is required.
-	Id      *string                `json:"id,omitempty"`
-	Params  map[string]interface{} `json:"params,omitempty"`
-	Profile *bool                  `json:"profile,omitempty"`
+	Id      *string                    `json:"id,omitempty"`
+	Params  map[string]json.RawMessage `json:"params,omitempty"`
+	Profile *bool                      `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
 	// request body. Also supports Mustache variables. If no id is specified, this
 	// parameter is required.
@@ -46,13 +44,13 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{
-		Params: make(map[string]interface{}, 0),
+		Params: make(map[string]json.RawMessage, 0),
 	}
 	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

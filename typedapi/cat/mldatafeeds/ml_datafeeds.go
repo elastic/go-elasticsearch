@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Gets configuration and usage information about datafeeds.
 package mldatafeeds
@@ -26,6 +24,7 @@ package mldatafeeds
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
@@ -149,8 +149,8 @@ func (r *MlDatafeeds) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r MlDatafeeds) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r MlDatafeeds) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -164,10 +164,40 @@ func (r MlDatafeeds) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a mldatafeeds.Response
+func (r MlDatafeeds) Do(ctx context.Context) (Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(&response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r MlDatafeeds) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -221,8 +251,8 @@ func (r *MlDatafeeds) AllowNoMatch(b bool) *MlDatafeeds {
 
 // H Comma-separated list of column names to display.
 // API name: h
-func (r *MlDatafeeds) H(value string) *MlDatafeeds {
-	r.values.Set("h", value)
+func (r *MlDatafeeds) H(v string) *MlDatafeeds {
+	r.values.Set("h", v)
 
 	return r
 }
@@ -230,8 +260,8 @@ func (r *MlDatafeeds) H(value string) *MlDatafeeds {
 // S Comma-separated list of column names or column aliases used to sort the
 // response.
 // API name: s
-func (r *MlDatafeeds) S(value string) *MlDatafeeds {
-	r.values.Set("s", value)
+func (r *MlDatafeeds) S(v string) *MlDatafeeds {
+	r.values.Set("s", v)
 
 	return r
 }

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Deletes expired and unused machine learning data.
 package deleteexpireddata
@@ -29,11 +27,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -53,7 +53,7 @@ type DeleteExpiredData struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -89,7 +89,7 @@ func New(tp elastictransport.Interface) *DeleteExpiredData {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *DeleteExpiredData) Raw(raw json.RawMessage) *DeleteExpiredData {
+func (r *DeleteExpiredData) Raw(raw io.Reader) *DeleteExpiredData {
 	r.raw = raw
 
 	return r
@@ -112,7 +112,7 @@ func (r *DeleteExpiredData) HttpRequest(ctx context.Context) (*http.Request, err
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -177,8 +177,8 @@ func (r *DeleteExpiredData) HttpRequest(ctx context.Context) (*http.Request, err
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r DeleteExpiredData) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r DeleteExpiredData) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -190,6 +190,36 @@ func (r DeleteExpiredData) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a deleteexpireddata.Response
+func (r DeleteExpiredData) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the DeleteExpiredData headers map.
@@ -212,16 +242,16 @@ func (r *DeleteExpiredData) JobId(v string) *DeleteExpiredData {
 // RequestsPerSecond The desired requests per second for the deletion processes. The default
 // behavior is no throttling.
 // API name: requests_per_second
-func (r *DeleteExpiredData) RequestsPerSecond(value string) *DeleteExpiredData {
-	r.values.Set("requests_per_second", value)
+func (r *DeleteExpiredData) RequestsPerSecond(v string) *DeleteExpiredData {
+	r.values.Set("requests_per_second", v)
 
 	return r
 }
 
 // Timeout How long can the underlying delete processes run until they are canceled.
 // API name: timeout
-func (r *DeleteExpiredData) Timeout(value string) *DeleteExpiredData {
-	r.values.Set("timeout", value)
+func (r *DeleteExpiredData) Timeout(v string) *DeleteExpiredData {
+	r.values.Set("timeout", v)
 
 	return r
 }

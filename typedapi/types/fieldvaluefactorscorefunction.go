@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,11 +26,11 @@ import (
 
 // FieldValueFactorScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/compound.ts#L70-L75
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/compound.ts#L70-L75
 type FieldValueFactorScoreFunction struct {
-	Factor   *float64                                           `json:"factor,omitempty"`
+	Factor   *Float64                                           `json:"factor,omitempty"`
 	Field    string                                             `json:"field"`
-	Missing  *float64                                           `json:"missing,omitempty"`
+	Missing  *Float64                                           `json:"missing,omitempty"`
 	Modifier *fieldvaluefactormodifier.FieldValueFactorModifier `json:"modifier,omitempty"`
 }
 

@@ -15,29 +15,82 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/normalizemethod"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // NormalizeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/pipeline.ts#L262-L264
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/pipeline.ts#L262-L264
 type NormalizeAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath                     `json:"buckets_path,omitempty"`
+	BucketsPath BucketsPath                      `json:"buckets_path,omitempty"`
 	Format      *string                          `json:"format,omitempty"`
 	GapPolicy   *gappolicy.GapPolicy             `json:"gap_policy,omitempty"`
-	Meta        map[string]interface{}           `json:"meta,omitempty"`
+	Meta        map[string]json.RawMessage       `json:"meta,omitempty"`
 	Method      *normalizemethod.NormalizeMethod `json:"method,omitempty"`
 	Name        *string                          `json:"name,omitempty"`
+}
+
+func (s *NormalizeAggregation) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "buckets_path":
+			if err := dec.Decode(&s.BucketsPath); err != nil {
+				return err
+			}
+
+		case "format":
+			if err := dec.Decode(&s.Format); err != nil {
+				return err
+			}
+
+		case "gap_policy":
+			if err := dec.Decode(&s.GapPolicy); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "method":
+			if err := dec.Decode(&s.Method); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNormalizeAggregation returns a NormalizeAggregation.

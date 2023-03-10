@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns information about why a specific matches (or doesn't match) a query.
 package explain
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
 )
@@ -58,7 +58,7 @@ type Explain struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -99,7 +99,7 @@ func New(tp elastictransport.Interface) *Explain {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Explain) Raw(raw json.RawMessage) *Explain {
+func (r *Explain) Raw(raw io.Reader) *Explain {
 	r.raw = raw
 
 	return r
@@ -122,7 +122,7 @@ func (r *Explain) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -181,8 +181,8 @@ func (r *Explain) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Explain) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Explain) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -194,6 +194,36 @@ func (r Explain) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a explain.Response
+func (r Explain) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Explain headers map.
@@ -223,8 +253,8 @@ func (r *Explain) Index(v string) *Explain {
 
 // Analyzer The analyzer for the query string query
 // API name: analyzer
-func (r *Explain) Analyzer(value string) *Explain {
-	r.values.Set("analyzer", value)
+func (r *Explain) Analyzer(v string) *Explain {
+	r.values.Set("analyzer", v)
 
 	return r
 }
@@ -248,8 +278,8 @@ func (r *Explain) DefaultOperator(enum operator.Operator) *Explain {
 
 // Df The default field for query string query (default: _all)
 // API name: df
-func (r *Explain) Df(value string) *Explain {
-	r.values.Set("df", value)
+func (r *Explain) Df(v string) *Explain {
+	r.values.Set("df", v)
 
 	return r
 }
@@ -266,16 +296,16 @@ func (r *Explain) Lenient(b bool) *Explain {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *Explain) Preference(value string) *Explain {
-	r.values.Set("preference", value)
+func (r *Explain) Preference(v string) *Explain {
+	r.values.Set("preference", v)
 
 	return r
 }
 
 // Routing Specific routing value
 // API name: routing
-func (r *Explain) Routing(value string) *Explain {
-	r.values.Set("routing", value)
+func (r *Explain) Routing(v string) *Explain {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -283,40 +313,40 @@ func (r *Explain) Routing(value string) *Explain {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return
 // API name: _source
-func (r *Explain) Source_(value string) *Explain {
-	r.values.Set("_source", value)
+func (r *Explain) Source_(v string) *Explain {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // SourceExcludes_ A list of fields to exclude from the returned _source field
 // API name: _source_excludes
-func (r *Explain) SourceExcludes_(value string) *Explain {
-	r.values.Set("_source_excludes", value)
+func (r *Explain) SourceExcludes_(v string) *Explain {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // SourceIncludes_ A list of fields to extract and return from the _source field
 // API name: _source_includes
-func (r *Explain) SourceIncludes_(value string) *Explain {
-	r.values.Set("_source_includes", value)
+func (r *Explain) SourceIncludes_(v string) *Explain {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
 
 // StoredFields A comma-separated list of stored fields to return in the response
 // API name: stored_fields
-func (r *Explain) StoredFields(value string) *Explain {
-	r.values.Set("stored_fields", value)
+func (r *Explain) StoredFields(v string) *Explain {
+	r.values.Set("stored_fields", v)
 
 	return r
 }
 
 // Q Query in the Lucene query string syntax
 // API name: q
-func (r *Explain) Q(value string) *Explain {
-	r.values.Set("q", value)
+func (r *Explain) Q(v string) *Explain {
+	r.values.Set("q", v)
 
 	return r
 }

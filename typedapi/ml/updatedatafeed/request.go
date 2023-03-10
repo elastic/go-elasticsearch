@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package updatedatafeed
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L161
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L162
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
@@ -63,13 +61,14 @@ type Request struct {
 	// written then eventually overwritten by the full bucket results. If the
 	// datafeed uses aggregations, this value
 	// must be divisible by the interval of the date histogram aggregation.
-	Frequency *types.Duration `json:"frequency,omitempty"`
+	Frequency types.Duration `json:"frequency,omitempty"`
 	// Indices An array of index names. Wildcards are supported. If any of the indices are
 	// in remote clusters, the machine
 	// learning nodes must have the `remote_cluster_client` role.
 	Indices []string `json:"indices,omitempty"`
 	// IndicesOptions Specifies index expansion options that are used during search.
 	IndicesOptions *types.IndicesOptions `json:"indices_options,omitempty"`
+	JobId          *string               `json:"job_id,omitempty"`
 	// MaxEmptySearches If a real-time datafeed has never seen any data (including during any initial
 	// training period), it automatically
 	// stops and closes the associated job after this many real-time searches return
@@ -100,7 +99,7 @@ type Request struct {
 	// value is randomly selected between `60s` and `120s`. This randomness improves
 	// the query performance
 	// when there are multiple jobs running on the same node.
-	QueryDelay *types.Duration `json:"query_delay,omitempty"`
+	QueryDelay types.Duration `json:"query_delay,omitempty"`
 	// RuntimeMappings Specifies runtime fields for the datafeed search.
 	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
 	// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
@@ -124,7 +123,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

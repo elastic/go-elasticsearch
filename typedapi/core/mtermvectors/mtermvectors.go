@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns multiple termvectors in one request.
 package mtermvectors
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
@@ -56,7 +56,7 @@ type Mtermvectors struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *Mtermvectors {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Mtermvectors) Raw(raw json.RawMessage) *Mtermvectors {
+func (r *Mtermvectors) Raw(raw io.Reader) *Mtermvectors {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *Mtermvectors) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -176,8 +176,8 @@ func (r *Mtermvectors) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Mtermvectors) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Mtermvectors) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -189,6 +189,36 @@ func (r Mtermvectors) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a mtermvectors.Response
+func (r Mtermvectors) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Mtermvectors headers map.
@@ -210,8 +240,8 @@ func (r *Mtermvectors) Index(v string) *Mtermvectors {
 // Ids A comma-separated list of documents ids. You must define ids as parameter or
 // set "ids" or "docs" in the request body
 // API name: ids
-func (r *Mtermvectors) Ids(value string) *Mtermvectors {
-	r.values.Set("ids", value)
+func (r *Mtermvectors) Ids(v string) *Mtermvectors {
+	r.values.Set("ids", v)
 
 	return r
 }
@@ -219,8 +249,8 @@ func (r *Mtermvectors) Ids(value string) *Mtermvectors {
 // Fields A comma-separated list of fields to return. Applies to all returned documents
 // unless otherwise specified in body "params" or "docs".
 // API name: fields
-func (r *Mtermvectors) Fields(value string) *Mtermvectors {
-	r.values.Set("fields", value)
+func (r *Mtermvectors) Fields(v string) *Mtermvectors {
+	r.values.Set("fields", v)
 
 	return r
 }
@@ -266,8 +296,8 @@ func (r *Mtermvectors) Positions(b bool) *Mtermvectors {
 // random) .Applies to all returned documents unless otherwise specified in body
 // "params" or "docs".
 // API name: preference
-func (r *Mtermvectors) Preference(value string) *Mtermvectors {
-	r.values.Set("preference", value)
+func (r *Mtermvectors) Preference(v string) *Mtermvectors {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -284,8 +314,8 @@ func (r *Mtermvectors) Realtime(b bool) *Mtermvectors {
 // Routing Specific routing value. Applies to all returned documents unless otherwise
 // specified in body "params" or "docs".
 // API name: routing
-func (r *Mtermvectors) Routing(value string) *Mtermvectors {
-	r.values.Set("routing", value)
+func (r *Mtermvectors) Routing(v string) *Mtermvectors {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -302,8 +332,8 @@ func (r *Mtermvectors) TermStatistics(b bool) *Mtermvectors {
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *Mtermvectors) Version(value string) *Mtermvectors {
-	r.values.Set("version", value)
+func (r *Mtermvectors) Version(v string) *Mtermvectors {
+	r.values.Set("version", v)
 
 	return r
 }

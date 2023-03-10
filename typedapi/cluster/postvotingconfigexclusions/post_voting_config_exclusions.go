@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Updates the cluster voting config exclusions by node ids or node names.
 package postvotingconfigexclusions
@@ -26,6 +24,7 @@ package postvotingconfigexclusions
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -35,6 +34,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -126,8 +126,8 @@ func (r *PostVotingConfigExclusions) HttpRequest(ctx context.Context) (*http.Req
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r PostVotingConfigExclusions) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r PostVotingConfigExclusions) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -141,10 +141,40 @@ func (r PostVotingConfigExclusions) Do(ctx context.Context) (*http.Response, err
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a postvotingconfigexclusions.Response
+func (r PostVotingConfigExclusions) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r PostVotingConfigExclusions) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -172,8 +202,8 @@ func (r *PostVotingConfigExclusions) Header(key, value string) *PostVotingConfig
 // NodeNames A comma-separated list of the names of the nodes to exclude from the
 // voting configuration. If specified, you may not also specify node_ids.
 // API name: node_names
-func (r *PostVotingConfigExclusions) NodeNames(value string) *PostVotingConfigExclusions {
-	r.values.Set("node_names", value)
+func (r *PostVotingConfigExclusions) NodeNames(v string) *PostVotingConfigExclusions {
+	r.values.Set("node_names", v)
 
 	return r
 }
@@ -182,8 +212,8 @@ func (r *PostVotingConfigExclusions) NodeNames(value string) *PostVotingConfigEx
 // from the voting configuration. If specified, you may not also specify
 // node_names.
 // API name: node_ids
-func (r *PostVotingConfigExclusions) NodeIds(value string) *PostVotingConfigExclusions {
-	r.values.Set("node_ids", value)
+func (r *PostVotingConfigExclusions) NodeIds(v string) *PostVotingConfigExclusions {
+	r.values.Set("node_ids", v)
 
 	return r
 }
@@ -193,8 +223,8 @@ func (r *PostVotingConfigExclusions) NodeIds(value string) *PostVotingConfigExcl
 // returning. If the timeout expires before the appropriate condition
 // is satisfied, the request fails and returns an error.
 // API name: timeout
-func (r *PostVotingConfigExclusions) Timeout(value string) *PostVotingConfigExclusions {
-	r.values.Set("timeout", value)
+func (r *PostVotingConfigExclusions) Timeout(v string) *PostVotingConfigExclusions {
+	r.values.Set("timeout", v)
 
 	return r
 }

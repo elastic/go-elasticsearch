@@ -15,24 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+)
 
 // NodeAttributes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Node.ts#L41-L57
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Node.ts#L41-L57
 type NodeAttributes struct {
 	// Attributes Lists node attributes.
 	Attributes map[string]string `json:"attributes"`
 	// EphemeralId The ephemeral ID of the node.
-	EphemeralId string `json:"ephemeral_id"`
-	ExternalId  string `json:"external_id"`
+	EphemeralId string  `json:"ephemeral_id"`
+	ExternalId  *string `json:"external_id,omitempty"`
 	// Id The unique identifier of the node.
 	Id *string `json:"id,omitempty"`
 	// Name The unique identifier of the node.

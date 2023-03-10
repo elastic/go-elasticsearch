@@ -15,24 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // AdaptiveSelection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/_types/Stats.ts#L163-L171
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/_types/Stats.ts#L169-L177
 type AdaptiveSelection struct {
-	AvgQueueSize      *int64  `json:"avg_queue_size,omitempty"`
-	AvgResponseTime   *int64  `json:"avg_response_time,omitempty"`
-	AvgResponseTimeNs *int64  `json:"avg_response_time_ns,omitempty"`
-	AvgServiceTime    *string `json:"avg_service_time,omitempty"`
-	AvgServiceTimeNs  *int64  `json:"avg_service_time_ns,omitempty"`
-	OutgoingSearches  *int64  `json:"outgoing_searches,omitempty"`
-	Rank              *string `json:"rank,omitempty"`
+	AvgQueueSize      *int64   `json:"avg_queue_size,omitempty"`
+	AvgResponseTime   Duration `json:"avg_response_time,omitempty"`
+	AvgResponseTimeNs *int64   `json:"avg_response_time_ns,omitempty"`
+	AvgServiceTime    Duration `json:"avg_service_time,omitempty"`
+	AvgServiceTimeNs  *int64   `json:"avg_service_time_ns,omitempty"`
+	OutgoingSearches  *int64   `json:"outgoing_searches,omitempty"`
+	Rank              *string  `json:"rank,omitempty"`
 }
 
 // NewAdaptiveSelection returns a AdaptiveSelection.

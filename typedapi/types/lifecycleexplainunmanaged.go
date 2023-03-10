@@ -15,26 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // LifecycleExplainUnmanaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ilm/explain_lifecycle/types.ts#L54-L57
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ilm/explain_lifecycle/types.ts#L54-L57
 type LifecycleExplainUnmanaged struct {
 	Index   string `json:"index"`
-	Managed string `json:"managed,omitempty"`
+	Managed bool   `json:"managed,omitempty"`
 }
 
 // NewLifecycleExplainUnmanaged returns a LifecycleExplainUnmanaged.
 func NewLifecycleExplainUnmanaged() *LifecycleExplainUnmanaged {
 	r := &LifecycleExplainUnmanaged{}
 
-	r.Managed = "false"
+	r.Managed = false
 
 	return r
 }

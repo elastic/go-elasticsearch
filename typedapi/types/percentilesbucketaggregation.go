@@ -15,28 +15,81 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // PercentilesBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/pipeline.ts#L276-L278
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/pipeline.ts#L276-L278
 type PercentilesBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath *BucketsPath           `json:"buckets_path,omitempty"`
-	Format      *string                `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy   `json:"gap_policy,omitempty"`
-	Meta        map[string]interface{} `json:"meta,omitempty"`
-	Name        *string                `json:"name,omitempty"`
-	Percents    []float64              `json:"percents,omitempty"`
+	BucketsPath BucketsPath                `json:"buckets_path,omitempty"`
+	Format      *string                    `json:"format,omitempty"`
+	GapPolicy   *gappolicy.GapPolicy       `json:"gap_policy,omitempty"`
+	Meta        map[string]json.RawMessage `json:"meta,omitempty"`
+	Name        *string                    `json:"name,omitempty"`
+	Percents    []Float64                  `json:"percents,omitempty"`
+}
+
+func (s *PercentilesBucketAggregation) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "buckets_path":
+			if err := dec.Decode(&s.BucketsPath); err != nil {
+				return err
+			}
+
+		case "format":
+			if err := dec.Decode(&s.Format); err != nil {
+				return err
+			}
+
+		case "gap_policy":
+			if err := dec.Decode(&s.GapPolicy); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "percents":
+			if err := dec.Decode(&s.Percents); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPercentilesBucketAggregation returns a PercentilesBucketAggregation.

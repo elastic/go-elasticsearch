@@ -15,26 +15,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // NodeInfoXpack type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/info/types.ts#L228-L232
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/info/types.ts#L228-L232
 type NodeInfoXpack struct {
-	License      *NodeInfoXpackLicense  `json:"license,omitempty"`
-	Notification map[string]interface{} `json:"notification,omitempty"`
-	Security     NodeInfoXpackSecurity  `json:"security"`
+	License      *NodeInfoXpackLicense      `json:"license,omitempty"`
+	Notification map[string]json.RawMessage `json:"notification,omitempty"`
+	Security     NodeInfoXpackSecurity      `json:"security"`
 }
 
 // NewNodeInfoXpack returns a NodeInfoXpack.
 func NewNodeInfoXpack() *NodeInfoXpack {
 	r := &NodeInfoXpack{
-		Notification: make(map[string]interface{}, 0),
+		Notification: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

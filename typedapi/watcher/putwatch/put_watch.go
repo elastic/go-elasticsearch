@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Creates a new watch, or updates an existing one.
 package putwatch
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type PutWatch struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *PutWatch {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *PutWatch) Raw(raw json.RawMessage) *PutWatch {
+func (r *PutWatch) Raw(raw io.Reader) *PutWatch {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *PutWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -173,8 +173,8 @@ func (r *PutWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r PutWatch) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r PutWatch) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -186,6 +186,36 @@ func (r PutWatch) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a putwatch.Response
+func (r PutWatch) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the PutWatch headers map.
@@ -215,8 +245,8 @@ func (r *PutWatch) Active(b bool) *PutWatch {
 // IfPrimaryTerm only update the watch if the last operation that has changed the watch has
 // the specified primary term
 // API name: if_primary_term
-func (r *PutWatch) IfPrimaryTerm(value string) *PutWatch {
-	r.values.Set("if_primary_term", value)
+func (r *PutWatch) IfPrimaryTerm(v string) *PutWatch {
+	r.values.Set("if_primary_term", v)
 
 	return r
 }
@@ -224,16 +254,16 @@ func (r *PutWatch) IfPrimaryTerm(value string) *PutWatch {
 // IfSeqNo only update the watch if the last operation that has changed the watch has
 // the specified sequence number
 // API name: if_seq_no
-func (r *PutWatch) IfSeqNo(value string) *PutWatch {
-	r.values.Set("if_seq_no", value)
+func (r *PutWatch) IfSeqNo(v string) *PutWatch {
+	r.values.Set("if_seq_no", v)
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *PutWatch) Version(value string) *PutWatch {
-	r.values.Set("version", value)
+func (r *PutWatch) Version(v string) *PutWatch {
+	r.values.Set("version", v)
 
 	return r
 }

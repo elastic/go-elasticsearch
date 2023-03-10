@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package putmapping
 
@@ -32,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putmapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L42-L116
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L42-L116
 type Request struct {
 
 	// DateDetection Controls whether dynamic date detection is enabled.
@@ -50,7 +48,7 @@ type Request struct {
 	// Meta_ A mapping type can have custom meta data associated with it. These are
 	// not used at all by Elasticsearch, but can be used to store
 	// application-specific metadata.
-	Meta_ map[string]interface{} `json:"_meta,omitempty"`
+	Meta_ map[string]json.RawMessage `json:"_meta,omitempty"`
 	// NumericDetection Automatically map strings into numeric data types for all fields.
 	NumericDetection *bool `json:"numeric_detection,omitempty"`
 	// Properties Mapping for a field. For new fields, this mapping can include:
@@ -76,7 +74,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // Email type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/watcher/_types/Actions.ts#L238-L250
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Actions.ts#L238-L250
 type Email struct {
 	Attachments map[string]EmailAttachmentContainer `json:"attachments,omitempty"`
 	Bcc         []string                            `json:"bcc,omitempty"`
@@ -38,7 +36,7 @@ type Email struct {
 	Id          *string                             `json:"id,omitempty"`
 	Priority    *emailpriority.EmailPriority        `json:"priority,omitempty"`
 	ReplyTo     []string                            `json:"reply_to,omitempty"`
-	SentDate    *DateTime                           `json:"sent_date,omitempty"`
+	SentDate    DateTime                            `json:"sent_date,omitempty"`
 	Subject     string                              `json:"subject"`
 	To          []string                            `json:"to"`
 }

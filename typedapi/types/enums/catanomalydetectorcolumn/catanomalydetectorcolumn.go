@@ -15,17 +15,15 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Package catanomalydetectorcolumn
 package catanomalydetectorcolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cat/_types/CatBase.ts#L32-L401
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/_types/CatBase.ts#L32-L401
 type CatAnomalyDetectorColumn struct {
 	Name string
 }
@@ -33,119 +31,119 @@ type CatAnomalyDetectorColumn struct {
 var (
 	Assignmentexplanation = CatAnomalyDetectorColumn{"assignment_explanation"}
 
-	BucketsCount = CatAnomalyDetectorColumn{"buckets.count"}
+	Bucketscount = CatAnomalyDetectorColumn{"buckets.count"}
 
-	BucketsTimeExpavg = CatAnomalyDetectorColumn{"buckets.time.exp_avg"}
+	Bucketstimeexpavg = CatAnomalyDetectorColumn{"buckets.time.exp_avg"}
 
-	BucketsTimeExpavghour = CatAnomalyDetectorColumn{"buckets.time.exp_avg_hour"}
+	Bucketstimeexpavghour = CatAnomalyDetectorColumn{"buckets.time.exp_avg_hour"}
 
-	BucketsTimeMax = CatAnomalyDetectorColumn{"buckets.time.max"}
+	Bucketstimemax = CatAnomalyDetectorColumn{"buckets.time.max"}
 
-	BucketsTimeMin = CatAnomalyDetectorColumn{"buckets.time.min"}
+	Bucketstimemin = CatAnomalyDetectorColumn{"buckets.time.min"}
 
-	BucketsTimeTotal = CatAnomalyDetectorColumn{"buckets.time.total"}
+	Bucketstimetotal = CatAnomalyDetectorColumn{"buckets.time.total"}
 
-	DataBuckets = CatAnomalyDetectorColumn{"data.buckets"}
+	Databuckets = CatAnomalyDetectorColumn{"data.buckets"}
 
-	DataEarliestrecord = CatAnomalyDetectorColumn{"data.earliest_record"}
+	Dataearliestrecord = CatAnomalyDetectorColumn{"data.earliest_record"}
 
-	DataEmptybuckets = CatAnomalyDetectorColumn{"data.empty_buckets"}
+	Dataemptybuckets = CatAnomalyDetectorColumn{"data.empty_buckets"}
 
-	DataInputbytes = CatAnomalyDetectorColumn{"data.input_bytes"}
+	Datainputbytes = CatAnomalyDetectorColumn{"data.input_bytes"}
 
-	DataInputfields = CatAnomalyDetectorColumn{"data.input_fields"}
+	Datainputfields = CatAnomalyDetectorColumn{"data.input_fields"}
 
-	DataInputrecords = CatAnomalyDetectorColumn{"data.input_records"}
+	Datainputrecords = CatAnomalyDetectorColumn{"data.input_records"}
 
-	DataInvaliddates = CatAnomalyDetectorColumn{"data.invalid_dates"}
+	Datainvaliddates = CatAnomalyDetectorColumn{"data.invalid_dates"}
 
-	DataLast = CatAnomalyDetectorColumn{"data.last"}
+	Datalast = CatAnomalyDetectorColumn{"data.last"}
 
-	DataLastemptybucket = CatAnomalyDetectorColumn{"data.last_empty_bucket"}
+	Datalastemptybucket = CatAnomalyDetectorColumn{"data.last_empty_bucket"}
 
-	DataLastsparsebucket = CatAnomalyDetectorColumn{"data.last_sparse_bucket"}
+	Datalastsparsebucket = CatAnomalyDetectorColumn{"data.last_sparse_bucket"}
 
-	DataLatestrecord = CatAnomalyDetectorColumn{"data.latest_record"}
+	Datalatestrecord = CatAnomalyDetectorColumn{"data.latest_record"}
 
-	DataMissingfields = CatAnomalyDetectorColumn{"data.missing_fields"}
+	Datamissingfields = CatAnomalyDetectorColumn{"data.missing_fields"}
 
-	DataOutofordertimestamps = CatAnomalyDetectorColumn{"data.out_of_order_timestamps"}
+	Dataoutofordertimestamps = CatAnomalyDetectorColumn{"data.out_of_order_timestamps"}
 
-	DataProcessedfields = CatAnomalyDetectorColumn{"data.processed_fields"}
+	Dataprocessedfields = CatAnomalyDetectorColumn{"data.processed_fields"}
 
-	DataProcessedrecords = CatAnomalyDetectorColumn{"data.processed_records"}
+	Dataprocessedrecords = CatAnomalyDetectorColumn{"data.processed_records"}
 
-	DataSparsebuckets = CatAnomalyDetectorColumn{"data.sparse_buckets"}
+	Datasparsebuckets = CatAnomalyDetectorColumn{"data.sparse_buckets"}
 
-	ForecastsMemoryAvg = CatAnomalyDetectorColumn{"forecasts.memory.avg"}
+	Forecastsmemoryavg = CatAnomalyDetectorColumn{"forecasts.memory.avg"}
 
-	ForecastsMemoryMax = CatAnomalyDetectorColumn{"forecasts.memory.max"}
+	Forecastsmemorymax = CatAnomalyDetectorColumn{"forecasts.memory.max"}
 
-	ForecastsMemoryMin = CatAnomalyDetectorColumn{"forecasts.memory.min"}
+	Forecastsmemorymin = CatAnomalyDetectorColumn{"forecasts.memory.min"}
 
-	ForecastsMemoryTotal = CatAnomalyDetectorColumn{"forecasts.memory.total"}
+	Forecastsmemorytotal = CatAnomalyDetectorColumn{"forecasts.memory.total"}
 
-	ForecastsRecordsAvg = CatAnomalyDetectorColumn{"forecasts.records.avg"}
+	Forecastsrecordsavg = CatAnomalyDetectorColumn{"forecasts.records.avg"}
 
-	ForecastsRecordsMax = CatAnomalyDetectorColumn{"forecasts.records.max"}
+	Forecastsrecordsmax = CatAnomalyDetectorColumn{"forecasts.records.max"}
 
-	ForecastsRecordsMin = CatAnomalyDetectorColumn{"forecasts.records.min"}
+	Forecastsrecordsmin = CatAnomalyDetectorColumn{"forecasts.records.min"}
 
-	ForecastsRecordsTotal = CatAnomalyDetectorColumn{"forecasts.records.total"}
+	Forecastsrecordstotal = CatAnomalyDetectorColumn{"forecasts.records.total"}
 
-	ForecastsTimeAvg = CatAnomalyDetectorColumn{"forecasts.time.avg"}
+	Forecaststimeavg = CatAnomalyDetectorColumn{"forecasts.time.avg"}
 
-	ForecastsTimeMax = CatAnomalyDetectorColumn{"forecasts.time.max"}
+	Forecaststimemax = CatAnomalyDetectorColumn{"forecasts.time.max"}
 
-	ForecastsTimeMin = CatAnomalyDetectorColumn{"forecasts.time.min"}
+	Forecaststimemin = CatAnomalyDetectorColumn{"forecasts.time.min"}
 
-	ForecastsTimeTotal = CatAnomalyDetectorColumn{"forecasts.time.total"}
+	Forecaststimetotal = CatAnomalyDetectorColumn{"forecasts.time.total"}
 
-	ForecastsTotal = CatAnomalyDetectorColumn{"forecasts.total"}
+	Forecaststotal = CatAnomalyDetectorColumn{"forecasts.total"}
 
 	Id = CatAnomalyDetectorColumn{"id"}
 
-	ModelBucketallocationfailures = CatAnomalyDetectorColumn{"model.bucket_allocation_failures"}
+	Modelbucketallocationfailures = CatAnomalyDetectorColumn{"model.bucket_allocation_failures"}
 
-	ModelByfields = CatAnomalyDetectorColumn{"model.by_fields"}
+	Modelbyfields = CatAnomalyDetectorColumn{"model.by_fields"}
 
-	ModelBytes = CatAnomalyDetectorColumn{"model.bytes"}
+	Modelbytes = CatAnomalyDetectorColumn{"model.bytes"}
 
-	ModelBytesexceeded = CatAnomalyDetectorColumn{"model.bytes_exceeded"}
+	Modelbytesexceeded = CatAnomalyDetectorColumn{"model.bytes_exceeded"}
 
-	ModelCategorizationstatus = CatAnomalyDetectorColumn{"model.categorization_status"}
+	Modelcategorizationstatus = CatAnomalyDetectorColumn{"model.categorization_status"}
 
-	ModelCategorizeddoccount = CatAnomalyDetectorColumn{"model.categorized_doc_count"}
+	Modelcategorizeddoccount = CatAnomalyDetectorColumn{"model.categorized_doc_count"}
 
-	ModelDeadcategorycount = CatAnomalyDetectorColumn{"model.dead_category_count"}
+	Modeldeadcategorycount = CatAnomalyDetectorColumn{"model.dead_category_count"}
 
-	ModelFailedcategorycount = CatAnomalyDetectorColumn{"model.failed_category_count"}
+	Modelfailedcategorycount = CatAnomalyDetectorColumn{"model.failed_category_count"}
 
-	ModelFrequentcategorycount = CatAnomalyDetectorColumn{"model.frequent_category_count"}
+	Modelfrequentcategorycount = CatAnomalyDetectorColumn{"model.frequent_category_count"}
 
-	ModelLogtime = CatAnomalyDetectorColumn{"model.log_time"}
+	Modellogtime = CatAnomalyDetectorColumn{"model.log_time"}
 
-	ModelMemorylimit = CatAnomalyDetectorColumn{"model.memory_limit"}
+	Modelmemorylimit = CatAnomalyDetectorColumn{"model.memory_limit"}
 
-	ModelMemorystatus = CatAnomalyDetectorColumn{"model.memory_status"}
+	Modelmemorystatus = CatAnomalyDetectorColumn{"model.memory_status"}
 
-	ModelOverfields = CatAnomalyDetectorColumn{"model.over_fields"}
+	Modeloverfields = CatAnomalyDetectorColumn{"model.over_fields"}
 
-	ModelPartitionfields = CatAnomalyDetectorColumn{"model.partition_fields"}
+	Modelpartitionfields = CatAnomalyDetectorColumn{"model.partition_fields"}
 
-	ModelRarecategorycount = CatAnomalyDetectorColumn{"model.rare_category_count"}
+	Modelrarecategorycount = CatAnomalyDetectorColumn{"model.rare_category_count"}
 
-	ModelTimestamp = CatAnomalyDetectorColumn{"model.timestamp"}
+	Modeltimestamp = CatAnomalyDetectorColumn{"model.timestamp"}
 
-	ModelTotalcategorycount = CatAnomalyDetectorColumn{"model.total_category_count"}
+	Modeltotalcategorycount = CatAnomalyDetectorColumn{"model.total_category_count"}
 
-	NodeAddress = CatAnomalyDetectorColumn{"node.address"}
+	Nodeaddress = CatAnomalyDetectorColumn{"node.address"}
 
-	NodeEphemeralid = CatAnomalyDetectorColumn{"node.ephemeral_id"}
+	Nodeephemeralid = CatAnomalyDetectorColumn{"node.ephemeral_id"}
 
-	NodeId = CatAnomalyDetectorColumn{"node.id"}
+	Nodeid = CatAnomalyDetectorColumn{"node.id"}
 
-	NodeName = CatAnomalyDetectorColumn{"node.name"}
+	Nodename = CatAnomalyDetectorColumn{"node.name"}
 
 	Openedtime = CatAnomalyDetectorColumn{"opened_time"}
 
@@ -162,119 +160,119 @@ func (c *CatAnomalyDetectorColumn) UnmarshalText(text []byte) error {
 	case "assignment_explanation":
 		*c = Assignmentexplanation
 	case "buckets.count":
-		*c = BucketsCount
+		*c = Bucketscount
 	case "buckets.time.exp_avg":
-		*c = BucketsTimeExpavg
+		*c = Bucketstimeexpavg
 	case "buckets.time.exp_avg_hour":
-		*c = BucketsTimeExpavghour
+		*c = Bucketstimeexpavghour
 	case "buckets.time.max":
-		*c = BucketsTimeMax
+		*c = Bucketstimemax
 	case "buckets.time.min":
-		*c = BucketsTimeMin
+		*c = Bucketstimemin
 	case "buckets.time.total":
-		*c = BucketsTimeTotal
+		*c = Bucketstimetotal
 	case "data.buckets":
-		*c = DataBuckets
+		*c = Databuckets
 	case "data.earliest_record":
-		*c = DataEarliestrecord
+		*c = Dataearliestrecord
 	case "data.empty_buckets":
-		*c = DataEmptybuckets
+		*c = Dataemptybuckets
 	case "data.input_bytes":
-		*c = DataInputbytes
+		*c = Datainputbytes
 	case "data.input_fields":
-		*c = DataInputfields
+		*c = Datainputfields
 	case "data.input_records":
-		*c = DataInputrecords
+		*c = Datainputrecords
 	case "data.invalid_dates":
-		*c = DataInvaliddates
+		*c = Datainvaliddates
 	case "data.last":
-		*c = DataLast
+		*c = Datalast
 	case "data.last_empty_bucket":
-		*c = DataLastemptybucket
+		*c = Datalastemptybucket
 	case "data.last_sparse_bucket":
-		*c = DataLastsparsebucket
+		*c = Datalastsparsebucket
 	case "data.latest_record":
-		*c = DataLatestrecord
+		*c = Datalatestrecord
 	case "data.missing_fields":
-		*c = DataMissingfields
+		*c = Datamissingfields
 	case "data.out_of_order_timestamps":
-		*c = DataOutofordertimestamps
+		*c = Dataoutofordertimestamps
 	case "data.processed_fields":
-		*c = DataProcessedfields
+		*c = Dataprocessedfields
 	case "data.processed_records":
-		*c = DataProcessedrecords
+		*c = Dataprocessedrecords
 	case "data.sparse_buckets":
-		*c = DataSparsebuckets
+		*c = Datasparsebuckets
 	case "forecasts.memory.avg":
-		*c = ForecastsMemoryAvg
+		*c = Forecastsmemoryavg
 	case "forecasts.memory.max":
-		*c = ForecastsMemoryMax
+		*c = Forecastsmemorymax
 	case "forecasts.memory.min":
-		*c = ForecastsMemoryMin
+		*c = Forecastsmemorymin
 	case "forecasts.memory.total":
-		*c = ForecastsMemoryTotal
+		*c = Forecastsmemorytotal
 	case "forecasts.records.avg":
-		*c = ForecastsRecordsAvg
+		*c = Forecastsrecordsavg
 	case "forecasts.records.max":
-		*c = ForecastsRecordsMax
+		*c = Forecastsrecordsmax
 	case "forecasts.records.min":
-		*c = ForecastsRecordsMin
+		*c = Forecastsrecordsmin
 	case "forecasts.records.total":
-		*c = ForecastsRecordsTotal
+		*c = Forecastsrecordstotal
 	case "forecasts.time.avg":
-		*c = ForecastsTimeAvg
+		*c = Forecaststimeavg
 	case "forecasts.time.max":
-		*c = ForecastsTimeMax
+		*c = Forecaststimemax
 	case "forecasts.time.min":
-		*c = ForecastsTimeMin
+		*c = Forecaststimemin
 	case "forecasts.time.total":
-		*c = ForecastsTimeTotal
+		*c = Forecaststimetotal
 	case "forecasts.total":
-		*c = ForecastsTotal
+		*c = Forecaststotal
 	case "id":
 		*c = Id
 	case "model.bucket_allocation_failures":
-		*c = ModelBucketallocationfailures
+		*c = Modelbucketallocationfailures
 	case "model.by_fields":
-		*c = ModelByfields
+		*c = Modelbyfields
 	case "model.bytes":
-		*c = ModelBytes
+		*c = Modelbytes
 	case "model.bytes_exceeded":
-		*c = ModelBytesexceeded
+		*c = Modelbytesexceeded
 	case "model.categorization_status":
-		*c = ModelCategorizationstatus
+		*c = Modelcategorizationstatus
 	case "model.categorized_doc_count":
-		*c = ModelCategorizeddoccount
+		*c = Modelcategorizeddoccount
 	case "model.dead_category_count":
-		*c = ModelDeadcategorycount
+		*c = Modeldeadcategorycount
 	case "model.failed_category_count":
-		*c = ModelFailedcategorycount
+		*c = Modelfailedcategorycount
 	case "model.frequent_category_count":
-		*c = ModelFrequentcategorycount
+		*c = Modelfrequentcategorycount
 	case "model.log_time":
-		*c = ModelLogtime
+		*c = Modellogtime
 	case "model.memory_limit":
-		*c = ModelMemorylimit
+		*c = Modelmemorylimit
 	case "model.memory_status":
-		*c = ModelMemorystatus
+		*c = Modelmemorystatus
 	case "model.over_fields":
-		*c = ModelOverfields
+		*c = Modeloverfields
 	case "model.partition_fields":
-		*c = ModelPartitionfields
+		*c = Modelpartitionfields
 	case "model.rare_category_count":
-		*c = ModelRarecategorycount
+		*c = Modelrarecategorycount
 	case "model.timestamp":
-		*c = ModelTimestamp
+		*c = Modeltimestamp
 	case "model.total_category_count":
-		*c = ModelTotalcategorycount
+		*c = Modeltotalcategorycount
 	case "node.address":
-		*c = NodeAddress
+		*c = Nodeaddress
 	case "node.ephemeral_id":
-		*c = NodeEphemeralid
+		*c = Nodeephemeralid
 	case "node.id":
-		*c = NodeId
+		*c = Nodeid
 	case "node.name":
-		*c = NodeName
+		*c = Nodename
 	case "opened_time":
 		*c = Openedtime
 	case "state":

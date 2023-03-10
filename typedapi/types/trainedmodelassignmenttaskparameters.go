@@ -15,16 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/trainingpriority"
+)
+
 // TrainedModelAssignmentTaskParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/TrainedModel.ts#L299-L325
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/TrainedModel.ts#L305-L333
 type TrainedModelAssignmentTaskParameters struct {
 	// CacheSize The size of the trained model cache.
 	CacheSize ByteSize `json:"cache_size"`
@@ -33,7 +35,8 @@ type TrainedModelAssignmentTaskParameters struct {
 	// ModelId The unique identifier for the trained model.
 	ModelId string `json:"model_id"`
 	// NumberOfAllocations The total number of allocations this model is assigned across ML nodes.
-	NumberOfAllocations int `json:"number_of_allocations"`
+	NumberOfAllocations int                               `json:"number_of_allocations"`
+	Priority            trainingpriority.TrainingPriority `json:"priority"`
 	// QueueCapacity Number of inference requests are allowed in the queue at a time.
 	QueueCapacity int `json:"queue_capacity"`
 	// ThreadsPerAllocation Number of threads per allocation.

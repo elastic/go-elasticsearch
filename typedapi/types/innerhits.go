@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // InnerHits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/hits.ts#L106-L124
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/hits.ts#L106-L124
 type InnerHits struct {
 	Collapse         *FieldCollapse         `json:"collapse,omitempty"`
 	DocvalueFields   []FieldAndFormat       `json:"docvalue_fields,omitempty"`
@@ -38,7 +36,7 @@ type InnerHits struct {
 	SeqNoPrimaryTerm *bool                  `json:"seq_no_primary_term,omitempty"`
 	Size             *int                   `json:"size,omitempty"`
 	Sort             []SortCombinations     `json:"sort,omitempty"`
-	Source_          *SourceConfig          `json:"_source,omitempty"`
+	Source_          SourceConfig           `json:"_source,omitempty"`
 	StoredField      []string               `json:"stored_field,omitempty"`
 	TrackScores      *bool                  `json:"track_scores,omitempty"`
 	Version          *bool                  `json:"version,omitempty"`

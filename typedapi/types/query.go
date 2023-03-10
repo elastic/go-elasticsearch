@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/abstractions.ts#L96-L162
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/abstractions.ts#L96-L162
 type Query struct {
 	Bool              *BoolQuery                        `json:"bool,omitempty"`
 	Boosting          *BoostingQuery                    `json:"boosting,omitempty"`
@@ -32,7 +30,7 @@ type Query struct {
 	Common            map[string]CommonTermsQuery       `json:"common,omitempty"`
 	ConstantScore     *ConstantScoreQuery               `json:"constant_score,omitempty"`
 	DisMax            *DisMaxQuery                      `json:"dis_max,omitempty"`
-	DistanceFeature   *DistanceFeatureQuery             `json:"distance_feature,omitempty"`
+	DistanceFeature   DistanceFeatureQuery              `json:"distance_feature,omitempty"`
 	Exists            *ExistsQuery                      `json:"exists,omitempty"`
 	FieldMaskingSpan  *SpanFieldMaskingQuery            `json:"field_masking_span,omitempty"`
 	FunctionScore     *FunctionScoreQuery               `json:"function_score,omitempty"`

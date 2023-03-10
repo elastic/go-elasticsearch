@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Retrieves configuration information for a trained inference model.
 package gettrainedmodels
@@ -26,6 +24,7 @@ package gettrainedmodels
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/include"
 )
@@ -145,8 +145,8 @@ func (r *GetTrainedModels) HttpRequest(ctx context.Context) (*http.Request, erro
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetTrainedModels) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetTrainedModels) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -160,10 +160,40 @@ func (r GetTrainedModels) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a gettrainedmodels.Response
+func (r GetTrainedModels) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r GetTrainedModels) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -260,8 +290,8 @@ func (r *GetTrainedModels) Size(i int) *GetTrainedModels {
 // none. When supplied, only trained models that contain all the supplied
 // tags are returned.
 // API name: tags
-func (r *GetTrainedModels) Tags(value string) *GetTrainedModels {
-	r.values.Set("tags", value)
+func (r *GetTrainedModels) Tags(v string) *GetTrainedModels {
+	r.values.Set("tags", v)
 
 	return r
 }

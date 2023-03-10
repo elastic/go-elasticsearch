@@ -15,19 +15,68 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // GeoHexGridAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L521-L522
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/Aggregate.ts#L521-L522
 type GeoHexGridAggregate struct {
-	Buckets BucketsGeoHexGridBucket `json:"buckets"`
-	Meta    map[string]interface{}  `json:"meta,omitempty"`
+	Buckets BucketsGeoHexGridBucket    `json:"buckets"`
+	Meta    map[string]json.RawMessage `json:"meta,omitempty"`
+}
+
+func (s *GeoHexGridAggregate) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "buckets":
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+
+			case '{':
+				o := make(map[string]GeoHexGridBucket, 0)
+				localDec.Decode(&o)
+				s.Buckets = o
+
+			case '[':
+				o := []GeoHexGridBucket{}
+				localDec.Decode(&o)
+				s.Buckets = o
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewGeoHexGridAggregate returns a GeoHexGridAggregate.

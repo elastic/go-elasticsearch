@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Allows a user to validate a potentially expensive query without executing it.
 package validatequery
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
 )
@@ -56,7 +56,7 @@ type ValidateQuery struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *ValidateQuery {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *ValidateQuery) Raw(raw json.RawMessage) *ValidateQuery {
+func (r *ValidateQuery) Raw(raw io.Reader) *ValidateQuery {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *ValidateQuery) HttpRequest(ctx context.Context) (*http.Request, error) 
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -180,8 +180,8 @@ func (r *ValidateQuery) HttpRequest(ctx context.Context) (*http.Request, error) 
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r ValidateQuery) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r ValidateQuery) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -193,6 +193,36 @@ func (r ValidateQuery) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a validatequery.Response
+func (r ValidateQuery) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the ValidateQuery headers map.
@@ -231,8 +261,8 @@ func (r *ValidateQuery) AllShards(b bool) *ValidateQuery {
 
 // Analyzer The analyzer to use for the query string
 // API name: analyzer
-func (r *ValidateQuery) Analyzer(value string) *ValidateQuery {
-	r.values.Set("analyzer", value)
+func (r *ValidateQuery) Analyzer(v string) *ValidateQuery {
+	r.values.Set("analyzer", v)
 
 	return r
 }
@@ -257,8 +287,8 @@ func (r *ValidateQuery) DefaultOperator(enum operator.Operator) *ValidateQuery {
 // Df The field to use as default where no field prefix is given in the query
 // string
 // API name: df
-func (r *ValidateQuery) Df(value string) *ValidateQuery {
-	r.values.Set("df", value)
+func (r *ValidateQuery) Df(v string) *ValidateQuery {
+	r.values.Set("df", v)
 
 	return r
 }
@@ -266,8 +296,8 @@ func (r *ValidateQuery) Df(value string) *ValidateQuery {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *ValidateQuery) ExpandWildcards(value string) *ValidateQuery {
-	r.values.Set("expand_wildcards", value)
+func (r *ValidateQuery) ExpandWildcards(v string) *ValidateQuery {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -309,8 +339,8 @@ func (r *ValidateQuery) Rewrite(b bool) *ValidateQuery {
 
 // Q Query in the Lucene query string syntax
 // API name: q
-func (r *ValidateQuery) Q(value string) *ValidateQuery {
-	r.values.Set("q", value)
+func (r *ValidateQuery) Q(v string) *ValidateQuery {
+	r.values.Set("q", v)
 
 	return r
 }

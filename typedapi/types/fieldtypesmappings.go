@@ -15,19 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // FieldTypesMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cluster/stats/types.ts#L96-L99
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L96-L103
 type FieldTypesMappings struct {
-	FieldTypes        []FieldTypes               `json:"field_types"`
-	RuntimeFieldTypes []ClusterRuntimeFieldTypes `json:"runtime_field_types,omitempty"`
+	FieldTypes                          []FieldTypes               `json:"field_types"`
+	RuntimeFieldTypes                   []ClusterRuntimeFieldTypes `json:"runtime_field_types,omitempty"`
+	TotalDeduplicatedFieldCount         *int                       `json:"total_deduplicated_field_count,omitempty"`
+	TotalDeduplicatedMappingSize        ByteSize                   `json:"total_deduplicated_mapping_size,omitempty"`
+	TotalDeduplicatedMappingSizeInBytes *int64                     `json:"total_deduplicated_mapping_size_in_bytes,omitempty"`
+	TotalFieldCount                     *int                       `json:"total_field_count,omitempty"`
 }
 
 // NewFieldTypesMappings returns a FieldTypesMappings.

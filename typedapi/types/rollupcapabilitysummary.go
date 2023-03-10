@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // RollupCapabilitySummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/rollup/get_rollup_caps/types.ts#L28-L33
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/rollup/get_rollup_caps/types.ts#L29-L34
 type RollupCapabilitySummary struct {
-	Fields       map[string]map[string]interface{} `json:"fields"`
-	IndexPattern string                            `json:"index_pattern"`
-	JobId        string                            `json:"job_id"`
-	RollupIndex  string                            `json:"rollup_index"`
+	Fields       map[string][]RollupFieldSummary `json:"fields"`
+	IndexPattern string                          `json:"index_pattern"`
+	JobId        string                          `json:"job_id"`
+	RollupIndex  string                          `json:"rollup_index"`
 }
 
 // NewRollupCapabilitySummary returns a RollupCapabilitySummary.
 func NewRollupCapabilitySummary() *RollupCapabilitySummary {
 	r := &RollupCapabilitySummary{
-		Fields: make(map[string]map[string]interface{}, 0),
+		Fields: make(map[string][]RollupFieldSummary, 0),
 	}
 
 	return r

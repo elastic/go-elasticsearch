@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // IndexRoutingAllocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/IndexRouting.ts#L27-L32
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/_types/IndexRouting.ts#L27-L32
 type IndexRoutingAllocation struct {
 	Disk            *IndexRoutingAllocationDisk                                  `json:"disk,omitempty"`
 	Enable          *indexroutingallocationoptions.IndexRoutingAllocationOptions `json:"enable,omitempty"`

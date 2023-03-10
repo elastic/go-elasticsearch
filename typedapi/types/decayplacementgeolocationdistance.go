@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // DecayPlacementGeoLocationDistance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/compound.ts#L77-L82
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/compound.ts#L77-L82
 type DecayPlacementGeoLocationDistance struct {
-	Decay  *float64     `json:"decay,omitempty"`
-	Offset *string      `json:"offset,omitempty"`
-	Origin *GeoLocation `json:"origin,omitempty"`
-	Scale  *string      `json:"scale,omitempty"`
+	Decay  *Float64    `json:"decay,omitempty"`
+	Offset *string     `json:"offset,omitempty"`
+	Origin GeoLocation `json:"origin,omitempty"`
+	Scale  *string     `json:"scale,omitempty"`
 }
 
 // NewDecayPlacementGeoLocationDistance returns a DecayPlacementGeoLocationDistance.

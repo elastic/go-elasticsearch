@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Forces any buffered data to be processed by the job.
 package flushjob
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type FlushJob struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *FlushJob {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *FlushJob) Raw(raw json.RawMessage) *FlushJob {
+func (r *FlushJob) Raw(raw io.Reader) *FlushJob {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *FlushJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -175,8 +175,8 @@ func (r *FlushJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r FlushJob) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r FlushJob) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -188,6 +188,36 @@ func (r FlushJob) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a flushjob.Response
+func (r FlushJob) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the FlushJob headers map.
@@ -209,8 +239,8 @@ func (r *FlushJob) JobId(v string) *FlushJob {
 // AdvanceTime Specifies to advance to a particular time value. Results are generated
 // and the model is updated for data from the specified time interval.
 // API name: advance_time
-func (r *FlushJob) AdvanceTime(value string) *FlushJob {
-	r.values.Set("advance_time", value)
+func (r *FlushJob) AdvanceTime(v string) *FlushJob {
+	r.values.Set("advance_time", v)
 
 	return r
 }
@@ -227,8 +257,8 @@ func (r *FlushJob) CalcInterim(b bool) *FlushJob {
 // End When used in conjunction with `calc_interim` and `start`, specifies the
 // range of buckets on which to calculate interim results.
 // API name: end
-func (r *FlushJob) End(value string) *FlushJob {
-	r.values.Set("end", value)
+func (r *FlushJob) End(v string) *FlushJob {
+	r.values.Set("end", v)
 
 	return r
 }
@@ -236,8 +266,8 @@ func (r *FlushJob) End(value string) *FlushJob {
 // SkipTime Specifies to skip to a particular time value. Results are not generated
 // and the model is not updated for data from the specified time interval.
 // API name: skip_time
-func (r *FlushJob) SkipTime(value string) *FlushJob {
-	r.values.Set("skip_time", value)
+func (r *FlushJob) SkipTime(v string) *FlushJob {
+	r.values.Set("skip_time", v)
 
 	return r
 }
@@ -245,8 +275,8 @@ func (r *FlushJob) SkipTime(value string) *FlushJob {
 // Start When used in conjunction with `calc_interim`, specifies the range of
 // buckets on which to calculate interim results.
 // API name: start
-func (r *FlushJob) Start(value string) *FlushJob {
-	r.values.Set("start", value)
+func (r *FlushJob) Start(v string) *FlushJob {
+	r.values.Set("start", v)
 
 	return r
 }

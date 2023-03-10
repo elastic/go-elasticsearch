@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Sets a cluster wide upgrade_mode setting that prepares machine learning
 // indices for an upgrade.
@@ -27,6 +25,7 @@ package setupgrademode
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -37,6 +36,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -129,8 +129,8 @@ func (r *SetUpgradeMode) HttpRequest(ctx context.Context) (*http.Request, error)
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r SetUpgradeMode) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r SetUpgradeMode) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -144,10 +144,40 @@ func (r SetUpgradeMode) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a setupgrademode.Response
+func (r SetUpgradeMode) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r SetUpgradeMode) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -184,8 +214,8 @@ func (r *SetUpgradeMode) Enabled(b bool) *SetUpgradeMode {
 
 // Timeout The time to wait for the request to be completed.
 // API name: timeout
-func (r *SetUpgradeMode) Timeout(value string) *SetUpgradeMode {
-	r.values.Set("timeout", value)
+func (r *SetUpgradeMode) Timeout(v string) *SetUpgradeMode {
+	r.values.Set("timeout", v)
 
 	return r
 }

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Gets configuration and usage information about anomaly detection jobs.
 package mljobs
@@ -26,6 +24,7 @@ package mljobs
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
@@ -150,8 +150,8 @@ func (r *MlJobs) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r MlJobs) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r MlJobs) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -165,10 +165,40 @@ func (r MlJobs) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a mljobs.Response
+func (r MlJobs) Do(ctx context.Context) (Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(&response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r MlJobs) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -230,8 +260,8 @@ func (r *MlJobs) Bytes(enum bytes.Bytes) *MlJobs {
 
 // H Comma-separated list of column names to display.
 // API name: h
-func (r *MlJobs) H(value string) *MlJobs {
-	r.values.Set("h", value)
+func (r *MlJobs) H(v string) *MlJobs {
+	r.values.Set("h", v)
 
 	return r
 }
@@ -239,8 +269,8 @@ func (r *MlJobs) H(value string) *MlJobs {
 // S Comma-separated list of column names or column aliases used to sort the
 // response.
 // API name: s
-func (r *MlJobs) S(value string) *MlJobs {
-	r.values.Set("s", value)
+func (r *MlJobs) S(v string) *MlJobs {
+	r.values.Set("s", v)
 
 	return r
 }

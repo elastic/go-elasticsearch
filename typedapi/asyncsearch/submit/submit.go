@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Executes a search request asynchronously.
 package submit
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
@@ -58,7 +58,7 @@ type Submit struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -94,7 +94,7 @@ func New(tp elastictransport.Interface) *Submit {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Submit) Raw(raw json.RawMessage) *Submit {
+func (r *Submit) Raw(raw io.Reader) *Submit {
 	r.raw = raw
 
 	return r
@@ -117,7 +117,7 @@ func (r *Submit) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -178,8 +178,8 @@ func (r *Submit) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Submit) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Submit) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -191,6 +191,38 @@ func (r Submit) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a submit.Response
+func (r Submit) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	r.TypedKeys(true)
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Submit headers map.
@@ -212,8 +244,8 @@ func (r *Submit) Index(v string) *Submit {
 
 // WaitForCompletionTimeout Specify the time that the request should block waiting for the final response
 // API name: wait_for_completion_timeout
-func (r *Submit) WaitForCompletionTimeout(value string) *Submit {
-	r.values.Set("wait_for_completion_timeout", value)
+func (r *Submit) WaitForCompletionTimeout(v string) *Submit {
+	r.values.Set("wait_for_completion_timeout", v)
 
 	return r
 }
@@ -230,8 +262,8 @@ func (r *Submit) KeepOnCompletion(b bool) *Submit {
 // KeepAlive Update the time interval in which the results (partial or final) for this
 // search will be available
 // API name: keep_alive
-func (r *Submit) KeepAlive(value string) *Submit {
-	r.values.Set("keep_alive", value)
+func (r *Submit) KeepAlive(v string) *Submit {
+	r.values.Set("keep_alive", v)
 
 	return r
 }
@@ -256,8 +288,8 @@ func (r *Submit) AllowPartialSearchResults(b bool) *Submit {
 
 // Analyzer The analyzer to use for the query string
 // API name: analyzer
-func (r *Submit) Analyzer(value string) *Submit {
-	r.values.Set("analyzer", value)
+func (r *Submit) Analyzer(v string) *Submit {
+	r.values.Set("analyzer", v)
 
 	return r
 }
@@ -275,8 +307,8 @@ func (r *Submit) AnalyzeWildcard(b bool) *Submit {
 // coordinating node. This value should be used as the granularity at which
 // progress results will be made available.
 // API name: batched_reduce_size
-func (r *Submit) BatchedReduceSize(value string) *Submit {
-	r.values.Set("batched_reduce_size", value)
+func (r *Submit) BatchedReduceSize(v string) *Submit {
+	r.values.Set("batched_reduce_size", v)
 
 	return r
 }
@@ -299,8 +331,8 @@ func (r *Submit) DefaultOperator(enum operator.Operator) *Submit {
 // Df The field to use as default where no field prefix is given in the query
 // string
 // API name: df
-func (r *Submit) Df(value string) *Submit {
-	r.values.Set("df", value)
+func (r *Submit) Df(v string) *Submit {
+	r.values.Set("df", v)
 
 	return r
 }
@@ -308,8 +340,8 @@ func (r *Submit) Df(value string) *Submit {
 // DocvalueFields A comma-separated list of fields to return as the docvalue representation of
 // a field for each hit
 // API name: docvalue_fields
-func (r *Submit) DocvalueFields(value string) *Submit {
-	r.values.Set("docvalue_fields", value)
+func (r *Submit) DocvalueFields(v string) *Submit {
+	r.values.Set("docvalue_fields", v)
 
 	return r
 }
@@ -317,8 +349,8 @@ func (r *Submit) DocvalueFields(value string) *Submit {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Submit) ExpandWildcards(value string) *Submit {
-	r.values.Set("expand_wildcards", value)
+func (r *Submit) ExpandWildcards(v string) *Submit {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -363,15 +395,15 @@ func (r *Submit) Lenient(b bool) *Submit {
 // concurrently. This value should be used to limit the impact of the search on
 // the cluster in order to limit the number of concurrent shard requests
 // API name: max_concurrent_shard_requests
-func (r *Submit) MaxConcurrentShardRequests(value string) *Submit {
-	r.values.Set("max_concurrent_shard_requests", value)
+func (r *Submit) MaxConcurrentShardRequests(v string) *Submit {
+	r.values.Set("max_concurrent_shard_requests", v)
 
 	return r
 }
 
 // API name: min_compatible_shard_node
-func (r *Submit) MinCompatibleShardNode(value string) *Submit {
-	r.values.Set("min_compatible_shard_node", value)
+func (r *Submit) MinCompatibleShardNode(v string) *Submit {
+	r.values.Set("min_compatible_shard_node", v)
 
 	return r
 }
@@ -379,15 +411,15 @@ func (r *Submit) MinCompatibleShardNode(value string) *Submit {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *Submit) Preference(value string) *Submit {
-	r.values.Set("preference", value)
+func (r *Submit) Preference(v string) *Submit {
+	r.values.Set("preference", v)
 
 	return r
 }
 
 // API name: pre_filter_shard_size
-func (r *Submit) PreFilterShardSize(value string) *Submit {
-	r.values.Set("pre_filter_shard_size", value)
+func (r *Submit) PreFilterShardSize(v string) *Submit {
+	r.values.Set("pre_filter_shard_size", v)
 
 	return r
 }
@@ -403,15 +435,15 @@ func (r *Submit) RequestCache(b bool) *Submit {
 
 // Routing A comma-separated list of specific routing values
 // API name: routing
-func (r *Submit) Routing(value string) *Submit {
-	r.values.Set("routing", value)
+func (r *Submit) Routing(v string) *Submit {
+	r.values.Set("routing", v)
 
 	return r
 }
 
 // API name: scroll
-func (r *Submit) Scroll(value string) *Submit {
-	r.values.Set("scroll", value)
+func (r *Submit) Scroll(v string) *Submit {
+	r.values.Set("scroll", v)
 
 	return r
 }
@@ -426,24 +458,24 @@ func (r *Submit) SearchType(enum searchtype.SearchType) *Submit {
 
 // Stats Specific 'tag' of the request for logging and statistical purposes
 // API name: stats
-func (r *Submit) Stats(value string) *Submit {
-	r.values.Set("stats", value)
+func (r *Submit) Stats(v string) *Submit {
+	r.values.Set("stats", v)
 
 	return r
 }
 
 // StoredFields A comma-separated list of stored fields to return as part of a hit
 // API name: stored_fields
-func (r *Submit) StoredFields(value string) *Submit {
-	r.values.Set("stored_fields", value)
+func (r *Submit) StoredFields(v string) *Submit {
+	r.values.Set("stored_fields", v)
 
 	return r
 }
 
 // SuggestField Specifies which field to use for suggestions.
 // API name: suggest_field
-func (r *Submit) SuggestField(value string) *Submit {
-	r.values.Set("suggest_field", value)
+func (r *Submit) SuggestField(v string) *Submit {
+	r.values.Set("suggest_field", v)
 
 	return r
 }
@@ -458,16 +490,16 @@ func (r *Submit) SuggestMode(enum suggestmode.SuggestMode) *Submit {
 
 // SuggestSize How many suggestions to return in response
 // API name: suggest_size
-func (r *Submit) SuggestSize(value string) *Submit {
-	r.values.Set("suggest_size", value)
+func (r *Submit) SuggestSize(v string) *Submit {
+	r.values.Set("suggest_size", v)
 
 	return r
 }
 
 // SuggestText The source text for which the suggestions should be returned.
 // API name: suggest_text
-func (r *Submit) SuggestText(value string) *Submit {
-	r.values.Set("suggest_text", value)
+func (r *Submit) SuggestText(v string) *Submit {
+	r.values.Set("suggest_text", v)
 
 	return r
 }
@@ -475,16 +507,16 @@ func (r *Submit) SuggestText(value string) *Submit {
 // TerminateAfter The maximum number of documents to collect for each shard, upon reaching
 // which the query execution will terminate early.
 // API name: terminate_after
-func (r *Submit) TerminateAfter(value string) *Submit {
-	r.values.Set("terminate_after", value)
+func (r *Submit) TerminateAfter(v string) *Submit {
+	r.values.Set("terminate_after", v)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Submit) Timeout(value string) *Submit {
-	r.values.Set("timeout", value)
+func (r *Submit) Timeout(v string) *Submit {
+	r.values.Set("timeout", v)
 
 	return r
 }
@@ -493,8 +525,8 @@ func (r *Submit) Timeout(value string) *Submit {
 // number can also be specified, to accurately track the total hit count up to
 // the number.
 // API name: track_total_hits
-func (r *Submit) TrackTotalHits(value string) *Submit {
-	r.values.Set("track_total_hits", value)
+func (r *Submit) TrackTotalHits(v string) *Submit {
+	r.values.Set("track_total_hits", v)
 
 	return r
 }
@@ -534,24 +566,24 @@ func (r *Submit) Version(b bool) *Submit {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return
 // API name: _source
-func (r *Submit) Source_(value string) *Submit {
-	r.values.Set("_source", value)
+func (r *Submit) Source_(v string) *Submit {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // SourceExcludes_ A list of fields to exclude from the returned _source field
 // API name: _source_excludes
-func (r *Submit) SourceExcludes_(value string) *Submit {
-	r.values.Set("_source_excludes", value)
+func (r *Submit) SourceExcludes_(v string) *Submit {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // SourceIncludes_ A list of fields to extract and return from the _source field
 // API name: _source_includes
-func (r *Submit) SourceIncludes_(value string) *Submit {
-	r.values.Set("_source_includes", value)
+func (r *Submit) SourceIncludes_(v string) *Submit {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
@@ -567,8 +599,8 @@ func (r *Submit) SeqNoPrimaryTerm(b bool) *Submit {
 
 // Q Query in the Lucene query string syntax
 // API name: q
-func (r *Submit) Q(value string) *Submit {
-	r.values.Set("q", value)
+func (r *Submit) Q(v string) *Submit {
+	r.values.Set("q", v)
 
 	return r
 }
@@ -591,8 +623,8 @@ func (r *Submit) From(i int) *Submit {
 
 // Sort A comma-separated list of <field>:<direction> pairs
 // API name: sort
-func (r *Submit) Sort(value string) *Submit {
-	r.values.Set("sort", value)
+func (r *Submit) Sort(v string) *Submit {
+	r.values.Set("sort", v)
 
 	return r
 }

@@ -15,18 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // AnomalyCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Anomaly.ts#L57-L72
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Anomaly.ts#L123-L138
 type AnomalyCause struct {
-	Actual                 []float64   `json:"actual"`
+	Actual                 []Float64   `json:"actual"`
 	ByFieldName            string      `json:"by_field_name"`
 	ByFieldValue           string      `json:"by_field_value"`
 	CorrelatedByFieldValue string      `json:"correlated_by_field_value"`
@@ -38,8 +36,8 @@ type AnomalyCause struct {
 	OverFieldValue         string      `json:"over_field_value"`
 	PartitionFieldName     string      `json:"partition_field_name"`
 	PartitionFieldValue    string      `json:"partition_field_value"`
-	Probability            float64     `json:"probability"`
-	Typical                []float64   `json:"typical"`
+	Probability            Float64     `json:"probability"`
+	Typical                []Float64   `json:"typical"`
 }
 
 // NewAnomalyCause returns a AnomalyCause.

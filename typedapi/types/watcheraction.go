@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -28,7 +26,7 @@ import (
 
 // WatcherAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/watcher/_types/Action.ts#L41-L57
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Action.ts#L41-L57
 type WatcherAction struct {
 	ActionType             *actiontype.ActionType `json:"action_type,omitempty"`
 	Condition              *WatcherCondition      `json:"condition,omitempty"`
@@ -40,7 +38,7 @@ type WatcherAction struct {
 	Name                   *string                `json:"name,omitempty"`
 	Pagerduty              *PagerDutyAction       `json:"pagerduty,omitempty"`
 	Slack                  *SlackAction           `json:"slack,omitempty"`
-	ThrottlePeriod         *Duration              `json:"throttle_period,omitempty"`
+	ThrottlePeriod         Duration               `json:"throttle_period,omitempty"`
 	ThrottlePeriodInMillis *int64                 `json:"throttle_period_in_millis,omitempty"`
 	Transform              *TransformContainer    `json:"transform,omitempty"`
 	Webhook                *WebhookAction         `json:"webhook,omitempty"`

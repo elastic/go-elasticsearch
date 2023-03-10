@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // OutlierDetectionParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/DataframeAnalytics.ts#L412-L419
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/DataframeAnalytics.ts#L412-L419
 type OutlierDetectionParameters struct {
 	ComputeFeatureInfluence   *bool    `json:"compute_feature_influence,omitempty"`
-	FeatureInfluenceThreshold *float64 `json:"feature_influence_threshold,omitempty"`
+	FeatureInfluenceThreshold *Float64 `json:"feature_influence_threshold,omitempty"`
 	Method                    *string  `json:"method,omitempty"`
 	NNeighbors                *int     `json:"n_neighbors,omitempty"`
-	OutlierFraction           *float64 `json:"outlier_fraction,omitempty"`
+	OutlierFraction           *Float64 `json:"outlier_fraction,omitempty"`
 	StandardizationEnabled    *bool    `json:"standardization_enabled,omitempty"`
 }
 

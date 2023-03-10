@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // RecoveryRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cat/recovery/types.ts#L24-L155
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/recovery/types.ts#L24-L155
 type RecoveryRecord struct {
 	// Bytes number of bytes to recover
 	Bytes *string `json:"bytes,omitempty"`
 	// BytesPercent percent of bytes recovered
-	BytesPercent *Percentage `json:"bytes_percent,omitempty"`
+	BytesPercent Percentage `json:"bytes_percent,omitempty"`
 	// BytesRecovered bytes recovered
 	BytesRecovered *string `json:"bytes_recovered,omitempty"`
 	// BytesTotal total number of bytes
@@ -37,7 +35,7 @@ type RecoveryRecord struct {
 	// Files number of files to recover
 	Files *string `json:"files,omitempty"`
 	// FilesPercent percent of files recovered
-	FilesPercent *Percentage `json:"files_percent,omitempty"`
+	FilesPercent Percentage `json:"files_percent,omitempty"`
 	// FilesRecovered files recovered
 	FilesRecovered *string `json:"files_recovered,omitempty"`
 	// FilesTotal total number of files
@@ -57,11 +55,11 @@ type RecoveryRecord struct {
 	// Stage recovery stage
 	Stage *string `json:"stage,omitempty"`
 	// StartTime recovery start time
-	StartTime *DateTime `json:"start_time,omitempty"`
+	StartTime DateTime `json:"start_time,omitempty"`
 	// StartTimeMillis recovery start time in epoch milliseconds
 	StartTimeMillis *int64 `json:"start_time_millis,omitempty"`
 	// StopTime recovery stop time
-	StopTime *DateTime `json:"stop_time,omitempty"`
+	StopTime DateTime `json:"stop_time,omitempty"`
 	// StopTimeMillis recovery stop time in epoch milliseconds
 	StopTimeMillis *int64 `json:"stop_time_millis,omitempty"`
 	// TargetHost target host
@@ -69,11 +67,11 @@ type RecoveryRecord struct {
 	// TargetNode target node name
 	TargetNode *string `json:"target_node,omitempty"`
 	// Time recovery time
-	Time *Duration `json:"time,omitempty"`
+	Time Duration `json:"time,omitempty"`
 	// TranslogOps number of translog ops to recover
 	TranslogOps *string `json:"translog_ops,omitempty"`
 	// TranslogOpsPercent percent of translog ops recovered
-	TranslogOpsPercent *Percentage `json:"translog_ops_percent,omitempty"`
+	TranslogOpsPercent Percentage `json:"translog_ops_percent,omitempty"`
 	// TranslogOpsRecovered translog ops recovered
 	TranslogOpsRecovered *string `json:"translog_ops_recovered,omitempty"`
 	// Type recovery type

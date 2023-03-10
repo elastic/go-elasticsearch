@@ -15,21 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // FieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cluster/stats/types.ts#L101-L107
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L105-L114
 type FieldTypes struct {
-	Count       int    `json:"count"`
-	IndexCount  int    `json:"index_count"`
-	Name        string `json:"name"`
-	ScriptCount *int   `json:"script_count,omitempty"`
+	Count               int    `json:"count"`
+	IndexCount          int    `json:"index_count"`
+	IndexedVectorCount  *int64 `json:"indexed_vector_count,omitempty"`
+	IndexedVectorDimMax *int64 `json:"indexed_vector_dim_max,omitempty"`
+	IndexedVectorDimMin *int64 `json:"indexed_vector_dim_min,omitempty"`
+	Name                string `json:"name"`
+	ScriptCount         *int   `json:"script_count,omitempty"`
 }
 
 // NewFieldTypes returns a FieldTypes.

@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // SlowlogTresholdLevels type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/_types/IndexSettings.ts#L490-L495
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/_types/IndexSettings.ts#L490-L495
 type SlowlogTresholdLevels struct {
-	Debug *Duration `json:"debug,omitempty"`
-	Info  *Duration `json:"info,omitempty"`
-	Trace *Duration `json:"trace,omitempty"`
-	Warn  *Duration `json:"warn,omitempty"`
+	Debug Duration `json:"debug,omitempty"`
+	Info  Duration `json:"info,omitempty"`
+	Trace Duration `json:"trace,omitempty"`
+	Warn  Duration `json:"warn,omitempty"`
 }
 
 // NewSlowlogTresholdLevels returns a SlowlogTresholdLevels.

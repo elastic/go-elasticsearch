@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Searches a vector tile for geospatial values. Returns results as a binary
 // Mapbox vector tile.
@@ -30,13 +28,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gridaggregationtype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gridtype"
 )
 
@@ -65,7 +66,7 @@ type SearchMvt struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -116,7 +117,7 @@ func New(tp elastictransport.Interface) *SearchMvt {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *SearchMvt) Raw(raw json.RawMessage) *SearchMvt {
+func (r *SearchMvt) Raw(raw io.Reader) *SearchMvt {
 	r.raw = raw
 
 	return r
@@ -139,7 +140,7 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -207,8 +208,8 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r SearchMvt) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r SearchMvt) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -220,6 +221,36 @@ func (r SearchMvt) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a searchmvt.Response
+func (r SearchMvt) Do(ctx context.Context) (Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(&response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the SearchMvt headers map.
@@ -295,6 +326,14 @@ func (r *SearchMvt) Extent(i int) *SearchMvt {
 	return r
 }
 
+// GridAgg Aggregation used to create a grid for `field`.
+// API name: grid_agg
+func (r *SearchMvt) GridAgg(enum gridaggregationtype.GridAggregationType) *SearchMvt {
+	r.values.Set("grid_agg", enum.String())
+
+	return r
+}
+
 // GridPrecision Additional zoom levels available through the aggs layer. For example, if
 // <zoom> is 7
 // and grid_precision is 8, you can zoom in up to level 15. Accepts 0-8. If 0,
@@ -326,6 +365,16 @@ func (r *SearchMvt) GridType(enum gridtype.GridType) *SearchMvt {
 // API name: size
 func (r *SearchMvt) Size(i int) *SearchMvt {
 	r.values.Set("size", strconv.Itoa(i))
+
+	return r
+}
+
+// WithLabels If `true`, the hits and aggs layers will contain additional point features
+// representing
+// suggested label positions for the original features.
+// API name: with_labels
+func (r *SearchMvt) WithLabels(b bool) *SearchMvt {
+	r.values.Set("with_labels", strconv.FormatBool(b))
 
 	return r
 }

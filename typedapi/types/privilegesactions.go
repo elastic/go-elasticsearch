@@ -15,21 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // PrivilegesActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/put_privileges/types.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/put_privileges/types.ts#L22-L27
 type PrivilegesActions struct {
-	Actions     []string               `json:"actions"`
-	Application *string                `json:"application,omitempty"`
-	Metadata    map[string]interface{} `json:"metadata,omitempty"`
-	Name        *string                `json:"name,omitempty"`
+	Actions     []string                   `json:"actions"`
+	Application *string                    `json:"application,omitempty"`
+	Metadata    map[string]json.RawMessage `json:"metadata,omitempty"`
+	Name        *string                    `json:"name,omitempty"`
 }
 
 // NewPrivilegesActions returns a PrivilegesActions.

@@ -15,33 +15,31 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // SearchStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Stats.ts#L185-L204
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Stats.ts#L185-L204
 type SearchStats struct {
 	FetchCurrent        int64                  `json:"fetch_current"`
-	FetchTime           *Duration              `json:"fetch_time,omitempty"`
+	FetchTime           Duration               `json:"fetch_time,omitempty"`
 	FetchTimeInMillis   int64                  `json:"fetch_time_in_millis"`
 	FetchTotal          int64                  `json:"fetch_total"`
 	Groups              map[string]SearchStats `json:"groups,omitempty"`
 	OpenContexts        *int64                 `json:"open_contexts,omitempty"`
 	QueryCurrent        int64                  `json:"query_current"`
-	QueryTime           *Duration              `json:"query_time,omitempty"`
+	QueryTime           Duration               `json:"query_time,omitempty"`
 	QueryTimeInMillis   int64                  `json:"query_time_in_millis"`
 	QueryTotal          int64                  `json:"query_total"`
 	ScrollCurrent       int64                  `json:"scroll_current"`
-	ScrollTime          *Duration              `json:"scroll_time,omitempty"`
+	ScrollTime          Duration               `json:"scroll_time,omitempty"`
 	ScrollTimeInMillis  int64                  `json:"scroll_time_in_millis"`
 	ScrollTotal         int64                  `json:"scroll_total"`
 	SuggestCurrent      int64                  `json:"suggest_current"`
-	SuggestTime         *Duration              `json:"suggest_time,omitempty"`
+	SuggestTime         Duration               `json:"suggest_time,omitempty"`
 	SuggestTimeInMillis int64                  `json:"suggest_time_in_millis"`
 	SuggestTotal        int64                  `json:"suggest_total"`
 }

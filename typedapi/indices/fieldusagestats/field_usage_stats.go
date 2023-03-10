@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns the field usage stats for each field of an index
 package fieldusagestats
@@ -26,6 +24,7 @@ package fieldusagestats
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -136,8 +136,8 @@ func (r *FieldUsageStats) HttpRequest(ctx context.Context) (*http.Request, error
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r FieldUsageStats) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r FieldUsageStats) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -151,10 +151,40 @@ func (r FieldUsageStats) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a fieldusagestats.Response
+func (r FieldUsageStats) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r FieldUsageStats) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -209,8 +239,8 @@ func (r *FieldUsageStats) AllowNoIndices(b bool) *FieldUsageStats {
 // comma-separated values,
 // such as `open,hidden`.
 // API name: expand_wildcards
-func (r *FieldUsageStats) ExpandWildcards(value string) *FieldUsageStats {
-	r.values.Set("expand_wildcards", value)
+func (r *FieldUsageStats) ExpandWildcards(v string) *FieldUsageStats {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -226,8 +256,8 @@ func (r *FieldUsageStats) IgnoreUnavailable(b bool) *FieldUsageStats {
 // Fields Comma-separated list or wildcard expressions of fields to include in the
 // statistics.
 // API name: fields
-func (r *FieldUsageStats) Fields(value string) *FieldUsageStats {
-	r.values.Set("fields", value)
+func (r *FieldUsageStats) Fields(v string) *FieldUsageStats {
+	r.values.Set("fields", v)
 
 	return r
 }
@@ -236,8 +266,8 @@ func (r *FieldUsageStats) Fields(value string) *FieldUsageStats {
 // received before the timeout expires,
 // the request fails and returns an error.
 // API name: master_timeout
-func (r *FieldUsageStats) MasterTimeout(value string) *FieldUsageStats {
-	r.values.Set("master_timeout", value)
+func (r *FieldUsageStats) MasterTimeout(v string) *FieldUsageStats {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
@@ -246,8 +276,8 @@ func (r *FieldUsageStats) MasterTimeout(value string) *FieldUsageStats {
 // expires, the request fails
 // and returns an error.
 // API name: timeout
-func (r *FieldUsageStats) Timeout(value string) *FieldUsageStats {
-	r.values.Set("timeout", value)
+func (r *FieldUsageStats) Timeout(v string) *FieldUsageStats {
+	r.values.Set("timeout", v)
 
 	return r
 }
@@ -257,8 +287,8 @@ func (r *FieldUsageStats) Timeout(value string) *FieldUsageStats {
 // positive integer up to the total number of shards in the index
 // (`number_of_replicas+1`).
 // API name: wait_for_active_shards
-func (r *FieldUsageStats) WaitForActiveShards(value string) *FieldUsageStats {
-	r.values.Set("wait_for_active_shards", value)
+func (r *FieldUsageStats) WaitForActiveShards(v string) *FieldUsageStats {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }

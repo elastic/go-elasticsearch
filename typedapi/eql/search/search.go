@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 // Returns results matching a query expressed in Event Query Language (EQL)
 package search
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type Search struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *Search {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Search) Raw(raw json.RawMessage) *Search {
+func (r *Search) Raw(raw io.Reader) *Search {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -173,8 +173,8 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Search) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Search) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -186,6 +186,36 @@ func (r Search) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a search.Response
+func (r Search) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Search headers map.
@@ -212,8 +242,8 @@ func (r *Search) AllowNoIndices(b bool) *Search {
 }
 
 // API name: expand_wildcards
-func (r *Search) ExpandWildcards(value string) *Search {
-	r.values.Set("expand_wildcards", value)
+func (r *Search) ExpandWildcards(v string) *Search {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -228,8 +258,8 @@ func (r *Search) IgnoreUnavailable(b bool) *Search {
 
 // KeepAlive Period for which the search and its results are stored on the cluster.
 // API name: keep_alive
-func (r *Search) KeepAlive(value string) *Search {
-	r.values.Set("keep_alive", value)
+func (r *Search) KeepAlive(v string) *Search {
+	r.values.Set("keep_alive", v)
 
 	return r
 }
@@ -245,8 +275,8 @@ func (r *Search) KeepOnCompletion(b bool) *Search {
 // WaitForCompletionTimeout Timeout duration to wait for the request to finish. Defaults to no timeout,
 // meaning the request waits for complete search results.
 // API name: wait_for_completion_timeout
-func (r *Search) WaitForCompletionTimeout(value string) *Search {
-	r.values.Set("wait_for_completion_timeout", value)
+func (r *Search) WaitForCompletionTimeout(v string) *Search {
+	r.values.Set("wait_for_completion_timeout", v)
 
 	return r
 }

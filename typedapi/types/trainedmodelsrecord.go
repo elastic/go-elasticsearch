@@ -15,19 +15,17 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // TrainedModelsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cat/ml_trained_models/types.ts#L23-L111
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/ml_trained_models/types.ts#L23-L111
 type TrainedModelsRecord struct {
 	// CreateTime The time the model was created
-	CreateTime *DateTime `json:"create_time,omitempty"`
+	CreateTime DateTime `json:"create_time,omitempty"`
 	// CreatedBy who created the model
 	CreatedBy *string `json:"created_by,omitempty"`
 	// DataFrameAnalysis The analysis used by the data frame to build the model
@@ -42,7 +40,7 @@ type TrainedModelsRecord struct {
 	// Description The model description
 	Description *string `json:"description,omitempty"`
 	// HeapSize the estimated heap size to keep the model in memory
-	HeapSize *ByteSize `json:"heap_size,omitempty"`
+	HeapSize ByteSize `json:"heap_size,omitempty"`
 	// Id the trained model id
 	Id *string `json:"id,omitempty"`
 	// IngestCount The total number of docs processed by the model
