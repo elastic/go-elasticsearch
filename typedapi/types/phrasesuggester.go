@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // PhraseSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/search/_types/suggester.ts#L191-L205
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search/_types/suggester.ts#L191-L205
 type PhraseSuggester struct {
 	Analyzer                *string                  `json:"analyzer,omitempty"`
 	Collate                 *PhraseSuggestCollate    `json:"collate,omitempty"`
-	Confidence              *float64                 `json:"confidence,omitempty"`
+	Confidence              *Float64                 `json:"confidence,omitempty"`
 	DirectGenerator         []DirectGenerator        `json:"direct_generator,omitempty"`
 	Field                   string                   `json:"field"`
 	ForceUnigrams           *bool                    `json:"force_unigrams,omitempty"`
 	GramSize                *int                     `json:"gram_size,omitempty"`
 	Highlight               *PhraseSuggestHighlight  `json:"highlight,omitempty"`
-	MaxErrors               *float64                 `json:"max_errors,omitempty"`
-	RealWordErrorLikelihood *float64                 `json:"real_word_error_likelihood,omitempty"`
+	MaxErrors               *Float64                 `json:"max_errors,omitempty"`
+	RealWordErrorLikelihood *Float64                 `json:"real_word_error_likelihood,omitempty"`
 	Separator               *string                  `json:"separator,omitempty"`
 	ShardSize               *int                     `json:"shard_size,omitempty"`
 	Size                    *int                     `json:"size,omitempty"`

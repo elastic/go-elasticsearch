@@ -15,25 +15,28 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // PressureMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/_types/Stats.ts#L65-L74
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/_types/Stats.ts#L66-L80
 type PressureMemory struct {
-	AllInBytes                            *int64 `json:"all_in_bytes,omitempty"`
-	CombinedCoordinatingAndPrimaryInBytes *int64 `json:"combined_coordinating_and_primary_in_bytes,omitempty"`
-	CoordinatingInBytes                   *int64 `json:"coordinating_in_bytes,omitempty"`
-	CoordinatingRejections                *int64 `json:"coordinating_rejections,omitempty"`
-	PrimaryInBytes                        *int64 `json:"primary_in_bytes,omitempty"`
-	PrimaryRejections                     *int64 `json:"primary_rejections,omitempty"`
-	ReplicaInBytes                        *int64 `json:"replica_in_bytes,omitempty"`
-	ReplicaRejections                     *int64 `json:"replica_rejections,omitempty"`
+	All                                   ByteSize `json:"all,omitempty"`
+	AllInBytes                            *int64   `json:"all_in_bytes,omitempty"`
+	CombinedCoordinatingAndPrimary        ByteSize `json:"combined_coordinating_and_primary,omitempty"`
+	CombinedCoordinatingAndPrimaryInBytes *int64   `json:"combined_coordinating_and_primary_in_bytes,omitempty"`
+	Coordinating                          ByteSize `json:"coordinating,omitempty"`
+	CoordinatingInBytes                   *int64   `json:"coordinating_in_bytes,omitempty"`
+	CoordinatingRejections                *int64   `json:"coordinating_rejections,omitempty"`
+	Primary                               ByteSize `json:"primary,omitempty"`
+	PrimaryInBytes                        *int64   `json:"primary_in_bytes,omitempty"`
+	PrimaryRejections                     *int64   `json:"primary_rejections,omitempty"`
+	Replica                               ByteSize `json:"replica,omitempty"`
+	ReplicaInBytes                        *int64   `json:"replica_in_bytes,omitempty"`
+	ReplicaRejections                     *int64   `json:"replica_rejections,omitempty"`
 }
 
 // NewPressureMemory returns a PressureMemory.

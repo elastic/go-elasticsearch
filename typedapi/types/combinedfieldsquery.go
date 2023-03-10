@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -29,12 +27,12 @@ import (
 
 // CombinedFieldsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/abstractions.ts#L181-L195
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/abstractions.ts#L181-L195
 type CombinedFieldsQuery struct {
 	AutoGenerateSynonymsPhraseQuery *bool                                            `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	Boost                           *float32                                         `json:"boost,omitempty"`
 	Fields                          []string                                         `json:"fields"`
-	MinimumShouldMatch              *MinimumShouldMatch                              `json:"minimum_should_match,omitempty"`
+	MinimumShouldMatch              MinimumShouldMatch                               `json:"minimum_should_match,omitempty"`
 	Operator                        *combinedfieldsoperator.CombinedFieldsOperator   `json:"operator,omitempty"`
 	Query                           string                                           `json:"query"`
 	QueryName_                      *string                                          `json:"_name,omitempty"`

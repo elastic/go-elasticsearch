@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Cancels a task, if it can be cancelled through an API.
 package cancel
@@ -26,6 +24,7 @@ package cancel
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -143,8 +143,8 @@ func (r *Cancel) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Cancel) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Cancel) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -158,10 +158,40 @@ func (r Cancel) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a cancel.Response
+func (r Cancel) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Cancel) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -198,8 +228,8 @@ func (r *Cancel) TaskId(v string) *Cancel {
 // Actions A comma-separated list of actions that should be cancelled. Leave empty to
 // cancel all.
 // API name: actions
-func (r *Cancel) Actions(value string) *Cancel {
-	r.values.Set("actions", value)
+func (r *Cancel) Actions(v string) *Cancel {
+	r.values.Set("actions", v)
 
 	return r
 }
@@ -208,8 +238,8 @@ func (r *Cancel) Actions(value string) *Cancel {
 // information; use `_local` to return information from the node you're
 // connecting to, leave empty to get information from all nodes
 // API name: nodes
-func (r *Cancel) Nodes(value string) *Cancel {
-	r.values.Set("nodes", value)
+func (r *Cancel) Nodes(v string) *Cancel {
+	r.values.Set("nodes", v)
 
 	return r
 }
@@ -217,8 +247,8 @@ func (r *Cancel) Nodes(value string) *Cancel {
 // ParentTaskId Cancel tasks with specified parent task id (node_id:task_number). Set to -1
 // to cancel all.
 // API name: parent_task_id
-func (r *Cancel) ParentTaskId(value string) *Cancel {
-	r.values.Set("parent_task_id", value)
+func (r *Cancel) ParentTaskId(v string) *Cancel {
+	r.values.Set("parent_task_id", v)
 
 	return r
 }

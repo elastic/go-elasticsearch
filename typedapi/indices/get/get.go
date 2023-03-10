@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Returns information about one or more indices.
 package get
@@ -26,6 +24,7 @@ package get
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -134,8 +134,8 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Get) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Get) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -149,10 +149,40 @@ func (r Get) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a get.Response
+func (r Get) Do(ctx context.Context) (Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(&response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Get) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -207,8 +237,8 @@ func (r *Get) AllowNoIndices(b bool) *Get {
 // comma-separated values,
 // such as open,hidden.
 // API name: expand_wildcards
-func (r *Get) ExpandWildcards(value string) *Get {
-	r.values.Set("expand_wildcards", value)
+func (r *Get) ExpandWildcards(v string) *Get {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -249,16 +279,16 @@ func (r *Get) Local(b bool) *Get {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *Get) MasterTimeout(value string) *Get {
-	r.values.Set("master_timeout", value)
+func (r *Get) MasterTimeout(v string) *Get {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
 
 // Features Return only information on specified index features
 // API name: features
-func (r *Get) Features(value string) *Get {
-	r.values.Set("features", value)
+func (r *Get) Features(v string) *Get {
+	r.values.Set("features", v)
 
 	return r
 }

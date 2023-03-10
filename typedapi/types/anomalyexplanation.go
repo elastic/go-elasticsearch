@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // AnomalyExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Anomaly.ts#L90-L131
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Anomaly.ts#L156-L197
 type AnomalyExplanation struct {
 	// AnomalyCharacteristicsImpact Impact from the duration and magnitude of the detected anomaly relative to
 	// the historical average.
@@ -39,7 +37,7 @@ type AnomalyExplanation struct {
 	// IncompleteBucketPenalty If the bucket contains fewer samples than expected, the score is reduced.
 	IncompleteBucketPenalty *bool `json:"incomplete_bucket_penalty,omitempty"`
 	// LowerConfidenceBound Lower bound of the 95% confidence interval.
-	LowerConfidenceBound *float64 `json:"lower_confidence_bound,omitempty"`
+	LowerConfidenceBound *Float64 `json:"lower_confidence_bound,omitempty"`
 	// MultiBucketImpact Impact of the deviation between actual and typical values in the past 12
 	// buckets.
 	MultiBucketImpact *int `json:"multi_bucket_impact,omitempty"`
@@ -47,9 +45,9 @@ type AnomalyExplanation struct {
 	// bucket.
 	SingleBucketImpact *int `json:"single_bucket_impact,omitempty"`
 	// TypicalValue Typical (expected) value for this bucket.
-	TypicalValue *float64 `json:"typical_value,omitempty"`
+	TypicalValue *Float64 `json:"typical_value,omitempty"`
 	// UpperConfidenceBound Upper bound of the 95% confidence interval.
-	UpperConfidenceBound *float64 `json:"upper_confidence_bound,omitempty"`
+	UpperConfidenceBound *Float64 `json:"upper_confidence_bound,omitempty"`
 }
 
 // NewAnomalyExplanation returns a AnomalyExplanation.

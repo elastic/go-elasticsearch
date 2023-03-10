@@ -15,38 +15,38 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/minimuminterval"
 )
 
 // AutoDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/bucket.ts#L52-L62
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/bucket.ts#L52-L62
 type AutoDateHistogramAggregation struct {
 	Buckets         *int                             `json:"buckets,omitempty"`
 	Field           *string                          `json:"field,omitempty"`
 	Format          *string                          `json:"format,omitempty"`
-	Meta            map[string]interface{}           `json:"meta,omitempty"`
+	Meta            map[string]json.RawMessage       `json:"meta,omitempty"`
 	MinimumInterval *minimuminterval.MinimumInterval `json:"minimum_interval,omitempty"`
-	Missing         *DateTime                        `json:"missing,omitempty"`
+	Missing         DateTime                         `json:"missing,omitempty"`
 	Name            *string                          `json:"name,omitempty"`
 	Offset          *string                          `json:"offset,omitempty"`
-	Params          map[string]interface{}           `json:"params,omitempty"`
-	Script          *Script                          `json:"script,omitempty"`
+	Params          map[string]json.RawMessage       `json:"params,omitempty"`
+	Script          Script                           `json:"script,omitempty"`
 	TimeZone        *string                          `json:"time_zone,omitempty"`
 }
 
 // NewAutoDateHistogramAggregation returns a AutoDateHistogramAggregation.
 func NewAutoDateHistogramAggregation() *AutoDateHistogramAggregation {
 	r := &AutoDateHistogramAggregation{
-		Params: make(map[string]interface{}, 0),
+		Params: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

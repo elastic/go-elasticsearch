@@ -15,40 +15,38 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // SegmentsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Stats.ts#L206-L231
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/Stats.ts#L206-L231
 type SegmentsStats struct {
 	Count                       int                          `json:"count"`
-	DocValuesMemory             *ByteSize                    `json:"doc_values_memory,omitempty"`
+	DocValuesMemory             ByteSize                     `json:"doc_values_memory,omitempty"`
 	DocValuesMemoryInBytes      int                          `json:"doc_values_memory_in_bytes"`
 	FileSizes                   map[string]ShardFileSizeInfo `json:"file_sizes"`
-	FixedBitSet                 *ByteSize                    `json:"fixed_bit_set,omitempty"`
+	FixedBitSet                 ByteSize                     `json:"fixed_bit_set,omitempty"`
 	FixedBitSetMemoryInBytes    int                          `json:"fixed_bit_set_memory_in_bytes"`
 	IndexWriterMaxMemoryInBytes *int                         `json:"index_writer_max_memory_in_bytes,omitempty"`
-	IndexWriterMemory           *ByteSize                    `json:"index_writer_memory,omitempty"`
+	IndexWriterMemory           ByteSize                     `json:"index_writer_memory,omitempty"`
 	IndexWriterMemoryInBytes    int                          `json:"index_writer_memory_in_bytes"`
 	MaxUnsafeAutoIdTimestamp    int64                        `json:"max_unsafe_auto_id_timestamp"`
-	Memory                      *ByteSize                    `json:"memory,omitempty"`
+	Memory                      ByteSize                     `json:"memory,omitempty"`
 	MemoryInBytes               int                          `json:"memory_in_bytes"`
-	NormsMemory                 *ByteSize                    `json:"norms_memory,omitempty"`
+	NormsMemory                 ByteSize                     `json:"norms_memory,omitempty"`
 	NormsMemoryInBytes          int                          `json:"norms_memory_in_bytes"`
-	PointsMemory                *ByteSize                    `json:"points_memory,omitempty"`
+	PointsMemory                ByteSize                     `json:"points_memory,omitempty"`
 	PointsMemoryInBytes         int                          `json:"points_memory_in_bytes"`
 	StoredFieldsMemoryInBytes   int                          `json:"stored_fields_memory_in_bytes"`
-	StoredMemory                *ByteSize                    `json:"stored_memory,omitempty"`
+	StoredMemory                ByteSize                     `json:"stored_memory,omitempty"`
 	TermVectorsMemoryInBytes    int                          `json:"term_vectors_memory_in_bytes"`
-	TermVectoryMemory           *ByteSize                    `json:"term_vectory_memory,omitempty"`
-	TermsMemory                 *ByteSize                    `json:"terms_memory,omitempty"`
+	TermVectoryMemory           ByteSize                     `json:"term_vectory_memory,omitempty"`
+	TermsMemory                 ByteSize                     `json:"terms_memory,omitempty"`
 	TermsMemoryInBytes          int                          `json:"terms_memory_in_bytes"`
-	VersionMapMemory            *ByteSize                    `json:"version_map_memory,omitempty"`
+	VersionMapMemory            ByteSize                     `json:"version_map_memory,omitempty"`
 	VersionMapMemoryInBytes     int                          `json:"version_map_memory_in_bytes"`
 }
 

@@ -15,26 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // BulkStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Stats.ts#L41-L51
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/Stats.ts#L41-L51
 type BulkStats struct {
-	AvgSize           *ByteSize `json:"avg_size,omitempty"`
-	AvgSizeInBytes    int64     `json:"avg_size_in_bytes"`
-	AvgTime           *Duration `json:"avg_time,omitempty"`
-	AvgTimeInMillis   int64     `json:"avg_time_in_millis"`
-	TotalOperations   int64     `json:"total_operations"`
-	TotalSize         *ByteSize `json:"total_size,omitempty"`
-	TotalSizeInBytes  int64     `json:"total_size_in_bytes"`
-	TotalTime         *Duration `json:"total_time,omitempty"`
-	TotalTimeInMillis int64     `json:"total_time_in_millis"`
+	AvgSize           ByteSize `json:"avg_size,omitempty"`
+	AvgSizeInBytes    int64    `json:"avg_size_in_bytes"`
+	AvgTime           Duration `json:"avg_time,omitempty"`
+	AvgTimeInMillis   int64    `json:"avg_time_in_millis"`
+	TotalOperations   int64    `json:"total_operations"`
+	TotalSize         ByteSize `json:"total_size,omitempty"`
+	TotalSizeInBytes  int64    `json:"total_size_in_bytes"`
+	TotalTime         Duration `json:"total_time,omitempty"`
+	TotalTimeInMillis int64    `json:"total_time_in_millis"`
 }
 
 // NewBulkStats returns a BulkStats.

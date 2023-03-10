@@ -15,22 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexingjobstate"
 )
 
 // RollupJobStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/rollup/get_jobs/types.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/get_jobs/types.ts#L60-L64
 type RollupJobStatus struct {
-	CurrentPosition map[string]interface{}            `json:"current_position,omitempty"`
+	CurrentPosition map[string]json.RawMessage        `json:"current_position,omitempty"`
 	JobState        indexingjobstate.IndexingJobState `json:"job_state"`
 	UpgradedDocId   *bool                             `json:"upgraded_doc_id,omitempty"`
 }
@@ -38,7 +38,7 @@ type RollupJobStatus struct {
 // NewRollupJobStatus returns a RollupJobStatus.
 func NewRollupJobStatus() *RollupJobStatus {
 	r := &RollupJobStatus{
-		CurrentPosition: make(map[string]interface{}, 0),
+		CurrentPosition: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

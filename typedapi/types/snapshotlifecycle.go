@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // SnapshotLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
 type SnapshotLifecycle struct {
 	InProgress          *InProgress `json:"in_progress,omitempty"`
 	LastFailure         *Invocation `json:"last_failure,omitempty"`
 	LastSuccess         *Invocation `json:"last_success,omitempty"`
-	ModifiedDate        *DateTime   `json:"modified_date,omitempty"`
+	ModifiedDate        DateTime    `json:"modified_date,omitempty"`
 	ModifiedDateMillis  int64       `json:"modified_date_millis"`
-	NextExecution       *DateTime   `json:"next_execution,omitempty"`
+	NextExecution       DateTime    `json:"next_execution,omitempty"`
 	NextExecutionMillis int64       `json:"next_execution_millis"`
 	Policy              SLMPolicy   `json:"policy"`
 	Stats               Statistics  `json:"stats"`

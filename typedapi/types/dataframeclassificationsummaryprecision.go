@@ -15,18 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // DataframeClassificationSummaryPrecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/evaluate_data_frame/types.ts#L60-L63
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/evaluate_data_frame/types.ts#L60-L63
 type DataframeClassificationSummaryPrecision struct {
-	AvgPrecision float64                    `json:"avg_precision"`
+	AvgPrecision Float64                    `json:"avg_precision"`
 	Classes      []DataframeEvaluationClass `json:"classes"`
 }
 

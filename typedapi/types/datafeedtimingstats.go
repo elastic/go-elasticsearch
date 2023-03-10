@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // DatafeedTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Datafeed.ts#L149-L156
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Datafeed.ts#L149-L156
 type DatafeedTimingStats struct {
-	AverageSearchTimePerBucketMs          *float64 `json:"average_search_time_per_bucket_ms,omitempty"`
-	BucketCount                           int64    `json:"bucket_count"`
-	ExponentialAverageSearchTimePerHourMs float64  `json:"exponential_average_search_time_per_hour_ms"`
-	JobId                                 string   `json:"job_id"`
-	SearchCount                           int64    `json:"search_count"`
-	TotalSearchTimeMs                     float64  `json:"total_search_time_ms"`
+	AverageSearchTimePerBucketMs          Float64 `json:"average_search_time_per_bucket_ms,omitempty"`
+	BucketCount                           int64   `json:"bucket_count"`
+	ExponentialAverageSearchTimePerHourMs Float64 `json:"exponential_average_search_time_per_hour_ms"`
+	JobId                                 string  `json:"job_id"`
+	SearchCount                           int64   `json:"search_count"`
+	TotalSearchTimeMs                     Float64 `json:"total_search_time_ms"`
 }
 
 // NewDatafeedTimingStats returns a DatafeedTimingStats.

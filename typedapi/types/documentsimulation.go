@@ -15,32 +15,30 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+
 	"encoding/json"
 	"fmt"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
 // DocumentSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ingest/simulate/types.ts#L47-L60
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ingest/simulate/types.ts#L47-L60
 type DocumentSimulation struct {
-	DocumentSimulation map[string]string         `json:"-"`
-	Id_                string                    `json:"_id"`
-	Index_             string                    `json:"_index"`
-	Ingest_            SimulateIngest            `json:"_ingest"`
-	Routing_           *string                   `json:"_routing,omitempty"`
-	Source_            map[string]interface{}    `json:"_source"`
-	VersionType_       *versiontype.VersionType  `json:"_version_type,omitempty"`
-	Version_           *StringifiedVersionNumber `json:"_version,omitempty"`
+	DocumentSimulation map[string]string          `json:"-"`
+	Id_                string                     `json:"_id"`
+	Index_             string                     `json:"_index"`
+	Ingest_            SimulateIngest             `json:"_ingest"`
+	Routing_           *string                    `json:"_routing,omitempty"`
+	Source_            map[string]json.RawMessage `json:"_source"`
+	VersionType_       *versiontype.VersionType   `json:"_version_type,omitempty"`
+	Version_           StringifiedVersionNumber   `json:"_version,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -75,7 +73,7 @@ func (s DocumentSimulation) MarshalJSON() ([]byte, error) {
 func NewDocumentSimulation() *DocumentSimulation {
 	r := &DocumentSimulation{
 		DocumentSimulation: make(map[string]string, 0),
-		Source_:            make(map[string]interface{}, 0),
+		Source_:            make(map[string]json.RawMessage, 0),
 	}
 
 	return r

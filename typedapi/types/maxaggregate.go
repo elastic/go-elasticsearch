@@ -15,22 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // MaxAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L199-L200
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L199-L200
 type MaxAggregate struct {
-	Meta map[string]interface{} `json:"meta,omitempty"`
+	Meta map[string]json.RawMessage `json:"meta,omitempty"`
 	// Value The metric value. A missing value generally means that there was no data to
 	// aggregate,
 	// unless specified otherwise.
-	Value         float64 `json:"value,omitempty"`
+	Value         Float64 `json:"value,omitempty"`
 	ValueAsString *string `json:"value_as_string,omitempty"`
 }
 

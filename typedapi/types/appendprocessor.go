@@ -15,16 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // AppendProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ingest/_types/Processors.ts#L90-L94
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ingest/_types/Processors.ts#L90-L94
 type AppendProcessor struct {
 	AllowDuplicates *bool                `json:"allow_duplicates,omitempty"`
 	Description     *string              `json:"description,omitempty"`
@@ -33,7 +35,7 @@ type AppendProcessor struct {
 	IgnoreFailure   *bool                `json:"ignore_failure,omitempty"`
 	OnFailure       []ProcessorContainer `json:"on_failure,omitempty"`
 	Tag             *string              `json:"tag,omitempty"`
-	Value           []interface{}        `json:"value"`
+	Value           []json.RawMessage    `json:"value"`
 }
 
 // NewAppendProcessor returns a AppendProcessor.

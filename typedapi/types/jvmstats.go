@@ -15,28 +15,26 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // JvmStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/get_memory_stats/types.ts#L50-L63
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/get_memory_stats/types.ts#L50-L63
 type JvmStats struct {
 	// HeapMax Maximum amount of memory available for use by the heap.
-	HeapMax *ByteSize `json:"heap_max,omitempty"`
+	HeapMax ByteSize `json:"heap_max,omitempty"`
 	// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
 	HeapMaxInBytes int `json:"heap_max_in_bytes"`
 	// JavaInference Amount of Java heap currently being used for caching inference models.
-	JavaInference *ByteSize `json:"java_inference,omitempty"`
+	JavaInference ByteSize `json:"java_inference,omitempty"`
 	// JavaInferenceInBytes Amount of Java heap, in bytes, currently being used for caching inference
 	// models.
 	JavaInferenceInBytes int `json:"java_inference_in_bytes"`
 	// JavaInferenceMax Maximum amount of Java heap to be used for caching inference models.
-	JavaInferenceMax *ByteSize `json:"java_inference_max,omitempty"`
+	JavaInferenceMax ByteSize `json:"java_inference_max,omitempty"`
 	// JavaInferenceMaxInBytes Maximum amount of Java heap, in bytes, to be used for caching inference
 	// models.
 	JavaInferenceMaxInBytes int `json:"java_inference_max_in_bytes"`

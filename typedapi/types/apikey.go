@@ -15,23 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // ApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/_types/ApiKey.ts#L27-L41
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/_types/ApiKey.ts#L27-L41
 type ApiKey struct {
 	Creation        *int64                      `json:"creation,omitempty"`
 	Expiration      *int64                      `json:"expiration,omitempty"`
 	Id              string                      `json:"id"`
 	Invalidated     *bool                       `json:"invalidated,omitempty"`
 	LimitedBy       []map[string]RoleDescriptor `json:"limited_by,omitempty"`
-	Metadata        map[string]interface{}      `json:"metadata,omitempty"`
+	Metadata        map[string]json.RawMessage  `json:"metadata,omitempty"`
 	Name            string                      `json:"name"`
 	Realm           *string                     `json:"realm,omitempty"`
 	RoleDescriptors map[string]RoleDescriptor   `json:"role_descriptors,omitempty"`

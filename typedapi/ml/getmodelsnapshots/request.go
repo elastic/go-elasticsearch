@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package getmodelsnapshots
 
@@ -31,18 +29,18 @@ import (
 
 // Request holds the request body struct for the package getmodelsnapshots
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L96
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L96
 type Request struct {
 
 	// Desc Refer to the description for the `desc` query parameter.
 	Desc *bool `json:"desc,omitempty"`
 	// End Refer to the description for the `end` query parameter.
-	End  *types.DateTime `json:"end,omitempty"`
-	Page *types.Page     `json:"page,omitempty"`
+	End  types.DateTime `json:"end,omitempty"`
+	Page *types.Page    `json:"page,omitempty"`
 	// Sort Refer to the description for the `sort` query parameter.
 	Sort *string `json:"sort,omitempty"`
 	// Start Refer to the description for the `start` query parameter.
-	Start *types.DateTime `json:"start,omitempty"`
+	Start types.DateTime `json:"start,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -52,7 +50,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

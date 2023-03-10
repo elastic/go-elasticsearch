@@ -15,38 +15,40 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // SnapshotInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/snapshot/_types/SnapshotInfo.ts#L41-L65
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/snapshot/_types/SnapshotInfo.ts#L41-L65
 type SnapshotInfo struct {
-	DataStreams        []string                `json:"data_streams"`
-	Duration           *Duration               `json:"duration,omitempty"`
-	DurationInMillis   *int64                  `json:"duration_in_millis,omitempty"`
-	EndTime            *DateTime               `json:"end_time,omitempty"`
-	EndTimeInMillis    *int64                  `json:"end_time_in_millis,omitempty"`
-	Failures           []SnapshotShardFailure  `json:"failures,omitempty"`
-	FeatureStates      []InfoFeatureState      `json:"feature_states,omitempty"`
-	IncludeGlobalState *bool                   `json:"include_global_state,omitempty"`
-	IndexDetails       map[string]IndexDetails `json:"index_details,omitempty"`
-	Indices            []string                `json:"indices,omitempty"`
-	Metadata           map[string]interface{}  `json:"metadata,omitempty"`
-	Reason             *string                 `json:"reason,omitempty"`
-	Repository         *string                 `json:"repository,omitempty"`
-	Shards             *ShardStatistics        `json:"shards,omitempty"`
-	Snapshot           string                  `json:"snapshot"`
-	StartTime          *DateTime               `json:"start_time,omitempty"`
-	StartTimeInMillis  *int64                  `json:"start_time_in_millis,omitempty"`
-	State              *string                 `json:"state,omitempty"`
-	Uuid               string                  `json:"uuid"`
-	Version            *string                 `json:"version,omitempty"`
-	VersionId          *int64                  `json:"version_id,omitempty"`
+	DataStreams        []string                   `json:"data_streams"`
+	Duration           Duration                   `json:"duration,omitempty"`
+	DurationInMillis   *int64                     `json:"duration_in_millis,omitempty"`
+	EndTime            DateTime                   `json:"end_time,omitempty"`
+	EndTimeInMillis    *int64                     `json:"end_time_in_millis,omitempty"`
+	Failures           []SnapshotShardFailure     `json:"failures,omitempty"`
+	FeatureStates      []InfoFeatureState         `json:"feature_states,omitempty"`
+	IncludeGlobalState *bool                      `json:"include_global_state,omitempty"`
+	IndexDetails       map[string]IndexDetails    `json:"index_details,omitempty"`
+	Indices            []string                   `json:"indices,omitempty"`
+	Metadata           map[string]json.RawMessage `json:"metadata,omitempty"`
+	Reason             *string                    `json:"reason,omitempty"`
+	Repository         *string                    `json:"repository,omitempty"`
+	Shards             *ShardStatistics           `json:"shards,omitempty"`
+	Snapshot           string                     `json:"snapshot"`
+	StartTime          DateTime                   `json:"start_time,omitempty"`
+	StartTimeInMillis  *int64                     `json:"start_time_in_millis,omitempty"`
+	State              *string                    `json:"state,omitempty"`
+	Uuid               string                     `json:"uuid"`
+	Version            *string                    `json:"version,omitempty"`
+	VersionId          *int64                     `json:"version_id,omitempty"`
 }
 
 // NewSnapshotInfo returns a SnapshotInfo.

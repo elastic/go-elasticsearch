@@ -15,27 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // GetStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/Stats.ts#L88-L99
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/Stats.ts#L88-L99
 type GetStats struct {
-	Current             int64     `json:"current"`
-	ExistsTime          *Duration `json:"exists_time,omitempty"`
-	ExistsTimeInMillis  int64     `json:"exists_time_in_millis"`
-	ExistsTotal         int64     `json:"exists_total"`
-	MissingTime         *Duration `json:"missing_time,omitempty"`
-	MissingTimeInMillis int64     `json:"missing_time_in_millis"`
-	MissingTotal        int64     `json:"missing_total"`
-	Time                *Duration `json:"time,omitempty"`
-	TimeInMillis        int64     `json:"time_in_millis"`
-	Total               int64     `json:"total"`
+	Current             int64    `json:"current"`
+	ExistsTime          Duration `json:"exists_time,omitempty"`
+	ExistsTimeInMillis  int64    `json:"exists_time_in_millis"`
+	ExistsTotal         int64    `json:"exists_total"`
+	MissingTime         Duration `json:"missing_time,omitempty"`
+	MissingTimeInMillis int64    `json:"missing_time_in_millis"`
+	MissingTotal        int64    `json:"missing_total"`
+	Time                Duration `json:"time,omitempty"`
+	TimeInMillis        int64    `json:"time_in_millis"`
+	Total               int64    `json:"total"`
 }
 
 // NewGetStats returns a GetStats.

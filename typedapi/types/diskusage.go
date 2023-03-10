@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // DiskUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cluster/allocation_explain/types.ts#L62-L69
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cluster/allocation_explain/types.ts#L62-L69
 type DiskUsage struct {
 	FreeBytes       int64   `json:"free_bytes"`
-	FreeDiskPercent float64 `json:"free_disk_percent"`
+	FreeDiskPercent Float64 `json:"free_disk_percent"`
 	Path            string  `json:"path"`
 	TotalBytes      int64   `json:"total_bytes"`
 	UsedBytes       int64   `json:"used_bytes"`
-	UsedDiskPercent float64 `json:"used_disk_percent"`
+	UsedDiskPercent Float64 `json:"used_disk_percent"`
 }
 
 // NewDiskUsage returns a DiskUsage.

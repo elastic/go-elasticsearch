@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Allows to use the Mustache language to pre-render a search definition.
 package searchtemplate
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
 )
@@ -56,7 +56,7 @@ type SearchTemplate struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -92,7 +92,7 @@ func New(tp elastictransport.Interface) *SearchTemplate {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *SearchTemplate) Raw(raw json.RawMessage) *SearchTemplate {
+func (r *SearchTemplate) Raw(raw io.Reader) *SearchTemplate {
 	r.raw = raw
 
 	return r
@@ -115,7 +115,7 @@ func (r *SearchTemplate) HttpRequest(ctx context.Context) (*http.Request, error)
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -180,8 +180,8 @@ func (r *SearchTemplate) HttpRequest(ctx context.Context) (*http.Request, error)
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r SearchTemplate) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r SearchTemplate) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -193,6 +193,38 @@ func (r SearchTemplate) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a searchtemplate.Response
+func (r SearchTemplate) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	r.TypedKeys(true)
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the SearchTemplate headers map.
@@ -233,8 +265,8 @@ func (r *SearchTemplate) CcsMinimizeRoundtrips(b bool) *SearchTemplate {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *SearchTemplate) ExpandWildcards(value string) *SearchTemplate {
-	r.values.Set("expand_wildcards", value)
+func (r *SearchTemplate) ExpandWildcards(v string) *SearchTemplate {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -269,8 +301,8 @@ func (r *SearchTemplate) IgnoreUnavailable(b bool) *SearchTemplate {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *SearchTemplate) Preference(value string) *SearchTemplate {
-	r.values.Set("preference", value)
+func (r *SearchTemplate) Preference(v string) *SearchTemplate {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -285,8 +317,8 @@ func (r *SearchTemplate) Profile(b bool) *SearchTemplate {
 
 // Routing Custom value used to route operations to a specific shard.
 // API name: routing
-func (r *SearchTemplate) Routing(value string) *SearchTemplate {
-	r.values.Set("routing", value)
+func (r *SearchTemplate) Routing(v string) *SearchTemplate {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -294,8 +326,8 @@ func (r *SearchTemplate) Routing(value string) *SearchTemplate {
 // Scroll Specifies how long a consistent view of the index
 // should be maintained for scrolled search.
 // API name: scroll
-func (r *SearchTemplate) Scroll(value string) *SearchTemplate {
-	r.values.Set("scroll", value)
+func (r *SearchTemplate) Scroll(v string) *SearchTemplate {
+	r.values.Set("scroll", v)
 
 	return r
 }

@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // CcrShardStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ccr/_types/FollowIndexStats.ts#L35-L69
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ccr/_types/FollowIndexStats.ts#L35-L69
 type CcrShardStats struct {
 	BytesRead                     int64           `json:"bytes_read"`
 	FailedReadRequests            int64           `json:"failed_read_requests"`
@@ -49,13 +47,13 @@ type CcrShardStats struct {
 	ShardId                       int             `json:"shard_id"`
 	SuccessfulReadRequests        int64           `json:"successful_read_requests"`
 	SuccessfulWriteRequests       int64           `json:"successful_write_requests"`
-	TimeSinceLastRead             *Duration       `json:"time_since_last_read,omitempty"`
+	TimeSinceLastRead             Duration        `json:"time_since_last_read,omitempty"`
 	TimeSinceLastReadMillis       int64           `json:"time_since_last_read_millis"`
-	TotalReadRemoteExecTime       *Duration       `json:"total_read_remote_exec_time,omitempty"`
+	TotalReadRemoteExecTime       Duration        `json:"total_read_remote_exec_time,omitempty"`
 	TotalReadRemoteExecTimeMillis int64           `json:"total_read_remote_exec_time_millis"`
-	TotalReadTime                 *Duration       `json:"total_read_time,omitempty"`
+	TotalReadTime                 Duration        `json:"total_read_time,omitempty"`
 	TotalReadTimeMillis           int64           `json:"total_read_time_millis"`
-	TotalWriteTime                *Duration       `json:"total_write_time,omitempty"`
+	TotalWriteTime                Duration        `json:"total_write_time,omitempty"`
 	TotalWriteTimeMillis          int64           `json:"total_write_time_millis"`
 	WriteBufferOperationCount     int64           `json:"write_buffer_operation_count"`
 	WriteBufferSizeInBytes        ByteSize        `json:"write_buffer_size_in_bytes"`

@@ -15,25 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // RecoveryIndexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/recovery/types.ts#L64-L74
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/recovery/types.ts#L64-L74
 type RecoveryIndexStatus struct {
 	Bytes                      *RecoveryBytes `json:"bytes,omitempty"`
 	Files                      RecoveryFiles  `json:"files"`
 	Size                       RecoveryBytes  `json:"size"`
-	SourceThrottleTime         *Duration      `json:"source_throttle_time,omitempty"`
+	SourceThrottleTime         Duration       `json:"source_throttle_time,omitempty"`
 	SourceThrottleTimeInMillis int64          `json:"source_throttle_time_in_millis"`
-	TargetThrottleTime         *Duration      `json:"target_throttle_time,omitempty"`
+	TargetThrottleTime         Duration       `json:"target_throttle_time,omitempty"`
 	TargetThrottleTimeInMillis int64          `json:"target_throttle_time_in_millis"`
-	TotalTime                  *Duration      `json:"total_time,omitempty"`
+	TotalTime                  Duration       `json:"total_time,omitempty"`
 	TotalTimeInMillis          int64          `json:"total_time_in_millis"`
 }
 

@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // RankEvalHit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/rank_eval/types.ts#L141-L145
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/rank_eval/types.ts#L141-L145
 type RankEvalHit struct {
 	Id_    string  `json:"_id"`
 	Index_ string  `json:"_index"`
-	Score_ float64 `json:"_score"`
+	Score_ Float64 `json:"_score"`
 }
 
 // NewRankEvalHit returns a RankEvalHit.

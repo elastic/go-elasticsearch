@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Performs the force merge operation on one or more indices.
 package forcemerge
@@ -26,6 +24,7 @@ package forcemerge
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -139,8 +139,8 @@ func (r *Forcemerge) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Forcemerge) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Forcemerge) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -154,10 +154,40 @@ func (r Forcemerge) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a forcemerge.Response
+func (r Forcemerge) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Forcemerge) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -204,8 +234,8 @@ func (r *Forcemerge) AllowNoIndices(b bool) *Forcemerge {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Forcemerge) ExpandWildcards(value string) *Forcemerge {
-	r.values.Set("expand_wildcards", value)
+func (r *Forcemerge) ExpandWildcards(v string) *Forcemerge {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -230,8 +260,8 @@ func (r *Forcemerge) IgnoreUnavailable(b bool) *Forcemerge {
 
 // MaxNumSegments The number of segments the index should be merged into (default: dynamic)
 // API name: max_num_segments
-func (r *Forcemerge) MaxNumSegments(value string) *Forcemerge {
-	r.values.Set("max_num_segments", value)
+func (r *Forcemerge) MaxNumSegments(v string) *Forcemerge {
+	r.values.Set("max_num_segments", v)
 
 	return r
 }

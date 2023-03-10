@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Retrieves anomaly detection job results for one or more buckets.
 package getbuckets
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -56,7 +56,7 @@ type GetBuckets struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -95,7 +95,7 @@ func New(tp elastictransport.Interface) *GetBuckets {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *GetBuckets) Raw(raw json.RawMessage) *GetBuckets {
+func (r *GetBuckets) Raw(raw io.Reader) *GetBuckets {
 	r.raw = raw
 
 	return r
@@ -118,7 +118,7 @@ func (r *GetBuckets) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -197,8 +197,8 @@ func (r *GetBuckets) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r GetBuckets) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r GetBuckets) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -210,6 +210,36 @@ func (r GetBuckets) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a getbuckets.Response
+func (r GetBuckets) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the GetBuckets headers map.
@@ -240,8 +270,8 @@ func (r *GetBuckets) Timestamp(v string) *GetBuckets {
 
 // AnomalyScore Returns buckets with anomaly scores greater or equal than this value.
 // API name: anomaly_score
-func (r *GetBuckets) AnomalyScore(value string) *GetBuckets {
-	r.values.Set("anomaly_score", value)
+func (r *GetBuckets) AnomalyScore(v string) *GetBuckets {
+	r.values.Set("anomaly_score", v)
 
 	return r
 }
@@ -257,8 +287,8 @@ func (r *GetBuckets) Desc(b bool) *GetBuckets {
 // End Returns buckets with timestamps earlier than this time. `-1` means it is
 // unset and results are not limited to specific timestamps.
 // API name: end
-func (r *GetBuckets) End(value string) *GetBuckets {
-	r.values.Set("end", value)
+func (r *GetBuckets) End(v string) *GetBuckets {
+	r.values.Set("end", v)
 
 	return r
 }
@@ -297,8 +327,8 @@ func (r *GetBuckets) Size(i int) *GetBuckets {
 
 // Sort Specifies the sort field for the requested buckets.
 // API name: sort
-func (r *GetBuckets) Sort(value string) *GetBuckets {
-	r.values.Set("sort", value)
+func (r *GetBuckets) Sort(v string) *GetBuckets {
+	r.values.Set("sort", v)
 
 	return r
 }
@@ -306,8 +336,8 @@ func (r *GetBuckets) Sort(value string) *GetBuckets {
 // Start Returns buckets with timestamps after this time. `-1` means it is unset
 // and results are not limited to specific timestamps.
 // API name: start
-func (r *GetBuckets) Start(value string) *GetBuckets {
-	r.values.Set("start", value)
+func (r *GetBuckets) Start(v string) *GetBuckets {
+	r.values.Set("start", v)
 
 	return r
 }

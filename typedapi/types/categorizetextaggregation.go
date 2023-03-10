@@ -15,16 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // CategorizeTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/bucket.ts#L436-L500
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/bucket.ts#L437-L501
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
 	// before being categorized.
@@ -33,7 +39,7 @@ type CategorizeTextAggregation struct {
 	// endpoint](https://www.elastic.co/guide/en/elasticsearch/reference/8.0/indices-analyze.html).
 	// This property
 	// cannot be used at the same time as categorization_filters.
-	CategorizationAnalyzer *CategorizeTextAnalyzer `json:"categorization_analyzer,omitempty"`
+	CategorizationAnalyzer CategorizeTextAnalyzer `json:"categorization_analyzer,omitempty"`
 	// CategorizationFilters This property expects an array of regular expressions. The expressions are
 	// used to filter out matching
 	// sequences from the categorization field values. You can use this
@@ -61,8 +67,8 @@ type CategorizeTextAggregation struct {
 	// Smaller values use less memory and create fewer categories. Larger values
 	// will use more memory and
 	// create narrower categories. Max allowed value is 100.
-	MaxUniqueTokens *int                   `json:"max_unique_tokens,omitempty"`
-	Meta            map[string]interface{} `json:"meta,omitempty"`
+	MaxUniqueTokens *int                       `json:"max_unique_tokens,omitempty"`
+	Meta            map[string]json.RawMessage `json:"meta,omitempty"`
 	// MinDocCount The minimum number of documents for a bucket to be returned to the results.
 	MinDocCount *int    `json:"min_doc_count,omitempty"`
 	Name        *string `json:"name,omitempty"`
@@ -80,6 +86,99 @@ type CategorizeTextAggregation struct {
 	SimilarityThreshold *int `json:"similarity_threshold,omitempty"`
 	// Size The number of buckets to return.
 	Size *int `json:"size,omitempty"`
+}
+
+func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "categorization_analyzer":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+			case '{':
+				o := NewCustomCategorizeTextAnalyzer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.CategorizationAnalyzer = *o
+
+			default:
+				if err := localDec.Decode(&s.CategorizationAnalyzer); err != nil {
+					return err
+				}
+			}
+
+		case "categorization_filters":
+			if err := dec.Decode(&s.CategorizationFilters); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "max_matched_tokens":
+			if err := dec.Decode(&s.MaxMatchedTokens); err != nil {
+				return err
+			}
+
+		case "max_unique_tokens":
+			if err := dec.Decode(&s.MaxUniqueTokens); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "min_doc_count":
+			if err := dec.Decode(&s.MinDocCount); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "shard_min_doc_count":
+			if err := dec.Decode(&s.ShardMinDocCount); err != nil {
+				return err
+			}
+
+		case "shard_size":
+			if err := dec.Decode(&s.ShardSize); err != nil {
+				return err
+			}
+
+		case "similarity_threshold":
+			if err := dec.Decode(&s.SimilarityThreshold); err != nil {
+				return err
+			}
+
+		case "size":
+			if err := dec.Decode(&s.Size); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewCategorizeTextAggregation returns a CategorizeTextAggregation.

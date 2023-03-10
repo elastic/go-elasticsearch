@@ -15,25 +15,27 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // GeohexGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/bucket.ts#L200-L226
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/bucket.ts#L200-L226
 type GeohexGridAggregation struct {
 	// Bounds Bounding box used to filter the geo-points in each bucket.
-	Bounds *GeoBounds `json:"bounds,omitempty"`
+	Bounds GeoBounds `json:"bounds,omitempty"`
 	// Field Field containing indexed geo-point values. Must be explicitly
 	// mapped as a `geo_point` field. If the field contains an array
 	// `geohex_grid` aggregates all array values.
-	Field string                 `json:"field"`
-	Meta  map[string]interface{} `json:"meta,omitempty"`
-	Name  *string                `json:"name,omitempty"`
+	Field string                     `json:"field"`
+	Meta  map[string]json.RawMessage `json:"meta,omitempty"`
+	Name  *string                    `json:"name,omitempty"`
 	// Precision Integer zoom of the key used to defined cells or buckets
 	// in the results. Value should be between 0-15.
 	Precision *int `json:"precision,omitempty"`

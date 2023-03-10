@@ -15,27 +15,27 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/valuetype"
 )
 
 // WeightedAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/metric.ts#L211-L216
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/metric.ts#L211-L216
 type WeightedAverageAggregation struct {
-	Format    *string                `json:"format,omitempty"`
-	Meta      map[string]interface{} `json:"meta,omitempty"`
-	Name      *string                `json:"name,omitempty"`
-	Value     *WeightedAverageValue  `json:"value,omitempty"`
-	ValueType *valuetype.ValueType   `json:"value_type,omitempty"`
-	Weight    *WeightedAverageValue  `json:"weight,omitempty"`
+	Format    *string                    `json:"format,omitempty"`
+	Meta      map[string]json.RawMessage `json:"meta,omitempty"`
+	Name      *string                    `json:"name,omitempty"`
+	Value     *WeightedAverageValue      `json:"value,omitempty"`
+	ValueType *valuetype.ValueType       `json:"value_type,omitempty"`
+	Weight    *WeightedAverageValue      `json:"weight,omitempty"`
 }
 
 // NewWeightedAverageAggregation returns a WeightedAverageAggregation.

@@ -15,24 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // TransformIndexerStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/transform/get_transform_stats/types.ts#L48-L66
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/transform/get_transform_stats/types.ts#L53-L71
 type TransformIndexerStats struct {
 	DeleteTimeInMs                     *int64  `json:"delete_time_in_ms,omitempty"`
 	DocumentsDeleted                   *int64  `json:"documents_deleted,omitempty"`
 	DocumentsIndexed                   int64   `json:"documents_indexed"`
 	DocumentsProcessed                 int64   `json:"documents_processed"`
-	ExponentialAvgCheckpointDurationMs float64 `json:"exponential_avg_checkpoint_duration_ms"`
-	ExponentialAvgDocumentsIndexed     float64 `json:"exponential_avg_documents_indexed"`
-	ExponentialAvgDocumentsProcessed   float64 `json:"exponential_avg_documents_processed"`
+	ExponentialAvgCheckpointDurationMs Float64 `json:"exponential_avg_checkpoint_duration_ms"`
+	ExponentialAvgDocumentsIndexed     Float64 `json:"exponential_avg_documents_indexed"`
+	ExponentialAvgDocumentsProcessed   Float64 `json:"exponential_avg_documents_processed"`
 	IndexFailures                      int64   `json:"index_failures"`
 	IndexTimeInMs                      int64   `json:"index_time_in_ms"`
 	IndexTotal                         int64   `json:"index_total"`

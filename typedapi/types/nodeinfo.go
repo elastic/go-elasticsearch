@@ -15,18 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
-import "github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+)
 
 // NodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/info/types.ts#L30-L66
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/info/types.ts#L30-L66
 type NodeInfo struct {
 	Aggregations map[string]NodeInfoAggregation `json:"aggregations,omitempty"`
 	Attributes   map[string]string              `json:"attributes"`
@@ -56,7 +56,7 @@ type NodeInfo struct {
 	// node, and is controlled by Indexing Buffer settings.
 	TotalIndexingBuffer *int64 `json:"total_indexing_buffer,omitempty"`
 	// TotalIndexingBufferInBytes Same as total_indexing_buffer, but expressed in bytes.
-	TotalIndexingBufferInBytes *ByteSize          `json:"total_indexing_buffer_in_bytes,omitempty"`
+	TotalIndexingBufferInBytes ByteSize           `json:"total_indexing_buffer_in_bytes,omitempty"`
 	Transport                  *NodeInfoTransport `json:"transport,omitempty"`
 	// TransportAddress Host and port where transport HTTP connections are accepted.
 	TransportAddress string `json:"transport_address"`

@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // ClusterProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/cluster/stats/types.ts#L262-L268
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cluster/stats/types.ts#L269-L275
 type ClusterProcessor struct {
-	Count        int64     `json:"count"`
-	Current      int64     `json:"current"`
-	Failed       int64     `json:"failed"`
-	Time         *Duration `json:"time,omitempty"`
-	TimeInMillis int64     `json:"time_in_millis"`
+	Count        int64    `json:"count"`
+	Current      int64    `json:"current"`
+	Failed       int64    `json:"failed"`
+	Time         Duration `json:"time,omitempty"`
+	TimeInMillis int64    `json:"time_in_millis"`
 }
 
 // NewClusterProcessor returns a ClusterProcessor.

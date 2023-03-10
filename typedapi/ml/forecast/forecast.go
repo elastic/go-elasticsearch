@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Predicts the future behavior of a time series by using its historical
 // behavior.
@@ -30,11 +28,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -54,7 +54,7 @@ type Forecast struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -93,7 +93,7 @@ func New(tp elastictransport.Interface) *Forecast {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Forecast) Raw(raw json.RawMessage) *Forecast {
+func (r *Forecast) Raw(raw io.Reader) *Forecast {
 	r.raw = raw
 
 	return r
@@ -116,7 +116,7 @@ func (r *Forecast) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -176,8 +176,8 @@ func (r *Forecast) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Forecast) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Forecast) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -189,6 +189,36 @@ func (r Forecast) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a forecast.Response
+func (r Forecast) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Forecast headers map.
@@ -212,8 +242,8 @@ func (r *Forecast) JobId(v string) *Forecast {
 // example, `30d` corresponds to 30 days. The forecast starts at the last
 // record that was processed.
 // API name: duration
-func (r *Forecast) Duration(value string) *Forecast {
-	r.values.Set("duration", value)
+func (r *Forecast) Duration(v string) *Forecast {
+	r.values.Set("duration", v)
 
 	return r
 }
@@ -222,8 +252,8 @@ func (r *Forecast) Duration(value string) *Forecast {
 // expires, the results are deleted. If set to a value of 0, the forecast is
 // never automatically deleted.
 // API name: expires_in
-func (r *Forecast) ExpiresIn(value string) *Forecast {
-	r.values.Set("expires_in", value)
+func (r *Forecast) ExpiresIn(v string) *Forecast {
+	r.values.Set("expires_in", v)
 
 	return r
 }
@@ -234,8 +264,8 @@ func (r *Forecast) ExpiresIn(value string) *Forecast {
 // configured memory limit, it is automatically reduced to below that
 // amount.
 // API name: max_model_memory
-func (r *Forecast) MaxModelMemory(value string) *Forecast {
-	r.values.Set("max_model_memory", value)
+func (r *Forecast) MaxModelMemory(v string) *Forecast {
+	r.values.Set("max_model_memory", v)
 
 	return r
 }

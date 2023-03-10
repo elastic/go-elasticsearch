@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package putjob
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
 type Request struct {
 
 	// Cron A cron string which defines the intervals when the rollup job should be
@@ -79,7 +77,7 @@ type Request struct {
 	// unrelated jobs.
 	RollupIndex string `json:"rollup_index"`
 	// Timeout Time to wait for the request to complete.
-	Timeout *types.Duration `json:"timeout,omitempty"`
+	Timeout types.Duration `json:"timeout,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -89,7 +87,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

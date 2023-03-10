@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Returns information about whether a document exists in an index.
 package exists
@@ -26,6 +24,7 @@ package exists
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
@@ -146,8 +146,8 @@ func (r *Exists) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Exists) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Exists) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -161,10 +161,40 @@ func (r Exists) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a exists.Response
+func (r Exists) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Exists) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -210,8 +240,8 @@ func (r *Exists) Index(v string) *Exists {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *Exists) Preference(value string) *Exists {
-	r.values.Set("preference", value)
+func (r *Exists) Preference(v string) *Exists {
+	r.values.Set("preference", v)
 
 	return r
 }
@@ -234,8 +264,8 @@ func (r *Exists) Refresh(b bool) *Exists {
 
 // Routing Specific routing value
 // API name: routing
-func (r *Exists) Routing(value string) *Exists {
-	r.values.Set("routing", value)
+func (r *Exists) Routing(v string) *Exists {
+	r.values.Set("routing", v)
 
 	return r
 }
@@ -243,40 +273,40 @@ func (r *Exists) Routing(value string) *Exists {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return
 // API name: _source
-func (r *Exists) Source_(value string) *Exists {
-	r.values.Set("_source", value)
+func (r *Exists) Source_(v string) *Exists {
+	r.values.Set("_source", v)
 
 	return r
 }
 
 // SourceExcludes_ A list of fields to exclude from the returned _source field
 // API name: _source_excludes
-func (r *Exists) SourceExcludes_(value string) *Exists {
-	r.values.Set("_source_excludes", value)
+func (r *Exists) SourceExcludes_(v string) *Exists {
+	r.values.Set("_source_excludes", v)
 
 	return r
 }
 
 // SourceIncludes_ A list of fields to extract and return from the _source field
 // API name: _source_includes
-func (r *Exists) SourceIncludes_(value string) *Exists {
-	r.values.Set("_source_includes", value)
+func (r *Exists) SourceIncludes_(v string) *Exists {
+	r.values.Set("_source_includes", v)
 
 	return r
 }
 
 // StoredFields A comma-separated list of stored fields to return in the response
 // API name: stored_fields
-func (r *Exists) StoredFields(value string) *Exists {
-	r.values.Set("stored_fields", value)
+func (r *Exists) StoredFields(v string) *Exists {
+	r.values.Set("stored_fields", v)
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *Exists) Version(value string) *Exists {
-	r.values.Set("version", value)
+func (r *Exists) Version(v string) *Exists {
+	r.values.Set("version", v)
 
 	return r
 }

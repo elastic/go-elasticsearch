@@ -15,23 +15,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actionstatusoptions"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/inputtype"
 )
 
 // ExecutionResultInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/watcher/_types/Execution.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/_types/Execution.ts#L88-L92
 type ExecutionResultInput struct {
-	Payload map[string]interface{}                  `json:"payload"`
+	Payload map[string]json.RawMessage              `json:"payload"`
 	Status  actionstatusoptions.ActionStatusOptions `json:"status"`
 	Type    inputtype.InputType                     `json:"type"`
 }
@@ -39,7 +39,7 @@ type ExecutionResultInput struct {
 // NewExecutionResultInput returns a ExecutionResultInput.
 func NewExecutionResultInput() *ExecutionResultInput {
 	r := &ExecutionResultInput{
-		Payload: make(map[string]interface{}, 0),
+		Payload: make(map[string]json.RawMessage, 0),
 	}
 
 	return r
