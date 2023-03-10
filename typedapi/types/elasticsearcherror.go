@@ -42,10 +42,7 @@ func (e ElasticsearchError) Error() string {
 // It checks for always present values only: Status & ErrorCause.Type.
 func (e ElasticsearchError) Is(err error) bool {
 	prefix := fmt.Sprintf("status: %d, failed: [%s]", e.Status, e.ErrorCause.Type)
-	if strings.HasPrefix(err.Error(), prefix) {
-		return true
-	}
-	return false
+	return strings.HasPrefix(err.Error(), prefix)
 }
 
 // As implements errors.As interface to allow type matching of ElasticsearchError.

@@ -46,7 +46,7 @@ func (f Float64) MarshalJSON() ([]byte, error) {
 func (f *Float64) UnmarshalJSON(data []byte) error {
 	switch {
 	case bytes.Equal(data, []byte(`null`)):
-		f = nil
+		return nil
 	default:
 		n, err := strconv.ParseFloat(string(data), 64)
 		if err != nil {
