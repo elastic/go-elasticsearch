@@ -846,7 +846,13 @@ func TestNewTypedClient(t *testing.T) {
 					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 					StatusCode: http.StatusOK,
 					Status:     "OK",
-					Body:       ioutil.NopCloser(strings.NewReader("")),
+					Body: ioutil.NopCloser(strings.NewReader(`{
+					  "version" : {
+						"number" : "8.0.0-SNAPSHOT",
+						"build_flavor" : "default"
+					  },
+					  "tagline" : "You Know, for Search"
+					}`)),
 				}, nil
 			},
 		},
@@ -859,7 +865,10 @@ func TestNewTypedClient(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
-	defer res.Body.Close()
+
+	if res.Tagline != "You Know, for Search" {
+		t.Fatal("unexpected tagline")
+	}
 
 	_, err = NewClient(Config{})
 	if err != nil {
