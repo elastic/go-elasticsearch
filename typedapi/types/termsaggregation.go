@@ -141,7 +141,7 @@ func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
 
 			case '{':
 				o := make(map[string]sortorder.SortOrder, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Order = o
 
 			case '[':

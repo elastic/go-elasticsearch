@@ -67,7 +67,7 @@ func (s *SignificantLongTermsAggregate) UnmarshalJSON(data []byte) error {
 
 			case '{':
 				o := make(map[string]SignificantLongTermsBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

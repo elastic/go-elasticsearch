@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseStringTermsBucket) UnmarshalJSON(data []byte) e
 
 			case '{':
 				o := make(map[string]StringTermsBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

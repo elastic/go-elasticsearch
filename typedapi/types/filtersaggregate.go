@@ -60,7 +60,7 @@ func (s *FiltersAggregate) UnmarshalJSON(data []byte) error {
 
 			case '{':
 				o := make(map[string]FiltersBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

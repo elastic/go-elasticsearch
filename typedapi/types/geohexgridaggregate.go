@@ -60,7 +60,7 @@ func (s *GeoHexGridAggregate) UnmarshalJSON(data []byte) error {
 
 			case '{':
 				o := make(map[string]GeoHexGridBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

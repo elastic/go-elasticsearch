@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseAdjacencyMatrixBucket) UnmarshalJSON(data []byt
 
 			case '{':
 				o := make(map[string]AdjacencyMatrixBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

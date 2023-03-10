@@ -67,7 +67,7 @@ func (s *SignificantTermsAggregateBaseSignificantStringTermsBucket) UnmarshalJSO
 
 			case '{':
 				o := make(map[string]SignificantStringTermsBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

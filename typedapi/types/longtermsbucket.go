@@ -481,7 +481,7 @@ func (s *LongTermsBucket) UnmarshalJSON(data []byte) error {
 								s.Aggregations[elems[1]] = o
 							default:
 								o := make(map[string]interface{}, 0)
-								if err := dec.Decode(o); err != nil {
+								if err := dec.Decode(&o); err != nil {
 									return err
 								}
 								s.Aggregations[elems[1]] = o

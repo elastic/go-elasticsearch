@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseHistogramBucket) UnmarshalJSON(data []byte) err
 
 			case '{':
 				o := make(map[string]HistogramBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

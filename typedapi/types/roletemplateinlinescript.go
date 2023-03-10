@@ -77,7 +77,7 @@ func (s *RoleTemplateInlineScript) UnmarshalJSON(data []byte) error {
 			switch rawMsg[0] {
 			case '{':
 				o := NewQuery()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Source = *o

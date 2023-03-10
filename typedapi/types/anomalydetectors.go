@@ -61,7 +61,7 @@ func (s *AnomalyDetectors) UnmarshalJSON(data []byte) error {
 			switch rawMsg[0] {
 			case '{':
 				o := NewCategorizationAnalyzerDefinition()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.CategorizationAnalyzer = *o

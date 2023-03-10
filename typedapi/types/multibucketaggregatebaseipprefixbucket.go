@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseIpPrefixBucket) UnmarshalJSON(data []byte) erro
 
 			case '{':
 				o := make(map[string]IpPrefixBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

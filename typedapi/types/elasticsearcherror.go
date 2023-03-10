@@ -22,6 +22,8 @@ import (
 	"strings"
 )
 
+// An ElasticsearchError represent the exception raised
+// by the server and sent as json payloads.
 type ElasticsearchError struct {
 	ErrorCause ErrorCause `json:"error"`
 	Status     int        `json:"status"`

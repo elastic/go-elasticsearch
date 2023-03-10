@@ -127,7 +127,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			switch rawMsg[0] {
 			case '{':
 				o := NewHourAndMinute()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.StartTime = *o

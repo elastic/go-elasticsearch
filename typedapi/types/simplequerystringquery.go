@@ -104,7 +104,7 @@ func (s *SimpleQueryStringQuery) UnmarshalJSON(data []byte) error {
 			switch rawMsg[0] {
 			case '{':
 				o := &simplequerystringflag.SimpleQueryStringFlag{}
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Flags = *o

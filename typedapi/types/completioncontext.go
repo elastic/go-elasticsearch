@@ -66,7 +66,7 @@ func (s *CompletionContext) UnmarshalJSON(data []byte) error {
 			switch rawMsg[0] {
 			case '{':
 				o := new(GeoLocation)
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Context = *o

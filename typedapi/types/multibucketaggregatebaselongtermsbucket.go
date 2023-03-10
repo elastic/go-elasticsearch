@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseLongTermsBucket) UnmarshalJSON(data []byte) err
 
 			case '{':
 				o := make(map[string]LongTermsBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

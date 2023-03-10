@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseCompositeBucket) UnmarshalJSON(data []byte) err
 
 			case '{':
 				o := make(map[string]CompositeBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

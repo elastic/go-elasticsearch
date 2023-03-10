@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseRangeBucket) UnmarshalJSON(data []byte) error {
 
 			case '{':
 				o := make(map[string]RangeBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':

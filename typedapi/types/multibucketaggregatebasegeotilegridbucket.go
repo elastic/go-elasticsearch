@@ -60,7 +60,7 @@ func (s *MultiBucketAggregateBaseGeoTileGridBucket) UnmarshalJSON(data []byte) e
 
 			case '{':
 				o := make(map[string]GeoTileGridBucket, 0)
-				localDec.Decode(o)
+				localDec.Decode(&o)
 				s.Buckets = o
 
 			case '[':
