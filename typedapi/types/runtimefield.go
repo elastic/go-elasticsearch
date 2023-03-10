@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/mapping/RuntimeFields.ts#L26-L38
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/mapping/RuntimeFields.ts#L26-L38
 type RuntimeField struct {
 	// FetchFields For type `lookup`
 	FetchFields []RuntimeFieldFetchFields `json:"fetch_fields,omitempty"`

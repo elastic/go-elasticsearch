@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package grantapikey
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L38
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L38
 type Request struct {
 	AccessToken *string                         `json:"access_token,omitempty"`
 	ApiKey      types.GrantApiKey               `json:"api_key"`

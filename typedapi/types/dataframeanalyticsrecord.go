@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
 
 package types
 
 // DataFrameAnalyticsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
+// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
 type DataFrameAnalyticsRecord struct {
 	// AssignmentExplanation why the job is or is not assigned to a node
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
