@@ -15,17 +15,15 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Package runtimefieldtype
 package runtimefieldtype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/mapping/RuntimeFields.ts#L32-L40
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/mapping/RuntimeFields.ts#L46-L55
 type RuntimeFieldType struct {
 	Name string
 }
@@ -44,6 +42,8 @@ var (
 	Keyword = RuntimeFieldType{"keyword"}
 
 	Long = RuntimeFieldType{"long"}
+
+	Lookup = RuntimeFieldType{"lookup"}
 )
 
 func (r RuntimeFieldType) MarshalText() (text []byte, err error) {
@@ -67,6 +67,8 @@ func (r *RuntimeFieldType) UnmarshalText(text []byte) error {
 		*r = Keyword
 	case "long":
 		*r = Long
+	case "lookup":
+		*r = Lookup
 	default:
 		*r = RuntimeFieldType{string(text)}
 	}

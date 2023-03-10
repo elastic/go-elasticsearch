@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // ShardRecovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/recovery/types.ts#L118-L135
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/recovery/types.ts#L118-L135
 type ShardRecovery struct {
 	Id                int64                `json:"id"`
 	Index             RecoveryIndexStatus  `json:"index"`
@@ -32,12 +30,12 @@ type ShardRecovery struct {
 	Source            RecoveryOrigin       `json:"source"`
 	Stage             string               `json:"stage"`
 	Start             *RecoveryStartStatus `json:"start,omitempty"`
-	StartTime         *DateTime            `json:"start_time,omitempty"`
+	StartTime         DateTime             `json:"start_time,omitempty"`
 	StartTimeInMillis int64                `json:"start_time_in_millis"`
-	StopTime          *DateTime            `json:"stop_time,omitempty"`
+	StopTime          DateTime             `json:"stop_time,omitempty"`
 	StopTimeInMillis  *int64               `json:"stop_time_in_millis,omitempty"`
 	Target            RecoveryOrigin       `json:"target"`
-	TotalTime         *Duration            `json:"total_time,omitempty"`
+	TotalTime         Duration             `json:"total_time,omitempty"`
 	TotalTimeInMillis int64                `json:"total_time_in_millis"`
 	Translog          TranslogStatus       `json:"translog"`
 	Type              string               `json:"type"`

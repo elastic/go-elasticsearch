@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -29,13 +27,13 @@ import (
 
 // RateAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/metric.ts#L127-L130
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/metric.ts#L127-L130
 type RateAggregation struct {
 	Field   *string                            `json:"field,omitempty"`
 	Format  *string                            `json:"format,omitempty"`
-	Missing *Missing                           `json:"missing,omitempty"`
+	Missing Missing                            `json:"missing,omitempty"`
 	Mode    *ratemode.RateMode                 `json:"mode,omitempty"`
-	Script  *Script                            `json:"script,omitempty"`
+	Script  Script                             `json:"script,omitempty"`
 	Unit    *calendarinterval.CalendarInterval `json:"unit,omitempty"`
 }
 

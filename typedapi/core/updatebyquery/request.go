@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package updatebyquery
 
@@ -32,12 +30,12 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L85
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L85
 type Request struct {
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
 	MaxDocs   *int64               `json:"max_docs,omitempty"`
 	Query     *types.Query         `json:"query,omitempty"`
-	Script    *types.Script        `json:"script,omitempty"`
+	Script    types.Script         `json:"script,omitempty"`
 	Slice     *types.SlicedScroll  `json:"slice,omitempty"`
 }
 
@@ -48,7 +46,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

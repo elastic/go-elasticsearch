@@ -1,3 +1,17 @@
+# 8.7.0
+
+## Typed API
+
+* Inclusion of responses structures.
+
+**Changes**
+
+* `Do` method on endpoints now return a typed response, one per endpoint.
+* `Perform` method added on endpoints, returns `http.Response` as did `Do`.
+* Elasticsearch exceptions are now handled as `types.ElasticsearchError` with `.As` and `.Is` methods.
+* `.Raw` now takes a reader as input.
+* User defined values such as `_source` in `Hits` are now `json.RawMessage` to highlight they later deserializable nature.  
+
 # 8.6.0
 
 ## API

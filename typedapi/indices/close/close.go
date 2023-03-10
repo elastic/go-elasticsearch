@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Closes an index.
 package close
@@ -26,6 +24,7 @@ package close
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -136,8 +136,8 @@ func (r *Close) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Close) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Close) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -151,10 +151,40 @@ func (r Close) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a close.Response
+func (r Close) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Close) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -200,8 +230,8 @@ func (r *Close) AllowNoIndices(b bool) *Close {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Close) ExpandWildcards(value string) *Close {
-	r.values.Set("expand_wildcards", value)
+func (r *Close) ExpandWildcards(v string) *Close {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -217,24 +247,24 @@ func (r *Close) IgnoreUnavailable(b bool) *Close {
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *Close) MasterTimeout(value string) *Close {
-	r.values.Set("master_timeout", value)
+func (r *Close) MasterTimeout(v string) *Close {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Close) Timeout(value string) *Close {
-	r.values.Set("timeout", value)
+func (r *Close) Timeout(v string) *Close {
+	r.values.Set("timeout", v)
 
 	return r
 }
 
 // WaitForActiveShards Sets the number of active shards to wait for before the operation returns.
 // API name: wait_for_active_shards
-func (r *Close) WaitForActiveShards(value string) *Close {
-	r.values.Set("wait_for_active_shards", value)
+func (r *Close) WaitForActiveShards(v string) *Close {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }

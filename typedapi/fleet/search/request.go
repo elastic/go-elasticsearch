@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package search
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/fleet/search/SearchRequest.ts#L55-L260
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/fleet/search/SearchRequest.ts#L55-L260
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -42,7 +40,7 @@ type Request struct {
 	// hit.
 	Explain *bool `json:"explain,omitempty"`
 	// Ext Configuration of search extensions defined by Elasticsearch plugins.
-	Ext map[string]interface{} `json:"ext,omitempty"`
+	Ext map[string]json.RawMessage `json:"ext,omitempty"`
 	// Fields Array of wildcard (*) patterns. The request returns values for field names
 	// matching these patterns in the hits.fields property of the response.
 	Fields []types.FieldAndFormat `json:"fields,omitempty"`
@@ -53,10 +51,10 @@ type Request struct {
 	From      *int             `json:"from,omitempty"`
 	Highlight *types.Highlight `json:"highlight,omitempty"`
 	// IndicesBoost Boosts the _score of documents from specified indices.
-	IndicesBoost []map[string]float64 `json:"indices_boost,omitempty"`
+	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are
 	// not included in the search results.
-	MinScore *float64 `json:"min_score,omitempty"`
+	MinScore *types.Float64 `json:"min_score,omitempty"`
 	// Pit Limits the search to a point in time (PIT). If you provide a PIT, you
 	// cannot specify an <index> in the request path.
 	Pit        *types.PointInTimeReference `json:"pit,omitempty"`
@@ -82,7 +80,7 @@ type Request struct {
 	Sort  []types.SortCombinations `json:"sort,omitempty"`
 	// Source_ Indicates which source fields are returned for matching documents. These
 	// fields are returned in the hits._source property of the search response.
-	Source_ *types.SourceConfig `json:"_source,omitempty"`
+	Source_ types.SourceConfig `json:"_source,omitempty"`
 	// Stats Stats groups to associate with the search. Each group maintains a statistics
 	// aggregation for its associated searches. You can retrieve these stats using
 	// the indices stats API.
@@ -115,7 +113,7 @@ type Request struct {
 	// number of hits is returned at the cost of some performance. If false, the
 	// response does not include the total number of hits matching the query.
 	// Defaults to 10,000 hits.
-	TrackTotalHits *types.TrackHits `json:"track_total_hits,omitempty"`
+	TrackTotalHits types.TrackHits `json:"track_total_hits,omitempty"`
 	// Version If true, returns document version as part of a hit.
 	Version *bool `json:"version,omitempty"`
 }
@@ -124,14 +122,14 @@ type Request struct {
 func NewRequest() *Request {
 	r := &Request{
 		Aggregations: make(map[string]types.Aggregations, 0),
-		Ext:          make(map[string]interface{}, 0),
+		Ext:          make(map[string]json.RawMessage, 0),
 		ScriptFields: make(map[string]types.ScriptField, 0),
 	}
 	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

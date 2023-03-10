@@ -15,16 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // TaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/tasks/_types/TaskInfo.ts#L32-L46
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/tasks/_types/TaskInfo.ts#L32-L46
 type TaskInfo struct {
 	Action             string            `json:"action"`
 	Cancellable        bool              `json:"cancellable"`
@@ -33,8 +31,8 @@ type TaskInfo struct {
 	Headers            map[string]string `json:"headers"`
 	Id                 int64             `json:"id"`
 	Node               string            `json:"node"`
-	ParentTaskId       *TaskId           `json:"parent_task_id,omitempty"`
-	RunningTime        *Duration         `json:"running_time,omitempty"`
+	ParentTaskId       TaskId            `json:"parent_task_id,omitempty"`
+	RunningTime        Duration          `json:"running_time,omitempty"`
 	RunningTimeInNanos int64             `json:"running_time_in_nanos"`
 	StartTimeInMillis  int64             `json:"start_time_in_millis"`
 	Status             *TaskStatus       `json:"status,omitempty"`

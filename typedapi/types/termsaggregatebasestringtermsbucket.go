@@ -15,21 +15,80 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // TermsAggregateBaseStringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L376-L381
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L376-L381
 type TermsAggregateBaseStringTermsBucket struct {
-	Buckets                 BucketsStringTermsBucket `json:"buckets"`
-	DocCountErrorUpperBound *int64                   `json:"doc_count_error_upper_bound,omitempty"`
-	Meta                    map[string]interface{}   `json:"meta,omitempty"`
-	SumOtherDocCount        *int64                   `json:"sum_other_doc_count,omitempty"`
+	Buckets                 BucketsStringTermsBucket   `json:"buckets"`
+	DocCountErrorUpperBound *int64                     `json:"doc_count_error_upper_bound,omitempty"`
+	Meta                    map[string]json.RawMessage `json:"meta,omitempty"`
+	SumOtherDocCount        *int64                     `json:"sum_other_doc_count,omitempty"`
+}
+
+func (s *TermsAggregateBaseStringTermsBucket) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "buckets":
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+
+			case '{':
+				o := make(map[string]StringTermsBucket, 0)
+				localDec.Decode(&o)
+				s.Buckets = o
+
+			case '[':
+				o := []StringTermsBucket{}
+				localDec.Decode(&o)
+				s.Buckets = o
+			}
+
+		case "doc_count_error_upper_bound":
+			if err := dec.Decode(&s.DocCountErrorUpperBound); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "sum_other_doc_count":
+			if err := dec.Decode(&s.SumOtherDocCount); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTermsAggregateBaseStringTermsBucket returns a TermsAggregateBaseStringTermsBucket.

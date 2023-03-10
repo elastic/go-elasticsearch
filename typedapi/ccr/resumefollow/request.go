@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package resumefollow
 
@@ -31,18 +29,18 @@ import (
 
 // Request holds the request body struct for the package resumefollow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ccr/resume_follow/ResumeFollowIndexRequest.ts#L25-L47
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ccr/resume_follow/ResumeFollowIndexRequest.ts#L25-L47
 type Request struct {
-	MaxOutstandingReadRequests    *int64          `json:"max_outstanding_read_requests,omitempty"`
-	MaxOutstandingWriteRequests   *int64          `json:"max_outstanding_write_requests,omitempty"`
-	MaxReadRequestOperationCount  *int64          `json:"max_read_request_operation_count,omitempty"`
-	MaxReadRequestSize            *string         `json:"max_read_request_size,omitempty"`
-	MaxRetryDelay                 *types.Duration `json:"max_retry_delay,omitempty"`
-	MaxWriteBufferCount           *int64          `json:"max_write_buffer_count,omitempty"`
-	MaxWriteBufferSize            *string         `json:"max_write_buffer_size,omitempty"`
-	MaxWriteRequestOperationCount *int64          `json:"max_write_request_operation_count,omitempty"`
-	MaxWriteRequestSize           *string         `json:"max_write_request_size,omitempty"`
-	ReadPollTimeout               *types.Duration `json:"read_poll_timeout,omitempty"`
+	MaxOutstandingReadRequests    *int64         `json:"max_outstanding_read_requests,omitempty"`
+	MaxOutstandingWriteRequests   *int64         `json:"max_outstanding_write_requests,omitempty"`
+	MaxReadRequestOperationCount  *int64         `json:"max_read_request_operation_count,omitempty"`
+	MaxReadRequestSize            *string        `json:"max_read_request_size,omitempty"`
+	MaxRetryDelay                 types.Duration `json:"max_retry_delay,omitempty"`
+	MaxWriteBufferCount           *int64         `json:"max_write_buffer_count,omitempty"`
+	MaxWriteBufferSize            *string        `json:"max_write_buffer_size,omitempty"`
+	MaxWriteRequestOperationCount *int64         `json:"max_write_request_operation_count,omitempty"`
+	MaxWriteRequestSize           *string        `json:"max_write_request_size,omitempty"`
+	ReadPollTimeout               types.Duration `json:"read_poll_timeout,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -52,7 +50,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
@@ -29,13 +27,13 @@ import (
 
 // FunctionScoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/compound.ts#L52-L59
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/compound.ts#L52-L59
 type FunctionScoreQuery struct {
 	Boost      *float32                             `json:"boost,omitempty"`
 	BoostMode  *functionboostmode.FunctionBoostMode `json:"boost_mode,omitempty"`
 	Functions  []FunctionScore                      `json:"functions,omitempty"`
-	MaxBoost   *float64                             `json:"max_boost,omitempty"`
-	MinScore   *float64                             `json:"min_score,omitempty"`
+	MaxBoost   *Float64                             `json:"max_boost,omitempty"`
+	MinScore   *Float64                             `json:"min_score,omitempty"`
 	Query      *Query                               `json:"query,omitempty"`
 	QueryName_ *string                              `json:"_name,omitempty"`
 	ScoreMode  *functionscoremode.FunctionScoreMode `json:"score_mode,omitempty"`

@@ -15,28 +15,30 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // AuthenticatedUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/security/get_token/types.ts#L40-L45
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/get_token/types.ts#L40-L45
 type AuthenticatedUser struct {
-	AuthenticationProvider *AuthenticationProvider `json:"authentication_provider,omitempty"`
-	AuthenticationRealm    UserRealm               `json:"authentication_realm"`
-	AuthenticationType     string                  `json:"authentication_type"`
-	Email                  string                  `json:"email,omitempty"`
-	Enabled                bool                    `json:"enabled"`
-	FullName               string                  `json:"full_name,omitempty"`
-	LookupRealm            UserRealm               `json:"lookup_realm"`
-	Metadata               map[string]interface{}  `json:"metadata"`
-	ProfileUid             *string                 `json:"profile_uid,omitempty"`
-	Roles                  []string                `json:"roles"`
-	Username               string                  `json:"username"`
+	AuthenticationProvider *AuthenticationProvider    `json:"authentication_provider,omitempty"`
+	AuthenticationRealm    UserRealm                  `json:"authentication_realm"`
+	AuthenticationType     string                     `json:"authentication_type"`
+	Email                  string                     `json:"email,omitempty"`
+	Enabled                bool                       `json:"enabled"`
+	FullName               string                     `json:"full_name,omitempty"`
+	LookupRealm            UserRealm                  `json:"lookup_realm"`
+	Metadata               map[string]json.RawMessage `json:"metadata"`
+	ProfileUid             *string                    `json:"profile_uid,omitempty"`
+	Roles                  []string                   `json:"roles"`
+	Username               string                     `json:"username"`
 }
 
 // NewAuthenticatedUser returns a AuthenticatedUser.

@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Returns a list of tasks.
 package list
@@ -26,6 +24,7 @@ package list
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/groupby"
 )
@@ -127,8 +127,8 @@ func (r *List) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r List) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r List) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -142,10 +142,40 @@ func (r List) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a list.Response
+func (r List) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r List) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -173,8 +203,8 @@ func (r *List) Header(key, value string) *List {
 // Actions Comma-separated list or wildcard expression of actions used to limit the
 // request.
 // API name: actions
-func (r *List) Actions(value string) *List {
-	r.values.Set("actions", value)
+func (r *List) Actions(v string) *List {
+	r.values.Set("actions", v)
 
 	return r
 }
@@ -197,8 +227,8 @@ func (r *List) GroupBy(enum groupby.GroupBy) *List {
 
 // NodeId Comma-separated list of node IDs or names used to limit returned information.
 // API name: node_id
-func (r *List) NodeId(value string) *List {
-	r.values.Set("node_id", value)
+func (r *List) NodeId(v string) *List {
+	r.values.Set("node_id", v)
 
 	return r
 }
@@ -206,8 +236,8 @@ func (r *List) NodeId(value string) *List {
 // ParentTaskId Parent task ID used to limit returned information. To return all tasks, omit
 // this parameter or use a value of `-1`.
 // API name: parent_task_id
-func (r *List) ParentTaskId(value string) *List {
-	r.values.Set("parent_task_id", value)
+func (r *List) ParentTaskId(v string) *List {
+	r.values.Set("parent_task_id", v)
 
 	return r
 }
@@ -215,8 +245,8 @@ func (r *List) ParentTaskId(value string) *List {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *List) MasterTimeout(value string) *List {
-	r.values.Set("master_timeout", value)
+func (r *List) MasterTimeout(v string) *List {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
@@ -224,8 +254,8 @@ func (r *List) MasterTimeout(value string) *List {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *List) Timeout(value string) *List {
-	r.values.Set("timeout", value)
+func (r *List) Timeout(v string) *List {
+	r.values.Set("timeout", v)
 
 	return r
 }

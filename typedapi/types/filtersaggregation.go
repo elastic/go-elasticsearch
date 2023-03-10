@@ -15,23 +15,25 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
+import (
+	"encoding/json"
+)
+
 // FiltersAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/bucket.ts#L169-L174
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/bucket.ts#L169-L174
 type FiltersAggregation struct {
-	Filters        *BucketsQuery          `json:"filters,omitempty"`
-	Keyed          *bool                  `json:"keyed,omitempty"`
-	Meta           map[string]interface{} `json:"meta,omitempty"`
-	Name           *string                `json:"name,omitempty"`
-	OtherBucket    *bool                  `json:"other_bucket,omitempty"`
-	OtherBucketKey *string                `json:"other_bucket_key,omitempty"`
+	Filters        *BucketsQuery              `json:"filters,omitempty"`
+	Keyed          *bool                      `json:"keyed,omitempty"`
+	Meta           map[string]json.RawMessage `json:"meta,omitempty"`
+	Name           *string                    `json:"name,omitempty"`
+	OtherBucket    *bool                      `json:"other_bucket,omitempty"`
+	OtherBucketKey *string                    `json:"other_bucket_key,omitempty"`
 }
 
 // NewFiltersAggregation returns a FiltersAggregation.

@@ -15,21 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // IndexDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
 type IndexDetails struct {
-	MaxSegmentsPerShard int64     `json:"max_segments_per_shard"`
-	ShardCount          int       `json:"shard_count"`
-	Size                *ByteSize `json:"size,omitempty"`
-	SizeInBytes         int64     `json:"size_in_bytes"`
+	MaxSegmentsPerShard int64    `json:"max_segments_per_shard"`
+	ShardCount          int      `json:"shard_count"`
+	Size                ByteSize `json:"size,omitempty"`
+	SizeInBytes         int64    `json:"size_in_bytes"`
 }
 
 // NewIndexDetails returns a IndexDetails.

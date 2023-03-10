@@ -15,20 +15,18 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // InferenceTopClassEntry type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/aggregations/Aggregate.ts#L663-L667
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L663-L667
 type InferenceTopClassEntry struct {
 	ClassName        FieldValue `json:"class_name"`
-	ClassProbability float64    `json:"class_probability"`
-	ClassScore       float64    `json:"class_score"`
+	ClassProbability Float64    `json:"class_probability"`
+	ClassScore       Float64    `json:"class_score"`
 }
 
 // NewInferenceTopClassEntry returns a InferenceTopClassEntry.

@@ -15,24 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geodistancetype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geovalidationmethod"
+
+	"encoding/json"
+	"fmt"
 )
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_types/query_dsl/geo.ts#L48-L57
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/geo.ts#L48-L57
 type GeoDistanceQuery struct {
 	Boost            *float32                                 `json:"boost,omitempty"`
 	Distance         *string                                  `json:"distance,omitempty"`

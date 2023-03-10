@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // NodeThreadPoolInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/nodes/info/types.ts#L286-L293
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/info/types.ts#L286-L293
 type NodeThreadPoolInfo struct {
-	Core      *int      `json:"core,omitempty"`
-	KeepAlive *Duration `json:"keep_alive,omitempty"`
-	Max       *int      `json:"max,omitempty"`
-	QueueSize int       `json:"queue_size"`
-	Size      *int      `json:"size,omitempty"`
-	Type      string    `json:"type"`
+	Core      *int     `json:"core,omitempty"`
+	KeepAlive Duration `json:"keep_alive,omitempty"`
+	Max       *int     `json:"max,omitempty"`
+	QueueSize int      `json:"queue_size"`
+	Size      *int     `json:"size,omitempty"`
+	Type      string   `json:"type"`
 }
 
 // NewNodeThreadPoolInfo returns a NodeThreadPoolInfo.

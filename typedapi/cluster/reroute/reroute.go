@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Allows to manually change the allocation of individual shards in the cluster.
 package reroute
@@ -29,12 +27,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -50,7 +50,7 @@ type Reroute struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 }
@@ -84,7 +84,7 @@ func New(tp elastictransport.Interface) *Reroute {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Reroute) Raw(raw json.RawMessage) *Reroute {
+func (r *Reroute) Raw(raw io.Reader) *Reroute {
 	r.raw = raw
 
 	return r
@@ -107,7 +107,7 @@ func (r *Reroute) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -162,8 +162,8 @@ func (r *Reroute) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Reroute) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Reroute) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -175,6 +175,36 @@ func (r Reroute) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a reroute.Response
+func (r Reroute) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Reroute headers map.
@@ -204,8 +234,8 @@ func (r *Reroute) Explain(b bool) *Reroute {
 
 // Metric Limits the information returned to the specified metrics.
 // API name: metric
-func (r *Reroute) Metric(value string) *Reroute {
-	r.values.Set("metric", value)
+func (r *Reroute) Metric(v string) *Reroute {
+	r.values.Set("metric", v)
 
 	return r
 }
@@ -222,8 +252,8 @@ func (r *Reroute) RetryFailed(b bool) *Reroute {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *Reroute) MasterTimeout(value string) *Reroute {
-	r.values.Set("master_timeout", value)
+func (r *Reroute) MasterTimeout(v string) *Reroute {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
@@ -231,8 +261,8 @@ func (r *Reroute) MasterTimeout(value string) *Reroute {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *Reroute) Timeout(value string) *Reroute {
-	r.values.Set("timeout", value)
+func (r *Reroute) Timeout(v string) *Reroute {
+	r.values.Set("timeout", v)
 
 	return r
 }

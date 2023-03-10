@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Exchanges an OpenID Connection authentication response message for an
 // Elasticsearch access token and refresh token pair
@@ -136,8 +134,8 @@ func (r *OidcAuthenticate) HttpRequest(ctx context.Context) (*http.Request, erro
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r OidcAuthenticate) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r OidcAuthenticate) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -154,7 +152,7 @@ func (r OidcAuthenticate) Do(ctx context.Context) (*http.Response, error) {
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r OidcAuthenticate) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err

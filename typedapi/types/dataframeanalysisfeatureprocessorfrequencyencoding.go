@@ -15,29 +15,27 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // DataframeAnalysisFeatureProcessorFrequencyEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/DataframeAnalytics.ts#L260-L267
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeAnalytics.ts#L260-L267
 type DataframeAnalysisFeatureProcessorFrequencyEncoding struct {
 	// FeatureName The resulting feature name.
 	FeatureName string `json:"feature_name"`
 	Field       string `json:"field"`
 	// FrequencyMap The resulting frequency map for the field value. If the field value is
 	// missing from the frequency_map, the resulting value is 0.
-	FrequencyMap map[string]float64 `json:"frequency_map"`
+	FrequencyMap map[string]Float64 `json:"frequency_map"`
 }
 
 // NewDataframeAnalysisFeatureProcessorFrequencyEncoding returns a DataframeAnalysisFeatureProcessorFrequencyEncoding.
 func NewDataframeAnalysisFeatureProcessorFrequencyEncoding() *DataframeAnalysisFeatureProcessorFrequencyEncoding {
 	r := &DataframeAnalysisFeatureProcessorFrequencyEncoding{
-		FrequencyMap: make(map[string]float64, 0),
+		FrequencyMap: make(map[string]Float64, 0),
 	}
 
 	return r

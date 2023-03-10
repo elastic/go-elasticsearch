@@ -15,29 +15,30 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // RolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/indices/rollover/types.ts#L24-L37
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/rollover/types.ts#L24-L40
 type RolloverConditions struct {
-	MaxAge              *Duration `json:"max_age,omitempty"`
-	MaxAgeMillis        *int64    `json:"max_age_millis,omitempty"`
-	MaxDocs             *int64    `json:"max_docs,omitempty"`
-	MaxPrimaryShardDocs *int64    `json:"max_primary_shard_docs,omitempty"`
-	MaxPrimaryShardSize *ByteSize `json:"max_primary_shard_size,omitempty"`
-	MaxSize             *ByteSize `json:"max_size,omitempty"`
-	MaxSizeBytes        *ByteSize `json:"max_size_bytes,omitempty"`
-	MinAge              *Duration `json:"min_age,omitempty"`
-	MinDocs             *int64    `json:"min_docs,omitempty"`
-	MinPrimaryShardDocs *int64    `json:"min_primary_shard_docs,omitempty"`
-	MinPrimaryShardSize *ByteSize `json:"min_primary_shard_size,omitempty"`
-	MinSize             *ByteSize `json:"min_size,omitempty"`
+	MaxAge                   Duration `json:"max_age,omitempty"`
+	MaxAgeMillis             *int64   `json:"max_age_millis,omitempty"`
+	MaxDocs                  *int64   `json:"max_docs,omitempty"`
+	MaxPrimaryShardDocs      *int64   `json:"max_primary_shard_docs,omitempty"`
+	MaxPrimaryShardSize      ByteSize `json:"max_primary_shard_size,omitempty"`
+	MaxPrimaryShardSizeBytes *int64   `json:"max_primary_shard_size_bytes,omitempty"`
+	MaxSize                  ByteSize `json:"max_size,omitempty"`
+	MaxSizeBytes             *int64   `json:"max_size_bytes,omitempty"`
+	MinAge                   Duration `json:"min_age,omitempty"`
+	MinDocs                  *int64   `json:"min_docs,omitempty"`
+	MinPrimaryShardDocs      *int64   `json:"min_primary_shard_docs,omitempty"`
+	MinPrimaryShardSize      ByteSize `json:"min_primary_shard_size,omitempty"`
+	MinPrimaryShardSizeBytes *int64   `json:"min_primary_shard_size_bytes,omitempty"`
+	MinSize                  ByteSize `json:"min_size,omitempty"`
+	MinSizeBytes             *int64   `json:"min_size_bytes,omitempty"`
 }
 
 // NewRolloverConditions returns a RolloverConditions.

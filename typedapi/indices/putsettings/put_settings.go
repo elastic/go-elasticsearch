@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Updates the index settings.
 package putsettings
@@ -29,6 +27,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -55,7 +54,7 @@ type PutSettings struct {
 	buf *gobytes.Buffer
 
 	req *types.IndexSettings
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -91,7 +90,7 @@ func New(tp elastictransport.Interface) *PutSettings {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *PutSettings) Raw(raw json.RawMessage) *PutSettings {
+func (r *PutSettings) Raw(raw io.Reader) *PutSettings {
 	r.raw = raw
 
 	return r
@@ -114,7 +113,7 @@ func (r *PutSettings) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -175,8 +174,8 @@ func (r *PutSettings) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r PutSettings) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r PutSettings) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -188,6 +187,36 @@ func (r PutSettings) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a putsettings.Response
+func (r PutSettings) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the PutSettings headers map.
@@ -219,8 +248,8 @@ func (r *PutSettings) AllowNoIndices(b bool) *PutSettings {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *PutSettings) ExpandWildcards(value string) *PutSettings {
-	r.values.Set("expand_wildcards", value)
+func (r *PutSettings) ExpandWildcards(v string) *PutSettings {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -244,8 +273,8 @@ func (r *PutSettings) IgnoreUnavailable(b bool) *PutSettings {
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *PutSettings) MasterTimeout(value string) *PutSettings {
-	r.values.Set("master_timeout", value)
+func (r *PutSettings) MasterTimeout(v string) *PutSettings {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
@@ -261,8 +290,8 @@ func (r *PutSettings) PreserveExisting(b bool) *PutSettings {
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *PutSettings) Timeout(value string) *PutSettings {
-	r.values.Set("timeout", value)
+func (r *PutSettings) Timeout(v string) *PutSettings {
+	r.values.Set("timeout", v)
 
 	return r
 }

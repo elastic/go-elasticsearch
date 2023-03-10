@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package update
 
@@ -31,28 +29,28 @@ import (
 
 // Request holds the request body struct for the package update
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/_global/update/UpdateRequest.ts#L38-L151
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/update/UpdateRequest.ts#L38-L151
 type Request struct {
 
 	// DetectNoop Set to false to disable setting 'result' in the response
 	// to 'noop' if no change to the document occurred.
 	DetectNoop *bool `json:"detect_noop,omitempty"`
 	// Doc A partial update to an existing document.
-	Doc interface{} `json:"doc,omitempty"`
+	Doc json.RawMessage `json:"doc,omitempty"`
 	// DocAsUpsert Set to true to use the contents of 'doc' as the value of 'upsert'
 	DocAsUpsert *bool `json:"doc_as_upsert,omitempty"`
 	// Script Script to execute to update the document.
-	Script *types.Script `json:"script,omitempty"`
+	Script types.Script `json:"script,omitempty"`
 	// ScriptedUpsert Set to true to execute the script whether or not the document exists.
 	ScriptedUpsert *bool `json:"scripted_upsert,omitempty"`
 	// Source_ Set to false to disable source retrieval. You can also specify a
 	// comma-separated
 	// list of the fields you want to retrieve.
-	Source_ *types.SourceConfig `json:"_source,omitempty"`
+	Source_ types.SourceConfig `json:"_source,omitempty"`
 	// Upsert If the document does not already exist, the contents of 'upsert' are inserted
 	// as a
 	// new document. If the document exists, the 'script' is executed.
-	Upsert interface{} `json:"upsert,omitempty"`
+	Upsert json.RawMessage `json:"upsert,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -62,7 +60,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

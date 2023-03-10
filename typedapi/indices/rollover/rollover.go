@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Updates an alias to point to a new index when the existing index
 // is considered to be too large or too old.
@@ -30,12 +28,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -57,7 +57,7 @@ type Rollover struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -97,7 +97,7 @@ func New(tp elastictransport.Interface) *Rollover {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *Rollover) Raw(raw json.RawMessage) *Rollover {
+func (r *Rollover) Raw(raw io.Reader) *Rollover {
 	r.raw = raw
 
 	return r
@@ -120,7 +120,7 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -187,8 +187,8 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Rollover) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Rollover) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -200,6 +200,36 @@ func (r Rollover) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a rollover.Response
+func (r Rollover) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Rollover headers map.
@@ -238,16 +268,16 @@ func (r *Rollover) DryRun(b bool) *Rollover {
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *Rollover) MasterTimeout(value string) *Rollover {
-	r.values.Set("master_timeout", value)
+func (r *Rollover) MasterTimeout(v string) *Rollover {
+	r.values.Set("master_timeout", v)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Rollover) Timeout(value string) *Rollover {
-	r.values.Set("timeout", value)
+func (r *Rollover) Timeout(v string) *Rollover {
+	r.values.Set("timeout", v)
 
 	return r
 }
@@ -255,8 +285,8 @@ func (r *Rollover) Timeout(value string) *Rollover {
 // WaitForActiveShards Set the number of active shards to wait for on the newly created rollover
 // index before the operation returns.
 // API name: wait_for_active_shards
-func (r *Rollover) WaitForActiveShards(value string) *Rollover {
-	r.values.Set("wait_for_active_shards", value)
+func (r *Rollover) WaitForActiveShards(v string) *Rollover {
+	r.values.Set("wait_for_active_shards", v)
 
 	return r
 }

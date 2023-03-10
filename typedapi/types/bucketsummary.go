@@ -15,23 +15,21 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package types
 
 // BucketSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/_types/Bucket.ts#L31-L78
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Bucket.ts#L31-L78
 type BucketSummary struct {
 	// AnomalyScore The maximum anomaly score, between 0-100, for any of the bucket influencers.
 	// This is an overall, rate-limited
 	// score for the job. All the anomaly records in the bucket contribute to this
 	// score. This value might be updated as
 	// new data is analyzed.
-	AnomalyScore      float64            `json:"anomaly_score"`
+	AnomalyScore      Float64            `json:"anomaly_score"`
 	BucketInfluencers []BucketInfluencer `json:"bucket_influencers"`
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 	// is specified in the job.
@@ -41,7 +39,7 @@ type BucketSummary struct {
 	// InitialAnomalyScore The maximum anomaly score for any of the bucket influencers. This is the
 	// initial value that was calculated at the
 	// time the bucket was processed.
-	InitialAnomalyScore float64 `json:"initial_anomaly_score"`
+	InitialAnomalyScore Float64 `json:"initial_anomaly_score"`
 	// IsInterim If true, this is an interim result. In other words, the results are
 	// calculated based on partial input data.
 	IsInterim bool `json:"is_interim"`
@@ -59,7 +57,7 @@ type BucketSummary struct {
 	// TimestampString The start time of the bucket. This timestamp uniquely identifies the bucket.
 	// Events that occur exactly at the
 	// timestamp of the bucket are included in the results for the bucket.
-	TimestampString *DateTime `json:"timestamp_string,omitempty"`
+	TimestampString DateTime `json:"timestamp_string,omitempty"`
 }
 
 // NewBucketSummary returns a BucketSummary.

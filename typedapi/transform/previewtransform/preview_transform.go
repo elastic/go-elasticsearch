@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Previews a transform.
 package previewtransform
@@ -29,11 +27,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -53,7 +53,7 @@ type PreviewTransform struct {
 	buf *gobytes.Buffer
 
 	req *Request
-	raw json.RawMessage
+	raw io.Reader
 
 	paramSet int
 
@@ -89,7 +89,7 @@ func New(tp elastictransport.Interface) *PreviewTransform {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *PreviewTransform) Raw(raw json.RawMessage) *PreviewTransform {
+func (r *PreviewTransform) Raw(raw io.Reader) *PreviewTransform {
 	r.raw = raw
 
 	return r
@@ -112,7 +112,7 @@ func (r *PreviewTransform) HttpRequest(ctx context.Context) (*http.Request, erro
 	var err error
 
 	if r.raw != nil {
-		r.buf.Write(r.raw)
+		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
 		data, err := json.Marshal(r.req)
 
@@ -177,8 +177,8 @@ func (r *PreviewTransform) HttpRequest(ctx context.Context) (*http.Request, erro
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r PreviewTransform) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r PreviewTransform) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -190,6 +190,36 @@ func (r PreviewTransform) Do(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a previewtransform.Response
+func (r PreviewTransform) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the PreviewTransform headers map.
@@ -213,8 +243,8 @@ func (r *PreviewTransform) TransformId(v string) *PreviewTransform {
 // Timeout Period to wait for a response. If no response is received before the
 // timeout expires, the request fails and returns an error.
 // API name: timeout
-func (r *PreviewTransform) Timeout(value string) *PreviewTransform {
-	r.values.Set("timeout", value)
+func (r *PreviewTransform) Timeout(v string) *PreviewTransform {
+	r.values.Set("timeout", v)
 
 	return r
 }

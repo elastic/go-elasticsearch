@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package putautofollowpattern
 
@@ -31,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putautofollowpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L27-L113
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L27-L113
 type Request struct {
 
 	// FollowIndexPattern The name of follower index. The template {{leader_index}} can be used to
@@ -55,10 +53,10 @@ type Request struct {
 	MaxReadRequestOperationCount *int `json:"max_read_request_operation_count,omitempty"`
 	// MaxReadRequestSize The maximum size in bytes of per read of a batch of operations pulled from
 	// the remote cluster.
-	MaxReadRequestSize *types.ByteSize `json:"max_read_request_size,omitempty"`
+	MaxReadRequestSize types.ByteSize `json:"max_read_request_size,omitempty"`
 	// MaxRetryDelay The maximum time to wait before retrying an operation that failed
 	// exceptionally. An exponential backoff strategy is employed when retrying.
-	MaxRetryDelay *types.Duration `json:"max_retry_delay,omitempty"`
+	MaxRetryDelay types.Duration `json:"max_retry_delay,omitempty"`
 	// MaxWriteBufferCount The maximum number of operations that can be queued for writing. When this
 	// limit is reached, reads from the remote cluster will be deferred until the
 	// number of queued operations goes below the limit.
@@ -66,36 +64,36 @@ type Request struct {
 	// MaxWriteBufferSize The maximum total bytes of operations that can be queued for writing. When
 	// this limit is reached, reads from the remote cluster will be deferred until
 	// the total bytes of queued operations goes below the limit.
-	MaxWriteBufferSize *types.ByteSize `json:"max_write_buffer_size,omitempty"`
+	MaxWriteBufferSize types.ByteSize `json:"max_write_buffer_size,omitempty"`
 	// MaxWriteRequestOperationCount The maximum number of operations per bulk write request executed on the
 	// follower.
 	MaxWriteRequestOperationCount *int `json:"max_write_request_operation_count,omitempty"`
 	// MaxWriteRequestSize The maximum total bytes of operations per bulk write request executed on the
 	// follower.
-	MaxWriteRequestSize *types.ByteSize `json:"max_write_request_size,omitempty"`
+	MaxWriteRequestSize types.ByteSize `json:"max_write_request_size,omitempty"`
 	// ReadPollTimeout The maximum time to wait for new operations on the remote cluster when the
 	// follower index is synchronized with the leader index. When the timeout has
 	// elapsed, the poll for operations will return to the follower so that it can
 	// update some statistics. Then the follower will immediately attempt to read
 	// from the leader again.
-	ReadPollTimeout *types.Duration `json:"read_poll_timeout,omitempty"`
+	ReadPollTimeout types.Duration `json:"read_poll_timeout,omitempty"`
 	// RemoteCluster The remote cluster containing the leader indices to match against.
 	RemoteCluster string `json:"remote_cluster"`
 	// Settings Settings to override from the leader index. Note that certain settings can
 	// not be overrode (e.g., index.number_of_shards).
-	Settings map[string]interface{} `json:"settings,omitempty"`
+	Settings map[string]json.RawMessage `json:"settings,omitempty"`
 }
 
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{
-		Settings: make(map[string]interface{}, 0),
+		Settings: make(map[string]json.RawMessage, 0),
 	}
 	return r
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 

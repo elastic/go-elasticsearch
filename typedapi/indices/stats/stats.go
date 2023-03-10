@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 // Provides statistics on operations happening in an index.
 package stats
@@ -26,6 +24,7 @@ package stats
 import (
 	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -36,6 +35,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/level"
 )
@@ -163,8 +163,8 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 	return req, nil
 }
 
-// Do runs the http.Request through the provided transport.
-func (r Stats) Do(ctx context.Context) (*http.Response, error) {
+// Perform runs the http.Request through the provided transport and returns an http.Response.
+func (r Stats) Perform(ctx context.Context) (*http.Response, error) {
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
 		return nil, err
@@ -178,10 +178,40 @@ func (r Stats) Do(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a stats.Response
+func (r Stats) Do(ctx context.Context) (*Response, error) {
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			return nil, err
+		}
+
+		return response, nil
+
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errorResponse
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Stats) IsSuccess(ctx context.Context) (bool, error) {
-	res, err := r.Do(ctx)
+	res, err := r.Perform(ctx)
 
 	if err != nil {
 		return false, err
@@ -228,8 +258,8 @@ func (r *Stats) Index(v string) *Stats {
 // CompletionFields Comma-separated list or wildcard expressions of fields to include in
 // fielddata and suggest statistics.
 // API name: completion_fields
-func (r *Stats) CompletionFields(value string) *Stats {
-	r.values.Set("completion_fields", value)
+func (r *Stats) CompletionFields(v string) *Stats {
+	r.values.Set("completion_fields", v)
 
 	return r
 }
@@ -240,8 +270,8 @@ func (r *Stats) CompletionFields(value string) *Stats {
 // comma-separated values,
 // such as `open,hidden`.
 // API name: expand_wildcards
-func (r *Stats) ExpandWildcards(value string) *Stats {
-	r.values.Set("expand_wildcards", value)
+func (r *Stats) ExpandWildcards(v string) *Stats {
+	r.values.Set("expand_wildcards", v)
 
 	return r
 }
@@ -249,8 +279,8 @@ func (r *Stats) ExpandWildcards(value string) *Stats {
 // FielddataFields Comma-separated list or wildcard expressions of fields to include in
 // fielddata statistics.
 // API name: fielddata_fields
-func (r *Stats) FielddataFields(value string) *Stats {
-	r.values.Set("fielddata_fields", value)
+func (r *Stats) FielddataFields(v string) *Stats {
+	r.values.Set("fielddata_fields", v)
 
 	return r
 }
@@ -258,8 +288,8 @@ func (r *Stats) FielddataFields(value string) *Stats {
 // Fields Comma-separated list or wildcard expressions of fields to include in the
 // statistics.
 // API name: fields
-func (r *Stats) Fields(value string) *Stats {
-	r.values.Set("fields", value)
+func (r *Stats) Fields(v string) *Stats {
+	r.values.Set("fields", v)
 
 	return r
 }
@@ -274,8 +304,8 @@ func (r *Stats) ForbidClosedIndices(b bool) *Stats {
 
 // Groups Comma-separated list of search groups to include in the search statistics.
 // API name: groups
-func (r *Stats) Groups(value string) *Stats {
-	r.values.Set("groups", value)
+func (r *Stats) Groups(v string) *Stats {
+	r.values.Set("groups", v)
 
 	return r
 }

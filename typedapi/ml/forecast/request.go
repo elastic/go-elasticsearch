@@ -15,10 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33
-
+// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
 
 package forecast
 
@@ -31,13 +29,13 @@ import (
 
 // Request holds the request body struct for the package forecast
 //
-// https://github.com/elastic/elasticsearch-specification/blob/66fc1fdaeee07b44c6d4ddcab3bd6934e3625e33/specification/ml/forecast/MlForecastJobRequest.ts#L24-L87
+// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/forecast/MlForecastJobRequest.ts#L24-L87
 type Request struct {
 
 	// Duration Refer to the description for the `duration` query parameter.
-	Duration *types.Duration `json:"duration,omitempty"`
+	Duration types.Duration `json:"duration,omitempty"`
 	// ExpiresIn Refer to the description for the `expires_in` query parameter.
-	ExpiresIn *types.Duration `json:"expires_in,omitempty"`
+	ExpiresIn types.Duration `json:"expires_in,omitempty"`
 	// MaxModelMemory Refer to the description for the `max_model_memory` query parameter.
 	MaxModelMemory *string `json:"max_model_memory,omitempty"`
 }
@@ -49,7 +47,7 @@ func NewRequest() *Request {
 }
 
 // FromJSON allows to load an arbitrary json into the request structure
-func (rb *Request) FromJSON(data string) (*Request, error) {
+func (r *Request) FromJSON(data string) (*Request, error) {
 	var req Request
 	err := json.Unmarshal([]byte(data), &req)
 
