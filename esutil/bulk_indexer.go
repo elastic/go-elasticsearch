@@ -383,13 +383,7 @@ func (w *worker) run() {
 		}
 		defer func() {
 			w.ticker.Stop()
-			if w.buf.Len() > 0 {
-				if err := w.flush(ctx); err != nil {
-					if w.bi.config.OnError != nil {
-						w.bi.config.OnError(ctx, err)
-					}
-				}
-			}
+			w.flush(ctx)
 			w.bi.wg.Done()
 		}()
 
@@ -400,13 +394,7 @@ func (w *worker) run() {
 					w.bi.config.DebugLogger.Printf("[worker-%03d] Auto-flushing after %s\n",
 						w.id, w.bi.config.FlushInterval)
 				}
-				if w.buf.Len() > 0 {
-					if err := w.flush(ctx); err != nil {
-						if w.bi.config.OnError != nil {
-							w.bi.config.OnError(ctx, err)
-						}
-					}
-				}
+				w.flush(ctx)
 			case item, ok := <-w.ch:
 				if !ok {
 					return
@@ -418,10 +406,7 @@ func (w *worker) run() {
 
 				oversizePayload := w.bi.config.FlushBytes <= item.payloadLength
 				if !oversizePayload && w.buf.Len() > 0 && w.buf.Len()+item.payloadLength >= w.bi.config.FlushBytes {
-					if err := w.flush(ctx); err != nil {
-						if w.bi.config.OnError != nil {
-							w.bi.config.OnError(ctx, err)
-						}
+					if !w.flush(ctx) {
 						continue
 					}
 				}
@@ -448,11 +433,7 @@ func (w *worker) run() {
 					if w.bi.config.DebugLogger != nil {
 						w.bi.config.DebugLogger.Printf("[worker-%03d] Oversize Payload in item [%s:%s]\n", w.id, item.Action, item.DocumentID)
 					}
-					if err := w.flush(ctx); err != nil {
-						if w.bi.config.OnError != nil {
-							w.bi.config.OnError(ctx, err)
-						}
-					}
+					w.flush(ctx)
 				}
 			}
 		}
@@ -482,8 +463,22 @@ func (w *worker) writeBody(item *BulkIndexerItem) error {
 	return nil
 }
 
-// flush writes out the worker buffer.
-func (w *worker) flush(ctx context.Context) error {
+// flush writes out the worker buffer and handles errors.
+// It also restarts the ticker.
+// Returns true to indicate success.
+func (w *worker) flush(ctx context.Context) bool {
+	ok := true
+	if err := w.flushBuffer(ctx); err != nil {
+		if w.bi.config.OnError != nil {
+			w.bi.config.OnError(ctx, err)
+		}
+		ok = false
+	}
+	return ok
+}
+
+// flushBuffer writes out the worker buffer.
+func (w *worker) flushBuffer(ctx context.Context) error {
 	if w.bi.config.OnFlushStart != nil {
 		ctx = w.bi.config.OnFlushStart(ctx)
 	}
