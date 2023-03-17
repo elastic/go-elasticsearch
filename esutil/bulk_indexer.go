@@ -353,7 +353,6 @@ func (bi *bulkIndexer) init() {
 			ch:     bi.queue,
 			bi:     bi,
 			buf:    bytes.NewBuffer(make([]byte, 0, bi.config.FlushBytes)),
-			aux:    make([]byte, 0, 512),
 			ticker: time.NewTicker(bi.config.FlushInterval),
 		}
 		w.run()
@@ -368,7 +367,6 @@ type worker struct {
 	ch     <-chan BulkIndexerItem
 	bi     *bulkIndexer
 	buf    *bytes.Buffer
-	aux    []byte
 	items  []BulkIndexerItem
 	ticker *time.Ticker
 }

@@ -40,6 +40,7 @@ import (
 	"time"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
@@ -525,7 +526,7 @@ func TestBulkIndexer(t *testing.T) {
 		}
 		es, _ := elasticsearch.NewClient(esCfg)
 
-		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 28*2, Client: es}
+		biCfg := BulkIndexerConfig{NumWorkers: 1, FlushBytes: 28 * 2, Client: es}
 		if os.Getenv("DEBUG") != "" {
 			biCfg.DebugLogger = log.New(os.Stdout, "", 0)
 		}
@@ -690,7 +691,6 @@ func TestBulkIndexer(t *testing.T) {
 			t.Run(tt.name, func(t *testing.T) {
 				w := &worker{
 					buf: bytes.NewBuffer(make([]byte, 0, 5e+6)),
-					aux: make([]byte, 0, 512),
 				}
 				tt.args.item.marshallMeta()
 				if err := w.writeMeta(&tt.args.item); err != nil {
