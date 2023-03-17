@@ -474,6 +474,7 @@ func (w *worker) flush(ctx context.Context) bool {
 		}
 		ok = false
 	}
+	w.ticker.Reset(w.bi.config.FlushInterval)
 	return ok
 }
 
