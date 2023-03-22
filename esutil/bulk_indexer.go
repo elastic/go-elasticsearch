@@ -441,7 +441,8 @@ func (w *worker) run() {
 					if w.bi.config.OnError != nil {
 						w.bi.config.OnError(ctx, err)
 					}
-					continue
+					w.mu.Lock()
+					// continue with 'item' even when flush failed
 				}
 			}
 
