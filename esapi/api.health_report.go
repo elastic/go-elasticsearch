@@ -27,9 +27,9 @@ import (
 	"time"
 )
 
-func newHealthFunc(t Transport) Health {
-	return func(o ...func(*HealthRequest)) (*Response, error) {
-		var r = HealthRequest{}
+func newHealthReportFunc(t Transport) HealthReport {
+	return func(o ...func(*HealthReportRequest)) (*Response, error) {
+		var r = HealthReportRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,13 +39,13 @@ func newHealthFunc(t Transport) Health {
 
 // ----- API Definition -------------------------------------------------------
 
-// Health returns the health of the cluster.
+// HealthReport returns the health of the cluster.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/health-api.html.
-type Health func(o ...func(*HealthRequest)) (*Response, error)
+type HealthReport func(o ...func(*HealthReportRequest)) (*Response, error)
 
-// HealthRequest configures the Health API request.
-type HealthRequest struct {
+// HealthReportRequest configures the Health Report API request.
+type HealthReportRequest struct {
 	Feature string
 
 	Size    *int
@@ -63,7 +63,7 @@ type HealthRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r HealthRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r HealthReportRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -72,10 +72,10 @@ func (r HealthRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_health") + 1 + len(r.Feature))
+	path.Grow(7 + 1 + len("_health_report") + 1 + len(r.Feature))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_health")
+	path.WriteString("_health_report")
 	if r.Feature != "" {
 		path.WriteString("/")
 		path.WriteString(r.Feature)
@@ -155,71 +155,71 @@ func (r HealthRequest) Do(ctx context.Context, transport Transport) (*Response, 
 }
 
 // WithContext sets the request context.
-func (f Health) WithContext(v context.Context) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithContext(v context.Context) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.ctx = v
 	}
 }
 
 // WithFeature - a feature of the cluster, as returned by the top-level health api.
-func (f Health) WithFeature(v string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithFeature(v string) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.Feature = v
 	}
 }
 
 // WithSize - limit the number of affected resources the health api returns.
-func (f Health) WithSize(v int) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithSize(v int) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.Size = &v
 	}
 }
 
 // WithTimeout - explicit operation timeout.
-func (f Health) WithTimeout(v time.Duration) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithTimeout(v time.Duration) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.Timeout = v
 	}
 }
 
 // WithVerbose - opt in for more information about the health of the system.
-func (f Health) WithVerbose(v bool) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithVerbose(v bool) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.Verbose = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f Health) WithPretty() func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithPretty() func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f Health) WithHuman() func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithHuman() func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f Health) WithErrorTrace() func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithErrorTrace() func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f Health) WithFilterPath(v ...string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithFilterPath(v ...string) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f Health) WithHeader(h map[string]string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithHeader(h map[string]string) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -230,8 +230,8 @@ func (f Health) WithHeader(h map[string]string) func(*HealthRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f Health) WithOpaqueID(s string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f HealthReport) WithOpaqueID(s string) func(*HealthReportRequest) {
+	return func(r *HealthReportRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
