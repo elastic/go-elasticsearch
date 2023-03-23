@@ -21,15 +21,14 @@ package esapi
 
 import (
 	"context"
-	"errors"
-	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
-func newSemanticSearchFunc(t Transport) SemanticSearch {
-	return func(index []string, o ...func(*SemanticSearchRequest)) (*Response, error) {
-		var r = SemanticSearchRequest{Index: index}
+func newTransformScheduleNowTransformFunc(t Transport) TransformScheduleNowTransform {
+	return func(transform_id string, o ...func(*TransformScheduleNowTransformRequest)) (*Response, error) {
+		var r = TransformScheduleNowTransformRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,20 +38,16 @@ func newSemanticSearchFunc(t Transport) SemanticSearch {
 
 // ----- API Definition -------------------------------------------------------
 
-// SemanticSearch semantic search API using dense vector similarity
+// TransformScheduleNowTransform - Schedules now a transform.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/semantic-search-api.html.
-type SemanticSearch func(index []string, o ...func(*SemanticSearchRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html.
+type TransformScheduleNowTransform func(transform_id string, o ...func(*TransformScheduleNowTransformRequest)) (*Response, error)
 
-// SemanticSearchRequest configures the Semantic Search API request.
-type SemanticSearchRequest struct {
-	Index []string
+// TransformScheduleNowTransformRequest configures the Transform Schedule Now Transform API request.
+type TransformScheduleNowTransformRequest struct {
+	TransformID string
 
-	Body io.Reader
-
-	Routing []string
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -65,7 +60,7 @@ type SemanticSearchRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SemanticSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r TransformScheduleNowTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -74,21 +69,19 @@ func (r SemanticSearchRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "POST"
 
-	if len(r.Index) == 0 {
-		return nil, errors.New("index is required and cannot be nil or empty")
-	}
-
-	path.Grow(7 + 1 + len(strings.Join(r.Index, ",")) + 1 + len("_semantic_search"))
+	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_schedule_now"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(strings.Join(r.Index, ","))
+	path.WriteString("_transform")
 	path.WriteString("/")
-	path.WriteString("_semantic_search")
+	path.WriteString(r.TransformID)
+	path.WriteString("/")
+	path.WriteString("_schedule_now")
 
 	params = make(map[string]string)
 
-	if len(r.Routing) > 0 {
-		params["routing"] = strings.Join(r.Routing, ",")
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -107,7 +100,7 @@ func (r SemanticSearchRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -132,10 +125,6 @@ func (r SemanticSearchRequest) Do(ctx context.Context, transport Transport) (*Re
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -155,57 +144,50 @@ func (r SemanticSearchRequest) Do(ctx context.Context, transport Transport) (*Re
 }
 
 // WithContext sets the request context.
-func (f SemanticSearch) WithContext(v context.Context) func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
+func (f TransformScheduleNowTransform) WithContext(v context.Context) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The search definition.
-func (f SemanticSearch) WithBody(v io.Reader) func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
-		r.Body = v
-	}
-}
-
-// WithRouting - a list of specific routing values.
-func (f SemanticSearch) WithRouting(v ...string) func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
-		r.Routing = v
+// WithTimeout - controls the time to wait for the scheduling to take place.
+func (f TransformScheduleNowTransform) WithTimeout(v time.Duration) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
+		r.Timeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SemanticSearch) WithPretty() func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
+func (f TransformScheduleNowTransform) WithPretty() func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SemanticSearch) WithHuman() func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
+func (f TransformScheduleNowTransform) WithHuman() func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SemanticSearch) WithErrorTrace() func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
+func (f TransformScheduleNowTransform) WithErrorTrace() func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SemanticSearch) WithFilterPath(v ...string) func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
+func (f TransformScheduleNowTransform) WithFilterPath(v ...string) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SemanticSearch) WithHeader(h map[string]string) func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
+func (f TransformScheduleNowTransform) WithHeader(h map[string]string) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -216,8 +198,8 @@ func (f SemanticSearch) WithHeader(h map[string]string) func(*SemanticSearchRequ
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SemanticSearch) WithOpaqueID(s string) func(*SemanticSearchRequest) {
-	return func(r *SemanticSearchRequest) {
+func (f TransformScheduleNowTransform) WithOpaqueID(s string) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

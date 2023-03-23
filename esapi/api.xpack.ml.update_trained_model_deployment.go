@@ -42,7 +42,7 @@ func newMLUpdateTrainedModelDeploymentFunc(t Transport) MLUpdateTrainedModelDepl
 //
 // This API is beta.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-trained-model-deployment.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html.
 type MLUpdateTrainedModelDeployment func(body io.Reader, model_id string, o ...func(*MLUpdateTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLUpdateTrainedModelDeploymentRequest configures the ML Update Trained Model Deployment API request.
