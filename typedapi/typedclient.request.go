@@ -24,5 +24,5 @@ import (
 
 // Request defines the TypedApi requests.
 type Request interface {
-	Do(ctx context.Context) (*http.Response, error)
+	Perform(ctx context.Context) (*http.Response, error)
 }
