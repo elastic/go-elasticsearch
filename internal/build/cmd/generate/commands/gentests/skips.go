@@ -242,6 +242,8 @@ transform/transforms_start_stop.yml:
 transform/transforms_stats.yml:
   - Test get multiple transform stats
   - Test get multiple transform stats where one does not have a task
+transform/transforms_unattended.yml:
+  - Test unattended put and start wildcard
 
 # More QA tests than API tests
 data_frame/transforms_stats.yml:
