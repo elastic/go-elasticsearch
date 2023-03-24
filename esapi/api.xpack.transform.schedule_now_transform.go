@@ -15,21 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.7.0: DO NOT EDIT
+// Code generated from specification version 8.8.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 	"time"
 )
 
-func newHealthFunc(t Transport) Health {
-	return func(o ...func(*HealthRequest)) (*Response, error) {
-		var r = HealthRequest{}
+func newTransformScheduleNowTransformFunc(t Transport) TransformScheduleNowTransform {
+	return func(transform_id string, o ...func(*TransformScheduleNowTransformRequest)) (*Response, error) {
+		var r = TransformScheduleNowTransformRequest{TransformID: transform_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,18 +38,16 @@ func newHealthFunc(t Transport) Health {
 
 // ----- API Definition -------------------------------------------------------
 
-// Health returns the health of the cluster.
+// TransformScheduleNowTransform - Schedules now a transform.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/health-api.html.
-type Health func(o ...func(*HealthRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html.
+type TransformScheduleNowTransform func(transform_id string, o ...func(*TransformScheduleNowTransformRequest)) (*Response, error)
 
-// HealthRequest configures the Health API request.
-type HealthRequest struct {
-	Feature string
+// TransformScheduleNowTransformRequest configures the Transform Schedule Now Transform API request.
+type TransformScheduleNowTransformRequest struct {
+	TransformID string
 
-	Size    *int
 	Timeout time.Duration
-	Verbose *bool
 
 	Pretty     bool
 	Human      bool
@@ -63,36 +60,28 @@ type HealthRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r HealthRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r TransformScheduleNowTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_health") + 1 + len(r.Feature))
+	path.Grow(7 + 1 + len("_transform") + 1 + len(r.TransformID) + 1 + len("_schedule_now"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_health")
-	if r.Feature != "" {
-		path.WriteString("/")
-		path.WriteString(r.Feature)
-	}
+	path.WriteString("_transform")
+	path.WriteString("/")
+	path.WriteString(r.TransformID)
+	path.WriteString("/")
+	path.WriteString("_schedule_now")
 
 	params = make(map[string]string)
 
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
-	}
-
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
-	}
-
-	if r.Verbose != nil {
-		params["verbose"] = strconv.FormatBool(*r.Verbose)
 	}
 
 	if r.Pretty {
@@ -155,71 +144,50 @@ func (r HealthRequest) Do(ctx context.Context, transport Transport) (*Response, 
 }
 
 // WithContext sets the request context.
-func (f Health) WithContext(v context.Context) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f TransformScheduleNowTransform) WithContext(v context.Context) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.ctx = v
 	}
 }
 
-// WithFeature - a feature of the cluster, as returned by the top-level health api.
-func (f Health) WithFeature(v string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
-		r.Feature = v
-	}
-}
-
-// WithSize - limit the number of affected resources the health api returns.
-func (f Health) WithSize(v int) func(*HealthRequest) {
-	return func(r *HealthRequest) {
-		r.Size = &v
-	}
-}
-
-// WithTimeout - explicit operation timeout.
-func (f Health) WithTimeout(v time.Duration) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+// WithTimeout - controls the time to wait for the scheduling to take place.
+func (f TransformScheduleNowTransform) WithTimeout(v time.Duration) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.Timeout = v
 	}
 }
 
-// WithVerbose - opt in for more information about the health of the system.
-func (f Health) WithVerbose(v bool) func(*HealthRequest) {
-	return func(r *HealthRequest) {
-		r.Verbose = &v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f Health) WithPretty() func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f TransformScheduleNowTransform) WithPretty() func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f Health) WithHuman() func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f TransformScheduleNowTransform) WithHuman() func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f Health) WithErrorTrace() func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f TransformScheduleNowTransform) WithErrorTrace() func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f Health) WithFilterPath(v ...string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f TransformScheduleNowTransform) WithFilterPath(v ...string) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f Health) WithHeader(h map[string]string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f TransformScheduleNowTransform) WithHeader(h map[string]string) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -230,8 +198,8 @@ func (f Health) WithHeader(h map[string]string) func(*HealthRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f Health) WithOpaqueID(s string) func(*HealthRequest) {
-	return func(r *HealthRequest) {
+func (f TransformScheduleNowTransform) WithOpaqueID(s string) func(*TransformScheduleNowTransformRequest) {
+	return func(r *TransformScheduleNowTransformRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
