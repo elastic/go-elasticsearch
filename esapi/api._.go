@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.7.0 (04f88e7): DO NOT EDIT
+// Code generated from specification version 8.8.0 (46bd105): DO NOT EDIT
 
 package esapi
 
@@ -83,7 +83,7 @@ type API struct {
 	GetScript                          GetScript
 	GetSource                          GetSource
 	GraphExplore                       GraphExplore
-	Health                             Health
+	HealthReport                       HealthReport
 	Index                              Index
 	Info                               Info
 	KnnSearch                          KnnSearch
@@ -111,7 +111,6 @@ type API struct {
 	SearchableSnapshotsClearCache      SearchableSnapshotsClearCache
 	SearchableSnapshotsMount           SearchableSnapshotsMount
 	SearchableSnapshotsStats           SearchableSnapshotsStats
-	SemanticSearch                     SemanticSearch
 	ShutdownDeleteNode                 ShutdownDeleteNode
 	ShutdownGetNode                    ShutdownGetNode
 	ShutdownPutNode                    ShutdownPutNode
@@ -133,6 +132,7 @@ type API struct {
 	TransformPreviewTransform          TransformPreviewTransform
 	TransformPutTransform              TransformPutTransform
 	TransformResetTransform            TransformResetTransform
+	TransformScheduleNowTransform      TransformScheduleNowTransform
 	TransformStartTransform            TransformStartTransform
 	TransformStopTransform             TransformStopTransform
 	TransformUpdateTransform           TransformUpdateTransform
@@ -587,7 +587,7 @@ func New(t Transport) *API {
 		GetScript:                          newGetScriptFunc(t),
 		GetSource:                          newGetSourceFunc(t),
 		GraphExplore:                       newGraphExploreFunc(t),
-		Health:                             newHealthFunc(t),
+		HealthReport:                       newHealthReportFunc(t),
 		Index:                              newIndexFunc(t),
 		Info:                               newInfoFunc(t),
 		KnnSearch:                          newKnnSearchFunc(t),
@@ -615,7 +615,6 @@ func New(t Transport) *API {
 		SearchableSnapshotsClearCache:      newSearchableSnapshotsClearCacheFunc(t),
 		SearchableSnapshotsMount:           newSearchableSnapshotsMountFunc(t),
 		SearchableSnapshotsStats:           newSearchableSnapshotsStatsFunc(t),
-		SemanticSearch:                     newSemanticSearchFunc(t),
 		ShutdownDeleteNode:                 newShutdownDeleteNodeFunc(t),
 		ShutdownGetNode:                    newShutdownGetNodeFunc(t),
 		ShutdownPutNode:                    newShutdownPutNodeFunc(t),
@@ -637,6 +636,7 @@ func New(t Transport) *API {
 		TransformPreviewTransform:          newTransformPreviewTransformFunc(t),
 		TransformPutTransform:              newTransformPutTransformFunc(t),
 		TransformResetTransform:            newTransformResetTransformFunc(t),
+		TransformScheduleNowTransform:      newTransformScheduleNowTransformFunc(t),
 		TransformStartTransform:            newTransformStartTransformFunc(t),
 		TransformStopTransform:             newTransformStopTransformFunc(t),
 		TransformUpdateTransform:           newTransformUpdateTransformFunc(t),

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.7.0: DO NOT EDIT
+// Code generated from specification version 8.8.0: DO NOT EDIT
 
 package esapi
 
@@ -47,6 +47,7 @@ type TransformStartTransform func(transform_id string, o ...func(*TransformStart
 type TransformStartTransformRequest struct {
 	TransformID string
 
+	From    string
 	Timeout time.Duration
 
 	Pretty     bool
@@ -79,6 +80,10 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 	path.WriteString("_start")
 
 	params = make(map[string]string)
+
+	if r.From != "" {
+		params["from"] = r.From
+	}
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
@@ -147,6 +152,13 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 func (f TransformStartTransform) WithContext(v context.Context) func(*TransformStartTransformRequest) {
 	return func(r *TransformStartTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithFrom - restricts the set of transformed entities to those changed after this time.
+func (f TransformStartTransform) WithFrom(v string) func(*TransformStartTransformRequest) {
+	return func(r *TransformStartTransformRequest) {
+		r.From = v
 	}
 }
 

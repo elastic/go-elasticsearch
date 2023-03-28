@@ -105,6 +105,8 @@ eql/20_runtime_mappings.yml:
 spatial/60_geo_line.yml:
   - Test geo_line aggregation on geo points
   - Test empty buckets
+spatial/100_geo_grid_ingest.yml:
+  - Test geo_grid on geotile using default target format
 
 # Arbitrary key
 indices.shrink/10_basic.yml:
@@ -225,6 +227,10 @@ rollup/put_job.yml:
 # Changing password locks out tests
 change_password/10_basic.yml:
   - Test user changing their own password
+  - Test changing users password with prehashed password
+
+change_password/12_custom_hash.yml:
+  - Test changing users password with pre-hashed password
 
 # Missing refreshes in the test
 data_frame/transforms_start_stop.yml:
@@ -236,6 +242,8 @@ transform/transforms_start_stop.yml:
 transform/transforms_stats.yml:
   - Test get multiple transform stats
   - Test get multiple transform stats where one does not have a task
+transform/transforms_unattended.yml:
+  - Test unattended put and start wildcard
 
 # More QA tests than API tests
 data_frame/transforms_stats.yml:
@@ -433,9 +441,6 @@ api_key/30_update.yml:
   - Test bulk update api key with empty request fields
 api_key/40_view_role_descriptors.yml:
   - Test API key role descriptors in Get and Query responses
-
-change_password/10_basic.yml:
-  - Test changing users password with prehashed password
 
 token/10_basic.yml:
   - Test invalidate user's tokens
