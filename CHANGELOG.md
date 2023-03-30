@@ -1,5 +1,18 @@
 # 8.7.0
 
+## API
+
+* `ML.DeleteJob`: Added `WithDeleteUserAnnotations`. Should annotations added by the user be deleted.
+* `ML.ResetJob`: Added `WithDeleteUserAnnotations`. Should annotations added by the user be deleted.
+* `ML.StartTrainedModelDeployment`: Added `WithPriority`. The deployment priority.
+* `TransformGetTransformStats`: Added `WithTimeout`. Controls the time to wait for the stats.
+* `TransformStartTransform`: Added `WithFrom`. Restricts the set of transformed entities to those changed after this time.
+
+**New APIs**
+
+`TransformScheduleNowTransform` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.7/schedule-now-transform.html).
+`HealthReport` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/8.7/health-api.html).
+
 ## Typed API
 
 * Inclusion of responses structures.
