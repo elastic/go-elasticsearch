@@ -5,6 +5,7 @@ steps:
     env:
       TEST_SUITE: "{{ matrix.suite }}"
       STACK_VERSION: 8.8.0-SNAPSHOT
+      WORKSPACE: /tmp/go-elasticsearch
     matrix:
       setup:
         suite:
