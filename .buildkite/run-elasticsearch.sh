@@ -76,6 +76,7 @@ END
 ))
 else
   environment+=($(cat <<-END
+    --env node.roles=data,data_cold,data_content,data_frozen,data_hot,data_warm,ingest,master,ml,remote_cluster_client,transform
     --env xpack.security.enabled=false
     --env xpack.security.http.ssl.enabled=false
 END
@@ -87,6 +88,13 @@ if [[ "$TEST_SUITE" == "platinum" ]]; then
   cert_validation_flags="--insecure --cacert /usr/share/elasticsearch/config/certs/ca.crt --resolve ${es_node_name}:443:127.0.0.1"
 fi
 
+echo "--- :elasticsearch: Environment setup"
+echo "TEST_SUITE: $TEST_SUITE"
+echo "Elasticsearch URL: $elasticsearch_url"
+echo "Elasticsearch External URL: $external_elasticsearch_url"
+
+
+echo "--- :elasticsearch: Running container"
 # Pull the container, retry on failures up to 5 times with
 # short delays between each attempt. Fixes most transient network errors.
 docker_pull_attempts=0
@@ -141,6 +149,4 @@ END
   if wait_for_container "$es_node_name" "$network_name"; then
     echo -e "\033[32;1mSUCCESS:\033[0m Running on: $node_url\033[0m"
   fi
-
 done
-
