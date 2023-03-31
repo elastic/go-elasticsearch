@@ -1,3 +1,16 @@
 steps:
-  - label: ":elasticsearch: :golang: Elasticsearch Go Test Suite"
-    command: "echo 'My first pipeline!'"
+  - label: ":elasticsearch: :golang: Elasticsearch Go Test Suite: {{ matrix.suite }}"
+    agents:
+      provider: "gcp"
+    env:
+      TEST_SUITE: "{{ matrix.suite }}"
+      STACK_VERSION: 8.8.0-SNAPSHOT
+    matrix:
+      setup:
+        suite:
+          - "free"
+          - "platinum"
+    command: ./.buildkite/run-tests.sh
+    artifact_paths: "elasticsearch-api/tmp/*"
+  - wait: ~
+    continue_on_failure: true
