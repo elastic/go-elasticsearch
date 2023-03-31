@@ -10,7 +10,7 @@ steps:
         suite:
           - "free"
           - "platinum"
-    command: ./.buildkite/run-tests.sh
+    command: ./.buildkite/run-tests
     artifact_paths: "elasticsearch-api/tmp/*"
   - wait: ~
     continue_on_failure: true
