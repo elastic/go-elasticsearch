@@ -2,7 +2,7 @@
 #
 # Exposes a routine scripts can call to wait for a container if that container set up a health command
 #
-# Please source .ci/functions/imports.sh as a whole not just this file
+# Please source .buildkite/functions/imports.sh as a whole not just this file
 #
 # Version 1.0.1
 # - Initial version after refactor

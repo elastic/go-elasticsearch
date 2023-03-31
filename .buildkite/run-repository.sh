@@ -31,7 +31,7 @@ echo -e "\033[32;1mSUCCESS:\033[0m successfully started the ${STACK_VERSION} sta
 echo -e "\033[34;1mINFO:\033[0m Building the [elastic/go-elasticsearch] image... \033[0m"
 
 docker build \
-    --file .ci/Dockerfile \
+    --file .buildkite/Dockerfile \
     --tag elastic/go-elasticsearch \
     .
 
@@ -59,4 +59,4 @@ docker run -t \
   --env "WORKSPACE=${WORKSPACE:-/workspace}" \
   --volume "${WORKSPACE:-workspace}:${WORKSPACE:-/workspace}" \
   elastic/go-elasticsearch \
-  .ci/scripts/tests-$TEST_SUITE.sh
+  .buildkite/scripts/tests-$TEST_SUITE.sh

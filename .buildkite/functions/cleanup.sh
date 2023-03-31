@@ -2,7 +2,7 @@
 #
 # Shared cleanup routines between different steps
 #
-# Please source .ci/functions/imports.sh as a whole not just this file
+# Please source .buildkite/functions/imports.sh as a whole not just this file
 #
 # Version 1.0.0
 # - Initial version after refactor
