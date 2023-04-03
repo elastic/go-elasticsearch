@@ -1,0 +1,17 @@
+steps:
+  - label: ":elasticsearch: :golang: Elasticsearch Go Test Suite: {{ matrix.suite }}"
+    agents:
+      provider: "gcp"
+    env:
+      TEST_SUITE: "{{ matrix.suite }}"
+      STACK_VERSION: 8.7.0-SNAPSHOT
+      WORKSPACE: /tmp/go-elasticsearch
+    matrix:
+      setup:
+        suite:
+          - "free"
+          - "platinum"
+    command: ./.buildkite/run-tests
+    artifact_paths: "elasticsearch-api/tmp/*"
+  - wait: ~
+    continue_on_failure: true
