@@ -29,7 +29,7 @@ go run default.go -count=100000 -batch=25000
 
 ## `indexer.go`
 
-The [`indexer.go`](indexer.go) example demonstrates how to use the [`esutil.BulkIndexer`](../esutil/bulk_indexer.go)
+The [`indexer.go`](indexer.go) example demonstrates how to use the `esutil.BulkIndexer`
 helper for efficient indexing in parallel.
 
 ```bash
