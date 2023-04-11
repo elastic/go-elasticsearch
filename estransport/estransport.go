@@ -327,6 +327,8 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			}
 		}
 	}
+	
+	originalPath := req.URL.Path
 
 	for i := 0; i <= c.maxRetries; i++ {
 		var (
@@ -422,6 +424,8 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		if !shouldRetry {
 			break
 		}
+		
+		req.URL.Path = originalPath
 
 		// Drain and close body when retrying after response
 		if shouldCloseBody && i < c.maxRetries {
