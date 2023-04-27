@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -25,11 +25,19 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationcasefirst"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationdecomposition"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationstrength"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // IcuCollationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/analysis/icu-plugin.ts#L51-L65
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/analysis/icu-plugin.ts#L51-L65
 type IcuCollationTokenFilter struct {
 	Alternate              *icucollationalternate.IcuCollationAlternate         `json:"alternate,omitempty"`
 	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"caseFirst,omitempty"`
@@ -45,6 +53,138 @@ type IcuCollationTokenFilter struct {
 	VariableTop            *string                                              `json:"variableTop,omitempty"`
 	Variant                *string                                              `json:"variant,omitempty"`
 	Version                *string                                              `json:"version,omitempty"`
+}
+
+func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "alternate":
+			if err := dec.Decode(&s.Alternate); err != nil {
+				return err
+			}
+
+		case "caseFirst":
+			if err := dec.Decode(&s.CaseFirst); err != nil {
+				return err
+			}
+
+		case "caseLevel":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.CaseLevel = &value
+			case bool:
+				s.CaseLevel = &v
+			}
+
+		case "country":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Country = &o
+
+		case "decomposition":
+			if err := dec.Decode(&s.Decomposition); err != nil {
+				return err
+			}
+
+		case "hiraganaQuaternaryMode":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.HiraganaQuaternaryMode = &value
+			case bool:
+				s.HiraganaQuaternaryMode = &v
+			}
+
+		case "language":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Language = &o
+
+		case "numeric":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Numeric = &value
+			case bool:
+				s.Numeric = &v
+			}
+
+		case "rules":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Rules = &o
+
+		case "strength":
+			if err := dec.Decode(&s.Strength); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "variableTop":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.VariableTop = &o
+
+		case "variant":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Variant = &o
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIcuCollationTokenFilter returns a IcuCollationTokenFilter.

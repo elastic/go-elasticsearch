@@ -16,26 +16,93 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // Role type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/get_role/types.ts#L29-L39
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/get_role/types.ts#L29-L39
 type Role struct {
 	Applications      []ApplicationPrivileges                   `json:"applications"`
 	Cluster           []string                                  `json:"cluster"`
 	Global            map[string]map[string]map[string][]string `json:"global,omitempty"`
 	Indices           []IndicesPrivileges                       `json:"indices"`
-	Metadata          map[string]json.RawMessage                `json:"metadata"`
+	Metadata          Metadata                                  `json:"metadata"`
 	RoleTemplates     []RoleTemplate                            `json:"role_templates,omitempty"`
 	RunAs             []string                                  `json:"run_as"`
 	TransientMetadata TransientMetadataConfig                   `json:"transient_metadata"`
+}
+
+func (s *Role) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "applications":
+			if err := dec.Decode(&s.Applications); err != nil {
+				return err
+			}
+
+		case "cluster":
+			if err := dec.Decode(&s.Cluster); err != nil {
+				return err
+			}
+
+		case "global":
+			if s.Global == nil {
+				s.Global = make(map[string]map[string]map[string][]string, 0)
+			}
+			if err := dec.Decode(&s.Global); err != nil {
+				return err
+			}
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "role_templates":
+			if err := dec.Decode(&s.RoleTemplates); err != nil {
+				return err
+			}
+
+		case "run_as":
+			if err := dec.Decode(&s.RunAs); err != nil {
+				return err
+			}
+
+		case "transient_metadata":
+			if err := dec.Decode(&s.TransientMetadata); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRole returns a Role.

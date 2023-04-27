@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // MemMlStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/get_memory_stats/types.ts#L90-L111
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/get_memory_stats/types.ts#L90-L111
 type MemMlStats struct {
 	// AnomalyDetectors Amount of native memory set aside for anomaly detection jobs.
 	AnomalyDetectors ByteSize `json:"anomaly_detectors,omitempty"`
@@ -50,6 +60,131 @@ type MemMlStats struct {
 	// NativeInferenceInBytes Amount of native memory, in bytes, set aside for trained models that have a
 	// PyTorch model_type.
 	NativeInferenceInBytes int `json:"native_inference_in_bytes"`
+}
+
+func (s *MemMlStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "anomaly_detectors":
+			if err := dec.Decode(&s.AnomalyDetectors); err != nil {
+				return err
+			}
+
+		case "anomaly_detectors_in_bytes":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.AnomalyDetectorsInBytes = value
+			case float64:
+				f := int(v)
+				s.AnomalyDetectorsInBytes = f
+			}
+
+		case "data_frame_analytics":
+			if err := dec.Decode(&s.DataFrameAnalytics); err != nil {
+				return err
+			}
+
+		case "data_frame_analytics_in_bytes":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DataFrameAnalyticsInBytes = value
+			case float64:
+				f := int(v)
+				s.DataFrameAnalyticsInBytes = f
+			}
+
+		case "max":
+			if err := dec.Decode(&s.Max); err != nil {
+				return err
+			}
+
+		case "max_in_bytes":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxInBytes = value
+			case float64:
+				f := int(v)
+				s.MaxInBytes = f
+			}
+
+		case "native_code_overhead":
+			if err := dec.Decode(&s.NativeCodeOverhead); err != nil {
+				return err
+			}
+
+		case "native_code_overhead_in_bytes":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NativeCodeOverheadInBytes = value
+			case float64:
+				f := int(v)
+				s.NativeCodeOverheadInBytes = f
+			}
+
+		case "native_inference":
+			if err := dec.Decode(&s.NativeInference); err != nil {
+				return err
+			}
+
+		case "native_inference_in_bytes":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NativeInferenceInBytes = value
+			case float64:
+				f := int(v)
+				s.NativeInferenceInBytes = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewMemMlStats returns a MemMlStats.

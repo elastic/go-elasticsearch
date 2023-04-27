@@ -16,18 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shutdownstatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shutdowntype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // NodeShutdownStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
 type NodeShutdownStatus struct {
 	NodeId                string                        `json:"node_id"`
 	PersistentTasks       PersistentTaskStatus          `json:"persistent_tasks"`
@@ -37,6 +43,69 @@ type NodeShutdownStatus struct {
 	ShutdownStartedmillis int64                         `json:"shutdown_startedmillis"`
 	Status                shutdownstatus.ShutdownStatus `json:"status"`
 	Type                  shutdowntype.ShutdownType     `json:"type"`
+}
+
+func (s *NodeShutdownStatus) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "node_id":
+			if err := dec.Decode(&s.NodeId); err != nil {
+				return err
+			}
+
+		case "persistent_tasks":
+			if err := dec.Decode(&s.PersistentTasks); err != nil {
+				return err
+			}
+
+		case "plugins":
+			if err := dec.Decode(&s.Plugins); err != nil {
+				return err
+			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Reason = o
+
+		case "shard_migration":
+			if err := dec.Decode(&s.ShardMigration); err != nil {
+				return err
+			}
+
+		case "shutdown_startedmillis":
+			if err := dec.Decode(&s.ShutdownStartedmillis); err != nil {
+				return err
+			}
+
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeShutdownStatus returns a NodeShutdownStatus.

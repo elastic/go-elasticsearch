@@ -16,32 +16,30 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package getservicecredentials
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Response holds the response body struct for the package getservicecredentials
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/get_service_credentials/GetServiceCredentialsResponse.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/get_service_credentials/GetServiceCredentialsResponse.ts#L25-L33
 
 type Response struct {
 	Count int `json:"count"`
 	// NodesCredentials Contains service account credentials collected from all nodes of the cluster
-	NodesCredentials types.NodesCredentials                `json:"nodes_credentials"`
-	ServiceAccount   string                                `json:"service_account"`
-	Tokens           map[string]map[string]json.RawMessage `json:"tokens"`
+	NodesCredentials types.NodesCredentials    `json:"nodes_credentials"`
+	ServiceAccount   string                    `json:"service_account"`
+	Tokens           map[string]types.Metadata `json:"tokens"`
 }
 
 // NewResponse returns a Response
 func NewResponse() *Response {
 	r := &Response{
-		Tokens: make(map[string]map[string]json.RawMessage, 0),
+		Tokens: make(map[string]types.Metadata, 0),
 	}
 	return r
 }

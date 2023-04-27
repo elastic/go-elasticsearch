@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DataframeAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/DataframeAnalytics.ts#L134-L213
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/DataframeAnalytics.ts#L134-L213
 type DataframeAnalysis struct {
 	// Alpha Advanced configuration option. Machine learning uses loss guided tree
 	// growing, which means that the decision trees grow where the regularized loss
@@ -137,6 +147,271 @@ type DataframeAnalysis struct {
 	// contain arrays with more than one value) won’t be included in the calculation
 	// for used percentage.
 	TrainingPercent Percentage `json:"training_percent,omitempty"`
+}
+
+func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "alpha":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Alpha = &f
+			case float64:
+				f := Float64(v)
+				s.Alpha = &f
+			}
+
+		case "dependent_variable":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DependentVariable = o
+
+		case "downsample_factor":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.DownsampleFactor = &f
+			case float64:
+				f := Float64(v)
+				s.DownsampleFactor = &f
+			}
+
+		case "early_stopping_enabled":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.EarlyStoppingEnabled = &value
+			case bool:
+				s.EarlyStoppingEnabled = &v
+			}
+
+		case "eta":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Eta = &f
+			case float64:
+				f := Float64(v)
+				s.Eta = &f
+			}
+
+		case "eta_growth_rate_per_tree":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.EtaGrowthRatePerTree = &f
+			case float64:
+				f := Float64(v)
+				s.EtaGrowthRatePerTree = &f
+			}
+
+		case "feature_bag_fraction":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.FeatureBagFraction = &f
+			case float64:
+				f := Float64(v)
+				s.FeatureBagFraction = &f
+			}
+
+		case "feature_processors":
+			if err := dec.Decode(&s.FeatureProcessors); err != nil {
+				return err
+			}
+
+		case "gamma":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Gamma = &f
+			case float64:
+				f := Float64(v)
+				s.Gamma = &f
+			}
+
+		case "lambda":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Lambda = &f
+			case float64:
+				f := Float64(v)
+				s.Lambda = &f
+			}
+
+		case "max_optimization_rounds_per_hyperparameter":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxOptimizationRoundsPerHyperparameter = &value
+			case float64:
+				f := int(v)
+				s.MaxOptimizationRoundsPerHyperparameter = &f
+			}
+
+		case "max_trees", "maximum_number_trees":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxTrees = &value
+			case float64:
+				f := int(v)
+				s.MaxTrees = &f
+			}
+
+		case "num_top_feature_importance_values":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NumTopFeatureImportanceValues = &value
+			case float64:
+				f := int(v)
+				s.NumTopFeatureImportanceValues = &f
+			}
+
+		case "prediction_field_name":
+			if err := dec.Decode(&s.PredictionFieldName); err != nil {
+				return err
+			}
+
+		case "randomize_seed":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.RandomizeSeed = &f
+			case float64:
+				f := Float64(v)
+				s.RandomizeSeed = &f
+			}
+
+		case "soft_tree_depth_limit":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.SoftTreeDepthLimit = &value
+			case float64:
+				f := int(v)
+				s.SoftTreeDepthLimit = &f
+			}
+
+		case "soft_tree_depth_tolerance":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.SoftTreeDepthTolerance = &f
+			case float64:
+				f := Float64(v)
+				s.SoftTreeDepthTolerance = &f
+			}
+
+		case "training_percent":
+			if err := dec.Decode(&s.TrainingPercent); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataframeAnalysis returns a DataframeAnalysis.

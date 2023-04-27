@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tokenizationtruncate"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // NlpBertTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/inference.ts#L116-L143
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/inference.ts#L116-L143
 type NlpBertTokenizationConfig struct {
 	// DoLowerCase Should the tokenizer lower case the text
 	DoLowerCase *bool `json:"do_lower_case,omitempty"`
@@ -40,6 +48,91 @@ type NlpBertTokenizationConfig struct {
 	Truncate *tokenizationtruncate.TokenizationTruncate `json:"truncate,omitempty"`
 	// WithSpecialTokens Is tokenization completed with special tokens
 	WithSpecialTokens *bool `json:"with_special_tokens,omitempty"`
+}
+
+func (s *NlpBertTokenizationConfig) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "do_lower_case":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.DoLowerCase = &value
+			case bool:
+				s.DoLowerCase = &v
+			}
+
+		case "max_sequence_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxSequenceLength = &value
+			case float64:
+				f := int(v)
+				s.MaxSequenceLength = &f
+			}
+
+		case "span":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Span = &value
+			case float64:
+				f := int(v)
+				s.Span = &f
+			}
+
+		case "truncate":
+			if err := dec.Decode(&s.Truncate); err != nil {
+				return err
+			}
+
+		case "with_special_tokens":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.WithSpecialTokens = &value
+			case bool:
+				s.WithSpecialTokens = &v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNlpBertTokenizationConfig returns a NlpBertTokenizationConfig.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Hyperparameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/DataframeAnalytics.ts#L395-L410
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/DataframeAnalytics.ts#L395-L410
 type Hyperparameters struct {
 	Alpha                                  *Float64 `json:"alpha,omitempty"`
 	DownsampleFactor                       *Float64 `json:"downsample_factor,omitempty"`
@@ -38,6 +48,250 @@ type Hyperparameters struct {
 	NumSplitsPerFeature                    *int     `json:"num_splits_per_feature,omitempty"`
 	SoftTreeDepthLimit                     *int     `json:"soft_tree_depth_limit,omitempty"`
 	SoftTreeDepthTolerance                 *Float64 `json:"soft_tree_depth_tolerance,omitempty"`
+}
+
+func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "alpha":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Alpha = &f
+			case float64:
+				f := Float64(v)
+				s.Alpha = &f
+			}
+
+		case "downsample_factor":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.DownsampleFactor = &f
+			case float64:
+				f := Float64(v)
+				s.DownsampleFactor = &f
+			}
+
+		case "eta":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Eta = &f
+			case float64:
+				f := Float64(v)
+				s.Eta = &f
+			}
+
+		case "eta_growth_rate_per_tree":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.EtaGrowthRatePerTree = &f
+			case float64:
+				f := Float64(v)
+				s.EtaGrowthRatePerTree = &f
+			}
+
+		case "feature_bag_fraction":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.FeatureBagFraction = &f
+			case float64:
+				f := Float64(v)
+				s.FeatureBagFraction = &f
+			}
+
+		case "gamma":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Gamma = &f
+			case float64:
+				f := Float64(v)
+				s.Gamma = &f
+			}
+
+		case "lambda":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Lambda = &f
+			case float64:
+				f := Float64(v)
+				s.Lambda = &f
+			}
+
+		case "max_attempts_to_add_tree":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxAttemptsToAddTree = &value
+			case float64:
+				f := int(v)
+				s.MaxAttemptsToAddTree = &f
+			}
+
+		case "max_optimization_rounds_per_hyperparameter":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxOptimizationRoundsPerHyperparameter = &value
+			case float64:
+				f := int(v)
+				s.MaxOptimizationRoundsPerHyperparameter = &f
+			}
+
+		case "max_trees":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxTrees = &value
+			case float64:
+				f := int(v)
+				s.MaxTrees = &f
+			}
+
+		case "num_folds":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NumFolds = &value
+			case float64:
+				f := int(v)
+				s.NumFolds = &f
+			}
+
+		case "num_splits_per_feature":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NumSplitsPerFeature = &value
+			case float64:
+				f := int(v)
+				s.NumSplitsPerFeature = &f
+			}
+
+		case "soft_tree_depth_limit":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.SoftTreeDepthLimit = &value
+			case float64:
+				f := int(v)
+				s.SoftTreeDepthLimit = &f
+			}
+
+		case "soft_tree_depth_tolerance":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.SoftTreeDepthTolerance = &f
+			case float64:
+				f := Float64(v)
+				s.SoftTreeDepthTolerance = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewHyperparameters returns a Hyperparameters.

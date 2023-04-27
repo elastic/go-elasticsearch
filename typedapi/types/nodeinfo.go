@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // NodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/info/types.ts#L30-L66
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/nodes/info/types.ts#L30-L66
 type NodeInfo struct {
 	Aggregations map[string]NodeInfoAggregation `json:"aggregations,omitempty"`
 	Attributes   map[string]string              `json:"attributes"`
@@ -62,6 +70,174 @@ type NodeInfo struct {
 	TransportAddress string `json:"transport_address"`
 	// Version Elasticsearch version running on this node.
 	Version string `json:"version"`
+}
+
+func (s *NodeInfo) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aggregations":
+			if s.Aggregations == nil {
+				s.Aggregations = make(map[string]NodeInfoAggregation, 0)
+			}
+			if err := dec.Decode(&s.Aggregations); err != nil {
+				return err
+			}
+
+		case "attributes":
+			if s.Attributes == nil {
+				s.Attributes = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.Attributes); err != nil {
+				return err
+			}
+
+		case "build_flavor":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BuildFlavor = o
+
+		case "build_hash":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BuildHash = o
+
+		case "build_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BuildType = o
+
+		case "host":
+			if err := dec.Decode(&s.Host); err != nil {
+				return err
+			}
+
+		case "http":
+			if err := dec.Decode(&s.Http); err != nil {
+				return err
+			}
+
+		case "ingest":
+			if err := dec.Decode(&s.Ingest); err != nil {
+				return err
+			}
+
+		case "ip":
+			if err := dec.Decode(&s.Ip); err != nil {
+				return err
+			}
+
+		case "jvm":
+			if err := dec.Decode(&s.Jvm); err != nil {
+				return err
+			}
+
+		case "modules":
+			if err := dec.Decode(&s.Modules); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "network":
+			if err := dec.Decode(&s.Network); err != nil {
+				return err
+			}
+
+		case "os":
+			if err := dec.Decode(&s.Os); err != nil {
+				return err
+			}
+
+		case "plugins":
+			if err := dec.Decode(&s.Plugins); err != nil {
+				return err
+			}
+
+		case "process":
+			if err := dec.Decode(&s.Process); err != nil {
+				return err
+			}
+
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return err
+			}
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return err
+			}
+
+		case "thread_pool":
+			if s.ThreadPool == nil {
+				s.ThreadPool = make(map[string]NodeThreadPoolInfo, 0)
+			}
+			if err := dec.Decode(&s.ThreadPool); err != nil {
+				return err
+			}
+
+		case "total_indexing_buffer":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalIndexingBuffer = &value
+			case float64:
+				f := int64(v)
+				s.TotalIndexingBuffer = &f
+			}
+
+		case "total_indexing_buffer_in_bytes":
+			if err := dec.Decode(&s.TotalIndexingBufferInBytes); err != nil {
+				return err
+			}
+
+		case "transport":
+			if err := dec.Decode(&s.Transport); err != nil {
+				return err
+			}
+
+		case "transport_address":
+			if err := dec.Decode(&s.TransportAddress); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeInfo returns a NodeInfo.

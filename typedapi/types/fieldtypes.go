@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // FieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L105-L114
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/stats/types.ts#L105-L114
 type FieldTypes struct {
 	Count               int    `json:"count"`
 	IndexCount          int    `json:"index_count"`
@@ -31,6 +41,124 @@ type FieldTypes struct {
 	IndexedVectorDimMin *int64 `json:"indexed_vector_dim_min,omitempty"`
 	Name                string `json:"name"`
 	ScriptCount         *int   `json:"script_count,omitempty"`
+}
+
+func (s *FieldTypes) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Count = value
+			case float64:
+				f := int(v)
+				s.Count = f
+			}
+
+		case "index_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.IndexCount = value
+			case float64:
+				f := int(v)
+				s.IndexCount = f
+			}
+
+		case "indexed_vector_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.IndexedVectorCount = &value
+			case float64:
+				f := int64(v)
+				s.IndexedVectorCount = &f
+			}
+
+		case "indexed_vector_dim_max":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.IndexedVectorDimMax = &value
+			case float64:
+				f := int64(v)
+				s.IndexedVectorDimMax = &f
+			}
+
+		case "indexed_vector_dim_min":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.IndexedVectorDimMin = &value
+			case float64:
+				f := int64(v)
+				s.IndexedVectorDimMin = &f
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "script_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ScriptCount = &value
+			case float64:
+				f := int(v)
+				s.ScriptCount = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewFieldTypes returns a FieldTypes.

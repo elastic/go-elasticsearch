@@ -16,39 +16,188 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // SnapshotInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/snapshot/_types/SnapshotInfo.ts#L41-L65
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/snapshot/_types/SnapshotInfo.ts#L41-L65
 type SnapshotInfo struct {
-	DataStreams        []string                   `json:"data_streams"`
-	Duration           Duration                   `json:"duration,omitempty"`
-	DurationInMillis   *int64                     `json:"duration_in_millis,omitempty"`
-	EndTime            DateTime                   `json:"end_time,omitempty"`
-	EndTimeInMillis    *int64                     `json:"end_time_in_millis,omitempty"`
-	Failures           []SnapshotShardFailure     `json:"failures,omitempty"`
-	FeatureStates      []InfoFeatureState         `json:"feature_states,omitempty"`
-	IncludeGlobalState *bool                      `json:"include_global_state,omitempty"`
-	IndexDetails       map[string]IndexDetails    `json:"index_details,omitempty"`
-	Indices            []string                   `json:"indices,omitempty"`
-	Metadata           map[string]json.RawMessage `json:"metadata,omitempty"`
-	Reason             *string                    `json:"reason,omitempty"`
-	Repository         *string                    `json:"repository,omitempty"`
-	Shards             *ShardStatistics           `json:"shards,omitempty"`
-	Snapshot           string                     `json:"snapshot"`
-	StartTime          DateTime                   `json:"start_time,omitempty"`
-	StartTimeInMillis  *int64                     `json:"start_time_in_millis,omitempty"`
-	State              *string                    `json:"state,omitempty"`
-	Uuid               string                     `json:"uuid"`
-	Version            *string                    `json:"version,omitempty"`
-	VersionId          *int64                     `json:"version_id,omitempty"`
+	DataStreams        []string                `json:"data_streams"`
+	Duration           Duration                `json:"duration,omitempty"`
+	DurationInMillis   *int64                  `json:"duration_in_millis,omitempty"`
+	EndTime            DateTime                `json:"end_time,omitempty"`
+	EndTimeInMillis    *int64                  `json:"end_time_in_millis,omitempty"`
+	Failures           []SnapshotShardFailure  `json:"failures,omitempty"`
+	FeatureStates      []InfoFeatureState      `json:"feature_states,omitempty"`
+	IncludeGlobalState *bool                   `json:"include_global_state,omitempty"`
+	IndexDetails       map[string]IndexDetails `json:"index_details,omitempty"`
+	Indices            []string                `json:"indices,omitempty"`
+	Metadata           Metadata                `json:"metadata,omitempty"`
+	Reason             *string                 `json:"reason,omitempty"`
+	Repository         *string                 `json:"repository,omitempty"`
+	Shards             *ShardStatistics        `json:"shards,omitempty"`
+	Snapshot           string                  `json:"snapshot"`
+	StartTime          DateTime                `json:"start_time,omitempty"`
+	StartTimeInMillis  *int64                  `json:"start_time_in_millis,omitempty"`
+	State              *string                 `json:"state,omitempty"`
+	Uuid               string                  `json:"uuid"`
+	Version            *string                 `json:"version,omitempty"`
+	VersionId          *int64                  `json:"version_id,omitempty"`
+}
+
+func (s *SnapshotInfo) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "data_streams":
+			if err := dec.Decode(&s.DataStreams); err != nil {
+				return err
+			}
+
+		case "duration":
+			if err := dec.Decode(&s.Duration); err != nil {
+				return err
+			}
+
+		case "duration_in_millis":
+			if err := dec.Decode(&s.DurationInMillis); err != nil {
+				return err
+			}
+
+		case "end_time":
+			if err := dec.Decode(&s.EndTime); err != nil {
+				return err
+			}
+
+		case "end_time_in_millis":
+			if err := dec.Decode(&s.EndTimeInMillis); err != nil {
+				return err
+			}
+
+		case "failures":
+			if err := dec.Decode(&s.Failures); err != nil {
+				return err
+			}
+
+		case "feature_states":
+			if err := dec.Decode(&s.FeatureStates); err != nil {
+				return err
+			}
+
+		case "include_global_state":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IncludeGlobalState = &value
+			case bool:
+				s.IncludeGlobalState = &v
+			}
+
+		case "index_details":
+			if s.IndexDetails == nil {
+				s.IndexDetails = make(map[string]IndexDetails, 0)
+			}
+			if err := dec.Decode(&s.IndexDetails); err != nil {
+				return err
+			}
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Reason = &o
+
+		case "repository":
+			if err := dec.Decode(&s.Repository); err != nil {
+				return err
+			}
+
+		case "shards":
+			if err := dec.Decode(&s.Shards); err != nil {
+				return err
+			}
+
+		case "snapshot":
+			if err := dec.Decode(&s.Snapshot); err != nil {
+				return err
+			}
+
+		case "start_time":
+			if err := dec.Decode(&s.StartTime); err != nil {
+				return err
+			}
+
+		case "start_time_in_millis":
+			if err := dec.Decode(&s.StartTimeInMillis); err != nil {
+				return err
+			}
+
+		case "state":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.State = &o
+
+		case "uuid":
+			if err := dec.Decode(&s.Uuid); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		case "version_id":
+			if err := dec.Decode(&s.VersionId); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSnapshotInfo returns a SnapshotInfo.

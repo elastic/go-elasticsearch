@@ -16,29 +16,125 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // AuthenticatedUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/get_token/types.ts#L40-L45
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/get_token/types.ts#L40-L45
 type AuthenticatedUser struct {
-	AuthenticationProvider *AuthenticationProvider    `json:"authentication_provider,omitempty"`
-	AuthenticationRealm    UserRealm                  `json:"authentication_realm"`
-	AuthenticationType     string                     `json:"authentication_type"`
-	Email                  string                     `json:"email,omitempty"`
-	Enabled                bool                       `json:"enabled"`
-	FullName               string                     `json:"full_name,omitempty"`
-	LookupRealm            UserRealm                  `json:"lookup_realm"`
-	Metadata               map[string]json.RawMessage `json:"metadata"`
-	ProfileUid             *string                    `json:"profile_uid,omitempty"`
-	Roles                  []string                   `json:"roles"`
-	Username               string                     `json:"username"`
+	AuthenticationProvider *AuthenticationProvider `json:"authentication_provider,omitempty"`
+	AuthenticationRealm    UserRealm               `json:"authentication_realm"`
+	AuthenticationType     string                  `json:"authentication_type"`
+	Email                  string                  `json:"email,omitempty"`
+	Enabled                bool                    `json:"enabled"`
+	FullName               string                  `json:"full_name,omitempty"`
+	LookupRealm            UserRealm               `json:"lookup_realm"`
+	Metadata               Metadata                `json:"metadata"`
+	ProfileUid             *string                 `json:"profile_uid,omitempty"`
+	Roles                  []string                `json:"roles"`
+	Username               string                  `json:"username"`
+}
+
+func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "authentication_provider":
+			if err := dec.Decode(&s.AuthenticationProvider); err != nil {
+				return err
+			}
+
+		case "authentication_realm":
+			if err := dec.Decode(&s.AuthenticationRealm); err != nil {
+				return err
+			}
+
+		case "authentication_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.AuthenticationType = o
+
+		case "email":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Email = o
+
+		case "enabled":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Enabled = value
+			case bool:
+				s.Enabled = v
+			}
+
+		case "full_name":
+			if err := dec.Decode(&s.FullName); err != nil {
+				return err
+			}
+
+		case "lookup_realm":
+			if err := dec.Decode(&s.LookupRealm); err != nil {
+				return err
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "profile_uid":
+			if err := dec.Decode(&s.ProfileUid); err != nil {
+				return err
+			}
+
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return err
+			}
+
+		case "username":
+			if err := dec.Decode(&s.Username); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewAuthenticatedUser returns a AuthenticatedUser.

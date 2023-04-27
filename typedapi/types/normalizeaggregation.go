@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -33,18 +33,19 @@ import (
 
 // NormalizeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/pipeline.ts#L262-L264
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/pipeline.ts#L262-L264
 type NormalizeAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath                      `json:"buckets_path,omitempty"`
 	Format      *string                          `json:"format,omitempty"`
 	GapPolicy   *gappolicy.GapPolicy             `json:"gap_policy,omitempty"`
-	Meta        map[string]json.RawMessage       `json:"meta,omitempty"`
+	Meta        Metadata                         `json:"meta,omitempty"`
 	Method      *normalizemethod.NormalizeMethod `json:"method,omitempty"`
 	Name        *string                          `json:"name,omitempty"`
 }
 
 func (s *NormalizeAggregation) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -64,9 +65,12 @@ func (s *NormalizeAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "format":
-			if err := dec.Decode(&s.Format); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Format = &o
 
 		case "gap_policy":
 			if err := dec.Decode(&s.GapPolicy); err != nil {
@@ -84,9 +88,12 @@ func (s *NormalizeAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Name = &o
 
 		}
 	}

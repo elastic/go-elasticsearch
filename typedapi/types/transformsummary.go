@@ -16,17 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // TransformSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/transform/get_transform/types.ts#L33-L61
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/transform/get_transform/types.ts#L33-L61
 type TransformSummary struct {
 	// Authorization The security privileges that the transform uses to run its queries. If
 	// Elastic Stack security features were disabled at the time of the most recent
@@ -37,11 +41,11 @@ type TransformSummary struct {
 	// Description Free text description of the transform.
 	Description *string `json:"description,omitempty"`
 	// Dest The destination for the transform.
-	Dest      ReindexDestination         `json:"dest"`
-	Frequency Duration                   `json:"frequency,omitempty"`
-	Id        string                     `json:"id"`
-	Latest    *Latest                    `json:"latest,omitempty"`
-	Meta_     map[string]json.RawMessage `json:"_meta,omitempty"`
+	Dest      ReindexDestination `json:"dest"`
+	Frequency Duration           `json:"frequency,omitempty"`
+	Id        string             `json:"id"`
+	Latest    *Latest            `json:"latest,omitempty"`
+	Meta_     Metadata           `json:"_meta,omitempty"`
 	// Pivot The pivot method transforms the data by aggregating and grouping it.
 	Pivot           *Pivot                    `json:"pivot,omitempty"`
 	RetentionPolicy *RetentionPolicyContainer `json:"retention_policy,omitempty"`
@@ -54,6 +58,99 @@ type TransformSummary struct {
 	// Version The version of Elasticsearch that existed on the node when the transform was
 	// created.
 	Version *string `json:"version,omitempty"`
+}
+
+func (s *TransformSummary) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "authorization":
+			if err := dec.Decode(&s.Authorization); err != nil {
+				return err
+			}
+
+		case "create_time":
+			if err := dec.Decode(&s.CreateTime); err != nil {
+				return err
+			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = &o
+
+		case "dest":
+			if err := dec.Decode(&s.Dest); err != nil {
+				return err
+			}
+
+		case "frequency":
+			if err := dec.Decode(&s.Frequency); err != nil {
+				return err
+			}
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "latest":
+			if err := dec.Decode(&s.Latest); err != nil {
+				return err
+			}
+
+		case "_meta":
+			if err := dec.Decode(&s.Meta_); err != nil {
+				return err
+			}
+
+		case "pivot":
+			if err := dec.Decode(&s.Pivot); err != nil {
+				return err
+			}
+
+		case "retention_policy":
+			if err := dec.Decode(&s.RetentionPolicy); err != nil {
+				return err
+			}
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return err
+			}
+
+		case "source":
+			if err := dec.Decode(&s.Source); err != nil {
+				return err
+			}
+
+		case "sync":
+			if err := dec.Decode(&s.Sync); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTransformSummary returns a TransformSummary.

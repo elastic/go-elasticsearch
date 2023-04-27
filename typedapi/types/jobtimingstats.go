@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // JobTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Job.ts#L109-L118
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Job.ts#L109-L118
 type JobTimingStats struct {
 	AverageBucketProcessingTimeMs                   Float64 `json:"average_bucket_processing_time_ms,omitempty"`
 	BucketCount                                     int64   `json:"bucket_count"`
@@ -32,6 +42,76 @@ type JobTimingStats struct {
 	MaximumBucketProcessingTimeMs                   Float64 `json:"maximum_bucket_processing_time_ms,omitempty"`
 	MinimumBucketProcessingTimeMs                   Float64 `json:"minimum_bucket_processing_time_ms,omitempty"`
 	TotalBucketProcessingTimeMs                     Float64 `json:"total_bucket_processing_time_ms"`
+}
+
+func (s *JobTimingStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "average_bucket_processing_time_ms":
+			if err := dec.Decode(&s.AverageBucketProcessingTimeMs); err != nil {
+				return err
+			}
+
+		case "bucket_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.BucketCount = value
+			case float64:
+				f := int64(v)
+				s.BucketCount = f
+			}
+
+		case "exponential_average_bucket_processing_time_ms":
+			if err := dec.Decode(&s.ExponentialAverageBucketProcessingTimeMs); err != nil {
+				return err
+			}
+
+		case "exponential_average_bucket_processing_time_per_hour_ms":
+			if err := dec.Decode(&s.ExponentialAverageBucketProcessingTimePerHourMs); err != nil {
+				return err
+			}
+
+		case "job_id":
+			if err := dec.Decode(&s.JobId); err != nil {
+				return err
+			}
+
+		case "maximum_bucket_processing_time_ms":
+			if err := dec.Decode(&s.MaximumBucketProcessingTimeMs); err != nil {
+				return err
+			}
+
+		case "minimum_bucket_processing_time_ms":
+			if err := dec.Decode(&s.MinimumBucketProcessingTimeMs); err != nil {
+				return err
+			}
+
+		case "total_bucket_processing_time_ms":
+			if err := dec.Decode(&s.TotalBucketProcessingTimeMs); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewJobTimingStats returns a JobTimingStats.

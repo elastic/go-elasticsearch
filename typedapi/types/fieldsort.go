@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -25,11 +25,17 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/fieldtype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortmode"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // FieldSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/sort.ts#L44-L53
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/sort.ts#L44-L53
 type FieldSort struct {
 	Format       *string                                    `json:"format,omitempty"`
 	Missing      Missing                                    `json:"missing,omitempty"`
@@ -38,6 +44,69 @@ type FieldSort struct {
 	NumericType  *fieldsortnumerictype.FieldSortNumericType `json:"numeric_type,omitempty"`
 	Order        *sortorder.SortOrder                       `json:"order,omitempty"`
 	UnmappedType *fieldtype.FieldType                       `json:"unmapped_type,omitempty"`
+}
+
+func (s *FieldSort) UnmarshalJSON(data []byte) error {
+
+	if !bytes.HasPrefix(data, []byte(`{`)) {
+		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Order)
+		return err
+	}
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Format = &o
+
+		case "missing":
+			if err := dec.Decode(&s.Missing); err != nil {
+				return err
+			}
+
+		case "mode":
+			if err := dec.Decode(&s.Mode); err != nil {
+				return err
+			}
+
+		case "nested":
+			if err := dec.Decode(&s.Nested); err != nil {
+				return err
+			}
+
+		case "numeric_type":
+			if err := dec.Decode(&s.NumericType); err != nil {
+				return err
+			}
+
+		case "order":
+			if err := dec.Decode(&s.Order); err != nil {
+				return err
+			}
+
+		case "unmapped_type":
+			if err := dec.Decode(&s.UnmappedType); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewFieldSort returns a FieldSort.

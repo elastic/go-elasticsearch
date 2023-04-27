@@ -16,18 +16,90 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // FieldCollapse type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/FieldCollapse.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/search/_types/FieldCollapse.ts#L24-L29
 type FieldCollapse struct {
 	Collapse                   *FieldCollapse `json:"collapse,omitempty"`
 	Field                      string         `json:"field"`
 	InnerHits                  []InnerHits    `json:"inner_hits,omitempty"`
 	MaxConcurrentGroupSearches *int           `json:"max_concurrent_group_searches,omitempty"`
+}
+
+func (s *FieldCollapse) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "collapse":
+			if err := dec.Decode(&s.Collapse); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "inner_hits":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := NewInnerHits()
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.InnerHits = append(s.InnerHits, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.InnerHits); err != nil {
+					return err
+				}
+			}
+
+		case "max_concurrent_group_searches":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxConcurrentGroupSearches = &value
+			case float64:
+				f := int(v)
+				s.MaxConcurrentGroupSearches = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewFieldCollapse returns a FieldCollapse.

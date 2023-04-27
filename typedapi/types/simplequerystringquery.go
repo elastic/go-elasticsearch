@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -28,12 +28,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // SimpleQueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/fulltext.ts#L294-L312
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/query_dsl/fulltext.ts#L294-L312
 type SimpleQueryStringQuery struct {
 	AnalyzeWildcard                 *bool                  `json:"analyze_wildcard,omitempty"`
 	Analyzer                        *string                `json:"analyzer,omitempty"`
@@ -53,6 +55,7 @@ type SimpleQueryStringQuery struct {
 }
 
 func (s *SimpleQueryStringQuery) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -67,23 +70,55 @@ func (s *SimpleQueryStringQuery) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "analyze_wildcard":
-			if err := dec.Decode(&s.AnalyzeWildcard); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.AnalyzeWildcard = &value
+			case bool:
+				s.AnalyzeWildcard = &v
 			}
 
 		case "analyzer":
-			if err := dec.Decode(&s.Analyzer); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Analyzer = &o
 
 		case "auto_generate_synonyms_phrase_query":
-			if err := dec.Decode(&s.AutoGenerateSynonymsPhraseQuery); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.AutoGenerateSynonymsPhraseQuery = &value
+			case bool:
+				s.AutoGenerateSynonymsPhraseQuery = &v
 			}
 
 		case "boost":
-			if err := dec.Decode(&s.Boost); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return err
+				}
+				f := float32(value)
+				s.Boost = &f
+			case float64:
+				f := float32(v)
+				s.Boost = &f
 			}
 
 		case "default_operator":
@@ -97,6 +132,7 @@ func (s *SimpleQueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "flags":
+
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			source := bytes.NewReader(rawMsg)
@@ -116,23 +152,63 @@ func (s *SimpleQueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fuzzy_max_expansions":
-			if err := dec.Decode(&s.FuzzyMaxExpansions); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.FuzzyMaxExpansions = &value
+			case float64:
+				f := int(v)
+				s.FuzzyMaxExpansions = &f
 			}
 
 		case "fuzzy_prefix_length":
-			if err := dec.Decode(&s.FuzzyPrefixLength); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.FuzzyPrefixLength = &value
+			case float64:
+				f := int(v)
+				s.FuzzyPrefixLength = &f
 			}
 
 		case "fuzzy_transpositions":
-			if err := dec.Decode(&s.FuzzyTranspositions); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.FuzzyTranspositions = &value
+			case bool:
+				s.FuzzyTranspositions = &v
 			}
 
 		case "lenient":
-			if err := dec.Decode(&s.Lenient); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Lenient = &value
+			case bool:
+				s.Lenient = &v
 			}
 
 		case "minimum_should_match":
@@ -141,19 +217,28 @@ func (s *SimpleQueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "query":
-			if err := dec.Decode(&s.Query); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Query = o
 
 		case "_name":
-			if err := dec.Decode(&s.QueryName_); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.QueryName_ = &o
 
 		case "quote_field_suffix":
-			if err := dec.Decode(&s.QuoteFieldSuffix); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.QuoteFieldSuffix = &o
 
 		}
 	}

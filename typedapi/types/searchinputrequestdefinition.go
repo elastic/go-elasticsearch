@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/searchtype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // SearchInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Input.ts#L118-L125
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/watcher/_types/Input.ts#L118-L125
 type SearchInputRequestDefinition struct {
 	Body               *SearchInputRequestBody    `json:"body,omitempty"`
 	Indices            []string                   `json:"indices,omitempty"`
@@ -34,6 +42,65 @@ type SearchInputRequestDefinition struct {
 	RestTotalHitsAsInt *bool                      `json:"rest_total_hits_as_int,omitempty"`
 	SearchType         *searchtype.SearchType     `json:"search_type,omitempty"`
 	Template           *SearchTemplateRequestBody `json:"template,omitempty"`
+}
+
+func (s *SearchInputRequestDefinition) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "body":
+			if err := dec.Decode(&s.Body); err != nil {
+				return err
+			}
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "indices_options":
+			if err := dec.Decode(&s.IndicesOptions); err != nil {
+				return err
+			}
+
+		case "rest_total_hits_as_int":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.RestTotalHitsAsInt = &value
+			case bool:
+				s.RestTotalHitsAsInt = &v
+			}
+
+		case "search_type":
+			if err := dec.Decode(&s.SearchType); err != nil {
+				return err
+			}
+
+		case "template":
+			if err := dec.Decode(&s.Template); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSearchInputRequestDefinition returns a SearchInputRequestDefinition.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 // Retrieves Logstash Pipelines used by Central Management
 package getpipeline
@@ -99,6 +99,13 @@ func (r *GetPipeline) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
+	case r.paramSet == 0:
+		path.WriteString("/")
+		path.WriteString("_logstash")
+		path.WriteString("/")
+		path.WriteString("pipeline")
+
+		method = http.MethodGet
 	case r.paramSet == idMask:
 		path.WriteString("/")
 		path.WriteString("_logstash")
@@ -170,7 +177,6 @@ func (r GetPipeline) Do(ctx context.Context) (Response, error) {
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

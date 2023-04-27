@@ -16,19 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
-package deletepipeline
+package types
 
-// Response holds the response body struct for the package deletepipeline
+// MasterIsStableIndicatorExceptionFetchingHistory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/logstash/delete_pipeline/LogstashDeletePipelineResponse.ts#L22-L24
-
-type Response struct {
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/health_report/types.ts#L93-L96
+type MasterIsStableIndicatorExceptionFetchingHistory struct {
+	Message    string `json:"message"`
+	StackTrace string `json:"stack_trace"`
 }
 
-// NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
+// NewMasterIsStableIndicatorExceptionFetchingHistory returns a MasterIsStableIndicatorExceptionFetchingHistory.
+func NewMasterIsStableIndicatorExceptionFetchingHistory() *MasterIsStableIndicatorExceptionFetchingHistory {
+	r := &MasterIsStableIndicatorExceptionFetchingHistory{}
+
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -25,12 +25,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // AnalysisConfigRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Analysis.ts#L79-L91
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Analysis.ts#L79-L91
 type AnalysisConfigRead struct {
 	// BucketSpan The size of the interval that the analysis is aggregated into, typically
 	// between `5m` and `1h`. This value should be either a whole number of days or
@@ -113,6 +115,7 @@ type AnalysisConfigRead struct {
 }
 
 func (s *AnalysisConfigRead) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -132,6 +135,7 @@ func (s *AnalysisConfigRead) UnmarshalJSON(data []byte) error {
 			}
 
 		case "categorization_analyzer":
+
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			source := bytes.NewReader(rawMsg)
@@ -181,8 +185,17 @@ func (s *AnalysisConfigRead) UnmarshalJSON(data []byte) error {
 			}
 
 		case "multivariate_by_fields":
-			if err := dec.Decode(&s.MultivariateByFields); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.MultivariateByFields = &value
+			case bool:
+				s.MultivariateByFields = &v
 			}
 
 		case "per_partition_categorization":

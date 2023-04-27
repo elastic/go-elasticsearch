@@ -16,18 +16,88 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ExploreControls type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/graph/_types/ExploreControls.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/graph/_types/ExploreControls.ts#L24-L29
 type ExploreControls struct {
 	SampleDiversity *SampleDiversity `json:"sample_diversity,omitempty"`
 	SampleSize      *int             `json:"sample_size,omitempty"`
 	Timeout         Duration         `json:"timeout,omitempty"`
 	UseSignificance bool             `json:"use_significance"`
+}
+
+func (s *ExploreControls) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "sample_diversity":
+			if err := dec.Decode(&s.SampleDiversity); err != nil {
+				return err
+			}
+
+		case "sample_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.SampleSize = &value
+			case float64:
+				f := int(v)
+				s.SampleSize = &f
+			}
+
+		case "timeout":
+			if err := dec.Decode(&s.Timeout); err != nil {
+				return err
+			}
+
+		case "use_significance":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.UseSignificance = value
+			case bool:
+				s.UseSignificance = v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewExploreControls returns a ExploreControls.

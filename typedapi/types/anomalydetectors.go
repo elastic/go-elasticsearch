@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -25,12 +25,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // AnomalyDetectors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/info/types.ts#L44-L50
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/info/types.ts#L44-L50
 type AnomalyDetectors struct {
 	CategorizationAnalyzer               CategorizationAnalyzer `json:"categorization_analyzer"`
 	CategorizationExamplesLimit          int                    `json:"categorization_examples_limit"`
@@ -40,6 +42,7 @@ type AnomalyDetectors struct {
 }
 
 func (s *AnomalyDetectors) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -54,6 +57,7 @@ func (s *AnomalyDetectors) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "categorization_analyzer":
+
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			source := bytes.NewReader(rawMsg)
@@ -73,23 +77,59 @@ func (s *AnomalyDetectors) UnmarshalJSON(data []byte) error {
 			}
 
 		case "categorization_examples_limit":
-			if err := dec.Decode(&s.CategorizationExamplesLimit); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.CategorizationExamplesLimit = value
+			case float64:
+				f := int(v)
+				s.CategorizationExamplesLimit = f
 			}
 
 		case "daily_model_snapshot_retention_after_days":
-			if err := dec.Decode(&s.DailyModelSnapshotRetentionAfterDays); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DailyModelSnapshotRetentionAfterDays = value
+			case float64:
+				f := int(v)
+				s.DailyModelSnapshotRetentionAfterDays = f
 			}
 
 		case "model_memory_limit":
-			if err := dec.Decode(&s.ModelMemoryLimit); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.ModelMemoryLimit = o
 
 		case "model_snapshot_retention_days":
-			if err := dec.Decode(&s.ModelSnapshotRetentionDays); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ModelSnapshotRetentionDays = value
+			case float64:
+				f := int(v)
+				s.ModelSnapshotRetentionDays = f
 			}
 
 		}

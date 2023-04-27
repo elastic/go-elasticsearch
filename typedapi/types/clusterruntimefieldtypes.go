@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ClusterRuntimeFieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L116-L131
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/stats/types.ts#L116-L131
 type ClusterRuntimeFieldTypes struct {
 	CharsMax        int      `json:"chars_max"`
 	CharsTotal      int      `json:"chars_total"`
@@ -38,6 +48,228 @@ type ClusterRuntimeFieldTypes struct {
 	ShadowedCount   int      `json:"shadowed_count"`
 	SourceMax       int      `json:"source_max"`
 	SourceTotal     int      `json:"source_total"`
+}
+
+func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "chars_max":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.CharsMax = value
+			case float64:
+				f := int(v)
+				s.CharsMax = f
+			}
+
+		case "chars_total":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.CharsTotal = value
+			case float64:
+				f := int(v)
+				s.CharsTotal = f
+			}
+
+		case "count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Count = value
+			case float64:
+				f := int(v)
+				s.Count = f
+			}
+
+		case "doc_max":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DocMax = value
+			case float64:
+				f := int(v)
+				s.DocMax = f
+			}
+
+		case "doc_total":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DocTotal = value
+			case float64:
+				f := int(v)
+				s.DocTotal = f
+			}
+
+		case "index_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.IndexCount = value
+			case float64:
+				f := int(v)
+				s.IndexCount = f
+			}
+
+		case "lang":
+			if err := dec.Decode(&s.Lang); err != nil {
+				return err
+			}
+
+		case "lines_max":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.LinesMax = value
+			case float64:
+				f := int(v)
+				s.LinesMax = f
+			}
+
+		case "lines_total":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.LinesTotal = value
+			case float64:
+				f := int(v)
+				s.LinesTotal = f
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "scriptless_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ScriptlessCount = value
+			case float64:
+				f := int(v)
+				s.ScriptlessCount = f
+			}
+
+		case "shadowed_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ShadowedCount = value
+			case float64:
+				f := int(v)
+				s.ShadowedCount = f
+			}
+
+		case "source_max":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.SourceMax = value
+			case float64:
+				f := int(v)
+				s.SourceMax = f
+			}
+
+		case "source_total":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.SourceTotal = value
+			case float64:
+				f := int(v)
+				s.SourceTotal = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewClusterRuntimeFieldTypes returns a ClusterRuntimeFieldTypes.

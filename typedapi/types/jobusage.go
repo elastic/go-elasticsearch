@@ -16,19 +16,88 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // JobUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/xpack/usage/types.ts#L355-L361
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/xpack/usage/types.ts#L355-L361
 type JobUsage struct {
 	Count     int              `json:"count"`
 	CreatedBy map[string]int64 `json:"created_by"`
 	Detectors JobStatistics    `json:"detectors"`
 	Forecasts MlJobForecasts   `json:"forecasts"`
 	ModelSize JobStatistics    `json:"model_size"`
+}
+
+func (s *JobUsage) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Count = value
+			case float64:
+				f := int(v)
+				s.Count = f
+			}
+
+		case "created_by":
+			if s.CreatedBy == nil {
+				s.CreatedBy = make(map[string]int64, 0)
+			}
+			if err := dec.Decode(&s.CreatedBy); err != nil {
+				return err
+			}
+
+		case "detectors":
+			if err := dec.Decode(&s.Detectors); err != nil {
+				return err
+			}
+
+		case "forecasts":
+			if err := dec.Decode(&s.Forecasts); err != nil {
+				return err
+			}
+
+		case "model_size":
+			if err := dec.Decode(&s.ModelSize); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewJobUsage returns a JobUsage.

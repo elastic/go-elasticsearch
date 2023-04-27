@@ -16,27 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package hasprivileges
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
+
 // Response holds the response body struct for the package hasprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/has_privileges/SecurityHasPrivilegesResponse.ts#L24-L32
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/has_privileges/SecurityHasPrivilegesResponse.ts#L24-L32
 
 type Response struct {
-	Application     map[string]map[string]map[string]bool `json:"application"`
-	Cluster         map[string]bool                       `json:"cluster"`
-	HasAllRequested bool                                  `json:"has_all_requested"`
-	Index           map[string]map[string]bool            `json:"index"`
-	Username        string                                `json:"username"`
+	Application     types.ApplicationsPrivileges `json:"application"`
+	Cluster         map[string]bool              `json:"cluster"`
+	HasAllRequested bool                         `json:"has_all_requested"`
+	Index           map[string]types.Privileges  `json:"index"`
+	Username        string                       `json:"username"`
 }
 
 // NewResponse returns a Response
 func NewResponse() *Response {
 	r := &Response{
 		Cluster: make(map[string]bool, 0),
-		Index:   make(map[string]map[string]bool, 0),
+		Index:   make(map[string]types.Privileges, 0),
 	}
 	return r
 }

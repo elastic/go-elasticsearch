@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ClusterNodeCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L183-L199
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/stats/types.ts#L183-L199
 type ClusterNodeCount struct {
 	CoordinatingOnly    int  `json:"coordinating_only"`
 	Data                int  `json:"data"`
@@ -38,6 +48,250 @@ type ClusterNodeCount struct {
 	Total               int  `json:"total"`
 	Transform           int  `json:"transform"`
 	VotingOnly          int  `json:"voting_only"`
+}
+
+func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "coordinating_only":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.CoordinatingOnly = value
+			case float64:
+				f := int(v)
+				s.CoordinatingOnly = f
+			}
+
+		case "data":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Data = value
+			case float64:
+				f := int(v)
+				s.Data = f
+			}
+
+		case "data_cold":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DataCold = value
+			case float64:
+				f := int(v)
+				s.DataCold = f
+			}
+
+		case "data_content":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DataContent = value
+			case float64:
+				f := int(v)
+				s.DataContent = f
+			}
+
+		case "data_frozen":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DataFrozen = &value
+			case float64:
+				f := int(v)
+				s.DataFrozen = &f
+			}
+
+		case "data_hot":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DataHot = value
+			case float64:
+				f := int(v)
+				s.DataHot = f
+			}
+
+		case "data_warm":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DataWarm = value
+			case float64:
+				f := int(v)
+				s.DataWarm = f
+			}
+
+		case "ingest":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Ingest = value
+			case float64:
+				f := int(v)
+				s.Ingest = f
+			}
+
+		case "master":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Master = value
+			case float64:
+				f := int(v)
+				s.Master = f
+			}
+
+		case "ml":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Ml = value
+			case float64:
+				f := int(v)
+				s.Ml = f
+			}
+
+		case "remote_cluster_client":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.RemoteClusterClient = value
+			case float64:
+				f := int(v)
+				s.RemoteClusterClient = f
+			}
+
+		case "total":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Total = value
+			case float64:
+				f := int(v)
+				s.Total = f
+			}
+
+		case "transform":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Transform = value
+			case float64:
+				f := int(v)
+				s.Transform = f
+			}
+
+		case "voting_only":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.VotingOnly = value
+			case float64:
+				f := int(v)
+				s.VotingOnly = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewClusterNodeCount returns a ClusterNodeCount.

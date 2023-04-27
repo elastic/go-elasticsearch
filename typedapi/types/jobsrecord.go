@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -24,11 +24,17 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/categorizationstatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jobstate"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/memorystatus"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // JobsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/ml_jobs/types.ts#L24-L325
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/ml_jobs/types.ts#L24-L325
 type JobsRecord struct {
 	// AssignmentExplanation why the job is or is not assigned to a node
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
@@ -150,6 +156,479 @@ type JobsRecord struct {
 	OpenedTime *string `json:"opened_time,omitempty"`
 	// State the job state
 	State *jobstate.JobState `json:"state,omitempty"`
+}
+
+func (s *JobsRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "assignment_explanation", "ae":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.AssignmentExplanation = &o
+
+		case "buckets.count", "bc", "bucketsCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BucketsCount = &o
+
+		case "buckets.time.exp_avg", "btea", "bucketsTimeExpAvg":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BucketsTimeExpAvg = &o
+
+		case "buckets.time.exp_avg_hour", "bteah", "bucketsTimeExpAvgHour":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BucketsTimeExpAvgHour = &o
+
+		case "buckets.time.max", "btmax", "bucketsTimeMax":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BucketsTimeMax = &o
+
+		case "buckets.time.min", "btmin", "bucketsTimeMin":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BucketsTimeMin = &o
+
+		case "buckets.time.total", "btt", "bucketsTimeTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BucketsTimeTotal = &o
+
+		case "data.buckets", "db", "dataBuckets":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataBuckets = &o
+
+		case "data.earliest_record", "der", "dataEarliestRecord":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataEarliestRecord = &o
+
+		case "data.empty_buckets", "deb", "dataEmptyBuckets":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataEmptyBuckets = &o
+
+		case "data.input_bytes", "dib", "dataInputBytes":
+			if err := dec.Decode(&s.DataInputBytes); err != nil {
+				return err
+			}
+
+		case "data.input_fields", "dif", "dataInputFields":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataInputFields = &o
+
+		case "data.input_records", "dir", "dataInputRecords":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataInputRecords = &o
+
+		case "data.invalid_dates", "did", "dataInvalidDates":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataInvalidDates = &o
+
+		case "data.last", "dl", "dataLast":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataLast = &o
+
+		case "data.last_empty_bucket", "dleb", "dataLastEmptyBucket":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataLastEmptyBucket = &o
+
+		case "data.last_sparse_bucket", "dlsb", "dataLastSparseBucket":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataLastSparseBucket = &o
+
+		case "data.latest_record", "dlr", "dataLatestRecord":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataLatestRecord = &o
+
+		case "data.missing_fields", "dmf", "dataMissingFields":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataMissingFields = &o
+
+		case "data.out_of_order_timestamps", "doot", "dataOutOfOrderTimestamps":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataOutOfOrderTimestamps = &o
+
+		case "data.processed_fields", "dpf", "dataProcessedFields":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataProcessedFields = &o
+
+		case "data.processed_records", "dpr", "dataProcessedRecords":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataProcessedRecords = &o
+
+		case "data.sparse_buckets", "dsb", "dataSparseBuckets":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataSparseBuckets = &o
+
+		case "forecasts.memory.avg", "fmavg", "forecastsMemoryAvg":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsMemoryAvg = &o
+
+		case "forecasts.memory.max", "fmmax", "forecastsMemoryMax":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsMemoryMax = &o
+
+		case "forecasts.memory.min", "fmmin", "forecastsMemoryMin":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsMemoryMin = &o
+
+		case "forecasts.memory.total", "fmt", "forecastsMemoryTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsMemoryTotal = &o
+
+		case "forecasts.records.avg", "fravg", "forecastsRecordsAvg":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsRecordsAvg = &o
+
+		case "forecasts.records.max", "frmax", "forecastsRecordsMax":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsRecordsMax = &o
+
+		case "forecasts.records.min", "frmin", "forecastsRecordsMin":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsRecordsMin = &o
+
+		case "forecasts.records.total", "frt", "forecastsRecordsTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsRecordsTotal = &o
+
+		case "forecasts.time.avg", "ftavg", "forecastsTimeAvg":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsTimeAvg = &o
+
+		case "forecasts.time.max", "ftmax", "forecastsTimeMax":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsTimeMax = &o
+
+		case "forecasts.time.min", "ftmin", "forecastsTimeMin":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsTimeMin = &o
+
+		case "forecasts.time.total", "ftt", "forecastsTimeTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsTimeTotal = &o
+
+		case "forecasts.total", "ft", "forecastsTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ForecastsTotal = &o
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "model.bucket_allocation_failures", "mbaf", "modelBucketAllocationFailures":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelBucketAllocationFailures = &o
+
+		case "model.by_fields", "mbf", "modelByFields":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelByFields = &o
+
+		case "model.bytes", "mb", "modelBytes":
+			if err := dec.Decode(&s.ModelBytes); err != nil {
+				return err
+			}
+
+		case "model.bytes_exceeded", "mbe", "modelBytesExceeded":
+			if err := dec.Decode(&s.ModelBytesExceeded); err != nil {
+				return err
+			}
+
+		case "model.categorization_status", "mcs", "modelCategorizationStatus":
+			if err := dec.Decode(&s.ModelCategorizationStatus); err != nil {
+				return err
+			}
+
+		case "model.categorized_doc_count", "mcdc", "modelCategorizedDocCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelCategorizedDocCount = &o
+
+		case "model.dead_category_count", "mdcc", "modelDeadCategoryCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelDeadCategoryCount = &o
+
+		case "model.failed_category_count", "mfcc", "modelFailedCategoryCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelFailedCategoryCount = &o
+
+		case "model.frequent_category_count", "modelFrequentCategoryCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelFrequentCategoryCount = &o
+
+		case "model.log_time", "mlt", "modelLogTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelLogTime = &o
+
+		case "model.memory_limit", "mml", "modelMemoryLimit":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelMemoryLimit = &o
+
+		case "model.memory_status", "mms", "modelMemoryStatus":
+			if err := dec.Decode(&s.ModelMemoryStatus); err != nil {
+				return err
+			}
+
+		case "model.over_fields", "mof", "modelOverFields":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelOverFields = &o
+
+		case "model.partition_fields", "mpf", "modelPartitionFields":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelPartitionFields = &o
+
+		case "model.rare_category_count", "mrcc", "modelRareCategoryCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelRareCategoryCount = &o
+
+		case "model.timestamp", "mt", "modelTimestamp":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelTimestamp = &o
+
+		case "model.total_category_count", "mtcc", "modelTotalCategoryCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelTotalCategoryCount = &o
+
+		case "node.address", "na", "nodeAddress":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.NodeAddress = &o
+
+		case "node.ephemeral_id", "ne", "nodeEphemeralId":
+			if err := dec.Decode(&s.NodeEphemeralId); err != nil {
+				return err
+			}
+
+		case "node.id", "ni", "nodeId":
+			if err := dec.Decode(&s.NodeId); err != nil {
+				return err
+			}
+
+		case "node.name", "nn", "nodeName":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.NodeName = &o
+
+		case "opened_time", "ot":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.OpenedTime = &o
+
+		case "state", "s":
+			if err := dec.Decode(&s.State); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewJobsRecord returns a JobsRecord.

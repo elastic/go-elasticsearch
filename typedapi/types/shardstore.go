@@ -16,25 +16,75 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shardstoreallocation"
 
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // ShardStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/shard_stores/types.ts#L30-L34
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/shard_stores/types.ts#L30-L34
 type ShardStore struct {
 	Allocation     shardstoreallocation.ShardStoreAllocation `json:"allocation"`
 	AllocationId   *string                                   `json:"allocation_id,omitempty"`
-	ShardStore     map[string]ShardStoreNode                 `json:"-"`
+	ShardStore     map[string]ShardStoreNode                 `json:"ShardStore,omitempty"`
 	StoreException *ShardStoreException                      `json:"store_exception,omitempty"`
+}
+
+func (s *ShardStore) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allocation":
+			if err := dec.Decode(&s.Allocation); err != nil {
+				return err
+			}
+
+		case "allocation_id":
+			if err := dec.Decode(&s.AllocationId); err != nil {
+				return err
+			}
+
+		case "ShardStore":
+			if s.ShardStore == nil {
+				s.ShardStore = make(map[string]ShardStoreNode, 0)
+			}
+			if err := dec.Decode(&s.ShardStore); err != nil {
+				return err
+			}
+
+		case "store_exception":
+			if err := dec.Decode(&s.StoreException); err != nil {
+				return err
+			}
+
+		default:
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -56,6 +106,7 @@ func (s ShardStore) MarshalJSON() ([]byte, error) {
 	for key, value := range s.ShardStore {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "ShardStore")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

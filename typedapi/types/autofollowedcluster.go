@@ -16,17 +16,60 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // AutoFollowedCluster type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ccr/stats/types.ts.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ccr/stats/types.ts.ts#L27-L31
 type AutoFollowedCluster struct {
 	ClusterName              string `json:"cluster_name"`
 	LastSeenMetadataVersion  int64  `json:"last_seen_metadata_version"`
 	TimeSinceLastCheckMillis int64  `json:"time_since_last_check_millis"`
+}
+
+func (s *AutoFollowedCluster) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "cluster_name":
+			if err := dec.Decode(&s.ClusterName); err != nil {
+				return err
+			}
+
+		case "last_seen_metadata_version":
+			if err := dec.Decode(&s.LastSeenMetadataVersion); err != nil {
+				return err
+			}
+
+		case "time_since_last_check_millis":
+			if err := dec.Decode(&s.TimeSinceLastCheckMillis); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewAutoFollowedCluster returns a AutoFollowedCluster.

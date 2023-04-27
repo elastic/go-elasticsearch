@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // SearchStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Stats.ts#L185-L204
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/Stats.ts#L185-L204
 type SearchStats struct {
 	FetchCurrent        int64                  `json:"fetch_current"`
 	FetchTime           Duration               `json:"fetch_time,omitempty"`
@@ -42,6 +52,209 @@ type SearchStats struct {
 	SuggestTime         Duration               `json:"suggest_time,omitempty"`
 	SuggestTimeInMillis int64                  `json:"suggest_time_in_millis"`
 	SuggestTotal        int64                  `json:"suggest_total"`
+}
+
+func (s *SearchStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "fetch_current":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.FetchCurrent = value
+			case float64:
+				f := int64(v)
+				s.FetchCurrent = f
+			}
+
+		case "fetch_time":
+			if err := dec.Decode(&s.FetchTime); err != nil {
+				return err
+			}
+
+		case "fetch_time_in_millis":
+			if err := dec.Decode(&s.FetchTimeInMillis); err != nil {
+				return err
+			}
+
+		case "fetch_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.FetchTotal = value
+			case float64:
+				f := int64(v)
+				s.FetchTotal = f
+			}
+
+		case "groups":
+			if s.Groups == nil {
+				s.Groups = make(map[string]SearchStats, 0)
+			}
+			if err := dec.Decode(&s.Groups); err != nil {
+				return err
+			}
+
+		case "open_contexts":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.OpenContexts = &value
+			case float64:
+				f := int64(v)
+				s.OpenContexts = &f
+			}
+
+		case "query_current":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.QueryCurrent = value
+			case float64:
+				f := int64(v)
+				s.QueryCurrent = f
+			}
+
+		case "query_time":
+			if err := dec.Decode(&s.QueryTime); err != nil {
+				return err
+			}
+
+		case "query_time_in_millis":
+			if err := dec.Decode(&s.QueryTimeInMillis); err != nil {
+				return err
+			}
+
+		case "query_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.QueryTotal = value
+			case float64:
+				f := int64(v)
+				s.QueryTotal = f
+			}
+
+		case "scroll_current":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ScrollCurrent = value
+			case float64:
+				f := int64(v)
+				s.ScrollCurrent = f
+			}
+
+		case "scroll_time":
+			if err := dec.Decode(&s.ScrollTime); err != nil {
+				return err
+			}
+
+		case "scroll_time_in_millis":
+			if err := dec.Decode(&s.ScrollTimeInMillis); err != nil {
+				return err
+			}
+
+		case "scroll_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ScrollTotal = value
+			case float64:
+				f := int64(v)
+				s.ScrollTotal = f
+			}
+
+		case "suggest_current":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SuggestCurrent = value
+			case float64:
+				f := int64(v)
+				s.SuggestCurrent = f
+			}
+
+		case "suggest_time":
+			if err := dec.Decode(&s.SuggestTime); err != nil {
+				return err
+			}
+
+		case "suggest_time_in_millis":
+			if err := dec.Decode(&s.SuggestTimeInMillis); err != nil {
+				return err
+			}
+
+		case "suggest_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SuggestTotal = value
+			case float64:
+				f := int64(v)
+				s.SuggestTotal = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSearchStats returns a SearchStats.

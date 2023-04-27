@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/decision"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // NodeAllocationExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/allocation_explain/types.ts#L97-L106
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/allocation_explain/types.ts#L97-L106
 type NodeAllocationExplanation struct {
 	Deciders         []AllocationDecision `json:"deciders"`
 	NodeAttributes   map[string]string    `json:"node_attributes"`
@@ -36,6 +44,80 @@ type NodeAllocationExplanation struct {
 	Store            *AllocationStore     `json:"store,omitempty"`
 	TransportAddress string               `json:"transport_address"`
 	WeightRanking    int                  `json:"weight_ranking"`
+}
+
+func (s *NodeAllocationExplanation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "deciders":
+			if err := dec.Decode(&s.Deciders); err != nil {
+				return err
+			}
+
+		case "node_attributes":
+			if s.NodeAttributes == nil {
+				s.NodeAttributes = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.NodeAttributes); err != nil {
+				return err
+			}
+
+		case "node_decision":
+			if err := dec.Decode(&s.NodeDecision); err != nil {
+				return err
+			}
+
+		case "node_id":
+			if err := dec.Decode(&s.NodeId); err != nil {
+				return err
+			}
+
+		case "node_name":
+			if err := dec.Decode(&s.NodeName); err != nil {
+				return err
+			}
+
+		case "store":
+			if err := dec.Decode(&s.Store); err != nil {
+				return err
+			}
+
+		case "transport_address":
+			if err := dec.Decode(&s.TransportAddress); err != nil {
+				return err
+			}
+
+		case "weight_ranking":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.WeightRanking = value
+			case float64:
+				f := int(v)
+				s.WeightRanking = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeAllocationExplanation returns a NodeAllocationExplanation.

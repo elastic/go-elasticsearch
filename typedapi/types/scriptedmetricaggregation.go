@@ -16,17 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // ScriptedMetricAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/metric.ts#L137-L143
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/metric.ts#L137-L143
 type ScriptedMetricAggregation struct {
 	CombineScript Script                     `json:"combine_script,omitempty"`
 	Field         *string                    `json:"field,omitempty"`
@@ -36,6 +40,69 @@ type ScriptedMetricAggregation struct {
 	Params        map[string]json.RawMessage `json:"params,omitempty"`
 	ReduceScript  Script                     `json:"reduce_script,omitempty"`
 	Script        Script                     `json:"script,omitempty"`
+}
+
+func (s *ScriptedMetricAggregation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "combine_script":
+			if err := dec.Decode(&s.CombineScript); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "init_script":
+			if err := dec.Decode(&s.InitScript); err != nil {
+				return err
+			}
+
+		case "map_script":
+			if err := dec.Decode(&s.MapScript); err != nil {
+				return err
+			}
+
+		case "missing":
+			if err := dec.Decode(&s.Missing); err != nil {
+				return err
+			}
+
+		case "params":
+			if s.Params == nil {
+				s.Params = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Params); err != nil {
+				return err
+			}
+
+		case "reduce_script":
+			if err := dec.Decode(&s.ReduceScript); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewScriptedMetricAggregation returns a ScriptedMetricAggregation.

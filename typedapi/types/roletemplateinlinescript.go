@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // RoleTemplateInlineScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/_types/Privileges.ts#L152-L157
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/_types/Privileges.ts#L153-L158
 type RoleTemplateInlineScript struct {
 	Lang    *scriptlanguage.ScriptLanguage `json:"lang,omitempty"`
 	Options map[string]string              `json:"options,omitempty"`
@@ -41,6 +41,12 @@ type RoleTemplateInlineScript struct {
 }
 
 func (s *RoleTemplateInlineScript) UnmarshalJSON(data []byte) error {
+
+	if !bytes.HasPrefix(data, []byte(`{`)) {
+		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Source)
+		return err
+	}
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -60,16 +66,23 @@ func (s *RoleTemplateInlineScript) UnmarshalJSON(data []byte) error {
 			}
 
 		case "options":
+			if s.Options == nil {
+				s.Options = make(map[string]string, 0)
+			}
 			if err := dec.Decode(&s.Options); err != nil {
 				return err
 			}
 
 		case "params":
+			if s.Params == nil {
+				s.Params = make(map[string]json.RawMessage, 0)
+			}
 			if err := dec.Decode(&s.Params); err != nil {
 				return err
 			}
 
 		case "source":
+
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			source := bytes.NewReader(rawMsg)

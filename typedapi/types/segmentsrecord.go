@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // SegmentsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/segments/types.ts#L22-L96
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/segments/types.ts#L22-L96
 type SegmentsRecord struct {
 	// Committed is segment committed
 	Committed *string `json:"committed,omitempty"`
@@ -54,6 +62,131 @@ type SegmentsRecord struct {
 	SizeMemory ByteSize `json:"size.memory,omitempty"`
 	// Version version
 	Version *string `json:"version,omitempty"`
+}
+
+func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "committed", "ic", "isCommitted":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Committed = &o
+
+		case "compound", "ico", "isCompound":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Compound = &o
+
+		case "docs.count", "dc", "docsCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DocsCount = &o
+
+		case "docs.deleted", "dd", "docsDeleted":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DocsDeleted = &o
+
+		case "generation", "g", "gen":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Generation = &o
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "index", "i", "idx":
+			if err := dec.Decode(&s.Index); err != nil {
+				return err
+			}
+
+		case "ip":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Ip = &o
+
+		case "prirep", "p", "pr", "primaryOrReplica":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Prirep = &o
+
+		case "searchable", "is", "isSearchable":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Searchable = &o
+
+		case "segment", "seg":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Segment = &o
+
+		case "shard", "s", "sh":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Shard = &o
+
+		case "size", "si":
+			if err := dec.Decode(&s.Size); err != nil {
+				return err
+			}
+
+		case "size.memory", "sm", "sizeMemory":
+			if err := dec.Decode(&s.SizeMemory); err != nil {
+				return err
+			}
+
+		case "version", "v":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSegmentsRecord returns a SegmentsRecord.

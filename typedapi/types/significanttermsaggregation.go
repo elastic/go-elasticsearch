@@ -16,19 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/termsaggregationexecutionhint"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // SignificantTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/bucket.ts#L342-L358
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/bucket.ts#L342-L358
 type SignificantTermsAggregation struct {
 	BackgroundFilter  *Query                                                       `json:"background_filter,omitempty"`
 	ChiSquare         *ChiSquareHeuristic                                          `json:"chi_square,omitempty"`
@@ -38,7 +44,7 @@ type SignificantTermsAggregation struct {
 	Gnd               *GoogleNormalizedDistanceHeuristic                           `json:"gnd,omitempty"`
 	Include           TermsInclude                                                 `json:"include,omitempty"`
 	Jlh               *EmptyObject                                                 `json:"jlh,omitempty"`
-	Meta              map[string]json.RawMessage                                   `json:"meta,omitempty"`
+	Meta              Metadata                                                     `json:"meta,omitempty"`
 	MinDocCount       *int64                                                       `json:"min_doc_count,omitempty"`
 	MutualInformation *MutualInformationHeuristic                                  `json:"mutual_information,omitempty"`
 	Name              *string                                                      `json:"name,omitempty"`
@@ -47,6 +53,167 @@ type SignificantTermsAggregation struct {
 	ShardMinDocCount  *int64                                                       `json:"shard_min_doc_count,omitempty"`
 	ShardSize         *int                                                         `json:"shard_size,omitempty"`
 	Size              *int                                                         `json:"size,omitempty"`
+}
+
+func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "background_filter":
+			if err := dec.Decode(&s.BackgroundFilter); err != nil {
+				return err
+			}
+
+		case "chi_square":
+			if err := dec.Decode(&s.ChiSquare); err != nil {
+				return err
+			}
+
+		case "exclude":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.Exclude = append(s.Exclude, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Exclude); err != nil {
+					return err
+				}
+			}
+
+		case "execution_hint":
+			if err := dec.Decode(&s.ExecutionHint); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "gnd":
+			if err := dec.Decode(&s.Gnd); err != nil {
+				return err
+			}
+
+		case "include":
+			if err := dec.Decode(&s.Include); err != nil {
+				return err
+			}
+
+		case "jlh":
+			if err := dec.Decode(&s.Jlh); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "min_doc_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MinDocCount = &value
+			case float64:
+				f := int64(v)
+				s.MinDocCount = &f
+			}
+
+		case "mutual_information":
+			if err := dec.Decode(&s.MutualInformation); err != nil {
+				return err
+			}
+
+		case "name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Name = &o
+
+		case "percentage":
+			if err := dec.Decode(&s.Percentage); err != nil {
+				return err
+			}
+
+		case "script_heuristic":
+			if err := dec.Decode(&s.ScriptHeuristic); err != nil {
+				return err
+			}
+
+		case "shard_min_doc_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ShardMinDocCount = &value
+			case float64:
+				f := int64(v)
+				s.ShardMinDocCount = &f
+			}
+
+		case "shard_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ShardSize = &value
+			case float64:
+				f := int(v)
+				s.ShardSize = &f
+			}
+
+		case "size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Size = &value
+			case float64:
+				f := int(v)
+				s.Size = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSignificantTermsAggregation returns a SignificantTermsAggregation.

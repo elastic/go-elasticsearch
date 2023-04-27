@@ -16,17 +16,69 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // FrequencyEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/put_trained_model/types.ts#L38-L42
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/put_trained_model/types.ts#L38-L42
 type FrequencyEncodingPreprocessor struct {
 	FeatureName  string             `json:"feature_name"`
 	Field        string             `json:"field"`
 	FrequencyMap map[string]Float64 `json:"frequency_map"`
+}
+
+func (s *FrequencyEncodingPreprocessor) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "feature_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FeatureName = o
+
+		case "field":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Field = o
+
+		case "frequency_map":
+			if s.FrequencyMap == nil {
+				s.FrequencyMap = make(map[string]Float64, 0)
+			}
+			if err := dec.Decode(&s.FrequencyMap); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewFrequencyEncodingPreprocessor returns a FrequencyEncodingPreprocessor.

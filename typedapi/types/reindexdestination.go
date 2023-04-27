@@ -16,24 +16,78 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/optype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // ReindexDestination type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/reindex/types.ts#L39-L45
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/reindex/types.ts#L39-L45
 type ReindexDestination struct {
 	Index       string                   `json:"index"`
 	OpType      *optype.OpType           `json:"op_type,omitempty"`
 	Pipeline    *string                  `json:"pipeline,omitempty"`
 	Routing     *string                  `json:"routing,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
+}
+
+func (s *ReindexDestination) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "index":
+			if err := dec.Decode(&s.Index); err != nil {
+				return err
+			}
+
+		case "op_type":
+			if err := dec.Decode(&s.OpType); err != nil {
+				return err
+			}
+
+		case "pipeline":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Pipeline = &o
+
+		case "routing":
+			if err := dec.Decode(&s.Routing); err != nil {
+				return err
+			}
+
+		case "version_type":
+			if err := dec.Decode(&s.VersionType); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewReindexDestination returns a ReindexDestination.

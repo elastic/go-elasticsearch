@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package putdatafeed
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L171
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L171
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches.
@@ -64,8 +64,8 @@ type Request struct {
 	// results. If the datafeed uses
 	// aggregations, this value must be divisible by the interval of the date
 	// histogram aggregation.
-	Frequency types.Duration      `json:"frequency,omitempty"`
-	Headers   map[string][]string `json:"headers,omitempty"`
+	Frequency types.Duration    `json:"frequency,omitempty"`
+	Headers   types.HttpHeaders `json:"headers,omitempty"`
 	// Indices An array of index names. Wildcards are supported. If any of the indices are
 	// in remote clusters, the machine
 	// learning nodes must have the `remote_cluster_client` role.
@@ -98,7 +98,7 @@ type Request struct {
 	// when there are multiple jobs running on the same node.
 	QueryDelay types.Duration `json:"query_delay,omitempty"`
 	// RuntimeMappings Specifies runtime fields for the datafeed search.
-	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
+	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
 	// to the datafeed.
 	// The detector configuration objects in a job can contain functions that use

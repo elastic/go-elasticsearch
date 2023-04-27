@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // GetStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Stats.ts#L88-L99
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/Stats.ts#L88-L99
 type GetStats struct {
 	Current             int64    `json:"current"`
 	ExistsTime          Duration `json:"exists_time,omitempty"`
@@ -34,6 +44,116 @@ type GetStats struct {
 	Time                Duration `json:"time,omitempty"`
 	TimeInMillis        int64    `json:"time_in_millis"`
 	Total               int64    `json:"total"`
+}
+
+func (s *GetStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "current":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Current = value
+			case float64:
+				f := int64(v)
+				s.Current = f
+			}
+
+		case "exists_time":
+			if err := dec.Decode(&s.ExistsTime); err != nil {
+				return err
+			}
+
+		case "exists_time_in_millis":
+			if err := dec.Decode(&s.ExistsTimeInMillis); err != nil {
+				return err
+			}
+
+		case "exists_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ExistsTotal = value
+			case float64:
+				f := int64(v)
+				s.ExistsTotal = f
+			}
+
+		case "missing_time":
+			if err := dec.Decode(&s.MissingTime); err != nil {
+				return err
+			}
+
+		case "missing_time_in_millis":
+			if err := dec.Decode(&s.MissingTimeInMillis); err != nil {
+				return err
+			}
+
+		case "missing_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MissingTotal = value
+			case float64:
+				f := int64(v)
+				s.MissingTotal = f
+			}
+
+		case "time":
+			if err := dec.Decode(&s.Time); err != nil {
+				return err
+			}
+
+		case "time_in_millis":
+			if err := dec.Decode(&s.TimeInMillis); err != nil {
+				return err
+			}
+
+		case "total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Total = value
+			case float64:
+				f := int64(v)
+				s.Total = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewGetStats returns a GetStats.

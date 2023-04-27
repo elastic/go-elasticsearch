@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ClusterRemoteSniffInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
 type ClusterRemoteSniffInfo struct {
 	Connected                bool     `json:"connected"`
 	InitialConnectTimeout    Duration `json:"initial_connect_timeout"`
@@ -31,6 +41,100 @@ type ClusterRemoteSniffInfo struct {
 	NumNodesConnected        int64    `json:"num_nodes_connected"`
 	Seeds                    []string `json:"seeds"`
 	SkipUnavailable          bool     `json:"skip_unavailable"`
+}
+
+func (s *ClusterRemoteSniffInfo) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "connected":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Connected = value
+			case bool:
+				s.Connected = v
+			}
+
+		case "initial_connect_timeout":
+			if err := dec.Decode(&s.InitialConnectTimeout); err != nil {
+				return err
+			}
+
+		case "max_connections_per_cluster":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxConnectionsPerCluster = value
+			case float64:
+				f := int(v)
+				s.MaxConnectionsPerCluster = f
+			}
+
+		case "mode":
+			if err := dec.Decode(&s.Mode); err != nil {
+				return err
+			}
+
+		case "num_nodes_connected":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NumNodesConnected = value
+			case float64:
+				f := int64(v)
+				s.NumNodesConnected = f
+			}
+
+		case "seeds":
+			if err := dec.Decode(&s.Seeds); err != nil {
+				return err
+			}
+
+		case "skip_unavailable":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.SkipUnavailable = value
+			case bool:
+				s.SkipUnavailable = v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewClusterRemoteSniffInfo returns a ClusterRemoteSniffInfo.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // QueryBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/profile.ts#L97-L116
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/search/_types/profile.ts#L97-L116
 type QueryBreakdown struct {
 	Advance                     int64 `json:"advance"`
 	AdvanceCount                int64 `json:"advance_count"`
@@ -42,6 +52,296 @@ type QueryBreakdown struct {
 	SetMinCompetitiveScoreCount int64 `json:"set_min_competitive_score_count"`
 	ShallowAdvance              int64 `json:"shallow_advance"`
 	ShallowAdvanceCount         int64 `json:"shallow_advance_count"`
+}
+
+func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "advance":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Advance = value
+			case float64:
+				f := int64(v)
+				s.Advance = f
+			}
+
+		case "advance_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.AdvanceCount = value
+			case float64:
+				f := int64(v)
+				s.AdvanceCount = f
+			}
+
+		case "build_scorer":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.BuildScorer = value
+			case float64:
+				f := int64(v)
+				s.BuildScorer = f
+			}
+
+		case "build_scorer_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.BuildScorerCount = value
+			case float64:
+				f := int64(v)
+				s.BuildScorerCount = f
+			}
+
+		case "compute_max_score":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ComputeMaxScore = value
+			case float64:
+				f := int64(v)
+				s.ComputeMaxScore = f
+			}
+
+		case "compute_max_score_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ComputeMaxScoreCount = value
+			case float64:
+				f := int64(v)
+				s.ComputeMaxScoreCount = f
+			}
+
+		case "create_weight":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CreateWeight = value
+			case float64:
+				f := int64(v)
+				s.CreateWeight = f
+			}
+
+		case "create_weight_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CreateWeightCount = value
+			case float64:
+				f := int64(v)
+				s.CreateWeightCount = f
+			}
+
+		case "match":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Match = value
+			case float64:
+				f := int64(v)
+				s.Match = f
+			}
+
+		case "match_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MatchCount = value
+			case float64:
+				f := int64(v)
+				s.MatchCount = f
+			}
+
+		case "next_doc":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NextDoc = value
+			case float64:
+				f := int64(v)
+				s.NextDoc = f
+			}
+
+		case "next_doc_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NextDocCount = value
+			case float64:
+				f := int64(v)
+				s.NextDocCount = f
+			}
+
+		case "score":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Score = value
+			case float64:
+				f := int64(v)
+				s.Score = f
+			}
+
+		case "score_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ScoreCount = value
+			case float64:
+				f := int64(v)
+				s.ScoreCount = f
+			}
+
+		case "set_min_competitive_score":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SetMinCompetitiveScore = value
+			case float64:
+				f := int64(v)
+				s.SetMinCompetitiveScore = f
+			}
+
+		case "set_min_competitive_score_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SetMinCompetitiveScoreCount = value
+			case float64:
+				f := int64(v)
+				s.SetMinCompetitiveScoreCount = f
+			}
+
+		case "shallow_advance":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ShallowAdvance = value
+			case float64:
+				f := int64(v)
+				s.ShallowAdvance = f
+			}
+
+		case "shallow_advance_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ShallowAdvanceCount = value
+			case float64:
+				f := int64(v)
+				s.ShallowAdvanceCount = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewQueryBreakdown returns a QueryBreakdown.

@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentstate"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/TrainedModel.ts#L62-L97
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/TrainedModel.ts#L62-L97
 type TrainedModelDeploymentStats struct {
 	// AllocationStatus The detailed allocation status for the deployment.
 	AllocationStatus TrainedModelDeploymentAllocationStatus `json:"allocation_status"`
@@ -60,6 +68,176 @@ type TrainedModelDeploymentStats struct {
 	ThreadsPerAllocation int `json:"threads_per_allocation"`
 	// TimeoutCount The sum of `timeout_count` for all nodes in the deployment.
 	TimeoutCount int `json:"timeout_count"`
+}
+
+func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allocation_status":
+			if err := dec.Decode(&s.AllocationStatus); err != nil {
+				return err
+			}
+
+		case "cache_size":
+			if err := dec.Decode(&s.CacheSize); err != nil {
+				return err
+			}
+
+		case "error_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ErrorCount = value
+			case float64:
+				f := int(v)
+				s.ErrorCount = f
+			}
+
+		case "inference_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.InferenceCount = value
+			case float64:
+				f := int(v)
+				s.InferenceCount = f
+			}
+
+		case "model_id":
+			if err := dec.Decode(&s.ModelId); err != nil {
+				return err
+			}
+
+		case "nodes":
+			if err := dec.Decode(&s.Nodes); err != nil {
+				return err
+			}
+
+		case "number_of_allocations":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NumberOfAllocations = value
+			case float64:
+				f := int(v)
+				s.NumberOfAllocations = f
+			}
+
+		case "queue_capacity":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.QueueCapacity = value
+			case float64:
+				f := int(v)
+				s.QueueCapacity = f
+			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Reason = o
+
+		case "rejected_execution_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.RejectedExecutionCount = value
+			case float64:
+				f := int(v)
+				s.RejectedExecutionCount = f
+			}
+
+		case "start_time":
+			if err := dec.Decode(&s.StartTime); err != nil {
+				return err
+			}
+
+		case "state":
+			if err := dec.Decode(&s.State); err != nil {
+				return err
+			}
+
+		case "threads_per_allocation":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ThreadsPerAllocation = value
+			case float64:
+				f := int(v)
+				s.ThreadsPerAllocation = f
+			}
+
+		case "timeout_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.TimeoutCount = value
+			case float64:
+				f := int(v)
+				s.TimeoutCount = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTrainedModelDeploymentStats returns a TrainedModelDeploymentStats.

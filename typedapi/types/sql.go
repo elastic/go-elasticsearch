@@ -16,18 +16,92 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Sql type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/xpack/usage/types.ts#L377-L380
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/xpack/usage/types.ts#L377-L380
 type Sql struct {
 	Available bool                  `json:"available"`
 	Enabled   bool                  `json:"enabled"`
 	Features  map[string]int        `json:"features"`
 	Queries   map[string]XpackQuery `json:"queries"`
+}
+
+func (s *Sql) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "available":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Available = value
+			case bool:
+				s.Available = v
+			}
+
+		case "enabled":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Enabled = value
+			case bool:
+				s.Enabled = v
+			}
+
+		case "features":
+			if s.Features == nil {
+				s.Features = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.Features); err != nil {
+				return err
+			}
+
+		case "queries":
+			if s.Queries == nil {
+				s.Queries = make(map[string]XpackQuery, 0)
+			}
+			if err := dec.Decode(&s.Queries); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSql returns a Sql.

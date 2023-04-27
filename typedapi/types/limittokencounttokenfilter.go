@@ -16,18 +16,77 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // LimitTokenCountTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/analysis/token_filters.ts#L248-L252
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/analysis/token_filters.ts#L249-L253
 type LimitTokenCountTokenFilter struct {
-	ConsumeAllTokens *bool   `json:"consume_all_tokens,omitempty"`
-	MaxTokenCount    *int    `json:"max_token_count,omitempty"`
-	Type             string  `json:"type,omitempty"`
-	Version          *string `json:"version,omitempty"`
+	ConsumeAllTokens *bool              `json:"consume_all_tokens,omitempty"`
+	MaxTokenCount    Stringifiedinteger `json:"max_token_count,omitempty"`
+	Type             string             `json:"type,omitempty"`
+	Version          *string            `json:"version,omitempty"`
+}
+
+func (s *LimitTokenCountTokenFilter) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "consume_all_tokens":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.ConsumeAllTokens = &value
+			case bool:
+				s.ConsumeAllTokens = &v
+			}
+
+		case "max_token_count":
+			if err := dec.Decode(&s.MaxTokenCount); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewLimitTokenCountTokenFilter returns a LimitTokenCountTokenFilter.

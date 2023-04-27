@@ -16,18 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/licensestatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/licensetype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // LicenseInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/license/get/types.ts#L25-L38
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/license/get/types.ts#L25-L38
 type LicenseInformation struct {
 	ExpiryDate         DateTime                    `json:"expiry_date,omitempty"`
 	ExpiryDateInMillis *int64                      `json:"expiry_date_in_millis,omitempty"`
@@ -41,6 +47,92 @@ type LicenseInformation struct {
 	Status             licensestatus.LicenseStatus `json:"status"`
 	Type               licensetype.LicenseType     `json:"type"`
 	Uid                string                      `json:"uid"`
+}
+
+func (s *LicenseInformation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "expiry_date":
+			if err := dec.Decode(&s.ExpiryDate); err != nil {
+				return err
+			}
+
+		case "expiry_date_in_millis":
+			if err := dec.Decode(&s.ExpiryDateInMillis); err != nil {
+				return err
+			}
+
+		case "issue_date":
+			if err := dec.Decode(&s.IssueDate); err != nil {
+				return err
+			}
+
+		case "issue_date_in_millis":
+			if err := dec.Decode(&s.IssueDateInMillis); err != nil {
+				return err
+			}
+
+		case "issued_to":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IssuedTo = o
+
+		case "issuer":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Issuer = o
+
+		case "max_nodes":
+			if err := dec.Decode(&s.MaxNodes); err != nil {
+				return err
+			}
+
+		case "max_resource_units":
+			if err := dec.Decode(&s.MaxResourceUnits); err != nil {
+				return err
+			}
+
+		case "start_date_in_millis":
+			if err := dec.Decode(&s.StartDateInMillis); err != nil {
+				return err
+			}
+
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "uid":
+			if err := dec.Decode(&s.Uid); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewLicenseInformation returns a LicenseInformation.

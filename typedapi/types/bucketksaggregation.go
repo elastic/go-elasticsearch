@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // BucketKsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/pipeline.ts#L79-L112
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/pipeline.ts#L79-L112
 type BucketKsAggregation struct {
 	// Alternative A list of string values indicating which K-S test alternative to calculate.
 	// The valid values
@@ -50,9 +50,9 @@ type BucketKsAggregation struct {
 	// documents are uniformly distributed on these buckets, which they would be if
 	// one used equal percentiles of a
 	// metric to define the bucket end points.
-	Fractions []Float64                  `json:"fractions,omitempty"`
-	Meta      map[string]json.RawMessage `json:"meta,omitempty"`
-	Name      *string                    `json:"name,omitempty"`
+	Fractions []Float64 `json:"fractions,omitempty"`
+	Meta      Metadata  `json:"meta,omitempty"`
+	Name      *string   `json:"name,omitempty"`
 	// SamplingMethod Indicates the sampling methodology when calculating the K-S test. Note, this
 	// is sampling of the returned values.
 	// This determines the cumulative distribution function (CDF) points used
@@ -64,6 +64,7 @@ type BucketKsAggregation struct {
 }
 
 func (s *BucketKsAggregation) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -98,14 +99,20 @@ func (s *BucketKsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Name = &o
 
 		case "sampling_method":
-			if err := dec.Decode(&s.SamplingMethod); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.SamplingMethod = &o
 
 		}
 	}

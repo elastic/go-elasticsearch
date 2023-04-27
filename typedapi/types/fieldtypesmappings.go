@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // FieldTypesMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L96-L103
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/stats/types.ts#L96-L103
 type FieldTypesMappings struct {
 	FieldTypes                          []FieldTypes               `json:"field_types"`
 	RuntimeFieldTypes                   []ClusterRuntimeFieldTypes `json:"runtime_field_types,omitempty"`
@@ -30,6 +40,88 @@ type FieldTypesMappings struct {
 	TotalDeduplicatedMappingSize        ByteSize                   `json:"total_deduplicated_mapping_size,omitempty"`
 	TotalDeduplicatedMappingSizeInBytes *int64                     `json:"total_deduplicated_mapping_size_in_bytes,omitempty"`
 	TotalFieldCount                     *int                       `json:"total_field_count,omitempty"`
+}
+
+func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field_types":
+			if err := dec.Decode(&s.FieldTypes); err != nil {
+				return err
+			}
+
+		case "runtime_field_types":
+			if err := dec.Decode(&s.RuntimeFieldTypes); err != nil {
+				return err
+			}
+
+		case "total_deduplicated_field_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.TotalDeduplicatedFieldCount = &value
+			case float64:
+				f := int(v)
+				s.TotalDeduplicatedFieldCount = &f
+			}
+
+		case "total_deduplicated_mapping_size":
+			if err := dec.Decode(&s.TotalDeduplicatedMappingSize); err != nil {
+				return err
+			}
+
+		case "total_deduplicated_mapping_size_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalDeduplicatedMappingSizeInBytes = &value
+			case float64:
+				f := int64(v)
+				s.TotalDeduplicatedMappingSizeInBytes = &f
+			}
+
+		case "total_field_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.TotalFieldCount = &value
+			case float64:
+				f := int(v)
+				s.TotalFieldCount = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewFieldTypesMappings returns a FieldTypesMappings.

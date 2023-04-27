@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // MachineLearning type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/xpack/usage/types.ts#L363-L370
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/xpack/usage/types.ts#L363-L370
 type MachineLearning struct {
 	Available              bool                     `json:"available"`
 	DataFrameAnalyticsJobs MlDataFrameAnalyticsJobs `json:"data_frame_analytics_jobs"`
@@ -33,6 +43,96 @@ type MachineLearning struct {
 	// statistics for all jobs.
 	Jobs      map[string]JobUsage `json:"jobs"`
 	NodeCount int                 `json:"node_count"`
+}
+
+func (s *MachineLearning) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "available":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Available = value
+			case bool:
+				s.Available = v
+			}
+
+		case "data_frame_analytics_jobs":
+			if err := dec.Decode(&s.DataFrameAnalyticsJobs); err != nil {
+				return err
+			}
+
+		case "datafeeds":
+			if s.Datafeeds == nil {
+				s.Datafeeds = make(map[string]XpackDatafeed, 0)
+			}
+			if err := dec.Decode(&s.Datafeeds); err != nil {
+				return err
+			}
+
+		case "enabled":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Enabled = value
+			case bool:
+				s.Enabled = v
+			}
+
+		case "inference":
+			if err := dec.Decode(&s.Inference); err != nil {
+				return err
+			}
+
+		case "jobs":
+			if s.Jobs == nil {
+				s.Jobs = make(map[string]JobUsage, 0)
+			}
+			if err := dec.Decode(&s.Jobs); err != nil {
+				return err
+			}
+
+		case "node_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NodeCount = value
+			case float64:
+				f := int(v)
+				s.NodeCount = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewMachineLearning returns a MachineLearning.

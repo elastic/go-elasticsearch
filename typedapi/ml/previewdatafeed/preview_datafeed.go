@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 // Previews a datafeed.
 package previewdatafeed
@@ -197,7 +197,7 @@ func (r PreviewDatafeed) Perform(ctx context.Context) (*http.Response, error) {
 }
 
 // Do runs the request through the transport, handle the response and returns a previewdatafeed.Response
-func (r PreviewDatafeed) Do(ctx context.Context) (*Response, error) {
+func (r PreviewDatafeed) Do(ctx context.Context) (Response, error) {
 
 	response := NewResponse()
 
@@ -208,13 +208,12 @@ func (r PreviewDatafeed) Do(ctx context.Context) (*Response, error) {
 	defer res.Body.Close()
 
 	if res.StatusCode < 299 {
-		err = json.NewDecoder(res.Body).Decode(response)
+		err = json.NewDecoder(res.Body).Decode(&response)
 		if err != nil {
 			return nil, err
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

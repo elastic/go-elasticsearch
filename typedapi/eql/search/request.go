@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package search
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/eql/search/EqlSearchRequest.ts#L28-L115
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/eql/search/EqlSearchRequest.ts#L28-L115
 type Request struct {
 	CaseSensitive *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
@@ -48,7 +48,7 @@ type Request struct {
 	// Query EQL query you wish to run.
 	Query           string                         `json:"query"`
 	ResultPosition  *resultposition.ResultPosition `json:"result_position,omitempty"`
-	RuntimeMappings map[string]types.RuntimeField  `json:"runtime_mappings,omitempty"`
+	RuntimeMappings types.RuntimeFields            `json:"runtime_mappings,omitempty"`
 	// Size For basic queries, the maximum number of matching events to return. Defaults
 	// to 10
 	Size *uint `json:"size,omitempty"`

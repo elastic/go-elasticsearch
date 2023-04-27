@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // Stats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/_types/Stats.ts#L30-L53
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/nodes/_types/Stats.ts#L30-L53
 type Stats struct {
 	AdaptiveSelection map[string]AdaptiveSelection `json:"adaptive_selection,omitempty"`
 	Attributes        map[string]string            `json:"attributes,omitempty"`
@@ -50,6 +58,189 @@ type Stats struct {
 	Timestamp         *int64                       `json:"timestamp,omitempty"`
 	Transport         *Transport                   `json:"transport,omitempty"`
 	TransportAddress  *string                      `json:"transport_address,omitempty"`
+}
+
+func (s *Stats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "adaptive_selection":
+			if s.AdaptiveSelection == nil {
+				s.AdaptiveSelection = make(map[string]AdaptiveSelection, 0)
+			}
+			if err := dec.Decode(&s.AdaptiveSelection); err != nil {
+				return err
+			}
+
+		case "attributes":
+			if s.Attributes == nil {
+				s.Attributes = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.Attributes); err != nil {
+				return err
+			}
+
+		case "breakers":
+			if s.Breakers == nil {
+				s.Breakers = make(map[string]Breaker, 0)
+			}
+			if err := dec.Decode(&s.Breakers); err != nil {
+				return err
+			}
+
+		case "discovery":
+			if err := dec.Decode(&s.Discovery); err != nil {
+				return err
+			}
+
+		case "fs":
+			if err := dec.Decode(&s.Fs); err != nil {
+				return err
+			}
+
+		case "host":
+			if err := dec.Decode(&s.Host); err != nil {
+				return err
+			}
+
+		case "http":
+			if err := dec.Decode(&s.Http); err != nil {
+				return err
+			}
+
+		case "indexing_pressure":
+			if err := dec.Decode(&s.IndexingPressure); err != nil {
+				return err
+			}
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "ingest":
+			if err := dec.Decode(&s.Ingest); err != nil {
+				return err
+			}
+
+		case "ip":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.Ip = append(s.Ip, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Ip); err != nil {
+					return err
+				}
+			}
+
+		case "jvm":
+			if err := dec.Decode(&s.Jvm); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "os":
+			if err := dec.Decode(&s.Os); err != nil {
+				return err
+			}
+
+		case "process":
+			if err := dec.Decode(&s.Process); err != nil {
+				return err
+			}
+
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		case "script_cache":
+			if s.ScriptCache == nil {
+				s.ScriptCache = make(map[string][]ScriptCache, 0)
+			}
+			rawMsg := make(map[string]json.RawMessage, 0)
+			dec.Decode(&rawMsg)
+			for key, value := range rawMsg {
+				switch {
+				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
+					o := NewScriptCache()
+					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
+					if err != nil {
+						return err
+					}
+					s.ScriptCache[key] = append(s.ScriptCache[key], *o)
+				default:
+					o := []ScriptCache{}
+					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
+					if err != nil {
+						return err
+					}
+					s.ScriptCache[key] = o
+				}
+			}
+
+		case "thread_pool":
+			if s.ThreadPool == nil {
+				s.ThreadPool = make(map[string]ThreadCount, 0)
+			}
+			if err := dec.Decode(&s.ThreadPool); err != nil {
+				return err
+			}
+
+		case "timestamp":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Timestamp = &value
+			case float64:
+				f := int64(v)
+				s.Timestamp = &f
+			}
+
+		case "transport":
+			if err := dec.Decode(&s.Transport); err != nil {
+				return err
+			}
+
+		case "transport_address":
+			if err := dec.Decode(&s.TransportAddress); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewStats returns a Stats.

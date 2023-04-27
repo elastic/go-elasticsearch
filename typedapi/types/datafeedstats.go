@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/datafeedstate"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // DatafeedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Datafeed.ts#L140-L147
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Datafeed.ts#L140-L147
 type DatafeedStats struct {
 	AssignmentExplanation *string                     `json:"assignment_explanation,omitempty"`
 	DatafeedId            string                      `json:"datafeed_id"`
@@ -34,6 +40,59 @@ type DatafeedStats struct {
 	RunningState          *DatafeedRunningState       `json:"running_state,omitempty"`
 	State                 datafeedstate.DatafeedState `json:"state"`
 	TimingStats           DatafeedTimingStats         `json:"timing_stats"`
+}
+
+func (s *DatafeedStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "assignment_explanation":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.AssignmentExplanation = &o
+
+		case "datafeed_id":
+			if err := dec.Decode(&s.DatafeedId); err != nil {
+				return err
+			}
+
+		case "node":
+			if err := dec.Decode(&s.Node); err != nil {
+				return err
+			}
+
+		case "running_state":
+			if err := dec.Decode(&s.RunningState); err != nil {
+				return err
+			}
+
+		case "state":
+			if err := dec.Decode(&s.State); err != nil {
+				return err
+			}
+
+		case "timing_stats":
+			if err := dec.Decode(&s.TimingStats); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDatafeedStats returns a DatafeedStats.

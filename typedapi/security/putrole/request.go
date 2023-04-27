@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package putrole
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/put_role/SecurityPutRoleRequest.ts#L31-L80
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/put_role/SecurityPutRoleRequest.ts#L31-L80
 type Request struct {
 
 	// Applications A list of application privilege entries.
@@ -46,7 +46,7 @@ type Request struct {
 	Indices []types.IndicesPrivileges `json:"indices,omitempty"`
 	// Metadata Optional metadata. Within the metadata object, keys that begin with an
 	// underscore (`_`) are reserved for system use.
-	Metadata map[string]json.RawMessage `json:"metadata,omitempty"`
+	Metadata types.Metadata `json:"metadata,omitempty"`
 	// RunAs A list of users that the owners of this role can impersonate.
 	RunAs []string `json:"run_as,omitempty"`
 	// TransientMetadata Indicates roles that might be incompatible with the current cluster license,

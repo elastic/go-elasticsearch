@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // PendingTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/pending_tasks/types.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/pending_tasks/types.ts#L23-L30
 type PendingTask struct {
 	Executing         bool     `json:"executing"`
 	InsertOrder       int      `json:"insert_order"`
@@ -30,6 +40,82 @@ type PendingTask struct {
 	Source            string   `json:"source"`
 	TimeInQueue       Duration `json:"time_in_queue,omitempty"`
 	TimeInQueueMillis int64    `json:"time_in_queue_millis"`
+}
+
+func (s *PendingTask) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "executing":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Executing = value
+			case bool:
+				s.Executing = v
+			}
+
+		case "insert_order":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.InsertOrder = value
+			case float64:
+				f := int(v)
+				s.InsertOrder = f
+			}
+
+		case "priority":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Priority = o
+
+		case "source":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Source = o
+
+		case "time_in_queue":
+			if err := dec.Decode(&s.TimeInQueue); err != nil {
+				return err
+			}
+
+		case "time_in_queue_millis":
+			if err := dec.Decode(&s.TimeInQueueMillis); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPendingTask returns a PendingTask.

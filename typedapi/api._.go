@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package typedapi
 
@@ -101,6 +101,7 @@ import (
 	core_get_script_context "github.com/elastic/go-elasticsearch/v8/typedapi/core/getscriptcontext"
 	core_get_script_languages "github.com/elastic/go-elasticsearch/v8/typedapi/core/getscriptlanguages"
 	core_get_source "github.com/elastic/go-elasticsearch/v8/typedapi/core/getsource"
+	core_health_report "github.com/elastic/go-elasticsearch/v8/typedapi/core/healthreport"
 	core_index "github.com/elastic/go-elasticsearch/v8/typedapi/core/index"
 	core_info "github.com/elastic/go-elasticsearch/v8/typedapi/core/info"
 	core_knn_search "github.com/elastic/go-elasticsearch/v8/typedapi/core/knnsearch"
@@ -409,6 +410,7 @@ import (
 	transform_preview_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/previewtransform"
 	transform_put_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/puttransform"
 	transform_reset_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/resettransform"
+	transform_schedule_now_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/schedulenowtransform"
 	transform_start_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/starttransform"
 	transform_stop_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/stoptransform"
 	transform_update_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/updatetransform"
@@ -428,7 +430,7 @@ import (
 	xpack_usage "github.com/elastic/go-elasticsearch/v8/typedapi/xpack/usage"
 )
 
-type Async struct {
+type AsyncSearch struct {
 	// Deletes an async search by ID. If the search is still running, the search
 	// request will be cancelled. Otherwise, the saved search results are deleted.
 	Delete async_search_delete.NewDelete
@@ -633,6 +635,8 @@ type Core struct {
 	GetScriptLanguages core_get_script_languages.NewGetScriptLanguages
 	// Returns the source of a document.
 	GetSource core_get_source.NewGetSource
+	// Returns the health of the cluster.
+	HealthReport core_health_report.NewHealthReport
 	// Creates or updates a document in an index.
 	Index core_index.NewIndex
 	// Returns basic information about the cluster.
@@ -694,7 +698,7 @@ type Core struct {
 	UpdateByQueryRethrottle core_update_by_query_rethrottle.NewUpdateByQueryRethrottle
 }
 
-type Dangling struct {
+type DanglingIndices struct {
 	// Deletes the specified dangling index
 	DeleteDanglingIndex dangling_indices_delete_dangling_index.NewDeleteDanglingIndex
 	// Imports the specified dangling index
@@ -1145,7 +1149,7 @@ type Rollup struct {
 	StopJob rollup_stop_job.NewStopJob
 }
 
-type Searchable struct {
+type SearchableSnapshots struct {
 	// Retrieve node-level cache statistics about searchable snapshots.
 	CacheStats searchable_snapshots_cache_stats.NewCacheStats
 	// Clear the cache of searchable snapshots.
@@ -1390,6 +1394,8 @@ type Transform struct {
 	PutTransform transform_put_transform.NewPutTransform
 	// Resets an existing transform.
 	ResetTransform transform_reset_transform.NewResetTransform
+	// Schedules now a transform.
+	ScheduleNowTransform transform_schedule_now_transform.NewScheduleNowTransform
 	// Starts one or more transforms.
 	StartTransform transform_start_transform.NewStartTransform
 	// Stops one or more transforms.
@@ -1434,38 +1440,38 @@ type Xpack struct {
 }
 
 type API struct {
-	Async       Async
-	Autoscaling Autoscaling
-	Cat         Cat
-	Ccr         Ccr
-	Cluster     Cluster
-	Core        Core
-	Dangling    Dangling
-	Enrich      Enrich
-	Eql         Eql
-	Features    Features
-	Fleet       Fleet
-	Graph       Graph
-	Ilm         Ilm
-	Indices     Indices
-	Ingest      Ingest
-	License     License
-	Logstash    Logstash
-	Migration   Migration
-	Ml          Ml
-	Nodes       Nodes
-	Rollup      Rollup
-	Searchable  Searchable
-	Security    Security
-	Shutdown    Shutdown
-	Slm         Slm
-	Snapshot    Snapshot
-	Sql         Sql
-	Ssl         Ssl
-	Tasks       Tasks
-	Transform   Transform
-	Watcher     Watcher
-	Xpack       Xpack
+	AsyncSearch         AsyncSearch
+	Autoscaling         Autoscaling
+	Cat                 Cat
+	Ccr                 Ccr
+	Cluster             Cluster
+	Core                Core
+	DanglingIndices     DanglingIndices
+	Enrich              Enrich
+	Eql                 Eql
+	Features            Features
+	Fleet               Fleet
+	Graph               Graph
+	Ilm                 Ilm
+	Indices             Indices
+	Ingest              Ingest
+	License             License
+	Logstash            Logstash
+	Migration           Migration
+	Ml                  Ml
+	Nodes               Nodes
+	Rollup              Rollup
+	SearchableSnapshots SearchableSnapshots
+	Security            Security
+	Shutdown            Shutdown
+	Slm                 Slm
+	Snapshot            Snapshot
+	Sql                 Sql
+	Ssl                 Ssl
+	Tasks               Tasks
+	Transform           Transform
+	Watcher             Watcher
+	Xpack               Xpack
 
 	// Explicitly clears the search context for a scroll.
 	ClearScroll core_clear_scroll.NewClearScroll
@@ -1506,6 +1512,8 @@ type API struct {
 	GetScriptLanguages core_get_script_languages.NewGetScriptLanguages
 	// Returns the source of a document.
 	GetSource core_get_source.NewGetSource
+	// Returns the health of the cluster.
+	HealthReport core_health_report.NewHealthReport
 	// Creates or updates a document in an index.
 	Index core_index.NewIndex
 	// Returns basic information about the cluster.
@@ -1569,13 +1577,15 @@ type API struct {
 
 func New(tp elastictransport.Interface) *API {
 	return &API{
-		Async: Async{
+		// AsyncSearch
+		AsyncSearch: AsyncSearch{
 			Delete: async_search_delete.NewDeleteFunc(tp),
 			Get:    async_search_get.NewGetFunc(tp),
 			Status: async_search_status.NewStatusFunc(tp),
 			Submit: async_search_submit.NewSubmitFunc(tp),
 		},
 
+		// Autoscaling
 		Autoscaling: Autoscaling{
 			DeleteAutoscalingPolicy: autoscaling_delete_autoscaling_policy.NewDeleteAutoscalingPolicyFunc(tp),
 			GetAutoscalingCapacity:  autoscaling_get_autoscaling_capacity.NewGetAutoscalingCapacityFunc(tp),
@@ -1583,6 +1593,7 @@ func New(tp elastictransport.Interface) *API {
 			PutAutoscalingPolicy:    autoscaling_put_autoscaling_policy.NewPutAutoscalingPolicyFunc(tp),
 		},
 
+		// Cat
 		Cat: Cat{
 			Aliases:              cat_aliases.NewAliasesFunc(tp),
 			Allocation:           cat_allocation.NewAllocationFunc(tp),
@@ -1612,6 +1623,7 @@ func New(tp elastictransport.Interface) *API {
 			Transforms:           cat_transforms.NewTransformsFunc(tp),
 		},
 
+		// Ccr
 		Ccr: Ccr{
 			DeleteAutoFollowPattern: ccr_delete_auto_follow_pattern.NewDeleteAutoFollowPatternFunc(tp),
 			Follow:                  ccr_follow.NewFollowFunc(tp),
@@ -1628,6 +1640,7 @@ func New(tp elastictransport.Interface) *API {
 			Unfollow:                ccr_unfollow.NewUnfollowFunc(tp),
 		},
 
+		// Cluster
 		Cluster: Cluster{
 			AllocationExplain:            cluster_allocation_explain.NewAllocationExplainFunc(tp),
 			DeleteComponentTemplate:      cluster_delete_component_template.NewDeleteComponentTemplateFunc(tp),
@@ -1646,6 +1659,7 @@ func New(tp elastictransport.Interface) *API {
 			Stats:                        cluster_stats.NewStatsFunc(tp),
 		},
 
+		// Core
 		Core: Core{
 			ClearScroll:             core_clear_scroll.NewClearScrollFunc(tp),
 			ClosePointInTime:        core_close_point_in_time.NewClosePointInTimeFunc(tp),
@@ -1664,6 +1678,7 @@ func New(tp elastictransport.Interface) *API {
 			GetScriptContext:        core_get_script_context.NewGetScriptContextFunc(tp),
 			GetScriptLanguages:      core_get_script_languages.NewGetScriptLanguagesFunc(tp),
 			GetSource:               core_get_source.NewGetSourceFunc(tp),
+			HealthReport:            core_health_report.NewHealthReportFunc(tp),
 			Index:                   core_index.NewIndexFunc(tp),
 			Info:                    core_info.NewInfoFunc(tp),
 			KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),
@@ -1689,12 +1704,14 @@ func New(tp elastictransport.Interface) *API {
 			UpdateByQueryRethrottle: core_update_by_query_rethrottle.NewUpdateByQueryRethrottleFunc(tp),
 		},
 
-		Dangling: Dangling{
+		// DanglingIndices
+		DanglingIndices: DanglingIndices{
 			DeleteDanglingIndex: dangling_indices_delete_dangling_index.NewDeleteDanglingIndexFunc(tp),
 			ImportDanglingIndex: dangling_indices_import_dangling_index.NewImportDanglingIndexFunc(tp),
 			ListDanglingIndices: dangling_indices_list_dangling_indices.NewListDanglingIndicesFunc(tp),
 		},
 
+		// Enrich
 		Enrich: Enrich{
 			DeletePolicy:  enrich_delete_policy.NewDeletePolicyFunc(tp),
 			ExecutePolicy: enrich_execute_policy.NewExecutePolicyFunc(tp),
@@ -1703,6 +1720,7 @@ func New(tp elastictransport.Interface) *API {
 			Stats:         enrich_stats.NewStatsFunc(tp),
 		},
 
+		// Eql
 		Eql: Eql{
 			Delete:    eql_delete.NewDeleteFunc(tp),
 			Get:       eql_get.NewGetFunc(tp),
@@ -1710,20 +1728,24 @@ func New(tp elastictransport.Interface) *API {
 			Search:    eql_search.NewSearchFunc(tp),
 		},
 
+		// Features
 		Features: Features{
 			GetFeatures:   features_get_features.NewGetFeaturesFunc(tp),
 			ResetFeatures: features_reset_features.NewResetFeaturesFunc(tp),
 		},
 
+		// Fleet
 		Fleet: Fleet{
 			GlobalCheckpoints: fleet_global_checkpoints.NewGlobalCheckpointsFunc(tp),
 			Search:            fleet_search.NewSearchFunc(tp),
 		},
 
+		// Graph
 		Graph: Graph{
 			Explore: graph_explore.NewExploreFunc(tp),
 		},
 
+		// Ilm
 		Ilm: Ilm{
 			DeleteLifecycle:    ilm_delete_lifecycle.NewDeleteLifecycleFunc(tp),
 			ExplainLifecycle:   ilm_explain_lifecycle.NewExplainLifecycleFunc(tp),
@@ -1738,6 +1760,7 @@ func New(tp elastictransport.Interface) *API {
 			Stop:               ilm_stop.NewStopFunc(tp),
 		},
 
+		// Indices
 		Indices: Indices{
 			AddBlock:              indices_add_block.NewAddBlockFunc(tp),
 			Analyze:               indices_analyze.NewAnalyzeFunc(tp),
@@ -1795,6 +1818,7 @@ func New(tp elastictransport.Interface) *API {
 			ValidateQuery:         indices_validate_query.NewValidateQueryFunc(tp),
 		},
 
+		// Ingest
 		Ingest: Ingest{
 			DeletePipeline: ingest_delete_pipeline.NewDeletePipelineFunc(tp),
 			GeoIpStats:     ingest_geo_ip_stats.NewGeoIpStatsFunc(tp),
@@ -1804,6 +1828,7 @@ func New(tp elastictransport.Interface) *API {
 			Simulate:       ingest_simulate.NewSimulateFunc(tp),
 		},
 
+		// License
 		License: License{
 			Delete:         license_delete.NewDeleteFunc(tp),
 			Get:            license_get.NewGetFunc(tp),
@@ -1814,18 +1839,21 @@ func New(tp elastictransport.Interface) *API {
 			PostStartTrial: license_post_start_trial.NewPostStartTrialFunc(tp),
 		},
 
+		// Logstash
 		Logstash: Logstash{
 			DeletePipeline: logstash_delete_pipeline.NewDeletePipelineFunc(tp),
 			GetPipeline:    logstash_get_pipeline.NewGetPipelineFunc(tp),
 			PutPipeline:    logstash_put_pipeline.NewPutPipelineFunc(tp),
 		},
 
+		// Migration
 		Migration: Migration{
 			Deprecations:            migration_deprecations.NewDeprecationsFunc(tp),
 			GetFeatureUpgradeStatus: migration_get_feature_upgrade_status.NewGetFeatureUpgradeStatusFunc(tp),
 			PostFeatureUpgrade:      migration_post_feature_upgrade.NewPostFeatureUpgradeFunc(tp),
 		},
 
+		// Ml
 		Ml: Ml{
 			ClearTrainedModelDeploymentCache: ml_clear_trained_model_deployment_cache.NewClearTrainedModelDeploymentCacheFunc(tp),
 			CloseJob:                         ml_close_job.NewCloseJobFunc(tp),
@@ -1900,6 +1928,7 @@ func New(tp elastictransport.Interface) *API {
 			ValidateDetector:                 ml_validate_detector.NewValidateDetectorFunc(tp),
 		},
 
+		// Nodes
 		Nodes: Nodes{
 			ClearRepositoriesMeteringArchive: nodes_clear_repositories_metering_archive.NewClearRepositoriesMeteringArchiveFunc(tp),
 			GetRepositoriesMeteringInfo:      nodes_get_repositories_metering_info.NewGetRepositoriesMeteringInfoFunc(tp),
@@ -1910,6 +1939,7 @@ func New(tp elastictransport.Interface) *API {
 			Usage:                            nodes_usage.NewUsageFunc(tp),
 		},
 
+		// Rollup
 		Rollup: Rollup{
 			DeleteJob:          rollup_delete_job.NewDeleteJobFunc(tp),
 			GetJobs:            rollup_get_jobs.NewGetJobsFunc(tp),
@@ -1921,13 +1951,15 @@ func New(tp elastictransport.Interface) *API {
 			StopJob:            rollup_stop_job.NewStopJobFunc(tp),
 		},
 
-		Searchable: Searchable{
+		// SearchableSnapshots
+		SearchableSnapshots: SearchableSnapshots{
 			CacheStats: searchable_snapshots_cache_stats.NewCacheStatsFunc(tp),
 			ClearCache: searchable_snapshots_clear_cache.NewClearCacheFunc(tp),
 			Mount:      searchable_snapshots_mount.NewMountFunc(tp),
 			Stats:      searchable_snapshots_stats.NewStatsFunc(tp),
 		},
 
+		// Security
 		Security: Security{
 			ActivateUserProfile:         security_activate_user_profile.NewActivateUserProfileFunc(tp),
 			Authenticate:                security_authenticate.NewAuthenticateFunc(tp),
@@ -1986,12 +2018,14 @@ func New(tp elastictransport.Interface) *API {
 			UpdateUserProfileData:       security_update_user_profile_data.NewUpdateUserProfileDataFunc(tp),
 		},
 
+		// Shutdown
 		Shutdown: Shutdown{
 			DeleteNode: shutdown_delete_node.NewDeleteNodeFunc(tp),
 			GetNode:    shutdown_get_node.NewGetNodeFunc(tp),
 			PutNode:    shutdown_put_node.NewPutNodeFunc(tp),
 		},
 
+		// Slm
 		Slm: Slm{
 			DeleteLifecycle:  slm_delete_lifecycle.NewDeleteLifecycleFunc(tp),
 			ExecuteLifecycle: slm_execute_lifecycle.NewExecuteLifecycleFunc(tp),
@@ -2004,6 +2038,7 @@ func New(tp elastictransport.Interface) *API {
 			Stop:             slm_stop.NewStopFunc(tp),
 		},
 
+		// Snapshot
 		Snapshot: Snapshot{
 			CleanupRepository: snapshot_cleanup_repository.NewCleanupRepositoryFunc(tp),
 			Clone:             snapshot_clone.NewCloneFunc(tp),
@@ -2018,6 +2053,7 @@ func New(tp elastictransport.Interface) *API {
 			VerifyRepository:  snapshot_verify_repository.NewVerifyRepositoryFunc(tp),
 		},
 
+		// Sql
 		Sql: Sql{
 			ClearCursor:    sql_clear_cursor.NewClearCursorFunc(tp),
 			DeleteAsync:    sql_delete_async.NewDeleteAsyncFunc(tp),
@@ -2027,29 +2063,34 @@ func New(tp elastictransport.Interface) *API {
 			Translate:      sql_translate.NewTranslateFunc(tp),
 		},
 
+		// Ssl
 		Ssl: Ssl{
 			Certificates: ssl_certificates.NewCertificatesFunc(tp),
 		},
 
+		// Tasks
 		Tasks: Tasks{
 			Cancel: tasks_cancel.NewCancelFunc(tp),
 			Get:    tasks_get.NewGetFunc(tp),
 			List:   tasks_list.NewListFunc(tp),
 		},
 
+		// Transform
 		Transform: Transform{
-			DeleteTransform:   transform_delete_transform.NewDeleteTransformFunc(tp),
-			GetTransform:      transform_get_transform.NewGetTransformFunc(tp),
-			GetTransformStats: transform_get_transform_stats.NewGetTransformStatsFunc(tp),
-			PreviewTransform:  transform_preview_transform.NewPreviewTransformFunc(tp),
-			PutTransform:      transform_put_transform.NewPutTransformFunc(tp),
-			ResetTransform:    transform_reset_transform.NewResetTransformFunc(tp),
-			StartTransform:    transform_start_transform.NewStartTransformFunc(tp),
-			StopTransform:     transform_stop_transform.NewStopTransformFunc(tp),
-			UpdateTransform:   transform_update_transform.NewUpdateTransformFunc(tp),
-			UpgradeTransforms: transform_upgrade_transforms.NewUpgradeTransformsFunc(tp),
+			DeleteTransform:      transform_delete_transform.NewDeleteTransformFunc(tp),
+			GetTransform:         transform_get_transform.NewGetTransformFunc(tp),
+			GetTransformStats:    transform_get_transform_stats.NewGetTransformStatsFunc(tp),
+			PreviewTransform:     transform_preview_transform.NewPreviewTransformFunc(tp),
+			PutTransform:         transform_put_transform.NewPutTransformFunc(tp),
+			ResetTransform:       transform_reset_transform.NewResetTransformFunc(tp),
+			ScheduleNowTransform: transform_schedule_now_transform.NewScheduleNowTransformFunc(tp),
+			StartTransform:       transform_start_transform.NewStartTransformFunc(tp),
+			StopTransform:        transform_stop_transform.NewStopTransformFunc(tp),
+			UpdateTransform:      transform_update_transform.NewUpdateTransformFunc(tp),
+			UpgradeTransforms:    transform_upgrade_transforms.NewUpgradeTransformsFunc(tp),
 		},
 
+		// Watcher
 		Watcher: Watcher{
 			AckWatch:        watcher_ack_watch.NewAckWatchFunc(tp),
 			ActivateWatch:   watcher_activate_watch.NewActivateWatchFunc(tp),
@@ -2064,6 +2105,7 @@ func New(tp elastictransport.Interface) *API {
 			Stop:            watcher_stop.NewStopFunc(tp),
 		},
 
+		// Xpack
 		Xpack: Xpack{
 			Info:  xpack_info.NewInfoFunc(tp),
 			Usage: xpack_usage.NewUsageFunc(tp),
@@ -2086,6 +2128,7 @@ func New(tp elastictransport.Interface) *API {
 		GetScriptContext:        core_get_script_context.NewGetScriptContextFunc(tp),
 		GetScriptLanguages:      core_get_script_languages.NewGetScriptLanguagesFunc(tp),
 		GetSource:               core_get_source.NewGetSourceFunc(tp),
+		HealthReport:            core_health_report.NewHealthReportFunc(tp),
 		Index:                   core_index.NewIndexFunc(tp),
 		Info:                    core_info.NewInfoFunc(tp),
 		KnnSearch:               core_knn_search.NewKnnSearchFunc(tp),

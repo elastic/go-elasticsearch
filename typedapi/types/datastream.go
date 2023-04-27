@@ -16,32 +16,165 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/_types/DataStream.ts#L31-L46
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/_types/DataStream.ts#L31-L46
 type DataStream struct {
-	AllowCustomRouting *bool                      `json:"allow_custom_routing,omitempty"`
-	Generation         int                        `json:"generation"`
-	Hidden             bool                       `json:"hidden"`
-	IlmPolicy          *string                    `json:"ilm_policy,omitempty"`
-	Indices            []DataStreamIndex          `json:"indices"`
-	Meta_              map[string]json.RawMessage `json:"_meta,omitempty"`
-	Name               string                     `json:"name"`
-	Replicated         *bool                      `json:"replicated,omitempty"`
-	Status             healthstatus.HealthStatus  `json:"status"`
-	System             *bool                      `json:"system,omitempty"`
-	Template           string                     `json:"template"`
-	TimestampField     DataStreamTimestampField   `json:"timestamp_field"`
+	AllowCustomRouting *bool                     `json:"allow_custom_routing,omitempty"`
+	Generation         int                       `json:"generation"`
+	Hidden             bool                      `json:"hidden"`
+	IlmPolicy          *string                   `json:"ilm_policy,omitempty"`
+	Indices            []DataStreamIndex         `json:"indices"`
+	Meta_              Metadata                  `json:"_meta,omitempty"`
+	Name               string                    `json:"name"`
+	Replicated         *bool                     `json:"replicated,omitempty"`
+	Status             healthstatus.HealthStatus `json:"status"`
+	System             *bool                     `json:"system,omitempty"`
+	Template           string                    `json:"template"`
+	TimestampField     DataStreamTimestampField  `json:"timestamp_field"`
+}
+
+func (s *DataStream) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allow_custom_routing":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.AllowCustomRouting = &value
+			case bool:
+				s.AllowCustomRouting = &v
+			}
+
+		case "generation":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Generation = value
+			case float64:
+				f := int(v)
+				s.Generation = f
+			}
+
+		case "hidden":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Hidden = value
+			case bool:
+				s.Hidden = v
+			}
+
+		case "ilm_policy":
+			if err := dec.Decode(&s.IlmPolicy); err != nil {
+				return err
+			}
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "_meta":
+			if err := dec.Decode(&s.Meta_); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "replicated":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Replicated = &value
+			case bool:
+				s.Replicated = &v
+			}
+
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return err
+			}
+
+		case "system":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.System = &value
+			case bool:
+				s.System = &v
+			}
+
+		case "template":
+			if err := dec.Decode(&s.Template); err != nil {
+				return err
+			}
+
+		case "timestamp_field":
+			if err := dec.Decode(&s.TimestampField); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataStream returns a DataStream.

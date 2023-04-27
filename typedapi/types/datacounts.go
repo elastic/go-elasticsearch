@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DataCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Job.ts#L129-L149
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Job.ts#L129-L149
 type DataCounts struct {
 	BucketCount                 int64  `json:"bucket_count"`
 	EarliestRecordTimestamp     *int64 `json:"earliest_record_timestamp,omitempty"`
@@ -43,6 +53,301 @@ type DataCounts struct {
 	ProcessedFieldCount         int64  `json:"processed_field_count"`
 	ProcessedRecordCount        int64  `json:"processed_record_count"`
 	SparseBucketCount           int64  `json:"sparse_bucket_count"`
+}
+
+func (s *DataCounts) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "bucket_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.BucketCount = value
+			case float64:
+				f := int64(v)
+				s.BucketCount = f
+			}
+
+		case "earliest_record_timestamp":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.EarliestRecordTimestamp = &value
+			case float64:
+				f := int64(v)
+				s.EarliestRecordTimestamp = &f
+			}
+
+		case "empty_bucket_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.EmptyBucketCount = value
+			case float64:
+				f := int64(v)
+				s.EmptyBucketCount = f
+			}
+
+		case "input_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.InputBytes = value
+			case float64:
+				f := int64(v)
+				s.InputBytes = f
+			}
+
+		case "input_field_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.InputFieldCount = value
+			case float64:
+				f := int64(v)
+				s.InputFieldCount = f
+			}
+
+		case "input_record_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.InputRecordCount = value
+			case float64:
+				f := int64(v)
+				s.InputRecordCount = f
+			}
+
+		case "invalid_date_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.InvalidDateCount = value
+			case float64:
+				f := int64(v)
+				s.InvalidDateCount = f
+			}
+
+		case "job_id":
+			if err := dec.Decode(&s.JobId); err != nil {
+				return err
+			}
+
+		case "last_data_time":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LastDataTime = &value
+			case float64:
+				f := int64(v)
+				s.LastDataTime = &f
+			}
+
+		case "latest_bucket_timestamp":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LatestBucketTimestamp = &value
+			case float64:
+				f := int64(v)
+				s.LatestBucketTimestamp = &f
+			}
+
+		case "latest_empty_bucket_timestamp":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LatestEmptyBucketTimestamp = &value
+			case float64:
+				f := int64(v)
+				s.LatestEmptyBucketTimestamp = &f
+			}
+
+		case "latest_record_timestamp":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LatestRecordTimestamp = &value
+			case float64:
+				f := int64(v)
+				s.LatestRecordTimestamp = &f
+			}
+
+		case "latest_sparse_bucket_timestamp":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LatestSparseBucketTimestamp = &value
+			case float64:
+				f := int64(v)
+				s.LatestSparseBucketTimestamp = &f
+			}
+
+		case "log_time":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LogTime = &value
+			case float64:
+				f := int64(v)
+				s.LogTime = &f
+			}
+
+		case "missing_field_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MissingFieldCount = value
+			case float64:
+				f := int64(v)
+				s.MissingFieldCount = f
+			}
+
+		case "out_of_order_timestamp_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.OutOfOrderTimestampCount = value
+			case float64:
+				f := int64(v)
+				s.OutOfOrderTimestampCount = f
+			}
+
+		case "processed_field_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ProcessedFieldCount = value
+			case float64:
+				f := int64(v)
+				s.ProcessedFieldCount = f
+			}
+
+		case "processed_record_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ProcessedRecordCount = value
+			case float64:
+				f := int64(v)
+				s.ProcessedRecordCount = f
+			}
+
+		case "sparse_bucket_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SparseBucketCount = value
+			case float64:
+				f := int64(v)
+				s.SparseBucketCount = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataCounts returns a DataCounts.

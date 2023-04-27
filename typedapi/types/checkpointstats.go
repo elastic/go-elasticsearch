@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // CheckpointStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/transform/get_transform_stats/types.ts#L73-L80
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/transform/get_transform_stats/types.ts#L73-L80
 type CheckpointStats struct {
 	Checkpoint           int64              `json:"checkpoint"`
 	CheckpointProgress   *TransformProgress `json:"checkpoint_progress,omitempty"`
@@ -30,6 +40,66 @@ type CheckpointStats struct {
 	TimeUpperBoundMillis *int64             `json:"time_upper_bound_millis,omitempty"`
 	Timestamp            DateTime           `json:"timestamp,omitempty"`
 	TimestampMillis      *int64             `json:"timestamp_millis,omitempty"`
+}
+
+func (s *CheckpointStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "checkpoint":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Checkpoint = value
+			case float64:
+				f := int64(v)
+				s.Checkpoint = f
+			}
+
+		case "checkpoint_progress":
+			if err := dec.Decode(&s.CheckpointProgress); err != nil {
+				return err
+			}
+
+		case "time_upper_bound":
+			if err := dec.Decode(&s.TimeUpperBound); err != nil {
+				return err
+			}
+
+		case "time_upper_bound_millis":
+			if err := dec.Decode(&s.TimeUpperBoundMillis); err != nil {
+				return err
+			}
+
+		case "timestamp":
+			if err := dec.Decode(&s.Timestamp); err != nil {
+				return err
+			}
+
+		case "timestamp_millis":
+			if err := dec.Decode(&s.TimestampMillis); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewCheckpointStats returns a CheckpointStats.

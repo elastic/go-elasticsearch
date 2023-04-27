@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -28,15 +28,17 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // MultiTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/bucket.ts#L265-L274
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/bucket.ts#L265-L274
 type MultiTermsAggregation struct {
 	CollectMode           *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
-	Meta                  map[string]json.RawMessage                               `json:"meta,omitempty"`
+	Meta                  Metadata                                                 `json:"meta,omitempty"`
 	MinDocCount           *int64                                                   `json:"min_doc_count,omitempty"`
 	Name                  *string                                                  `json:"name,omitempty"`
 	Order                 AggregateOrder                                           `json:"order,omitempty"`
@@ -48,6 +50,7 @@ type MultiTermsAggregation struct {
 }
 
 func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -72,14 +75,27 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min_doc_count":
-			if err := dec.Decode(&s.MinDocCount); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MinDocCount = &value
+			case float64:
+				f := int64(v)
+				s.MinDocCount = &f
 			}
 
 		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Name = &o
 
 		case "order":
 
@@ -88,36 +104,79 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 			source := bytes.NewReader(rawMsg)
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
-
 			case '{':
 				o := make(map[string]sortorder.SortOrder, 0)
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Order = o
-
 			case '[':
 				o := make([]map[string]sortorder.SortOrder, 0)
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Order = o
 			}
 
 		case "shard_min_doc_count":
-			if err := dec.Decode(&s.ShardMinDocCount); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ShardMinDocCount = &value
+			case float64:
+				f := int64(v)
+				s.ShardMinDocCount = &f
 			}
 
 		case "shard_size":
-			if err := dec.Decode(&s.ShardSize); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ShardSize = &value
+			case float64:
+				f := int(v)
+				s.ShardSize = &f
 			}
 
 		case "show_term_doc_count_error":
-			if err := dec.Decode(&s.ShowTermDocCountError); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.ShowTermDocCountError = &value
+			case bool:
+				s.ShowTermDocCountError = &v
 			}
 
 		case "size":
-			if err := dec.Decode(&s.Size); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Size = &value
+			case float64:
+				f := int(v)
+				s.Size = &f
 			}
 
 		case "terms":

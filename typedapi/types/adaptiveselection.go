@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // AdaptiveSelection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/_types/Stats.ts#L169-L177
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/nodes/_types/Stats.ts#L169-L177
 type AdaptiveSelection struct {
 	AvgQueueSize      *int64   `json:"avg_queue_size,omitempty"`
 	AvgResponseTime   Duration `json:"avg_response_time,omitempty"`
@@ -31,6 +41,104 @@ type AdaptiveSelection struct {
 	AvgServiceTimeNs  *int64   `json:"avg_service_time_ns,omitempty"`
 	OutgoingSearches  *int64   `json:"outgoing_searches,omitempty"`
 	Rank              *string  `json:"rank,omitempty"`
+}
+
+func (s *AdaptiveSelection) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "avg_queue_size":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.AvgQueueSize = &value
+			case float64:
+				f := int64(v)
+				s.AvgQueueSize = &f
+			}
+
+		case "avg_response_time":
+			if err := dec.Decode(&s.AvgResponseTime); err != nil {
+				return err
+			}
+
+		case "avg_response_time_ns":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.AvgResponseTimeNs = &value
+			case float64:
+				f := int64(v)
+				s.AvgResponseTimeNs = &f
+			}
+
+		case "avg_service_time":
+			if err := dec.Decode(&s.AvgServiceTime); err != nil {
+				return err
+			}
+
+		case "avg_service_time_ns":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.AvgServiceTimeNs = &value
+			case float64:
+				f := int64(v)
+				s.AvgServiceTimeNs = &f
+			}
+
+		case "outgoing_searches":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.OutgoingSearches = &value
+			case float64:
+				f := int64(v)
+				s.OutgoingSearches = &f
+			}
+
+		case "rank":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Rank = &o
+
+		}
+	}
+	return nil
 }
 
 // NewAdaptiveSelection returns a AdaptiveSelection.

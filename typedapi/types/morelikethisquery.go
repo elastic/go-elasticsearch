@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/specialized.ts#L62-L89
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/query_dsl/specialized.ts#L62-L89
 type MoreLikeThisQuery struct {
 	Analyzer               *string                  `json:"analyzer,omitempty"`
 	Boost                  *float32                 `json:"boost,omitempty"`
@@ -49,6 +57,279 @@ type MoreLikeThisQuery struct {
 	Unlike                 []Like                   `json:"unlike,omitempty"`
 	Version                *int64                   `json:"version,omitempty"`
 	VersionType            *versiontype.VersionType `json:"version_type,omitempty"`
+}
+
+func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "analyzer":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Analyzer = &o
+
+		case "boost":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return err
+				}
+				f := float32(value)
+				s.Boost = &f
+			case float64:
+				f := float32(v)
+				s.Boost = &f
+			}
+
+		case "boost_terms":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.BoostTerms = &f
+			case float64:
+				f := Float64(v)
+				s.BoostTerms = &f
+			}
+
+		case "fail_on_unsupported_field":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.FailOnUnsupportedField = &value
+			case bool:
+				s.FailOnUnsupportedField = &v
+			}
+
+		case "fields":
+			if err := dec.Decode(&s.Fields); err != nil {
+				return err
+			}
+
+		case "include":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Include = &value
+			case bool:
+				s.Include = &v
+			}
+
+		case "like":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(Like)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.Like = append(s.Like, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Like); err != nil {
+					return err
+				}
+			}
+
+		case "max_doc_freq":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxDocFreq = &value
+			case float64:
+				f := int(v)
+				s.MaxDocFreq = &f
+			}
+
+		case "max_query_terms":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxQueryTerms = &value
+			case float64:
+				f := int(v)
+				s.MaxQueryTerms = &f
+			}
+
+		case "max_word_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxWordLength = &value
+			case float64:
+				f := int(v)
+				s.MaxWordLength = &f
+			}
+
+		case "min_doc_freq":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinDocFreq = &value
+			case float64:
+				f := int(v)
+				s.MinDocFreq = &f
+			}
+
+		case "min_term_freq":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinTermFreq = &value
+			case float64:
+				f := int(v)
+				s.MinTermFreq = &f
+			}
+
+		case "min_word_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinWordLength = &value
+			case float64:
+				f := int(v)
+				s.MinWordLength = &f
+			}
+
+		case "minimum_should_match":
+			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
+				return err
+			}
+
+		case "per_field_analyzer":
+			if s.PerFieldAnalyzer == nil {
+				s.PerFieldAnalyzer = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.PerFieldAnalyzer); err != nil {
+				return err
+			}
+
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.QueryName_ = &o
+
+		case "routing":
+			if err := dec.Decode(&s.Routing); err != nil {
+				return err
+			}
+
+		case "stop_words":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.StopWords = append(s.StopWords, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StopWords); err != nil {
+					return err
+				}
+			}
+
+		case "unlike":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(Like)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.Unlike = append(s.Unlike, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Unlike); err != nil {
+					return err
+				}
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		case "version_type":
+			if err := dec.Decode(&s.VersionType); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewMoreLikeThisQuery returns a MoreLikeThisQuery.

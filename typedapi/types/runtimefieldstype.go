@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // RuntimeFieldsType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/xpack/usage/types.ts#L273-L288
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/xpack/usage/types.ts#L273-L288
 type RuntimeFieldsType struct {
 	CharsMax        int64    `json:"chars_max"`
 	CharsTotal      int64    `json:"chars_total"`
@@ -38,6 +48,216 @@ type RuntimeFieldsType struct {
 	ShadowedCount   int64    `json:"shadowed_count"`
 	SourceMax       int64    `json:"source_max"`
 	SourceTotal     int64    `json:"source_total"`
+}
+
+func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "chars_max":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CharsMax = value
+			case float64:
+				f := int64(v)
+				s.CharsMax = f
+			}
+
+		case "chars_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CharsTotal = value
+			case float64:
+				f := int64(v)
+				s.CharsTotal = f
+			}
+
+		case "count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Count = value
+			case float64:
+				f := int64(v)
+				s.Count = f
+			}
+
+		case "doc_max":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.DocMax = value
+			case float64:
+				f := int64(v)
+				s.DocMax = f
+			}
+
+		case "doc_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.DocTotal = value
+			case float64:
+				f := int64(v)
+				s.DocTotal = f
+			}
+
+		case "index_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.IndexCount = value
+			case float64:
+				f := int64(v)
+				s.IndexCount = f
+			}
+
+		case "lang":
+			if err := dec.Decode(&s.Lang); err != nil {
+				return err
+			}
+
+		case "lines_max":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LinesMax = value
+			case float64:
+				f := int64(v)
+				s.LinesMax = f
+			}
+
+		case "lines_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LinesTotal = value
+			case float64:
+				f := int64(v)
+				s.LinesTotal = f
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "scriptless_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ScriptlessCount = value
+			case float64:
+				f := int64(v)
+				s.ScriptlessCount = f
+			}
+
+		case "shadowed_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ShadowedCount = value
+			case float64:
+				f := int64(v)
+				s.ShadowedCount = f
+			}
+
+		case "source_max":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SourceMax = value
+			case float64:
+				f := int64(v)
+				s.SourceMax = f
+			}
+
+		case "source_total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SourceTotal = value
+			case float64:
+				f := int64(v)
+				s.SourceTotal = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRuntimeFieldsType returns a RuntimeFieldsType.

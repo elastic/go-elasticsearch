@@ -16,21 +16,66 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // NodeInfoSettingsNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/info/types.ts#L148-L152
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/nodes/info/types.ts#L148-L152
 type NodeInfoSettingsNode struct {
 	Attr                 map[string]json.RawMessage `json:"attr"`
 	MaxLocalStorageNodes *string                    `json:"max_local_storage_nodes,omitempty"`
 	Name                 string                     `json:"name"`
+}
+
+func (s *NodeInfoSettingsNode) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "attr":
+			if s.Attr == nil {
+				s.Attr = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Attr); err != nil {
+				return err
+			}
+
+		case "max_local_storage_nodes":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MaxLocalStorageNodes = &o
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeInfoSettingsNode returns a NodeInfoSettingsNode.

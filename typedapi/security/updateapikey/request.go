@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package updateapikey
 
@@ -29,13 +29,13 @@ import (
 
 // Request holds the request body struct for the package updateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/update_api_key/Request.ts#L25-L49
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/update_api_key/Request.ts#L25-L49
 type Request struct {
 
 	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
 	// nested data structure. Within the metadata object, keys beginning with _ are
 	// reserved for system usage.
-	Metadata map[string]json.RawMessage `json:"metadata,omitempty"`
+	Metadata types.Metadata `json:"metadata,omitempty"`
 	// RoleDescriptors An array of role descriptors for this API key. This parameter is optional.
 	// When it is not specified or is an empty array, then the API key will have a
 	// point in time snapshot of permissions of the authenticated user. If you

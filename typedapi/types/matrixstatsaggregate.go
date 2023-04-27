@@ -16,21 +16,72 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // MatrixStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/Aggregate.ts#L748-L752
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/Aggregate.ts#L748-L752
 type MatrixStatsAggregate struct {
-	DocCount int64                      `json:"doc_count"`
-	Fields   []MatrixStatsFields        `json:"fields,omitempty"`
-	Meta     map[string]json.RawMessage `json:"meta,omitempty"`
+	DocCount int64               `json:"doc_count"`
+	Fields   []MatrixStatsFields `json:"fields,omitempty"`
+	Meta     Metadata            `json:"meta,omitempty"`
+}
+
+func (s *MatrixStatsAggregate) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "doc_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.DocCount = value
+			case float64:
+				f := int64(v)
+				s.DocCount = f
+			}
+
+		case "fields":
+			if err := dec.Decode(&s.Fields); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewMatrixStatsAggregate returns a MatrixStatsAggregate.

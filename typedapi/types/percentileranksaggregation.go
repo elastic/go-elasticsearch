@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // PercentileRanksAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/metric.ts#L105-L110
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/metric.ts#L105-L110
 type PercentileRanksAggregation struct {
 	Field   *string    `json:"field,omitempty"`
 	Format  *string    `json:"format,omitempty"`
@@ -32,6 +42,78 @@ type PercentileRanksAggregation struct {
 	Script  Script     `json:"script,omitempty"`
 	Tdigest *TDigest   `json:"tdigest,omitempty"`
 	Values  []Float64  `json:"values,omitempty"`
+}
+
+func (s *PercentileRanksAggregation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Format = &o
+
+		case "hdr":
+			if err := dec.Decode(&s.Hdr); err != nil {
+				return err
+			}
+
+		case "keyed":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Keyed = &value
+			case bool:
+				s.Keyed = &v
+			}
+
+		case "missing":
+			if err := dec.Decode(&s.Missing); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		case "tdigest":
+			if err := dec.Decode(&s.Tdigest); err != nil {
+				return err
+			}
+
+		case "values":
+			if err := dec.Decode(&s.Values); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPercentileRanksAggregation returns a PercentileRanksAggregation.
