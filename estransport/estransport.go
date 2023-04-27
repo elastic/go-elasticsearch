@@ -329,7 +329,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 	}
 	
 	originalPath := req.URL.Path
-
 	for i := 0; i <= c.maxRetries; i++ {
 		var (
 			conn            *Connection
@@ -424,8 +423,6 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 		if !shouldRetry {
 			break
 		}
-		
-		req.URL.Path = originalPath
 
 		// Drain and close body when retrying after response
 		if shouldCloseBody && i < c.maxRetries {
@@ -451,6 +448,10 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 				break
 			}
 		}
+
+		// Re-init the path of the request to its original state
+		// This will be re-enriched by the connection upon retry
+		req.URL.Path = originalPath
 	}
 
 	// TODO(karmi): Wrap error
