@@ -16,23 +16,63 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
 
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // NumericDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/compound.ts#L88-L90
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/query_dsl/compound.ts#L88-L90
 type NumericDecayFunction struct {
 	MultiValueMode       *multivaluemode.MultiValueMode        `json:"multi_value_mode,omitempty"`
-	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"-"`
+	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"NumericDecayFunction,omitempty"`
+}
+
+func (s *NumericDecayFunction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "multi_value_mode":
+			if err := dec.Decode(&s.MultiValueMode); err != nil {
+				return err
+			}
+
+		case "NumericDecayFunction":
+			if s.NumericDecayFunction == nil {
+				s.NumericDecayFunction = make(map[string]DecayPlacementdoubledouble, 0)
+			}
+			if err := dec.Decode(&s.NumericDecayFunction); err != nil {
+				return err
+			}
+
+		default:
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -54,6 +94,7 @@ func (s NumericDecayFunction) MarshalJSON() ([]byte, error) {
 	for key, value := range s.NumericDecayFunction {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "NumericDecayFunction")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

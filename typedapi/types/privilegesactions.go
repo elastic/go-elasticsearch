@@ -16,22 +16,69 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // PrivilegesActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/put_privileges/types.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/put_privileges/types.ts#L22-L27
 type PrivilegesActions struct {
-	Actions     []string                   `json:"actions"`
-	Application *string                    `json:"application,omitempty"`
-	Metadata    map[string]json.RawMessage `json:"metadata,omitempty"`
-	Name        *string                    `json:"name,omitempty"`
+	Actions     []string `json:"actions"`
+	Application *string  `json:"application,omitempty"`
+	Metadata    Metadata `json:"metadata,omitempty"`
+	Name        *string  `json:"name,omitempty"`
+}
+
+func (s *PrivilegesActions) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actions":
+			if err := dec.Decode(&s.Actions); err != nil {
+				return err
+			}
+
+		case "application":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Application = &o
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPrivilegesActions returns a PrivilegesActions.

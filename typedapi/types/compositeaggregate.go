@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -30,14 +30,15 @@ import (
 
 // CompositeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/Aggregate.ts#L617-L622
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/Aggregate.ts#L617-L622
 type CompositeAggregate struct {
-	AfterKey map[string]FieldValue      `json:"after_key,omitempty"`
-	Buckets  BucketsCompositeBucket     `json:"buckets"`
-	Meta     map[string]json.RawMessage `json:"meta,omitempty"`
+	AfterKey CompositeAggregateKey  `json:"after_key,omitempty"`
+	Buckets  BucketsCompositeBucket `json:"buckets"`
+	Meta     Metadata               `json:"meta,omitempty"`
 }
 
 func (s *CompositeAggregate) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -63,15 +64,17 @@ func (s *CompositeAggregate) UnmarshalJSON(data []byte) error {
 			source := bytes.NewReader(rawMsg)
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
-
 			case '{':
 				o := make(map[string]CompositeBucket, 0)
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Buckets = o
-
 			case '[':
 				o := []CompositeBucket{}
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Buckets = o
 			}
 

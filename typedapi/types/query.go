@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/abstractions.ts#L96-L162
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/query_dsl/abstractions.ts#L96-L162
 type Query struct {
 	Bool              *BoolQuery                        `json:"bool,omitempty"`
 	Boosting          *BoostingQuery                    `json:"boosting,omitempty"`
@@ -78,6 +86,338 @@ type Query struct {
 	Type              *TypeQuery                        `json:"type,omitempty"`
 	Wildcard          map[string]WildcardQuery          `json:"wildcard,omitempty"`
 	Wrapper           *WrapperQuery                     `json:"wrapper,omitempty"`
+}
+
+func (s *Query) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "bool":
+			if err := dec.Decode(&s.Bool); err != nil {
+				return err
+			}
+
+		case "boosting":
+			if err := dec.Decode(&s.Boosting); err != nil {
+				return err
+			}
+
+		case "combined_fields":
+			if err := dec.Decode(&s.CombinedFields); err != nil {
+				return err
+			}
+
+		case "common":
+			if s.Common == nil {
+				s.Common = make(map[string]CommonTermsQuery, 0)
+			}
+			if err := dec.Decode(&s.Common); err != nil {
+				return err
+			}
+
+		case "constant_score":
+			if err := dec.Decode(&s.ConstantScore); err != nil {
+				return err
+			}
+
+		case "dis_max":
+			if err := dec.Decode(&s.DisMax); err != nil {
+				return err
+			}
+
+		case "distance_feature":
+			if err := dec.Decode(&s.DistanceFeature); err != nil {
+				return err
+			}
+
+		case "exists":
+			if err := dec.Decode(&s.Exists); err != nil {
+				return err
+			}
+
+		case "field_masking_span":
+			if err := dec.Decode(&s.FieldMaskingSpan); err != nil {
+				return err
+			}
+
+		case "function_score":
+			if err := dec.Decode(&s.FunctionScore); err != nil {
+				return err
+			}
+
+		case "fuzzy":
+			if s.Fuzzy == nil {
+				s.Fuzzy = make(map[string]FuzzyQuery, 0)
+			}
+			if err := dec.Decode(&s.Fuzzy); err != nil {
+				return err
+			}
+
+		case "geo_bounding_box":
+			if err := dec.Decode(&s.GeoBoundingBox); err != nil {
+				return err
+			}
+
+		case "geo_distance":
+			if err := dec.Decode(&s.GeoDistance); err != nil {
+				return err
+			}
+
+		case "geo_polygon":
+			if err := dec.Decode(&s.GeoPolygon); err != nil {
+				return err
+			}
+
+		case "geo_shape":
+			if err := dec.Decode(&s.GeoShape); err != nil {
+				return err
+			}
+
+		case "has_child":
+			if err := dec.Decode(&s.HasChild); err != nil {
+				return err
+			}
+
+		case "has_parent":
+			if err := dec.Decode(&s.HasParent); err != nil {
+				return err
+			}
+
+		case "ids":
+			if err := dec.Decode(&s.Ids); err != nil {
+				return err
+			}
+
+		case "intervals":
+			if s.Intervals == nil {
+				s.Intervals = make(map[string]IntervalsQuery, 0)
+			}
+			if err := dec.Decode(&s.Intervals); err != nil {
+				return err
+			}
+
+		case "match":
+			if s.Match == nil {
+				s.Match = make(map[string]MatchQuery, 0)
+			}
+			if err := dec.Decode(&s.Match); err != nil {
+				return err
+			}
+
+		case "match_all":
+			if err := dec.Decode(&s.MatchAll); err != nil {
+				return err
+			}
+
+		case "match_bool_prefix":
+			if s.MatchBoolPrefix == nil {
+				s.MatchBoolPrefix = make(map[string]MatchBoolPrefixQuery, 0)
+			}
+			if err := dec.Decode(&s.MatchBoolPrefix); err != nil {
+				return err
+			}
+
+		case "match_none":
+			if err := dec.Decode(&s.MatchNone); err != nil {
+				return err
+			}
+
+		case "match_phrase":
+			if s.MatchPhrase == nil {
+				s.MatchPhrase = make(map[string]MatchPhraseQuery, 0)
+			}
+			if err := dec.Decode(&s.MatchPhrase); err != nil {
+				return err
+			}
+
+		case "match_phrase_prefix":
+			if s.MatchPhrasePrefix == nil {
+				s.MatchPhrasePrefix = make(map[string]MatchPhrasePrefixQuery, 0)
+			}
+			if err := dec.Decode(&s.MatchPhrasePrefix); err != nil {
+				return err
+			}
+
+		case "more_like_this":
+			if err := dec.Decode(&s.MoreLikeThis); err != nil {
+				return err
+			}
+
+		case "multi_match":
+			if err := dec.Decode(&s.MultiMatch); err != nil {
+				return err
+			}
+
+		case "nested":
+			if err := dec.Decode(&s.Nested); err != nil {
+				return err
+			}
+
+		case "parent_id":
+			if err := dec.Decode(&s.ParentId); err != nil {
+				return err
+			}
+
+		case "percolate":
+			if err := dec.Decode(&s.Percolate); err != nil {
+				return err
+			}
+
+		case "pinned":
+			if err := dec.Decode(&s.Pinned); err != nil {
+				return err
+			}
+
+		case "prefix":
+			if s.Prefix == nil {
+				s.Prefix = make(map[string]PrefixQuery, 0)
+			}
+			if err := dec.Decode(&s.Prefix); err != nil {
+				return err
+			}
+
+		case "query_string":
+			if err := dec.Decode(&s.QueryString); err != nil {
+				return err
+			}
+
+		case "range":
+			if s.Range == nil {
+				s.Range = make(map[string]RangeQuery, 0)
+			}
+			if err := dec.Decode(&s.Range); err != nil {
+				return err
+			}
+
+		case "rank_feature":
+			if err := dec.Decode(&s.RankFeature); err != nil {
+				return err
+			}
+
+		case "regexp":
+			if s.Regexp == nil {
+				s.Regexp = make(map[string]RegexpQuery, 0)
+			}
+			if err := dec.Decode(&s.Regexp); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		case "script_score":
+			if err := dec.Decode(&s.ScriptScore); err != nil {
+				return err
+			}
+
+		case "shape":
+			if err := dec.Decode(&s.Shape); err != nil {
+				return err
+			}
+
+		case "simple_query_string":
+			if err := dec.Decode(&s.SimpleQueryString); err != nil {
+				return err
+			}
+
+		case "span_containing":
+			if err := dec.Decode(&s.SpanContaining); err != nil {
+				return err
+			}
+
+		case "span_first":
+			if err := dec.Decode(&s.SpanFirst); err != nil {
+				return err
+			}
+
+		case "span_multi":
+			if err := dec.Decode(&s.SpanMulti); err != nil {
+				return err
+			}
+
+		case "span_near":
+			if err := dec.Decode(&s.SpanNear); err != nil {
+				return err
+			}
+
+		case "span_not":
+			if err := dec.Decode(&s.SpanNot); err != nil {
+				return err
+			}
+
+		case "span_or":
+			if err := dec.Decode(&s.SpanOr); err != nil {
+				return err
+			}
+
+		case "span_term":
+			if s.SpanTerm == nil {
+				s.SpanTerm = make(map[string]SpanTermQuery, 0)
+			}
+			if err := dec.Decode(&s.SpanTerm); err != nil {
+				return err
+			}
+
+		case "span_within":
+			if err := dec.Decode(&s.SpanWithin); err != nil {
+				return err
+			}
+
+		case "term":
+			if s.Term == nil {
+				s.Term = make(map[string]TermQuery, 0)
+			}
+			if err := dec.Decode(&s.Term); err != nil {
+				return err
+			}
+
+		case "terms":
+			if err := dec.Decode(&s.Terms); err != nil {
+				return err
+			}
+
+		case "terms_set":
+			if s.TermsSet == nil {
+				s.TermsSet = make(map[string]TermsSetQuery, 0)
+			}
+			if err := dec.Decode(&s.TermsSet); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "wildcard":
+			if s.Wildcard == nil {
+				s.Wildcard = make(map[string]WildcardQuery, 0)
+			}
+			if err := dec.Decode(&s.Wildcard); err != nil {
+				return err
+			}
+
+		case "wrapper":
+			if err := dec.Decode(&s.Wrapper); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewQuery returns a Query.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // AutoFollowPatternSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ccr/get_auto_follow_pattern/types.ts#L28-L51
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ccr/get_auto_follow_pattern/types.ts#L28-L51
 type AutoFollowPatternSummary struct {
 	Active bool `json:"active"`
 	// FollowIndexPattern The name of follower index.
@@ -37,6 +47,79 @@ type AutoFollowPatternSummary struct {
 	MaxOutstandingReadRequests int `json:"max_outstanding_read_requests"`
 	// RemoteCluster The remote cluster containing the leader indices to match against.
 	RemoteCluster string `json:"remote_cluster"`
+}
+
+func (s *AutoFollowPatternSummary) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "active":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Active = value
+			case bool:
+				s.Active = v
+			}
+
+		case "follow_index_pattern":
+			if err := dec.Decode(&s.FollowIndexPattern); err != nil {
+				return err
+			}
+
+		case "leader_index_exclusion_patterns":
+			if err := dec.Decode(&s.LeaderIndexExclusionPatterns); err != nil {
+				return err
+			}
+
+		case "leader_index_patterns":
+			if err := dec.Decode(&s.LeaderIndexPatterns); err != nil {
+				return err
+			}
+
+		case "max_outstanding_read_requests":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxOutstandingReadRequests = value
+			case float64:
+				f := int(v)
+				s.MaxOutstandingReadRequests = f
+			}
+
+		case "remote_cluster":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RemoteCluster = o
+
+		}
+	}
+	return nil
 }
 
 // NewAutoFollowPatternSummary returns a AutoFollowPatternSummary.

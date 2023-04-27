@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/excludefrequent"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // Detector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Detector.ts#L25-L67
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Detector.ts#L25-L67
 type Detector struct {
 	// ByFieldName The field used to split the data. In particular, this property is used for
 	// analyzing the splits with respect to their own history. It is used for
@@ -64,6 +72,102 @@ type Detector struct {
 	// UseNull Defines whether a new series is used as the null series when there is no
 	// value for the by or partition fields.
 	UseNull *bool `json:"use_null,omitempty"`
+}
+
+func (s *Detector) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "by_field_name":
+			if err := dec.Decode(&s.ByFieldName); err != nil {
+				return err
+			}
+
+		case "custom_rules":
+			if err := dec.Decode(&s.CustomRules); err != nil {
+				return err
+			}
+
+		case "detector_description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DetectorDescription = &o
+
+		case "detector_index":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DetectorIndex = &value
+			case float64:
+				f := int(v)
+				s.DetectorIndex = &f
+			}
+
+		case "exclude_frequent":
+			if err := dec.Decode(&s.ExcludeFrequent); err != nil {
+				return err
+			}
+
+		case "field_name":
+			if err := dec.Decode(&s.FieldName); err != nil {
+				return err
+			}
+
+		case "function":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Function = &o
+
+		case "over_field_name":
+			if err := dec.Decode(&s.OverFieldName); err != nil {
+				return err
+			}
+
+		case "partition_field_name":
+			if err := dec.Decode(&s.PartitionFieldName); err != nil {
+				return err
+			}
+
+		case "use_null":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.UseNull = &value
+			case bool:
+				s.UseNull = &v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDetector returns a Detector.

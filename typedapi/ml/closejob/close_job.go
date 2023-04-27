@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 // Closes one or more anomaly detection jobs. A job can be opened and closed
 // multiple times throughout its lifecycle.
@@ -210,7 +210,6 @@ func (r CloseJob) Do(ctx context.Context) (*Response, error) {
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -28,12 +28,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // ShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/mapping/geo.ts#L69-L81
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/mapping/geo.ts#L69-L81
 type ShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -53,6 +55,7 @@ type ShapeProperty struct {
 }
 
 func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -67,18 +70,47 @@ func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "coerce":
-			if err := dec.Decode(&s.Coerce); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Coerce = &value
+			case bool:
+				s.Coerce = &v
 			}
 
 		case "copy_to":
-			if err := dec.Decode(&s.CopyTo); err != nil {
-				return err
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.CopyTo = append(s.CopyTo, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.CopyTo); err != nil {
+					return err
+				}
 			}
 
 		case "doc_values":
-			if err := dec.Decode(&s.DocValues); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.DocValues = &value
+			case bool:
+				s.DocValues = &v
 			}
 
 		case "dynamic":
@@ -87,6 +119,9 @@ func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string]Property, 0)
+			}
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
@@ -374,28 +409,60 @@ func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
 					}
 					s.Fields[key] = oo
 				default:
-					if err := dec.Decode(&s.Fields); err != nil {
+					if err := localDec.Decode(&s.Fields); err != nil {
 						return err
 					}
 				}
 			}
 
 		case "ignore_above":
-			if err := dec.Decode(&s.IgnoreAbove); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreAbove = &value
+			case float64:
+				f := int(v)
+				s.IgnoreAbove = &f
 			}
 
 		case "ignore_malformed":
-			if err := dec.Decode(&s.IgnoreMalformed); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreMalformed = &value
+			case bool:
+				s.IgnoreMalformed = &v
 			}
 
 		case "ignore_z_value":
-			if err := dec.Decode(&s.IgnoreZValue); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreZValue = &value
+			case bool:
+				s.IgnoreZValue = &v
 			}
 
 		case "meta":
+			if s.Meta == nil {
+				s.Meta = make(map[string]string, 0)
+			}
 			if err := dec.Decode(&s.Meta); err != nil {
 				return err
 			}
@@ -406,6 +473,9 @@ func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "properties":
+			if s.Properties == nil {
+				s.Properties = make(map[string]Property, 0)
+			}
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
@@ -693,20 +763,32 @@ func (s *ShapeProperty) UnmarshalJSON(data []byte) error {
 					}
 					s.Properties[key] = oo
 				default:
-					if err := dec.Decode(&s.Properties); err != nil {
+					if err := localDec.Decode(&s.Properties); err != nil {
 						return err
 					}
 				}
 			}
 
 		case "similarity":
-			if err := dec.Decode(&s.Similarity); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Similarity = &o
 
 		case "store":
-			if err := dec.Decode(&s.Store); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Store = &value
+			case bool:
+				s.Store = &v
 			}
 
 		case "type":

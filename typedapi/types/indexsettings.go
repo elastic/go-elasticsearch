@@ -16,20 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexcheckonstartup"
 
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/_types/IndexSettings.ts#L69-L168
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/_types/IndexSettings.ts#L69-L168
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -78,7 +85,7 @@ type IndexSettings struct {
 	QueryString             *SettingsQueryString  `json:"query_string,omitempty"`
 	RefreshInterval         Duration              `json:"refresh_interval,omitempty"`
 	Routing                 *IndexRouting         `json:"routing,omitempty"`
-	RoutingPartitionSize    *int                  `json:"routing_partition_size,omitempty"`
+	RoutingPartitionSize    Stringifiedinteger    `json:"routing_partition_size,omitempty"`
 	RoutingPath             []string              `json:"routing_path,omitempty"`
 	Search                  *SettingsSearch       `json:"search,omitempty"`
 	Settings                *IndexSettings        `json:"settings,omitempty"`
@@ -97,6 +104,525 @@ type IndexSettings struct {
 	Uuid                *string                  `json:"uuid,omitempty"`
 	VerifiedBeforeClose string                   `json:"verified_before_close,omitempty"`
 	Version             *IndexVersioning         `json:"version,omitempty"`
+}
+
+func (s *IndexSettings) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "analysis":
+			if err := dec.Decode(&s.Analysis); err != nil {
+				return err
+			}
+
+		case "analyze":
+			if err := dec.Decode(&s.Analyze); err != nil {
+				return err
+			}
+
+		case "auto_expand_replicas":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.AutoExpandReplicas = &o
+
+		case "blocks":
+			if err := dec.Decode(&s.Blocks); err != nil {
+				return err
+			}
+
+		case "check_on_startup":
+			if err := dec.Decode(&s.CheckOnStartup); err != nil {
+				return err
+			}
+
+		case "codec":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Codec = &o
+
+		case "creation_date":
+			if err := dec.Decode(&s.CreationDate); err != nil {
+				return err
+			}
+
+		case "creation_date_string":
+			if err := dec.Decode(&s.CreationDateString); err != nil {
+				return err
+			}
+
+		case "default_pipeline":
+			if err := dec.Decode(&s.DefaultPipeline); err != nil {
+				return err
+			}
+
+		case "final_pipeline":
+			if err := dec.Decode(&s.FinalPipeline); err != nil {
+				return err
+			}
+
+		case "format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Format = o
+
+		case "gc_deletes":
+			if err := dec.Decode(&s.GcDeletes); err != nil {
+				return err
+			}
+
+		case "hidden":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Hidden = o
+
+		case "highlight":
+			if err := dec.Decode(&s.Highlight); err != nil {
+				return err
+			}
+
+		case "index":
+			if err := dec.Decode(&s.Index); err != nil {
+				return err
+			}
+
+		case "indexing_pressure":
+			if err := dec.Decode(&s.IndexingPressure); err != nil {
+				return err
+			}
+
+		case "indexing.slowlog":
+			if err := dec.Decode(&s.IndexingSlowlog); err != nil {
+				return err
+			}
+
+		case "lifecycle":
+			if err := dec.Decode(&s.Lifecycle); err != nil {
+				return err
+			}
+
+		case "load_fixed_bitset_filters_eagerly":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.LoadFixedBitsetFiltersEagerly = &value
+			case bool:
+				s.LoadFixedBitsetFiltersEagerly = &v
+			}
+
+		case "mapping":
+			if err := dec.Decode(&s.Mapping); err != nil {
+				return err
+			}
+
+		case "max_docvalue_fields_search":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxDocvalueFieldsSearch = &value
+			case float64:
+				f := int(v)
+				s.MaxDocvalueFieldsSearch = &f
+			}
+
+		case "max_inner_result_window":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxInnerResultWindow = &value
+			case float64:
+				f := int(v)
+				s.MaxInnerResultWindow = &f
+			}
+
+		case "max_ngram_diff":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxNgramDiff = &value
+			case float64:
+				f := int(v)
+				s.MaxNgramDiff = &f
+			}
+
+		case "max_refresh_listeners":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxRefreshListeners = &value
+			case float64:
+				f := int(v)
+				s.MaxRefreshListeners = &f
+			}
+
+		case "max_regex_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxRegexLength = &value
+			case float64:
+				f := int(v)
+				s.MaxRegexLength = &f
+			}
+
+		case "max_rescore_window":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxRescoreWindow = &value
+			case float64:
+				f := int(v)
+				s.MaxRescoreWindow = &f
+			}
+
+		case "max_result_window":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxResultWindow = &value
+			case float64:
+				f := int(v)
+				s.MaxResultWindow = &f
+			}
+
+		case "max_script_fields":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxScriptFields = &value
+			case float64:
+				f := int(v)
+				s.MaxScriptFields = &f
+			}
+
+		case "max_shingle_diff":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxShingleDiff = &value
+			case float64:
+				f := int(v)
+				s.MaxShingleDiff = &f
+			}
+
+		case "max_slices_per_scroll":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxSlicesPerScroll = &value
+			case float64:
+				f := int(v)
+				s.MaxSlicesPerScroll = &f
+			}
+
+		case "max_terms_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxTermsCount = &value
+			case float64:
+				f := int(v)
+				s.MaxTermsCount = &f
+			}
+
+		case "merge":
+			if err := dec.Decode(&s.Merge); err != nil {
+				return err
+			}
+
+		case "mode":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Mode = &o
+
+		case "number_of_replicas":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.NumberOfReplicas = o
+
+		case "number_of_routing_shards":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NumberOfRoutingShards = &value
+			case float64:
+				f := int(v)
+				s.NumberOfRoutingShards = &f
+			}
+
+		case "number_of_shards":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.NumberOfShards = o
+
+		case "priority":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Priority = o
+
+		case "provided_name":
+			if err := dec.Decode(&s.ProvidedName); err != nil {
+				return err
+			}
+
+		case "queries":
+			if err := dec.Decode(&s.Queries); err != nil {
+				return err
+			}
+
+		case "query_string":
+			if err := dec.Decode(&s.QueryString); err != nil {
+				return err
+			}
+
+		case "refresh_interval":
+			if err := dec.Decode(&s.RefreshInterval); err != nil {
+				return err
+			}
+
+		case "routing":
+			if err := dec.Decode(&s.Routing); err != nil {
+				return err
+			}
+
+		case "routing_partition_size":
+			if err := dec.Decode(&s.RoutingPartitionSize); err != nil {
+				return err
+			}
+
+		case "routing_path":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.RoutingPath = append(s.RoutingPath, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.RoutingPath); err != nil {
+					return err
+				}
+			}
+
+		case "search":
+			if err := dec.Decode(&s.Search); err != nil {
+				return err
+			}
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return err
+			}
+
+		case "shards":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Shards = &value
+			case float64:
+				f := int(v)
+				s.Shards = &f
+			}
+
+		case "similarity":
+			if err := dec.Decode(&s.Similarity); err != nil {
+				return err
+			}
+
+		case "soft_deletes":
+			if err := dec.Decode(&s.SoftDeletes); err != nil {
+				return err
+			}
+
+		case "sort":
+			if err := dec.Decode(&s.Sort); err != nil {
+				return err
+			}
+
+		case "store":
+			if err := dec.Decode(&s.Store); err != nil {
+				return err
+			}
+
+		case "time_series":
+			if err := dec.Decode(&s.TimeSeries); err != nil {
+				return err
+			}
+
+		case "top_metrics_max_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.TopMetricsMaxSize = &value
+			case float64:
+				f := int(v)
+				s.TopMetricsMaxSize = &f
+			}
+
+		case "translog":
+			if err := dec.Decode(&s.Translog); err != nil {
+				return err
+			}
+
+		case "uuid":
+			if err := dec.Decode(&s.Uuid); err != nil {
+				return err
+			}
+
+		case "verified_before_close":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.VerifiedBeforeClose = o
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.IndexSettings == nil {
+					s.IndexSettings = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return err
+				}
+				s.IndexSettings[key] = *raw
+			}
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -118,6 +644,7 @@ func (s IndexSettings) MarshalJSON() ([]byte, error) {
 	for key, value := range s.IndexSettings {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "IndexSettings")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package putjob
 
@@ -28,7 +28,7 @@ import (
 
 // Response holds the response body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/put_job/MlPutJobResponse.ts#L29-L52
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/put_job/MlPutJobResponse.ts#L29-L52
 
 type Response struct {
 	AllowLazyOpen                        bool                     `json:"allow_lazy_open"`

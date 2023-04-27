@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // LifecycleExplainManaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ilm/explain_lifecycle/types.ts#L26-L52
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ilm/explain_lifecycle/types.ts#L26-L52
 type LifecycleExplainManaged struct {
 	Action                  *string                         `json:"action,omitempty"`
 	ActionTime              DateTime                        `json:"action_time,omitempty"`
@@ -51,6 +57,164 @@ type LifecycleExplainManaged struct {
 	StepTime                DateTime                        `json:"step_time,omitempty"`
 	StepTimeMillis          *int64                          `json:"step_time_millis,omitempty"`
 	TimeSinceIndexCreation  Duration                        `json:"time_since_index_creation,omitempty"`
+}
+
+func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "action":
+			if err := dec.Decode(&s.Action); err != nil {
+				return err
+			}
+
+		case "action_time":
+			if err := dec.Decode(&s.ActionTime); err != nil {
+				return err
+			}
+
+		case "action_time_millis":
+			if err := dec.Decode(&s.ActionTimeMillis); err != nil {
+				return err
+			}
+
+		case "age":
+			if err := dec.Decode(&s.Age); err != nil {
+				return err
+			}
+
+		case "failed_step":
+			if err := dec.Decode(&s.FailedStep); err != nil {
+				return err
+			}
+
+		case "failed_step_retry_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.FailedStepRetryCount = &value
+			case float64:
+				f := int(v)
+				s.FailedStepRetryCount = &f
+			}
+
+		case "index":
+			if err := dec.Decode(&s.Index); err != nil {
+				return err
+			}
+
+		case "index_creation_date":
+			if err := dec.Decode(&s.IndexCreationDate); err != nil {
+				return err
+			}
+
+		case "index_creation_date_millis":
+			if err := dec.Decode(&s.IndexCreationDateMillis); err != nil {
+				return err
+			}
+
+		case "is_auto_retryable_error":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IsAutoRetryableError = &value
+			case bool:
+				s.IsAutoRetryableError = &v
+			}
+
+		case "lifecycle_date":
+			if err := dec.Decode(&s.LifecycleDate); err != nil {
+				return err
+			}
+
+		case "lifecycle_date_millis":
+			if err := dec.Decode(&s.LifecycleDateMillis); err != nil {
+				return err
+			}
+
+		case "managed":
+			if err := dec.Decode(&s.Managed); err != nil {
+				return err
+			}
+
+		case "phase":
+			if err := dec.Decode(&s.Phase); err != nil {
+				return err
+			}
+
+		case "phase_execution":
+			if err := dec.Decode(&s.PhaseExecution); err != nil {
+				return err
+			}
+
+		case "phase_time":
+			if err := dec.Decode(&s.PhaseTime); err != nil {
+				return err
+			}
+
+		case "phase_time_millis":
+			if err := dec.Decode(&s.PhaseTimeMillis); err != nil {
+				return err
+			}
+
+		case "policy":
+			if err := dec.Decode(&s.Policy); err != nil {
+				return err
+			}
+
+		case "step":
+			if err := dec.Decode(&s.Step); err != nil {
+				return err
+			}
+
+		case "step_info":
+			if s.StepInfo == nil {
+				s.StepInfo = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.StepInfo); err != nil {
+				return err
+			}
+
+		case "step_time":
+			if err := dec.Decode(&s.StepTime); err != nil {
+				return err
+			}
+
+		case "step_time_millis":
+			if err := dec.Decode(&s.StepTimeMillis); err != nil {
+				return err
+			}
+
+		case "time_since_index_creation":
+			if err := dec.Decode(&s.TimeSinceIndexCreation); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewLifecycleExplainManaged returns a LifecycleExplainManaged.

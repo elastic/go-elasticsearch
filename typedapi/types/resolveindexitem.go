@@ -16,18 +16,66 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // ResolveIndexItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/resolve_index/ResolveIndexResponse.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/resolve_index/ResolveIndexResponse.ts#L30-L35
 type ResolveIndexItem struct {
 	Aliases    []string `json:"aliases,omitempty"`
 	Attributes []string `json:"attributes"`
 	DataStream *string  `json:"data_stream,omitempty"`
 	Name       string   `json:"name"`
+}
+
+func (s *ResolveIndexItem) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aliases":
+			if err := dec.Decode(&s.Aliases); err != nil {
+				return err
+			}
+
+		case "attributes":
+			if err := dec.Decode(&s.Attributes); err != nil {
+				return err
+			}
+
+		case "data_stream":
+			if err := dec.Decode(&s.DataStream); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewResolveIndexItem returns a ResolveIndexItem.

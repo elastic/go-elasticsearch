@@ -16,17 +16,63 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // Template type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L33-L37
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L33-L37
 type Template struct {
 	Aliases  map[string]Alias `json:"aliases"`
 	Mappings TypeMapping      `json:"mappings"`
 	Settings IndexSettings    `json:"settings"`
+}
+
+func (s *Template) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aliases":
+			if s.Aliases == nil {
+				s.Aliases = make(map[string]Alias, 0)
+			}
+			if err := dec.Decode(&s.Aliases); err != nil {
+				return err
+			}
+
+		case "mappings":
+			if err := dec.Decode(&s.Mappings); err != nil {
+				return err
+			}
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTemplate returns a Template.

@@ -16,23 +16,98 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // ShapeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/specialized.ts#L176-L181
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/query_dsl/specialized.ts#L176-L181
 type ShapeQuery struct {
 	Boost          *float32                   `json:"boost,omitempty"`
 	IgnoreUnmapped *bool                      `json:"ignore_unmapped,omitempty"`
 	QueryName_     *string                    `json:"_name,omitempty"`
-	ShapeQuery     map[string]ShapeFieldQuery `json:"-"`
+	ShapeQuery     map[string]ShapeFieldQuery `json:"ShapeQuery,omitempty"`
+}
+
+func (s *ShapeQuery) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "boost":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return err
+				}
+				f := float32(value)
+				s.Boost = &f
+			case float64:
+				f := float32(v)
+				s.Boost = &f
+			}
+
+		case "ignore_unmapped":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreUnmapped = &value
+			case bool:
+				s.IgnoreUnmapped = &v
+			}
+
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.QueryName_ = &o
+
+		case "ShapeQuery":
+			if s.ShapeQuery == nil {
+				s.ShapeQuery = make(map[string]ShapeFieldQuery, 0)
+			}
+			if err := dec.Decode(&s.ShapeQuery); err != nil {
+				return err
+			}
+
+		default:
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -54,6 +129,7 @@ func (s ShapeQuery) MarshalJSON() ([]byte, error) {
 	for key, value := range s.ShapeQuery {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "ShapeQuery")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

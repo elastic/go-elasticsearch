@@ -16,23 +16,80 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conditionop"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // WatcherCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Conditions.ts#L47-L59
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/watcher/_types/Conditions.ts#L47-L59
 type WatcherCondition struct {
 	Always       *AlwaysCondition                                  `json:"always,omitempty"`
 	ArrayCompare map[string]ArrayCompareCondition                  `json:"array_compare,omitempty"`
 	Compare      map[string]map[conditionop.ConditionOp]FieldValue `json:"compare,omitempty"`
 	Never        *NeverCondition                                   `json:"never,omitempty"`
 	Script       *ScriptCondition                                  `json:"script,omitempty"`
+}
+
+func (s *WatcherCondition) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "always":
+			if err := dec.Decode(&s.Always); err != nil {
+				return err
+			}
+
+		case "array_compare":
+			if s.ArrayCompare == nil {
+				s.ArrayCompare = make(map[string]ArrayCompareCondition, 0)
+			}
+			if err := dec.Decode(&s.ArrayCompare); err != nil {
+				return err
+			}
+
+		case "compare":
+			if s.Compare == nil {
+				s.Compare = make(map[string]map[conditionop.ConditionOp]FieldValue, 0)
+			}
+			if err := dec.Decode(&s.Compare); err != nil {
+				return err
+			}
+
+		case "never":
+			if err := dec.Decode(&s.Never); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewWatcherCondition returns a WatcherCondition.

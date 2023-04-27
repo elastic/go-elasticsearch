@@ -16,13 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+)
+
 // AllocationRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/allocation/types.ts#L24-L69
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/allocation/types.ts#L24-L69
 type AllocationRecord struct {
 	// DiskAvail disk available
 	DiskAvail ByteSize `json:"disk.avail,omitempty"`
@@ -42,6 +49,77 @@ type AllocationRecord struct {
 	Node *string `json:"node,omitempty"`
 	// Shards number of shards on node
 	Shards *string `json:"shards,omitempty"`
+}
+
+func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "disk.avail", "da", "diskAvail":
+			if err := dec.Decode(&s.DiskAvail); err != nil {
+				return err
+			}
+
+		case "disk.indices", "di", "diskIndices":
+			if err := dec.Decode(&s.DiskIndices); err != nil {
+				return err
+			}
+
+		case "disk.percent", "dp", "diskPercent":
+			if err := dec.Decode(&s.DiskPercent); err != nil {
+				return err
+			}
+
+		case "disk.total", "dt", "diskTotal":
+			if err := dec.Decode(&s.DiskTotal); err != nil {
+				return err
+			}
+
+		case "disk.used", "du", "diskUsed":
+			if err := dec.Decode(&s.DiskUsed); err != nil {
+				return err
+			}
+
+		case "host", "h":
+			if err := dec.Decode(&s.Host); err != nil {
+				return err
+			}
+
+		case "ip":
+			if err := dec.Decode(&s.Ip); err != nil {
+				return err
+			}
+
+		case "node", "n":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Node = &o
+
+		case "shards", "s":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Shards = &o
+
+		}
+	}
+	return nil
 }
 
 // NewAllocationRecord returns a AllocationRecord.

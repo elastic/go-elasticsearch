@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // TasksRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/tasks/types.ts#L22-L101
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/tasks/types.ts#L22-L101
 type TasksRecord struct {
 	// Action task action
 	Action *string `json:"action,omitempty"`
@@ -56,6 +64,142 @@ type TasksRecord struct {
 	Version *string `json:"version,omitempty"`
 	// XOpaqueId X-Opaque-ID header
 	XOpaqueId *string `json:"x_opaque_id,omitempty"`
+}
+
+func (s *TasksRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "action", "ac":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Action = &o
+
+		case "description", "desc":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = &o
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "ip", "i":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Ip = &o
+
+		case "node", "n":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Node = &o
+
+		case "node_id", "ni":
+			if err := dec.Decode(&s.NodeId); err != nil {
+				return err
+			}
+
+		case "parent_task_id", "pti":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ParentTaskId = &o
+
+		case "port", "po":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Port = &o
+
+		case "running_time", "time":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RunningTime = &o
+
+		case "running_time_ns":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RunningTimeNs = &o
+
+		case "start_time", "start":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.StartTime = &o
+
+		case "task_id", "ti":
+			if err := dec.Decode(&s.TaskId); err != nil {
+				return err
+			}
+
+		case "timestamp", "ts", "hms", "hhmmss":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Timestamp = &o
+
+		case "type", "ty":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Type = &o
+
+		case "version", "v":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		case "x_opaque_id", "x":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.XOpaqueId = &o
+
+		}
+	}
+	return nil
 }
 
 // NewTasksRecord returns a TasksRecord.

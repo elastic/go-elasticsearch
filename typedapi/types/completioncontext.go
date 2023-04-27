@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -25,12 +25,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // CompletionContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/suggester.ts#L155-L162
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/search/_types/suggester.ts#L159-L166
 type CompletionContext struct {
 	Boost      *Float64           `json:"boost,omitempty"`
 	Context    Context            `json:"context"`
@@ -40,6 +42,12 @@ type CompletionContext struct {
 }
 
 func (s *CompletionContext) UnmarshalJSON(data []byte) error {
+
+	if !bytes.HasPrefix(data, []byte(`{`)) {
+		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Context)
+		return err
+	}
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -54,11 +62,23 @@ func (s *CompletionContext) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "boost":
-			if err := dec.Decode(&s.Boost); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Boost = &f
+			case float64:
+				f := Float64(v)
+				s.Boost = &f
 			}
 
 		case "context":
+
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			source := bytes.NewReader(rawMsg)
@@ -88,8 +108,17 @@ func (s *CompletionContext) UnmarshalJSON(data []byte) error {
 			}
 
 		case "prefix":
-			if err := dec.Decode(&s.Prefix); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Prefix = &value
+			case bool:
+				s.Prefix = &v
 			}
 
 		}

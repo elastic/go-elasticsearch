@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DataframeAnalyticsSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/DataframeAnalytics.ts#L306-L322
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/DataframeAnalytics.ts#L306-L322
 type DataframeAnalyticsSummary struct {
 	AllowLazyStart *bool                            `json:"allow_lazy_start,omitempty"`
 	Analysis       DataframeAnalysisContainer       `json:"analysis"`
@@ -39,6 +49,112 @@ type DataframeAnalyticsSummary struct {
 	ModelMemoryLimit *string                          `json:"model_memory_limit,omitempty"`
 	Source           DataframeAnalyticsSource         `json:"source"`
 	Version          *string                          `json:"version,omitempty"`
+}
+
+func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allow_lazy_start":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.AllowLazyStart = &value
+			case bool:
+				s.AllowLazyStart = &v
+			}
+
+		case "analysis":
+			if err := dec.Decode(&s.Analysis); err != nil {
+				return err
+			}
+
+		case "analyzed_fields":
+			if err := dec.Decode(&s.AnalyzedFields); err != nil {
+				return err
+			}
+
+		case "authorization":
+			if err := dec.Decode(&s.Authorization); err != nil {
+				return err
+			}
+
+		case "create_time":
+			if err := dec.Decode(&s.CreateTime); err != nil {
+				return err
+			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = &o
+
+		case "dest":
+			if err := dec.Decode(&s.Dest); err != nil {
+				return err
+			}
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "max_num_threads":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxNumThreads = &value
+			case float64:
+				f := int(v)
+				s.MaxNumThreads = &f
+			}
+
+		case "model_memory_limit":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ModelMemoryLimit = &o
+
+		case "source":
+			if err := dec.Decode(&s.Source); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataframeAnalyticsSummary returns a DataframeAnalyticsSummary.

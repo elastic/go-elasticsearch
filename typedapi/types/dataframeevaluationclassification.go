@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // DataframeEvaluationClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/DataframeEvaluation.ts#L35-L44
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/DataframeEvaluation.ts#L35-L44
 type DataframeEvaluationClassification struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field can be boolean or integer. If the data type is integer, the value has
@@ -37,6 +45,46 @@ type DataframeEvaluationClassification struct {
 	// "class_name": XXX, "class_probability": YYY }. This field must be defined as
 	// nested in the mappings.
 	TopClassesField *string `json:"top_classes_field,omitempty"`
+}
+
+func (s *DataframeEvaluationClassification) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actual_field":
+			if err := dec.Decode(&s.ActualField); err != nil {
+				return err
+			}
+
+		case "metrics":
+			if err := dec.Decode(&s.Metrics); err != nil {
+				return err
+			}
+
+		case "predicted_field":
+			if err := dec.Decode(&s.PredictedField); err != nil {
+				return err
+			}
+
+		case "top_classes_field":
+			if err := dec.Decode(&s.TopClassesField); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataframeEvaluationClassification returns a DataframeEvaluationClassification.

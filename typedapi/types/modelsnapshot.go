@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ModelSnapshot type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Model.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Model.ts#L25-L46
 type ModelSnapshot struct {
 	// Description An optional description of the job.
 	Description *string `json:"description,omitempty"`
@@ -47,6 +57,130 @@ type ModelSnapshot struct {
 	SnapshotId string `json:"snapshot_id"`
 	// Timestamp The creation timestamp for the snapshot.
 	Timestamp int64 `json:"timestamp"`
+}
+
+func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = &o
+
+		case "job_id":
+			if err := dec.Decode(&s.JobId); err != nil {
+				return err
+			}
+
+		case "latest_record_time_stamp":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.LatestRecordTimeStamp = &value
+			case float64:
+				f := int(v)
+				s.LatestRecordTimeStamp = &f
+			}
+
+		case "latest_result_time_stamp":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.LatestResultTimeStamp = &value
+			case float64:
+				f := int(v)
+				s.LatestResultTimeStamp = &f
+			}
+
+		case "min_version":
+			if err := dec.Decode(&s.MinVersion); err != nil {
+				return err
+			}
+
+		case "model_size_stats":
+			if err := dec.Decode(&s.ModelSizeStats); err != nil {
+				return err
+			}
+
+		case "retain":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Retain = value
+			case bool:
+				s.Retain = v
+			}
+
+		case "snapshot_doc_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SnapshotDocCount = value
+			case float64:
+				f := int64(v)
+				s.SnapshotDocCount = f
+			}
+
+		case "snapshot_id":
+			if err := dec.Decode(&s.SnapshotId); err != nil {
+				return err
+			}
+
+		case "timestamp":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Timestamp = value
+			case float64:
+				f := int64(v)
+				s.Timestamp = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewModelSnapshot returns a ModelSnapshot.

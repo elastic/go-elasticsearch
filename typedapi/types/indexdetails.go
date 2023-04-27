@@ -16,18 +16,99 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // IndexDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/snapshot/_types/SnapshotIndexDetails.ts#L23-L28
 type IndexDetails struct {
 	MaxSegmentsPerShard int64    `json:"max_segments_per_shard"`
 	ShardCount          int      `json:"shard_count"`
 	Size                ByteSize `json:"size,omitempty"`
 	SizeInBytes         int64    `json:"size_in_bytes"`
+}
+
+func (s *IndexDetails) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "max_segments_per_shard":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MaxSegmentsPerShard = value
+			case float64:
+				f := int64(v)
+				s.MaxSegmentsPerShard = f
+			}
+
+		case "shard_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ShardCount = value
+			case float64:
+				f := int(v)
+				s.ShardCount = f
+			}
+
+		case "size":
+			if err := dec.Decode(&s.Size); err != nil {
+				return err
+			}
+
+		case "size_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.SizeInBytes = value
+			case float64:
+				f := int64(v)
+				s.SizeInBytes = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIndexDetails returns a IndexDetails.

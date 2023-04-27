@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // HealthRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/health/types.ts#L23-L94
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/health/types.ts#L23-L94
 type HealthRecord struct {
 	// ActiveShardsPercent active number of shards in percent
 	ActiveShardsPercent *string `json:"active_shards_percent,omitempty"`
@@ -52,6 +60,132 @@ type HealthRecord struct {
 	Timestamp *string `json:"timestamp,omitempty"`
 	// Unassign number of unassigned shards
 	Unassign *string `json:"unassign,omitempty"`
+}
+
+func (s *HealthRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "active_shards_percent", "asp", "activeShardsPercent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ActiveShardsPercent = &o
+
+		case "cluster", "cl":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Cluster = &o
+
+		case "epoch", "time":
+			if err := dec.Decode(&s.Epoch); err != nil {
+				return err
+			}
+
+		case "init", "i", "shards.initializing", "shardsInitializing":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Init = &o
+
+		case "max_task_wait_time", "mtwt", "maxTaskWaitTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MaxTaskWaitTime = &o
+
+		case "node.data", "nd", "nodeData":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.NodeData = &o
+
+		case "node.total", "nt", "nodeTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.NodeTotal = &o
+
+		case "pending_tasks", "pt", "pendingTasks":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PendingTasks = &o
+
+		case "pri", "p", "shards.primary", "shardsPrimary":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Pri = &o
+
+		case "relo", "r", "shards.relocating", "shardsRelocating":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Relo = &o
+
+		case "shards", "t", "sh", "shards.total", "shardsTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Shards = &o
+
+		case "status", "st":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Status = &o
+
+		case "timestamp", "ts", "hms", "hhmmss":
+			if err := dec.Decode(&s.Timestamp); err != nil {
+				return err
+			}
+
+		case "unassign", "u", "shards.unassigned", "shardsUnassigned":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Unassign = &o
+
+		}
+	}
+	return nil
 }
 
 // NewHealthRecord returns a HealthRecord.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ClusterIndicesShards type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L49-L61
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/stats/types.ts#L49-L61
 type ClusterIndicesShards struct {
 	// Index Contains statistics about shards assigned to selected nodes.
 	Index *ClusterIndicesShardsIndex `json:"index,omitempty"`
@@ -32,6 +42,79 @@ type ClusterIndicesShards struct {
 	Replication *Float64 `json:"replication,omitempty"`
 	// Total Total number of shards assigned to selected nodes.
 	Total *Float64 `json:"total,omitempty"`
+}
+
+func (s *ClusterIndicesShards) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "index":
+			if err := dec.Decode(&s.Index); err != nil {
+				return err
+			}
+
+		case "primaries":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Primaries = &f
+			case float64:
+				f := Float64(v)
+				s.Primaries = &f
+			}
+
+		case "replication":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Replication = &f
+			case float64:
+				f := Float64(v)
+				s.Replication = &f
+			}
+
+		case "total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Total = &f
+			case float64:
+				f := Float64(v)
+				s.Total = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewClusterIndicesShards returns a ClusterIndicesShards.

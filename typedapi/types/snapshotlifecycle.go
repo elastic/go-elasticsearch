@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // SnapshotLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/slm/_types/SnapshotLifecycle.ts#L38-L49
 type SnapshotLifecycle struct {
 	InProgress          *InProgress `json:"in_progress,omitempty"`
 	LastFailure         *Invocation `json:"last_failure,omitempty"`
@@ -34,6 +42,76 @@ type SnapshotLifecycle struct {
 	Policy              SLMPolicy   `json:"policy"`
 	Stats               Statistics  `json:"stats"`
 	Version             int64       `json:"version"`
+}
+
+func (s *SnapshotLifecycle) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "in_progress":
+			if err := dec.Decode(&s.InProgress); err != nil {
+				return err
+			}
+
+		case "last_failure":
+			if err := dec.Decode(&s.LastFailure); err != nil {
+				return err
+			}
+
+		case "last_success":
+			if err := dec.Decode(&s.LastSuccess); err != nil {
+				return err
+			}
+
+		case "modified_date":
+			if err := dec.Decode(&s.ModifiedDate); err != nil {
+				return err
+			}
+
+		case "modified_date_millis":
+			if err := dec.Decode(&s.ModifiedDateMillis); err != nil {
+				return err
+			}
+
+		case "next_execution":
+			if err := dec.Decode(&s.NextExecution); err != nil {
+				return err
+			}
+
+		case "next_execution_millis":
+			if err := dec.Decode(&s.NextExecutionMillis); err != nil {
+				return err
+			}
+
+		case "policy":
+			if err := dec.Decode(&s.Policy); err != nil {
+				return err
+			}
+
+		case "stats":
+			if err := dec.Decode(&s.Stats); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSnapshotLifecycle returns a SnapshotLifecycle.

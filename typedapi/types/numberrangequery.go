@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/rangerelation"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // NumberRangeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/term.ts#L83-L90
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/query_dsl/term.ts#L83-L90
 type NumberRangeQuery struct {
 	Boost      *float32                     `json:"boost,omitempty"`
 	From       Float64                      `json:"from,omitempty"`
@@ -37,6 +45,129 @@ type NumberRangeQuery struct {
 	QueryName_ *string                      `json:"_name,omitempty"`
 	Relation   *rangerelation.RangeRelation `json:"relation,omitempty"`
 	To         Float64                      `json:"to,omitempty"`
+}
+
+func (s *NumberRangeQuery) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "boost":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return err
+				}
+				f := float32(value)
+				s.Boost = &f
+			case float64:
+				f := float32(v)
+				s.Boost = &f
+			}
+
+		case "from":
+			if err := dec.Decode(&s.From); err != nil {
+				return err
+			}
+
+		case "gt":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Gt = &f
+			case float64:
+				f := Float64(v)
+				s.Gt = &f
+			}
+
+		case "gte":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Gte = &f
+			case float64:
+				f := Float64(v)
+				s.Gte = &f
+			}
+
+		case "lt":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Lt = &f
+			case float64:
+				f := Float64(v)
+				s.Lt = &f
+			}
+
+		case "lte":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Lte = &f
+			case float64:
+				f := Float64(v)
+				s.Lte = &f
+			}
+
+		case "_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.QueryName_ = &o
+
+		case "relation":
+			if err := dec.Decode(&s.Relation); err != nil {
+				return err
+			}
+
+		case "to":
+			if err := dec.Decode(&s.To); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNumberRangeQuery returns a NumberRangeQuery.

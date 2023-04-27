@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 // PivotGroupByContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/transform/_types/Transform.ts#L70-L78
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/transform/_types/Transform.ts#L70-L78
 type PivotGroupByContainer struct {
 	DateHistogram *DateHistogramAggregation `json:"date_histogram,omitempty"`
 	GeotileGrid   *GeoTileGridAggregation   `json:"geotile_grid,omitempty"`

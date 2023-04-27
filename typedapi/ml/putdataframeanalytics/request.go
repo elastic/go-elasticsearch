@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package putdataframeanalytics
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsRequest.ts#L30-L139
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsRequest.ts#L30-L139
 type Request struct {
 
 	// AllowLazyStart Specifies whether this job can start when there is insufficient machine
@@ -78,7 +78,7 @@ type Request struct {
 	Description *string `json:"description,omitempty"`
 	// Dest The destination configuration.
 	Dest    types.DataframeAnalyticsDestination `json:"dest"`
-	Headers map[string][]string                 `json:"headers,omitempty"`
+	Headers types.HttpHeaders                   `json:"headers,omitempty"`
 	// MaxNumThreads The maximum number of threads to be used by the analysis. Using more
 	// threads may decrease the time necessary to complete the analysis at the
 	// cost of using more CPU. Note that the process may use additional threads

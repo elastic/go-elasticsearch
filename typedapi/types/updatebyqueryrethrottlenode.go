@@ -16,32 +16,99 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // UpdateByQueryRethrottleNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleNode.ts#L25-L27
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleNode.ts#L25-L27
 type UpdateByQueryRethrottleNode struct {
 	Attributes       map[string]string   `json:"attributes"`
 	Host             string              `json:"host"`
 	Ip               string              `json:"ip"`
 	Name             string              `json:"name"`
 	Roles            []noderole.NodeRole `json:"roles,omitempty"`
-	Tasks            map[TaskId]TaskInfo `json:"tasks"`
+	Tasks            map[string]TaskInfo `json:"tasks"`
 	TransportAddress string              `json:"transport_address"`
+}
+
+func (s *UpdateByQueryRethrottleNode) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "attributes":
+			if s.Attributes == nil {
+				s.Attributes = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.Attributes); err != nil {
+				return err
+			}
+
+		case "host":
+			if err := dec.Decode(&s.Host); err != nil {
+				return err
+			}
+
+		case "ip":
+			if err := dec.Decode(&s.Ip); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return err
+			}
+
+		case "tasks":
+			if s.Tasks == nil {
+				s.Tasks = make(map[string]TaskInfo, 0)
+			}
+			if err := dec.Decode(&s.Tasks); err != nil {
+				return err
+			}
+
+		case "transport_address":
+			if err := dec.Decode(&s.TransportAddress); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewUpdateByQueryRethrottleNode returns a UpdateByQueryRethrottleNode.
 func NewUpdateByQueryRethrottleNode() *UpdateByQueryRethrottleNode {
 	r := &UpdateByQueryRethrottleNode{
 		Attributes: make(map[string]string, 0),
-		Tasks:      make(map[TaskId]TaskInfo, 0),
+		Tasks:      make(map[string]TaskInfo, 0),
 	}
 
 	return r

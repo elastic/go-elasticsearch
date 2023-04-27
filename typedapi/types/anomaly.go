@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Anomaly type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Anomaly.ts#L24-L121
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Anomaly.ts#L24-L121
 type Anomaly struct {
 	// Actual The actual value for the bucket.
 	Actual []Float64 `json:"actual,omitempty"`
@@ -101,6 +111,232 @@ type Anomaly struct {
 	Timestamp int64 `json:"timestamp"`
 	// Typical The typical value for the bucket, according to analytical modeling.
 	Typical []Float64 `json:"typical,omitempty"`
+}
+
+func (s *Anomaly) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actual":
+			if err := dec.Decode(&s.Actual); err != nil {
+				return err
+			}
+
+		case "anomaly_score_explanation":
+			if err := dec.Decode(&s.AnomalyScoreExplanation); err != nil {
+				return err
+			}
+
+		case "bucket_span":
+			if err := dec.Decode(&s.BucketSpan); err != nil {
+				return err
+			}
+
+		case "by_field_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ByFieldName = &o
+
+		case "by_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ByFieldValue = &o
+
+		case "causes":
+			if err := dec.Decode(&s.Causes); err != nil {
+				return err
+			}
+
+		case "detector_index":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DetectorIndex = value
+			case float64:
+				f := int(v)
+				s.DetectorIndex = f
+			}
+
+		case "field_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FieldName = &o
+
+		case "function":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Function = &o
+
+		case "function_description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FunctionDescription = &o
+
+		case "geo_results":
+			if err := dec.Decode(&s.GeoResults); err != nil {
+				return err
+			}
+
+		case "influencers":
+			if err := dec.Decode(&s.Influencers); err != nil {
+				return err
+			}
+
+		case "initial_record_score":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.InitialRecordScore = f
+			case float64:
+				f := Float64(v)
+				s.InitialRecordScore = f
+			}
+
+		case "is_interim":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IsInterim = value
+			case bool:
+				s.IsInterim = v
+			}
+
+		case "job_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.JobId = o
+
+		case "over_field_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.OverFieldName = &o
+
+		case "over_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.OverFieldValue = &o
+
+		case "partition_field_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PartitionFieldName = &o
+
+		case "partition_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PartitionFieldValue = &o
+
+		case "probability":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Probability = f
+			case float64:
+				f := Float64(v)
+				s.Probability = f
+			}
+
+		case "record_score":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.RecordScore = f
+			case float64:
+				f := Float64(v)
+				s.RecordScore = f
+			}
+
+		case "result_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ResultType = o
+
+		case "timestamp":
+			if err := dec.Decode(&s.Timestamp); err != nil {
+				return err
+			}
+
+		case "typical":
+			if err := dec.Decode(&s.Typical); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewAnomaly returns a Anomaly.

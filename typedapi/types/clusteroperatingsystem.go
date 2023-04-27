@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ClusterOperatingSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/stats/types.ts#L235-L242
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/stats/types.ts#L235-L242
 type ClusterOperatingSystem struct {
 	AllocatedProcessors int                                  `json:"allocated_processors"`
 	Architectures       []ClusterOperatingSystemArchitecture `json:"architectures,omitempty"`
@@ -30,6 +40,78 @@ type ClusterOperatingSystem struct {
 	Mem                 OperatingSystemMemoryInfo            `json:"mem"`
 	Names               []ClusterOperatingSystemName         `json:"names"`
 	PrettyNames         []ClusterOperatingSystemPrettyName   `json:"pretty_names"`
+}
+
+func (s *ClusterOperatingSystem) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allocated_processors":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.AllocatedProcessors = value
+			case float64:
+				f := int(v)
+				s.AllocatedProcessors = f
+			}
+
+		case "architectures":
+			if err := dec.Decode(&s.Architectures); err != nil {
+				return err
+			}
+
+		case "available_processors":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.AvailableProcessors = value
+			case float64:
+				f := int(v)
+				s.AvailableProcessors = f
+			}
+
+		case "mem":
+			if err := dec.Decode(&s.Mem); err != nil {
+				return err
+			}
+
+		case "names":
+			if err := dec.Decode(&s.Names); err != nil {
+				return err
+			}
+
+		case "pretty_names":
+			if err := dec.Decode(&s.PrettyNames); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewClusterOperatingSystem returns a ClusterOperatingSystem.

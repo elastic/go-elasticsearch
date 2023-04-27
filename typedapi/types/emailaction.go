@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/emailpriority"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // EmailAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Actions.ts#L252-L252
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/watcher/_types/Actions.ts#L252-L252
 type EmailAction struct {
 	Attachments map[string]EmailAttachmentContainer `json:"attachments,omitempty"`
 	Bcc         []string                            `json:"bcc,omitempty"`
@@ -39,6 +45,90 @@ type EmailAction struct {
 	SentDate    DateTime                            `json:"sent_date,omitempty"`
 	Subject     string                              `json:"subject"`
 	To          []string                            `json:"to"`
+}
+
+func (s *EmailAction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "attachments":
+			if s.Attachments == nil {
+				s.Attachments = make(map[string]EmailAttachmentContainer, 0)
+			}
+			if err := dec.Decode(&s.Attachments); err != nil {
+				return err
+			}
+
+		case "bcc":
+			if err := dec.Decode(&s.Bcc); err != nil {
+				return err
+			}
+
+		case "body":
+			if err := dec.Decode(&s.Body); err != nil {
+				return err
+			}
+
+		case "cc":
+			if err := dec.Decode(&s.Cc); err != nil {
+				return err
+			}
+
+		case "from":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.From = &o
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "priority":
+			if err := dec.Decode(&s.Priority); err != nil {
+				return err
+			}
+
+		case "reply_to":
+			if err := dec.Decode(&s.ReplyTo); err != nil {
+				return err
+			}
+
+		case "sent_date":
+			if err := dec.Decode(&s.SentDate); err != nil {
+				return err
+			}
+
+		case "subject":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Subject = o
+
+		case "to":
+			if err := dec.Decode(&s.To); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewEmailAction returns a EmailAction.

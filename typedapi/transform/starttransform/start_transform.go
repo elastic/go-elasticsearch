@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 // Starts one or more transforms.
 package starttransform
@@ -170,7 +170,6 @@ func (r StartTransform) Do(ctx context.Context) (*Response, error) {
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()
@@ -224,6 +223,16 @@ func (r *StartTransform) TransformId(v string) *StartTransform {
 // API name: timeout
 func (r *StartTransform) Timeout(v string) *StartTransform {
 	r.values.Set("timeout", v)
+
+	return r
+}
+
+// From Restricts the set of transformed entities to those changed after this time.
+// Relative times like now-30d are supported. Only applicable for continuous
+// transforms.
+// API name: from
+func (r *StartTransform) From(v string) *StartTransform {
+	r.values.Set("from", v)
 
 	return r
 }

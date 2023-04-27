@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/AggregationContainer.ts#L105-L209
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/AggregationContainer.ts#L105-L209
 type Aggregations struct {
 	AdjacencyMatrix *AdjacencyMatrixAggregation `json:"adjacency_matrix,omitempty"`
 	// Aggregations Sub-aggregations for this aggregation. Only applies to bucket aggregations.
@@ -75,7 +75,7 @@ type Aggregations struct {
 	Max                     *MaxAggregation                     `json:"max,omitempty"`
 	MaxBucket               *MaxBucketAggregation               `json:"max_bucket,omitempty"`
 	MedianAbsoluteDeviation *MedianAbsoluteDeviationAggregation `json:"median_absolute_deviation,omitempty"`
-	Meta                    map[string]json.RawMessage          `json:"meta,omitempty"`
+	Meta                    Metadata                            `json:"meta,omitempty"`
 	Min                     *MinAggregation                     `json:"min,omitempty"`
 	MinBucket               *MinBucketAggregation               `json:"min_bucket,omitempty"`
 	Missing                 *MissingAggregation                 `json:"missing,omitempty"`
@@ -113,6 +113,7 @@ type Aggregations struct {
 }
 
 func (s *Aggregations) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -132,6 +133,9 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 			}
 
 		case "aggregations", "aggs":
+			if s.Aggregations == nil {
+				s.Aggregations = make(map[string]Aggregations, 0)
+			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
 				return err
 			}
@@ -370,36 +374,36 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 
 			case "linear":
 				o := NewLinearMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "simple":
 				o := NewSimpleMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "ewma":
 				o := NewEwmaMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "holt":
 				o := NewHoltMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "holt_winters":
 				o := NewHoltWintersMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			default:
-				if err := dec.Decode(&s.MovingAvg); err != nil {
+				if err := localDec.Decode(&s.MovingAvg); err != nil {
 					return err
 				}
 			}

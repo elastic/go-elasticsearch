@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/mapping/dynamic-template.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/mapping/dynamic-template.ts#L22-L30
 type DynamicTemplate struct {
 	Mapping          Property             `json:"mapping,omitempty"`
 	Match            *string              `json:"match,omitempty"`
@@ -44,6 +44,7 @@ type DynamicTemplate struct {
 }
 
 func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -71,295 +72,301 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 
 			case "binary":
 				o := NewBinaryProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "boolean":
 				o := NewBooleanProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "{dynamic_property}":
 				o := NewDynamicProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "join":
 				o := NewJoinProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "keyword":
 				o := NewKeywordProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "match_only_text":
 				o := NewMatchOnlyTextProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "percolator":
 				o := NewPercolatorProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "rank_feature":
 				o := NewRankFeatureProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "rank_features":
 				o := NewRankFeaturesProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "search_as_you_type":
 				o := NewSearchAsYouTypeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "text":
 				o := NewTextProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "version":
 				o := NewVersionProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "wildcard":
 				o := NewWildcardProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "date_nanos":
 				o := NewDateNanosProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "date":
 				o := NewDateProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "aggregate_metric_double":
 				o := NewAggregateMetricDoubleProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "dense_vector":
 				o := NewDenseVectorProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "flattened":
 				o := NewFlattenedProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "nested":
 				o := NewNestedProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "object":
 				o := NewObjectProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "completion":
 				o := NewCompletionProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "constant_keyword":
 				o := NewConstantKeywordProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "alias":
 				o := NewFieldAliasProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "histogram":
 				o := NewHistogramProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "ip":
 				o := NewIpProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "murmur3":
 				o := NewMurmur3HashProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "token_count":
 				o := NewTokenCountProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "geo_point":
 				o := NewGeoPointProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "geo_shape":
 				o := NewGeoShapeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "point":
 				o := NewPointProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "shape":
 				o := NewShapeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "byte":
 				o := NewByteNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "double":
 				o := NewDoubleNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "float":
 				o := NewFloatNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "half_float":
 				o := NewHalfFloatNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "integer":
 				o := NewIntegerNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "long":
 				o := NewLongNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "scaled_float":
 				o := NewScaledFloatNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "short":
 				o := NewShortNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "unsigned_long":
 				o := NewUnsignedLongNumberProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "date_range":
 				o := NewDateRangeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "double_range":
 				o := NewDoubleRangeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "float_range":
 				o := NewFloatRangeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "integer_range":
 				o := NewIntegerRangeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "ip_range":
 				o := NewIpRangeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			case "long_range":
 				o := NewLongRangeProperty()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Mapping = *o
 			default:
-				if err := dec.Decode(&s.Mapping); err != nil {
+				if err := localDec.Decode(&s.Mapping); err != nil {
 					return err
 				}
 			}
 
 		case "match":
-			if err := dec.Decode(&s.Match); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Match = &o
 
 		case "match_mapping_type":
-			if err := dec.Decode(&s.MatchMappingType); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.MatchMappingType = &o
 
 		case "match_pattern":
 			if err := dec.Decode(&s.MatchPattern); err != nil {
@@ -367,19 +374,28 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 			}
 
 		case "path_match":
-			if err := dec.Decode(&s.PathMatch); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.PathMatch = &o
 
 		case "path_unmatch":
-			if err := dec.Decode(&s.PathUnmatch); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.PathUnmatch = &o
 
 		case "unmatch":
-			if err := dec.Decode(&s.Unmatch); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Unmatch = &o
 
 		}
 	}

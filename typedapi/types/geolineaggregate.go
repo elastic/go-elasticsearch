@@ -16,22 +16,69 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // GeoLineAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/Aggregate.ts#L775-L782
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/Aggregate.ts#L775-L782
 type GeoLineAggregate struct {
-	Geometry   GeoLine                    `json:"geometry"`
-	Meta       map[string]json.RawMessage `json:"meta,omitempty"`
-	Properties json.RawMessage            `json:"properties,omitempty"`
-	Type       string                     `json:"type"`
+	Geometry   GeoLine         `json:"geometry"`
+	Meta       Metadata        `json:"meta,omitempty"`
+	Properties json.RawMessage `json:"properties,omitempty"`
+	Type       string          `json:"type"`
+}
+
+func (s *GeoLineAggregate) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "geometry":
+			if err := dec.Decode(&s.Geometry); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "properties":
+			if err := dec.Decode(&s.Properties); err != nil {
+				return err
+			}
+
+		case "type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Type = o
+
+		}
+	}
+	return nil
 }
 
 // NewGeoLineAggregate returns a GeoLineAggregate.

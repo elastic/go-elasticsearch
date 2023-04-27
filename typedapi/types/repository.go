@@ -16,17 +16,63 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // Repository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/snapshot/_types/SnapshotRepository.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/snapshot/_types/SnapshotRepository.ts#L23-L27
 type Repository struct {
 	Settings RepositorySettings `json:"settings"`
 	Type     string             `json:"type"`
 	Uuid     *string            `json:"uuid,omitempty"`
+}
+
+func (s *Repository) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return err
+			}
+
+		case "type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Type = o
+
+		case "uuid":
+			if err := dec.Decode(&s.Uuid); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRepository returns a Repository.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -25,20 +25,23 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // UnmappedSignificantTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/Aggregate.ts#L609-L615
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/Aggregate.ts#L609-L615
 type UnmappedSignificantTermsAggregate struct {
-	BgCount  *int64                     `json:"bg_count,omitempty"`
-	Buckets  BucketsVoid                `json:"buckets"`
-	DocCount *int64                     `json:"doc_count,omitempty"`
-	Meta     map[string]json.RawMessage `json:"meta,omitempty"`
+	BgCount  *int64      `json:"bg_count,omitempty"`
+	Buckets  BucketsVoid `json:"buckets"`
+	DocCount *int64      `json:"doc_count,omitempty"`
+	Meta     Metadata    `json:"meta,omitempty"`
 }
 
 func (s *UnmappedSignificantTermsAggregate) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -53,8 +56,18 @@ func (s *UnmappedSignificantTermsAggregate) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bg_count":
-			if err := dec.Decode(&s.BgCount); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.BgCount = &value
+			case float64:
+				f := int64(v)
+				s.BgCount = &f
 			}
 
 		case "buckets":
@@ -64,21 +77,33 @@ func (s *UnmappedSignificantTermsAggregate) UnmarshalJSON(data []byte) error {
 			source := bytes.NewReader(rawMsg)
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
-
 			case '{':
-				o := make(map[string]struct{}, 0)
-				localDec.Decode(&o)
+				o := make(map[string]interface{}, 0)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Buckets = o
-
 			case '[':
-				o := []struct{}{}
-				localDec.Decode(&o)
+				o := []interface{}{}
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Buckets = o
 			}
 
 		case "doc_count":
-			if err := dec.Decode(&s.DocCount); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.DocCount = &value
+			case float64:
+				f := int64(v)
+				s.DocCount = &f
 			}
 
 		case "meta":

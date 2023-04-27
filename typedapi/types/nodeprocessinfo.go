@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // NodeProcessInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/nodes/info/types.ts#L383-L390
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/nodes/info/types.ts#L383-L390
 type NodeProcessInfo struct {
 	// Id Process identifier (PID)
 	Id int64 `json:"id"`
@@ -30,6 +40,60 @@ type NodeProcessInfo struct {
 	Mlockall bool `json:"mlockall"`
 	// RefreshIntervalInMillis Refresh interval for the process statistics
 	RefreshIntervalInMillis int64 `json:"refresh_interval_in_millis"`
+}
+
+func (s *NodeProcessInfo) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "id":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Id = value
+			case float64:
+				f := int64(v)
+				s.Id = f
+			}
+
+		case "mlockall":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Mlockall = value
+			case bool:
+				s.Mlockall = v
+			}
+
+		case "refresh_interval_in_millis":
+			if err := dec.Decode(&s.RefreshIntervalInMillis); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeProcessInfo returns a NodeProcessInfo.

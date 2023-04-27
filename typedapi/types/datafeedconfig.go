@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DatafeedConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Datafeed.ts#L60-L117
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Datafeed.ts#L60-L117
 type DatafeedConfig struct {
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 	// is limited and should be used only with low cardinality data.
@@ -81,7 +91,7 @@ type DatafeedConfig struct {
 	// performance when there are multiple jobs running on the same node.
 	QueryDelay Duration `json:"query_delay,omitempty"`
 	// RuntimeMappings Specifies runtime fields for the datafeed search.
-	RuntimeMappings map[string]RuntimeField `json:"runtime_mappings,omitempty"`
+	RuntimeMappings RuntimeFields `json:"runtime_mappings,omitempty"`
 	// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
 	// to the datafeed. The detector configuration objects in a job can contain
 	// functions that use these script fields.
@@ -90,6 +100,124 @@ type DatafeedConfig struct {
 	// does not use aggregations. The maximum value is the value of
 	// `index.max_result_window`, which is 10,000 by default.
 	ScrollSize *int `json:"scroll_size,omitempty"`
+}
+
+func (s *DatafeedConfig) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aggregations", "aggs":
+			if s.Aggregations == nil {
+				s.Aggregations = make(map[string]Aggregations, 0)
+			}
+			if err := dec.Decode(&s.Aggregations); err != nil {
+				return err
+			}
+
+		case "chunking_config":
+			if err := dec.Decode(&s.ChunkingConfig); err != nil {
+				return err
+			}
+
+		case "datafeed_id":
+			if err := dec.Decode(&s.DatafeedId); err != nil {
+				return err
+			}
+
+		case "delayed_data_check_config":
+			if err := dec.Decode(&s.DelayedDataCheckConfig); err != nil {
+				return err
+			}
+
+		case "frequency":
+			if err := dec.Decode(&s.Frequency); err != nil {
+				return err
+			}
+
+		case "indices", "indexes":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "indices_options":
+			if err := dec.Decode(&s.IndicesOptions); err != nil {
+				return err
+			}
+
+		case "job_id":
+			if err := dec.Decode(&s.JobId); err != nil {
+				return err
+			}
+
+		case "max_empty_searches":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxEmptySearches = &value
+			case float64:
+				f := int(v)
+				s.MaxEmptySearches = &f
+			}
+
+		case "query":
+			if err := dec.Decode(&s.Query); err != nil {
+				return err
+			}
+
+		case "query_delay":
+			if err := dec.Decode(&s.QueryDelay); err != nil {
+				return err
+			}
+
+		case "runtime_mappings":
+			if err := dec.Decode(&s.RuntimeMappings); err != nil {
+				return err
+			}
+
+		case "script_fields":
+			if s.ScriptFields == nil {
+				s.ScriptFields = make(map[string]ScriptField, 0)
+			}
+			if err := dec.Decode(&s.ScriptFields); err != nil {
+				return err
+			}
+
+		case "scroll_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ScrollSize = &value
+			case float64:
+				f := int(v)
+				s.ScrollSize = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDatafeedConfig returns a DatafeedConfig.

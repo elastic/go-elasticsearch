@@ -16,13 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+)
+
 // ShardsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/shards/types.ts#L20-L396
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/shards/types.ts#L20-L396
 type ShardsRecord struct {
 	// BulkAvgSizeInBytes avg size in bytes of shard bulk
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
@@ -177,6 +184,634 @@ type ShardsRecord struct {
 	WarmerTotal *string `json:"warmer.total,omitempty"`
 	// WarmerTotalTime time spent in warmers
 	WarmerTotalTime *string `json:"warmer.total_time,omitempty"`
+}
+
+func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "bulk.avg_size_in_bytes", "basi", "bulkAvgSizeInBytes":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BulkAvgSizeInBytes = &o
+
+		case "bulk.avg_time", "bati", "bulkAvgTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BulkAvgTime = &o
+
+		case "bulk.total_operations", "bto", "bulkTotalOperations":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BulkTotalOperations = &o
+
+		case "bulk.total_size_in_bytes", "btsi", "bulkTotalSizeInBytes":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BulkTotalSizeInBytes = &o
+
+		case "bulk.total_time", "btti", "bulkTotalTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BulkTotalTime = &o
+
+		case "completion.size", "cs", "completionSize":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.CompletionSize = &o
+
+		case "docs", "d", "dc":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Docs = o
+
+		case "fielddata.evictions", "fe", "fielddataEvictions":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FielddataEvictions = &o
+
+		case "fielddata.memory_size", "fm", "fielddataMemory":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FielddataMemorySize = &o
+
+		case "flush.total", "ft", "flushTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FlushTotal = &o
+
+		case "flush.total_time", "ftt", "flushTotalTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FlushTotalTime = &o
+
+		case "get.current", "gc", "getCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GetCurrent = &o
+
+		case "get.exists_time", "geti", "getExistsTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GetExistsTime = &o
+
+		case "get.exists_total", "geto", "getExistsTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GetExistsTotal = &o
+
+		case "get.missing_time", "gmti", "getMissingTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GetMissingTime = &o
+
+		case "get.missing_total", "gmto", "getMissingTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GetMissingTotal = &o
+
+		case "get.time", "gti", "getTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GetTime = &o
+
+		case "get.total", "gto", "getTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GetTotal = &o
+
+		case "id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Id = &o
+
+		case "index", "i", "idx":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Index = &o
+
+		case "indexing.delete_current", "idc", "indexingDeleteCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexingDeleteCurrent = &o
+
+		case "indexing.delete_time", "idti", "indexingDeleteTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexingDeleteTime = &o
+
+		case "indexing.delete_total", "idto", "indexingDeleteTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexingDeleteTotal = &o
+
+		case "indexing.index_current", "iic", "indexingIndexCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexingIndexCurrent = &o
+
+		case "indexing.index_failed", "iif", "indexingIndexFailed":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexingIndexFailed = &o
+
+		case "indexing.index_time", "iiti", "indexingIndexTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexingIndexTime = &o
+
+		case "indexing.index_total", "iito", "indexingIndexTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexingIndexTotal = &o
+
+		case "ip":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Ip = o
+
+		case "merges.current", "mc", "mergesCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MergesCurrent = &o
+
+		case "merges.current_docs", "mcd", "mergesCurrentDocs":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MergesCurrentDocs = &o
+
+		case "merges.current_size", "mcs", "mergesCurrentSize":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MergesCurrentSize = &o
+
+		case "merges.total", "mt", "mergesTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MergesTotal = &o
+
+		case "merges.total_docs", "mtd", "mergesTotalDocs":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MergesTotalDocs = &o
+
+		case "merges.total_size", "mts", "mergesTotalSize":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MergesTotalSize = &o
+
+		case "merges.total_time", "mtt", "mergesTotalTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.MergesTotalTime = &o
+
+		case "node", "n":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Node = o
+
+		case "path.data", "pd", "dataPath":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PathData = &o
+
+		case "path.state", "ps", "statsPath":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PathState = &o
+
+		case "prirep", "p", "pr", "primaryOrReplica":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Prirep = &o
+
+		case "query_cache.evictions", "qce", "queryCacheEvictions":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.QueryCacheEvictions = &o
+
+		case "query_cache.memory_size", "qcm", "queryCacheMemory":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.QueryCacheMemorySize = &o
+
+		case "recoverysource.type", "rs":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RecoverysourceType = &o
+
+		case "refresh.external_time", "rti", "refreshTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RefreshExternalTime = &o
+
+		case "refresh.external_total", "rto", "refreshTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RefreshExternalTotal = &o
+
+		case "refresh.listeners", "rli", "refreshListeners":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RefreshListeners = &o
+
+		case "refresh.time":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RefreshTime = &o
+
+		case "refresh.total":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RefreshTotal = &o
+
+		case "search.fetch_current", "sfc", "searchFetchCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchFetchCurrent = &o
+
+		case "search.fetch_time", "sfti", "searchFetchTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchFetchTime = &o
+
+		case "search.fetch_total", "sfto", "searchFetchTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchFetchTotal = &o
+
+		case "search.open_contexts", "so", "searchOpenContexts":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchOpenContexts = &o
+
+		case "search.query_current", "sqc", "searchQueryCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchQueryCurrent = &o
+
+		case "search.query_time", "sqti", "searchQueryTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchQueryTime = &o
+
+		case "search.query_total", "sqto", "searchQueryTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchQueryTotal = &o
+
+		case "search.scroll_current", "scc", "searchScrollCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchScrollCurrent = &o
+
+		case "search.scroll_time", "scti", "searchScrollTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchScrollTime = &o
+
+		case "search.scroll_total", "scto", "searchScrollTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SearchScrollTotal = &o
+
+		case "segments.count", "sc", "segmentsCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SegmentsCount = &o
+
+		case "segments.fixed_bitset_memory", "sfbm", "fixedBitsetMemory":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SegmentsFixedBitsetMemory = &o
+
+		case "segments.index_writer_memory", "siwm", "segmentsIndexWriterMemory":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SegmentsIndexWriterMemory = &o
+
+		case "segments.memory", "sm", "segmentsMemory":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SegmentsMemory = &o
+
+		case "segments.version_map_memory", "svmm", "segmentsVersionMapMemory":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SegmentsVersionMapMemory = &o
+
+		case "seq_no.global_checkpoint", "sqg", "globalCheckpoint":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SeqNoGlobalCheckpoint = &o
+
+		case "seq_no.local_checkpoint", "sql", "localCheckpoint":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SeqNoLocalCheckpoint = &o
+
+		case "seq_no.max", "sqm", "maxSeqNo":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SeqNoMax = &o
+
+		case "shard", "s", "sh":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Shard = &o
+
+		case "state", "st":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.State = &o
+
+		case "store", "sto":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Store = o
+
+		case "sync_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SyncId = &o
+
+		case "unassigned.at", "ua":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.UnassignedAt = &o
+
+		case "unassigned.details", "ud":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.UnassignedDetails = &o
+
+		case "unassigned.for", "uf":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.UnassignedFor = &o
+
+		case "unassigned.reason", "ur":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.UnassignedReason = &o
+
+		case "warmer.current", "wc", "warmerCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.WarmerCurrent = &o
+
+		case "warmer.total", "wto", "warmerTotal":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.WarmerTotal = &o
+
+		case "warmer.total_time", "wtt", "warmerTotalTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.WarmerTotalTime = &o
+
+		}
+	}
+	return nil
 }
 
 // NewShardsRecord returns a ShardsRecord.

@@ -16,24 +16,132 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ReindexTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/reindex_rethrottle/types.ts#L53-L64
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/reindex_rethrottle/types.ts#L53-L64
 type ReindexTask struct {
-	Action             string              `json:"action"`
-	Cancellable        bool                `json:"cancellable"`
-	Description        string              `json:"description"`
-	Headers            map[string][]string `json:"headers"`
-	Id                 int64               `json:"id"`
-	Node               string              `json:"node"`
-	RunningTimeInNanos int64               `json:"running_time_in_nanos"`
-	StartTimeInMillis  int64               `json:"start_time_in_millis"`
-	Status             ReindexStatus       `json:"status"`
-	Type               string              `json:"type"`
+	Action             string        `json:"action"`
+	Cancellable        bool          `json:"cancellable"`
+	Description        string        `json:"description"`
+	Headers            HttpHeaders   `json:"headers"`
+	Id                 int64         `json:"id"`
+	Node               string        `json:"node"`
+	RunningTimeInNanos int64         `json:"running_time_in_nanos"`
+	StartTimeInMillis  int64         `json:"start_time_in_millis"`
+	Status             ReindexStatus `json:"status"`
+	Type               string        `json:"type"`
+}
+
+func (s *ReindexTask) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "action":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Action = o
+
+		case "cancellable":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Cancellable = value
+			case bool:
+				s.Cancellable = v
+			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = o
+
+		case "headers":
+			if err := dec.Decode(&s.Headers); err != nil {
+				return err
+			}
+
+		case "id":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Id = value
+			case float64:
+				f := int64(v)
+				s.Id = f
+			}
+
+		case "node":
+			if err := dec.Decode(&s.Node); err != nil {
+				return err
+			}
+
+		case "running_time_in_nanos":
+			if err := dec.Decode(&s.RunningTimeInNanos); err != nil {
+				return err
+			}
+
+		case "start_time_in_millis":
+			if err := dec.Decode(&s.StartTimeInMillis); err != nil {
+				return err
+			}
+
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return err
+			}
+
+		case "type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Type = o
+
+		}
+	}
+	return nil
 }
 
 // NewReindexTask returns a ReindexTask.

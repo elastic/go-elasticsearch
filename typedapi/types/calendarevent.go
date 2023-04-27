@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // CalendarEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/CalendarEvent.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/CalendarEvent.ts#L23-L33
 type CalendarEvent struct {
 	// CalendarId A string that uniquely identifies a calendar.
 	CalendarId *string `json:"calendar_id,omitempty"`
@@ -35,6 +43,54 @@ type CalendarEvent struct {
 	// StartTime The timestamp for the beginning of the scheduled event in milliseconds since
 	// the epoch or ISO 8601 format.
 	StartTime DateTime `json:"start_time"`
+}
+
+func (s *CalendarEvent) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "calendar_id":
+			if err := dec.Decode(&s.CalendarId); err != nil {
+				return err
+			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = o
+
+		case "end_time":
+			if err := dec.Decode(&s.EndTime); err != nil {
+				return err
+			}
+
+		case "event_id":
+			if err := dec.Decode(&s.EventId); err != nil {
+				return err
+			}
+
+		case "start_time":
+			if err := dec.Decode(&s.StartTime); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewCalendarEvent returns a CalendarEvent.

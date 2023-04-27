@@ -16,23 +16,63 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
 
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // GeoDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/query_dsl/compound.ts#L96-L98
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/query_dsl/compound.ts#L96-L98
 type GeoDecayFunction struct {
-	GeoDecayFunction map[string]DecayPlacementGeoLocationDistance `json:"-"`
+	GeoDecayFunction map[string]DecayPlacementGeoLocationDistance `json:"GeoDecayFunction,omitempty"`
 	MultiValueMode   *multivaluemode.MultiValueMode               `json:"multi_value_mode,omitempty"`
+}
+
+func (s *GeoDecayFunction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "GeoDecayFunction":
+			if s.GeoDecayFunction == nil {
+				s.GeoDecayFunction = make(map[string]DecayPlacementGeoLocationDistance, 0)
+			}
+			if err := dec.Decode(&s.GeoDecayFunction); err != nil {
+				return err
+			}
+
+		case "multi_value_mode":
+			if err := dec.Decode(&s.MultiValueMode); err != nil {
+				return err
+			}
+
+		default:
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -54,6 +94,7 @@ func (s GeoDecayFunction) MarshalJSON() ([]byte, error) {
 	for key, value := range s.GeoDecayFunction {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "GeoDecayFunction")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

@@ -16,15 +16,51 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // TypeFieldMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/get_field_mapping/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/get_field_mapping/types.ts#L24-L26
 type TypeFieldMappings struct {
 	Mappings map[string]FieldMapping `json:"mappings"`
+}
+
+func (s *TypeFieldMappings) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "mappings":
+			if s.Mappings == nil {
+				s.Mappings = make(map[string]FieldMapping, 0)
+			}
+			if err := dec.Decode(&s.Mappings); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTypeFieldMappings returns a TypeFieldMappings.

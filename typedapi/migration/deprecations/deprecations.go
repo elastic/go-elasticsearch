@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 // Retrieves information about different cluster, node, and index level settings
 // that use deprecated features that will be removed or changed in the next
@@ -179,7 +179,6 @@ func (r Deprecations) Do(ctx context.Context) (*Response, error) {
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

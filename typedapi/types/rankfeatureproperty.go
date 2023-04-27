@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -27,12 +27,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // RankFeatureProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/mapping/core.ts#L181-L184
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/mapping/core.ts#L181-L184
 type RankFeatureProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -45,6 +47,7 @@ type RankFeatureProperty struct {
 }
 
 func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -64,6 +67,9 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string]Property, 0)
+			}
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
@@ -351,28 +357,54 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 					}
 					s.Fields[key] = oo
 				default:
-					if err := dec.Decode(&s.Fields); err != nil {
+					if err := localDec.Decode(&s.Fields); err != nil {
 						return err
 					}
 				}
 			}
 
 		case "ignore_above":
-			if err := dec.Decode(&s.IgnoreAbove); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreAbove = &value
+			case float64:
+				f := int(v)
+				s.IgnoreAbove = &f
 			}
 
 		case "meta":
+			if s.Meta == nil {
+				s.Meta = make(map[string]string, 0)
+			}
 			if err := dec.Decode(&s.Meta); err != nil {
 				return err
 			}
 
 		case "positive_score_impact":
-			if err := dec.Decode(&s.PositiveScoreImpact); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.PositiveScoreImpact = &value
+			case bool:
+				s.PositiveScoreImpact = &v
 			}
 
 		case "properties":
+			if s.Properties == nil {
+				s.Properties = make(map[string]Property, 0)
+			}
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
@@ -660,7 +692,7 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 					}
 					s.Properties[key] = oo
 				default:
-					if err := dec.Decode(&s.Properties); err != nil {
+					if err := localDec.Decode(&s.Properties); err != nil {
 						return err
 					}
 				}

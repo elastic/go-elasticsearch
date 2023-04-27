@@ -16,24 +16,30 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/boundaryscanner"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterencoder"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterfragmenter"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterorder"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertagsschema"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // Highlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/highlighting.ts#L57-L60
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/search/_types/highlighting.ts#L57-L60
 type Highlight struct {
 	BoundaryChars         *string                                      `json:"boundary_chars,omitempty"`
 	BoundaryMaxScan       *int                                         `json:"boundary_max_scan,omitempty"`
@@ -58,6 +64,257 @@ type Highlight struct {
 	RequireFieldMatch     *bool                                        `json:"require_field_match,omitempty"`
 	TagsSchema            *highlightertagsschema.HighlighterTagsSchema `json:"tags_schema,omitempty"`
 	Type                  *highlightertype.HighlighterType             `json:"type,omitempty"`
+}
+
+func (s *Highlight) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "boundary_chars":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BoundaryChars = &o
+
+		case "boundary_max_scan":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.BoundaryMaxScan = &value
+			case float64:
+				f := int(v)
+				s.BoundaryMaxScan = &f
+			}
+
+		case "boundary_scanner":
+			if err := dec.Decode(&s.BoundaryScanner); err != nil {
+				return err
+			}
+
+		case "boundary_scanner_locale":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BoundaryScannerLocale = &o
+
+		case "encoder":
+			if err := dec.Decode(&s.Encoder); err != nil {
+				return err
+			}
+
+		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string]HighlightField, 0)
+			}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return err
+			}
+
+		case "force_source":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.ForceSource = &value
+			case bool:
+				s.ForceSource = &v
+			}
+
+		case "fragment_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.FragmentSize = &value
+			case float64:
+				f := int(v)
+				s.FragmentSize = &f
+			}
+
+		case "fragmenter":
+			if err := dec.Decode(&s.Fragmenter); err != nil {
+				return err
+			}
+
+		case "highlight_filter":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.HighlightFilter = &value
+			case bool:
+				s.HighlightFilter = &v
+			}
+
+		case "highlight_query":
+			if err := dec.Decode(&s.HighlightQuery); err != nil {
+				return err
+			}
+
+		case "max_analyzed_offset":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxAnalyzedOffset = &value
+			case float64:
+				f := int(v)
+				s.MaxAnalyzedOffset = &f
+			}
+
+		case "max_fragment_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxFragmentLength = &value
+			case float64:
+				f := int(v)
+				s.MaxFragmentLength = &f
+			}
+
+		case "no_match_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NoMatchSize = &value
+			case float64:
+				f := int(v)
+				s.NoMatchSize = &f
+			}
+
+		case "number_of_fragments":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NumberOfFragments = &value
+			case float64:
+				f := int(v)
+				s.NumberOfFragments = &f
+			}
+
+		case "options":
+			if s.Options == nil {
+				s.Options = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Options); err != nil {
+				return err
+			}
+
+		case "order":
+			if err := dec.Decode(&s.Order); err != nil {
+				return err
+			}
+
+		case "phrase_limit":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PhraseLimit = &value
+			case float64:
+				f := int(v)
+				s.PhraseLimit = &f
+			}
+
+		case "post_tags":
+			if err := dec.Decode(&s.PostTags); err != nil {
+				return err
+			}
+
+		case "pre_tags":
+			if err := dec.Decode(&s.PreTags); err != nil {
+				return err
+			}
+
+		case "require_field_match":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.RequireFieldMatch = &value
+			case bool:
+				s.RequireFieldMatch = &v
+			}
+
+		case "tags_schema":
+			if err := dec.Decode(&s.TagsSchema); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewHighlight returns a Highlight.

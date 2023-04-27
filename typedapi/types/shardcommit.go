@@ -16,18 +16,92 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ShardCommit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/stats/types.ts#L103-L108
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/stats/types.ts#L103-L108
 type ShardCommit struct {
 	Generation int               `json:"generation"`
 	Id         string            `json:"id"`
 	NumDocs    int64             `json:"num_docs"`
 	UserData   map[string]string `json:"user_data"`
+}
+
+func (s *ShardCommit) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "generation":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Generation = value
+			case float64:
+				f := int(v)
+				s.Generation = f
+			}
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "num_docs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NumDocs = value
+			case float64:
+				f := int64(v)
+				s.NumDocs = f
+			}
+
+		case "user_data":
+			if s.UserData == nil {
+				s.UserData = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.UserData); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewShardCommit returns a ShardCommit.

@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/executionphase"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // WatchRecordStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/stats/types.ts#L54-L60
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/watcher/stats/types.ts#L54-L60
 type WatchRecordStats struct {
 	ExecutedActions []string                      `json:"executed_actions,omitempty"`
 	ExecutionPhase  executionphase.ExecutionPhase `json:"execution_phase"`
@@ -34,6 +40,56 @@ type WatchRecordStats struct {
 	TriggeredTime   DateTime                      `json:"triggered_time"`
 	WatchId         string                        `json:"watch_id"`
 	WatchRecordId   string                        `json:"watch_record_id"`
+}
+
+func (s *WatchRecordStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "executed_actions":
+			if err := dec.Decode(&s.ExecutedActions); err != nil {
+				return err
+			}
+
+		case "execution_phase":
+			if err := dec.Decode(&s.ExecutionPhase); err != nil {
+				return err
+			}
+
+		case "execution_time":
+			if err := dec.Decode(&s.ExecutionTime); err != nil {
+				return err
+			}
+
+		case "triggered_time":
+			if err := dec.Decode(&s.TriggeredTime); err != nil {
+				return err
+			}
+
+		case "watch_id":
+			if err := dec.Decode(&s.WatchId); err != nil {
+				return err
+			}
+
+		case "watch_record_id":
+			if err := dec.Decode(&s.WatchRecordId); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewWatchRecordStats returns a WatchRecordStats.

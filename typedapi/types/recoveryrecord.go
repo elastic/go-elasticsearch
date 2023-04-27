@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // RecoveryRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/recovery/types.ts#L24-L155
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/recovery/types.ts#L24-L155
 type RecoveryRecord struct {
 	// Bytes number of bytes to recover
 	Bytes *string `json:"bytes,omitempty"`
@@ -76,6 +84,207 @@ type RecoveryRecord struct {
 	TranslogOpsRecovered *string `json:"translog_ops_recovered,omitempty"`
 	// Type recovery type
 	Type *string `json:"type,omitempty"`
+}
+
+func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "bytes", "b":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Bytes = &o
+
+		case "bytes_percent", "bp":
+			if err := dec.Decode(&s.BytesPercent); err != nil {
+				return err
+			}
+
+		case "bytes_recovered", "br":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BytesRecovered = &o
+
+		case "bytes_total", "tb":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.BytesTotal = &o
+
+		case "files", "f":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Files = &o
+
+		case "files_percent", "fp":
+			if err := dec.Decode(&s.FilesPercent); err != nil {
+				return err
+			}
+
+		case "files_recovered", "fr":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FilesRecovered = &o
+
+		case "files_total", "tf":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FilesTotal = &o
+
+		case "index", "i", "idx":
+			if err := dec.Decode(&s.Index); err != nil {
+				return err
+			}
+
+		case "repository", "rep":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Repository = &o
+
+		case "shard", "s", "sh":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Shard = &o
+
+		case "snapshot", "snap":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Snapshot = &o
+
+		case "source_host", "shost":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SourceHost = &o
+
+		case "source_node", "snode":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.SourceNode = &o
+
+		case "stage", "st":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Stage = &o
+
+		case "start_time", "start":
+			if err := dec.Decode(&s.StartTime); err != nil {
+				return err
+			}
+
+		case "start_time_millis", "start_millis":
+			if err := dec.Decode(&s.StartTimeMillis); err != nil {
+				return err
+			}
+
+		case "stop_time", "stop":
+			if err := dec.Decode(&s.StopTime); err != nil {
+				return err
+			}
+
+		case "stop_time_millis", "stop_millis":
+			if err := dec.Decode(&s.StopTimeMillis); err != nil {
+				return err
+			}
+
+		case "target_host", "thost":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.TargetHost = &o
+
+		case "target_node", "tnode":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.TargetNode = &o
+
+		case "time", "t", "ti":
+			if err := dec.Decode(&s.Time); err != nil {
+				return err
+			}
+
+		case "translog_ops", "to":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.TranslogOps = &o
+
+		case "translog_ops_percent", "top":
+			if err := dec.Decode(&s.TranslogOpsPercent); err != nil {
+				return err
+			}
+
+		case "translog_ops_recovered", "tor":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.TranslogOpsRecovered = &o
+
+		case "type", "ty":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Type = &o
+
+		}
+	}
+	return nil
 }
 
 // NewRecoveryRecord returns a RecoveryRecord.

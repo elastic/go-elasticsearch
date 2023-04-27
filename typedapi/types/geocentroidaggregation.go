@@ -16,19 +16,84 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // GeoCentroidAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/metric.ts#L76-L79
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/metric.ts#L76-L79
 type GeoCentroidAggregation struct {
 	Count    *int64      `json:"count,omitempty"`
 	Field    *string     `json:"field,omitempty"`
 	Location GeoLocation `json:"location,omitempty"`
 	Missing  Missing     `json:"missing,omitempty"`
 	Script   Script      `json:"script,omitempty"`
+}
+
+func (s *GeoCentroidAggregation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Count = &value
+			case float64:
+				f := int64(v)
+				s.Count = &f
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "location":
+			if err := dec.Decode(&s.Location); err != nil {
+				return err
+			}
+
+		case "missing":
+			if err := dec.Decode(&s.Missing); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewGeoCentroidAggregation returns a GeoCentroidAggregation.

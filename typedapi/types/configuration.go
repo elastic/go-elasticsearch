@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // Configuration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/slm/_types/SnapshotLifecycle.ts#L99-L129
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/slm/_types/SnapshotLifecycle.ts#L99-L129
 type Configuration struct {
 	// FeatureStates A list of feature states to be included in this snapshot. A list of features
 	// available for inclusion in the snapshot and their descriptions be can be
@@ -53,10 +59,98 @@ type Configuration struct {
 	// Metadata Attaches arbitrary metadata to the snapshot, such as a record of who took the
 	// snapshot, why it was taken, or any other useful data. Metadata must be less
 	// than 1024 bytes.
-	Metadata map[string]json.RawMessage `json:"metadata,omitempty"`
+	Metadata Metadata `json:"metadata,omitempty"`
 	// Partial If false, the entire snapshot will fail if one or more indices included in
 	// the snapshot do not have all primary shards available.
 	Partial *bool `json:"partial,omitempty"`
+}
+
+func (s *Configuration) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "feature_states":
+			if err := dec.Decode(&s.FeatureStates); err != nil {
+				return err
+			}
+
+		case "ignore_unavailable":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreUnavailable = &value
+			case bool:
+				s.IgnoreUnavailable = &v
+			}
+
+		case "include_global_state":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IncludeGlobalState = &value
+			case bool:
+				s.IncludeGlobalState = &v
+			}
+
+		case "indices":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.Indices = append(s.Indices, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Indices); err != nil {
+					return err
+				}
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "partial":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Partial = &value
+			case bool:
+				s.Partial = &v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewConfiguration returns a Configuration.

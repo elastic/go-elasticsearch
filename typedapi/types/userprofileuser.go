@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // UserProfileUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/security/_types/UserProfile.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/security/_types/UserProfile.ts#L33-L40
 type UserProfileUser struct {
 	Email       string   `json:"email,omitempty"`
 	FullName    string   `json:"full_name,omitempty"`
@@ -30,6 +38,59 @@ type UserProfileUser struct {
 	RealmName   string   `json:"realm_name"`
 	Roles       []string `json:"roles"`
 	Username    string   `json:"username"`
+}
+
+func (s *UserProfileUser) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "email":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Email = o
+
+		case "full_name":
+			if err := dec.Decode(&s.FullName); err != nil {
+				return err
+			}
+
+		case "realm_domain":
+			if err := dec.Decode(&s.RealmDomain); err != nil {
+				return err
+			}
+
+		case "realm_name":
+			if err := dec.Decode(&s.RealmName); err != nil {
+				return err
+			}
+
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return err
+			}
+
+		case "username":
+			if err := dec.Decode(&s.Username); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewUserProfileUser returns a UserProfileUser.

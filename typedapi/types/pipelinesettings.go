@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // PipelineSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/logstash/_types/Pipeline.ts#L28-L36
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/logstash/_types/Pipeline.ts#L28-L36
 type PipelineSettings struct {
 	PipelineBatchDelay    int    `json:"pipeline.batch.delay"`
 	PipelineBatchSize     int    `json:"pipeline.batch.size"`
@@ -31,6 +41,122 @@ type PipelineSettings struct {
 	QueueMaxBytesNumber   int    `json:"queue.max_bytes.number"`
 	QueueMaxBytesUnits    string `json:"queue.max_bytes.units"`
 	QueueType             string `json:"queue.type"`
+}
+
+func (s *PipelineSettings) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "pipeline.batch.delay":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PipelineBatchDelay = value
+			case float64:
+				f := int(v)
+				s.PipelineBatchDelay = f
+			}
+
+		case "pipeline.batch.size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PipelineBatchSize = value
+			case float64:
+				f := int(v)
+				s.PipelineBatchSize = f
+			}
+
+		case "pipeline.workers":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PipelineWorkers = value
+			case float64:
+				f := int(v)
+				s.PipelineWorkers = f
+			}
+
+		case "queue.checkpoint.writes":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.QueueCheckpointWrites = value
+			case float64:
+				f := int(v)
+				s.QueueCheckpointWrites = f
+			}
+
+		case "queue.max_bytes.number":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.QueueMaxBytesNumber = value
+			case float64:
+				f := int(v)
+				s.QueueMaxBytesNumber = f
+			}
+
+		case "queue.max_bytes.units":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.QueueMaxBytesUnits = o
+
+		case "queue.type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.QueueType = o
+
+		}
+	}
+	return nil
 }
 
 // NewPipelineSettings returns a PipelineSettings.

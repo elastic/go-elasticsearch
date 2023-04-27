@@ -16,17 +16,60 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // NodeDiskUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cluster/allocation_explain/types.ts#L56-L60
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cluster/allocation_explain/types.ts#L56-L60
 type NodeDiskUsage struct {
 	LeastAvailable DiskUsage `json:"least_available"`
 	MostAvailable  DiskUsage `json:"most_available"`
 	NodeName       string    `json:"node_name"`
+}
+
+func (s *NodeDiskUsage) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "least_available":
+			if err := dec.Decode(&s.LeastAvailable); err != nil {
+				return err
+			}
+
+		case "most_available":
+			if err := dec.Decode(&s.MostAvailable); err != nil {
+				return err
+			}
+
+		case "node_name":
+			if err := dec.Decode(&s.NodeName); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeDiskUsage returns a NodeDiskUsage.

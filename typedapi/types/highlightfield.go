@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -31,12 +31,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/highlighting.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/search/_types/highlighting.ts#L88-L92
 type HighlightField struct {
 	Analyzer              Analyzer                                     `json:"analyzer,omitempty"`
 	BoundaryChars         *string                                      `json:"boundary_chars,omitempty"`
@@ -65,6 +67,7 @@ type HighlightField struct {
 }
 
 func (s *HighlightField) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -92,102 +95,116 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 
 			case "custom":
 				o := NewCustomAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "fingerprint":
 				o := NewFingerprintAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "keyword":
 				o := NewKeywordAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "language":
 				o := NewLanguageAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "nori":
 				o := NewNoriAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "pattern":
 				o := NewPatternAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "simple":
 				o := NewSimpleAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "standard":
 				o := NewStandardAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "stop":
 				o := NewStopAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "whitespace":
 				o := NewWhitespaceAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "icu_analyzer":
 				o := NewIcuAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "kuromoji":
 				o := NewKuromojiAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "snowball":
 				o := NewSnowballAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			case "dutch":
 				o := NewDutchAnalyzer()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Analyzer = *o
 			default:
-				if err := dec.Decode(&s.Analyzer); err != nil {
+				if err := localDec.Decode(&s.Analyzer); err != nil {
 					return err
 				}
 			}
 
 		case "boundary_chars":
-			if err := dec.Decode(&s.BoundaryChars); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.BoundaryChars = &o
 
 		case "boundary_max_scan":
-			if err := dec.Decode(&s.BoundaryMaxScan); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.BoundaryMaxScan = &value
+			case float64:
+				f := int(v)
+				s.BoundaryMaxScan = &f
 			}
 
 		case "boundary_scanner":
@@ -196,23 +213,57 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			}
 
 		case "boundary_scanner_locale":
-			if err := dec.Decode(&s.BoundaryScannerLocale); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.BoundaryScannerLocale = &o
 
 		case "force_source":
-			if err := dec.Decode(&s.ForceSource); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.ForceSource = &value
+			case bool:
+				s.ForceSource = &v
 			}
 
 		case "fragment_offset":
-			if err := dec.Decode(&s.FragmentOffset); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.FragmentOffset = &value
+			case float64:
+				f := int(v)
+				s.FragmentOffset = &f
 			}
 
 		case "fragment_size":
-			if err := dec.Decode(&s.FragmentSize); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.FragmentSize = &value
+			case float64:
+				f := int(v)
+				s.FragmentSize = &f
 			}
 
 		case "fragmenter":
@@ -221,8 +272,17 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			}
 
 		case "highlight_filter":
-			if err := dec.Decode(&s.HighlightFilter); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.HighlightFilter = &value
+			case bool:
+				s.HighlightFilter = &v
 			}
 
 		case "highlight_query":
@@ -231,31 +291,89 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			}
 
 		case "matched_fields":
-			if err := dec.Decode(&s.MatchedFields); err != nil {
-				return err
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.MatchedFields = append(s.MatchedFields, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.MatchedFields); err != nil {
+					return err
+				}
 			}
 
 		case "max_analyzed_offset":
-			if err := dec.Decode(&s.MaxAnalyzedOffset); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxAnalyzedOffset = &value
+			case float64:
+				f := int(v)
+				s.MaxAnalyzedOffset = &f
 			}
 
 		case "max_fragment_length":
-			if err := dec.Decode(&s.MaxFragmentLength); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxFragmentLength = &value
+			case float64:
+				f := int(v)
+				s.MaxFragmentLength = &f
 			}
 
 		case "no_match_size":
-			if err := dec.Decode(&s.NoMatchSize); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NoMatchSize = &value
+			case float64:
+				f := int(v)
+				s.NoMatchSize = &f
 			}
 
 		case "number_of_fragments":
-			if err := dec.Decode(&s.NumberOfFragments); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.NumberOfFragments = &value
+			case float64:
+				f := int(v)
+				s.NumberOfFragments = &f
 			}
 
 		case "options":
+			if s.Options == nil {
+				s.Options = make(map[string]json.RawMessage, 0)
+			}
 			if err := dec.Decode(&s.Options); err != nil {
 				return err
 			}
@@ -266,8 +384,19 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			}
 
 		case "phrase_limit":
-			if err := dec.Decode(&s.PhraseLimit); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PhraseLimit = &value
+			case float64:
+				f := int(v)
+				s.PhraseLimit = &f
 			}
 
 		case "post_tags":
@@ -281,8 +410,17 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			}
 
 		case "require_field_match":
-			if err := dec.Decode(&s.RequireFieldMatch); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.RequireFieldMatch = &value
+			case bool:
+				s.RequireFieldMatch = &v
 			}
 
 		case "tags_schema":

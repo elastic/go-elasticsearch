@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentassignmentstate"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // TrainedModelAssignment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/TrainedModel.ts#L387-L402
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/TrainedModel.ts#L387-L402
 type TrainedModelAssignment struct {
 	// AssignmentState The overall assignment state.
 	AssignmentState        deploymentassignmentstate.DeploymentAssignmentState `json:"assignment_state"`
@@ -36,6 +44,65 @@ type TrainedModelAssignment struct {
 	// StartTime The timestamp when the deployment started.
 	StartTime      DateTime                             `json:"start_time"`
 	TaskParameters TrainedModelAssignmentTaskParameters `json:"task_parameters"`
+}
+
+func (s *TrainedModelAssignment) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "assignment_state":
+			if err := dec.Decode(&s.AssignmentState); err != nil {
+				return err
+			}
+
+		case "max_assigned_allocations":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxAssignedAllocations = &value
+			case float64:
+				f := int(v)
+				s.MaxAssignedAllocations = &f
+			}
+
+		case "routing_table":
+			if s.RoutingTable == nil {
+				s.RoutingTable = make(map[string]TrainedModelAssignmentRoutingTable, 0)
+			}
+			if err := dec.Decode(&s.RoutingTable); err != nil {
+				return err
+			}
+
+		case "start_time":
+			if err := dec.Decode(&s.StartTime); err != nil {
+				return err
+			}
+
+		case "task_parameters":
+			if err := dec.Decode(&s.TaskParameters); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTrainedModelAssignment returns a TrainedModelAssignment.

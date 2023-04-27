@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/suggestmode"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // DirectGenerator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_global/search/_types/suggester.ts#L166-L178
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_global/search/_types/suggester.ts#L170-L182
 type DirectGenerator struct {
 	Field          string                   `json:"field"`
 	MaxEdits       *int                     `json:"max_edits,omitempty"`
@@ -39,6 +47,164 @@ type DirectGenerator struct {
 	PrefixLength   *int                     `json:"prefix_length,omitempty"`
 	Size           *int                     `json:"size,omitempty"`
 	SuggestMode    *suggestmode.SuggestMode `json:"suggest_mode,omitempty"`
+}
+
+func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "max_edits":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxEdits = &value
+			case float64:
+				f := int(v)
+				s.MaxEdits = &f
+			}
+
+		case "max_inspections":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return err
+				}
+				f := float32(value)
+				s.MaxInspections = &f
+			case float64:
+				f := float32(v)
+				s.MaxInspections = &f
+			}
+
+		case "max_term_freq":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return err
+				}
+				f := float32(value)
+				s.MaxTermFreq = &f
+			case float64:
+				f := float32(v)
+				s.MaxTermFreq = &f
+			}
+
+		case "min_doc_freq":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return err
+				}
+				f := float32(value)
+				s.MinDocFreq = &f
+			case float64:
+				f := float32(v)
+				s.MinDocFreq = &f
+			}
+
+		case "min_word_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinWordLength = &value
+			case float64:
+				f := int(v)
+				s.MinWordLength = &f
+			}
+
+		case "post_filter":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PostFilter = &o
+
+		case "pre_filter":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PreFilter = &o
+
+		case "prefix_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PrefixLength = &value
+			case float64:
+				f := int(v)
+				s.PrefixLength = &f
+			}
+
+		case "size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Size = &value
+			case float64:
+				f := int(v)
+				s.Size = &f
+			}
+
+		case "suggest_mode":
+			if err := dec.Decode(&s.SuggestMode); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDirectGenerator returns a DirectGenerator.

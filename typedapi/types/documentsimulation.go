@@ -16,20 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // DocumentSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ingest/simulate/types.ts#L47-L60
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ingest/simulate/types.ts#L47-L60
 type DocumentSimulation struct {
 	DocumentSimulation map[string]string          `json:"-"`
 	Id_                string                     `json:"_id"`
@@ -39,6 +44,80 @@ type DocumentSimulation struct {
 	Source_            map[string]json.RawMessage `json:"_source"`
 	VersionType_       *versiontype.VersionType   `json:"_version_type,omitempty"`
 	Version_           StringifiedVersionNumber   `json:"_version,omitempty"`
+}
+
+func (s *DocumentSimulation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "_id":
+			if err := dec.Decode(&s.Id_); err != nil {
+				return err
+			}
+
+		case "_index":
+			if err := dec.Decode(&s.Index_); err != nil {
+				return err
+			}
+
+		case "_ingest":
+			if err := dec.Decode(&s.Ingest_); err != nil {
+				return err
+			}
+
+		case "_routing":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Routing_ = &o
+
+		case "_source":
+			if s.Source_ == nil {
+				s.Source_ = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Source_); err != nil {
+				return err
+			}
+
+		case "_version_type":
+			if err := dec.Decode(&s.VersionType_); err != nil {
+				return err
+			}
+
+		case "_version":
+			if err := dec.Decode(&s.Version_); err != nil {
+				return err
+			}
+
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.DocumentSimulation == nil {
+					s.DocumentSimulation = make(map[string]string, 0)
+				}
+				raw := new(string)
+				if err := dec.Decode(&raw); err != nil {
+					return err
+				}
+				s.DocumentSimulation[key] = *raw
+			}
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -60,6 +139,7 @@ func (s DocumentSimulation) MarshalJSON() ([]byte, error) {
 	for key, value := range s.DocumentSimulation {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "DocumentSimulation")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

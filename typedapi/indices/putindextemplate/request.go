@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package putindextemplate
 
@@ -29,12 +29,12 @@ import (
 
 // Request holds the request body struct for the package putindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L35-L58
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L35-L58
 type Request struct {
 	ComposedOf    []string                    `json:"composed_of,omitempty"`
 	DataStream    *types.DataStreamVisibility `json:"data_stream,omitempty"`
 	IndexPatterns []string                    `json:"index_patterns,omitempty"`
-	Meta_         map[string]json.RawMessage  `json:"_meta,omitempty"`
+	Meta_         types.Metadata              `json:"_meta,omitempty"`
 	Priority      *int                        `json:"priority,omitempty"`
 	Template      *types.IndexTemplateMapping `json:"template,omitempty"`
 	Version       *int64                      `json:"version,omitempty"`

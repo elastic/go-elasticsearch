@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // RolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/rollover/types.ts#L24-L40
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/rollover/types.ts#L24-L40
 type RolloverConditions struct {
 	MaxAge                   Duration `json:"max_age,omitempty"`
 	MaxAgeMillis             *int64   `json:"max_age_millis,omitempty"`
@@ -39,6 +49,181 @@ type RolloverConditions struct {
 	MinPrimaryShardSizeBytes *int64   `json:"min_primary_shard_size_bytes,omitempty"`
 	MinSize                  ByteSize `json:"min_size,omitempty"`
 	MinSizeBytes             *int64   `json:"min_size_bytes,omitempty"`
+}
+
+func (s *RolloverConditions) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "max_age":
+			if err := dec.Decode(&s.MaxAge); err != nil {
+				return err
+			}
+
+		case "max_age_millis":
+			if err := dec.Decode(&s.MaxAgeMillis); err != nil {
+				return err
+			}
+
+		case "max_docs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MaxDocs = &value
+			case float64:
+				f := int64(v)
+				s.MaxDocs = &f
+			}
+
+		case "max_primary_shard_docs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MaxPrimaryShardDocs = &value
+			case float64:
+				f := int64(v)
+				s.MaxPrimaryShardDocs = &f
+			}
+
+		case "max_primary_shard_size":
+			if err := dec.Decode(&s.MaxPrimaryShardSize); err != nil {
+				return err
+			}
+
+		case "max_primary_shard_size_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MaxPrimaryShardSizeBytes = &value
+			case float64:
+				f := int64(v)
+				s.MaxPrimaryShardSizeBytes = &f
+			}
+
+		case "max_size":
+			if err := dec.Decode(&s.MaxSize); err != nil {
+				return err
+			}
+
+		case "max_size_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MaxSizeBytes = &value
+			case float64:
+				f := int64(v)
+				s.MaxSizeBytes = &f
+			}
+
+		case "min_age":
+			if err := dec.Decode(&s.MinAge); err != nil {
+				return err
+			}
+
+		case "min_docs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MinDocs = &value
+			case float64:
+				f := int64(v)
+				s.MinDocs = &f
+			}
+
+		case "min_primary_shard_docs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MinPrimaryShardDocs = &value
+			case float64:
+				f := int64(v)
+				s.MinPrimaryShardDocs = &f
+			}
+
+		case "min_primary_shard_size":
+			if err := dec.Decode(&s.MinPrimaryShardSize); err != nil {
+				return err
+			}
+
+		case "min_primary_shard_size_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MinPrimaryShardSizeBytes = &value
+			case float64:
+				f := int64(v)
+				s.MinPrimaryShardSizeBytes = &f
+			}
+
+		case "min_size":
+			if err := dec.Decode(&s.MinSize); err != nil {
+				return err
+			}
+
+		case "min_size_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MinSizeBytes = &value
+			case float64:
+				f := int64(v)
+				s.MinSizeBytes = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRolloverConditions returns a RolloverConditions.

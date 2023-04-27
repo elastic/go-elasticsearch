@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // MergesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Stats.ts#L119-L136
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/Stats.ts#L119-L136
 type MergesStats struct {
 	Current                    int64    `json:"current"`
 	CurrentDocs                int64    `json:"current_docs"`
@@ -40,6 +50,185 @@ type MergesStats struct {
 	TotalThrottledTimeInMillis int64    `json:"total_throttled_time_in_millis"`
 	TotalTime                  Duration `json:"total_time,omitempty"`
 	TotalTimeInMillis          int64    `json:"total_time_in_millis"`
+}
+
+func (s *MergesStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "current":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Current = value
+			case float64:
+				f := int64(v)
+				s.Current = f
+			}
+
+		case "current_docs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CurrentDocs = value
+			case float64:
+				f := int64(v)
+				s.CurrentDocs = f
+			}
+
+		case "current_size":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.CurrentSize = &o
+
+		case "current_size_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CurrentSizeInBytes = value
+			case float64:
+				f := int64(v)
+				s.CurrentSizeInBytes = f
+			}
+
+		case "total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Total = value
+			case float64:
+				f := int64(v)
+				s.Total = f
+			}
+
+		case "total_auto_throttle":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.TotalAutoThrottle = &o
+
+		case "total_auto_throttle_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalAutoThrottleInBytes = value
+			case float64:
+				f := int64(v)
+				s.TotalAutoThrottleInBytes = f
+			}
+
+		case "total_docs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalDocs = value
+			case float64:
+				f := int64(v)
+				s.TotalDocs = f
+			}
+
+		case "total_size":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.TotalSize = &o
+
+		case "total_size_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalSizeInBytes = value
+			case float64:
+				f := int64(v)
+				s.TotalSizeInBytes = f
+			}
+
+		case "total_stopped_time":
+			if err := dec.Decode(&s.TotalStoppedTime); err != nil {
+				return err
+			}
+
+		case "total_stopped_time_in_millis":
+			if err := dec.Decode(&s.TotalStoppedTimeInMillis); err != nil {
+				return err
+			}
+
+		case "total_throttled_time":
+			if err := dec.Decode(&s.TotalThrottledTime); err != nil {
+				return err
+			}
+
+		case "total_throttled_time_in_millis":
+			if err := dec.Decode(&s.TotalThrottledTimeInMillis); err != nil {
+				return err
+			}
+
+		case "total_time":
+			if err := dec.Decode(&s.TotalTime); err != nil {
+				return err
+			}
+
+		case "total_time_in_millis":
+			if err := dec.Decode(&s.TotalTimeInMillis); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewMergesStats returns a MergesStats.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package query
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/sql/query/QuerySqlRequest.ts#L28-L115
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/sql/query/QuerySqlRequest.ts#L28-L115
 type Request struct {
 
 	// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on
@@ -65,7 +65,7 @@ type Request struct {
 	RequestTimeout types.Duration `json:"request_timeout,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
-	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
+	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// TimeZone Time-zone in ISO 8601 used for executing the query on the server. More
 	// information available here.
 	TimeZone *string `json:"time_zone,omitempty"`

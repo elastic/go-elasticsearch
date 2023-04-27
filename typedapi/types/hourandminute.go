@@ -16,16 +16,54 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // HourAndMinute type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/watcher/_types/Schedule.ts#L110-L113
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/watcher/_types/Schedule.ts#L110-L113
 type HourAndMinute struct {
 	Hour   []int `json:"hour"`
 	Minute []int `json:"minute"`
+}
+
+func (s *HourAndMinute) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "hour":
+			if err := dec.Decode(&s.Hour); err != nil {
+				return err
+			}
+
+		case "minute":
+			if err := dec.Decode(&s.Minute); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewHourAndMinute returns a HourAndMinute.

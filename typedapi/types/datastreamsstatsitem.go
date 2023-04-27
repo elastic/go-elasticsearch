@@ -16,19 +16,96 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DataStreamsStatsItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L36-L42
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L36-L42
 type DataStreamsStatsItem struct {
 	BackingIndices   int      `json:"backing_indices"`
 	DataStream       string   `json:"data_stream"`
 	MaximumTimestamp int64    `json:"maximum_timestamp"`
 	StoreSize        ByteSize `json:"store_size,omitempty"`
 	StoreSizeBytes   int      `json:"store_size_bytes"`
+}
+
+func (s *DataStreamsStatsItem) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "backing_indices":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.BackingIndices = value
+			case float64:
+				f := int(v)
+				s.BackingIndices = f
+			}
+
+		case "data_stream":
+			if err := dec.Decode(&s.DataStream); err != nil {
+				return err
+			}
+
+		case "maximum_timestamp":
+			if err := dec.Decode(&s.MaximumTimestamp); err != nil {
+				return err
+			}
+
+		case "store_size":
+			if err := dec.Decode(&s.StoreSize); err != nil {
+				return err
+			}
+
+		case "store_size_bytes":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.StoreSizeBytes = value
+			case float64:
+				f := int(v)
+				s.StoreSizeBytes = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataStreamsStatsItem returns a DataStreamsStatsItem.

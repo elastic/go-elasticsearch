@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -27,29 +27,32 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // HistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/aggregations/bucket.ts#L235-L247
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/aggregations/bucket.ts#L235-L247
 type HistogramAggregation struct {
-	ExtendedBounds *ExtendedBoundsdouble      `json:"extended_bounds,omitempty"`
-	Field          *string                    `json:"field,omitempty"`
-	Format         *string                    `json:"format,omitempty"`
-	HardBounds     *ExtendedBoundsdouble      `json:"hard_bounds,omitempty"`
-	Interval       *Float64                   `json:"interval,omitempty"`
-	Keyed          *bool                      `json:"keyed,omitempty"`
-	Meta           map[string]json.RawMessage `json:"meta,omitempty"`
-	MinDocCount    *int                       `json:"min_doc_count,omitempty"`
-	Missing        *Float64                   `json:"missing,omitempty"`
-	Name           *string                    `json:"name,omitempty"`
-	Offset         *Float64                   `json:"offset,omitempty"`
-	Order          AggregateOrder             `json:"order,omitempty"`
-	Script         Script                     `json:"script,omitempty"`
+	ExtendedBounds *ExtendedBoundsdouble `json:"extended_bounds,omitempty"`
+	Field          *string               `json:"field,omitempty"`
+	Format         *string               `json:"format,omitempty"`
+	HardBounds     *ExtendedBoundsdouble `json:"hard_bounds,omitempty"`
+	Interval       *Float64              `json:"interval,omitempty"`
+	Keyed          *bool                 `json:"keyed,omitempty"`
+	Meta           Metadata              `json:"meta,omitempty"`
+	MinDocCount    *int                  `json:"min_doc_count,omitempty"`
+	Missing        *Float64              `json:"missing,omitempty"`
+	Name           *string               `json:"name,omitempty"`
+	Offset         *Float64              `json:"offset,omitempty"`
+	Order          AggregateOrder        `json:"order,omitempty"`
+	Script         Script                `json:"script,omitempty"`
 }
 
 func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -74,9 +77,12 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "format":
-			if err := dec.Decode(&s.Format); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Format = &o
 
 		case "hard_bounds":
 			if err := dec.Decode(&s.HardBounds); err != nil {
@@ -84,13 +90,33 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "interval":
-			if err := dec.Decode(&s.Interval); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Interval = &f
+			case float64:
+				f := Float64(v)
+				s.Interval = &f
 			}
 
 		case "keyed":
-			if err := dec.Decode(&s.Keyed); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Keyed = &value
+			case bool:
+				s.Keyed = &v
 			}
 
 		case "meta":
@@ -99,23 +125,59 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min_doc_count":
-			if err := dec.Decode(&s.MinDocCount); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinDocCount = &value
+			case float64:
+				f := int(v)
+				s.MinDocCount = &f
 			}
 
 		case "missing":
-			if err := dec.Decode(&s.Missing); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Missing = &f
+			case float64:
+				f := Float64(v)
+				s.Missing = &f
 			}
 
 		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Name = &o
 
 		case "offset":
-			if err := dec.Decode(&s.Offset); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Offset = &f
+			case float64:
+				f := Float64(v)
+				s.Offset = &f
 			}
 
 		case "order":
@@ -125,15 +187,17 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			source := bytes.NewReader(rawMsg)
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
-
 			case '{':
 				o := make(map[string]sortorder.SortOrder, 0)
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Order = o
-
 			case '[':
 				o := make([]map[string]sortorder.SortOrder, 0)
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Order = o
 			}
 

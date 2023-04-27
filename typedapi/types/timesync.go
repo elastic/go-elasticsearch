@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // TimeSync type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/transform/_types/Transform.ts#L175-L187
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/transform/_types/Transform.ts#L175-L187
 type TimeSync struct {
 	// Delay The time delay between the current time and the latest input data time.
 	Delay Duration `json:"delay,omitempty"`
@@ -32,6 +40,36 @@ type TimeSync struct {
 	// need to set the delay such that it
 	// accounts for data transmission delays.
 	Field string `json:"field"`
+}
+
+func (s *TimeSync) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "delay":
+			if err := dec.Decode(&s.Delay); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTimeSync returns a TimeSync.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SnapshotsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/snapshots/types.ts#L24-L90
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/snapshots/types.ts#L24-L90
 type SnapshotsRecord struct {
 	// Duration duration
 	Duration Duration `json:"duration,omitempty"`
@@ -61,6 +61,7 @@ type SnapshotsRecord struct {
 }
 
 func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -90,29 +91,44 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			}
 
 		case "failed_shards", "fs":
-			if err := dec.Decode(&s.FailedShards); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.FailedShards = &o
 
 		case "id", "snapshot":
-			if err := dec.Decode(&s.Id); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Id = &o
 
 		case "indices", "i":
-			if err := dec.Decode(&s.Indices); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Indices = &o
 
 		case "reason", "r":
-			if err := dec.Decode(&s.Reason); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Reason = &o
 
 		case "repository", "re", "repo":
-			if err := dec.Decode(&s.Repository); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Repository = &o
 
 		case "start_epoch", "ste", "startEpoch":
 			if err := dec.Decode(&s.StartEpoch); err != nil {
@@ -120,6 +136,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			}
 
 		case "start_time", "sti", "startTime":
+
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			source := bytes.NewReader(rawMsg)
@@ -139,19 +156,28 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			}
 
 		case "status", "s":
-			if err := dec.Decode(&s.Status); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Status = &o
 
 		case "successful_shards", "ss":
-			if err := dec.Decode(&s.SuccessfulShards); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.SuccessfulShards = &o
 
 		case "total_shards", "ts":
-			if err := dec.Decode(&s.TotalShards); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.TotalShards = &o
 
 		}
 	}

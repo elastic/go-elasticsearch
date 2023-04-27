@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package submit
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L55-L255
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L55-L255
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -53,7 +53,7 @@ type Request struct {
 	// IndicesBoost Boosts the _score of documents from specified indices.
 	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
 	// Knn Defines the approximate kNN search to run.
-	Knn *types.KnnQuery `json:"knn,omitempty"`
+	Knn []types.KnnQuery `json:"knn,omitempty"`
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are
 	// not included in the search results.
 	MinScore *types.Float64 `json:"min_score,omitempty"`
@@ -67,7 +67,7 @@ type Request struct {
 	Rescore []types.Rescore `json:"rescore,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
-	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
+	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// ScriptFields Retrieve a script evaluation (based on different fields) for each hit.
 	ScriptFields map[string]types.ScriptField `json:"script_fields,omitempty"`
 	SearchAfter  []types.FieldValue           `json:"search_after,omitempty"`

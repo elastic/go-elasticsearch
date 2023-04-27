@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // AnomalyCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Anomaly.ts#L123-L138
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Anomaly.ts#L123-L138
 type AnomalyCause struct {
 	Actual                 []Float64   `json:"actual"`
 	ByFieldName            string      `json:"by_field_name"`
@@ -38,6 +48,128 @@ type AnomalyCause struct {
 	PartitionFieldValue    string      `json:"partition_field_value"`
 	Probability            Float64     `json:"probability"`
 	Typical                []Float64   `json:"typical"`
+}
+
+func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actual":
+			if err := dec.Decode(&s.Actual); err != nil {
+				return err
+			}
+
+		case "by_field_name":
+			if err := dec.Decode(&s.ByFieldName); err != nil {
+				return err
+			}
+
+		case "by_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ByFieldValue = o
+
+		case "correlated_by_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.CorrelatedByFieldValue = o
+
+		case "field_name":
+			if err := dec.Decode(&s.FieldName); err != nil {
+				return err
+			}
+
+		case "function":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Function = o
+
+		case "function_description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FunctionDescription = o
+
+		case "influencers":
+			if err := dec.Decode(&s.Influencers); err != nil {
+				return err
+			}
+
+		case "over_field_name":
+			if err := dec.Decode(&s.OverFieldName); err != nil {
+				return err
+			}
+
+		case "over_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.OverFieldValue = o
+
+		case "partition_field_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PartitionFieldName = o
+
+		case "partition_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PartitionFieldValue = o
+
+		case "probability":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Probability = f
+			case float64:
+				f := Float64(v)
+				s.Probability = f
+			}
+
+		case "typical":
+			if err := dec.Decode(&s.Typical); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewAnomalyCause returns a AnomalyCause.

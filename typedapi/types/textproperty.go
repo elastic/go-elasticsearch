@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
@@ -29,12 +29,14 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // TextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/mapping/core.ts#L247-L263
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/mapping/core.ts#L247-L263
 type TextProperty struct {
 	Analyzer                 *string                        `json:"analyzer,omitempty"`
 	Boost                    *Float64                       `json:"boost,omitempty"`
@@ -63,6 +65,7 @@ type TextProperty struct {
 }
 
 func (s *TextProperty) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -77,18 +80,43 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "analyzer":
-			if err := dec.Decode(&s.Analyzer); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Analyzer = &o
 
 		case "boost":
-			if err := dec.Decode(&s.Boost); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Boost = &f
+			case float64:
+				f := Float64(v)
+				s.Boost = &f
 			}
 
 		case "copy_to":
-			if err := dec.Decode(&s.CopyTo); err != nil {
-				return err
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.CopyTo = append(s.CopyTo, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.CopyTo); err != nil {
+					return err
+				}
 			}
 
 		case "dynamic":
@@ -97,13 +125,31 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "eager_global_ordinals":
-			if err := dec.Decode(&s.EagerGlobalOrdinals); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.EagerGlobalOrdinals = &value
+			case bool:
+				s.EagerGlobalOrdinals = &v
 			}
 
 		case "fielddata":
-			if err := dec.Decode(&s.Fielddata); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Fielddata = &value
+			case bool:
+				s.Fielddata = &v
 			}
 
 		case "fielddata_frequency_filter":
@@ -112,6 +158,9 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string]Property, 0)
+			}
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
@@ -399,20 +448,40 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 					}
 					s.Fields[key] = oo
 				default:
-					if err := dec.Decode(&s.Fields); err != nil {
+					if err := localDec.Decode(&s.Fields); err != nil {
 						return err
 					}
 				}
 			}
 
 		case "ignore_above":
-			if err := dec.Decode(&s.IgnoreAbove); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreAbove = &value
+			case float64:
+				f := int(v)
+				s.IgnoreAbove = &f
 			}
 
 		case "index":
-			if err := dec.Decode(&s.Index); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Index = &value
+			case bool:
+				s.Index = &v
 			}
 
 		case "index_options":
@@ -421,8 +490,17 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "index_phrases":
-			if err := dec.Decode(&s.IndexPhrases); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IndexPhrases = &value
+			case bool:
+				s.IndexPhrases = &v
 			}
 
 		case "index_prefixes":
@@ -431,21 +509,47 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "meta":
+			if s.Meta == nil {
+				s.Meta = make(map[string]string, 0)
+			}
 			if err := dec.Decode(&s.Meta); err != nil {
 				return err
 			}
 
 		case "norms":
-			if err := dec.Decode(&s.Norms); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Norms = &value
+			case bool:
+				s.Norms = &v
 			}
 
 		case "position_increment_gap":
-			if err := dec.Decode(&s.PositionIncrementGap); err != nil {
-				return err
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PositionIncrementGap = &value
+			case float64:
+				f := int(v)
+				s.PositionIncrementGap = &f
 			}
 
 		case "properties":
+			if s.Properties == nil {
+				s.Properties = make(map[string]Property, 0)
+			}
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
@@ -733,30 +837,48 @@ func (s *TextProperty) UnmarshalJSON(data []byte) error {
 					}
 					s.Properties[key] = oo
 				default:
-					if err := dec.Decode(&s.Properties); err != nil {
+					if err := localDec.Decode(&s.Properties); err != nil {
 						return err
 					}
 				}
 			}
 
 		case "search_analyzer":
-			if err := dec.Decode(&s.SearchAnalyzer); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.SearchAnalyzer = &o
 
 		case "search_quote_analyzer":
-			if err := dec.Decode(&s.SearchQuoteAnalyzer); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.SearchQuoteAnalyzer = &o
 
 		case "similarity":
-			if err := dec.Decode(&s.Similarity); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Similarity = &o
 
 		case "store":
-			if err := dec.Decode(&s.Store); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Store = &value
+			case bool:
+				s.Store = &v
 			}
 
 		case "term_vector":

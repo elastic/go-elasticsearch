@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // TrainedModelsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/cat/ml_trained_models/types.ts#L23-L111
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/cat/ml_trained_models/types.ts#L23-L111
 type TrainedModelsRecord struct {
 	// CreateTime The time the model was created
 	CreateTime DateTime `json:"create_time,omitempty"`
@@ -60,6 +68,158 @@ type TrainedModelsRecord struct {
 	Type       *string `json:"type,omitempty"`
 	// Version The version of Elasticsearch when the model was created
 	Version *string `json:"version,omitempty"`
+}
+
+func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "create_time", "ct":
+			if err := dec.Decode(&s.CreateTime); err != nil {
+				return err
+			}
+
+		case "created_by", "c", "createdBy":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.CreatedBy = &o
+
+		case "data_frame.analysis", "dfa", "dataFrameAnalyticsAnalysis":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataFrameAnalysis = &o
+
+		case "data_frame.create_time", "dft", "dataFrameAnalyticsTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataFrameCreateTime = &o
+
+		case "data_frame.id", "dfid", "dataFrameAnalytics":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataFrameId = &o
+
+		case "data_frame.source_index", "dfsi", "dataFrameAnalyticsSrcIndex":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.DataFrameSourceIndex = &o
+
+		case "description", "d":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = &o
+
+		case "heap_size", "hs", "modelHeapSize":
+			if err := dec.Decode(&s.HeapSize); err != nil {
+				return err
+			}
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "ingest.count", "ic", "ingestCount":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IngestCount = &o
+
+		case "ingest.current", "icurr", "ingestCurrent":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IngestCurrent = &o
+
+		case "ingest.failed", "if", "ingestFailed":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IngestFailed = &o
+
+		case "ingest.pipelines", "ip", "ingestPipelines":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IngestPipelines = &o
+
+		case "ingest.time", "it", "ingestTime":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IngestTime = &o
+
+		case "license", "l":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.License = &o
+
+		case "operations", "o", "modelOperations":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Operations = &o
+
+		case "type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Type = &o
+
+		case "version", "v":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTrainedModelsRecord returns a TrainedModelsRecord.

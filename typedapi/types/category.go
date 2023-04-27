@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Category type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/_types/Category.ts#L23-L49
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/_types/Category.ts#L23-L49
 type Category struct {
 	// CategoryId A unique identifier for the category. category_id is unique at the job level,
 	// even when per-partition categorization is enabled.
@@ -66,6 +76,130 @@ type Category struct {
 	// Terms A space separated list of the common tokens that are matched in values of the
 	// category.
 	Terms string `json:"terms"`
+}
+
+func (s *Category) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "category_id":
+			if err := dec.Decode(&s.CategoryId); err != nil {
+				return err
+			}
+
+		case "examples":
+			if err := dec.Decode(&s.Examples); err != nil {
+				return err
+			}
+
+		case "grok_pattern":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.GrokPattern = &o
+
+		case "job_id":
+			if err := dec.Decode(&s.JobId); err != nil {
+				return err
+			}
+
+		case "max_matching_length":
+			if err := dec.Decode(&s.MaxMatchingLength); err != nil {
+				return err
+			}
+
+		case "mlcategory":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Mlcategory = o
+
+		case "num_matches":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NumMatches = &value
+			case float64:
+				f := int64(v)
+				s.NumMatches = &f
+			}
+
+		case "p":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.P = &o
+
+		case "partition_field_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PartitionFieldName = &o
+
+		case "partition_field_value":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.PartitionFieldValue = &o
+
+		case "preferred_to_categories":
+			if err := dec.Decode(&s.PreferredToCategories); err != nil {
+				return err
+			}
+
+		case "regex":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Regex = o
+
+		case "result_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ResultType = o
+
+		case "terms":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Terms = o
+
+		}
+	}
+	return nil
 }
 
 // NewCategory returns a Category.

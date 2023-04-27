@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package getinfluencers
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package getinfluencers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/ml/get_influencers/MlGetInfluencersRequest.ts#L26-L93
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/ml/get_influencers/MlGetInfluencersRequest.ts#L26-L93
 type Request struct {
 	Page *types.Page `json:"page,omitempty"`
 }

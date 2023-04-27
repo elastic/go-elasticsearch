@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/4ab557491062aab5a916a1e274e28c266b0e0708
+// https://github.com/elastic/elasticsearch-specification/tree/a4f7b5a7f95dad95712a6bbce449241cbb84698d
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // BulkStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/4ab557491062aab5a916a1e274e28c266b0e0708/specification/_types/Stats.ts#L41-L51
+// https://github.com/elastic/elasticsearch-specification/blob/a4f7b5a7f95dad95712a6bbce449241cbb84698d/specification/_types/Stats.ts#L41-L51
 type BulkStats struct {
 	AvgSize           ByteSize `json:"avg_size,omitempty"`
 	AvgSizeInBytes    int64    `json:"avg_size_in_bytes"`
@@ -33,6 +43,101 @@ type BulkStats struct {
 	TotalSizeInBytes  int64    `json:"total_size_in_bytes"`
 	TotalTime         Duration `json:"total_time,omitempty"`
 	TotalTimeInMillis int64    `json:"total_time_in_millis"`
+}
+
+func (s *BulkStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "avg_size":
+			if err := dec.Decode(&s.AvgSize); err != nil {
+				return err
+			}
+
+		case "avg_size_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.AvgSizeInBytes = value
+			case float64:
+				f := int64(v)
+				s.AvgSizeInBytes = f
+			}
+
+		case "avg_time":
+			if err := dec.Decode(&s.AvgTime); err != nil {
+				return err
+			}
+
+		case "avg_time_in_millis":
+			if err := dec.Decode(&s.AvgTimeInMillis); err != nil {
+				return err
+			}
+
+		case "total_operations":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalOperations = value
+			case float64:
+				f := int64(v)
+				s.TotalOperations = f
+			}
+
+		case "total_size":
+			if err := dec.Decode(&s.TotalSize); err != nil {
+				return err
+			}
+
+		case "total_size_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalSizeInBytes = value
+			case float64:
+				f := int64(v)
+				s.TotalSizeInBytes = f
+			}
+
+		case "total_time":
+			if err := dec.Decode(&s.TotalTime); err != nil {
+				return err
+			}
+
+		case "total_time_in_millis":
+			if err := dec.Decode(&s.TotalTimeInMillis); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewBulkStats returns a BulkStats.
