@@ -657,7 +657,10 @@ func TestTransportPerformRetries(t *testing.T) {
 
 	t.Run("Reset request body during retry", func(t *testing.T) {
 		var bodies []string
-		u, _ := url.Parse("https://foo.com/bar")
+		esUrl := "https://foo.com/bar"
+		endpoint := "/abc"
+
+		u, _ := url.Parse(esUrl)
 		tp, _ := New(Config{
 			URLs: []*url.URL{u},
 			Transport: &mockTransp{
@@ -665,6 +668,10 @@ func TestTransportPerformRetries(t *testing.T) {
 					body, err := ioutil.ReadAll(req.Body)
 					if err != nil {
 						panic(err)
+					}
+					expectedUrl := strings.Join([]string{esUrl, endpoint}, "")
+					if !strings.EqualFold(req.URL.String(), expectedUrl) {
+						t.Fatalf("expected request url to be %s, got: %s", expectedUrl, req.URL.String())
 					}
 					bodies = append(bodies, string(body))
 					return &http.Response{Status: "MOCK", StatusCode: 502}, nil
