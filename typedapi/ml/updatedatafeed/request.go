@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package updatedatafeed
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L162
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L162
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
@@ -101,7 +101,7 @@ type Request struct {
 	// when there are multiple jobs running on the same node.
 	QueryDelay types.Duration `json:"query_delay,omitempty"`
 	// RuntimeMappings Specifies runtime fields for the datafeed search.
-	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
+	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
 	// to the datafeed.
 	// The detector configuration objects in a job can contain functions that use

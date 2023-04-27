@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package putmapping
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package putmapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L42-L116
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L42-L116
 type Request struct {
 
 	// DateDetection Controls whether dynamic date detection is enabled.
@@ -48,7 +48,7 @@ type Request struct {
 	// Meta_ A mapping type can have custom meta data associated with it. These are
 	// not used at all by Elasticsearch, but can be used to store
 	// application-specific metadata.
-	Meta_ map[string]json.RawMessage `json:"_meta,omitempty"`
+	Meta_ types.Metadata `json:"_meta,omitempty"`
 	// NumericDetection Automatically map strings into numeric data types for all fields.
 	NumericDetection *bool `json:"numeric_detection,omitempty"`
 	// Properties Mapping for a field. For new fields, this mapping can include:
@@ -60,7 +60,7 @@ type Request struct {
 	// Routing_ Enable making a routing value required on indexed documents.
 	Routing_ *types.RoutingField `json:"_routing,omitempty"`
 	// Runtime Mapping of runtime fields for the index.
-	Runtime map[string]types.RuntimeField `json:"runtime,omitempty"`
+	Runtime types.RuntimeFields `json:"runtime,omitempty"`
 	// Source_ Control whether the _source field is enabled on the index.
 	Source_ *types.SourceField `json:"_source,omitempty"`
 }

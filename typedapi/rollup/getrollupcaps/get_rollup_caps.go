@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Returns the capabilities of any rollup jobs that have been configured for a
 // specific index or index pattern.
@@ -114,7 +114,7 @@ func (r *GetRollupCaps) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("_rollup")
 		path.WriteString("/")
 		path.WriteString("data")
-		path.WriteString("/")
+
 		method = http.MethodGet
 	}
 
@@ -177,7 +177,6 @@ func (r GetRollupCaps) Do(ctx context.Context) (Response, error) {
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

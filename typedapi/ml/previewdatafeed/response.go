@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package previewdatafeed
 
@@ -24,14 +24,12 @@ import "encoding/json"
 
 // Response holds the response body struct for the package previewdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/preview_datafeed/MlPreviewDatafeedResponse.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/preview_datafeed/MlPreviewDatafeedResponse.ts#L20-L22
 
-type Response struct {
-	Data []json.RawMessage `json:"data"`
-}
+type Response []json.RawMessage
 
 // NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
+func NewResponse() Response {
+	r := Response{}
 	return r
 }

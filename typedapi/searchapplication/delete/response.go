@@ -16,15 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package existsindextemplate
+package delete
 
-// Response holds the response body struct for the package existsindextemplate
+// Response holds the response body struct for the package delete
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/exists_index_template/IndicesExistsIndexTemplateResponse.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/search_application/delete/SearchApplicationsDeleteResponse.ts#L22-L24
 
 type Response struct {
+
+	// Acknowledged For a successful response, this value is always true. On failure, an
+	// exception is returned instead.
+	Acknowledged bool `json:"acknowledged"`
 }
 
 // NewResponse returns a Response

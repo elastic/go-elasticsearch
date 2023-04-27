@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // IntervalsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/fulltext.ts#L74-L86
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/fulltext.ts#L74-L86
 type IntervalsFilter struct {
 	After          *Intervals `json:"after,omitempty"`
 	Before         *Intervals `json:"before,omitempty"`
@@ -33,6 +41,71 @@ type IntervalsFilter struct {
 	NotOverlapping *Intervals `json:"not_overlapping,omitempty"`
 	Overlapping    *Intervals `json:"overlapping,omitempty"`
 	Script         Script     `json:"script,omitempty"`
+}
+
+func (s *IntervalsFilter) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "after":
+			if err := dec.Decode(&s.After); err != nil {
+				return err
+			}
+
+		case "before":
+			if err := dec.Decode(&s.Before); err != nil {
+				return err
+			}
+
+		case "contained_by":
+			if err := dec.Decode(&s.ContainedBy); err != nil {
+				return err
+			}
+
+		case "containing":
+			if err := dec.Decode(&s.Containing); err != nil {
+				return err
+			}
+
+		case "not_contained_by":
+			if err := dec.Decode(&s.NotContainedBy); err != nil {
+				return err
+			}
+
+		case "not_containing":
+			if err := dec.Decode(&s.NotContaining); err != nil {
+				return err
+			}
+
+		case "not_overlapping":
+			if err := dec.Decode(&s.NotOverlapping); err != nil {
+				return err
+			}
+
+		case "overlapping":
+			if err := dec.Decode(&s.Overlapping); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIntervalsFilter returns a IntervalsFilter.

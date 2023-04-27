@@ -16,17 +16,82 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ShardSequenceNumber type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/stats/types.ts#L167-L171
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/stats/types.ts#L167-L171
 type ShardSequenceNumber struct {
 	GlobalCheckpoint int64 `json:"global_checkpoint"`
 	LocalCheckpoint  int64 `json:"local_checkpoint"`
 	MaxSeqNo         int64 `json:"max_seq_no"`
+}
+
+func (s *ShardSequenceNumber) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "global_checkpoint":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.GlobalCheckpoint = value
+			case float64:
+				f := int64(v)
+				s.GlobalCheckpoint = f
+			}
+
+		case "local_checkpoint":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LocalCheckpoint = value
+			case float64:
+				f := int64(v)
+				s.LocalCheckpoint = f
+			}
+
+		case "max_seq_no":
+			if err := dec.Decode(&s.MaxSeqNo); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewShardSequenceNumber returns a ShardSequenceNumber.

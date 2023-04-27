@@ -16,22 +16,71 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/migrationstatus"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // GetMigrationFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L37-L42
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L37-L42
 type GetMigrationFeature struct {
 	FeatureName         string                          `json:"feature_name"`
 	Indices             []MigrationFeatureIndexInfo     `json:"indices"`
 	MigrationStatus     migrationstatus.MigrationStatus `json:"migration_status"`
 	MinimumIndexVersion string                          `json:"minimum_index_version"`
+}
+
+func (s *GetMigrationFeature) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "feature_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FeatureName = o
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "migration_status":
+			if err := dec.Decode(&s.MigrationStatus); err != nil {
+				return err
+			}
+
+		case "minimum_index_version":
+			if err := dec.Decode(&s.MinimumIndexVersion); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewGetMigrationFeature returns a GetMigrationFeature.

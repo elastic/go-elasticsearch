@@ -16,18 +16,69 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // IngestPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ingest/_types/Pipeline.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ingest/_types/Pipeline.ts#L23-L28
 type IngestPipeline struct {
 	Description *string              `json:"description,omitempty"`
 	OnFailure   []ProcessorContainer `json:"on_failure,omitempty"`
 	Processors  []ProcessorContainer `json:"processors,omitempty"`
 	Version     *int64               `json:"version,omitempty"`
+}
+
+func (s *IngestPipeline) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = &o
+
+		case "on_failure":
+			if err := dec.Decode(&s.OnFailure); err != nil {
+				return err
+			}
+
+		case "processors":
+			if err := dec.Decode(&s.Processors); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIngestPipeline returns a IngestPipeline.

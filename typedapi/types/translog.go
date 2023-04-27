@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/translogdurability"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // Translog type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/_types/IndexSettings.ts#L332-L354
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/IndexSettings.ts#L332-L354
 type Translog struct {
 	// Durability Whether or not to `fsync` and commit the translog after every index, delete,
 	// update, or bulk request.
@@ -47,6 +53,46 @@ type Translog struct {
 	// operations.
 	// Values less than 100ms are not allowed.
 	SyncInterval Duration `json:"sync_interval,omitempty"`
+}
+
+func (s *Translog) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "durability":
+			if err := dec.Decode(&s.Durability); err != nil {
+				return err
+			}
+
+		case "flush_threshold_size":
+			if err := dec.Decode(&s.FlushThresholdSize); err != nil {
+				return err
+			}
+
+		case "retention":
+			if err := dec.Decode(&s.Retention); err != nil {
+				return err
+			}
+
+		case "sync_interval":
+			if err := dec.Decode(&s.SyncInterval); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTranslog returns a Translog.

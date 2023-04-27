@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Removes the archived repositories metering information present in the
 // cluster.
@@ -180,7 +180,6 @@ func (r ClearRepositoriesMeteringArchive) Do(ctx context.Context) (*Response, er
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

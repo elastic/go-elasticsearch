@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // RankEvalMetricDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/rank_eval/types.ts#L125-L134
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/rank_eval/types.ts#L125-L134
 type RankEvalMetricDetail struct {
 	// Hits The hits section shows a grouping of the search results with their supplied
 	// ratings
@@ -42,6 +48,60 @@ type RankEvalMetricDetail struct {
 	// in the search result for this query that didn’t have a ratings value. This
 	// can be used to ask the user to supply ratings for these documents
 	UnratedDocs []UnratedDocument `json:"unrated_docs"`
+}
+
+func (s *RankEvalMetricDetail) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "hits":
+			if err := dec.Decode(&s.Hits); err != nil {
+				return err
+			}
+
+		case "metric_details":
+			if s.MetricDetails == nil {
+				s.MetricDetails = make(map[string]map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.MetricDetails); err != nil {
+				return err
+			}
+
+		case "metric_score":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.MetricScore = f
+			case float64:
+				f := Float64(v)
+				s.MetricScore = f
+			}
+
+		case "unrated_docs":
+			if err := dec.Decode(&s.UnratedDocs); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRankEvalMetricDetail returns a RankEvalMetricDetail.

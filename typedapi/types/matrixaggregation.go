@@ -16,22 +16,83 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // MatrixAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/matrix.ts#L26-L29
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/matrix.ts#L26-L29
 type MatrixAggregation struct {
-	Fields  []string                   `json:"fields,omitempty"`
-	Meta    map[string]json.RawMessage `json:"meta,omitempty"`
-	Missing map[string]Float64         `json:"missing,omitempty"`
-	Name    *string                    `json:"name,omitempty"`
+	Fields  []string           `json:"fields,omitempty"`
+	Meta    Metadata           `json:"meta,omitempty"`
+	Missing map[string]Float64 `json:"missing,omitempty"`
+	Name    *string            `json:"name,omitempty"`
+}
+
+func (s *MatrixAggregation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "fields":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.Fields = append(s.Fields, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Fields); err != nil {
+					return err
+				}
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "missing":
+			if s.Missing == nil {
+				s.Missing = make(map[string]Float64, 0)
+			}
+			if err := dec.Decode(&s.Missing); err != nil {
+				return err
+			}
+
+		case "name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Name = &o
+
+		}
+	}
+	return nil
 }
 
 // NewMatrixAggregation returns a MatrixAggregation.

@@ -16,15 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package putpipeline
+package healthreport
 
-// Response holds the response body struct for the package putpipeline
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
+
+// Response holds the response body struct for the package healthreport
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/logstash/put_pipeline/LogstashPutPipelineResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/health_report/Response.ts#L22-L27
 
 type Response struct {
+	ClusterName string           `json:"cluster_name"`
+	Indicators  types.Indicators `json:"indicators"`
 }
 
 // NewResponse returns a Response

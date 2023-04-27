@@ -16,22 +16,92 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scoremode"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // RescoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search/_types/rescoring.ts#L28-L34
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/_types/rescoring.ts#L28-L34
 type RescoreQuery struct {
 	Query              Query                `json:"rescore_query"`
 	QueryWeight        *Float64             `json:"query_weight,omitempty"`
 	RescoreQueryWeight *Float64             `json:"rescore_query_weight,omitempty"`
 	ScoreMode          *scoremode.ScoreMode `json:"score_mode,omitempty"`
+}
+
+func (s *RescoreQuery) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "rescore_query":
+			if err := dec.Decode(&s.Query); err != nil {
+				return err
+			}
+
+		case "query_weight":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.QueryWeight = &f
+			case float64:
+				f := Float64(v)
+				s.QueryWeight = &f
+			}
+
+		case "rescore_query_weight":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.RescoreQueryWeight = &f
+			case float64:
+				f := Float64(v)
+				s.RescoreQueryWeight = &f
+			}
+
+		case "score_mode":
+			if err := dec.Decode(&s.ScoreMode); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRescoreQuery returns a RescoreQuery.

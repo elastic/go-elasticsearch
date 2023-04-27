@@ -16,17 +16,92 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // JvmClasses type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/_types/Stats.ts#L357-L361
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/_types/Stats.ts#L357-L361
 type JvmClasses struct {
 	CurrentLoadedCount *int64 `json:"current_loaded_count,omitempty"`
 	TotalLoadedCount   *int64 `json:"total_loaded_count,omitempty"`
 	TotalUnloadedCount *int64 `json:"total_unloaded_count,omitempty"`
+}
+
+func (s *JvmClasses) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "current_loaded_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CurrentLoadedCount = &value
+			case float64:
+				f := int64(v)
+				s.CurrentLoadedCount = &f
+			}
+
+		case "total_loaded_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalLoadedCount = &value
+			case float64:
+				f := int64(v)
+				s.TotalLoadedCount = &f
+			}
+
+		case "total_unloaded_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.TotalUnloadedCount = &value
+			case float64:
+				f := int64(v)
+				s.TotalUnloadedCount = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewJvmClasses returns a JvmClasses.

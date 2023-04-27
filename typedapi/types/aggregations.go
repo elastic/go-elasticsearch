@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/AggregationContainer.ts#L105-L209
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/AggregationContainer.ts#L106-L211
 type Aggregations struct {
 	AdjacencyMatrix *AdjacencyMatrixAggregation `json:"adjacency_matrix,omitempty"`
 	// Aggregations Sub-aggregations for this aggregation. Only applies to bucket aggregations.
@@ -58,6 +58,7 @@ type Aggregations struct {
 	ExtendedStatsBucket     *ExtendedStatsBucketAggregation     `json:"extended_stats_bucket,omitempty"`
 	Filter                  *Query                              `json:"filter,omitempty"`
 	Filters                 *FiltersAggregation                 `json:"filters,omitempty"`
+	FrequentItemSets        *FrequentItemSetsAggregation        `json:"frequent_item_sets,omitempty"`
 	GeoBounds               *GeoBoundsAggregation               `json:"geo_bounds,omitempty"`
 	GeoCentroid             *GeoCentroidAggregation             `json:"geo_centroid,omitempty"`
 	GeoDistance             *GeoDistanceAggregation             `json:"geo_distance,omitempty"`
@@ -75,7 +76,7 @@ type Aggregations struct {
 	Max                     *MaxAggregation                     `json:"max,omitempty"`
 	MaxBucket               *MaxBucketAggregation               `json:"max_bucket,omitempty"`
 	MedianAbsoluteDeviation *MedianAbsoluteDeviationAggregation `json:"median_absolute_deviation,omitempty"`
-	Meta                    map[string]json.RawMessage          `json:"meta,omitempty"`
+	Meta                    Metadata                            `json:"meta,omitempty"`
 	Min                     *MinAggregation                     `json:"min,omitempty"`
 	MinBucket               *MinBucketAggregation               `json:"min_bucket,omitempty"`
 	Missing                 *MissingAggregation                 `json:"missing,omitempty"`
@@ -113,6 +114,7 @@ type Aggregations struct {
 }
 
 func (s *Aggregations) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -132,6 +134,9 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 			}
 
 		case "aggregations", "aggs":
+			if s.Aggregations == nil {
+				s.Aggregations = make(map[string]Aggregations, 0)
+			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
 				return err
 			}
@@ -248,6 +253,11 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 
 		case "filters":
 			if err := dec.Decode(&s.Filters); err != nil {
+				return err
+			}
+
+		case "frequent_item_sets":
+			if err := dec.Decode(&s.FrequentItemSets); err != nil {
 				return err
 			}
 
@@ -370,36 +380,36 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 
 			case "linear":
 				o := NewLinearMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "simple":
 				o := NewSimpleMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "ewma":
 				o := NewEwmaMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "holt":
 				o := NewHoltMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			case "holt_winters":
 				o := NewHoltWintersMovingAverageAggregation()
-				if err := localDec.Decode(o); err != nil {
+				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.MovingAvg = *o
 			default:
-				if err := dec.Decode(&s.MovingAvg); err != nil {
+				if err := localDec.Decode(&s.MovingAvg); err != nil {
 					return err
 				}
 			}

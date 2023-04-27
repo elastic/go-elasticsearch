@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // RemoteSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/reindex/types.ts#L59-L66
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/reindex/types.ts#L59-L66
 type RemoteSource struct {
 	ConnectTimeout Duration          `json:"connect_timeout,omitempty"`
 	Headers        map[string]string `json:"headers,omitempty"`
@@ -30,6 +38,59 @@ type RemoteSource struct {
 	Password       *string           `json:"password,omitempty"`
 	SocketTimeout  Duration          `json:"socket_timeout,omitempty"`
 	Username       *string           `json:"username,omitempty"`
+}
+
+func (s *RemoteSource) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "connect_timeout":
+			if err := dec.Decode(&s.ConnectTimeout); err != nil {
+				return err
+			}
+
+		case "headers":
+			if s.Headers == nil {
+				s.Headers = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.Headers); err != nil {
+				return err
+			}
+
+		case "host":
+			if err := dec.Decode(&s.Host); err != nil {
+				return err
+			}
+
+		case "password":
+			if err := dec.Decode(&s.Password); err != nil {
+				return err
+			}
+
+		case "socket_timeout":
+			if err := dec.Decode(&s.SocketTimeout); err != nil {
+				return err
+			}
+
+		case "username":
+			if err := dec.Decode(&s.Username); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRemoteSource returns a RemoteSource.

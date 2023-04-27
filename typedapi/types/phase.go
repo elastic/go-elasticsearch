@@ -16,17 +16,59 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+)
+
 // Phase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ilm/_types/Phase.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ilm/_types/Phase.ts#L25-L33
 type Phase struct {
 	Actions        *IlmActions     `json:"actions,omitempty"`
 	Configurations *Configurations `json:"configurations,omitempty"`
 	MinAge         *Duration       `json:"min_age,omitempty"`
+}
+
+func (s *Phase) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actions":
+			if err := dec.Decode(&s.Actions); err != nil {
+				return err
+			}
+
+		case "configurations":
+			if err := dec.Decode(&s.Configurations); err != nil {
+				return err
+			}
+
+		case "min_age":
+			if err := dec.Decode(&s.MinAge); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPhase returns a Phase.

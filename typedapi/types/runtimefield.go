@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/runtimefieldtype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/mapping/RuntimeFields.ts#L26-L38
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/RuntimeFields.ts#L26-L38
 type RuntimeField struct {
 	// FetchFields For type `lookup`
 	FetchFields []RuntimeFieldFetchFields `json:"fetch_fields,omitempty"`
@@ -39,6 +45,64 @@ type RuntimeField struct {
 	// TargetIndex For type `lookup`
 	TargetIndex *string                           `json:"target_index,omitempty"`
 	Type        runtimefieldtype.RuntimeFieldType `json:"type"`
+}
+
+func (s *RuntimeField) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "fetch_fields":
+			if err := dec.Decode(&s.FetchFields); err != nil {
+				return err
+			}
+
+		case "format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Format = &o
+
+		case "input_field":
+			if err := dec.Decode(&s.InputField); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		case "target_field":
+			if err := dec.Decode(&s.TargetField); err != nil {
+				return err
+			}
+
+		case "target_index":
+			if err := dec.Decode(&s.TargetIndex); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRuntimeField returns a RuntimeField.

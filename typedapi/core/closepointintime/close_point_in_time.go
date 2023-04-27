@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Close a point in time
 package closepointintime
@@ -185,14 +185,13 @@ func (r ClosePointInTime) Do(ctx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 {
+	if res.StatusCode < 299 || res.StatusCode == 404 {
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			return nil, err
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

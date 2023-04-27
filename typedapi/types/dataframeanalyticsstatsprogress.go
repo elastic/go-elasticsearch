@@ -16,19 +16,73 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DataframeAnalyticsStatsProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeAnalytics.ts#L343-L348
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/DataframeAnalytics.ts#L343-L348
 type DataframeAnalyticsStatsProgress struct {
 	// Phase Defines the phase of the data frame analytics job.
 	Phase string `json:"phase"`
 	// ProgressPercent The progress that the data frame analytics job has made expressed in
 	// percentage.
 	ProgressPercent int `json:"progress_percent"`
+}
+
+func (s *DataframeAnalyticsStatsProgress) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "phase":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Phase = o
+
+		case "progress_percent":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ProgressPercent = value
+			case float64:
+				f := int(v)
+				s.ProgressPercent = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataframeAnalyticsStatsProgress returns a DataframeAnalyticsStatsProgress.

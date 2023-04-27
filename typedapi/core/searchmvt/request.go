@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package searchmvt
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package searchmvt
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L188
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L188
 type Request struct {
 
 	// Aggs Sub-aggregations for the geotile_grid.
@@ -80,7 +80,7 @@ type Request struct {
 	Query *types.Query `json:"query,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
-	RuntimeMappings map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
+	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
 	// Size Maximum number of features to return in the hits layer. Accepts 0-10000.
 	// If 0, results don’t include the hits layer.
 	Size *int `json:"size,omitempty"`

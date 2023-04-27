@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Returns information about whether a particular index exists.
 package exists
@@ -24,7 +24,6 @@ package exists
 import (
 	gobytes "bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -35,7 +34,6 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 const (
@@ -147,36 +145,6 @@ func (r Exists) Perform(ctx context.Context) (*http.Response, error) {
 	}
 
 	return res, nil
-}
-
-// Do runs the request through the transport, handle the response and returns a exists.Response
-func (r Exists) Do(ctx context.Context) (*Response, error) {
-
-	response := NewResponse()
-
-	res, err := r.Perform(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer res.Body.Close()
-
-	if res.StatusCode < 299 {
-		err = json.NewDecoder(res.Body).Decode(response)
-		if err != nil {
-			return nil, err
-		}
-
-		return response, nil
-
-	}
-
-	errorResponse := types.NewElasticsearchError()
-	err = json.NewDecoder(res.Body).Decode(errorResponse)
-	if err != nil {
-		return nil, err
-	}
-
-	return nil, errorResponse
 }
 
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.

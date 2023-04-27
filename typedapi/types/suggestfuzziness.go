@@ -16,19 +16,114 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // SuggestFuzziness type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search/_types/suggester.ts#L138-L144
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/_types/suggester.ts#L142-L148
 type SuggestFuzziness struct {
 	Fuzziness      Fuzziness `json:"fuzziness,omitempty"`
 	MinLength      *int      `json:"min_length,omitempty"`
 	PrefixLength   *int      `json:"prefix_length,omitempty"`
 	Transpositions *bool     `json:"transpositions,omitempty"`
 	UnicodeAware   *bool     `json:"unicode_aware,omitempty"`
+}
+
+func (s *SuggestFuzziness) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "fuzziness":
+			if err := dec.Decode(&s.Fuzziness); err != nil {
+				return err
+			}
+
+		case "min_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinLength = &value
+			case float64:
+				f := int(v)
+				s.MinLength = &f
+			}
+
+		case "prefix_length":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PrefixLength = &value
+			case float64:
+				f := int(v)
+				s.PrefixLength = &f
+			}
+
+		case "transpositions":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Transpositions = &value
+			case bool:
+				s.Transpositions = &v
+			}
+
+		case "unicode_aware":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.UnicodeAware = &value
+			case bool:
+				s.UnicodeAware = &v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSuggestFuzziness returns a SuggestFuzziness.

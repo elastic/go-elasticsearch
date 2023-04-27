@@ -16,19 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package samlcompletelogout
+package types
 
-// Response holds the response body struct for the package samlcompletelogout
+// Diagnosis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/saml_complete_logout/Response.ts#L22-L24
-
-type Response struct {
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/health_report/types.ts#L48-L54
+type Diagnosis struct {
+	Action            string                     `json:"action"`
+	AffectedResources DiagnosisAffectedResources `json:"affected_resources"`
+	Cause             string                     `json:"cause"`
+	HelpUrl           string                     `json:"help_url"`
+	Id                string                     `json:"id"`
 }
 
-// NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
+// NewDiagnosis returns a Diagnosis.
+func NewDiagnosis() *Diagnosis {
+	r := &Diagnosis{}
+
 	return r
 }
