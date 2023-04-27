@@ -16,17 +16,82 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // CgroupCpuStat type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/_types/Stats.ts#L206-L210
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/_types/Stats.ts#L206-L210
 type CgroupCpuStat struct {
 	NumberOfElapsedPeriods *int64 `json:"number_of_elapsed_periods,omitempty"`
 	NumberOfTimesThrottled *int64 `json:"number_of_times_throttled,omitempty"`
 	TimeThrottledNanos     *int64 `json:"time_throttled_nanos,omitempty"`
+}
+
+func (s *CgroupCpuStat) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "number_of_elapsed_periods":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NumberOfElapsedPeriods = &value
+			case float64:
+				f := int64(v)
+				s.NumberOfElapsedPeriods = &f
+			}
+
+		case "number_of_times_throttled":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NumberOfTimesThrottled = &value
+			case float64:
+				f := int64(v)
+				s.NumberOfTimesThrottled = &f
+			}
+
+		case "time_throttled_nanos":
+			if err := dec.Decode(&s.TimeThrottledNanos); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewCgroupCpuStat returns a CgroupCpuStat.

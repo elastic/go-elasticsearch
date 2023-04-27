@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package cattrainedmodelscolumn
 package cattrainedmodelscolumn
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cat/_types/CatBase.ts#L561-L635
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/_types/CatBase.ts#L561-L635
 type CatTrainedModelsColumn struct {
 	Name string
 }
@@ -63,7 +63,7 @@ func (c CatTrainedModelsColumn) MarshalText() (text []byte, err error) {
 }
 
 func (c *CatTrainedModelsColumn) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "create_time":
 		*c = Createtime

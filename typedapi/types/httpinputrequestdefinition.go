@@ -16,18 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/connectionscheme"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/httpinputmethod"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // HttpInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/_types/Input.ts#L72-L86
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/watcher/_types/Input.ts#L72-L86
 type HttpInputRequestDefinition struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
@@ -42,6 +48,106 @@ type HttpInputRequestDefinition struct {
 	ReadTimeout       Duration                           `json:"read_timeout,omitempty"`
 	Scheme            *connectionscheme.ConnectionScheme `json:"scheme,omitempty"`
 	Url               *string                            `json:"url,omitempty"`
+}
+
+func (s *HttpInputRequestDefinition) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "auth":
+			if err := dec.Decode(&s.Auth); err != nil {
+				return err
+			}
+
+		case "body":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Body = &o
+
+		case "connection_timeout":
+			if err := dec.Decode(&s.ConnectionTimeout); err != nil {
+				return err
+			}
+
+		case "headers":
+			if s.Headers == nil {
+				s.Headers = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.Headers); err != nil {
+				return err
+			}
+
+		case "host":
+			if err := dec.Decode(&s.Host); err != nil {
+				return err
+			}
+
+		case "method":
+			if err := dec.Decode(&s.Method); err != nil {
+				return err
+			}
+
+		case "params":
+			if s.Params == nil {
+				s.Params = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.Params); err != nil {
+				return err
+			}
+
+		case "path":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Path = &o
+
+		case "port":
+			if err := dec.Decode(&s.Port); err != nil {
+				return err
+			}
+
+		case "proxy":
+			if err := dec.Decode(&s.Proxy); err != nil {
+				return err
+			}
+
+		case "read_timeout":
+			if err := dec.Decode(&s.ReadTimeout); err != nil {
+				return err
+			}
+
+		case "scheme":
+			if err := dec.Decode(&s.Scheme); err != nil {
+				return err
+			}
+
+		case "url":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Url = &o
+
+		}
+	}
+	return nil
 }
 
 // NewHttpInputRequestDefinition returns a HttpInputRequestDefinition.

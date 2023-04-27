@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Security type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/xpack/usage/types.ts#L425-L438
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/xpack/usage/types.ts#L425-L438
 type Security struct {
 	Anonymous          FeatureToggle               `json:"anonymous"`
 	ApiKeyService      FeatureToggle               `json:"api_key_service"`
@@ -38,6 +48,120 @@ type Security struct {
 	Ssl                Ssl                         `json:"ssl"`
 	SystemKey          *FeatureToggle              `json:"system_key,omitempty"`
 	TokenService       FeatureToggle               `json:"token_service"`
+}
+
+func (s *Security) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "anonymous":
+			if err := dec.Decode(&s.Anonymous); err != nil {
+				return err
+			}
+
+		case "api_key_service":
+			if err := dec.Decode(&s.ApiKeyService); err != nil {
+				return err
+			}
+
+		case "audit":
+			if err := dec.Decode(&s.Audit); err != nil {
+				return err
+			}
+
+		case "available":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Available = value
+			case bool:
+				s.Available = v
+			}
+
+		case "enabled":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Enabled = value
+			case bool:
+				s.Enabled = v
+			}
+
+		case "fips_140":
+			if err := dec.Decode(&s.Fips140); err != nil {
+				return err
+			}
+
+		case "ipfilter":
+			if err := dec.Decode(&s.Ipfilter); err != nil {
+				return err
+			}
+
+		case "operator_privileges":
+			if err := dec.Decode(&s.OperatorPrivileges); err != nil {
+				return err
+			}
+
+		case "realms":
+			if s.Realms == nil {
+				s.Realms = make(map[string]XpackRealm, 0)
+			}
+			if err := dec.Decode(&s.Realms); err != nil {
+				return err
+			}
+
+		case "role_mapping":
+			if s.RoleMapping == nil {
+				s.RoleMapping = make(map[string]XpackRoleMapping, 0)
+			}
+			if err := dec.Decode(&s.RoleMapping); err != nil {
+				return err
+			}
+
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return err
+			}
+
+		case "ssl":
+			if err := dec.Decode(&s.Ssl); err != nil {
+				return err
+			}
+
+		case "system_key":
+			if err := dec.Decode(&s.SystemKey); err != nil {
+				return err
+			}
+
+		case "token_service":
+			if err := dec.Decode(&s.TokenService); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSecurity returns a Security.

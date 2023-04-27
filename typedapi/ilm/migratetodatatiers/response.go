@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package migratetodatatiers
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+)
+
 // Response holds the response body struct for the package migratetodatatiers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L32
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L32
 
 type Response struct {
 	DryRun                      bool     `json:"dry_run"`
@@ -38,4 +46,81 @@ type Response struct {
 func NewResponse() *Response {
 	r := &Response{}
 	return r
+}
+
+func (s *Response) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "dry_run":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.DryRun = value
+			case bool:
+				s.DryRun = v
+			}
+
+		case "migrated_component_templates":
+			if err := dec.Decode(&s.MigratedComponentTemplates); err != nil {
+				return err
+			}
+
+		case "migrated_composable_templates":
+			if err := dec.Decode(&s.MigratedComposableTemplates); err != nil {
+				return err
+			}
+
+		case "migrated_ilm_policies":
+			if err := dec.Decode(&s.MigratedIlmPolicies); err != nil {
+				return err
+			}
+
+		case "migrated_indices":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.MigratedIndices = append(s.MigratedIndices, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.MigratedIndices); err != nil {
+					return err
+				}
+			}
+
+		case "migrated_legacy_templates":
+			if err := dec.Decode(&s.MigratedLegacyTemplates); err != nil {
+				return err
+			}
+
+		case "removed_legacy_template":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RemovedLegacyTemplate = o
+
+		}
+	}
+	return nil
 }

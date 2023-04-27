@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package getjobs
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getjobs
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/get_jobs/GetRollupJobResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/rollup/get_jobs/GetRollupJobResponse.ts#L22-L24
 
 type Response struct {
 	Jobs []types.RollupJob `json:"jobs"`

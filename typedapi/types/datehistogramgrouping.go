@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // DateHistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/_types/Groupings.ts#L30-L38
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/rollup/_types/Groupings.ts#L30-L38
 type DateHistogramGrouping struct {
 	CalendarInterval Duration `json:"calendar_interval,omitempty"`
 	Delay            Duration `json:"delay,omitempty"`
@@ -31,6 +39,64 @@ type DateHistogramGrouping struct {
 	Format           *string  `json:"format,omitempty"`
 	Interval         Duration `json:"interval,omitempty"`
 	TimeZone         *string  `json:"time_zone,omitempty"`
+}
+
+func (s *DateHistogramGrouping) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "calendar_interval":
+			if err := dec.Decode(&s.CalendarInterval); err != nil {
+				return err
+			}
+
+		case "delay":
+			if err := dec.Decode(&s.Delay); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "fixed_interval":
+			if err := dec.Decode(&s.FixedInterval); err != nil {
+				return err
+			}
+
+		case "format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Format = &o
+
+		case "interval":
+			if err := dec.Decode(&s.Interval); err != nil {
+				return err
+			}
+
+		case "time_zone":
+			if err := dec.Decode(&s.TimeZone); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDateHistogramGrouping returns a DateHistogramGrouping.

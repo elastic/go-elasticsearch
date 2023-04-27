@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sourcefieldmode"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // SourceField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/mapping/meta-fields.ts#L58-L65
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/meta-fields.ts#L58-L65
 type SourceField struct {
 	Compress          *bool                            `json:"compress,omitempty"`
 	CompressThreshold *string                          `json:"compress_threshold,omitempty"`
@@ -34,6 +42,77 @@ type SourceField struct {
 	Excludes          []string                         `json:"excludes,omitempty"`
 	Includes          []string                         `json:"includes,omitempty"`
 	Mode              *sourcefieldmode.SourceFieldMode `json:"mode,omitempty"`
+}
+
+func (s *SourceField) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "compress":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Compress = &value
+			case bool:
+				s.Compress = &v
+			}
+
+		case "compress_threshold":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.CompressThreshold = &o
+
+		case "enabled":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Enabled = &value
+			case bool:
+				s.Enabled = &v
+			}
+
+		case "excludes":
+			if err := dec.Decode(&s.Excludes); err != nil {
+				return err
+			}
+
+		case "includes":
+			if err := dec.Decode(&s.Includes); err != nil {
+				return err
+			}
+
+		case "mode":
+			if err := dec.Decode(&s.Mode); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSourceField returns a SourceField.

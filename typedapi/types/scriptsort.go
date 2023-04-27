@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -24,17 +24,68 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scriptsorttype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortmode"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // ScriptSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/sort.ts#L68-L74
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/sort.ts#L68-L74
 type ScriptSort struct {
 	Mode   *sortmode.SortMode             `json:"mode,omitempty"`
 	Nested *NestedSortValue               `json:"nested,omitempty"`
 	Order  *sortorder.SortOrder           `json:"order,omitempty"`
 	Script Script                         `json:"script"`
 	Type   *scriptsorttype.ScriptSortType `json:"type,omitempty"`
+}
+
+func (s *ScriptSort) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "mode":
+			if err := dec.Decode(&s.Mode); err != nil {
+				return err
+			}
+
+		case "nested":
+			if err := dec.Decode(&s.Nested); err != nil {
+				return err
+			}
+
+		case "order":
+			if err := dec.Decode(&s.Order); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewScriptSort returns a ScriptSort.

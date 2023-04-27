@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package shutdownstatus
 package shutdownstatus
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L45-L50
 type ShutdownStatus struct {
 	Name string
 }
@@ -43,7 +43,7 @@ func (s ShutdownStatus) MarshalText() (text []byte, err error) {
 }
 
 func (s *ShutdownStatus) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "not_started":
 		*s = Notstarted

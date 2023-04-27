@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package updatedatafeed
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L49
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/update_datafeed/MlUpdateDatafeedResponse.ts#L31-L49
 
 type Response struct {
 	Aggregations           map[string]types.Aggregations `json:"aggregations,omitempty"`
@@ -41,7 +41,7 @@ type Response struct {
 	MaxEmptySearches       *int                          `json:"max_empty_searches,omitempty"`
 	Query                  types.Query                   `json:"query"`
 	QueryDelay             types.Duration                `json:"query_delay"`
-	RuntimeMappings        map[string]types.RuntimeField `json:"runtime_mappings,omitempty"`
+	RuntimeMappings        types.RuntimeFields           `json:"runtime_mappings,omitempty"`
 	ScriptFields           map[string]types.ScriptField  `json:"script_fields,omitempty"`
 	ScrollSize             int                           `json:"scroll_size"`
 }

@@ -16,17 +16,80 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DatafeedRunningState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Datafeed.ts#L158-L162
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/Datafeed.ts#L158-L162
 type DatafeedRunningState struct {
 	RealTimeConfigured bool                        `json:"real_time_configured"`
 	RealTimeRunning    bool                        `json:"real_time_running"`
 	SearchInterval     *RunningStateSearchInterval `json:"search_interval,omitempty"`
+}
+
+func (s *DatafeedRunningState) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "real_time_configured":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.RealTimeConfigured = value
+			case bool:
+				s.RealTimeConfigured = v
+			}
+
+		case "real_time_running":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.RealTimeRunning = value
+			case bool:
+				s.RealTimeRunning = v
+			}
+
+		case "search_interval":
+			if err := dec.Decode(&s.SearchInterval); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDatafeedRunningState returns a DatafeedRunningState.

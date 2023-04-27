@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jobstate"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // JobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Job.ts#L96-L107
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/Job.ts#L96-L107
 type JobStats struct {
 	AssignmentExplanation *string               `json:"assignment_explanation,omitempty"`
 	DataCounts            DataCounts            `json:"data_counts"`
@@ -38,6 +46,91 @@ type JobStats struct {
 	OpenTime              DateTime              `json:"open_time,omitempty"`
 	State                 jobstate.JobState     `json:"state"`
 	TimingStats           JobTimingStats        `json:"timing_stats"`
+}
+
+func (s *JobStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "assignment_explanation":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.AssignmentExplanation = &o
+
+		case "data_counts":
+			if err := dec.Decode(&s.DataCounts); err != nil {
+				return err
+			}
+
+		case "deleting":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Deleting = &value
+			case bool:
+				s.Deleting = &v
+			}
+
+		case "forecasts_stats":
+			if err := dec.Decode(&s.ForecastsStats); err != nil {
+				return err
+			}
+
+		case "job_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.JobId = o
+
+		case "model_size_stats":
+			if err := dec.Decode(&s.ModelSizeStats); err != nil {
+				return err
+			}
+
+		case "node":
+			if err := dec.Decode(&s.Node); err != nil {
+				return err
+			}
+
+		case "open_time":
+			if err := dec.Decode(&s.OpenTime); err != nil {
+				return err
+			}
+
+		case "state":
+			if err := dec.Decode(&s.State); err != nil {
+				return err
+			}
+
+		case "timing_stats":
+			if err := dec.Decode(&s.TimingStats); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewJobStats returns a JobStats.

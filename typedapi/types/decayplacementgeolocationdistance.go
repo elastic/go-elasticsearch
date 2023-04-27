@@ -16,18 +16,79 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DecayPlacementGeoLocationDistance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/compound.ts#L77-L82
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/compound.ts#L77-L82
 type DecayPlacementGeoLocationDistance struct {
 	Decay  *Float64    `json:"decay,omitempty"`
 	Offset *string     `json:"offset,omitempty"`
 	Origin GeoLocation `json:"origin,omitempty"`
 	Scale  *string     `json:"scale,omitempty"`
+}
+
+func (s *DecayPlacementGeoLocationDistance) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "decay":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Decay = &f
+			case float64:
+				f := Float64(v)
+				s.Decay = &f
+			}
+
+		case "offset":
+			if err := dec.Decode(&s.Offset); err != nil {
+				return err
+			}
+
+		case "origin":
+			if err := dec.Decode(&s.Origin); err != nil {
+				return err
+			}
+
+		case "scale":
+			if err := dec.Decode(&s.Scale); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDecayPlacementGeoLocationDistance returns a DecayPlacementGeoLocationDistance.

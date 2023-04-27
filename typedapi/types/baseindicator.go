@@ -16,19 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package existsalias
+package types
 
-// Response holds the response body struct for the package existsalias
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indicatorhealthstatus"
+)
+
+// BaseIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/exists_alias/IndicesExistsAliasResponse.ts#L22-L24
-
-type Response struct {
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/health_report/types.ts#L41-L46
+type BaseIndicator struct {
+	Diagnosis []Diagnosis                                 `json:"diagnosis,omitempty"`
+	Impacts   []Impact                                    `json:"impacts,omitempty"`
+	Status    indicatorhealthstatus.IndicatorHealthStatus `json:"status"`
+	Symptom   string                                      `json:"symptom"`
 }
 
-// NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
+// NewBaseIndicator returns a BaseIndicator.
+func NewBaseIndicator() *BaseIndicator {
+	r := &BaseIndicator{}
+
 	return r
 }

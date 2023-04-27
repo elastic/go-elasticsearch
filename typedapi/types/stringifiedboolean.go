@@ -16,19 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package exists
+package types
 
-// Response holds the response body struct for the package exists
+// Stringifiedboolean holds the union for the following types:
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/exists/IndicesExistsResponse.ts#L22-L24
-
-type Response struct {
-}
-
-// NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
-	return r
-}
+//	bool
+//	string
+//
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_spec_utils/Stringified.ts#L20-L27
+type Stringifiedboolean interface{}

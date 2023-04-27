@@ -16,17 +16,92 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // PublishedClusterStates type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/_types/Stats.ts#L120-L124
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/_types/Stats.ts#L120-L124
 type PublishedClusterStates struct {
 	CompatibleDiffs   *int64 `json:"compatible_diffs,omitempty"`
 	FullStates        *int64 `json:"full_states,omitempty"`
 	IncompatibleDiffs *int64 `json:"incompatible_diffs,omitempty"`
+}
+
+func (s *PublishedClusterStates) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "compatible_diffs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CompatibleDiffs = &value
+			case float64:
+				f := int64(v)
+				s.CompatibleDiffs = &f
+			}
+
+		case "full_states":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.FullStates = &value
+			case float64:
+				f := int64(v)
+				s.FullStates = &f
+			}
+
+		case "incompatible_diffs":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.IncompatibleDiffs = &value
+			case float64:
+				f := int64(v)
+				s.IncompatibleDiffs = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPublishedClusterStates returns a PublishedClusterStates.

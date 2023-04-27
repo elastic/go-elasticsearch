@@ -16,19 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package updatetransform
 
 import (
-	"encoding/json"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Response holds the response body struct for the package updatetransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/transform/update_transform/UpdateTransformResponse.ts#L33-L51
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/transform/update_transform/UpdateTransformResponse.ts#L33-L51
 
 type Response struct {
 	Authorization   *types.TransformAuthorization   `json:"authorization,omitempty"`
@@ -38,7 +36,7 @@ type Response struct {
 	Frequency       types.Duration                  `json:"frequency,omitempty"`
 	Id              string                          `json:"id"`
 	Latest          *types.Latest                   `json:"latest,omitempty"`
-	Meta_           map[string]json.RawMessage      `json:"_meta,omitempty"`
+	Meta_           types.Metadata                  `json:"_meta,omitempty"`
 	Pivot           *types.Pivot                    `json:"pivot,omitempty"`
 	RetentionPolicy *types.RetentionPolicyContainer `json:"retention_policy,omitempty"`
 	Settings        types.Settings                  `json:"settings"`

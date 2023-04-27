@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // FunctionScore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/compound.ts#L107-L127
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/compound.ts#L107-L127
 type FunctionScore struct {
 	Exp              DecayFunction                  `json:"exp,omitempty"`
 	FieldValueFactor *FieldValueFactorScoreFunction `json:"field_value_factor,omitempty"`
@@ -32,6 +42,77 @@ type FunctionScore struct {
 	RandomScore      *RandomScoreFunction           `json:"random_score,omitempty"`
 	ScriptScore      *ScriptScoreFunction           `json:"script_score,omitempty"`
 	Weight           *Float64                       `json:"weight,omitempty"`
+}
+
+func (s *FunctionScore) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "exp":
+			if err := dec.Decode(&s.Exp); err != nil {
+				return err
+			}
+
+		case "field_value_factor":
+			if err := dec.Decode(&s.FieldValueFactor); err != nil {
+				return err
+			}
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return err
+			}
+
+		case "gauss":
+			if err := dec.Decode(&s.Gauss); err != nil {
+				return err
+			}
+
+		case "linear":
+			if err := dec.Decode(&s.Linear); err != nil {
+				return err
+			}
+
+		case "random_score":
+			if err := dec.Decode(&s.RandomScore); err != nil {
+				return err
+			}
+
+		case "script_score":
+			if err := dec.Decode(&s.ScriptScore); err != nil {
+				return err
+			}
+
+		case "weight":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Weight = &f
+			case float64:
+				f := Float64(v)
+				s.Weight = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewFunctionScore returns a FunctionScore.

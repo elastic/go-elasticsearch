@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // LogstashPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/logstash/_types/Pipeline.ts#L37-L44
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/logstash/_types/Pipeline.ts#L37-L44
 type LogstashPipeline struct {
 	Description      string           `json:"description"`
 	LastModified     DateTime         `json:"last_modified"`
@@ -30,6 +38,65 @@ type LogstashPipeline struct {
 	PipelineMetadata PipelineMetadata `json:"pipeline_metadata"`
 	PipelineSettings PipelineSettings `json:"pipeline_settings"`
 	Username         string           `json:"username"`
+}
+
+func (s *LogstashPipeline) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = o
+
+		case "last_modified":
+			if err := dec.Decode(&s.LastModified); err != nil {
+				return err
+			}
+
+		case "pipeline":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Pipeline = o
+
+		case "pipeline_metadata":
+			if err := dec.Decode(&s.PipelineMetadata); err != nil {
+				return err
+			}
+
+		case "pipeline_settings":
+			if err := dec.Decode(&s.PipelineSettings); err != nil {
+				return err
+			}
+
+		case "username":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Username = o
+
+		}
+	}
+	return nil
 }
 
 // NewLogstashPipeline returns a LogstashPipeline.
