@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // DataDescription type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Job.ts#L151-L167
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/Job.ts#L151-L167
 type DataDescription struct {
 	FieldDelimiter *string `json:"field_delimiter,omitempty"`
 	// Format Only JSON format is supported at this time.
@@ -39,6 +47,55 @@ type DataDescription struct {
 	// `yyyy-MM-dd'T'HH:mm:ssX`. If the pattern that you specify is not sufficient
 	// to produce a complete timestamp, job creation fails.
 	TimeFormat *string `json:"time_format,omitempty"`
+}
+
+func (s *DataDescription) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field_delimiter":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FieldDelimiter = &o
+
+		case "format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Format = &o
+
+		case "time_field":
+			if err := dec.Decode(&s.TimeField); err != nil {
+				return err
+			}
+
+		case "time_format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.TimeFormat = &o
+
+		}
+	}
+	return nil
 }
 
 // NewDataDescription returns a DataDescription.

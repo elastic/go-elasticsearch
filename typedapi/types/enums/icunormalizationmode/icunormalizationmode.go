@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package icunormalizationmode
 package icunormalizationmode
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/analysis/icu-plugin.ts#L78-L81
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/icu-plugin.ts#L78-L81
 type IcuNormalizationMode struct {
 	Name string
 }
@@ -39,7 +39,7 @@ func (i IcuNormalizationMode) MarshalText() (text []byte, err error) {
 }
 
 func (i *IcuNormalizationMode) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "decompose":
 		*i = Decompose

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package resultposition
 package resultposition
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/eql/search/types.ts#L20-L32
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/eql/search/types.ts#L20-L32
 type ResultPosition struct {
 	Name string
 }
@@ -39,7 +39,7 @@ func (r ResultPosition) MarshalText() (text []byte, err error) {
 }
 
 func (r *ResultPosition) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "tail":
 		*r = Tail

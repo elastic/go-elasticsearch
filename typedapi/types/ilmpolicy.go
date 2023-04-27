@@ -16,20 +16,54 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // IlmPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ilm/_types/Policy.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ilm/_types/Policy.ts#L23-L26
 type IlmPolicy struct {
-	Meta_  map[string]json.RawMessage `json:"_meta,omitempty"`
-	Phases Phases                     `json:"phases"`
+	Meta_  Metadata `json:"_meta,omitempty"`
+	Phases Phases   `json:"phases"`
+}
+
+func (s *IlmPolicy) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "_meta":
+			if err := dec.Decode(&s.Meta_); err != nil {
+				return err
+			}
+
+		case "phases":
+			if err := dec.Decode(&s.Phases); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIlmPolicy returns a IlmPolicy.

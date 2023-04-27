@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Sets a cluster wide upgrade_mode setting that prepares machine learning
 // indices for an upgrade.
@@ -162,7 +162,6 @@ func (r SetUpgradeMode) Do(ctx context.Context) (*Response, error) {
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

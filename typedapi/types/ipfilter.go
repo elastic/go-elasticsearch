@@ -16,16 +16,74 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // IpFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/xpack/usage/types.ts#L167-L170
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/xpack/usage/types.ts#L167-L170
 type IpFilter struct {
 	Http      bool `json:"http"`
 	Transport bool `json:"transport"`
+}
+
+func (s *IpFilter) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "http":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Http = value
+			case bool:
+				s.Http = v
+			}
+
+		case "transport":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Transport = value
+			case bool:
+				s.Transport = v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIpFilter returns a IpFilter.

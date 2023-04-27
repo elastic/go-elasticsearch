@@ -16,18 +16,59 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // DataframeAnalysisFeatureProcessorOneHotEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeAnalytics.ts#L288-L293
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/DataframeAnalytics.ts#L288-L293
 type DataframeAnalysisFeatureProcessorOneHotEncoding struct {
 	// Field The name of the field to encode.
 	Field string `json:"field"`
 	// HotMap The one hot map mapping the field value with the column name.
 	HotMap string `json:"hot_map"`
+}
+
+func (s *DataframeAnalysisFeatureProcessorOneHotEncoding) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "hot_map":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.HotMap = o
+
+		}
+	}
+	return nil
 }
 
 // NewDataframeAnalysisFeatureProcessorOneHotEncoding returns a DataframeAnalysisFeatureProcessorOneHotEncoding.

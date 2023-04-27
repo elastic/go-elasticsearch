@@ -16,17 +16,73 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // SlicedScroll type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/SlicedScroll.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/SlicedScroll.ts#L23-L27
 type SlicedScroll struct {
 	Field *string `json:"field,omitempty"`
 	Id    string  `json:"id"`
 	Max   int     `json:"max"`
+}
+
+func (s *SlicedScroll) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "max":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Max = value
+			case float64:
+				f := int(v)
+				s.Max = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSlicedScroll returns a SlicedScroll.

@@ -16,18 +16,88 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // IntervalsAllOf type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/fulltext.ts#L49-L56
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/fulltext.ts#L49-L56
 type IntervalsAllOf struct {
 	Filter    *IntervalsFilter `json:"filter,omitempty"`
 	Intervals []Intervals      `json:"intervals"`
 	MaxGaps   *int             `json:"max_gaps,omitempty"`
 	Ordered   *bool            `json:"ordered,omitempty"`
+}
+
+func (s *IntervalsAllOf) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return err
+			}
+
+		case "intervals":
+			if err := dec.Decode(&s.Intervals); err != nil {
+				return err
+			}
+
+		case "max_gaps":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxGaps = &value
+			case float64:
+				f := int(v)
+				s.MaxGaps = &f
+			}
+
+		case "ordered":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Ordered = &value
+			case bool:
+				s.Ordered = &v
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIntervalsAllOf returns a IntervalsAllOf.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Alias type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/_types/Alias.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/Alias.ts#L23-L30
 type Alias struct {
 	Filter        *Query  `json:"filter,omitempty"`
 	IndexRouting  *string `json:"index_routing,omitempty"`
@@ -30,6 +40,74 @@ type Alias struct {
 	IsWriteIndex  *bool   `json:"is_write_index,omitempty"`
 	Routing       *string `json:"routing,omitempty"`
 	SearchRouting *string `json:"search_routing,omitempty"`
+}
+
+func (s *Alias) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return err
+			}
+
+		case "index_routing":
+			if err := dec.Decode(&s.IndexRouting); err != nil {
+				return err
+			}
+
+		case "is_hidden":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IsHidden = &value
+			case bool:
+				s.IsHidden = &v
+			}
+
+		case "is_write_index":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IsWriteIndex = &value
+			case bool:
+				s.IsWriteIndex = &v
+			}
+
+		case "routing":
+			if err := dec.Decode(&s.Routing); err != nil {
+				return err
+			}
+
+		case "search_routing":
+			if err := dec.Decode(&s.SearchRouting); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewAlias returns a Alias.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Status type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/snapshot/_types/SnapshotStatus.ts#L26-L35
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/snapshot/_types/SnapshotStatus.ts#L26-L35
 type Status struct {
 	IncludeGlobalState bool                          `json:"include_global_state"`
 	Indices            map[string]SnapshotIndexStats `json:"indices"`
@@ -32,6 +42,87 @@ type Status struct {
 	State              string                        `json:"state"`
 	Stats              SnapshotStats                 `json:"stats"`
 	Uuid               string                        `json:"uuid"`
+}
+
+func (s *Status) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "include_global_state":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IncludeGlobalState = value
+			case bool:
+				s.IncludeGlobalState = v
+			}
+
+		case "indices":
+			if s.Indices == nil {
+				s.Indices = make(map[string]SnapshotIndexStats, 0)
+			}
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "repository":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Repository = o
+
+		case "shards_stats":
+			if err := dec.Decode(&s.ShardsStats); err != nil {
+				return err
+			}
+
+		case "snapshot":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Snapshot = o
+
+		case "state":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.State = o
+
+		case "stats":
+			if err := dec.Decode(&s.Stats); err != nil {
+				return err
+			}
+
+		case "uuid":
+			if err := dec.Decode(&s.Uuid); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewStatus returns a Status.

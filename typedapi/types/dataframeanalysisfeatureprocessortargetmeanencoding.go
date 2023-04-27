@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // DataframeAnalysisFeatureProcessorTargetMeanEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeAnalytics.ts#L295-L304
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/DataframeAnalytics.ts#L295-L304
 type DataframeAnalysisFeatureProcessorTargetMeanEncoding struct {
 	// DefaultValue The default value if field value is not found in the target_map.
 	DefaultValue int `json:"default_value"`
@@ -36,6 +42,60 @@ type DataframeAnalysisFeatureProcessorTargetMeanEncoding struct {
 	Field string `json:"field"`
 	// TargetMap The field value to target mean transition map.
 	TargetMap map[string]json.RawMessage `json:"target_map"`
+}
+
+func (s *DataframeAnalysisFeatureProcessorTargetMeanEncoding) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "default_value":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.DefaultValue = value
+			case float64:
+				f := int(v)
+				s.DefaultValue = f
+			}
+
+		case "feature_name":
+			if err := dec.Decode(&s.FeatureName); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "target_map":
+			if s.TargetMap == nil {
+				s.TargetMap = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.TargetMap); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDataframeAnalysisFeatureProcessorTargetMeanEncoding returns a DataframeAnalysisFeatureProcessorTargetMeanEncoding.

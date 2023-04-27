@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // TotalFeatureImportanceStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/TrainedModel.ts#L238-L245
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/TrainedModel.ts#L240-L247
 type TotalFeatureImportanceStatistics struct {
 	// Max The maximum importance value across all the training data for this feature.
 	Max int `json:"max"`
@@ -32,6 +42,74 @@ type TotalFeatureImportanceStatistics struct {
 	MeanMagnitude Float64 `json:"mean_magnitude"`
 	// Min The minimum importance value across all the training data for this feature.
 	Min int `json:"min"`
+}
+
+func (s *TotalFeatureImportanceStatistics) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "max":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Max = value
+			case float64:
+				f := int(v)
+				s.Max = f
+			}
+
+		case "mean_magnitude":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.MeanMagnitude = f
+			case float64:
+				f := Float64(v)
+				s.MeanMagnitude = f
+			}
+
+		case "min":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Min = value
+			case float64:
+				f := int(v)
+				s.Min = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTotalFeatureImportanceStatistics returns a TotalFeatureImportanceStatistics.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // NodeInfoJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/info/types.ts#L302-L313
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/info/types.ts#L302-L313
 type NodeInfoJvmMemory struct {
 	DirectMax          ByteSize `json:"direct_max,omitempty"`
 	DirectMaxInBytes   int64    `json:"direct_max_in_bytes"`
@@ -34,6 +44,126 @@ type NodeInfoJvmMemory struct {
 	NonHeapInitInBytes int64    `json:"non_heap_init_in_bytes"`
 	NonHeapMax         ByteSize `json:"non_heap_max,omitempty"`
 	NonHeapMaxInBytes  int64    `json:"non_heap_max_in_bytes"`
+}
+
+func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "direct_max":
+			if err := dec.Decode(&s.DirectMax); err != nil {
+				return err
+			}
+
+		case "direct_max_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.DirectMaxInBytes = value
+			case float64:
+				f := int64(v)
+				s.DirectMaxInBytes = f
+			}
+
+		case "heap_init":
+			if err := dec.Decode(&s.HeapInit); err != nil {
+				return err
+			}
+
+		case "heap_init_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.HeapInitInBytes = value
+			case float64:
+				f := int64(v)
+				s.HeapInitInBytes = f
+			}
+
+		case "heap_max":
+			if err := dec.Decode(&s.HeapMax); err != nil {
+				return err
+			}
+
+		case "heap_max_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.HeapMaxInBytes = value
+			case float64:
+				f := int64(v)
+				s.HeapMaxInBytes = f
+			}
+
+		case "non_heap_init":
+			if err := dec.Decode(&s.NonHeapInit); err != nil {
+				return err
+			}
+
+		case "non_heap_init_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NonHeapInitInBytes = value
+			case float64:
+				f := int64(v)
+				s.NonHeapInitInBytes = f
+			}
+
+		case "non_heap_max":
+			if err := dec.Decode(&s.NonHeapMax); err != nil {
+				return err
+			}
+
+		case "non_heap_max_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.NonHeapMaxInBytes = value
+			case float64:
+				f := int64(v)
+				s.NonHeapMaxInBytes = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeInfoJvmMemory returns a NodeInfoJvmMemory.

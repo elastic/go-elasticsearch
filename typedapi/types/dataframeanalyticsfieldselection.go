@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // DataframeAnalyticsFieldSelection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/DataframeAnalytics.ts#L55-L68
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/DataframeAnalytics.ts#L55-L68
 type DataframeAnalyticsFieldSelection struct {
 	// FeatureType The feature type of this field for the analysis. May be categorical or
 	// numerical.
@@ -37,6 +47,80 @@ type DataframeAnalyticsFieldSelection struct {
 	Name string `json:"name"`
 	// Reason The reason a field is not selected to be included in the analysis.
 	Reason *string `json:"reason,omitempty"`
+}
+
+func (s *DataframeAnalyticsFieldSelection) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "feature_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.FeatureType = &o
+
+		case "is_included":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IsIncluded = value
+			case bool:
+				s.IsIncluded = v
+			}
+
+		case "is_required":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IsRequired = value
+			case bool:
+				s.IsRequired = v
+			}
+
+		case "mapping_types":
+			if err := dec.Decode(&s.MappingTypes); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Reason = &o
+
+		}
+	}
+	return nil
 }
 
 // NewDataframeAnalyticsFieldSelection returns a DataframeAnalyticsFieldSelection.

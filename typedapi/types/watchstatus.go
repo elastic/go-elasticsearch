@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // WatchStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/_types/Watch.ts#L49-L56
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/watcher/_types/Watch.ts#L49-L56
 type WatchStatus struct {
 	Actions          WatcherStatusActions `json:"actions"`
 	ExecutionState   *string              `json:"execution_state,omitempty"`
@@ -30,6 +38,59 @@ type WatchStatus struct {
 	LastMetCondition DateTime             `json:"last_met_condition,omitempty"`
 	State            ActivationState      `json:"state"`
 	Version          int64                `json:"version"`
+}
+
+func (s *WatchStatus) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actions":
+			if err := dec.Decode(&s.Actions); err != nil {
+				return err
+			}
+
+		case "execution_state":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.ExecutionState = &o
+
+		case "last_checked":
+			if err := dec.Decode(&s.LastChecked); err != nil {
+				return err
+			}
+
+		case "last_met_condition":
+			if err := dec.Decode(&s.LastMetCondition); err != nil {
+				return err
+			}
+
+		case "state":
+			if err := dec.Decode(&s.State); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewWatchStatus returns a WatchStatus.

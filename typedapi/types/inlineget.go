@@ -16,18 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // InlineGet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/common.ts#L286-L295
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/common.ts#L286-L295
 type InlineGet struct {
 	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
 	Found        bool                       `json:"found"`
@@ -36,6 +43,91 @@ type InlineGet struct {
 	Routing_     *string                    `json:"_routing,omitempty"`
 	SeqNo_       *int64                     `json:"_seq_no,omitempty"`
 	Source_      json.RawMessage            `json:"_source,omitempty"`
+}
+
+func (s *InlineGet) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return err
+			}
+
+		case "found":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Found = value
+			case bool:
+				s.Found = v
+			}
+
+		case "_primary_term":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.PrimaryTerm_ = &value
+			case float64:
+				f := int64(v)
+				s.PrimaryTerm_ = &f
+			}
+
+		case "_routing":
+			if err := dec.Decode(&s.Routing_); err != nil {
+				return err
+			}
+
+		case "_seq_no":
+			if err := dec.Decode(&s.SeqNo_); err != nil {
+				return err
+			}
+
+		case "_source":
+			if err := dec.Decode(&s.Source_); err != nil {
+				return err
+			}
+
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.Metadata == nil {
+					s.Metadata = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return err
+				}
+				s.Metadata[key] = *raw
+			}
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -57,6 +149,7 @@ func (s InlineGet) MarshalJSON() ([]byte, error) {
 	for key, value := range s.Metadata {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "Metadata")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

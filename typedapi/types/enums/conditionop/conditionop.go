@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package conditionop
 package conditionop
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/_types/Conditions.ts#L38-L45
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/watcher/_types/Conditions.ts#L38-L45
 type ConditionOp struct {
 	Name string
 }
@@ -47,7 +47,7 @@ func (c ConditionOp) MarshalText() (text []byte, err error) {
 }
 
 func (c *ConditionOp) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "not_eq":
 		*c = Noteq

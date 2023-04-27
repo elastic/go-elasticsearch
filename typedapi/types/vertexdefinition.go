@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // VertexDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/graph/_types/Vertex.ts#L30-L37
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/graph/_types/Vertex.ts#L30-L37
 type VertexDefinition struct {
 	Exclude          []string        `json:"exclude,omitempty"`
 	Field            string          `json:"field"`
@@ -30,6 +40,87 @@ type VertexDefinition struct {
 	MinDocCount      *int64          `json:"min_doc_count,omitempty"`
 	ShardMinDocCount *int64          `json:"shard_min_doc_count,omitempty"`
 	Size             *int            `json:"size,omitempty"`
+}
+
+func (s *VertexDefinition) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "exclude":
+			if err := dec.Decode(&s.Exclude); err != nil {
+				return err
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "include":
+			if err := dec.Decode(&s.Include); err != nil {
+				return err
+			}
+
+		case "min_doc_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.MinDocCount = &value
+			case float64:
+				f := int64(v)
+				s.MinDocCount = &f
+			}
+
+		case "shard_min_doc_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.ShardMinDocCount = &value
+			case float64:
+				f := int64(v)
+				s.ShardMinDocCount = &f
+			}
+
+		case "size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Size = &value
+			case float64:
+				f := int(v)
+				s.Size = &f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewVertexDefinition returns a VertexDefinition.

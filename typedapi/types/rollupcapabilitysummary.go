@@ -16,18 +16,78 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // RollupCapabilitySummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/get_rollup_caps/types.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/rollup/get_rollup_caps/types.ts#L29-L34
 type RollupCapabilitySummary struct {
 	Fields       map[string][]RollupFieldSummary `json:"fields"`
 	IndexPattern string                          `json:"index_pattern"`
 	JobId        string                          `json:"job_id"`
 	RollupIndex  string                          `json:"rollup_index"`
+}
+
+func (s *RollupCapabilitySummary) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string][]RollupFieldSummary, 0)
+			}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return err
+			}
+
+		case "index_pattern":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.IndexPattern = o
+
+		case "job_id":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.JobId = o
+
+		case "rollup_index":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RollupIndex = o
+
+		}
+	}
+	return nil
 }
 
 // NewRollupCapabilitySummary returns a RollupCapabilitySummary.

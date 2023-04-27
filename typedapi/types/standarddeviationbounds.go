@@ -16,13 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+)
+
 // StandardDeviationBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L259-L266
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/Aggregate.ts#L260-L267
 type StandardDeviationBounds struct {
 	Lower           Float64 `json:"lower,omitempty"`
 	LowerPopulation Float64 `json:"lower_population,omitempty"`
@@ -30,6 +37,56 @@ type StandardDeviationBounds struct {
 	Upper           Float64 `json:"upper,omitempty"`
 	UpperPopulation Float64 `json:"upper_population,omitempty"`
 	UpperSampling   Float64 `json:"upper_sampling,omitempty"`
+}
+
+func (s *StandardDeviationBounds) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "lower":
+			if err := dec.Decode(&s.Lower); err != nil {
+				return err
+			}
+
+		case "lower_population":
+			if err := dec.Decode(&s.LowerPopulation); err != nil {
+				return err
+			}
+
+		case "lower_sampling":
+			if err := dec.Decode(&s.LowerSampling); err != nil {
+				return err
+			}
+
+		case "upper":
+			if err := dec.Decode(&s.Upper); err != nil {
+				return err
+			}
+
+		case "upper_population":
+			if err := dec.Decode(&s.UpperPopulation); err != nil {
+				return err
+			}
+
+		case "upper_sampling":
+			if err := dec.Decode(&s.UpperSampling); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewStandardDeviationBounds returns a StandardDeviationBounds.

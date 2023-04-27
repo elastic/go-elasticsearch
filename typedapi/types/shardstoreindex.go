@@ -16,16 +16,54 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // ShardStoreIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search_shards/SearchShardsResponse.ts#L33-L36
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search_shards/SearchShardsResponse.ts#L33-L36
 type ShardStoreIndex struct {
 	Aliases []string `json:"aliases,omitempty"`
 	Filter  *Query   `json:"filter,omitempty"`
+}
+
+func (s *ShardStoreIndex) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aliases":
+			if err := dec.Decode(&s.Aliases); err != nil {
+				return err
+			}
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewShardStoreIndex returns a ShardStoreIndex.

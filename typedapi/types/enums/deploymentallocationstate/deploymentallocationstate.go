@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package deploymentallocationstate
 package deploymentallocationstate
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/TrainedModel.ts#L278-L291
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/TrainedModel.ts#L280-L293
 type DeploymentAllocationState struct {
 	Name string
 }
@@ -41,7 +41,7 @@ func (d DeploymentAllocationState) MarshalText() (text []byte, err error) {
 }
 
 func (d *DeploymentAllocationState) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "started":
 		*d = Started

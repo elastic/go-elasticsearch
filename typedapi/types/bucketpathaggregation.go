@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -30,15 +30,16 @@ import (
 
 // BucketPathAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/pipeline.ts#L31-L37
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/pipeline.ts#L31-L37
 type BucketPathAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath BucketsPath                `json:"buckets_path,omitempty"`
-	Meta        map[string]json.RawMessage `json:"meta,omitempty"`
-	Name        *string                    `json:"name,omitempty"`
+	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
+	Meta        Metadata    `json:"meta,omitempty"`
+	Name        *string     `json:"name,omitempty"`
 }
 
 func (s *BucketPathAggregation) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -63,9 +64,12 @@ func (s *BucketPathAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp)
+			s.Name = &o
 
 		}
 	}

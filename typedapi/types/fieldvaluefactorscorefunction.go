@@ -16,22 +16,92 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/fieldvaluefactormodifier"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // FieldValueFactorScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/compound.ts#L70-L75
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/compound.ts#L70-L75
 type FieldValueFactorScoreFunction struct {
 	Factor   *Float64                                           `json:"factor,omitempty"`
 	Field    string                                             `json:"field"`
 	Missing  *Float64                                           `json:"missing,omitempty"`
 	Modifier *fieldvaluefactormodifier.FieldValueFactorModifier `json:"modifier,omitempty"`
+}
+
+func (s *FieldValueFactorScoreFunction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "factor":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Factor = &f
+			case float64:
+				f := Float64(v)
+				s.Factor = &f
+			}
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "missing":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return err
+				}
+				f := Float64(value)
+				s.Missing = &f
+			case float64:
+				f := Float64(v)
+				s.Missing = &f
+			}
+
+		case "modifier":
+			if err := dec.Decode(&s.Modifier); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewFieldValueFactorScoreFunction returns a FieldValueFactorScoreFunction.

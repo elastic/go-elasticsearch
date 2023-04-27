@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package scriptlanguage
 package scriptlanguage
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/Scripting.ts#L24-L33
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Scripting.ts#L24-L33
 type ScriptLanguage struct {
 	Name string
 }
@@ -43,7 +43,7 @@ func (s ScriptLanguage) MarshalText() (text []byte, err error) {
 }
 
 func (s *ScriptLanguage) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "painless":
 		*s = Painless

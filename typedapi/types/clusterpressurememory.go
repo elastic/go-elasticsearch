@@ -16,17 +16,72 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // ClusterPressureMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cluster/stats/types.ts#L303-L307
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L303-L307
 type ClusterPressureMemory struct {
 	Current      IndexingPressureMemorySummary `json:"current"`
 	LimitInBytes int64                         `json:"limit_in_bytes"`
 	Total        IndexingPressureMemorySummary `json:"total"`
+}
+
+func (s *ClusterPressureMemory) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "current":
+			if err := dec.Decode(&s.Current); err != nil {
+				return err
+			}
+
+		case "limit_in_bytes":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.LimitInBytes = value
+			case float64:
+				f := int64(v)
+				s.LimitInBytes = f
+			}
+
+		case "total":
+			if err := dec.Decode(&s.Total); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewClusterPressureMemory returns a ClusterPressureMemory.

@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // HyphenationDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/analysis/token_filters.ts#L57-L59
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L58-L60
 type HyphenationDecompounderTokenFilter struct {
 	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
 	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
@@ -33,6 +43,119 @@ type HyphenationDecompounderTokenFilter struct {
 	Version                 *string  `json:"version,omitempty"`
 	WordList                []string `json:"word_list,omitempty"`
 	WordListPath            *string  `json:"word_list_path,omitempty"`
+}
+
+func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "hyphenation_patterns_path":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.HyphenationPatternsPath = &o
+
+		case "max_subword_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxSubwordSize = &value
+			case float64:
+				f := int(v)
+				s.MaxSubwordSize = &f
+			}
+
+		case "min_subword_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinSubwordSize = &value
+			case float64:
+				f := int(v)
+				s.MinSubwordSize = &f
+			}
+
+		case "min_word_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MinWordSize = &value
+			case float64:
+				f := int(v)
+				s.MinWordSize = &f
+			}
+
+		case "only_longest_match":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.OnlyLongestMatch = &value
+			case bool:
+				s.OnlyLongestMatch = &v
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		case "word_list":
+			if err := dec.Decode(&s.WordList); err != nil {
+				return err
+			}
+
+		case "word_list_path":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.WordListPath = &o
+
+		}
+	}
+	return nil
 }
 
 // NewHyphenationDecompounderTokenFilter returns a HyphenationDecompounderTokenFilter.

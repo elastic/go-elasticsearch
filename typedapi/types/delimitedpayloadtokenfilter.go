@@ -16,22 +16,71 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/delimitedpayloadencoding"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // DelimitedPayloadTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/analysis/token_filters.ts#L67-L71
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L68-L72
 type DelimitedPayloadTokenFilter struct {
 	Delimiter *string                                            `json:"delimiter,omitempty"`
 	Encoding  *delimitedpayloadencoding.DelimitedPayloadEncoding `json:"encoding,omitempty"`
 	Type      string                                             `json:"type,omitempty"`
 	Version   *string                                            `json:"version,omitempty"`
+}
+
+func (s *DelimitedPayloadTokenFilter) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "delimiter":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Delimiter = &o
+
+		case "encoding":
+			if err := dec.Decode(&s.Encoding); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDelimitedPayloadTokenFilter returns a DelimitedPayloadTokenFilter.

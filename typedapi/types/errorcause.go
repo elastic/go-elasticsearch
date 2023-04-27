@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // ErrorCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/Errors.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Errors.ts#L25-L48
 type ErrorCause struct {
 	CausedBy *ErrorCause                `json:"caused_by,omitempty"`
 	Metadata map[string]json.RawMessage `json:"-"`
@@ -61,6 +61,7 @@ func (s ErrorCause) MarshalJSON() ([]byte, error) {
 	for key, value := range s.Metadata {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "Metadata")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

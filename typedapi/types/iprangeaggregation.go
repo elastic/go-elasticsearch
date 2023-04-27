@@ -16,22 +16,69 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // IpRangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/bucket.ts#L249-L252
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/bucket.ts#L249-L252
 type IpRangeAggregation struct {
-	Field  *string                    `json:"field,omitempty"`
-	Meta   map[string]json.RawMessage `json:"meta,omitempty"`
-	Name   *string                    `json:"name,omitempty"`
-	Ranges []IpRangeAggregationRange  `json:"ranges,omitempty"`
+	Field  *string                   `json:"field,omitempty"`
+	Meta   Metadata                  `json:"meta,omitempty"`
+	Name   *string                   `json:"name,omitempty"`
+	Ranges []IpRangeAggregationRange `json:"ranges,omitempty"`
+}
+
+func (s *IpRangeAggregation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Name = &o
+
+		case "ranges":
+			if err := dec.Decode(&s.Ranges); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIpRangeAggregation returns a IpRangeAggregation.

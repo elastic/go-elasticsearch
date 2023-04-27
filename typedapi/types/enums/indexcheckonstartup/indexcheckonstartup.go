@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Package indexcheckonstartup
 package indexcheckonstartup
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/_types/IndexSettings.ts#L253-L260
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/IndexSettings.ts#L253-L260
 type IndexCheckOnStartup struct {
 	Name string
 }
@@ -36,12 +36,16 @@ var (
 	Checksum = IndexCheckOnStartup{"checksum"}
 )
 
+func (i *IndexCheckOnStartup) UnmarshalJSON(data []byte) error {
+	return i.UnmarshalText(data)
+}
+
 func (i IndexCheckOnStartup) MarshalText() (text []byte, err error) {
 	return []byte(i.String()), nil
 }
 
 func (i *IndexCheckOnStartup) UnmarshalText(text []byte) error {
-	switch strings.ToLower(string(text)) {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
 	case "true":
 		*i = True

@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/ruleaction"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // DetectionRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/Rule.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/Rule.ts#L25-L39
 type DetectionRule struct {
 	// Actions The set of actions to be triggered when the rule applies. If more than one
 	// action is specified the effects of all actions are combined.
@@ -40,6 +46,44 @@ type DetectionRule struct {
 	// Scoping is allowed for any of the fields that are also specified in
 	// `by_field_name`, `over_field_name`, or `partition_field_name`.
 	Scope map[string]FilterRef `json:"scope,omitempty"`
+}
+
+func (s *DetectionRule) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actions":
+			if err := dec.Decode(&s.Actions); err != nil {
+				return err
+			}
+
+		case "conditions":
+			if err := dec.Decode(&s.Conditions); err != nil {
+				return err
+			}
+
+		case "scope":
+			if s.Scope == nil {
+				s.Scope = make(map[string]FilterRef, 0)
+			}
+			if err := dec.Decode(&s.Scope); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewDetectionRule returns a DetectionRule.

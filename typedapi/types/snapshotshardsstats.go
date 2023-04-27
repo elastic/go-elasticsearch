@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // SnapshotShardsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L29
 type SnapshotShardsStats struct {
 	Done         int64 `json:"done"`
 	Failed       int64 `json:"failed"`
@@ -30,6 +40,116 @@ type SnapshotShardsStats struct {
 	Initializing int64 `json:"initializing"`
 	Started      int64 `json:"started"`
 	Total        int64 `json:"total"`
+}
+
+func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "done":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Done = value
+			case float64:
+				f := int64(v)
+				s.Done = f
+			}
+
+		case "failed":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Failed = value
+			case float64:
+				f := int64(v)
+				s.Failed = f
+			}
+
+		case "finalizing":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Finalizing = value
+			case float64:
+				f := int64(v)
+				s.Finalizing = f
+			}
+
+		case "initializing":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Initializing = value
+			case float64:
+				f := int64(v)
+				s.Initializing = f
+			}
+
+		case "started":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Started = value
+			case float64:
+				f := int64(v)
+				s.Started = f
+			}
+
+		case "total":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Total = value
+			case float64:
+				f := int64(v)
+				s.Total = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewSnapshotShardsStats returns a SnapshotShardsStats.

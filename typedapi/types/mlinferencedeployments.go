@@ -16,18 +16,79 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // MlInferenceDeployments type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/xpack/usage/types.ts#L221-L226
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/xpack/usage/types.ts#L221-L226
 type MlInferenceDeployments struct {
 	Count           int                          `json:"count"`
 	InferenceCounts JobStatistics                `json:"inference_counts"`
 	ModelSizesBytes JobStatistics                `json:"model_sizes_bytes"`
 	TimeMs          MlInferenceDeploymentsTimeMs `json:"time_ms"`
+}
+
+func (s *MlInferenceDeployments) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Count = value
+			case float64:
+				f := int(v)
+				s.Count = f
+			}
+
+		case "inference_counts":
+			if err := dec.Decode(&s.InferenceCounts); err != nil {
+				return err
+			}
+
+		case "model_sizes_bytes":
+			if err := dec.Decode(&s.ModelSizesBytes); err != nil {
+				return err
+			}
+
+		case "time_ms":
+			if err := dec.Decode(&s.TimeMs); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewMlInferenceDeployments returns a MlInferenceDeployments.

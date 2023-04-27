@@ -16,25 +16,95 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
 	"encoding/json"
 )
 
 // RoleDescriptorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/_types/RoleDescriptor.ts#L38-L47
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/_types/RoleDescriptor.ts#L38-L47
 type RoleDescriptorRead struct {
-	Applications      []ApplicationPrivileges    `json:"applications,omitempty"`
-	Cluster           []string                   `json:"cluster"`
-	Global            []GlobalPrivilege          `json:"global,omitempty"`
-	Indices           []IndicesPrivileges        `json:"indices"`
-	Metadata          map[string]json.RawMessage `json:"metadata,omitempty"`
-	RunAs             []string                   `json:"run_as,omitempty"`
-	TransientMetadata *TransientMetadataConfig   `json:"transient_metadata,omitempty"`
+	Applications      []ApplicationPrivileges  `json:"applications,omitempty"`
+	Cluster           []string                 `json:"cluster"`
+	Global            []GlobalPrivilege        `json:"global,omitempty"`
+	Indices           []IndicesPrivileges      `json:"indices"`
+	Metadata          Metadata                 `json:"metadata,omitempty"`
+	RunAs             []string                 `json:"run_as,omitempty"`
+	TransientMetadata *TransientMetadataConfig `json:"transient_metadata,omitempty"`
+}
+
+func (s *RoleDescriptorRead) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "applications":
+			if err := dec.Decode(&s.Applications); err != nil {
+				return err
+			}
+
+		case "cluster":
+			if err := dec.Decode(&s.Cluster); err != nil {
+				return err
+			}
+
+		case "global":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := NewGlobalPrivilege()
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.Global = append(s.Global, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Global); err != nil {
+					return err
+				}
+			}
+
+		case "indices", "index":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "run_as":
+			if err := dec.Decode(&s.RunAs); err != nil {
+				return err
+			}
+
+		case "transient_metadata":
+			if err := dec.Decode(&s.TransientMetadata); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRoleDescriptorRead returns a RoleDescriptorRead.

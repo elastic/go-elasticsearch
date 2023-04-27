@@ -16,23 +16,63 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
 
-	"encoding/json"
 	"fmt"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // DateDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/query_dsl/compound.ts#L92-L94
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/compound.ts#L92-L94
 type DateDecayFunction struct {
-	DateDecayFunction map[string]DecayPlacementDateMathDuration `json:"-"`
+	DateDecayFunction map[string]DecayPlacementDateMathDuration `json:"DateDecayFunction,omitempty"`
 	MultiValueMode    *multivaluemode.MultiValueMode            `json:"multi_value_mode,omitempty"`
+}
+
+func (s *DateDecayFunction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "DateDecayFunction":
+			if s.DateDecayFunction == nil {
+				s.DateDecayFunction = make(map[string]DecayPlacementDateMathDuration, 0)
+			}
+			if err := dec.Decode(&s.DateDecayFunction); err != nil {
+				return err
+			}
+
+		case "multi_value_mode":
+			if err := dec.Decode(&s.MultiValueMode); err != nil {
+				return err
+			}
+
+		default:
+
+		}
+	}
+	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
@@ -54,6 +94,7 @@ func (s DateDecayFunction) MarshalJSON() ([]byte, error) {
 	for key, value := range s.DateDecayFunction {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "DateDecayFunction")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

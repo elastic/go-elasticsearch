@@ -16,17 +16,63 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // RollupFieldSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/get_rollup_caps/types.ts#L36-L40
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/rollup/get_rollup_caps/types.ts#L36-L40
 type RollupFieldSummary struct {
 	Agg              string   `json:"agg"`
 	CalendarInterval Duration `json:"calendar_interval,omitempty"`
 	TimeZone         *string  `json:"time_zone,omitempty"`
+}
+
+func (s *RollupFieldSummary) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "agg":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Agg = o
+
+		case "calendar_interval":
+			if err := dec.Decode(&s.CalendarInterval); err != nil {
+				return err
+			}
+
+		case "time_zone":
+			if err := dec.Decode(&s.TimeZone); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRollupFieldSummary returns a RollupFieldSummary.

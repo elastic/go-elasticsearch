@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -29,9 +29,9 @@ import (
 
 // ArrayCompareCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/_types/Conditions.ts#L32-L36
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/watcher/_types/Conditions.ts#L32-L36
 type ArrayCompareCondition struct {
-	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"-"`
+	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"ArrayCompareCondition,omitempty"`
 	Path                  string                                           `json:"path"`
 }
 
@@ -54,6 +54,7 @@ func (s ArrayCompareCondition) MarshalJSON() ([]byte, error) {
 	for key, value := range s.ArrayCompareCondition {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "ArrayCompareCondition")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {

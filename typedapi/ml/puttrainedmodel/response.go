@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package puttrainedmodel
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
 
 type Response struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
@@ -43,6 +43,8 @@ type Response struct {
 	EstimatedHeapMemoryUsageBytes *int `json:"estimated_heap_memory_usage_bytes,omitempty"`
 	// EstimatedOperations The estimated number of operations to use the trained model.
 	EstimatedOperations *int `json:"estimated_operations,omitempty"`
+	// FullyDefined True if the full model definition is present.
+	FullyDefined *bool `json:"fully_defined,omitempty"`
 	// InferenceConfig The default configuration for inference. This can be either a regression,
 	// classification, or one of the many NLP focused configurations. It must match
 	// the underlying definition.trained_model's target_type.

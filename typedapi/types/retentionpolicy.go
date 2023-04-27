@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // RetentionPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/transform/_types/Transform.ts#L88-L96
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/transform/_types/Transform.ts#L88-L96
 type RetentionPolicy struct {
 	// Field The date field that is used to calculate the age of the document.
 	Field string `json:"field"`
@@ -30,6 +38,36 @@ type RetentionPolicy struct {
 	// that are older than the configured
 	// value are removed from the destination index.
 	MaxAge Duration `json:"max_age"`
+}
+
+func (s *RetentionPolicy) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "max_age":
+			if err := dec.Decode(&s.MaxAge); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRetentionPolicy returns a RetentionPolicy.

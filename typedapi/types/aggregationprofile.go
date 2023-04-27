@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // AggregationProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search/_types/profile.ts#L77-L84
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/_types/profile.ts#L77-L84
 type AggregationProfile struct {
 	Breakdown   AggregationBreakdown     `json:"breakdown"`
 	Children    []AggregationProfile     `json:"children,omitempty"`
@@ -30,6 +38,62 @@ type AggregationProfile struct {
 	Description string                   `json:"description"`
 	TimeInNanos int64                    `json:"time_in_nanos"`
 	Type        string                   `json:"type"`
+}
+
+func (s *AggregationProfile) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "breakdown":
+			if err := dec.Decode(&s.Breakdown); err != nil {
+				return err
+			}
+
+		case "children":
+			if err := dec.Decode(&s.Children); err != nil {
+				return err
+			}
+
+		case "debug":
+			if err := dec.Decode(&s.Debug); err != nil {
+				return err
+			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Description = o
+
+		case "time_in_nanos":
+			if err := dec.Decode(&s.TimeInNanos); err != nil {
+				return err
+			}
+
+		case "type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Type = o
+
+		}
+	}
+	return nil
 }
 
 // NewAggregationProfile returns a AggregationProfile.

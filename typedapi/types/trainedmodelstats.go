@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // TrainedModelStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/ml/_types/TrainedModel.ts#L42-L60
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/TrainedModel.ts#L42-L60
 type TrainedModelStats struct {
 	// DeploymentStats A collection of deployment stats, which is present when the models are
 	// deployed.
@@ -43,6 +49,70 @@ type TrainedModelStats struct {
 	ModelSizeStats TrainedModelSizeStats `json:"model_size_stats"`
 	// PipelineCount The number of ingest pipelines that currently refer to the model.
 	PipelineCount int `json:"pipeline_count"`
+}
+
+func (s *TrainedModelStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "deployment_stats":
+			if err := dec.Decode(&s.DeploymentStats); err != nil {
+				return err
+			}
+
+		case "inference_stats":
+			if err := dec.Decode(&s.InferenceStats); err != nil {
+				return err
+			}
+
+		case "ingest":
+			if s.Ingest == nil {
+				s.Ingest = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Ingest); err != nil {
+				return err
+			}
+
+		case "model_id":
+			if err := dec.Decode(&s.ModelId); err != nil {
+				return err
+			}
+
+		case "model_size_stats":
+			if err := dec.Decode(&s.ModelSizeStats); err != nil {
+				return err
+			}
+
+		case "pipeline_count":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.PipelineCount = value
+			case float64:
+				f := int(v)
+				s.PipelineCount = f
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewTrainedModelStats returns a TrainedModelStats.

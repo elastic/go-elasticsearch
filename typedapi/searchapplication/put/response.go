@@ -16,15 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package existssource
+package put
 
-// Response holds the response body struct for the package existssource
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
+)
+
+// Response holds the response body struct for the package put
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/exists_source/SourceExistsResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/search_application/put/SearchApplicationsPutResponse.ts#L22-L26
 
 type Response struct {
+	Result result.Result `json:"result"`
 }
 
 // NewResponse returns a Response

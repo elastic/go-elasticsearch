@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -27,7 +27,7 @@ import (
 
 // Suggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/search/_types/suggester.ts#L101-L104
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/_types/suggester.ts#L101-L104
 type Suggester struct {
 	Suggesters map[string]FieldSuggester `json:"-"`
 	// Text Global suggest text, to avoid repetition when the same text is used in
@@ -54,6 +54,7 @@ func (s Suggester) MarshalJSON() ([]byte, error) {
 	for key, value := range s.Suggesters {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
+	delete(tmp, "Suggesters")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {
