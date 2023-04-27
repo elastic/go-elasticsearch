@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 // Returns information about existing component_templates templates.
 package componenttemplates
@@ -73,7 +73,7 @@ func NewComponentTemplatesFunc(tp elastictransport.Interface) NewComponentTempla
 
 // Returns information about existing component_templates templates.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-compoentn-templates.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-component-templates.html
 func New(tp elastictransport.Interface) *ComponentTemplates {
 	r := &ComponentTemplates{
 		transport: tp,
@@ -175,7 +175,6 @@ func (r ComponentTemplates) Do(ctx context.Context) (Response, error) {
 		}
 
 		return response, nil
-
 	}
 
 	errorResponse := types.NewElasticsearchError()

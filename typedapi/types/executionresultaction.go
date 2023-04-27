@@ -16,18 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actionstatusoptions"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actiontype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // ExecutionResultAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/_types/Execution.ts#L74-L86
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/watcher/_types/Execution.ts#L74-L86
 type ExecutionResultAction struct {
 	Email     *EmailResult                            `json:"email,omitempty"`
 	Error     *ErrorCause                             `json:"error,omitempty"`
@@ -40,6 +46,84 @@ type ExecutionResultAction struct {
 	Status    actionstatusoptions.ActionStatusOptions `json:"status"`
 	Type      actiontype.ActionType                   `json:"type"`
 	Webhook   *WebhookResult                          `json:"webhook,omitempty"`
+}
+
+func (s *ExecutionResultAction) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "email":
+			if err := dec.Decode(&s.Email); err != nil {
+				return err
+			}
+
+		case "error":
+			if err := dec.Decode(&s.Error); err != nil {
+				return err
+			}
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return err
+			}
+
+		case "index":
+			if err := dec.Decode(&s.Index); err != nil {
+				return err
+			}
+
+		case "logging":
+			if err := dec.Decode(&s.Logging); err != nil {
+				return err
+			}
+
+		case "pagerduty":
+			if err := dec.Decode(&s.Pagerduty); err != nil {
+				return err
+			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Reason = &o
+
+		case "slack":
+			if err := dec.Decode(&s.Slack); err != nil {
+				return err
+			}
+
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "webhook":
+			if err := dec.Decode(&s.Webhook); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewExecutionResultAction returns a ExecutionResultAction.

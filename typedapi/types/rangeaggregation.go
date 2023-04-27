@@ -16,26 +16,118 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
 	"encoding/json"
 )
 
 // RangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/bucket.ts#L289-L296
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/bucket.ts#L289-L296
 type RangeAggregation struct {
-	Field   *string                    `json:"field,omitempty"`
-	Format  *string                    `json:"format,omitempty"`
-	Keyed   *bool                      `json:"keyed,omitempty"`
-	Meta    map[string]json.RawMessage `json:"meta,omitempty"`
-	Missing *int                       `json:"missing,omitempty"`
-	Name    *string                    `json:"name,omitempty"`
-	Ranges  []AggregationRange         `json:"ranges,omitempty"`
-	Script  Script                     `json:"script,omitempty"`
+	Field   *string            `json:"field,omitempty"`
+	Format  *string            `json:"format,omitempty"`
+	Keyed   *bool              `json:"keyed,omitempty"`
+	Meta    Metadata           `json:"meta,omitempty"`
+	Missing *int               `json:"missing,omitempty"`
+	Name    *string            `json:"name,omitempty"`
+	Ranges  []AggregationRange `json:"ranges,omitempty"`
+	Script  Script             `json:"script,omitempty"`
+}
+
+func (s *RangeAggregation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "field":
+			if err := dec.Decode(&s.Field); err != nil {
+				return err
+			}
+
+		case "format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Format = &o
+
+		case "keyed":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Keyed = &value
+			case bool:
+				s.Keyed = &v
+			}
+
+		case "meta":
+			if err := dec.Decode(&s.Meta); err != nil {
+				return err
+			}
+
+		case "missing":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Missing = &value
+			case float64:
+				f := int(v)
+				s.Missing = &f
+			}
+
+		case "name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Name = &o
+
+		case "ranges":
+			if err := dec.Decode(&s.Ranges); err != nil {
+				return err
+			}
+
+		case "script":
+			if err := dec.Decode(&s.Script); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRangeAggregation returns a RangeAggregation.

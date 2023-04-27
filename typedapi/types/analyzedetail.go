@@ -16,19 +16,83 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // AnalyzeDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/analyze/types.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/analyze/types.ts#L24-L30
 type AnalyzeDetail struct {
 	Analyzer       *AnalyzerDetail    `json:"analyzer,omitempty"`
 	Charfilters    []CharFilterDetail `json:"charfilters,omitempty"`
 	CustomAnalyzer bool               `json:"custom_analyzer"`
 	Tokenfilters   []TokenDetail      `json:"tokenfilters,omitempty"`
 	Tokenizer      *TokenDetail       `json:"tokenizer,omitempty"`
+}
+
+func (s *AnalyzeDetail) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "analyzer":
+			if err := dec.Decode(&s.Analyzer); err != nil {
+				return err
+			}
+
+		case "charfilters":
+			if err := dec.Decode(&s.Charfilters); err != nil {
+				return err
+			}
+
+		case "custom_analyzer":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.CustomAnalyzer = value
+			case bool:
+				s.CustomAnalyzer = v
+			}
+
+		case "tokenfilters":
+			if err := dec.Decode(&s.Tokenfilters); err != nil {
+				return err
+			}
+
+		case "tokenizer":
+			if err := dec.Decode(&s.Tokenizer); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewAnalyzeDetail returns a AnalyzeDetail.

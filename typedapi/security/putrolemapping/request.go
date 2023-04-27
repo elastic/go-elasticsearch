@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package putrolemapping
 
@@ -29,13 +29,13 @@ import (
 
 // Request holds the request body struct for the package putrolemapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L24-L43
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L24-L43
 type Request struct {
-	Enabled  *bool                      `json:"enabled,omitempty"`
-	Metadata map[string]json.RawMessage `json:"metadata,omitempty"`
-	Roles    []string                   `json:"roles,omitempty"`
-	Rules    *types.RoleMappingRule     `json:"rules,omitempty"`
-	RunAs    []string                   `json:"run_as,omitempty"`
+	Enabled  *bool                  `json:"enabled,omitempty"`
+	Metadata types.Metadata         `json:"metadata,omitempty"`
+	Roles    []string               `json:"roles,omitempty"`
+	Rules    *types.RoleMappingRule `json:"rules,omitempty"`
+	RunAs    []string               `json:"run_as,omitempty"`
 }
 
 // NewRequest returns a Request

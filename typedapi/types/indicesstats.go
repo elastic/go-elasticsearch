@@ -16,18 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexmetadatastate"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
 )
 
 // IndicesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/indices/stats/types.ts#L92-L101
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/stats/types.ts#L92-L101
 type IndicesStats struct {
 	Health    *healthstatus.HealthStatus             `json:"health,omitempty"`
 	Primaries *IndexStats                            `json:"primaries,omitempty"`
@@ -35,6 +41,59 @@ type IndicesStats struct {
 	Status    *indexmetadatastate.IndexMetadataState `json:"status,omitempty"`
 	Total     *IndexStats                            `json:"total,omitempty"`
 	Uuid      *string                                `json:"uuid,omitempty"`
+}
+
+func (s *IndicesStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "health":
+			if err := dec.Decode(&s.Health); err != nil {
+				return err
+			}
+
+		case "primaries":
+			if err := dec.Decode(&s.Primaries); err != nil {
+				return err
+			}
+
+		case "shards":
+			if s.Shards == nil {
+				s.Shards = make(map[string][]IndicesShardStats, 0)
+			}
+			if err := dec.Decode(&s.Shards); err != nil {
+				return err
+			}
+
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return err
+			}
+
+		case "total":
+			if err := dec.Decode(&s.Total); err != nil {
+				return err
+			}
+
+		case "uuid":
+			if err := dec.Decode(&s.Uuid); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewIndicesStats returns a IndicesStats.

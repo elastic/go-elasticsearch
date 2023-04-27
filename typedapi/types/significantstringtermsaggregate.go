@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -25,20 +25,23 @@ import (
 	"errors"
 	"io"
 
+	"strconv"
+
 	"encoding/json"
 )
 
 // SignificantStringTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/aggregations/Aggregate.ts#L601-L603
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/Aggregate.ts#L602-L604
 type SignificantStringTermsAggregate struct {
 	BgCount  *int64                              `json:"bg_count,omitempty"`
 	Buckets  BucketsSignificantStringTermsBucket `json:"buckets"`
 	DocCount *int64                              `json:"doc_count,omitempty"`
-	Meta     map[string]json.RawMessage          `json:"meta,omitempty"`
+	Meta     Metadata                            `json:"meta,omitempty"`
 }
 
 func (s *SignificantStringTermsAggregate) UnmarshalJSON(data []byte) error {
+
 	dec := json.NewDecoder(bytes.NewReader(data))
 
 	for {
@@ -53,8 +56,18 @@ func (s *SignificantStringTermsAggregate) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bg_count":
-			if err := dec.Decode(&s.BgCount); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.BgCount = &value
+			case float64:
+				f := int64(v)
+				s.BgCount = &f
 			}
 
 		case "buckets":
@@ -64,21 +77,33 @@ func (s *SignificantStringTermsAggregate) UnmarshalJSON(data []byte) error {
 			source := bytes.NewReader(rawMsg)
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
-
 			case '{':
 				o := make(map[string]SignificantStringTermsBucket, 0)
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Buckets = o
-
 			case '[':
 				o := []SignificantStringTermsBucket{}
-				localDec.Decode(&o)
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
 				s.Buckets = o
 			}
 
 		case "doc_count":
-			if err := dec.Decode(&s.DocCount); err != nil {
-				return err
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.DocCount = &value
+			case float64:
+				f := int64(v)
+				s.DocCount = &f
 			}
 
 		case "meta":

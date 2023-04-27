@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // RepositoryMeteringInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
 type RepositoryMeteringInformation struct {
 	// Archived A flag that tells whether or not this object has been archived. When a
 	// repository is closed or updated the
@@ -56,6 +66,83 @@ type RepositoryMeteringInformation struct {
 	// RequestCounts An object with the number of request performed against the repository grouped
 	// by request type.
 	RequestCounts RequestCounts `json:"request_counts"`
+}
+
+func (s *RepositoryMeteringInformation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "archived":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Archived = value
+			case bool:
+				s.Archived = v
+			}
+
+		case "cluster_version":
+			if err := dec.Decode(&s.ClusterVersion); err != nil {
+				return err
+			}
+
+		case "repository_ephemeral_id":
+			if err := dec.Decode(&s.RepositoryEphemeralId); err != nil {
+				return err
+			}
+
+		case "repository_location":
+			if err := dec.Decode(&s.RepositoryLocation); err != nil {
+				return err
+			}
+
+		case "repository_name":
+			if err := dec.Decode(&s.RepositoryName); err != nil {
+				return err
+			}
+
+		case "repository_started_at":
+			if err := dec.Decode(&s.RepositoryStartedAt); err != nil {
+				return err
+			}
+
+		case "repository_stopped_at":
+			if err := dec.Decode(&s.RepositoryStoppedAt); err != nil {
+				return err
+			}
+
+		case "repository_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.RepositoryType = o
+
+		case "request_counts":
+			if err := dec.Decode(&s.RequestCounts); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewRepositoryMeteringInformation returns a RepositoryMeteringInformation.

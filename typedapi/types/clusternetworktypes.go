@@ -16,16 +16,60 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"encoding/json"
+)
+
 // ClusterNetworkTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cluster/stats/types.ts#L178-L181
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L178-L181
 type ClusterNetworkTypes struct {
 	HttpTypes      map[string]int `json:"http_types"`
 	TransportTypes map[string]int `json:"transport_types"`
+}
+
+func (s *ClusterNetworkTypes) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "http_types":
+			if s.HttpTypes == nil {
+				s.HttpTypes = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.HttpTypes); err != nil {
+				return err
+			}
+
+		case "transport_types":
+			if s.TransportTypes == nil {
+				s.TransportTypes = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.TransportTypes); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewClusterNetworkTypes returns a ClusterNetworkTypes.

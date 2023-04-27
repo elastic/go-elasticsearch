@@ -19,6 +19,8 @@
 // on primitive types for the TypedAPI.
 package some
 
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+
 // String returns a pointer to a string
 func String(value string) *string {
 	return &value
@@ -95,8 +97,9 @@ func Float32(value float32) *float32 {
 }
 
 // Float64 returns a pointer to a float64
-func Float64(value float64) *float64 {
-	return &value
+func Float64(value float64) *types.Float64 {
+	f := types.Float64(value)
+	return &f
 }
 
 // Complex64 returns a pointer to a complex64

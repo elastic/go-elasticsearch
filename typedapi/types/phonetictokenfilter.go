@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
@@ -25,11 +25,19 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/phoneticlanguage"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/phoneticnametype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/phoneticruletype"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // PhoneticTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_types/analysis/phonetic-plugin.ts#L64-L72
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/phonetic-plugin.ts#L64-L72
 type PhoneticTokenFilter struct {
 	Encoder     phoneticencoder.PhoneticEncoder     `json:"encoder"`
 	Languageset []phoneticlanguage.PhoneticLanguage `json:"languageset"`
@@ -39,6 +47,86 @@ type PhoneticTokenFilter struct {
 	RuleType    phoneticruletype.PhoneticRuleType   `json:"rule_type"`
 	Type        string                              `json:"type,omitempty"`
 	Version     *string                             `json:"version,omitempty"`
+}
+
+func (s *PhoneticTokenFilter) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "encoder":
+			if err := dec.Decode(&s.Encoder); err != nil {
+				return err
+			}
+
+		case "languageset":
+			if err := dec.Decode(&s.Languageset); err != nil {
+				return err
+			}
+
+		case "max_code_len":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxCodeLen = &value
+			case float64:
+				f := int(v)
+				s.MaxCodeLen = &f
+			}
+
+		case "name_type":
+			if err := dec.Decode(&s.NameType); err != nil {
+				return err
+			}
+
+		case "replace":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Replace = &value
+			case bool:
+				s.Replace = &v
+			}
+
+		case "rule_type":
+			if err := dec.Decode(&s.RuleType); err != nil {
+				return err
+			}
+
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPhoneticTokenFilter returns a PhoneticTokenFilter.

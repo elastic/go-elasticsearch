@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // NodeJvmInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/info/types.ts#L348-L362
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/info/types.ts#L348-L362
 type NodeJvmInfo struct {
 	GcCollectors                          []string          `json:"gc_collectors"`
 	InputArguments                        []string          `json:"input_arguments"`
@@ -36,6 +46,112 @@ type NodeJvmInfo struct {
 	VmName                                string            `json:"vm_name"`
 	VmVendor                              string            `json:"vm_vendor"`
 	VmVersion                             string            `json:"vm_version"`
+}
+
+func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "gc_collectors":
+			if err := dec.Decode(&s.GcCollectors); err != nil {
+				return err
+			}
+
+		case "input_arguments":
+			if err := dec.Decode(&s.InputArguments); err != nil {
+				return err
+			}
+
+		case "mem":
+			if err := dec.Decode(&s.Mem); err != nil {
+				return err
+			}
+
+		case "memory_pools":
+			if err := dec.Decode(&s.MemoryPools); err != nil {
+				return err
+			}
+
+		case "pid":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Pid = value
+			case float64:
+				f := int(v)
+				s.Pid = f
+			}
+
+		case "start_time_in_millis":
+			if err := dec.Decode(&s.StartTimeInMillis); err != nil {
+				return err
+			}
+
+		case "using_bundled_jdk", "bundled_jdk":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.UsingBundledJdk = value
+			case bool:
+				s.UsingBundledJdk = v
+			}
+
+		case "using_compressed_ordinary_object_pointers":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.UsingCompressedOrdinaryObjectPointers = o
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		case "vm_name":
+			if err := dec.Decode(&s.VmName); err != nil {
+				return err
+			}
+
+		case "vm_vendor":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.VmVendor = o
+
+		case "vm_version":
+			if err := dec.Decode(&s.VmVersion); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeJvmInfo returns a NodeJvmInfo.

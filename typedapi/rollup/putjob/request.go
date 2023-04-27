@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package putjob
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
 type Request struct {
 
 	// Cron A cron string which defines the intervals when the rollup job should be
@@ -52,8 +52,8 @@ type Request struct {
 	// aggregations might be used. Rollups provide
 	// enough flexibility that you simply need to determine which fields are needed,
 	// not in what order they are needed.
-	Groups  types.Groupings     `json:"groups"`
-	Headers map[string][]string `json:"headers,omitempty"`
+	Groups  types.Groupings   `json:"groups"`
+	Headers types.HttpHeaders `json:"headers,omitempty"`
 	// IndexPattern The index or index pattern to roll up. Supports wildcard-style patterns
 	// (`logstash-*`). The job attempts to
 	// rollup the entire index or index-pattern.

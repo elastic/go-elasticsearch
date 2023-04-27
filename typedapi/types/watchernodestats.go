@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/watcherstate"
+
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
 )
 
 // WatcherNodeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/watcher/stats/types.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/watcher/stats/types.ts#L33-L40
 type WatcherNodeStats struct {
 	CurrentWatches      []WatchRecordStats        `json:"current_watches,omitempty"`
 	ExecutionThreadPool ExecutionThreadPool       `json:"execution_thread_pool"`
@@ -34,6 +42,66 @@ type WatcherNodeStats struct {
 	QueuedWatches       []WatchRecordQueuedStats  `json:"queued_watches,omitempty"`
 	WatchCount          int64                     `json:"watch_count"`
 	WatcherState        watcherstate.WatcherState `json:"watcher_state"`
+}
+
+func (s *WatcherNodeStats) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "current_watches":
+			if err := dec.Decode(&s.CurrentWatches); err != nil {
+				return err
+			}
+
+		case "execution_thread_pool":
+			if err := dec.Decode(&s.ExecutionThreadPool); err != nil {
+				return err
+			}
+
+		case "node_id":
+			if err := dec.Decode(&s.NodeId); err != nil {
+				return err
+			}
+
+		case "queued_watches":
+			if err := dec.Decode(&s.QueuedWatches); err != nil {
+				return err
+			}
+
+		case "watch_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.WatchCount = value
+			case float64:
+				f := int64(v)
+				s.WatchCount = f
+			}
+
+		case "watcher_state":
+			if err := dec.Decode(&s.WatcherState); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewWatcherNodeStats returns a WatcherNodeStats.

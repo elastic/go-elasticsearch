@@ -16,18 +16,81 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // Recording type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/_types/Stats.ts#L94-L99
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/_types/Stats.ts#L94-L99
 type Recording struct {
 	CumulativeExecutionCount      *int64   `json:"cumulative_execution_count,omitempty"`
 	CumulativeExecutionTime       Duration `json:"cumulative_execution_time,omitempty"`
 	CumulativeExecutionTimeMillis *int64   `json:"cumulative_execution_time_millis,omitempty"`
 	Name                          *string  `json:"name,omitempty"`
+}
+
+func (s *Recording) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "cumulative_execution_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.CumulativeExecutionCount = &value
+			case float64:
+				f := int64(v)
+				s.CumulativeExecutionCount = &f
+			}
+
+		case "cumulative_execution_time":
+			if err := dec.Decode(&s.CumulativeExecutionTime); err != nil {
+				return err
+			}
+
+		case "cumulative_execution_time_millis":
+			if err := dec.Decode(&s.CumulativeExecutionTimeMillis); err != nil {
+				return err
+			}
+
+		case "name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Name = &o
+
+		}
+	}
+	return nil
 }
 
 // NewRecording returns a Recording.

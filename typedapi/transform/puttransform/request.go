@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package puttransform
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package puttransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
 type Request struct {
 
 	// Description Free text description of the transform.
@@ -46,7 +46,7 @@ type Request struct {
 	// unique key.
 	Latest *types.Latest `json:"latest,omitempty"`
 	// Meta_ Defines optional transform metadata.
-	Meta_ map[string]json.RawMessage `json:"_meta,omitempty"`
+	Meta_ types.Metadata `json:"_meta,omitempty"`
 	// Pivot The pivot method transforms the data by aggregating and grouping it. These
 	// objects define the group by fields
 	// and the aggregation to reduce the data.

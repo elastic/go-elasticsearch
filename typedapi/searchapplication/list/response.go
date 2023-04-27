@@ -16,15 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package existscomponenttemplate
+package list
 
-// Response holds the response body struct for the package existscomponenttemplate
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
+
+// Response holds the response body struct for the package list
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cluster/exists_component_template/ClusterComponentTemplateExistsResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/search_application/list/SearchApplicationsListResponse.ts#L24-L29
 
 type Response struct {
+	Count   int64                             `json:"count"`
+	Results []types.SearchApplicationListItem `json:"results"`
 }
 
 // NewResponse returns a Response

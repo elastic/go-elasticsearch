@@ -31,20 +31,23 @@ func (f Float64) MarshalJSON() ([]byte, error) {
 	var s string
 	switch {
 	case math.IsInf(float64(f), 1):
-		s = "Infinity"
+		s = `"Infinity"`
 	case math.IsInf(float64(f), -1):
-		s = "-Infinity"
+		s = `"-Infinity"`
 	case math.IsNaN(float64(f)):
-		s = "NaN"
+		s = `"NaN"`
 	default:
 		s = strconv.FormatFloat(float64(f), 'f', -1, 64)
 	}
-	return []byte(`"` + s + `"`), nil
+	return []byte(s), nil
 }
 
 // UnmarshalJSON implements Unmarshaler interface.
 func (f *Float64) UnmarshalJSON(data []byte) error {
 	switch {
+	case bytes.Equal(data, []byte(`"NaN"`)):
+		nan := Float64(math.NaN())
+		f = &nan
 	case bytes.Equal(data, []byte(`null`)):
 		return nil
 	default:

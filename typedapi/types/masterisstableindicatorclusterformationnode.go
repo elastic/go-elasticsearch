@@ -16,19 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package ping
+package types
 
-// Response holds the response body struct for the package ping
+// MasterIsStableIndicatorClusterFormationNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/_global/ping/PingResponse.ts#L22-L24
-
-type Response struct {
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/health_report/types.ts#L97-L101
+type MasterIsStableIndicatorClusterFormationNode struct {
+	ClusterFormationMessage string  `json:"cluster_formation_message"`
+	Name                    *string `json:"name,omitempty"`
+	NodeId                  string  `json:"node_id"`
 }
 
-// NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
+// NewMasterIsStableIndicatorClusterFormationNode returns a MasterIsStableIndicatorClusterFormationNode.
+func NewMasterIsStableIndicatorClusterFormationNode() *MasterIsStableIndicatorClusterFormationNode {
+	r := &MasterIsStableIndicatorClusterFormationNode{}
+
 	return r
 }

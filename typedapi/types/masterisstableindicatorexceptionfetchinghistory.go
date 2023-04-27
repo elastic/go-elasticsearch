@@ -16,19 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
-package postvotingconfigexclusions
+package types
 
-// Response holds the response body struct for the package postvotingconfigexclusions
+// MasterIsStableIndicatorExceptionFetchingHistory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/cluster/post_voting_config_exclusions/ClusterPostVotingConfigExclusionsResponse.ts#L22-L24
-
-type Response struct {
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/health_report/types.ts#L93-L96
+type MasterIsStableIndicatorExceptionFetchingHistory struct {
+	Message    string `json:"message"`
+	StackTrace string `json:"stack_trace"`
 }
 
-// NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
+// NewMasterIsStableIndicatorExceptionFetchingHistory returns a MasterIsStableIndicatorExceptionFetchingHistory.
+func NewMasterIsStableIndicatorExceptionFetchingHistory() *MasterIsStableIndicatorExceptionFetchingHistory {
+	r := &MasterIsStableIndicatorExceptionFetchingHistory{}
+
 	return r
 }

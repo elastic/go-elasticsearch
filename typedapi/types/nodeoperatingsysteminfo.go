@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ad7fe36297b3a8e187b2259dedaf68a47bc236e
+// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
 
 package types
 
+import (
+	"bytes"
+	"errors"
+	"io"
+
+	"strconv"
+
+	"encoding/json"
+)
+
 // NodeOperatingSystemInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ad7fe36297b3a8e187b2259dedaf68a47bc236e/specification/nodes/info/types.ts#L364-L381
+// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/info/types.ts#L364-L381
 type NodeOperatingSystemInfo struct {
 	// AllocatedProcessors The number of processors actually used to calculate thread pool size. This
 	// number can be set with the node.processors setting of a node and defaults to
@@ -42,6 +52,101 @@ type NodeOperatingSystemInfo struct {
 	Swap                    *NodeInfoMemory `json:"swap,omitempty"`
 	// Version Version of the operating system
 	Version string `json:"version"`
+}
+
+func (s *NodeOperatingSystemInfo) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allocated_processors":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.AllocatedProcessors = &value
+			case float64:
+				f := int(v)
+				s.AllocatedProcessors = &f
+			}
+
+		case "arch":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp)
+			s.Arch = o
+
+		case "available_processors":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.AvailableProcessors = value
+			case float64:
+				f := int(v)
+				s.AvailableProcessors = f
+			}
+
+		case "cpu":
+			if err := dec.Decode(&s.Cpu); err != nil {
+				return err
+			}
+
+		case "mem":
+			if err := dec.Decode(&s.Mem); err != nil {
+				return err
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return err
+			}
+
+		case "pretty_name":
+			if err := dec.Decode(&s.PrettyName); err != nil {
+				return err
+			}
+
+		case "refresh_interval_in_millis":
+			if err := dec.Decode(&s.RefreshIntervalInMillis); err != nil {
+				return err
+			}
+
+		case "swap":
+			if err := dec.Decode(&s.Swap); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewNodeOperatingSystemInfo returns a NodeOperatingSystemInfo.
