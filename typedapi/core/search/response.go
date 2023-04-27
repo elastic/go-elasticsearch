@@ -76,6 +76,8 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "aggregations":
+			s.Aggregations = make(map[string]types.Aggregate, 0)
+			
 			for dec.More() {
 				tt, err := dec.Token()
 				if err != nil {
