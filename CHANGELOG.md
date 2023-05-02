@@ -1,3 +1,9 @@
+# 8.7.1
+
+## Typed API
+
+* This release include fixes for responses deserialization. [#654](https://github.com/elastic/go-elasticsearch/issues/654) [#655](https://github.com/elastic/go-elasticsearch/issues/655) 
+
 # 8.7.0
 
 ## API

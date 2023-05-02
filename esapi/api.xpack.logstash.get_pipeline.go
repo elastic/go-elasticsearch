@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.7.0: DO NOT EDIT
+// Code generated from specification version 8.7.1: DO NOT EDIT
 
 package esapi
 
@@ -26,8 +26,8 @@ import (
 )
 
 func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
-	return func(id string, o ...func(*LogstashGetPipelineRequest)) (*Response, error) {
-		var r = LogstashGetPipelineRequest{DocumentID: id}
+	return func(o ...func(*LogstashGetPipelineRequest)) (*Response, error) {
+		var r = LogstashGetPipelineRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -40,7 +40,7 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 // LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
-type LogstashGetPipeline func(id string, o ...func(*LogstashGetPipelineRequest)) (*Response, error)
+type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response, error)
 
 // LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.
 type LogstashGetPipelineRequest struct {
@@ -72,8 +72,10 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 	path.WriteString("_logstash")
 	path.WriteString("/")
 	path.WriteString("pipeline")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	if r.DocumentID != "" {
+		path.WriteString("/")
+		path.WriteString(r.DocumentID)
+	}
 
 	params = make(map[string]string)
 
@@ -140,6 +142,13 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPipelineRequest) {
 	return func(r *LogstashGetPipelineRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDocumentID - a list of pipeline ids.
+func (f LogstashGetPipeline) WithDocumentID(v string) func(*LogstashGetPipelineRequest) {
+	return func(r *LogstashGetPipelineRequest) {
+		r.DocumentID = v
 	}
 }
 
