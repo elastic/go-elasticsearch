@@ -1,0 +1,18 @@
+{
+    "doc": {
+        "_source": {
+            "enabled":false
+        },
+        "properties":{
+            "FirstName": {
+                "type": "keyword",
+                "store": true
+            },
+            "LastName": {
+                "type": "keyword",
+                "store": true
+            }
+        }
+    }
+}
+
