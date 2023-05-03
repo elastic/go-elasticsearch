@@ -57,3 +57,11 @@ indexer.Close(context.Background())
 Please refer to the [`benchmarks`](benchmarks) folder for performance tests with different types of payload.
 
 See the [`kafka`](kafka) folder for an end-to-end example of using the bulk helper for indexing data from a Kafka topic.
+
+## benchmark.go
+This file is very similar to default.go. But it has enhanced to include the `document.json` and `mapping.json` just like 7+ version. 
+It has all the functionalities which default.go has to offer. 
+Usage : `go run benchmark.go -dataset name_of_the_dataset -indexName name_of_the_index -count=100000 -batch=25000` 
+
+### file structure: 
+Both mapping and document.json files must be present in /data/data-set-name/. example file structure is available in this git. 
