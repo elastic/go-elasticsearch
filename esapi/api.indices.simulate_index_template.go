@@ -51,9 +51,10 @@ type IndicesSimulateIndexTemplateRequest struct {
 
 	Name string
 
-	Cause         string
-	Create        *bool
-	MasterTimeout time.Duration
+	Cause           string
+	Create          *bool
+	IncludeDefaults *bool
+	MasterTimeout   time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -92,6 +93,10 @@ func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport T
 
 	if r.Create != nil {
 		params["create"] = strconv.FormatBool(*r.Create)
+	}
+
+	if r.IncludeDefaults != nil {
+		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -186,6 +191,13 @@ func (f IndicesSimulateIndexTemplate) WithCause(v string) func(*IndicesSimulateI
 func (f IndicesSimulateIndexTemplate) WithCreate(v bool) func(*IndicesSimulateIndexTemplateRequest) {
 	return func(r *IndicesSimulateIndexTemplateRequest) {
 		r.Create = &v
+	}
+}
+
+// WithIncludeDefaults - return all relevant default configurations for this index template simulation (default: false).
+func (f IndicesSimulateIndexTemplate) WithIncludeDefaults(v bool) func(*IndicesSimulateIndexTemplateRequest) {
+	return func(r *IndicesSimulateIndexTemplateRequest) {
+		r.IncludeDefaults = &v
 	}
 }
 

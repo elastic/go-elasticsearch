@@ -21,13 +21,15 @@ package esapi
 
 import (
 	"context"
+	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
-	return func(o ...func(*LogstashGetPipelineRequest)) (*Response, error) {
-		var r = LogstashGetPipelineRequest{}
+func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
+	return func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error) {
+		var r = IndicesGetDataLifecycleRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,14 +39,19 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
+// IndicesGetDataLifecycle returns the data lifecycle of the selected data streams.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
-type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-get-lifecycle.html.
+type IndicesGetDataLifecycle func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error)
 
-// LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.
-type LogstashGetPipelineRequest struct {
-	DocumentID string
+// IndicesGetDataLifecycleRequest configures the Indices Get Data Lifecycle API request.
+type IndicesGetDataLifecycleRequest struct {
+	Name []string
+
+	ExpandWildcards string
+	IncludeDefaults *bool
 
 	Pretty     bool
 	Human      bool
@@ -57,7 +64,7 @@ type LogstashGetPipelineRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataLifecycleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -66,18 +73,28 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
-	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_logstash")
-	path.WriteString("/")
-	path.WriteString("pipeline")
-	if r.DocumentID != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentID)
+	if len(r.Name) == 0 {
+		return nil, errors.New("name is required and cannot be nil or empty")
 	}
 
+	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_lifecycle"))
+	path.WriteString("http://")
+	path.WriteString("/")
+	path.WriteString("_data_stream")
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.Name, ","))
+	path.WriteString("/")
+	path.WriteString("_lifecycle")
+
 	params = make(map[string]string)
+
+	if r.ExpandWildcards != "" {
+		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IncludeDefaults != nil {
+		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -139,50 +156,57 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f IndicesGetDataLifecycle) WithContext(v context.Context) func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDocumentID - a list of pipeline ids.
-func (f LogstashGetPipeline) WithDocumentID(v string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
-		r.DocumentID = v
+// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
+func (f IndicesGetDataLifecycle) WithExpandWildcards(v string) func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
+		r.ExpandWildcards = v
+	}
+}
+
+// WithIncludeDefaults - return all relevant default configurations for the data stream (default: false).
+func (f IndicesGetDataLifecycle) WithIncludeDefaults(v bool) func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
+		r.IncludeDefaults = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f LogstashGetPipeline) WithPretty() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f IndicesGetDataLifecycle) WithPretty() func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f LogstashGetPipeline) WithHuman() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f IndicesGetDataLifecycle) WithHuman() func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f LogstashGetPipeline) WithErrorTrace() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f IndicesGetDataLifecycle) WithErrorTrace() func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f LogstashGetPipeline) WithFilterPath(v ...string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f IndicesGetDataLifecycle) WithFilterPath(v ...string) func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f IndicesGetDataLifecycle) WithHeader(h map[string]string) func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -193,8 +217,8 @@ func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f LogstashGetPipeline) WithOpaqueID(s string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f IndicesGetDataLifecycle) WithOpaqueID(s string) func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

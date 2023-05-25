@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
-	return func(o ...func(*LogstashGetPipelineRequest)) (*Response, error) {
-		var r = LogstashGetPipelineRequest{}
+func newWatcherUpdateSettingsFunc(t Transport) WatcherUpdateSettings {
+	return func(body io.Reader, o ...func(*WatcherUpdateSettingsRequest)) (*Response, error) {
+		var r = WatcherUpdateSettingsRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,14 +38,14 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
+// WatcherUpdateSettings - Update settings for the watcher system index
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
-type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-update-settings.html.
+type WatcherUpdateSettings func(body io.Reader, o ...func(*WatcherUpdateSettingsRequest)) (*Response, error)
 
-// LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.
-type LogstashGetPipelineRequest struct {
-	DocumentID string
+// WatcherUpdateSettingsRequest configures the Watcher Update Settings API request.
+type WatcherUpdateSettingsRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -57,25 +58,18 @@ type LogstashGetPipelineRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r WatcherUpdateSettingsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(7 + len("/_watcher/settings"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_logstash")
-	path.WriteString("/")
-	path.WriteString("pipeline")
-	if r.DocumentID != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentID)
-	}
+	path.WriteString("/_watcher/settings")
 
 	params = make(map[string]string)
 
@@ -95,7 +89,7 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -120,6 +114,10 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -139,50 +137,43 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f WatcherUpdateSettings) WithContext(v context.Context) func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDocumentID - a list of pipeline ids.
-func (f LogstashGetPipeline) WithDocumentID(v string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
-		r.DocumentID = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f LogstashGetPipeline) WithPretty() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f WatcherUpdateSettings) WithPretty() func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f LogstashGetPipeline) WithHuman() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f WatcherUpdateSettings) WithHuman() func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f LogstashGetPipeline) WithErrorTrace() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f WatcherUpdateSettings) WithErrorTrace() func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f LogstashGetPipeline) WithFilterPath(v ...string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f WatcherUpdateSettings) WithFilterPath(v ...string) func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f WatcherUpdateSettings) WithHeader(h map[string]string) func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -193,8 +184,8 @@ func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f LogstashGetPipeline) WithOpaqueID(s string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f WatcherUpdateSettings) WithOpaqueID(s string) func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

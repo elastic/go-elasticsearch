@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
-	return func(o ...func(*LogstashGetPipelineRequest)) (*Response, error) {
-		var r = LogstashGetPipelineRequest{}
+func newSearchApplicationDeleteBehavioralAnalyticsFunc(t Transport) SearchApplicationDeleteBehavioralAnalytics {
+	return func(name string, o ...func(*SearchApplicationDeleteBehavioralAnalyticsRequest)) (*Response, error) {
+		var r = SearchApplicationDeleteBehavioralAnalyticsRequest{Name: name}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,14 +37,16 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
+// SearchApplicationDeleteBehavioralAnalytics delete a behavioral analytics collection.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
-type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-analytics-collection.html.
+type SearchApplicationDeleteBehavioralAnalytics func(name string, o ...func(*SearchApplicationDeleteBehavioralAnalyticsRequest)) (*Response, error)
 
-// LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.
-type LogstashGetPipelineRequest struct {
-	DocumentID string
+// SearchApplicationDeleteBehavioralAnalyticsRequest configures the Search Application Delete Behavioral Analytics API request.
+type SearchApplicationDeleteBehavioralAnalyticsRequest struct {
+	Name string
 
 	Pretty     bool
 	Human      bool
@@ -57,25 +59,23 @@ type LogstashGetPipelineRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SearchApplicationDeleteBehavioralAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_application") + 1 + len("analytics") + 1 + len(r.Name))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_logstash")
+	path.WriteString("_application")
 	path.WriteString("/")
-	path.WriteString("pipeline")
-	if r.DocumentID != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentID)
-	}
+	path.WriteString("analytics")
+	path.WriteString("/")
+	path.WriteString(r.Name)
 
 	params = make(map[string]string)
 
@@ -139,50 +139,43 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationDeleteBehavioralAnalytics) WithContext(v context.Context) func(*SearchApplicationDeleteBehavioralAnalyticsRequest) {
+	return func(r *SearchApplicationDeleteBehavioralAnalyticsRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDocumentID - a list of pipeline ids.
-func (f LogstashGetPipeline) WithDocumentID(v string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
-		r.DocumentID = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f LogstashGetPipeline) WithPretty() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationDeleteBehavioralAnalytics) WithPretty() func(*SearchApplicationDeleteBehavioralAnalyticsRequest) {
+	return func(r *SearchApplicationDeleteBehavioralAnalyticsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f LogstashGetPipeline) WithHuman() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationDeleteBehavioralAnalytics) WithHuman() func(*SearchApplicationDeleteBehavioralAnalyticsRequest) {
+	return func(r *SearchApplicationDeleteBehavioralAnalyticsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f LogstashGetPipeline) WithErrorTrace() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationDeleteBehavioralAnalytics) WithErrorTrace() func(*SearchApplicationDeleteBehavioralAnalyticsRequest) {
+	return func(r *SearchApplicationDeleteBehavioralAnalyticsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f LogstashGetPipeline) WithFilterPath(v ...string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationDeleteBehavioralAnalytics) WithFilterPath(v ...string) func(*SearchApplicationDeleteBehavioralAnalyticsRequest) {
+	return func(r *SearchApplicationDeleteBehavioralAnalyticsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationDeleteBehavioralAnalytics) WithHeader(h map[string]string) func(*SearchApplicationDeleteBehavioralAnalyticsRequest) {
+	return func(r *SearchApplicationDeleteBehavioralAnalyticsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -193,8 +186,8 @@ func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f LogstashGetPipeline) WithOpaqueID(s string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationDeleteBehavioralAnalytics) WithOpaqueID(s string) func(*SearchApplicationDeleteBehavioralAnalyticsRequest) {
+	return func(r *SearchApplicationDeleteBehavioralAnalyticsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

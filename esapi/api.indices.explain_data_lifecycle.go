@@ -27,9 +27,9 @@ import (
 	"time"
 )
 
-func newClusterGetComponentTemplateFunc(t Transport) ClusterGetComponentTemplate {
-	return func(o ...func(*ClusterGetComponentTemplateRequest)) (*Response, error) {
-		var r = ClusterGetComponentTemplateRequest{}
+func newIndicesExplainDataLifecycleFunc(t Transport) IndicesExplainDataLifecycle {
+	return func(index string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error) {
+		var r = IndicesExplainDataLifecycleRequest{Index: index}
 		for _, f := range o {
 			f(&r)
 		}
@@ -39,17 +39,18 @@ func newClusterGetComponentTemplateFunc(t Transport) ClusterGetComponentTemplate
 
 // ----- API Definition -------------------------------------------------------
 
-// ClusterGetComponentTemplate returns one or more component templates
+// IndicesExplainDataLifecycle retrieves information about the index's current DLM lifecycle, such as any potential encountered error, time since creation etc.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-component-template.html.
-type ClusterGetComponentTemplate func(o ...func(*ClusterGetComponentTemplateRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-explain-lifecycle.html.
+type IndicesExplainDataLifecycle func(index string, o ...func(*IndicesExplainDataLifecycleRequest)) (*Response, error)
 
-// ClusterGetComponentTemplateRequest configures the Cluster Get Component Template API request.
-type ClusterGetComponentTemplateRequest struct {
-	Name []string
+// IndicesExplainDataLifecycleRequest configures the Indices Explain Data Lifecycle API request.
+type IndicesExplainDataLifecycleRequest struct {
+	Index string
 
 	IncludeDefaults *bool
-	Local           *bool
 	MasterTimeout   time.Duration
 
 	Pretty     bool
@@ -63,7 +64,7 @@ type ClusterGetComponentTemplateRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ClusterGetComponentTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesExplainDataLifecycleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -72,23 +73,19 @@ func (r ClusterGetComponentTemplateRequest) Do(ctx context.Context, transport Tr
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_component_template") + 1 + len(strings.Join(r.Name, ",")))
+	path.Grow(7 + 1 + len(r.Index) + 1 + len("_lifecycle") + 1 + len("explain"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_component_template")
-	if len(r.Name) > 0 {
-		path.WriteString("/")
-		path.WriteString(strings.Join(r.Name, ","))
-	}
+	path.WriteString(r.Index)
+	path.WriteString("/")
+	path.WriteString("_lifecycle")
+	path.WriteString("/")
+	path.WriteString("explain")
 
 	params = make(map[string]string)
 
 	if r.IncludeDefaults != nil {
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -155,71 +152,57 @@ func (r ClusterGetComponentTemplateRequest) Do(ctx context.Context, transport Tr
 }
 
 // WithContext sets the request context.
-func (f ClusterGetComponentTemplate) WithContext(v context.Context) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+func (f IndicesExplainDataLifecycle) WithContext(v context.Context) func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithName - the comma separated names of the component templates.
-func (f ClusterGetComponentTemplate) WithName(v ...string) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
-		r.Name = v
-	}
-}
-
-// WithIncludeDefaults - return all default configurations for the component template (default: false).
-func (f ClusterGetComponentTemplate) WithIncludeDefaults(v bool) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+// WithIncludeDefaults - indicates if the api should return the default values the system uses for the index's lifecycle.
+func (f IndicesExplainDataLifecycle) WithIncludeDefaults(v bool) func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		r.IncludeDefaults = &v
 	}
 }
 
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-func (f ClusterGetComponentTemplate) WithLocal(v bool) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
-		r.Local = &v
-	}
-}
-
-// WithMasterTimeout - explicit operation timeout for connection to master node.
-func (f ClusterGetComponentTemplate) WithMasterTimeout(v time.Duration) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesExplainDataLifecycle) WithMasterTimeout(v time.Duration) func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		r.MasterTimeout = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ClusterGetComponentTemplate) WithPretty() func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+func (f IndicesExplainDataLifecycle) WithPretty() func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ClusterGetComponentTemplate) WithHuman() func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+func (f IndicesExplainDataLifecycle) WithHuman() func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ClusterGetComponentTemplate) WithErrorTrace() func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+func (f IndicesExplainDataLifecycle) WithErrorTrace() func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ClusterGetComponentTemplate) WithFilterPath(v ...string) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+func (f IndicesExplainDataLifecycle) WithFilterPath(v ...string) func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ClusterGetComponentTemplate) WithHeader(h map[string]string) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+func (f IndicesExplainDataLifecycle) WithHeader(h map[string]string) func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -230,8 +213,8 @@ func (f ClusterGetComponentTemplate) WithHeader(h map[string]string) func(*Clust
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ClusterGetComponentTemplate) WithOpaqueID(s string) func(*ClusterGetComponentTemplateRequest) {
-	return func(r *ClusterGetComponentTemplateRequest) {
+func (f IndicesExplainDataLifecycle) WithOpaqueID(s string) func(*IndicesExplainDataLifecycleRequest) {
+	return func(r *IndicesExplainDataLifecycleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
