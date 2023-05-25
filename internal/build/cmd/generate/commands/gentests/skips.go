@@ -57,6 +57,10 @@ var skipFiles = []string{
 	"api_key/12_grant.yml",                // incompatible $ stash replacement, need bearer token integration
 	"aggregations/percentiles_bucket.yml", // incompatible maps
 	"user_profile/10_basic.yml",
+
+	// Need ML node to validate
+	"ml/text_expansion_search.yml",
+	"ml/3rd_party_deployment.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
