@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // NlpBertTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/inference.ts#L116-L143
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/_types/inference.ts#L121-L148
 type NlpBertTokenizationConfig struct {
 	// DoLowerCase Should the tokenizer lower case the text
 	DoLowerCase *bool `json:"do_lower_case,omitempty"`

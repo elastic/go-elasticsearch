@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // CompletionContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/_types/suggester.ts#L159-L166
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/_global/search/_types/suggester.ts#L159-L166
 type CompletionContext struct {
 	Boost      *Float64           `json:"boost,omitempty"`
 	Context    Context            `json:"context"`

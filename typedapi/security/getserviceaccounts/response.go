@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package getserviceaccounts
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getserviceaccounts
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/get_service_accounts/GetServiceAccountsResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/security/get_service_accounts/GetServiceAccountsResponse.ts#L23-L25
 
 type Response map[string]types.RoleDescriptorWrapper
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package typedapi
 
@@ -163,6 +163,7 @@ import (
 	indices_data_streams_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/datastreamsstats"
 	indices_delete "github.com/elastic/go-elasticsearch/v8/typedapi/indices/delete"
 	indices_delete_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletealias"
+	indices_delete_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatalifecycle"
 	indices_delete_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletedatastream"
 	indices_delete_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deleteindextemplate"
 	indices_delete_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/deletetemplate"
@@ -172,11 +173,13 @@ import (
 	indices_exists_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existsalias"
 	indices_exists_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existsindextemplate"
 	indices_exists_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/existstemplate"
+	indices_explain_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/explaindatalifecycle"
 	indices_field_usage_stats "github.com/elastic/go-elasticsearch/v8/typedapi/indices/fieldusagestats"
 	indices_flush "github.com/elastic/go-elasticsearch/v8/typedapi/indices/flush"
 	indices_forcemerge "github.com/elastic/go-elasticsearch/v8/typedapi/indices/forcemerge"
 	indices_get "github.com/elastic/go-elasticsearch/v8/typedapi/indices/get"
 	indices_get_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getalias"
+	indices_get_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatalifecycle"
 	indices_get_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getdatastream"
 	indices_get_field_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getfieldmapping"
 	indices_get_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/getindextemplate"
@@ -188,6 +191,7 @@ import (
 	indices_open "github.com/elastic/go-elasticsearch/v8/typedapi/indices/open"
 	indices_promote_data_stream "github.com/elastic/go-elasticsearch/v8/typedapi/indices/promotedatastream"
 	indices_put_alias "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putalias"
+	indices_put_data_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putdatalifecycle"
 	indices_put_index_template "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putindextemplate"
 	indices_put_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putmapping"
 	indices_put_settings "github.com/elastic/go-elasticsearch/v8/typedapi/indices/putsettings"
@@ -317,9 +321,12 @@ import (
 	searchable_snapshots_mount "github.com/elastic/go-elasticsearch/v8/typedapi/searchablesnapshots/mount"
 	searchable_snapshots_stats "github.com/elastic/go-elasticsearch/v8/typedapi/searchablesnapshots/stats"
 	search_application_delete "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/delete"
+	search_application_delete_behavioral_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/deletebehavioralanalytics"
 	search_application_get "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/get"
+	search_application_get_behavioral_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/getbehavioralanalytics"
 	search_application_list "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/list"
 	search_application_put "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/put"
+	search_application_put_behavioral_analytics "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/putbehavioralanalytics"
 	search_application_search "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/search"
 	security_activate_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/activateuserprofile"
 	security_authenticate "github.com/elastic/go-elasticsearch/v8/typedapi/security/authenticate"
@@ -425,12 +432,14 @@ import (
 	watcher_deactivate_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/deactivatewatch"
 	watcher_delete_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/deletewatch"
 	watcher_execute_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/executewatch"
+	watcher_get_settings "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/getsettings"
 	watcher_get_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/getwatch"
 	watcher_put_watch "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/putwatch"
 	watcher_query_watches "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/querywatches"
 	watcher_start "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/start"
 	watcher_stats "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/stats"
 	watcher_stop "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/stop"
+	watcher_update_settings "github.com/elastic/go-elasticsearch/v8/typedapi/watcher/updatesettings"
 	xpack_info "github.com/elastic/go-elasticsearch/v8/typedapi/xpack/info"
 	xpack_usage "github.com/elastic/go-elasticsearch/v8/typedapi/xpack/usage"
 )
@@ -816,6 +825,8 @@ type Indices struct {
 	Delete indices_delete.NewDelete
 	// Deletes an alias.
 	DeleteAlias indices_delete_alias.NewDeleteAlias
+	// Deletes the data lifecycle of the selected data streams.
+	DeleteDataLifecycle indices_delete_data_lifecycle.NewDeleteDataLifecycle
 	// Deletes a data stream.
 	DeleteDataStream indices_delete_data_stream.NewDeleteDataStream
 	// Deletes an index template.
@@ -834,6 +845,9 @@ type Indices struct {
 	ExistsIndexTemplate indices_exists_index_template.NewExistsIndexTemplate
 	// Returns information about whether a particular index template exists.
 	ExistsTemplate indices_exists_template.NewExistsTemplate
+	// Retrieves information about the index's current DLM lifecycle, such as any
+	// potential encountered error, time since creation etc.
+	ExplainDataLifecycle indices_explain_data_lifecycle.NewExplainDataLifecycle
 	// Returns the field usage stats for each field of an index
 	FieldUsageStats indices_field_usage_stats.NewFieldUsageStats
 	// Performs the flush operation on one or more indices.
@@ -844,6 +858,8 @@ type Indices struct {
 	Get indices_get.NewGet
 	// Returns an alias.
 	GetAlias indices_get_alias.NewGetAlias
+	// Returns the data lifecycle of the selected data streams.
+	GetDataLifecycle indices_get_data_lifecycle.NewGetDataLifecycle
 	// Returns data streams.
 	GetDataStream indices_get_data_stream.NewGetDataStream
 	// Returns mapping for one or more fields.
@@ -867,6 +883,8 @@ type Indices struct {
 	PromoteDataStream indices_promote_data_stream.NewPromoteDataStream
 	// Creates or updates an alias.
 	PutAlias indices_put_alias.NewPutAlias
+	// Updates the data lifecycle of the selected data streams.
+	PutDataLifecycle indices_put_data_lifecycle.NewPutDataLifecycle
 	// Creates or updates an index template.
 	PutIndexTemplate indices_put_index_template.NewPutIndexTemplate
 	// Updates the index mappings.
@@ -1157,12 +1175,18 @@ type Rollup struct {
 type SearchApplication struct {
 	// Deletes a search application.
 	Delete search_application_delete.NewDelete
+	// Delete a behavioral analytics collection.
+	DeleteBehavioralAnalytics search_application_delete_behavioral_analytics.NewDeleteBehavioralAnalytics
 	// Returns the details about a search application.
 	Get search_application_get.NewGet
+	// Returns the existing behavioral analytics collections.
+	GetBehavioralAnalytics search_application_get_behavioral_analytics.NewGetBehavioralAnalytics
 	// Returns the existing search applications.
 	List search_application_list.NewList
 	// Creates or updates a search application.
 	Put search_application_put.NewPut
+	// Creates a behavioral analytics collection.
+	PutBehavioralAnalytics search_application_put_behavioral_analytics.NewPutBehavioralAnalytics
 	// Perform a search against a search application
 	Search search_application_search.NewSearch
 }
@@ -1436,6 +1460,8 @@ type Watcher struct {
 	DeleteWatch watcher_delete_watch.NewDeleteWatch
 	// Forces the execution of a stored watch.
 	ExecuteWatch watcher_execute_watch.NewExecuteWatch
+	// Retrieve settings for the watcher system index
+	GetSettings watcher_get_settings.NewGetSettings
 	// Retrieves a watch by its ID.
 	GetWatch watcher_get_watch.NewGetWatch
 	// Creates a new watch, or updates an existing one.
@@ -1448,6 +1474,8 @@ type Watcher struct {
 	Stats watcher_stats.NewStats
 	// Stops Watcher if it is running.
 	Stop watcher_stop.NewStop
+	// Update settings for the watcher system index
+	UpdateSettings watcher_update_settings.NewUpdateSettings
 }
 
 type Xpack struct {
@@ -1791,6 +1819,7 @@ func New(tp elastictransport.Interface) *API {
 			DataStreamsStats:      indices_data_streams_stats.NewDataStreamsStatsFunc(tp),
 			Delete:                indices_delete.NewDeleteFunc(tp),
 			DeleteAlias:           indices_delete_alias.NewDeleteAliasFunc(tp),
+			DeleteDataLifecycle:   indices_delete_data_lifecycle.NewDeleteDataLifecycleFunc(tp),
 			DeleteDataStream:      indices_delete_data_stream.NewDeleteDataStreamFunc(tp),
 			DeleteIndexTemplate:   indices_delete_index_template.NewDeleteIndexTemplateFunc(tp),
 			DeleteTemplate:        indices_delete_template.NewDeleteTemplateFunc(tp),
@@ -1800,11 +1829,13 @@ func New(tp elastictransport.Interface) *API {
 			ExistsAlias:           indices_exists_alias.NewExistsAliasFunc(tp),
 			ExistsIndexTemplate:   indices_exists_index_template.NewExistsIndexTemplateFunc(tp),
 			ExistsTemplate:        indices_exists_template.NewExistsTemplateFunc(tp),
+			ExplainDataLifecycle:  indices_explain_data_lifecycle.NewExplainDataLifecycleFunc(tp),
 			FieldUsageStats:       indices_field_usage_stats.NewFieldUsageStatsFunc(tp),
 			Flush:                 indices_flush.NewFlushFunc(tp),
 			Forcemerge:            indices_forcemerge.NewForcemergeFunc(tp),
 			Get:                   indices_get.NewGetFunc(tp),
 			GetAlias:              indices_get_alias.NewGetAliasFunc(tp),
+			GetDataLifecycle:      indices_get_data_lifecycle.NewGetDataLifecycleFunc(tp),
 			GetDataStream:         indices_get_data_stream.NewGetDataStreamFunc(tp),
 			GetFieldMapping:       indices_get_field_mapping.NewGetFieldMappingFunc(tp),
 			GetIndexTemplate:      indices_get_index_template.NewGetIndexTemplateFunc(tp),
@@ -1816,6 +1847,7 @@ func New(tp elastictransport.Interface) *API {
 			Open:                  indices_open.NewOpenFunc(tp),
 			PromoteDataStream:     indices_promote_data_stream.NewPromoteDataStreamFunc(tp),
 			PutAlias:              indices_put_alias.NewPutAliasFunc(tp),
+			PutDataLifecycle:      indices_put_data_lifecycle.NewPutDataLifecycleFunc(tp),
 			PutIndexTemplate:      indices_put_index_template.NewPutIndexTemplateFunc(tp),
 			PutMapping:            indices_put_mapping.NewPutMappingFunc(tp),
 			PutSettings:           indices_put_settings.NewPutSettingsFunc(tp),
@@ -1972,11 +2004,14 @@ func New(tp elastictransport.Interface) *API {
 
 		// SearchApplication
 		SearchApplication: SearchApplication{
-			Delete: search_application_delete.NewDeleteFunc(tp),
-			Get:    search_application_get.NewGetFunc(tp),
-			List:   search_application_list.NewListFunc(tp),
-			Put:    search_application_put.NewPutFunc(tp),
-			Search: search_application_search.NewSearchFunc(tp),
+			Delete:                    search_application_delete.NewDeleteFunc(tp),
+			DeleteBehavioralAnalytics: search_application_delete_behavioral_analytics.NewDeleteBehavioralAnalyticsFunc(tp),
+			Get:                       search_application_get.NewGetFunc(tp),
+			GetBehavioralAnalytics:    search_application_get_behavioral_analytics.NewGetBehavioralAnalyticsFunc(tp),
+			List:                      search_application_list.NewListFunc(tp),
+			Put:                       search_application_put.NewPutFunc(tp),
+			PutBehavioralAnalytics:    search_application_put_behavioral_analytics.NewPutBehavioralAnalyticsFunc(tp),
+			Search:                    search_application_search.NewSearchFunc(tp),
 		},
 
 		// SearchableSnapshots
@@ -2125,12 +2160,14 @@ func New(tp elastictransport.Interface) *API {
 			DeactivateWatch: watcher_deactivate_watch.NewDeactivateWatchFunc(tp),
 			DeleteWatch:     watcher_delete_watch.NewDeleteWatchFunc(tp),
 			ExecuteWatch:    watcher_execute_watch.NewExecuteWatchFunc(tp),
+			GetSettings:     watcher_get_settings.NewGetSettingsFunc(tp),
 			GetWatch:        watcher_get_watch.NewGetWatchFunc(tp),
 			PutWatch:        watcher_put_watch.NewPutWatchFunc(tp),
 			QueryWatches:    watcher_query_watches.NewQueryWatchesFunc(tp),
 			Start:           watcher_start.NewStartFunc(tp),
 			Stats:           watcher_stats.NewStatsFunc(tp),
 			Stop:            watcher_stop.NewStopFunc(tp),
+			UpdateSettings:  watcher_update_settings.NewUpdateSettingsFunc(tp),
 		},
 
 		// Xpack

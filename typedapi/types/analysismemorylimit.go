@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
 // AnalysisMemoryLimit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/Analysis.ts#L117-L122
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/_types/Analysis.ts#L117-L122
 type AnalysisMemoryLimit struct {
 	// ModelMemoryLimit Limits can be applied for the resources required to hold the mathematical
 	// models in memory. These limits are approximate and can be set per job. They

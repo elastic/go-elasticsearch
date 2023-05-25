@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // TextClassificationInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/inference.ts#L328-L337
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/_types/inference.ts#L347-L356
 type TextClassificationInferenceUpdateOptions struct {
 	// ClassificationLabels Classification labels to apply other than the stored labels. Must have the
 	// same deminsions as the default configured labels

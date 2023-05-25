@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // FollowerIndexParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ccr/follow_info/types.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ccr/follow_info/types.ts#L38-L49
 type FollowerIndexParameters struct {
 	MaxOutstandingReadRequests    int      `json:"max_outstanding_read_requests"`
 	MaxOutstandingWriteRequests   int      `json:"max_outstanding_write_requests"`

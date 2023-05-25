@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // JobsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/ml_jobs/types.ts#L24-L325
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/cat/ml_jobs/types.ts#L24-L325
 type JobsRecord struct {
 	// AssignmentExplanation why the job is or is not assigned to a node
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`

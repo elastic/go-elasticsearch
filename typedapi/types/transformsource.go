@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TransformSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/transform/_types/Transform.ts#L145-L163
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/transform/_types/Transform.ts#L145-L163
 type TransformSource struct {
 	// Index The source indices for the transform. It can be a single index, an index
 	// pattern (for example, `"my-index-*""`), an

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package plugins
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package plugins
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/plugins/CatPluginsResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/cat/plugins/CatPluginsResponse.ts#L22-L24
 
 type Response []types.PluginsRecord
 

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package stoptrainedmodeldeployment
 
 // Response holds the response body struct for the package stoptrainedmodeldeployment
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/stop_trained_model_deployment/MlStopTrainedModelDeploymentResponse.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/stop_trained_model_deployment/MlStopTrainedModelDeploymentResponse.ts#L20-L22
 
 type Response struct {
 	Stopped bool `json:"stopped"`

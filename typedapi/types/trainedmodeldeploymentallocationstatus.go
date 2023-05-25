@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // TrainedModelDeploymentAllocationStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/TrainedModel.ts#L384-L391
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/_types/TrainedModel.ts#L386-L393
 type TrainedModelDeploymentAllocationStatus struct {
 	// AllocationCount The current number of nodes where the model is allocated.
 	AllocationCount int `json:"allocation_count"`

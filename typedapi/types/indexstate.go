@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -30,14 +30,16 @@ import (
 
 // IndexState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/IndexState.ts#L26-L33
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/_types/IndexState.ts#L27-L40
 type IndexState struct {
 	Aliases    map[string]Alias `json:"aliases,omitempty"`
 	DataStream *string          `json:"data_stream,omitempty"`
 	// Defaults Default settings, included when the request's `include_default` is `true`.
 	Defaults *IndexSettings `json:"defaults,omitempty"`
-	Mappings *TypeMapping   `json:"mappings,omitempty"`
-	Settings *IndexSettings `json:"settings,omitempty"`
+	// Lifecycle Data lifecycle applicable iff this is a data stream.
+	Lifecycle *DataLifecycle `json:"lifecycle,omitempty"`
+	Mappings  *TypeMapping   `json:"mappings,omitempty"`
+	Settings  *IndexSettings `json:"settings,omitempty"`
 }
 
 func (s *IndexState) UnmarshalJSON(data []byte) error {
@@ -70,6 +72,11 @@ func (s *IndexState) UnmarshalJSON(data []byte) error {
 
 		case "defaults":
 			if err := dec.Decode(&s.Defaults); err != nil {
+				return err
+			}
+
+		case "lifecycle":
+			if err := dec.Decode(&s.Lifecycle); err != nil {
 				return err
 			}
 

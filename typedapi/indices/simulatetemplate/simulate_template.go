@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 // Simulate resolving the given template name or body
 package simulatetemplate
@@ -256,6 +256,14 @@ func (r *SimulateTemplate) Create(b bool) *SimulateTemplate {
 // API name: master_timeout
 func (r *SimulateTemplate) MasterTimeout(v string) *SimulateTemplate {
 	r.values.Set("master_timeout", v)
+
+	return r
+}
+
+// IncludeDefaults If true, returns all relevant default configurations for the index template.
+// API name: include_defaults
+func (r *SimulateTemplate) IncludeDefaults(b bool) *SimulateTemplate {
+	r.values.Set("include_defaults", strconv.FormatBool(b))
 
 	return r
 }

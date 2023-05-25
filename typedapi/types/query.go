@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/abstractions.ts#L96-L162
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/_types/query_dsl/abstractions.ts#L97-L165
 type Query struct {
 	Bool              *BoolQuery                        `json:"bool,omitempty"`
 	Boosting          *BoostingQuery                    `json:"boosting,omitempty"`
@@ -83,6 +83,7 @@ type Query struct {
 	Term              map[string]TermQuery              `json:"term,omitempty"`
 	Terms             *TermsQuery                       `json:"terms,omitempty"`
 	TermsSet          map[string]TermsSetQuery          `json:"terms_set,omitempty"`
+	TextExpansion     *TextExpansionQuery               `json:"text_expansion,omitempty"`
 	Type              *TypeQuery                        `json:"type,omitempty"`
 	Wildcard          map[string]WildcardQuery          `json:"wildcard,omitempty"`
 	Wrapper           *WrapperQuery                     `json:"wrapper,omitempty"`
@@ -394,6 +395,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.TermsSet = make(map[string]TermsSetQuery, 0)
 			}
 			if err := dec.Decode(&s.TermsSet); err != nil {
+				return err
+			}
+
+		case "text_expansion":
+			if err := dec.Decode(&s.TextExpansion); err != nil {
 				return err
 			}
 

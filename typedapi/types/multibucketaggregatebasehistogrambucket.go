@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MultiBucketAggregateBaseHistogramBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/Aggregate.ts#L327-L329
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/_types/aggregations/Aggregate.ts#L327-L329
 type MultiBucketAggregateBaseHistogramBucket struct {
 	Buckets BucketsHistogramBucket `json:"buckets"`
 	Meta    Metadata               `json:"meta,omitempty"`

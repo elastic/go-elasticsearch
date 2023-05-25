@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -30,11 +30,12 @@ import (
 
 // IndexTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/IndexTemplate.ts#L52-L56
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/_types/IndexTemplate.ts#L56-L65
 type IndexTemplateSummary struct {
-	Aliases  map[string]Alias `json:"aliases,omitempty"`
-	Mappings *TypeMapping     `json:"mappings,omitempty"`
-	Settings *IndexSettings   `json:"settings,omitempty"`
+	Aliases   map[string]Alias           `json:"aliases,omitempty"`
+	Lifecycle *DataLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Mappings  *TypeMapping               `json:"mappings,omitempty"`
+	Settings  *IndexSettings             `json:"settings,omitempty"`
 }
 
 func (s *IndexTemplateSummary) UnmarshalJSON(data []byte) error {
@@ -57,6 +58,11 @@ func (s *IndexTemplateSummary) UnmarshalJSON(data []byte) error {
 				s.Aliases = make(map[string]Alias, 0)
 			}
 			if err := dec.Decode(&s.Aliases); err != nil {
+				return err
+			}
+
+		case "lifecycle":
+			if err := dec.Decode(&s.Lifecycle); err != nil {
 				return err
 			}
 

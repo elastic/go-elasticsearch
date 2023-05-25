@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 // Returns one or more component templates
 package getcomponenttemplate
@@ -240,6 +240,14 @@ func (r *GetComponentTemplate) Local(b bool) *GetComponentTemplate {
 // API name: master_timeout
 func (r *GetComponentTemplate) MasterTimeout(v string) *GetComponentTemplate {
 	r.values.Set("master_timeout", v)
+
+	return r
+}
+
+// IncludeDefaults Return all default configurations for the component template (default: false)
+// API name: include_defaults
+func (r *GetComponentTemplate) IncludeDefaults(b bool) *GetComponentTemplate {
+	r.values.Set("include_defaults", strconv.FormatBool(b))
 
 	return r
 }
