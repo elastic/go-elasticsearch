@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -30,13 +30,14 @@ import (
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/_types/ComponentTemplate.ts#L38-L45
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/cluster/_types/ComponentTemplate.ts#L42-L54
 type ComponentTemplateSummary struct {
-	Aliases  map[string]AliasDefinition `json:"aliases,omitempty"`
-	Mappings *TypeMapping               `json:"mappings,omitempty"`
-	Meta_    Metadata                   `json:"_meta,omitempty"`
-	Settings map[string]IndexSettings   `json:"settings,omitempty"`
-	Version  *int64                     `json:"version,omitempty"`
+	Aliases   map[string]AliasDefinition `json:"aliases,omitempty"`
+	Lifecycle *DataLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Mappings  *TypeMapping               `json:"mappings,omitempty"`
+	Meta_     Metadata                   `json:"_meta,omitempty"`
+	Settings  map[string]IndexSettings   `json:"settings,omitempty"`
+	Version   *int64                     `json:"version,omitempty"`
 }
 
 func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
@@ -59,6 +60,11 @@ func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
 				s.Aliases = make(map[string]AliasDefinition, 0)
 			}
 			if err := dec.Decode(&s.Aliases); err != nil {
+				return err
+			}
+
+		case "lifecycle":
+			if err := dec.Decode(&s.Lifecycle); err != nil {
 				return err
 			}
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 // Returns data streams.
 package getdatastream
@@ -31,6 +31,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -225,6 +226,14 @@ func (r *GetDataStream) Name(v string) *GetDataStream {
 // API name: expand_wildcards
 func (r *GetDataStream) ExpandWildcards(v string) *GetDataStream {
 	r.values.Set("expand_wildcards", v)
+
+	return r
+}
+
+// IncludeDefaults If true, returns all relevant default configurations for the index template.
+// API name: include_defaults
+func (r *GetDataStream) IncludeDefaults(b bool) *GetDataStream {
+	r.values.Set("include_defaults", strconv.FormatBool(b))
 
 	return r
 }

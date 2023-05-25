@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -34,20 +34,21 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/DataStream.ts#L31-L46
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/_types/DataStream.ts#L32-L52
 type DataStream struct {
-	AllowCustomRouting *bool                     `json:"allow_custom_routing,omitempty"`
-	Generation         int                       `json:"generation"`
-	Hidden             bool                      `json:"hidden"`
-	IlmPolicy          *string                   `json:"ilm_policy,omitempty"`
-	Indices            []DataStreamIndex         `json:"indices"`
-	Meta_              Metadata                  `json:"_meta,omitempty"`
-	Name               string                    `json:"name"`
-	Replicated         *bool                     `json:"replicated,omitempty"`
-	Status             healthstatus.HealthStatus `json:"status"`
-	System             *bool                     `json:"system,omitempty"`
-	Template           string                    `json:"template"`
-	TimestampField     DataStreamTimestampField  `json:"timestamp_field"`
+	AllowCustomRouting *bool                      `json:"allow_custom_routing,omitempty"`
+	Generation         int                        `json:"generation"`
+	Hidden             bool                       `json:"hidden"`
+	IlmPolicy          *string                    `json:"ilm_policy,omitempty"`
+	Indices            []DataStreamIndex          `json:"indices"`
+	Lifecycle          *DataLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Meta_              Metadata                   `json:"_meta,omitempty"`
+	Name               string                     `json:"name"`
+	Replicated         *bool                      `json:"replicated,omitempty"`
+	Status             healthstatus.HealthStatus  `json:"status"`
+	System             *bool                      `json:"system,omitempty"`
+	Template           string                     `json:"template"`
+	TimestampField     DataStreamTimestampField   `json:"timestamp_field"`
 }
 
 func (s *DataStream) UnmarshalJSON(data []byte) error {
@@ -116,6 +117,11 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 
 		case "indices":
 			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "lifecycle":
+			if err := dec.Decode(&s.Lifecycle); err != nil {
 				return err
 			}
 

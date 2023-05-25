@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 // Package shutdownstatus
 package shutdownstatus
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L45-L50
 type ShutdownStatus struct {
 	Name string
 }

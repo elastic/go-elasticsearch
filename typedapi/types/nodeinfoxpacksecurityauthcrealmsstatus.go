@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
 // NodeInfoXpackSecurityAuthcRealmsStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/nodes/info/types.ts#L260-L263
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/nodes/info/types.ts#L260-L263
 type NodeInfoXpackSecurityAuthcRealmsStatus struct {
 	Enabled *string `json:"enabled,omitempty"`
 	Order   string  `json:"order"`

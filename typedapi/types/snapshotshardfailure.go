@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -30,13 +30,13 @@ import (
 
 // SnapshotShardFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L28
 type SnapshotShardFailure struct {
-	Index   string `json:"index"`
-	NodeId  string `json:"node_id"`
-	Reason  string `json:"reason"`
-	ShardId string `json:"shard_id"`
-	Status  string `json:"status"`
+	Index   string  `json:"index"`
+	NodeId  *string `json:"node_id,omitempty"`
+	Reason  string  `json:"reason"`
+	ShardId string  `json:"shard_id"`
+	Status  string  `json:"status"`
 }
 
 func (s *SnapshotShardFailure) UnmarshalJSON(data []byte) error {

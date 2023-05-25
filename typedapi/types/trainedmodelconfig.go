@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // TrainedModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/TrainedModel.ts#L157-L191
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/_types/TrainedModel.ts#L159-L193
 type TrainedModelConfig struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -53,8 +53,9 @@ type TrainedModelConfig struct {
 	FullyDefined *bool `json:"fully_defined,omitempty"`
 	// InferenceConfig The default configuration for inference. This can be either a regression,
 	// classification, or one of the many NLP focused configurations. It must match
-	// the underlying definition.trained_model's target_type.
-	InferenceConfig InferenceConfigCreateContainer `json:"inference_config"`
+	// the underlying definition.trained_model's target_type. For pre-packaged
+	// models such as ELSER the config is not required.
+	InferenceConfig *InferenceConfigCreateContainer `json:"inference_config,omitempty"`
 	// Input The input field names for the model definition.
 	Input TrainedModelConfigInput `json:"input"`
 	// LicenseLevel The license level of the trained model.

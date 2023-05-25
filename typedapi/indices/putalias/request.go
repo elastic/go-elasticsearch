@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
 
 package putalias
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putalias
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L46
 type Request struct {
 	Filter        *types.Query `json:"filter,omitempty"`
 	IndexRouting  *string      `json:"index_routing,omitempty"`
