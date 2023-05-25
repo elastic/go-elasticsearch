@@ -1,3 +1,21 @@
+# 8.8.0
+
+## API
+
+**New APIs**
+
+* `Watcher.GetSettings` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/watcher-api-get-settings.html
+* `Watcher.UpdateSettings` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/watcher-api-update-settings.html
+
+**Experimental APIs**
+
+* `ML.DeleteDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-delete-lifecycle.html
+* `ML.ExplainDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-explain-lifecycle.html
+* `ML.GetDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-get-lifecycle.html
+* `ML.PutDataLifecycle` Documentation: https://www.elastic.co/guide/en/elasticsearch/reference/8.8/dlm-put-lifecycle.html
+
+* `SearchApplications` https://www.elastic.co/guide/en/elasticsearch/reference/8.8/search-application-apis.html
+
 # 8.7.0
 
 ## API
