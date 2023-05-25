@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0 (46bd105): DO NOT EDIT
+// Code generated from specification version 8.8.0 (211d282): DO NOT EDIT
 
 package esapi
 
@@ -43,103 +43,112 @@ type API struct {
 	Watcher     *Watcher
 	XPack       *XPack
 
-	AutoscalingDeleteAutoscalingPolicy AutoscalingDeleteAutoscalingPolicy
-	AutoscalingGetAutoscalingCapacity  AutoscalingGetAutoscalingCapacity
-	AutoscalingGetAutoscalingPolicy    AutoscalingGetAutoscalingPolicy
-	AutoscalingPutAutoscalingPolicy    AutoscalingPutAutoscalingPolicy
-	Bulk                               Bulk
-	ClearScroll                        ClearScroll
-	ClosePointInTime                   ClosePointInTime
-	Count                              Count
-	Create                             Create
-	DanglingIndicesDeleteDanglingIndex DanglingIndicesDeleteDanglingIndex
-	DanglingIndicesImportDanglingIndex DanglingIndicesImportDanglingIndex
-	DanglingIndicesListDanglingIndices DanglingIndicesListDanglingIndices
-	DeleteByQuery                      DeleteByQuery
-	DeleteByQueryRethrottle            DeleteByQueryRethrottle
-	Delete                             Delete
-	DeleteScript                       DeleteScript
-	EnrichDeletePolicy                 EnrichDeletePolicy
-	EnrichExecutePolicy                EnrichExecutePolicy
-	EnrichGetPolicy                    EnrichGetPolicy
-	EnrichPutPolicy                    EnrichPutPolicy
-	EnrichStats                        EnrichStats
-	EqlDelete                          EqlDelete
-	EqlGet                             EqlGet
-	EqlGetStatus                       EqlGetStatus
-	EqlSearch                          EqlSearch
-	Exists                             Exists
-	ExistsSource                       ExistsSource
-	Explain                            Explain
-	FeaturesGetFeatures                FeaturesGetFeatures
-	FeaturesResetFeatures              FeaturesResetFeatures
-	FieldCaps                          FieldCaps
-	FleetGlobalCheckpoints             FleetGlobalCheckpoints
-	FleetMsearch                       FleetMsearch
-	FleetSearch                        FleetSearch
-	Get                                Get
-	GetScriptContext                   GetScriptContext
-	GetScriptLanguages                 GetScriptLanguages
-	GetScript                          GetScript
-	GetSource                          GetSource
-	GraphExplore                       GraphExplore
-	HealthReport                       HealthReport
-	Index                              Index
-	Info                               Info
-	KnnSearch                          KnnSearch
-	LogstashDeletePipeline             LogstashDeletePipeline
-	LogstashGetPipeline                LogstashGetPipeline
-	LogstashPutPipeline                LogstashPutPipeline
-	Mget                               Mget
-	Msearch                            Msearch
-	MsearchTemplate                    MsearchTemplate
-	Mtermvectors                       Mtermvectors
-	OpenPointInTime                    OpenPointInTime
-	Ping                               Ping
-	PutScript                          PutScript
-	RankEval                           RankEval
-	Reindex                            Reindex
-	ReindexRethrottle                  ReindexRethrottle
-	RenderSearchTemplate               RenderSearchTemplate
-	ScriptsPainlessExecute             ScriptsPainlessExecute
-	Scroll                             Scroll
-	SearchMvt                          SearchMvt
-	Search                             Search
-	SearchShards                       SearchShards
-	SearchTemplate                     SearchTemplate
-	SearchableSnapshotsCacheStats      SearchableSnapshotsCacheStats
-	SearchableSnapshotsClearCache      SearchableSnapshotsClearCache
-	SearchableSnapshotsMount           SearchableSnapshotsMount
-	SearchableSnapshotsStats           SearchableSnapshotsStats
-	ShutdownDeleteNode                 ShutdownDeleteNode
-	ShutdownGetNode                    ShutdownGetNode
-	ShutdownPutNode                    ShutdownPutNode
-	SlmDeleteLifecycle                 SlmDeleteLifecycle
-	SlmExecuteLifecycle                SlmExecuteLifecycle
-	SlmExecuteRetention                SlmExecuteRetention
-	SlmGetLifecycle                    SlmGetLifecycle
-	SlmGetStats                        SlmGetStats
-	SlmGetStatus                       SlmGetStatus
-	SlmPutLifecycle                    SlmPutLifecycle
-	SlmStart                           SlmStart
-	SlmStop                            SlmStop
-	TermsEnum                          TermsEnum
-	Termvectors                        Termvectors
-	TextStructureFindStructure         TextStructureFindStructure
-	TransformDeleteTransform           TransformDeleteTransform
-	TransformGetTransform              TransformGetTransform
-	TransformGetTransformStats         TransformGetTransformStats
-	TransformPreviewTransform          TransformPreviewTransform
-	TransformPutTransform              TransformPutTransform
-	TransformResetTransform            TransformResetTransform
-	TransformScheduleNowTransform      TransformScheduleNowTransform
-	TransformStartTransform            TransformStartTransform
-	TransformStopTransform             TransformStopTransform
-	TransformUpdateTransform           TransformUpdateTransform
-	TransformUpgradeTransforms         TransformUpgradeTransforms
-	UpdateByQuery                      UpdateByQuery
-	UpdateByQueryRethrottle            UpdateByQueryRethrottle
-	Update                             Update
+	AutoscalingDeleteAutoscalingPolicy            AutoscalingDeleteAutoscalingPolicy
+	AutoscalingGetAutoscalingCapacity             AutoscalingGetAutoscalingCapacity
+	AutoscalingGetAutoscalingPolicy               AutoscalingGetAutoscalingPolicy
+	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
+	Bulk                                          Bulk
+	ClearScroll                                   ClearScroll
+	ClosePointInTime                              ClosePointInTime
+	Count                                         Count
+	Create                                        Create
+	DanglingIndicesDeleteDanglingIndex            DanglingIndicesDeleteDanglingIndex
+	DanglingIndicesImportDanglingIndex            DanglingIndicesImportDanglingIndex
+	DanglingIndicesListDanglingIndices            DanglingIndicesListDanglingIndices
+	DeleteByQuery                                 DeleteByQuery
+	DeleteByQueryRethrottle                       DeleteByQueryRethrottle
+	Delete                                        Delete
+	DeleteScript                                  DeleteScript
+	EnrichDeletePolicy                            EnrichDeletePolicy
+	EnrichExecutePolicy                           EnrichExecutePolicy
+	EnrichGetPolicy                               EnrichGetPolicy
+	EnrichPutPolicy                               EnrichPutPolicy
+	EnrichStats                                   EnrichStats
+	EqlDelete                                     EqlDelete
+	EqlGet                                        EqlGet
+	EqlGetStatus                                  EqlGetStatus
+	EqlSearch                                     EqlSearch
+	Exists                                        Exists
+	ExistsSource                                  ExistsSource
+	Explain                                       Explain
+	FeaturesGetFeatures                           FeaturesGetFeatures
+	FeaturesResetFeatures                         FeaturesResetFeatures
+	FieldCaps                                     FieldCaps
+	FleetGlobalCheckpoints                        FleetGlobalCheckpoints
+	FleetMsearch                                  FleetMsearch
+	FleetSearch                                   FleetSearch
+	Get                                           Get
+	GetScriptContext                              GetScriptContext
+	GetScriptLanguages                            GetScriptLanguages
+	GetScript                                     GetScript
+	GetSource                                     GetSource
+	GraphExplore                                  GraphExplore
+	HealthReport                                  HealthReport
+	Index                                         Index
+	Info                                          Info
+	KnnSearch                                     KnnSearch
+	LogstashDeletePipeline                        LogstashDeletePipeline
+	LogstashGetPipeline                           LogstashGetPipeline
+	LogstashPutPipeline                           LogstashPutPipeline
+	Mget                                          Mget
+	Msearch                                       Msearch
+	MsearchTemplate                               MsearchTemplate
+	Mtermvectors                                  Mtermvectors
+	OpenPointInTime                               OpenPointInTime
+	Ping                                          Ping
+	PutScript                                     PutScript
+	RankEval                                      RankEval
+	Reindex                                       Reindex
+	ReindexRethrottle                             ReindexRethrottle
+	RenderSearchTemplate                          RenderSearchTemplate
+	ScriptsPainlessExecute                        ScriptsPainlessExecute
+	Scroll                                        Scroll
+	SearchApplicationDeleteBehavioralAnalytics    SearchApplicationDeleteBehavioralAnalytics
+	SearchApplicationDelete                       SearchApplicationDelete
+	SearchApplicationGetBehavioralAnalytics       SearchApplicationGetBehavioralAnalytics
+	SearchApplicationGet                          SearchApplicationGet
+	SearchApplicationList                         SearchApplicationList
+	SearchApplicationPostBehavioralAnalyticsEvent SearchApplicationPostBehavioralAnalyticsEvent
+	SearchApplicationPutBehavioralAnalytics       SearchApplicationPutBehavioralAnalytics
+	SearchApplicationPut                          SearchApplicationPut
+	SearchApplicationSearch                       SearchApplicationSearch
+	SearchMvt                                     SearchMvt
+	Search                                        Search
+	SearchShards                                  SearchShards
+	SearchTemplate                                SearchTemplate
+	SearchableSnapshotsCacheStats                 SearchableSnapshotsCacheStats
+	SearchableSnapshotsClearCache                 SearchableSnapshotsClearCache
+	SearchableSnapshotsMount                      SearchableSnapshotsMount
+	SearchableSnapshotsStats                      SearchableSnapshotsStats
+	ShutdownDeleteNode                            ShutdownDeleteNode
+	ShutdownGetNode                               ShutdownGetNode
+	ShutdownPutNode                               ShutdownPutNode
+	SlmDeleteLifecycle                            SlmDeleteLifecycle
+	SlmExecuteLifecycle                           SlmExecuteLifecycle
+	SlmExecuteRetention                           SlmExecuteRetention
+	SlmGetLifecycle                               SlmGetLifecycle
+	SlmGetStats                                   SlmGetStats
+	SlmGetStatus                                  SlmGetStatus
+	SlmPutLifecycle                               SlmPutLifecycle
+	SlmStart                                      SlmStart
+	SlmStop                                       SlmStop
+	TermsEnum                                     TermsEnum
+	Termvectors                                   Termvectors
+	TextStructureFindStructure                    TextStructureFindStructure
+	TransformDeleteTransform                      TransformDeleteTransform
+	TransformGetTransform                         TransformGetTransform
+	TransformGetTransformStats                    TransformGetTransformStats
+	TransformPreviewTransform                     TransformPreviewTransform
+	TransformPutTransform                         TransformPutTransform
+	TransformResetTransform                       TransformResetTransform
+	TransformScheduleNowTransform                 TransformScheduleNowTransform
+	TransformStartTransform                       TransformStartTransform
+	TransformStopTransform                        TransformStopTransform
+	TransformUpdateTransform                      TransformUpdateTransform
+	TransformUpgradeTransforms                    TransformUpgradeTransforms
+	UpdateByQuery                                 UpdateByQuery
+	UpdateByQueryRethrottle                       UpdateByQueryRethrottle
+	Update                                        Update
 }
 
 // Cat contains the Cat APIs
@@ -202,6 +211,7 @@ type Indices struct {
 	Create                IndicesCreate
 	DataStreamsStats      IndicesDataStreamsStats
 	DeleteAlias           IndicesDeleteAlias
+	DeleteDataLifecycle   IndicesDeleteDataLifecycle
 	DeleteDataStream      IndicesDeleteDataStream
 	DeleteIndexTemplate   IndicesDeleteIndexTemplate
 	Delete                IndicesDelete
@@ -212,10 +222,12 @@ type Indices struct {
 	ExistsIndexTemplate   IndicesExistsIndexTemplate
 	Exists                IndicesExists
 	ExistsTemplate        IndicesExistsTemplate
+	ExplainDataLifecycle  IndicesExplainDataLifecycle
 	FieldUsageStats       IndicesFieldUsageStats
 	Flush                 IndicesFlush
 	Forcemerge            IndicesForcemerge
 	GetAlias              IndicesGetAlias
+	GetDataLifecycle      IndicesGetDataLifecycle
 	GetDataStream         IndicesGetDataStream
 	GetFieldMapping       IndicesGetFieldMapping
 	GetIndexTemplate      IndicesGetIndexTemplate
@@ -228,6 +240,7 @@ type Indices struct {
 	Open                  IndicesOpen
 	PromoteDataStream     IndicesPromoteDataStream
 	PutAlias              IndicesPutAlias
+	PutDataLifecycle      IndicesPutDataLifecycle
 	PutIndexTemplate      IndicesPutIndexTemplate
 	PutMapping            IndicesPutMapping
 	PutSettings           IndicesPutSettings
@@ -530,12 +543,14 @@ type Watcher struct {
 	DeactivateWatch WatcherDeactivateWatch
 	DeleteWatch     WatcherDeleteWatch
 	ExecuteWatch    WatcherExecuteWatch
+	GetSettings     WatcherGetSettings
 	GetWatch        WatcherGetWatch
 	PutWatch        WatcherPutWatch
 	QueryWatches    WatcherQueryWatches
 	Start           WatcherStart
 	Stats           WatcherStats
 	Stop            WatcherStop
+	UpdateSettings  WatcherUpdateSettings
 }
 
 // XPack contains the XPack APIs
@@ -607,43 +622,52 @@ func New(t Transport) *API {
 		RenderSearchTemplate:               newRenderSearchTemplateFunc(t),
 		ScriptsPainlessExecute:             newScriptsPainlessExecuteFunc(t),
 		Scroll:                             newScrollFunc(t),
-		SearchMvt:                          newSearchMvtFunc(t),
-		Search:                             newSearchFunc(t),
-		SearchShards:                       newSearchShardsFunc(t),
-		SearchTemplate:                     newSearchTemplateFunc(t),
-		SearchableSnapshotsCacheStats:      newSearchableSnapshotsCacheStatsFunc(t),
-		SearchableSnapshotsClearCache:      newSearchableSnapshotsClearCacheFunc(t),
-		SearchableSnapshotsMount:           newSearchableSnapshotsMountFunc(t),
-		SearchableSnapshotsStats:           newSearchableSnapshotsStatsFunc(t),
-		ShutdownDeleteNode:                 newShutdownDeleteNodeFunc(t),
-		ShutdownGetNode:                    newShutdownGetNodeFunc(t),
-		ShutdownPutNode:                    newShutdownPutNodeFunc(t),
-		SlmDeleteLifecycle:                 newSlmDeleteLifecycleFunc(t),
-		SlmExecuteLifecycle:                newSlmExecuteLifecycleFunc(t),
-		SlmExecuteRetention:                newSlmExecuteRetentionFunc(t),
-		SlmGetLifecycle:                    newSlmGetLifecycleFunc(t),
-		SlmGetStats:                        newSlmGetStatsFunc(t),
-		SlmGetStatus:                       newSlmGetStatusFunc(t),
-		SlmPutLifecycle:                    newSlmPutLifecycleFunc(t),
-		SlmStart:                           newSlmStartFunc(t),
-		SlmStop:                            newSlmStopFunc(t),
-		TermsEnum:                          newTermsEnumFunc(t),
-		Termvectors:                        newTermvectorsFunc(t),
-		TextStructureFindStructure:         newTextStructureFindStructureFunc(t),
-		TransformDeleteTransform:           newTransformDeleteTransformFunc(t),
-		TransformGetTransform:              newTransformGetTransformFunc(t),
-		TransformGetTransformStats:         newTransformGetTransformStatsFunc(t),
-		TransformPreviewTransform:          newTransformPreviewTransformFunc(t),
-		TransformPutTransform:              newTransformPutTransformFunc(t),
-		TransformResetTransform:            newTransformResetTransformFunc(t),
-		TransformScheduleNowTransform:      newTransformScheduleNowTransformFunc(t),
-		TransformStartTransform:            newTransformStartTransformFunc(t),
-		TransformStopTransform:             newTransformStopTransformFunc(t),
-		TransformUpdateTransform:           newTransformUpdateTransformFunc(t),
-		TransformUpgradeTransforms:         newTransformUpgradeTransformsFunc(t),
-		UpdateByQuery:                      newUpdateByQueryFunc(t),
-		UpdateByQueryRethrottle:            newUpdateByQueryRethrottleFunc(t),
-		Update:                             newUpdateFunc(t),
+		SearchApplicationDeleteBehavioralAnalytics:    newSearchApplicationDeleteBehavioralAnalyticsFunc(t),
+		SearchApplicationDelete:                       newSearchApplicationDeleteFunc(t),
+		SearchApplicationGetBehavioralAnalytics:       newSearchApplicationGetBehavioralAnalyticsFunc(t),
+		SearchApplicationGet:                          newSearchApplicationGetFunc(t),
+		SearchApplicationList:                         newSearchApplicationListFunc(t),
+		SearchApplicationPostBehavioralAnalyticsEvent: newSearchApplicationPostBehavioralAnalyticsEventFunc(t),
+		SearchApplicationPutBehavioralAnalytics:       newSearchApplicationPutBehavioralAnalyticsFunc(t),
+		SearchApplicationPut:                          newSearchApplicationPutFunc(t),
+		SearchApplicationSearch:                       newSearchApplicationSearchFunc(t),
+		SearchMvt:                                     newSearchMvtFunc(t),
+		Search:                                        newSearchFunc(t),
+		SearchShards:                                  newSearchShardsFunc(t),
+		SearchTemplate:                                newSearchTemplateFunc(t),
+		SearchableSnapshotsCacheStats:                 newSearchableSnapshotsCacheStatsFunc(t),
+		SearchableSnapshotsClearCache:                 newSearchableSnapshotsClearCacheFunc(t),
+		SearchableSnapshotsMount:                      newSearchableSnapshotsMountFunc(t),
+		SearchableSnapshotsStats:                      newSearchableSnapshotsStatsFunc(t),
+		ShutdownDeleteNode:                            newShutdownDeleteNodeFunc(t),
+		ShutdownGetNode:                               newShutdownGetNodeFunc(t),
+		ShutdownPutNode:                               newShutdownPutNodeFunc(t),
+		SlmDeleteLifecycle:                            newSlmDeleteLifecycleFunc(t),
+		SlmExecuteLifecycle:                           newSlmExecuteLifecycleFunc(t),
+		SlmExecuteRetention:                           newSlmExecuteRetentionFunc(t),
+		SlmGetLifecycle:                               newSlmGetLifecycleFunc(t),
+		SlmGetStats:                                   newSlmGetStatsFunc(t),
+		SlmGetStatus:                                  newSlmGetStatusFunc(t),
+		SlmPutLifecycle:                               newSlmPutLifecycleFunc(t),
+		SlmStart:                                      newSlmStartFunc(t),
+		SlmStop:                                       newSlmStopFunc(t),
+		TermsEnum:                                     newTermsEnumFunc(t),
+		Termvectors:                                   newTermvectorsFunc(t),
+		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
+		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
+		TransformGetTransform:                         newTransformGetTransformFunc(t),
+		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
+		TransformPreviewTransform:                     newTransformPreviewTransformFunc(t),
+		TransformPutTransform:                         newTransformPutTransformFunc(t),
+		TransformResetTransform:                       newTransformResetTransformFunc(t),
+		TransformScheduleNowTransform:                 newTransformScheduleNowTransformFunc(t),
+		TransformStartTransform:                       newTransformStartTransformFunc(t),
+		TransformStopTransform:                        newTransformStopTransformFunc(t),
+		TransformUpdateTransform:                      newTransformUpdateTransformFunc(t),
+		TransformUpgradeTransforms:                    newTransformUpgradeTransformsFunc(t),
+		UpdateByQuery:                                 newUpdateByQueryFunc(t),
+		UpdateByQueryRethrottle:                       newUpdateByQueryRethrottleFunc(t),
+		Update:                                        newUpdateFunc(t),
 		Cat: &Cat{
 			Aliases:              newCatAliasesFunc(t),
 			Allocation:           newCatAllocationFunc(t),
@@ -699,6 +723,7 @@ func New(t Transport) *API {
 			Create:                newIndicesCreateFunc(t),
 			DataStreamsStats:      newIndicesDataStreamsStatsFunc(t),
 			DeleteAlias:           newIndicesDeleteAliasFunc(t),
+			DeleteDataLifecycle:   newIndicesDeleteDataLifecycleFunc(t),
 			DeleteDataStream:      newIndicesDeleteDataStreamFunc(t),
 			DeleteIndexTemplate:   newIndicesDeleteIndexTemplateFunc(t),
 			Delete:                newIndicesDeleteFunc(t),
@@ -709,10 +734,12 @@ func New(t Transport) *API {
 			ExistsIndexTemplate:   newIndicesExistsIndexTemplateFunc(t),
 			Exists:                newIndicesExistsFunc(t),
 			ExistsTemplate:        newIndicesExistsTemplateFunc(t),
+			ExplainDataLifecycle:  newIndicesExplainDataLifecycleFunc(t),
 			FieldUsageStats:       newIndicesFieldUsageStatsFunc(t),
 			Flush:                 newIndicesFlushFunc(t),
 			Forcemerge:            newIndicesForcemergeFunc(t),
 			GetAlias:              newIndicesGetAliasFunc(t),
+			GetDataLifecycle:      newIndicesGetDataLifecycleFunc(t),
 			GetDataStream:         newIndicesGetDataStreamFunc(t),
 			GetFieldMapping:       newIndicesGetFieldMappingFunc(t),
 			GetIndexTemplate:      newIndicesGetIndexTemplateFunc(t),
@@ -725,6 +752,7 @@ func New(t Transport) *API {
 			Open:                  newIndicesOpenFunc(t),
 			PromoteDataStream:     newIndicesPromoteDataStreamFunc(t),
 			PutAlias:              newIndicesPutAliasFunc(t),
+			PutDataLifecycle:      newIndicesPutDataLifecycleFunc(t),
 			PutIndexTemplate:      newIndicesPutIndexTemplateFunc(t),
 			PutMapping:            newIndicesPutMappingFunc(t),
 			PutSettings:           newIndicesPutSettingsFunc(t),
@@ -992,12 +1020,14 @@ func New(t Transport) *API {
 			DeactivateWatch: newWatcherDeactivateWatchFunc(t),
 			DeleteWatch:     newWatcherDeleteWatchFunc(t),
 			ExecuteWatch:    newWatcherExecuteWatchFunc(t),
+			GetSettings:     newWatcherGetSettingsFunc(t),
 			GetWatch:        newWatcherGetWatchFunc(t),
 			PutWatch:        newWatcherPutWatchFunc(t),
 			QueryWatches:    newWatcherQueryWatchesFunc(t),
 			Start:           newWatcherStartFunc(t),
 			Stats:           newWatcherStatsFunc(t),
 			Stop:            newWatcherStopFunc(t),
+			UpdateSettings:  newWatcherUpdateSettingsFunc(t),
 		},
 		XPack: &XPack{
 			Info:  newXPackInfoFunc(t),

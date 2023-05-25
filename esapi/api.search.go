@@ -67,6 +67,7 @@ type SearchRequest struct {
 	From                       *int
 	IgnoreThrottled            *bool
 	IgnoreUnavailable          *bool
+	IncludeNamedQueriesScore   *bool
 	Lenient                    *bool
 	MaxConcurrentShardRequests *int
 	MinCompatibleShardNode     string
@@ -186,6 +187,10 @@ func (r SearchRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.IncludeNamedQueriesScore != nil {
+		params["include_named_queries_score"] = strconv.FormatBool(*r.IncludeNamedQueriesScore)
 	}
 
 	if r.Lenient != nil {
@@ -490,6 +495,13 @@ func (f Search) WithIgnoreThrottled(v bool) func(*SearchRequest) {
 func (f Search) WithIgnoreUnavailable(v bool) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithIncludeNamedQueriesScore - indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false).
+func (f Search) WithIncludeNamedQueriesScore(v bool) func(*SearchRequest) {
+	return func(r *SearchRequest) {
+		r.IncludeNamedQueriesScore = &v
 	}
 }
 

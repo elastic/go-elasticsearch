@@ -22,12 +22,13 @@ package esapi
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
-	return func(o ...func(*LogstashGetPipelineRequest)) (*Response, error) {
-		var r = LogstashGetPipelineRequest{}
+func newSearchApplicationListFunc(t Transport) SearchApplicationList {
+	return func(o ...func(*SearchApplicationListRequest)) (*Response, error) {
+		var r = SearchApplicationListRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,14 +38,18 @@ func newLogstashGetPipelineFunc(t Transport) LogstashGetPipeline {
 
 // ----- API Definition -------------------------------------------------------
 
-// LogstashGetPipeline - Retrieves Logstash Pipelines used by Central Management
+// SearchApplicationList returns the existing search applications.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html.
-type LogstashGetPipeline func(o ...func(*LogstashGetPipelineRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html.
+type SearchApplicationList func(o ...func(*SearchApplicationListRequest)) (*Response, error)
 
-// LogstashGetPipelineRequest configures the Logstash Get Pipeline API request.
-type LogstashGetPipelineRequest struct {
-	DocumentID string
+// SearchApplicationListRequest configures the Search Application List API request.
+type SearchApplicationListRequest struct {
+	From  *int
+	Query string
+	Size  *int
 
 	Pretty     bool
 	Human      bool
@@ -57,7 +62,7 @@ type LogstashGetPipelineRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SearchApplicationListRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -66,18 +71,23 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_logstash") + 1 + len("pipeline") + 1 + len(r.DocumentID))
+	path.Grow(7 + len("/_application/search_application"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_logstash")
-	path.WriteString("/")
-	path.WriteString("pipeline")
-	if r.DocumentID != "" {
-		path.WriteString("/")
-		path.WriteString(r.DocumentID)
-	}
+	path.WriteString("/_application/search_application")
 
 	params = make(map[string]string)
+
+	if r.From != nil {
+		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if r.Query != "" {
+		params["q"] = r.Query
+	}
+
+	if r.Size != nil {
+		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -139,50 +149,64 @@ func (r LogstashGetPipelineRequest) Do(ctx context.Context, transport Transport)
 }
 
 // WithContext sets the request context.
-func (f LogstashGetPipeline) WithContext(v context.Context) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationList) WithContext(v context.Context) func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
 		r.ctx = v
 	}
 }
 
-// WithDocumentID - a list of pipeline ids.
-func (f LogstashGetPipeline) WithDocumentID(v string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
-		r.DocumentID = v
+// WithFrom - starting offset (default: 0).
+func (f SearchApplicationList) WithFrom(v int) func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
+		r.From = &v
+	}
+}
+
+// WithQuery - query in the lucene query string syntax.
+func (f SearchApplicationList) WithQuery(v string) func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
+		r.Query = v
+	}
+}
+
+// WithSize - specifies a max number of results to get.
+func (f SearchApplicationList) WithSize(v int) func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
+		r.Size = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f LogstashGetPipeline) WithPretty() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationList) WithPretty() func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f LogstashGetPipeline) WithHuman() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationList) WithHuman() func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f LogstashGetPipeline) WithErrorTrace() func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationList) WithErrorTrace() func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f LogstashGetPipeline) WithFilterPath(v ...string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationList) WithFilterPath(v ...string) func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationList) WithHeader(h map[string]string) func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -193,8 +217,8 @@ func (f LogstashGetPipeline) WithHeader(h map[string]string) func(*LogstashGetPi
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f LogstashGetPipeline) WithOpaqueID(s string) func(*LogstashGetPipelineRequest) {
-	return func(r *LogstashGetPipelineRequest) {
+func (f SearchApplicationList) WithOpaqueID(s string) func(*SearchApplicationListRequest) {
+	return func(r *SearchApplicationListRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
