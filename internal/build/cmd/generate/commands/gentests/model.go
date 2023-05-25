@@ -695,17 +695,7 @@ default:
 					// We cannot reliably serialize to json and compare the json outputs: YAML responses are parsed as
 					// a map[interface{}]interface{} that encoding/json fails to marshall
 					// See https://play.golang.org/p/jhcXwg5dIrn
-					expectedPayload := func(val interface{}) string {
-						expectedOutput := make(map[string]interface{})
-						if cast, ok := val.(map[interface{}]interface{}); ok {
-							for k, v := range cast {
-								expectedOutput[fmt.Sprintf("%v", k)] = v
-							}
-						} else {
-							expectedOutput = val.(map[string]interface{})
-						}
-						return fmt.Sprintf("%#v", expectedOutput)
-					}(val)
+					expectedPayload := flattenPayload(val)
 
 					expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
 					output = `		actual = fmt.Sprintf("%v",` + escape(subject) + `)
@@ -947,4 +937,20 @@ func skipVersion(minmax string) bool {
 	}
 
 	return false
+}
+
+// flattenPayload serializes the expected payload as a map tree to compare within tests.
+func flattenPayload(val interface{}) string {
+	expectedOutput := make(map[string]interface{})
+	if cast, ok := val.(map[interface{}]interface{}); ok {
+		for k, v := range cast {
+			if _, ok := v.(map[interface{}]interface{}); ok {
+				v = flattenPayload(v)
+			}
+			expectedOutput[fmt.Sprintf("%v", k)] = v
+		}
+	} else {
+		expectedOutput = val.(map[string]interface{})
+	}
+	return fmt.Sprintf("%#v", expectedOutput)
 }
