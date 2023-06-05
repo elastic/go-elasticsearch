@@ -667,6 +667,28 @@ func TestBulkIndexer(t *testing.T) {
 				`{"index":{"_id":"42","version":23,"version_type":"external","_index":"test"}}` + "\n",
 			},
 			{
+				"with require_alias",
+				args{BulkIndexerItem{
+					Action:       "index",
+					DocumentID:   "42",
+					Index:        "test",
+					RequireAlias: esapi.BoolPtr(true),
+				}},
+				`{"index":{"_id":"42","_index":"test","require_alias":true}}` + "\n",
+			},
+			{
+				"with version, version_type and require_alias",
+				args{BulkIndexerItem{
+					Action:       "index",
+					DocumentID:   "42",
+					Index:        "test",
+					Version:      &v,
+					VersionType:  "external",
+					RequireAlias: esapi.BoolPtr(true),
+				}},
+				`{"index":{"_id":"42","version":23,"version_type":"external","_index":"test","require_alias":true}}` + "\n",
+			},
+			{
 				"with retry_on_conflict and bad action",
 				args{BulkIndexerItem{
 					Action:          "index",
