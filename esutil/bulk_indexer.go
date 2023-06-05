@@ -76,6 +76,7 @@ type BulkIndexerConfig struct {
 	Pretty              bool
 	Refresh             string
 	Routing             string
+	RequireAlias        *bool
 	Source              []string
 	SourceExcludes      []string
 	SourceIncludes      []string
@@ -101,6 +102,7 @@ type BulkIndexerItem struct {
 	Action          string
 	DocumentID      string
 	Routing         string
+	RequireAlias    *bool
 	Version         *int64
 	VersionType     string
 	Body            io.ReadSeeker
@@ -166,6 +168,15 @@ func (item *BulkIndexerItem) marshallMeta() {
 		item.meta.Write(strconv.AppendInt(aux, int64(*item.RetryOnConflict), 10))
 		aux = aux[:0]
 	}
+	if item.RequireAlias != nil {
+		if item.DocumentID != "" || item.Routing != "" || item.Index != "" || item.RetryOnConflict != nil {
+			item.meta.WriteString(",")
+		}
+		item.meta.WriteString(`"require_alias":`)
+		item.meta.Write(strconv.AppendBool(aux, *item.RequireAlias))
+		aux = aux[:0]
+	}
+
 	item.meta.WriteRune('}')
 	item.meta.WriteRune('}')
 	item.meta.WriteRune('\n')
@@ -519,6 +530,7 @@ func (w *worker) flushBuffer(ctx context.Context) error {
 		Pipeline:            w.bi.config.Pipeline,
 		Refresh:             w.bi.config.Refresh,
 		Routing:             w.bi.config.Routing,
+		RequireAlias:        w.bi.config.RequireAlias,
 		Source:              w.bi.config.Source,
 		SourceExcludes:      w.bi.config.SourceExcludes,
 		SourceIncludes:      w.bi.config.SourceIncludes,

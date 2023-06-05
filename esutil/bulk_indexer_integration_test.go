@@ -24,6 +24,7 @@ import (
 	"compress/gzip"
 	"context"
 	"fmt"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"os"
 	"strconv"
 	"strings"
@@ -256,6 +257,53 @@ func TestBulkIndexerIntegration(t *testing.T) {
 					Client: es,
 				})
 				bulkIndex(bi, 900)
+			})
+
+			t.Run("Index alias", func(t *testing.T) {
+				var index string = "test-index-a"
+				var alias string = "test-alias-a"
+
+				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+					CompressRequestBody:      tt.CompressRequestBodyEnabled,
+					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
+				})
+
+				es.Indices.Delete([]string{index}, es.Indices.Delete.WithIgnoreUnavailable(true))
+				es.Indices.Create(index, es.Indices.Create.WithWaitForActiveShards("1"))
+				es.Indices.PutAlias([]string{index}, alias)
+
+				bi, _ := esutil.NewBulkIndexer(esutil.BulkIndexerConfig{
+					Client: es,
+				})
+				func(bulkIndexer esutil.BulkIndexer) {
+					var countTotal int = 10
+					var countSuccessful uint64
+					for i := 0; i < countTotal; i++ {
+						item := esutil.BulkIndexerItem{
+							Action:       "index",
+							Index:        alias,
+							DocumentID:   strconv.Itoa(i),
+							Body:         strings.NewReader(body),
+							RequireAlias: esapi.BoolPtr(true),
+							OnSuccess: func(ctx context.Context, item esutil.BulkIndexerItem, item2 esutil.BulkIndexerResponseItem) {
+								atomic.AddUint64(&countSuccessful, 1)
+							},
+						}
+						err := bulkIndexer.Add(context.Background(), item)
+						if err != nil {
+							t.Fatal(err)
+						}
+					}
+					if err := bulkIndexer.Close(context.Background()); err != nil {
+						t.Fatal(err)
+					}
+
+					if int(countSuccessful) != countTotal {
+						t.Fatalf("Unexpected countSuccessful, expected %d, got: %d", countTotal, countSuccessful)
+					}
+				}(bi)
+
 			})
 		})
 	}
