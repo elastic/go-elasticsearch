@@ -24,7 +24,6 @@ import (
 	"compress/gzip"
 	"context"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"os"
 	"strconv"
 	"strings"
@@ -285,7 +284,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 							Index:        alias,
 							DocumentID:   strconv.Itoa(i),
 							Body:         strings.NewReader(body),
-							RequireAlias: esapi.BoolPtr(true),
+							RequireAlias: true,
 							OnSuccess: func(ctx context.Context, item esutil.BulkIndexerItem, item2 esutil.BulkIndexerResponseItem) {
 								atomic.AddUint64(&countSuccessful, 1)
 							},
