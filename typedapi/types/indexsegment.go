@@ -16,67 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"io"
-)
-
 // IndexSegment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/segments/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/indices/segments/types.ts#L24-L26
 type IndexSegment struct {
 	Shards map[string][]ShardsSegment `json:"shards"`
-}
-
-func (s *IndexSegment) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "shards":
-			if s.Shards == nil {
-				s.Shards = make(map[string][]ShardsSegment, 0)
-			}
-			rawMsg := make(map[string]json.RawMessage, 0)
-			dec.Decode(&rawMsg)
-			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := NewShardsSegment()
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return err
-					}
-					s.Shards[key] = append(s.Shards[key], *o)
-				default:
-					o := []ShardsSegment{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return err
-					}
-					s.Shards[key] = o
-				}
-			}
-
-		}
-	}
-	return nil
 }
 
 // NewIndexSegment returns a IndexSegment.

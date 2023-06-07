@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package reloadsecuresettings
 
@@ -26,11 +26,14 @@ import (
 
 // Response holds the response body struct for the package reloadsecuresettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/nodes/reload_secure_settings/ReloadSecureSettingsResponse.ts#L30-L32
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/nodes/reload_secure_settings/ReloadSecureSettingsResponse.ts#L30-L32
 
 type Response struct {
-	ClusterName string                            `json:"cluster_name"`
-	Nodes       map[string]types.NodeReloadResult `json:"nodes"`
+	ClusterName string `json:"cluster_name"`
+	// NodeStats Contains statistics about the number of nodes selected by the request’s node
+	// filters.
+	NodeStats *types.NodeStatistics             `json:"_nodes,omitempty"`
+	Nodes     map[string]types.NodeReloadResult `json:"nodes"`
 }
 
 // NewResponse returns a Response

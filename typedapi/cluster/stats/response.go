@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package stats
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package stats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/cluster/stats/ClusterStatsResponse.ts#L55-L57
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/cluster/stats/ClusterStatsResponse.ts#L55-L57
 
 type Response struct {
 
@@ -37,6 +37,9 @@ type Response struct {
 	ClusterUuid string `json:"cluster_uuid"`
 	// Indices Contains statistics about indices with shards assigned to selected nodes.
 	Indices types.ClusterIndices `json:"indices"`
+	// NodeStats Contains statistics about the number of nodes selected by the request’s node
+	// filters.
+	NodeStats *types.NodeStatistics `json:"_nodes,omitempty"`
 	// Nodes Contains statistics about nodes selected by the request’s node filters.
 	Nodes types.ClusterNodes `json:"nodes"`
 	// Status Health status of the cluster, based on the state of its primary and replica

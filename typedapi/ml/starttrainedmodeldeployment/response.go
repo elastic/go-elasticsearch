@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package starttrainedmodeldeployment
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package starttrainedmodeldeployment
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/start_trained_model_deployment/MlStartTrainedModelDeploymentResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/ml/start_trained_model_deployment/MlStartTrainedModelDeploymentResponse.ts#L22-L26
 
 type Response struct {
 	Assignment types.TrainedModelAssignment `json:"assignment"`

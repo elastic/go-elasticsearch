@@ -16,69 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
-import (
-	"bytes"
-	"errors"
-	"io"
-
-	"encoding/json"
-)
-
 // IndexTemplateMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L61-L70
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L61-L70
 type IndexTemplateMapping struct {
 	Aliases   map[string]Alias `json:"aliases,omitempty"`
 	Lifecycle *DataLifecycle   `json:"lifecycle,omitempty"`
 	Mappings  *TypeMapping     `json:"mappings,omitempty"`
 	Settings  *IndexSettings   `json:"settings,omitempty"`
-}
-
-func (s *IndexTemplateMapping) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "aliases":
-			if s.Aliases == nil {
-				s.Aliases = make(map[string]Alias, 0)
-			}
-			if err := dec.Decode(&s.Aliases); err != nil {
-				return err
-			}
-
-		case "lifecycle":
-			if err := dec.Decode(&s.Lifecycle); err != nil {
-				return err
-			}
-
-		case "mappings":
-			if err := dec.Decode(&s.Mappings); err != nil {
-				return err
-			}
-
-		case "settings":
-			if err := dec.Decode(&s.Settings); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
 }
 
 // NewIndexTemplateMapping returns a IndexTemplateMapping.

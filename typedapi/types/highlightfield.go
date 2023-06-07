@@ -16,29 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/boundaryscanner"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterfragmenter"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterorder"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertagsschema"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertype"
-
-	"bytes"
-	"errors"
-	"io"
-
-	"strconv"
-
-	"encoding/json"
 )
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/_global/search/_types/highlighting.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_global/search/_types/highlighting.ts#L88-L92
 type HighlightField struct {
 	Analyzer              Analyzer                                     `json:"analyzer,omitempty"`
 	BoundaryChars         *string                                      `json:"boundary_chars,omitempty"`

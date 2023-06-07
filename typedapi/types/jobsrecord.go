@@ -16,25 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/categorizationstatus"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jobstate"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/memorystatus"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/categorizationstatus"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jobstate"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/memorystatus"
 )
 
 // JobsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/cat/ml_jobs/types.ts#L24-L325
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/cat/ml_jobs/types.ts#L24-L325
 type JobsRecord struct {
 	// AssignmentExplanation why the job is or is not assigned to a node
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`

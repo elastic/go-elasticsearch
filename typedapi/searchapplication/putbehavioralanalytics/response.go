@@ -16,16 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package putbehavioralanalytics
 
 // Response holds the response body struct for the package putbehavioralanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/search_application/put_behavioral_analytics/BehavioralAnalyticsPutResponse.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/search_application/put_behavioral_analytics/BehavioralAnalyticsPutResponse.ts#L24-L26
 
 type Response struct {
 
+	// Acknowledged For a successful response, this value is always true. On failure, an
+	// exception is returned instead.
+	Acknowledged bool `json:"acknowledged"`
 	// Name The name of the analytics collection created or updated
 	Name string `json:"name"`
 }

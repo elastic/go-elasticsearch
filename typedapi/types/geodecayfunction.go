@@ -16,63 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
-
+	"encoding/json"
 	"fmt"
 
-	"bytes"
-	"errors"
-	"io"
-
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
 )
 
 // GeoDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/_types/query_dsl/compound.ts#L96-L98
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_types/query_dsl/compound.ts#L96-L98
 type GeoDecayFunction struct {
 	GeoDecayFunction map[string]DecayPlacementGeoLocationDistance `json:"GeoDecayFunction,omitempty"`
 	MultiValueMode   *multivaluemode.MultiValueMode               `json:"multi_value_mode,omitempty"`
-}
-
-func (s *GeoDecayFunction) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "GeoDecayFunction":
-			if s.GeoDecayFunction == nil {
-				s.GeoDecayFunction = make(map[string]DecayPlacementGeoLocationDistance, 0)
-			}
-			if err := dec.Decode(&s.GeoDecayFunction); err != nil {
-				return err
-			}
-
-		case "multi_value_mode":
-			if err := dec.Decode(&s.MultiValueMode); err != nil {
-				return err
-			}
-
-		default:
-
-		}
-	}
-	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
