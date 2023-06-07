@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // AutoFollowPattern type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ccr/get_auto_follow_pattern/types.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/ccr/get_auto_follow_pattern/types.ts#L23-L26
 type AutoFollowPattern struct {
 	Name    string                   `json:"name"`
 	Pattern AutoFollowPatternSummary `json:"pattern"`

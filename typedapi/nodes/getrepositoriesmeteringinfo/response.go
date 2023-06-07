@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package getrepositoriesmeteringinfo
 
@@ -26,13 +26,16 @@ import (
 
 // Response holds the response body struct for the package getrepositoriesmeteringinfo
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/nodes/get_repositories_metering_info/GetRepositoriesMeteringInfoResponse.ts#L36-L38
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/nodes/get_repositories_metering_info/GetRepositoriesMeteringInfoResponse.ts#L36-L38
 
 type Response struct {
 
 	// ClusterName Name of the cluster. Based on the [Cluster name
 	// setting](https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html#cluster-name).
 	ClusterName string `json:"cluster_name"`
+	// NodeStats Contains statistics about the number of nodes selected by the request’s node
+	// filters.
+	NodeStats *types.NodeStatistics `json:"_nodes,omitempty"`
 	// Nodes Contains repositories metering information for the nodes selected by the
 	// request.
 	Nodes map[string]types.RepositoryMeteringInformation `json:"nodes"`

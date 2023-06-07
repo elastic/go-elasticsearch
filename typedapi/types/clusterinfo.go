@@ -16,84 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
-import (
-	"bytes"
-	"errors"
-	"io"
-
-	"encoding/json"
-)
-
 // ClusterInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/cluster/allocation_explain/types.ts#L48-L54
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/cluster/allocation_explain/types.ts#L48-L54
 type ClusterInfo struct {
 	Nodes             map[string]NodeDiskUsage `json:"nodes"`
 	ReservedSizes     []ReservedSize           `json:"reserved_sizes"`
 	ShardDataSetSizes map[string]string        `json:"shard_data_set_sizes,omitempty"`
 	ShardPaths        map[string]string        `json:"shard_paths"`
 	ShardSizes        map[string]int64         `json:"shard_sizes"`
-}
-
-func (s *ClusterInfo) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "nodes":
-			if s.Nodes == nil {
-				s.Nodes = make(map[string]NodeDiskUsage, 0)
-			}
-			if err := dec.Decode(&s.Nodes); err != nil {
-				return err
-			}
-
-		case "reserved_sizes":
-			if err := dec.Decode(&s.ReservedSizes); err != nil {
-				return err
-			}
-
-		case "shard_data_set_sizes":
-			if s.ShardDataSetSizes == nil {
-				s.ShardDataSetSizes = make(map[string]string, 0)
-			}
-			if err := dec.Decode(&s.ShardDataSetSizes); err != nil {
-				return err
-			}
-
-		case "shard_paths":
-			if s.ShardPaths == nil {
-				s.ShardPaths = make(map[string]string, 0)
-			}
-			if err := dec.Decode(&s.ShardPaths); err != nil {
-				return err
-			}
-
-		case "shard_sizes":
-			if s.ShardSizes == nil {
-				s.ShardSizes = make(map[string]int64, 0)
-			}
-			if err := dec.Decode(&s.ShardSizes); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
 }
 
 // NewClusterInfo returns a ClusterInfo.

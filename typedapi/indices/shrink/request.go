@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package shrink
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package shrink
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/shrink/IndicesShrinkRequest.ts#L27-L46
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/indices/shrink/IndicesShrinkRequest.ts#L27-L46
 type Request struct {
 	Aliases  map[string]types.Alias     `json:"aliases,omitempty"`
 	Settings map[string]json.RawMessage `json:"settings,omitempty"`

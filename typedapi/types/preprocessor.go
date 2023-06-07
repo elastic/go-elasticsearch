@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
 // Preprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/ml/put_trained_model/types.ts#L31-L36
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/ml/put_trained_model/types.ts#L31-L36
 type Preprocessor struct {
 	FrequencyEncoding  *FrequencyEncodingPreprocessor  `json:"frequency_encoding,omitempty"`
 	OneHotEncoding     *OneHotEncodingPreprocessor     `json:"one_hot_encoding,omitempty"`

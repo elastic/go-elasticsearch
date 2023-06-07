@@ -16,26 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/simplequerystringflag"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/operator"
 )
 
 // SimpleQueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/_types/query_dsl/fulltext.ts#L294-L312
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_types/query_dsl/fulltext.ts#L294-L312
 type SimpleQueryStringQuery struct {
 	AnalyzeWildcard                 *bool                  `json:"analyze_wildcard,omitempty"`
 	Analyzer                        *string                `json:"analyzer,omitempty"`
@@ -138,12 +135,6 @@ func (s *SimpleQueryStringQuery) UnmarshalJSON(data []byte) error {
 			source := bytes.NewReader(rawMsg)
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
-			case '{':
-				o := &simplequerystringflag.SimpleQueryStringFlag{}
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Flags = *o
 
 			default:
 				if err := localDec.Decode(&s.Flags); err != nil {

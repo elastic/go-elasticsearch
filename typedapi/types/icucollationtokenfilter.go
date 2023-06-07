@@ -16,28 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationalternate"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationcasefirst"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationdecomposition"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationstrength"
-
-	"bytes"
-	"errors"
-	"io"
-
-	"strconv"
-
-	"encoding/json"
 )
 
 // IcuCollationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/_types/analysis/icu-plugin.ts#L51-L65
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_types/analysis/icu-plugin.ts#L51-L65
 type IcuCollationTokenFilter struct {
 	Alternate              *icucollationalternate.IcuCollationAlternate         `json:"alternate,omitempty"`
 	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"caseFirst,omitempty"`

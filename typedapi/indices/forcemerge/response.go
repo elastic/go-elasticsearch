@@ -16,16 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/363111664e81786557afe06e68221018847b3676
+// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
 
 package forcemerge
 
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
+
 // Response holds the response body struct for the package forcemerge
 //
-// https://github.com/elastic/elasticsearch-specification/blob/363111664e81786557afe06e68221018847b3676/specification/indices/forcemerge/IndicesForceMergeResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/indices/forcemerge/IndicesForceMergeResponse.ts#L22-L24
 
 type Response struct {
-
+	Shards_ types.ShardStatistics `json:"_shards"`
 	// Task task contains a task id returned when wait_for_completion=false,
 	// you can use the task_id to get the status of the task at _tasks/<task_id>
 	Task *string `json:"task,omitempty"`
