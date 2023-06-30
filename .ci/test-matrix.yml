@@ -1,7 +1,7 @@
 ---
 
 STACK_VERSION:
-  - 8.8.1-SNAPSHOT
+  - 8.8.2-SNAPSHOT
 
 GO_VERSION:
   - 1-alpine
