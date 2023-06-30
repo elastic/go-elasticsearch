@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -25,6 +25,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shutdownstatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shutdowntype"
@@ -32,7 +33,7 @@ import (
 
 // NodeShutdownStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
 type NodeShutdownStatus struct {
 	NodeId                string                        `json:"node_id"`
 	PersistentTasks       PersistentTaskStatus          `json:"persistent_tasks"`
@@ -79,7 +80,11 @@ func (s *NodeShutdownStatus) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Reason = o
 
 		case "shard_migration":

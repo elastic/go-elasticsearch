@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ExtendedStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_types/aggregations/Aggregate.ts#L278-L296
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/_types/aggregations/Aggregate.ts#L278-L296
 type ExtendedStatsAggregate struct {
 	Avg                        Float64                          `json:"avg,omitempty"`
 	AvgAsString                *string                          `json:"avg_as_string,omitempty"`
@@ -83,7 +83,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.AvgAsString = &o
 
 		case "count":
@@ -111,7 +115,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MaxAsString = &o
 
 		case "meta":
@@ -129,7 +137,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MinAsString = &o
 
 		case "std_deviation":
@@ -142,7 +154,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.StdDeviationAsString = &o
 
 		case "std_deviation_bounds":
@@ -186,7 +202,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SumAsString = &o
 
 		case "sum_of_squares":
@@ -199,7 +219,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SumOfSquaresAsString = &o
 
 		case "variance":
@@ -212,7 +236,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.VarianceAsString = &o
 
 		case "variance_population":
@@ -225,7 +253,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.VariancePopulationAsString = &o
 
 		case "variance_sampling":
@@ -238,7 +270,11 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.VarianceSamplingAsString = &o
 
 		}

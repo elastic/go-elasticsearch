@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/indices/_types/IndexSettings.ts#L69-L168
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/indices/_types/IndexSettings.ts#L69-L168
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -133,7 +133,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.AutoExpandReplicas = &o
 
 		case "blocks":
@@ -151,7 +155,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Codec = &o
 
 		case "creation_date":
@@ -179,7 +187,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Format = o
 
 		case "gc_deletes":
@@ -192,7 +204,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Hidden = o
 
 		case "highlight":
@@ -425,7 +441,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Mode = &o
 
 		case "number_of_replicas":
@@ -433,7 +453,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.NumberOfReplicas = o
 
 		case "number_of_routing_shards":
@@ -457,7 +481,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.NumberOfShards = o
 
 		case "priority":
@@ -465,7 +493,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Priority = o
 
 		case "provided_name":
@@ -596,7 +628,11 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.VerifiedBeforeClose = o
 
 		case "version":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // GeoDistanceSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_types/sort.ts#L58-L66
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/_types/sort.ts#L58-L66
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	GeoDistanceSort map[string][]GeoLocation         `json:"GeoDistanceSort,omitempty"`

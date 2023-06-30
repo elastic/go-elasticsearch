@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -25,11 +25,12 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 )
 
 // Calendar type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/ml/get_calendars/types.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/ml/get_calendars/types.ts#L22-L29
 type Calendar struct {
 	// CalendarId A string that uniquely identifies a calendar.
 	CalendarId string `json:"calendar_id"`
@@ -64,7 +65,11 @@ func (s *Calendar) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Description = &o
 
 		case "job_ids":

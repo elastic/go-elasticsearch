@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // CommandAllocatePrimaryAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/cluster/reroute/types.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/cluster/reroute/types.ts#L78-L84
 type CommandAllocatePrimaryAction struct {
 	// AcceptDataLoss If a node which has a copy of the data rejoins the cluster later on, that
 	// data will be deleted. To ensure that these implications are well-understood,
@@ -80,7 +80,11 @@ func (s *CommandAllocatePrimaryAction) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Node = o
 
 		case "shard":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // RoleDescriptorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/security/_types/RoleDescriptor.ts#L38-L47
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/security/_types/RoleDescriptor.ts#L38-L47
 type RoleDescriptorRead struct {
 	Applications      []ApplicationPrivileges  `json:"applications,omitempty"`
 	Cluster           []string                 `json:"cluster"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package mount
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package mount
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L50
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L50
 type Request struct {
 	IgnoreIndexSettings []string                   `json:"ignore_index_settings,omitempty"`
 	Index               string                     `json:"index"`

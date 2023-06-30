@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CombinedFieldsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_types/query_dsl/abstractions.ts#L184-L198
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/_types/query_dsl/abstractions.ts#L184-L198
 type CombinedFieldsQuery struct {
 	AutoGenerateSynonymsPhraseQuery *bool                                            `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	Boost                           *float32                                         `json:"boost,omitempty"`
@@ -110,7 +110,11 @@ func (s *CombinedFieldsQuery) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Query = o
 
 		case "_name":
@@ -118,7 +122,11 @@ func (s *CombinedFieldsQuery) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryName_ = &o
 
 		case "zero_terms_query":

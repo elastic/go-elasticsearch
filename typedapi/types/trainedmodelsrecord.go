@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -25,11 +25,12 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 )
 
 // TrainedModelsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/cat/ml_trained_models/types.ts#L23-L111
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/cat/ml_trained_models/types.ts#L23-L111
 type TrainedModelsRecord struct {
 	// CreateTime The time the model was created
 	CreateTime DateTime `json:"create_time,omitempty"`
@@ -94,7 +95,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CreatedBy = &o
 
 		case "data_frame.analysis", "dfa", "dataFrameAnalyticsAnalysis":
@@ -102,7 +107,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameAnalysis = &o
 
 		case "data_frame.create_time", "dft", "dataFrameAnalyticsTime":
@@ -110,7 +119,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameCreateTime = &o
 
 		case "data_frame.id", "dfid", "dataFrameAnalytics":
@@ -118,7 +131,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameId = &o
 
 		case "data_frame.source_index", "dfsi", "dataFrameAnalyticsSrcIndex":
@@ -126,7 +143,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameSourceIndex = &o
 
 		case "description", "d":
@@ -134,7 +155,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Description = &o
 
 		case "heap_size", "hs", "modelHeapSize":
@@ -152,7 +177,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestCount = &o
 
 		case "ingest.current", "icurr", "ingestCurrent":
@@ -160,7 +189,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestCurrent = &o
 
 		case "ingest.failed", "if", "ingestFailed":
@@ -168,7 +201,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestFailed = &o
 
 		case "ingest.pipelines", "ip", "ingestPipelines":
@@ -176,7 +213,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestPipelines = &o
 
 		case "ingest.time", "it", "ingestTime":
@@ -184,7 +225,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestTime = &o
 
 		case "license", "l":
@@ -192,7 +237,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.License = &o
 
 		case "operations", "o", "modelOperations":
@@ -200,7 +249,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Operations = &o
 
 		case "type":
@@ -208,7 +261,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = &o
 
 		case "version", "v":

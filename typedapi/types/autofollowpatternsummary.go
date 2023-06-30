@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AutoFollowPatternSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/ccr/get_auto_follow_pattern/types.ts#L28-L51
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/ccr/get_auto_follow_pattern/types.ts#L28-L51
 type AutoFollowPatternSummary struct {
 	Active bool `json:"active"`
 	// FollowIndexPattern The name of follower index.
@@ -112,7 +112,11 @@ func (s *AutoFollowPatternSummary) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RemoteCluster = o
 
 		}

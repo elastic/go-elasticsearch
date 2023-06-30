@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TransformIndexerStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/transform/get_transform_stats/types.ts#L53-L71
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/transform/get_transform_stats/types.ts#L53-L71
 type TransformIndexerStats struct {
 	DeleteTimeInMs                     *int64  `json:"delete_time_in_ms,omitempty"`
 	DocumentsDeleted                   *int64  `json:"documents_deleted,omitempty"`

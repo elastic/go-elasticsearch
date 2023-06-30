@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -25,6 +25,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/connectionscheme"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/httpinputmethod"
@@ -32,7 +33,7 @@ import (
 
 // HttpInputRequestResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/watcher/_types/Actions.ts#L300-L300
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/watcher/_types/Actions.ts#L300-L300
 type HttpInputRequestResult struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
@@ -74,7 +75,11 @@ func (s *HttpInputRequestResult) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Body = &o
 
 		case "connection_timeout":
@@ -113,7 +118,11 @@ func (s *HttpInputRequestResult) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Path = &o
 
 		case "port":
@@ -141,7 +150,11 @@ func (s *HttpInputRequestResult) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Url = &o
 
 		}

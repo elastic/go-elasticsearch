@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/async_search/_types/AsyncSearch.ts#L30-L45
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/async_search/_types/AsyncSearch.ts#L30-L45
 type AsyncSearch struct {
 	Aggregations    map[string]Aggregate       `json:"aggregations,omitempty"`
 	Clusters_       *ClusterStatistics         `json:"_clusters,omitempty"`
@@ -662,8 +662,63 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 			if s.Suggest == nil {
 				s.Suggest = make(map[string][]Suggest, 0)
 			}
-			if err := dec.Decode(&s.Suggest); err != nil {
-				return err
+
+			for dec.More() {
+				tt, err := dec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return err
+				}
+				if value, ok := tt.(string); ok {
+					if strings.Contains(value, "#") {
+						elems := strings.Split(value, "#")
+						if len(elems) == 2 {
+							if s.Suggest == nil {
+								s.Suggest = make(map[string][]Suggest, 0)
+							}
+							switch elems[0] {
+
+							case "completion":
+								o := NewCompletionSuggest()
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+
+							case "phrase":
+								o := NewPhraseSuggest()
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+
+							case "term":
+								o := NewTermSuggest()
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+
+							default:
+								o := make(map[string]interface{}, 0)
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+							}
+						} else {
+							return errors.New("cannot decode JSON for field Suggest")
+						}
+					} else {
+						o := make(map[string]interface{}, 0)
+						if err := dec.Decode(&o); err != nil {
+							return err
+						}
+						s.Suggest[value] = append(s.Suggest[value], o)
+					}
+				}
 			}
 
 		case "terminated_early":

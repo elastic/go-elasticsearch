@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // MTermVectorsOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/_global/mtermvectors/types.ts#L35-L49
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/_global/mtermvectors/types.ts#L35-L49
 type MTermVectorsOperation struct {
 	Doc             json.RawMessage          `json:"doc,omitempty"`
 	FieldStatistics *bool                    `json:"field_statistics,omitempty"`
