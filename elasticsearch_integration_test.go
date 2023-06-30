@@ -506,4 +506,42 @@ func TestTypedClient(t *testing.T) {
 			t.Fatalf("invalid sort serialisation, got: %s", data)
 		}
 	})
+
+	t.Run("Get document index exists or not", func(t *testing.T) {
+		es, err := elasticsearch.NewTypedClient(elasticsearch.Config{
+			Addresses: []string{"http://localhost:9200"},
+			Logger:    &elastictransport.ColorLogger{os.Stdout, true, true},
+		})
+		if err != nil {
+			t.Fatalf("error creating the client: %s", err)
+		}
+
+		var indexName = "test-index-get"
+		if ok, err := es.Indices.Exists(indexName).IsSuccess(context.Background()); ok && err == nil {
+			es.Indices.Delete(indexName).Do(context.Background())
+		}
+		es.Indices.Create(indexName).Do(context.Background())
+		es.Index(indexName).Id("test").Request(struct{}{}).Do(context.Background())
+
+		res, err := es.Get(indexName, "test").Do(context.Background())
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !res.Found && res.Id_ != "test" {
+			t.Fatal(err)
+		}
+
+		res, err = es.Get(indexName, "empty").Do(context.Background())
+		if err != nil {
+			t.Fatal(err)
+		}
+		if res.Found {
+			t.Fatal("document shouldn't have been found")
+		}
+
+		res, err = es.Get("foo-index", "empty").Do(context.Background())
+		if err == nil {
+			t.Fatalf("error should have been raised : %s", err)
+		}
+	})
 }
