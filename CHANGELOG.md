@@ -1,3 +1,11 @@
+# 8.8.2
+
+## Typed API
+
+ * Fixed deserialization for `Suggest` in search responses.
+ * Fixed double-quoted strings in deserialization for unions normalized as string. #684
+ * Fixed handling of `core.Get` response when the index did not exist. #678
+
 # 8.8.0
 
 ## API
