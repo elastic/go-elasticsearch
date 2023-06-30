@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 // Close a point in time
 package closepointintime
@@ -28,6 +28,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -185,7 +186,7 @@ func (r ClosePointInTime) Do(ctx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 || res.StatusCode == 404 {
+	if res.StatusCode < 299 {
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			return nil, err
@@ -194,10 +195,38 @@ func (r ClosePointInTime) Do(ctx context.Context) (*Response, error) {
 		return response, nil
 	}
 
+	if res.StatusCode == 404 {
+		data, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		errorResponse := types.NewElasticsearchError()
+		err = json.NewDecoder(gobytes.NewReader(data)).Decode(errorResponse)
+		if err != nil {
+			return nil, err
+		}
+
+		if errorResponse.Status == 0 {
+			err = json.NewDecoder(gobytes.NewReader(data)).Decode(response)
+			if err != nil {
+				return nil, err
+			}
+
+			return response, nil
+		}
+
+		return nil, errorResponse
+	}
+
 	errorResponse := types.NewElasticsearchError()
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
 		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
 	}
 
 	return nil, errorResponse

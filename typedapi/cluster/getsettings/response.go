@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package getsettings
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/cluster/get_settings/ClusterGetSettingsResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/cluster/get_settings/ClusterGetSettingsResponse.ts#L23-L29
 
 type Response struct {
 	Defaults   map[string]json.RawMessage `json:"defaults,omitempty"`

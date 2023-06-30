@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // FollowerIndexParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/ccr/follow_info/types.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/ccr/follow_info/types.ts#L38-L49
 type FollowerIndexParameters struct {
 	MaxOutstandingReadRequests    int      `json:"max_outstanding_read_requests"`
 	MaxOutstandingWriteRequests   int      `json:"max_outstanding_write_requests"`
@@ -112,7 +112,11 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MaxReadRequestSize = o
 
 		case "max_retry_delay":
@@ -141,7 +145,11 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MaxWriteBufferSize = o
 
 		case "max_write_request_operation_count":
@@ -165,7 +173,11 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MaxWriteRequestSize = o
 
 		case "read_poll_timeout":

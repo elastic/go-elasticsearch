@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -25,11 +25,12 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 )
 
 // NodesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/cat/nodes/types.ts#L23-L541
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/cat/nodes/types.ts#L23-L541
 type NodesRecord struct {
 	// Build es build hash
 	Build *string `json:"build,omitempty"`
@@ -246,7 +247,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Build = &o
 
 		case "bulk.avg_size_in_bytes", "basi", "bulkAvgSizeInBytes":
@@ -254,7 +259,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkAvgSizeInBytes = &o
 
 		case "bulk.avg_time", "bati", "bulkAvgTime":
@@ -262,7 +271,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkAvgTime = &o
 
 		case "bulk.total_operations", "bto", "bulkTotalOperations":
@@ -270,7 +283,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkTotalOperations = &o
 
 		case "bulk.total_size_in_bytes", "btsi", "bulkTotalSizeInBytes":
@@ -278,7 +295,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkTotalSizeInBytes = &o
 
 		case "bulk.total_time", "btti", "bulkTotalTime":
@@ -286,7 +307,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkTotalTime = &o
 
 		case "completion.size", "cs", "completionSize":
@@ -294,7 +319,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CompletionSize = &o
 
 		case "cpu":
@@ -302,7 +331,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Cpu = &o
 
 		case "disk.avail", "d", "da", "disk", "diskAvail":
@@ -330,7 +363,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FielddataEvictions = &o
 
 		case "fielddata.memory_size", "fm", "fielddataMemory":
@@ -338,7 +375,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FielddataMemorySize = &o
 
 		case "file_desc.current", "fdc", "fileDescriptorCurrent":
@@ -346,7 +387,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FileDescCurrent = &o
 
 		case "file_desc.max", "fdm", "fileDescriptorMax":
@@ -354,7 +399,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FileDescMax = &o
 
 		case "file_desc.percent", "fdp", "fileDescriptorPercent":
@@ -367,7 +416,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Flavor = &o
 
 		case "flush.total", "ft", "flushTotal":
@@ -375,7 +428,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FlushTotal = &o
 
 		case "flush.total_time", "ftt", "flushTotalTime":
@@ -383,7 +440,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FlushTotalTime = &o
 
 		case "get.current", "gc", "getCurrent":
@@ -391,7 +452,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetCurrent = &o
 
 		case "get.exists_time", "geti", "getExistsTime":
@@ -399,7 +464,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetExistsTime = &o
 
 		case "get.exists_total", "geto", "getExistsTotal":
@@ -407,7 +476,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetExistsTotal = &o
 
 		case "get.missing_time", "gmti", "getMissingTime":
@@ -415,7 +488,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetMissingTime = &o
 
 		case "get.missing_total", "gmto", "getMissingTotal":
@@ -423,7 +500,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetMissingTotal = &o
 
 		case "get.time", "gti", "getTime":
@@ -431,7 +512,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetTime = &o
 
 		case "get.total", "gto", "getTotal":
@@ -439,7 +524,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetTotal = &o
 
 		case "heap.current", "hc", "heapCurrent":
@@ -447,7 +536,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.HeapCurrent = &o
 
 		case "heap.max", "hm", "heapMax":
@@ -455,7 +548,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.HeapMax = &o
 
 		case "heap.percent", "hp", "heapPercent":
@@ -468,7 +565,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.HttpAddress = &o
 
 		case "id", "nodeId":
@@ -481,7 +582,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingDeleteCurrent = &o
 
 		case "indexing.delete_time", "idti", "indexingDeleteTime":
@@ -489,7 +594,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingDeleteTime = &o
 
 		case "indexing.delete_total", "idto", "indexingDeleteTotal":
@@ -497,7 +606,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingDeleteTotal = &o
 
 		case "indexing.index_current", "iic", "indexingIndexCurrent":
@@ -505,7 +618,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexCurrent = &o
 
 		case "indexing.index_failed", "iif", "indexingIndexFailed":
@@ -513,7 +630,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexFailed = &o
 
 		case "indexing.index_time", "iiti", "indexingIndexTime":
@@ -521,7 +642,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexTime = &o
 
 		case "indexing.index_total", "iito", "indexingIndexTotal":
@@ -529,7 +654,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexTotal = &o
 
 		case "ip", "i":
@@ -537,7 +666,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Ip = &o
 
 		case "jdk", "j":
@@ -545,7 +678,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Jdk = &o
 
 		case "load_15m", "l":
@@ -553,7 +690,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Load15M = &o
 
 		case "load_1m":
@@ -561,7 +702,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Load1M = &o
 
 		case "load_5m":
@@ -569,7 +714,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Load5M = &o
 
 		case "master", "m":
@@ -577,7 +726,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Master = &o
 
 		case "merges.current", "mc", "mergesCurrent":
@@ -585,7 +738,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesCurrent = &o
 
 		case "merges.current_docs", "mcd", "mergesCurrentDocs":
@@ -593,7 +750,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesCurrentDocs = &o
 
 		case "merges.current_size", "mcs", "mergesCurrentSize":
@@ -601,7 +762,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesCurrentSize = &o
 
 		case "merges.total", "mt", "mergesTotal":
@@ -609,7 +774,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotal = &o
 
 		case "merges.total_docs", "mtd", "mergesTotalDocs":
@@ -617,7 +786,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotalDocs = &o
 
 		case "merges.total_size", "mts", "mergesTotalSize":
@@ -625,7 +798,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotalSize = &o
 
 		case "merges.total_time", "mtt", "mergesTotalTime":
@@ -633,7 +810,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotalTime = &o
 
 		case "name", "n":
@@ -646,7 +827,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.NodeRole = &o
 
 		case "pid", "p":
@@ -654,7 +839,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Pid = &o
 
 		case "port", "po":
@@ -662,7 +851,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Port = &o
 
 		case "query_cache.evictions", "qce", "queryCacheEvictions":
@@ -670,7 +863,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheEvictions = &o
 
 		case "query_cache.hit_count", "qchc", "queryCacheHitCount":
@@ -678,7 +875,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheHitCount = &o
 
 		case "query_cache.memory_size", "qcm", "queryCacheMemory":
@@ -686,7 +887,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheMemorySize = &o
 
 		case "query_cache.miss_count", "qcmc", "queryCacheMissCount":
@@ -694,7 +899,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheMissCount = &o
 
 		case "ram.current", "rc", "ramCurrent":
@@ -702,7 +911,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RamCurrent = &o
 
 		case "ram.max", "rn", "ramMax":
@@ -710,7 +923,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RamMax = &o
 
 		case "ram.percent", "rp", "ramPercent":
@@ -723,7 +940,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshExternalTime = &o
 
 		case "refresh.external_total", "rto", "refreshTotal":
@@ -731,7 +952,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshExternalTotal = &o
 
 		case "refresh.listeners", "rli", "refreshListeners":
@@ -739,7 +964,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshListeners = &o
 
 		case "refresh.time":
@@ -747,7 +976,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshTime = &o
 
 		case "refresh.total":
@@ -755,7 +988,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshTotal = &o
 
 		case "request_cache.evictions", "rce", "requestCacheEvictions":
@@ -763,7 +1000,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheEvictions = &o
 
 		case "request_cache.hit_count", "rchc", "requestCacheHitCount":
@@ -771,7 +1012,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheHitCount = &o
 
 		case "request_cache.memory_size", "rcm", "requestCacheMemory":
@@ -779,7 +1024,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheMemorySize = &o
 
 		case "request_cache.miss_count", "rcmc", "requestCacheMissCount":
@@ -787,7 +1036,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheMissCount = &o
 
 		case "script.cache_evictions", "scrce", "scriptCacheEvictions":
@@ -795,7 +1048,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ScriptCacheEvictions = &o
 
 		case "script.compilation_limit_triggered", "scrclt", "scriptCacheCompilationLimitTriggered":
@@ -803,7 +1060,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ScriptCompilationLimitTriggered = &o
 
 		case "script.compilations", "scrcc", "scriptCompilations":
@@ -811,7 +1072,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ScriptCompilations = &o
 
 		case "search.fetch_current", "sfc", "searchFetchCurrent":
@@ -819,7 +1084,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchFetchCurrent = &o
 
 		case "search.fetch_time", "sfti", "searchFetchTime":
@@ -827,7 +1096,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchFetchTime = &o
 
 		case "search.fetch_total", "sfto", "searchFetchTotal":
@@ -835,7 +1108,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchFetchTotal = &o
 
 		case "search.open_contexts", "so", "searchOpenContexts":
@@ -843,7 +1120,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchOpenContexts = &o
 
 		case "search.query_current", "sqc", "searchQueryCurrent":
@@ -851,7 +1132,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchQueryCurrent = &o
 
 		case "search.query_time", "sqti", "searchQueryTime":
@@ -859,7 +1144,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchQueryTime = &o
 
 		case "search.query_total", "sqto", "searchQueryTotal":
@@ -867,7 +1156,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchQueryTotal = &o
 
 		case "search.scroll_current", "scc", "searchScrollCurrent":
@@ -875,7 +1168,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchScrollCurrent = &o
 
 		case "search.scroll_time", "scti", "searchScrollTime":
@@ -883,7 +1180,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchScrollTime = &o
 
 		case "search.scroll_total", "scto", "searchScrollTotal":
@@ -891,7 +1192,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchScrollTotal = &o
 
 		case "segments.count", "sc", "segmentsCount":
@@ -899,7 +1204,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsCount = &o
 
 		case "segments.fixed_bitset_memory", "sfbm", "fixedBitsetMemory":
@@ -907,7 +1216,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsFixedBitsetMemory = &o
 
 		case "segments.index_writer_memory", "siwm", "segmentsIndexWriterMemory":
@@ -915,7 +1228,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsIndexWriterMemory = &o
 
 		case "segments.memory", "sm", "segmentsMemory":
@@ -923,7 +1240,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsMemory = &o
 
 		case "segments.version_map_memory", "svmm", "segmentsVersionMapMemory":
@@ -931,7 +1252,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsVersionMapMemory = &o
 
 		case "suggest.current", "suc", "suggestCurrent":
@@ -939,7 +1264,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SuggestCurrent = &o
 
 		case "suggest.time", "suti", "suggestTime":
@@ -947,7 +1276,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SuggestTime = &o
 
 		case "suggest.total", "suto", "suggestTotal":
@@ -955,7 +1288,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SuggestTotal = &o
 
 		case "type", "t":
@@ -963,7 +1300,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = &o
 
 		case "uptime", "u":
@@ -971,7 +1312,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Uptime = &o
 
 		case "version", "v":

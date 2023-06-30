@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -25,13 +25,14 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/snapshotupgradestate"
 )
 
 // ModelSnapshotUpgrade type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/ml/_types/Model.ts#L48-L54
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/ml/_types/Model.ts#L48-L54
 type ModelSnapshotUpgrade struct {
 	AssignmentExplanation string                                    `json:"assignment_explanation"`
 	JobId                 string                                    `json:"job_id"`
@@ -60,7 +61,11 @@ func (s *ModelSnapshotUpgrade) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.AssignmentExplanation = o
 
 		case "job_id":

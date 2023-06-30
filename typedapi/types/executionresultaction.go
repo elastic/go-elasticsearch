@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package types
 
@@ -25,6 +25,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actionstatusoptions"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actiontype"
@@ -32,7 +33,7 @@ import (
 
 // ExecutionResultAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/watcher/_types/Execution.ts#L74-L86
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/watcher/_types/Execution.ts#L74-L86
 type ExecutionResultAction struct {
 	Email     *EmailResult                            `json:"email,omitempty"`
 	Error     *ErrorCause                             `json:"error,omitempty"`
@@ -97,7 +98,11 @@ func (s *ExecutionResultAction) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Reason = &o
 
 		case "slack":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 // Creates part of a trained model definition
 package puttrainedmodeldefinitionpart
@@ -221,6 +221,10 @@ func (r PutTrainedModelDefinitionPart) Do(ctx context.Context) (*Response, error
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
 		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
 	}
 
 	return nil, errorResponse

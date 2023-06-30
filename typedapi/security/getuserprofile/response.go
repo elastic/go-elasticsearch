@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96
+// https://github.com/elastic/elasticsearch-specification/tree/a0da620389f06553c0727f98f95e40dbb564fcca
 
 package getuserprofile
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getuserprofile
 //
-// https://github.com/elastic/elasticsearch-specification/blob/0a58ae2e52dd1bc6227f65da9cbbcea5b61dde96/specification/security/get_user_profile/Response.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/a0da620389f06553c0727f98f95e40dbb564fcca/specification/security/get_user_profile/Response.ts#L23-L28
 
 type Response struct {
 	Errors   *types.GetUserProfileErrors     `json:"errors,omitempty"`
