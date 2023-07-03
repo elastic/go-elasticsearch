@@ -41,7 +41,7 @@ image::images/es-endpoint.jpg[alt="Finding Elasticsearch endpoint",align="center
 
 You can generate an API key on the **Management** page under Security.
 
-image::images/create-api-key.jpg[alt="Create API key",align="center"]
+image::images/create-api-key.png[alt="Create API key",align="center"]
 
 For other connection options, refer to the <<connecting>> section.
 
