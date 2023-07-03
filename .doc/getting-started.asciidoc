@@ -1,0 +1,134 @@
+[[getting-started-go]]
+== Getting started
+
+This page guides you through the installation process of the Go client, shows 
+you how to instantiate the client, and how to perform basic Elasticsearch 
+operations with it.
+
+[discrete]
+=== Requirements
+
+* (...)
+
+[discrete]
+=== Installation 
+
+To install the latest version of the client, run the following command:
+
+[source,shell]
+--------------------------
+
+--------------------------
+
+Refer to the <<installation>> page to learn more.
+
+
+[discrete]
+=== Connecting
+
+You can connect to the Elastic Cloud using an API key and the Elasticsearch 
+endpoint. 
+
+[source,go]
+----
+
+----
+
+Your Elasticsearch endpoint can be found on the **My deployment** page of your 
+deployment:
+
+image::images/es-endpoint.jpg[alt="Finding Elasticsearch endpoint",align="center"]
+
+You can generate an API key on the **Management** page under Security.
+
+image::images/create-api-key.jpg[alt="Create API key",align="center"]
+
+For other connection options, refer to the <<connecting>> section.
+
+
+[discrete]
+=== Operations
+
+Time to use Elasticsearch! This section walks you through the basic, and most 
+important, operations of Elasticsearch. For more operations and more advanced 
+examples, refer to the <<examples>> page.
+
+
+[discrete]
+==== Creating an index
+
+This is how you create the `my_index` index:
+
+[source,go]
+----
+
+----
+
+
+[discrete]
+==== Indexing documents
+
+This is a simple way of indexing a document:
+
+[source,go]
+----
+
+----
+
+
+[discrete]
+==== Getting documents
+
+You can get documents by using the following code:
+
+[source,go]
+----
+
+----
+
+
+[discrete]
+==== Searching documents
+
+This is how you can create a single match query with the Go client: 
+
+[source,go]
+----
+
+----
+
+
+[discrete]
+==== Updating documents
+
+This is how you can update a document, for example to add a new field:
+
+[source,go]
+----
+
+----
+
+
+[discrete]
+==== Deleting documents
+
+[source,go]
+----
+
+----
+
+
+[discrete]
+==== Deleting an index
+
+[source,go]
+----
+
+----
+
+
+[discrete]
+== Further reading
+
+* Learn more about the <<typedapi>>, a strongly typed, fluent-like Golang API 
+for {es}.
