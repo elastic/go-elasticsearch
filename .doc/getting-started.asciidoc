@@ -3,7 +3,8 @@
 
 This page guides you through the installation process of the Go client, shows 
 you how to instantiate the client, and how to perform basic Elasticsearch 
-operations with it.
+operations with it. You can use the client with either a low-level API or a 
+fully typed API. This getting started shows you examples of both APIs.
 
 [discrete]
 === Requirements
@@ -57,7 +58,14 @@ examples, refer to the <<examples>> page.
 [discrete]
 ==== Creating an index
 
-This is how you create the `my_index` index:
+This is how you create the `my_index` index with the low level API:
+
+[source,go]
+----
+
+----
+
+This is how you create the `my_index` index with the fully-typed API:
 
 [source,go]
 ----
@@ -68,18 +76,31 @@ This is how you create the `my_index` index:
 [discrete]
 ==== Indexing documents
 
-This is a simple way of indexing a document:
+This is a simple way of indexing a document by using the low-level API:
 
 [source,go]
 ----
 
 ----
 
+The same operation by using the fully-typed API:
+
+[source,go]
+----
+
+----
 
 [discrete]
 ==== Getting documents
 
-You can get documents by using the following code:
+You can get documents by using the following code with the low-level API:
+
+[source,go]
+----
+
+----
+
+This is how you can get documents by using the fully-typed API:
 
 [source,go]
 ----
@@ -90,7 +111,14 @@ You can get documents by using the following code:
 [discrete]
 ==== Searching documents
 
-This is how you can create a single match query with the Go client: 
+This is how you can create a single match query with the low-level API: 
+
+[source,go]
+----
+
+----
+
+You can perform a single match query with the fully-tpyed API, too:
 
 [source,go]
 ----
@@ -101,7 +129,15 @@ This is how you can create a single match query with the Go client:
 [discrete]
 ==== Updating documents
 
-This is how you can update a document, for example to add a new field:
+This is how you can update a document, for example to add a new field, by using 
+the low-level API:
+
+[source,go]
+----
+
+----
+
+And this is how you can update a document with the fully-typed API:
 
 [source,go]
 ----
@@ -112,6 +148,15 @@ This is how you can update a document, for example to add a new field:
 [discrete]
 ==== Deleting documents
 
+Low-level API:
+
+[source,go]
+----
+
+----
+
+Fully-typed API:
+
 [source,go]
 ----
 
@@ -120,6 +165,15 @@ This is how you can update a document, for example to add a new field:
 
 [discrete]
 ==== Deleting an index
+
+Low-level API:
+
+[source,go]
+----
+
+----
+
+Fully-typed API:
 
 [source,go]
 ----
