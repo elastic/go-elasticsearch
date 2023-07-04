@@ -1,7 +1,7 @@
 [[typedapi]]
 == Typed API
 
-The goal for this API is to provide a strongly typed, fluent-like Golang API for 
+The goal for this API is to provide a strongly typed Golang API for
 {es}.
 
 This was designed with structures and the Golang runtime in mind, following as 
