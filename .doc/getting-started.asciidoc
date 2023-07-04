@@ -1,0 +1,228 @@
+[[getting-started-go]]
+== Getting started
+
+This page guides you through the installation process of the Go client, shows 
+you how to instantiate the client, and how to perform basic Elasticsearch 
+operations with it. You can use the client with either a low-level API or a 
+fully typed API. This getting started shows you examples of both APIs.
+
+[discrete]
+=== Requirements
+
+Go version 1.13+
+
+[discrete]
+=== Installation 
+
+To install the latest version of the client, run the following command:
+
+[source,shell]
+--------------------------
+go get github.com/elastic/go-elasticsearch/v8@latest
+--------------------------
+
+Refer to the <<installation>> page to learn more.
+
+
+[discrete]
+=== Connecting
+
+You can connect to the Elastic Cloud using an API key and the Elasticsearch 
+endpoint for the low level API:
+
+[source,go]
+----
+client, err := elasticsearch.NewClient(elasticsearch.Config{
+    CloudID: "<CloudID>",
+    APIKey: "<ApiKey>",
+})
+----
+
+This is the same for the fully-typed API:
+
+[source,go]
+----
+typedClient, err := elasticsearch.NewTypedClient(elasticsearch.Config{
+    CloudID: "<CloudID>",
+    APIKey:  "<ApiKey>",
+})
+----
+
+
+Your Elasticsearch endpoint can be found on the **My deployment** page of your 
+deployment:
+
+image::images/es-endpoint.jpg[alt="Finding Elasticsearch endpoint",align="center"]
+
+You can generate an API key on the **Management** page under Security.
+
+image::images/create-api-key.png[alt="Create API key",align="center"]
+
+For other connection options, refer to the <<connecting>> section.
+
+
+[discrete]
+=== Operations
+
+Time to use Elasticsearch! This section walks you through the basic, and most 
+important, operations of Elasticsearch. For more operations and more advanced 
+examples, refer to the <<examples>> page.
+
+
+[discrete]
+==== Creating an index
+
+This is how you create the `my_index` index with the low level API:
+
+[source,go]
+----
+client.Indices.Create("my_index")
+----
+
+This is how you create the `my_index` index with the fully-typed API:
+
+[source,go]
+----
+typedClient.Indices.Create("my_index").Do(context.TODO())
+----
+
+
+[discrete]
+==== Indexing documents
+
+This is a simple way of indexing a document by using the low-level API:
+
+[source,go]
+----
+document := struct {
+    Name string `json:"name"`
+}{
+    "go-elasticsearch",
+}
+data, _ := json.Marshal(document)
+client.Index("my_index", bytes.NewReader(data))
+----
+
+The same operation by using the fully-typed API:
+
+[source,go]
+----
+document := struct {
+    Name string `json:"name"`
+}{
+    "go-elasticsearch",
+}
+typedClient.Index("my_index").
+		Id("1").
+		Request(document).
+		Do(context.TODO())
+----
+
+[discrete]
+==== Getting documents
+
+You can get documents by using the following code with the low-level API:
+
+[source,go]
+----
+client.Get("my_index", "id")
+----
+
+This is how you can get documents by using the fully-typed API:
+
+[source,go]
+----
+typedClient.Get("my_index", "id").Do(context.TODO())
+----
+
+
+[discrete]
+==== Searching documents
+
+This is how you can create a single match query with the low-level API: 
+
+[source,go]
+----
+query := `{ query: { match_all: {} } }`
+client.Search(
+    client.Search.WithIndex("my_index"),
+    client.Search.WithBody(strings.NewReader(query)),
+)
+----
+
+You can perform a single match query with the fully-typed API, too:
+
+[source,go]
+----
+typedClient.Search().
+    Index("my_index").
+    Request(&search.Request{
+        Query: &types.Query{MatchAll: &types.MatchAllQuery{}},
+    }).
+    Do(context.TODO())
+----
+
+
+[discrete]
+==== Updating documents
+
+This is how you can update a document, for example to add a new field, by using 
+the low-level API:
+
+[source,go]
+----
+client.Update("my_index", "id", strings.NewReader(`{doc: { language: "Go" }}`))
+----
+
+And this is how you can update a document with the fully-typed API:
+
+[source,go]
+----
+typedClient.Update("my_index", "id").
+	Request(&update.Request{
+        Doc: json.RawMessage(`{ language: "Go" }`),
+    }).Do(context.TODO())
+----
+
+
+[discrete]
+==== Deleting documents
+
+Low-level API:
+
+[source,go]
+----
+client.Delete("my_index", "id")
+----
+
+Fully-typed API:
+
+[source,go]
+----
+typedClient.Delete("my_index", "id").Do(context.TODO())
+----
+
+
+[discrete]
+==== Deleting an index
+
+Low-level API:
+
+[source,go]
+----
+client.Indices.Delete([]string{"my_index"})
+----
+
+Fully-typed API:
+
+[source,go]
+----
+typedClient.Indices.Delete("my_index").Do(context.TODO())
+----
+
+
+[discrete]
+== Further reading
+
+* Learn more about the <<typedapi>>, a strongly typed Golang API
+for {es}.
