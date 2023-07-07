@@ -16,38 +16,55 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // ClusterRuntimeFieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L116-L131
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/stats/types.ts#L169-L226
 type ClusterRuntimeFieldTypes struct {
-	CharsMax        int      `json:"chars_max"`
-	CharsTotal      int      `json:"chars_total"`
-	Count           int      `json:"count"`
-	DocMax          int      `json:"doc_max"`
-	DocTotal        int      `json:"doc_total"`
-	IndexCount      int      `json:"index_count"`
-	Lang            []string `json:"lang"`
-	LinesMax        int      `json:"lines_max"`
-	LinesTotal      int      `json:"lines_total"`
-	Name            string   `json:"name"`
-	ScriptlessCount int      `json:"scriptless_count"`
-	ShadowedCount   int      `json:"shadowed_count"`
-	SourceMax       int      `json:"source_max"`
-	SourceTotal     int      `json:"source_total"`
+	// CharsMax Maximum number of characters for a single runtime field script.
+	CharsMax int `json:"chars_max"`
+	// CharsTotal Total number of characters for the scripts that define the current runtime
+	// field data type.
+	CharsTotal int `json:"chars_total"`
+	// Count Number of runtime fields mapped to the field data type in selected nodes.
+	Count int `json:"count"`
+	// DocMax Maximum number of accesses to doc_values for a single runtime field script
+	DocMax int `json:"doc_max"`
+	// DocTotal Total number of accesses to doc_values for the scripts that define the
+	// current runtime field data type.
+	DocTotal int `json:"doc_total"`
+	// IndexCount Number of indices containing a mapping of the runtime field data type in
+	// selected nodes.
+	IndexCount int `json:"index_count"`
+	// Lang Script languages used for the runtime fields scripts.
+	Lang []string `json:"lang"`
+	// LinesMax Maximum number of lines for a single runtime field script.
+	LinesMax int `json:"lines_max"`
+	// LinesTotal Total number of lines for the scripts that define the current runtime field
+	// data type.
+	LinesTotal int `json:"lines_total"`
+	// Name Field data type used in selected nodes.
+	Name string `json:"name"`
+	// ScriptlessCount Number of runtime fields that don’t declare a script.
+	ScriptlessCount int `json:"scriptless_count"`
+	// ShadowedCount Number of runtime fields that shadow an indexed field.
+	ShadowedCount int `json:"shadowed_count"`
+	// SourceMax Maximum number of accesses to _source for a single runtime field script.
+	SourceMax int `json:"source_max"`
+	// SourceTotal Total number of accesses to _source for the scripts that define the current
+	// runtime field data type.
+	SourceTotal int `json:"source_total"`
 }
 
 func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {

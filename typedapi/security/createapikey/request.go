@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package createapikey
 
@@ -29,14 +29,14 @@ import (
 
 // Request holds the request body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L51
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L58
 type Request struct {
 
 	// Expiration Expiration time for the API key. By default, API keys never expire.
 	Expiration types.Duration `json:"expiration,omitempty"`
 	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
-	// nested data structure. Within the metadata object, keys beginning with _ are
-	// reserved for system usage.
+	// nested data structure. Within the metadata object, keys beginning with `_`
+	// are reserved for system usage.
 	Metadata types.Metadata `json:"metadata,omitempty"`
 	// Name Specifies the name for this API key.
 	Name *string `json:"name,omitempty"`

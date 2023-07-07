@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Resumes a follower index that has been paused
 package resumefollow
@@ -52,8 +52,9 @@ type ResumeFollow struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *ResumeFollow {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *ResumeFollow) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *ResumeFollow) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -213,6 +227,10 @@ func (r ResumeFollow) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -225,9 +243,87 @@ func (r *ResumeFollow) Header(key, value string) *ResumeFollow {
 
 // Index The name of the follow index to resume following.
 // API Name: index
-func (r *ResumeFollow) Index(v string) *ResumeFollow {
+func (r *ResumeFollow) Index(index string) *ResumeFollow {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
+
+	return r
+}
+
+// API name: max_outstanding_read_requests
+func (r *ResumeFollow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *ResumeFollow {
+
+	r.req.MaxOutstandingReadRequests = &maxoutstandingreadrequests
+
+	return r
+}
+
+// API name: max_outstanding_write_requests
+func (r *ResumeFollow) MaxOutstandingWriteRequests(maxoutstandingwriterequests int64) *ResumeFollow {
+
+	r.req.MaxOutstandingWriteRequests = &maxoutstandingwriterequests
+
+	return r
+}
+
+// API name: max_read_request_operation_count
+func (r *ResumeFollow) MaxReadRequestOperationCount(maxreadrequestoperationcount int64) *ResumeFollow {
+
+	r.req.MaxReadRequestOperationCount = &maxreadrequestoperationcount
+
+	return r
+}
+
+// API name: max_read_request_size
+func (r *ResumeFollow) MaxReadRequestSize(maxreadrequestsize string) *ResumeFollow {
+
+	r.req.MaxReadRequestSize = &maxreadrequestsize
+
+	return r
+}
+
+// API name: max_retry_delay
+func (r *ResumeFollow) MaxRetryDelay(duration types.Duration) *ResumeFollow {
+	r.req.MaxRetryDelay = duration
+
+	return r
+}
+
+// API name: max_write_buffer_count
+func (r *ResumeFollow) MaxWriteBufferCount(maxwritebuffercount int64) *ResumeFollow {
+
+	r.req.MaxWriteBufferCount = &maxwritebuffercount
+
+	return r
+}
+
+// API name: max_write_buffer_size
+func (r *ResumeFollow) MaxWriteBufferSize(maxwritebuffersize string) *ResumeFollow {
+
+	r.req.MaxWriteBufferSize = &maxwritebuffersize
+
+	return r
+}
+
+// API name: max_write_request_operation_count
+func (r *ResumeFollow) MaxWriteRequestOperationCount(maxwriterequestoperationcount int64) *ResumeFollow {
+
+	r.req.MaxWriteRequestOperationCount = &maxwriterequestoperationcount
+
+	return r
+}
+
+// API name: max_write_request_size
+func (r *ResumeFollow) MaxWriteRequestSize(maxwriterequestsize string) *ResumeFollow {
+
+	r.req.MaxWriteRequestSize = &maxwriterequestsize
+
+	return r
+}
+
+// API name: read_poll_timeout
+func (r *ResumeFollow) ReadPollTimeout(duration types.Duration) *ResumeFollow {
+	r.req.ReadPollTimeout = duration
 
 	return r
 }

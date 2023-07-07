@@ -16,18 +16,73 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+)
+
 // PagerDutyResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/watcher/_types/Actions.ts#L78-L83
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/watcher/_types/Actions.ts#L78-L83
 type PagerDutyResult struct {
 	Event    PagerDutyEvent           `json:"event"`
 	Reason   *string                  `json:"reason,omitempty"`
 	Request  *HttpInputRequestResult  `json:"request,omitempty"`
 	Response *HttpInputResponseResult `json:"response,omitempty"`
+}
+
+func (s *PagerDutyResult) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "event":
+			if err := dec.Decode(&s.Event); err != nil {
+				return err
+			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Reason = &o
+
+		case "request":
+			if err := dec.Decode(&s.Request); err != nil {
+				return err
+			}
+
+		case "response":
+			if err := dec.Decode(&s.Response); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewPagerDutyResult returns a PagerDutyResult.

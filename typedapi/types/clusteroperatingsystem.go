@@ -16,30 +16,39 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // ClusterOperatingSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L235-L242
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/stats/types.ts#L415-L442
 type ClusterOperatingSystem struct {
-	AllocatedProcessors int                                  `json:"allocated_processors"`
-	Architectures       []ClusterOperatingSystemArchitecture `json:"architectures,omitempty"`
-	AvailableProcessors int                                  `json:"available_processors"`
-	Mem                 OperatingSystemMemoryInfo            `json:"mem"`
-	Names               []ClusterOperatingSystemName         `json:"names"`
-	PrettyNames         []ClusterOperatingSystemPrettyName   `json:"pretty_names"`
+	// AllocatedProcessors Number of processors used to calculate thread pool size across all selected
+	// nodes.
+	// This number can be set with the processors setting of a node and defaults to
+	// the number of processors reported by the operating system.
+	// In both cases, this number will never be larger than 32.
+	AllocatedProcessors int `json:"allocated_processors"`
+	// Architectures Contains statistics about processor architectures (for example, x86_64 or
+	// aarch64) used by selected nodes.
+	Architectures []ClusterOperatingSystemArchitecture `json:"architectures,omitempty"`
+	// AvailableProcessors Number of processors available to JVM across all selected nodes.
+	AvailableProcessors int `json:"available_processors"`
+	// Mem Contains statistics about memory used by selected nodes.
+	Mem OperatingSystemMemoryInfo `json:"mem"`
+	// Names Contains statistics about operating systems used by selected nodes.
+	Names []ClusterOperatingSystemName `json:"names"`
+	// PrettyNames Contains statistics about operating systems used by selected nodes.
+	PrettyNames []ClusterOperatingSystemPrettyName `json:"pretty_names"`
 }
 
 func (s *ClusterOperatingSystem) UnmarshalJSON(data []byte) error {

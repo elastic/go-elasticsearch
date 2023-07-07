@@ -16,57 +16,58 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // TrainedModelsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/ml_trained_models/types.ts#L23-L111
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cat/ml_trained_models/types.ts#L23-L115
 type TrainedModelsRecord struct {
-	// CreateTime The time the model was created
+	// CreateTime The time the model was created.
 	CreateTime DateTime `json:"create_time,omitempty"`
-	// CreatedBy who created the model
+	// CreatedBy Information about the creator of the model.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// DataFrameAnalysis The analysis used by the data frame to build the model
+	// DataFrameAnalysis The analysis used by the data frame to build the model.
 	DataFrameAnalysis *string `json:"data_frame.analysis,omitempty"`
-	// DataFrameCreateTime The time the data frame analytics config was created
+	// DataFrameCreateTime The time the data frame analytics job was created.
 	DataFrameCreateTime *string `json:"data_frame.create_time,omitempty"`
-	// DataFrameId The data frame analytics config id that created the model (if still
-	// available)
+	// DataFrameId The identifier for the data frame analytics job that created the model.
+	// Only displayed if the job is still available.
 	DataFrameId *string `json:"data_frame.id,omitempty"`
-	// DataFrameSourceIndex The source index used to train in the data frame analysis
+	// DataFrameSourceIndex The source index used to train in the data frame analysis.
 	DataFrameSourceIndex *string `json:"data_frame.source_index,omitempty"`
-	// Description The model description
+	// Description A description of the model.
 	Description *string `json:"description,omitempty"`
-	// HeapSize the estimated heap size to keep the model in memory
+	// HeapSize The estimated heap size to keep the model in memory.
 	HeapSize ByteSize `json:"heap_size,omitempty"`
-	// Id the trained model id
+	// Id The model identifier.
 	Id *string `json:"id,omitempty"`
-	// IngestCount The total number of docs processed by the model
+	// IngestCount The total number of documents that are processed by the model.
 	IngestCount *string `json:"ingest.count,omitempty"`
-	// IngestCurrent The total documents currently being handled by the model
+	// IngestCurrent The total number of documents that are currently being handled by the model.
 	IngestCurrent *string `json:"ingest.current,omitempty"`
-	// IngestFailed The total count of failed ingest attempts with this model
+	// IngestFailed The total number of failed ingest attempts with the model.
 	IngestFailed *string `json:"ingest.failed,omitempty"`
-	// IngestPipelines The number of pipelines referencing the model
+	// IngestPipelines The number of pipelines that are referencing the model.
 	IngestPipelines *string `json:"ingest.pipelines,omitempty"`
-	// IngestTime The total time spent processing docs with this model
+	// IngestTime The total time spent processing documents with thie model.
 	IngestTime *string `json:"ingest.time,omitempty"`
-	// License The license level of the model
+	// License The license level of the model.
 	License *string `json:"license,omitempty"`
-	// Operations the estimated number of operations to use the model
+	// Operations The estimated number of operations to use the model.
+	// This number helps to measure the computational complexity of the model.
 	Operations *string `json:"operations,omitempty"`
 	Type       *string `json:"type,omitempty"`
-	// Version The version of Elasticsearch when the model was created
+	// Version The version of Elasticsearch when the model was created.
 	Version *string `json:"version,omitempty"`
 }
 
@@ -95,7 +96,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CreatedBy = &o
 
 		case "data_frame.analysis", "dfa", "dataFrameAnalyticsAnalysis":
@@ -103,7 +108,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameAnalysis = &o
 
 		case "data_frame.create_time", "dft", "dataFrameAnalyticsTime":
@@ -111,7 +120,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameCreateTime = &o
 
 		case "data_frame.id", "dfid", "dataFrameAnalytics":
@@ -119,7 +132,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameId = &o
 
 		case "data_frame.source_index", "dfsi", "dataFrameAnalyticsSrcIndex":
@@ -127,7 +144,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DataFrameSourceIndex = &o
 
 		case "description", "d":
@@ -135,7 +156,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Description = &o
 
 		case "heap_size", "hs", "modelHeapSize":
@@ -153,7 +178,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestCount = &o
 
 		case "ingest.current", "icurr", "ingestCurrent":
@@ -161,7 +190,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestCurrent = &o
 
 		case "ingest.failed", "if", "ingestFailed":
@@ -169,7 +202,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestFailed = &o
 
 		case "ingest.pipelines", "ip", "ingestPipelines":
@@ -177,7 +214,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestPipelines = &o
 
 		case "ingest.time", "it", "ingestTime":
@@ -185,7 +226,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IngestTime = &o
 
 		case "license", "l":
@@ -193,7 +238,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.License = &o
 
 		case "operations", "o", "modelOperations":
@@ -201,7 +250,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Operations = &o
 
 		case "type":
@@ -209,7 +262,11 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = &o
 
 		case "version", "v":

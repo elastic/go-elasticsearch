@@ -16,26 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexoptions"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexoptions"
 )
 
 // KeywordProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/core.ts#L89-L104
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/core.ts#L89-L105
 type KeywordProperty struct {
 	Boost               *Float64                       `json:"boost,omitempty"`
 	CopyTo              []string                       `json:"copy_to,omitempty"`
@@ -486,7 +484,11 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Normalizer = &o
 
 		case "norms":
@@ -508,7 +510,11 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.NullValue = &o
 
 		case "properties":
@@ -813,7 +819,11 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "split_queries_on_whitespace":
@@ -868,6 +878,36 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s KeywordProperty) MarshalJSON() ([]byte, error) {
+	type innerKeywordProperty KeywordProperty
+	tmp := innerKeywordProperty{
+		Boost:                    s.Boost,
+		CopyTo:                   s.CopyTo,
+		DocValues:                s.DocValues,
+		Dynamic:                  s.Dynamic,
+		EagerGlobalOrdinals:      s.EagerGlobalOrdinals,
+		Fields:                   s.Fields,
+		IgnoreAbove:              s.IgnoreAbove,
+		Index:                    s.Index,
+		IndexOptions:             s.IndexOptions,
+		Meta:                     s.Meta,
+		Normalizer:               s.Normalizer,
+		Norms:                    s.Norms,
+		NullValue:                s.NullValue,
+		Properties:               s.Properties,
+		Similarity:               s.Similarity,
+		SplitQueriesOnWhitespace: s.SplitQueriesOnWhitespace,
+		Store:                    s.Store,
+		TimeSeriesDimension:      s.TimeSeriesDimension,
+		Type:                     s.Type,
+	}
+
+	tmp.Type = "keyword"
+
+	return json.Marshal(tmp)
+}
+
 // NewKeywordProperty returns a KeywordProperty.
 func NewKeywordProperty() *KeywordProperty {
 	r := &KeywordProperty{
@@ -875,8 +915,6 @@ func NewKeywordProperty() *KeywordProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "keyword"
 
 	return r
 }

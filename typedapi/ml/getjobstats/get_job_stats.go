@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves usage information for anomaly detection jobs.
 package getjobstats
@@ -188,6 +188,10 @@ func (r GetJobStats) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -224,9 +228,9 @@ func (r *GetJobStats) Header(key, value string) *GetJobStats {
 // you do not specify one of these options, the API returns information for
 // all anomaly detection jobs.
 // API Name: jobid
-func (r *GetJobStats) JobId(v string) *GetJobStats {
+func (r *GetJobStats) JobId(jobid string) *GetJobStats {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
@@ -242,8 +246,8 @@ func (r *GetJobStats) JobId(v string) *GetJobStats {
 // matches. If `false`, the API returns a `404` status
 // code when there are no matches or only partial matches.
 // API name: allow_no_match
-func (r *GetJobStats) AllowNoMatch(b bool) *GetJobStats {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *GetJobStats) AllowNoMatch(allownomatch bool) *GetJobStats {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }

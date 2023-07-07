@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns a concise representation of the cluster health.
 package health
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -168,6 +169,10 @@ func (r Health) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -199,10 +204,18 @@ func (r *Health) Header(key, value string) *Health {
 	return r
 }
 
-// Ts Set to false to disable timestamping
+// Time The unit used to display time values.
+// API name: time
+func (r *Health) Time(time timeunit.TimeUnit) *Health {
+	r.values.Set("time", time.String())
+
+	return r
+}
+
+// Ts If true, returns `HH:MM:SS` and Unix epoch timestamps.
 // API name: ts
-func (r *Health) Ts(b bool) *Health {
-	r.values.Set("ts", strconv.FormatBool(b))
+func (r *Health) Ts(ts bool) *Health {
+	r.values.Set("ts", strconv.FormatBool(ts))
 
 	return r
 }

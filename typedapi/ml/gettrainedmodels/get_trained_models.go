@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves configuration information for a trained inference model.
 package gettrainedmodels
@@ -36,7 +36,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/include"
 )
 
@@ -186,6 +185,10 @@ func (r GetTrainedModels) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -219,9 +222,9 @@ func (r *GetTrainedModels) Header(key, value string) *GetTrainedModels {
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *GetTrainedModels) ModelId(v string) *GetTrainedModels {
+func (r *GetTrainedModels) ModelId(modelid string) *GetTrainedModels {
 	r.paramSet |= modelidMask
-	r.modelid = v
+	r.modelid = modelid
 
 	return r
 }
@@ -235,8 +238,8 @@ func (r *GetTrainedModels) ModelId(v string) *GetTrainedModels {
 // If true, it returns an empty array when there are no matches and the
 // subset of results when there are partial matches.
 // API name: allow_no_match
-func (r *GetTrainedModels) AllowNoMatch(b bool) *GetTrainedModels {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *GetTrainedModels) AllowNoMatch(allownomatch bool) *GetTrainedModels {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
@@ -244,8 +247,8 @@ func (r *GetTrainedModels) AllowNoMatch(b bool) *GetTrainedModels {
 // DecompressDefinition Specifies whether the included model definition should be returned as a
 // JSON map (true) or in a custom compressed format (false).
 // API name: decompress_definition
-func (r *GetTrainedModels) DecompressDefinition(b bool) *GetTrainedModels {
-	r.values.Set("decompress_definition", strconv.FormatBool(b))
+func (r *GetTrainedModels) DecompressDefinition(decompressdefinition bool) *GetTrainedModels {
+	r.values.Set("decompress_definition", strconv.FormatBool(decompressdefinition))
 
 	return r
 }
@@ -254,16 +257,16 @@ func (r *GetTrainedModels) DecompressDefinition(b bool) *GetTrainedModels {
 // retrieval. This allows the configuration to be in an acceptable format to
 // be retrieved and then added to another cluster.
 // API name: exclude_generated
-func (r *GetTrainedModels) ExcludeGenerated(b bool) *GetTrainedModels {
-	r.values.Set("exclude_generated", strconv.FormatBool(b))
+func (r *GetTrainedModels) ExcludeGenerated(excludegenerated bool) *GetTrainedModels {
+	r.values.Set("exclude_generated", strconv.FormatBool(excludegenerated))
 
 	return r
 }
 
 // From Skips the specified number of models.
 // API name: from
-func (r *GetTrainedModels) From(i int) *GetTrainedModels {
-	r.values.Set("from", strconv.Itoa(i))
+func (r *GetTrainedModels) From(from int) *GetTrainedModels {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
@@ -271,16 +274,16 @@ func (r *GetTrainedModels) From(i int) *GetTrainedModels {
 // Include A comma delimited string of optional fields to include in the response
 // body.
 // API name: include
-func (r *GetTrainedModels) Include(enum include.Include) *GetTrainedModels {
-	r.values.Set("include", enum.String())
+func (r *GetTrainedModels) Include(include include.Include) *GetTrainedModels {
+	r.values.Set("include", include.String())
 
 	return r
 }
 
 // Size Specifies the maximum number of models to obtain.
 // API name: size
-func (r *GetTrainedModels) Size(i int) *GetTrainedModels {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *GetTrainedModels) Size(size int) *GetTrainedModels {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }
@@ -289,8 +292,8 @@ func (r *GetTrainedModels) Size(i int) *GetTrainedModels {
 // none. When supplied, only trained models that contain all the supplied
 // tags are returned.
 // API name: tags
-func (r *GetTrainedModels) Tags(v string) *GetTrainedModels {
-	r.values.Set("tags", v)
+func (r *GetTrainedModels) Tags(tags string) *GetTrainedModels {
+	r.values.Set("tags", tags)
 
 	return r
 }

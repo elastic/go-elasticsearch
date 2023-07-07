@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Consumes a SAML LogoutRequest
 package samlinvalidate
@@ -48,8 +48,9 @@ type SamlInvalidate struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *SamlInvalidate {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *SamlInvalidate) HttpRequest(ctx context.Context) (*http.Request, error)
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *SamlInvalidate) HttpRequest(ctx context.Context) (*http.Request, error)
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -204,12 +218,57 @@ func (r SamlInvalidate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the SamlInvalidate headers map.
 func (r *SamlInvalidate) Header(key, value string) *SamlInvalidate {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Acs The Assertion Consumer Service URL that matches the one of the SAML realm in
+// Elasticsearch that should be used. You must specify either this parameter or
+// the realm parameter.
+// API name: acs
+func (r *SamlInvalidate) Acs(acs string) *SamlInvalidate {
+
+	r.req.Acs = &acs
+
+	return r
+}
+
+// QueryString The query part of the URL that the user was redirected to by the SAML IdP to
+// initiate the Single Logout.
+// This query should include a single parameter named SAMLRequest that contains
+// a SAML logout request that is deflated and Base64 encoded.
+// If the SAML IdP has signed the logout request, the URL should include two
+// extra parameters named SigAlg and Signature that contain the algorithm used
+// for the signature and the signature value itself.
+// In order for Elasticsearch to be able to verify the IdP’s signature, the
+// value of the query_string field must be an exact match to the string provided
+// by the browser.
+// The client application must not attempt to parse or process the string in any
+// way.
+// API name: query_string
+func (r *SamlInvalidate) QueryString(querystring string) *SamlInvalidate {
+
+	r.req.QueryString = querystring
+
+	return r
+}
+
+// Realm The name of the SAML realm in Elasticsearch the configuration. You must
+// specify either this parameter or the acs parameter.
+// API name: realm
+func (r *SamlInvalidate) Realm(realm string) *SamlInvalidate {
+
+	r.req.Realm = &realm
 
 	return r
 }

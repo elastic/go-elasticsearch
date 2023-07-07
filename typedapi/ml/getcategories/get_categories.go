@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves anomaly detection job results for one or more categories.
 package getcategories
@@ -55,8 +55,9 @@ type GetCategories struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -88,6 +89,8 @@ func New(tp elastictransport.Interface) *GetCategories {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -117,9 +120,19 @@ func (r *GetCategories) HttpRequest(ctx context.Context) (*http.Request, error) 
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -127,6 +140,7 @@ func (r *GetCategories) HttpRequest(ctx context.Context) (*http.Request, error) 
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -238,6 +252,10 @@ func (r GetCategories) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -250,9 +268,9 @@ func (r *GetCategories) Header(key, value string) *GetCategories {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetCategories) JobId(v string) *GetCategories {
+func (r *GetCategories) JobId(jobid string) *GetCategories {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
@@ -263,33 +281,41 @@ func (r *GetCategories) JobId(v string) *GetCategories {
 // partition_field_value, it returns information about all categories for
 // the specified partition.
 // API Name: categoryid
-func (r *GetCategories) CategoryId(v string) *GetCategories {
+func (r *GetCategories) CategoryId(categoryid string) *GetCategories {
 	r.paramSet |= categoryidMask
-	r.categoryid = v
+	r.categoryid = categoryid
 
 	return r
 }
 
 // From Skips the specified number of categories.
 // API name: from
-func (r *GetCategories) From(i int) *GetCategories {
-	r.values.Set("from", strconv.Itoa(i))
+func (r *GetCategories) From(from int) *GetCategories {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
 
 // PartitionFieldValue Only return categories for the specified partition.
 // API name: partition_field_value
-func (r *GetCategories) PartitionFieldValue(v string) *GetCategories {
-	r.values.Set("partition_field_value", v)
+func (r *GetCategories) PartitionFieldValue(partitionfieldvalue string) *GetCategories {
+	r.values.Set("partition_field_value", partitionfieldvalue)
 
 	return r
 }
 
 // Size Specifies the maximum number of categories to obtain.
 // API name: size
-func (r *GetCategories) Size(i int) *GetCategories {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *GetCategories) Size(size int) *GetCategories {
+	r.values.Set("size", strconv.Itoa(size))
+
+	return r
+}
+
+// API name: page
+func (r *GetCategories) Page(page *types.Page) *GetCategories {
+
+	r.req.Page = page
 
 	return r
 }

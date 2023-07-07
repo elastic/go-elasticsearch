@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Evicts users from the user cache. Can completely clear the cache or evict
 // specific users.
@@ -182,6 +182,10 @@ func (r ClearCachedRealms) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,17 +219,21 @@ func (r *ClearCachedRealms) Header(key, value string) *ClearCachedRealms {
 
 // Realms Comma-separated list of realms to clear
 // API Name: realms
-func (r *ClearCachedRealms) Realms(v string) *ClearCachedRealms {
+func (r *ClearCachedRealms) Realms(realms string) *ClearCachedRealms {
 	r.paramSet |= realmsMask
-	r.realms = v
+	r.realms = realms
 
 	return r
 }
 
 // Usernames Comma-separated list of usernames to clear from the cache
 // API name: usernames
-func (r *ClearCachedRealms) Usernames(v string) *ClearCachedRealms {
-	r.values.Set("usernames", v)
+func (r *ClearCachedRealms) Usernames(usernames ...string) *ClearCachedRealms {
+	tmp := []string{}
+	for _, item := range usernames {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("usernames", strings.Join(tmp, ","))
 
 	return r
 }

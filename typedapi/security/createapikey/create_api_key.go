@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates an API key for access without requiring basic authentication.
 package createapikey
@@ -34,7 +34,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -50,8 +49,9 @@ type CreateApiKey struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -78,6 +78,8 @@ func New(tp elastictransport.Interface) *CreateApiKey {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -107,9 +109,19 @@ func (r *CreateApiKey) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -117,6 +129,7 @@ func (r *CreateApiKey) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -204,6 +217,10 @@ func (r CreateApiKey) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -218,8 +235,50 @@ func (r *CreateApiKey) Header(key, value string) *CreateApiKey {
 // operation visible to search, if `wait_for` then wait for a refresh to make
 // this operation visible to search, if `false` then do nothing with refreshes.
 // API name: refresh
-func (r *CreateApiKey) Refresh(enum refresh.Refresh) *CreateApiKey {
-	r.values.Set("refresh", enum.String())
+func (r *CreateApiKey) Refresh(refresh refresh.Refresh) *CreateApiKey {
+	r.values.Set("refresh", refresh.String())
+
+	return r
+}
+
+// Expiration Expiration time for the API key. By default, API keys never expire.
+// API name: expiration
+func (r *CreateApiKey) Expiration(duration types.Duration) *CreateApiKey {
+	r.req.Expiration = duration
+
+	return r
+}
+
+// Metadata Arbitrary metadata that you want to associate with the API key. It supports
+// nested data structure. Within the metadata object, keys beginning with `_`
+// are reserved for system usage.
+// API name: metadata
+func (r *CreateApiKey) Metadata(metadata types.Metadata) *CreateApiKey {
+	r.req.Metadata = metadata
+
+	return r
+}
+
+// Name Specifies the name for this API key.
+// API name: name
+func (r *CreateApiKey) Name(name string) *CreateApiKey {
+	r.req.Name = &name
+
+	return r
+}
+
+// RoleDescriptors An array of role descriptors for this API key. This parameter is optional.
+// When it is not specified or is an empty array, then the API key will have a
+// point in time snapshot of permissions of the authenticated user. If you
+// supply role descriptors then the resultant permissions would be an
+// intersection of API keys permissions and authenticated user’s permissions
+// thereby limiting the access scope for API keys. The structure of role
+// descriptor is the same as the request for create role API. For more details,
+// see create or update roles API.
+// API name: role_descriptors
+func (r *CreateApiKey) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *CreateApiKey {
+
+	r.req.RoleDescriptors = roledescriptors
 
 	return r
 }

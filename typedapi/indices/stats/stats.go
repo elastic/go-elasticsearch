@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Provides statistics on operations happening in an index.
 package stats
@@ -36,7 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/level"
 )
 
@@ -204,6 +204,10 @@ func (r Stats) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -237,9 +241,9 @@ func (r *Stats) Header(key, value string) *Stats {
 
 // Metric Limit the information returned the specific metrics.
 // API Name: metric
-func (r *Stats) Metric(v string) *Stats {
+func (r *Stats) Metric(metric string) *Stats {
 	r.paramSet |= metricMask
-	r.metric = v
+	r.metric = metric
 
 	return r
 }
@@ -247,9 +251,9 @@ func (r *Stats) Metric(v string) *Stats {
 // Index A comma-separated list of index names; use `_all` or empty string to perform
 // the operation on all indices
 // API Name: index
-func (r *Stats) Index(v string) *Stats {
+func (r *Stats) Index(index string) *Stats {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -257,8 +261,8 @@ func (r *Stats) Index(v string) *Stats {
 // CompletionFields Comma-separated list or wildcard expressions of fields to include in
 // fielddata and suggest statistics.
 // API name: completion_fields
-func (r *Stats) CompletionFields(v string) *Stats {
-	r.values.Set("completion_fields", v)
+func (r *Stats) CompletionFields(fields ...string) *Stats {
+	r.values.Set("completion_fields", strings.Join(fields, ","))
 
 	return r
 }
@@ -269,8 +273,12 @@ func (r *Stats) CompletionFields(v string) *Stats {
 // comma-separated values,
 // such as `open,hidden`.
 // API name: expand_wildcards
-func (r *Stats) ExpandWildcards(v string) *Stats {
-	r.values.Set("expand_wildcards", v)
+func (r *Stats) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Stats {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -278,8 +286,8 @@ func (r *Stats) ExpandWildcards(v string) *Stats {
 // FielddataFields Comma-separated list or wildcard expressions of fields to include in
 // fielddata statistics.
 // API name: fielddata_fields
-func (r *Stats) FielddataFields(v string) *Stats {
-	r.values.Set("fielddata_fields", v)
+func (r *Stats) FielddataFields(fields ...string) *Stats {
+	r.values.Set("fielddata_fields", strings.Join(fields, ","))
 
 	return r
 }
@@ -287,24 +295,28 @@ func (r *Stats) FielddataFields(v string) *Stats {
 // Fields Comma-separated list or wildcard expressions of fields to include in the
 // statistics.
 // API name: fields
-func (r *Stats) Fields(v string) *Stats {
-	r.values.Set("fields", v)
+func (r *Stats) Fields(fields ...string) *Stats {
+	r.values.Set("fields", strings.Join(fields, ","))
 
 	return r
 }
 
 // ForbidClosedIndices If true, statistics are not collected from closed indices.
 // API name: forbid_closed_indices
-func (r *Stats) ForbidClosedIndices(b bool) *Stats {
-	r.values.Set("forbid_closed_indices", strconv.FormatBool(b))
+func (r *Stats) ForbidClosedIndices(forbidclosedindices bool) *Stats {
+	r.values.Set("forbid_closed_indices", strconv.FormatBool(forbidclosedindices))
 
 	return r
 }
 
 // Groups Comma-separated list of search groups to include in the search statistics.
 // API name: groups
-func (r *Stats) Groups(v string) *Stats {
-	r.values.Set("groups", v)
+func (r *Stats) Groups(groups ...string) *Stats {
+	tmp := []string{}
+	for _, item := range groups {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("groups", strings.Join(tmp, ","))
 
 	return r
 }
@@ -312,8 +324,8 @@ func (r *Stats) Groups(v string) *Stats {
 // IncludeSegmentFileSizes If true, the call reports the aggregated disk usage of each one of the Lucene
 // index files (only applies if segment stats are requested).
 // API name: include_segment_file_sizes
-func (r *Stats) IncludeSegmentFileSizes(b bool) *Stats {
-	r.values.Set("include_segment_file_sizes", strconv.FormatBool(b))
+func (r *Stats) IncludeSegmentFileSizes(includesegmentfilesizes bool) *Stats {
+	r.values.Set("include_segment_file_sizes", strconv.FormatBool(includesegmentfilesizes))
 
 	return r
 }
@@ -321,8 +333,8 @@ func (r *Stats) IncludeSegmentFileSizes(b bool) *Stats {
 // IncludeUnloadedSegments If true, the response includes information from segments that are not loaded
 // into memory.
 // API name: include_unloaded_segments
-func (r *Stats) IncludeUnloadedSegments(b bool) *Stats {
-	r.values.Set("include_unloaded_segments", strconv.FormatBool(b))
+func (r *Stats) IncludeUnloadedSegments(includeunloadedsegments bool) *Stats {
+	r.values.Set("include_unloaded_segments", strconv.FormatBool(includeunloadedsegments))
 
 	return r
 }
@@ -330,8 +342,8 @@ func (r *Stats) IncludeUnloadedSegments(b bool) *Stats {
 // Level Indicates whether statistics are aggregated at the cluster, index, or shard
 // level.
 // API name: level
-func (r *Stats) Level(enum level.Level) *Stats {
-	r.values.Set("level", enum.String())
+func (r *Stats) Level(level level.Level) *Stats {
+	r.values.Set("level", level.String())
 
 	return r
 }

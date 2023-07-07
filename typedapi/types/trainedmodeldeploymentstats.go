@@ -16,29 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentstate"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentstate"
 )
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/TrainedModel.ts#L62-L97
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/ml/_types/TrainedModel.ts#L62-L99
 type TrainedModelDeploymentStats struct {
 	// AllocationStatus The detailed allocation status for the deployment.
 	AllocationStatus TrainedModelDeploymentAllocationStatus `json:"allocation_status"`
 	CacheSize        ByteSize                               `json:"cache_size,omitempty"`
+	// DeploymentId The unique identifier for the trained model deployment.
+	DeploymentId string `json:"deployment_id"`
 	// ErrorCount The sum of `error_count` for all nodes in the deployment.
 	ErrorCount int `json:"error_count"`
 	// InferenceCount The sum of `inference_count` for all nodes in the deployment.
@@ -92,6 +92,11 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 
 		case "cache_size":
 			if err := dec.Decode(&s.CacheSize); err != nil {
+				return err
+			}
+
+		case "deployment_id":
+			if err := dec.Decode(&s.DeploymentId); err != nil {
 				return err
 			}
 
@@ -174,7 +179,11 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Reason = o
 
 		case "rejected_execution_count":

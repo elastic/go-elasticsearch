@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // FieldAliasProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/specialized.ts#L49-L52
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/specialized.ts#L49-L52
 type FieldAliasProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -699,6 +697,24 @@ func (s *FieldAliasProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s FieldAliasProperty) MarshalJSON() ([]byte, error) {
+	type innerFieldAliasProperty FieldAliasProperty
+	tmp := innerFieldAliasProperty{
+		Dynamic:     s.Dynamic,
+		Fields:      s.Fields,
+		IgnoreAbove: s.IgnoreAbove,
+		Meta:        s.Meta,
+		Path:        s.Path,
+		Properties:  s.Properties,
+		Type:        s.Type,
+	}
+
+	tmp.Type = "alias"
+
+	return json.Marshal(tmp)
+}
+
 // NewFieldAliasProperty returns a FieldAliasProperty.
 func NewFieldAliasProperty() *FieldAliasProperty {
 	r := &FieldAliasProperty{
@@ -706,8 +722,6 @@ func NewFieldAliasProperty() *FieldAliasProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "alias"
 
 	return r
 }

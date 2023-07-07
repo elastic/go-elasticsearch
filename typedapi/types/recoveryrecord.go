@@ -16,73 +16,73 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // RecoveryRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/recovery/types.ts#L24-L155
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cat/recovery/types.ts#L24-L155
 type RecoveryRecord struct {
-	// Bytes number of bytes to recover
+	// Bytes The number of bytes to recover.
 	Bytes *string `json:"bytes,omitempty"`
-	// BytesPercent percent of bytes recovered
+	// BytesPercent The ratio of bytes recovered.
 	BytesPercent Percentage `json:"bytes_percent,omitempty"`
-	// BytesRecovered bytes recovered
+	// BytesRecovered The bytes recovered.
 	BytesRecovered *string `json:"bytes_recovered,omitempty"`
-	// BytesTotal total number of bytes
+	// BytesTotal The total number of bytes.
 	BytesTotal *string `json:"bytes_total,omitempty"`
-	// Files number of files to recover
+	// Files The number of files to recover.
 	Files *string `json:"files,omitempty"`
-	// FilesPercent percent of files recovered
+	// FilesPercent The ratio of files recovered.
 	FilesPercent Percentage `json:"files_percent,omitempty"`
-	// FilesRecovered files recovered
+	// FilesRecovered The files recovered.
 	FilesRecovered *string `json:"files_recovered,omitempty"`
-	// FilesTotal total number of files
+	// FilesTotal The total number of files.
 	FilesTotal *string `json:"files_total,omitempty"`
-	// Index index name
+	// Index The index name.
 	Index *string `json:"index,omitempty"`
-	// Repository repository
+	// Repository The repository name.
 	Repository *string `json:"repository,omitempty"`
-	// Shard shard name
+	// Shard The shard name.
 	Shard *string `json:"shard,omitempty"`
-	// Snapshot snapshot
+	// Snapshot The snapshot name.
 	Snapshot *string `json:"snapshot,omitempty"`
-	// SourceHost source host
+	// SourceHost The source host.
 	SourceHost *string `json:"source_host,omitempty"`
-	// SourceNode source node name
+	// SourceNode The source node name.
 	SourceNode *string `json:"source_node,omitempty"`
-	// Stage recovery stage
+	// Stage The recovery stage.
 	Stage *string `json:"stage,omitempty"`
-	// StartTime recovery start time
+	// StartTime The recovery start time.
 	StartTime DateTime `json:"start_time,omitempty"`
-	// StartTimeMillis recovery start time in epoch milliseconds
+	// StartTimeMillis The recovery start time in epoch milliseconds.
 	StartTimeMillis *int64 `json:"start_time_millis,omitempty"`
-	// StopTime recovery stop time
+	// StopTime The recovery stop time.
 	StopTime DateTime `json:"stop_time,omitempty"`
-	// StopTimeMillis recovery stop time in epoch milliseconds
+	// StopTimeMillis The recovery stop time in epoch milliseconds.
 	StopTimeMillis *int64 `json:"stop_time_millis,omitempty"`
-	// TargetHost target host
+	// TargetHost The target host.
 	TargetHost *string `json:"target_host,omitempty"`
-	// TargetNode target node name
+	// TargetNode The target node name.
 	TargetNode *string `json:"target_node,omitempty"`
-	// Time recovery time
+	// Time The recovery time.
 	Time Duration `json:"time,omitempty"`
-	// TranslogOps number of translog ops to recover
+	// TranslogOps The number of translog operations to recover.
 	TranslogOps *string `json:"translog_ops,omitempty"`
-	// TranslogOpsPercent percent of translog ops recovered
+	// TranslogOpsPercent The ratio of translog operations recovered.
 	TranslogOpsPercent Percentage `json:"translog_ops_percent,omitempty"`
-	// TranslogOpsRecovered translog ops recovered
+	// TranslogOpsRecovered The translog operations recovered.
 	TranslogOpsRecovered *string `json:"translog_ops_recovered,omitempty"`
-	// Type recovery type
+	// Type The recovery type.
 	Type *string `json:"type,omitempty"`
 }
 
@@ -106,7 +106,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Bytes = &o
 
 		case "bytes_percent", "bp":
@@ -119,7 +123,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BytesRecovered = &o
 
 		case "bytes_total", "tb":
@@ -127,7 +135,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BytesTotal = &o
 
 		case "files", "f":
@@ -135,7 +147,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Files = &o
 
 		case "files_percent", "fp":
@@ -148,7 +164,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FilesRecovered = &o
 
 		case "files_total", "tf":
@@ -156,7 +176,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FilesTotal = &o
 
 		case "index", "i", "idx":
@@ -169,7 +193,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Repository = &o
 
 		case "shard", "s", "sh":
@@ -177,7 +205,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Shard = &o
 
 		case "snapshot", "snap":
@@ -185,7 +217,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Snapshot = &o
 
 		case "source_host", "shost":
@@ -193,7 +229,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SourceHost = &o
 
 		case "source_node", "snode":
@@ -201,7 +241,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SourceNode = &o
 
 		case "stage", "st":
@@ -209,7 +253,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Stage = &o
 
 		case "start_time", "start":
@@ -237,7 +285,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TargetHost = &o
 
 		case "target_node", "tnode":
@@ -245,7 +297,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TargetNode = &o
 
 		case "time", "t", "ti":
@@ -258,7 +314,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TranslogOps = &o
 
 		case "translog_ops_percent", "top":
@@ -271,7 +331,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TranslogOpsRecovered = &o
 
 		case "type", "ty":
@@ -279,7 +343,11 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = &o
 
 		}

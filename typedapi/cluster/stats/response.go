@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package stats
 
@@ -27,23 +27,26 @@ import (
 
 // Response holds the response body struct for the package stats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/ClusterStatsResponse.ts#L55-L57
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/stats/ClusterStatsResponse.ts#L53-L55
 
 type Response struct {
 
-	// ClusterName Name of the cluster, based on the Cluster name setting setting.
+	// ClusterName Name of the cluster, based on the cluster name setting.
 	ClusterName string `json:"cluster_name"`
 	// ClusterUuid Unique identifier for the cluster.
 	ClusterUuid string `json:"cluster_uuid"`
 	// Indices Contains statistics about indices with shards assigned to selected nodes.
 	Indices types.ClusterIndices `json:"indices"`
+	// NodeStats Contains statistics about the number of nodes selected by the request’s node
+	// filters.
+	NodeStats *types.NodeStatistics `json:"_nodes,omitempty"`
 	// Nodes Contains statistics about nodes selected by the request’s node filters.
 	Nodes types.ClusterNodes `json:"nodes"`
 	// Status Health status of the cluster, based on the state of its primary and replica
 	// shards.
 	Status healthstatus.HealthStatus `json:"status"`
-	// Timestamp Unix timestamp, in milliseconds, of the last time the cluster statistics were
-	// refreshed.
+	// Timestamp Unix timestamp, in milliseconds, for the last time the cluster statistics
+	// were refreshed.
 	Timestamp int64 `json:"timestamp"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves usage information for data frame analytics jobs.
 package getdataframeanalyticsstats
@@ -192,6 +192,10 @@ func (r GetDataFrameAnalyticsStats) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +231,9 @@ func (r *GetDataFrameAnalyticsStats) Header(key, value string) *GetDataFrameAnal
 // option, the API returns information for the first hundred data frame
 // analytics jobs.
 // API Name: id
-func (r *GetDataFrameAnalyticsStats) Id(v string) *GetDataFrameAnalyticsStats {
+func (r *GetDataFrameAnalyticsStats) Id(id string) *GetDataFrameAnalyticsStats {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
@@ -246,32 +250,32 @@ func (r *GetDataFrameAnalyticsStats) Id(v string) *GetDataFrameAnalyticsStats {
 // If this parameter is `false`, the request returns a 404 status code when
 // there are no matches or only partial matches.
 // API name: allow_no_match
-func (r *GetDataFrameAnalyticsStats) AllowNoMatch(b bool) *GetDataFrameAnalyticsStats {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *GetDataFrameAnalyticsStats) AllowNoMatch(allownomatch bool) *GetDataFrameAnalyticsStats {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
 
 // From Skips the specified number of data frame analytics jobs.
 // API name: from
-func (r *GetDataFrameAnalyticsStats) From(i int) *GetDataFrameAnalyticsStats {
-	r.values.Set("from", strconv.Itoa(i))
+func (r *GetDataFrameAnalyticsStats) From(from int) *GetDataFrameAnalyticsStats {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
 
 // Size Specifies the maximum number of data frame analytics jobs to obtain.
 // API name: size
-func (r *GetDataFrameAnalyticsStats) Size(i int) *GetDataFrameAnalyticsStats {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *GetDataFrameAnalyticsStats) Size(size int) *GetDataFrameAnalyticsStats {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }
 
 // Verbose Defines whether the stats response should be verbose.
 // API name: verbose
-func (r *GetDataFrameAnalyticsStats) Verbose(b bool) *GetDataFrameAnalyticsStats {
-	r.values.Set("verbose", strconv.FormatBool(b))
+func (r *GetDataFrameAnalyticsStats) Verbose(verbose bool) *GetDataFrameAnalyticsStats {
+	r.values.Set("verbose", strconv.FormatBool(verbose))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Removes stale data from repository.
 package cleanuprepository
@@ -178,6 +178,10 @@ func (r CleanupRepository) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,25 +215,25 @@ func (r *CleanupRepository) Header(key, value string) *CleanupRepository {
 
 // Repository Snapshot repository to clean up.
 // API Name: repository
-func (r *CleanupRepository) Repository(v string) *CleanupRepository {
+func (r *CleanupRepository) Repository(repository string) *CleanupRepository {
 	r.paramSet |= repositoryMask
-	r.repository = v
+	r.repository = repository
 
 	return r
 }
 
 // MasterTimeout Period to wait for a connection to the master node.
 // API name: master_timeout
-func (r *CleanupRepository) MasterTimeout(v string) *CleanupRepository {
-	r.values.Set("master_timeout", v)
+func (r *CleanupRepository) MasterTimeout(duration string) *CleanupRepository {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Period to wait for a response.
 // API name: timeout
-func (r *CleanupRepository) Timeout(v string) *CleanupRepository {
-	r.values.Set("timeout", v)
+func (r *CleanupRepository) Timeout(duration string) *CleanupRepository {
+	r.values.Set("timeout", duration)
 
 	return r
 }

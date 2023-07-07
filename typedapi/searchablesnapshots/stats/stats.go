@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieve shard-level statistics about searchable snapshots.
 package stats
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/statslevel"
 )
 
@@ -185,6 +184,10 @@ func (r Stats) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -218,17 +221,17 @@ func (r *Stats) Header(key, value string) *Stats {
 
 // Index A comma-separated list of index names
 // API Name: index
-func (r *Stats) Index(v string) *Stats {
+func (r *Stats) Index(index string) *Stats {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // Level Return stats aggregated at cluster, index or shard level
 // API name: level
-func (r *Stats) Level(enum statslevel.StatsLevel) *Stats {
-	r.values.Set("level", enum.String())
+func (r *Stats) Level(level statslevel.StatsLevel) *Stats {
+	r.values.Set("level", level.String())
 
 	return r
 }

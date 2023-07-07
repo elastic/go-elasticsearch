@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Updates certain properties of a transform.
 package updatetransform
@@ -53,8 +53,9 @@ type UpdateTransform struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +86,8 @@ func New(tp elastictransport.Interface) *UpdateTransform {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +117,19 @@ func (r *UpdateTransform) HttpRequest(ctx context.Context) (*http.Request, error
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +137,7 @@ func (r *UpdateTransform) HttpRequest(ctx context.Context) (*http.Request, error
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -214,6 +228,10 @@ func (r UpdateTransform) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -226,9 +244,9 @@ func (r *UpdateTransform) Header(key, value string) *UpdateTransform {
 
 // TransformId Identifier for the transform.
 // API Name: transformid
-func (r *UpdateTransform) TransformId(v string) *UpdateTransform {
+func (r *UpdateTransform) TransformId(transformid string) *UpdateTransform {
 	r.paramSet |= transformidMask
-	r.transformid = v
+	r.transformid = transformid
 
 	return r
 }
@@ -237,8 +255,8 @@ func (r *UpdateTransform) TransformId(v string) *UpdateTransform {
 // desired if the source index does not exist until after the transform is
 // created.
 // API name: defer_validation
-func (r *UpdateTransform) DeferValidation(b bool) *UpdateTransform {
-	r.values.Set("defer_validation", strconv.FormatBool(b))
+func (r *UpdateTransform) DeferValidation(defervalidation bool) *UpdateTransform {
+	r.values.Set("defer_validation", strconv.FormatBool(defervalidation))
 
 	return r
 }
@@ -246,8 +264,81 @@ func (r *UpdateTransform) DeferValidation(b bool) *UpdateTransform {
 // Timeout Period to wait for a response. If no response is received before the
 // timeout expires, the request fails and returns an error.
 // API name: timeout
-func (r *UpdateTransform) Timeout(v string) *UpdateTransform {
-	r.values.Set("timeout", v)
+func (r *UpdateTransform) Timeout(duration string) *UpdateTransform {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// Description Free text description of the transform.
+// API name: description
+func (r *UpdateTransform) Description(description string) *UpdateTransform {
+
+	r.req.Description = &description
+
+	return r
+}
+
+// Dest The destination for the transform.
+// API name: dest
+func (r *UpdateTransform) Dest(dest *types.TransformDestination) *UpdateTransform {
+
+	r.req.Dest = dest
+
+	return r
+}
+
+// Frequency The interval between checks for changes in the source indices when the
+// transform is running continuously. Also determines the retry interval in
+// the event of transient failures while the transform is searching or
+// indexing. The minimum value is 1s and the maximum is 1h.
+// API name: frequency
+func (r *UpdateTransform) Frequency(duration types.Duration) *UpdateTransform {
+	r.req.Frequency = duration
+
+	return r
+}
+
+// Meta_ Defines optional transform metadata.
+// API name: _meta
+func (r *UpdateTransform) Meta_(metadata types.Metadata) *UpdateTransform {
+	r.req.Meta_ = metadata
+
+	return r
+}
+
+// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
+// criteria is deleted from the destination index.
+// API name: retention_policy
+func (r *UpdateTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainer) *UpdateTransform {
+	r.req.RetentionPolicy = retentionpolicy
+
+	return r
+}
+
+// Settings Defines optional transform settings.
+// API name: settings
+func (r *UpdateTransform) Settings(settings *types.Settings) *UpdateTransform {
+
+	r.req.Settings = settings
+
+	return r
+}
+
+// Source The source of the data for the transform.
+// API name: source
+func (r *UpdateTransform) Source(source *types.TransformSource) *UpdateTransform {
+
+	r.req.Source = source
+
+	return r
+}
+
+// Sync Defines the properties transforms require to run continuously.
+// API name: sync
+func (r *UpdateTransform) Sync(sync *types.SyncContainer) *UpdateTransform {
+
+	r.req.Sync = sync
 
 	return r
 }

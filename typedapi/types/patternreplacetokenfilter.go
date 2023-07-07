@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // PatternReplaceTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L284-L290
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L284-L290
 type PatternReplaceTokenFilter struct {
 	All         *bool   `json:"all,omitempty"`
 	Flags       *string `json:"flags,omitempty"`
@@ -76,7 +74,11 @@ func (s *PatternReplaceTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Flags = &o
 
 		case "pattern":
@@ -84,7 +86,11 @@ func (s *PatternReplaceTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Pattern = o
 
 		case "replacement":
@@ -92,7 +98,11 @@ func (s *PatternReplaceTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Replacement = &o
 
 		case "type":
@@ -110,11 +120,26 @@ func (s *PatternReplaceTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s PatternReplaceTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerPatternReplaceTokenFilter PatternReplaceTokenFilter
+	tmp := innerPatternReplaceTokenFilter{
+		All:         s.All,
+		Flags:       s.Flags,
+		Pattern:     s.Pattern,
+		Replacement: s.Replacement,
+		Type:        s.Type,
+		Version:     s.Version,
+	}
+
+	tmp.Type = "pattern_replace"
+
+	return json.Marshal(tmp)
+}
+
 // NewPatternReplaceTokenFilter returns a PatternReplaceTokenFilter.
 func NewPatternReplaceTokenFilter() *PatternReplaceTokenFilter {
 	r := &PatternReplaceTokenFilter{}
-
-	r.Type = "pattern_replace"
 
 	return r
 }

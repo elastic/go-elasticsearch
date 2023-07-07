@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns information about any matching indices, aliases, and data streams
 package resolveindex
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -178,6 +179,10 @@ func (r ResolveIndex) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,9 +216,9 @@ func (r *ResolveIndex) Header(key, value string) *ResolveIndex {
 
 // Name A comma-separated list of names or wildcard expressions
 // API Name: name
-func (r *ResolveIndex) Name(v string) *ResolveIndex {
+func (r *ResolveIndex) Name(name string) *ResolveIndex {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -221,8 +226,12 @@ func (r *ResolveIndex) Name(v string) *ResolveIndex {
 // ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
 // (default: open)
 // API name: expand_wildcards
-func (r *ResolveIndex) ExpandWildcards(v string) *ResolveIndex {
-	r.values.Set("expand_wildcards", v)
+func (r *ResolveIndex) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ResolveIndex {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }

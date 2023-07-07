@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Updates the index settings.
 package putsettings
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -53,8 +54,9 @@ type PutSettings struct {
 
 	buf *gobytes.Buffer
 
-	req *types.IndexSettings
-	raw io.Reader
+	req      *types.IndexSettings
+	deferred []func(request *types.IndexSettings) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -112,9 +114,19 @@ func (r *PutSettings) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -122,6 +134,7 @@ func (r *PutSettings) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -215,6 +228,10 @@ func (r PutSettings) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -228,9 +245,9 @@ func (r *PutSettings) Header(key, value string) *PutSettings {
 // Index A comma-separated list of index names; use `_all` or empty string to perform
 // the operation on all indices
 // API Name: index
-func (r *PutSettings) Index(v string) *PutSettings {
+func (r *PutSettings) Index(index string) *PutSettings {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -238,8 +255,8 @@ func (r *PutSettings) Index(v string) *PutSettings {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *PutSettings) AllowNoIndices(b bool) *PutSettings {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *PutSettings) AllowNoIndices(allownoindices bool) *PutSettings {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -247,16 +264,20 @@ func (r *PutSettings) AllowNoIndices(b bool) *PutSettings {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *PutSettings) ExpandWildcards(v string) *PutSettings {
-	r.values.Set("expand_wildcards", v)
+func (r *PutSettings) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutSettings {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // FlatSettings Return settings in flat format (default: false)
 // API name: flat_settings
-func (r *PutSettings) FlatSettings(b bool) *PutSettings {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *PutSettings) FlatSettings(flatsettings bool) *PutSettings {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
@@ -264,16 +285,16 @@ func (r *PutSettings) FlatSettings(b bool) *PutSettings {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *PutSettings) IgnoreUnavailable(b bool) *PutSettings {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *PutSettings) IgnoreUnavailable(ignoreunavailable bool) *PutSettings {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *PutSettings) MasterTimeout(v string) *PutSettings {
-	r.values.Set("master_timeout", v)
+func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -281,16 +302,16 @@ func (r *PutSettings) MasterTimeout(v string) *PutSettings {
 // PreserveExisting Whether to update existing settings. If set to `true` existing settings on an
 // index remain unchanged, the default is `false`
 // API name: preserve_existing
-func (r *PutSettings) PreserveExisting(b bool) *PutSettings {
-	r.values.Set("preserve_existing", strconv.FormatBool(b))
+func (r *PutSettings) PreserveExisting(preserveexisting bool) *PutSettings {
+	r.values.Set("preserve_existing", strconv.FormatBool(preserveexisting))
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *PutSettings) Timeout(v string) *PutSettings {
-	r.values.Set("timeout", v)
+func (r *PutSettings) Timeout(duration string) *PutSettings {
+	r.values.Set("timeout", duration)
 
 	return r
 }

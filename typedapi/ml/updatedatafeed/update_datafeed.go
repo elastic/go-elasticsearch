@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Updates certain properties of a datafeed.
 package updatedatafeed
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -53,8 +54,9 @@ type UpdateDatafeed struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +87,8 @@ func New(tp elastictransport.Interface) *UpdateDatafeed {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +118,19 @@ func (r *UpdateDatafeed) HttpRequest(ctx context.Context) (*http.Request, error)
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +138,7 @@ func (r *UpdateDatafeed) HttpRequest(ctx context.Context) (*http.Request, error)
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -216,6 +231,10 @@ func (r UpdateDatafeed) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -231,9 +250,9 @@ func (r *UpdateDatafeed) Header(key, value string) *UpdateDatafeed {
 // hyphens, and underscores.
 // It must start and end with alphanumeric characters.
 // API Name: datafeedid
-func (r *UpdateDatafeed) DatafeedId(v string) *UpdateDatafeed {
+func (r *UpdateDatafeed) DatafeedId(datafeedid string) *UpdateDatafeed {
 	r.paramSet |= datafeedidMask
-	r.datafeedid = v
+	r.datafeedid = datafeedid
 
 	return r
 }
@@ -242,8 +261,8 @@ func (r *UpdateDatafeed) DatafeedId(v string) *UpdateDatafeed {
 // are ignored. This includes the
 // `_all` string or when no indices are specified.
 // API name: allow_no_indices
-func (r *UpdateDatafeed) AllowNoIndices(b bool) *UpdateDatafeed {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *UpdateDatafeed) AllowNoIndices(allownoindices bool) *UpdateDatafeed {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -262,24 +281,191 @@ func (r *UpdateDatafeed) AllowNoIndices(b bool) *UpdateDatafeed {
 // * `open`: Match open, non-hidden indices. Also matches any non-hidden data
 // stream.
 // API name: expand_wildcards
-func (r *UpdateDatafeed) ExpandWildcards(v string) *UpdateDatafeed {
-	r.values.Set("expand_wildcards", v)
+func (r *UpdateDatafeed) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *UpdateDatafeed {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreThrottled If `true`, concrete, expanded or aliased indices are ignored when frozen.
 // API name: ignore_throttled
-func (r *UpdateDatafeed) IgnoreThrottled(b bool) *UpdateDatafeed {
-	r.values.Set("ignore_throttled", strconv.FormatBool(b))
+func (r *UpdateDatafeed) IgnoreThrottled(ignorethrottled bool) *UpdateDatafeed {
+	r.values.Set("ignore_throttled", strconv.FormatBool(ignorethrottled))
 
 	return r
 }
 
 // IgnoreUnavailable If `true`, unavailable indices (missing or closed) are ignored.
 // API name: ignore_unavailable
-func (r *UpdateDatafeed) IgnoreUnavailable(b bool) *UpdateDatafeed {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *UpdateDatafeed) IgnoreUnavailable(ignoreunavailable bool) *UpdateDatafeed {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
+// is limited and should be used only
+// with low cardinality data.
+// API name: aggregations
+func (r *UpdateDatafeed) Aggregations(aggregations map[string]types.Aggregations) *UpdateDatafeed {
+
+	r.req.Aggregations = aggregations
+
+	return r
+}
+
+// ChunkingConfig Datafeeds might search over long time periods, for several months or years.
+// This search is split into time
+// chunks in order to ensure the load on Elasticsearch is managed. Chunking
+// configuration controls how the size of
+// these time chunks are calculated; it is an advanced configuration option.
+// API name: chunking_config
+func (r *UpdateDatafeed) ChunkingConfig(chunkingconfig *types.ChunkingConfig) *UpdateDatafeed {
+
+	r.req.ChunkingConfig = chunkingconfig
+
+	return r
+}
+
+// DelayedDataCheckConfig Specifies whether the datafeed checks for missing data and the size of the
+// window. The datafeed can optionally
+// search over indices that have already been read in an effort to determine
+// whether any data has subsequently been
+// added to the index. If missing data is found, it is a good indication that
+// the `query_delay` is set too low and
+// the data is being indexed after the datafeed has passed that moment in time.
+// This check runs only on real-time
+// datafeeds.
+// API name: delayed_data_check_config
+func (r *UpdateDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig *types.DelayedDataCheckConfig) *UpdateDatafeed {
+
+	r.req.DelayedDataCheckConfig = delayeddatacheckconfig
+
+	return r
+}
+
+// Frequency The interval at which scheduled queries are made while the datafeed runs in
+// real time. The default value is
+// either the bucket span for short bucket spans, or, for longer bucket spans, a
+// sensible fraction of the bucket
+// span. When `frequency` is shorter than the bucket span, interim results for
+// the last (partial) bucket are
+// written then eventually overwritten by the full bucket results. If the
+// datafeed uses aggregations, this value
+// must be divisible by the interval of the date histogram aggregation.
+// API name: frequency
+func (r *UpdateDatafeed) Frequency(duration types.Duration) *UpdateDatafeed {
+	r.req.Frequency = duration
+
+	return r
+}
+
+// Indices An array of index names. Wildcards are supported. If any of the indices are
+// in remote clusters, the machine
+// learning nodes must have the `remote_cluster_client` role.
+// API name: indices
+func (r *UpdateDatafeed) Indices(indices ...string) *UpdateDatafeed {
+	r.req.Indices = indices
+
+	return r
+}
+
+// IndicesOptions Specifies index expansion options that are used during search.
+// API name: indices_options
+func (r *UpdateDatafeed) IndicesOptions(indicesoptions *types.IndicesOptions) *UpdateDatafeed {
+
+	r.req.IndicesOptions = indicesoptions
+
+	return r
+}
+
+// API name: job_id
+func (r *UpdateDatafeed) JobId(id string) *UpdateDatafeed {
+	r.req.JobId = &id
+
+	return r
+}
+
+// MaxEmptySearches If a real-time datafeed has never seen any data (including during any initial
+// training period), it automatically
+// stops and closes the associated job after this many real-time searches return
+// no documents. In other words,
+// it stops after `frequency` times `max_empty_searches` of real-time operation.
+// If not set, a datafeed with no
+// end time that sees no data remains started until it is explicitly stopped. By
+// default, it is not set.
+// API name: max_empty_searches
+func (r *UpdateDatafeed) MaxEmptySearches(maxemptysearches int) *UpdateDatafeed {
+	r.req.MaxEmptySearches = &maxemptysearches
+
+	return r
+}
+
+// Query The Elasticsearch query domain-specific language (DSL). This value
+// corresponds to the query object in an
+// Elasticsearch search POST body. All the options that are supported by
+// Elasticsearch can be used, as this
+// object is passed verbatim to Elasticsearch. Note that if you change the
+// query, the analyzed data is also
+// changed. Therefore, the time required to learn might be long and the
+// understandability of the results is
+// unpredictable. If you want to make significant changes to the source data, it
+// is recommended that you
+// clone the job and datafeed and make the amendments in the clone. Let both run
+// in parallel and close one
+// when you are satisfied with the results of the job.
+// API name: query
+func (r *UpdateDatafeed) Query(query *types.Query) *UpdateDatafeed {
+
+	r.req.Query = query
+
+	return r
+}
+
+// QueryDelay The number of seconds behind real time that data is queried. For example, if
+// data from 10:04 a.m. might
+// not be searchable in Elasticsearch until 10:06 a.m., set this property to 120
+// seconds. The default
+// value is randomly selected between `60s` and `120s`. This randomness improves
+// the query performance
+// when there are multiple jobs running on the same node.
+// API name: query_delay
+func (r *UpdateDatafeed) QueryDelay(duration types.Duration) *UpdateDatafeed {
+	r.req.QueryDelay = duration
+
+	return r
+}
+
+// RuntimeMappings Specifies runtime fields for the datafeed search.
+// API name: runtime_mappings
+func (r *UpdateDatafeed) RuntimeMappings(runtimefields types.RuntimeFields) *UpdateDatafeed {
+	r.req.RuntimeMappings = runtimefields
+
+	return r
+}
+
+// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
+// to the datafeed.
+// The detector configuration objects in a job can contain functions that use
+// these script fields.
+// API name: script_fields
+func (r *UpdateDatafeed) ScriptFields(scriptfields map[string]types.ScriptField) *UpdateDatafeed {
+
+	r.req.ScriptFields = scriptfields
+
+	return r
+}
+
+// ScrollSize The size parameter that is used in Elasticsearch searches when the datafeed
+// does not use aggregations.
+// The maximum value is the value of `index.max_result_window`.
+// API name: scroll_size
+func (r *UpdateDatafeed) ScrollSize(scrollsize int) *UpdateDatafeed {
+	r.req.ScrollSize = &scrollsize
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Imports the specified dangling index
 package importdanglingindex
@@ -177,6 +177,10 @@ func (r ImportDanglingIndex) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,33 +214,33 @@ func (r *ImportDanglingIndex) Header(key, value string) *ImportDanglingIndex {
 
 // IndexUuid The UUID of the dangling index
 // API Name: indexuuid
-func (r *ImportDanglingIndex) IndexUuid(v string) *ImportDanglingIndex {
+func (r *ImportDanglingIndex) IndexUuid(indexuuid string) *ImportDanglingIndex {
 	r.paramSet |= indexuuidMask
-	r.indexuuid = v
+	r.indexuuid = indexuuid
 
 	return r
 }
 
 // AcceptDataLoss Must be set to true in order to import the dangling index
 // API name: accept_data_loss
-func (r *ImportDanglingIndex) AcceptDataLoss(b bool) *ImportDanglingIndex {
-	r.values.Set("accept_data_loss", strconv.FormatBool(b))
+func (r *ImportDanglingIndex) AcceptDataLoss(acceptdataloss bool) *ImportDanglingIndex {
+	r.values.Set("accept_data_loss", strconv.FormatBool(acceptdataloss))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *ImportDanglingIndex) MasterTimeout(v string) *ImportDanglingIndex {
-	r.values.Set("master_timeout", v)
+func (r *ImportDanglingIndex) MasterTimeout(duration string) *ImportDanglingIndex {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *ImportDanglingIndex) Timeout(v string) *ImportDanglingIndex {
-	r.values.Set("timeout", v)
+func (r *ImportDanglingIndex) Timeout(duration string) *ImportDanglingIndex {
+	r.values.Set("timeout", duration)
 
 	return r
 }

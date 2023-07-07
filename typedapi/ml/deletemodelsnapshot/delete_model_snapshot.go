@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes an existing model snapshot.
 package deletemodelsnapshot
@@ -188,6 +188,10 @@ func (r DeleteModelSnapshot) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,18 +225,18 @@ func (r *DeleteModelSnapshot) Header(key, value string) *DeleteModelSnapshot {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *DeleteModelSnapshot) JobId(v string) *DeleteModelSnapshot {
+func (r *DeleteModelSnapshot) JobId(jobid string) *DeleteModelSnapshot {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
 
 // SnapshotId Identifier for the model snapshot.
 // API Name: snapshotid
-func (r *DeleteModelSnapshot) SnapshotId(v string) *DeleteModelSnapshot {
+func (r *DeleteModelSnapshot) SnapshotId(snapshotid string) *DeleteModelSnapshot {
 	r.paramSet |= snapshotidMask
-	r.snapshotid = v
+	r.snapshotid = snapshotid
 
 	return r
 }

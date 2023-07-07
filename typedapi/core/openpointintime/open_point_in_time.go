@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Open a point in time that can be used in subsequent searches
 package openpointintime
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -177,6 +178,10 @@ func (r OpenPointInTime) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,17 +216,17 @@ func (r *OpenPointInTime) Header(key, value string) *OpenPointInTime {
 // Index A comma-separated list of index names to open point in time; use `_all` or
 // empty string to perform the operation on all indices
 // API Name: index
-func (r *OpenPointInTime) Index(v string) *OpenPointInTime {
+func (r *OpenPointInTime) Index(index string) *OpenPointInTime {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // KeepAlive Specific the time to live for the point in time
 // API name: keep_alive
-func (r *OpenPointInTime) KeepAlive(v string) *OpenPointInTime {
-	r.values.Set("keep_alive", v)
+func (r *OpenPointInTime) KeepAlive(duration string) *OpenPointInTime {
+	r.values.Set("keep_alive", duration)
 
 	return r
 }
@@ -229,8 +234,8 @@ func (r *OpenPointInTime) KeepAlive(v string) *OpenPointInTime {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *OpenPointInTime) IgnoreUnavailable(b bool) *OpenPointInTime {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *OpenPointInTime) IgnoreUnavailable(ignoreunavailable bool) *OpenPointInTime {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
@@ -238,16 +243,16 @@ func (r *OpenPointInTime) IgnoreUnavailable(b bool) *OpenPointInTime {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *OpenPointInTime) Preference(v string) *OpenPointInTime {
-	r.values.Set("preference", v)
+func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
+	r.values.Set("preference", preference)
 
 	return r
 }
 
 // Routing Specific routing value
 // API name: routing
-func (r *OpenPointInTime) Routing(v string) *OpenPointInTime {
-	r.values.Set("routing", v)
+func (r *OpenPointInTime) Routing(routing string) *OpenPointInTime {
+	r.values.Set("routing", routing)
 
 	return r
 }
@@ -255,8 +260,12 @@ func (r *OpenPointInTime) Routing(v string) *OpenPointInTime {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *OpenPointInTime) ExpandWildcards(v string) *OpenPointInTime {
-	r.values.Set("expand_wildcards", v)
+func (r *OpenPointInTime) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *OpenPointInTime {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }

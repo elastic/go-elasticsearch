@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns the current global checkpoints for an index. This API is design for
 // internal use by the fleet server project.
@@ -187,6 +187,10 @@ func (r GlobalCheckpoints) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -220,9 +224,9 @@ func (r *GlobalCheckpoints) Header(key, value string) *GlobalCheckpoints {
 
 // Index A single index or index alias that resolves to a single index.
 // API Name: index
-func (r *GlobalCheckpoints) Index(v string) *GlobalCheckpoints {
+func (r *GlobalCheckpoints) Index(index string) *GlobalCheckpoints {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -231,8 +235,8 @@ func (r *GlobalCheckpoints) Index(v string) *GlobalCheckpoints {
 // global checkpoints
 // to advance past the provided `checkpoints`.
 // API name: wait_for_advance
-func (r *GlobalCheckpoints) WaitForAdvance(b bool) *GlobalCheckpoints {
-	r.values.Set("wait_for_advance", strconv.FormatBool(b))
+func (r *GlobalCheckpoints) WaitForAdvance(waitforadvance bool) *GlobalCheckpoints {
+	r.values.Set("wait_for_advance", strconv.FormatBool(waitforadvance))
 
 	return r
 }
@@ -242,8 +246,8 @@ func (r *GlobalCheckpoints) WaitForAdvance(b bool) *GlobalCheckpoints {
 // and all primary shards be active. Can only be true when `wait_for_advance` is
 // true.
 // API name: wait_for_index
-func (r *GlobalCheckpoints) WaitForIndex(b bool) *GlobalCheckpoints {
-	r.values.Set("wait_for_index", strconv.FormatBool(b))
+func (r *GlobalCheckpoints) WaitForIndex(waitforindex bool) *GlobalCheckpoints {
+	r.values.Set("wait_for_index", strconv.FormatBool(waitforindex))
 
 	return r
 }
@@ -255,16 +259,20 @@ func (r *GlobalCheckpoints) WaitForIndex(b bool) *GlobalCheckpoints {
 // will cause Elasticsearch to immediately return the current global
 // checkpoints.
 // API name: checkpoints
-func (r *GlobalCheckpoints) Checkpoints(v string) *GlobalCheckpoints {
-	r.values.Set("checkpoints", v)
+func (r *GlobalCheckpoints) Checkpoints(checkpoints ...int64) *GlobalCheckpoints {
+	tmp := []string{}
+	for _, item := range checkpoints {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("checkpoints", strings.Join(tmp, ","))
 
 	return r
 }
 
 // Timeout Period to wait for a global checkpoints to advance past `checkpoints`.
 // API name: timeout
-func (r *GlobalCheckpoints) Timeout(v string) *GlobalCheckpoints {
-	r.values.Set("timeout", v)
+func (r *GlobalCheckpoints) Timeout(duration string) *GlobalCheckpoints {
+	r.values.Set("timeout", duration)
 
 	return r
 }

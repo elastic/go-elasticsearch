@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // LetterTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/tokenizers.ts#L66-L68
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/tokenizers.ts#L66-L68
 type LetterTokenizer struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -66,11 +65,22 @@ func (s *LetterTokenizer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s LetterTokenizer) MarshalJSON() ([]byte, error) {
+	type innerLetterTokenizer LetterTokenizer
+	tmp := innerLetterTokenizer{
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "letter"
+
+	return json.Marshal(tmp)
+}
+
 // NewLetterTokenizer returns a LetterTokenizer.
 func NewLetterTokenizer() *LetterTokenizer {
 	r := &LetterTokenizer{}
-
-	r.Type = "letter"
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes a calendar.
 package deletecalendar
@@ -178,6 +178,10 @@ func (r DeleteCalendar) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,9 +215,9 @@ func (r *DeleteCalendar) Header(key, value string) *DeleteCalendar {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *DeleteCalendar) CalendarId(v string) *DeleteCalendar {
+func (r *DeleteCalendar) CalendarId(calendarid string) *DeleteCalendar {
 	r.paramSet |= calendaridMask
-	r.calendarid = v
+	r.calendarid = calendarid
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Instantiates a filter.
 package putfilter
@@ -52,8 +52,9 @@ type PutFilter struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *PutFilter {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *PutFilter) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *PutFilter) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -213,6 +227,10 @@ func (r PutFilter) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -225,9 +243,28 @@ func (r *PutFilter) Header(key, value string) *PutFilter {
 
 // FilterId A string that uniquely identifies a filter.
 // API Name: filterid
-func (r *PutFilter) FilterId(v string) *PutFilter {
+func (r *PutFilter) FilterId(filterid string) *PutFilter {
 	r.paramSet |= filteridMask
-	r.filterid = v
+	r.filterid = filterid
+
+	return r
+}
+
+// Description A description of the filter.
+// API name: description
+func (r *PutFilter) Description(description string) *PutFilter {
+
+	r.req.Description = &description
+
+	return r
+}
+
+// Items The items of the filter. A wildcard `*` can be used at the beginning or the
+// end of an item.
+// Up to 10000 items are allowed in each filter.
+// API name: items
+func (r *PutFilter) Items(items ...string) *PutFilter {
+	r.req.Items = items
 
 	return r
 }

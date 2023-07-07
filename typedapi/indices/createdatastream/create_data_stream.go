@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates a data stream
 package createdatastream
@@ -176,6 +176,10 @@ func (r CreateDataStream) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -207,11 +211,18 @@ func (r *CreateDataStream) Header(key, value string) *CreateDataStream {
 	return r
 }
 
-// Name The name of the data stream
+// Name Name of the data stream, which must meet the following criteria:
+// Lowercase only;
+// Cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, `,`, `#`, `:`, or a
+// space character;
+// Cannot start with `-`, `_`, `+`, or `.ds-`;
+// Cannot be `.` or `..`;
+// Cannot be longer than 255 bytes. Multi-byte characters count towards this
+// limit faster.
 // API Name: name
-func (r *CreateDataStream) Name(v string) *CreateDataStream {
+func (r *CreateDataStream) Name(name string) *CreateDataStream {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

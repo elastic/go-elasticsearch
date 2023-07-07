@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Gets configuration and usage information about anomaly detection jobs.
 package mljobs
@@ -36,8 +36,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/catanomalydetectorcolumn"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
@@ -191,6 +191,10 @@ func (r MlJobs) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -224,9 +228,9 @@ func (r *MlJobs) Header(key, value string) *MlJobs {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *MlJobs) JobId(v string) *MlJobs {
+func (r *MlJobs) JobId(jobid string) *MlJobs {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
@@ -243,24 +247,28 @@ func (r *MlJobs) JobId(v string) *MlJobs {
 // are no matches or only partial
 // matches.
 // API name: allow_no_match
-func (r *MlJobs) AllowNoMatch(b bool) *MlJobs {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *MlJobs) AllowNoMatch(allownomatch bool) *MlJobs {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
 
 // Bytes The unit used to display byte values.
 // API name: bytes
-func (r *MlJobs) Bytes(enum bytes.Bytes) *MlJobs {
-	r.values.Set("bytes", enum.String())
+func (r *MlJobs) Bytes(bytes bytes.Bytes) *MlJobs {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
 
 // H Comma-separated list of column names to display.
 // API name: h
-func (r *MlJobs) H(v string) *MlJobs {
-	r.values.Set("h", v)
+func (r *MlJobs) H(catanonalydetectorcolumns ...catanomalydetectorcolumn.CatAnomalyDetectorColumn) *MlJobs {
+	tmp := []string{}
+	for _, item := range catanonalydetectorcolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -268,16 +276,20 @@ func (r *MlJobs) H(v string) *MlJobs {
 // S Comma-separated list of column names or column aliases used to sort the
 // response.
 // API name: s
-func (r *MlJobs) S(v string) *MlJobs {
-	r.values.Set("s", v)
+func (r *MlJobs) S(catanonalydetectorcolumns ...catanomalydetectorcolumn.CatAnomalyDetectorColumn) *MlJobs {
+	tmp := []string{}
+	for _, item := range catanonalydetectorcolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // Time The unit used to display time values.
 // API name: time
-func (r *MlJobs) Time(enum timeunit.TimeUnit) *MlJobs {
-	r.values.Set("time", enum.String())
+func (r *MlJobs) Time(time timeunit.TimeUnit) *MlJobs {
+	r.values.Set("time", time.String())
 
 	return r
 }

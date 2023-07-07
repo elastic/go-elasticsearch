@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Reloads an index's search analyzers and their resources.
 package reloadsearchanalyzers
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -177,6 +178,10 @@ func (r ReloadSearchAnalyzers) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,9 +215,9 @@ func (r *ReloadSearchAnalyzers) Header(key, value string) *ReloadSearchAnalyzers
 
 // Index A comma-separated list of index names to reload analyzers for
 // API Name: index
-func (r *ReloadSearchAnalyzers) Index(v string) *ReloadSearchAnalyzers {
+func (r *ReloadSearchAnalyzers) Index(index string) *ReloadSearchAnalyzers {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -220,8 +225,8 @@ func (r *ReloadSearchAnalyzers) Index(v string) *ReloadSearchAnalyzers {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *ReloadSearchAnalyzers) AllowNoIndices(b bool) *ReloadSearchAnalyzers {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *ReloadSearchAnalyzers) AllowNoIndices(allownoindices bool) *ReloadSearchAnalyzers {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -229,8 +234,12 @@ func (r *ReloadSearchAnalyzers) AllowNoIndices(b bool) *ReloadSearchAnalyzers {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *ReloadSearchAnalyzers) ExpandWildcards(v string) *ReloadSearchAnalyzers {
-	r.values.Set("expand_wildcards", v)
+func (r *ReloadSearchAnalyzers) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ReloadSearchAnalyzers {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -238,8 +247,8 @@ func (r *ReloadSearchAnalyzers) ExpandWildcards(v string) *ReloadSearchAnalyzers
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *ReloadSearchAnalyzers) IgnoreUnavailable(b bool) *ReloadSearchAnalyzers {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *ReloadSearchAnalyzers) IgnoreUnavailable(ignoreunavailable bool) *ReloadSearchAnalyzers {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }

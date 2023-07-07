@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Predicts the future behavior of a time series by using its historical
 // behavior.
@@ -53,8 +53,9 @@ type Forecast struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -86,6 +87,8 @@ func New(tp elastictransport.Interface) *Forecast {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -115,9 +118,19 @@ func (r *Forecast) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -125,6 +138,7 @@ func (r *Forecast) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -217,6 +231,10 @@ func (r Forecast) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -230,41 +248,34 @@ func (r *Forecast) Header(key, value string) *Forecast {
 // JobId Identifier for the anomaly detection job. The job must be open when you
 // create a forecast; otherwise, an error occurs.
 // API Name: jobid
-func (r *Forecast) JobId(v string) *Forecast {
+func (r *Forecast) JobId(jobid string) *Forecast {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
 
-// Duration A period of time that indicates how far into the future to forecast. For
-// example, `30d` corresponds to 30 days. The forecast starts at the last
-// record that was processed.
+// Duration Refer to the description for the `duration` query parameter.
 // API name: duration
-func (r *Forecast) Duration(v string) *Forecast {
-	r.values.Set("duration", v)
+func (r *Forecast) Duration(duration types.Duration) *Forecast {
+	r.req.Duration = duration
 
 	return r
 }
 
-// ExpiresIn The period of time that forecast results are retained. After a forecast
-// expires, the results are deleted. If set to a value of 0, the forecast is
-// never automatically deleted.
+// ExpiresIn Refer to the description for the `expires_in` query parameter.
 // API name: expires_in
-func (r *Forecast) ExpiresIn(v string) *Forecast {
-	r.values.Set("expires_in", v)
+func (r *Forecast) ExpiresIn(duration types.Duration) *Forecast {
+	r.req.ExpiresIn = duration
 
 	return r
 }
 
-// MaxModelMemory The maximum memory the forecast can use. If the forecast needs to use
-// more than the provided amount, it will spool to disk. Default is 20mb,
-// maximum is 500mb and minimum is 1mb. If set to 40% or more of the job’s
-// configured memory limit, it is automatically reduced to below that
-// amount.
+// MaxModelMemory Refer to the description for the `max_model_memory` query parameter.
 // API name: max_model_memory
-func (r *Forecast) MaxModelMemory(v string) *Forecast {
-	r.values.Set("max_model_memory", v)
+func (r *Forecast) MaxModelMemory(maxmodelmemory string) *Forecast {
+
+	r.req.MaxModelMemory = &maxmodelmemory
 
 	return r
 }

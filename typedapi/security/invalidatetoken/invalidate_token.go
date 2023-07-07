@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Invalidates one or more access tokens or refresh tokens.
 package invalidatetoken
@@ -48,8 +48,9 @@ type InvalidateToken struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *InvalidateToken {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *InvalidateToken) HttpRequest(ctx context.Context) (*http.Request, error
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *InvalidateToken) HttpRequest(ctx context.Context) (*http.Request, error
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -204,12 +218,46 @@ func (r InvalidateToken) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the InvalidateToken headers map.
 func (r *InvalidateToken) Header(key, value string) *InvalidateToken {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// API name: realm_name
+func (r *InvalidateToken) RealmName(name string) *InvalidateToken {
+	r.req.RealmName = &name
+
+	return r
+}
+
+// API name: refresh_token
+func (r *InvalidateToken) RefreshToken(refreshtoken string) *InvalidateToken {
+
+	r.req.RefreshToken = &refreshtoken
+
+	return r
+}
+
+// API name: token
+func (r *InvalidateToken) Token(token string) *InvalidateToken {
+
+	r.req.Token = &token
+
+	return r
+}
+
+// API name: username
+func (r *InvalidateToken) Username(username string) *InvalidateToken {
+	r.req.Username = &username
 
 	return r
 }

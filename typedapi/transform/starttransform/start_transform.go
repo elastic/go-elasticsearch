@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Starts one or more transforms.
 package starttransform
@@ -178,6 +178,10 @@ func (r StartTransform) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,9 +215,9 @@ func (r *StartTransform) Header(key, value string) *StartTransform {
 
 // TransformId Identifier for the transform.
 // API Name: transformid
-func (r *StartTransform) TransformId(v string) *StartTransform {
+func (r *StartTransform) TransformId(transformid string) *StartTransform {
 	r.paramSet |= transformidMask
-	r.transformid = v
+	r.transformid = transformid
 
 	return r
 }
@@ -221,8 +225,8 @@ func (r *StartTransform) TransformId(v string) *StartTransform {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *StartTransform) Timeout(v string) *StartTransform {
-	r.values.Set("timeout", v)
+func (r *StartTransform) Timeout(duration string) *StartTransform {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -231,8 +235,8 @@ func (r *StartTransform) Timeout(v string) *StartTransform {
 // Relative times like now-30d are supported. Only applicable for continuous
 // transforms.
 // API name: from
-func (r *StartTransform) From(v string) *StartTransform {
-	r.values.Set("from", v)
+func (r *StartTransform) From(from string) *StartTransform {
+	r.values.Set("from", from)
 
 	return r
 }

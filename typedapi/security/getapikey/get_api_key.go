@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves information for one or more API keys.
 package getapikey
@@ -168,6 +168,10 @@ func (r GetApiKey) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -199,42 +203,53 @@ func (r *GetApiKey) Header(key, value string) *GetApiKey {
 	return r
 }
 
-// Id API key id of the API key to be retrieved
+// Id An API key id.
+// This parameter cannot be used with any of `name`, `realm_name` or `username`.
 // API name: id
-func (r *GetApiKey) Id(v string) *GetApiKey {
-	r.values.Set("id", v)
+func (r *GetApiKey) Id(id string) *GetApiKey {
+	r.values.Set("id", id)
 
 	return r
 }
 
-// Name API key name of the API key to be retrieved
+// Name An API key name.
+// This parameter cannot be used with any of `id`, `realm_name` or `username`.
+// It supports prefix search with wildcard.
 // API name: name
-func (r *GetApiKey) Name(v string) *GetApiKey {
-	r.values.Set("name", v)
+func (r *GetApiKey) Name(name string) *GetApiKey {
+	r.values.Set("name", name)
 
 	return r
 }
 
-// Owner flag to query API keys owned by the currently authenticated user
+// Owner A boolean flag that can be used to query API keys owned by the currently
+// authenticated user.
+// The `realm_name` or `username` parameters cannot be specified when this
+// parameter is set to `true` as they are assumed to be the currently
+// authenticated ones.
 // API name: owner
-func (r *GetApiKey) Owner(b bool) *GetApiKey {
-	r.values.Set("owner", strconv.FormatBool(b))
+func (r *GetApiKey) Owner(owner bool) *GetApiKey {
+	r.values.Set("owner", strconv.FormatBool(owner))
 
 	return r
 }
 
-// RealmName realm name of the user who created this API key to be retrieved
+// RealmName The name of an authentication realm.
+// This parameter cannot be used with either `id` or `name` or when `owner` flag
+// is set to `true`.
 // API name: realm_name
-func (r *GetApiKey) RealmName(v string) *GetApiKey {
-	r.values.Set("realm_name", v)
+func (r *GetApiKey) RealmName(name string) *GetApiKey {
+	r.values.Set("realm_name", name)
 
 	return r
 }
 
-// Username user name of the user who created this API key to be retrieved
+// Username The username of a user.
+// This parameter cannot be used with either `id` or `name` or when `owner` flag
+// is set to `true`.
 // API name: username
-func (r *GetApiKey) Username(v string) *GetApiKey {
-	r.values.Set("username", v)
+func (r *GetApiKey) Username(username string) *GetApiKey {
+	r.values.Set("username", username)
 
 	return r
 }
@@ -244,8 +259,8 @@ func (r *GetApiKey) Username(v string) *GetApiKey {
 // permission is the intersection of its assigned role
 // descriptors and the owner user's role descriptors.
 // API name: with_limited_by
-func (r *GetApiKey) WithLimitedBy(b bool) *GetApiKey {
-	r.values.Set("with_limited_by", strconv.FormatBool(b))
+func (r *GetApiKey) WithLimitedBy(withlimitedby bool) *GetApiKey {
+	r.values.Set("with_limited_by", strconv.FormatBool(withlimitedby))
 
 	return r
 }

@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // LifecycleExplainUnmanaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ilm/explain_lifecycle/types.ts#L54-L57
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/ilm/explain_lifecycle/types.ts#L54-L57
 type LifecycleExplainUnmanaged struct {
 	Index   string `json:"index"`
 	Managed bool   `json:"managed,omitempty"`
@@ -66,11 +65,22 @@ func (s *LifecycleExplainUnmanaged) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s LifecycleExplainUnmanaged) MarshalJSON() ([]byte, error) {
+	type innerLifecycleExplainUnmanaged LifecycleExplainUnmanaged
+	tmp := innerLifecycleExplainUnmanaged{
+		Index:   s.Index,
+		Managed: s.Managed,
+	}
+
+	tmp.Managed = false
+
+	return json.Marshal(tmp)
+}
+
 // NewLifecycleExplainUnmanaged returns a LifecycleExplainUnmanaged.
 func NewLifecycleExplainUnmanaged() *LifecycleExplainUnmanaged {
 	r := &LifecycleExplainUnmanaged{}
-
-	r.Managed = false
 
 	return r
 }

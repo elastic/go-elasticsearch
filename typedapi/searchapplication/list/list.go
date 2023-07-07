@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns the existing search applications.
 package list
@@ -168,6 +168,10 @@ func (r List) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -201,24 +205,24 @@ func (r *List) Header(key, value string) *List {
 
 // Q Query in the Lucene query string syntax"
 // API name: q
-func (r *List) Q(v string) *List {
-	r.values.Set("q", v)
+func (r *List) Q(q string) *List {
+	r.values.Set("q", q)
 
 	return r
 }
 
 // From Starting offset (default: 0)
 // API name: from
-func (r *List) From(i int) *List {
-	r.values.Set("from", strconv.Itoa(i))
+func (r *List) From(from int) *List {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
 
 // Size specifies a max number of results to get
 // API name: size
-func (r *List) Size(i int) *List {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *List) Size(size int) *List {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }

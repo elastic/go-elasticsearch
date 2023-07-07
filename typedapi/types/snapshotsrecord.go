@@ -16,47 +16,56 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // SnapshotsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/snapshots/types.ts#L24-L90
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cat/snapshots/types.ts#L24-L96
 type SnapshotsRecord struct {
-	// Duration duration
+	// Duration The time it took the snapshot process to complete, in time units.
 	Duration Duration `json:"duration,omitempty"`
-	// EndEpoch end time in seconds since 1970-01-01 00:00:00
+	// EndEpoch The Unix epoch time (seconds since 1970-01-01 00:00:00) at which the snapshot
+	// process ended.
 	EndEpoch StringifiedEpochTimeUnitSeconds `json:"end_epoch,omitempty"`
-	// EndTime end time in HH:MM:SS
+	// EndTime The time (HH:MM:SS) at which the snapshot process ended.
 	EndTime *string `json:"end_time,omitempty"`
-	// FailedShards number of failed shards
+	// FailedShards The number of failed shards in the snapshot.
 	FailedShards *string `json:"failed_shards,omitempty"`
-	// Id unique snapshot
+	// Id The unique identifier for the snapshot.
 	Id *string `json:"id,omitempty"`
-	// Indices number of indices
+	// Indices The number of indices in the snapshot.
 	Indices *string `json:"indices,omitempty"`
-	// Reason reason for failures
+	// Reason The reason for any snapshot failures.
 	Reason *string `json:"reason,omitempty"`
-	// Repository repository name
+	// Repository The repository name.
 	Repository *string `json:"repository,omitempty"`
-	// StartEpoch start time in seconds since 1970-01-01 00:00:00
+	// StartEpoch The Unix epoch time (seconds since 1970-01-01 00:00:00) at which the snapshot
+	// process started.
 	StartEpoch StringifiedEpochTimeUnitSeconds `json:"start_epoch,omitempty"`
-	// StartTime start time in HH:MM:SS
+	// StartTime The time (HH:MM:SS) at which the snapshot process started.
 	StartTime ScheduleTimeOfDay `json:"start_time,omitempty"`
-	// Status snapshot name
+	// Status The state of the snapshot process.
+	// Returned values include:
+	// `FAILED`: The snapshot process failed.
+	// `INCOMPATIBLE`: The snapshot process is incompatible with the current cluster
+	// version.
+	// `IN_PROGRESS`: The snapshot process started but has not completed.
+	// `PARTIAL`: The snapshot process completed with a partial success.
+	// `SUCCESS`: The snapshot process completed with a full success.
 	Status *string `json:"status,omitempty"`
-	// SuccessfulShards number of successful shards
+	// SuccessfulShards The number of successful shards in the snapshot.
 	SuccessfulShards *string `json:"successful_shards,omitempty"`
-	// TotalShards number of total shards
+	// TotalShards The total number of shards in the snapshot.
 	TotalShards *string `json:"total_shards,omitempty"`
 }
 
@@ -95,7 +104,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FailedShards = &o
 
 		case "id", "snapshot":
@@ -103,7 +116,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Id = &o
 
 		case "indices", "i":
@@ -111,7 +128,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Indices = &o
 
 		case "reason", "r":
@@ -119,7 +140,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Reason = &o
 
 		case "repository", "re", "repo":
@@ -127,7 +152,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Repository = &o
 
 		case "start_epoch", "ste", "startEpoch":
@@ -160,7 +189,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Status = &o
 
 		case "successful_shards", "ss":
@@ -168,7 +201,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SuccessfulShards = &o
 
 		case "total_shards", "ts":
@@ -176,7 +213,11 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TotalShards = &o
 
 		}

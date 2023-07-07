@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Simulate matching the given index name against the index templates in the
 // system
@@ -54,8 +54,9 @@ type SimulateIndexTemplate struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -87,6 +88,8 @@ func New(tp elastictransport.Interface) *SimulateIndexTemplate {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -116,9 +119,19 @@ func (r *SimulateIndexTemplate) HttpRequest(ctx context.Context) (*http.Request,
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -126,6 +139,7 @@ func (r *SimulateIndexTemplate) HttpRequest(ctx context.Context) (*http.Request,
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -216,6 +230,10 @@ func (r SimulateIndexTemplate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -228,9 +246,9 @@ func (r *SimulateIndexTemplate) Header(key, value string) *SimulateIndexTemplate
 
 // Name Index or template name to simulate
 // API Name: name
-func (r *SimulateIndexTemplate) Name(v string) *SimulateIndexTemplate {
+func (r *SimulateIndexTemplate) Name(name string) *SimulateIndexTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -241,8 +259,8 @@ func (r *SimulateIndexTemplate) Name(v string) *SimulateIndexTemplate {
 // permanently added or updated in either case; it is only used for the
 // simulation.
 // API name: create
-func (r *SimulateIndexTemplate) Create(b bool) *SimulateIndexTemplate {
-	r.values.Set("create", strconv.FormatBool(b))
+func (r *SimulateIndexTemplate) Create(create bool) *SimulateIndexTemplate {
+	r.values.Set("create", strconv.FormatBool(create))
 
 	return r
 }
@@ -251,8 +269,74 @@ func (r *SimulateIndexTemplate) Create(b bool) *SimulateIndexTemplate {
 // received
 // before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *SimulateIndexTemplate) MasterTimeout(v string) *SimulateIndexTemplate {
-	r.values.Set("master_timeout", v)
+func (r *SimulateIndexTemplate) MasterTimeout(duration string) *SimulateIndexTemplate {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// IncludeDefaults If true, returns all relevant default configurations for the index template.
+// API name: include_defaults
+func (r *SimulateIndexTemplate) IncludeDefaults(includedefaults bool) *SimulateIndexTemplate {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
+
+	return r
+}
+
+// API name: allow_auto_create
+func (r *SimulateIndexTemplate) AllowAutoCreate(allowautocreate bool) *SimulateIndexTemplate {
+	r.req.AllowAutoCreate = &allowautocreate
+
+	return r
+}
+
+// API name: composed_of
+func (r *SimulateIndexTemplate) ComposedOf(composedofs ...string) *SimulateIndexTemplate {
+	r.req.ComposedOf = composedofs
+
+	return r
+}
+
+// API name: data_stream
+func (r *SimulateIndexTemplate) DataStream(datastream *types.DataStreamVisibility) *SimulateIndexTemplate {
+
+	r.req.DataStream = datastream
+
+	return r
+}
+
+// API name: index_patterns
+func (r *SimulateIndexTemplate) IndexPatterns(indices ...string) *SimulateIndexTemplate {
+	r.req.IndexPatterns = indices
+
+	return r
+}
+
+// API name: _meta
+func (r *SimulateIndexTemplate) Meta_(metadata types.Metadata) *SimulateIndexTemplate {
+	r.req.Meta_ = metadata
+
+	return r
+}
+
+// API name: priority
+func (r *SimulateIndexTemplate) Priority(priority int) *SimulateIndexTemplate {
+	r.req.Priority = &priority
+
+	return r
+}
+
+// API name: template
+func (r *SimulateIndexTemplate) Template(template *types.IndexTemplateMapping) *SimulateIndexTemplate {
+
+	r.req.Template = template
+
+	return r
+}
+
+// API name: version
+func (r *SimulateIndexTemplate) Version(versionnumber int64) *SimulateIndexTemplate {
+	r.req.Version = &versionnumber
 
 	return r
 }

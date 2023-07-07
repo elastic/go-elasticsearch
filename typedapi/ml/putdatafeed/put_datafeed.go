@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Instantiates a datafeed.
 package putdatafeed
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -53,8 +54,9 @@ type PutDatafeed struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +87,8 @@ func New(tp elastictransport.Interface) *PutDatafeed {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +118,19 @@ func (r *PutDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +138,7 @@ func (r *PutDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -214,6 +229,10 @@ func (r PutDatafeed) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -229,9 +248,9 @@ func (r *PutDatafeed) Header(key, value string) *PutDatafeed {
 // hyphens, and underscores.
 // It must start and end with alphanumeric characters.
 // API Name: datafeedid
-func (r *PutDatafeed) DatafeedId(v string) *PutDatafeed {
+func (r *PutDatafeed) DatafeedId(datafeedid string) *PutDatafeed {
 	r.paramSet |= datafeedidMask
-	r.datafeedid = v
+	r.datafeedid = datafeedid
 
 	return r
 }
@@ -240,8 +259,8 @@ func (r *PutDatafeed) DatafeedId(v string) *PutDatafeed {
 // are ignored. This includes the `_all`
 // string or when no indices are specified.
 // API name: allow_no_indices
-func (r *PutDatafeed) AllowNoIndices(b bool) *PutDatafeed {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *PutDatafeed) AllowNoIndices(allownoindices bool) *PutDatafeed {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -251,24 +270,195 @@ func (r *PutDatafeed) AllowNoIndices(b bool) *PutDatafeed {
 // whether wildcard expressions match hidden data streams. Supports
 // comma-separated values.
 // API name: expand_wildcards
-func (r *PutDatafeed) ExpandWildcards(v string) *PutDatafeed {
-	r.values.Set("expand_wildcards", v)
+func (r *PutDatafeed) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutDatafeed {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreThrottled If true, concrete, expanded, or aliased indices are ignored when frozen.
 // API name: ignore_throttled
-func (r *PutDatafeed) IgnoreThrottled(b bool) *PutDatafeed {
-	r.values.Set("ignore_throttled", strconv.FormatBool(b))
+func (r *PutDatafeed) IgnoreThrottled(ignorethrottled bool) *PutDatafeed {
+	r.values.Set("ignore_throttled", strconv.FormatBool(ignorethrottled))
 
 	return r
 }
 
 // IgnoreUnavailable If true, unavailable indices (missing or closed) are ignored.
 // API name: ignore_unavailable
-func (r *PutDatafeed) IgnoreUnavailable(b bool) *PutDatafeed {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *PutDatafeed) IgnoreUnavailable(ignoreunavailable bool) *PutDatafeed {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// Aggregations If set, the datafeed performs aggregation searches.
+// Support for aggregations is limited and should be used only with low
+// cardinality data.
+// API name: aggregations
+func (r *PutDatafeed) Aggregations(aggregations map[string]types.Aggregations) *PutDatafeed {
+
+	r.req.Aggregations = aggregations
+
+	return r
+}
+
+// ChunkingConfig Datafeeds might be required to search over long time periods, for several
+// months or years.
+// This search is split into time chunks in order to ensure the load on
+// Elasticsearch is managed.
+// Chunking configuration controls how the size of these time chunks are
+// calculated;
+// it is an advanced configuration option.
+// API name: chunking_config
+func (r *PutDatafeed) ChunkingConfig(chunkingconfig *types.ChunkingConfig) *PutDatafeed {
+
+	r.req.ChunkingConfig = chunkingconfig
+
+	return r
+}
+
+// DelayedDataCheckConfig Specifies whether the datafeed checks for missing data and the size of the
+// window.
+// The datafeed can optionally search over indices that have already been read
+// in an effort to determine whether
+// any data has subsequently been added to the index. If missing data is found,
+// it is a good indication that the
+// `query_delay` is set too low and the data is being indexed after the datafeed
+// has passed that moment in time.
+// This check runs only on real-time datafeeds.
+// API name: delayed_data_check_config
+func (r *PutDatafeed) DelayedDataCheckConfig(delayeddatacheckconfig *types.DelayedDataCheckConfig) *PutDatafeed {
+
+	r.req.DelayedDataCheckConfig = delayeddatacheckconfig
+
+	return r
+}
+
+// Frequency The interval at which scheduled queries are made while the datafeed runs in
+// real time.
+// The default value is either the bucket span for short bucket spans, or, for
+// longer bucket spans, a sensible
+// fraction of the bucket span. When `frequency` is shorter than the bucket
+// span, interim results for the last
+// (partial) bucket are written then eventually overwritten by the full bucket
+// results. If the datafeed uses
+// aggregations, this value must be divisible by the interval of the date
+// histogram aggregation.
+// API name: frequency
+func (r *PutDatafeed) Frequency(duration types.Duration) *PutDatafeed {
+	r.req.Frequency = duration
+
+	return r
+}
+
+// API name: headers
+func (r *PutDatafeed) Headers(httpheaders types.HttpHeaders) *PutDatafeed {
+	r.req.Headers = httpheaders
+
+	return r
+}
+
+// Indices An array of index names. Wildcards are supported. If any of the indices are
+// in remote clusters, the machine
+// learning nodes must have the `remote_cluster_client` role.
+// API name: indices
+func (r *PutDatafeed) Indices(indices ...string) *PutDatafeed {
+	r.req.Indices = indices
+
+	return r
+}
+
+// IndicesOptions Specifies index expansion options that are used during search
+// API name: indices_options
+func (r *PutDatafeed) IndicesOptions(indicesoptions *types.IndicesOptions) *PutDatafeed {
+
+	r.req.IndicesOptions = indicesoptions
+
+	return r
+}
+
+// JobId Identifier for the anomaly detection job.
+// API name: job_id
+func (r *PutDatafeed) JobId(id string) *PutDatafeed {
+	r.req.JobId = &id
+
+	return r
+}
+
+// MaxEmptySearches If a real-time datafeed has never seen any data (including during any initial
+// training period), it automatically
+// stops and closes the associated job after this many real-time searches return
+// no documents. In other words,
+// it stops after `frequency` times `max_empty_searches` of real-time operation.
+// If not set, a datafeed with no
+// end time that sees no data remains started until it is explicitly stopped. By
+// default, it is not set.
+// API name: max_empty_searches
+func (r *PutDatafeed) MaxEmptySearches(maxemptysearches int) *PutDatafeed {
+	r.req.MaxEmptySearches = &maxemptysearches
+
+	return r
+}
+
+// Query The Elasticsearch query domain-specific language (DSL). This value
+// corresponds to the query object in an
+// Elasticsearch search POST body. All the options that are supported by
+// Elasticsearch can be used, as this
+// object is passed verbatim to Elasticsearch.
+// API name: query
+func (r *PutDatafeed) Query(query *types.Query) *PutDatafeed {
+
+	r.req.Query = query
+
+	return r
+}
+
+// QueryDelay The number of seconds behind real time that data is queried. For example, if
+// data from 10:04 a.m. might
+// not be searchable in Elasticsearch until 10:06 a.m., set this property to 120
+// seconds. The default
+// value is randomly selected between `60s` and `120s`. This randomness improves
+// the query performance
+// when there are multiple jobs running on the same node.
+// API name: query_delay
+func (r *PutDatafeed) QueryDelay(duration types.Duration) *PutDatafeed {
+	r.req.QueryDelay = duration
+
+	return r
+}
+
+// RuntimeMappings Specifies runtime fields for the datafeed search.
+// API name: runtime_mappings
+func (r *PutDatafeed) RuntimeMappings(runtimefields types.RuntimeFields) *PutDatafeed {
+	r.req.RuntimeMappings = runtimefields
+
+	return r
+}
+
+// ScriptFields Specifies scripts that evaluate custom expressions and returns script fields
+// to the datafeed.
+// The detector configuration objects in a job can contain functions that use
+// these script fields.
+// API name: script_fields
+func (r *PutDatafeed) ScriptFields(scriptfields map[string]types.ScriptField) *PutDatafeed {
+
+	r.req.ScriptFields = scriptfields
+
+	return r
+}
+
+// ScrollSize The size parameter that is used in Elasticsearch searches when the datafeed
+// does not use aggregations.
+// The maximum value is the value of `index.max_result_window`, which is 10,000
+// by default.
+// API name: scroll_size
+func (r *PutDatafeed) ScrollSize(scrollsize int) *PutDatafeed {
+	r.req.ScrollSize = &scrollsize
 
 	return r
 }

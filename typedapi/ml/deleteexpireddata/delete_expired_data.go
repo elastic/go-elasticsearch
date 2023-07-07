@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes expired and unused machine learning data.
 package deleteexpireddata
@@ -52,8 +52,9 @@ type DeleteExpiredData struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -82,6 +83,8 @@ func New(tp elastictransport.Interface) *DeleteExpiredData {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -111,9 +114,19 @@ func (r *DeleteExpiredData) HttpRequest(ctx context.Context) (*http.Request, err
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -121,6 +134,7 @@ func (r *DeleteExpiredData) HttpRequest(ctx context.Context) (*http.Request, err
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -218,6 +232,10 @@ func (r DeleteExpiredData) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -231,9 +249,9 @@ func (r *DeleteExpiredData) Header(key, value string) *DeleteExpiredData {
 // JobId Identifier for an anomaly detection job. It can be a job identifier, a
 // group name, or a wildcard expression.
 // API Name: jobid
-func (r *DeleteExpiredData) JobId(v string) *DeleteExpiredData {
+func (r *DeleteExpiredData) JobId(jobid string) *DeleteExpiredData {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
@@ -241,16 +259,17 @@ func (r *DeleteExpiredData) JobId(v string) *DeleteExpiredData {
 // RequestsPerSecond The desired requests per second for the deletion processes. The default
 // behavior is no throttling.
 // API name: requests_per_second
-func (r *DeleteExpiredData) RequestsPerSecond(v string) *DeleteExpiredData {
-	r.values.Set("requests_per_second", v)
+func (r *DeleteExpiredData) RequestsPerSecond(requestspersecond float32) *DeleteExpiredData {
+
+	r.req.RequestsPerSecond = &requestspersecond
 
 	return r
 }
 
 // Timeout How long can the underlying delete processes run until they are canceled.
 // API name: timeout
-func (r *DeleteExpiredData) Timeout(v string) *DeleteExpiredData {
-	r.values.Set("timeout", v)
+func (r *DeleteExpiredData) Timeout(duration types.Duration) *DeleteExpiredData {
+	r.req.Timeout = duration
 
 	return r
 }

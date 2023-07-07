@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // NestedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/complex.ts#L39-L44
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/complex.ts#L39-L44
 type NestedProperty struct {
 	CopyTo          []string                       `json:"copy_to,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
@@ -752,7 +750,11 @@ func (s *NestedProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "store":
@@ -779,6 +781,29 @@ func (s *NestedProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s NestedProperty) MarshalJSON() ([]byte, error) {
+	type innerNestedProperty NestedProperty
+	tmp := innerNestedProperty{
+		CopyTo:          s.CopyTo,
+		Dynamic:         s.Dynamic,
+		Enabled:         s.Enabled,
+		Fields:          s.Fields,
+		IgnoreAbove:     s.IgnoreAbove,
+		IncludeInParent: s.IncludeInParent,
+		IncludeInRoot:   s.IncludeInRoot,
+		Meta:            s.Meta,
+		Properties:      s.Properties,
+		Similarity:      s.Similarity,
+		Store:           s.Store,
+		Type:            s.Type,
+	}
+
+	tmp.Type = "nested"
+
+	return json.Marshal(tmp)
+}
+
 // NewNestedProperty returns a NestedProperty.
 func NewNestedProperty() *NestedProperty {
 	r := &NestedProperty{
@@ -786,8 +811,6 @@ func NewNestedProperty() *NestedProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "nested"
 
 	return r
 }

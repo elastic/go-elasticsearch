@@ -16,26 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexoptions"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexoptions"
 )
 
 // FlattenedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/complex.ts#L26-L37
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/complex.ts#L26-L37
 type FlattenedProperty struct {
 	Boost               *Float64                       `json:"boost,omitempty"`
 	DepthLimit          *int                           `json:"depth_limit,omitempty"`
@@ -480,7 +478,11 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.NullValue = &o
 
 		case "properties":
@@ -785,7 +787,11 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "split_queries_on_whitespace":
@@ -812,6 +818,32 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s FlattenedProperty) MarshalJSON() ([]byte, error) {
+	type innerFlattenedProperty FlattenedProperty
+	tmp := innerFlattenedProperty{
+		Boost:                    s.Boost,
+		DepthLimit:               s.DepthLimit,
+		DocValues:                s.DocValues,
+		Dynamic:                  s.Dynamic,
+		EagerGlobalOrdinals:      s.EagerGlobalOrdinals,
+		Fields:                   s.Fields,
+		IgnoreAbove:              s.IgnoreAbove,
+		Index:                    s.Index,
+		IndexOptions:             s.IndexOptions,
+		Meta:                     s.Meta,
+		NullValue:                s.NullValue,
+		Properties:               s.Properties,
+		Similarity:               s.Similarity,
+		SplitQueriesOnWhitespace: s.SplitQueriesOnWhitespace,
+		Type:                     s.Type,
+	}
+
+	tmp.Type = "flattened"
+
+	return json.Marshal(tmp)
+}
+
 // NewFlattenedProperty returns a FlattenedProperty.
 func NewFlattenedProperty() *FlattenedProperty {
 	r := &FlattenedProperty{
@@ -819,8 +851,6 @@ func NewFlattenedProperty() *FlattenedProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "flattened"
 
 	return r
 }

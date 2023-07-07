@@ -16,35 +16,51 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // ApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/_types/ApiKey.ts#L27-L41
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/security/_types/ApiKey.ts#L27-L77
 type ApiKey struct {
-	Creation        *int64                      `json:"creation,omitempty"`
-	Expiration      *int64                      `json:"expiration,omitempty"`
-	Id              string                      `json:"id"`
-	Invalidated     *bool                       `json:"invalidated,omitempty"`
-	LimitedBy       []map[string]RoleDescriptor `json:"limited_by,omitempty"`
-	Metadata        Metadata                    `json:"metadata,omitempty"`
-	Name            string                      `json:"name"`
-	Realm           *string                     `json:"realm,omitempty"`
-	RoleDescriptors map[string]RoleDescriptor   `json:"role_descriptors,omitempty"`
-	Sort_           []FieldValue                `json:"_sort,omitempty"`
-	Username        *string                     `json:"username,omitempty"`
+	// Creation Creation time for the API key in milliseconds.
+	Creation *int64 `json:"creation,omitempty"`
+	// Expiration Expiration time for the API key in milliseconds.
+	Expiration *int64 `json:"expiration,omitempty"`
+	// Id Id for the API key
+	Id string `json:"id"`
+	// Invalidated Invalidation status for the API key.
+	// If the key has been invalidated, it has a value of `true`. Otherwise, it is
+	// `false`.
+	Invalidated *bool `json:"invalidated,omitempty"`
+	// LimitedBy The owner user’s permissions associated with the API key.
+	// It is a point-in-time snapshot captured at creation and subsequent updates.
+	// An API key’s effective permissions are an intersection of its assigned
+	// privileges and the owner user’s permissions.
+	LimitedBy []map[string]RoleDescriptor `json:"limited_by,omitempty"`
+	// Metadata Metadata of the API key
+	Metadata Metadata `json:"metadata,omitempty"`
+	// Name Name of the API key.
+	Name string `json:"name"`
+	// Realm Realm name of the principal for which this API key was created.
+	Realm *string `json:"realm,omitempty"`
+	// RoleDescriptors The role descriptors assigned to this API key when it was created or last
+	// updated.
+	// An empty role descriptor means the API key inherits the owner user’s
+	// permissions.
+	RoleDescriptors map[string]RoleDescriptor `json:"role_descriptors,omitempty"`
+	Sort_           []FieldValue              `json:"_sort,omitempty"`
+	// Username Principal for which this API key was created
+	Username *string `json:"username,omitempty"`
 }
 
 func (s *ApiKey) UnmarshalJSON(data []byte) error {
@@ -131,7 +147,11 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Realm = &o
 
 		case "role_descriptors":

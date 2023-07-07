@@ -28,7 +28,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/indices/create"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
@@ -327,12 +326,10 @@ func TestTypedClient(t *testing.T) {
 		indexName := "test-index"
 		if exists, err := es.Indices.Exists(indexName).IsSuccess(context.Background()); !exists && err == nil {
 			res, err := es.Indices.Create(indexName).
-				Request(&create.Request{
-					Mappings: &types.TypeMapping{
-						Properties: map[string]types.Property{
-							"price": types.NewIntegerNumberProperty(),
-							"name":  types.NewKeywordProperty(),
-						},
+				Mappings(&types.TypeMapping{
+					Properties: map[string]types.Property{
+						"price": types.IntegerNumberProperty{},
+						"name":  types.KeywordProperty{},
 					},
 				}).
 				Do(context.Background())
@@ -360,6 +357,7 @@ func TestTypedClient(t *testing.T) {
 			Id    int    `json:"id"`
 			Name  string `json:"name"`
 			Price int    `json:"price"`
+			Alt   string `json:"alt"`
 		}
 
 		// Indexing synchronously with refresh.Waitfor, one document at a time
@@ -381,7 +379,7 @@ func TestTypedClient(t *testing.T) {
 			},
 		} {
 			indexed, err := es.Index(indexName).
-				Request(document).
+				Document(document).
 				Id(strconv.Itoa(document.Id)).
 				Refresh(refresh.Waitfor).
 				Do(context.Background())
@@ -391,6 +389,9 @@ func TestTypedClient(t *testing.T) {
 			if indexed.Result != result.Created {
 				t.Fatalf("unexpected result during indexation of document: %v, response: %v", document, indexed)
 			}
+
+			document.Alt = fmt.Sprintf("alt_%d", document.Id)
+			es.Update(indexName, strconv.Itoa(document.Id)).Doc(document).Do(context.Background())
 		}
 
 		// Check for document existence in index
@@ -412,13 +413,12 @@ func TestTypedClient(t *testing.T) {
 		// Simple search matching name
 		res, err := es.Search().
 			Index(indexName).
-			Request(&search.Request{
-				Query: &types.Query{
-					Match: map[string]types.MatchQuery{
-						"name": {Query: "Foo"},
-					},
+			Query(&types.Query{
+				Match: map[string]types.MatchQuery{
+					"name": {Query: "Foo"},
 				},
-			}).Do(context.Background())
+			}).
+			Do(context.Background())
 
 		if err != nil {
 			t.Fatalf("error runnning search query: %s", err)
@@ -440,17 +440,15 @@ func TestTypedClient(t *testing.T) {
 		// Aggregate prices with a SumAggregation
 		searchResponse, err := es.Search().
 			Index(indexName).
-			Request(
-				&search.Request{
-					Size: some.Int(0),
-					Aggregations: map[string]types.Aggregations{
-						"total_prices": {
-							Sum: &types.SumAggregation{
-								Field: some.String("price"),
-							},
-						},
+			Size(0).
+			Aggregations(map[string]types.Aggregations{
+				"total_prices": {
+					Sum: &types.SumAggregation{
+						Field: some.String("price"),
 					},
-				}).Do(context.Background())
+				},
+			}).
+			Do(context.Background())
 
 		if err != nil {
 			t.Fatal(err)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves role mappings.
 package getrolemapping
@@ -183,6 +183,10 @@ func (r GetRoleMapping) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -220,9 +224,9 @@ func (r *GetRoleMapping) Header(key, value string) *GetRoleMapping {
 // names as a comma-separated list. If you do not specify this parameter, the
 // API returns information about all role mappings.
 // API Name: name
-func (r *GetRoleMapping) Name(v string) *GetRoleMapping {
+func (r *GetRoleMapping) Name(name string) *GetRoleMapping {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

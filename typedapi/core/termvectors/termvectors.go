@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns information and statistics about terms in the fields of a particular
 // document.
@@ -36,7 +36,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
@@ -58,8 +57,9 @@ type Termvectors struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -92,6 +92,8 @@ func New(tp elastictransport.Interface) *Termvectors {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -121,9 +123,19 @@ func (r *Termvectors) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -131,6 +143,7 @@ func (r *Termvectors) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -230,6 +243,10 @@ func (r Termvectors) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -242,26 +259,26 @@ func (r *Termvectors) Header(key, value string) *Termvectors {
 
 // Index The index in which the document resides.
 // API Name: index
-func (r *Termvectors) Index(v string) *Termvectors {
+func (r *Termvectors) Index(index string) *Termvectors {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // Id The id of the document, when not specified a doc param should be supplied.
 // API Name: id
-func (r *Termvectors) Id(v string) *Termvectors {
+func (r *Termvectors) Id(id string) *Termvectors {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Fields A comma-separated list of fields to return.
 // API name: fields
-func (r *Termvectors) Fields(v string) *Termvectors {
-	r.values.Set("fields", v)
+func (r *Termvectors) Fields(fields ...string) *Termvectors {
+	r.values.Set("fields", strings.Join(fields, ","))
 
 	return r
 }
@@ -269,32 +286,32 @@ func (r *Termvectors) Fields(v string) *Termvectors {
 // FieldStatistics Specifies if document count, sum of document frequencies and sum of total
 // term frequencies should be returned.
 // API name: field_statistics
-func (r *Termvectors) FieldStatistics(b bool) *Termvectors {
-	r.values.Set("field_statistics", strconv.FormatBool(b))
+func (r *Termvectors) FieldStatistics(fieldstatistics bool) *Termvectors {
+	r.values.Set("field_statistics", strconv.FormatBool(fieldstatistics))
 
 	return r
 }
 
 // Offsets Specifies if term offsets should be returned.
 // API name: offsets
-func (r *Termvectors) Offsets(b bool) *Termvectors {
-	r.values.Set("offsets", strconv.FormatBool(b))
+func (r *Termvectors) Offsets(offsets bool) *Termvectors {
+	r.values.Set("offsets", strconv.FormatBool(offsets))
 
 	return r
 }
 
 // Payloads Specifies if term payloads should be returned.
 // API name: payloads
-func (r *Termvectors) Payloads(b bool) *Termvectors {
-	r.values.Set("payloads", strconv.FormatBool(b))
+func (r *Termvectors) Payloads(payloads bool) *Termvectors {
+	r.values.Set("payloads", strconv.FormatBool(payloads))
 
 	return r
 }
 
 // Positions Specifies if term positions should be returned.
 // API name: positions
-func (r *Termvectors) Positions(b bool) *Termvectors {
-	r.values.Set("positions", strconv.FormatBool(b))
+func (r *Termvectors) Positions(positions bool) *Termvectors {
+	r.values.Set("positions", strconv.FormatBool(positions))
 
 	return r
 }
@@ -302,8 +319,8 @@ func (r *Termvectors) Positions(b bool) *Termvectors {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random).
 // API name: preference
-func (r *Termvectors) Preference(v string) *Termvectors {
-	r.values.Set("preference", v)
+func (r *Termvectors) Preference(preference string) *Termvectors {
+	r.values.Set("preference", preference)
 
 	return r
 }
@@ -311,40 +328,79 @@ func (r *Termvectors) Preference(v string) *Termvectors {
 // Realtime Specifies if request is real-time as opposed to near-real-time (default:
 // true).
 // API name: realtime
-func (r *Termvectors) Realtime(b bool) *Termvectors {
-	r.values.Set("realtime", strconv.FormatBool(b))
+func (r *Termvectors) Realtime(realtime bool) *Termvectors {
+	r.values.Set("realtime", strconv.FormatBool(realtime))
 
 	return r
 }
 
 // Routing Specific routing value.
 // API name: routing
-func (r *Termvectors) Routing(v string) *Termvectors {
-	r.values.Set("routing", v)
+func (r *Termvectors) Routing(routing string) *Termvectors {
+	r.values.Set("routing", routing)
 
 	return r
 }
 
 // TermStatistics Specifies if total term frequency and document frequency should be returned.
 // API name: term_statistics
-func (r *Termvectors) TermStatistics(b bool) *Termvectors {
-	r.values.Set("term_statistics", strconv.FormatBool(b))
+func (r *Termvectors) TermStatistics(termstatistics bool) *Termvectors {
+	r.values.Set("term_statistics", strconv.FormatBool(termstatistics))
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *Termvectors) Version(v string) *Termvectors {
-	r.values.Set("version", v)
+func (r *Termvectors) Version(versionnumber string) *Termvectors {
+	r.values.Set("version", versionnumber)
 
 	return r
 }
 
 // VersionType Specific version type
 // API name: version_type
-func (r *Termvectors) VersionType(enum versiontype.VersionType) *Termvectors {
-	r.values.Set("version_type", enum.String())
+func (r *Termvectors) VersionType(versiontype versiontype.VersionType) *Termvectors {
+	r.values.Set("version_type", versiontype.String())
+
+	return r
+}
+
+// API name: doc
+//
+// doc should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
+func (r *Termvectors) Doc(doc interface{}) *Termvectors {
+	switch casted := doc.(type) {
+	case json.RawMessage:
+		r.req.Doc = casted
+	default:
+		r.deferred = append(r.deferred, func(request *Request) error {
+			data, err := json.Marshal(doc)
+			if err != nil {
+				return err
+			}
+			r.req.Doc = data
+			return nil
+		})
+	}
+
+	return r
+}
+
+// API name: filter
+func (r *Termvectors) Filter(filter *types.TermVectorsFilter) *Termvectors {
+
+	r.req.Filter = filter
+
+	return r
+}
+
+// API name: per_field_analyzer
+func (r *Termvectors) PerFieldAnalyzer(perfieldanalyzer map[string]string) *Termvectors {
+
+	r.req.PerFieldAnalyzer = perfieldanalyzer
 
 	return r
 }

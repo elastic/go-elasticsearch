@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns information about whether a particular alias exists.
 package existsalias
@@ -34,6 +34,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -163,6 +164,11 @@ func (r ExistsAlias) Perform(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a existsalias.Response
+func (r ExistsAlias) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r ExistsAlias) IsSuccess(ctx context.Context) (bool, error) {
@@ -193,18 +199,18 @@ func (r *ExistsAlias) Header(key, value string) *ExistsAlias {
 
 // Name A comma-separated list of alias names to return
 // API Name: name
-func (r *ExistsAlias) Name(v string) *ExistsAlias {
+func (r *ExistsAlias) Name(name string) *ExistsAlias {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // Index A comma-separated list of index names to filter aliases
 // API Name: index
-func (r *ExistsAlias) Index(v string) *ExistsAlias {
+func (r *ExistsAlias) Index(index string) *ExistsAlias {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -212,8 +218,8 @@ func (r *ExistsAlias) Index(v string) *ExistsAlias {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *ExistsAlias) AllowNoIndices(b bool) *ExistsAlias {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *ExistsAlias) AllowNoIndices(allownoindices bool) *ExistsAlias {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -221,8 +227,12 @@ func (r *ExistsAlias) AllowNoIndices(b bool) *ExistsAlias {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *ExistsAlias) ExpandWildcards(v string) *ExistsAlias {
-	r.values.Set("expand_wildcards", v)
+func (r *ExistsAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ExistsAlias {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -230,8 +240,8 @@ func (r *ExistsAlias) ExpandWildcards(v string) *ExistsAlias {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *ExistsAlias) IgnoreUnavailable(b bool) *ExistsAlias {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *ExistsAlias) IgnoreUnavailable(ignoreunavailable bool) *ExistsAlias {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
@@ -239,8 +249,8 @@ func (r *ExistsAlias) IgnoreUnavailable(b bool) *ExistsAlias {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *ExistsAlias) Local(b bool) *ExistsAlias {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *ExistsAlias) Local(local bool) *ExistsAlias {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }

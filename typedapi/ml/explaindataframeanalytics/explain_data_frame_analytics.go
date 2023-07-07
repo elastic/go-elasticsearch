@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Explains a data frame analytics config.
 package explaindataframeanalytics
@@ -52,8 +52,9 @@ type ExplainDataFrameAnalytics struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -82,6 +83,8 @@ func New(tp elastictransport.Interface) *ExplainDataFrameAnalytics {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -111,9 +114,19 @@ func (r *ExplainDataFrameAnalytics) HttpRequest(ctx context.Context) (*http.Requ
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -121,6 +134,7 @@ func (r *ExplainDataFrameAnalytics) HttpRequest(ctx context.Context) (*http.Requ
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -226,6 +240,10 @@ func (r ExplainDataFrameAnalytics) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -240,9 +258,95 @@ func (r *ExplainDataFrameAnalytics) Header(key, value string) *ExplainDataFrameA
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and
 // underscores. It must start and end with alphanumeric characters.
 // API Name: id
-func (r *ExplainDataFrameAnalytics) Id(v string) *ExplainDataFrameAnalytics {
+func (r *ExplainDataFrameAnalytics) Id(id string) *ExplainDataFrameAnalytics {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
+
+	return r
+}
+
+// AllowLazyStart Specifies whether this job can start when there is insufficient machine
+// learning node capacity for it to be immediately assigned to a node.
+// API name: allow_lazy_start
+func (r *ExplainDataFrameAnalytics) AllowLazyStart(allowlazystart bool) *ExplainDataFrameAnalytics {
+	r.req.AllowLazyStart = &allowlazystart
+
+	return r
+}
+
+// Analysis The analysis configuration, which contains the information necessary to
+// perform one of the following types of analysis: classification, outlier
+// detection, or regression.
+// API name: analysis
+func (r *ExplainDataFrameAnalytics) Analysis(analysis *types.DataframeAnalysisContainer) *ExplainDataFrameAnalytics {
+
+	r.req.Analysis = analysis
+
+	return r
+}
+
+// AnalyzedFields Specify includes and/or excludes patterns to select which fields will be
+// included in the analysis. The patterns specified in excludes are applied
+// last, therefore excludes takes precedence. In other words, if the same
+// field is specified in both includes and excludes, then the field will not
+// be included in the analysis.
+// API name: analyzed_fields
+func (r *ExplainDataFrameAnalytics) AnalyzedFields(analyzedfields *types.DataframeAnalysisAnalyzedFields) *ExplainDataFrameAnalytics {
+
+	r.req.AnalyzedFields = analyzedfields
+
+	return r
+}
+
+// Description A description of the job.
+// API name: description
+func (r *ExplainDataFrameAnalytics) Description(description string) *ExplainDataFrameAnalytics {
+
+	r.req.Description = &description
+
+	return r
+}
+
+// Dest The destination configuration, consisting of index and optionally
+// results_field (ml by default).
+// API name: dest
+func (r *ExplainDataFrameAnalytics) Dest(dest *types.DataframeAnalyticsDestination) *ExplainDataFrameAnalytics {
+
+	r.req.Dest = dest
+
+	return r
+}
+
+// MaxNumThreads The maximum number of threads to be used by the analysis. Using more
+// threads may decrease the time necessary to complete the analysis at the
+// cost of using more CPU. Note that the process may use additional threads
+// for operational functionality other than the analysis itself.
+// API name: max_num_threads
+func (r *ExplainDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *ExplainDataFrameAnalytics {
+	r.req.MaxNumThreads = &maxnumthreads
+
+	return r
+}
+
+// ModelMemoryLimit The approximate maximum amount of memory resources that are permitted for
+// analytical processing. If your `elasticsearch.yml` file contains an
+// `xpack.ml.max_model_memory_limit` setting, an error occurs when you try to
+// create data frame analytics jobs that have `model_memory_limit` values
+// greater than that setting.
+// API name: model_memory_limit
+func (r *ExplainDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *ExplainDataFrameAnalytics {
+
+	r.req.ModelMemoryLimit = &modelmemorylimit
+
+	return r
+}
+
+// Source The configuration of how to source the analysis data. It requires an
+// index. Optionally, query and _source may be specified.
+// API name: source
+func (r *ExplainDataFrameAnalytics) Source(source *types.DataframeAnalyticsSource) *ExplainDataFrameAnalytics {
+
+	r.req.Source = source
 
 	return r
 }

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0: DO NOT EDIT
+// Code generated from specification version 8.10.0: DO NOT EDIT
 
 package esapi
 
@@ -51,6 +51,7 @@ type MLPutTrainedModelRequest struct {
 	ModelID string
 
 	DeferDefinitionDecompression *bool
+	WaitForCompletion            *bool
 
 	Pretty     bool
 	Human      bool
@@ -85,6 +86,10 @@ func (r MLPutTrainedModelRequest) Do(ctx context.Context, transport Transport) (
 
 	if r.DeferDefinitionDecompression != nil {
 		params["defer_definition_decompression"] = strconv.FormatBool(*r.DeferDefinitionDecompression)
+	}
+
+	if r.WaitForCompletion != nil {
+		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
 	}
 
 	if r.Pretty {
@@ -161,6 +166,13 @@ func (f MLPutTrainedModel) WithContext(v context.Context) func(*MLPutTrainedMode
 func (f MLPutTrainedModel) WithDeferDefinitionDecompression(v bool) func(*MLPutTrainedModelRequest) {
 	return func(r *MLPutTrainedModelRequest) {
 		r.DeferDefinitionDecompression = &v
+	}
+}
+
+// WithWaitForCompletion - whether to wait for all child operations(e.g. model download) to complete, before returning or not. default to false.
+func (f MLPutTrainedModel) WithWaitForCompletion(v bool) func(*MLPutTrainedModelRequest) {
+	return func(r *MLPutTrainedModelRequest) {
+		r.WaitForCompletion = &v
 	}
 }
 

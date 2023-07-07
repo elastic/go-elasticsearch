@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves an autoscaling policy. Designed for indirect use by ECE/ESS and
 // ECK. Direct use is not supported.
@@ -180,6 +180,10 @@ func (r GetAutoscalingPolicy) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *GetAutoscalingPolicy) Header(key, value string) *GetAutoscalingPolicy {
 
 // Name the name of the autoscaling policy
 // API Name: name
-func (r *GetAutoscalingPolicy) Name(v string) *GetAutoscalingPolicy {
+func (r *GetAutoscalingPolicy) Name(name string) *GetAutoscalingPolicy {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns results matching a query expressed in Event Query Language (EQL)
 package search
@@ -35,6 +35,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/resultposition"
 )
 
 const (
@@ -53,8 +55,9 @@ type Search struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +88,8 @@ func New(tp elastictransport.Interface) *Search {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +119,19 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +139,7 @@ func (r *Search) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -214,6 +230,10 @@ func (r Search) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -226,56 +246,147 @@ func (r *Search) Header(key, value string) *Search {
 
 // Index The name of the index to scope the operation
 // API Name: index
-func (r *Search) Index(v string) *Search {
+func (r *Search) Index(index string) *Search {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // API name: allow_no_indices
-func (r *Search) AllowNoIndices(b bool) *Search {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *Search) AllowNoIndices(allownoindices bool) *Search {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
 
 // API name: expand_wildcards
-func (r *Search) ExpandWildcards(v string) *Search {
-	r.values.Set("expand_wildcards", v)
+func (r *Search) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Search {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreUnavailable If true, missing or closed indices are not included in the response.
 // API name: ignore_unavailable
-func (r *Search) IgnoreUnavailable(b bool) *Search {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Search) IgnoreUnavailable(ignoreunavailable bool) *Search {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
-// KeepAlive Period for which the search and its results are stored on the cluster.
+// API name: case_sensitive
+func (r *Search) CaseSensitive(casesensitive bool) *Search {
+	r.req.CaseSensitive = &casesensitive
+
+	return r
+}
+
+// EventCategoryField Field containing the event classification, such as process, file, or network.
+// API name: event_category_field
+func (r *Search) EventCategoryField(field string) *Search {
+	r.req.EventCategoryField = &field
+
+	return r
+}
+
+// FetchSize Maximum number of events to search at a time for sequence queries.
+// API name: fetch_size
+func (r *Search) FetchSize(fetchsize uint) *Search {
+
+	r.req.FetchSize = &fetchsize
+
+	return r
+}
+
+// Fields Array of wildcard (*) patterns. The response returns values for field names
+// matching these patterns in the fields property of each hit.
+// API name: fields
+func (r *Search) Fields(fields ...types.FieldAndFormat) *Search {
+	r.req.Fields = fields
+
+	return r
+}
+
+// Filter Query, written in Query DSL, used to filter the events on which the EQL query
+// runs.
+// API name: filter
+func (r *Search) Filter(filters ...types.Query) *Search {
+	r.req.Filter = filters
+
+	return r
+}
+
 // API name: keep_alive
-func (r *Search) KeepAlive(v string) *Search {
-	r.values.Set("keep_alive", v)
+func (r *Search) KeepAlive(duration types.Duration) *Search {
+	r.req.KeepAlive = duration
 
 	return r
 }
 
-// KeepOnCompletion If true, the search and its results are stored on the cluster.
 // API name: keep_on_completion
-func (r *Search) KeepOnCompletion(b bool) *Search {
-	r.values.Set("keep_on_completion", strconv.FormatBool(b))
+func (r *Search) KeepOnCompletion(keeponcompletion bool) *Search {
+	r.req.KeepOnCompletion = &keeponcompletion
 
 	return r
 }
 
-// WaitForCompletionTimeout Timeout duration to wait for the request to finish. Defaults to no timeout,
-// meaning the request waits for complete search results.
+// Query EQL query you wish to run.
+// API name: query
+func (r *Search) Query(query string) *Search {
+
+	r.req.Query = query
+
+	return r
+}
+
+// API name: result_position
+func (r *Search) ResultPosition(resultposition resultposition.ResultPosition) *Search {
+	r.req.ResultPosition = &resultposition
+
+	return r
+}
+
+// API name: runtime_mappings
+func (r *Search) RuntimeMappings(runtimefields types.RuntimeFields) *Search {
+	r.req.RuntimeMappings = runtimefields
+
+	return r
+}
+
+// Size For basic queries, the maximum number of matching events to return. Defaults
+// to 10
+// API name: size
+func (r *Search) Size(size uint) *Search {
+
+	r.req.Size = &size
+
+	return r
+}
+
+// TiebreakerField Field used to sort hits with the same timestamp in ascending order
+// API name: tiebreaker_field
+func (r *Search) TiebreakerField(field string) *Search {
+	r.req.TiebreakerField = &field
+
+	return r
+}
+
+// TimestampField Field containing event timestamp. Default "@timestamp"
+// API name: timestamp_field
+func (r *Search) TimestampField(field string) *Search {
+	r.req.TimestampField = &field
+
+	return r
+}
+
 // API name: wait_for_completion_timeout
-func (r *Search) WaitForCompletionTimeout(v string) *Search {
-	r.values.Set("wait_for_completion_timeout", v)
+func (r *Search) WaitForCompletionTimeout(duration types.Duration) *Search {
+	r.req.WaitForCompletionTimeout = duration
 
 	return r
 }

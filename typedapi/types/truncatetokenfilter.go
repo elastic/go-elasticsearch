@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // TruncateTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L330-L333
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L330-L333
 type TruncateTokenFilter struct {
 	Length  *int    `json:"length,omitempty"`
 	Type    string  `json:"type,omitempty"`
@@ -85,11 +83,23 @@ func (s *TruncateTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s TruncateTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerTruncateTokenFilter TruncateTokenFilter
+	tmp := innerTruncateTokenFilter{
+		Length:  s.Length,
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "truncate"
+
+	return json.Marshal(tmp)
+}
+
 // NewTruncateTokenFilter returns a TruncateTokenFilter.
 func NewTruncateTokenFilter() *TruncateTokenFilter {
 	r := &TruncateTokenFilter{}
-
-	r.Type = "truncate"
 
 	return r
 }

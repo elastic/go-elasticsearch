@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns data streams.
 package getdatastream
@@ -31,10 +31,12 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -179,6 +181,10 @@ func (r GetDataStream) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,21 +216,34 @@ func (r *GetDataStream) Header(key, value string) *GetDataStream {
 	return r
 }
 
-// Name A comma-separated list of data streams to get; use `*` to get all data
-// streams
+// Name Comma-separated list of data stream names used to limit the request.
+// Wildcard (`*`) expressions are supported. If omitted, all data streams are
+// returned.
 // API Name: name
-func (r *GetDataStream) Name(v string) *GetDataStream {
+func (r *GetDataStream) Name(name string) *GetDataStream {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
-// ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
-// (default: open)
+// ExpandWildcards Type of data stream that wildcard patterns can match.
+// Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
-func (r *GetDataStream) ExpandWildcards(v string) *GetDataStream {
-	r.values.Set("expand_wildcards", v)
+func (r *GetDataStream) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetDataStream {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// IncludeDefaults If true, returns all relevant default configurations for the index template.
+// API name: include_defaults
+func (r *GetDataStream) IncludeDefaults(includedefaults bool) *GetDataStream {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
 
 	return r
 }

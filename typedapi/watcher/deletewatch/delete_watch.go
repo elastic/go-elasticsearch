@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Removes a watch from Watcher.
 package deletewatch
@@ -178,6 +178,10 @@ func (r DeleteWatch) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,9 +215,9 @@ func (r *DeleteWatch) Header(key, value string) *DeleteWatch {
 
 // Id Watch ID
 // API Name: id
-func (r *DeleteWatch) Id(v string) *DeleteWatch {
+func (r *DeleteWatch) Id(id string) *DeleteWatch {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

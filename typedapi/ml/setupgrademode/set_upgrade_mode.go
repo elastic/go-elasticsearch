@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Sets a cluster wide upgrade_mode setting that prepares machine learning
 // indices for an upgrade.
@@ -170,6 +170,10 @@ func (r SetUpgradeMode) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -205,16 +209,16 @@ func (r *SetUpgradeMode) Header(key, value string) *SetUpgradeMode {
 // and datafeed tasks and prohibits new job and datafeed tasks from
 // starting.
 // API name: enabled
-func (r *SetUpgradeMode) Enabled(b bool) *SetUpgradeMode {
-	r.values.Set("enabled", strconv.FormatBool(b))
+func (r *SetUpgradeMode) Enabled(enabled bool) *SetUpgradeMode {
+	r.values.Set("enabled", strconv.FormatBool(enabled))
 
 	return r
 }
 
 // Timeout The time to wait for the request to be completed.
 // API name: timeout
-func (r *SetUpgradeMode) Timeout(v string) *SetUpgradeMode {
-	r.values.Set("timeout", v)
+func (r *SetUpgradeMode) Timeout(duration string) *SetUpgradeMode {
+	r.values.Set("timeout", duration)
 
 	return r
 }

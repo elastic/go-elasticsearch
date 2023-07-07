@@ -16,13 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+)
+
 // FieldSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/_types/suggester.ts#L106-L120
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_global/search/_types/suggester.ts#L106-L120
 type FieldSuggester struct {
 	Completion *CompletionSuggester `json:"completion,omitempty"`
 	Phrase     *PhraseSuggester     `json:"phrase,omitempty"`
@@ -30,6 +38,77 @@ type FieldSuggester struct {
 	Regex      *string              `json:"regex,omitempty"`
 	Term       *TermSuggester       `json:"term,omitempty"`
 	Text       *string              `json:"text,omitempty"`
+}
+
+func (s *FieldSuggester) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "completion":
+			if err := dec.Decode(&s.Completion); err != nil {
+				return err
+			}
+
+		case "phrase":
+			if err := dec.Decode(&s.Phrase); err != nil {
+				return err
+			}
+
+		case "prefix":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Prefix = &o
+
+		case "regex":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Regex = &o
+
+		case "term":
+			if err := dec.Decode(&s.Term); err != nil {
+				return err
+			}
+
+		case "text":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Text = &o
+
+		}
+	}
+	return nil
 }
 
 // NewFieldSuggester returns a FieldSuggester.

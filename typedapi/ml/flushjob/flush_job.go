@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Forces any buffered data to be processed by the job.
 package flushjob
@@ -30,7 +30,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -53,8 +52,9 @@ type FlushJob struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +85,8 @@ func New(tp elastictransport.Interface) *FlushJob {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +116,19 @@ func (r *FlushJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +136,7 @@ func (r *FlushJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -216,6 +229,10 @@ func (r FlushJob) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -228,54 +245,49 @@ func (r *FlushJob) Header(key, value string) *FlushJob {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *FlushJob) JobId(v string) *FlushJob {
+func (r *FlushJob) JobId(jobid string) *FlushJob {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
 
-// AdvanceTime Specifies to advance to a particular time value. Results are generated
-// and the model is updated for data from the specified time interval.
+// AdvanceTime Refer to the description for the `advance_time` query parameter.
 // API name: advance_time
-func (r *FlushJob) AdvanceTime(v string) *FlushJob {
-	r.values.Set("advance_time", v)
+func (r *FlushJob) AdvanceTime(datetime types.DateTime) *FlushJob {
+	r.req.AdvanceTime = datetime
 
 	return r
 }
 
-// CalcInterim If true, calculates the interim results for the most recent bucket or all
-// buckets within the latency period.
+// CalcInterim Refer to the description for the `calc_interim` query parameter.
 // API name: calc_interim
-func (r *FlushJob) CalcInterim(b bool) *FlushJob {
-	r.values.Set("calc_interim", strconv.FormatBool(b))
+func (r *FlushJob) CalcInterim(calcinterim bool) *FlushJob {
+	r.req.CalcInterim = &calcinterim
 
 	return r
 }
 
-// End When used in conjunction with `calc_interim` and `start`, specifies the
-// range of buckets on which to calculate interim results.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *FlushJob) End(v string) *FlushJob {
-	r.values.Set("end", v)
+func (r *FlushJob) End(datetime types.DateTime) *FlushJob {
+	r.req.End = datetime
 
 	return r
 }
 
-// SkipTime Specifies to skip to a particular time value. Results are not generated
-// and the model is not updated for data from the specified time interval.
+// SkipTime Refer to the description for the `skip_time` query parameter.
 // API name: skip_time
-func (r *FlushJob) SkipTime(v string) *FlushJob {
-	r.values.Set("skip_time", v)
+func (r *FlushJob) SkipTime(datetime types.DateTime) *FlushJob {
+	r.req.SkipTime = datetime
 
 	return r
 }
 
-// Start When used in conjunction with `calc_interim`, specifies the range of
-// buckets on which to calculate interim results.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *FlushJob) Start(v string) *FlushJob {
-	r.values.Set("start", v)
+func (r *FlushJob) Start(datetime types.DateTime) *FlushJob {
+	r.req.Start = datetime
 
 	return r
 }

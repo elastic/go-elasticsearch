@@ -16,15 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 // ClusterProcess type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L254-L257
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/stats/types.ts#L466-L475
 type ClusterProcess struct {
-	Cpu                 ClusterProcessCpu                 `json:"cpu"`
+	// Cpu Contains statistics about CPU used by selected nodes.
+	Cpu ClusterProcessCpu `json:"cpu"`
+	// OpenFileDescriptors Contains statistics about open file descriptors in selected nodes.
 	OpenFileDescriptors ClusterProcessOpenFileDescriptors `json:"open_file_descriptors"`
 }
 

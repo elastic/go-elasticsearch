@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Pauses a follower index. The follower index will not fetch any additional
 // operations from the leader index.
@@ -180,6 +180,10 @@ func (r PauseFollow) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *PauseFollow) Header(key, value string) *PauseFollow {
 
 // Index The name of the follower index that should pause following its leader index.
 // API Name: index
-func (r *PauseFollow) Index(v string) *PauseFollow {
+func (r *PauseFollow) Index(index string) *PauseFollow {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }

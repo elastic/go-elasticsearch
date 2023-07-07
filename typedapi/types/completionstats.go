@@ -16,27 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // CompletionStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Stats.ts#L53-L57
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/Stats.ts#L59-L69
 type CompletionStats struct {
-	Fields      map[string]FieldSizeUsage `json:"fields,omitempty"`
-	Size        ByteSize                  `json:"size,omitempty"`
-	SizeInBytes int64                     `json:"size_in_bytes"`
+	Fields map[string]FieldSizeUsage `json:"fields,omitempty"`
+	// Size Total amount of memory used for completion across all shards assigned to
+	// selected nodes.
+	Size ByteSize `json:"size,omitempty"`
+	// SizeInBytes Total amount, in bytes, of memory used for completion across all shards
+	// assigned to selected nodes.
+	SizeInBytes int64 `json:"size_in_bytes"`
 }
 
 func (s *CompletionStats) UnmarshalJSON(data []byte) error {

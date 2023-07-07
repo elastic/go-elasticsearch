@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes an existing trained inference model that is currently not referenced
 // by an ingest pipeline.
@@ -181,6 +181,10 @@ func (r DeleteTrainedModel) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,9 +218,9 @@ func (r *DeleteTrainedModel) Header(key, value string) *DeleteTrainedModel {
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *DeleteTrainedModel) ModelId(v string) *DeleteTrainedModel {
+func (r *DeleteTrainedModel) ModelId(modelid string) *DeleteTrainedModel {
 	r.paramSet |= modelidMask
-	r.modelid = v
+	r.modelid = modelid
 
 	return r
 }
@@ -224,8 +228,8 @@ func (r *DeleteTrainedModel) ModelId(v string) *DeleteTrainedModel {
 // Force Forcefully deletes a trained model that is referenced by ingest pipelines or
 // has a started deployment.
 // API name: force
-func (r *DeleteTrainedModel) Force(b bool) *DeleteTrainedModel {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *DeleteTrainedModel) Force(force bool) *DeleteTrainedModel {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }

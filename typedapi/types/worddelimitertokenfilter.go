@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // WordDelimiterTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L132-L147
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L132-L147
 type WordDelimiterTokenFilter struct {
 	CatenateAll           *bool    `json:"catenate_all,omitempty"`
 	CatenateNumbers       *bool    `json:"catenate_numbers,omitempty"`
@@ -160,7 +158,11 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ProtectedWordsPath = &o
 
 		case "split_on_case_change":
@@ -220,7 +222,11 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TypeTablePath = &o
 
 		case "version":
@@ -233,11 +239,35 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s WordDelimiterTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerWordDelimiterTokenFilter WordDelimiterTokenFilter
+	tmp := innerWordDelimiterTokenFilter{
+		CatenateAll:           s.CatenateAll,
+		CatenateNumbers:       s.CatenateNumbers,
+		CatenateWords:         s.CatenateWords,
+		GenerateNumberParts:   s.GenerateNumberParts,
+		GenerateWordParts:     s.GenerateWordParts,
+		PreserveOriginal:      s.PreserveOriginal,
+		ProtectedWords:        s.ProtectedWords,
+		ProtectedWordsPath:    s.ProtectedWordsPath,
+		SplitOnCaseChange:     s.SplitOnCaseChange,
+		SplitOnNumerics:       s.SplitOnNumerics,
+		StemEnglishPossessive: s.StemEnglishPossessive,
+		Type:                  s.Type,
+		TypeTable:             s.TypeTable,
+		TypeTablePath:         s.TypeTablePath,
+		Version:               s.Version,
+	}
+
+	tmp.Type = "word_delimiter"
+
+	return json.Marshal(tmp)
+}
+
 // NewWordDelimiterTokenFilter returns a WordDelimiterTokenFilter.
 func NewWordDelimiterTokenFilter() *WordDelimiterTokenFilter {
 	r := &WordDelimiterTokenFilter{}
-
-	r.Type = "word_delimiter"
 
 	return r
 }

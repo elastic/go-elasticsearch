@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
-import "encoding/json"
-
-// Row type alias.
+// MsearchRequestItem holds the union for the following types:
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/sql/types.ts#L28-L28
-type Row []json.RawMessage
+//	MultisearchHeader
+//	MultisearchBody
+//
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_global/msearch/types.ts#L48-L51
+type MsearchRequestItem interface{}

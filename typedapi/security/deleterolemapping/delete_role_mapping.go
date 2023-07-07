@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Removes role mappings.
 package deleterolemapping
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -180,6 +179,10 @@ func (r DeleteRoleMapping) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +216,9 @@ func (r *DeleteRoleMapping) Header(key, value string) *DeleteRoleMapping {
 
 // Name Role-mapping name
 // API Name: name
-func (r *DeleteRoleMapping) Name(v string) *DeleteRoleMapping {
+func (r *DeleteRoleMapping) Name(name string) *DeleteRoleMapping {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -224,8 +227,8 @@ func (r *DeleteRoleMapping) Name(v string) *DeleteRoleMapping {
 // operation visible to search, if `wait_for` then wait for a refresh to make
 // this operation visible to search, if `false` then do nothing with refreshes.
 // API name: refresh
-func (r *DeleteRoleMapping) Refresh(enum refresh.Refresh) *DeleteRoleMapping {
-	r.values.Set("refresh", enum.String())
+func (r *DeleteRoleMapping) Refresh(refresh refresh.Refresh) *DeleteRoleMapping {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }

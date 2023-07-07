@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // JoinProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/core.ts#L83-L87
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/core.ts#L83-L87
 type JoinProperty struct {
 	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
@@ -734,6 +732,25 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s JoinProperty) MarshalJSON() ([]byte, error) {
+	type innerJoinProperty JoinProperty
+	tmp := innerJoinProperty{
+		Dynamic:             s.Dynamic,
+		EagerGlobalOrdinals: s.EagerGlobalOrdinals,
+		Fields:              s.Fields,
+		IgnoreAbove:         s.IgnoreAbove,
+		Meta:                s.Meta,
+		Properties:          s.Properties,
+		Relations:           s.Relations,
+		Type:                s.Type,
+	}
+
+	tmp.Type = "join"
+
+	return json.Marshal(tmp)
+}
+
 // NewJoinProperty returns a JoinProperty.
 func NewJoinProperty() *JoinProperty {
 	r := &JoinProperty{
@@ -742,8 +759,6 @@ func NewJoinProperty() *JoinProperty {
 		Properties: make(map[string]Property, 0),
 		Relations:  make(map[string][]string, 0),
 	}
-
-	r.Type = "join"
 
 	return r
 }

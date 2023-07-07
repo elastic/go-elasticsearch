@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Performs the flush operation on one or more indices.
 package flush
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -180,6 +181,10 @@ func (r Flush) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,9 +219,9 @@ func (r *Flush) Header(key, value string) *Flush {
 // Index A comma-separated list of index names; use `_all` or empty string for all
 // indices
 // API Name: index
-func (r *Flush) Index(v string) *Flush {
+func (r *Flush) Index(index string) *Flush {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -224,8 +229,8 @@ func (r *Flush) Index(v string) *Flush {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *Flush) AllowNoIndices(b bool) *Flush {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *Flush) AllowNoIndices(allownoindices bool) *Flush {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -233,8 +238,12 @@ func (r *Flush) AllowNoIndices(b bool) *Flush {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Flush) ExpandWildcards(v string) *Flush {
-	r.values.Set("expand_wildcards", v)
+func (r *Flush) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Flush {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -244,8 +253,8 @@ func (r *Flush) ExpandWildcards(v string) *Flush {
 // IDs should be incremented even if no uncommitted changes are present. (This
 // setting can be considered as internal)
 // API name: force
-func (r *Flush) Force(b bool) *Flush {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *Flush) Force(force bool) *Flush {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }
@@ -253,8 +262,8 @@ func (r *Flush) Force(b bool) *Flush {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *Flush) IgnoreUnavailable(b bool) *Flush {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Flush) IgnoreUnavailable(ignoreunavailable bool) *Flush {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
@@ -264,8 +273,8 @@ func (r *Flush) IgnoreUnavailable(b bool) *Flush {
 // to false the flush will be skipped iff if another flush operation is already
 // running.
 // API name: wait_if_ongoing
-func (r *Flush) WaitIfOngoing(b bool) *Flush {
-	r.values.Set("wait_if_ongoing", strconv.FormatBool(b))
+func (r *Flush) WaitIfOngoing(waitifongoing bool) *Flush {
+	r.values.Set("wait_if_ongoing", strconv.FormatBool(waitifongoing))
 
 	return r
 }

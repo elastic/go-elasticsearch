@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
 // ECK. Direct use is not supported.
@@ -53,8 +53,9 @@ type PutAutoscalingPolicy struct {
 
 	buf *gobytes.Buffer
 
-	req *types.AutoscalingPolicy
-	raw io.Reader
+	req      *types.AutoscalingPolicy
+	deferred []func(request *types.AutoscalingPolicy) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -115,9 +116,19 @@ func (r *PutAutoscalingPolicy) HttpRequest(ctx context.Context) (*http.Request, 
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -125,6 +136,7 @@ func (r *PutAutoscalingPolicy) HttpRequest(ctx context.Context) (*http.Request, 
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -215,6 +227,10 @@ func (r PutAutoscalingPolicy) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +243,9 @@ func (r *PutAutoscalingPolicy) Header(key, value string) *PutAutoscalingPolicy {
 
 // Name the name of the autoscaling policy
 // API Name: name
-func (r *PutAutoscalingPolicy) Name(v string) *PutAutoscalingPolicy {
+func (r *PutAutoscalingPolicy) Name(name string) *PutAutoscalingPolicy {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

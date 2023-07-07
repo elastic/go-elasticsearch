@@ -16,25 +16,35 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // GrantApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/grant_api_key/types.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/security/grant_api_key/types.ts#L25-L46
 type GrantApiKey struct {
-	Expiration      *string                     `json:"expiration,omitempty"`
-	Metadata        Metadata                    `json:"metadata,omitempty"`
-	Name            string                      `json:"name"`
+	// Expiration Expiration time for the API key. By default, API keys never expire.
+	Expiration *string `json:"expiration,omitempty"`
+	// Metadata Arbitrary metadata that you want to associate with the API key.
+	// It supports nested data structure.
+	// Within the `metadata` object, keys beginning with `_` are reserved for system
+	// usage.
+	Metadata Metadata `json:"metadata,omitempty"`
+	Name     string   `json:"name"`
+	// RoleDescriptors The role descriptors for this API key.
+	// This parameter is optional.
+	// When it is not specified or is an empty array, the API key has a point in
+	// time snapshot of permissions of the specified user or access token.
+	// If you supply role descriptors, the resultant permissions are an intersection
+	// of API keys permissions and the permissions of the user or access token.
 	RoleDescriptors []map[string]RoleDescriptor `json:"role_descriptors,omitempty"`
 }
 
