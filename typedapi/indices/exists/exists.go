@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about whether a particular index exists.
 package exists
@@ -34,6 +34,7 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -147,6 +148,11 @@ func (r Exists) Perform(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a exists.Response
+func (r Exists) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Exists) IsSuccess(ctx context.Context) (bool, error) {
@@ -177,9 +183,9 @@ func (r *Exists) Header(key, value string) *Exists {
 
 // Index A comma-separated list of index names
 // API Name: index
-func (r *Exists) Index(v string) *Exists {
+func (r *Exists) Index(index string) *Exists {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -187,8 +193,8 @@ func (r *Exists) Index(v string) *Exists {
 // AllowNoIndices Ignore if a wildcard expression resolves to no concrete indices (default:
 // false)
 // API name: allow_no_indices
-func (r *Exists) AllowNoIndices(b bool) *Exists {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *Exists) AllowNoIndices(allownoindices bool) *Exists {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -196,32 +202,36 @@ func (r *Exists) AllowNoIndices(b bool) *Exists {
 // ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
 // (default: open)
 // API name: expand_wildcards
-func (r *Exists) ExpandWildcards(v string) *Exists {
-	r.values.Set("expand_wildcards", v)
+func (r *Exists) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Exists {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // FlatSettings Return settings in flat format (default: false)
 // API name: flat_settings
-func (r *Exists) FlatSettings(b bool) *Exists {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *Exists) FlatSettings(flatsettings bool) *Exists {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
 
 // IgnoreUnavailable Ignore unavailable indexes (default: false)
 // API name: ignore_unavailable
-func (r *Exists) IgnoreUnavailable(b bool) *Exists {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Exists) IgnoreUnavailable(ignoreunavailable bool) *Exists {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // IncludeDefaults Whether to return all default setting for each of the indices.
 // API name: include_defaults
-func (r *Exists) IncludeDefaults(b bool) *Exists {
-	r.values.Set("include_defaults", strconv.FormatBool(b))
+func (r *Exists) IncludeDefaults(includedefaults bool) *Exists {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
 
 	return r
 }
@@ -229,8 +239,8 @@ func (r *Exists) IncludeDefaults(b bool) *Exists {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *Exists) Local(b bool) *Exists {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *Exists) Local(local bool) *Exists {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }

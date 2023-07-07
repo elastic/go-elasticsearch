@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Adds and updates Logstash Pipelines used for Central Management
 package putpipeline
@@ -52,8 +52,9 @@ type PutPipeline struct {
 
 	buf *gobytes.Buffer
 
-	req *types.LogstashPipeline
-	raw io.Reader
+	req      *types.LogstashPipeline
+	deferred []func(request *types.LogstashPipeline) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -113,9 +114,19 @@ func (r *PutPipeline) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +134,7 @@ func (r *PutPipeline) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -196,9 +208,9 @@ func (r *PutPipeline) Header(key, value string) *PutPipeline {
 
 // Id The ID of the Pipeline
 // API Name: id
-func (r *PutPipeline) Id(v string) *PutPipeline {
+func (r *PutPipeline) Id(id string) *PutPipeline {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

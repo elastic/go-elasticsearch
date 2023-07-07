@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieve status of a node or nodes that are currently marked as shutting
 // down. Designed for indirect use by ECE/ESS and ECK. Direct use is not
@@ -37,7 +37,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
@@ -195,6 +194,10 @@ func (r GetNode) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -228,9 +231,9 @@ func (r *GetNode) Header(key, value string) *GetNode {
 
 // NodeId Which node for which to retrieve the shutdown status
 // API Name: nodeid
-func (r *GetNode) NodeId(v string) *GetNode {
+func (r *GetNode) NodeId(nodeid string) *GetNode {
 	r.paramSet |= nodeidMask
-	r.nodeid = v
+	r.nodeid = nodeid
 
 	return r
 }
@@ -238,8 +241,8 @@ func (r *GetNode) NodeId(v string) *GetNode {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *GetNode) MasterTimeout(enum timeunit.TimeUnit) *GetNode {
-	r.values.Set("master_timeout", enum.String())
+func (r *GetNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *GetNode {
+	r.values.Set("master_timeout", mastertimeout.String())
 
 	return r
 }
@@ -247,8 +250,8 @@ func (r *GetNode) MasterTimeout(enum timeunit.TimeUnit) *GetNode {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *GetNode) Timeout(enum timeunit.TimeUnit) *GetNode {
-	r.values.Set("timeout", enum.String())
+func (r *GetNode) Timeout(timeout timeunit.TimeUnit) *GetNode {
+	r.values.Set("timeout", timeout.String())
 
 	return r
 }

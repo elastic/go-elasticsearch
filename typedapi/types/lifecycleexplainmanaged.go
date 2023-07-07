@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // LifecycleExplainManaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ilm/explain_lifecycle/types.ts#L26-L52
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/ilm/explain_lifecycle/types.ts#L26-L52
 type LifecycleExplainManaged struct {
 	Action                  *string                         `json:"action,omitempty"`
 	ActionTime              DateTime                        `json:"action_time,omitempty"`
@@ -217,13 +215,45 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s LifecycleExplainManaged) MarshalJSON() ([]byte, error) {
+	type innerLifecycleExplainManaged LifecycleExplainManaged
+	tmp := innerLifecycleExplainManaged{
+		Action:                  s.Action,
+		ActionTime:              s.ActionTime,
+		ActionTimeMillis:        s.ActionTimeMillis,
+		Age:                     s.Age,
+		FailedStep:              s.FailedStep,
+		FailedStepRetryCount:    s.FailedStepRetryCount,
+		Index:                   s.Index,
+		IndexCreationDate:       s.IndexCreationDate,
+		IndexCreationDateMillis: s.IndexCreationDateMillis,
+		IsAutoRetryableError:    s.IsAutoRetryableError,
+		LifecycleDate:           s.LifecycleDate,
+		LifecycleDateMillis:     s.LifecycleDateMillis,
+		Managed:                 s.Managed,
+		Phase:                   s.Phase,
+		PhaseExecution:          s.PhaseExecution,
+		PhaseTime:               s.PhaseTime,
+		PhaseTimeMillis:         s.PhaseTimeMillis,
+		Policy:                  s.Policy,
+		Step:                    s.Step,
+		StepInfo:                s.StepInfo,
+		StepTime:                s.StepTime,
+		StepTimeMillis:          s.StepTimeMillis,
+		TimeSinceIndexCreation:  s.TimeSinceIndexCreation,
+	}
+
+	tmp.Managed = true
+
+	return json.Marshal(tmp)
+}
+
 // NewLifecycleExplainManaged returns a LifecycleExplainManaged.
 func NewLifecycleExplainManaged() *LifecycleExplainManaged {
 	r := &LifecycleExplainManaged{
 		StepInfo: make(map[string]json.RawMessage, 0),
 	}
-
-	r.Managed = true
 
 	return r
 }

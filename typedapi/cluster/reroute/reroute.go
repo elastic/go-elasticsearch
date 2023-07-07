@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Allows to manually change the allocation of individual shards in the cluster.
 package reroute
@@ -49,8 +49,9 @@ type Reroute struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -77,6 +78,8 @@ func New(tp elastictransport.Interface) *Reroute {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -106,9 +109,19 @@ func (r *Reroute) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -116,6 +129,7 @@ func (r *Reroute) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -203,6 +217,10 @@ func (r Reroute) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -216,8 +234,8 @@ func (r *Reroute) Header(key, value string) *Reroute {
 // DryRun If true, then the request simulates the operation only and returns the
 // resulting state.
 // API name: dry_run
-func (r *Reroute) DryRun(b bool) *Reroute {
-	r.values.Set("dry_run", strconv.FormatBool(b))
+func (r *Reroute) DryRun(dryrun bool) *Reroute {
+	r.values.Set("dry_run", strconv.FormatBool(dryrun))
 
 	return r
 }
@@ -225,16 +243,16 @@ func (r *Reroute) DryRun(b bool) *Reroute {
 // Explain If true, then the response contains an explanation of why the commands can or
 // cannot be executed.
 // API name: explain
-func (r *Reroute) Explain(b bool) *Reroute {
-	r.values.Set("explain", strconv.FormatBool(b))
+func (r *Reroute) Explain(explain bool) *Reroute {
+	r.values.Set("explain", strconv.FormatBool(explain))
 
 	return r
 }
 
 // Metric Limits the information returned to the specified metrics.
 // API name: metric
-func (r *Reroute) Metric(v string) *Reroute {
-	r.values.Set("metric", v)
+func (r *Reroute) Metric(metrics ...string) *Reroute {
+	r.values.Set("metric", strings.Join(metrics, ","))
 
 	return r
 }
@@ -242,8 +260,8 @@ func (r *Reroute) Metric(v string) *Reroute {
 // RetryFailed If true, then retries allocation of shards that are blocked due to too many
 // subsequent allocation failures.
 // API name: retry_failed
-func (r *Reroute) RetryFailed(b bool) *Reroute {
-	r.values.Set("retry_failed", strconv.FormatBool(b))
+func (r *Reroute) RetryFailed(retryfailed bool) *Reroute {
+	r.values.Set("retry_failed", strconv.FormatBool(retryfailed))
 
 	return r
 }
@@ -251,8 +269,8 @@ func (r *Reroute) RetryFailed(b bool) *Reroute {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *Reroute) MasterTimeout(v string) *Reroute {
-	r.values.Set("master_timeout", v)
+func (r *Reroute) MasterTimeout(duration string) *Reroute {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -260,8 +278,16 @@ func (r *Reroute) MasterTimeout(v string) *Reroute {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *Reroute) Timeout(v string) *Reroute {
-	r.values.Set("timeout", v)
+func (r *Reroute) Timeout(duration string) *Reroute {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// Commands Defines the commands to perform.
+// API name: commands
+func (r *Reroute) Commands(commands ...types.Command) *Reroute {
+	r.req.Commands = commands
 
 	return r
 }

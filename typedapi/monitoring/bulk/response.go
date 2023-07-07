@@ -16,13 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
-package types
+package bulk
 
-import "encoding/json"
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
 
-// GeoShape type alias.
+// Response holds the response body struct for the package bulk
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Geo.ts#L56-L57
-type GeoShape = json.RawMessage
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/monitoring/bulk/BulkMonitoringResponse.ts#L23-L32
+
+type Response struct {
+	Error *types.ErrorCause `json:"error,omitempty"`
+	// Errors True if there is was an error
+	Errors bool `json:"errors"`
+	// Ignored Was collection disabled?
+	Ignored bool  `json:"ignored"`
+	Took    int64 `json:"took"`
+}
+
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
+	return r
+}

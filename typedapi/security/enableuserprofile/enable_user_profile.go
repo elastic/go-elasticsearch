@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Enables a user profile so it's visible in user profile searches.
 package enableuserprofile
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -182,6 +181,10 @@ func (r EnableUserProfile) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,9 +218,9 @@ func (r *EnableUserProfile) Header(key, value string) *EnableUserProfile {
 
 // Uid Unique identifier for the user profile.
 // API Name: uid
-func (r *EnableUserProfile) Uid(v string) *EnableUserProfile {
+func (r *EnableUserProfile) Uid(uid string) *EnableUserProfile {
 	r.paramSet |= uidMask
-	r.uid = v
+	r.uid = uid
 
 	return r
 }
@@ -227,8 +230,8 @@ func (r *EnableUserProfile) Uid(v string) *EnableUserProfile {
 // operation
 // visible to search, if 'false' do nothing with refreshes.
 // API name: refresh
-func (r *EnableUserProfile) Refresh(enum refresh.Refresh) *EnableUserProfile {
-	r.values.Set("refresh", enum.String())
+func (r *EnableUserProfile) Refresh(refresh refresh.Refresh) *EnableUserProfile {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }

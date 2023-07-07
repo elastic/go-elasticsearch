@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // KuromojiIterationMarkCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
 type KuromojiIterationMarkCharFilter struct {
 	NormalizeKana  bool    `json:"normalize_kana"`
 	NormalizeKanji bool    `json:"normalize_kanji"`
@@ -98,11 +96,24 @@ func (s *KuromojiIterationMarkCharFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s KuromojiIterationMarkCharFilter) MarshalJSON() ([]byte, error) {
+	type innerKuromojiIterationMarkCharFilter KuromojiIterationMarkCharFilter
+	tmp := innerKuromojiIterationMarkCharFilter{
+		NormalizeKana:  s.NormalizeKana,
+		NormalizeKanji: s.NormalizeKanji,
+		Type:           s.Type,
+		Version:        s.Version,
+	}
+
+	tmp.Type = "kuromoji_iteration_mark"
+
+	return json.Marshal(tmp)
+}
+
 // NewKuromojiIterationMarkCharFilter returns a KuromojiIterationMarkCharFilter.
 func NewKuromojiIterationMarkCharFilter() *KuromojiIterationMarkCharFilter {
 	r := &KuromojiIterationMarkCharFilter{}
-
-	r.Type = "kuromoji_iteration_mark"
 
 	return r
 }

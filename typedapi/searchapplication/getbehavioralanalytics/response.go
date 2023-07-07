@@ -16,11 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
-package types
+package getbehavioralanalytics
 
-// SortResults type alias.
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
+
+// Response holds the response body struct for the package getbehavioralanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/sort.ts#L101-L101
-type SortResults []FieldValue
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/search_application/get_behavioral_analytics/BehavioralAnalyticsGetResponse.ts#L24-L26
+
+type Response map[string]types.AnalyticsCollection
+
+// NewResponse returns a Response
+func NewResponse() Response {
+	r := make(Response, 0)
+	return r
+}

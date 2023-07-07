@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about whether a particular index template exists.
 package existsindextemplate
@@ -148,6 +148,11 @@ func (r ExistsIndexTemplate) Perform(ctx context.Context) (*http.Response, error
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a existsindextemplate.Response
+func (r ExistsIndexTemplate) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r ExistsIndexTemplate) IsSuccess(ctx context.Context) (bool, error) {
@@ -179,9 +184,9 @@ func (r *ExistsIndexTemplate) Header(key, value string) *ExistsIndexTemplate {
 // Name Comma-separated list of index template names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: name
-func (r *ExistsIndexTemplate) Name(v string) *ExistsIndexTemplate {
+func (r *ExistsIndexTemplate) Name(name string) *ExistsIndexTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -189,8 +194,8 @@ func (r *ExistsIndexTemplate) Name(v string) *ExistsIndexTemplate {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *ExistsIndexTemplate) MasterTimeout(v string) *ExistsIndexTemplate {
-	r.values.Set("master_timeout", v)
+func (r *ExistsIndexTemplate) MasterTimeout(duration string) *ExistsIndexTemplate {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

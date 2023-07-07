@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns a list of tasks.
 package list
@@ -36,7 +36,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/groupby"
 )
 
@@ -168,6 +167,10 @@ func (r List) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -202,32 +205,40 @@ func (r *List) Header(key, value string) *List {
 // Actions Comma-separated list or wildcard expression of actions used to limit the
 // request.
 // API name: actions
-func (r *List) Actions(v string) *List {
-	r.values.Set("actions", v)
+func (r *List) Actions(actions ...string) *List {
+	tmp := []string{}
+	for _, item := range actions {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("actions", strings.Join(tmp, ","))
 
 	return r
 }
 
 // Detailed If `true`, the response includes detailed information about shard recoveries.
 // API name: detailed
-func (r *List) Detailed(b bool) *List {
-	r.values.Set("detailed", strconv.FormatBool(b))
+func (r *List) Detailed(detailed bool) *List {
+	r.values.Set("detailed", strconv.FormatBool(detailed))
 
 	return r
 }
 
 // GroupBy Key used to group tasks in the response.
 // API name: group_by
-func (r *List) GroupBy(enum groupby.GroupBy) *List {
-	r.values.Set("group_by", enum.String())
+func (r *List) GroupBy(groupby groupby.GroupBy) *List {
+	r.values.Set("group_by", groupby.String())
 
 	return r
 }
 
 // NodeId Comma-separated list of node IDs or names used to limit returned information.
 // API name: node_id
-func (r *List) NodeId(v string) *List {
-	r.values.Set("node_id", v)
+func (r *List) NodeId(nodeids ...string) *List {
+	tmp := []string{}
+	for _, item := range nodeids {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("node_id", strings.Join(tmp, ","))
 
 	return r
 }
@@ -235,8 +246,8 @@ func (r *List) NodeId(v string) *List {
 // ParentTaskId Parent task ID used to limit returned information. To return all tasks, omit
 // this parameter or use a value of `-1`.
 // API name: parent_task_id
-func (r *List) ParentTaskId(v string) *List {
-	r.values.Set("parent_task_id", v)
+func (r *List) ParentTaskId(id string) *List {
+	r.values.Set("parent_task_id", id)
 
 	return r
 }
@@ -244,8 +255,8 @@ func (r *List) ParentTaskId(v string) *List {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *List) MasterTimeout(v string) *List {
-	r.values.Set("master_timeout", v)
+func (r *List) MasterTimeout(duration string) *List {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -253,16 +264,16 @@ func (r *List) MasterTimeout(v string) *List {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *List) Timeout(v string) *List {
-	r.values.Set("timeout", v)
+func (r *List) Timeout(duration string) *List {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // WaitForCompletion If `true`, the request blocks until the operation is complete.
 // API name: wait_for_completion
-func (r *List) WaitForCompletion(b bool) *List {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *List) WaitForCompletion(waitforcompletion bool) *List {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }

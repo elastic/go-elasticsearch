@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package search
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/SearchRequest.ts#L52-L245
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_global/search/SearchRequest.ts#L53-L253
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -63,8 +63,10 @@ type Request struct {
 	PostFilter *types.Query                `json:"post_filter,omitempty"`
 	Profile    *bool                       `json:"profile,omitempty"`
 	// Query Defines the search definition using the Query DSL.
-	Query   *types.Query    `json:"query,omitempty"`
-	Rescore []types.Rescore `json:"rescore,omitempty"`
+	Query *types.Query `json:"query,omitempty"`
+	// Rank Defines the Reciprocal Rank Fusion (RRF) to use
+	Rank    *types.RankContainer `json:"rank,omitempty"`
+	Rescore []types.Rescore      `json:"rescore,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
 	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`

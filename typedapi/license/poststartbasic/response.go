@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package poststartbasic
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package poststartbasic
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
 
 type Response struct {
 	Acknowledge     map[string][]string      `json:"acknowledge,omitempty"`
@@ -122,7 +122,11 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ErrorMessage = &o
 
 		case "type":

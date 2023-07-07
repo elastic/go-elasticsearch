@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Allows to copy documents from one index to another, optionally filtering the
 // source
@@ -39,6 +39,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conflicts"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -53,8 +54,9 @@ type Reindex struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -85,6 +87,8 @@ func New(tp elastictransport.Interface) *Reindex {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +118,19 @@ func (r *Reindex) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +138,7 @@ func (r *Reindex) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -209,6 +224,10 @@ func (r Reindex) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,8 +240,8 @@ func (r *Reindex) Header(key, value string) *Reindex {
 
 // Refresh Should the affected indexes be refreshed?
 // API name: refresh
-func (r *Reindex) Refresh(b bool) *Reindex {
-	r.values.Set("refresh", strconv.FormatBool(b))
+func (r *Reindex) Refresh(refresh bool) *Reindex {
+	r.values.Set("refresh", strconv.FormatBool(refresh))
 
 	return r
 }
@@ -230,16 +249,16 @@ func (r *Reindex) Refresh(b bool) *Reindex {
 // RequestsPerSecond The throttle to set on this request in sub-requests per second. -1 means no
 // throttle.
 // API name: requests_per_second
-func (r *Reindex) RequestsPerSecond(v string) *Reindex {
-	r.values.Set("requests_per_second", v)
+func (r *Reindex) RequestsPerSecond(requestspersecond string) *Reindex {
+	r.values.Set("requests_per_second", requestspersecond)
 
 	return r
 }
 
 // Scroll Control how long to keep the search context alive
 // API name: scroll
-func (r *Reindex) Scroll(v string) *Reindex {
-	r.values.Set("scroll", v)
+func (r *Reindex) Scroll(duration string) *Reindex {
+	r.values.Set("scroll", duration)
 
 	return r
 }
@@ -247,8 +266,8 @@ func (r *Reindex) Scroll(v string) *Reindex {
 // Slices The number of slices this task should be divided into. Defaults to 1, meaning
 // the task isn't sliced into subtasks. Can be set to `auto`.
 // API name: slices
-func (r *Reindex) Slices(v string) *Reindex {
-	r.values.Set("slices", v)
+func (r *Reindex) Slices(slices string) *Reindex {
+	r.values.Set("slices", slices)
 
 	return r
 }
@@ -256,8 +275,8 @@ func (r *Reindex) Slices(v string) *Reindex {
 // Timeout Time each individual bulk request should wait for shards that are
 // unavailable.
 // API name: timeout
-func (r *Reindex) Timeout(v string) *Reindex {
-	r.values.Set("timeout", v)
+func (r *Reindex) Timeout(duration string) *Reindex {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -267,23 +286,69 @@ func (r *Reindex) Timeout(v string) *Reindex {
 // `all` for all shard copies, otherwise set to any non-negative value less than
 // or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
-func (r *Reindex) WaitForActiveShards(v string) *Reindex {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Reindex) WaitForActiveShards(waitforactiveshards string) *Reindex {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
 
 	return r
 }
 
 // WaitForCompletion Should the request should block until the reindex is complete.
 // API name: wait_for_completion
-func (r *Reindex) WaitForCompletion(b bool) *Reindex {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *Reindex) WaitForCompletion(waitforcompletion bool) *Reindex {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }
 
 // API name: require_alias
-func (r *Reindex) RequireAlias(b bool) *Reindex {
-	r.values.Set("require_alias", strconv.FormatBool(b))
+func (r *Reindex) RequireAlias(requirealias bool) *Reindex {
+	r.values.Set("require_alias", strconv.FormatBool(requirealias))
+
+	return r
+}
+
+// API name: conflicts
+func (r *Reindex) Conflicts(conflicts conflicts.Conflicts) *Reindex {
+	r.req.Conflicts = &conflicts
+
+	return r
+}
+
+// API name: dest
+func (r *Reindex) Dest(dest *types.ReindexDestination) *Reindex {
+
+	r.req.Dest = *dest
+
+	return r
+}
+
+// API name: max_docs
+func (r *Reindex) MaxDocs(maxdocs int64) *Reindex {
+
+	r.req.MaxDocs = &maxdocs
+
+	return r
+}
+
+// API name: script
+func (r *Reindex) Script(script types.Script) *Reindex {
+	r.req.Script = script
+
+	return r
+}
+
+// API name: size
+func (r *Reindex) Size(size int64) *Reindex {
+
+	r.req.Size = &size
+
+	return r
+}
+
+// API name: source
+func (r *Reindex) Source(source *types.ReindexSource) *Reindex {
+
+	r.req.Source = *source
 
 	return r
 }

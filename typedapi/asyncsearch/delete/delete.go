@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes an async search by ID. If the search is still running, the search
 // request will be cancelled. Otherwise, the saved search results are deleted.
@@ -178,6 +178,10 @@ func (r Delete) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -209,11 +213,11 @@ func (r *Delete) Header(key, value string) *Delete {
 	return r
 }
 
-// Id The async search ID
+// Id A unique identifier for the async search.
 // API Name: id
-func (r *Delete) Id(v string) *Delete {
+func (r *Delete) Id(id string) *Delete {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

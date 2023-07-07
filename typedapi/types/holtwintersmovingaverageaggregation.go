@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/gappolicy"
 )
 
 // HoltWintersMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/aggregations/pipeline.ts#L222-L225
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/aggregations/pipeline.ts#L222-L225
 type HoltWintersMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath              `json:"buckets_path,omitempty"`
@@ -74,7 +72,11 @@ func (s *HoltWintersMovingAverageAggregation) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Format = &o
 
 		case "gap_policy":
@@ -111,7 +113,11 @@ func (s *HoltWintersMovingAverageAggregation) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Name = &o
 
 		case "predict":
@@ -156,11 +162,30 @@ func (s *HoltWintersMovingAverageAggregation) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s HoltWintersMovingAverageAggregation) MarshalJSON() ([]byte, error) {
+	type innerHoltWintersMovingAverageAggregation HoltWintersMovingAverageAggregation
+	tmp := innerHoltWintersMovingAverageAggregation{
+		BucketsPath: s.BucketsPath,
+		Format:      s.Format,
+		GapPolicy:   s.GapPolicy,
+		Meta:        s.Meta,
+		Minimize:    s.Minimize,
+		Model:       s.Model,
+		Name:        s.Name,
+		Predict:     s.Predict,
+		Settings:    s.Settings,
+		Window:      s.Window,
+	}
+
+	tmp.Model = "holt_winters"
+
+	return json.Marshal(tmp)
+}
+
 // NewHoltWintersMovingAverageAggregation returns a HoltWintersMovingAverageAggregation.
 func NewHoltWintersMovingAverageAggregation() *HoltWintersMovingAverageAggregation {
 	r := &HoltWintersMovingAverageAggregation{}
-
-	r.Model = "holt_winters"
 
 	return r
 }

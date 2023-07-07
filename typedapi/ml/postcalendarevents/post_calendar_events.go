@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Posts scheduled events in a calendar.
 package postcalendarevents
@@ -52,8 +52,9 @@ type PostCalendarEvents struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *PostCalendarEvents {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *PostCalendarEvents) HttpRequest(ctx context.Context) (*http.Request, er
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *PostCalendarEvents) HttpRequest(ctx context.Context) (*http.Request, er
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -215,6 +229,10 @@ func (r PostCalendarEvents) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +245,19 @@ func (r *PostCalendarEvents) Header(key, value string) *PostCalendarEvents {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *PostCalendarEvents) CalendarId(v string) *PostCalendarEvents {
+func (r *PostCalendarEvents) CalendarId(calendarid string) *PostCalendarEvents {
 	r.paramSet |= calendaridMask
-	r.calendarid = v
+	r.calendarid = calendarid
+
+	return r
+}
+
+// Events A list of one of more scheduled events. The event’s start and end times can
+// be specified as integer milliseconds since the epoch or as a string in ISO
+// 8601 format.
+// API name: events
+func (r *PostCalendarEvents) Events(events ...types.CalendarEvent) *PostCalendarEvents {
+	r.req.Events = events
 
 	return r
 }

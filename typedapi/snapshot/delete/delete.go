@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes one or more snapshots.
 package delete
@@ -184,6 +184,10 @@ func (r Delete) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -217,26 +221,26 @@ func (r *Delete) Header(key, value string) *Delete {
 
 // Repository A repository name
 // API Name: repository
-func (r *Delete) Repository(v string) *Delete {
+func (r *Delete) Repository(repository string) *Delete {
 	r.paramSet |= repositoryMask
-	r.repository = v
+	r.repository = repository
 
 	return r
 }
 
 // Snapshot A comma-separated list of snapshot names
 // API Name: snapshot
-func (r *Delete) Snapshot(v string) *Delete {
+func (r *Delete) Snapshot(snapshot string) *Delete {
 	r.paramSet |= snapshotMask
-	r.snapshot = v
+	r.snapshot = snapshot
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *Delete) MasterTimeout(v string) *Delete {
-	r.values.Set("master_timeout", v)
+func (r *Delete) MasterTimeout(duration string) *Delete {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

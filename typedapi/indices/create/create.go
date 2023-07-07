@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Creates an index with optional settings and mappings.
 package create
@@ -52,8 +52,9 @@ type Create struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *Create {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *Create) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *Create) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -209,6 +223,10 @@ func (r Create) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,33 +239,61 @@ func (r *Create) Header(key, value string) *Create {
 
 // Index The name of the index
 // API Name: index
-func (r *Create) Index(v string) *Create {
+func (r *Create) Index(index string) *Create {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *Create) MasterTimeout(v string) *Create {
-	r.values.Set("master_timeout", v)
+func (r *Create) MasterTimeout(duration string) *Create {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Create) Timeout(v string) *Create {
-	r.values.Set("timeout", v)
+func (r *Create) Timeout(duration string) *Create {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // WaitForActiveShards Set the number of active shards to wait for before the operation returns.
 // API name: wait_for_active_shards
-func (r *Create) WaitForActiveShards(v string) *Create {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Create) WaitForActiveShards(waitforactiveshards string) *Create {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
+
+	return r
+}
+
+// API name: aliases
+func (r *Create) Aliases(aliases map[string]types.Alias) *Create {
+
+	r.req.Aliases = aliases
+
+	return r
+}
+
+// Mappings Mapping for fields in the index. If specified, this mapping can include:
+// - Field names
+// - Field data types
+// - Mapping parameters
+// API name: mappings
+func (r *Create) Mappings(mappings *types.TypeMapping) *Create {
+
+	r.req.Mappings = mappings
+
+	return r
+}
+
+// API name: settings
+func (r *Create) Settings(settings *types.IndexSettings) *Create {
+
+	r.req.Settings = settings
 
 	return r
 }

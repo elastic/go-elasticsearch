@@ -16,13 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
-package types
+package putdatalifecycle
 
-import "encoding/json"
-
-// CustomSettings type alias.
+// Response holds the response body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/_types/Settings.ts#L22-L27
-type CustomSettings = json.RawMessage
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleResponse.ts#L22-L24
+
+type Response struct {
+
+	// Acknowledged For a successful response, this value is always true. On failure, an
+	// exception is returned instead.
+	Acknowledged bool `json:"acknowledged"`
+}
+
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
+	return r
+}

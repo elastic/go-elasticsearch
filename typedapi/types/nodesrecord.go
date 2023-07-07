@@ -16,214 +16,220 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // NodesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/nodes/types.ts#L23-L541
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/cat/nodes/types.ts#L23-L543
 type NodesRecord struct {
-	// Build es build hash
+	// Build The Elasticsearch build hash.
 	Build *string `json:"build,omitempty"`
-	// BulkAvgSizeInBytes average size in bytes of shard bulk
+	// BulkAvgSizeInBytes The average size in bytes of shard bulk.
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
-	// BulkAvgTime average time spend in shard bulk
+	// BulkAvgTime The average time spend in shard bulk.
 	BulkAvgTime *string `json:"bulk.avg_time,omitempty"`
-	// BulkTotalOperations number of bulk shard ops
+	// BulkTotalOperations The number of bulk shard operations.
 	BulkTotalOperations *string `json:"bulk.total_operations,omitempty"`
-	// BulkTotalSizeInBytes total size in bytes of shard bulk
+	// BulkTotalSizeInBytes The total size in bytes of shard bulk.
 	BulkTotalSizeInBytes *string `json:"bulk.total_size_in_bytes,omitempty"`
-	// BulkTotalTime time spend in shard bulk
+	// BulkTotalTime The time spend in shard bulk.
 	BulkTotalTime *string `json:"bulk.total_time,omitempty"`
-	// CompletionSize size of completion
+	// CompletionSize The size of completion.
 	CompletionSize *string `json:"completion.size,omitempty"`
-	// Cpu recent cpu usage
+	// Cpu The recent system CPU usage as a percentage.
 	Cpu *string `json:"cpu,omitempty"`
-	// DiskAvail available disk space
+	// DiskAvail The available disk space.
 	DiskAvail ByteSize `json:"disk.avail,omitempty"`
-	// DiskTotal total disk space
+	// DiskTotal The total disk space.
 	DiskTotal ByteSize `json:"disk.total,omitempty"`
-	// DiskUsed used disk space
+	// DiskUsed The used disk space.
 	DiskUsed ByteSize `json:"disk.used,omitempty"`
-	// DiskUsedPercent used disk space percentage
+	// DiskUsedPercent The used disk space percentage.
 	DiskUsedPercent Percentage `json:"disk.used_percent,omitempty"`
-	// FielddataEvictions fielddata evictions
+	// FielddataEvictions The fielddata evictions.
 	FielddataEvictions *string `json:"fielddata.evictions,omitempty"`
-	// FielddataMemorySize used fielddata cache
+	// FielddataMemorySize The used fielddata cache.
 	FielddataMemorySize *string `json:"fielddata.memory_size,omitempty"`
-	// FileDescCurrent used file descriptors
+	// FileDescCurrent The used file descriptors.
 	FileDescCurrent *string `json:"file_desc.current,omitempty"`
-	// FileDescMax max file descriptors
+	// FileDescMax The maximum number of file descriptors.
 	FileDescMax *string `json:"file_desc.max,omitempty"`
-	// FileDescPercent used file descriptor ratio
+	// FileDescPercent The used file descriptor ratio.
 	FileDescPercent Percentage `json:"file_desc.percent,omitempty"`
-	// Flavor es distribution flavor
+	// Flavor The Elasticsearch distribution flavor.
 	Flavor *string `json:"flavor,omitempty"`
-	// FlushTotal number of flushes
+	// FlushTotal The number of flushes.
 	FlushTotal *string `json:"flush.total,omitempty"`
-	// FlushTotalTime time spent in flush
+	// FlushTotalTime The time spent in flush.
 	FlushTotalTime *string `json:"flush.total_time,omitempty"`
-	// GetCurrent number of current get ops
+	// GetCurrent The number of current get ops.
 	GetCurrent *string `json:"get.current,omitempty"`
-	// GetExistsTime time spent in successful gets
+	// GetExistsTime The time spent in successful gets.
 	GetExistsTime *string `json:"get.exists_time,omitempty"`
-	// GetExistsTotal number of successful gets
+	// GetExistsTotal The number of successful get operations.
 	GetExistsTotal *string `json:"get.exists_total,omitempty"`
-	// GetMissingTime time spent in failed gets
+	// GetMissingTime The time spent in failed gets.
 	GetMissingTime *string `json:"get.missing_time,omitempty"`
-	// GetMissingTotal number of failed gets
+	// GetMissingTotal The number of failed gets.
 	GetMissingTotal *string `json:"get.missing_total,omitempty"`
-	// GetTime time spent in get
+	// GetTime The time spent in get.
 	GetTime *string `json:"get.time,omitempty"`
-	// GetTotal number of get ops
+	// GetTotal The number of get ops.
 	GetTotal *string `json:"get.total,omitempty"`
-	// HeapCurrent used heap
+	// HeapCurrent The used heap.
 	HeapCurrent *string `json:"heap.current,omitempty"`
-	// HeapMax max configured heap
+	// HeapMax The maximum configured heap.
 	HeapMax *string `json:"heap.max,omitempty"`
-	// HeapPercent used heap ratio
+	// HeapPercent The used heap ratio.
 	HeapPercent Percentage `json:"heap.percent,omitempty"`
-	// HttpAddress bound http address
+	// HttpAddress The bound HTTP address.
 	HttpAddress *string `json:"http_address,omitempty"`
-	// Id unique node id
+	// Id The unique node identifier.
 	Id *string `json:"id,omitempty"`
-	// IndexingDeleteCurrent number of current deletions
+	// IndexingDeleteCurrent The number of current deletions.
 	IndexingDeleteCurrent *string `json:"indexing.delete_current,omitempty"`
-	// IndexingDeleteTime time spent in deletions
+	// IndexingDeleteTime The time spent in deletions.
 	IndexingDeleteTime *string `json:"indexing.delete_time,omitempty"`
-	// IndexingDeleteTotal number of delete ops
+	// IndexingDeleteTotal The number of delete operations.
 	IndexingDeleteTotal *string `json:"indexing.delete_total,omitempty"`
-	// IndexingIndexCurrent number of current indexing ops
+	// IndexingIndexCurrent The number of current indexing operations.
 	IndexingIndexCurrent *string `json:"indexing.index_current,omitempty"`
-	// IndexingIndexFailed number of failed indexing ops
+	// IndexingIndexFailed The number of failed indexing operations.
 	IndexingIndexFailed *string `json:"indexing.index_failed,omitempty"`
-	// IndexingIndexTime time spent in indexing
+	// IndexingIndexTime The time spent in indexing.
 	IndexingIndexTime *string `json:"indexing.index_time,omitempty"`
-	// IndexingIndexTotal number of indexing ops
+	// IndexingIndexTotal The number of indexing operations.
 	IndexingIndexTotal *string `json:"indexing.index_total,omitempty"`
-	// Ip ip address
+	// Ip The IP address.
 	Ip *string `json:"ip,omitempty"`
-	// Jdk jdk version
+	// Jdk The Java version.
 	Jdk *string `json:"jdk,omitempty"`
-	// Load15M 15m load avg
+	// Load15M The load average for the last fifteen minutes.
 	Load15M *string `json:"load_15m,omitempty"`
-	// Load1M 1m load avg
+	// Load1M The load average for the most recent minute.
 	Load1M *string `json:"load_1m,omitempty"`
-	// Load5M 5m load avg
+	// Load5M The load average for the last five minutes.
 	Load5M *string `json:"load_5m,omitempty"`
-	// Master *:current master
+	// Master Indicates whether the node is the elected master node.
+	// Returned values include `*`(elected master) and `-`(not elected master).
 	Master *string `json:"master,omitempty"`
-	// MergesCurrent number of current merges
+	// MergesCurrent The number of current merges.
 	MergesCurrent *string `json:"merges.current,omitempty"`
-	// MergesCurrentDocs number of current merging docs
+	// MergesCurrentDocs The number of current merging docs.
 	MergesCurrentDocs *string `json:"merges.current_docs,omitempty"`
-	// MergesCurrentSize size of current merges
+	// MergesCurrentSize The size of current merges.
 	MergesCurrentSize *string `json:"merges.current_size,omitempty"`
-	// MergesTotal number of completed merge ops
+	// MergesTotal The number of completed merge operations.
 	MergesTotal *string `json:"merges.total,omitempty"`
-	// MergesTotalDocs docs merged
+	// MergesTotalDocs The docs merged.
 	MergesTotalDocs *string `json:"merges.total_docs,omitempty"`
-	// MergesTotalSize size merged
+	// MergesTotalSize The size merged.
 	MergesTotalSize *string `json:"merges.total_size,omitempty"`
-	// MergesTotalTime time spent in merges
+	// MergesTotalTime The time spent in merges.
 	MergesTotalTime *string `json:"merges.total_time,omitempty"`
-	// Name node name
+	// Name The node name.
 	Name *string `json:"name,omitempty"`
-	// NodeRole m:master eligible node, d:data node, i:ingest node, -:coordinating node only
+	// NodeRole The roles of the node.
+	// Returned values include `c`(cold node), `d`(data node), `f`(frozen node),
+	// `h`(hot node), `i`(ingest node), `l`(machine learning node), `m` (master
+	// eligible node), `r`(remote cluster client node), `s`(content node),
+	// `t`(transform node), `v`(voting-only node), `w`(warm node),and
+	// `-`(coordinating node only).
 	NodeRole *string `json:"node.role,omitempty"`
-	// Pid process id
+	// Pid The process identifier.
 	Pid *string `json:"pid,omitempty"`
-	// Port bound transport port
+	// Port The bound transport port.
 	Port *string `json:"port,omitempty"`
-	// QueryCacheEvictions query cache evictions
+	// QueryCacheEvictions The query cache evictions.
 	QueryCacheEvictions *string `json:"query_cache.evictions,omitempty"`
-	// QueryCacheHitCount query cache hit counts
+	// QueryCacheHitCount The query cache hit counts.
 	QueryCacheHitCount *string `json:"query_cache.hit_count,omitempty"`
-	// QueryCacheMemorySize used query cache
+	// QueryCacheMemorySize The used query cache.
 	QueryCacheMemorySize *string `json:"query_cache.memory_size,omitempty"`
-	// QueryCacheMissCount query cache miss counts
+	// QueryCacheMissCount The query cache miss counts.
 	QueryCacheMissCount *string `json:"query_cache.miss_count,omitempty"`
-	// RamCurrent used machine memory
+	// RamCurrent The used machine memory.
 	RamCurrent *string `json:"ram.current,omitempty"`
-	// RamMax total machine memory
+	// RamMax The total machine memory.
 	RamMax *string `json:"ram.max,omitempty"`
-	// RamPercent used machine memory ratio
+	// RamPercent The used machine memory ratio.
 	RamPercent Percentage `json:"ram.percent,omitempty"`
-	// RefreshExternalTime time spent in external refreshes
+	// RefreshExternalTime The time spent in external refreshes.
 	RefreshExternalTime *string `json:"refresh.external_time,omitempty"`
-	// RefreshExternalTotal total external refreshes
+	// RefreshExternalTotal The total external refreshes.
 	RefreshExternalTotal *string `json:"refresh.external_total,omitempty"`
-	// RefreshListeners number of pending refresh listeners
+	// RefreshListeners The number of pending refresh listeners.
 	RefreshListeners *string `json:"refresh.listeners,omitempty"`
-	// RefreshTime time spent in refreshes
+	// RefreshTime The time spent in refreshes.
 	RefreshTime *string `json:"refresh.time,omitempty"`
-	// RefreshTotal total refreshes
+	// RefreshTotal The total refreshes.
 	RefreshTotal *string `json:"refresh.total,omitempty"`
-	// RequestCacheEvictions request cache evictions
+	// RequestCacheEvictions The request cache evictions.
 	RequestCacheEvictions *string `json:"request_cache.evictions,omitempty"`
-	// RequestCacheHitCount request cache hit counts
+	// RequestCacheHitCount The request cache hit counts.
 	RequestCacheHitCount *string `json:"request_cache.hit_count,omitempty"`
-	// RequestCacheMemorySize used request cache
+	// RequestCacheMemorySize The used request cache.
 	RequestCacheMemorySize *string `json:"request_cache.memory_size,omitempty"`
-	// RequestCacheMissCount request cache miss counts
+	// RequestCacheMissCount The request cache miss counts.
 	RequestCacheMissCount *string `json:"request_cache.miss_count,omitempty"`
-	// ScriptCacheEvictions script cache evictions
+	// ScriptCacheEvictions The total compiled scripts evicted from the cache.
 	ScriptCacheEvictions *string `json:"script.cache_evictions,omitempty"`
-	// ScriptCompilationLimitTriggered script cache compilation limit triggered
+	// ScriptCompilationLimitTriggered The script cache compilation limit triggered.
 	ScriptCompilationLimitTriggered *string `json:"script.compilation_limit_triggered,omitempty"`
-	// ScriptCompilations script compilations
+	// ScriptCompilations The total script compilations.
 	ScriptCompilations *string `json:"script.compilations,omitempty"`
-	// SearchFetchCurrent current fetch phase ops
+	// SearchFetchCurrent The current fetch phase operations.
 	SearchFetchCurrent *string `json:"search.fetch_current,omitempty"`
-	// SearchFetchTime time spent in fetch phase
+	// SearchFetchTime The time spent in fetch phase.
 	SearchFetchTime *string `json:"search.fetch_time,omitempty"`
-	// SearchFetchTotal total fetch ops
+	// SearchFetchTotal The total fetch operations.
 	SearchFetchTotal *string `json:"search.fetch_total,omitempty"`
-	// SearchOpenContexts open search contexts
+	// SearchOpenContexts The open search contexts.
 	SearchOpenContexts *string `json:"search.open_contexts,omitempty"`
-	// SearchQueryCurrent current query phase ops
+	// SearchQueryCurrent The current query phase operations.
 	SearchQueryCurrent *string `json:"search.query_current,omitempty"`
-	// SearchQueryTime time spent in query phase
+	// SearchQueryTime The time spent in query phase.
 	SearchQueryTime *string `json:"search.query_time,omitempty"`
-	// SearchQueryTotal total query phase ops
+	// SearchQueryTotal The total query phase operations.
 	SearchQueryTotal *string `json:"search.query_total,omitempty"`
-	// SearchScrollCurrent open scroll contexts
+	// SearchScrollCurrent The open scroll contexts.
 	SearchScrollCurrent *string `json:"search.scroll_current,omitempty"`
-	// SearchScrollTime time scroll contexts held open
+	// SearchScrollTime The time scroll contexts held open.
 	SearchScrollTime *string `json:"search.scroll_time,omitempty"`
-	// SearchScrollTotal completed scroll contexts
+	// SearchScrollTotal The completed scroll contexts.
 	SearchScrollTotal *string `json:"search.scroll_total,omitempty"`
-	// SegmentsCount number of segments
+	// SegmentsCount The number of segments.
 	SegmentsCount *string `json:"segments.count,omitempty"`
-	// SegmentsFixedBitsetMemory memory used by fixed bit sets for nested object field types  and export type
-	// filters for types referred in _parent fields
+	// SegmentsFixedBitsetMemory The memory used by fixed bit sets for nested object field types and export
+	// type filters for types referred in _parent fields.
 	SegmentsFixedBitsetMemory *string `json:"segments.fixed_bitset_memory,omitempty"`
-	// SegmentsIndexWriterMemory memory used by index writer
+	// SegmentsIndexWriterMemory The memory used by the index writer.
 	SegmentsIndexWriterMemory *string `json:"segments.index_writer_memory,omitempty"`
-	// SegmentsMemory memory used by segments
+	// SegmentsMemory The memory used by segments.
 	SegmentsMemory *string `json:"segments.memory,omitempty"`
-	// SegmentsVersionMapMemory memory used by version map
+	// SegmentsVersionMapMemory The memory used by the version map.
 	SegmentsVersionMapMemory *string `json:"segments.version_map_memory,omitempty"`
-	// SuggestCurrent number of current suggest ops
+	// SuggestCurrent The number of current suggest operations.
 	SuggestCurrent *string `json:"suggest.current,omitempty"`
-	// SuggestTime time spend in suggest
+	// SuggestTime The time spend in suggest.
 	SuggestTime *string `json:"suggest.time,omitempty"`
-	// SuggestTotal number of suggest ops
+	// SuggestTotal The number of suggest operations.
 	SuggestTotal *string `json:"suggest.total,omitempty"`
-	// Type es distribution type
+	// Type The Elasticsearch distribution type.
 	Type *string `json:"type,omitempty"`
-	// Uptime node uptime
+	// Uptime The node uptime.
 	Uptime *string `json:"uptime,omitempty"`
-	// Version es version
+	// Version The Elasticsearch version.
 	Version *string `json:"version,omitempty"`
 }
 
@@ -247,7 +253,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Build = &o
 
 		case "bulk.avg_size_in_bytes", "basi", "bulkAvgSizeInBytes":
@@ -255,7 +265,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkAvgSizeInBytes = &o
 
 		case "bulk.avg_time", "bati", "bulkAvgTime":
@@ -263,7 +277,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkAvgTime = &o
 
 		case "bulk.total_operations", "bto", "bulkTotalOperations":
@@ -271,7 +289,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkTotalOperations = &o
 
 		case "bulk.total_size_in_bytes", "btsi", "bulkTotalSizeInBytes":
@@ -279,7 +301,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkTotalSizeInBytes = &o
 
 		case "bulk.total_time", "btti", "bulkTotalTime":
@@ -287,7 +313,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BulkTotalTime = &o
 
 		case "completion.size", "cs", "completionSize":
@@ -295,7 +325,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CompletionSize = &o
 
 		case "cpu":
@@ -303,7 +337,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Cpu = &o
 
 		case "disk.avail", "d", "da", "disk", "diskAvail":
@@ -331,7 +369,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FielddataEvictions = &o
 
 		case "fielddata.memory_size", "fm", "fielddataMemory":
@@ -339,7 +381,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FielddataMemorySize = &o
 
 		case "file_desc.current", "fdc", "fileDescriptorCurrent":
@@ -347,7 +393,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FileDescCurrent = &o
 
 		case "file_desc.max", "fdm", "fileDescriptorMax":
@@ -355,7 +405,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FileDescMax = &o
 
 		case "file_desc.percent", "fdp", "fileDescriptorPercent":
@@ -368,7 +422,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Flavor = &o
 
 		case "flush.total", "ft", "flushTotal":
@@ -376,7 +434,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FlushTotal = &o
 
 		case "flush.total_time", "ftt", "flushTotalTime":
@@ -384,7 +446,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FlushTotalTime = &o
 
 		case "get.current", "gc", "getCurrent":
@@ -392,7 +458,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetCurrent = &o
 
 		case "get.exists_time", "geti", "getExistsTime":
@@ -400,7 +470,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetExistsTime = &o
 
 		case "get.exists_total", "geto", "getExistsTotal":
@@ -408,7 +482,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetExistsTotal = &o
 
 		case "get.missing_time", "gmti", "getMissingTime":
@@ -416,7 +494,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetMissingTime = &o
 
 		case "get.missing_total", "gmto", "getMissingTotal":
@@ -424,7 +506,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetMissingTotal = &o
 
 		case "get.time", "gti", "getTime":
@@ -432,7 +518,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetTime = &o
 
 		case "get.total", "gto", "getTotal":
@@ -440,7 +530,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.GetTotal = &o
 
 		case "heap.current", "hc", "heapCurrent":
@@ -448,7 +542,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.HeapCurrent = &o
 
 		case "heap.max", "hm", "heapMax":
@@ -456,7 +554,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.HeapMax = &o
 
 		case "heap.percent", "hp", "heapPercent":
@@ -469,7 +571,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.HttpAddress = &o
 
 		case "id", "nodeId":
@@ -482,7 +588,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingDeleteCurrent = &o
 
 		case "indexing.delete_time", "idti", "indexingDeleteTime":
@@ -490,7 +600,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingDeleteTime = &o
 
 		case "indexing.delete_total", "idto", "indexingDeleteTotal":
@@ -498,7 +612,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingDeleteTotal = &o
 
 		case "indexing.index_current", "iic", "indexingIndexCurrent":
@@ -506,7 +624,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexCurrent = &o
 
 		case "indexing.index_failed", "iif", "indexingIndexFailed":
@@ -514,7 +636,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexFailed = &o
 
 		case "indexing.index_time", "iiti", "indexingIndexTime":
@@ -522,7 +648,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexTime = &o
 
 		case "indexing.index_total", "iito", "indexingIndexTotal":
@@ -530,7 +660,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexingIndexTotal = &o
 
 		case "ip", "i":
@@ -538,7 +672,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Ip = &o
 
 		case "jdk", "j":
@@ -546,7 +684,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Jdk = &o
 
 		case "load_15m", "l":
@@ -554,7 +696,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Load15M = &o
 
 		case "load_1m":
@@ -562,7 +708,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Load1M = &o
 
 		case "load_5m":
@@ -570,7 +720,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Load5M = &o
 
 		case "master", "m":
@@ -578,7 +732,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Master = &o
 
 		case "merges.current", "mc", "mergesCurrent":
@@ -586,7 +744,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesCurrent = &o
 
 		case "merges.current_docs", "mcd", "mergesCurrentDocs":
@@ -594,7 +756,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesCurrentDocs = &o
 
 		case "merges.current_size", "mcs", "mergesCurrentSize":
@@ -602,7 +768,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesCurrentSize = &o
 
 		case "merges.total", "mt", "mergesTotal":
@@ -610,7 +780,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotal = &o
 
 		case "merges.total_docs", "mtd", "mergesTotalDocs":
@@ -618,7 +792,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotalDocs = &o
 
 		case "merges.total_size", "mts", "mergesTotalSize":
@@ -626,7 +804,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotalSize = &o
 
 		case "merges.total_time", "mtt", "mergesTotalTime":
@@ -634,7 +816,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MergesTotalTime = &o
 
 		case "name", "n":
@@ -647,7 +833,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.NodeRole = &o
 
 		case "pid", "p":
@@ -655,7 +845,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Pid = &o
 
 		case "port", "po":
@@ -663,7 +857,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Port = &o
 
 		case "query_cache.evictions", "qce", "queryCacheEvictions":
@@ -671,7 +869,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheEvictions = &o
 
 		case "query_cache.hit_count", "qchc", "queryCacheHitCount":
@@ -679,7 +881,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheHitCount = &o
 
 		case "query_cache.memory_size", "qcm", "queryCacheMemory":
@@ -687,7 +893,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheMemorySize = &o
 
 		case "query_cache.miss_count", "qcmc", "queryCacheMissCount":
@@ -695,7 +905,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.QueryCacheMissCount = &o
 
 		case "ram.current", "rc", "ramCurrent":
@@ -703,7 +917,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RamCurrent = &o
 
 		case "ram.max", "rn", "ramMax":
@@ -711,7 +929,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RamMax = &o
 
 		case "ram.percent", "rp", "ramPercent":
@@ -724,7 +946,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshExternalTime = &o
 
 		case "refresh.external_total", "rto", "refreshTotal":
@@ -732,7 +958,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshExternalTotal = &o
 
 		case "refresh.listeners", "rli", "refreshListeners":
@@ -740,7 +970,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshListeners = &o
 
 		case "refresh.time":
@@ -748,7 +982,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshTime = &o
 
 		case "refresh.total":
@@ -756,7 +994,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RefreshTotal = &o
 
 		case "request_cache.evictions", "rce", "requestCacheEvictions":
@@ -764,7 +1006,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheEvictions = &o
 
 		case "request_cache.hit_count", "rchc", "requestCacheHitCount":
@@ -772,7 +1018,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheHitCount = &o
 
 		case "request_cache.memory_size", "rcm", "requestCacheMemory":
@@ -780,7 +1030,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheMemorySize = &o
 
 		case "request_cache.miss_count", "rcmc", "requestCacheMissCount":
@@ -788,7 +1042,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RequestCacheMissCount = &o
 
 		case "script.cache_evictions", "scrce", "scriptCacheEvictions":
@@ -796,7 +1054,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ScriptCacheEvictions = &o
 
 		case "script.compilation_limit_triggered", "scrclt", "scriptCacheCompilationLimitTriggered":
@@ -804,7 +1066,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ScriptCompilationLimitTriggered = &o
 
 		case "script.compilations", "scrcc", "scriptCompilations":
@@ -812,7 +1078,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ScriptCompilations = &o
 
 		case "search.fetch_current", "sfc", "searchFetchCurrent":
@@ -820,7 +1090,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchFetchCurrent = &o
 
 		case "search.fetch_time", "sfti", "searchFetchTime":
@@ -828,7 +1102,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchFetchTime = &o
 
 		case "search.fetch_total", "sfto", "searchFetchTotal":
@@ -836,7 +1114,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchFetchTotal = &o
 
 		case "search.open_contexts", "so", "searchOpenContexts":
@@ -844,7 +1126,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchOpenContexts = &o
 
 		case "search.query_current", "sqc", "searchQueryCurrent":
@@ -852,7 +1138,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchQueryCurrent = &o
 
 		case "search.query_time", "sqti", "searchQueryTime":
@@ -860,7 +1150,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchQueryTime = &o
 
 		case "search.query_total", "sqto", "searchQueryTotal":
@@ -868,7 +1162,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchQueryTotal = &o
 
 		case "search.scroll_current", "scc", "searchScrollCurrent":
@@ -876,7 +1174,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchScrollCurrent = &o
 
 		case "search.scroll_time", "scti", "searchScrollTime":
@@ -884,7 +1186,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchScrollTime = &o
 
 		case "search.scroll_total", "scto", "searchScrollTotal":
@@ -892,7 +1198,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchScrollTotal = &o
 
 		case "segments.count", "sc", "segmentsCount":
@@ -900,7 +1210,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsCount = &o
 
 		case "segments.fixed_bitset_memory", "sfbm", "fixedBitsetMemory":
@@ -908,7 +1222,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsFixedBitsetMemory = &o
 
 		case "segments.index_writer_memory", "siwm", "segmentsIndexWriterMemory":
@@ -916,7 +1234,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsIndexWriterMemory = &o
 
 		case "segments.memory", "sm", "segmentsMemory":
@@ -924,7 +1246,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsMemory = &o
 
 		case "segments.version_map_memory", "svmm", "segmentsVersionMapMemory":
@@ -932,7 +1258,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SegmentsVersionMapMemory = &o
 
 		case "suggest.current", "suc", "suggestCurrent":
@@ -940,7 +1270,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SuggestCurrent = &o
 
 		case "suggest.time", "suti", "suggestTime":
@@ -948,7 +1282,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SuggestTime = &o
 
 		case "suggest.total", "suto", "suggestTotal":
@@ -956,7 +1294,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SuggestTotal = &o
 
 		case "type", "t":
@@ -964,7 +1306,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = &o
 
 		case "uptime", "u":
@@ -972,7 +1318,11 @@ func (s *NodesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Uptime = &o
 
 		case "version", "v":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about the tasks currently executing on one or more nodes
 // in the cluster.
@@ -170,6 +170,10 @@ func (r Tasks) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -204,30 +208,38 @@ func (r *Tasks) Header(key, value string) *Tasks {
 // Actions A comma-separated list of actions that should be returned. Leave empty to
 // return all.
 // API name: actions
-func (r *Tasks) Actions(v string) *Tasks {
-	r.values.Set("actions", v)
+func (r *Tasks) Actions(actions ...string) *Tasks {
+	tmp := []string{}
+	for _, item := range actions {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("actions", strings.Join(tmp, ","))
 
 	return r
 }
 
 // Detailed Return detailed task information (default: false)
 // API name: detailed
-func (r *Tasks) Detailed(b bool) *Tasks {
-	r.values.Set("detailed", strconv.FormatBool(b))
+func (r *Tasks) Detailed(detailed bool) *Tasks {
+	r.values.Set("detailed", strconv.FormatBool(detailed))
 
 	return r
 }
 
 // API name: node_id
-func (r *Tasks) NodeId(v string) *Tasks {
-	r.values.Set("node_id", v)
+func (r *Tasks) NodeId(nodeids ...string) *Tasks {
+	tmp := []string{}
+	for _, item := range nodeids {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("node_id", strings.Join(tmp, ","))
 
 	return r
 }
 
 // API name: parent_task
-func (r *Tasks) ParentTask(v string) *Tasks {
-	r.values.Set("parent_task", v)
+func (r *Tasks) ParentTask(parenttask string) *Tasks {
+	r.values.Set("parent_task", parenttask)
 
 	return r
 }

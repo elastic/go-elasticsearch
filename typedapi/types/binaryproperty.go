@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // BinaryProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/core.ts#L49-L51
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/mapping/core.ts#L49-L51
 type BinaryProperty struct {
 	CopyTo      []string                       `json:"copy_to,omitempty"`
 	DocValues   *bool                          `json:"doc_values,omitempty"`
@@ -722,7 +720,11 @@ func (s *BinaryProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "store":
@@ -749,6 +751,27 @@ func (s *BinaryProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s BinaryProperty) MarshalJSON() ([]byte, error) {
+	type innerBinaryProperty BinaryProperty
+	tmp := innerBinaryProperty{
+		CopyTo:      s.CopyTo,
+		DocValues:   s.DocValues,
+		Dynamic:     s.Dynamic,
+		Fields:      s.Fields,
+		IgnoreAbove: s.IgnoreAbove,
+		Meta:        s.Meta,
+		Properties:  s.Properties,
+		Similarity:  s.Similarity,
+		Store:       s.Store,
+		Type:        s.Type,
+	}
+
+	tmp.Type = "binary"
+
+	return json.Marshal(tmp)
+}
+
 // NewBinaryProperty returns a BinaryProperty.
 func NewBinaryProperty() *BinaryProperty {
 	r := &BinaryProperty{
@@ -756,8 +779,6 @@ func NewBinaryProperty() *BinaryProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "binary"
 
 	return r
 }

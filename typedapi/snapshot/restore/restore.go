@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Restores a snapshot.
 package restore
@@ -55,8 +55,9 @@ type Restore struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -90,6 +91,8 @@ func New(tp elastictransport.Interface) *Restore {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -119,9 +122,19 @@ func (r *Restore) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -129,6 +142,7 @@ func (r *Restore) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -222,6 +236,10 @@ func (r Restore) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -234,34 +252,107 @@ func (r *Restore) Header(key, value string) *Restore {
 
 // Repository A repository name
 // API Name: repository
-func (r *Restore) Repository(v string) *Restore {
+func (r *Restore) Repository(repository string) *Restore {
 	r.paramSet |= repositoryMask
-	r.repository = v
+	r.repository = repository
 
 	return r
 }
 
 // Snapshot A snapshot name
 // API Name: snapshot
-func (r *Restore) Snapshot(v string) *Restore {
+func (r *Restore) Snapshot(snapshot string) *Restore {
 	r.paramSet |= snapshotMask
-	r.snapshot = v
+	r.snapshot = snapshot
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *Restore) MasterTimeout(v string) *Restore {
-	r.values.Set("master_timeout", v)
+func (r *Restore) MasterTimeout(duration string) *Restore {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // WaitForCompletion Should this request wait until the operation has completed before returning
 // API name: wait_for_completion
-func (r *Restore) WaitForCompletion(b bool) *Restore {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *Restore) WaitForCompletion(waitforcompletion bool) *Restore {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
+
+	return r
+}
+
+// API name: feature_states
+func (r *Restore) FeatureStates(featurestates ...string) *Restore {
+	r.req.FeatureStates = featurestates
+
+	return r
+}
+
+// API name: ignore_index_settings
+func (r *Restore) IgnoreIndexSettings(ignoreindexsettings ...string) *Restore {
+	r.req.IgnoreIndexSettings = ignoreindexsettings
+
+	return r
+}
+
+// API name: ignore_unavailable
+func (r *Restore) IgnoreUnavailable(ignoreunavailable bool) *Restore {
+	r.req.IgnoreUnavailable = &ignoreunavailable
+
+	return r
+}
+
+// API name: include_aliases
+func (r *Restore) IncludeAliases(includealiases bool) *Restore {
+	r.req.IncludeAliases = &includealiases
+
+	return r
+}
+
+// API name: include_global_state
+func (r *Restore) IncludeGlobalState(includeglobalstate bool) *Restore {
+	r.req.IncludeGlobalState = &includeglobalstate
+
+	return r
+}
+
+// API name: index_settings
+func (r *Restore) IndexSettings(indexsettings *types.IndexSettings) *Restore {
+
+	r.req.IndexSettings = indexsettings
+
+	return r
+}
+
+// API name: indices
+func (r *Restore) Indices(indices ...string) *Restore {
+	r.req.Indices = indices
+
+	return r
+}
+
+// API name: partial
+func (r *Restore) Partial(partial bool) *Restore {
+	r.req.Partial = &partial
+
+	return r
+}
+
+// API name: rename_pattern
+func (r *Restore) RenamePattern(renamepattern string) *Restore {
+
+	r.req.RenamePattern = &renamepattern
+
+	return r
+}
+
+// API name: rename_replacement
+func (r *Restore) RenameReplacement(renamereplacement string) *Restore {
+
+	r.req.RenameReplacement = &renamereplacement
 
 	return r
 }

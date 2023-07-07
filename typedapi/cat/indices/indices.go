@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about indices: number of primaries and replicas, document
 // counts, disk size, ...
@@ -37,8 +37,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
@@ -190,6 +190,10 @@ func (r Indices) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,62 +225,68 @@ func (r *Indices) Header(key, value string) *Indices {
 	return r
 }
 
-// Index A comma-separated list of index names to limit the returned information
+// Index Comma-separated list of data streams, indices, and aliases used to limit the
+// request.
+// Supports wildcards (`*`). To target all data streams and indices, omit this
+// parameter or use `*` or `_all`.
 // API Name: index
-func (r *Indices) Index(v string) *Indices {
+func (r *Indices) Index(index string) *Indices {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
-// Bytes The unit in which to display byte values
+// Bytes The unit used to display byte values.
 // API name: bytes
-func (r *Indices) Bytes(enum bytes.Bytes) *Indices {
-	r.values.Set("bytes", enum.String())
+func (r *Indices) Bytes(bytes bytes.Bytes) *Indices {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards The type of index that wildcard patterns can match.
 // API name: expand_wildcards
-func (r *Indices) ExpandWildcards(v string) *Indices {
-	r.values.Set("expand_wildcards", v)
+func (r *Indices) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Indices {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
-// Health A health status ("green", "yellow", or "red" to filter only indices matching
-// the specified health status
+// Health The health status used to limit returned indices. By default, the response
+// includes indices of any health status.
 // API name: health
-func (r *Indices) Health(enum healthstatus.HealthStatus) *Indices {
-	r.values.Set("health", enum.String())
+func (r *Indices) Health(health healthstatus.HealthStatus) *Indices {
+	r.values.Set("health", health.String())
 
 	return r
 }
 
-// IncludeUnloadedSegments If set to true segment stats will include stats for segments that are not
-// currently loaded into memory
+// IncludeUnloadedSegments If true, the response includes information from segments that are not loaded
+// into memory.
 // API name: include_unloaded_segments
-func (r *Indices) IncludeUnloadedSegments(b bool) *Indices {
-	r.values.Set("include_unloaded_segments", strconv.FormatBool(b))
+func (r *Indices) IncludeUnloadedSegments(includeunloadedsegments bool) *Indices {
+	r.values.Set("include_unloaded_segments", strconv.FormatBool(includeunloadedsegments))
 
 	return r
 }
 
-// Pri Set to true to return stats only for primary shards
+// Pri If true, the response only includes information from primary shards.
 // API name: pri
-func (r *Indices) Pri(b bool) *Indices {
-	r.values.Set("pri", strconv.FormatBool(b))
+func (r *Indices) Pri(pri bool) *Indices {
+	r.values.Set("pri", strconv.FormatBool(pri))
 
 	return r
 }
 
-// Time The unit in which to display time values
+// Time The unit used to display time values.
 // API name: time
-func (r *Indices) Time(enum timeunit.TimeUnit) *Indices {
-	r.values.Set("time", enum.String())
+func (r *Indices) Time(time timeunit.TimeUnit) *Indices {
+	r.values.Set("time", time.String())
 
 	return r
 }

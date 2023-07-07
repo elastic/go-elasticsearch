@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // ConstantKeywordProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/specialized.ts#L44-L47
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/mapping/specialized.ts#L44-L47
 type ConstantKeywordProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -699,6 +697,24 @@ func (s *ConstantKeywordProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s ConstantKeywordProperty) MarshalJSON() ([]byte, error) {
+	type innerConstantKeywordProperty ConstantKeywordProperty
+	tmp := innerConstantKeywordProperty{
+		Dynamic:     s.Dynamic,
+		Fields:      s.Fields,
+		IgnoreAbove: s.IgnoreAbove,
+		Meta:        s.Meta,
+		Properties:  s.Properties,
+		Type:        s.Type,
+		Value:       s.Value,
+	}
+
+	tmp.Type = "constant_keyword"
+
+	return json.Marshal(tmp)
+}
+
 // NewConstantKeywordProperty returns a ConstantKeywordProperty.
 func NewConstantKeywordProperty() *ConstantKeywordProperty {
 	r := &ConstantKeywordProperty{
@@ -706,8 +722,6 @@ func NewConstantKeywordProperty() *ConstantKeywordProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "constant_keyword"
 
 	return r
 }

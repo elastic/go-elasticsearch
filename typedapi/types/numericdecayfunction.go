@@ -16,63 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
-
+	"encoding/json"
 	"fmt"
 
-	"bytes"
-	"errors"
-	"io"
-
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
 )
 
 // NumericDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/compound.ts#L88-L90
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/query_dsl/compound.ts#L88-L90
 type NumericDecayFunction struct {
 	MultiValueMode       *multivaluemode.MultiValueMode        `json:"multi_value_mode,omitempty"`
 	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"NumericDecayFunction,omitempty"`
-}
-
-func (s *NumericDecayFunction) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "multi_value_mode":
-			if err := dec.Decode(&s.MultiValueMode); err != nil {
-				return err
-			}
-
-		case "NumericDecayFunction":
-			if s.NumericDecayFunction == nil {
-				s.NumericDecayFunction = make(map[string]DecayPlacementdoubledouble, 0)
-			}
-			if err := dec.Decode(&s.NumericDecayFunction); err != nil {
-				return err
-			}
-
-		default:
-
-		}
-	}
-	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

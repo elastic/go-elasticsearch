@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns the information about the capabilities of fields among multiple
 // indices.
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -54,8 +55,9 @@ type FieldCaps struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +87,8 @@ func New(tp elastictransport.Interface) *FieldCaps {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +118,19 @@ func (r *FieldCaps) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +138,7 @@ func (r *FieldCaps) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -217,6 +232,10 @@ func (r FieldCaps) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -231,9 +250,9 @@ func (r *FieldCaps) Header(key, value string) *FieldCaps {
 // request. Supports wildcards (*). To target all data streams and indices, omit
 // this parameter or use * or _all.
 // API Name: index
-func (r *FieldCaps) Index(v string) *FieldCaps {
+func (r *FieldCaps) Index(index string) *FieldCaps {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -245,8 +264,8 @@ func (r *FieldCaps) Index(v string) *FieldCaps {
 // targeting `foo*,bar*` returns an error if an index starts with foo but no
 // index starts with bar.
 // API name: allow_no_indices
-func (r *FieldCaps) AllowNoIndices(b bool) *FieldCaps {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *FieldCaps) AllowNoIndices(allownoindices bool) *FieldCaps {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -255,33 +274,28 @@ func (r *FieldCaps) AllowNoIndices(b bool) *FieldCaps {
 // data streams, this argument determines whether wildcard expressions match
 // hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
-func (r *FieldCaps) ExpandWildcards(v string) *FieldCaps {
-	r.values.Set("expand_wildcards", v)
-
-	return r
-}
-
-// Fields Comma-separated list of fields to retrieve capabilities for. Wildcard (`*`)
-// expressions are supported.
-// API name: fields
-func (r *FieldCaps) Fields(v string) *FieldCaps {
-	r.values.Set("fields", v)
+func (r *FieldCaps) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *FieldCaps {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreUnavailable If `true`, missing or closed indices are not included in the response.
 // API name: ignore_unavailable
-func (r *FieldCaps) IgnoreUnavailable(b bool) *FieldCaps {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *FieldCaps) IgnoreUnavailable(ignoreunavailable bool) *FieldCaps {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // IncludeUnmapped If true, unmapped fields are included in the response.
 // API name: include_unmapped
-func (r *FieldCaps) IncludeUnmapped(b bool) *FieldCaps {
-	r.values.Set("include_unmapped", strconv.FormatBool(b))
+func (r *FieldCaps) IncludeUnmapped(includeunmapped bool) *FieldCaps {
+	r.values.Set("include_unmapped", strconv.FormatBool(includeunmapped))
 
 	return r
 }
@@ -289,16 +303,50 @@ func (r *FieldCaps) IncludeUnmapped(b bool) *FieldCaps {
 // Filters An optional set of filters: can include
 // +metadata,-metadata,-nested,-multifield,-parent
 // API name: filters
-func (r *FieldCaps) Filters(v string) *FieldCaps {
-	r.values.Set("filters", v)
+func (r *FieldCaps) Filters(filters string) *FieldCaps {
+	r.values.Set("filters", filters)
 
 	return r
 }
 
 // Types Only return results for fields that have one of the types in the list
 // API name: types
-func (r *FieldCaps) Types(v string) *FieldCaps {
-	r.values.Set("types", v)
+func (r *FieldCaps) Types(types ...string) *FieldCaps {
+	tmp := []string{}
+	for _, item := range types {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("types", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Fields List of fields to retrieve capabilities for. Wildcard (`*`) expressions are
+// supported.
+// API name: fields
+func (r *FieldCaps) Fields(fields ...string) *FieldCaps {
+	r.req.Fields = fields
+
+	return r
+}
+
+// IndexFilter Allows to filter indices if the provided query rewrites to match_none on
+// every shard.
+// API name: index_filter
+func (r *FieldCaps) IndexFilter(indexfilter *types.Query) *FieldCaps {
+
+	r.req.IndexFilter = indexfilter
+
+	return r
+}
+
+// RuntimeMappings Defines ad-hoc runtime fields in the request similar to the way it is done in
+// search requests.
+// These fields exist only as part of the query and take precedence over fields
+// defined with the same name in the index mappings.
+// API name: runtime_mappings
+func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFields) *FieldCaps {
+	r.req.RuntimeMappings = runtimefields
 
 	return r
 }

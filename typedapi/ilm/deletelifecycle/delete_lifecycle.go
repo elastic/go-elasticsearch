@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes the specified lifecycle policy definition. A currently used policy
 // cannot be deleted.
@@ -180,6 +180,10 @@ func (r DeleteLifecycle) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *DeleteLifecycle) Header(key, value string) *DeleteLifecycle {
 
 // Policy Identifier for the policy.
 // API Name: policy
-func (r *DeleteLifecycle) Policy(v string) *DeleteLifecycle {
+func (r *DeleteLifecycle) Policy(policy string) *DeleteLifecycle {
 	r.paramSet |= policyMask
-	r.policy = v
+	r.policy = policy
 
 	return r
 }
@@ -223,8 +227,8 @@ func (r *DeleteLifecycle) Policy(v string) *DeleteLifecycle {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *DeleteLifecycle) MasterTimeout(v string) *DeleteLifecycle {
-	r.values.Set("master_timeout", v)
+func (r *DeleteLifecycle) MasterTimeout(duration string) *DeleteLifecycle {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -232,8 +236,8 @@ func (r *DeleteLifecycle) MasterTimeout(v string) *DeleteLifecycle {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *DeleteLifecycle) Timeout(v string) *DeleteLifecycle {
-	r.values.Set("timeout", v)
+func (r *DeleteLifecycle) Timeout(duration string) *DeleteLifecycle {
+	r.values.Set("timeout", duration)
 
 	return r
 }

@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // AsciiFoldingTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L168-L171
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L168-L171
 type AsciiFoldingTokenFilter struct {
 	PreserveOriginal *bool   `json:"preserve_original,omitempty"`
 	Type             string  `json:"type,omitempty"`
@@ -83,11 +81,23 @@ func (s *AsciiFoldingTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s AsciiFoldingTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerAsciiFoldingTokenFilter AsciiFoldingTokenFilter
+	tmp := innerAsciiFoldingTokenFilter{
+		PreserveOriginal: s.PreserveOriginal,
+		Type:             s.Type,
+		Version:          s.Version,
+	}
+
+	tmp.Type = "asciifolding"
+
+	return json.Marshal(tmp)
+}
+
 // NewAsciiFoldingTokenFilter returns a AsciiFoldingTokenFilter.
 func NewAsciiFoldingTokenFilter() *AsciiFoldingTokenFilter {
 	r := &AsciiFoldingTokenFilter{}
-
-	r.Type = "asciifolding"
 
 	return r
 }

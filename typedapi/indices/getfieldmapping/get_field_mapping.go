@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns mapping for one or more fields.
 package getfieldmapping
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -195,6 +196,10 @@ func (r GetFieldMapping) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -228,18 +233,18 @@ func (r *GetFieldMapping) Header(key, value string) *GetFieldMapping {
 
 // Fields A comma-separated list of fields
 // API Name: fields
-func (r *GetFieldMapping) Fields(v string) *GetFieldMapping {
+func (r *GetFieldMapping) Fields(fields string) *GetFieldMapping {
 	r.paramSet |= fieldsMask
-	r.fields = v
+	r.fields = fields
 
 	return r
 }
 
 // Index A comma-separated list of index names
 // API Name: index
-func (r *GetFieldMapping) Index(v string) *GetFieldMapping {
+func (r *GetFieldMapping) Index(index string) *GetFieldMapping {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -247,8 +252,8 @@ func (r *GetFieldMapping) Index(v string) *GetFieldMapping {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *GetFieldMapping) AllowNoIndices(b bool) *GetFieldMapping {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *GetFieldMapping) AllowNoIndices(allownoindices bool) *GetFieldMapping {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -256,8 +261,12 @@ func (r *GetFieldMapping) AllowNoIndices(b bool) *GetFieldMapping {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *GetFieldMapping) ExpandWildcards(v string) *GetFieldMapping {
-	r.values.Set("expand_wildcards", v)
+func (r *GetFieldMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetFieldMapping {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -265,16 +274,16 @@ func (r *GetFieldMapping) ExpandWildcards(v string) *GetFieldMapping {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *GetFieldMapping) IgnoreUnavailable(b bool) *GetFieldMapping {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *GetFieldMapping) IgnoreUnavailable(ignoreunavailable bool) *GetFieldMapping {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // IncludeDefaults Whether the default mapping values should be returned as well
 // API name: include_defaults
-func (r *GetFieldMapping) IncludeDefaults(b bool) *GetFieldMapping {
-	r.values.Set("include_defaults", strconv.FormatBool(b))
+func (r *GetFieldMapping) IncludeDefaults(includedefaults bool) *GetFieldMapping {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
 
 	return r
 }
@@ -282,8 +291,8 @@ func (r *GetFieldMapping) IncludeDefaults(b bool) *GetFieldMapping {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *GetFieldMapping) Local(b bool) *GetFieldMapping {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *GetFieldMapping) Local(local bool) *GetFieldMapping {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }

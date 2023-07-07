@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Updates attributes of an existing API key.
 package updateapikey
@@ -52,8 +52,9 @@ type UpdateApiKey struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *UpdateApiKey {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *UpdateApiKey) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *UpdateApiKey) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -213,6 +227,10 @@ func (r UpdateApiKey) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -225,9 +243,35 @@ func (r *UpdateApiKey) Header(key, value string) *UpdateApiKey {
 
 // Id The ID of the API key to update.
 // API Name: id
-func (r *UpdateApiKey) Id(v string) *UpdateApiKey {
+func (r *UpdateApiKey) Id(id string) *UpdateApiKey {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
+
+	return r
+}
+
+// Metadata Arbitrary metadata that you want to associate with the API key. It supports
+// nested data structure. Within the metadata object, keys beginning with _ are
+// reserved for system usage.
+// API name: metadata
+func (r *UpdateApiKey) Metadata(metadata types.Metadata) *UpdateApiKey {
+	r.req.Metadata = metadata
+
+	return r
+}
+
+// RoleDescriptors An array of role descriptors for this API key. This parameter is optional.
+// When it is not specified or is an empty array, then the API key will have a
+// point in time snapshot of permissions of the authenticated user. If you
+// supply role descriptors then the resultant permissions would be an
+// intersection of API keys permissions and authenticated user’s permissions
+// thereby limiting the access scope for API keys. The structure of role
+// descriptor is the same as the request for create role API. For more details,
+// see create or update roles API.
+// API name: role_descriptors
+func (r *UpdateApiKey) RoleDescriptors(roledescriptors map[string]types.RoleDescriptor) *UpdateApiKey {
+
+	r.req.RoleDescriptors = roledescriptors
 
 	return r
 }

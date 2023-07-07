@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package updatemodelsnapshot
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatemodelsnapshot
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/update_model_snapshot/MlUpdateModelSnapshotResponse.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/ml/update_model_snapshot/MlUpdateModelSnapshotResponse.ts#L22-L27
 
 type Response struct {
 	Acknowledged bool                `json:"acknowledged"`

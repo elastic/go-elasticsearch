@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package mget
 
@@ -26,10 +26,10 @@ import (
 
 // Response holds the response body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/mget/MultiGetResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_global/mget/MultiGetResponse.ts#L22-L26
 
 type Response struct {
-	Docs []types.ResponseItem `json:"docs"`
+	Docs []types.MgetResponseItem `json:"docs"`
 }
 
 // NewResponse returns a Response

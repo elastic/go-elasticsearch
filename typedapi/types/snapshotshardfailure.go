@@ -16,27 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // SnapshotShardFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L28
 type SnapshotShardFailure struct {
-	Index   string `json:"index"`
-	NodeId  string `json:"node_id"`
-	Reason  string `json:"reason"`
-	ShardId string `json:"shard_id"`
-	Status  string `json:"status"`
+	Index   string  `json:"index"`
+	NodeId  *string `json:"node_id,omitempty"`
+	Reason  string  `json:"reason"`
+	ShardId string  `json:"shard_id"`
+	Status  string  `json:"status"`
 }
 
 func (s *SnapshotShardFailure) UnmarshalJSON(data []byte) error {
@@ -69,7 +69,11 @@ func (s *SnapshotShardFailure) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Reason = o
 
 		case "shard_id":
@@ -82,7 +86,11 @@ func (s *SnapshotShardFailure) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Status = o
 
 		}

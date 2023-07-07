@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Clear a subset or all entries from the API key cache.
 package clearapikeycache
@@ -180,6 +180,10 @@ func (r ClearApiKeyCache) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *ClearApiKeyCache) Header(key, value string) *ClearApiKeyCache {
 
 // Ids A comma-separated list of IDs of API keys to clear from the cache
 // API Name: ids
-func (r *ClearApiKeyCache) Ids(v string) *ClearApiKeyCache {
+func (r *ClearApiKeyCache) Ids(ids string) *ClearApiKeyCache {
 	r.paramSet |= idsMask
-	r.ids = v
+	r.ids = ids
 
 	return r
 }

@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // RankFeatureProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/core.ts#L181-L184
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/mapping/core.ts#L184-L187
 type RankFeatureProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -708,6 +706,24 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s RankFeatureProperty) MarshalJSON() ([]byte, error) {
+	type innerRankFeatureProperty RankFeatureProperty
+	tmp := innerRankFeatureProperty{
+		Dynamic:             s.Dynamic,
+		Fields:              s.Fields,
+		IgnoreAbove:         s.IgnoreAbove,
+		Meta:                s.Meta,
+		PositiveScoreImpact: s.PositiveScoreImpact,
+		Properties:          s.Properties,
+		Type:                s.Type,
+	}
+
+	tmp.Type = "rank_feature"
+
+	return json.Marshal(tmp)
+}
+
 // NewRankFeatureProperty returns a RankFeatureProperty.
 func NewRankFeatureProperty() *RankFeatureProperty {
 	r := &RankFeatureProperty{
@@ -715,8 +731,6 @@ func NewRankFeatureProperty() *RankFeatureProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "rank_feature"
 
 	return r
 }

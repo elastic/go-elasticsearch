@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes an existing transform.
 package deletetransform
@@ -177,6 +177,10 @@ func (r DeleteTransform) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,9 +214,9 @@ func (r *DeleteTransform) Header(key, value string) *DeleteTransform {
 
 // TransformId Identifier for the transform.
 // API Name: transformid
-func (r *DeleteTransform) TransformId(v string) *DeleteTransform {
+func (r *DeleteTransform) TransformId(transformid string) *DeleteTransform {
 	r.paramSet |= transformidMask
-	r.transformid = v
+	r.transformid = transformid
 
 	return r
 }
@@ -221,8 +225,8 @@ func (r *DeleteTransform) TransformId(v string) *DeleteTransform {
 // deleted. If true, the transform is
 // deleted regardless of its current state.
 // API name: force
-func (r *DeleteTransform) Force(b bool) *DeleteTransform {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *DeleteTransform) Force(force bool) *DeleteTransform {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }
@@ -230,8 +234,8 @@ func (r *DeleteTransform) Force(b bool) *DeleteTransform {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *DeleteTransform) Timeout(v string) *DeleteTransform {
-	r.values.Set("timeout", v)
+func (r *DeleteTransform) Timeout(duration string) *DeleteTransform {
+	r.values.Set("timeout", duration)
 
 	return r
 }

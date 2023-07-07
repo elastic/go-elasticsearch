@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // PredicateTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L296-L299
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L296-L299
 type PredicateTokenFilter struct {
 	Script  Script  `json:"script"`
 	Type    string  `json:"type,omitempty"`
@@ -72,11 +71,23 @@ func (s *PredicateTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s PredicateTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerPredicateTokenFilter PredicateTokenFilter
+	tmp := innerPredicateTokenFilter{
+		Script:  s.Script,
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "predicate_token_filter"
+
+	return json.Marshal(tmp)
+}
+
 // NewPredicateTokenFilter returns a PredicateTokenFilter.
 func NewPredicateTokenFilter() *PredicateTokenFilter {
 	r := &PredicateTokenFilter{}
-
-	r.Type = "predicate_token_filter"
 
 	return r
 }

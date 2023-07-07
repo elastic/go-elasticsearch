@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns the field usage stats for each field of an index
 package fieldusagestats
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -177,6 +178,10 @@ func (r FieldUsageStats) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,9 +216,9 @@ func (r *FieldUsageStats) Header(key, value string) *FieldUsageStats {
 // Index Comma-separated list or wildcard expression of index names used to limit the
 // request.
 // API Name: index
-func (r *FieldUsageStats) Index(v string) *FieldUsageStats {
+func (r *FieldUsageStats) Index(index string) *FieldUsageStats {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -226,8 +231,8 @@ func (r *FieldUsageStats) Index(v string) *FieldUsageStats {
 // starts with `foo` but no index
 // starts with `bar`.
 // API name: allow_no_indices
-func (r *FieldUsageStats) AllowNoIndices(b bool) *FieldUsageStats {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *FieldUsageStats) AllowNoIndices(allownoindices bool) *FieldUsageStats {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -238,16 +243,20 @@ func (r *FieldUsageStats) AllowNoIndices(b bool) *FieldUsageStats {
 // comma-separated values,
 // such as `open,hidden`.
 // API name: expand_wildcards
-func (r *FieldUsageStats) ExpandWildcards(v string) *FieldUsageStats {
-	r.values.Set("expand_wildcards", v)
+func (r *FieldUsageStats) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *FieldUsageStats {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreUnavailable If true, missing or closed indices are not included in the response.
 // API name: ignore_unavailable
-func (r *FieldUsageStats) IgnoreUnavailable(b bool) *FieldUsageStats {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *FieldUsageStats) IgnoreUnavailable(ignoreunavailable bool) *FieldUsageStats {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
@@ -255,8 +264,8 @@ func (r *FieldUsageStats) IgnoreUnavailable(b bool) *FieldUsageStats {
 // Fields Comma-separated list or wildcard expressions of fields to include in the
 // statistics.
 // API name: fields
-func (r *FieldUsageStats) Fields(v string) *FieldUsageStats {
-	r.values.Set("fields", v)
+func (r *FieldUsageStats) Fields(fields ...string) *FieldUsageStats {
+	r.values.Set("fields", strings.Join(fields, ","))
 
 	return r
 }
@@ -265,8 +274,8 @@ func (r *FieldUsageStats) Fields(v string) *FieldUsageStats {
 // received before the timeout expires,
 // the request fails and returns an error.
 // API name: master_timeout
-func (r *FieldUsageStats) MasterTimeout(v string) *FieldUsageStats {
-	r.values.Set("master_timeout", v)
+func (r *FieldUsageStats) MasterTimeout(duration string) *FieldUsageStats {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -275,8 +284,8 @@ func (r *FieldUsageStats) MasterTimeout(v string) *FieldUsageStats {
 // expires, the request fails
 // and returns an error.
 // API name: timeout
-func (r *FieldUsageStats) Timeout(v string) *FieldUsageStats {
-	r.values.Set("timeout", v)
+func (r *FieldUsageStats) Timeout(duration string) *FieldUsageStats {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -286,8 +295,8 @@ func (r *FieldUsageStats) Timeout(v string) *FieldUsageStats {
 // positive integer up to the total number of shards in the index
 // (`number_of_replicas+1`).
 // API name: wait_for_active_shards
-func (r *FieldUsageStats) WaitForActiveShards(v string) *FieldUsageStats {
-	r.values.Set("wait_for_active_shards", v)
+func (r *FieldUsageStats) WaitForActiveShards(waitforactiveshards string) *FieldUsageStats {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
 
 	return r
 }

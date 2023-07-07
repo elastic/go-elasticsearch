@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // KeepWordsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L224-L229
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L224-L229
 type KeepWordsTokenFilter struct {
 	KeepWords     []string `json:"keep_words,omitempty"`
 	KeepWordsCase *bool    `json:"keep_words_case,omitempty"`
@@ -80,7 +78,11 @@ func (s *KeepWordsTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.KeepWordsPath = &o
 
 		case "type":
@@ -98,11 +100,25 @@ func (s *KeepWordsTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s KeepWordsTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerKeepWordsTokenFilter KeepWordsTokenFilter
+	tmp := innerKeepWordsTokenFilter{
+		KeepWords:     s.KeepWords,
+		KeepWordsCase: s.KeepWordsCase,
+		KeepWordsPath: s.KeepWordsPath,
+		Type:          s.Type,
+		Version:       s.Version,
+	}
+
+	tmp.Type = "keep"
+
+	return json.Marshal(tmp)
+}
+
 // NewKeepWordsTokenFilter returns a KeepWordsTokenFilter.
 func NewKeepWordsTokenFilter() *KeepWordsTokenFilter {
 	r := &KeepWordsTokenFilter{}
-
-	r.Type = "keep"
 
 	return r
 }

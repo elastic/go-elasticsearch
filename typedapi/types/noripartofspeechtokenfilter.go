@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // NoriPartOfSpeechTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L273-L276
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L273-L276
 type NoriPartOfSpeechTokenFilter struct {
 	Stoptags []string `json:"stoptags,omitempty"`
 	Type     string   `json:"type,omitempty"`
@@ -72,11 +71,23 @@ func (s *NoriPartOfSpeechTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s NoriPartOfSpeechTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerNoriPartOfSpeechTokenFilter NoriPartOfSpeechTokenFilter
+	tmp := innerNoriPartOfSpeechTokenFilter{
+		Stoptags: s.Stoptags,
+		Type:     s.Type,
+		Version:  s.Version,
+	}
+
+	tmp.Type = "nori_part_of_speech"
+
+	return json.Marshal(tmp)
+}
+
 // NewNoriPartOfSpeechTokenFilter returns a NoriPartOfSpeechTokenFilter.
 func NewNoriPartOfSpeechTokenFilter() *NoriPartOfSpeechTokenFilter {
 	r := &NoriPartOfSpeechTokenFilter{}
-
-	r.Type = "nori_part_of_speech"
 
 	return r
 }

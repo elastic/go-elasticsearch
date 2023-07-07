@@ -16,21 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // MappingCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/char_filters.ts#L47-L51
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/char_filters.ts#L47-L51
 type MappingCharFilter struct {
 	Mappings     []string `json:"mappings,omitempty"`
 	MappingsPath *string  `json:"mappings_path,omitempty"`
@@ -63,7 +63,11 @@ func (s *MappingCharFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MappingsPath = &o
 
 		case "type":
@@ -81,11 +85,24 @@ func (s *MappingCharFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s MappingCharFilter) MarshalJSON() ([]byte, error) {
+	type innerMappingCharFilter MappingCharFilter
+	tmp := innerMappingCharFilter{
+		Mappings:     s.Mappings,
+		MappingsPath: s.MappingsPath,
+		Type:         s.Type,
+		Version:      s.Version,
+	}
+
+	tmp.Type = "mapping"
+
+	return json.Marshal(tmp)
+}
+
 // NewMappingCharFilter returns a MappingCharFilter.
 func NewMappingCharFilter() *MappingCharFilter {
 	r := &MappingCharFilter{}
-
-	r.Type = "mapping"
 
 	return r
 }

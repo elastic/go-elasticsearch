@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Allows to simulate a pipeline with example documents.
 package simulate
@@ -53,8 +53,9 @@ type Simulate struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -83,6 +84,8 @@ func New(tp elastictransport.Interface) *Simulate {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -112,9 +115,19 @@ func (r *Simulate) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -122,6 +135,7 @@ func (r *Simulate) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -223,6 +237,10 @@ func (r Simulate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -235,17 +253,32 @@ func (r *Simulate) Header(key, value string) *Simulate {
 
 // Id Pipeline ID
 // API Name: id
-func (r *Simulate) Id(v string) *Simulate {
+func (r *Simulate) Id(id string) *Simulate {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Verbose Verbose mode. Display data output for each processor in executed pipeline
 // API name: verbose
-func (r *Simulate) Verbose(b bool) *Simulate {
-	r.values.Set("verbose", strconv.FormatBool(b))
+func (r *Simulate) Verbose(verbose bool) *Simulate {
+	r.values.Set("verbose", strconv.FormatBool(verbose))
+
+	return r
+}
+
+// API name: docs
+func (r *Simulate) Docs(docs ...types.Document) *Simulate {
+	r.req.Docs = docs
+
+	return r
+}
+
+// API name: pipeline
+func (r *Simulate) Pipeline(pipeline *types.IngestPipeline) *Simulate {
+
+	r.req.Pipeline = pipeline
 
 	return r
 }

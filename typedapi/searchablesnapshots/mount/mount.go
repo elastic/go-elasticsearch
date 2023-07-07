@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Mount a snapshot as a searchable index.
 package mount
@@ -55,8 +55,9 @@ type Mount struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -90,6 +91,8 @@ func New(tp elastictransport.Interface) *Mount {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -119,9 +122,19 @@ func (r *Mount) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -129,6 +142,7 @@ func (r *Mount) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -222,6 +236,10 @@ func (r Mount) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -234,34 +252,34 @@ func (r *Mount) Header(key, value string) *Mount {
 
 // Repository The name of the repository containing the snapshot of the index to mount
 // API Name: repository
-func (r *Mount) Repository(v string) *Mount {
+func (r *Mount) Repository(repository string) *Mount {
 	r.paramSet |= repositoryMask
-	r.repository = v
+	r.repository = repository
 
 	return r
 }
 
 // Snapshot The name of the snapshot of the index to mount
 // API Name: snapshot
-func (r *Mount) Snapshot(v string) *Mount {
+func (r *Mount) Snapshot(snapshot string) *Mount {
 	r.paramSet |= snapshotMask
-	r.snapshot = v
+	r.snapshot = snapshot
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *Mount) MasterTimeout(v string) *Mount {
-	r.values.Set("master_timeout", v)
+func (r *Mount) MasterTimeout(duration string) *Mount {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // WaitForCompletion Should this request wait until the operation has completed before returning
 // API name: wait_for_completion
-func (r *Mount) WaitForCompletion(b bool) *Mount {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *Mount) WaitForCompletion(waitforcompletion bool) *Mount {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }
@@ -269,8 +287,37 @@ func (r *Mount) WaitForCompletion(b bool) *Mount {
 // Storage Selects the kind of local storage used to accelerate searches. Experimental,
 // and defaults to `full_copy`
 // API name: storage
-func (r *Mount) Storage(v string) *Mount {
-	r.values.Set("storage", v)
+func (r *Mount) Storage(storage string) *Mount {
+	r.values.Set("storage", storage)
+
+	return r
+}
+
+// API name: ignore_index_settings
+func (r *Mount) IgnoreIndexSettings(ignoreindexsettings ...string) *Mount {
+	r.req.IgnoreIndexSettings = ignoreindexsettings
+
+	return r
+}
+
+// API name: index
+func (r *Mount) Index(indexname string) *Mount {
+	r.req.Index = indexname
+
+	return r
+}
+
+// API name: index_settings
+func (r *Mount) IndexSettings(indexsettings map[string]json.RawMessage) *Mount {
+
+	r.req.IndexSettings = indexsettings
+
+	return r
+}
+
+// API name: renamed_index
+func (r *Mount) RenamedIndex(indexname string) *Mount {
+	r.req.RenamedIndex = &indexname
 
 	return r
 }

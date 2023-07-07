@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes an alias.
 package deletealias
@@ -195,6 +195,10 @@ func (r DeleteAlias) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -229,9 +233,9 @@ func (r *DeleteAlias) Header(key, value string) *DeleteAlias {
 // Index A comma-separated list of index names (supports wildcards); use `_all` for
 // all indices
 // API Name: index
-func (r *DeleteAlias) Index(v string) *DeleteAlias {
+func (r *DeleteAlias) Index(index string) *DeleteAlias {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -239,25 +243,25 @@ func (r *DeleteAlias) Index(v string) *DeleteAlias {
 // Name A comma-separated list of aliases to delete (supports wildcards); use `_all`
 // to delete all aliases for the specified indices.
 // API Name: name
-func (r *DeleteAlias) Name(v string) *DeleteAlias {
+func (r *DeleteAlias) Name(name string) *DeleteAlias {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *DeleteAlias) MasterTimeout(v string) *DeleteAlias {
-	r.values.Set("master_timeout", v)
+func (r *DeleteAlias) MasterTimeout(duration string) *DeleteAlias {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit timestamp for the document
 // API name: timeout
-func (r *DeleteAlias) Timeout(v string) *DeleteAlias {
-	r.values.Set("timeout", v)
+func (r *DeleteAlias) Timeout(duration string) *DeleteAlias {
+	r.values.Set("timeout", duration)
 
 	return r
 }

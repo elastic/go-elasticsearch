@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns one or more component templates
 package getcomponenttemplate
@@ -180,6 +180,10 @@ func (r GetComponentTemplate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,16 +217,16 @@ func (r *GetComponentTemplate) Header(key, value string) *GetComponentTemplate {
 
 // Name The comma separated names of the component templates
 // API Name: name
-func (r *GetComponentTemplate) Name(v string) *GetComponentTemplate {
+func (r *GetComponentTemplate) Name(name string) *GetComponentTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // API name: flat_settings
-func (r *GetComponentTemplate) FlatSettings(b bool) *GetComponentTemplate {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *GetComponentTemplate) FlatSettings(flatsettings bool) *GetComponentTemplate {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
@@ -230,16 +234,24 @@ func (r *GetComponentTemplate) FlatSettings(b bool) *GetComponentTemplate {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *GetComponentTemplate) Local(b bool) *GetComponentTemplate {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *GetComponentTemplate) Local(local bool) *GetComponentTemplate {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *GetComponentTemplate) MasterTimeout(v string) *GetComponentTemplate {
-	r.values.Set("master_timeout", v)
+func (r *GetComponentTemplate) MasterTimeout(duration string) *GetComponentTemplate {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// IncludeDefaults Return all default configurations for the component template (default: false)
+// API name: include_defaults
+func (r *GetComponentTemplate) IncludeDefaults(includedefaults bool) *GetComponentTemplate {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about a task.
 package get
@@ -177,6 +177,10 @@ func (r Get) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,25 +214,25 @@ func (r *Get) Header(key, value string) *Get {
 
 // TaskId Return the task with specified id (node_id:task_number)
 // API Name: taskid
-func (r *Get) TaskId(v string) *Get {
+func (r *Get) TaskId(taskid string) *Get {
 	r.paramSet |= taskidMask
-	r.taskid = v
+	r.taskid = taskid
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Get) Timeout(v string) *Get {
-	r.values.Set("timeout", v)
+func (r *Get) Timeout(duration string) *Get {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // WaitForCompletion Wait for the matching tasks to complete (default: false)
 // API name: wait_for_completion
-func (r *Get) WaitForCompletion(b bool) *Get {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *Get) WaitForCompletion(waitforcompletion bool) *Get {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Performs the analysis process on a text and return the tokens breakdown of
 // the text.
@@ -53,8 +53,9 @@ type Analyze struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *Analyze {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *Analyze) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *Analyze) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -216,6 +230,10 @@ func (r Analyze) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -228,9 +246,74 @@ func (r *Analyze) Header(key, value string) *Analyze {
 
 // Index The name of the index to scope the operation
 // API Name: index
-func (r *Analyze) Index(v string) *Analyze {
+func (r *Analyze) Index(index string) *Analyze {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
+
+	return r
+}
+
+// API name: analyzer
+func (r *Analyze) Analyzer(analyzer string) *Analyze {
+
+	r.req.Analyzer = &analyzer
+
+	return r
+}
+
+// API name: attributes
+func (r *Analyze) Attributes(attributes ...string) *Analyze {
+	r.req.Attributes = attributes
+
+	return r
+}
+
+// API name: char_filter
+func (r *Analyze) CharFilter(charfilters ...types.CharFilter) *Analyze {
+	r.req.CharFilter = charfilters
+
+	return r
+}
+
+// API name: explain
+func (r *Analyze) Explain(explain bool) *Analyze {
+	r.req.Explain = &explain
+
+	return r
+}
+
+// API name: field
+func (r *Analyze) Field(field string) *Analyze {
+	r.req.Field = &field
+
+	return r
+}
+
+// API name: filter
+func (r *Analyze) Filter(filters ...types.TokenFilter) *Analyze {
+	r.req.Filter = filters
+
+	return r
+}
+
+// API name: normalizer
+func (r *Analyze) Normalizer(normalizer string) *Analyze {
+
+	r.req.Normalizer = &normalizer
+
+	return r
+}
+
+// API name: text
+func (r *Analyze) Text(texttoanalyzes ...string) *Analyze {
+	r.req.Text = texttoanalyzes
+
+	return r
+}
+
+// API name: tokenizer
+func (r *Analyze) Tokenizer(tokenizer types.Tokenizer) *Analyze {
+	r.req.Tokenizer = tokenizer
 
 	return r
 }

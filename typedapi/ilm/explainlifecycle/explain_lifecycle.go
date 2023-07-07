@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves information about the index's current lifecycle state, such as the
 // currently executing phase, action, and step.
@@ -181,6 +181,10 @@ func (r ExplainLifecycle) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -216,9 +220,9 @@ func (r *ExplainLifecycle) Header(key, value string) *ExplainLifecycle {
 // Supports wildcards (`*`).
 // To target all data streams and indices, use `*` or `_all`.
 // API Name: index
-func (r *ExplainLifecycle) Index(v string) *ExplainLifecycle {
+func (r *ExplainLifecycle) Index(index string) *ExplainLifecycle {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -227,16 +231,16 @@ func (r *ExplainLifecycle) Index(v string) *ExplainLifecycle {
 // in an error state, either due to an encountering an error while executing the
 // policy, or attempting to use a policy that does not exist.
 // API name: only_errors
-func (r *ExplainLifecycle) OnlyErrors(b bool) *ExplainLifecycle {
-	r.values.Set("only_errors", strconv.FormatBool(b))
+func (r *ExplainLifecycle) OnlyErrors(onlyerrors bool) *ExplainLifecycle {
+	r.values.Set("only_errors", strconv.FormatBool(onlyerrors))
 
 	return r
 }
 
 // OnlyManaged Filters the returned indices to only indices that are managed by ILM.
 // API name: only_managed
-func (r *ExplainLifecycle) OnlyManaged(b bool) *ExplainLifecycle {
-	r.values.Set("only_managed", strconv.FormatBool(b))
+func (r *ExplainLifecycle) OnlyManaged(onlymanaged bool) *ExplainLifecycle {
+	r.values.Set("only_managed", strconv.FormatBool(onlymanaged))
 
 	return r
 }
@@ -244,8 +248,8 @@ func (r *ExplainLifecycle) OnlyManaged(b bool) *ExplainLifecycle {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *ExplainLifecycle) MasterTimeout(v string) *ExplainLifecycle {
-	r.values.Set("master_timeout", v)
+func (r *ExplainLifecycle) MasterTimeout(duration string) *ExplainLifecycle {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -253,8 +257,8 @@ func (r *ExplainLifecycle) MasterTimeout(v string) *ExplainLifecycle {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *ExplainLifecycle) Timeout(v string) *ExplainLifecycle {
-	r.values.Set("timeout", v)
+func (r *ExplainLifecycle) Timeout(duration string) *ExplainLifecycle {
+	r.values.Set("timeout", duration)
 
 	return r
 }

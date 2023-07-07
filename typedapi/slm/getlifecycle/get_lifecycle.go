@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves one or more snapshot lifecycle policy definitions and information
 // about the latest snapshot attempts.
@@ -185,6 +185,10 @@ func (r GetLifecycle) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -218,9 +222,9 @@ func (r *GetLifecycle) Header(key, value string) *GetLifecycle {
 
 // PolicyId Comma-separated list of snapshot lifecycle policies to retrieve
 // API Name: policyid
-func (r *GetLifecycle) PolicyId(v string) *GetLifecycle {
+func (r *GetLifecycle) PolicyId(policyid string) *GetLifecycle {
 	r.paramSet |= policyidMask
-	r.policyid = v
+	r.policyid = policyid
 
 	return r
 }

@@ -16,26 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
 )
 
 // AggregateMetricDoubleProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/complex.ts#L59-L64
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/mapping/complex.ts#L59-L64
 type AggregateMetricDoubleProperty struct {
 	DefaultMetric string                         `json:"default_metric"`
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
@@ -69,7 +67,11 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DefaultMetric = o
 
 		case "dynamic":
@@ -715,6 +717,26 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s AggregateMetricDoubleProperty) MarshalJSON() ([]byte, error) {
+	type innerAggregateMetricDoubleProperty AggregateMetricDoubleProperty
+	tmp := innerAggregateMetricDoubleProperty{
+		DefaultMetric:    s.DefaultMetric,
+		Dynamic:          s.Dynamic,
+		Fields:           s.Fields,
+		IgnoreAbove:      s.IgnoreAbove,
+		Meta:             s.Meta,
+		Metrics:          s.Metrics,
+		Properties:       s.Properties,
+		TimeSeriesMetric: s.TimeSeriesMetric,
+		Type:             s.Type,
+	}
+
+	tmp.Type = "aggregate_metric_double"
+
+	return json.Marshal(tmp)
+}
+
 // NewAggregateMetricDoubleProperty returns a AggregateMetricDoubleProperty.
 func NewAggregateMetricDoubleProperty() *AggregateMetricDoubleProperty {
 	r := &AggregateMetricDoubleProperty{
@@ -722,8 +744,6 @@ func NewAggregateMetricDoubleProperty() *AggregateMetricDoubleProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "aggregate_metric_double"
 
 	return r
 }

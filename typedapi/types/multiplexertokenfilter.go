@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // MultiplexerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L260-L264
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L260-L264
 type MultiplexerTokenFilter struct {
 	Filters          []string `json:"filters"`
 	PreserveOriginal *bool    `json:"preserve_original,omitempty"`
@@ -89,11 +87,24 @@ func (s *MultiplexerTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s MultiplexerTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerMultiplexerTokenFilter MultiplexerTokenFilter
+	tmp := innerMultiplexerTokenFilter{
+		Filters:          s.Filters,
+		PreserveOriginal: s.PreserveOriginal,
+		Type:             s.Type,
+		Version:          s.Version,
+	}
+
+	tmp.Type = "multiplexer"
+
+	return json.Marshal(tmp)
+}
+
 // NewMultiplexerTokenFilter returns a MultiplexerTokenFilter.
 func NewMultiplexerTokenFilter() *MultiplexerTokenFilter {
 	r := &MultiplexerTokenFilter{}
-
-	r.Type = "multiplexer"
 
 	return r
 }

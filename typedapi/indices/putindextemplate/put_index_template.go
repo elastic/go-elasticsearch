@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Creates or updates an index template.
 package putindextemplate
@@ -53,8 +53,9 @@ type PutIndexTemplate struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +86,8 @@ func New(tp elastictransport.Interface) *PutIndexTemplate {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +117,19 @@ func (r *PutIndexTemplate) HttpRequest(ctx context.Context) (*http.Request, erro
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +137,7 @@ func (r *PutIndexTemplate) HttpRequest(ctx context.Context) (*http.Request, erro
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -212,6 +226,10 @@ func (r PutIndexTemplate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -224,9 +242,9 @@ func (r *PutIndexTemplate) Header(key, value string) *PutIndexTemplate {
 
 // Name Index or template name
 // API Name: name
-func (r *PutIndexTemplate) Name(v string) *PutIndexTemplate {
+func (r *PutIndexTemplate) Name(name string) *PutIndexTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -234,8 +252,59 @@ func (r *PutIndexTemplate) Name(v string) *PutIndexTemplate {
 // Create Whether the index template should only be added if new or can also replace an
 // existing one
 // API name: create
-func (r *PutIndexTemplate) Create(b bool) *PutIndexTemplate {
-	r.values.Set("create", strconv.FormatBool(b))
+func (r *PutIndexTemplate) Create(create bool) *PutIndexTemplate {
+	r.values.Set("create", strconv.FormatBool(create))
+
+	return r
+}
+
+// API name: composed_of
+func (r *PutIndexTemplate) ComposedOf(composedofs ...string) *PutIndexTemplate {
+	r.req.ComposedOf = composedofs
+
+	return r
+}
+
+// API name: data_stream
+func (r *PutIndexTemplate) DataStream(datastream *types.DataStreamVisibility) *PutIndexTemplate {
+
+	r.req.DataStream = datastream
+
+	return r
+}
+
+// API name: index_patterns
+func (r *PutIndexTemplate) IndexPatterns(indices ...string) *PutIndexTemplate {
+	r.req.IndexPatterns = indices
+
+	return r
+}
+
+// API name: _meta
+func (r *PutIndexTemplate) Meta_(metadata types.Metadata) *PutIndexTemplate {
+	r.req.Meta_ = metadata
+
+	return r
+}
+
+// API name: priority
+func (r *PutIndexTemplate) Priority(priority int) *PutIndexTemplate {
+	r.req.Priority = &priority
+
+	return r
+}
+
+// API name: template
+func (r *PutIndexTemplate) Template(template *types.IndexTemplateMapping) *PutIndexTemplate {
+
+	r.req.Template = template
+
+	return r
+}
+
+// API name: version
+func (r *PutIndexTemplate) Version(versionnumber int64) *PutIndexTemplate {
+	r.req.Version = &versionnumber
 
 	return r
 }

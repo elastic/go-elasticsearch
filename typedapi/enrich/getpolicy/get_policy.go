@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Gets information about an enrich policy.
 package getpolicy
@@ -183,6 +183,10 @@ func (r GetPolicy) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -216,9 +220,9 @@ func (r *GetPolicy) Header(key, value string) *GetPolicy {
 
 // Name A comma-separated list of enrich policy names
 // API Name: name
-func (r *GetPolicy) Name(v string) *GetPolicy {
+func (r *GetPolicy) Name(name string) *GetPolicy {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

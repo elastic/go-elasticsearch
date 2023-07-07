@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes an existing data frame analytics job.
 package deletedataframeanalytics
@@ -181,6 +181,10 @@ func (r DeleteDataFrameAnalytics) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,9 +218,9 @@ func (r *DeleteDataFrameAnalytics) Header(key, value string) *DeleteDataFrameAna
 
 // Id Identifier for the data frame analytics job.
 // API Name: id
-func (r *DeleteDataFrameAnalytics) Id(v string) *DeleteDataFrameAnalytics {
+func (r *DeleteDataFrameAnalytics) Id(id string) *DeleteDataFrameAnalytics {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
@@ -224,16 +228,16 @@ func (r *DeleteDataFrameAnalytics) Id(v string) *DeleteDataFrameAnalytics {
 // Force If `true`, it deletes a job that is not stopped; this method is quicker than
 // stopping and deleting the job.
 // API name: force
-func (r *DeleteDataFrameAnalytics) Force(b bool) *DeleteDataFrameAnalytics {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *DeleteDataFrameAnalytics) Force(force bool) *DeleteDataFrameAnalytics {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }
 
 // Timeout The time to wait for the job to be deleted.
 // API name: timeout
-func (r *DeleteDataFrameAnalytics) Timeout(v string) *DeleteDataFrameAnalytics {
-	r.values.Set("timeout", v)
+func (r *DeleteDataFrameAnalytics) Timeout(duration string) *DeleteDataFrameAnalytics {
+	r.values.Set("timeout", duration)
 
 	return r
 }

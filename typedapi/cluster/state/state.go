@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns a comprehensive information about the state of the cluster.
 package state
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -200,6 +201,10 @@ func (r State) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -233,9 +238,9 @@ func (r *State) Header(key, value string) *State {
 
 // Metric Limit the information returned to the specified metrics
 // API Name: metric
-func (r *State) Metric(v string) *State {
+func (r *State) Metric(metric string) *State {
 	r.paramSet |= metricMask
-	r.metric = v
+	r.metric = metric
 
 	return r
 }
@@ -243,9 +248,9 @@ func (r *State) Metric(v string) *State {
 // Index A comma-separated list of index names; use `_all` or empty string to perform
 // the operation on all indices
 // API Name: index
-func (r *State) Index(v string) *State {
+func (r *State) Index(index string) *State {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -253,8 +258,8 @@ func (r *State) Index(v string) *State {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *State) AllowNoIndices(b bool) *State {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *State) AllowNoIndices(allownoindices bool) *State {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -262,16 +267,20 @@ func (r *State) AllowNoIndices(b bool) *State {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *State) ExpandWildcards(v string) *State {
-	r.values.Set("expand_wildcards", v)
+func (r *State) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *State {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // FlatSettings Return settings in flat format (default: false)
 // API name: flat_settings
-func (r *State) FlatSettings(b bool) *State {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *State) FlatSettings(flatsettings bool) *State {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
@@ -279,8 +288,8 @@ func (r *State) FlatSettings(b bool) *State {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *State) IgnoreUnavailable(b bool) *State {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *State) IgnoreUnavailable(ignoreunavailable bool) *State {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
@@ -288,16 +297,16 @@ func (r *State) IgnoreUnavailable(b bool) *State {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *State) Local(b bool) *State {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *State) Local(local bool) *State {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *State) MasterTimeout(v string) *State {
-	r.values.Set("master_timeout", v)
+func (r *State) MasterTimeout(duration string) *State {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -305,16 +314,16 @@ func (r *State) MasterTimeout(v string) *State {
 // WaitForMetadataVersion Wait for the metadata version to be equal or greater than the specified
 // metadata version
 // API name: wait_for_metadata_version
-func (r *State) WaitForMetadataVersion(v string) *State {
-	r.values.Set("wait_for_metadata_version", v)
+func (r *State) WaitForMetadataVersion(versionnumber string) *State {
+	r.values.Set("wait_for_metadata_version", versionnumber)
 
 	return r
 }
 
 // WaitForTimeout The maximum time to wait for wait_for_metadata_version before timing out
 // API name: wait_for_timeout
-func (r *State) WaitForTimeout(v string) *State {
-	r.values.Set("wait_for_timeout", v)
+func (r *State) WaitForTimeout(duration string) *State {
+	r.values.Set("wait_for_timeout", duration)
 
 	return r
 }

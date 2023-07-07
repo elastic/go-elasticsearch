@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/edgengramside"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/edgengramside"
 )
 
 // EdgeNGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L79-L85
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L79-L85
 type EdgeNGramTokenFilter struct {
 	MaxGram          *int                         `json:"max_gram,omitempty"`
 	MinGram          *int                         `json:"min_gram,omitempty"`
@@ -125,11 +123,26 @@ func (s *EdgeNGramTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s EdgeNGramTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerEdgeNGramTokenFilter EdgeNGramTokenFilter
+	tmp := innerEdgeNGramTokenFilter{
+		MaxGram:          s.MaxGram,
+		MinGram:          s.MinGram,
+		PreserveOriginal: s.PreserveOriginal,
+		Side:             s.Side,
+		Type:             s.Type,
+		Version:          s.Version,
+	}
+
+	tmp.Type = "edge_ngram"
+
+	return json.Marshal(tmp)
+}
+
 // NewEdgeNGramTokenFilter returns a EdgeNGramTokenFilter.
 func NewEdgeNGramTokenFilter() *EdgeNGramTokenFilter {
 	r := &EdgeNGramTokenFilter{}
-
-	r.Type = "edge_ngram"
 
 	return r
 }

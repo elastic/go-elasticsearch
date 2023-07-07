@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns async results from previously executed Event Query Language (EQL)
 // search
@@ -180,6 +180,10 @@ func (r Get) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *Get) Header(key, value string) *Get {
 
 // Id Identifier for the search.
 // API Name: id
-func (r *Get) Id(v string) *Get {
+func (r *Get) Id(id string) *Get {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
@@ -223,8 +227,8 @@ func (r *Get) Id(v string) *Get {
 // KeepAlive Period for which the search and its results are stored on the cluster.
 // Defaults to the keep_alive value set by the search’s EQL search API request.
 // API name: keep_alive
-func (r *Get) KeepAlive(v string) *Get {
-	r.values.Set("keep_alive", v)
+func (r *Get) KeepAlive(duration string) *Get {
+	r.values.Set("keep_alive", duration)
 
 	return r
 }
@@ -232,8 +236,8 @@ func (r *Get) KeepAlive(v string) *Get {
 // WaitForCompletionTimeout Timeout duration to wait for the request to finish. Defaults to no timeout,
 // meaning the request waits for complete search results.
 // API name: wait_for_completion_timeout
-func (r *Get) WaitForCompletionTimeout(v string) *Get {
-	r.values.Set("wait_for_completion_timeout", v)
+func (r *Get) WaitForCompletionTimeout(duration string) *Get {
+	r.values.Set("wait_for_completion_timeout", duration)
 
 	return r
 }

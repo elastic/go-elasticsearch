@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Changes the passwords of users in the native realm and built-in users.
 package changepassword
@@ -34,7 +34,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -54,8 +53,9 @@ type ChangePassword struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +84,8 @@ func New(tp elastictransport.Interface) *ChangePassword {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +115,19 @@ func (r *ChangePassword) HttpRequest(ctx context.Context) (*http.Request, error)
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +135,7 @@ func (r *ChangePassword) HttpRequest(ctx context.Context) (*http.Request, error)
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -224,6 +237,10 @@ func (r ChangePassword) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -237,9 +254,9 @@ func (r *ChangePassword) Header(key, value string) *ChangePassword {
 // Username The user whose password you want to change. If you do not specify this
 // parameter, the password is changed for the current user.
 // API Name: username
-func (r *ChangePassword) Username(v string) *ChangePassword {
+func (r *ChangePassword) Username(username string) *ChangePassword {
 	r.paramSet |= usernameMask
-	r.username = v
+	r.username = username
 
 	return r
 }
@@ -248,8 +265,29 @@ func (r *ChangePassword) Username(v string) *ChangePassword {
 // operation visible to search, if `wait_for` then wait for a refresh to make
 // this operation visible to search, if `false` then do nothing with refreshes.
 // API name: refresh
-func (r *ChangePassword) Refresh(enum refresh.Refresh) *ChangePassword {
-	r.values.Set("refresh", enum.String())
+func (r *ChangePassword) Refresh(refresh refresh.Refresh) *ChangePassword {
+	r.values.Set("refresh", refresh.String())
+
+	return r
+}
+
+// Password The new password value. Passwords must be at least 6 characters long.
+// API name: password
+func (r *ChangePassword) Password(password string) *ChangePassword {
+	r.req.Password = &password
+
+	return r
+}
+
+// PasswordHash A hash of the new password value. This must be produced using the same
+// hashing algorithm as has been configured for password storage. For more
+// details,
+// see the explanation of the `xpack.security.authc.password_hashing.algorithm`
+// setting.
+// API name: password_hash
+func (r *ChangePassword) PasswordHash(passwordhash string) *ChangePassword {
+
+	r.req.PasswordHash = &passwordhash
 
 	return r
 }

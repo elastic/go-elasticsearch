@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Evicts roles from the native role cache.
 package clearcachedroles
@@ -180,6 +180,10 @@ func (r ClearCachedRoles) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *ClearCachedRoles) Header(key, value string) *ClearCachedRoles {
 
 // Name Role name
 // API Name: name
-func (r *ClearCachedRoles) Name(v string) *ClearCachedRoles {
+func (r *ClearCachedRoles) Name(name string) *ClearCachedRoles {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

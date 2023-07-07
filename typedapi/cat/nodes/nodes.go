@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns basic statistics about performance of cluster nodes.
 package nodes
@@ -31,11 +31,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
 )
 
@@ -169,6 +169,10 @@ func (r Nodes) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -200,18 +204,27 @@ func (r *Nodes) Header(key, value string) *Nodes {
 	return r
 }
 
-// Bytes The unit in which to display byte values
+// Bytes The unit used to display byte values.
 // API name: bytes
-func (r *Nodes) Bytes(enum bytes.Bytes) *Nodes {
-	r.values.Set("bytes", enum.String())
+func (r *Nodes) Bytes(bytes bytes.Bytes) *Nodes {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
 
-// FullId Return the full node ID instead of the shortened version (default: false)
+// FullId If `true`, return the full node ID. If `false`, return the shortened node ID.
 // API name: full_id
-func (r *Nodes) FullId(v string) *Nodes {
-	r.values.Set("full_id", v)
+func (r *Nodes) FullId(fullid string) *Nodes {
+	r.values.Set("full_id", fullid)
+
+	return r
+}
+
+// IncludeUnloadedSegments If true, the response includes information from segments that are not loaded
+// into memory.
+// API name: include_unloaded_segments
+func (r *Nodes) IncludeUnloadedSegments(includeunloadedsegments bool) *Nodes {
+	r.values.Set("include_unloaded_segments", strconv.FormatBool(includeunloadedsegments))
 
 	return r
 }

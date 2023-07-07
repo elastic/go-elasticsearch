@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns cluster-wide thread pool statistics per node.
 // By default the active, queue and rejected statistics are returned for all
@@ -37,7 +37,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
@@ -189,6 +188,10 @@ func (r ThreadPool) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -223,17 +226,17 @@ func (r *ThreadPool) Header(key, value string) *ThreadPool {
 // ThreadPoolPatterns List of thread pool names used to limit the request. Accepts wildcard
 // expressions.
 // API Name: threadpoolpatterns
-func (r *ThreadPool) ThreadPoolPatterns(v string) *ThreadPool {
+func (r *ThreadPool) ThreadPoolPatterns(threadpoolpatterns string) *ThreadPool {
 	r.paramSet |= threadpoolpatternsMask
-	r.threadpoolpatterns = v
+	r.threadpoolpatterns = threadpoolpatterns
 
 	return r
 }
 
 // Time Unit used to display time values.
 // API name: time
-func (r *ThreadPool) Time(enum timeunit.TimeUnit) *ThreadPool {
-	r.values.Set("time", enum.String())
+func (r *ThreadPool) Time(time timeunit.TimeUnit) *ThreadPool {
+	r.values.Set("time", time.String())
 
 	return r
 }

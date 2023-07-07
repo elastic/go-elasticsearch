@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Schedules now a transform.
 package schedulenowtransform
@@ -184,6 +184,10 @@ func (r ScheduleNowTransform) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -217,17 +221,17 @@ func (r *ScheduleNowTransform) Header(key, value string) *ScheduleNowTransform {
 
 // TransformId Identifier for the transform.
 // API Name: transformid
-func (r *ScheduleNowTransform) TransformId(v string) *ScheduleNowTransform {
+func (r *ScheduleNowTransform) TransformId(transformid string) *ScheduleNowTransform {
 	r.paramSet |= transformidMask
-	r.transformid = v
+	r.transformid = transformid
 
 	return r
 }
 
 // Timeout Controls the time to wait for the scheduling to take place
 // API name: timeout
-func (r *ScheduleNowTransform) Timeout(v string) *ScheduleNowTransform {
-	r.values.Set("timeout", v)
+func (r *ScheduleNowTransform) Timeout(duration string) *ScheduleNowTransform {
+	r.values.Set("timeout", duration)
 
 	return r
 }

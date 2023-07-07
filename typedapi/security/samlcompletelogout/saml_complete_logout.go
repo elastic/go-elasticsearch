@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Verifies the logout response sent from the SAML IdP
 package samlcompletelogout
@@ -47,8 +47,9 @@ type SamlCompleteLogout struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -75,6 +76,8 @@ func New(tp elastictransport.Interface) *SamlCompleteLogout {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -104,9 +107,19 @@ func (r *SamlCompleteLogout) HttpRequest(ctx context.Context) (*http.Request, er
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -114,6 +127,7 @@ func (r *SamlCompleteLogout) HttpRequest(ctx context.Context) (*http.Request, er
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -180,6 +194,46 @@ func (r SamlCompleteLogout) Perform(ctx context.Context) (*http.Response, error)
 // Header set a key, value pair in the SamlCompleteLogout headers map.
 func (r *SamlCompleteLogout) Header(key, value string) *SamlCompleteLogout {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Content If the SAML IdP sends the logout response with the HTTP-Post binding, this
+// field must be set to the value of the SAMLResponse form parameter from the
+// logout response.
+// API name: content
+func (r *SamlCompleteLogout) Content(content string) *SamlCompleteLogout {
+
+	r.req.Content = &content
+
+	return r
+}
+
+// Ids A json array with all the valid SAML Request Ids that the caller of the API
+// has for the current user.
+// API name: ids
+func (r *SamlCompleteLogout) Ids(ids ...string) *SamlCompleteLogout {
+	r.req.Ids = ids
+
+	return r
+}
+
+// QueryString If the SAML IdP sends the logout response with the HTTP-Redirect binding,
+// this field must be set to the query string of the redirect URI.
+// API name: query_string
+func (r *SamlCompleteLogout) QueryString(querystring string) *SamlCompleteLogout {
+
+	r.req.QueryString = &querystring
+
+	return r
+}
+
+// Realm The name of the SAML realm in Elasticsearch for which the configuration is
+// used to verify the logout response.
+// API name: realm
+func (r *SamlCompleteLogout) Realm(realm string) *SamlCompleteLogout {
+
+	r.req.Realm = realm
 
 	return r
 }

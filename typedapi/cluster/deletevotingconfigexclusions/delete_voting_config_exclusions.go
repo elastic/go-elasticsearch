@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Clears cluster voting config exclusions.
 package deletevotingconfigexclusions
@@ -140,6 +140,11 @@ func (r DeleteVotingConfigExclusions) Perform(ctx context.Context) (*http.Respon
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a deletevotingconfigexclusions.Response
+func (r DeleteVotingConfigExclusions) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r DeleteVotingConfigExclusions) IsSuccess(ctx context.Context) (bool, error) {
@@ -175,8 +180,8 @@ func (r *DeleteVotingConfigExclusions) Header(key, value string) *DeleteVotingCo
 // voting configuration exclusions list is cleared even if some excluded
 // nodes are still in the cluster.
 // API name: wait_for_removal
-func (r *DeleteVotingConfigExclusions) WaitForRemoval(b bool) *DeleteVotingConfigExclusions {
-	r.values.Set("wait_for_removal", strconv.FormatBool(b))
+func (r *DeleteVotingConfigExclusions) WaitForRemoval(waitforremoval bool) *DeleteVotingConfigExclusions {
+	r.values.Set("wait_for_removal", strconv.FormatBool(waitforremoval))
 
 	return r
 }

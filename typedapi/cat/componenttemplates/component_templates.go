@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about existing component_templates templates.
 package componenttemplates
@@ -183,6 +183,10 @@ func (r ComponentTemplates) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,11 +218,12 @@ func (r *ComponentTemplates) Header(key, value string) *ComponentTemplates {
 	return r
 }
 
-// Name A pattern that returned component template names must match
+// Name The name of the component template. Accepts wildcard expressions. If omitted,
+// all component templates are returned.
 // API Name: name
-func (r *ComponentTemplates) Name(v string) *ComponentTemplates {
+func (r *ComponentTemplates) Name(name string) *ComponentTemplates {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

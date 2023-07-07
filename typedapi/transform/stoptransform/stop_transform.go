@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Stops one or more transforms.
 package stoptransform
@@ -179,6 +179,10 @@ func (r StopTransform) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,9 +218,9 @@ func (r *StopTransform) Header(key, value string) *StopTransform {
 // comma-separated list or a wildcard expression.
 // To stop all transforms, use `_all` or `*` as the identifier.
 // API Name: transformid
-func (r *StopTransform) TransformId(v string) *StopTransform {
+func (r *StopTransform) TransformId(transformid string) *StopTransform {
 	r.paramSet |= transformidMask
-	r.transformid = v
+	r.transformid = transformid
 
 	return r
 }
@@ -234,16 +238,16 @@ func (r *StopTransform) TransformId(v string) *StopTransform {
 // If it is false, the request returns a 404 status code when there are no
 // matches or only partial matches.
 // API name: allow_no_match
-func (r *StopTransform) AllowNoMatch(b bool) *StopTransform {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *StopTransform) AllowNoMatch(allownomatch bool) *StopTransform {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
 
 // Force If it is true, the API forcefully stops the transforms.
 // API name: force
-func (r *StopTransform) Force(b bool) *StopTransform {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *StopTransform) Force(force bool) *StopTransform {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }
@@ -254,8 +258,8 @@ func (r *StopTransform) Force(b bool) *StopTransform {
 // request continues processing and
 // eventually moves the transform to a STOPPED state.
 // API name: timeout
-func (r *StopTransform) Timeout(v string) *StopTransform {
-	r.values.Set("timeout", v)
+func (r *StopTransform) Timeout(duration string) *StopTransform {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -264,8 +268,8 @@ func (r *StopTransform) Timeout(v string) *StopTransform {
 // checkpoint is completed. If it is false,
 // the transform stops as soon as possible.
 // API name: wait_for_checkpoint
-func (r *StopTransform) WaitForCheckpoint(b bool) *StopTransform {
-	r.values.Set("wait_for_checkpoint", strconv.FormatBool(b))
+func (r *StopTransform) WaitForCheckpoint(waitforcheckpoint bool) *StopTransform {
+	r.values.Set("wait_for_checkpoint", strconv.FormatBool(waitforcheckpoint))
 
 	return r
 }
@@ -274,8 +278,8 @@ func (r *StopTransform) WaitForCheckpoint(b bool) *StopTransform {
 // is false, the API returns
 // immediately and the indexer is stopped asynchronously in the background.
 // API name: wait_for_completion
-func (r *StopTransform) WaitForCompletion(b bool) *StopTransform {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *StopTransform) WaitForCompletion(waitforcompletion bool) *StopTransform {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }

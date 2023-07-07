@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Performs a kNN search.
 package knnsearch
@@ -52,8 +52,9 @@ type KnnSearch struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *KnnSearch {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *KnnSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *KnnSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -211,6 +225,10 @@ func (r KnnSearch) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -224,17 +242,79 @@ func (r *KnnSearch) Header(key, value string) *KnnSearch {
 // Index A comma-separated list of index names to search;
 // use `_all` or to perform the operation on all indices
 // API Name: index
-func (r *KnnSearch) Index(v string) *KnnSearch {
+func (r *KnnSearch) Index(index string) *KnnSearch {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // Routing A comma-separated list of specific routing values
 // API name: routing
-func (r *KnnSearch) Routing(v string) *KnnSearch {
-	r.values.Set("routing", v)
+func (r *KnnSearch) Routing(routing string) *KnnSearch {
+	r.values.Set("routing", routing)
+
+	return r
+}
+
+// DocvalueFields The request returns doc values for field names matching these patterns
+// in the hits.fields property of the response. Accepts wildcard (*) patterns.
+// API name: docvalue_fields
+func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormat) *KnnSearch {
+	r.req.DocvalueFields = docvaluefields
+
+	return r
+}
+
+// Fields The request returns values for field names matching these patterns
+// in the hits.fields property of the response. Accepts wildcard (*) patterns.
+// API name: fields
+func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
+	r.req.Fields = fields
+
+	return r
+}
+
+// Filter Query to filter the documents that can match. The kNN search will return the
+// top
+// `k` documents that also match this filter. The value can be a single query or
+// a
+// list of queries. If `filter` isn't provided, all documents are allowed to
+// match.
+// API name: filter
+func (r *KnnSearch) Filter(filters ...types.Query) *KnnSearch {
+	r.req.Filter = filters
+
+	return r
+}
+
+// Knn kNN query to execute
+// API name: knn
+func (r *KnnSearch) Knn(knn *types.CoreKnnQuery) *KnnSearch {
+
+	r.req.Knn = *knn
+
+	return r
+}
+
+// Source_ Indicates which source fields are returned for matching documents. These
+// fields are returned in the hits._source property of the search response.
+// API name: _source
+func (r *KnnSearch) Source_(sourceconfig types.SourceConfig) *KnnSearch {
+	r.req.Source_ = sourceconfig
+
+	return r
+}
+
+// StoredFields List of stored fields to return as part of a hit. If no fields are specified,
+// no stored fields are included in the response. If this field is specified,
+// the _source
+// parameter defaults to false. You can pass _source: true to return both source
+// fields
+// and stored fields in the search response.
+// API name: stored_fields
+func (r *KnnSearch) StoredFields(fields ...string) *KnnSearch {
+	r.req.StoredFields = fields
 
 	return r
 }

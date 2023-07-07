@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes Logstash Pipelines used by Central Management
 package deletepipeline
@@ -150,6 +150,11 @@ func (r DeletePipeline) Perform(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a deletepipeline.Response
+func (r DeletePipeline) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r DeletePipeline) IsSuccess(ctx context.Context) (bool, error) {
@@ -180,9 +185,9 @@ func (r *DeletePipeline) Header(key, value string) *DeletePipeline {
 
 // Id The ID of the Pipeline
 // API Name: id
-func (r *DeletePipeline) Id(v string) *DeletePipeline {
+func (r *DeletePipeline) Id(id string) *DeletePipeline {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

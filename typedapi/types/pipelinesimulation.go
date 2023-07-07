@@ -16,23 +16,88 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actionstatusoptions"
 )
 
 // PipelineSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ingest/simulate/types.ts#L33-L39
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/ingest/simulate/types.ts#L33-L39
 type PipelineSimulation struct {
 	Doc              *DocumentSimulation                      `json:"doc,omitempty"`
 	ProcessorResults []PipelineSimulation                     `json:"processor_results,omitempty"`
 	ProcessorType    *string                                  `json:"processor_type,omitempty"`
 	Status           *actionstatusoptions.ActionStatusOptions `json:"status,omitempty"`
 	Tag              *string                                  `json:"tag,omitempty"`
+}
+
+func (s *PipelineSimulation) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "doc":
+			if err := dec.Decode(&s.Doc); err != nil {
+				return err
+			}
+
+		case "processor_results":
+			if err := dec.Decode(&s.ProcessorResults); err != nil {
+				return err
+			}
+
+		case "processor_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ProcessorType = &o
+
+		case "status":
+			if err := dec.Decode(&s.Status); err != nil {
+				return err
+			}
+
+		case "tag":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Tag = &o
+
+		}
+	}
+	return nil
 }
 
 // NewPipelineSimulation returns a PipelineSimulation.

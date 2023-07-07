@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves information about the installed X-Pack features.
 package info
@@ -166,6 +166,10 @@ func (r Info) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -200,16 +204,20 @@ func (r *Info) Header(key, value string) *Info {
 // Categories A comma-separated list of the information categories to include in the
 // response. For example, `build,license,features`.
 // API name: categories
-func (r *Info) Categories(v string) *Info {
-	r.values.Set("categories", v)
+func (r *Info) Categories(categories ...string) *Info {
+	tmp := []string{}
+	for _, item := range categories {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("categories", strings.Join(tmp, ","))
 
 	return r
 }
 
 // AcceptEnterprise If this param is used it must be set to true
 // API name: accept_enterprise
-func (r *Info) AcceptEnterprise(b bool) *Info {
-	r.values.Set("accept_enterprise", strconv.FormatBool(b))
+func (r *Info) AcceptEnterprise(acceptenterprise bool) *Info {
+	r.values.Set("accept_enterprise", strconv.FormatBool(acceptenterprise))
 
 	return r
 }
@@ -217,8 +225,8 @@ func (r *Info) AcceptEnterprise(b bool) *Info {
 // Human Defines whether additional human-readable information is included in the
 // response. In particular, it adds descriptions and a tag line.
 // API name: human
-func (r *Info) Human(b bool) *Info {
-	r.values.Set("human", strconv.FormatBool(b))
+func (r *Info) Human(human bool) *Info {
+	r.values.Set("human", strconv.FormatBool(human))
 
 	return r
 }

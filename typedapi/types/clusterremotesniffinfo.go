@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // ClusterRemoteSniffInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L31-L39
 type ClusterRemoteSniffInfo struct {
 	Connected                bool     `json:"connected"`
 	InitialConnectTimeout    Duration `json:"initial_connect_timeout"`
@@ -137,11 +135,27 @@ func (s *ClusterRemoteSniffInfo) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s ClusterRemoteSniffInfo) MarshalJSON() ([]byte, error) {
+	type innerClusterRemoteSniffInfo ClusterRemoteSniffInfo
+	tmp := innerClusterRemoteSniffInfo{
+		Connected:                s.Connected,
+		InitialConnectTimeout:    s.InitialConnectTimeout,
+		MaxConnectionsPerCluster: s.MaxConnectionsPerCluster,
+		Mode:                     s.Mode,
+		NumNodesConnected:        s.NumNodesConnected,
+		Seeds:                    s.Seeds,
+		SkipUnavailable:          s.SkipUnavailable,
+	}
+
+	tmp.Mode = "sniff"
+
+	return json.Marshal(tmp)
+}
+
 // NewClusterRemoteSniffInfo returns a ClusterRemoteSniffInfo.
 func NewClusterRemoteSniffInfo() *ClusterRemoteSniffInfo {
 	r := &ClusterRemoteSniffInfo{}
-
-	r.Mode = "sniff"
 
 	return r
 }
