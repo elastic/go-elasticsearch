@@ -16,21 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // PatternReplaceCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/char_filters.ts#L53-L58
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/char_filters.ts#L53-L58
 type PatternReplaceCharFilter struct {
 	Flags       *string `json:"flags,omitempty"`
 	Pattern     string  `json:"pattern"`
@@ -59,7 +59,11 @@ func (s *PatternReplaceCharFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Flags = &o
 
 		case "pattern":
@@ -67,7 +71,11 @@ func (s *PatternReplaceCharFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Pattern = o
 
 		case "replacement":
@@ -75,7 +83,11 @@ func (s *PatternReplaceCharFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Replacement = &o
 
 		case "type":
@@ -93,11 +105,25 @@ func (s *PatternReplaceCharFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s PatternReplaceCharFilter) MarshalJSON() ([]byte, error) {
+	type innerPatternReplaceCharFilter PatternReplaceCharFilter
+	tmp := innerPatternReplaceCharFilter{
+		Flags:       s.Flags,
+		Pattern:     s.Pattern,
+		Replacement: s.Replacement,
+		Type:        s.Type,
+		Version:     s.Version,
+	}
+
+	tmp.Type = "pattern_replace"
+
+	return json.Marshal(tmp)
+}
+
 // NewPatternReplaceCharFilter returns a PatternReplaceCharFilter.
 func NewPatternReplaceCharFilter() *PatternReplaceCharFilter {
 	r := &PatternReplaceCharFilter{}
-
-	r.Type = "pattern_replace"
 
 	return r
 }

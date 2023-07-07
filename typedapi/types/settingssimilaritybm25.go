@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // SettingsSimilarityBm25 type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/IndexSettings.ts#L180-L185
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/indices/_types/IndexSettings.ts#L180-L185
 type SettingsSimilarityBm25 struct {
 	B                Float64 `json:"b"`
 	DiscountOverlaps bool    `json:"discount_overlaps"`
@@ -111,11 +109,24 @@ func (s *SettingsSimilarityBm25) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s SettingsSimilarityBm25) MarshalJSON() ([]byte, error) {
+	type innerSettingsSimilarityBm25 SettingsSimilarityBm25
+	tmp := innerSettingsSimilarityBm25{
+		B:                s.B,
+		DiscountOverlaps: s.DiscountOverlaps,
+		K1:               s.K1,
+		Type:             s.Type,
+	}
+
+	tmp.Type = "BM25"
+
+	return json.Marshal(tmp)
+}
+
 // NewSettingsSimilarityBm25 returns a SettingsSimilarityBm25.
 func NewSettingsSimilarityBm25() *SettingsSimilarityBm25 {
 	r := &SettingsSimilarityBm25{}
-
-	r.Type = "BM25"
 
 	return r
 }

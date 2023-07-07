@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Stop a trained model deployment.
 package stoptrainedmodeldeployment
@@ -189,6 +189,10 @@ func (r StopTrainedModelDeployment) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -222,9 +226,9 @@ func (r *StopTrainedModelDeployment) Header(key, value string) *StopTrainedModel
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *StopTrainedModelDeployment) ModelId(v string) *StopTrainedModelDeployment {
+func (r *StopTrainedModelDeployment) ModelId(modelid string) *StopTrainedModelDeployment {
 	r.paramSet |= modelidMask
-	r.modelid = v
+	r.modelid = modelid
 
 	return r
 }
@@ -239,8 +243,8 @@ func (r *StopTrainedModelDeployment) ModelId(v string) *StopTrainedModelDeployme
 // If `false`, the request returns a 404 status code when there are no matches
 // or only partial matches.
 // API name: allow_no_match
-func (r *StopTrainedModelDeployment) AllowNoMatch(b bool) *StopTrainedModelDeployment {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *StopTrainedModelDeployment) AllowNoMatch(allownomatch bool) *StopTrainedModelDeployment {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
@@ -249,8 +253,8 @@ func (r *StopTrainedModelDeployment) AllowNoMatch(b bool) *StopTrainedModelDeplo
 // can't use these pipelines until you
 // restart the model deployment.
 // API name: force
-func (r *StopTrainedModelDeployment) Force(b bool) *StopTrainedModelDeployment {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *StopTrainedModelDeployment) Force(force bool) *StopTrainedModelDeployment {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }

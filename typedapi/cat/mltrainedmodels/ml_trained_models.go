@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Gets configuration and usage information about inference trained models.
 package mltrainedmodels
@@ -36,8 +36,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/cattrainedmodelscolumn"
 )
 
 const (
@@ -190,6 +190,10 @@ func (r MlTrainedModels) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,60 +225,74 @@ func (r *MlTrainedModels) Header(key, value string) *MlTrainedModels {
 	return r
 }
 
-// ModelId The ID of the trained models stats to fetch
+// ModelId A unique identifier for the trained model.
 // API Name: modelid
-func (r *MlTrainedModels) ModelId(v string) *MlTrainedModels {
+func (r *MlTrainedModels) ModelId(modelid string) *MlTrainedModels {
 	r.paramSet |= modelidMask
-	r.modelid = v
+	r.modelid = modelid
 
 	return r
 }
 
-// AllowNoMatch Whether to ignore if a wildcard expression matches no trained models. (This
-// includes `_all` string or when no trained models have been specified)
+// AllowNoMatch Specifies what to do when the request: contains wildcard expressions and
+// there are no models that match; contains the `_all` string or no identifiers
+// and there are no matches; contains wildcard expressions and there are only
+// partial matches.
+// If `true`, the API returns an empty array when there are no matches and the
+// subset of results when there are partial matches.
+// If `false`, the API returns a 404 status code when there are no matches or
+// only partial matches.
 // API name: allow_no_match
-func (r *MlTrainedModels) AllowNoMatch(b bool) *MlTrainedModels {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *MlTrainedModels) AllowNoMatch(allownomatch bool) *MlTrainedModels {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
 
-// Bytes The unit in which to display byte values
+// Bytes The unit used to display byte values.
 // API name: bytes
-func (r *MlTrainedModels) Bytes(enum bytes.Bytes) *MlTrainedModels {
-	r.values.Set("bytes", enum.String())
+func (r *MlTrainedModels) Bytes(bytes bytes.Bytes) *MlTrainedModels {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
 
-// H Comma-separated list of column names to display
+// H A comma-separated list of column names to display.
 // API name: h
-func (r *MlTrainedModels) H(v string) *MlTrainedModels {
-	r.values.Set("h", v)
+func (r *MlTrainedModels) H(cattrainedmodelscolumns ...cattrainedmodelscolumn.CatTrainedModelsColumn) *MlTrainedModels {
+	tmp := []string{}
+	for _, item := range cattrainedmodelscolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
-// S Comma-separated list of column names or column aliases to sort by
+// S A comma-separated list of column names or aliases used to sort the response.
 // API name: s
-func (r *MlTrainedModels) S(v string) *MlTrainedModels {
-	r.values.Set("s", v)
+func (r *MlTrainedModels) S(cattrainedmodelscolumns ...cattrainedmodelscolumn.CatTrainedModelsColumn) *MlTrainedModels {
+	tmp := []string{}
+	for _, item := range cattrainedmodelscolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
-// From skips a number of trained models
+// From Skips the specified number of transforms.
 // API name: from
-func (r *MlTrainedModels) From(i int) *MlTrainedModels {
-	r.values.Set("from", strconv.Itoa(i))
+func (r *MlTrainedModels) From(from int) *MlTrainedModels {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
 
-// Size specifies a max number of trained models to get
+// Size The maximum number of transforms to display.
 // API name: size
-func (r *MlTrainedModels) Size(i int) *MlTrainedModels {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *MlTrainedModels) Size(size int) *MlTrainedModels {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }

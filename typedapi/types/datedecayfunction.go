@@ -16,63 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
-
+	"encoding/json"
 	"fmt"
 
-	"bytes"
-	"errors"
-	"io"
-
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/multivaluemode"
 )
 
 // DateDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/query_dsl/compound.ts#L92-L94
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/query_dsl/compound.ts#L92-L94
 type DateDecayFunction struct {
 	DateDecayFunction map[string]DecayPlacementDateMathDuration `json:"DateDecayFunction,omitempty"`
 	MultiValueMode    *multivaluemode.MultiValueMode            `json:"multi_value_mode,omitempty"`
-}
-
-func (s *DateDecayFunction) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "DateDecayFunction":
-			if s.DateDecayFunction == nil {
-				s.DateDecayFunction = make(map[string]DecayPlacementDateMathDuration, 0)
-			}
-			if err := dec.Decode(&s.DateDecayFunction); err != nil {
-				return err
-			}
-
-		case "multi_value_mode":
-			if err := dec.Decode(&s.MultiValueMode); err != nil {
-				return err
-			}
-
-		default:
-
-		}
-	}
-	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

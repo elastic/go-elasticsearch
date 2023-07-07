@@ -16,53 +16,54 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // DataFrameAnalyticsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
 type DataFrameAnalyticsRecord struct {
-	// AssignmentExplanation why the job is or is not assigned to a node
+	// AssignmentExplanation Messages related to the selection of a node.
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
-	// CreateTime job creation time
+	// CreateTime The time when the job was created.
 	CreateTime *string `json:"create_time,omitempty"`
-	// Description description
+	// Description A description of the job.
 	Description *string `json:"description,omitempty"`
-	// DestIndex destination index
+	// DestIndex The name of the destination index.
 	DestIndex *string `json:"dest_index,omitempty"`
-	// FailureReason failure reason
+	// FailureReason Messages about the reason why the job failed.
 	FailureReason *string `json:"failure_reason,omitempty"`
-	// Id the id
+	// Id The identifier for the job.
 	Id *string `json:"id,omitempty"`
-	// ModelMemoryLimit model memory limit
+	// ModelMemoryLimit The approximate maximum amount of memory resources that are permitted for the
+	// job.
 	ModelMemoryLimit *string `json:"model_memory_limit,omitempty"`
-	// NodeAddress network address of the assigned node
+	// NodeAddress The network address of the assigned node.
 	NodeAddress *string `json:"node.address,omitempty"`
-	// NodeEphemeralId ephemeral id of the assigned node
+	// NodeEphemeralId The ephemeral identifier of the assigned node.
 	NodeEphemeralId *string `json:"node.ephemeral_id,omitempty"`
-	// NodeId id of the assigned node
+	// NodeId The unique identifier of the assigned node.
 	NodeId *string `json:"node.id,omitempty"`
-	// NodeName name of the assigned node
+	// NodeName The name of the assigned node.
 	NodeName *string `json:"node.name,omitempty"`
-	// Progress progress
+	// Progress The progress report for the job by phase.
 	Progress *string `json:"progress,omitempty"`
-	// SourceIndex source index
+	// SourceIndex The name of the source index.
 	SourceIndex *string `json:"source_index,omitempty"`
-	// State job state
+	// State The current status of the job.
 	State *string `json:"state,omitempty"`
-	// Type analysis type
+	// Type The type of analysis that the job performs.
 	Type *string `json:"type,omitempty"`
-	// Version the version of Elasticsearch when the analytics was created
+	// Version The version of Elasticsearch when the job was created.
 	Version *string `json:"version,omitempty"`
 }
 
@@ -86,7 +87,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.AssignmentExplanation = &o
 
 		case "create_time", "ct", "createTime":
@@ -94,7 +99,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CreateTime = &o
 
 		case "description", "d":
@@ -102,7 +111,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Description = &o
 
 		case "dest_index", "di", "destIndex":
@@ -115,7 +128,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.FailureReason = &o
 
 		case "id":
@@ -128,7 +145,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ModelMemoryLimit = &o
 
 		case "node.address", "na", "nodeAddress":
@@ -136,7 +157,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.NodeAddress = &o
 
 		case "node.ephemeral_id", "ne", "nodeEphemeralId":
@@ -159,7 +184,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Progress = &o
 
 		case "source_index", "si", "sourceIndex":
@@ -172,7 +201,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.State = &o
 
 		case "type", "t":
@@ -180,7 +213,11 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = &o
 
 		case "version", "v":

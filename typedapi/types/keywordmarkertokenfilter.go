@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // KeywordMarkerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L231-L237
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L231-L237
 type KeywordMarkerTokenFilter struct {
 	IgnoreCase      *bool    `json:"ignore_case,omitempty"`
 	Keywords        []string `json:"keywords,omitempty"`
@@ -81,7 +79,11 @@ func (s *KeywordMarkerTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.KeywordsPath = &o
 
 		case "keywords_pattern":
@@ -89,7 +91,11 @@ func (s *KeywordMarkerTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.KeywordsPattern = &o
 
 		case "type":
@@ -107,11 +113,26 @@ func (s *KeywordMarkerTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s KeywordMarkerTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerKeywordMarkerTokenFilter KeywordMarkerTokenFilter
+	tmp := innerKeywordMarkerTokenFilter{
+		IgnoreCase:      s.IgnoreCase,
+		Keywords:        s.Keywords,
+		KeywordsPath:    s.KeywordsPath,
+		KeywordsPattern: s.KeywordsPattern,
+		Type:            s.Type,
+		Version:         s.Version,
+	}
+
+	tmp.Type = "keyword_marker"
+
+	return json.Marshal(tmp)
+}
+
 // NewKeywordMarkerTokenFilter returns a KeywordMarkerTokenFilter.
 func NewKeywordMarkerTokenFilter() *KeywordMarkerTokenFilter {
 	r := &KeywordMarkerTokenFilter{}
-
-	r.Type = "keyword_marker"
 
 	return r
 }

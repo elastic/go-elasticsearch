@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // WhitespaceTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/tokenizers.ts#L114-L117
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/tokenizers.ts#L114-L117
 type WhitespaceTokenizer struct {
 	MaxTokenLength *int    `json:"max_token_length,omitempty"`
 	Type           string  `json:"type,omitempty"`
@@ -85,11 +83,23 @@ func (s *WhitespaceTokenizer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s WhitespaceTokenizer) MarshalJSON() ([]byte, error) {
+	type innerWhitespaceTokenizer WhitespaceTokenizer
+	tmp := innerWhitespaceTokenizer{
+		MaxTokenLength: s.MaxTokenLength,
+		Type:           s.Type,
+		Version:        s.Version,
+	}
+
+	tmp.Type = "whitespace"
+
+	return json.Marshal(tmp)
+}
+
 // NewWhitespaceTokenizer returns a WhitespaceTokenizer.
 func NewWhitespaceTokenizer() *WhitespaceTokenizer {
 	r := &WhitespaceTokenizer{}
-
-	r.Type = "whitespace"
 
 	return r
 }

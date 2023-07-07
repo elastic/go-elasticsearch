@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates the enrich index for an existing enrich policy.
 package executepolicy
@@ -181,6 +181,10 @@ func (r ExecutePolicy) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,17 +218,17 @@ func (r *ExecutePolicy) Header(key, value string) *ExecutePolicy {
 
 // Name The name of the enrich policy
 // API Name: name
-func (r *ExecutePolicy) Name(v string) *ExecutePolicy {
+func (r *ExecutePolicy) Name(name string) *ExecutePolicy {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // WaitForCompletion Should the request should block until the execution is complete.
 // API name: wait_for_completion
-func (r *ExecutePolicy) WaitForCompletion(b bool) *ExecutePolicy {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *ExecutePolicy) WaitForCompletion(waitforcompletion bool) *ExecutePolicy {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }

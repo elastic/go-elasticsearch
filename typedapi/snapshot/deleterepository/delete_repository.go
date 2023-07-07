@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes a repository.
 package deleterepository
@@ -176,6 +176,10 @@ func (r DeleteRepository) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,25 +214,25 @@ func (r *DeleteRepository) Header(key, value string) *DeleteRepository {
 // Repository Name of the snapshot repository to unregister. Wildcard (`*`) patterns are
 // supported.
 // API Name: repository
-func (r *DeleteRepository) Repository(v string) *DeleteRepository {
+func (r *DeleteRepository) Repository(repository string) *DeleteRepository {
 	r.paramSet |= repositoryMask
-	r.repository = v
+	r.repository = repository
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *DeleteRepository) MasterTimeout(v string) *DeleteRepository {
-	r.values.Set("master_timeout", v)
+func (r *DeleteRepository) MasterTimeout(duration string) *DeleteRepository {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *DeleteRepository) Timeout(v string) *DeleteRepository {
-	r.values.Set("timeout", v)
+func (r *DeleteRepository) Timeout(duration string) *DeleteRepository {
+	r.values.Set("timeout", duration)
 
 	return r
 }

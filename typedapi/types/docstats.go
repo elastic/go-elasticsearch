@@ -16,25 +16,32 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // DocStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Stats.ts#L64-L67
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/Stats.ts#L76-L88
 type DocStats struct {
-	Count   int64  `json:"count"`
+	// Count Total number of non-deleted documents across all primary shards assigned to
+	// selected nodes.
+	// This number is based on documents in Lucene segments and may include
+	// documents from nested fields.
+	Count int64 `json:"count"`
+	// Deleted Total number of deleted documents across all primary shards assigned to
+	// selected nodes.
+	// This number is based on documents in Lucene segments.
+	// Elasticsearch reclaims the disk space of deleted Lucene documents when a
+	// segment is merged.
 	Deleted *int64 `json:"deleted,omitempty"`
 }
 

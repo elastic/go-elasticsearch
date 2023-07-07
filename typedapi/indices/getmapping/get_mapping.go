@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns mappings for one or more indices.
 package getmapping
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -180,6 +181,10 @@ func (r GetMapping) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +218,9 @@ func (r *GetMapping) Header(key, value string) *GetMapping {
 
 // Index A comma-separated list of index names
 // API Name: index
-func (r *GetMapping) Index(v string) *GetMapping {
+func (r *GetMapping) Index(index string) *GetMapping {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -223,8 +228,8 @@ func (r *GetMapping) Index(v string) *GetMapping {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *GetMapping) AllowNoIndices(b bool) *GetMapping {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *GetMapping) AllowNoIndices(allownoindices bool) *GetMapping {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -232,8 +237,12 @@ func (r *GetMapping) AllowNoIndices(b bool) *GetMapping {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *GetMapping) ExpandWildcards(v string) *GetMapping {
-	r.values.Set("expand_wildcards", v)
+func (r *GetMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetMapping {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -241,8 +250,8 @@ func (r *GetMapping) ExpandWildcards(v string) *GetMapping {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *GetMapping) IgnoreUnavailable(b bool) *GetMapping {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *GetMapping) IgnoreUnavailable(ignoreunavailable bool) *GetMapping {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
@@ -250,16 +259,16 @@ func (r *GetMapping) IgnoreUnavailable(b bool) *GetMapping {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *GetMapping) Local(b bool) *GetMapping {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *GetMapping) Local(local bool) *GetMapping {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *GetMapping) MasterTimeout(v string) *GetMapping {
-	r.values.Set("master_timeout", v)
+func (r *GetMapping) MasterTimeout(duration string) *GetMapping {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

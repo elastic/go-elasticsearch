@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Disables a user profile so it's not visible in user profile searches.
 package disableuserprofile
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -182,6 +181,10 @@ func (r DisableUserProfile) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,9 +218,9 @@ func (r *DisableUserProfile) Header(key, value string) *DisableUserProfile {
 
 // Uid Unique identifier for the user profile.
 // API Name: uid
-func (r *DisableUserProfile) Uid(v string) *DisableUserProfile {
+func (r *DisableUserProfile) Uid(uid string) *DisableUserProfile {
 	r.paramSet |= uidMask
-	r.uid = v
+	r.uid = uid
 
 	return r
 }
@@ -227,8 +230,8 @@ func (r *DisableUserProfile) Uid(v string) *DisableUserProfile {
 // operation
 // visible to search, if 'false' do nothing with refreshes.
 // API name: refresh
-func (r *DisableUserProfile) Refresh(enum refresh.Refresh) *DisableUserProfile {
-	r.values.Set("refresh", enum.String())
+func (r *DisableUserProfile) Refresh(refresh refresh.Refresh) *DisableUserProfile {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }

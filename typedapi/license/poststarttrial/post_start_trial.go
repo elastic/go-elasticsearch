@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // starts a limited time trial license.
 package poststarttrial
@@ -168,6 +168,10 @@ func (r PostStartTrial) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -201,15 +205,15 @@ func (r *PostStartTrial) Header(key, value string) *PostStartTrial {
 
 // Acknowledge whether the user has acknowledged acknowledge messages (default: false)
 // API name: acknowledge
-func (r *PostStartTrial) Acknowledge(b bool) *PostStartTrial {
-	r.values.Set("acknowledge", strconv.FormatBool(b))
+func (r *PostStartTrial) Acknowledge(acknowledge bool) *PostStartTrial {
+	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))
 
 	return r
 }
 
 // API name: type_query_string
-func (r *PostStartTrial) TypeQueryString(v string) *PostStartTrial {
-	r.values.Set("type_query_string", v)
+func (r *PostStartTrial) TypeQueryString(typequerystring string) *PostStartTrial {
+	r.values.Set("type_query_string", typequerystring)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Evaluates the data frame analytics for an annotated index.
 package evaluatedataframe
@@ -48,8 +48,9 @@ type EvaluateDataFrame struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *EvaluateDataFrame {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *EvaluateDataFrame) HttpRequest(ctx context.Context) (*http.Request, err
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *EvaluateDataFrame) HttpRequest(ctx context.Context) (*http.Request, err
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -204,12 +218,42 @@ func (r EvaluateDataFrame) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the EvaluateDataFrame headers map.
 func (r *EvaluateDataFrame) Header(key, value string) *EvaluateDataFrame {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Evaluation Defines the type of evaluation you want to perform.
+// API name: evaluation
+func (r *EvaluateDataFrame) Evaluation(evaluation *types.DataframeEvaluationContainer) *EvaluateDataFrame {
+
+	r.req.Evaluation = *evaluation
+
+	return r
+}
+
+// Index Defines the `index` in which the evaluation will be performed.
+// API name: index
+func (r *EvaluateDataFrame) Index(indexname string) *EvaluateDataFrame {
+	r.req.Index = indexname
+
+	return r
+}
+
+// Query A query clause that retrieves a subset of data from the source index.
+// API name: query
+func (r *EvaluateDataFrame) Query(query *types.Query) *EvaluateDataFrame {
+
+	r.req.Query = query
 
 	return r
 }

@@ -16,48 +16,91 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // SegmentsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Stats.ts#L206-L231
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/Stats.ts#L252-L345
 type SegmentsStats struct {
-	Count                       int                          `json:"count"`
-	DocValuesMemory             ByteSize                     `json:"doc_values_memory,omitempty"`
-	DocValuesMemoryInBytes      int64                        `json:"doc_values_memory_in_bytes"`
-	FileSizes                   map[string]ShardFileSizeInfo `json:"file_sizes"`
-	FixedBitSet                 ByteSize                     `json:"fixed_bit_set,omitempty"`
-	FixedBitSetMemoryInBytes    int64                        `json:"fixed_bit_set_memory_in_bytes"`
-	IndexWriterMaxMemoryInBytes *int64                       `json:"index_writer_max_memory_in_bytes,omitempty"`
-	IndexWriterMemory           ByteSize                     `json:"index_writer_memory,omitempty"`
-	IndexWriterMemoryInBytes    int64                        `json:"index_writer_memory_in_bytes"`
-	MaxUnsafeAutoIdTimestamp    int64                        `json:"max_unsafe_auto_id_timestamp"`
-	Memory                      ByteSize                     `json:"memory,omitempty"`
-	MemoryInBytes               int64                        `json:"memory_in_bytes"`
-	NormsMemory                 ByteSize                     `json:"norms_memory,omitempty"`
-	NormsMemoryInBytes          int64                        `json:"norms_memory_in_bytes"`
-	PointsMemory                ByteSize                     `json:"points_memory,omitempty"`
-	PointsMemoryInBytes         int64                        `json:"points_memory_in_bytes"`
-	StoredFieldsMemoryInBytes   int64                        `json:"stored_fields_memory_in_bytes"`
-	StoredMemory                ByteSize                     `json:"stored_memory,omitempty"`
-	TermVectorsMemoryInBytes    int64                        `json:"term_vectors_memory_in_bytes"`
-	TermVectoryMemory           ByteSize                     `json:"term_vectory_memory,omitempty"`
-	TermsMemory                 ByteSize                     `json:"terms_memory,omitempty"`
-	TermsMemoryInBytes          int64                        `json:"terms_memory_in_bytes"`
-	VersionMapMemory            ByteSize                     `json:"version_map_memory,omitempty"`
-	VersionMapMemoryInBytes     int64                        `json:"version_map_memory_in_bytes"`
+	// Count Total number of segments across all shards assigned to selected nodes.
+	Count int `json:"count"`
+	// DocValuesMemory Total amount of memory used for doc values across all shards assigned to
+	// selected nodes.
+	DocValuesMemory ByteSize `json:"doc_values_memory,omitempty"`
+	// DocValuesMemoryInBytes Total amount, in bytes, of memory used for doc values across all shards
+	// assigned to selected nodes.
+	DocValuesMemoryInBytes int64 `json:"doc_values_memory_in_bytes"`
+	// FileSizes This object is not populated by the cluster stats API.
+	// To get information on segment files, use the node stats API.
+	FileSizes map[string]ShardFileSizeInfo `json:"file_sizes"`
+	// FixedBitSet Total amount of memory used by fixed bit sets across all shards assigned to
+	// selected nodes.
+	// Fixed bit sets are used for nested object field types and type filters for
+	// join fields.
+	FixedBitSet ByteSize `json:"fixed_bit_set,omitempty"`
+	// FixedBitSetMemoryInBytes Total amount of memory, in bytes, used by fixed bit sets across all shards
+	// assigned to selected nodes.
+	FixedBitSetMemoryInBytes    int64  `json:"fixed_bit_set_memory_in_bytes"`
+	IndexWriterMaxMemoryInBytes *int64 `json:"index_writer_max_memory_in_bytes,omitempty"`
+	// IndexWriterMemory Total amount of memory used by all index writers across all shards assigned
+	// to selected nodes.
+	IndexWriterMemory ByteSize `json:"index_writer_memory,omitempty"`
+	// IndexWriterMemoryInBytes Total amount, in bytes, of memory used by all index writers across all shards
+	// assigned to selected nodes.
+	IndexWriterMemoryInBytes int64 `json:"index_writer_memory_in_bytes"`
+	// MaxUnsafeAutoIdTimestamp Unix timestamp, in milliseconds, of the most recently retried indexing
+	// request.
+	MaxUnsafeAutoIdTimestamp int64 `json:"max_unsafe_auto_id_timestamp"`
+	// Memory Total amount of memory used for segments across all shards assigned to
+	// selected nodes.
+	Memory ByteSize `json:"memory,omitempty"`
+	// MemoryInBytes Total amount, in bytes, of memory used for segments across all shards
+	// assigned to selected nodes.
+	MemoryInBytes int64 `json:"memory_in_bytes"`
+	// NormsMemory Total amount of memory used for normalization factors across all shards
+	// assigned to selected nodes.
+	NormsMemory ByteSize `json:"norms_memory,omitempty"`
+	// NormsMemoryInBytes Total amount, in bytes, of memory used for normalization factors across all
+	// shards assigned to selected nodes.
+	NormsMemoryInBytes int64 `json:"norms_memory_in_bytes"`
+	// PointsMemory Total amount of memory used for points across all shards assigned to selected
+	// nodes.
+	PointsMemory ByteSize `json:"points_memory,omitempty"`
+	// PointsMemoryInBytes Total amount, in bytes, of memory used for points across all shards assigned
+	// to selected nodes.
+	PointsMemoryInBytes int64 `json:"points_memory_in_bytes"`
+	// StoredFieldsMemoryInBytes Total amount, in bytes, of memory used for stored fields across all shards
+	// assigned to selected nodes.
+	StoredFieldsMemoryInBytes int64    `json:"stored_fields_memory_in_bytes"`
+	StoredMemory              ByteSize `json:"stored_memory,omitempty"`
+	// TermVectorsMemoryInBytes Total amount, in bytes, of memory used for term vectors across all shards
+	// assigned to selected nodes.
+	TermVectorsMemoryInBytes int64 `json:"term_vectors_memory_in_bytes"`
+	// TermVectoryMemory Total amount of memory used for term vectors across all shards assigned to
+	// selected nodes.
+	TermVectoryMemory ByteSize `json:"term_vectory_memory,omitempty"`
+	// TermsMemory Total amount of memory used for terms across all shards assigned to selected
+	// nodes.
+	TermsMemory ByteSize `json:"terms_memory,omitempty"`
+	// TermsMemoryInBytes Total amount, in bytes, of memory used for terms across all shards assigned
+	// to selected nodes.
+	TermsMemoryInBytes int64 `json:"terms_memory_in_bytes"`
+	// VersionMapMemory Total amount of memory used by all version maps across all shards assigned to
+	// selected nodes.
+	VersionMapMemory ByteSize `json:"version_map_memory,omitempty"`
+	// VersionMapMemoryInBytes Total amount, in bytes, of memory used by all version maps across all shards
+	// assigned to selected nodes.
+	VersionMapMemoryInBytes int64 `json:"version_map_memory_in_bytes"`
 }
 
 func (s *SegmentsStats) UnmarshalJSON(data []byte) error {

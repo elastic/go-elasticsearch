@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tokenchar"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tokenchar"
 )
 
 // EdgeNGramTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/tokenizers.ts#L30-L36
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/tokenizers.ts#L30-L36
 type EdgeNGramTokenizer struct {
 	CustomTokenChars *string               `json:"custom_token_chars,omitempty"`
 	MaxGram          int                   `json:"max_gram"`
@@ -64,7 +62,11 @@ func (s *EdgeNGramTokenizer) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CustomTokenChars = &o
 
 		case "max_gram":
@@ -119,11 +121,26 @@ func (s *EdgeNGramTokenizer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s EdgeNGramTokenizer) MarshalJSON() ([]byte, error) {
+	type innerEdgeNGramTokenizer EdgeNGramTokenizer
+	tmp := innerEdgeNGramTokenizer{
+		CustomTokenChars: s.CustomTokenChars,
+		MaxGram:          s.MaxGram,
+		MinGram:          s.MinGram,
+		TokenChars:       s.TokenChars,
+		Type:             s.Type,
+		Version:          s.Version,
+	}
+
+	tmp.Type = "edge_ngram"
+
+	return json.Marshal(tmp)
+}
+
 // NewEdgeNGramTokenizer returns a EdgeNGramTokenizer.
 func NewEdgeNGramTokenizer() *EdgeNGramTokenizer {
 	r := &EdgeNGramTokenizer{}
-
-	r.Type = "edge_ngram"
 
 	return r
 }

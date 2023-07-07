@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Stops one or more datafeeds.
 package stopdatafeed
@@ -30,7 +30,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -53,8 +52,9 @@ type StopDatafeed struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +85,8 @@ func New(tp elastictransport.Interface) *StopDatafeed {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +116,19 @@ func (r *StopDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +136,7 @@ func (r *StopDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -216,6 +229,10 @@ func (r StopDatafeed) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -232,43 +249,33 @@ func (r *StopDatafeed) Header(key, value string) *StopDatafeed {
 // using `_all` or by specifying `*` as
 // the identifier.
 // API Name: datafeedid
-func (r *StopDatafeed) DatafeedId(v string) *StopDatafeed {
+func (r *StopDatafeed) DatafeedId(datafeedid string) *StopDatafeed {
 	r.paramSet |= datafeedidMask
-	r.datafeedid = v
+	r.datafeedid = datafeedid
 
 	return r
 }
 
-// AllowNoMatch Specifies what to do when the request:
-//
-// * Contains wildcard expressions and there are no datafeeds that match.
-// * Contains the `_all` string or no identifiers and there are no matches.
-// * Contains wildcard expressions and there are only partial matches.
-//
-// If `true`, the API returns an empty datafeeds array when there are no matches
-// and the subset of results when
-// there are partial matches. If `false`, the API returns a 404 status code when
-// there are no matches or only
-// partial matches.
+// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
-func (r *StopDatafeed) AllowNoMatch(b bool) *StopDatafeed {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *StopDatafeed) AllowNoMatch(allownomatch bool) *StopDatafeed {
+	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// Force If `true`, the datafeed is stopped forcefully.
+// Force Refer to the description for the `force` query parameter.
 // API name: force
-func (r *StopDatafeed) Force(b bool) *StopDatafeed {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *StopDatafeed) Force(force bool) *StopDatafeed {
+	r.req.Force = &force
 
 	return r
 }
 
-// Timeout Specifies the amount of time to wait until a datafeed stops.
+// Timeout Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *StopDatafeed) Timeout(v string) *StopDatafeed {
-	r.values.Set("timeout", v)
+func (r *StopDatafeed) Timeout(duration types.Duration) *StopDatafeed {
+	r.req.Timeout = duration
 
 	return r
 }

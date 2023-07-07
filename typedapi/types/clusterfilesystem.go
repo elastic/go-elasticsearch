@@ -16,27 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // ClusterFileSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L34-L38
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/stats/types.ts#L34-L49
 type ClusterFileSystem struct {
+	// AvailableInBytes Total number of bytes available to JVM in file stores across all selected
+	// nodes.
+	// Depending on operating system or process-level restrictions, this number may
+	// be less than `nodes.fs.free_in_byes`.
+	// This is the actual amount of free disk space the selected Elasticsearch nodes
+	// can use.
 	AvailableInBytes int64 `json:"available_in_bytes"`
-	FreeInBytes      int64 `json:"free_in_bytes"`
-	TotalInBytes     int64 `json:"total_in_bytes"`
+	// FreeInBytes Total number of unallocated bytes in file stores across all selected nodes.
+	FreeInBytes int64 `json:"free_in_bytes"`
+	// TotalInBytes Total size, in bytes, of all file stores across all selected nodes.
+	TotalInBytes int64 `json:"total_in_bytes"`
 }
 
 func (s *ClusterFileSystem) UnmarshalJSON(data []byte) error {

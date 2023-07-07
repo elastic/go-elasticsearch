@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Updates a document with a script or partial document.
 package update
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -57,8 +56,9 @@ type Update struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -92,6 +92,8 @@ func New(tp elastictransport.Interface) *Update {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -121,9 +123,19 @@ func (r *Update) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -131,6 +143,7 @@ func (r *Update) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -222,6 +235,10 @@ func (r Update) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -234,42 +251,42 @@ func (r *Update) Header(key, value string) *Update {
 
 // Id Document ID
 // API Name: id
-func (r *Update) Id(v string) *Update {
+func (r *Update) Id(id string) *Update {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Index The name of the index
 // API Name: index
-func (r *Update) Index(v string) *Update {
+func (r *Update) Index(index string) *Update {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // IfPrimaryTerm Only perform the operation if the document has this primary term.
 // API name: if_primary_term
-func (r *Update) IfPrimaryTerm(v string) *Update {
-	r.values.Set("if_primary_term", v)
+func (r *Update) IfPrimaryTerm(ifprimaryterm string) *Update {
+	r.values.Set("if_primary_term", ifprimaryterm)
 
 	return r
 }
 
 // IfSeqNo Only perform the operation if the document has this sequence number.
 // API name: if_seq_no
-func (r *Update) IfSeqNo(v string) *Update {
-	r.values.Set("if_seq_no", v)
+func (r *Update) IfSeqNo(sequencenumber string) *Update {
+	r.values.Set("if_seq_no", sequencenumber)
 
 	return r
 }
 
 // Lang The script language.
 // API name: lang
-func (r *Update) Lang(v string) *Update {
-	r.values.Set("lang", v)
+func (r *Update) Lang(lang string) *Update {
+	r.values.Set("lang", lang)
 
 	return r
 }
@@ -279,16 +296,16 @@ func (r *Update) Lang(v string) *Update {
 // operation
 // visible to search, if 'false' do nothing with refreshes.
 // API name: refresh
-func (r *Update) Refresh(enum refresh.Refresh) *Update {
-	r.values.Set("refresh", enum.String())
+func (r *Update) Refresh(refresh refresh.Refresh) *Update {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }
 
 // RequireAlias If true, the destination must be an index alias.
 // API name: require_alias
-func (r *Update) RequireAlias(b bool) *Update {
-	r.values.Set("require_alias", strconv.FormatBool(b))
+func (r *Update) RequireAlias(requirealias bool) *Update {
+	r.values.Set("require_alias", strconv.FormatBool(requirealias))
 
 	return r
 }
@@ -296,16 +313,16 @@ func (r *Update) RequireAlias(b bool) *Update {
 // RetryOnConflict Specify how many times should the operation be retried when a conflict
 // occurs.
 // API name: retry_on_conflict
-func (r *Update) RetryOnConflict(i int) *Update {
-	r.values.Set("retry_on_conflict", strconv.Itoa(i))
+func (r *Update) RetryOnConflict(retryonconflict int) *Update {
+	r.values.Set("retry_on_conflict", strconv.Itoa(retryonconflict))
 
 	return r
 }
 
 // Routing Custom value used to route operations to a specific shard.
 // API name: routing
-func (r *Update) Routing(v string) *Update {
-	r.values.Set("routing", v)
+func (r *Update) Routing(routing string) *Update {
+	r.values.Set("routing", routing)
 
 	return r
 }
@@ -314,8 +331,8 @@ func (r *Update) Routing(v string) *Update {
 // This guarantees Elasticsearch waits for at least the timeout before failing.
 // The actual wait time could be longer, particularly when multiple waits occur.
 // API name: timeout
-func (r *Update) Timeout(v string) *Update {
-	r.values.Set("timeout", v)
+func (r *Update) Timeout(duration string) *Update {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -326,8 +343,81 @@ func (r *Update) Timeout(v string) *Update {
 // index
 // (number_of_replicas+1). Defaults to 1 meaning the primary shard.
 // API name: wait_for_active_shards
-func (r *Update) WaitForActiveShards(v string) *Update {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Update) WaitForActiveShards(waitforactiveshards string) *Update {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
+
+	return r
+}
+
+// SourceExcludes_ Specify the source fields you want to exclude.
+// API name: _source_excludes
+func (r *Update) SourceExcludes_(fields ...string) *Update {
+	r.values.Set("_source_excludes", strings.Join(fields, ","))
+
+	return r
+}
+
+// SourceIncludes_ Specify the source fields you want to retrieve.
+// API name: _source_includes
+func (r *Update) SourceIncludes_(fields ...string) *Update {
+	r.values.Set("_source_includes", strings.Join(fields, ","))
+
+	return r
+}
+
+// DetectNoop Set to false to disable setting 'result' in the response
+// to 'noop' if no change to the document occurred.
+// API name: detect_noop
+func (r *Update) DetectNoop(detectnoop bool) *Update {
+	r.req.DetectNoop = &detectnoop
+
+	return r
+}
+
+// Doc A partial update to an existing document.
+// API name: doc
+//
+// doc should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
+func (r *Update) Doc(doc interface{}) *Update {
+	switch casted := doc.(type) {
+	case json.RawMessage:
+		r.req.Doc = casted
+	default:
+		r.deferred = append(r.deferred, func(request *Request) error {
+			data, err := json.Marshal(doc)
+			if err != nil {
+				return err
+			}
+			r.req.Doc = data
+			return nil
+		})
+	}
+
+	return r
+}
+
+// DocAsUpsert Set to true to use the contents of 'doc' as the value of 'upsert'
+// API name: doc_as_upsert
+func (r *Update) DocAsUpsert(docasupsert bool) *Update {
+	r.req.DocAsUpsert = &docasupsert
+
+	return r
+}
+
+// Script Script to execute to update the document.
+// API name: script
+func (r *Update) Script(script types.Script) *Update {
+	r.req.Script = script
+
+	return r
+}
+
+// ScriptedUpsert Set to true to execute the script whether or not the document exists.
+// API name: scripted_upsert
+func (r *Update) ScriptedUpsert(scriptedupsert bool) *Update {
+	r.req.ScriptedUpsert = &scriptedupsert
 
 	return r
 }
@@ -336,24 +426,34 @@ func (r *Update) WaitForActiveShards(v string) *Update {
 // comma-separated
 // list of the fields you want to retrieve.
 // API name: _source
-func (r *Update) Source_(v string) *Update {
-	r.values.Set("_source", v)
+func (r *Update) Source_(sourceconfig types.SourceConfig) *Update {
+	r.req.Source_ = sourceconfig
 
 	return r
 }
 
-// SourceExcludes_ Specify the source fields you want to exclude.
-// API name: _source_excludes
-func (r *Update) SourceExcludes_(v string) *Update {
-	r.values.Set("_source_excludes", v)
-
-	return r
-}
-
-// SourceIncludes_ Specify the source fields you want to retrieve.
-// API name: _source_includes
-func (r *Update) SourceIncludes_(v string) *Update {
-	r.values.Set("_source_includes", v)
+// Upsert If the document does not already exist, the contents of 'upsert' are inserted
+// as a
+// new document. If the document exists, the 'script' is executed.
+// API name: upsert
+//
+// upsert should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
+func (r *Update) Upsert(upsert interface{}) *Update {
+	switch casted := upsert.(type) {
+	case json.RawMessage:
+		r.req.Upsert = casted
+	default:
+		r.deferred = append(r.deferred, func(request *Request) error {
+			data, err := json.Marshal(upsert)
+			if err != nil {
+				return err
+			}
+			r.req.Upsert = data
+			return nil
+		})
+	}
 
 	return r
 }

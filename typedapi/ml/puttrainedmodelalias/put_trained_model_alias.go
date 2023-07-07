@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates a new model alias (or reassigns an existing one) to refer to the
 // trained model
@@ -197,6 +197,10 @@ func (r PutTrainedModelAlias) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -230,18 +234,18 @@ func (r *PutTrainedModelAlias) Header(key, value string) *PutTrainedModelAlias {
 
 // ModelAlias The alias to create or update. This value cannot end in numbers.
 // API Name: modelalias
-func (r *PutTrainedModelAlias) ModelAlias(v string) *PutTrainedModelAlias {
+func (r *PutTrainedModelAlias) ModelAlias(modelalias string) *PutTrainedModelAlias {
 	r.paramSet |= modelaliasMask
-	r.modelalias = v
+	r.modelalias = modelalias
 
 	return r
 }
 
 // ModelId The identifier for the trained model that the alias refers to.
 // API Name: modelid
-func (r *PutTrainedModelAlias) ModelId(v string) *PutTrainedModelAlias {
+func (r *PutTrainedModelAlias) ModelId(modelid string) *PutTrainedModelAlias {
 	r.paramSet |= modelidMask
-	r.modelid = v
+	r.modelid = modelid
 
 	return r
 }
@@ -250,8 +254,8 @@ func (r *PutTrainedModelAlias) ModelId(v string) *PutTrainedModelAlias {
 // model if it is already assigned to a different model. If the alias is
 // already assigned and this parameter is false, the API returns an error.
 // API name: reassign
-func (r *PutTrainedModelAlias) Reassign(b bool) *PutTrainedModelAlias {
-	r.values.Set("reassign", strconv.FormatBool(b))
+func (r *PutTrainedModelAlias) Reassign(reassign bool) *PutTrainedModelAlias {
+	r.values.Set("reassign", strconv.FormatBool(reassign))
 
 	return r
 }

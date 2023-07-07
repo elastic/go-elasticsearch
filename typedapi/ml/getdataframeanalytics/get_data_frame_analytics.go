@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves configuration information for data frame analytics jobs.
 package getdataframeanalytics
@@ -188,6 +188,10 @@ func (r GetDataFrameAnalytics) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -223,9 +227,9 @@ func (r *GetDataFrameAnalytics) Header(key, value string) *GetDataFrameAnalytics
 // option, the API returns information for the first hundred data frame
 // analytics jobs.
 // API Name: id
-func (r *GetDataFrameAnalytics) Id(v string) *GetDataFrameAnalytics {
+func (r *GetDataFrameAnalytics) Id(id string) *GetDataFrameAnalytics {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
@@ -242,24 +246,24 @@ func (r *GetDataFrameAnalytics) Id(v string) *GetDataFrameAnalytics {
 // If this parameter is `false`, the request returns a 404 status code when
 // there are no matches or only partial matches.
 // API name: allow_no_match
-func (r *GetDataFrameAnalytics) AllowNoMatch(b bool) *GetDataFrameAnalytics {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *GetDataFrameAnalytics) AllowNoMatch(allownomatch bool) *GetDataFrameAnalytics {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
 
 // From Skips the specified number of data frame analytics jobs.
 // API name: from
-func (r *GetDataFrameAnalytics) From(i int) *GetDataFrameAnalytics {
-	r.values.Set("from", strconv.Itoa(i))
+func (r *GetDataFrameAnalytics) From(from int) *GetDataFrameAnalytics {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
 
 // Size Specifies the maximum number of data frame analytics jobs to obtain.
 // API name: size
-func (r *GetDataFrameAnalytics) Size(i int) *GetDataFrameAnalytics {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *GetDataFrameAnalytics) Size(size int) *GetDataFrameAnalytics {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }
@@ -268,8 +272,8 @@ func (r *GetDataFrameAnalytics) Size(i int) *GetDataFrameAnalytics {
 // retrieval. This allows the configuration to be in an acceptable format to
 // be retrieved and then added to another cluster.
 // API name: exclude_generated
-func (r *GetDataFrameAnalytics) ExcludeGenerated(b bool) *GetDataFrameAnalytics {
-	r.values.Set("exclude_generated", strconv.FormatBool(b))
+func (r *GetDataFrameAnalytics) ExcludeGenerated(excludegenerated bool) *GetDataFrameAnalytics {
+	r.values.Set("exclude_generated", strconv.FormatBool(excludegenerated))
 
 	return r
 }

@@ -16,23 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/snowballlanguage"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/snowballlanguage"
 )
 
 // SnowballAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/analyzers.ts#L88-L93
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/analyzers.ts#L88-L93
 type SnowballAnalyzer struct {
 	Language  snowballlanguage.SnowballLanguage `json:"language"`
 	Stopwords []string                          `json:"stopwords,omitempty"`
@@ -91,11 +90,24 @@ func (s *SnowballAnalyzer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s SnowballAnalyzer) MarshalJSON() ([]byte, error) {
+	type innerSnowballAnalyzer SnowballAnalyzer
+	tmp := innerSnowballAnalyzer{
+		Language:  s.Language,
+		Stopwords: s.Stopwords,
+		Type:      s.Type,
+		Version:   s.Version,
+	}
+
+	tmp.Type = "snowball"
+
+	return json.Marshal(tmp)
+}
+
 // NewSnowballAnalyzer returns a SnowballAnalyzer.
 func NewSnowballAnalyzer() *SnowballAnalyzer {
 	r := &SnowballAnalyzer{}
-
-	r.Type = "snowball"
 
 	return r
 }

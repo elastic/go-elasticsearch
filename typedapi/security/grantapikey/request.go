@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package grantapikey
 
@@ -30,14 +30,27 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L38
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L75
 type Request struct {
-	AccessToken *string                         `json:"access_token,omitempty"`
-	ApiKey      types.GrantApiKey               `json:"api_key"`
-	GrantType   apikeygranttype.ApiKeyGrantType `json:"grant_type"`
-	Password    *string                         `json:"password,omitempty"`
-	RunAs       *string                         `json:"run_as,omitempty"`
-	Username    *string                         `json:"username,omitempty"`
+
+	// AccessToken The user’s access token.
+	// If you specify the `access_token` grant type, this parameter is required.
+	// It is not valid with other grant types.
+	AccessToken *string `json:"access_token,omitempty"`
+	// ApiKey Defines the API key.
+	ApiKey types.GrantApiKey `json:"api_key"`
+	// GrantType The type of grant. Supported grant types are: `access_token`, `password`.
+	GrantType apikeygranttype.ApiKeyGrantType `json:"grant_type"`
+	// Password The user’s password. If you specify the `password` grant type, this parameter
+	// is required.
+	// It is not valid with other grant types.
+	Password *string `json:"password,omitempty"`
+	// RunAs The name of the user to be impersonated.
+	RunAs *string `json:"run_as,omitempty"`
+	// Username The user name that identifies the user.
+	// If you specify the `password` grant type, this parameter is required.
+	// It is not valid with other grant types.
+	Username *string `json:"username,omitempty"`
 }
 
 // NewRequest returns a Request

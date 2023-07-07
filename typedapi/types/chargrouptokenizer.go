@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // CharGroupTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/tokenizers.ts#L55-L59
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/tokenizers.ts#L55-L59
 type CharGroupTokenizer struct {
 	MaxTokenLength  *int     `json:"max_token_length,omitempty"`
 	TokenizeOnChars []string `json:"tokenize_on_chars"`
@@ -91,11 +89,24 @@ func (s *CharGroupTokenizer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s CharGroupTokenizer) MarshalJSON() ([]byte, error) {
+	type innerCharGroupTokenizer CharGroupTokenizer
+	tmp := innerCharGroupTokenizer{
+		MaxTokenLength:  s.MaxTokenLength,
+		TokenizeOnChars: s.TokenizeOnChars,
+		Type:            s.Type,
+		Version:         s.Version,
+	}
+
+	tmp.Type = "char_group"
+
+	return json.Marshal(tmp)
+}
+
 // NewCharGroupTokenizer returns a CharGroupTokenizer.
 func NewCharGroupTokenizer() *CharGroupTokenizer {
 	r := &CharGroupTokenizer{}
-
-	r.Type = "char_group"
 
 	return r
 }

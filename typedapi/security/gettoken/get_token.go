@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates a bearer token for access without requiring basic authentication.
 package gettoken
@@ -34,6 +34,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/accesstokengranttype"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -48,8 +49,9 @@ type GetToken struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +78,8 @@ func New(tp elastictransport.Interface) *GetToken {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +109,19 @@ func (r *GetToken) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +129,7 @@ func (r *GetToken) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -204,12 +219,61 @@ func (r GetToken) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the GetToken headers map.
 func (r *GetToken) Header(key, value string) *GetToken {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// API name: grant_type
+func (r *GetToken) GrantType(granttype accesstokengranttype.AccessTokenGrantType) *GetToken {
+	r.req.GrantType = &granttype
+
+	return r
+}
+
+// API name: kerberos_ticket
+func (r *GetToken) KerberosTicket(kerberosticket string) *GetToken {
+
+	r.req.KerberosTicket = &kerberosticket
+
+	return r
+}
+
+// API name: password
+func (r *GetToken) Password(password string) *GetToken {
+	r.req.Password = &password
+
+	return r
+}
+
+// API name: refresh_token
+func (r *GetToken) RefreshToken(refreshtoken string) *GetToken {
+
+	r.req.RefreshToken = &refreshtoken
+
+	return r
+}
+
+// API name: scope
+func (r *GetToken) Scope(scope string) *GetToken {
+
+	r.req.Scope = &scope
+
+	return r
+}
+
+// API name: username
+func (r *GetToken) Username(username string) *GetToken {
+	r.req.Username = &username
 
 	return r
 }

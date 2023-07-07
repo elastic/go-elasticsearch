@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Updates the cluster voting config exclusions by node ids or node names.
 package postvotingconfigexclusions
@@ -139,6 +139,11 @@ func (r PostVotingConfigExclusions) Perform(ctx context.Context) (*http.Response
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a postvotingconfigexclusions.Response
+func (r PostVotingConfigExclusions) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r PostVotingConfigExclusions) IsSuccess(ctx context.Context) (bool, error) {
@@ -170,8 +175,8 @@ func (r *PostVotingConfigExclusions) Header(key, value string) *PostVotingConfig
 // NodeNames A comma-separated list of the names of the nodes to exclude from the
 // voting configuration. If specified, you may not also specify node_ids.
 // API name: node_names
-func (r *PostVotingConfigExclusions) NodeNames(v string) *PostVotingConfigExclusions {
-	r.values.Set("node_names", v)
+func (r *PostVotingConfigExclusions) NodeNames(names ...string) *PostVotingConfigExclusions {
+	r.values.Set("node_names", strings.Join(names, ","))
 
 	return r
 }
@@ -180,8 +185,8 @@ func (r *PostVotingConfigExclusions) NodeNames(v string) *PostVotingConfigExclus
 // from the voting configuration. If specified, you may not also specify
 // node_names.
 // API name: node_ids
-func (r *PostVotingConfigExclusions) NodeIds(v string) *PostVotingConfigExclusions {
-	r.values.Set("node_ids", v)
+func (r *PostVotingConfigExclusions) NodeIds(ids ...string) *PostVotingConfigExclusions {
+	r.values.Set("node_ids", strings.Join(ids, ","))
 
 	return r
 }
@@ -191,8 +196,8 @@ func (r *PostVotingConfigExclusions) NodeIds(v string) *PostVotingConfigExclusio
 // returning. If the timeout expires before the appropriate condition
 // is satisfied, the request fails and returns an error.
 // API name: timeout
-func (r *PostVotingConfigExclusions) Timeout(v string) *PostVotingConfigExclusions {
-	r.values.Set("timeout", v)
+func (r *PostVotingConfigExclusions) Timeout(duration string) *PostVotingConfigExclusions {
+	r.values.Set("timeout", duration)
 
 	return r
 }

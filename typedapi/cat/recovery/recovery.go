@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns information about index shard recoveries, both on-going completed.
 package recovery
@@ -36,7 +36,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
 )
 
@@ -186,6 +185,10 @@ func (r Recovery) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -217,36 +220,38 @@ func (r *Recovery) Header(key, value string) *Recovery {
 	return r
 }
 
-// Index Comma-separated list or wildcard expression of index names to limit the
-// returned information
+// Index A comma-separated list of data streams, indices, and aliases used to limit
+// the request.
+// Supports wildcards (`*`). To target all data streams and indices, omit this
+// parameter or use `*` or `_all`.
 // API Name: index
-func (r *Recovery) Index(v string) *Recovery {
+func (r *Recovery) Index(index string) *Recovery {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
-// ActiveOnly If `true`, the response only includes ongoing shard recoveries
+// ActiveOnly If `true`, the response only includes ongoing shard recoveries.
 // API name: active_only
-func (r *Recovery) ActiveOnly(b bool) *Recovery {
-	r.values.Set("active_only", strconv.FormatBool(b))
+func (r *Recovery) ActiveOnly(activeonly bool) *Recovery {
+	r.values.Set("active_only", strconv.FormatBool(activeonly))
 
 	return r
 }
 
-// Bytes The unit in which to display byte values
+// Bytes The unit used to display byte values.
 // API name: bytes
-func (r *Recovery) Bytes(enum bytes.Bytes) *Recovery {
-	r.values.Set("bytes", enum.String())
+func (r *Recovery) Bytes(bytes bytes.Bytes) *Recovery {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
 
-// Detailed If `true`, the response includes detailed information about shard recoveries
+// Detailed If `true`, the response includes detailed information about shard recoveries.
 // API name: detailed
-func (r *Recovery) Detailed(b bool) *Recovery {
-	r.values.Set("detailed", strconv.FormatBool(b))
+func (r *Recovery) Detailed(detailed bool) *Recovery {
+	r.values.Set("detailed", strconv.FormatBool(detailed))
 
 	return r
 }

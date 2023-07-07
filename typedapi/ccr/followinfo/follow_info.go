@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves information about all follower indices, including parameters and
 // status for each follower index
@@ -180,6 +180,10 @@ func (r FollowInfo) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,9 +218,9 @@ func (r *FollowInfo) Header(key, value string) *FollowInfo {
 // Index A comma-separated list of index patterns; use `_all` to perform the operation
 // on all indices
 // API Name: index
-func (r *FollowInfo) Index(v string) *FollowInfo {
+func (r *FollowInfo) Index(index string) *FollowInfo {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }

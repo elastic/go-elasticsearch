@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package putmapping
 
@@ -26,10 +26,14 @@ import (
 
 // Response holds the response body struct for the package putmapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/put_mapping/IndicesPutMappingResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/indices/put_mapping/IndicesPutMappingResponse.ts#L22-L24
 
 type Response struct {
-	Shards_ *types.ShardStatistics `json:"_shards,omitempty"`
+
+	// Acknowledged For a successful response, this value is always true. On failure, an
+	// exception is returned instead.
+	Acknowledged bool                   `json:"acknowledged"`
+	Shards_      *types.ShardStatistics `json:"_shards,omitempty"`
 }
 
 // NewResponse returns a Response

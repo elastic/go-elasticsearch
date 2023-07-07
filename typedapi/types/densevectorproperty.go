@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // DenseVectorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/complex.ts#L51-L57
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/complex.ts#L51-L57
 type DenseVectorProperty struct {
 	Dims         int                            `json:"dims"`
 	Dynamic      *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
@@ -727,7 +725,11 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "type":
@@ -740,6 +742,27 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s DenseVectorProperty) MarshalJSON() ([]byte, error) {
+	type innerDenseVectorProperty DenseVectorProperty
+	tmp := innerDenseVectorProperty{
+		Dims:         s.Dims,
+		Dynamic:      s.Dynamic,
+		Fields:       s.Fields,
+		IgnoreAbove:  s.IgnoreAbove,
+		Index:        s.Index,
+		IndexOptions: s.IndexOptions,
+		Meta:         s.Meta,
+		Properties:   s.Properties,
+		Similarity:   s.Similarity,
+		Type:         s.Type,
+	}
+
+	tmp.Type = "dense_vector"
+
+	return json.Marshal(tmp)
+}
+
 // NewDenseVectorProperty returns a DenseVectorProperty.
 func NewDenseVectorProperty() *DenseVectorProperty {
 	r := &DenseVectorProperty{
@@ -747,8 +770,6 @@ func NewDenseVectorProperty() *DenseVectorProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "dense_vector"
 
 	return r
 }

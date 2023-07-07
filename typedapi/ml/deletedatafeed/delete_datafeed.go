@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes an existing datafeed.
 package deletedatafeed
@@ -179,6 +179,10 @@ func (r DeleteDatafeed) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,9 +219,9 @@ func (r *DeleteDatafeed) Header(key, value string) *DeleteDatafeed {
 // hyphens, and underscores. It must start and end with alphanumeric
 // characters.
 // API Name: datafeedid
-func (r *DeleteDatafeed) DatafeedId(v string) *DeleteDatafeed {
+func (r *DeleteDatafeed) DatafeedId(datafeedid string) *DeleteDatafeed {
 	r.paramSet |= datafeedidMask
-	r.datafeedid = v
+	r.datafeedid = datafeedid
 
 	return r
 }
@@ -225,8 +229,8 @@ func (r *DeleteDatafeed) DatafeedId(v string) *DeleteDatafeed {
 // Force Use to forcefully delete a started datafeed; this method is quicker than
 // stopping and deleting the datafeed.
 // API name: force
-func (r *DeleteDatafeed) Force(b bool) *DeleteDatafeed {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *DeleteDatafeed) Force(force bool) *DeleteDatafeed {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }

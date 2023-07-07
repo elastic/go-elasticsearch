@@ -16,75 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
-import (
-	"bytes"
-	"errors"
-	"io"
-
-	"encoding/json"
-)
-
 // DataframeOutlierDetectionSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/evaluate_data_frame/types.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/ml/evaluate_data_frame/types.ts#L24-L29
 type DataframeOutlierDetectionSummary struct {
 	AucRoc          *DataframeEvaluationSummaryAucRoc   `json:"auc_roc,omitempty"`
 	ConfusionMatrix map[string]ConfusionMatrixThreshold `json:"confusion_matrix,omitempty"`
 	Precision       map[string]Float64                  `json:"precision,omitempty"`
 	Recall          map[string]Float64                  `json:"recall,omitempty"`
-}
-
-func (s *DataframeOutlierDetectionSummary) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "auc_roc":
-			if err := dec.Decode(&s.AucRoc); err != nil {
-				return err
-			}
-
-		case "confusion_matrix":
-			if s.ConfusionMatrix == nil {
-				s.ConfusionMatrix = make(map[string]ConfusionMatrixThreshold, 0)
-			}
-			if err := dec.Decode(&s.ConfusionMatrix); err != nil {
-				return err
-			}
-
-		case "precision":
-			if s.Precision == nil {
-				s.Precision = make(map[string]Float64, 0)
-			}
-			if err := dec.Decode(&s.Precision); err != nil {
-				return err
-			}
-
-		case "recall":
-			if s.Recall == nil {
-				s.Recall = make(map[string]Float64, 0)
-			}
-			if err := dec.Decode(&s.Recall); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
 }
 
 // NewDataframeOutlierDetectionSummary returns a DataframeOutlierDetectionSummary.

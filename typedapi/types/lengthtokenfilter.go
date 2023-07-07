@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // LengthTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L243-L247
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L243-L247
 type LengthTokenFilter struct {
 	Max     *int    `json:"max,omitempty"`
 	Min     *int    `json:"min,omitempty"`
@@ -102,11 +100,24 @@ func (s *LengthTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s LengthTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerLengthTokenFilter LengthTokenFilter
+	tmp := innerLengthTokenFilter{
+		Max:     s.Max,
+		Min:     s.Min,
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "length"
+
+	return json.Marshal(tmp)
+}
+
 // NewLengthTokenFilter returns a LengthTokenFilter.
 func NewLengthTokenFilter() *LengthTokenFilter {
 	r := &LengthTokenFilter{}
-
-	r.Type = "length"
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Unfreezes an index. When a frozen index is unfrozen, the index goes through
 // the normal recovery process and becomes writeable again.
@@ -37,6 +37,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -179,6 +180,10 @@ func (r Unfreeze) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -212,9 +217,9 @@ func (r *Unfreeze) Header(key, value string) *Unfreeze {
 
 // Index The name of the index to unfreeze
 // API Name: index
-func (r *Unfreeze) Index(v string) *Unfreeze {
+func (r *Unfreeze) Index(index string) *Unfreeze {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -222,8 +227,8 @@ func (r *Unfreeze) Index(v string) *Unfreeze {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *Unfreeze) AllowNoIndices(b bool) *Unfreeze {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *Unfreeze) AllowNoIndices(allownoindices bool) *Unfreeze {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -231,8 +236,12 @@ func (r *Unfreeze) AllowNoIndices(b bool) *Unfreeze {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Unfreeze) ExpandWildcards(v string) *Unfreeze {
-	r.values.Set("expand_wildcards", v)
+func (r *Unfreeze) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Unfreeze {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -240,32 +249,32 @@ func (r *Unfreeze) ExpandWildcards(v string) *Unfreeze {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *Unfreeze) IgnoreUnavailable(b bool) *Unfreeze {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Unfreeze) IgnoreUnavailable(ignoreunavailable bool) *Unfreeze {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *Unfreeze) MasterTimeout(v string) *Unfreeze {
-	r.values.Set("master_timeout", v)
+func (r *Unfreeze) MasterTimeout(duration string) *Unfreeze {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Unfreeze) Timeout(v string) *Unfreeze {
-	r.values.Set("timeout", v)
+func (r *Unfreeze) Timeout(duration string) *Unfreeze {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // WaitForActiveShards Sets the number of active shards to wait for before the operation returns.
 // API name: wait_for_active_shards
-func (r *Unfreeze) WaitForActiveShards(v string) *Unfreeze {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Unfreeze) WaitForActiveShards(waitforactiveshards string) *Unfreeze {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
 
 	return r
 }

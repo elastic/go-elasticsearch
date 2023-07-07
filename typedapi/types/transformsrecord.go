@@ -16,87 +16,111 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // TransformsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/transforms/types.ts#L22-L187
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cat/transforms/types.ts#L22-L197
 type TransformsRecord struct {
-	// ChangesLastDetectionTime changes last detected time
+	// ChangesLastDetectionTime The timestamp when changes were last detected in the source indices.
 	ChangesLastDetectionTime string `json:"changes_last_detection_time,omitempty"`
-	// Checkpoint checkpoint
+	// Checkpoint The sequence number for the checkpoint.
 	Checkpoint *string `json:"checkpoint,omitempty"`
-	// CheckpointDurationTimeExpAvg exponential average checkpoint processing time (milliseconds)
+	// CheckpointDurationTimeExpAvg The exponential moving average of the duration of the checkpoint, in
+	// milliseconds.
 	CheckpointDurationTimeExpAvg *string `json:"checkpoint_duration_time_exp_avg,omitempty"`
-	// CheckpointProgress progress of the checkpoint
+	// CheckpointProgress The progress of the next checkpoint that is currently in progress.
 	CheckpointProgress string `json:"checkpoint_progress,omitempty"`
-	// CreateTime transform creation time
+	// CreateTime The time the transform was created.
 	CreateTime *string `json:"create_time,omitempty"`
-	// DeleteTime total time spent deleting documents
+	// DeleteTime The total time spent deleting documents, in milliseconds.
 	DeleteTime *string `json:"delete_time,omitempty"`
-	// Description description
+	// Description The description of the transform.
 	Description *string `json:"description,omitempty"`
-	// DestIndex destination index
+	// DestIndex The destination index for the transform.
 	DestIndex *string `json:"dest_index,omitempty"`
-	// DocsPerSecond docs per second
+	// DocsPerSecond The number of input documents per second.
 	DocsPerSecond *string `json:"docs_per_second,omitempty"`
-	// DocumentsDeleted the number of documents deleted from the destination index
+	// DocumentsDeleted The number of documents deleted from the destination index due to the
+	// retention policy for the transform.
 	DocumentsDeleted *string `json:"documents_deleted,omitempty"`
-	// DocumentsIndexed the number of documents written to the destination index
+	// DocumentsIndexed The number of documents that have been indexed into the destination index for
+	// the transform.
 	DocumentsIndexed *string `json:"documents_indexed,omitempty"`
-	// DocumentsProcessed the number of documents read from source indices and processed
+	// DocumentsProcessed The number of documents that have been processed from the source index of the
+	// transform.
 	DocumentsProcessed *string `json:"documents_processed,omitempty"`
-	// Frequency frequency of transform
+	// Frequency The interval between checks for changes in the source indices when the
+	// transform is running continuously.
 	Frequency *string `json:"frequency,omitempty"`
-	// Id the id
+	// Id The transform identifier.
 	Id *string `json:"id,omitempty"`
-	// IndexFailure total number of index failures
+	// IndexFailure The total number of indexing failures.
 	IndexFailure *string `json:"index_failure,omitempty"`
-	// IndexTime total time spent indexing documents
+	// IndexTime The total time spent indexing documents, in milliseconds.
 	IndexTime *string `json:"index_time,omitempty"`
-	// IndexTotal total number of index phases done by the transform
+	// IndexTotal The total number of index operations done by the transform.
 	IndexTotal *string `json:"index_total,omitempty"`
-	// IndexedDocumentsExpAvg exponential average number of documents indexed
+	// IndexedDocumentsExpAvg The exponential moving average of the number of new documents that have been
+	// indexed.
 	IndexedDocumentsExpAvg *string `json:"indexed_documents_exp_avg,omitempty"`
-	// LastSearchTime last time transform searched for updates
+	// LastSearchTime The timestamp of the last search in the source indices.
+	// This field is shown only if the transform is running.
 	LastSearchTime string `json:"last_search_time,omitempty"`
-	// MaxPageSearchSize max page search size
+	// MaxPageSearchSize The initial page size that is used for the composite aggregation for each
+	// checkpoint.
 	MaxPageSearchSize *string `json:"max_page_search_size,omitempty"`
-	// PagesProcessed the number of pages processed
+	// PagesProcessed The number of search or bulk index operations processed.
+	// Documents are processed in batches instead of individually.
 	PagesProcessed *string `json:"pages_processed,omitempty"`
-	// Pipeline transform pipeline
+	// Pipeline The unique identifier for the ingest pipeline.
 	Pipeline *string `json:"pipeline,omitempty"`
-	// ProcessedDocumentsExpAvg exponential average number of documents processed
+	// ProcessedDocumentsExpAvg The exponential moving average of the number of documents that have been
+	// processed.
 	ProcessedDocumentsExpAvg *string `json:"processed_documents_exp_avg,omitempty"`
-	// ProcessingTime the total time spent processing documents
+	// ProcessingTime The total time spent processing results, in milliseconds.
 	ProcessingTime *string `json:"processing_time,omitempty"`
-	// Reason reason for the current state
+	// Reason If a transform has a `failed` state, these details describe the reason for
+	// failure.
 	Reason *string `json:"reason,omitempty"`
-	// SearchFailure total number of search failures
+	// SearchFailure The total number of search failures.
 	SearchFailure *string `json:"search_failure,omitempty"`
-	// SearchTime total search time
+	// SearchTime The total amount of search time, in milliseconds.
 	SearchTime *string `json:"search_time,omitempty"`
-	// SearchTotal total number of search phases
+	// SearchTotal The total number of search operations on the source index for the transform.
 	SearchTotal *string `json:"search_total,omitempty"`
-	// SourceIndex source index
+	// SourceIndex The source indices for the transform.
 	SourceIndex *string `json:"source_index,omitempty"`
-	// State transform state
+	// State The status of the transform.
+	// Returned values include:
+	// `aborting`: The transform is aborting.
+	// `failed: The transform failed. For more information about the failure, check
+	// the `reason` field.
+	// `indexing`: The transform is actively processing data and creating new
+	// documents.
+	// `started`: The transform is running but not actively indexing data.
+	// `stopped`: The transform is stopped.
+	// `stopping`: The transform is stopping.
 	State *string `json:"state,omitempty"`
-	// TransformType batch or continuous transform
+	// TransformType The type of transform: `batch` or `continuous`.
 	TransformType *string `json:"transform_type,omitempty"`
-	// TriggerCount the number of times the transform has been triggered
+	// TriggerCount The number of times the transform has been triggered by the scheduler.
+	// For example, the scheduler triggers the transform indexer to check for
+	// updates or ingest new data at an interval specified in the `frequency`
+	// property.
 	TriggerCount *string `json:"trigger_count,omitempty"`
-	// Version the version of Elasticsearch when the transform was created
+	// Version The version of Elasticsearch that existed on the node when the transform was
+	// created.
 	Version *string `json:"version,omitempty"`
 }
 
@@ -120,7 +144,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ChangesLastDetectionTime = o
 
 		case "checkpoint", "c":
@@ -128,7 +156,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Checkpoint = &o
 
 		case "checkpoint_duration_time_exp_avg", "cdtea", "checkpointTimeExpAvg":
@@ -136,7 +168,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CheckpointDurationTimeExpAvg = &o
 
 		case "checkpoint_progress", "cp", "checkpointProgress":
@@ -144,7 +180,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CheckpointProgress = o
 
 		case "create_time", "ct", "createTime":
@@ -152,7 +192,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.CreateTime = &o
 
 		case "delete_time", "dtime":
@@ -160,7 +204,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DeleteTime = &o
 
 		case "description", "d":
@@ -168,7 +216,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Description = &o
 
 		case "dest_index", "di", "destIndex":
@@ -176,7 +228,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DestIndex = &o
 
 		case "docs_per_second", "dps":
@@ -184,7 +240,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DocsPerSecond = &o
 
 		case "documents_deleted", "docd":
@@ -192,7 +252,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DocumentsDeleted = &o
 
 		case "documents_indexed", "doci":
@@ -200,7 +264,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DocumentsIndexed = &o
 
 		case "documents_processed", "docp", "documentsProcessed":
@@ -208,7 +276,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.DocumentsProcessed = &o
 
 		case "frequency", "f":
@@ -216,7 +288,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Frequency = &o
 
 		case "id":
@@ -229,7 +305,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexFailure = &o
 
 		case "index_time", "itime":
@@ -237,7 +317,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexTime = &o
 
 		case "index_total", "it":
@@ -245,7 +329,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexTotal = &o
 
 		case "indexed_documents_exp_avg", "idea":
@@ -253,7 +341,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexedDocumentsExpAvg = &o
 
 		case "last_search_time", "lst", "lastSearchTime":
@@ -261,7 +353,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.LastSearchTime = o
 
 		case "max_page_search_size", "mpsz":
@@ -269,7 +365,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.MaxPageSearchSize = &o
 
 		case "pages_processed", "pp":
@@ -277,7 +377,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.PagesProcessed = &o
 
 		case "pipeline", "p":
@@ -285,7 +389,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Pipeline = &o
 
 		case "processed_documents_exp_avg", "pdea":
@@ -293,7 +401,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ProcessedDocumentsExpAvg = &o
 
 		case "processing_time", "pt":
@@ -301,7 +413,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ProcessingTime = &o
 
 		case "reason", "r":
@@ -309,7 +425,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Reason = &o
 
 		case "search_failure", "sf":
@@ -317,7 +437,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchFailure = &o
 
 		case "search_time", "stime":
@@ -325,7 +449,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchTime = &o
 
 		case "search_total", "st":
@@ -333,7 +461,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchTotal = &o
 
 		case "source_index", "si", "sourceIndex":
@@ -341,7 +473,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SourceIndex = &o
 
 		case "state", "s":
@@ -349,7 +485,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.State = &o
 
 		case "transform_type", "tt":
@@ -357,7 +497,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TransformType = &o
 
 		case "trigger_count", "tc":
@@ -365,7 +509,11 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.TriggerCount = &o
 
 		case "version", "v":

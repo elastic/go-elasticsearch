@@ -16,28 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationalternate"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationcasefirst"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationdecomposition"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icucollationstrength"
-
-	"bytes"
-	"errors"
-	"io"
-
-	"strconv"
-
-	"encoding/json"
 )
 
 // IcuCollationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/icu-plugin.ts#L51-L65
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/icu-plugin.ts#L51-L65
 type IcuCollationTokenFilter struct {
 	Alternate              *icucollationalternate.IcuCollationAlternate         `json:"alternate,omitempty"`
 	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"caseFirst,omitempty"`
@@ -99,7 +97,11 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Country = &o
 
 		case "decomposition":
@@ -126,7 +128,11 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Language = &o
 
 		case "numeric":
@@ -148,7 +154,11 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Rules = &o
 
 		case "strength":
@@ -166,7 +176,11 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.VariableTop = &o
 
 		case "variant":
@@ -174,7 +188,11 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Variant = &o
 
 		case "version":
@@ -187,11 +205,34 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s IcuCollationTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerIcuCollationTokenFilter IcuCollationTokenFilter
+	tmp := innerIcuCollationTokenFilter{
+		Alternate:              s.Alternate,
+		CaseFirst:              s.CaseFirst,
+		CaseLevel:              s.CaseLevel,
+		Country:                s.Country,
+		Decomposition:          s.Decomposition,
+		HiraganaQuaternaryMode: s.HiraganaQuaternaryMode,
+		Language:               s.Language,
+		Numeric:                s.Numeric,
+		Rules:                  s.Rules,
+		Strength:               s.Strength,
+		Type:                   s.Type,
+		VariableTop:            s.VariableTop,
+		Variant:                s.Variant,
+		Version:                s.Version,
+	}
+
+	tmp.Type = "icu_collation"
+
+	return json.Marshal(tmp)
+}
+
 // NewIcuCollationTokenFilter returns a IcuCollationTokenFilter.
 func NewIcuCollationTokenFilter() *IcuCollationTokenFilter {
 	r := &IcuCollationTokenFilter{}
-
-	r.Type = "icu_collation"
 
 	return r
 }

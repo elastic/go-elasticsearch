@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // ClusterRemoteProxyInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L41-L50
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/remote_info/ClusterRemoteInfoResponse.ts#L41-L50
 type ClusterRemoteProxyInfo struct {
 	Connected                 bool     `json:"connected"`
 	InitialConnectTimeout     Duration `json:"initial_connect_timeout"`
@@ -120,7 +118,11 @@ func (s *ClusterRemoteProxyInfo) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ProxyAddress = o
 
 		case "server_name":
@@ -128,7 +130,11 @@ func (s *ClusterRemoteProxyInfo) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ServerName = o
 
 		case "skip_unavailable":
@@ -150,11 +156,28 @@ func (s *ClusterRemoteProxyInfo) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s ClusterRemoteProxyInfo) MarshalJSON() ([]byte, error) {
+	type innerClusterRemoteProxyInfo ClusterRemoteProxyInfo
+	tmp := innerClusterRemoteProxyInfo{
+		Connected:                 s.Connected,
+		InitialConnectTimeout:     s.InitialConnectTimeout,
+		MaxProxySocketConnections: s.MaxProxySocketConnections,
+		Mode:                      s.Mode,
+		NumProxySocketsConnected:  s.NumProxySocketsConnected,
+		ProxyAddress:              s.ProxyAddress,
+		ServerName:                s.ServerName,
+		SkipUnavailable:           s.SkipUnavailable,
+	}
+
+	tmp.Mode = "proxy"
+
+	return json.Marshal(tmp)
+}
+
 // NewClusterRemoteProxyInfo returns a ClusterRemoteProxyInfo.
 func NewClusterRemoteProxyInfo() *ClusterRemoteProxyInfo {
 	r := &ClusterRemoteProxyInfo{}
-
-	r.Mode = "proxy"
 
 	return r
 }

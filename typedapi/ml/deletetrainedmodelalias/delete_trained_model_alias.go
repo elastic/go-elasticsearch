@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes a model alias that refers to the trained model
 package deletetrainedmodelalias
@@ -194,6 +194,10 @@ func (r DeleteTrainedModelAlias) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,18 +231,18 @@ func (r *DeleteTrainedModelAlias) Header(key, value string) *DeleteTrainedModelA
 
 // ModelAlias The model alias to delete.
 // API Name: modelalias
-func (r *DeleteTrainedModelAlias) ModelAlias(v string) *DeleteTrainedModelAlias {
+func (r *DeleteTrainedModelAlias) ModelAlias(modelalias string) *DeleteTrainedModelAlias {
 	r.paramSet |= modelaliasMask
-	r.modelalias = v
+	r.modelalias = modelalias
 
 	return r
 }
 
 // ModelId The trained model ID to which the model alias refers.
 // API Name: modelid
-func (r *DeleteTrainedModelAlias) ModelId(v string) *DeleteTrainedModelAlias {
+func (r *DeleteTrainedModelAlias) ModelId(modelid string) *DeleteTrainedModelAlias {
 	r.paramSet |= modelidMask
-	r.modelid = v
+	r.modelid = modelid
 
 	return r
 }

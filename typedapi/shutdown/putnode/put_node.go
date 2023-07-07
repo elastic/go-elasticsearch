@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Adds a node to be shut down. Designed for indirect use by ECE/ESS and ECK.
 // Direct use is not supported.
@@ -35,8 +35,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/type_"
 )
 
 const (
@@ -55,8 +55,9 @@ type PutNode struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -88,6 +89,8 @@ func New(tp elastictransport.Interface) *PutNode {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -117,9 +120,19 @@ func (r *PutNode) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -127,6 +140,7 @@ func (r *PutNode) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -217,6 +231,10 @@ func (r PutNode) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -229,9 +247,9 @@ func (r *PutNode) Header(key, value string) *PutNode {
 
 // NodeId The node id of node to be shut down
 // API Name: nodeid
-func (r *PutNode) NodeId(v string) *PutNode {
+func (r *PutNode) NodeId(nodeid string) *PutNode {
 	r.paramSet |= nodeidMask
-	r.nodeid = v
+	r.nodeid = nodeid
 
 	return r
 }
@@ -239,8 +257,8 @@ func (r *PutNode) NodeId(v string) *PutNode {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *PutNode) MasterTimeout(enum timeunit.TimeUnit) *PutNode {
-	r.values.Set("master_timeout", enum.String())
+func (r *PutNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *PutNode {
+	r.values.Set("master_timeout", mastertimeout.String())
 
 	return r
 }
@@ -248,8 +266,67 @@ func (r *PutNode) MasterTimeout(enum timeunit.TimeUnit) *PutNode {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *PutNode) Timeout(enum timeunit.TimeUnit) *PutNode {
-	r.values.Set("timeout", enum.String())
+func (r *PutNode) Timeout(timeout timeunit.TimeUnit) *PutNode {
+	r.values.Set("timeout", timeout.String())
+
+	return r
+}
+
+// AllocationDelay Only valid if type is restart.
+// Controls how long Elasticsearch will wait for the node to restart and join
+// the cluster before reassigning its shards to other nodes.
+// This works the same as delaying allocation with the
+// index.unassigned.node_left.delayed_timeout setting.
+// If you specify both a restart allocation delay and an index-level allocation
+// delay, the longer of the two is used.
+// API name: allocation_delay
+func (r *PutNode) AllocationDelay(allocationdelay string) *PutNode {
+
+	r.req.AllocationDelay = &allocationdelay
+
+	return r
+}
+
+// Reason A human-readable reason that the node is being shut down.
+// This field provides information for other cluster operators; it does not
+// affect the shut down process.
+// API name: reason
+func (r *PutNode) Reason(reason string) *PutNode {
+
+	r.req.Reason = reason
+
+	return r
+}
+
+// TargetNodeName Only valid if type is replace.
+// Specifies the name of the node that is replacing the node being shut down.
+// Shards from the shut down node are only allowed to be allocated to the target
+// node, and no other data will be allocated to the target node.
+// During relocation of data certain allocation rules are ignored, such as disk
+// watermarks or user attribute filtering rules.
+// API name: target_node_name
+func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
+
+	r.req.TargetNodeName = &targetnodename
+
+	return r
+}
+
+// Type Valid values are restart, remove, or replace.
+// Use restart when you need to temporarily shut down a node to perform an
+// upgrade, make configuration changes, or perform other maintenance.
+// Because the node is expected to rejoin the cluster, data is not migrated off
+// of the node.
+// Use remove when you need to permanently remove a node from the cluster.
+// The node is not marked ready for shutdown until data is migrated off of the
+// node Use replace to do a 1:1 replacement of a node with another node.
+// Certain allocation decisions will be ignored (such as disk watermarks) in the
+// interest of true replacement of the source node with the target node.
+// During a replace-type shutdown, rollover and index creation may result in
+// unassigned shards, and shrink may fail until the replacement is complete.
+// API name: type
+func (r *PutNode) Type(type_ type_.Type) *PutNode {
+	r.req.Type = type_
 
 	return r
 }

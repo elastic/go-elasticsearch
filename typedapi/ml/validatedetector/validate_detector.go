@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Validates an anomaly detection detector.
 package validatedetector
@@ -48,8 +48,9 @@ type ValidateDetector struct {
 
 	buf *gobytes.Buffer
 
-	req *types.Detector
-	raw io.Reader
+	req      *types.Detector
+	deferred []func(request *types.Detector) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -105,9 +106,19 @@ func (r *ValidateDetector) HttpRequest(ctx context.Context) (*http.Request, erro
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +126,7 @@ func (r *ValidateDetector) HttpRequest(ctx context.Context) (*http.Request, erro
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -204,6 +216,10 @@ func (r ValidateDetector) Do(ctx context.Context) (*Response, error) {
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
 		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
 	}
 
 	return nil, errorResponse

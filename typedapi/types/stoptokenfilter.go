@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // StopTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L97-L103
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L97-L103
 type StopTokenFilter struct {
 	IgnoreCase     *bool    `json:"ignore_case,omitempty"`
 	RemoveTrailing *bool    `json:"remove_trailing,omitempty"`
@@ -106,7 +104,11 @@ func (s *StopTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.StopwordsPath = &o
 
 		case "type":
@@ -124,11 +126,26 @@ func (s *StopTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s StopTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerStopTokenFilter StopTokenFilter
+	tmp := innerStopTokenFilter{
+		IgnoreCase:     s.IgnoreCase,
+		RemoveTrailing: s.RemoveTrailing,
+		Stopwords:      s.Stopwords,
+		StopwordsPath:  s.StopwordsPath,
+		Type:           s.Type,
+		Version:        s.Version,
+	}
+
+	tmp.Type = "stop"
+
+	return json.Marshal(tmp)
+}
+
 // NewStopTokenFilter returns a StopTokenFilter.
 func NewStopTokenFilter() *StopTokenFilter {
 	r := &StopTokenFilter{}
-
-	r.Type = "stop"
 
 	return r
 }

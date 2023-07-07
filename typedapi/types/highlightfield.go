@@ -16,29 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/boundaryscanner"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterfragmenter"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlighterorder"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertagsschema"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/highlightertype"
-
-	"bytes"
-	"errors"
-	"io"
-
-	"strconv"
-
-	"encoding/json"
 )
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/search/_types/highlighting.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_global/search/_types/highlighting.ts#L88-L92
 type HighlightField struct {
 	Analyzer              Analyzer                                     `json:"analyzer,omitempty"`
 	BoundaryChars         *string                                      `json:"boundary_chars,omitempty"`
@@ -188,7 +186,11 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BoundaryChars = &o
 
 		case "boundary_max_scan":
@@ -217,7 +219,11 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.BoundaryScannerLocale = &o
 
 		case "force_source":

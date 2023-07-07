@@ -16,27 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
-
-	"bytes"
-	"errors"
-	"io"
-
-	"strconv"
-
-	"encoding/json"
 )
 
 // ScaledFloatNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/core.ts#L171-L175
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/core.ts#L174-L178
 type ScaledFloatNumberProperty struct {
 	Boost           *Float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
@@ -838,7 +836,11 @@ func (s *ScaledFloatNumberProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "store":
@@ -884,6 +886,37 @@ func (s *ScaledFloatNumberProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s ScaledFloatNumberProperty) MarshalJSON() ([]byte, error) {
+	type innerScaledFloatNumberProperty ScaledFloatNumberProperty
+	tmp := innerScaledFloatNumberProperty{
+		Boost:               s.Boost,
+		Coerce:              s.Coerce,
+		CopyTo:              s.CopyTo,
+		DocValues:           s.DocValues,
+		Dynamic:             s.Dynamic,
+		Fields:              s.Fields,
+		IgnoreAbove:         s.IgnoreAbove,
+		IgnoreMalformed:     s.IgnoreMalformed,
+		Index:               s.Index,
+		Meta:                s.Meta,
+		NullValue:           s.NullValue,
+		OnScriptError:       s.OnScriptError,
+		Properties:          s.Properties,
+		ScalingFactor:       s.ScalingFactor,
+		Script:              s.Script,
+		Similarity:          s.Similarity,
+		Store:               s.Store,
+		TimeSeriesDimension: s.TimeSeriesDimension,
+		TimeSeriesMetric:    s.TimeSeriesMetric,
+		Type:                s.Type,
+	}
+
+	tmp.Type = "scaled_float"
+
+	return json.Marshal(tmp)
+}
+
 // NewScaledFloatNumberProperty returns a ScaledFloatNumberProperty.
 func NewScaledFloatNumberProperty() *ScaledFloatNumberProperty {
 	r := &ScaledFloatNumberProperty{
@@ -891,8 +924,6 @@ func NewScaledFloatNumberProperty() *ScaledFloatNumberProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "scaled_float"
 
 	return r
 }

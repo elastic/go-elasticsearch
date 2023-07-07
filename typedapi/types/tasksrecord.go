@@ -16,53 +16,53 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // TasksRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/tasks/types.ts#L22-L101
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cat/tasks/types.ts#L22-L101
 type TasksRecord struct {
-	// Action task action
+	// Action The task action.
 	Action *string `json:"action,omitempty"`
-	// Description task action
+	// Description The task action description.
 	Description *string `json:"description,omitempty"`
-	// Id id of the task with the node
+	// Id The identifier of the task with the node.
 	Id *string `json:"id,omitempty"`
-	// Ip ip address
+	// Ip The IP address for the node.
 	Ip *string `json:"ip,omitempty"`
-	// Node node name
+	// Node The node name.
 	Node *string `json:"node,omitempty"`
-	// NodeId unique node id
+	// NodeId The unique node identifier.
 	NodeId *string `json:"node_id,omitempty"`
-	// ParentTaskId parent task id
+	// ParentTaskId The parent task identifier.
 	ParentTaskId *string `json:"parent_task_id,omitempty"`
-	// Port bound transport port
+	// Port The bound transport port for the node.
 	Port *string `json:"port,omitempty"`
-	// RunningTime running time
+	// RunningTime The running time.
 	RunningTime *string `json:"running_time,omitempty"`
-	// RunningTimeNs running time ns
+	// RunningTimeNs The running time in nanoseconds.
 	RunningTimeNs *string `json:"running_time_ns,omitempty"`
-	// StartTime start time in ms
+	// StartTime The start time in milliseconds.
 	StartTime *string `json:"start_time,omitempty"`
-	// TaskId unique task id
+	// TaskId The unique task identifier.
 	TaskId *string `json:"task_id,omitempty"`
-	// Timestamp start time in HH:MM:SS
+	// Timestamp The start time in `HH:MM:SS` format.
 	Timestamp *string `json:"timestamp,omitempty"`
-	// Type task type
+	// Type The task type.
 	Type *string `json:"type,omitempty"`
-	// Version es version
+	// Version The Elasticsearch version.
 	Version *string `json:"version,omitempty"`
-	// XOpaqueId X-Opaque-ID header
+	// XOpaqueId The X-Opaque-ID header.
 	XOpaqueId *string `json:"x_opaque_id,omitempty"`
 }
 
@@ -86,7 +86,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Action = &o
 
 		case "description", "desc":
@@ -94,7 +98,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Description = &o
 
 		case "id":
@@ -107,7 +115,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Ip = &o
 
 		case "node", "n":
@@ -115,7 +127,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Node = &o
 
 		case "node_id", "ni":
@@ -128,7 +144,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ParentTaskId = &o
 
 		case "port", "po":
@@ -136,7 +156,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Port = &o
 
 		case "running_time", "time":
@@ -144,7 +168,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RunningTime = &o
 
 		case "running_time_ns":
@@ -152,7 +180,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.RunningTimeNs = &o
 
 		case "start_time", "start":
@@ -160,7 +192,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.StartTime = &o
 
 		case "task_id", "ti":
@@ -173,7 +209,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Timestamp = &o
 
 		case "type", "ty":
@@ -181,7 +221,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = &o
 
 		case "version", "v":
@@ -194,7 +238,11 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.XOpaqueId = &o
 
 		}

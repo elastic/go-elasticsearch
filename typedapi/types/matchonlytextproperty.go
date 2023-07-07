@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // MatchOnlyTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/core.ts#L208-L233
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/core.ts#L211-L236
 type MatchOnlyTextProperty struct {
 	// CopyTo Allows you to copy the values of multiple fields into a group
 	// field, which can then be queried as a single field.
@@ -391,14 +390,27 @@ func (s *MatchOnlyTextProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s MatchOnlyTextProperty) MarshalJSON() ([]byte, error) {
+	type innerMatchOnlyTextProperty MatchOnlyTextProperty
+	tmp := innerMatchOnlyTextProperty{
+		CopyTo: s.CopyTo,
+		Fields: s.Fields,
+		Meta:   s.Meta,
+		Type:   s.Type,
+	}
+
+	tmp.Type = "match_only_text"
+
+	return json.Marshal(tmp)
+}
+
 // NewMatchOnlyTextProperty returns a MatchOnlyTextProperty.
 func NewMatchOnlyTextProperty() *MatchOnlyTextProperty {
 	r := &MatchOnlyTextProperty{
 		Fields: make(map[string]Property, 0),
 		Meta:   make(map[string]string, 0),
 	}
-
-	r.Type = "match_only_text"
 
 	return r
 }

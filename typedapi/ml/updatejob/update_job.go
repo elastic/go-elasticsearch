@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Updates certain properties of an anomaly detection job.
 package updatejob
@@ -52,8 +52,9 @@ type UpdateJob struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *UpdateJob {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *UpdateJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *UpdateJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -215,6 +229,10 @@ func (r UpdateJob) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +245,168 @@ func (r *UpdateJob) Header(key, value string) *UpdateJob {
 
 // JobId Identifier for the job.
 // API Name: jobid
-func (r *UpdateJob) JobId(v string) *UpdateJob {
+func (r *UpdateJob) JobId(jobid string) *UpdateJob {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
+
+	return r
+}
+
+// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
+// there is insufficient machine learning node capacity for it to be
+// immediately assigned to a node. If `false` and a machine learning node
+// with capacity to run the job cannot immediately be found, the open
+// anomaly detection jobs API returns an error. However, this is also
+// subject to the cluster-wide `xpack.ml.max_lazy_ml_nodes` setting. If this
+// option is set to `true`, the open anomaly detection jobs API does not
+// return an error and the job waits in the opening state until sufficient
+// machine learning node capacity is available.
+// API name: allow_lazy_open
+func (r *UpdateJob) AllowLazyOpen(allowlazyopen bool) *UpdateJob {
+	r.req.AllowLazyOpen = &allowlazyopen
+
+	return r
+}
+
+// API name: analysis_limits
+func (r *UpdateJob) AnalysisLimits(analysislimits *types.AnalysisMemoryLimit) *UpdateJob {
+
+	r.req.AnalysisLimits = analysislimits
+
+	return r
+}
+
+// BackgroundPersistInterval Advanced configuration option. The time between each periodic persistence
+// of the model.
+// The default value is a randomized value between 3 to 4 hours, which
+// avoids all jobs persisting at exactly the same time. The smallest allowed
+// value is 1 hour.
+// For very large models (several GB), persistence could take 10-20 minutes,
+// so do not set the value too low.
+// If the job is open when you make the update, you must stop the datafeed,
+// close the job, then reopen the job and restart the datafeed for the
+// changes to take effect.
+// API name: background_persist_interval
+func (r *UpdateJob) BackgroundPersistInterval(duration types.Duration) *UpdateJob {
+	r.req.BackgroundPersistInterval = duration
+
+	return r
+}
+
+// API name: categorization_filters
+func (r *UpdateJob) CategorizationFilters(categorizationfilters ...string) *UpdateJob {
+	r.req.CategorizationFilters = categorizationfilters
+
+	return r
+}
+
+// CustomSettings Advanced configuration option. Contains custom meta data about the job.
+// For example, it can contain custom URL information as shown in Adding
+// custom URLs to machine learning results.
+// API name: custom_settings
+func (r *UpdateJob) CustomSettings(customsettings map[string]json.RawMessage) *UpdateJob {
+
+	r.req.CustomSettings = customsettings
+
+	return r
+}
+
+// DailyModelSnapshotRetentionAfterDays Advanced configuration option, which affects the automatic removal of old
+// model snapshots for this job. It specifies a period of time (in days)
+// after which only the first snapshot per day is retained. This period is
+// relative to the timestamp of the most recent snapshot for this job. Valid
+// values range from 0 to `model_snapshot_retention_days`. For jobs created
+// before version 7.8.0, the default value matches
+// `model_snapshot_retention_days`.
+// API name: daily_model_snapshot_retention_after_days
+func (r *UpdateJob) DailyModelSnapshotRetentionAfterDays(dailymodelsnapshotretentionafterdays int64) *UpdateJob {
+
+	r.req.DailyModelSnapshotRetentionAfterDays = &dailymodelsnapshotretentionafterdays
+
+	return r
+}
+
+// Description A description of the job.
+// API name: description
+func (r *UpdateJob) Description(description string) *UpdateJob {
+
+	r.req.Description = &description
+
+	return r
+}
+
+// Detectors An array of detector update objects.
+// API name: detectors
+func (r *UpdateJob) Detectors(detectors ...types.Detector) *UpdateJob {
+	r.req.Detectors = detectors
+
+	return r
+}
+
+// Groups A list of job groups. A job can belong to no groups or many.
+// API name: groups
+func (r *UpdateJob) Groups(groups ...string) *UpdateJob {
+	r.req.Groups = groups
+
+	return r
+}
+
+// API name: model_plot_config
+func (r *UpdateJob) ModelPlotConfig(modelplotconfig *types.ModelPlotConfig) *UpdateJob {
+
+	r.req.ModelPlotConfig = modelplotconfig
+
+	return r
+}
+
+// API name: model_prune_window
+func (r *UpdateJob) ModelPruneWindow(duration types.Duration) *UpdateJob {
+	r.req.ModelPruneWindow = duration
+
+	return r
+}
+
+// ModelSnapshotRetentionDays Advanced configuration option, which affects the automatic removal of old
+// model snapshots for this job. It specifies the maximum period of time (in
+// days) that snapshots are retained. This period is relative to the
+// timestamp of the most recent snapshot for this job.
+// API name: model_snapshot_retention_days
+func (r *UpdateJob) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *UpdateJob {
+
+	r.req.ModelSnapshotRetentionDays = &modelsnapshotretentiondays
+
+	return r
+}
+
+// PerPartitionCategorization Settings related to how categorization interacts with partition fields.
+// API name: per_partition_categorization
+func (r *UpdateJob) PerPartitionCategorization(perpartitioncategorization *types.PerPartitionCategorization) *UpdateJob {
+
+	r.req.PerPartitionCategorization = perpartitioncategorization
+
+	return r
+}
+
+// RenormalizationWindowDays Advanced configuration option. The period over which adjustments to the
+// score are applied, as new data is seen.
+// API name: renormalization_window_days
+func (r *UpdateJob) RenormalizationWindowDays(renormalizationwindowdays int64) *UpdateJob {
+
+	r.req.RenormalizationWindowDays = &renormalizationwindowdays
+
+	return r
+}
+
+// ResultsRetentionDays Advanced configuration option. The period of time (in days) that results
+// are retained. Age is calculated relative to the timestamp of the latest
+// bucket result. If this property has a non-null value, once per day at
+// 00:30 (server time), results that are the specified number of days older
+// than the latest bucket result are deleted from Elasticsearch. The default
+// value is null, which means all results are retained.
+// API name: results_retention_days
+func (r *UpdateJob) ResultsRetentionDays(resultsretentiondays int64) *UpdateJob {
+
+	r.req.ResultsRetentionDays = &resultsretentiondays
 
 	return r
 }

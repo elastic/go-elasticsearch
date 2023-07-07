@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Clears all or specific caches for one or more indices.
 package clearcache
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -184,6 +185,10 @@ func (r ClearCache) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -217,9 +222,9 @@ func (r *ClearCache) Header(key, value string) *ClearCache {
 
 // Index A comma-separated list of index name to limit the operation
 // API Name: index
-func (r *ClearCache) Index(v string) *ClearCache {
+func (r *ClearCache) Index(index string) *ClearCache {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -227,8 +232,8 @@ func (r *ClearCache) Index(v string) *ClearCache {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *ClearCache) AllowNoIndices(b bool) *ClearCache {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *ClearCache) AllowNoIndices(allownoindices bool) *ClearCache {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -236,16 +241,20 @@ func (r *ClearCache) AllowNoIndices(b bool) *ClearCache {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *ClearCache) ExpandWildcards(v string) *ClearCache {
-	r.values.Set("expand_wildcards", v)
+func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ClearCache {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // Fielddata Clear field data
 // API name: fielddata
-func (r *ClearCache) Fielddata(b bool) *ClearCache {
-	r.values.Set("fielddata", strconv.FormatBool(b))
+func (r *ClearCache) Fielddata(fielddata bool) *ClearCache {
+	r.values.Set("fielddata", strconv.FormatBool(fielddata))
 
 	return r
 }
@@ -253,8 +262,8 @@ func (r *ClearCache) Fielddata(b bool) *ClearCache {
 // Fields A comma-separated list of fields to clear when using the `fielddata`
 // parameter (default: all)
 // API name: fields
-func (r *ClearCache) Fields(v string) *ClearCache {
-	r.values.Set("fields", v)
+func (r *ClearCache) Fields(fields ...string) *ClearCache {
+	r.values.Set("fields", strings.Join(fields, ","))
 
 	return r
 }
@@ -262,24 +271,24 @@ func (r *ClearCache) Fields(v string) *ClearCache {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *ClearCache) IgnoreUnavailable(b bool) *ClearCache {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *ClearCache) IgnoreUnavailable(ignoreunavailable bool) *ClearCache {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // Query Clear query caches
 // API name: query
-func (r *ClearCache) Query(b bool) *ClearCache {
-	r.values.Set("query", strconv.FormatBool(b))
+func (r *ClearCache) Query(query bool) *ClearCache {
+	r.values.Set("query", strconv.FormatBool(query))
 
 	return r
 }
 
 // Request Clear request cache
 // API name: request
-func (r *ClearCache) Request(b bool) *ClearCache {
-	r.values.Set("request", strconv.FormatBool(b))
+func (r *ClearCache) Request(request bool) *ClearCache {
+	r.values.Set("request", strconv.FormatBool(request))
 
 	return r
 }

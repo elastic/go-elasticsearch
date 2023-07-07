@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns information about existing templates.
 package templates
@@ -183,6 +183,10 @@ func (r Templates) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,11 +218,12 @@ func (r *Templates) Header(key, value string) *Templates {
 	return r
 }
 
-// Name A pattern that returned template names must match
+// Name The name of the template to return.
+// Accepts wildcard expressions. If omitted, all templates are returned.
 // API Name: name
-func (r *Templates) Name(v string) *Templates {
+func (r *Templates) Name(name string) *Templates {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

@@ -16,26 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // ClusterOperatingSystemArchitecture type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L230-L233
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/stats/types.ts#L404-L413
 type ClusterOperatingSystemArchitecture struct {
-	Arch  string `json:"arch"`
-	Count int    `json:"count"`
+	// Arch Name of an architecture used by one or more selected nodes.
+	Arch string `json:"arch"`
+	// Count Number of selected nodes using the architecture.
+	Count int `json:"count"`
 }
 
 func (s *ClusterOperatingSystemArchitecture) UnmarshalJSON(data []byte) error {
@@ -58,7 +58,11 @@ func (s *ClusterOperatingSystemArchitecture) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Arch = o
 
 		case "count":

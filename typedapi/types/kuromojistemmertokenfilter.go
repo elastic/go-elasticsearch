@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // KuromojiStemmerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/kuromoji-plugin.ts#L47-L50
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/kuromoji-plugin.ts#L47-L50
 type KuromojiStemmerTokenFilter struct {
 	MinimumLength int     `json:"minimum_length"`
 	Type          string  `json:"type,omitempty"`
@@ -85,11 +83,23 @@ func (s *KuromojiStemmerTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s KuromojiStemmerTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerKuromojiStemmerTokenFilter KuromojiStemmerTokenFilter
+	tmp := innerKuromojiStemmerTokenFilter{
+		MinimumLength: s.MinimumLength,
+		Type:          s.Type,
+		Version:       s.Version,
+	}
+
+	tmp.Type = "kuromoji_stemmer"
+
+	return json.Marshal(tmp)
+}
+
 // NewKuromojiStemmerTokenFilter returns a KuromojiStemmerTokenFilter.
 func NewKuromojiStemmerTokenFilter() *KuromojiStemmerTokenFilter {
 	r := &KuromojiStemmerTokenFilter{}
-
-	r.Type = "kuromoji_stemmer"
 
 	return r
 }

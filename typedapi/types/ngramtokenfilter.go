@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // NGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L266-L271
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L266-L271
 type NGramTokenFilter struct {
 	MaxGram          *int    `json:"max_gram,omitempty"`
 	MinGram          *int    `json:"min_gram,omitempty"`
@@ -117,11 +115,25 @@ func (s *NGramTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s NGramTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerNGramTokenFilter NGramTokenFilter
+	tmp := innerNGramTokenFilter{
+		MaxGram:          s.MaxGram,
+		MinGram:          s.MinGram,
+		PreserveOriginal: s.PreserveOriginal,
+		Type:             s.Type,
+		Version:          s.Version,
+	}
+
+	tmp.Type = "ngram"
+
+	return json.Marshal(tmp)
+}
+
 // NewNGramTokenFilter returns a NGramTokenFilter.
 func NewNGramTokenFilter() *NGramTokenFilter {
 	r := &NGramTokenFilter{}
-
-	r.Type = "ngram"
 
 	return r
 }

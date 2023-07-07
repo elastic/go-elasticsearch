@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Enables searching rolled-up data using the standard query DSL.
 package rollupsearch
@@ -53,8 +53,9 @@ type RollupSearch struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +86,8 @@ func New(tp elastictransport.Interface) *RollupSearch {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +117,19 @@ func (r *RollupSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +137,7 @@ func (r *RollupSearch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -214,6 +228,10 @@ func (r RollupSearch) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +245,9 @@ func (r *RollupSearch) Header(key, value string) *RollupSearch {
 // Index The indices or index-pattern(s) (containing rollup or regular data) that
 // should be searched
 // API Name: index
-func (r *RollupSearch) Index(v string) *RollupSearch {
+func (r *RollupSearch) Index(index string) *RollupSearch {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -237,8 +255,8 @@ func (r *RollupSearch) Index(v string) *RollupSearch {
 // RestTotalHitsAsInt Indicates whether hits.total should be rendered as an integer or an object in
 // the rest search response
 // API name: rest_total_hits_as_int
-func (r *RollupSearch) RestTotalHitsAsInt(b bool) *RollupSearch {
-	r.values.Set("rest_total_hits_as_int", strconv.FormatBool(b))
+func (r *RollupSearch) RestTotalHitsAsInt(resttotalhitsasint bool) *RollupSearch {
+	r.values.Set("rest_total_hits_as_int", strconv.FormatBool(resttotalhitsasint))
 
 	return r
 }
@@ -246,8 +264,32 @@ func (r *RollupSearch) RestTotalHitsAsInt(b bool) *RollupSearch {
 // TypedKeys Specify whether aggregation and suggester names should be prefixed by their
 // respective types in the response
 // API name: typed_keys
-func (r *RollupSearch) TypedKeys(b bool) *RollupSearch {
-	r.values.Set("typed_keys", strconv.FormatBool(b))
+func (r *RollupSearch) TypedKeys(typedkeys bool) *RollupSearch {
+	r.values.Set("typed_keys", strconv.FormatBool(typedkeys))
+
+	return r
+}
+
+// API name: aggregations
+func (r *RollupSearch) Aggregations(aggregations map[string]types.Aggregations) *RollupSearch {
+
+	r.req.Aggregations = aggregations
+
+	return r
+}
+
+// API name: query
+func (r *RollupSearch) Query(query *types.Query) *RollupSearch {
+
+	r.req.Query = query
+
+	return r
+}
+
+// Size Must be zero if set, as rollups work on pre-aggregated data
+// API name: size
+func (r *RollupSearch) Size(size int) *RollupSearch {
+	r.req.Size = &size
 
 	return r
 }

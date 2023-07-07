@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package invalidateapikey
 
@@ -27,14 +27,29 @@ import (
 
 // Request holds the request body struct for the package invalidateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L37
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L66
 type Request struct {
-	Id        *string  `json:"id,omitempty"`
-	Ids       []string `json:"ids,omitempty"`
-	Name      *string  `json:"name,omitempty"`
-	Owner     *bool    `json:"owner,omitempty"`
-	RealmName *string  `json:"realm_name,omitempty"`
-	Username  *string  `json:"username,omitempty"`
+	Id *string `json:"id,omitempty"`
+	// Ids A list of API key ids.
+	// This parameter cannot be used with any of `name`, `realm_name`, or
+	// `username`.
+	Ids []string `json:"ids,omitempty"`
+	// Name An API key name.
+	// This parameter cannot be used with any of `ids`, `realm_name` or `username`.
+	Name *string `json:"name,omitempty"`
+	// Owner Can be used to query API keys owned by the currently authenticated user.
+	// The `realm_name` or `username` parameters cannot be specified when this
+	// parameter is set to `true` as they are assumed to be the currently
+	// authenticated ones.
+	Owner *bool `json:"owner,omitempty"`
+	// RealmName The name of an authentication realm.
+	// This parameter cannot be used with either `ids` or `name`, or when `owner`
+	// flag is set to `true`.
+	RealmName *string `json:"realm_name,omitempty"`
+	// Username The username of a user.
+	// This parameter cannot be used with either `ids` or `name`, or when `owner`
+	// flag is set to `true`.
+	Username *string `json:"username,omitempty"`
 }
 
 // NewRequest returns a Request

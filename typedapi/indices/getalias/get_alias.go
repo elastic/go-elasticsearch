@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns an alias.
 package getalias
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -187,7 +188,7 @@ func (r GetAlias) Do(ctx context.Context) (Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 || res.StatusCode == 404 {
+	if res.StatusCode < 299 {
 		err = json.NewDecoder(res.Body).Decode(&response)
 		if err != nil {
 			return nil, err
@@ -196,10 +197,38 @@ func (r GetAlias) Do(ctx context.Context) (Response, error) {
 		return response, nil
 	}
 
+	if res.StatusCode == 404 {
+		data, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		errorResponse := types.NewElasticsearchError()
+		err = json.NewDecoder(gobytes.NewReader(data)).Decode(errorResponse)
+		if err != nil {
+			return nil, err
+		}
+
+		if errorResponse.Status == 0 {
+			err = json.NewDecoder(gobytes.NewReader(data)).Decode(response)
+			if err != nil {
+				return nil, err
+			}
+
+			return response, nil
+		}
+
+		return nil, errorResponse
+	}
+
 	errorResponse := types.NewElasticsearchError()
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
 		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
 	}
 
 	return nil, errorResponse
@@ -235,18 +264,18 @@ func (r *GetAlias) Header(key, value string) *GetAlias {
 
 // Name A comma-separated list of alias names to return
 // API Name: name
-func (r *GetAlias) Name(v string) *GetAlias {
+func (r *GetAlias) Name(name string) *GetAlias {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // Index A comma-separated list of index names to filter aliases
 // API Name: index
-func (r *GetAlias) Index(v string) *GetAlias {
+func (r *GetAlias) Index(index string) *GetAlias {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -254,8 +283,8 @@ func (r *GetAlias) Index(v string) *GetAlias {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *GetAlias) AllowNoIndices(b bool) *GetAlias {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *GetAlias) AllowNoIndices(allownoindices bool) *GetAlias {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -263,8 +292,12 @@ func (r *GetAlias) AllowNoIndices(b bool) *GetAlias {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *GetAlias) ExpandWildcards(v string) *GetAlias {
-	r.values.Set("expand_wildcards", v)
+func (r *GetAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetAlias {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -272,8 +305,8 @@ func (r *GetAlias) ExpandWildcards(v string) *GetAlias {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *GetAlias) IgnoreUnavailable(b bool) *GetAlias {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *GetAlias) IgnoreUnavailable(ignoreunavailable bool) *GetAlias {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
@@ -281,8 +314,8 @@ func (r *GetAlias) IgnoreUnavailable(b bool) *GetAlias {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *GetAlias) Local(b bool) *GetAlias {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *GetAlias) Local(local bool) *GetAlias {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package get
 
@@ -26,10 +26,26 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/async_search/get/AsyncSearchGetResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/async_search/get/AsyncSearchGetResponse.ts#L22-L24
 
 type Response struct {
-	Response types.AsyncSearch `json:"response"`
+
+	// ExpirationTime Indicates when the async search will expire.
+	ExpirationTime         types.DateTime `json:"expiration_time,omitempty"`
+	ExpirationTimeInMillis int64          `json:"expiration_time_in_millis"`
+	Id                     *string        `json:"id,omitempty"`
+	// IsPartial When the query is no longer running, this property indicates whether the
+	// search failed or was successfully completed on all shards.
+	// While the query is running, `is_partial` is always set to `true`.
+	IsPartial bool `json:"is_partial"`
+	// IsRunning Indicates whether the search is still running or has completed.
+	// NOTE: If the search failed after some shards returned their results or the
+	// node that is coordinating the async search dies, results may be partial even
+	// though `is_running` is `false`.
+	IsRunning         bool              `json:"is_running"`
+	Response          types.AsyncSearch `json:"response"`
+	StartTime         types.DateTime    `json:"start_time,omitempty"`
+	StartTimeInMillis int64             `json:"start_time_in_millis"`
 }
 
 // NewResponse returns a Response

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns high-level overview of cluster statistics.
 package stats
@@ -186,6 +186,10 @@ func (r Stats) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -220,28 +224,29 @@ func (r *Stats) Header(key, value string) *Stats {
 // NodeId Comma-separated list of node filters used to limit returned information.
 // Defaults to all nodes in the cluster.
 // API Name: nodeid
-func (r *Stats) NodeId(v string) *Stats {
+func (r *Stats) NodeId(nodeid string) *Stats {
 	r.paramSet |= nodeidMask
-	r.nodeid = v
+	r.nodeid = nodeid
 
 	return r
 }
 
-// FlatSettings Return settings in flat format (default: false)
+// FlatSettings If `true`, returns settings in flat format.
 // API name: flat_settings
-func (r *Stats) FlatSettings(b bool) *Stats {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *Stats) FlatSettings(flatsettings bool) *Stats {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
 
-// Timeout Period to wait for each node to respond. If a node does not respond before
-// its timeout expires, the response does not include its stats. However, timed
-// out nodes are included in the response’s _nodes.failed property. Defaults to
-// no timeout.
+// Timeout Period to wait for each node to respond.
+// If a node does not respond before its timeout expires, the response does not
+// include its stats.
+// However, timed out nodes are included in the response’s `_nodes.failed`
+// property. Defaults to no timeout.
 // API name: timeout
-func (r *Stats) Timeout(v string) *Stats {
-	r.values.Set("timeout", v)
+func (r *Stats) Timeout(duration string) *Stats {
+	r.values.Set("timeout", duration)
 
 	return r
 }

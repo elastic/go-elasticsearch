@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Deletes a script.
 package deletescript
@@ -176,6 +176,10 @@ func (r DeleteScript) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -209,25 +213,25 @@ func (r *DeleteScript) Header(key, value string) *DeleteScript {
 
 // Id Script ID
 // API Name: id
-func (r *DeleteScript) Id(v string) *DeleteScript {
+func (r *DeleteScript) Id(id string) *DeleteScript {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *DeleteScript) MasterTimeout(v string) *DeleteScript {
-	r.values.Set("master_timeout", v)
+func (r *DeleteScript) MasterTimeout(duration string) *DeleteScript {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *DeleteScript) Timeout(v string) *DeleteScript {
-	r.values.Set("timeout", v)
+func (r *DeleteScript) Timeout(duration string) *DeleteScript {
+	r.values.Set("timeout", duration)
 
 	return r
 }

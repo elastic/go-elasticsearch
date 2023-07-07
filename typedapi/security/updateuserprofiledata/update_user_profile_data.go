@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Update application specific data for the user profile of the given unique ID.
 package updateuserprofiledata
@@ -34,7 +34,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -54,8 +53,9 @@ type UpdateUserProfileData struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -86,6 +86,8 @@ func New(tp elastictransport.Interface) *UpdateUserProfileData {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -115,9 +117,19 @@ func (r *UpdateUserProfileData) HttpRequest(ctx context.Context) (*http.Request,
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -125,6 +137,7 @@ func (r *UpdateUserProfileData) HttpRequest(ctx context.Context) (*http.Request,
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -217,6 +230,10 @@ func (r UpdateUserProfileData) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -229,25 +246,25 @@ func (r *UpdateUserProfileData) Header(key, value string) *UpdateUserProfileData
 
 // Uid A unique identifier for the user profile.
 // API Name: uid
-func (r *UpdateUserProfileData) Uid(v string) *UpdateUserProfileData {
+func (r *UpdateUserProfileData) Uid(uid string) *UpdateUserProfileData {
 	r.paramSet |= uidMask
-	r.uid = v
+	r.uid = uid
 
 	return r
 }
 
 // IfSeqNo Only perform the operation if the document has this sequence number.
 // API name: if_seq_no
-func (r *UpdateUserProfileData) IfSeqNo(v string) *UpdateUserProfileData {
-	r.values.Set("if_seq_no", v)
+func (r *UpdateUserProfileData) IfSeqNo(sequencenumber string) *UpdateUserProfileData {
+	r.values.Set("if_seq_no", sequencenumber)
 
 	return r
 }
 
 // IfPrimaryTerm Only perform the operation if the document has this primary term.
 // API name: if_primary_term
-func (r *UpdateUserProfileData) IfPrimaryTerm(v string) *UpdateUserProfileData {
-	r.values.Set("if_primary_term", v)
+func (r *UpdateUserProfileData) IfPrimaryTerm(ifprimaryterm string) *UpdateUserProfileData {
+	r.values.Set("if_primary_term", ifprimaryterm)
 
 	return r
 }
@@ -257,8 +274,28 @@ func (r *UpdateUserProfileData) IfPrimaryTerm(v string) *UpdateUserProfileData {
 // operation
 // visible to search, if 'false' do nothing with refreshes.
 // API name: refresh
-func (r *UpdateUserProfileData) Refresh(enum refresh.Refresh) *UpdateUserProfileData {
-	r.values.Set("refresh", enum.String())
+func (r *UpdateUserProfileData) Refresh(refresh refresh.Refresh) *UpdateUserProfileData {
+	r.values.Set("refresh", refresh.String())
+
+	return r
+}
+
+// Data Non-searchable data that you want to associate with the user profile.
+// This field supports a nested data structure.
+// API name: data
+func (r *UpdateUserProfileData) Data(data map[string]json.RawMessage) *UpdateUserProfileData {
+
+	r.req.Data = data
+
+	return r
+}
+
+// Labels Searchable data that you want to associate with the user profile. This
+// field supports a nested data structure.
+// API name: labels
+func (r *UpdateUserProfileData) Labels(labels map[string]json.RawMessage) *UpdateUserProfileData {
+
+	r.req.Labels = labels
 
 	return r
 }

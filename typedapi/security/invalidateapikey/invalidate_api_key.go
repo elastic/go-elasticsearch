@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Invalidates one or more API keys.
 package invalidateapikey
@@ -48,8 +48,9 @@ type InvalidateApiKey struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *InvalidateApiKey {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *InvalidateApiKey) HttpRequest(ctx context.Context) (*http.Request, erro
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *InvalidateApiKey) HttpRequest(ctx context.Context) (*http.Request, erro
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -202,12 +216,74 @@ func (r InvalidateApiKey) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the InvalidateApiKey headers map.
 func (r *InvalidateApiKey) Header(key, value string) *InvalidateApiKey {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// API name: id
+func (r *InvalidateApiKey) Id(id string) *InvalidateApiKey {
+	r.req.Id = &id
+
+	return r
+}
+
+// Ids A list of API key ids.
+// This parameter cannot be used with any of `name`, `realm_name`, or
+// `username`.
+// API name: ids
+func (r *InvalidateApiKey) Ids(ids ...string) *InvalidateApiKey {
+	r.req.Ids = ids
+
+	return r
+}
+
+// Name An API key name.
+// This parameter cannot be used with any of `ids`, `realm_name` or `username`.
+// API name: name
+func (r *InvalidateApiKey) Name(name string) *InvalidateApiKey {
+	r.req.Name = &name
+
+	return r
+}
+
+// Owner Can be used to query API keys owned by the currently authenticated user.
+// The `realm_name` or `username` parameters cannot be specified when this
+// parameter is set to `true` as they are assumed to be the currently
+// authenticated ones.
+// API name: owner
+func (r *InvalidateApiKey) Owner(owner bool) *InvalidateApiKey {
+	r.req.Owner = &owner
+
+	return r
+}
+
+// RealmName The name of an authentication realm.
+// This parameter cannot be used with either `ids` or `name`, or when `owner`
+// flag is set to `true`.
+// API name: realm_name
+func (r *InvalidateApiKey) RealmName(realmname string) *InvalidateApiKey {
+
+	r.req.RealmName = &realmname
+
+	return r
+}
+
+// Username The username of a user.
+// This parameter cannot be used with either `ids` or `name`, or when `owner`
+// flag is set to `true`.
+// API name: username
+func (r *InvalidateApiKey) Username(username string) *InvalidateApiKey {
+	r.req.Username = &username
 
 	return r
 }

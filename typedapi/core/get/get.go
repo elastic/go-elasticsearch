@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns a document.
 package get
@@ -36,7 +36,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
@@ -181,10 +180,38 @@ func (r Get) Do(ctx context.Context) (*Response, error) {
 		return response, nil
 	}
 
+	if res.StatusCode == 404 {
+		data, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		errorResponse := types.NewElasticsearchError()
+		err = json.NewDecoder(gobytes.NewReader(data)).Decode(errorResponse)
+		if err != nil {
+			return nil, err
+		}
+
+		if errorResponse.Status == 0 {
+			err = json.NewDecoder(gobytes.NewReader(data)).Decode(response)
+			if err != nil {
+				return nil, err
+			}
+
+			return response, nil
+		}
+
+		return nil, errorResponse
+	}
+
 	errorResponse := types.NewElasticsearchError()
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
 		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
 	}
 
 	return nil, errorResponse
@@ -220,18 +247,18 @@ func (r *Get) Header(key, value string) *Get {
 
 // Id Unique identifier of the document.
 // API Name: id
-func (r *Get) Id(v string) *Get {
+func (r *Get) Id(id string) *Get {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Index Name of the index that contains the document.
 // API Name: index
-func (r *Get) Index(v string) *Get {
+func (r *Get) Index(index string) *Get {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -239,16 +266,16 @@ func (r *Get) Index(v string) *Get {
 // Preference Specifies the node or shard the operation should be performed on. Random by
 // default.
 // API name: preference
-func (r *Get) Preference(v string) *Get {
-	r.values.Set("preference", v)
+func (r *Get) Preference(preference string) *Get {
+	r.values.Set("preference", preference)
 
 	return r
 }
 
 // Realtime Boolean) If true, the request is real-time as opposed to near-real-time.
 // API name: realtime
-func (r *Get) Realtime(b bool) *Get {
-	r.values.Set("realtime", strconv.FormatBool(b))
+func (r *Get) Realtime(realtime bool) *Get {
+	r.values.Set("realtime", strconv.FormatBool(realtime))
 
 	return r
 }
@@ -256,16 +283,16 @@ func (r *Get) Realtime(b bool) *Get {
 // Refresh If true, Elasticsearch refreshes the affected shards to make this operation
 // visible to search. If false, do nothing with refreshes.
 // API name: refresh
-func (r *Get) Refresh(b bool) *Get {
-	r.values.Set("refresh", strconv.FormatBool(b))
+func (r *Get) Refresh(refresh bool) *Get {
+	r.values.Set("refresh", strconv.FormatBool(refresh))
 
 	return r
 }
 
 // Routing Target the specified primary shard.
 // API name: routing
-func (r *Get) Routing(v string) *Get {
-	r.values.Set("routing", v)
+func (r *Get) Routing(routing string) *Get {
+	r.values.Set("routing", routing)
 
 	return r
 }
@@ -273,32 +300,32 @@ func (r *Get) Routing(v string) *Get {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return.
 // API name: _source
-func (r *Get) Source_(v string) *Get {
-	r.values.Set("_source", v)
+func (r *Get) Source_(sourceconfigparam string) *Get {
+	r.values.Set("_source", sourceconfigparam)
 
 	return r
 }
 
 // SourceExcludes_ A comma-separated list of source fields to exclude in the response.
 // API name: _source_excludes
-func (r *Get) SourceExcludes_(v string) *Get {
-	r.values.Set("_source_excludes", v)
+func (r *Get) SourceExcludes_(fields ...string) *Get {
+	r.values.Set("_source_excludes", strings.Join(fields, ","))
 
 	return r
 }
 
 // SourceIncludes_ A comma-separated list of source fields to include in the response.
 // API name: _source_includes
-func (r *Get) SourceIncludes_(v string) *Get {
-	r.values.Set("_source_includes", v)
+func (r *Get) SourceIncludes_(fields ...string) *Get {
+	r.values.Set("_source_includes", strings.Join(fields, ","))
 
 	return r
 }
 
 // StoredFields A comma-separated list of stored fields to return in the response
 // API name: stored_fields
-func (r *Get) StoredFields(v string) *Get {
-	r.values.Set("stored_fields", v)
+func (r *Get) StoredFields(fields ...string) *Get {
+	r.values.Set("stored_fields", strings.Join(fields, ","))
 
 	return r
 }
@@ -306,16 +333,16 @@ func (r *Get) StoredFields(v string) *Get {
 // Version Explicit version number for concurrency control. The specified version must
 // match the current version of the document for the request to succeed.
 // API name: version
-func (r *Get) Version(v string) *Get {
-	r.values.Set("version", v)
+func (r *Get) Version(versionnumber string) *Get {
+	r.values.Set("version", versionnumber)
 
 	return r
 }
 
 // VersionType Specific version type: internal, external, external_gte.
 // API name: version_type
-func (r *Get) VersionType(enum versiontype.VersionType) *Get {
-	r.values.Set("version_type", enum.String())
+func (r *Get) VersionType(versiontype versiontype.VersionType) *Get {
+	r.values.Set("version_type", versiontype.String())
 
 	return r
 }

@@ -16,27 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeseriesmetrictype"
-
-	"bytes"
-	"errors"
-	"io"
-
-	"strconv"
-
-	"encoding/json"
 )
 
 // HalfFloatNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/core.ts#L136-L139
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/core.ts#L139-L142
 type HalfFloatNumberProperty struct {
 	Boost           *Float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
@@ -821,7 +819,11 @@ func (s *HalfFloatNumberProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "store":
@@ -867,6 +869,36 @@ func (s *HalfFloatNumberProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s HalfFloatNumberProperty) MarshalJSON() ([]byte, error) {
+	type innerHalfFloatNumberProperty HalfFloatNumberProperty
+	tmp := innerHalfFloatNumberProperty{
+		Boost:               s.Boost,
+		Coerce:              s.Coerce,
+		CopyTo:              s.CopyTo,
+		DocValues:           s.DocValues,
+		Dynamic:             s.Dynamic,
+		Fields:              s.Fields,
+		IgnoreAbove:         s.IgnoreAbove,
+		IgnoreMalformed:     s.IgnoreMalformed,
+		Index:               s.Index,
+		Meta:                s.Meta,
+		NullValue:           s.NullValue,
+		OnScriptError:       s.OnScriptError,
+		Properties:          s.Properties,
+		Script:              s.Script,
+		Similarity:          s.Similarity,
+		Store:               s.Store,
+		TimeSeriesDimension: s.TimeSeriesDimension,
+		TimeSeriesMetric:    s.TimeSeriesMetric,
+		Type:                s.Type,
+	}
+
+	tmp.Type = "half_float"
+
+	return json.Marshal(tmp)
+}
+
 // NewHalfFloatNumberProperty returns a HalfFloatNumberProperty.
 func NewHalfFloatNumberProperty() *HalfFloatNumberProperty {
 	r := &HalfFloatNumberProperty{
@@ -874,8 +906,6 @@ func NewHalfFloatNumberProperty() *HalfFloatNumberProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "half_float"
 
 	return r
 }

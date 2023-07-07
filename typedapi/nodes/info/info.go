@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns information about nodes in the cluster.
 package info
@@ -202,6 +202,10 @@ func (r Info) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -235,9 +239,9 @@ func (r *Info) Header(key, value string) *Info {
 
 // NodeId Comma-separated list of node IDs or names used to limit returned information.
 // API Name: nodeid
-func (r *Info) NodeId(v string) *Info {
+func (r *Info) NodeId(nodeid string) *Info {
 	r.paramSet |= nodeidMask
-	r.nodeid = v
+	r.nodeid = nodeid
 
 	return r
 }
@@ -245,17 +249,17 @@ func (r *Info) NodeId(v string) *Info {
 // Metric Limits the information returned to the specific metrics. Supports a
 // comma-separated list, such as http,ingest.
 // API Name: metric
-func (r *Info) Metric(v string) *Info {
+func (r *Info) Metric(metric string) *Info {
 	r.paramSet |= metricMask
-	r.metric = v
+	r.metric = metric
 
 	return r
 }
 
 // FlatSettings If true, returns settings in flat format.
 // API name: flat_settings
-func (r *Info) FlatSettings(b bool) *Info {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *Info) FlatSettings(flatsettings bool) *Info {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
@@ -263,8 +267,8 @@ func (r *Info) FlatSettings(b bool) *Info {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *Info) MasterTimeout(v string) *Info {
-	r.values.Set("master_timeout", v)
+func (r *Info) MasterTimeout(duration string) *Info {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -272,8 +276,8 @@ func (r *Info) MasterTimeout(v string) *Info {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *Info) Timeout(v string) *Info {
-	r.values.Set("timeout", v)
+func (r *Info) Timeout(duration string) *Info {
+	r.values.Set("timeout", duration)
 
 	return r
 }

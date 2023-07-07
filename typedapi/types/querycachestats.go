@@ -16,32 +16,46 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // QueryCacheStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Stats.ts#L150-L159
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/Stats.ts#L171-L205
 type QueryCacheStats struct {
-	CacheCount        int      `json:"cache_count"`
-	CacheSize         int      `json:"cache_size"`
-	Evictions         int      `json:"evictions"`
-	HitCount          int      `json:"hit_count"`
-	MemorySize        ByteSize `json:"memory_size,omitempty"`
-	MemorySizeInBytes int64    `json:"memory_size_in_bytes"`
-	MissCount         int      `json:"miss_count"`
-	TotalCount        int      `json:"total_count"`
+	// CacheCount Total number of entries added to the query cache across all shards assigned
+	// to selected nodes.
+	// This number includes current and evicted entries.
+	CacheCount int `json:"cache_count"`
+	// CacheSize Total number of entries currently in the query cache across all shards
+	// assigned to selected nodes.
+	CacheSize int `json:"cache_size"`
+	// Evictions Total number of query cache evictions across all shards assigned to selected
+	// nodes.
+	Evictions int `json:"evictions"`
+	// HitCount Total count of query cache hits across all shards assigned to selected nodes.
+	HitCount int `json:"hit_count"`
+	// MemorySize Total amount of memory used for the query cache across all shards assigned to
+	// selected nodes.
+	MemorySize ByteSize `json:"memory_size,omitempty"`
+	// MemorySizeInBytes Total amount, in bytes, of memory used for the query cache across all shards
+	// assigned to selected nodes.
+	MemorySizeInBytes int64 `json:"memory_size_in_bytes"`
+	// MissCount Total count of query cache misses across all shards assigned to selected
+	// nodes.
+	MissCount int `json:"miss_count"`
+	// TotalCount Total count of hits and misses in the query cache across all shards assigned
+	// to selected nodes.
+	TotalCount int `json:"total_count"`
 }
 
 func (s *QueryCacheStats) UnmarshalJSON(data []byte) error {

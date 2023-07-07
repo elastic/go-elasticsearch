@@ -16,31 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
+	"strconv"
 )
 
 // TemplatesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cat/templates/types.ts#L22-L48
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cat/templates/types.ts#L22-L48
 type TemplatesRecord struct {
-	// ComposedOf component templates comprising index template
+	// ComposedOf The component templates that comprise the index template.
 	ComposedOf *string `json:"composed_of,omitempty"`
-	// IndexPatterns template index patterns
+	// IndexPatterns The template index patterns.
 	IndexPatterns *string `json:"index_patterns,omitempty"`
-	// Name template name
+	// Name The template name.
 	Name *string `json:"name,omitempty"`
-	// Order template application order/priority number
+	// Order The template application order or priority number.
 	Order *string `json:"order,omitempty"`
-	// Version version
+	// Version The template version.
 	Version string `json:"version,omitempty"`
 }
 
@@ -64,7 +64,11 @@ func (s *TemplatesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.ComposedOf = &o
 
 		case "index_patterns", "t":
@@ -72,7 +76,11 @@ func (s *TemplatesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.IndexPatterns = &o
 
 		case "name", "n":
@@ -85,7 +93,11 @@ func (s *TemplatesRecord) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Order = &o
 
 		case "version", "v":

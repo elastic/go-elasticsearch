@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates an OAuth 2.0 authentication request as a URL string
 package oidcprepareauthentication
@@ -145,6 +145,11 @@ func (r OidcPrepareAuthentication) Perform(ctx context.Context) (*http.Response,
 	}
 
 	return res, nil
+}
+
+// Do runs the request through the transport, handle the response and returns a oidcprepareauthentication.Response
+func (r OidcPrepareAuthentication) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
 }
 
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.

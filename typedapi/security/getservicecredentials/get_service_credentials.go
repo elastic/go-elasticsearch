@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves information of all service credentials for a service account.
 package getservicecredentials
@@ -188,6 +188,10 @@ func (r GetServiceCredentials) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,18 +225,18 @@ func (r *GetServiceCredentials) Header(key, value string) *GetServiceCredentials
 
 // Namespace Name of the namespace.
 // API Name: namespace
-func (r *GetServiceCredentials) Namespace(v string) *GetServiceCredentials {
+func (r *GetServiceCredentials) Namespace(namespace string) *GetServiceCredentials {
 	r.paramSet |= namespaceMask
-	r.namespace = v
+	r.namespace = namespace
 
 	return r
 }
 
 // Service Name of the service name.
 // API Name: service
-func (r *GetServiceCredentials) Service(v string) *GetServiceCredentials {
+func (r *GetServiceCredentials) Service(service string) *GetServiceCredentials {
 	r.paramSet |= serviceMask
-	r.service = v
+	r.service = service
 
 	return r
 }

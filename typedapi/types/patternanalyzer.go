@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // PatternAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/analyzers.ts#L74-L81
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/analyzers.ts#L74-L81
 type PatternAnalyzer struct {
 	Flags     *string  `json:"flags,omitempty"`
 	Lowercase *bool    `json:"lowercase,omitempty"`
@@ -62,7 +60,11 @@ func (s *PatternAnalyzer) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Flags = &o
 
 		case "lowercase":
@@ -84,7 +86,11 @@ func (s *PatternAnalyzer) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Pattern = o
 
 		case "stopwords":
@@ -118,11 +124,26 @@ func (s *PatternAnalyzer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s PatternAnalyzer) MarshalJSON() ([]byte, error) {
+	type innerPatternAnalyzer PatternAnalyzer
+	tmp := innerPatternAnalyzer{
+		Flags:     s.Flags,
+		Lowercase: s.Lowercase,
+		Pattern:   s.Pattern,
+		Stopwords: s.Stopwords,
+		Type:      s.Type,
+		Version:   s.Version,
+	}
+
+	tmp.Type = "pattern"
+
+	return json.Marshal(tmp)
+}
+
 // NewPatternAnalyzer returns a PatternAnalyzer.
 func NewPatternAnalyzer() *PatternAnalyzer {
 	r := &PatternAnalyzer{}
-
-	r.Type = "pattern"
 
 	return r
 }

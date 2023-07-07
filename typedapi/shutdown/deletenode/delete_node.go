@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Removes a node from the shutdown list. Designed for indirect use by ECE/ESS
 // and ECK. Direct use is not supported.
@@ -36,7 +36,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
@@ -188,6 +187,10 @@ func (r DeleteNode) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,9 +224,9 @@ func (r *DeleteNode) Header(key, value string) *DeleteNode {
 
 // NodeId The node id of node to be removed from the shutdown state
 // API Name: nodeid
-func (r *DeleteNode) NodeId(v string) *DeleteNode {
+func (r *DeleteNode) NodeId(nodeid string) *DeleteNode {
 	r.paramSet |= nodeidMask
-	r.nodeid = v
+	r.nodeid = nodeid
 
 	return r
 }
@@ -231,8 +234,8 @@ func (r *DeleteNode) NodeId(v string) *DeleteNode {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *DeleteNode) MasterTimeout(enum timeunit.TimeUnit) *DeleteNode {
-	r.values.Set("master_timeout", enum.String())
+func (r *DeleteNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *DeleteNode {
+	r.values.Set("master_timeout", mastertimeout.String())
 
 	return r
 }
@@ -240,8 +243,8 @@ func (r *DeleteNode) MasterTimeout(enum timeunit.TimeUnit) *DeleteNode {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *DeleteNode) Timeout(enum timeunit.TimeUnit) *DeleteNode {
-	r.values.Set("timeout", enum.String())
+func (r *DeleteNode) Timeout(timeout timeunit.TimeUnit) *DeleteNode {
+	r.values.Set("timeout", timeout.String())
 
 	return r
 }

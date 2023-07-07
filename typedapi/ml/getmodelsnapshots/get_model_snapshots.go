@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves information about model snapshots.
 package getmodelsnapshots
@@ -55,8 +55,9 @@ type GetModelSnapshots struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -88,6 +89,8 @@ func New(tp elastictransport.Interface) *GetModelSnapshots {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -117,9 +120,19 @@ func (r *GetModelSnapshots) HttpRequest(ctx context.Context) (*http.Request, err
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -127,6 +140,7 @@ func (r *GetModelSnapshots) HttpRequest(ctx context.Context) (*http.Request, err
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -234,6 +248,10 @@ func (r GetModelSnapshots) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -246,9 +264,9 @@ func (r *GetModelSnapshots) Header(key, value string) *GetModelSnapshots {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetModelSnapshots) JobId(v string) *GetModelSnapshots {
+func (r *GetModelSnapshots) JobId(jobid string) *GetModelSnapshots {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
@@ -259,58 +277,65 @@ func (r *GetModelSnapshots) JobId(v string) *GetModelSnapshots {
 // get all snapshots by using `_all`,
 // by specifying `*` as the snapshot ID, or by omitting the snapshot ID.
 // API Name: snapshotid
-func (r *GetModelSnapshots) SnapshotId(v string) *GetModelSnapshots {
+func (r *GetModelSnapshots) SnapshotId(snapshotid string) *GetModelSnapshots {
 	r.paramSet |= snapshotidMask
-	r.snapshotid = v
-
-	return r
-}
-
-// Desc If true, the results are sorted in descending order.
-// API name: desc
-func (r *GetModelSnapshots) Desc(b bool) *GetModelSnapshots {
-	r.values.Set("desc", strconv.FormatBool(b))
-
-	return r
-}
-
-// End Returns snapshots with timestamps earlier than this time.
-// API name: end
-func (r *GetModelSnapshots) End(v string) *GetModelSnapshots {
-	r.values.Set("end", v)
+	r.snapshotid = snapshotid
 
 	return r
 }
 
 // From Skips the specified number of snapshots.
 // API name: from
-func (r *GetModelSnapshots) From(i int) *GetModelSnapshots {
-	r.values.Set("from", strconv.Itoa(i))
+func (r *GetModelSnapshots) From(from int) *GetModelSnapshots {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
 
 // Size Specifies the maximum number of snapshots to obtain.
 // API name: size
-func (r *GetModelSnapshots) Size(i int) *GetModelSnapshots {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *GetModelSnapshots) Size(size int) *GetModelSnapshots {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }
 
-// Sort Specifies the sort field for the requested snapshots. By default, the
-// snapshots are sorted by their timestamp.
+// Desc Refer to the description for the `desc` query parameter.
+// API name: desc
+func (r *GetModelSnapshots) Desc(desc bool) *GetModelSnapshots {
+	r.req.Desc = &desc
+
+	return r
+}
+
+// End Refer to the description for the `end` query parameter.
+// API name: end
+func (r *GetModelSnapshots) End(datetime types.DateTime) *GetModelSnapshots {
+	r.req.End = datetime
+
+	return r
+}
+
+// API name: page
+func (r *GetModelSnapshots) Page(page *types.Page) *GetModelSnapshots {
+
+	r.req.Page = page
+
+	return r
+}
+
+// Sort Refer to the description for the `sort` query parameter.
 // API name: sort
-func (r *GetModelSnapshots) Sort(v string) *GetModelSnapshots {
-	r.values.Set("sort", v)
+func (r *GetModelSnapshots) Sort(field string) *GetModelSnapshots {
+	r.req.Sort = &field
 
 	return r
 }
 
-// Start Returns snapshots with timestamps after this time.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetModelSnapshots) Start(v string) *GetModelSnapshots {
-	r.values.Set("start", v)
+func (r *GetModelSnapshots) Start(datetime types.DateTime) *GetModelSnapshots {
+	r.req.Start = datetime
 
 	return r
 }

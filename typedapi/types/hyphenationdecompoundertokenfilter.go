@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // HyphenationDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L58-L60
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L58-L60
 type HyphenationDecompounderTokenFilter struct {
 	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
 	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
@@ -65,7 +63,11 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.HyphenationPatternsPath = &o
 
 		case "max_subword_size":
@@ -150,7 +152,11 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.WordListPath = &o
 
 		}
@@ -158,11 +164,29 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s HyphenationDecompounderTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerHyphenationDecompounderTokenFilter HyphenationDecompounderTokenFilter
+	tmp := innerHyphenationDecompounderTokenFilter{
+		HyphenationPatternsPath: s.HyphenationPatternsPath,
+		MaxSubwordSize:          s.MaxSubwordSize,
+		MinSubwordSize:          s.MinSubwordSize,
+		MinWordSize:             s.MinWordSize,
+		OnlyLongestMatch:        s.OnlyLongestMatch,
+		Type:                    s.Type,
+		Version:                 s.Version,
+		WordList:                s.WordList,
+		WordListPath:            s.WordListPath,
+	}
+
+	tmp.Type = "hyphenation_decompounder"
+
+	return json.Marshal(tmp)
+}
+
 // NewHyphenationDecompounderTokenFilter returns a HyphenationDecompounderTokenFilter.
 func NewHyphenationDecompounderTokenFilter() *HyphenationDecompounderTokenFilter {
 	r := &HyphenationDecompounderTokenFilter{}
-
-	r.Type = "hyphenation_decompounder"
 
 	return r
 }

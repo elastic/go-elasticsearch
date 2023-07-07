@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves information for API keys using a subset of query DSL
 package queryapikeys
@@ -49,8 +49,9 @@ type QueryApiKeys struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -77,6 +78,8 @@ func New(tp elastictransport.Interface) *QueryApiKeys {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -106,9 +109,19 @@ func (r *QueryApiKeys) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -116,6 +129,7 @@ func (r *QueryApiKeys) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -205,6 +219,10 @@ func (r QueryApiKeys) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,13 +233,65 @@ func (r *QueryApiKeys) Header(key, value string) *QueryApiKeys {
 	return r
 }
 
-// WithLimitedBy Return the snapshot of the owner user's role descriptors
-// associated with the API key. An API key's actual
-// permission is the intersection of its assigned role
+// WithLimitedBy Return the snapshot of the owner user's role descriptors associated with the
+// API key.
+// An API key's actual permission is the intersection of its assigned role
 // descriptors and the owner user's role descriptors.
 // API name: with_limited_by
-func (r *QueryApiKeys) WithLimitedBy(b bool) *QueryApiKeys {
-	r.values.Set("with_limited_by", strconv.FormatBool(b))
+func (r *QueryApiKeys) WithLimitedBy(withlimitedby bool) *QueryApiKeys {
+	r.values.Set("with_limited_by", strconv.FormatBool(withlimitedby))
+
+	return r
+}
+
+// From Starting document offset.
+// By default, you cannot page through more than 10,000 hits using the from and
+// size parameters.
+// To page through more hits, use the `search_after` parameter.
+// API name: from
+func (r *QueryApiKeys) From(from int) *QueryApiKeys {
+	r.req.From = &from
+
+	return r
+}
+
+// Query A query to filter which API keys to return.
+// The query supports a subset of query types, including `match_all`, `bool`,
+// `term`, `terms`, `ids`, `prefix`, `wildcard`, and `range`.
+// You can query all public information associated with an API key.
+// API name: query
+func (r *QueryApiKeys) Query(query *types.Query) *QueryApiKeys {
+
+	r.req.Query = query
+
+	return r
+}
+
+// SearchAfter Search after definition
+// API name: search_after
+func (r *QueryApiKeys) SearchAfter(sortresults ...types.FieldValue) *QueryApiKeys {
+	r.req.SearchAfter = sortresults
+
+	return r
+}
+
+// Size The number of hits to return.
+// By default, you cannot page through more than 10,000 hits using the `from`
+// and `size` parameters.
+// To page through more hits, use the `search_after` parameter.
+// API name: size
+func (r *QueryApiKeys) Size(size int) *QueryApiKeys {
+	r.req.Size = &size
+
+	return r
+}
+
+// Sort Other than `id`, all public fields of an API key are eligible for sorting.
+// In addition, sort can also be applied to the `_doc` field to sort by index
+// order.
+// API name: sort
+func (r *QueryApiKeys) Sort(sorts ...types.SortCombinations) *QueryApiKeys {
+	r.req.Sort = sorts
 
 	return r
 }

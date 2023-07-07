@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package evaluatedataframe
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package evaluatedataframe
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/evaluate_data_frame/MlEvaluateDataFrameResponse.ts#L26-L33
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/ml/evaluate_data_frame/MlEvaluateDataFrameResponse.ts#L26-L33
 
 type Response struct {
 	Classification   *types.DataframeClassificationSummary   `json:"classification,omitempty"`

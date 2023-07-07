@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // LongRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/range.ts#L50-L52
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/range.ts#L50-L52
 type LongRangeProperty struct {
 	Boost       *Float64                       `json:"boost,omitempty"`
 	Coerce      *bool                          `json:"coerce,omitempty"`
@@ -769,7 +767,11 @@ func (s *LongRangeProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "store":
@@ -796,6 +798,30 @@ func (s *LongRangeProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s LongRangeProperty) MarshalJSON() ([]byte, error) {
+	type innerLongRangeProperty LongRangeProperty
+	tmp := innerLongRangeProperty{
+		Boost:       s.Boost,
+		Coerce:      s.Coerce,
+		CopyTo:      s.CopyTo,
+		DocValues:   s.DocValues,
+		Dynamic:     s.Dynamic,
+		Fields:      s.Fields,
+		IgnoreAbove: s.IgnoreAbove,
+		Index:       s.Index,
+		Meta:        s.Meta,
+		Properties:  s.Properties,
+		Similarity:  s.Similarity,
+		Store:       s.Store,
+		Type:        s.Type,
+	}
+
+	tmp.Type = "long_range"
+
+	return json.Marshal(tmp)
+}
+
 // NewLongRangeProperty returns a LongRangeProperty.
 func NewLongRangeProperty() *LongRangeProperty {
 	r := &LongRangeProperty{
@@ -803,8 +829,6 @@ func NewLongRangeProperty() *LongRangeProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "long_range"
 
 	return r
 }

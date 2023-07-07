@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Starts a data frame analytics job.
 package startdataframeanalytics
@@ -188,6 +188,10 @@ func (r StartDataFrameAnalytics) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -223,9 +227,9 @@ func (r *StartDataFrameAnalytics) Header(key, value string) *StartDataFrameAnaly
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and
 // underscores. It must start and end with alphanumeric characters.
 // API Name: id
-func (r *StartDataFrameAnalytics) Id(v string) *StartDataFrameAnalytics {
+func (r *StartDataFrameAnalytics) Id(id string) *StartDataFrameAnalytics {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
@@ -233,8 +237,8 @@ func (r *StartDataFrameAnalytics) Id(v string) *StartDataFrameAnalytics {
 // Timeout Controls the amount of time to wait until the data frame analytics job
 // starts.
 // API name: timeout
-func (r *StartDataFrameAnalytics) Timeout(v string) *StartDataFrameAnalytics {
-	r.values.Set("timeout", v)
+func (r *StartDataFrameAnalytics) Timeout(duration string) *StartDataFrameAnalytics {
+	r.values.Set("timeout", duration)
 
 	return r
 }

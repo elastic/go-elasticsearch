@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves user profiles for the given unique ID(s).
 package getuserprofile
@@ -178,6 +178,10 @@ func (r GetUserProfile) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,9 +215,9 @@ func (r *GetUserProfile) Header(key, value string) *GetUserProfile {
 
 // Uid A unique identifier for the user profile.
 // API Name: uid
-func (r *GetUserProfile) Uid(v ...string) *GetUserProfile {
+func (r *GetUserProfile) Uid(uids ...string) *GetUserProfile {
 	r.paramSet |= uidMask
-	r.uid = strings.Join(v, ",")
+	r.uid = strings.Join(uids, ",")
 
 	return r
 }
@@ -223,8 +227,12 @@ func (r *GetUserProfile) Uid(v ...string) *GetUserProfile {
 // use `data=<key>` to retrieve content nested under the specified `<key>`.
 // By default returns no `data` content.
 // API name: data
-func (r *GetUserProfile) Data(v string) *GetUserProfile {
-	r.values.Set("data", v)
+func (r *GetUserProfile) Data(data ...string) *GetUserProfile {
+	tmp := []string{}
+	for _, item := range data {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("data", strings.Join(tmp, ","))
 
 	return r
 }

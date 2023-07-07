@@ -16,30 +16,39 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // PendingTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/pending_tasks/types.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/pending_tasks/types.ts#L23-L47
 type PendingTask struct {
-	Executing         bool     `json:"executing"`
-	InsertOrder       int      `json:"insert_order"`
-	Priority          string   `json:"priority"`
-	Source            string   `json:"source"`
-	TimeInQueue       Duration `json:"time_in_queue,omitempty"`
-	TimeInQueueMillis int64    `json:"time_in_queue_millis"`
+	// Executing Indicates whether the pending tasks are currently executing or not.
+	Executing bool `json:"executing"`
+	// InsertOrder The number that represents when the task has been inserted into the task
+	// queue.
+	InsertOrder int `json:"insert_order"`
+	// Priority The priority of the pending task.
+	// The valid priorities in descending priority order are: `IMMEDIATE` > `URGENT`
+	// > `HIGH` > `NORMAL` > `LOW` > `LANGUID`.
+	Priority string `json:"priority"`
+	// Source A general description of the cluster task that may include a reason and
+	// origin.
+	Source string `json:"source"`
+	// TimeInQueue The time since the task is waiting for being performed.
+	TimeInQueue Duration `json:"time_in_queue,omitempty"`
+	// TimeInQueueMillis The time expressed in milliseconds since the task is waiting for being
+	// performed.
+	TimeInQueueMillis int64 `json:"time_in_queue_millis"`
 }
 
 func (s *PendingTask) UnmarshalJSON(data []byte) error {
@@ -92,7 +101,11 @@ func (s *PendingTask) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Priority = o
 
 		case "source":
@@ -100,7 +113,11 @@ func (s *PendingTask) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Source = o
 
 		case "time_in_queue":

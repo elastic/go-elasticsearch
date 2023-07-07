@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates or updates an alias.
 package putalias
@@ -54,8 +54,9 @@ type PutAlias struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -89,6 +90,8 @@ func New(tp elastictransport.Interface) *PutAlias {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -118,9 +121,19 @@ func (r *PutAlias) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -128,6 +141,7 @@ func (r *PutAlias) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -230,6 +244,10 @@ func (r PutAlias) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -243,34 +261,70 @@ func (r *PutAlias) Header(key, value string) *PutAlias {
 // Index A comma-separated list of index names the alias should point to (supports
 // wildcards); use `_all` to perform the operation on all indices.
 // API Name: index
-func (r *PutAlias) Index(v string) *PutAlias {
+func (r *PutAlias) Index(index string) *PutAlias {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // Name The name of the alias to be created or updated
 // API Name: name
-func (r *PutAlias) Name(v string) *PutAlias {
+func (r *PutAlias) Name(name string) *PutAlias {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *PutAlias) MasterTimeout(v string) *PutAlias {
-	r.values.Set("master_timeout", v)
+func (r *PutAlias) MasterTimeout(duration string) *PutAlias {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit timestamp for the document
 // API name: timeout
-func (r *PutAlias) Timeout(v string) *PutAlias {
-	r.values.Set("timeout", v)
+func (r *PutAlias) Timeout(duration string) *PutAlias {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// API name: filter
+func (r *PutAlias) Filter(filter *types.Query) *PutAlias {
+
+	r.req.Filter = filter
+
+	return r
+}
+
+// API name: index_routing
+func (r *PutAlias) IndexRouting(routing string) *PutAlias {
+	r.req.IndexRouting = &routing
+
+	return r
+}
+
+// API name: is_write_index
+func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
+	r.req.IsWriteIndex = &iswriteindex
+
+	return r
+}
+
+// API name: routing
+func (r *PutAlias) Routing(routing string) *PutAlias {
+	r.req.Routing = &routing
+
+	return r
+}
+
+// API name: search_routing
+func (r *PutAlias) SearchRouting(routing string) *PutAlias {
+	r.req.SearchRouting = &routing
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Provides store information for shard copies of indices.
 package shardstores
@@ -36,6 +36,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/shardstorestatus"
 )
 
 const (
@@ -180,6 +182,10 @@ func (r ShardStores) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +219,9 @@ func (r *ShardStores) Header(key, value string) *ShardStores {
 
 // Index List of data streams, indices, and aliases used to limit the request.
 // API Name: index
-func (r *ShardStores) Index(v string) *ShardStores {
+func (r *ShardStores) Index(index string) *ShardStores {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -226,8 +232,8 @@ func (r *ShardStores) Index(v string) *ShardStores {
 // the request
 // targets other open indices.
 // API name: allow_no_indices
-func (r *ShardStores) AllowNoIndices(b bool) *ShardStores {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *ShardStores) AllowNoIndices(allownoindices bool) *ShardStores {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -237,24 +243,32 @@ func (r *ShardStores) AllowNoIndices(b bool) *ShardStores {
 // this argument determines whether wildcard expressions match hidden data
 // streams.
 // API name: expand_wildcards
-func (r *ShardStores) ExpandWildcards(v string) *ShardStores {
-	r.values.Set("expand_wildcards", v)
+func (r *ShardStores) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ShardStores {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreUnavailable If true, missing or closed indices are not included in the response.
 // API name: ignore_unavailable
-func (r *ShardStores) IgnoreUnavailable(b bool) *ShardStores {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *ShardStores) IgnoreUnavailable(ignoreunavailable bool) *ShardStores {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // Status List of shard health statuses used to limit the request.
 // API name: status
-func (r *ShardStores) Status(v string) *ShardStores {
-	r.values.Set("status", v)
+func (r *ShardStores) Status(statuses ...shardstorestatus.ShardStoreStatus) *ShardStores {
+	tmp := []string{}
+	for _, item := range statuses {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("status", strings.Join(tmp, ","))
 
 	return r
 }

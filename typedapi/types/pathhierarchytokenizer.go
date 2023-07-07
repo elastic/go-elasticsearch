@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // PathHierarchyTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/tokenizers.ts#L88-L95
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/tokenizers.ts#L88-L95
 type PathHierarchyTokenizer struct {
 	BufferSize  int     `json:"buffer_size"`
 	Delimiter   string  `json:"delimiter"`
@@ -79,7 +77,11 @@ func (s *PathHierarchyTokenizer) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Delimiter = o
 
 		case "replacement":
@@ -87,7 +89,11 @@ func (s *PathHierarchyTokenizer) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Replacement = o
 
 		case "reverse":
@@ -135,11 +141,27 @@ func (s *PathHierarchyTokenizer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s PathHierarchyTokenizer) MarshalJSON() ([]byte, error) {
+	type innerPathHierarchyTokenizer PathHierarchyTokenizer
+	tmp := innerPathHierarchyTokenizer{
+		BufferSize:  s.BufferSize,
+		Delimiter:   s.Delimiter,
+		Replacement: s.Replacement,
+		Reverse:     s.Reverse,
+		Skip:        s.Skip,
+		Type:        s.Type,
+		Version:     s.Version,
+	}
+
+	tmp.Type = "path_hierarchy"
+
+	return json.Marshal(tmp)
+}
+
 // NewPathHierarchyTokenizer returns a PathHierarchyTokenizer.
 func NewPathHierarchyTokenizer() *PathHierarchyTokenizer {
 	r := &PathHierarchyTokenizer{}
-
-	r.Type = "path_hierarchy"
 
 	return r
 }

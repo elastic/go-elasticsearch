@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates a new follower index configured to follow the referenced leader
 // index.
@@ -53,8 +53,9 @@ type Follow struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -86,6 +87,8 @@ func New(tp elastictransport.Interface) *Follow {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -115,9 +118,19 @@ func (r *Follow) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -125,6 +138,7 @@ func (r *Follow) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -215,6 +229,10 @@ func (r Follow) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +245,9 @@ func (r *Follow) Header(key, value string) *Follow {
 
 // Index The name of the follower index
 // API Name: index
-func (r *Follow) Index(v string) *Follow {
+func (r *Follow) Index(index string) *Follow {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -239,8 +257,101 @@ func (r *Follow) Index(v string) *Follow {
 // non-negative value less than or equal to the total number of copies for the
 // shard (number of replicas + 1)
 // API name: wait_for_active_shards
-func (r *Follow) WaitForActiveShards(v string) *Follow {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Follow) WaitForActiveShards(waitforactiveshards string) *Follow {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
+
+	return r
+}
+
+// API name: leader_index
+func (r *Follow) LeaderIndex(indexname string) *Follow {
+	r.req.LeaderIndex = &indexname
+
+	return r
+}
+
+// API name: max_outstanding_read_requests
+func (r *Follow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *Follow {
+
+	r.req.MaxOutstandingReadRequests = &maxoutstandingreadrequests
+
+	return r
+}
+
+// API name: max_outstanding_write_requests
+func (r *Follow) MaxOutstandingWriteRequests(maxoutstandingwriterequests int64) *Follow {
+
+	r.req.MaxOutstandingWriteRequests = &maxoutstandingwriterequests
+
+	return r
+}
+
+// API name: max_read_request_operation_count
+func (r *Follow) MaxReadRequestOperationCount(maxreadrequestoperationcount int64) *Follow {
+
+	r.req.MaxReadRequestOperationCount = &maxreadrequestoperationcount
+
+	return r
+}
+
+// API name: max_read_request_size
+func (r *Follow) MaxReadRequestSize(maxreadrequestsize string) *Follow {
+
+	r.req.MaxReadRequestSize = &maxreadrequestsize
+
+	return r
+}
+
+// API name: max_retry_delay
+func (r *Follow) MaxRetryDelay(duration types.Duration) *Follow {
+	r.req.MaxRetryDelay = duration
+
+	return r
+}
+
+// API name: max_write_buffer_count
+func (r *Follow) MaxWriteBufferCount(maxwritebuffercount int64) *Follow {
+
+	r.req.MaxWriteBufferCount = &maxwritebuffercount
+
+	return r
+}
+
+// API name: max_write_buffer_size
+func (r *Follow) MaxWriteBufferSize(maxwritebuffersize string) *Follow {
+
+	r.req.MaxWriteBufferSize = &maxwritebuffersize
+
+	return r
+}
+
+// API name: max_write_request_operation_count
+func (r *Follow) MaxWriteRequestOperationCount(maxwriterequestoperationcount int64) *Follow {
+
+	r.req.MaxWriteRequestOperationCount = &maxwriterequestoperationcount
+
+	return r
+}
+
+// API name: max_write_request_size
+func (r *Follow) MaxWriteRequestSize(maxwriterequestsize string) *Follow {
+
+	r.req.MaxWriteRequestSize = &maxwriterequestsize
+
+	return r
+}
+
+// API name: read_poll_timeout
+func (r *Follow) ReadPollTimeout(duration types.Duration) *Follow {
+	r.req.ReadPollTimeout = duration
+
+	return r
+}
+
+// API name: remote_cluster
+func (r *Follow) RemoteCluster(remotecluster string) *Follow {
+
+	r.req.RemoteCluster = &remotecluster
 
 	return r
 }

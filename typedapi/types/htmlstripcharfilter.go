@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // HtmlStripCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/char_filters.ts#L43-L45
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/char_filters.ts#L43-L45
 type HtmlStripCharFilter struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -66,11 +65,22 @@ func (s *HtmlStripCharFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s HtmlStripCharFilter) MarshalJSON() ([]byte, error) {
+	type innerHtmlStripCharFilter HtmlStripCharFilter
+	tmp := innerHtmlStripCharFilter{
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "html_strip"
+
+	return json.Marshal(tmp)
+}
+
 // NewHtmlStripCharFilter returns a HtmlStripCharFilter.
 func NewHtmlStripCharFilter() *HtmlStripCharFilter {
 	r := &HtmlStripCharFilter{}
-
-	r.Type = "html_strip"
 
 	return r
 }

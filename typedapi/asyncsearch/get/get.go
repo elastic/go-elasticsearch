@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves the results of a previously submitted async search request given
 // its ID.
@@ -181,6 +181,10 @@ func (r Get) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -212,20 +216,25 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// Id The async search ID
+// Id A unique identifier for the async search.
 // API Name: id
-func (r *Get) Id(v string) *Get {
+func (r *Get) Id(id string) *Get {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
-// KeepAlive Specify the time interval in which the results (partial or final) for this
-// search will be available
+// KeepAlive Specifies how long the async search should be available in the cluster.
+// When not specified, the `keep_alive` set with the corresponding submit async
+// request will be used.
+// Otherwise, it is possible to override the value and extend the validity of
+// the request.
+// When this period expires, the search, if still running, is cancelled.
+// If the search is completed, its saved results are deleted.
 // API name: keep_alive
-func (r *Get) KeepAlive(v string) *Get {
-	r.values.Set("keep_alive", v)
+func (r *Get) KeepAlive(duration string) *Get {
+	r.values.Set("keep_alive", duration)
 
 	return r
 }
@@ -233,16 +242,22 @@ func (r *Get) KeepAlive(v string) *Get {
 // TypedKeys Specify whether aggregation and suggester names should be prefixed by their
 // respective types in the response
 // API name: typed_keys
-func (r *Get) TypedKeys(b bool) *Get {
-	r.values.Set("typed_keys", strconv.FormatBool(b))
+func (r *Get) TypedKeys(typedkeys bool) *Get {
+	r.values.Set("typed_keys", strconv.FormatBool(typedkeys))
 
 	return r
 }
 
-// WaitForCompletionTimeout Specify the time that the request should block waiting for the final response
+// WaitForCompletionTimeout Specifies to wait for the search to be completed up until the provided
+// timeout.
+// Final results will be returned if available before the timeout expires,
+// otherwise the currently available results will be returned once the timeout
+// expires.
+// By default no timeout is set meaning that the currently available results
+// will be returned without any additional wait.
 // API name: wait_for_completion_timeout
-func (r *Get) WaitForCompletionTimeout(v string) *Get {
-	r.values.Set("wait_for_completion_timeout", v)
+func (r *Get) WaitForCompletionTimeout(duration string) *Get {
+	r.values.Set("wait_for_completion_timeout", duration)
 
 	return r
 }

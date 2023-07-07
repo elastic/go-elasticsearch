@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Creates or updates a document in an index.
 package index
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/optype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
@@ -59,8 +58,9 @@ type Index struct {
 
 	buf *gobytes.Buffer
 
-	req interface{}
-	raw io.Reader
+	req      interface{}
+	deferred []func(request interface{}) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -112,6 +112,13 @@ func (r *Index) Request(req interface{}) *Index {
 	return r
 }
 
+// Document allows to set the request property with the appropriate payload.
+func (r *Index) Document(document interface{}) *Index {
+	r.req = document
+
+	return r
+}
+
 // HttpRequest returns the http.Request object built from the
 // given parameters.
 func (r *Index) HttpRequest(ctx context.Context) (*http.Request, error) {
@@ -121,9 +128,19 @@ func (r *Index) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -131,6 +148,7 @@ func (r *Index) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -230,6 +248,10 @@ func (r Index) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -242,18 +264,18 @@ func (r *Index) Header(key, value string) *Index {
 
 // Id Document ID
 // API Name: id
-func (r *Index) Id(v string) *Index {
+func (r *Index) Id(id string) *Index {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Index The name of the index
 // API Name: index
-func (r *Index) Index(v string) *Index {
+func (r *Index) Index(index string) *Index {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -261,8 +283,8 @@ func (r *Index) Index(v string) *Index {
 // IfPrimaryTerm only perform the index operation if the last operation that has changed the
 // document has the specified primary term
 // API name: if_primary_term
-func (r *Index) IfPrimaryTerm(v string) *Index {
-	r.values.Set("if_primary_term", v)
+func (r *Index) IfPrimaryTerm(ifprimaryterm string) *Index {
+	r.values.Set("if_primary_term", ifprimaryterm)
 
 	return r
 }
@@ -270,8 +292,8 @@ func (r *Index) IfPrimaryTerm(v string) *Index {
 // IfSeqNo only perform the index operation if the last operation that has changed the
 // document has the specified sequence number
 // API name: if_seq_no
-func (r *Index) IfSeqNo(v string) *Index {
-	r.values.Set("if_seq_no", v)
+func (r *Index) IfSeqNo(sequencenumber string) *Index {
+	r.values.Set("if_seq_no", sequencenumber)
 
 	return r
 }
@@ -279,16 +301,16 @@ func (r *Index) IfSeqNo(v string) *Index {
 // OpType Explicit operation type. Defaults to `index` for requests with an explicit
 // document ID, and to `create`for requests without an explicit document ID
 // API name: op_type
-func (r *Index) OpType(enum optype.OpType) *Index {
-	r.values.Set("op_type", enum.String())
+func (r *Index) OpType(optype optype.OpType) *Index {
+	r.values.Set("op_type", optype.String())
 
 	return r
 }
 
 // Pipeline The pipeline id to preprocess incoming documents with
 // API name: pipeline
-func (r *Index) Pipeline(v string) *Index {
-	r.values.Set("pipeline", v)
+func (r *Index) Pipeline(pipeline string) *Index {
+	r.values.Set("pipeline", pipeline)
 
 	return r
 }
@@ -297,40 +319,40 @@ func (r *Index) Pipeline(v string) *Index {
 // search, if `wait_for` then wait for a refresh to make this operation visible
 // to search, if `false` (the default) then do nothing with refreshes.
 // API name: refresh
-func (r *Index) Refresh(enum refresh.Refresh) *Index {
-	r.values.Set("refresh", enum.String())
+func (r *Index) Refresh(refresh refresh.Refresh) *Index {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }
 
 // Routing Specific routing value
 // API name: routing
-func (r *Index) Routing(v string) *Index {
-	r.values.Set("routing", v)
+func (r *Index) Routing(routing string) *Index {
+	r.values.Set("routing", routing)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Index) Timeout(v string) *Index {
-	r.values.Set("timeout", v)
+func (r *Index) Timeout(duration string) *Index {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *Index) Version(v string) *Index {
-	r.values.Set("version", v)
+func (r *Index) Version(versionnumber string) *Index {
+	r.values.Set("version", versionnumber)
 
 	return r
 }
 
 // VersionType Specific version type
 // API name: version_type
-func (r *Index) VersionType(enum versiontype.VersionType) *Index {
-	r.values.Set("version_type", enum.String())
+func (r *Index) VersionType(versiontype versiontype.VersionType) *Index {
+	r.values.Set("version_type", versiontype.String())
 
 	return r
 }
@@ -340,16 +362,16 @@ func (r *Index) VersionType(enum versiontype.VersionType) *Index {
 // `all` for all shard copies, otherwise set to any non-negative value less than
 // or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
-func (r *Index) WaitForActiveShards(v string) *Index {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Index) WaitForActiveShards(waitforactiveshards string) *Index {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
 
 	return r
 }
 
 // RequireAlias When true, requires destination to be an alias. Default is false
 // API name: require_alias
-func (r *Index) RequireAlias(b bool) *Index {
-	r.values.Set("require_alias", strconv.FormatBool(b))
+func (r *Index) RequireAlias(requirealias bool) *Index {
+	r.values.Set("require_alias", strconv.FormatBool(requirealias))
 
 	return r
 }

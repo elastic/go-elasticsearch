@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Retrieves information about service accounts.
 package getserviceaccounts
@@ -199,6 +199,10 @@ func (r GetServiceAccounts) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -234,9 +238,9 @@ func (r *GetServiceAccounts) Header(key, value string) *GetServiceAccounts {
 // service accounts. If you omit this parameter, you must also omit the
 // `service` parameter.
 // API Name: namespace
-func (r *GetServiceAccounts) Namespace(v string) *GetServiceAccounts {
+func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 	r.paramSet |= namespaceMask
-	r.namespace = v
+	r.namespace = namespace
 
 	return r
 }
@@ -244,9 +248,9 @@ func (r *GetServiceAccounts) Namespace(v string) *GetServiceAccounts {
 // Service Name of the service name. Omit this parameter to retrieve information about
 // all service accounts that belong to the specified `namespace`.
 // API Name: service
-func (r *GetServiceAccounts) Service(v string) *GetServiceAccounts {
+func (r *GetServiceAccounts) Service(service string) *GetServiceAccounts {
 	r.paramSet |= serviceMask
-	r.service = v
+	r.service = service
 
 	return r
 }

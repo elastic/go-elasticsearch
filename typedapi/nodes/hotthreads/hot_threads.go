@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns information about hot threads on each node in the cluster.
 package hotthreads
@@ -36,7 +36,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/threadtype"
 )
 
@@ -186,6 +185,10 @@ func (r HotThreads) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -219,9 +222,9 @@ func (r *HotThreads) Header(key, value string) *HotThreads {
 
 // NodeId List of node IDs or names used to limit returned information.
 // API Name: nodeid
-func (r *HotThreads) NodeId(v string) *HotThreads {
+func (r *HotThreads) NodeId(nodeid string) *HotThreads {
 	r.paramSet |= nodeidMask
-	r.nodeid = v
+	r.nodeid = nodeid
 
 	return r
 }
@@ -229,24 +232,24 @@ func (r *HotThreads) NodeId(v string) *HotThreads {
 // IgnoreIdleThreads If true, known idle threads (e.g. waiting in a socket select, or to get
 // a task from an empty queue) are filtered out.
 // API name: ignore_idle_threads
-func (r *HotThreads) IgnoreIdleThreads(b bool) *HotThreads {
-	r.values.Set("ignore_idle_threads", strconv.FormatBool(b))
+func (r *HotThreads) IgnoreIdleThreads(ignoreidlethreads bool) *HotThreads {
+	r.values.Set("ignore_idle_threads", strconv.FormatBool(ignoreidlethreads))
 
 	return r
 }
 
 // Interval The interval to do the second sampling of threads.
 // API name: interval
-func (r *HotThreads) Interval(v string) *HotThreads {
-	r.values.Set("interval", v)
+func (r *HotThreads) Interval(duration string) *HotThreads {
+	r.values.Set("interval", duration)
 
 	return r
 }
 
 // Snapshots Number of samples of thread stacktrace.
 // API name: snapshots
-func (r *HotThreads) Snapshots(v string) *HotThreads {
-	r.values.Set("snapshots", v)
+func (r *HotThreads) Snapshots(snapshots string) *HotThreads {
+	r.values.Set("snapshots", snapshots)
 
 	return r
 }
@@ -255,16 +258,16 @@ func (r *HotThreads) Snapshots(v string) *HotThreads {
 // is received before the timeout expires, the request fails and
 // returns an error.
 // API name: master_timeout
-func (r *HotThreads) MasterTimeout(v string) *HotThreads {
-	r.values.Set("master_timeout", v)
+func (r *HotThreads) MasterTimeout(duration string) *HotThreads {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Threads Specifies the number of hot threads to provide information for.
 // API name: threads
-func (r *HotThreads) Threads(v string) *HotThreads {
-	r.values.Set("threads", v)
+func (r *HotThreads) Threads(threads string) *HotThreads {
+	r.values.Set("threads", threads)
 
 	return r
 }
@@ -272,24 +275,24 @@ func (r *HotThreads) Threads(v string) *HotThreads {
 // Timeout Period to wait for a response. If no response is received
 // before the timeout expires, the request fails and returns an error.
 // API name: timeout
-func (r *HotThreads) Timeout(v string) *HotThreads {
-	r.values.Set("timeout", v)
+func (r *HotThreads) Timeout(duration string) *HotThreads {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // Type The type to sample.
 // API name: type
-func (r *HotThreads) Type(enum threadtype.ThreadType) *HotThreads {
-	r.values.Set("type", enum.String())
+func (r *HotThreads) Type(type_ threadtype.ThreadType) *HotThreads {
+	r.values.Set("type", type_.String())
 
 	return r
 }
 
 // Sort The sort order for 'cpu' type (default: total)
 // API name: sort
-func (r *HotThreads) Sort(enum threadtype.ThreadType) *HotThreads {
-	r.values.Set("sort", enum.String())
+func (r *HotThreads) Sort(sort threadtype.ThreadType) *HotThreads {
+	r.values.Set("sort", sort.String())
 
 	return r
 }

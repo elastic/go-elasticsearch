@@ -16,27 +16,28 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // NodePackagingType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/stats/types.ts#L283-L287
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/stats/types.ts#L526-L539
 type NodePackagingType struct {
-	Count  int    `json:"count"`
+	// Count Number of selected nodes using the distribution flavor and file type.
+	Count int `json:"count"`
+	// Flavor Type of Elasticsearch distribution. This is always `default`.
 	Flavor string `json:"flavor"`
-	Type   string `json:"type"`
+	// Type File type (such as `tar` or `zip`) used for the distribution package.
+	Type string `json:"type"`
 }
 
 func (s *NodePackagingType) UnmarshalJSON(data []byte) error {
@@ -75,7 +76,11 @@ func (s *NodePackagingType) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Flavor = o
 
 		case "type":
@@ -83,7 +88,11 @@ func (s *NodePackagingType) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Type = o
 
 		}

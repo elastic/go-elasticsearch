@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package types
 
-import "encoding/json"
-
-// IlmActions type alias.
+// RequestItem holds the union for the following types:
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ilm/_types/Phase.ts#L45-L45
-type IlmActions = json.RawMessage
+//	MultisearchHeader
+//	TemplateConfig
+//
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_global/msearch_template/types.ts#L25-L26
+type RequestItem interface{}

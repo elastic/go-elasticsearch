@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Adds an anomaly detection job to a calendar.
 package putcalendarjob
@@ -188,6 +188,10 @@ func (r PutCalendarJob) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,9 +225,9 @@ func (r *PutCalendarJob) Header(key, value string) *PutCalendarJob {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *PutCalendarJob) CalendarId(v string) *PutCalendarJob {
+func (r *PutCalendarJob) CalendarId(calendarid string) *PutCalendarJob {
 	r.paramSet |= calendaridMask
-	r.calendarid = v
+	r.calendarid = calendarid
 
 	return r
 }
@@ -231,9 +235,9 @@ func (r *PutCalendarJob) CalendarId(v string) *PutCalendarJob {
 // JobId An identifier for the anomaly detection jobs. It can be a job identifier, a
 // group name, or a comma-separated list of jobs or groups.
 // API Name: jobid
-func (r *PutCalendarJob) JobId(v string) *PutCalendarJob {
+func (r *PutCalendarJob) JobId(jobid string) *PutCalendarJob {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }

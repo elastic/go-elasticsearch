@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 // Returns the capabilities of any rollup jobs that have been configured for a
 // specific index or index pattern.
@@ -185,6 +185,10 @@ func (r GetRollupCaps) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -219,9 +223,9 @@ func (r *GetRollupCaps) Header(key, value string) *GetRollupCaps {
 // Id The ID of the index to check rollup capabilities on, or left blank for all
 // jobs
 // API Name: id
-func (r *GetRollupCaps) Id(v string) *GetRollupCaps {
+func (r *GetRollupCaps) Id(id string) *GetRollupCaps {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

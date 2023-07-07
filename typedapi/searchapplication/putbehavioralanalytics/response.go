@@ -16,11 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
-package types
+package putbehavioralanalytics
 
-// IndexPatterns type alias.
+// Response holds the response body struct for the package putbehavioralanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/common.ts#L64-L64
-type IndexPatterns []string
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/search_application/put_behavioral_analytics/BehavioralAnalyticsPutResponse.ts#L24-L26
+
+type Response struct {
+
+	// Acknowledged For a successful response, this value is always true. On failure, an
+	// exception is returned instead.
+	Acknowledged bool `json:"acknowledged"`
+	// Name The name of the analytics collection created or updated
+	Name string `json:"name"`
+}
+
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
+	return r
+}

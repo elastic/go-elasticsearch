@@ -16,15 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
 
 package putsettings
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Response holds the response body struct for the package putsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/cluster/put_settings/ClusterPutSettingsResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/cluster/put_settings/ClusterPutSettingsResponse.ts#L23-L29
 
 type Response struct {
 	Acknowledged bool                       `json:"acknowledged"`
