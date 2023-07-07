@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0: DO NOT EDIT
+// Code generated from specification version 8.10.0: DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,7 @@ func newCatComponentTemplatesFunc(t Transport) CatComponentTemplates {
 
 // CatComponentTemplates returns information about existing component_templates templates.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-compoentn-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cat-component-templates.html.
 type CatComponentTemplates func(o ...func(*CatComponentTemplatesRequest)) (*Response, error)
 
 // CatComponentTemplatesRequest configures the Cat Component Templates API request.

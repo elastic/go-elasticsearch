@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0: DO NOT EDIT
+// Code generated from specification version 8.10.0: DO NOT EDIT
 
 package esapi
 
@@ -51,6 +51,7 @@ type IndicesReloadSearchAnalyzersRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
+	Resource          string
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +96,10 @@ func (r IndicesReloadSearchAnalyzersRequest) Do(ctx context.Context, transport T
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.Resource != "" {
+		params["resource"] = r.Resource
 	}
 
 	if r.Pretty {
@@ -181,6 +186,13 @@ func (f IndicesReloadSearchAnalyzers) WithExpandWildcards(v string) func(*Indice
 func (f IndicesReloadSearchAnalyzers) WithIgnoreUnavailable(v bool) func(*IndicesReloadSearchAnalyzersRequest) {
 	return func(r *IndicesReloadSearchAnalyzersRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithResource - changed resource to reload analyzers from if applicable.
+func (f IndicesReloadSearchAnalyzers) WithResource(v string) func(*IndicesReloadSearchAnalyzersRequest) {
+	return func(r *IndicesReloadSearchAnalyzersRequest) {
+		r.Resource = v
 	}
 }
 

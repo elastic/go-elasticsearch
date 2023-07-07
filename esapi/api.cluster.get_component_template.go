@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0: DO NOT EDIT
+// Code generated from specification version 8.10.0: DO NOT EDIT
 
 package esapi
 
@@ -48,8 +48,9 @@ type ClusterGetComponentTemplate func(o ...func(*ClusterGetComponentTemplateRequ
 type ClusterGetComponentTemplateRequest struct {
 	Name []string
 
-	Local         *bool
-	MasterTimeout time.Duration
+	IncludeDefaults *bool
+	Local           *bool
+	MasterTimeout   time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -81,6 +82,10 @@ func (r ClusterGetComponentTemplateRequest) Do(ctx context.Context, transport Tr
 	}
 
 	params = make(map[string]string)
+
+	if r.IncludeDefaults != nil {
+		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
+	}
 
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
@@ -160,6 +165,13 @@ func (f ClusterGetComponentTemplate) WithContext(v context.Context) func(*Cluste
 func (f ClusterGetComponentTemplate) WithName(v ...string) func(*ClusterGetComponentTemplateRequest) {
 	return func(r *ClusterGetComponentTemplateRequest) {
 		r.Name = v
+	}
+}
+
+// WithIncludeDefaults - return all default configurations for the component template (default: false).
+func (f ClusterGetComponentTemplate) WithIncludeDefaults(v bool) func(*ClusterGetComponentTemplateRequest) {
+	return func(r *ClusterGetComponentTemplateRequest) {
+		r.IncludeDefaults = &v
 	}
 }
 

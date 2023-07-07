@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0: DO NOT EDIT
+// Code generated from specification version 8.10.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -47,6 +48,7 @@ type IndicesGetDataStreamRequest struct {
 	Name []string
 
 	ExpandWildcards string
+	IncludeDefaults *bool
 
 	Pretty     bool
 	Human      bool
@@ -81,6 +83,10 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IncludeDefaults != nil {
+		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
 	}
 
 	if r.Pretty {
@@ -160,6 +166,13 @@ func (f IndicesGetDataStream) WithName(v ...string) func(*IndicesGetDataStreamRe
 func (f IndicesGetDataStream) WithExpandWildcards(v string) func(*IndicesGetDataStreamRequest) {
 	return func(r *IndicesGetDataStreamRequest) {
 		r.ExpandWildcards = v
+	}
+}
+
+// WithIncludeDefaults - return all relevant default configurations for the data stream (default: false).
+func (f IndicesGetDataStream) WithIncludeDefaults(v bool) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
+		r.IncludeDefaults = &v
 	}
 }
 
