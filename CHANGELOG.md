@@ -1,3 +1,20 @@
+# 8.9.0
+
+## Typed API
+
+* Propagated request fields towards the endpoint for ease of access, taking priority over same-name query string fields.
+* Added a stub for Do methods on endpoints that only support a boolean response such as `core.exists`. 
+* NDJSON endpoints support with custom serialization and helpers for specific like `core.bulk`.
+* Link to endpoints documentation in API index to better display and easy of use.
+
+# 8.8.2
+
+## Typed API
+
+* Fixed deserialization for `Suggest` in search responses.
+* Fixed double-quoted strings in deserialization for unions normalized as string. #684
+* Fixed handling of `core.Get` response when the index did not exist. #678
+
 # 8.7.0
 
 ## API
