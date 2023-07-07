@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0: DO NOT EDIT
+// Code generated from specification version 8.9.0: DO NOT EDIT
 
 package esapi
 
@@ -48,8 +48,9 @@ type TransformDeleteTransform func(transform_id string, o ...func(*TransformDele
 type TransformDeleteTransformRequest struct {
 	TransformID string
 
-	Force   *bool
-	Timeout time.Duration
+	DeleteDestIndex *bool
+	Force           *bool
+	Timeout         time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -79,6 +80,10 @@ func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Trans
 	path.WriteString(r.TransformID)
 
 	params = make(map[string]string)
+
+	if r.DeleteDestIndex != nil {
+		params["delete_dest_index"] = strconv.FormatBool(*r.DeleteDestIndex)
+	}
 
 	if r.Force != nil {
 		params["force"] = strconv.FormatBool(*r.Force)
@@ -151,6 +156,13 @@ func (r TransformDeleteTransformRequest) Do(ctx context.Context, transport Trans
 func (f TransformDeleteTransform) WithContext(v context.Context) func(*TransformDeleteTransformRequest) {
 	return func(r *TransformDeleteTransformRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDeleteDestIndex - when `true`, the destination index is deleted together with the transform. the default value is `false`, meaning that the destination index will not be deleted..
+func (f TransformDeleteTransform) WithDeleteDestIndex(v bool) func(*TransformDeleteTransformRequest) {
+	return func(r *TransformDeleteTransformRequest) {
+		r.DeleteDestIndex = &v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.8.0: DO NOT EDIT
+// Code generated from specification version 8.9.0: DO NOT EDIT
 
 package esapi
 
@@ -49,6 +49,7 @@ type MLStartTrainedModelDeploymentRequest struct {
 	ModelID string
 
 	CacheSize            string
+	DeploymentID         string
 	NumberOfAllocations  *int
 	Priority             string
 	QueueCapacity        *int
@@ -93,6 +94,10 @@ func (r MLStartTrainedModelDeploymentRequest) Do(ctx context.Context, transport 
 
 	if r.CacheSize != "" {
 		params["cache_size"] = r.CacheSize
+	}
+
+	if r.DeploymentID != "" {
+		params["deployment_id"] = r.DeploymentID
 	}
 
 	if r.NumberOfAllocations != nil {
@@ -189,6 +194,13 @@ func (f MLStartTrainedModelDeployment) WithContext(v context.Context) func(*MLSt
 func (f MLStartTrainedModelDeployment) WithCacheSize(v string) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.CacheSize = v
+	}
+}
+
+// WithDeploymentID - the ID of the new deployment. defaults to the model_id if not set..
+func (f MLStartTrainedModelDeployment) WithDeploymentID(v string) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.DeploymentID = v
 	}
 }
 
