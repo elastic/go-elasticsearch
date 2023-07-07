@@ -187,13 +187,13 @@ func (r Get) Do(ctx context.Context) (*Response, error) {
 		}
 
 		errorResponse := types.NewElasticsearchError()
-		err = json.NewDecoder(gobytes.NewReader(data)).Decode(errorResponse)
+		err = json.NewDecoder(gobytes.NewReader(data)).Decode(&errorResponse)
 		if err != nil {
 			return nil, err
 		}
 
 		if errorResponse.Status == 0 {
-			err = json.NewDecoder(gobytes.NewReader(data)).Decode(response)
+			err = json.NewDecoder(gobytes.NewReader(data)).Decode(&response)
 			if err != nil {
 				return nil, err
 			}
