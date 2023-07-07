@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Shows information about currently configured aliases to indices including
 // filter and routing infos.
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -185,6 +186,10 @@ func (r Aliases) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -216,11 +221,12 @@ func (r *Aliases) Header(key, value string) *Aliases {
 	return r
 }
 
-// Name A comma-separated list of alias names to return
+// Name A comma-separated list of aliases to retrieve. Supports wildcards (`*`).  To
+// retrieve all aliases, omit this parameter or use `*` or `_all`.
 // API Name: name
-func (r *Aliases) Name(v string) *Aliases {
+func (r *Aliases) Name(name string) *Aliases {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -228,8 +234,12 @@ func (r *Aliases) Name(v string) *Aliases {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Aliases) ExpandWildcards(v string) *Aliases {
-	r.values.Set("expand_wildcards", v)
+func (r *Aliases) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Aliases {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }

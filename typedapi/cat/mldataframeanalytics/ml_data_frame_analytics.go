@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Gets configuration and usage information about data frame analytics jobs.
 package mldataframeanalytics
@@ -36,8 +36,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/catdfacolumn"
 )
 
 const (
@@ -194,6 +194,10 @@ func (r MlDataFrameAnalytics) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +231,9 @@ func (r *MlDataFrameAnalytics) Header(key, value string) *MlDataFrameAnalytics {
 
 // Id The ID of the data frame analytics to fetch
 // API Name: id
-func (r *MlDataFrameAnalytics) Id(v string) *MlDataFrameAnalytics {
+func (r *MlDataFrameAnalytics) Id(id string) *MlDataFrameAnalytics {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
@@ -237,24 +241,28 @@ func (r *MlDataFrameAnalytics) Id(v string) *MlDataFrameAnalytics {
 // AllowNoMatch Whether to ignore if a wildcard expression matches no configs. (This includes
 // `_all` string or when no configs have been specified)
 // API name: allow_no_match
-func (r *MlDataFrameAnalytics) AllowNoMatch(b bool) *MlDataFrameAnalytics {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *MlDataFrameAnalytics) AllowNoMatch(allownomatch bool) *MlDataFrameAnalytics {
+	r.values.Set("allow_no_match", strconv.FormatBool(allownomatch))
 
 	return r
 }
 
 // Bytes The unit in which to display byte values
 // API name: bytes
-func (r *MlDataFrameAnalytics) Bytes(enum bytes.Bytes) *MlDataFrameAnalytics {
-	r.values.Set("bytes", enum.String())
+func (r *MlDataFrameAnalytics) Bytes(bytes bytes.Bytes) *MlDataFrameAnalytics {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }
 
 // H Comma-separated list of column names to display.
 // API name: h
-func (r *MlDataFrameAnalytics) H(v string) *MlDataFrameAnalytics {
-	r.values.Set("h", v)
+func (r *MlDataFrameAnalytics) H(catdfacolumns ...catdfacolumn.CatDfaColumn) *MlDataFrameAnalytics {
+	tmp := []string{}
+	for _, item := range catdfacolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -262,16 +270,20 @@ func (r *MlDataFrameAnalytics) H(v string) *MlDataFrameAnalytics {
 // S Comma-separated list of column names or column aliases used to sort the
 // response.
 // API name: s
-func (r *MlDataFrameAnalytics) S(v string) *MlDataFrameAnalytics {
-	r.values.Set("s", v)
+func (r *MlDataFrameAnalytics) S(catdfacolumns ...catdfacolumn.CatDfaColumn) *MlDataFrameAnalytics {
+	tmp := []string{}
+	for _, item := range catdfacolumns {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // Time Unit used to display time values.
 // API name: time
-func (r *MlDataFrameAnalytics) Time(v string) *MlDataFrameAnalytics {
-	r.values.Set("time", v)
+func (r *MlDataFrameAnalytics) Time(duration string) *MlDataFrameAnalytics {
+	r.values.Set("time", duration)
 
 	return r
 }

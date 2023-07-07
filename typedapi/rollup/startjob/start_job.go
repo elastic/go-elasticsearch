@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Starts an existing, stopped rollup job.
 package startjob
@@ -180,6 +180,10 @@ func (r StartJob) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *StartJob) Header(key, value string) *StartJob {
 
 // Id The ID of the job to start
 // API Name: id
-func (r *StartJob) Id(v string) *StartJob {
+func (r *StartJob) Id(id string) *StartJob {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

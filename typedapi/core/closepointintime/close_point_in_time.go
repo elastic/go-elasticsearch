@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Close a point in time
 package closepointintime
@@ -28,6 +28,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -48,8 +49,9 @@ type ClosePointInTime struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +78,8 @@ func New(tp elastictransport.Interface) *ClosePointInTime {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +109,19 @@ func (r *ClosePointInTime) HttpRequest(ctx context.Context) (*http.Request, erro
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +129,7 @@ func (r *ClosePointInTime) HttpRequest(ctx context.Context) (*http.Request, erro
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -185,7 +200,7 @@ func (r ClosePointInTime) Do(ctx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 || res.StatusCode == 404 {
+	if res.StatusCode < 299 {
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			return nil, err
@@ -194,10 +209,38 @@ func (r ClosePointInTime) Do(ctx context.Context) (*Response, error) {
 		return response, nil
 	}
 
+	if res.StatusCode == 404 {
+		data, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		errorResponse := types.NewElasticsearchError()
+		err = json.NewDecoder(gobytes.NewReader(data)).Decode(&errorResponse)
+		if err != nil {
+			return nil, err
+		}
+
+		if errorResponse.Status == 0 {
+			err = json.NewDecoder(gobytes.NewReader(data)).Decode(&response)
+			if err != nil {
+				return nil, err
+			}
+
+			return response, nil
+		}
+
+		return nil, errorResponse
+	}
+
 	errorResponse := types.NewElasticsearchError()
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
 		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
 	}
 
 	return nil, errorResponse
@@ -206,6 +249,13 @@ func (r ClosePointInTime) Do(ctx context.Context) (*Response, error) {
 // Header set a key, value pair in the ClosePointInTime headers map.
 func (r *ClosePointInTime) Header(key, value string) *ClosePointInTime {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// API name: id
+func (r *ClosePointInTime) Id(id string) *ClosePointInTime {
+	r.req.Id = id
 
 	return r
 }

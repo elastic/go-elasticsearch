@@ -16,23 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icutransformdirection"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
+	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/icutransformdirection"
 )
 
 // IcuTransformTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/icu-plugin.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/icu-plugin.ts#L24-L28
 type IcuTransformTokenFilter struct {
 	Dir     *icutransformdirection.IcuTransformDirection `json:"dir,omitempty"`
 	Id      string                                       `json:"id"`
@@ -65,7 +65,11 @@ func (s *IcuTransformTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Id = o
 
 		case "type":
@@ -83,11 +87,24 @@ func (s *IcuTransformTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s IcuTransformTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerIcuTransformTokenFilter IcuTransformTokenFilter
+	tmp := innerIcuTransformTokenFilter{
+		Dir:     s.Dir,
+		Id:      s.Id,
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "icu_transform"
+
+	return json.Marshal(tmp)
+}
+
 // NewIcuTransformTokenFilter returns a IcuTransformTokenFilter.
 func NewIcuTransformTokenFilter() *IcuTransformTokenFilter {
 	r := &IcuTransformTokenFilter{}
-
-	r.Type = "icu_transform"
 
 	return r
 }

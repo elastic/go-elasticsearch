@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package puttrainedmodel
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L28-L94
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L28-L96
 type Request struct {
 
 	// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
@@ -44,8 +44,9 @@ type Request struct {
 	Description *string `json:"description,omitempty"`
 	// InferenceConfig The default configuration for inference. This can be either a regression
 	// or classification configuration. It must match the underlying
-	// definition.trained_model's target_type.
-	InferenceConfig types.InferenceConfigCreateContainer `json:"inference_config"`
+	// definition.trained_model's target_type. For pre-packaged models such as
+	// ELSER the config is not required.
+	InferenceConfig *types.InferenceConfigCreateContainer `json:"inference_config,omitempty"`
 	// Input The input field names for the model definition.
 	Input *types.Input `json:"input,omitempty"`
 	// Metadata An object map that contains metadata about the model.

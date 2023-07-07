@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Creates an inference trained model.
 package puttrainedmodel
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/trainedmodeltype"
 )
 
 const (
@@ -53,8 +54,9 @@ type PutTrainedModel struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +87,8 @@ func New(tp elastictransport.Interface) *PutTrainedModel {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +118,19 @@ func (r *PutTrainedModel) HttpRequest(ctx context.Context) (*http.Request, error
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +138,7 @@ func (r *PutTrainedModel) HttpRequest(ctx context.Context) (*http.Request, error
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -214,6 +229,10 @@ func (r PutTrainedModel) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -226,9 +245,9 @@ func (r *PutTrainedModel) Header(key, value string) *PutTrainedModel {
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *PutTrainedModel) ModelId(v string) *PutTrainedModel {
+func (r *PutTrainedModel) ModelId(modelid string) *PutTrainedModel {
 	r.paramSet |= modelidMask
-	r.modelid = v
+	r.modelid = modelid
 
 	return r
 }
@@ -236,8 +255,110 @@ func (r *PutTrainedModel) ModelId(v string) *PutTrainedModel {
 // DeferDefinitionDecompression If set to `true` and a `compressed_definition` is provided, the request
 // defers definition decompression and skips relevant validations.
 // API name: defer_definition_decompression
-func (r *PutTrainedModel) DeferDefinitionDecompression(b bool) *PutTrainedModel {
-	r.values.Set("defer_definition_decompression", strconv.FormatBool(b))
+func (r *PutTrainedModel) DeferDefinitionDecompression(deferdefinitiondecompression bool) *PutTrainedModel {
+	r.values.Set("defer_definition_decompression", strconv.FormatBool(deferdefinitiondecompression))
+
+	return r
+}
+
+// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
+// model. If compressed_definition is specified, then definition cannot be
+// specified.
+// API name: compressed_definition
+func (r *PutTrainedModel) CompressedDefinition(compresseddefinition string) *PutTrainedModel {
+
+	r.req.CompressedDefinition = &compresseddefinition
+
+	return r
+}
+
+// Definition The inference definition for the model. If definition is specified, then
+// compressed_definition cannot be specified.
+// API name: definition
+func (r *PutTrainedModel) Definition(definition *types.Definition) *PutTrainedModel {
+
+	r.req.Definition = definition
+
+	return r
+}
+
+// Description A human-readable description of the inference trained model.
+// API name: description
+func (r *PutTrainedModel) Description(description string) *PutTrainedModel {
+
+	r.req.Description = &description
+
+	return r
+}
+
+// InferenceConfig The default configuration for inference. This can be either a regression
+// or classification configuration. It must match the underlying
+// definition.trained_model's target_type. For pre-packaged models such as
+// ELSER the config is not required.
+// API name: inference_config
+func (r *PutTrainedModel) InferenceConfig(inferenceconfig *types.InferenceConfigCreateContainer) *PutTrainedModel {
+
+	r.req.InferenceConfig = inferenceconfig
+
+	return r
+}
+
+// Input The input field names for the model definition.
+// API name: input
+func (r *PutTrainedModel) Input(input *types.Input) *PutTrainedModel {
+
+	r.req.Input = input
+
+	return r
+}
+
+// Metadata An object map that contains metadata about the model.
+// API name: metadata
+//
+// metadata should be a json.RawMessage or a structure
+// if a structure is provided, the client will defer a json serialization
+// prior to sending the payload to Elasticsearch.
+func (r *PutTrainedModel) Metadata(metadata interface{}) *PutTrainedModel {
+	switch casted := metadata.(type) {
+	case json.RawMessage:
+		r.req.Metadata = casted
+	default:
+		r.deferred = append(r.deferred, func(request *Request) error {
+			data, err := json.Marshal(metadata)
+			if err != nil {
+				return err
+			}
+			r.req.Metadata = data
+			return nil
+		})
+	}
+
+	return r
+}
+
+// ModelSizeBytes The estimated memory usage in bytes to keep the trained model in memory.
+// This property is supported only if defer_definition_decompression is true
+// or the model definition is not supplied.
+// API name: model_size_bytes
+func (r *PutTrainedModel) ModelSizeBytes(modelsizebytes int64) *PutTrainedModel {
+
+	r.req.ModelSizeBytes = &modelsizebytes
+
+	return r
+}
+
+// ModelType The model type.
+// API name: model_type
+func (r *PutTrainedModel) ModelType(modeltype trainedmodeltype.TrainedModelType) *PutTrainedModel {
+	r.req.ModelType = &modeltype
+
+	return r
+}
+
+// Tags An array of tags to organize the model.
+// API name: tags
+func (r *PutTrainedModel) Tags(tags ...string) *PutTrainedModel {
+	r.req.Tags = tags
 
 	return r
 }

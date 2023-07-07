@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes anomaly detection jobs from a calendar.
 package deletecalendarjob
@@ -188,6 +188,10 @@ func (r DeleteCalendarJob) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -221,9 +225,9 @@ func (r *DeleteCalendarJob) Header(key, value string) *DeleteCalendarJob {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *DeleteCalendarJob) CalendarId(v string) *DeleteCalendarJob {
+func (r *DeleteCalendarJob) CalendarId(calendarid string) *DeleteCalendarJob {
 	r.paramSet |= calendaridMask
-	r.calendarid = v
+	r.calendarid = calendarid
 
 	return r
 }
@@ -232,9 +236,9 @@ func (r *DeleteCalendarJob) CalendarId(v string) *DeleteCalendarJob {
 // group name, or a
 // comma-separated list of jobs or groups.
 // API Name: jobid
-func (r *DeleteCalendarJob) JobId(v string) *DeleteCalendarJob {
+func (r *DeleteCalendarJob) JobId(jobid string) *DeleteCalendarJob {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }

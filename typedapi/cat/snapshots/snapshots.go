@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns all snapshots in a specific repository.
 package snapshots
@@ -184,6 +184,10 @@ func (r Snapshots) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -217,17 +221,17 @@ func (r *Snapshots) Header(key, value string) *Snapshots {
 
 // Repository Name of repository from which to fetch the snapshot information
 // API Name: repository
-func (r *Snapshots) Repository(v string) *Snapshots {
+func (r *Snapshots) Repository(repository string) *Snapshots {
 	r.paramSet |= repositoryMask
-	r.repository = v
+	r.repository = repository
 
 	return r
 }
 
 // IgnoreUnavailable Set to true to ignore unavailable snapshots
 // API name: ignore_unavailable
-func (r *Snapshots) IgnoreUnavailable(b bool) *Snapshots {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Snapshots) IgnoreUnavailable(ignoreunavailable bool) *Snapshots {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes a component template
 package deletecomponenttemplate
@@ -176,6 +176,10 @@ func (r DeleteComponentTemplate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,25 +214,25 @@ func (r *DeleteComponentTemplate) Header(key, value string) *DeleteComponentTemp
 // Name Comma-separated list or wildcard expression of component template names used
 // to limit the request.
 // API Name: name
-func (r *DeleteComponentTemplate) Name(v string) *DeleteComponentTemplate {
+func (r *DeleteComponentTemplate) Name(name string) *DeleteComponentTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *DeleteComponentTemplate) MasterTimeout(v string) *DeleteComponentTemplate {
-	r.values.Set("master_timeout", v)
+func (r *DeleteComponentTemplate) MasterTimeout(duration string) *DeleteComponentTemplate {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *DeleteComponentTemplate) Timeout(v string) *DeleteComponentTemplate {
-	r.values.Set("timeout", v)
+func (r *DeleteComponentTemplate) Timeout(duration string) *DeleteComponentTemplate {
+	r.values.Set("timeout", duration)
 
 	return r
 }

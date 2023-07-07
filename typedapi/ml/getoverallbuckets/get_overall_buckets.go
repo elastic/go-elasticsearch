@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
@@ -31,7 +31,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -54,8 +53,9 @@ type GetOverallBuckets struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -87,6 +87,8 @@ func New(tp elastictransport.Interface) *GetOverallBuckets {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -116,9 +118,19 @@ func (r *GetOverallBuckets) HttpRequest(ctx context.Context) (*http.Request, err
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -126,6 +138,7 @@ func (r *GetOverallBuckets) HttpRequest(ctx context.Context) (*http.Request, err
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -220,6 +233,10 @@ func (r GetOverallBuckets) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -237,82 +254,65 @@ func (r *GetOverallBuckets) Header(key, value string) *GetOverallBuckets {
 // You can summarize the bucket results for all anomaly detection jobs by
 // using `_all` or by specifying `*` as the `<job_id>`.
 // API Name: jobid
-func (r *GetOverallBuckets) JobId(v string) *GetOverallBuckets {
+func (r *GetOverallBuckets) JobId(jobid string) *GetOverallBuckets {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
 
-// AllowNoMatch Specifies what to do when the request:
-//
-// 1. Contains wildcard expressions and there are no jobs that match.
-// 2. Contains the `_all` string or no identifiers and there are no matches.
-// 3. Contains wildcard expressions and there are only partial matches.
-//
-// If `true`, the request returns an empty `jobs` array when there are no
-// matches and the subset of results when there are partial matches. If this
-// parameter is `false`, the request returns a `404` status code when there
-// are no matches or only partial matches.
+// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
-func (r *GetOverallBuckets) AllowNoMatch(b bool) *GetOverallBuckets {
-	r.values.Set("allow_no_match", strconv.FormatBool(b))
+func (r *GetOverallBuckets) AllowNoMatch(allownomatch bool) *GetOverallBuckets {
+	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// BucketSpan The span of the overall buckets. Must be greater or equal to the largest
-// bucket span of the specified anomaly detection jobs, which is the default
-// value.
-//
-// By default, an overall bucket has a span equal to the largest bucket span
-// of the specified anomaly detection jobs. To override that behavior, use
-// the optional `bucket_span` parameter.
+// BucketSpan Refer to the description for the `bucket_span` query parameter.
 // API name: bucket_span
-func (r *GetOverallBuckets) BucketSpan(v string) *GetOverallBuckets {
-	r.values.Set("bucket_span", v)
+func (r *GetOverallBuckets) BucketSpan(duration types.Duration) *GetOverallBuckets {
+	r.req.BucketSpan = duration
 
 	return r
 }
 
-// End Returns overall buckets with timestamps earlier than this time.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *GetOverallBuckets) End(v string) *GetOverallBuckets {
-	r.values.Set("end", v)
+func (r *GetOverallBuckets) End(datetime types.DateTime) *GetOverallBuckets {
+	r.req.End = datetime
 
 	return r
 }
 
-// ExcludeInterim If `true`, the output excludes interim results.
+// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
 // API name: exclude_interim
-func (r *GetOverallBuckets) ExcludeInterim(b bool) *GetOverallBuckets {
-	r.values.Set("exclude_interim", strconv.FormatBool(b))
+func (r *GetOverallBuckets) ExcludeInterim(excludeinterim bool) *GetOverallBuckets {
+	r.req.ExcludeInterim = &excludeinterim
 
 	return r
 }
 
-// OverallScore Returns overall buckets with overall scores greater than or equal to this
-// value.
+// OverallScore Refer to the description for the `overall_score` query parameter.
 // API name: overall_score
-func (r *GetOverallBuckets) OverallScore(v string) *GetOverallBuckets {
-	r.values.Set("overall_score", v)
+func (r *GetOverallBuckets) OverallScore(overallscore string) *GetOverallBuckets {
+	r.req.OverallScore = overallscore
 
 	return r
 }
 
-// Start Returns overall buckets with timestamps after this time.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetOverallBuckets) Start(v string) *GetOverallBuckets {
-	r.values.Set("start", v)
+func (r *GetOverallBuckets) Start(datetime types.DateTime) *GetOverallBuckets {
+	r.req.Start = datetime
 
 	return r
 }
 
-// TopN The number of top anomaly detection job bucket scores to be used in the
-// `overall_score` calculation.
+// TopN Refer to the description for the `top_n` query parameter.
 // API name: top_n
-func (r *GetOverallBuckets) TopN(i int) *GetOverallBuckets {
-	r.values.Set("top_n", strconv.Itoa(i))
+func (r *GetOverallBuckets) TopN(topn int) *GetOverallBuckets {
+	r.req.TopN = &topn
 
 	return r
 }

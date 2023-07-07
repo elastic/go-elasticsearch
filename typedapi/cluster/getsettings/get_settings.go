@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns cluster settings.
 package getsettings
@@ -168,6 +168,10 @@ func (r GetSettings) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -201,32 +205,32 @@ func (r *GetSettings) Header(key, value string) *GetSettings {
 
 // FlatSettings Return settings in flat format (default: false)
 // API name: flat_settings
-func (r *GetSettings) FlatSettings(b bool) *GetSettings {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *GetSettings) FlatSettings(flatsettings bool) *GetSettings {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
 
 // IncludeDefaults Whether to return all default clusters setting.
 // API name: include_defaults
-func (r *GetSettings) IncludeDefaults(b bool) *GetSettings {
-	r.values.Set("include_defaults", strconv.FormatBool(b))
+func (r *GetSettings) IncludeDefaults(includedefaults bool) *GetSettings {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *GetSettings) MasterTimeout(v string) *GetSettings {
-	r.values.Set("master_timeout", v)
+func (r *GetSettings) MasterTimeout(duration string) *GetSettings {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *GetSettings) Timeout(v string) *GetSettings {
-	r.values.Set("timeout", v)
+func (r *GetSettings) Timeout(duration string) *GetSettings {
+	r.values.Set("timeout", duration)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns settings for one or more indices.
 package getsettings
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -202,6 +203,10 @@ func (r GetSettings) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -236,18 +241,18 @@ func (r *GetSettings) Header(key, value string) *GetSettings {
 // Index A comma-separated list of index names; use `_all` or empty string to perform
 // the operation on all indices
 // API Name: index
-func (r *GetSettings) Index(v string) *GetSettings {
+func (r *GetSettings) Index(index string) *GetSettings {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // Name The name of the settings that should be included
 // API Name: name
-func (r *GetSettings) Name(v string) *GetSettings {
+func (r *GetSettings) Name(name string) *GetSettings {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -255,8 +260,8 @@ func (r *GetSettings) Name(v string) *GetSettings {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *GetSettings) AllowNoIndices(b bool) *GetSettings {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *GetSettings) AllowNoIndices(allownoindices bool) *GetSettings {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -264,16 +269,20 @@ func (r *GetSettings) AllowNoIndices(b bool) *GetSettings {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *GetSettings) ExpandWildcards(v string) *GetSettings {
-	r.values.Set("expand_wildcards", v)
+func (r *GetSettings) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetSettings {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // FlatSettings Return settings in flat format (default: false)
 // API name: flat_settings
-func (r *GetSettings) FlatSettings(b bool) *GetSettings {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *GetSettings) FlatSettings(flatsettings bool) *GetSettings {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
@@ -281,16 +290,16 @@ func (r *GetSettings) FlatSettings(b bool) *GetSettings {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *GetSettings) IgnoreUnavailable(b bool) *GetSettings {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *GetSettings) IgnoreUnavailable(ignoreunavailable bool) *GetSettings {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // IncludeDefaults Whether to return all default setting for each of the indices.
 // API name: include_defaults
-func (r *GetSettings) IncludeDefaults(b bool) *GetSettings {
-	r.values.Set("include_defaults", strconv.FormatBool(b))
+func (r *GetSettings) IncludeDefaults(includedefaults bool) *GetSettings {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
 
 	return r
 }
@@ -298,16 +307,16 @@ func (r *GetSettings) IncludeDefaults(b bool) *GetSettings {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *GetSettings) Local(b bool) *GetSettings {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *GetSettings) Local(local bool) *GetSettings {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *GetSettings) MasterTimeout(v string) *GetSettings {
-	r.values.Set("master_timeout", v)
+func (r *GetSettings) MasterTimeout(duration string) *GetSettings {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

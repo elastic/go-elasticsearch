@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retries executing the policy for an index that is in the ERROR step.
 package retry
@@ -178,6 +178,10 @@ func (r Retry) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -212,9 +216,9 @@ func (r *Retry) Header(key, value string) *Retry {
 // Index The name of the indices (comma-separated) whose failed lifecycle step is to
 // be retry
 // API Name: index
-func (r *Retry) Index(v string) *Retry {
+func (r *Retry) Index(index string) *Retry {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }

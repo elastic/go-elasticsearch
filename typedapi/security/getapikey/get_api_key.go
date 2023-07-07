@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves information for one or more API keys.
 package getapikey
@@ -168,6 +168,10 @@ func (r GetApiKey) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -201,40 +205,40 @@ func (r *GetApiKey) Header(key, value string) *GetApiKey {
 
 // Id API key id of the API key to be retrieved
 // API name: id
-func (r *GetApiKey) Id(v string) *GetApiKey {
-	r.values.Set("id", v)
+func (r *GetApiKey) Id(id string) *GetApiKey {
+	r.values.Set("id", id)
 
 	return r
 }
 
 // Name API key name of the API key to be retrieved
 // API name: name
-func (r *GetApiKey) Name(v string) *GetApiKey {
-	r.values.Set("name", v)
+func (r *GetApiKey) Name(name string) *GetApiKey {
+	r.values.Set("name", name)
 
 	return r
 }
 
 // Owner flag to query API keys owned by the currently authenticated user
 // API name: owner
-func (r *GetApiKey) Owner(b bool) *GetApiKey {
-	r.values.Set("owner", strconv.FormatBool(b))
+func (r *GetApiKey) Owner(owner bool) *GetApiKey {
+	r.values.Set("owner", strconv.FormatBool(owner))
 
 	return r
 }
 
 // RealmName realm name of the user who created this API key to be retrieved
 // API name: realm_name
-func (r *GetApiKey) RealmName(v string) *GetApiKey {
-	r.values.Set("realm_name", v)
+func (r *GetApiKey) RealmName(name string) *GetApiKey {
+	r.values.Set("realm_name", name)
 
 	return r
 }
 
 // Username user name of the user who created this API key to be retrieved
 // API name: username
-func (r *GetApiKey) Username(v string) *GetApiKey {
-	r.values.Set("username", v)
+func (r *GetApiKey) Username(username string) *GetApiKey {
+	r.values.Set("username", username)
 
 	return r
 }
@@ -244,8 +248,8 @@ func (r *GetApiKey) Username(v string) *GetApiKey {
 // permission is the intersection of its assigned role
 // descriptors and the owner user's role descriptors.
 // API name: with_limited_by
-func (r *GetApiKey) WithLimitedBy(b bool) *GetApiKey {
-	r.values.Set("with_limited_by", strconv.FormatBool(b))
+func (r *GetApiKey) WithLimitedBy(withlimitedby bool) *GetApiKey {
+	r.values.Set("with_limited_by", strconv.FormatBool(withlimitedby))
 
 	return r
 }

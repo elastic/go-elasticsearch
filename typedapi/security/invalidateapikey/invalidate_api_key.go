@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Invalidates one or more API keys.
 package invalidateapikey
@@ -48,8 +48,9 @@ type InvalidateApiKey struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *InvalidateApiKey {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *InvalidateApiKey) HttpRequest(ctx context.Context) (*http.Request, erro
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *InvalidateApiKey) HttpRequest(ctx context.Context) (*http.Request, erro
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -202,12 +216,59 @@ func (r InvalidateApiKey) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the InvalidateApiKey headers map.
 func (r *InvalidateApiKey) Header(key, value string) *InvalidateApiKey {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// API name: id
+func (r *InvalidateApiKey) Id(id string) *InvalidateApiKey {
+	r.req.Id = &id
+
+	return r
+}
+
+// API name: ids
+func (r *InvalidateApiKey) Ids(ids ...string) *InvalidateApiKey {
+	r.req.Ids = ids
+
+	return r
+}
+
+// API name: name
+func (r *InvalidateApiKey) Name(name string) *InvalidateApiKey {
+	r.req.Name = &name
+
+	return r
+}
+
+// API name: owner
+func (r *InvalidateApiKey) Owner(owner bool) *InvalidateApiKey {
+	r.req.Owner = &owner
+
+	return r
+}
+
+// API name: realm_name
+func (r *InvalidateApiKey) RealmName(realmname string) *InvalidateApiKey {
+
+	r.req.RealmName = &realmname
+
+	return r
+}
+
+// API name: username
+func (r *InvalidateApiKey) Username(username string) *InvalidateApiKey {
+	r.req.Username = &username
 
 	return r
 }

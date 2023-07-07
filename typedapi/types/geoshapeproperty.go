@@ -16,27 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geoorientation"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geostrategy"
-
-	"bytes"
-	"errors"
-	"io"
-
-	"strconv"
-
-	"encoding/json"
 )
 
 // GeoShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/geo.ts#L37-L50
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/mapping/geo.ts#L37-L50
 type GeoShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -776,7 +774,11 @@ func (s *GeoShapeProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "store":
@@ -808,6 +810,32 @@ func (s *GeoShapeProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s GeoShapeProperty) MarshalJSON() ([]byte, error) {
+	type innerGeoShapeProperty GeoShapeProperty
+	tmp := innerGeoShapeProperty{
+		Coerce:          s.Coerce,
+		CopyTo:          s.CopyTo,
+		DocValues:       s.DocValues,
+		Dynamic:         s.Dynamic,
+		Fields:          s.Fields,
+		IgnoreAbove:     s.IgnoreAbove,
+		IgnoreMalformed: s.IgnoreMalformed,
+		IgnoreZValue:    s.IgnoreZValue,
+		Meta:            s.Meta,
+		Orientation:     s.Orientation,
+		Properties:      s.Properties,
+		Similarity:      s.Similarity,
+		Store:           s.Store,
+		Strategy:        s.Strategy,
+		Type:            s.Type,
+	}
+
+	tmp.Type = "geo_shape"
+
+	return json.Marshal(tmp)
+}
+
 // NewGeoShapeProperty returns a GeoShapeProperty.
 func NewGeoShapeProperty() *GeoShapeProperty {
 	r := &GeoShapeProperty{
@@ -815,8 +843,6 @@ func NewGeoShapeProperty() *GeoShapeProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "geo_shape"
 
 	return r
 }

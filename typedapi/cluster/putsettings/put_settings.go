@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Updates the cluster settings.
 package putsettings
@@ -49,8 +49,9 @@ type PutSettings struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -77,6 +78,8 @@ func New(tp elastictransport.Interface) *PutSettings {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -106,9 +109,19 @@ func (r *PutSettings) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -116,6 +129,7 @@ func (r *PutSettings) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -203,6 +217,10 @@ func (r PutSettings) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,24 +233,40 @@ func (r *PutSettings) Header(key, value string) *PutSettings {
 
 // FlatSettings Return settings in flat format (default: false)
 // API name: flat_settings
-func (r *PutSettings) FlatSettings(b bool) *PutSettings {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *PutSettings) FlatSettings(flatsettings bool) *PutSettings {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *PutSettings) MasterTimeout(v string) *PutSettings {
-	r.values.Set("master_timeout", v)
+func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *PutSettings) Timeout(v string) *PutSettings {
-	r.values.Set("timeout", v)
+func (r *PutSettings) Timeout(duration string) *PutSettings {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// API name: persistent
+func (r *PutSettings) Persistent(persistent map[string]json.RawMessage) *PutSettings {
+
+	r.req.Persistent = persistent
+
+	return r
+}
+
+// API name: transient
+func (r *PutSettings) Transient(transient map[string]json.RawMessage) *PutSettings {
+
+	r.req.Transient = transient
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Forces the execution of a stored watch.
 package executewatch
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/actionexecutionmode"
 )
 
 const (
@@ -53,8 +54,9 @@ type ExecuteWatch struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -83,6 +85,8 @@ func New(tp elastictransport.Interface) *ExecuteWatch {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -112,9 +116,19 @@ func (r *ExecuteWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -122,6 +136,7 @@ func (r *ExecuteWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -223,6 +238,10 @@ func (r ExecuteWatch) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -235,17 +254,84 @@ func (r *ExecuteWatch) Header(key, value string) *ExecuteWatch {
 
 // Id Identifier for the watch.
 // API Name: id
-func (r *ExecuteWatch) Id(v string) *ExecuteWatch {
+func (r *ExecuteWatch) Id(id string) *ExecuteWatch {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Debug Defines whether the watch runs in debug mode.
 // API name: debug
-func (r *ExecuteWatch) Debug(b bool) *ExecuteWatch {
-	r.values.Set("debug", strconv.FormatBool(b))
+func (r *ExecuteWatch) Debug(debug bool) *ExecuteWatch {
+	r.values.Set("debug", strconv.FormatBool(debug))
+
+	return r
+}
+
+// ActionModes Determines how to handle the watch actions as part of the watch execution.
+// API name: action_modes
+func (r *ExecuteWatch) ActionModes(actionmodes map[string]actionexecutionmode.ActionExecutionMode) *ExecuteWatch {
+
+	r.req.ActionModes = actionmodes
+
+	return r
+}
+
+// AlternativeInput When present, the watch uses this object as a payload instead of executing
+// its own input.
+// API name: alternative_input
+func (r *ExecuteWatch) AlternativeInput(alternativeinput map[string]json.RawMessage) *ExecuteWatch {
+
+	r.req.AlternativeInput = alternativeinput
+
+	return r
+}
+
+// IgnoreCondition When set to `true`, the watch execution uses the always condition. This can
+// also be specified as an HTTP parameter.
+// API name: ignore_condition
+func (r *ExecuteWatch) IgnoreCondition(ignorecondition bool) *ExecuteWatch {
+	r.req.IgnoreCondition = &ignorecondition
+
+	return r
+}
+
+// RecordExecution When set to `true`, the watch record representing the watch execution result
+// is persisted to the `.watcher-history` index for the current time. In
+// addition, the status of the watch is updated, possibly throttling subsequent
+// executions. This can also be specified as an HTTP parameter.
+// API name: record_execution
+func (r *ExecuteWatch) RecordExecution(recordexecution bool) *ExecuteWatch {
+	r.req.RecordExecution = &recordexecution
+
+	return r
+}
+
+// API name: simulated_actions
+func (r *ExecuteWatch) SimulatedActions(simulatedactions *types.SimulatedActions) *ExecuteWatch {
+
+	r.req.SimulatedActions = simulatedactions
+
+	return r
+}
+
+// TriggerData This structure is parsed as the data of the trigger event that will be used
+// during the watch execution
+// API name: trigger_data
+func (r *ExecuteWatch) TriggerData(triggerdata *types.ScheduleTriggerEvent) *ExecuteWatch {
+
+	r.req.TriggerData = triggerdata
+
+	return r
+}
+
+// Watch When present, this watch is used instead of the one specified in the request.
+// This watch is not persisted to the index and record_execution cannot be set.
+// API name: watch
+func (r *ExecuteWatch) Watch(watch *types.Watch) *ExecuteWatch {
+
+	r.req.Watch = watch
 
 	return r
 }

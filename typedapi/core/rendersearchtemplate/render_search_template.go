@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Allows to use the Mustache language to pre-render a search definition.
 package rendersearchtemplate
@@ -52,8 +52,9 @@ type RenderSearchTemplate struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -82,6 +83,8 @@ func New(tp elastictransport.Interface) *RenderSearchTemplate {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -111,9 +114,19 @@ func (r *RenderSearchTemplate) HttpRequest(ctx context.Context) (*http.Request, 
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -121,6 +134,7 @@ func (r *RenderSearchTemplate) HttpRequest(ctx context.Context) (*http.Request, 
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -218,6 +232,10 @@ func (r RenderSearchTemplate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -230,9 +248,33 @@ func (r *RenderSearchTemplate) Header(key, value string) *RenderSearchTemplate {
 
 // Id The id of the stored search template
 // API Name: id
-func (r *RenderSearchTemplate) Id(v string) *RenderSearchTemplate {
+func (r *RenderSearchTemplate) Id(id string) *RenderSearchTemplate {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
+
+	return r
+}
+
+// API name: file
+func (r *RenderSearchTemplate) File(file string) *RenderSearchTemplate {
+
+	r.req.File = &file
+
+	return r
+}
+
+// API name: params
+func (r *RenderSearchTemplate) Params(params map[string]json.RawMessage) *RenderSearchTemplate {
+
+	r.req.Params = params
+
+	return r
+}
+
+// API name: source
+func (r *RenderSearchTemplate) Source(source string) *RenderSearchTemplate {
+
+	r.req.Source = &source
 
 	return r
 }

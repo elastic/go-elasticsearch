@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Verifies a repository.
 package verifyrepository
@@ -178,6 +178,10 @@ func (r VerifyRepository) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,25 +215,25 @@ func (r *VerifyRepository) Header(key, value string) *VerifyRepository {
 
 // Repository A repository name
 // API Name: repository
-func (r *VerifyRepository) Repository(v string) *VerifyRepository {
+func (r *VerifyRepository) Repository(repository string) *VerifyRepository {
 	r.paramSet |= repositoryMask
-	r.repository = v
+	r.repository = repository
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *VerifyRepository) MasterTimeout(v string) *VerifyRepository {
-	r.values.Set("master_timeout", v)
+func (r *VerifyRepository) MasterTimeout(duration string) *VerifyRepository {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *VerifyRepository) Timeout(v string) *VerifyRepository {
-	r.values.Set("timeout", v)
+func (r *VerifyRepository) Timeout(duration string) *VerifyRepository {
+	r.values.Set("timeout", duration)
 
 	return r
 }

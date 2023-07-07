@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information on how ML is using memory.
 package getmemorystats
@@ -188,6 +188,10 @@ func (r GetMemoryStats) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -223,9 +227,9 @@ func (r *GetMemoryStats) Header(key, value string) *GetMemoryStats {
 // `nodeId1,nodeId2` or
 // `ml:true`
 // API Name: nodeid
-func (r *GetMemoryStats) NodeId(v string) *GetMemoryStats {
+func (r *GetMemoryStats) NodeId(nodeid string) *GetMemoryStats {
 	r.paramSet |= nodeidMask
-	r.nodeid = v
+	r.nodeid = nodeid
 
 	return r
 }
@@ -234,8 +238,8 @@ func (r *GetMemoryStats) NodeId(v string) *GetMemoryStats {
 // response. Otherwise only
 // the `_in_bytes` sizes are returned in the response.
 // API name: human
-func (r *GetMemoryStats) Human(b bool) *GetMemoryStats {
-	r.values.Set("human", strconv.FormatBool(b))
+func (r *GetMemoryStats) Human(human bool) *GetMemoryStats {
+	r.values.Set("human", strconv.FormatBool(human))
 
 	return r
 }
@@ -244,8 +248,8 @@ func (r *GetMemoryStats) Human(b bool) *GetMemoryStats {
 // received before the timeout
 // expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *GetMemoryStats) MasterTimeout(v string) *GetMemoryStats {
-	r.values.Set("master_timeout", v)
+func (r *GetMemoryStats) MasterTimeout(duration string) *GetMemoryStats {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -254,8 +258,8 @@ func (r *GetMemoryStats) MasterTimeout(v string) *GetMemoryStats {
 // expires, the request
 // fails and returns an error.
 // API name: timeout
-func (r *GetMemoryStats) Timeout(v string) *GetMemoryStats {
-	r.values.Set("timeout", v)
+func (r *GetMemoryStats) Timeout(duration string) *GetMemoryStats {
+	r.values.Set("timeout", duration)
 
 	return r
 }

@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // SettingsSimilarityScriptedTfidf type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/indices/_types/IndexSettings.ts#L216-L219
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/indices/_types/IndexSettings.ts#L216-L219
 type SettingsSimilarityScriptedTfidf struct {
 	Script Script `json:"script"`
 	Type   string `json:"type,omitempty"`
@@ -66,11 +65,22 @@ func (s *SettingsSimilarityScriptedTfidf) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s SettingsSimilarityScriptedTfidf) MarshalJSON() ([]byte, error) {
+	type innerSettingsSimilarityScriptedTfidf SettingsSimilarityScriptedTfidf
+	tmp := innerSettingsSimilarityScriptedTfidf{
+		Script: s.Script,
+		Type:   s.Type,
+	}
+
+	tmp.Type = "scripted"
+
+	return json.Marshal(tmp)
+}
+
 // NewSettingsSimilarityScriptedTfidf returns a SettingsSimilarityScriptedTfidf.
 func NewSettingsSimilarityScriptedTfidf() *SettingsSimilarityScriptedTfidf {
 	r := &SettingsSimilarityScriptedTfidf{}
-
-	r.Type = "scripted"
 
 	return r
 }

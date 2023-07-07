@@ -16,40 +16,46 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"strings"
-
 	"strconv"
-
-	"encoding/json"
+	"strings"
 )
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/async_search/_types/AsyncSearch.ts#L30-L45
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/async_search/_types/AsyncSearch.ts#L30-L56
 type AsyncSearch struct {
-	Aggregations    map[string]Aggregate       `json:"aggregations,omitempty"`
-	Clusters_       *ClusterStatistics         `json:"_clusters,omitempty"`
-	Fields          map[string]json.RawMessage `json:"fields,omitempty"`
-	Hits            HitsMetadata               `json:"hits"`
-	MaxScore        *Float64                   `json:"max_score,omitempty"`
-	NumReducePhases *int64                     `json:"num_reduce_phases,omitempty"`
-	PitId           *string                    `json:"pit_id,omitempty"`
-	Profile         *Profile                   `json:"profile,omitempty"`
-	ScrollId_       *string                    `json:"_scroll_id,omitempty"`
-	Shards_         ShardStatistics            `json:"_shards"`
-	Suggest         map[string][]Suggest       `json:"suggest,omitempty"`
-	TerminatedEarly *bool                      `json:"terminated_early,omitempty"`
-	TimedOut        bool                       `json:"timed_out"`
-	Took            int64                      `json:"took"`
+	// Aggregations Partial aggregations results, coming from the shards that have already
+	// completed the execution of the query.
+	Aggregations map[string]Aggregate       `json:"aggregations,omitempty"`
+	Clusters_    *ClusterStatistics         `json:"_clusters,omitempty"`
+	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
+	Hits         HitsMetadata               `json:"hits"`
+	MaxScore     *Float64                   `json:"max_score,omitempty"`
+	// NumReducePhases Indicates how many reductions of the results have been performed.
+	// If this number increases compared to the last retrieved results for a get
+	// asynch search request, you can expect additional results included in the
+	// search response.
+	NumReducePhases *int64   `json:"num_reduce_phases,omitempty"`
+	PitId           *string  `json:"pit_id,omitempty"`
+	Profile         *Profile `json:"profile,omitempty"`
+	ScrollId_       *string  `json:"_scroll_id,omitempty"`
+	// Shards_ Indicates how many shards have run the query.
+	// Note that in order for shard results to be included in the search response,
+	// they need to be reduced first.
+	Shards_         ShardStatistics      `json:"_shards"`
+	Suggest         map[string][]Suggest `json:"suggest,omitempty"`
+	TerminatedEarly *bool                `json:"terminated_early,omitempty"`
+	TimedOut        bool                 `json:"timed_out"`
+	Took            int64                `json:"took"`
 }
 
 func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
@@ -665,8 +671,63 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 			if s.Suggest == nil {
 				s.Suggest = make(map[string][]Suggest, 0)
 			}
-			if err := dec.Decode(&s.Suggest); err != nil {
-				return err
+
+			for dec.More() {
+				tt, err := dec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return err
+				}
+				if value, ok := tt.(string); ok {
+					if strings.Contains(value, "#") {
+						elems := strings.Split(value, "#")
+						if len(elems) == 2 {
+							if s.Suggest == nil {
+								s.Suggest = make(map[string][]Suggest, 0)
+							}
+							switch elems[0] {
+
+							case "completion":
+								o := NewCompletionSuggest()
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+
+							case "phrase":
+								o := NewPhraseSuggest()
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+
+							case "term":
+								o := NewTermSuggest()
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+
+							default:
+								o := make(map[string]interface{}, 0)
+								if err := dec.Decode(&o); err != nil {
+									return err
+								}
+								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
+							}
+						} else {
+							return errors.New("cannot decode JSON for field Suggest")
+						}
+					} else {
+						o := make(map[string]interface{}, 0)
+						if err := dec.Decode(&o); err != nil {
+							return err
+						}
+						s.Suggest[value] = append(s.Suggest[value], o)
+					}
+				}
 			}
 
 		case "terminated_early":

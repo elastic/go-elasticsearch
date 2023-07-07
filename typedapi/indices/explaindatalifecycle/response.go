@@ -16,15 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
-package types
+package explaindatalifecycle
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
-// NodeRoles type alias.
+// Response holds the response body struct for the package explaindatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/Node.ts#L96-L99
-type NodeRoles []noderole.NodeRole
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L25-L29
+
+type Response struct {
+	Indices map[string]types.DataLifecycleExplain `json:"indices"`
+}
+
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{
+		Indices: make(map[string]types.DataLifecycleExplain, 0),
+	}
+	return r
+}

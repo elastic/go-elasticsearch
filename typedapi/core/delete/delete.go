@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Removes a document from the index.
 package delete
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
@@ -172,7 +171,7 @@ func (r Delete) Do(ctx context.Context) (*Response, error) {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode < 299 || res.StatusCode == 404 {
+	if res.StatusCode < 299 {
 		err = json.NewDecoder(res.Body).Decode(response)
 		if err != nil {
 			return nil, err
@@ -181,10 +180,38 @@ func (r Delete) Do(ctx context.Context) (*Response, error) {
 		return response, nil
 	}
 
+	if res.StatusCode == 404 {
+		data, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			return nil, err
+		}
+
+		errorResponse := types.NewElasticsearchError()
+		err = json.NewDecoder(gobytes.NewReader(data)).Decode(&errorResponse)
+		if err != nil {
+			return nil, err
+		}
+
+		if errorResponse.Status == 0 {
+			err = json.NewDecoder(gobytes.NewReader(data)).Decode(&response)
+			if err != nil {
+				return nil, err
+			}
+
+			return response, nil
+		}
+
+		return nil, errorResponse
+	}
+
 	errorResponse := types.NewElasticsearchError()
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
 		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
 	}
 
 	return nil, errorResponse
@@ -220,18 +247,18 @@ func (r *Delete) Header(key, value string) *Delete {
 
 // Id The document ID
 // API Name: id
-func (r *Delete) Id(v string) *Delete {
+func (r *Delete) Id(id string) *Delete {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Index The name of the index
 // API Name: index
-func (r *Delete) Index(v string) *Delete {
+func (r *Delete) Index(index string) *Delete {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -239,8 +266,8 @@ func (r *Delete) Index(v string) *Delete {
 // IfPrimaryTerm only perform the delete operation if the last operation that has changed the
 // document has the specified primary term
 // API name: if_primary_term
-func (r *Delete) IfPrimaryTerm(v string) *Delete {
-	r.values.Set("if_primary_term", v)
+func (r *Delete) IfPrimaryTerm(ifprimaryterm string) *Delete {
+	r.values.Set("if_primary_term", ifprimaryterm)
 
 	return r
 }
@@ -248,8 +275,8 @@ func (r *Delete) IfPrimaryTerm(v string) *Delete {
 // IfSeqNo only perform the delete operation if the last operation that has changed the
 // document has the specified sequence number
 // API name: if_seq_no
-func (r *Delete) IfSeqNo(v string) *Delete {
-	r.values.Set("if_seq_no", v)
+func (r *Delete) IfSeqNo(sequencenumber string) *Delete {
+	r.values.Set("if_seq_no", sequencenumber)
 
 	return r
 }
@@ -258,40 +285,40 @@ func (r *Delete) IfSeqNo(v string) *Delete {
 // search, if `wait_for` then wait for a refresh to make this operation visible
 // to search, if `false` (the default) then do nothing with refreshes.
 // API name: refresh
-func (r *Delete) Refresh(enum refresh.Refresh) *Delete {
-	r.values.Set("refresh", enum.String())
+func (r *Delete) Refresh(refresh refresh.Refresh) *Delete {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }
 
 // Routing Specific routing value
 // API name: routing
-func (r *Delete) Routing(v string) *Delete {
-	r.values.Set("routing", v)
+func (r *Delete) Routing(routing string) *Delete {
+	r.values.Set("routing", routing)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Delete) Timeout(v string) *Delete {
-	r.values.Set("timeout", v)
+func (r *Delete) Timeout(duration string) *Delete {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *Delete) Version(v string) *Delete {
-	r.values.Set("version", v)
+func (r *Delete) Version(versionnumber string) *Delete {
+	r.values.Set("version", versionnumber)
 
 	return r
 }
 
 // VersionType Specific version type
 // API name: version_type
-func (r *Delete) VersionType(enum versiontype.VersionType) *Delete {
-	r.values.Set("version_type", enum.String())
+func (r *Delete) VersionType(versiontype versiontype.VersionType) *Delete {
+	r.values.Set("version_type", versiontype.String())
 
 	return r
 }
@@ -301,8 +328,8 @@ func (r *Delete) VersionType(enum versiontype.VersionType) *Delete {
 // `all` for all shard copies, otherwise set to any non-negative value less than
 // or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
-func (r *Delete) WaitForActiveShards(v string) *Delete {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Delete) WaitForActiveShards(waitforactiveshards string) *Delete {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
 
 	return r
 }

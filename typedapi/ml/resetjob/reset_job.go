@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Resets an existing anomaly detection job.
 package resetjob
@@ -181,6 +181,10 @@ func (r ResetJob) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,9 +218,9 @@ func (r *ResetJob) Header(key, value string) *ResetJob {
 
 // JobId The ID of the job to reset.
 // API Name: jobid
-func (r *ResetJob) JobId(v string) *ResetJob {
+func (r *ResetJob) JobId(jobid string) *ResetJob {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
@@ -224,8 +228,8 @@ func (r *ResetJob) JobId(v string) *ResetJob {
 // WaitForCompletion Should this request wait until the operation has completed before
 // returning.
 // API name: wait_for_completion
-func (r *ResetJob) WaitForCompletion(b bool) *ResetJob {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *ResetJob) WaitForCompletion(waitforcompletion bool) *ResetJob {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }
@@ -235,8 +239,8 @@ func (r *ResetJob) WaitForCompletion(b bool) *ResetJob {
 // is
 // reset.
 // API name: delete_user_annotations
-func (r *ResetJob) DeleteUserAnnotations(b bool) *ResetJob {
-	r.values.Set("delete_user_annotations", strconv.FormatBool(b))
+func (r *ResetJob) DeleteUserAnnotations(deleteuserannotations bool) *ResetJob {
+	r.values.Set("delete_user_annotations", strconv.FormatBool(deleteuserannotations))
 
 	return r
 }

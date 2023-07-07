@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Evicts tokens from the service account token caches.
 package clearcachedservicetokens
@@ -200,6 +200,10 @@ func (r ClearCachedServiceTokens) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -233,27 +237,27 @@ func (r *ClearCachedServiceTokens) Header(key, value string) *ClearCachedService
 
 // Namespace An identifier for the namespace
 // API Name: namespace
-func (r *ClearCachedServiceTokens) Namespace(v string) *ClearCachedServiceTokens {
+func (r *ClearCachedServiceTokens) Namespace(namespace string) *ClearCachedServiceTokens {
 	r.paramSet |= namespaceMask
-	r.namespace = v
+	r.namespace = namespace
 
 	return r
 }
 
 // Service An identifier for the service name
 // API Name: service
-func (r *ClearCachedServiceTokens) Service(v string) *ClearCachedServiceTokens {
+func (r *ClearCachedServiceTokens) Service(service string) *ClearCachedServiceTokens {
 	r.paramSet |= serviceMask
-	r.service = v
+	r.service = service
 
 	return r
 }
 
 // Name A comma-separated list of service token names
 // API Name: name
-func (r *ClearCachedServiceTokens) Name(v string) *ClearCachedServiceTokens {
+func (r *ClearCachedServiceTokens) Name(name string) *ClearCachedServiceTokens {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

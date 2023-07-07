@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Upgrades a given job snapshot to the current major version.
 package upgradejobsnapshot
@@ -191,6 +191,10 @@ func (r UpgradeJobSnapshot) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -224,18 +228,18 @@ func (r *UpgradeJobSnapshot) Header(key, value string) *UpgradeJobSnapshot {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *UpgradeJobSnapshot) JobId(v string) *UpgradeJobSnapshot {
+func (r *UpgradeJobSnapshot) JobId(jobid string) *UpgradeJobSnapshot {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
 
 // SnapshotId A numerical character string that uniquely identifies the model snapshot.
 // API Name: snapshotid
-func (r *UpgradeJobSnapshot) SnapshotId(v string) *UpgradeJobSnapshot {
+func (r *UpgradeJobSnapshot) SnapshotId(snapshotid string) *UpgradeJobSnapshot {
 	r.paramSet |= snapshotidMask
-	r.snapshotid = v
+	r.snapshotid = snapshotid
 
 	return r
 }
@@ -243,16 +247,16 @@ func (r *UpgradeJobSnapshot) SnapshotId(v string) *UpgradeJobSnapshot {
 // WaitForCompletion When true, the API won’t respond until the upgrade is complete.
 // Otherwise, it responds as soon as the upgrade task is assigned to a node.
 // API name: wait_for_completion
-func (r *UpgradeJobSnapshot) WaitForCompletion(b bool) *UpgradeJobSnapshot {
-	r.values.Set("wait_for_completion", strconv.FormatBool(b))
+func (r *UpgradeJobSnapshot) WaitForCompletion(waitforcompletion bool) *UpgradeJobSnapshot {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }
 
 // Timeout Controls the time to wait for the request to complete.
 // API name: timeout
-func (r *UpgradeJobSnapshot) Timeout(v string) *UpgradeJobSnapshot {
-	r.values.Set("timeout", v)
+func (r *UpgradeJobSnapshot) Timeout(duration string) *UpgradeJobSnapshot {
+	r.values.Set("timeout", duration)
 
 	return r
 }

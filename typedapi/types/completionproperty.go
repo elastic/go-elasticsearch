@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 )
 
 // CompletionProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/mapping/specialized.ts#L27-L35
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/mapping/specialized.ts#L27-L35
 type CompletionProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	Contexts       []SuggestContext               `json:"contexts,omitempty"`
@@ -75,7 +73,11 @@ func (s *CompletionProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Analyzer = &o
 
 		case "contexts":
@@ -785,7 +787,11 @@ func (s *CompletionProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SearchAnalyzer = &o
 
 		case "similarity":
@@ -793,7 +799,11 @@ func (s *CompletionProperty) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Similarity = &o
 
 		case "store":
@@ -820,6 +830,33 @@ func (s *CompletionProperty) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s CompletionProperty) MarshalJSON() ([]byte, error) {
+	type innerCompletionProperty CompletionProperty
+	tmp := innerCompletionProperty{
+		Analyzer:                   s.Analyzer,
+		Contexts:                   s.Contexts,
+		CopyTo:                     s.CopyTo,
+		DocValues:                  s.DocValues,
+		Dynamic:                    s.Dynamic,
+		Fields:                     s.Fields,
+		IgnoreAbove:                s.IgnoreAbove,
+		MaxInputLength:             s.MaxInputLength,
+		Meta:                       s.Meta,
+		PreservePositionIncrements: s.PreservePositionIncrements,
+		PreserveSeparators:         s.PreserveSeparators,
+		Properties:                 s.Properties,
+		SearchAnalyzer:             s.SearchAnalyzer,
+		Similarity:                 s.Similarity,
+		Store:                      s.Store,
+		Type:                       s.Type,
+	}
+
+	tmp.Type = "completion"
+
+	return json.Marshal(tmp)
+}
+
 // NewCompletionProperty returns a CompletionProperty.
 func NewCompletionProperty() *CompletionProperty {
 	r := &CompletionProperty{
@@ -827,8 +864,6 @@ func NewCompletionProperty() *CompletionProperty {
 		Meta:       make(map[string]string, 0),
 		Properties: make(map[string]Property, 0),
 	}
-
-	r.Type = "completion"
 
 	return r
 }

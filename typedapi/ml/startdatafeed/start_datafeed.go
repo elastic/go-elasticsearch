@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Starts one or more datafeeds.
 package startdatafeed
@@ -52,8 +52,9 @@ type StartDatafeed struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *StartDatafeed {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *StartDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) 
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *StartDatafeed) HttpRequest(ctx context.Context) (*http.Request, error) 
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -215,6 +229,10 @@ func (r StartDatafeed) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -231,57 +249,33 @@ func (r *StartDatafeed) Header(key, value string) *StartDatafeed {
 // start and end with alphanumeric
 // characters.
 // API Name: datafeedid
-func (r *StartDatafeed) DatafeedId(v string) *StartDatafeed {
+func (r *StartDatafeed) DatafeedId(datafeedid string) *StartDatafeed {
 	r.paramSet |= datafeedidMask
-	r.datafeedid = v
+	r.datafeedid = datafeedid
 
 	return r
 }
 
-// End The time that the datafeed should end, which can be specified by using one of
-// the following formats:
-//
-// * ISO 8601 format with milliseconds, for example `2017-01-22T06:00:00.000Z`
-// * ISO 8601 format without milliseconds, for example
-// `2017-01-22T06:00:00+00:00`
-// * Milliseconds since the epoch, for example `1485061200000`
-//
-// Date-time arguments using either of the ISO 8601 formats must have a time
-// zone designator, where `Z` is accepted
-// as an abbreviation for UTC time. When a URL is expected (for example, in
-// browsers), the `+` used in time zone
-// designators must be encoded as `%2B`.
-// The end time value is exclusive. If you do not specify an end time, the
-// datafeed
-// runs continuously.
+// End Refer to the description for the `end` query parameter.
 // API name: end
-func (r *StartDatafeed) End(v string) *StartDatafeed {
-	r.values.Set("end", v)
+func (r *StartDatafeed) End(datetime types.DateTime) *StartDatafeed {
+	r.req.End = datetime
 
 	return r
 }
 
-// Start The time that the datafeed should begin, which can be specified by using the
-// same formats as the `end` parameter.
-// This value is inclusive.
-// If you do not specify a start time and the datafeed is associated with a new
-// anomaly detection job, the analysis
-// starts from the earliest time for which data is available.
-// If you restart a stopped datafeed and specify a start value that is earlier
-// than the timestamp of the latest
-// processed record, the datafeed continues from 1 millisecond after the
-// timestamp of the latest processed record.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *StartDatafeed) Start(v string) *StartDatafeed {
-	r.values.Set("start", v)
+func (r *StartDatafeed) Start(datetime types.DateTime) *StartDatafeed {
+	r.req.Start = datetime
 
 	return r
 }
 
-// Timeout Specifies the amount of time to wait until a datafeed starts.
+// Timeout Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *StartDatafeed) Timeout(v string) *StartDatafeed {
-	r.values.Set("timeout", v)
+func (r *StartDatafeed) Timeout(duration types.Duration) *StartDatafeed {
+	r.req.Timeout = duration
 
 	return r
 }

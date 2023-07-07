@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns the details about a search application.
 package get
@@ -178,6 +178,10 @@ func (r Get) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -211,9 +215,9 @@ func (r *Get) Header(key, value string) *Get {
 
 // Name The name of the search application
 // API Name: name
-func (r *Get) Name(v string) *Get {
+func (r *Get) Name(name string) *Get {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

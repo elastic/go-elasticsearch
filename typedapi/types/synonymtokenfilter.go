@@ -16,25 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/synonymformat"
-
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
 
-	"encoding/json"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/synonymformat"
 )
 
 // SynonymTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/token_filters.ts#L121-L130
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L121-L130
 type SynonymTokenFilter struct {
 	Expand       *bool                        `json:"expand,omitempty"`
 	Format       *synonymformat.SynonymFormat `json:"format,omitempty"`
@@ -105,7 +103,11 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.SynonymsPath = &o
 
 		case "tokenizer":
@@ -113,7 +115,11 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Tokenizer = &o
 
 		case "type":
@@ -145,11 +151,29 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s SynonymTokenFilter) MarshalJSON() ([]byte, error) {
+	type innerSynonymTokenFilter SynonymTokenFilter
+	tmp := innerSynonymTokenFilter{
+		Expand:       s.Expand,
+		Format:       s.Format,
+		Lenient:      s.Lenient,
+		Synonyms:     s.Synonyms,
+		SynonymsPath: s.SynonymsPath,
+		Tokenizer:    s.Tokenizer,
+		Type:         s.Type,
+		Updateable:   s.Updateable,
+		Version:      s.Version,
+	}
+
+	tmp.Type = "synonym"
+
+	return json.Marshal(tmp)
+}
+
 // NewSynonymTokenFilter returns a SynonymTokenFilter.
 func NewSynonymTokenFilter() *SynonymTokenFilter {
 	r := &SynonymTokenFilter{}
-
-	r.Type = "synonym"
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Provides a detailed view of shard allocation on nodes.
 package shards
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
 )
 
@@ -185,6 +184,10 @@ func (r Shards) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -218,17 +221,17 @@ func (r *Shards) Header(key, value string) *Shards {
 
 // Index A comma-separated list of index names to limit the returned information
 // API Name: index
-func (r *Shards) Index(v string) *Shards {
+func (r *Shards) Index(index string) *Shards {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
 
 // Bytes The unit in which to display byte values
 // API name: bytes
-func (r *Shards) Bytes(enum bytes.Bytes) *Shards {
-	r.values.Set("bytes", enum.String())
+func (r *Shards) Bytes(bytes bytes.Bytes) *Shards {
+	r.values.Set("bytes", bytes.String())
 
 	return r
 }

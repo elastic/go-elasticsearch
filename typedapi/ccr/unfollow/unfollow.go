@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Stops the following task associated with a follower index and removes index
 // metadata and settings associated with cross-cluster replication.
@@ -180,6 +180,10 @@ func (r Unfollow) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *Unfollow) Header(key, value string) *Unfollow {
 
 // Index The name of the follower index that should be turned into a regular index.
 // API Name: index
-func (r *Unfollow) Index(v string) *Unfollow {
+func (r *Unfollow) Index(index string) *Unfollow {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }

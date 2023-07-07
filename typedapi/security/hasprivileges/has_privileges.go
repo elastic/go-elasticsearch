@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Determines whether the specified user has a specified list of privileges.
 package hasprivileges
@@ -34,6 +34,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
 )
 
 const (
@@ -52,8 +53,9 @@ type HasPrivileges struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -82,6 +84,8 @@ func New(tp elastictransport.Interface) *HasPrivileges {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -111,9 +115,19 @@ func (r *HasPrivileges) HttpRequest(ctx context.Context) (*http.Request, error) 
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -121,6 +135,7 @@ func (r *HasPrivileges) HttpRequest(ctx context.Context) (*http.Request, error) 
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -222,6 +237,10 @@ func (r HasPrivileges) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -234,9 +253,31 @@ func (r *HasPrivileges) Header(key, value string) *HasPrivileges {
 
 // User Username
 // API Name: user
-func (r *HasPrivileges) User(v string) *HasPrivileges {
+func (r *HasPrivileges) User(user string) *HasPrivileges {
 	r.paramSet |= userMask
-	r.user = v
+	r.user = user
+
+	return r
+}
+
+// API name: application
+func (r *HasPrivileges) Application(applications ...types.ApplicationPrivilegesCheck) *HasPrivileges {
+	r.req.Application = applications
+
+	return r
+}
+
+// Cluster A list of the cluster privileges that you want to check.
+// API name: cluster
+func (r *HasPrivileges) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *HasPrivileges {
+	r.req.Cluster = clusters
+
+	return r
+}
+
+// API name: index
+func (r *HasPrivileges) Index(indices ...types.IndexPrivilegesCheck) *HasPrivileges {
+	r.req.Index = indices
 
 	return r
 }

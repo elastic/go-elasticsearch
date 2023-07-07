@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Validates an anomaly detection job.
 package validate
@@ -48,8 +48,9 @@ type Validate struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *Validate {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *Validate) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *Validate) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -204,12 +218,85 @@ func (r Validate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Validate headers map.
 func (r *Validate) Header(key, value string) *Validate {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// API name: analysis_config
+func (r *Validate) AnalysisConfig(analysisconfig *types.AnalysisConfig) *Validate {
+
+	r.req.AnalysisConfig = analysisconfig
+
+	return r
+}
+
+// API name: analysis_limits
+func (r *Validate) AnalysisLimits(analysislimits *types.AnalysisLimits) *Validate {
+
+	r.req.AnalysisLimits = analysislimits
+
+	return r
+}
+
+// API name: data_description
+func (r *Validate) DataDescription(datadescription *types.DataDescription) *Validate {
+
+	r.req.DataDescription = datadescription
+
+	return r
+}
+
+// API name: description
+func (r *Validate) Description(description string) *Validate {
+
+	r.req.Description = &description
+
+	return r
+}
+
+// API name: job_id
+func (r *Validate) JobId(id string) *Validate {
+	r.req.JobId = &id
+
+	return r
+}
+
+// API name: model_plot
+func (r *Validate) ModelPlot(modelplot *types.ModelPlotConfig) *Validate {
+
+	r.req.ModelPlot = modelplot
+
+	return r
+}
+
+// API name: model_snapshot_id
+func (r *Validate) ModelSnapshotId(id string) *Validate {
+	r.req.ModelSnapshotId = &id
+
+	return r
+}
+
+// API name: model_snapshot_retention_days
+func (r *Validate) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *Validate {
+
+	r.req.ModelSnapshotRetentionDays = &modelsnapshotretentiondays
+
+	return r
+}
+
+// API name: results_index_name
+func (r *Validate) ResultsIndexName(indexname string) *Validate {
+	r.req.ResultsIndexName = &indexname
 
 	return r
 }

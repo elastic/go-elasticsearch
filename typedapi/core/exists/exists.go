@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about whether a document exists in an index.
 package exists
@@ -34,7 +34,6 @@ import (
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
 )
 
@@ -159,6 +158,11 @@ func (r Exists) Perform(ctx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a exists.Response
+func (r Exists) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r Exists) IsSuccess(ctx context.Context) (bool, error) {
@@ -189,18 +193,18 @@ func (r *Exists) Header(key, value string) *Exists {
 
 // Id The document ID
 // API Name: id
-func (r *Exists) Id(v string) *Exists {
+func (r *Exists) Id(id string) *Exists {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // Index The name of the index
 // API Name: index
-func (r *Exists) Index(v string) *Exists {
+func (r *Exists) Index(index string) *Exists {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -208,32 +212,32 @@ func (r *Exists) Index(v string) *Exists {
 // Preference Specify the node or shard the operation should be performed on (default:
 // random)
 // API name: preference
-func (r *Exists) Preference(v string) *Exists {
-	r.values.Set("preference", v)
+func (r *Exists) Preference(preference string) *Exists {
+	r.values.Set("preference", preference)
 
 	return r
 }
 
 // Realtime Specify whether to perform the operation in realtime or search mode
 // API name: realtime
-func (r *Exists) Realtime(b bool) *Exists {
-	r.values.Set("realtime", strconv.FormatBool(b))
+func (r *Exists) Realtime(realtime bool) *Exists {
+	r.values.Set("realtime", strconv.FormatBool(realtime))
 
 	return r
 }
 
 // Refresh Refresh the shard containing the document before performing the operation
 // API name: refresh
-func (r *Exists) Refresh(b bool) *Exists {
-	r.values.Set("refresh", strconv.FormatBool(b))
+func (r *Exists) Refresh(refresh bool) *Exists {
+	r.values.Set("refresh", strconv.FormatBool(refresh))
 
 	return r
 }
 
 // Routing Specific routing value
 // API name: routing
-func (r *Exists) Routing(v string) *Exists {
-	r.values.Set("routing", v)
+func (r *Exists) Routing(routing string) *Exists {
+	r.values.Set("routing", routing)
 
 	return r
 }
@@ -241,48 +245,48 @@ func (r *Exists) Routing(v string) *Exists {
 // Source_ True or false to return the _source field or not, or a list of fields to
 // return
 // API name: _source
-func (r *Exists) Source_(v string) *Exists {
-	r.values.Set("_source", v)
+func (r *Exists) Source_(sourceconfigparam string) *Exists {
+	r.values.Set("_source", sourceconfigparam)
 
 	return r
 }
 
 // SourceExcludes_ A list of fields to exclude from the returned _source field
 // API name: _source_excludes
-func (r *Exists) SourceExcludes_(v string) *Exists {
-	r.values.Set("_source_excludes", v)
+func (r *Exists) SourceExcludes_(fields ...string) *Exists {
+	r.values.Set("_source_excludes", strings.Join(fields, ","))
 
 	return r
 }
 
 // SourceIncludes_ A list of fields to extract and return from the _source field
 // API name: _source_includes
-func (r *Exists) SourceIncludes_(v string) *Exists {
-	r.values.Set("_source_includes", v)
+func (r *Exists) SourceIncludes_(fields ...string) *Exists {
+	r.values.Set("_source_includes", strings.Join(fields, ","))
 
 	return r
 }
 
 // StoredFields A comma-separated list of stored fields to return in the response
 // API name: stored_fields
-func (r *Exists) StoredFields(v string) *Exists {
-	r.values.Set("stored_fields", v)
+func (r *Exists) StoredFields(fields ...string) *Exists {
+	r.values.Set("stored_fields", strings.Join(fields, ","))
 
 	return r
 }
 
 // Version Explicit version number for concurrency control
 // API name: version
-func (r *Exists) Version(v string) *Exists {
-	r.values.Set("version", v)
+func (r *Exists) Version(versionnumber string) *Exists {
+	r.values.Set("version", versionnumber)
 
 	return r
 }
 
 // VersionType Specific version type
 // API name: version_type
-func (r *Exists) VersionType(enum versiontype.VersionType) *Exists {
-	r.values.Set("version_type", enum.String())
+func (r *Exists) VersionType(versiontype versiontype.VersionType) *Exists {
+	r.values.Set("version_type", versiontype.String())
 
 	return r
 }

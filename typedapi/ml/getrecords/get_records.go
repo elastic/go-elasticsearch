@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves anomaly records for an anomaly detection job.
 package getrecords
@@ -53,8 +53,9 @@ type GetRecords struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +86,8 @@ func New(tp elastictransport.Interface) *GetRecords {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +117,19 @@ func (r *GetRecords) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +137,7 @@ func (r *GetRecords) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -218,6 +232,10 @@ func (r GetRecords) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -230,75 +248,82 @@ func (r *GetRecords) Header(key, value string) *GetRecords {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetRecords) JobId(v string) *GetRecords {
+func (r *GetRecords) JobId(jobid string) *GetRecords {
 	r.paramSet |= jobidMask
-	r.jobid = v
-
-	return r
-}
-
-// Desc If true, the results are sorted in descending order.
-// API name: desc
-func (r *GetRecords) Desc(b bool) *GetRecords {
-	r.values.Set("desc", strconv.FormatBool(b))
-
-	return r
-}
-
-// End Returns records with timestamps earlier than this time. The default value
-// means results are not limited to specific timestamps.
-// API name: end
-func (r *GetRecords) End(v string) *GetRecords {
-	r.values.Set("end", v)
-
-	return r
-}
-
-// ExcludeInterim If `true`, the output excludes interim results.
-// API name: exclude_interim
-func (r *GetRecords) ExcludeInterim(b bool) *GetRecords {
-	r.values.Set("exclude_interim", strconv.FormatBool(b))
+	r.jobid = jobid
 
 	return r
 }
 
 // From Skips the specified number of records.
 // API name: from
-func (r *GetRecords) From(i int) *GetRecords {
-	r.values.Set("from", strconv.Itoa(i))
-
-	return r
-}
-
-// RecordScore Returns records with anomaly scores greater or equal than this value.
-// API name: record_score
-func (r *GetRecords) RecordScore(v string) *GetRecords {
-	r.values.Set("record_score", v)
+func (r *GetRecords) From(from int) *GetRecords {
+	r.values.Set("from", strconv.Itoa(from))
 
 	return r
 }
 
 // Size Specifies the maximum number of records to obtain.
 // API name: size
-func (r *GetRecords) Size(i int) *GetRecords {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *GetRecords) Size(size int) *GetRecords {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }
 
-// Sort Specifies the sort field for the requested records.
+// Desc Refer to the description for the `desc` query parameter.
+// API name: desc
+func (r *GetRecords) Desc(desc bool) *GetRecords {
+	r.req.Desc = &desc
+
+	return r
+}
+
+// End Refer to the description for the `end` query parameter.
+// API name: end
+func (r *GetRecords) End(datetime types.DateTime) *GetRecords {
+	r.req.End = datetime
+
+	return r
+}
+
+// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
+// API name: exclude_interim
+func (r *GetRecords) ExcludeInterim(excludeinterim bool) *GetRecords {
+	r.req.ExcludeInterim = &excludeinterim
+
+	return r
+}
+
+// API name: page
+func (r *GetRecords) Page(page *types.Page) *GetRecords {
+
+	r.req.Page = page
+
+	return r
+}
+
+// RecordScore Refer to the description for the `record_score` query parameter.
+// API name: record_score
+func (r *GetRecords) RecordScore(recordscore types.Float64) *GetRecords {
+
+	r.req.RecordScore = &recordscore
+
+	return r
+}
+
+// Sort Refer to the description for the `sort` query parameter.
 // API name: sort
-func (r *GetRecords) Sort(v string) *GetRecords {
-	r.values.Set("sort", v)
+func (r *GetRecords) Sort(field string) *GetRecords {
+	r.req.Sort = &field
 
 	return r
 }
 
-// Start Returns records with timestamps after this time. The default value means
-// results are not limited to specific timestamps.
+// Start Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetRecords) Start(v string) *GetRecords {
-	r.values.Set("start", v)
+func (r *GetRecords) Start(datetime types.DateTime) *GetRecords {
+	r.req.Start = datetime
 
 	return r
 }

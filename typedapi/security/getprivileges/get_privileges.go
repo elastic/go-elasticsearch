@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves application privileges.
 package getprivileges
@@ -199,6 +199,10 @@ func (r GetPrivileges) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -232,18 +236,18 @@ func (r *GetPrivileges) Header(key, value string) *GetPrivileges {
 
 // Application Application name
 // API Name: application
-func (r *GetPrivileges) Application(v string) *GetPrivileges {
+func (r *GetPrivileges) Application(application string) *GetPrivileges {
 	r.paramSet |= applicationMask
-	r.application = v
+	r.application = application
 
 	return r
 }
 
 // Name Privilege name
 // API Name: name
-func (r *GetPrivileges) Name(v string) *GetPrivileges {
+func (r *GetPrivileges) Name(name string) *GetPrivileges {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }

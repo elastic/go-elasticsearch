@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes forecasts from a machine learning job.
 package deleteforecast
@@ -199,6 +199,10 @@ func (r DeleteForecast) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -232,9 +236,9 @@ func (r *DeleteForecast) Header(key, value string) *DeleteForecast {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *DeleteForecast) JobId(v string) *DeleteForecast {
+func (r *DeleteForecast) JobId(jobid string) *DeleteForecast {
 	r.paramSet |= jobidMask
-	r.jobid = v
+	r.jobid = jobid
 
 	return r
 }
@@ -243,9 +247,9 @@ func (r *DeleteForecast) JobId(v string) *DeleteForecast {
 // this optional parameter or if you specify `_all` or `*` the API deletes
 // all forecasts from the job.
 // API Name: forecastid
-func (r *DeleteForecast) ForecastId(v string) *DeleteForecast {
+func (r *DeleteForecast) ForecastId(forecastid string) *DeleteForecast {
 	r.paramSet |= forecastidMask
-	r.forecastid = v
+	r.forecastid = forecastid
 
 	return r
 }
@@ -255,8 +259,8 @@ func (r *DeleteForecast) ForecastId(v string) *DeleteForecast {
 // forecasts associated with the job, attempts to delete all forecasts
 // return an error.
 // API name: allow_no_forecasts
-func (r *DeleteForecast) AllowNoForecasts(b bool) *DeleteForecast {
-	r.values.Set("allow_no_forecasts", strconv.FormatBool(b))
+func (r *DeleteForecast) AllowNoForecasts(allownoforecasts bool) *DeleteForecast {
+	r.values.Set("allow_no_forecasts", strconv.FormatBool(allownoforecasts))
 
 	return r
 }
@@ -265,8 +269,8 @@ func (r *DeleteForecast) AllowNoForecasts(b bool) *DeleteForecast {
 // operation. When this period of time elapses, the API fails and returns an
 // error.
 // API name: timeout
-func (r *DeleteForecast) Timeout(v string) *DeleteForecast {
-	r.values.Set("timeout", v)
+func (r *DeleteForecast) Timeout(duration string) *DeleteForecast {
+	r.values.Set("timeout", duration)
 
 	return r
 }

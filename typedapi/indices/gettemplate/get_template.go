@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns an index template.
 package gettemplate
@@ -180,6 +180,10 @@ func (r GetTemplate) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,17 +217,17 @@ func (r *GetTemplate) Header(key, value string) *GetTemplate {
 
 // Name The comma separated names of the index templates
 // API Name: name
-func (r *GetTemplate) Name(v string) *GetTemplate {
+func (r *GetTemplate) Name(name string) *GetTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // FlatSettings Return settings in flat format (default: false)
 // API name: flat_settings
-func (r *GetTemplate) FlatSettings(b bool) *GetTemplate {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *GetTemplate) FlatSettings(flatsettings bool) *GetTemplate {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
@@ -231,16 +235,16 @@ func (r *GetTemplate) FlatSettings(b bool) *GetTemplate {
 // Local Return local information, do not retrieve the state from master node
 // (default: false)
 // API name: local
-func (r *GetTemplate) Local(b bool) *GetTemplate {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *GetTemplate) Local(local bool) *GetTemplate {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *GetTemplate) MasterTimeout(v string) *GetTemplate {
-	r.values.Set("master_timeout", v)
+func (r *GetTemplate) MasterTimeout(duration string) *GetTemplate {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

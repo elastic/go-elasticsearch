@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about one or more indices.
 package get
@@ -36,6 +36,8 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/feature"
 )
 
 const (
@@ -175,6 +177,10 @@ func (r Get) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,9 +216,9 @@ func (r *Get) Header(key, value string) *Get {
 // limit the request.
 // Wildcard expressions (*) are supported.
 // API Name: index
-func (r *Get) Index(v string) *Get {
+func (r *Get) Index(index string) *Get {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -224,8 +230,8 @@ func (r *Get) Index(v string) *Get {
 // a request targeting foo*,bar* returns an error if an index starts with foo
 // but no index starts with bar.
 // API name: allow_no_indices
-func (r *Get) AllowNoIndices(b bool) *Get {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *Get) AllowNoIndices(allownoindices bool) *Get {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -236,32 +242,36 @@ func (r *Get) AllowNoIndices(b bool) *Get {
 // comma-separated values,
 // such as open,hidden.
 // API name: expand_wildcards
-func (r *Get) ExpandWildcards(v string) *Get {
-	r.values.Set("expand_wildcards", v)
+func (r *Get) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Get {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // FlatSettings If true, returns settings in flat format.
 // API name: flat_settings
-func (r *Get) FlatSettings(b bool) *Get {
-	r.values.Set("flat_settings", strconv.FormatBool(b))
+func (r *Get) FlatSettings(flatsettings bool) *Get {
+	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
 
 	return r
 }
 
 // IgnoreUnavailable If false, requests that target a missing index return an error.
 // API name: ignore_unavailable
-func (r *Get) IgnoreUnavailable(b bool) *Get {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Get) IgnoreUnavailable(ignoreunavailable bool) *Get {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // IncludeDefaults If true, return all default settings in the response.
 // API name: include_defaults
-func (r *Get) IncludeDefaults(b bool) *Get {
-	r.values.Set("include_defaults", strconv.FormatBool(b))
+func (r *Get) IncludeDefaults(includedefaults bool) *Get {
+	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
 
 	return r
 }
@@ -269,8 +279,8 @@ func (r *Get) IncludeDefaults(b bool) *Get {
 // Local If true, the request retrieves information from the local node only. Defaults
 // to false, which means information is retrieved from the master node.
 // API name: local
-func (r *Get) Local(b bool) *Get {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *Get) Local(local bool) *Get {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }
@@ -278,16 +288,20 @@ func (r *Get) Local(b bool) *Get {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *Get) MasterTimeout(v string) *Get {
-	r.values.Set("master_timeout", v)
+func (r *Get) MasterTimeout(duration string) *Get {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Features Return only information on specified index features
 // API name: features
-func (r *Get) Features(v string) *Get {
-	r.values.Set("features", v)
+func (r *Get) Features(features ...feature.Feature) *Get {
+	tmp := []string{}
+	for _, item := range features {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }

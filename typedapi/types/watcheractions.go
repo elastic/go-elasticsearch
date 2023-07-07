@@ -16,51 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
-import (
-	"bytes"
-	"errors"
-	"io"
-
-	"encoding/json"
-)
-
 // WatcherActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/xpack/usage/types.ts#L387-L389
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/xpack/usage/types.ts#L396-L398
 type WatcherActions struct {
 	Actions map[string]WatcherActionTotals `json:"actions"`
-}
-
-func (s *WatcherActions) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "actions":
-			if s.Actions == nil {
-				s.Actions = make(map[string]WatcherActionTotals, 0)
-			}
-			if err := dec.Decode(&s.Actions); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
 }
 
 // NewWatcherActions returns a WatcherActions.

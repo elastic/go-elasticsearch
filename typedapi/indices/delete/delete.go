@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes an index.
 package delete
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -175,6 +176,10 @@ func (r Delete) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -209,9 +214,9 @@ func (r *Delete) Header(key, value string) *Delete {
 // Index A comma-separated list of indices to delete; use `_all` or `*` string to
 // delete all indices
 // API Name: index
-func (r *Delete) Index(v string) *Delete {
+func (r *Delete) Index(index string) *Delete {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -219,8 +224,8 @@ func (r *Delete) Index(v string) *Delete {
 // AllowNoIndices Ignore if a wildcard expression resolves to no concrete indices (default:
 // false)
 // API name: allow_no_indices
-func (r *Delete) AllowNoIndices(b bool) *Delete {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *Delete) AllowNoIndices(allownoindices bool) *Delete {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -228,32 +233,36 @@ func (r *Delete) AllowNoIndices(b bool) *Delete {
 // ExpandWildcards Whether wildcard expressions should get expanded to open, closed, or hidden
 // indices
 // API name: expand_wildcards
-func (r *Delete) ExpandWildcards(v string) *Delete {
-	r.values.Set("expand_wildcards", v)
+func (r *Delete) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Delete {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreUnavailable Ignore unavailable indexes (default: false)
 // API name: ignore_unavailable
-func (r *Delete) IgnoreUnavailable(b bool) *Delete {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Delete) IgnoreUnavailable(ignoreunavailable bool) *Delete {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *Delete) MasterTimeout(v string) *Delete {
-	r.values.Set("master_timeout", v)
+func (r *Delete) MasterTimeout(duration string) *Delete {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Delete) Timeout(v string) *Delete {
-	r.values.Set("timeout", v)
+func (r *Delete) Timeout(duration string) *Delete {
+	r.values.Set("timeout", duration)
 
 	return r
 }

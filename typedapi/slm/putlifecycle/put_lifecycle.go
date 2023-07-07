@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Creates or updates a snapshot lifecycle policy.
 package putlifecycle
@@ -52,8 +52,9 @@ type PutLifecycle struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *PutLifecycle {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *PutLifecycle) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *PutLifecycle) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -213,6 +227,10 @@ func (r PutLifecycle) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -225,9 +243,9 @@ func (r *PutLifecycle) Header(key, value string) *PutLifecycle {
 
 // PolicyId ID for the snapshot lifecycle policy you want to create or update.
 // API Name: policyid
-func (r *PutLifecycle) PolicyId(v string) *PutLifecycle {
+func (r *PutLifecycle) PolicyId(policyid string) *PutLifecycle {
 	r.paramSet |= policyidMask
-	r.policyid = v
+	r.policyid = policyid
 
 	return r
 }
@@ -235,8 +253,8 @@ func (r *PutLifecycle) PolicyId(v string) *PutLifecycle {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *PutLifecycle) MasterTimeout(v string) *PutLifecycle {
-	r.values.Set("master_timeout", v)
+func (r *PutLifecycle) MasterTimeout(duration string) *PutLifecycle {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -244,8 +262,56 @@ func (r *PutLifecycle) MasterTimeout(v string) *PutLifecycle {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *PutLifecycle) Timeout(v string) *PutLifecycle {
-	r.values.Set("timeout", v)
+func (r *PutLifecycle) Timeout(duration string) *PutLifecycle {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// Config Configuration for each snapshot created by the policy.
+// API name: config
+func (r *PutLifecycle) Config(config *types.Configuration) *PutLifecycle {
+
+	r.req.Config = config
+
+	return r
+}
+
+// Name Name automatically assigned to each snapshot created by the policy. Date math
+// is supported. To prevent conflicting snapshot names, a UUID is automatically
+// appended to each snapshot name.
+// API name: name
+func (r *PutLifecycle) Name(name string) *PutLifecycle {
+	r.req.Name = &name
+
+	return r
+}
+
+// Repository Repository used to store snapshots created by this policy. This repository
+// must exist prior to the policy’s creation. You can create a repository using
+// the snapshot repository API.
+// API name: repository
+func (r *PutLifecycle) Repository(repository string) *PutLifecycle {
+
+	r.req.Repository = &repository
+
+	return r
+}
+
+// Retention Retention rules used to retain and delete snapshots created by the policy.
+// API name: retention
+func (r *PutLifecycle) Retention(retention *types.Retention) *PutLifecycle {
+
+	r.req.Retention = retention
+
+	return r
+}
+
+// Schedule Periodic or absolute schedule at which the policy creates snapshots. SLM
+// applies schedule changes immediately.
+// API name: schedule
+func (r *PutLifecycle) Schedule(cronexpression string) *PutLifecycle {
+	r.req.Schedule = &cronexpression
 
 	return r
 }

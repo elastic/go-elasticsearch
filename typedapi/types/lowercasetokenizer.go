@@ -16,21 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
-	"encoding/json"
 )
 
 // LowercaseTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/tokenizers.ts#L70-L72
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/tokenizers.ts#L70-L72
 type LowercaseTokenizer struct {
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -66,11 +65,22 @@ func (s *LowercaseTokenizer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s LowercaseTokenizer) MarshalJSON() ([]byte, error) {
+	type innerLowercaseTokenizer LowercaseTokenizer
+	tmp := innerLowercaseTokenizer{
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "lowercase"
+
+	return json.Marshal(tmp)
+}
+
 // NewLowercaseTokenizer returns a LowercaseTokenizer.
 func NewLowercaseTokenizer() *LowercaseTokenizer {
 	r := &LowercaseTokenizer{}
-
-	r.Type = "lowercase"
 
 	return r
 }

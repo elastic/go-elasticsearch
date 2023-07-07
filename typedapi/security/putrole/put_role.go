@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Adds and updates roles in the native realm.
 package putrole
@@ -34,7 +34,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -54,8 +54,9 @@ type PutRole struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -86,6 +87,8 @@ func New(tp elastictransport.Interface) *PutRole {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -115,9 +118,19 @@ func (r *PutRole) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -125,6 +138,7 @@ func (r *PutRole) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -215,6 +229,10 @@ func (r PutRole) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -227,9 +245,9 @@ func (r *PutRole) Header(key, value string) *PutRole {
 
 // Name The name of the role.
 // API Name: name
-func (r *PutRole) Name(v string) *PutRole {
+func (r *PutRole) Name(name string) *PutRole {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -238,8 +256,75 @@ func (r *PutRole) Name(v string) *PutRole {
 // operation visible to search, if `wait_for` then wait for a refresh to make
 // this operation visible to search, if `false` then do nothing with refreshes.
 // API name: refresh
-func (r *PutRole) Refresh(enum refresh.Refresh) *PutRole {
-	r.values.Set("refresh", enum.String())
+func (r *PutRole) Refresh(refresh refresh.Refresh) *PutRole {
+	r.values.Set("refresh", refresh.String())
+
+	return r
+}
+
+// Applications A list of application privilege entries.
+// API name: applications
+func (r *PutRole) Applications(applications ...types.ApplicationPrivileges) *PutRole {
+	r.req.Applications = applications
+
+	return r
+}
+
+// Cluster A list of cluster privileges. These privileges define the cluster-level
+// actions for users with this role.
+// API name: cluster
+func (r *PutRole) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *PutRole {
+	r.req.Cluster = clusters
+
+	return r
+}
+
+// Global An object defining global privileges. A global privilege is a form of cluster
+// privilege that is request-aware. Support for global privileges is currently
+// limited to the management of application privileges.
+// API name: global
+func (r *PutRole) Global(global map[string]json.RawMessage) *PutRole {
+
+	r.req.Global = global
+
+	return r
+}
+
+// Indices A list of indices permissions entries.
+// API name: indices
+func (r *PutRole) Indices(indices ...types.IndicesPrivileges) *PutRole {
+	r.req.Indices = indices
+
+	return r
+}
+
+// Metadata Optional metadata. Within the metadata object, keys that begin with an
+// underscore (`_`) are reserved for system use.
+// API name: metadata
+func (r *PutRole) Metadata(metadata types.Metadata) *PutRole {
+	r.req.Metadata = metadata
+
+	return r
+}
+
+// RunAs A list of users that the owners of this role can impersonate.
+// API name: run_as
+func (r *PutRole) RunAs(runas ...string) *PutRole {
+	r.req.RunAs = runas
+
+	return r
+}
+
+// TransientMetadata Indicates roles that might be incompatible with the current cluster license,
+// specifically roles with document and field level security. When the cluster
+// license doesn’t allow certain features for a given role, this parameter is
+// updated dynamically to list the incompatible features. If `enabled` is
+// `false`, the role is ignored, but is still listed in the response from the
+// authenticate API.
+// API name: transient_metadata
+func (r *PutRole) TransientMetadata(transientmetadata *types.TransientMetadataConfig) *PutRole {
+
+	r.req.TransientMetadata = transientmetadata
 
 	return r
 }

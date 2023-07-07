@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Upgrades all transforms.
 package upgradetransforms
@@ -174,6 +174,10 @@ func (r UpgradeTransforms) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -207,8 +211,8 @@ func (r *UpgradeTransforms) Header(key, value string) *UpgradeTransforms {
 
 // DryRun When true, the request checks for updates but does not run them.
 // API name: dry_run
-func (r *UpgradeTransforms) DryRun(b bool) *UpgradeTransforms {
-	r.values.Set("dry_run", strconv.FormatBool(b))
+func (r *UpgradeTransforms) DryRun(dryrun bool) *UpgradeTransforms {
+	r.values.Set("dry_run", strconv.FormatBool(dryrun))
 
 	return r
 }
@@ -217,8 +221,8 @@ func (r *UpgradeTransforms) DryRun(b bool) *UpgradeTransforms {
 // expires, the request fails and
 // returns an error.
 // API name: timeout
-func (r *UpgradeTransforms) Timeout(v string) *UpgradeTransforms {
-	r.values.Set("timeout", v)
+func (r *UpgradeTransforms) Timeout(duration string) *UpgradeTransforms {
+	r.values.Set("timeout", duration)
 
 	return r
 }

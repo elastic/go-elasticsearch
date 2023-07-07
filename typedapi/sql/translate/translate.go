@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Translates SQL into Elasticsearch queries
 package translate
@@ -48,8 +48,9 @@ type Translate struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *Translate {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *Translate) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *Translate) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -202,12 +216,46 @@ func (r Translate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the Translate headers map.
 func (r *Translate) Header(key, value string) *Translate {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// API name: fetch_size
+func (r *Translate) FetchSize(fetchsize int) *Translate {
+	r.req.FetchSize = &fetchsize
+
+	return r
+}
+
+// API name: filter
+func (r *Translate) Filter(filter *types.Query) *Translate {
+
+	r.req.Filter = filter
+
+	return r
+}
+
+// API name: query
+func (r *Translate) Query(query string) *Translate {
+
+	r.req.Query = query
+
+	return r
+}
+
+// API name: time_zone
+func (r *Translate) TimeZone(timezone string) *Translate {
+	r.req.TimeZone = &timezone
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deactivates a currently active watch.
 package deactivatewatch
@@ -180,6 +180,10 @@ func (r DeactivateWatch) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *DeactivateWatch) Header(key, value string) *DeactivateWatch {
 
 // WatchId Watch ID
 // API Name: watchid
-func (r *DeactivateWatch) WatchId(v string) *DeactivateWatch {
+func (r *DeactivateWatch) WatchId(watchid string) *DeactivateWatch {
 	r.paramSet |= watchidMask
-	r.watchid = v
+	r.watchid = watchid
 
 	return r
 }

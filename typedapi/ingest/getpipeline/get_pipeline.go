@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns a pipeline.
 package getpipeline
@@ -184,6 +184,10 @@ func (r GetPipeline) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -217,25 +221,25 @@ func (r *GetPipeline) Header(key, value string) *GetPipeline {
 
 // Id Comma separated list of pipeline ids. Wildcards supported
 // API Name: id
-func (r *GetPipeline) Id(v string) *GetPipeline {
+func (r *GetPipeline) Id(id string) *GetPipeline {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }
 
 // MasterTimeout Explicit operation timeout for connection to master node
 // API name: master_timeout
-func (r *GetPipeline) MasterTimeout(v string) *GetPipeline {
-	r.values.Set("master_timeout", v)
+func (r *GetPipeline) MasterTimeout(duration string) *GetPipeline {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Summary Return pipelines without their definitions (default: false)
 // API name: summary
-func (r *GetPipeline) Summary(b bool) *GetPipeline {
-	r.values.Set("summary", strconv.FormatBool(b))
+func (r *GetPipeline) Summary(summary bool) *GetPipeline {
+	r.values.Set("summary", strconv.FormatBool(summary))
 
 	return r
 }

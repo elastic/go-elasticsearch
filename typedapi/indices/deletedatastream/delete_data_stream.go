@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes a data stream.
 package deletedatastream
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -176,6 +177,10 @@ func (r DeleteDataStream) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,9 +215,9 @@ func (r *DeleteDataStream) Header(key, value string) *DeleteDataStream {
 // Name A comma-separated list of data streams to delete; use `*` to delete all data
 // streams
 // API Name: name
-func (r *DeleteDataStream) Name(v string) *DeleteDataStream {
+func (r *DeleteDataStream) Name(name string) *DeleteDataStream {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -220,8 +225,12 @@ func (r *DeleteDataStream) Name(v string) *DeleteDataStream {
 // ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
 // (default: open)
 // API name: expand_wildcards
-func (r *DeleteDataStream) ExpandWildcards(v string) *DeleteDataStream {
-	r.values.Set("expand_wildcards", v)
+func (r *DeleteDataStream) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *DeleteDataStream {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }

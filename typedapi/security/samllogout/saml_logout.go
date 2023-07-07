@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Invalidates an access token and a refresh token that were generated via the
 // SAML Authenticate API
@@ -49,8 +49,9 @@ type SamlLogout struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -78,6 +79,8 @@ func New(tp elastictransport.Interface) *SamlLogout {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -107,9 +110,19 @@ func (r *SamlLogout) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -117,6 +130,7 @@ func (r *SamlLogout) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -206,12 +220,40 @@ func (r SamlLogout) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
 // Header set a key, value pair in the SamlLogout headers map.
 func (r *SamlLogout) Header(key, value string) *SamlLogout {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// RefreshToken The refresh token that was returned as a response to calling the SAML
+// authenticate API.
+// Alternatively, the most recent refresh token that was received after
+// refreshing the original access token.
+// API name: refresh_token
+func (r *SamlLogout) RefreshToken(refreshtoken string) *SamlLogout {
+
+	r.req.RefreshToken = &refreshtoken
+
+	return r
+}
+
+// Token The access token that was returned as a response to calling the SAML
+// authenticate API.
+// Alternatively, the most recent token that was received after refreshing the
+// original one by using a refresh_token.
+// API name: token
+func (r *SamlLogout) Token(token string) *SamlLogout {
+
+	r.req.Token = token
 
 	return r
 }

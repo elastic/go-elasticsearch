@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes an index template.
 package deleteindextemplate
@@ -176,6 +176,10 @@ func (r DeleteIndexTemplate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -210,9 +214,9 @@ func (r *DeleteIndexTemplate) Header(key, value string) *DeleteIndexTemplate {
 // Name Comma-separated list of index template names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: name
-func (r *DeleteIndexTemplate) Name(v string) *DeleteIndexTemplate {
+func (r *DeleteIndexTemplate) Name(name string) *DeleteIndexTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -220,8 +224,8 @@ func (r *DeleteIndexTemplate) Name(v string) *DeleteIndexTemplate {
 // MasterTimeout Period to wait for a connection to the master node. If no response is
 // received before the timeout expires, the request fails and returns an error.
 // API name: master_timeout
-func (r *DeleteIndexTemplate) MasterTimeout(v string) *DeleteIndexTemplate {
-	r.values.Set("master_timeout", v)
+func (r *DeleteIndexTemplate) MasterTimeout(duration string) *DeleteIndexTemplate {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -229,8 +233,8 @@ func (r *DeleteIndexTemplate) MasterTimeout(v string) *DeleteIndexTemplate {
 // Timeout Period to wait for a response. If no response is received before the timeout
 // expires, the request fails and returns an error.
 // API name: timeout
-func (r *DeleteIndexTemplate) Timeout(v string) *DeleteIndexTemplate {
-	r.values.Set("timeout", v)
+func (r *DeleteIndexTemplate) Timeout(duration string) *DeleteIndexTemplate {
+	r.values.Set("timeout", duration)
 
 	return r
 }

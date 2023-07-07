@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Previews a datafeed.
 package previewdatafeed
@@ -52,8 +52,9 @@ type PreviewDatafeed struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -82,6 +83,8 @@ func New(tp elastictransport.Interface) *PreviewDatafeed {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -111,9 +114,19 @@ func (r *PreviewDatafeed) HttpRequest(ctx context.Context) (*http.Request, error
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -121,6 +134,7 @@ func (r *PreviewDatafeed) HttpRequest(ctx context.Context) (*http.Request, error
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -222,6 +236,10 @@ func (r PreviewDatafeed) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -240,25 +258,50 @@ func (r *PreviewDatafeed) Header(key, value string) *PreviewDatafeed {
 // or anomaly detection job
 // configuration details in the request body.
 // API Name: datafeedid
-func (r *PreviewDatafeed) DatafeedId(v string) *PreviewDatafeed {
+func (r *PreviewDatafeed) DatafeedId(datafeedid string) *PreviewDatafeed {
 	r.paramSet |= datafeedidMask
-	r.datafeedid = v
+	r.datafeedid = datafeedid
 
 	return r
 }
 
 // Start The start time from where the datafeed preview should begin
 // API name: start
-func (r *PreviewDatafeed) Start(v string) *PreviewDatafeed {
-	r.values.Set("start", v)
+func (r *PreviewDatafeed) Start(datetime string) *PreviewDatafeed {
+	r.values.Set("start", datetime)
 
 	return r
 }
 
 // End The end time when the datafeed preview should stop
 // API name: end
-func (r *PreviewDatafeed) End(v string) *PreviewDatafeed {
-	r.values.Set("end", v)
+func (r *PreviewDatafeed) End(datetime string) *PreviewDatafeed {
+	r.values.Set("end", datetime)
+
+	return r
+}
+
+// DatafeedConfig The datafeed definition to preview.
+// API name: datafeed_config
+func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig *types.DatafeedConfig) *PreviewDatafeed {
+
+	r.req.DatafeedConfig = datafeedconfig
+
+	return r
+}
+
+// JobConfig The configuration details for the anomaly detection job that is associated
+// with the datafeed. If the
+// `datafeed_config` object does not include a `job_id` that references an
+// existing anomaly detection job, you must
+// supply this `job_config` object. If you include both a `job_id` and a
+// `job_config`, the latter information is
+// used. You cannot specify a `job_config` object unless you also supply a
+// `datafeed_config` object.
+// API name: job_config
+func (r *PreviewDatafeed) JobConfig(jobconfig *types.JobConfig) *PreviewDatafeed {
+
+	r.req.JobConfig = jobconfig
 
 	return r
 }

@@ -16,13 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
-package types
+package msearch
 
-import "encoding/json"
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
 
-// Row type alias.
+// Response holds the response body struct for the package msearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/sql/types.ts#L28-L28
-type Row []json.RawMessage
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/fleet/msearch/MultiSearchResponse.ts#L25-L29
+
+type Response struct {
+	Docs []types.MsearchResponseItem `json:"docs"`
+}
+
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
+	return r
+}

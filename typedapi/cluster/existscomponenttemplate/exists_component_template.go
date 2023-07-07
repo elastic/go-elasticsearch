@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns information about whether a particular component template exist
 package existscomponenttemplate
@@ -149,6 +149,11 @@ func (r ExistsComponentTemplate) Perform(ctx context.Context) (*http.Response, e
 	return res, nil
 }
 
+// Do runs the request through the transport, handle the response and returns a existscomponenttemplate.Response
+func (r ExistsComponentTemplate) Do(ctx context.Context) (bool, error) {
+	return r.IsSuccess(ctx)
+}
+
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
 func (r ExistsComponentTemplate) IsSuccess(ctx context.Context) (bool, error) {
@@ -180,9 +185,9 @@ func (r *ExistsComponentTemplate) Header(key, value string) *ExistsComponentTemp
 // Name Comma-separated list of component template names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: name
-func (r *ExistsComponentTemplate) Name(v string) *ExistsComponentTemplate {
+func (r *ExistsComponentTemplate) Name(name string) *ExistsComponentTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
@@ -191,8 +196,8 @@ func (r *ExistsComponentTemplate) Name(v string) *ExistsComponentTemplate {
 // received before the timeout expires, the request fails and returns an
 // error.
 // API name: master_timeout
-func (r *ExistsComponentTemplate) MasterTimeout(v string) *ExistsComponentTemplate {
-	r.values.Set("master_timeout", v)
+func (r *ExistsComponentTemplate) MasterTimeout(duration string) *ExistsComponentTemplate {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -200,8 +205,8 @@ func (r *ExistsComponentTemplate) MasterTimeout(v string) *ExistsComponentTempla
 // Local If true, the request retrieves information from the local node only.
 // Defaults to false, which means information is retrieved from the master node.
 // API name: local
-func (r *ExistsComponentTemplate) Local(b bool) *ExistsComponentTemplate {
-	r.values.Set("local", strconv.FormatBool(b))
+func (r *ExistsComponentTemplate) Local(local bool) *ExistsComponentTemplate {
+	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }

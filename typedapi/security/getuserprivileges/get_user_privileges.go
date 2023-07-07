@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves security privileges for the logged in user.
 package getuserprivileges
@@ -169,6 +169,10 @@ func (r GetUserPrivileges) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -204,8 +208,8 @@ func (r *GetUserPrivileges) Header(key, value string) *GetUserPrivileges {
 // with exactly one application. If you do not specify this parameter, the API
 // returns information about all privileges for all applications.
 // API name: application
-func (r *GetUserPrivileges) Application(v string) *GetUserPrivileges {
-	r.values.Set("application", v)
+func (r *GetUserPrivileges) Application(name string) *GetUserPrivileges {
+	r.values.Set("application", name)
 
 	return r
 }
@@ -213,15 +217,15 @@ func (r *GetUserPrivileges) Application(v string) *GetUserPrivileges {
 // Priviledge The name of the privilege. If you do not specify this parameter, the API
 // returns information about all privileges for the requested application.
 // API name: priviledge
-func (r *GetUserPrivileges) Priviledge(v string) *GetUserPrivileges {
-	r.values.Set("priviledge", v)
+func (r *GetUserPrivileges) Priviledge(name string) *GetUserPrivileges {
+	r.values.Set("priviledge", name)
 
 	return r
 }
 
 // API name: username
-func (r *GetUserPrivileges) Username(v string) *GetUserPrivileges {
-	r.values.Set("username", v)
+func (r *GetUserPrivileges) Username(username string) *GetUserPrivileges {
+	r.values.Set("username", username)
 
 	return r
 }

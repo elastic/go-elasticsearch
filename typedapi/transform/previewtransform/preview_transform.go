@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Previews a transform.
 package previewtransform
@@ -52,8 +52,9 @@ type PreviewTransform struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -82,6 +83,8 @@ func New(tp elastictransport.Interface) *PreviewTransform {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -111,9 +114,19 @@ func (r *PreviewTransform) HttpRequest(ctx context.Context) (*http.Request, erro
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -121,6 +134,7 @@ func (r *PreviewTransform) HttpRequest(ctx context.Context) (*http.Request, erro
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -218,6 +232,10 @@ func (r PreviewTransform) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -232,9 +250,9 @@ func (r *PreviewTransform) Header(key, value string) *PreviewTransform {
 // you cannot provide transform
 // configuration details in the request body.
 // API Name: transformid
-func (r *PreviewTransform) TransformId(v string) *PreviewTransform {
+func (r *PreviewTransform) TransformId(transformid string) *PreviewTransform {
 	r.paramSet |= transformidMask
-	r.transformid = v
+	r.transformid = transformid
 
 	return r
 }
@@ -242,8 +260,95 @@ func (r *PreviewTransform) TransformId(v string) *PreviewTransform {
 // Timeout Period to wait for a response. If no response is received before the
 // timeout expires, the request fails and returns an error.
 // API name: timeout
-func (r *PreviewTransform) Timeout(v string) *PreviewTransform {
-	r.values.Set("timeout", v)
+func (r *PreviewTransform) Timeout(duration string) *PreviewTransform {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// Description Free text description of the transform.
+// API name: description
+func (r *PreviewTransform) Description(description string) *PreviewTransform {
+
+	r.req.Description = &description
+
+	return r
+}
+
+// Dest The destination for the transform.
+// API name: dest
+func (r *PreviewTransform) Dest(dest *types.TransformDestination) *PreviewTransform {
+
+	r.req.Dest = dest
+
+	return r
+}
+
+// Frequency The interval between checks for changes in the source indices when the
+// transform is running continuously. Also determines the retry interval in
+// the event of transient failures while the transform is searching or
+// indexing. The minimum value is 1s and the maximum is 1h.
+// API name: frequency
+func (r *PreviewTransform) Frequency(duration types.Duration) *PreviewTransform {
+	r.req.Frequency = duration
+
+	return r
+}
+
+// Latest The latest method transforms the data by finding the latest document for
+// each unique key.
+// API name: latest
+func (r *PreviewTransform) Latest(latest *types.Latest) *PreviewTransform {
+
+	r.req.Latest = latest
+
+	return r
+}
+
+// Pivot The pivot method transforms the data by aggregating and grouping it.
+// These objects define the group by fields and the aggregation to reduce
+// the data.
+// API name: pivot
+func (r *PreviewTransform) Pivot(pivot *types.Pivot) *PreviewTransform {
+
+	r.req.Pivot = pivot
+
+	return r
+}
+
+// RetentionPolicy Defines a retention policy for the transform. Data that meets the defined
+// criteria is deleted from the destination index.
+// API name: retention_policy
+func (r *PreviewTransform) RetentionPolicy(retentionpolicy *types.RetentionPolicyContainer) *PreviewTransform {
+
+	r.req.RetentionPolicy = retentionpolicy
+
+	return r
+}
+
+// Settings Defines optional transform settings.
+// API name: settings
+func (r *PreviewTransform) Settings(settings *types.Settings) *PreviewTransform {
+
+	r.req.Settings = settings
+
+	return r
+}
+
+// Source The source of the data for the transform.
+// API name: source
+func (r *PreviewTransform) Source(source *types.TransformSource) *PreviewTransform {
+
+	r.req.Source = source
+
+	return r
+}
+
+// Sync Defines the properties transforms require to run continuously.
+// API name: sync
+func (r *PreviewTransform) Sync(sync *types.SyncContainer) *PreviewTransform {
+
+	r.req.Sync = sync
 
 	return r
 }

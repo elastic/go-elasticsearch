@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Updates an alias to point to a new index when the existing index
 // is considered to be too large or too old.
@@ -56,8 +56,9 @@ type Rollover struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -90,6 +91,8 @@ func New(tp elastictransport.Interface) *Rollover {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -119,9 +122,19 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -129,6 +142,7 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -228,6 +242,10 @@ func (r Rollover) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -240,18 +258,18 @@ func (r *Rollover) Header(key, value string) *Rollover {
 
 // Alias The name of the alias to rollover
 // API Name: alias
-func (r *Rollover) Alias(v string) *Rollover {
+func (r *Rollover) Alias(alias string) *Rollover {
 	r.paramSet |= aliasMask
-	r.alias = v
+	r.alias = alias
 
 	return r
 }
 
 // NewIndex The name of the rollover index
 // API Name: newindex
-func (r *Rollover) NewIndex(v string) *Rollover {
+func (r *Rollover) NewIndex(newindex string) *Rollover {
 	r.paramSet |= newindexMask
-	r.newindex = v
+	r.newindex = newindex
 
 	return r
 }
@@ -259,24 +277,24 @@ func (r *Rollover) NewIndex(v string) *Rollover {
 // DryRun If set to true the rollover action will only be validated but not actually
 // performed even if a condition matches. The default is false
 // API name: dry_run
-func (r *Rollover) DryRun(b bool) *Rollover {
-	r.values.Set("dry_run", strconv.FormatBool(b))
+func (r *Rollover) DryRun(dryrun bool) *Rollover {
+	r.values.Set("dry_run", strconv.FormatBool(dryrun))
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *Rollover) MasterTimeout(v string) *Rollover {
-	r.values.Set("master_timeout", v)
+func (r *Rollover) MasterTimeout(duration string) *Rollover {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *Rollover) Timeout(v string) *Rollover {
-	r.values.Set("timeout", v)
+func (r *Rollover) Timeout(duration string) *Rollover {
+	r.values.Set("timeout", duration)
 
 	return r
 }
@@ -284,8 +302,40 @@ func (r *Rollover) Timeout(v string) *Rollover {
 // WaitForActiveShards Set the number of active shards to wait for on the newly created rollover
 // index before the operation returns.
 // API name: wait_for_active_shards
-func (r *Rollover) WaitForActiveShards(v string) *Rollover {
-	r.values.Set("wait_for_active_shards", v)
+func (r *Rollover) WaitForActiveShards(waitforactiveshards string) *Rollover {
+	r.values.Set("wait_for_active_shards", waitforactiveshards)
+
+	return r
+}
+
+// API name: aliases
+func (r *Rollover) Aliases(aliases map[string]types.Alias) *Rollover {
+
+	r.req.Aliases = aliases
+
+	return r
+}
+
+// API name: conditions
+func (r *Rollover) Conditions(conditions *types.RolloverConditions) *Rollover {
+
+	r.req.Conditions = conditions
+
+	return r
+}
+
+// API name: mappings
+func (r *Rollover) Mappings(mappings *types.TypeMapping) *Rollover {
+
+	r.req.Mappings = mappings
+
+	return r
+}
+
+// API name: settings
+func (r *Rollover) Settings(settings map[string]json.RawMessage) *Rollover {
+
+	r.req.Settings = settings
 
 	return r
 }

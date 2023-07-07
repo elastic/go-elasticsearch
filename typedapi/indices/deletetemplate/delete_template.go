@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Deletes an index template.
 package deletetemplate
@@ -176,6 +176,10 @@ func (r DeleteTemplate) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -209,25 +213,25 @@ func (r *DeleteTemplate) Header(key, value string) *DeleteTemplate {
 
 // Name The name of the template
 // API Name: name
-func (r *DeleteTemplate) Name(v string) *DeleteTemplate {
+func (r *DeleteTemplate) Name(name string) *DeleteTemplate {
 	r.paramSet |= nameMask
-	r.name = v
+	r.name = name
 
 	return r
 }
 
 // MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
-func (r *DeleteTemplate) MasterTimeout(v string) *DeleteTemplate {
-	r.values.Set("master_timeout", v)
+func (r *DeleteTemplate) MasterTimeout(duration string) *DeleteTemplate {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
 // Timeout Explicit operation timeout
 // API name: timeout
-func (r *DeleteTemplate) Timeout(v string) *DeleteTemplate {
-	r.values.Set("timeout", v)
+func (r *DeleteTemplate) Timeout(duration string) *DeleteTemplate {
+	r.values.Set("timeout", duration)
 
 	return r
 }

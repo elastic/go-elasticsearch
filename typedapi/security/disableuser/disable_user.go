@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Disables users in the native realm.
 package disableuser
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 )
 
@@ -182,6 +181,10 @@ func (r DisableUser) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,9 +218,9 @@ func (r *DisableUser) Header(key, value string) *DisableUser {
 
 // Username The username of the user to disable
 // API Name: username
-func (r *DisableUser) Username(v string) *DisableUser {
+func (r *DisableUser) Username(username string) *DisableUser {
 	r.paramSet |= usernameMask
-	r.username = v
+	r.username = username
 
 	return r
 }
@@ -226,8 +229,8 @@ func (r *DisableUser) Username(v string) *DisableUser {
 // operation visible to search, if `wait_for` then wait for a refresh to make
 // this operation visible to search, if `false` then do nothing with refreshes.
 // API name: refresh
-func (r *DisableUser) Refresh(enum refresh.Refresh) *DisableUser {
-	r.values.Set("refresh", enum.String())
+func (r *DisableUser) Refresh(refresh refresh.Refresh) *DisableUser {
+	r.values.Set("refresh", refresh.String())
 
 	return r
 }

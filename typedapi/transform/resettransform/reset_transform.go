@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Resets an existing transform.
 package resettransform
@@ -179,6 +179,10 @@ func (r ResetTransform) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -215,9 +219,9 @@ func (r *ResetTransform) Header(key, value string) *ResetTransform {
 // hyphens, and underscores. It has a 64 character limit and must start and end
 // with alphanumeric characters.
 // API Name: transformid
-func (r *ResetTransform) TransformId(v string) *ResetTransform {
+func (r *ResetTransform) TransformId(transformid string) *ResetTransform {
 	r.paramSet |= transformidMask
-	r.transformid = v
+	r.transformid = transformid
 
 	return r
 }
@@ -226,8 +230,8 @@ func (r *ResetTransform) TransformId(v string) *ResetTransform {
 // state. If it's `false`, the transform
 // must be stopped before it can be reset.
 // API name: force
-func (r *ResetTransform) Force(b bool) *ResetTransform {
-	r.values.Set("force", strconv.FormatBool(b))
+func (r *ResetTransform) Force(force bool) *ResetTransform {
+	r.values.Set("force", strconv.FormatBool(force))
 
 	return r
 }

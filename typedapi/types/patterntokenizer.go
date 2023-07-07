@@ -16,23 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
-
 	"strconv"
-
-	"encoding/json"
 )
 
 // PatternTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/analysis/tokenizers.ts#L97-L102
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/tokenizers.ts#L97-L102
 type PatternTokenizer struct {
 	Flags   string  `json:"flags"`
 	Group   int     `json:"group"`
@@ -61,7 +59,11 @@ func (s *PatternTokenizer) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Flags = o
 
 		case "group":
@@ -85,7 +87,11 @@ func (s *PatternTokenizer) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
-			o := string(tmp)
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
 			s.Pattern = o
 
 		case "type":
@@ -103,11 +109,25 @@ func (s *PatternTokenizer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON override marshalling to include literal value
+func (s PatternTokenizer) MarshalJSON() ([]byte, error) {
+	type innerPatternTokenizer PatternTokenizer
+	tmp := innerPatternTokenizer{
+		Flags:   s.Flags,
+		Group:   s.Group,
+		Pattern: s.Pattern,
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "pattern"
+
+	return json.Marshal(tmp)
+}
+
 // NewPatternTokenizer returns a PatternTokenizer.
 func NewPatternTokenizer() *PatternTokenizer {
 	r := &PatternTokenizer{}
-
-	r.Type = "pattern"
 
 	return r
 }

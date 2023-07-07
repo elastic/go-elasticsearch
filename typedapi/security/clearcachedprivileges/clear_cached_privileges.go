@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Evicts application privileges from the native application privileges cache.
 package clearcachedprivileges
@@ -180,6 +180,10 @@ func (r ClearCachedPrivileges) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,9 +217,9 @@ func (r *ClearCachedPrivileges) Header(key, value string) *ClearCachedPrivileges
 
 // Application A comma-separated list of application names
 // API Name: application
-func (r *ClearCachedPrivileges) Application(v string) *ClearCachedPrivileges {
+func (r *ClearCachedPrivileges) Application(application string) *ClearCachedPrivileges {
 	r.paramSet |= applicationMask
-	r.application = v
+	r.application = application
 
 	return r
 }

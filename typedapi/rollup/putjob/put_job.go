@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Creates a rollup job.
 package putjob
@@ -52,8 +52,9 @@ type PutJob struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -84,6 +85,8 @@ func New(tp elastictransport.Interface) *PutJob {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -113,9 +116,19 @@ func (r *PutJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -123,6 +136,7 @@ func (r *PutJob) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -213,6 +227,10 @@ func (r PutJob) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -233,9 +251,106 @@ func (r *PutJob) Header(key, value string) *PutJob {
 // job with the same ID
 // since that could lead to problems with mismatched job configurations.
 // API Name: id
-func (r *PutJob) Id(v string) *PutJob {
+func (r *PutJob) Id(id string) *PutJob {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
+
+	return r
+}
+
+// Cron A cron string which defines the intervals when the rollup job should be
+// executed. When the interval
+// triggers, the indexer attempts to rollup the data in the index pattern. The
+// cron pattern is unrelated
+// to the time interval of the data being rolled up. For example, you may wish
+// to create hourly rollups
+// of your document but to only run the indexer on a daily basis at midnight, as
+// defined by the cron. The
+// cron pattern is defined just like a Watcher cron schedule.
+// API name: cron
+func (r *PutJob) Cron(cron string) *PutJob {
+
+	r.req.Cron = cron
+
+	return r
+}
+
+// Groups Defines the grouping fields and aggregations that are defined for this rollup
+// job. These fields will then be
+// available later for aggregating into buckets. These aggs and fields can be
+// used in any combination. Think of
+// the groups configuration as defining a set of tools that can later be used in
+// aggregations to partition the
+// data. Unlike raw data, we have to think ahead to which fields and
+// aggregations might be used. Rollups provide
+// enough flexibility that you simply need to determine which fields are needed,
+// not in what order they are needed.
+// API name: groups
+func (r *PutJob) Groups(groups *types.Groupings) *PutJob {
+
+	r.req.Groups = *groups
+
+	return r
+}
+
+// API name: headers
+func (r *PutJob) Headers(httpheaders types.HttpHeaders) *PutJob {
+	r.req.Headers = httpheaders
+
+	return r
+}
+
+// IndexPattern The index or index pattern to roll up. Supports wildcard-style patterns
+// (`logstash-*`). The job attempts to
+// rollup the entire index or index-pattern.
+// API name: index_pattern
+func (r *PutJob) IndexPattern(indexpattern string) *PutJob {
+
+	r.req.IndexPattern = indexpattern
+
+	return r
+}
+
+// Metrics Defines the metrics to collect for each grouping tuple. By default, only the
+// doc_counts are collected for each
+// group. To make rollup useful, you will often add metrics like averages, mins,
+// maxes, etc. Metrics are defined
+// on a per-field basis and for each field you configure which metric should be
+// collected.
+// API name: metrics
+func (r *PutJob) Metrics(metrics ...types.FieldMetric) *PutJob {
+	r.req.Metrics = metrics
+
+	return r
+}
+
+// PageSize The number of bucket results that are processed on each iteration of the
+// rollup indexer. A larger value tends
+// to execute faster, but requires more memory during processing. This value has
+// no effect on how the data is
+// rolled up; it is merely used for tweaking the speed or memory cost of the
+// indexer.
+// API name: page_size
+func (r *PutJob) PageSize(pagesize int) *PutJob {
+	r.req.PageSize = pagesize
+
+	return r
+}
+
+// RollupIndex The index that contains the rollup results. The index can be shared with
+// other rollup jobs. The data is stored so that it doesn’t interfere with
+// unrelated jobs.
+// API name: rollup_index
+func (r *PutJob) RollupIndex(indexname string) *PutJob {
+	r.req.RollupIndex = indexname
+
+	return r
+}
+
+// Timeout Time to wait for the request to complete.
+// API name: timeout
+func (r *PutJob) Timeout(duration types.Duration) *PutJob {
+	r.req.Timeout = duration
 
 	return r
 }

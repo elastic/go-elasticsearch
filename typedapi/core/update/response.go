@@ -16,20 +16,29 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package update
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
 )
 
 // Response holds the response body struct for the package update
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_global/update/UpdateResponse.ts#L27-L29
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_global/update/UpdateResponse.ts#L27-L29
 
 type Response struct {
-	Get *types.InlineGet `json:"get,omitempty"`
+	ForcedRefresh *bool                 `json:"forced_refresh,omitempty"`
+	Get           *types.InlineGet      `json:"get,omitempty"`
+	Id_           string                `json:"_id"`
+	Index_        string                `json:"_index"`
+	PrimaryTerm_  int64                 `json:"_primary_term"`
+	Result        result.Result         `json:"result"`
+	SeqNo_        int64                 `json:"_seq_no"`
+	Shards_       types.ShardStatistics `json:"_shards"`
+	Version_      int64                 `json:"_version"`
 }
 
 // NewResponse returns a Response

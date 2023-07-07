@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Provides low-level information about segments in a Lucene index.
 package segments
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -180,6 +181,10 @@ func (r Segments) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -214,9 +219,9 @@ func (r *Segments) Header(key, value string) *Segments {
 // Index A comma-separated list of index names; use `_all` or empty string to perform
 // the operation on all indices
 // API Name: index
-func (r *Segments) Index(v string) *Segments {
+func (r *Segments) Index(index string) *Segments {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -224,8 +229,8 @@ func (r *Segments) Index(v string) *Segments {
 // AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
 // indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
-func (r *Segments) AllowNoIndices(b bool) *Segments {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *Segments) AllowNoIndices(allownoindices bool) *Segments {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -233,8 +238,12 @@ func (r *Segments) AllowNoIndices(b bool) *Segments {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *Segments) ExpandWildcards(v string) *Segments {
-	r.values.Set("expand_wildcards", v)
+func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Segments {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
@@ -242,16 +251,16 @@ func (r *Segments) ExpandWildcards(v string) *Segments {
 // IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
 // (missing or closed)
 // API name: ignore_unavailable
-func (r *Segments) IgnoreUnavailable(b bool) *Segments {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *Segments) IgnoreUnavailable(ignoreunavailable bool) *Segments {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // Verbose Includes detailed memory usage by Lucene.
 // API name: verbose
-func (r *Segments) Verbose(b bool) *Segments {
-	r.values.Set("verbose", strconv.FormatBool(b))
+func (r *Segments) Verbose(verbose bool) *Segments {
+	r.values.Set("verbose", strconv.FormatBool(verbose))
 
 	return r
 }

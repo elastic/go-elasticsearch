@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Executes a SQL request
 package query
@@ -48,8 +48,9 @@ type Query struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 }
@@ -76,6 +77,8 @@ func New(tp elastictransport.Interface) *Query {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -105,9 +108,19 @@ func (r *Query) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -115,6 +128,7 @@ func (r *Query) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -200,6 +214,10 @@ func (r Query) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -212,8 +230,150 @@ func (r *Query) Header(key, value string) *Query {
 
 // Format a short version of the Accept header, e.g. json, yaml
 // API name: format
-func (r *Query) Format(v string) *Query {
-	r.values.Set("format", v)
+func (r *Query) Format(format string) *Query {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on
+// the data in the local cluster only.
+// API name: catalog
+func (r *Query) Catalog(catalog string) *Query {
+
+	r.req.Catalog = &catalog
+
+	return r
+}
+
+// Columnar If true, the results in a columnar fashion: one row represents all the values
+// of a certain column from the current page of results.
+// API name: columnar
+func (r *Query) Columnar(columnar bool) *Query {
+	r.req.Columnar = &columnar
+
+	return r
+}
+
+// API name: cursor
+func (r *Query) Cursor(cursor string) *Query {
+
+	r.req.Cursor = &cursor
+
+	return r
+}
+
+// FetchSize The maximum number of rows (or entries) to return in one response
+// API name: fetch_size
+func (r *Query) FetchSize(fetchsize int) *Query {
+	r.req.FetchSize = &fetchsize
+
+	return r
+}
+
+// FieldMultiValueLeniency Throw an exception when encountering multiple values for a field (default) or
+// be lenient and return the first value from the list (without any guarantees
+// of what that will be - typically the first in natural ascending order).
+// API name: field_multi_value_leniency
+func (r *Query) FieldMultiValueLeniency(fieldmultivalueleniency bool) *Query {
+	r.req.FieldMultiValueLeniency = &fieldmultivalueleniency
+
+	return r
+}
+
+// Filter Optional Elasticsearch query DSL for additional filtering.
+// API name: filter
+func (r *Query) Filter(filter *types.Query) *Query {
+
+	r.req.Filter = filter
+
+	return r
+}
+
+// IndexUsingFrozen If true, the search can run on frozen indices. Defaults to false.
+// API name: index_using_frozen
+func (r *Query) IndexUsingFrozen(indexusingfrozen bool) *Query {
+	r.req.IndexUsingFrozen = &indexusingfrozen
+
+	return r
+}
+
+// KeepAlive Retention period for an async or saved synchronous search.
+// API name: keep_alive
+func (r *Query) KeepAlive(duration types.Duration) *Query {
+	r.req.KeepAlive = duration
+
+	return r
+}
+
+// KeepOnCompletion If true, Elasticsearch stores synchronous searches if you also specify the
+// wait_for_completion_timeout parameter. If false, Elasticsearch only stores
+// async searches that don’t finish before the wait_for_completion_timeout.
+// API name: keep_on_completion
+func (r *Query) KeepOnCompletion(keeponcompletion bool) *Query {
+	r.req.KeepOnCompletion = &keeponcompletion
+
+	return r
+}
+
+// PageTimeout The timeout before a pagination request fails.
+// API name: page_timeout
+func (r *Query) PageTimeout(duration types.Duration) *Query {
+	r.req.PageTimeout = duration
+
+	return r
+}
+
+// Params Values for parameters in the query.
+// API name: params
+func (r *Query) Params(params map[string]json.RawMessage) *Query {
+
+	r.req.Params = params
+
+	return r
+}
+
+// Query SQL query to execute
+// API name: query
+func (r *Query) Query(query string) *Query {
+
+	r.req.Query = &query
+
+	return r
+}
+
+// RequestTimeout The timeout before the request fails.
+// API name: request_timeout
+func (r *Query) RequestTimeout(duration types.Duration) *Query {
+	r.req.RequestTimeout = duration
+
+	return r
+}
+
+// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
+// precedence over mapped fields with the same name.
+// API name: runtime_mappings
+func (r *Query) RuntimeMappings(runtimefields types.RuntimeFields) *Query {
+	r.req.RuntimeMappings = runtimefields
+
+	return r
+}
+
+// TimeZone Time-zone in ISO 8601 used for executing the query on the server. More
+// information available here.
+// API name: time_zone
+func (r *Query) TimeZone(timezone string) *Query {
+	r.req.TimeZone = &timezone
+
+	return r
+}
+
+// WaitForCompletionTimeout Period to wait for complete results. Defaults to no timeout, meaning the
+// request waits for complete search results. If the search doesn’t finish
+// within this period, the search becomes async.
+// API name: wait_for_completion_timeout
+func (r *Query) WaitForCompletionTimeout(duration types.Duration) *Query {
+	r.req.WaitForCompletionTimeout = duration
 
 	return r
 }

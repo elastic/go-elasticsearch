@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves the configuration, stats, and status of rollup jobs.
 package getjobs
@@ -183,6 +183,10 @@ func (r GetJobs) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -217,9 +221,9 @@ func (r *GetJobs) Header(key, value string) *GetJobs {
 // Id The ID of the job(s) to fetch. Accepts glob patterns, or left blank for all
 // jobs
 // API Name: id
-func (r *GetJobs) Id(v string) *GetJobs {
+func (r *GetJobs) Id(id string) *GetJobs {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

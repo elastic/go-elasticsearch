@@ -16,79 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 package types
 
 import (
-	"fmt"
-
-	"bytes"
-	"errors"
-	"io"
-
 	"encoding/json"
+	"fmt"
 )
 
 // SortOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/899364a63e7415b60033ddd49d50a30369da26d7/specification/_types/sort.ts#L82-L91
+// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/sort.ts#L82-L91
 type SortOptions struct {
 	Doc_         *ScoreSort           `json:"_doc,omitempty"`
 	GeoDistance_ *GeoDistanceSort     `json:"_geo_distance,omitempty"`
 	Score_       *ScoreSort           `json:"_score,omitempty"`
 	Script_      *ScriptSort          `json:"_script,omitempty"`
 	SortOptions  map[string]FieldSort `json:"SortOptions,omitempty"`
-}
-
-func (s *SortOptions) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "_doc":
-			if err := dec.Decode(&s.Doc_); err != nil {
-				return err
-			}
-
-		case "_geo_distance":
-			if err := dec.Decode(&s.GeoDistance_); err != nil {
-				return err
-			}
-
-		case "_score":
-			if err := dec.Decode(&s.Score_); err != nil {
-				return err
-			}
-
-		case "_script":
-			if err := dec.Decode(&s.Script_); err != nil {
-				return err
-			}
-
-		case "SortOptions":
-			if s.SortOptions == nil {
-				s.SortOptions = make(map[string]FieldSort, 0)
-			}
-			if err := dec.Decode(&s.SortOptions); err != nil {
-				return err
-			}
-
-		default:
-
-		}
-	}
-	return nil
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Returns the health of the cluster.
 package healthreport
@@ -180,6 +180,10 @@ func (r HealthReport) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -213,33 +217,33 @@ func (r *HealthReport) Header(key, value string) *HealthReport {
 
 // Feature A feature of the cluster, as returned by the top-level health report API.
 // API Name: feature
-func (r *HealthReport) Feature(v ...string) *HealthReport {
+func (r *HealthReport) Feature(features ...string) *HealthReport {
 	r.paramSet |= featureMask
-	r.feature = strings.Join(v, ",")
+	r.feature = strings.Join(features, ",")
 
 	return r
 }
 
 // Timeout Explicit operation timeout.
 // API name: timeout
-func (r *HealthReport) Timeout(v string) *HealthReport {
-	r.values.Set("timeout", v)
+func (r *HealthReport) Timeout(duration string) *HealthReport {
+	r.values.Set("timeout", duration)
 
 	return r
 }
 
 // Verbose Opt-in for more information about the health of the system.
 // API name: verbose
-func (r *HealthReport) Verbose(b bool) *HealthReport {
-	r.values.Set("verbose", strconv.FormatBool(b))
+func (r *HealthReport) Verbose(verbose bool) *HealthReport {
+	r.values.Set("verbose", strconv.FormatBool(verbose))
 
 	return r
 }
 
 // Size Limit the number of affected resources the health report API returns.
 // API name: size
-func (r *HealthReport) Size(i int) *HealthReport {
-	r.values.Set("size", strconv.Itoa(i))
+func (r *HealthReport) Size(size int) *HealthReport {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }

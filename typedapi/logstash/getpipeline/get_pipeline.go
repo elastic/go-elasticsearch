@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Retrieves Logstash Pipelines used by Central Management
 package getpipeline
@@ -185,6 +185,10 @@ func (r GetPipeline) Do(ctx context.Context) (Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -218,9 +222,9 @@ func (r *GetPipeline) Header(key, value string) *GetPipeline {
 
 // Id A comma-separated list of Pipeline IDs
 // API Name: id
-func (r *GetPipeline) Id(v string) *GetPipeline {
+func (r *GetPipeline) Id(id string) *GetPipeline {
 	r.paramSet |= idMask
-	r.id = v
+	r.id = id
 
 	return r
 }

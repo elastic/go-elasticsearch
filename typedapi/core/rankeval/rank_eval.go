@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/899364a63e7415b60033ddd49d50a30369da26d7
+// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
 
 // Allows to evaluate the quality of ranked search results over a set of typical
 // search queries
@@ -36,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -54,8 +55,9 @@ type RankEval struct {
 
 	buf *gobytes.Buffer
 
-	req *Request
-	raw io.Reader
+	req      *Request
+	deferred []func(request *Request) error
+	raw      io.Reader
 
 	paramSet int
 
@@ -85,6 +87,8 @@ func New(tp elastictransport.Interface) *RankEval {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -114,9 +118,19 @@ func (r *RankEval) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
 	if r.raw != nil {
 		r.buf.ReadFrom(r.raw)
 	} else if r.req != nil {
+
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
@@ -124,6 +138,7 @@ func (r *RankEval) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 
 		r.buf.Write(data)
+
 	}
 
 	r.path.Scheme = "http"
@@ -217,6 +232,10 @@ func (r RankEval) Do(ctx context.Context) (*Response, error) {
 		return nil, err
 	}
 
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
 	return nil, errorResponse
 }
 
@@ -232,9 +251,9 @@ func (r *RankEval) Header(key, value string) *RankEval {
 // To target all data streams and indices in a cluster, omit this parameter or
 // use `_all` or `*`.
 // API Name: index
-func (r *RankEval) Index(v string) *RankEval {
+func (r *RankEval) Index(index string) *RankEval {
 	r.paramSet |= indexMask
-	r.index = v
+	r.index = index
 
 	return r
 }
@@ -245,8 +264,8 @@ func (r *RankEval) Index(v string) *RankEval {
 // request targeting `foo*,bar*` returns an error if an index starts with `foo`
 // but no index starts with `bar`.
 // API name: allow_no_indices
-func (r *RankEval) AllowNoIndices(b bool) *RankEval {
-	r.values.Set("allow_no_indices", strconv.FormatBool(b))
+func (r *RankEval) AllowNoIndices(allownoindices bool) *RankEval {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }
@@ -254,24 +273,45 @@ func (r *RankEval) AllowNoIndices(b bool) *RankEval {
 // ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
 // closed or both.
 // API name: expand_wildcards
-func (r *RankEval) ExpandWildcards(v string) *RankEval {
-	r.values.Set("expand_wildcards", v)
+func (r *RankEval) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *RankEval {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
 
 	return r
 }
 
 // IgnoreUnavailable If `true`, missing or closed indices are not included in the response.
 // API name: ignore_unavailable
-func (r *RankEval) IgnoreUnavailable(b bool) *RankEval {
-	r.values.Set("ignore_unavailable", strconv.FormatBool(b))
+func (r *RankEval) IgnoreUnavailable(ignoreunavailable bool) *RankEval {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }
 
 // SearchType Search operation type
 // API name: search_type
-func (r *RankEval) SearchType(v string) *RankEval {
-	r.values.Set("search_type", v)
+func (r *RankEval) SearchType(searchtype string) *RankEval {
+	r.values.Set("search_type", searchtype)
+
+	return r
+}
+
+// Metric Definition of the evaluation metric to calculate.
+// API name: metric
+func (r *RankEval) Metric(metric *types.RankEvalMetric) *RankEval {
+
+	r.req.Metric = metric
+
+	return r
+}
+
+// Requests A set of typical search requests, together with their provided ratings.
+// API name: requests
+func (r *RankEval) Requests(requests ...types.RankEvalRequestItem) *RankEval {
+	r.req.Requests = requests
 
 	return r
 }
