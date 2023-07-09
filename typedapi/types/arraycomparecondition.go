@@ -24,7 +24,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"strconv"
 
@@ -98,7 +97,7 @@ func (s ArrayCompareCondition) MarshalJSON() ([]byte, error) {
 
 	// We inline the additional fields from the underlying map
 	for key, value := range s.ArrayCompareCondition {
-		tmp[fmt.Sprintf("%s", key)] = value
+		tmp[key.String()]= value
 	}
 	delete(tmp, "ArrayCompareCondition")
 
