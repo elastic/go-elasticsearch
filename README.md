@@ -53,40 +53,13 @@ of the getting started documentation.
 
 ## Operations
 
-### Creating an index
-
-Refer to the [Creating an index section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
-of the getting started documentation.
-
-### Indexing documents
-
-Refer to the [Indexing documents section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
-of the getting started documentation.
-
-### Getting documents
-
-Refer to the [Getting documents section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
-of the getting started documentation.
-
-### Searching documents
-
-Refer to the [Searching documents section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
-of the getting started documentation.
-
-### Updating documents
-
-Refer to the [Updating documents section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
-of the getting started documentation.
-
-### Deleting documents
-
-Refer to the [Deleting documents section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
-of the getting started documentation.
-
-### Deleting an index
-
-Refer to the [Deleting an index section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
-of the getting started documentation.
+* [Creating an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_creating_an_index)
+* [Indexing documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_indexing_documents)
+* [Getting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_getting_documents)
+* [Searching documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_searching_documents)
+* [Updating documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_updating_documents)
+* [Deleting documents](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_documents)
+* [Deleting an index](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_deleting_an_index)
 <!-- ----------------------------------------------------------------------------------------------- -->
 
 ## Helpers
