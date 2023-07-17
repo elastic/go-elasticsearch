@@ -41,7 +41,7 @@ The `main` branch of the client is compatible with the current `master` branch o
 
 ## Installation
 
-Refer to the [Installation section][https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_installation]
+Refer to the [Installation section](https://www.elastic.co/guide/en/elasticsearch/client/go-api/current/getting-started-go.html#_installation)
 of the getting started documentation.
 
 <!-- ----------------------------------------------------------------------------------------------- -->
