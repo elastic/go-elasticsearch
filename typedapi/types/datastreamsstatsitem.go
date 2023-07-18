@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -30,13 +30,25 @@ import (
 
 // DataStreamsStatsItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L36-L42
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/data_streams_stats/IndicesDataStreamsStatsResponse.ts#L45-L65
 type DataStreamsStatsItem struct {
-	BackingIndices   int      `json:"backing_indices"`
-	DataStream       string   `json:"data_stream"`
-	MaximumTimestamp int64    `json:"maximum_timestamp"`
-	StoreSize        ByteSize `json:"store_size,omitempty"`
-	StoreSizeBytes   int      `json:"store_size_bytes"`
+	// BackingIndices Current number of backing indices for the data stream.
+	BackingIndices int `json:"backing_indices"`
+	// DataStream Name of the data stream.
+	DataStream string `json:"data_stream"`
+	// MaximumTimestamp The data stream’s highest `@timestamp` value, converted to milliseconds since
+	// the Unix epoch.
+	// NOTE: This timestamp is provided as a best effort.
+	// The data stream may contain `@timestamp` values higher than this if one or
+	// more of the following conditions are met:
+	// The stream contains closed backing indices;
+	// Backing indices with a lower generation contain higher `@timestamp` values.
+	MaximumTimestamp int64 `json:"maximum_timestamp"`
+	// StoreSize Total size of all shards for the data stream’s backing indices.
+	// This parameter is only returned if the `human` query parameter is `true`.
+	StoreSize ByteSize `json:"store_size,omitempty"`
+	// StoreSizeBytes Total size, in bytes, of all shards for the data stream’s backing indices.
+	StoreSizeBytes int `json:"store_size_bytes"`
 }
 
 func (s *DataStreamsStatsItem) UnmarshalJSON(data []byte) error {

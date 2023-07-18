@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -30,8 +30,18 @@ import (
 
 // FillMaskInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/ml/_types/inference.ts#L266-L274
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ml/_types/inference.ts#L266-L280
 type FillMaskInferenceOptions struct {
+	// MaskToken The string/token which will be removed from incoming documents and replaced
+	// with the inference prediction(s).
+	// In a response, this field contains the mask token for the specified
+	// model/tokenizer. Each model and tokenizer
+	// has a predefined mask token which cannot be changed. Thus, it is recommended
+	// not to set this value in requests.
+	// However, if this field is present in a request, its value must match the
+	// predefined value for that model/tokenizer,
+	// otherwise the request will fail.
+	MaskToken *string `json:"mask_token,omitempty"`
 	// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`
 	// ResultsField The field that is added to incoming documents to contain the inference
@@ -55,6 +65,18 @@ func (s *FillMaskInferenceOptions) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "mask_token":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MaskToken = &o
 
 		case "num_top_classes":
 

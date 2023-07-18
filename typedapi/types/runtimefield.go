@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -32,19 +32,23 @@ import (
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/mapping/RuntimeFields.ts#L26-L38
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/mapping/RuntimeFields.ts#L26-L48
 type RuntimeField struct {
 	// FetchFields For type `lookup`
 	FetchFields []RuntimeFieldFetchFields `json:"fetch_fields,omitempty"`
-	Format      *string                   `json:"format,omitempty"`
+	// Format A custom format for `date` type runtime fields.
+	Format *string `json:"format,omitempty"`
 	// InputField For type `lookup`
 	InputField *string `json:"input_field,omitempty"`
-	Script     Script  `json:"script,omitempty"`
+	// Script Painless script executed at query time.
+	Script Script `json:"script,omitempty"`
 	// TargetField For type `lookup`
 	TargetField *string `json:"target_field,omitempty"`
 	// TargetIndex For type `lookup`
-	TargetIndex *string                           `json:"target_index,omitempty"`
-	Type        runtimefieldtype.RuntimeFieldType `json:"type"`
+	TargetIndex *string `json:"target_index,omitempty"`
+	// Type Field type, which can be: `boolean`, `composite`, `date`, `double`,
+	// `geo_point`, `ip`,`keyword`, `long`, or `lookup`.
+	Type runtimefieldtype.RuntimeFieldType `json:"type"`
 }
 
 func (s *RuntimeField) UnmarshalJSON(data []byte) error {

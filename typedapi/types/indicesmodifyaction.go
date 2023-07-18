@@ -16,15 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
 // IndicesModifyAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/indices/modify_data_stream/types.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/modify_data_stream/types.ts#L22-L37
 type IndicesModifyAction struct {
-	AddBackingIndex    *IndexAndDataStreamAction `json:"add_backing_index,omitempty"`
+	// AddBackingIndex Adds an existing index as a backing index for a data stream.
+	// The index is hidden as part of this operation.
+	// WARNING: Adding indices with the `add_backing_index` action can potentially
+	// result in improper data stream behavior.
+	// This should be considered an expert level API.
+	AddBackingIndex *IndexAndDataStreamAction `json:"add_backing_index,omitempty"`
+	// RemoveBackingIndex Removes a backing index from a data stream.
+	// The index is unhidden as part of this operation.
+	// A data stream’s write index cannot be removed.
 	RemoveBackingIndex *IndexAndDataStreamAction `json:"remove_backing_index,omitempty"`
 }
 

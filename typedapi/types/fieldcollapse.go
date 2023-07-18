@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -30,12 +30,16 @@ import (
 
 // FieldCollapse type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_global/search/_types/FieldCollapse.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/search/_types/FieldCollapse.ts#L24-L38
 type FieldCollapse struct {
-	Collapse                   *FieldCollapse `json:"collapse,omitempty"`
-	Field                      string         `json:"field"`
-	InnerHits                  []InnerHits    `json:"inner_hits,omitempty"`
-	MaxConcurrentGroupSearches *int           `json:"max_concurrent_group_searches,omitempty"`
+	Collapse *FieldCollapse `json:"collapse,omitempty"`
+	// Field The field to collapse the result set on
+	Field string `json:"field"`
+	// InnerHits The number of inner hits and their sort order
+	InnerHits []InnerHits `json:"inner_hits,omitempty"`
+	// MaxConcurrentGroupSearches The number of concurrent requests allowed to retrieve the inner_hits per
+	// group
+	MaxConcurrentGroupSearches *int `json:"max_concurrent_group_searches,omitempty"`
 }
 
 func (s *FieldCollapse) UnmarshalJSON(data []byte) error {

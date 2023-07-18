@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 // Provides statistics on operations happening in a data stream.
 package datastreamsstats
@@ -219,8 +219,9 @@ func (r *DataStreamsStats) Header(key, value string) *DataStreamsStats {
 	return r
 }
 
-// Name A comma-separated list of data stream names; use `_all` or empty string to
-// perform the operation on all data streams
+// Name Comma-separated list of data streams used to limit the request.
+// Wildcard expressions (`*`) are supported.
+// To target all data streams in a cluster, omit this parameter or use `*`.
 // API Name: name
 func (r *DataStreamsStats) Name(name string) *DataStreamsStats {
 	r.paramSet |= nameMask
@@ -229,6 +230,8 @@ func (r *DataStreamsStats) Name(name string) *DataStreamsStats {
 	return r
 }
 
+// ExpandWildcards Type of data stream that wildcard patterns can match.
+// Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *DataStreamsStats) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *DataStreamsStats {
 	tmp := []string{}

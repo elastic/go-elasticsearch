@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -29,10 +29,12 @@ import (
 
 // IndexAndDataStreamAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/indices/modify_data_stream/types.ts#L28-L31
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/modify_data_stream/types.ts#L39-L44
 type IndexAndDataStreamAction struct {
+	// DataStream Data stream targeted by the action.
 	DataStream string `json:"data_stream"`
-	Index      string `json:"index"`
+	// Index Index for the action.
+	Index string `json:"index"`
 }
 
 func (s *IndexAndDataStreamAction) UnmarshalJSON(data []byte) error {
