@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package explore
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package explore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/graph/explore/GraphExploreRequest.ts#L28-L47
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/graph/explore/GraphExploreRequest.ts#L28-L47
 type Request struct {
 	Connections *types.Hop               `json:"connections,omitempty"`
 	Controls    *types.ExploreControls   `json:"controls,omitempty"`

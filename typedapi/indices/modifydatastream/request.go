@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package modifydatastream
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package modifydatastream
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/indices/modify_data_stream/IndicesModifyDataStreamRequest.ts#L23-L35
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/indices/modify_data_stream/IndicesModifyDataStreamRequest.ts#L23-L35
 type Request struct {
 
 	// Actions Actions to perform.

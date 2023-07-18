@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // License type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/license/_types/License.ts#L42-L53
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/license/_types/License.ts#L42-L53
 type License struct {
 	ExpiryDateInMillis int64                   `json:"expiry_date_in_millis"`
 	IssueDateInMillis  int64                   `json:"issue_date_in_millis"`

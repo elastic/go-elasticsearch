@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package types
 
@@ -32,11 +32,11 @@ import (
 
 // EdgeNGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/analysis/token_filters.ts#L79-L85
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/_types/analysis/token_filters.ts#L79-L85
 type EdgeNGramTokenFilter struct {
 	MaxGram          *int                         `json:"max_gram,omitempty"`
 	MinGram          *int                         `json:"min_gram,omitempty"`
-	PreserveOriginal *bool                        `json:"preserve_original,omitempty"`
+	PreserveOriginal Stringifiedboolean           `json:"preserve_original,omitempty"`
 	Side             *edgengramside.EdgeNGramSide `json:"side,omitempty"`
 	Type             string                       `json:"type,omitempty"`
 	Version          *string                      `json:"version,omitempty"`
@@ -90,17 +90,8 @@ func (s *EdgeNGramTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "preserve_original":
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return err
-				}
-				s.PreserveOriginal = &value
-			case bool:
-				s.PreserveOriginal = &v
+			if err := dec.Decode(&s.PreserveOriginal); err != nil {
+				return err
 			}
 
 		case "side":

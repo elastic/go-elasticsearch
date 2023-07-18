@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NodeShutdownStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
 type NodeShutdownStatus struct {
 	NodeId                string                        `json:"node_id"`
 	PersistentTasks       PersistentTaskStatus          `json:"persistent_tasks"`

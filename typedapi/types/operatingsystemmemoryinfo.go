@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // OperatingSystemMemoryInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/cluster/stats/types.ts#L298-L309
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/cluster/stats/types.ts#L298-L309
 type OperatingSystemMemoryInfo struct {
 	AdjustedTotalInBytes *int64 `json:"adjusted_total_in_bytes,omitempty"`
 	FreeInBytes          int64  `json:"free_in_bytes"`

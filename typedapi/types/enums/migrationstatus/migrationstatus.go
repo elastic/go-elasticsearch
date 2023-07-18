@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 // Package migrationstatus
 package migrationstatus
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L30-L35
 type MigrationStatus struct {
 	Name string
 }

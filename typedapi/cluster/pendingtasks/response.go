@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package pendingtasks
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package pendingtasks
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/cluster/pending_tasks/ClusterPendingTasksResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/cluster/pending_tasks/ClusterPendingTasksResponse.ts#L22-L24
 
 type Response struct {
 	Tasks []types.PendingTask `json:"tasks"`

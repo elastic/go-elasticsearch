@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // NodeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/nodes/usage/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/nodes/usage/types.ts#L25-L30
 type NodeUsage struct {
 	Aggregations map[string]json.RawMessage `json:"aggregations"`
 	RestActions  map[string]int             `json:"rest_actions"`

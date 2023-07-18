@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // LongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/_types/aggregations/Aggregate.ts#L399-L404
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/_types/aggregations/Aggregate.ts#L399-L404
 type LongTermsAggregate struct {
 	Buckets                 BucketsLongTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                 `json:"doc_count_error_upper_bound,omitempty"`
