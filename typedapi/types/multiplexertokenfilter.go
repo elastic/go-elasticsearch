@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -25,17 +25,16 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
-	"strconv"
 )
 
 // MultiplexerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L260-L264
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/analysis/token_filters.ts#L260-L264
 type MultiplexerTokenFilter struct {
-	Filters          []string `json:"filters"`
-	PreserveOriginal *bool    `json:"preserve_original,omitempty"`
-	Type             string   `json:"type,omitempty"`
-	Version          *string  `json:"version,omitempty"`
+	Filters          []string           `json:"filters"`
+	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
+	Type             string             `json:"type,omitempty"`
+	Version          *string            `json:"version,omitempty"`
 }
 
 func (s *MultiplexerTokenFilter) UnmarshalJSON(data []byte) error {
@@ -59,17 +58,8 @@ func (s *MultiplexerTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "preserve_original":
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return err
-				}
-				s.PreserveOriginal = &value
-			case bool:
-				s.PreserveOriginal = &v
+			if err := dec.Decode(&s.PreserveOriginal); err != nil {
+				return err
 			}
 
 		case "type":

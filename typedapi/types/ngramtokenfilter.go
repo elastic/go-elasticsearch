@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -30,13 +30,13 @@ import (
 
 // NGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_types/analysis/token_filters.ts#L266-L271
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/analysis/token_filters.ts#L266-L271
 type NGramTokenFilter struct {
-	MaxGram          *int    `json:"max_gram,omitempty"`
-	MinGram          *int    `json:"min_gram,omitempty"`
-	PreserveOriginal *bool   `json:"preserve_original,omitempty"`
-	Type             string  `json:"type,omitempty"`
-	Version          *string `json:"version,omitempty"`
+	MaxGram          *int               `json:"max_gram,omitempty"`
+	MinGram          *int               `json:"min_gram,omitempty"`
+	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
+	Type             string             `json:"type,omitempty"`
+	Version          *string            `json:"version,omitempty"`
 }
 
 func (s *NGramTokenFilter) UnmarshalJSON(data []byte) error {
@@ -87,17 +87,8 @@ func (s *NGramTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "preserve_original":
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return err
-				}
-				s.PreserveOriginal = &value
-			case bool:
-				s.PreserveOriginal = &v
+			if err := dec.Decode(&s.PreserveOriginal); err != nil {
+				return err
 			}
 
 		case "type":

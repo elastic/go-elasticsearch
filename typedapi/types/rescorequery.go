@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 package types
 
@@ -32,12 +32,18 @@ import (
 
 // RescoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/76e25d34bff1060e300c95f4be468ef88e4f3465/specification/_global/search/_types/rescoring.ts#L28-L34
+// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/search/_types/rescoring.ts#L28-L50
 type RescoreQuery struct {
-	Query              Query                `json:"rescore_query"`
-	QueryWeight        *Float64             `json:"query_weight,omitempty"`
-	RescoreQueryWeight *Float64             `json:"rescore_query_weight,omitempty"`
-	ScoreMode          *scoremode.ScoreMode `json:"score_mode,omitempty"`
+	// Query The query to use for rescoring.
+	// This query is only run on the Top-K results returned by the `query` and
+	// `post_filter` phases.
+	Query Query `json:"rescore_query"`
+	// QueryWeight Relative importance of the original query versus the rescore query.
+	QueryWeight *Float64 `json:"query_weight,omitempty"`
+	// RescoreQueryWeight Relative importance of the rescore query versus the original query.
+	RescoreQueryWeight *Float64 `json:"rescore_query_weight,omitempty"`
+	// ScoreMode Determines how scores are combined.
+	ScoreMode *scoremode.ScoreMode `json:"score_mode,omitempty"`
 }
 
 func (s *RescoreQuery) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/76e25d34bff1060e300c95f4be468ef88e4f3465
+// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
 
 // Updates the index settings.
 package putsettings
@@ -242,8 +242,9 @@ func (r *PutSettings) Header(key, value string) *PutSettings {
 	return r
 }
 
-// Index A comma-separated list of index names; use `_all` or empty string to perform
-// the operation on all indices
+// Index Comma-separated list of data streams, indices, and aliases used to limit
+// the request. Supports wildcards (`*`). To target all data streams and
+// indices, omit this parameter or use `*` or `_all`.
 // API Name: index
 func (r *PutSettings) Index(index string) *PutSettings {
 	r.paramSet |= indexMask
@@ -252,8 +253,11 @@ func (r *PutSettings) Index(index string) *PutSettings {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices. This
+// behavior applies even if the request targets other open indices. For
+// example, a request targeting `foo*,bar*` returns an error if an index
+// starts with `foo` but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *PutSettings) AllowNoIndices(allownoindices bool) *PutSettings {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -261,8 +265,10 @@ func (r *PutSettings) AllowNoIndices(allownoindices bool) *PutSettings {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines whether wildcard expressions match
+// hidden data streams. Supports comma-separated values, such as
+// `open,hidden`.
 // API name: expand_wildcards
 func (r *PutSettings) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutSettings {
 	tmp := []string{}
@@ -274,7 +280,7 @@ func (r *PutSettings) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWi
 	return r
 }
 
-// FlatSettings Return settings in flat format (default: false)
+// FlatSettings If `true`, returns settings in flat format.
 // API name: flat_settings
 func (r *PutSettings) FlatSettings(flatsettings bool) *PutSettings {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
@@ -282,8 +288,7 @@ func (r *PutSettings) FlatSettings(flatsettings bool) *PutSettings {
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `true`, returns settings in flat format.
 // API name: ignore_unavailable
 func (r *PutSettings) IgnoreUnavailable(ignoreunavailable bool) *PutSettings {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -291,7 +296,9 @@ func (r *PutSettings) IgnoreUnavailable(ignoreunavailable bool) *PutSettings {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an
+// error.
 // API name: master_timeout
 func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
 	r.values.Set("master_timeout", duration)
@@ -299,8 +306,7 @@ func (r *PutSettings) MasterTimeout(duration string) *PutSettings {
 	return r
 }
 
-// PreserveExisting Whether to update existing settings. If set to `true` existing settings on an
-// index remain unchanged, the default is `false`
+// PreserveExisting If `true`, existing index settings remain unchanged.
 // API name: preserve_existing
 func (r *PutSettings) PreserveExisting(preserveexisting bool) *PutSettings {
 	r.values.Set("preserve_existing", strconv.FormatBool(preserveexisting))
@@ -308,7 +314,8 @@ func (r *PutSettings) PreserveExisting(preserveexisting bool) *PutSettings {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response. If no response is received before the
+//  timeout expires, the request fails and returns an error.
 // API name: timeout
 func (r *PutSettings) Timeout(duration string) *PutSettings {
 	r.values.Set("timeout", duration)
