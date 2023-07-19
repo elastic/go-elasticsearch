@@ -8,7 +8,11 @@ test-unit:  ## Run unit tests
 ifdef race
 	$(eval testunitargs += "-race")
 endif
+ifeq ($(OS),Windows_NT)
+	$(eval testunitargs += "./...")
+else
 	$(eval testunitargs += "-cover" "-coverprofile=tmp/unit.cov" "./...")
+endif
 	@mkdir -p tmp
 	@if which gotestsum > /dev/null 2>&1 ; then \
 		echo "gotestsum --format=short-verbose --junitfile=tmp/unit-report.xml --" $(testunitargs); \
