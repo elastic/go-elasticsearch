@@ -251,8 +251,7 @@ type bulkIndexer struct {
 	workers []*worker
 	stats   *bulkIndexerStats
 
-	config  BulkIndexerConfig
-	bufPool *sync.Pool
+	config BulkIndexerConfig
 }
 
 type bulkIndexerStats struct {
@@ -264,6 +263,12 @@ type bulkIndexerStats struct {
 	numUpdated  uint64
 	numDeleted  uint64
 	numRequests uint64
+}
+
+var bufPool = &sync.Pool{
+	New: func() interface{} {
+		return new(bytes.Buffer)
+	},
 }
 
 // NewBulkIndexer creates a new bulk indexer.
@@ -291,11 +296,6 @@ func NewBulkIndexer(cfg BulkIndexerConfig) (BulkIndexer, error) {
 	bi := bulkIndexer{
 		config: cfg,
 		stats:  &bulkIndexerStats{},
-		bufPool: &sync.Pool{
-			New: func() interface{} {
-				return bytes.NewBuffer(make([]byte, 0, cfg.FlushBytes))
-			},
-		},
 	}
 
 	bi.init()
@@ -345,7 +345,7 @@ func (bi *bulkIndexer) Close(ctx context.Context) error {
 
 	for _, w := range bi.workers {
 		w.buf.Reset()
-		bi.bufPool.Put(w.buf)
+		bufPool.Put(w.buf)
 	}
 
 	return nil
@@ -374,7 +374,7 @@ func (bi *bulkIndexer) init() {
 			id:     i,
 			ch:     bi.queue,
 			bi:     bi,
-			buf:    bi.bufPool.Get().(*bytes.Buffer),
+			buf:    bufPool.Get().(*bytes.Buffer),
 			ticker: time.NewTicker(bi.config.FlushInterval),
 		}
 		w.run()
