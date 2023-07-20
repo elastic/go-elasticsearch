@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c
+// https://github.com/elastic/elasticsearch-specification/tree/656080dee792f93a849cd7fbf566f528f858a5ea
 
 package getmemorystats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getmemorystats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/26d0e2015b6bb2b1e0c549a4f1abeca6da16e89c/specification/ml/get_memory_stats/MlGetMemoryStatsResponse.ts#L25-L31
+// https://github.com/elastic/elasticsearch-specification/blob/656080dee792f93a849cd7fbf566f528f858a5ea/specification/ml/get_memory_stats/MlGetMemoryStatsResponse.ts#L25-L31
 
 type Response struct {
 	ClusterName string                  `json:"cluster_name"`
