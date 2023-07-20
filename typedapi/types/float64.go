@@ -48,6 +48,12 @@ func (f *Float64) UnmarshalJSON(data []byte) error {
 	case bytes.Equal(data, []byte(`"NaN"`)):
 		nan := Float64(math.NaN())
 		f = &nan
+	case bytes.Equal(data, []byte(`"+Infinity"`)):
+		posInf := Float64(math.Inf(1))
+		f = &posInf
+	case bytes.Equal(data, []byte(`"-Infinity"`)):
+		negInf := Float64(math.Inf(-1))
+		f = &negInf
 	case bytes.Equal(data, []byte(`null`)):
 		return nil
 	default:
