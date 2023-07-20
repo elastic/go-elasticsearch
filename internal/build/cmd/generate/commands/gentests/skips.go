@@ -57,6 +57,9 @@ var skipFiles = []string{
 	"api_key/12_grant.yml",                // incompatible $ stash replacement, need bearer token integration
 	"aggregations/percentiles_bucket.yml", // incompatible maps
 	"user_profile/10_basic.yml",
+	"indices.stats/100_search_idle.yml", // incompatible maps of array
+	"ml/3rd_party_deployment.yml",       // incompatible ml tests
+	"dlm/10_usage.yml",                  // incompatible float expansion
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -441,6 +444,8 @@ api_key/30_update.yml:
   - Test bulk update api key with empty request fields
 api_key/40_view_role_descriptors.yml:
   - Test API key role descriptors in Get and Query responses
+api_key/50_cross_cluster.yml:
+  - Test create a cross-cluster API key
 
 token/10_basic.yml:
   - Test invalidate user's tokens
