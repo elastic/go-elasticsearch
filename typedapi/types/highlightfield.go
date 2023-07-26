@@ -88,7 +88,9 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			localDec.Decode(&kind)
 			source.Seek(0, io.SeekStart)
-
+			if _, ok := kind["type"]; !ok {
+				kind["type"] = "custom"
+			}
 			switch kind["type"] {
 
 			case "custom":

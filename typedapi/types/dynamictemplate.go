@@ -67,7 +67,9 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			localDec.Decode(&kind)
 			source.Seek(0, io.SeekStart)
-
+			if _, ok := kind["type"]; !ok {
+				kind["type"] = "object"
+			}
 			switch kind["type"] {
 
 			case "binary":

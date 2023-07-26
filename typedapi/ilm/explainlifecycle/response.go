@@ -86,9 +86,11 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 					}
 					s.Indices[key] = oo
 				default:
-					if err := localDec.Decode(&s.Indices); err != nil {
+					oo := new(types.LifecycleExplain)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Indices[key] = oo
 				}
 			}
 
