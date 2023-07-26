@@ -109,7 +109,9 @@ func (s *ObjectProperty) UnmarshalJSON(data []byte) error {
 				localDec := json.NewDecoder(buf)
 				localDec.Decode(&kind)
 				buf.Seek(0, io.SeekStart)
-
+				if _, ok := kind["type"]; !ok {
+					kind["type"] = "object"
+				}
 				switch kind["type"] {
 				case "binary":
 					oo := NewBinaryProperty()
@@ -432,7 +434,9 @@ func (s *ObjectProperty) UnmarshalJSON(data []byte) error {
 				localDec := json.NewDecoder(buf)
 				localDec.Decode(&kind)
 				buf.Seek(0, io.SeekStart)
-
+				if _, ok := kind["type"]; !ok {
+					kind["type"] = "object"
+				}
 				switch kind["type"] {
 				case "binary":
 					oo := NewBinaryProperty()
