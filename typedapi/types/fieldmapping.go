@@ -354,9 +354,11 @@ func (s *FieldMapping) UnmarshalJSON(data []byte) error {
 					}
 					s.Mapping[key] = oo
 				default:
-					if err := localDec.Decode(&s.Mapping); err != nil {
+					oo := new(Property)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Mapping[key] = oo
 				}
 			}
 

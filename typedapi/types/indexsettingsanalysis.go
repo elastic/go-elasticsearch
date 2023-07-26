@@ -152,9 +152,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Analyzer[key] = oo
 				default:
-					if err := localDec.Decode(&s.Analyzer); err != nil {
+					oo := new(Analyzer)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Analyzer[key] = oo
 				}
 			}
 
@@ -203,9 +205,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.CharFilter[key] = oo
 				default:
-					if err := localDec.Decode(&s.CharFilter); err != nil {
+					oo := new(CharFilter)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.CharFilter[key] = oo
 				}
 			}
 
@@ -512,9 +516,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Filter[key] = oo
 				default:
-					if err := localDec.Decode(&s.Filter); err != nil {
+					oo := new(TokenFilter)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Filter[key] = oo
 				}
 			}
 
@@ -545,9 +551,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Normalizer[key] = oo
 				default:
-					if err := localDec.Decode(&s.Normalizer); err != nil {
+					oo := new(Normalizer)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Normalizer[key] = oo
 				}
 			}
 
@@ -650,9 +658,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Tokenizer[key] = oo
 				default:
-					if err := localDec.Decode(&s.Tokenizer); err != nil {
+					oo := new(Tokenizer)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Tokenizer[key] = oo
 				}
 			}
 
