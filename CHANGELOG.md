@@ -1,11 +1,29 @@
 # 8.9.0
 
+## API
+**New API**
+
+* `Cluster.Info` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/cluster-info.html)
+
+**Experimental APIs**
+
+* `QueryRulesetGet` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html)
+* `QueryRulesetDelete` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html)
+* `QueryRulesetPut` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-ruleset.html)
+* `SearchApplicationRenderQuery` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/search-application-render-query.html)
+* `Security.CreateCrossClusterAPIKey` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html)
+* `Security.UpdateCrossClusterAPIKey` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html)
+
 ## Typed API
 
 * Propagated request fields towards the endpoint for ease of access, taking priority over same-name query string fields.
 * Added a stub for Do methods on endpoints that only support a boolean response such as `core.exists`. 
-* NDJSON endpoints support with custom serialization and helpers for specific like `core.bulk`.
-* Link to endpoints documentation in API index to better display and easy of use.
+* NDJSON endpoints support with custom serialization like `core.bulk`.
+* Link to endpoints documentation in API index to better display and ease of use.
+
+**fixes**
+
+* Fixed a deserialization issue for `Property` & `Analyzer` #696
 
 # 8.8.2
 
