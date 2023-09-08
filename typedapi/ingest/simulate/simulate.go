@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Allows to simulate a pipeline with example documents.
 package simulate
@@ -251,7 +251,9 @@ func (r *Simulate) Header(key, value string) *Simulate {
 	return r
 }
 
-// Id Pipeline ID
+// Id Pipeline to test.
+// If you don’t specify a `pipeline` in the request body, this parameter is
+// required.
 // API Name: id
 func (r *Simulate) Id(id string) *Simulate {
 	r.paramSet |= idMask
@@ -260,7 +262,8 @@ func (r *Simulate) Id(id string) *Simulate {
 	return r
 }
 
-// Verbose Verbose mode. Display data output for each processor in executed pipeline
+// Verbose If `true`, the response includes output data for each processor in the
+// executed pipeline.
 // API name: verbose
 func (r *Simulate) Verbose(verbose bool) *Simulate {
 	r.values.Set("verbose", strconv.FormatBool(verbose))
@@ -268,6 +271,7 @@ func (r *Simulate) Verbose(verbose bool) *Simulate {
 	return r
 }
 
+// Docs Sample documents to test in the pipeline.
 // API name: docs
 func (r *Simulate) Docs(docs ...types.Document) *Simulate {
 	r.req.Docs = docs
@@ -275,6 +279,11 @@ func (r *Simulate) Docs(docs ...types.Document) *Simulate {
 	return r
 }
 
+// Pipeline Pipeline to test.
+// If you don’t specify the `pipeline` request path parameter, this parameter is
+// required.
+// If you specify both this and the request path parameter, the API only uses
+// the request path parameter.
 // API name: pipeline
 func (r *Simulate) Pipeline(pipeline *types.IngestPipeline) *Simulate {
 

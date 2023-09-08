@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,10 +30,16 @@ import (
 
 // IntervalsPrefix type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/fulltext.ts#L110-L114
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/fulltext.ts#L218-L233
 type IntervalsPrefix struct {
+	// Analyzer Analyzer used to analyze the `prefix`.
 	Analyzer *string `json:"analyzer,omitempty"`
-	Prefix   string  `json:"prefix"`
+	// Prefix Beginning characters of terms you wish to find in the top-level field.
+	Prefix string `json:"prefix"`
+	// UseField If specified, match intervals from this field rather than the top-level
+	// field.
+	// The `prefix` is normalized using the search analyzer from this field, unless
+	// `analyzer` is specified separately.
 	UseField *string `json:"use_field,omitempty"`
 }
 

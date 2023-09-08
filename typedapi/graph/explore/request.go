@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package explore
 
@@ -29,12 +29,20 @@ import (
 
 // Request holds the request body struct for the package explore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/graph/explore/GraphExploreRequest.ts#L28-L47
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/graph/explore/GraphExploreRequest.ts#L28-L72
 type Request struct {
-	Connections *types.Hop               `json:"connections,omitempty"`
-	Controls    *types.ExploreControls   `json:"controls,omitempty"`
-	Query       *types.Query             `json:"query,omitempty"`
-	Vertices    []types.VertexDefinition `json:"vertices,omitempty"`
+
+	// Connections Specifies or more fields from which you want to extract terms that are
+	// associated with the specified vertices.
+	Connections *types.Hop `json:"connections,omitempty"`
+	// Controls Direct the Graph API how to build the graph.
+	Controls *types.ExploreControls `json:"controls,omitempty"`
+	// Query A seed query that identifies the documents of interest. Can be any valid
+	// Elasticsearch query.
+	Query *types.Query `json:"query,omitempty"`
+	// Vertices Specifies one or more fields that contain the terms you want to include in
+	// the graph as vertices.
+	Vertices []types.VertexDefinition `json:"vertices,omitempty"`
 }
 
 // NewRequest returns a Request

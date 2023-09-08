@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // CategorizeTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L437-L501
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L1037-L1101
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
 	// before being categorized.
@@ -69,10 +69,10 @@ type CategorizeTextAggregation struct {
 	// create narrower categories. Max allowed value is 100.
 	MaxUniqueTokens *int     `json:"max_unique_tokens,omitempty"`
 	Meta            Metadata `json:"meta,omitempty"`
-	// MinDocCount The minimum number of documents for a bucket to be returned to the results.
+	// MinDocCount The minimum number of documents in a bucket to be returned to the results.
 	MinDocCount *int    `json:"min_doc_count,omitempty"`
 	Name        *string `json:"name,omitempty"`
-	// ShardMinDocCount The minimum number of documents for a bucket to be returned from the shard
+	// ShardMinDocCount The minimum number of documents in a bucket to be returned from the shard
 	// before merging.
 	ShardMinDocCount *int `json:"shard_min_doc_count,omitempty"`
 	// ShardSize The number of categorization buckets to return from each shard before merging

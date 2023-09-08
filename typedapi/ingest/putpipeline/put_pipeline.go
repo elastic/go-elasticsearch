@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Creates or updates a pipeline.
 package putpipeline
@@ -78,7 +78,7 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 
 // Creates or updates a pipeline.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ingest.html
 func New(tp elastictransport.Interface) *PutPipeline {
 	r := &PutPipeline{
 		transport: tp,

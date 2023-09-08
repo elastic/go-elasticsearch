@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -32,19 +32,31 @@ import (
 
 // AutoDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L52-L62
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L65-L100
 type AutoDateHistogramAggregation struct {
-	Buckets         *int                             `json:"buckets,omitempty"`
-	Field           *string                          `json:"field,omitempty"`
-	Format          *string                          `json:"format,omitempty"`
-	Meta            Metadata                         `json:"meta,omitempty"`
+	// Buckets The target number of buckets.
+	Buckets *int `json:"buckets,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field *string `json:"field,omitempty"`
+	// Format The date format used to format `key_as_string` in the response.
+	// If no `format` is specified, the first date format specified in the field
+	// mapping is used.
+	Format *string  `json:"format,omitempty"`
+	Meta   Metadata `json:"meta,omitempty"`
+	// MinimumInterval The minimum rounding interval.
+	// This can make the collection process more efficient, as the aggregation will
+	// not attempt to round at any interval lower than `minimum_interval`.
 	MinimumInterval *minimuminterval.MinimumInterval `json:"minimum_interval,omitempty"`
-	Missing         DateTime                         `json:"missing,omitempty"`
-	Name            *string                          `json:"name,omitempty"`
-	Offset          *string                          `json:"offset,omitempty"`
-	Params          map[string]json.RawMessage       `json:"params,omitempty"`
-	Script          Script                           `json:"script,omitempty"`
-	TimeZone        *string                          `json:"time_zone,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing DateTime `json:"missing,omitempty"`
+	Name    *string  `json:"name,omitempty"`
+	// Offset Time zone specified as a ISO 8601 UTC offset.
+	Offset *string                    `json:"offset,omitempty"`
+	Params map[string]json.RawMessage `json:"params,omitempty"`
+	Script Script                     `json:"script,omitempty"`
+	// TimeZone Time zone ID.
+	TimeZone *string `json:"time_zone,omitempty"`
 }
 
 func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {

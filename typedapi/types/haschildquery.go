@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -32,17 +32,39 @@ import (
 
 // HasChildQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/joining.ts#L41-L51
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/joining.ts#L41-L76
 type HasChildQuery struct {
-	Boost          *float32                       `json:"boost,omitempty"`
-	IgnoreUnmapped *bool                          `json:"ignore_unmapped,omitempty"`
-	InnerHits      *InnerHits                     `json:"inner_hits,omitempty"`
-	MaxChildren    *int                           `json:"max_children,omitempty"`
-	MinChildren    *int                           `json:"min_children,omitempty"`
-	Query          *Query                         `json:"query,omitempty"`
-	QueryName_     *string                        `json:"_name,omitempty"`
-	ScoreMode      *childscoremode.ChildScoreMode `json:"score_mode,omitempty"`
-	Type           string                         `json:"type"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// IgnoreUnmapped Indicates whether to ignore an unmapped `type` and not return any documents
+	// instead of an error.
+	IgnoreUnmapped *bool `json:"ignore_unmapped,omitempty"`
+	// InnerHits If defined, each search hit will contain inner hits.
+	InnerHits *InnerHits `json:"inner_hits,omitempty"`
+	// MaxChildren Maximum number of child documents that match the query allowed for a returned
+	// parent document.
+	// If the parent document exceeds this limit, it is excluded from the search
+	// results.
+	MaxChildren *int `json:"max_children,omitempty"`
+	// MinChildren Minimum number of child documents that match the query required to match the
+	// query for a returned parent document.
+	// If the parent document does not meet this limit, it is excluded from the
+	// search results.
+	MinChildren *int `json:"min_children,omitempty"`
+	// Query Query you wish to run on child documents of the `type` field.
+	// If a child document matches the search, the query returns the parent
+	// document.
+	Query      *Query  `json:"query,omitempty"`
+	QueryName_ *string `json:"_name,omitempty"`
+	// ScoreMode Indicates how scores for matching child documents affect the root parent
+	// document’s relevance score.
+	ScoreMode *childscoremode.ChildScoreMode `json:"score_mode,omitempty"`
+	// Type Name of the child relationship mapped for the `join` field.
+	Type string `json:"type"`
 }
 
 func (s *HasChildQuery) UnmarshalJSON(data []byte) error {

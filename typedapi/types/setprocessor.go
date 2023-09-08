@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,19 +30,44 @@ import (
 
 // SetProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L329-L336
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L982-L1016
 type SetProcessor struct {
-	CopyFrom         *string              `json:"copy_from,omitempty"`
-	Description      *string              `json:"description,omitempty"`
-	Field            string               `json:"field"`
-	If               *string              `json:"if,omitempty"`
-	IgnoreEmptyValue *bool                `json:"ignore_empty_value,omitempty"`
-	IgnoreFailure    *bool                `json:"ignore_failure,omitempty"`
-	MediaType        *string              `json:"media_type,omitempty"`
-	OnFailure        []ProcessorContainer `json:"on_failure,omitempty"`
-	Override         *bool                `json:"override,omitempty"`
-	Tag              *string              `json:"tag,omitempty"`
-	Value            json.RawMessage      `json:"value,omitempty"`
+	// CopyFrom The origin field which will be copied to `field`, cannot set `value`
+	// simultaneously.
+	// Supported data types are `boolean`, `number`, `array`, `object`, `string`,
+	// `date`, etc.
+	CopyFrom *string `json:"copy_from,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to insert, upsert, or update.
+	// Supports template snippets.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreEmptyValue If `true` and `value` is a template snippet that evaluates to `null` or the
+	// empty string, the processor quietly exits without modifying the document.
+	IgnoreEmptyValue *bool `json:"ignore_empty_value,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// MediaType The media type for encoding `value`.
+	// Applies only when value is a template snippet.
+	// Must be one of `application/json`, `text/plain`, or
+	// `application/x-www-form-urlencoded`.
+	MediaType *string `json:"media_type,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Override If `true` processor will update fields with pre-existing non-null-valued
+	// field.
+	// When set to `false`, such fields will not be touched.
+	Override *bool `json:"override,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// Value The value to be set for the field.
+	// Supports template snippets.
+	// May specify only one of `value` or `copy_from`.
+	Value json.RawMessage `json:"value,omitempty"`
 }
 
 func (s *SetProcessor) UnmarshalJSON(data []byte) error {

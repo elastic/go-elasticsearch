@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Returns async results from previously executed Event Query Language (EQL)
 // search
@@ -77,7 +77,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // Returns async results from previously executed Event Query Language (EQL)
 // search
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+//  https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/get-async-eql-search-api.html
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -233,8 +233,9 @@ func (r *Get) KeepAlive(duration string) *Get {
 	return r
 }
 
-// WaitForCompletionTimeout Timeout duration to wait for the request to finish. Defaults to no timeout,
-// meaning the request waits for complete search results.
+// WaitForCompletionTimeout Timeout duration to wait for the request to finish.
+// Defaults to no timeout, meaning the request waits for complete search
+// results.
 // API name: wait_for_completion_timeout
 func (r *Get) WaitForCompletionTimeout(duration string) *Get {
 	r.values.Set("wait_for_completion_timeout", duration)

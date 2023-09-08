@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package updatealiases
 
@@ -29,8 +29,10 @@ import (
 
 // Request holds the request body struct for the package updatealiases
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/update_aliases/IndicesUpdateAliasesRequest.ts#L24-L37
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/update_aliases/IndicesUpdateAliasesRequest.ts#L24-L51
 type Request struct {
+
+	// Actions Actions to perform.
 	Actions []types.IndicesAction `json:"actions,omitempty"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -29,9 +29,12 @@ import (
 
 // MultiTermLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L276-L279
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L624-L634
 type MultiTermLookup struct {
-	Field   string  `json:"field"`
+	// Field A fields from which to retrieve terms.
+	Field string `json:"field"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
 }
 

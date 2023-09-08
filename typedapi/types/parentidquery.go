@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,13 +30,22 @@ import (
 
 // ParentIdQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/joining.ts#L73-L78
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/joining.ts#L132-L146
 type ParentIdQuery struct {
-	Boost          *float32 `json:"boost,omitempty"`
-	Id             *string  `json:"id,omitempty"`
-	IgnoreUnmapped *bool    `json:"ignore_unmapped,omitempty"`
-	QueryName_     *string  `json:"_name,omitempty"`
-	Type           *string  `json:"type,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// Id ID of the parent document.
+	Id *string `json:"id,omitempty"`
+	// IgnoreUnmapped Indicates whether to ignore an unmapped `type` and not return any documents
+	// instead of an error.
+	IgnoreUnmapped *bool   `json:"ignore_unmapped,omitempty"`
+	QueryName_     *string `json:"_name,omitempty"`
+	// Type Name of the child relationship mapped for the `join` field.
+	Type *string `json:"type,omitempty"`
 }
 
 func (s *ParentIdQuery) UnmarshalJSON(data []byte) error {

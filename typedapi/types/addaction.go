@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,19 +30,39 @@ import (
 
 // AddAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/update_aliases/types.ts#L30-L44
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/update_aliases/types.ts#L41-L95
 type AddAction struct {
-	Alias         *string  `json:"alias,omitempty"`
-	Aliases       []string `json:"aliases,omitempty"`
-	Filter        *Query   `json:"filter,omitempty"`
-	Index         *string  `json:"index,omitempty"`
-	IndexRouting  *string  `json:"index_routing,omitempty"`
-	Indices       []string `json:"indices,omitempty"`
-	IsHidden      *bool    `json:"is_hidden,omitempty"`
-	IsWriteIndex  *bool    `json:"is_write_index,omitempty"`
-	MustExist     *bool    `json:"must_exist,omitempty"`
-	Routing       *string  `json:"routing,omitempty"`
-	SearchRouting *string  `json:"search_routing,omitempty"`
+	// Alias Alias for the action.
+	// Index alias names support date math.
+	Alias *string `json:"alias,omitempty"`
+	// Aliases Aliases for the action.
+	// Index alias names support date math.
+	Aliases []string `json:"aliases,omitempty"`
+	// Filter Query used to limit documents the alias can access.
+	Filter *Query `json:"filter,omitempty"`
+	// Index Data stream or index for the action.
+	// Supports wildcards (`*`).
+	Index *string `json:"index,omitempty"`
+	// IndexRouting Value used to route indexing operations to a specific shard.
+	// If specified, this overwrites the `routing` value for indexing operations.
+	// Data stream aliases don’t support this parameter.
+	IndexRouting *string `json:"index_routing,omitempty"`
+	// Indices Data streams or indices for the action.
+	// Supports wildcards (`*`).
+	Indices []string `json:"indices,omitempty"`
+	// IsHidden If `true`, the alias is hidden.
+	IsHidden *bool `json:"is_hidden,omitempty"`
+	// IsWriteIndex If `true`, sets the write index or data stream for the alias.
+	IsWriteIndex *bool `json:"is_write_index,omitempty"`
+	// MustExist If `true`, the alias must exist to perform the action.
+	MustExist *bool `json:"must_exist,omitempty"`
+	// Routing Value used to route indexing and search operations to a specific shard.
+	// Data stream aliases don’t support this parameter.
+	Routing *string `json:"routing,omitempty"`
+	// SearchRouting Value used to route search operations to a specific shard.
+	// If specified, this overwrites the `routing` value for search operations.
+	// Data stream aliases don’t support this parameter.
+	SearchRouting *string `json:"search_routing,omitempty"`
 }
 
 func (s *AddAction) UnmarshalJSON(data []byte) error {

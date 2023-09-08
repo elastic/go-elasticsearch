@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,10 +30,12 @@ import (
 
 // RankFeatureFunctionSigmoid type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/specialized.ts#L149-L152
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/specialized.ts#L282-L291
 type RankFeatureFunctionSigmoid struct {
+	// Exponent Configurable Exponent.
 	Exponent float32 `json:"exponent"`
-	Pivot    float32 `json:"pivot"`
+	// Pivot Configurable pivot value so that the result will be less than 0.5.
+	Pivot float32 `json:"pivot"`
 }
 
 func (s *RankFeatureFunctionSigmoid) UnmarshalJSON(data []byte) error {

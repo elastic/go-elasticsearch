@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,14 +30,20 @@ import (
 
 // TopMetricsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L186-L190
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/metric.ts#L394-L408
 type TopMetricsAggregation struct {
-	Field   *string            `json:"field,omitempty"`
-	Metrics []TopMetricsValue  `json:"metrics,omitempty"`
-	Missing Missing            `json:"missing,omitempty"`
-	Script  Script             `json:"script,omitempty"`
-	Size    *int               `json:"size,omitempty"`
-	Sort    []SortCombinations `json:"sort,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field *string `json:"field,omitempty"`
+	// Metrics The fields of the top document to return.
+	Metrics []TopMetricsValue `json:"metrics,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	Script  Script  `json:"script,omitempty"`
+	// Size The number of top documents from which to return metrics.
+	Size *int `json:"size,omitempty"`
+	// Sort The sort order of the documents.
+	Sort []SortCombinations `json:"sort,omitempty"`
 }
 
 func (s *TopMetricsAggregation) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -33,18 +33,30 @@ import (
 
 // MultiTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L265-L274
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L582-L622
 type MultiTermsAggregation struct {
-	CollectMode           *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
-	Meta                  Metadata                                                 `json:"meta,omitempty"`
-	MinDocCount           *int64                                                   `json:"min_doc_count,omitempty"`
-	Name                  *string                                                  `json:"name,omitempty"`
-	Order                 AggregateOrder                                           `json:"order,omitempty"`
-	ShardMinDocCount      *int64                                                   `json:"shard_min_doc_count,omitempty"`
-	ShardSize             *int                                                     `json:"shard_size,omitempty"`
-	ShowTermDocCountError *bool                                                    `json:"show_term_doc_count_error,omitempty"`
-	Size                  *int                                                     `json:"size,omitempty"`
-	Terms                 []MultiTermLookup                                        `json:"terms"`
+	// CollectMode Specifies the strategy for data collection.
+	CollectMode *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
+	Meta        Metadata                                                 `json:"meta,omitempty"`
+	// MinDocCount The minimum number of documents in a bucket for it to be returned.
+	MinDocCount *int64  `json:"min_doc_count,omitempty"`
+	Name        *string `json:"name,omitempty"`
+	// Order Specifies the sort order of the buckets.
+	// Defaults to sorting by descending document count.
+	Order AggregateOrder `json:"order,omitempty"`
+	// ShardMinDocCount The minimum number of documents in a bucket on each shard for it to be
+	// returned.
+	ShardMinDocCount *int64 `json:"shard_min_doc_count,omitempty"`
+	// ShardSize The number of candidate terms produced by each shard.
+	// By default, `shard_size` will be automatically estimated based on the number
+	// of shards and the `size` parameter.
+	ShardSize *int `json:"shard_size,omitempty"`
+	// ShowTermDocCountError Calculates the doc count error on per term basis.
+	ShowTermDocCountError *bool `json:"show_term_doc_count_error,omitempty"`
+	// Size The number of term buckets should be returned out of the overall terms list.
+	Size *int `json:"size,omitempty"`
+	// Terms The field from which to generate sets of terms.
+	Terms []MultiTermLookup `json:"terms"`
 }
 
 func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {

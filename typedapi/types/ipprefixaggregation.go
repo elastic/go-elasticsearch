@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,13 +30,12 @@ import (
 
 // IpPrefixAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L514-L543
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L1114-L1143
 type IpPrefixAggregation struct {
 	// AppendPrefixLength Defines whether the prefix length is appended to IP address keys in the
 	// response.
 	AppendPrefixLength *bool `json:"append_prefix_length,omitempty"`
-	// Field The document IP address field to aggregation on. The field mapping type must
-	// be `ip`
+	// Field The IP address field to aggregation on. The field mapping type must be `ip`.
 	Field string `json:"field"`
 	// IsIpv6 Defines whether the prefix applies to IPv6 addresses.
 	IsIpv6 *bool `json:"is_ipv6,omitempty"`
@@ -44,7 +43,8 @@ type IpPrefixAggregation struct {
 	// response.
 	Keyed *bool    `json:"keyed,omitempty"`
 	Meta  Metadata `json:"meta,omitempty"`
-	// MinDocCount Minimum number of documents for buckets to be included in the response.
+	// MinDocCount Minimum number of documents in a bucket for it to be included in the
+	// response.
 	MinDocCount *int64  `json:"min_doc_count,omitempty"`
 	Name        *string `json:"name,omitempty"`
 	// PrefixLength Length of the network prefix. For IPv4 addresses the accepted range is [0,

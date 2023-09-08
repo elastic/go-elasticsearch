@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,20 +30,41 @@ import (
 
 // AttachmentProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L96-L104
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L290-L326
 type AttachmentProcessor struct {
-	Description       *string              `json:"description,omitempty"`
-	Field             string               `json:"field"`
-	If                *string              `json:"if,omitempty"`
-	IgnoreFailure     *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing     *bool                `json:"ignore_missing,omitempty"`
-	IndexedChars      *int64               `json:"indexed_chars,omitempty"`
-	IndexedCharsField *string              `json:"indexed_chars_field,omitempty"`
-	OnFailure         []ProcessorContainer `json:"on_failure,omitempty"`
-	Properties        []string             `json:"properties,omitempty"`
-	ResourceName      *string              `json:"resource_name,omitempty"`
-	Tag               *string              `json:"tag,omitempty"`
-	TargetField       *string              `json:"target_field,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to get the base64 encoded field from.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and field does not exist, the processor quietly exits without
+	// modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// IndexedChars The number of chars being used for extraction to prevent huge fields.
+	// Use `-1` for no limit.
+	IndexedChars *int64 `json:"indexed_chars,omitempty"`
+	// IndexedCharsField Field name from which you can overwrite the number of chars being used for
+	// extraction.
+	IndexedCharsField *string `json:"indexed_chars_field,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Properties Array of properties to select to be stored.
+	// Can be `content`, `title`, `name`, `author`, `keywords`, `date`,
+	// `content_type`, `content_length`, `language`.
+	Properties []string `json:"properties,omitempty"`
+	// ResourceName Field containing the name of the resource to decode.
+	// If specified, the processor passes this resource name to the underlying Tika
+	// library to enable Resource Name Based Detection.
+	ResourceName *string `json:"resource_name,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field that will hold the attachment information.
+	TargetField *string `json:"target_field,omitempty"`
 }
 
 func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {

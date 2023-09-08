@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,18 +30,36 @@ import (
 
 // GrokProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L221-L227
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L661-L686
 type GrokProcessor struct {
-	Description        *string              `json:"description,omitempty"`
-	Field              string               `json:"field"`
-	If                 *string              `json:"if,omitempty"`
-	IgnoreFailure      *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing      *bool                `json:"ignore_missing,omitempty"`
-	OnFailure          []ProcessorContainer `json:"on_failure,omitempty"`
-	PatternDefinitions map[string]string    `json:"pattern_definitions,omitempty"`
-	Patterns           []string             `json:"patterns"`
-	Tag                *string              `json:"tag,omitempty"`
-	TraceMatch         *bool                `json:"trace_match,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to use for grok expression parsing.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and `field` does not exist or is `null`, the processor quietly
+	// exits without modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// PatternDefinitions A map of pattern-name and pattern tuples defining custom patterns to be used
+	// by the current processor.
+	// Patterns matching existing names will override the pre-existing definition.
+	PatternDefinitions map[string]string `json:"pattern_definitions,omitempty"`
+	// Patterns An ordered list of grok expression to match and extract named captures with.
+	// Returns on the first expression in the list that matches.
+	Patterns []string `json:"patterns"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TraceMatch When `true`, `_ingest._grok_match_index` will be inserted into your matched
+	// document’s metadata with the index into the pattern found in `patterns` that
+	// matched.
+	TraceMatch *bool `json:"trace_match,omitempty"`
 }
 
 func (s *GrokProcessor) UnmarshalJSON(data []byte) error {

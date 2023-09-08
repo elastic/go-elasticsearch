@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Updates an alias to point to a new index when the existing index
 // is considered to be too large or too old.
@@ -84,7 +84,7 @@ func NewRolloverFunc(tp elastictransport.Interface) NewRollover {
 // Updates an alias to point to a new index when the existing index
 // is considered to be too large or too old.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-rollover-index.html
 func New(tp elastictransport.Interface) *Rollover {
 	r := &Rollover{
 		transport: tp,
@@ -256,7 +256,7 @@ func (r *Rollover) Header(key, value string) *Rollover {
 	return r
 }
 
-// Alias The name of the alias to rollover
+// Alias Name of the data stream or index alias to roll over.
 // API Name: alias
 func (r *Rollover) Alias(alias string) *Rollover {
 	r.paramSet |= aliasMask
@@ -265,7 +265,9 @@ func (r *Rollover) Alias(alias string) *Rollover {
 	return r
 }
 
-// NewIndex The name of the rollover index
+// NewIndex Name of the index to create.
+// Supports date math.
+// Data streams do not support this parameter.
 // API Name: newindex
 func (r *Rollover) NewIndex(newindex string) *Rollover {
 	r.paramSet |= newindexMask
@@ -274,8 +276,8 @@ func (r *Rollover) NewIndex(newindex string) *Rollover {
 	return r
 }
 
-// DryRun If set to true the rollover action will only be validated but not actually
-// performed even if a condition matches. The default is false
+// DryRun If `true`, checks whether the current index satisfies the specified
+// conditions but does not perform a rollover.
 // API name: dry_run
 func (r *Rollover) DryRun(dryrun bool) *Rollover {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))
@@ -283,7 +285,9 @@ func (r *Rollover) DryRun(dryrun bool) *Rollover {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Rollover) MasterTimeout(duration string) *Rollover {
 	r.values.Set("master_timeout", duration)
@@ -291,7 +295,9 @@ func (r *Rollover) MasterTimeout(duration string) *Rollover {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Rollover) Timeout(duration string) *Rollover {
 	r.values.Set("timeout", duration)
@@ -299,8 +305,10 @@ func (r *Rollover) Timeout(duration string) *Rollover {
 	return r
 }
 
-// WaitForActiveShards Set the number of active shards to wait for on the newly created rollover
-// index before the operation returns.
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to all or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Rollover) WaitForActiveShards(waitforactiveshards string) *Rollover {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -308,6 +316,8 @@ func (r *Rollover) WaitForActiveShards(waitforactiveshards string) *Rollover {
 	return r
 }
 
+// Aliases Aliases for the target index.
+// Data streams do not support this parameter.
 // API name: aliases
 func (r *Rollover) Aliases(aliases map[string]types.Alias) *Rollover {
 
@@ -316,6 +326,15 @@ func (r *Rollover) Aliases(aliases map[string]types.Alias) *Rollover {
 	return r
 }
 
+// Conditions Conditions for the rollover.
+// If specified, Elasticsearch only performs the rollover if the current index
+// satisfies these conditions.
+// If this parameter is not specified, Elasticsearch performs the rollover
+// unconditionally.
+// If conditions are specified, at least one of them must be a `max_*`
+// condition.
+// The index will rollover if any `max_*` condition is satisfied and all `min_*`
+// conditions are satisfied.
 // API name: conditions
 func (r *Rollover) Conditions(conditions *types.RolloverConditions) *Rollover {
 
@@ -324,6 +343,9 @@ func (r *Rollover) Conditions(conditions *types.RolloverConditions) *Rollover {
 	return r
 }
 
+// Mappings Mapping for fields in the index.
+// If specified, this mapping can include field names, field data types, and
+// mapping paramaters.
 // API name: mappings
 func (r *Rollover) Mappings(mappings *types.TypeMapping) *Rollover {
 
@@ -332,6 +354,8 @@ func (r *Rollover) Mappings(mappings *types.TypeMapping) *Rollover {
 	return r
 }
 
+// Settings Configuration options for the index.
+// Data streams do not support this parameter.
 // API name: settings
 func (r *Rollover) Settings(settings map[string]json.RawMessage) *Rollover {
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,16 +30,28 @@ import (
 
 // AppendProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L90-L94
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L273-L288
 type AppendProcessor struct {
-	AllowDuplicates *bool                `json:"allow_duplicates,omitempty"`
-	Description     *string              `json:"description,omitempty"`
-	Field           string               `json:"field"`
-	If              *string              `json:"if,omitempty"`
-	IgnoreFailure   *bool                `json:"ignore_failure,omitempty"`
-	OnFailure       []ProcessorContainer `json:"on_failure,omitempty"`
-	Tag             *string              `json:"tag,omitempty"`
-	Value           []json.RawMessage    `json:"value"`
+	// AllowDuplicates If `false`, the processor does not append values already present in the
+	// field.
+	AllowDuplicates *bool `json:"allow_duplicates,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to be appended to.
+	// Supports template snippets.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// Value The value to be appended. Supports template snippets.
+	Value []json.RawMessage `json:"value"`
 }
 
 func (s *AppendProcessor) UnmarshalJSON(data []byte) error {

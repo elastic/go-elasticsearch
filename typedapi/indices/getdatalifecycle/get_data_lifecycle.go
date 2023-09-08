@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Returns the data lifecycle of the selected data streams.
 package getdatalifecycle
@@ -215,8 +215,9 @@ func (r *GetDataLifecycle) Header(key, value string) *GetDataLifecycle {
 	return r
 }
 
-// Name A comma-separated list of data streams to get; use `*` to get all data
-// streams
+// Name Comma-separated list of data streams to limit the request.
+// Supports wildcards (`*`).
+// To target all data streams, omit this parameter or use `*` or `_all`.
 // API Name: name
 func (r *GetDataLifecycle) Name(name string) *GetDataLifecycle {
 	r.paramSet |= nameMask
@@ -225,8 +226,9 @@ func (r *GetDataLifecycle) Name(name string) *GetDataLifecycle {
 	return r
 }
 
-// ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
-// (default: open)
+// ExpandWildcards Type of data stream that wildcard patterns can match.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *GetDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetDataLifecycle {
 	tmp := []string{}
@@ -238,8 +240,7 @@ func (r *GetDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.Exp
 	return r
 }
 
-// IncludeDefaults Return all relevant default configurations for the data stream (default:
-// false)
+// IncludeDefaults If `true`, return all default settings in the response.
 // API name: include_defaults
 func (r *GetDataLifecycle) IncludeDefaults(includedefaults bool) *GetDataLifecycle {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))

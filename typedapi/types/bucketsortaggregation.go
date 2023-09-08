@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -32,14 +32,19 @@ import (
 
 // BucketSortAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/pipeline.ts#L154-L159
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/pipeline.ts#L169-L190
 type BucketSortAggregation struct {
-	From      *int                 `json:"from,omitempty"`
+	// From Buckets in positions prior to `from` will be truncated.
+	From *int `json:"from,omitempty"`
+	// GapPolicy The policy to apply when gaps are found in the data.
 	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
 	Meta      Metadata             `json:"meta,omitempty"`
 	Name      *string              `json:"name,omitempty"`
-	Size      *int                 `json:"size,omitempty"`
-	Sort      []SortCombinations   `json:"sort,omitempty"`
+	// Size The number of buckets to return.
+	// Defaults to all buckets of the parent aggregation.
+	Size *int `json:"size,omitempty"`
+	// Sort The list of fields to sort on.
+	Sort []SortCombinations `json:"sort,omitempty"`
 }
 
 func (s *BucketSortAggregation) UnmarshalJSON(data []byte) error {

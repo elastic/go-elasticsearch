@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package reloadsearchanalyzers
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package reloadsearchanalyzers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/reload_search_analyzers/ReloadSearchAnalyzersResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/reload_search_analyzers/ReloadSearchAnalyzersResponse.ts#L22-L24
 
 type Response struct {
 	ReloadDetails []types.ReloadDetails `json:"reload_details"`

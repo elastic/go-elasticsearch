@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -32,14 +32,17 @@ import (
 
 // WeightedAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L211-L216
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/metric.ts#L432-L446
 type WeightedAverageAggregation struct {
-	Format    *string               `json:"format,omitempty"`
-	Meta      Metadata              `json:"meta,omitempty"`
-	Name      *string               `json:"name,omitempty"`
+	// Format A numeric response formatter.
+	Format *string  `json:"format,omitempty"`
+	Meta   Metadata `json:"meta,omitempty"`
+	Name   *string  `json:"name,omitempty"`
+	// Value Configuration for the field that provides the values.
 	Value     *WeightedAverageValue `json:"value,omitempty"`
 	ValueType *valuetype.ValueType  `json:"value_type,omitempty"`
-	Weight    *WeightedAverageValue `json:"weight,omitempty"`
+	// Weight Configuration for the field or script that provides the weights.
+	Weight *WeightedAverageValue `json:"weight,omitempty"`
 }
 
 func (s *WeightedAverageAggregation) UnmarshalJSON(data []byte) error {

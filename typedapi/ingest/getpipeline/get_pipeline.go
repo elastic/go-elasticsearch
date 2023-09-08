@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Returns a pipeline.
 package getpipeline
@@ -219,7 +219,9 @@ func (r *GetPipeline) Header(key, value string) *GetPipeline {
 	return r
 }
 
-// Id Comma separated list of pipeline ids. Wildcards supported
+// Id Comma-separated list of pipeline IDs to retrieve.
+// Wildcard (`*`) expressions are supported.
+// To get all ingest pipelines, omit this parameter or use `*`.
 // API Name: id
 func (r *GetPipeline) Id(id string) *GetPipeline {
 	r.paramSet |= idMask
@@ -228,7 +230,9 @@ func (r *GetPipeline) Id(id string) *GetPipeline {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *GetPipeline) MasterTimeout(duration string) *GetPipeline {
 	r.values.Set("master_timeout", duration)

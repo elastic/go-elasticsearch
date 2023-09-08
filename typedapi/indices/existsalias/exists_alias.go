@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Returns information about whether a particular alias exists.
 package existsalias
@@ -197,7 +197,7 @@ func (r *ExistsAlias) Header(key, value string) *ExistsAlias {
 	return r
 }
 
-// Name A comma-separated list of alias names to return
+// Name Comma-separated list of aliases to check. Supports wildcards (`*`).
 // API Name: name
 func (r *ExistsAlias) Name(name string) *ExistsAlias {
 	r.paramSet |= nameMask
@@ -206,7 +206,10 @@ func (r *ExistsAlias) Name(name string) *ExistsAlias {
 	return r
 }
 
-// Index A comma-separated list of index names to filter aliases
+// Index Comma-separated list of data streams or indices used to limit the request.
+// Supports wildcards (`*`).
+// To target all data streams and indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *ExistsAlias) Index(index string) *ExistsAlias {
 	r.paramSet |= indexMask
@@ -215,8 +218,9 @@ func (r *ExistsAlias) Index(index string) *ExistsAlias {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *ExistsAlias) AllowNoIndices(allownoindices bool) *ExistsAlias {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -224,8 +228,11 @@ func (r *ExistsAlias) AllowNoIndices(allownoindices bool) *ExistsAlias {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *ExistsAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ExistsAlias {
 	tmp := []string{}
@@ -237,8 +244,8 @@ func (r *ExistsAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWi
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, requests that include a missing data stream or index in the
+// target indices or data streams return an error.
 // API name: ignore_unavailable
 func (r *ExistsAlias) IgnoreUnavailable(ignoreunavailable bool) *ExistsAlias {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -246,8 +253,7 @@ func (r *ExistsAlias) IgnoreUnavailable(ignoreunavailable bool) *ExistsAlias {
 	return r
 }
 
-// Local Return local information, do not retrieve the state from master node
-// (default: false)
+// Local If `true`, the request retrieves information from the local node only.
 // API name: local
 func (r *ExistsAlias) Local(local bool) *ExistsAlias {
 	r.values.Set("local", strconv.FormatBool(local))

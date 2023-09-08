@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package get
 
@@ -26,10 +26,14 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/async_search/get/AsyncSearchGetResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/async_search/get/AsyncSearchGetResponse.ts#L22-L24
 
 type Response struct {
 
+	// CompletionTime Indicates when the async search completed. Only present
+	// when the search has completed.
+	CompletionTime         types.DateTime `json:"completion_time,omitempty"`
+	CompletionTimeInMillis *int64         `json:"completion_time_in_millis,omitempty"`
 	// ExpirationTime Indicates when the async search will expire.
 	ExpirationTime         types.DateTime `json:"expiration_time,omitempty"`
 	ExpirationTimeInMillis int64          `json:"expiration_time_in_millis"`

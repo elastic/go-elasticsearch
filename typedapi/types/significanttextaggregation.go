@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -32,27 +32,55 @@ import (
 
 // SignificantTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L360-L378
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L836-L908
 type SignificantTextAggregation struct {
-	BackgroundFilter    *Query                                                       `json:"background_filter,omitempty"`
-	ChiSquare           *ChiSquareHeuristic                                          `json:"chi_square,omitempty"`
-	Exclude             []string                                                     `json:"exclude,omitempty"`
-	ExecutionHint       *termsaggregationexecutionhint.TermsAggregationExecutionHint `json:"execution_hint,omitempty"`
-	Field               *string                                                      `json:"field,omitempty"`
-	FilterDuplicateText *bool                                                        `json:"filter_duplicate_text,omitempty"`
-	Gnd                 *GoogleNormalizedDistanceHeuristic                           `json:"gnd,omitempty"`
-	Include             []string                                                     `json:"include,omitempty"`
-	Jlh                 *EmptyObject                                                 `json:"jlh,omitempty"`
-	Meta                Metadata                                                     `json:"meta,omitempty"`
-	MinDocCount         *int64                                                       `json:"min_doc_count,omitempty"`
-	MutualInformation   *MutualInformationHeuristic                                  `json:"mutual_information,omitempty"`
-	Name                *string                                                      `json:"name,omitempty"`
-	Percentage          *PercentageScoreHeuristic                                    `json:"percentage,omitempty"`
-	ScriptHeuristic     *ScriptedHeuristic                                           `json:"script_heuristic,omitempty"`
-	ShardMinDocCount    *int64                                                       `json:"shard_min_doc_count,omitempty"`
-	ShardSize           *int                                                         `json:"shard_size,omitempty"`
-	Size                *int                                                         `json:"size,omitempty"`
-	SourceFields        []string                                                     `json:"source_fields,omitempty"`
+	// BackgroundFilter A background filter that can be used to focus in on significant terms within
+	// a narrower context, instead of the entire index.
+	BackgroundFilter *Query `json:"background_filter,omitempty"`
+	// ChiSquare Use Chi square, as described in "Information Retrieval", Manning et al.,
+	// Chapter 13.5.2, as the significance score.
+	ChiSquare *ChiSquareHeuristic `json:"chi_square,omitempty"`
+	// Exclude Values to exclude.
+	Exclude []string `json:"exclude,omitempty"`
+	// ExecutionHint Determines whether the aggregation will use field values directly or global
+	// ordinals.
+	ExecutionHint *termsaggregationexecutionhint.TermsAggregationExecutionHint `json:"execution_hint,omitempty"`
+	// Field The field from which to return significant text.
+	Field *string `json:"field,omitempty"`
+	// FilterDuplicateText Whether to out duplicate text to deal with noisy data.
+	FilterDuplicateText *bool `json:"filter_duplicate_text,omitempty"`
+	// Gnd Use Google normalized distance as described in "The Google Similarity
+	// Distance", Cilibrasi and Vitanyi, 2007, as the significance score.
+	Gnd *GoogleNormalizedDistanceHeuristic `json:"gnd,omitempty"`
+	// Include Values to include.
+	Include []string `json:"include,omitempty"`
+	// Jlh Use JLH score as the significance score.
+	Jlh  *EmptyObject `json:"jlh,omitempty"`
+	Meta Metadata     `json:"meta,omitempty"`
+	// MinDocCount Only return values that are found in more than `min_doc_count` hits.
+	MinDocCount *int64 `json:"min_doc_count,omitempty"`
+	// MutualInformation Use mutual information as described in "Information Retrieval", Manning et
+	// al., Chapter 13.5.1, as the significance score.
+	MutualInformation *MutualInformationHeuristic `json:"mutual_information,omitempty"`
+	Name              *string                     `json:"name,omitempty"`
+	// Percentage A simple calculation of the number of documents in the foreground sample with
+	// a term divided by the number of documents in the background with the term.
+	Percentage *PercentageScoreHeuristic `json:"percentage,omitempty"`
+	// ScriptHeuristic Customized score, implemented via a script.
+	ScriptHeuristic *ScriptedHeuristic `json:"script_heuristic,omitempty"`
+	// ShardMinDocCount Regulates the certainty a shard has if the values should actually be added to
+	// the candidate list or not with respect to the min_doc_count.
+	// Values will only be considered if their local shard frequency within the set
+	// is higher than the `shard_min_doc_count`.
+	ShardMinDocCount *int64 `json:"shard_min_doc_count,omitempty"`
+	// ShardSize The number of candidate terms produced by each shard.
+	// By default, `shard_size` will be automatically estimated based on the number
+	// of shards and the `size` parameter.
+	ShardSize *int `json:"shard_size,omitempty"`
+	// Size The number of buckets returned out of the overall terms list.
+	Size *int `json:"size,omitempty"`
+	// SourceFields Overrides the JSON `_source` fields from which text will be analyzed.
+	SourceFields []string `json:"source_fields,omitempty"`
 }
 
 func (s *SignificantTextAggregation) UnmarshalJSON(data []byte) error {

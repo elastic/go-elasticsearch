@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,13 +30,20 @@ import (
 
 // InferenceConfigClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L257-L263
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L762-L788
 type InferenceConfigClassification struct {
-	NumTopClasses                 *int    `json:"num_top_classes,omitempty"`
-	NumTopFeatureImportanceValues *int    `json:"num_top_feature_importance_values,omitempty"`
-	PredictionFieldType           *string `json:"prediction_field_type,omitempty"`
-	ResultsField                  *string `json:"results_field,omitempty"`
-	TopClassesResultsField        *string `json:"top_classes_results_field,omitempty"`
+	// NumTopClasses Specifies the number of top class predictions to return.
+	NumTopClasses *int `json:"num_top_classes,omitempty"`
+	// NumTopFeatureImportanceValues Specifies the maximum number of feature importance values per document.
+	NumTopFeatureImportanceValues *int `json:"num_top_feature_importance_values,omitempty"`
+	// PredictionFieldType Specifies the type of the predicted field to write.
+	// Valid values are: `string`, `number`, `boolean`.
+	PredictionFieldType *string `json:"prediction_field_type,omitempty"`
+	// ResultsField The field that is added to incoming documents to contain the inference
+	// prediction.
+	ResultsField *string `json:"results_field,omitempty"`
+	// TopClassesResultsField Specifies the field to which the top classes are written.
+	TopClassesResultsField *string `json:"top_classes_results_field,omitempty"`
 }
 
 func (s *InferenceConfigClassification) UnmarshalJSON(data []byte) error {

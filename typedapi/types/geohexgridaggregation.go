@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,13 +30,12 @@ import (
 
 // GeohexGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L200-L226
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L460-L485
 type GeohexGridAggregation struct {
 	// Bounds Bounding box used to filter the geo-points in each bucket.
 	Bounds GeoBounds `json:"bounds,omitempty"`
-	// Field Field containing indexed geo-point values. Must be explicitly
-	// mapped as a `geo_point` field. If the field contains an array
-	// `geohex_grid` aggregates all array values.
+	// Field Field containing indexed `geo_point` or `geo_shape` values.
+	// If the field contains an array, `geohex_grid` aggregates all array values.
 	Field string   `json:"field"`
 	Meta  Metadata `json:"meta,omitempty"`
 	Name  *string  `json:"name,omitempty"`

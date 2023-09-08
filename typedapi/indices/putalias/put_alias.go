@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Creates or updates an alias.
 package putalias
@@ -258,8 +258,9 @@ func (r *PutAlias) Header(key, value string) *PutAlias {
 	return r
 }
 
-// Index A comma-separated list of index names the alias should point to (supports
-// wildcards); use `_all` to perform the operation on all indices.
+// Index Comma-separated list of data streams or indices to add.
+// Supports wildcards (`*`).
+// Wildcard patterns that match both data streams and indices return an error.
 // API Name: index
 func (r *PutAlias) Index(index string) *PutAlias {
 	r.paramSet |= indexMask
@@ -268,7 +269,9 @@ func (r *PutAlias) Index(index string) *PutAlias {
 	return r
 }
 
-// Name The name of the alias to be created or updated
+// Name Alias to update.
+// If the alias doesn’t exist, the request creates it.
+// Index alias names support date math.
 // API Name: name
 func (r *PutAlias) Name(name string) *PutAlias {
 	r.paramSet |= nameMask
@@ -277,7 +280,9 @@ func (r *PutAlias) Name(name string) *PutAlias {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *PutAlias) MasterTimeout(duration string) *PutAlias {
 	r.values.Set("master_timeout", duration)
@@ -285,7 +290,9 @@ func (r *PutAlias) MasterTimeout(duration string) *PutAlias {
 	return r
 }
 
-// Timeout Explicit timestamp for the document
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *PutAlias) Timeout(duration string) *PutAlias {
 	r.values.Set("timeout", duration)
@@ -293,6 +300,7 @@ func (r *PutAlias) Timeout(duration string) *PutAlias {
 	return r
 }
 
+// Filter Query used to limit documents the alias can access.
 // API name: filter
 func (r *PutAlias) Filter(filter *types.Query) *PutAlias {
 
@@ -301,6 +309,9 @@ func (r *PutAlias) Filter(filter *types.Query) *PutAlias {
 	return r
 }
 
+// IndexRouting Value used to route indexing operations to a specific shard.
+// If specified, this overwrites the `routing` value for indexing operations.
+// Data stream aliases don’t support this parameter.
 // API name: index_routing
 func (r *PutAlias) IndexRouting(routing string) *PutAlias {
 	r.req.IndexRouting = &routing
@@ -308,6 +319,13 @@ func (r *PutAlias) IndexRouting(routing string) *PutAlias {
 	return r
 }
 
+// IsWriteIndex If `true`, sets the write index or data stream for the alias.
+// If an alias points to multiple indices or data streams and `is_write_index`
+// isn’t set, the alias rejects write requests.
+// If an index alias points to one index and `is_write_index` isn’t set, the
+// index automatically acts as the write index.
+// Data stream aliases don’t automatically set a write data stream, even if the
+// alias points to one data stream.
 // API name: is_write_index
 func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
 	r.req.IsWriteIndex = &iswriteindex
@@ -315,6 +333,8 @@ func (r *PutAlias) IsWriteIndex(iswriteindex bool) *PutAlias {
 	return r
 }
 
+// Routing Value used to route indexing and search operations to a specific shard.
+// Data stream aliases don’t support this parameter.
 // API name: routing
 func (r *PutAlias) Routing(routing string) *PutAlias {
 	r.req.Routing = &routing
@@ -322,6 +342,9 @@ func (r *PutAlias) Routing(routing string) *PutAlias {
 	return r
 }
 
+// SearchRouting Value used to route search operations to a specific shard.
+// If specified, this overwrites the `routing` value for search operations.
+// Data stream aliases don’t support this parameter.
 // API name: search_routing
 func (r *PutAlias) SearchRouting(routing string) *PutAlias {
 	r.req.SearchRouting = &routing
