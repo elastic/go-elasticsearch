@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0: DO NOT EDIT
+// Code generated from specification version 8.11.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSynonymRuleGetFunc(t Transport) SynonymRuleGet {
-	return func(synonym_rule string, synonyms_set string, o ...func(*SynonymRuleGetRequest)) (*Response, error) {
-		var r = SynonymRuleGetRequest{SynonymRule: synonym_rule, SynonymsSet: synonyms_set}
+func newEsqlQueryFunc(t Transport) EsqlQuery {
+	return func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error) {
+		var r = EsqlQueryRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,17 +38,19 @@ func newSynonymRuleGetFunc(t Transport) SynonymRuleGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymRuleGet retrieves a synonym rule from a synonym set
+// EsqlQuery - Executes an ESQL request
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonym-rule.html.
-type SynonymRuleGet func(synonym_rule string, synonyms_set string, o ...func(*SynonymRuleGetRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html.
+type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error)
 
-// SynonymRuleGetRequest configures the Synonym Rule Get API request.
-type SynonymRuleGetRequest struct {
-	SynonymRule string
-	SynonymsSet string
+// EsqlQueryRequest configures the Esql Query API request.
+type EsqlQueryRequest struct {
+	Body io.Reader
+
+	Delimiter string
+	Format    string
 
 	Pretty     bool
 	Human      bool
@@ -60,25 +63,28 @@ type SynonymRuleGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymRuleGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EsqlQueryRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet) + 1 + len(r.SynonymRule))
+	path.Grow(7 + len("/_query"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_synonyms")
-	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
-	path.WriteString("/")
-	path.WriteString(r.SynonymRule)
+	path.WriteString("/_query")
 
 	params = make(map[string]string)
+
+	if r.Delimiter != "" {
+		params["delimiter"] = r.Delimiter
+	}
+
+	if r.Format != "" {
+		params["format"] = r.Format
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -96,7 +102,7 @@ func (r SynonymRuleGetRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -121,6 +127,10 @@ func (r SynonymRuleGetRequest) Do(ctx context.Context, transport Transport) (*Re
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -140,43 +150,57 @@ func (r SynonymRuleGetRequest) Do(ctx context.Context, transport Transport) (*Re
 }
 
 // WithContext sets the request context.
-func (f SynonymRuleGet) WithContext(v context.Context) func(*SynonymRuleGetRequest) {
-	return func(r *SynonymRuleGetRequest) {
+func (f EsqlQuery) WithContext(v context.Context) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
 		r.ctx = v
 	}
 }
 
+// WithDelimiter - the character to use between values within a csv row. only valid for the csv format..
+func (f EsqlQuery) WithDelimiter(v string) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
+		r.Delimiter = v
+	}
+}
+
+// WithFormat - a short version of the accept header, e.g. json, yaml.
+func (f EsqlQuery) WithFormat(v string) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
+		r.Format = v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
-func (f SynonymRuleGet) WithPretty() func(*SynonymRuleGetRequest) {
-	return func(r *SynonymRuleGetRequest) {
+func (f EsqlQuery) WithPretty() func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymRuleGet) WithHuman() func(*SynonymRuleGetRequest) {
-	return func(r *SynonymRuleGetRequest) {
+func (f EsqlQuery) WithHuman() func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymRuleGet) WithErrorTrace() func(*SynonymRuleGetRequest) {
-	return func(r *SynonymRuleGetRequest) {
+func (f EsqlQuery) WithErrorTrace() func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymRuleGet) WithFilterPath(v ...string) func(*SynonymRuleGetRequest) {
-	return func(r *SynonymRuleGetRequest) {
+func (f EsqlQuery) WithFilterPath(v ...string) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymRuleGet) WithHeader(h map[string]string) func(*SynonymRuleGetRequest) {
-	return func(r *SynonymRuleGetRequest) {
+func (f EsqlQuery) WithHeader(h map[string]string) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -187,8 +211,8 @@ func (f SynonymRuleGet) WithHeader(h map[string]string) func(*SynonymRuleGetRequ
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymRuleGet) WithOpaqueID(s string) func(*SynonymRuleGetRequest) {
-	return func(r *SynonymRuleGetRequest) {
+func (f EsqlQuery) WithOpaqueID(s string) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

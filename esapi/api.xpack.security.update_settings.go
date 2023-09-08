@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0: DO NOT EDIT
+// Code generated from specification version 8.11.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSynonymRuleDeleteFunc(t Transport) SynonymRuleDelete {
-	return func(synonym_rule string, synonyms_set string, o ...func(*SynonymRuleDeleteRequest)) (*Response, error) {
-		var r = SynonymRuleDeleteRequest{SynonymRule: synonym_rule, SynonymsSet: synonyms_set}
+func newSecurityUpdateSettingsFunc(t Transport) SecurityUpdateSettings {
+	return func(body io.Reader, o ...func(*SecurityUpdateSettingsRequest)) (*Response, error) {
+		var r = SecurityUpdateSettingsRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,17 +38,14 @@ func newSynonymRuleDeleteFunc(t Transport) SynonymRuleDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymRuleDelete deletes a synonym rule in a synonym set
+// SecurityUpdateSettings - Update settings for the security system index
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html.
-type SynonymRuleDelete func(synonym_rule string, synonyms_set string, o ...func(*SynonymRuleDeleteRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html.
+type SecurityUpdateSettings func(body io.Reader, o ...func(*SecurityUpdateSettingsRequest)) (*Response, error)
 
-// SynonymRuleDeleteRequest configures the Synonym Rule Delete API request.
-type SynonymRuleDeleteRequest struct {
-	SynonymRule string
-	SynonymsSet string
+// SecurityUpdateSettingsRequest configures the Security Update Settings API request.
+type SecurityUpdateSettingsRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -60,23 +58,18 @@ type SynonymRuleDeleteRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymRuleDeleteRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityUpdateSettingsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet) + 1 + len(r.SynonymRule))
+	path.Grow(7 + len("/_security/settings"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_synonyms")
-	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
-	path.WriteString("/")
-	path.WriteString(r.SynonymRule)
+	path.WriteString("/_security/settings")
 
 	params = make(map[string]string)
 
@@ -96,7 +89,7 @@ func (r SynonymRuleDeleteRequest) Do(ctx context.Context, transport Transport) (
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -121,6 +114,10 @@ func (r SynonymRuleDeleteRequest) Do(ctx context.Context, transport Transport) (
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -140,43 +137,43 @@ func (r SynonymRuleDeleteRequest) Do(ctx context.Context, transport Transport) (
 }
 
 // WithContext sets the request context.
-func (f SynonymRuleDelete) WithContext(v context.Context) func(*SynonymRuleDeleteRequest) {
-	return func(r *SynonymRuleDeleteRequest) {
+func (f SecurityUpdateSettings) WithContext(v context.Context) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymRuleDelete) WithPretty() func(*SynonymRuleDeleteRequest) {
-	return func(r *SynonymRuleDeleteRequest) {
+func (f SecurityUpdateSettings) WithPretty() func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymRuleDelete) WithHuman() func(*SynonymRuleDeleteRequest) {
-	return func(r *SynonymRuleDeleteRequest) {
+func (f SecurityUpdateSettings) WithHuman() func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymRuleDelete) WithErrorTrace() func(*SynonymRuleDeleteRequest) {
-	return func(r *SynonymRuleDeleteRequest) {
+func (f SecurityUpdateSettings) WithErrorTrace() func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymRuleDelete) WithFilterPath(v ...string) func(*SynonymRuleDeleteRequest) {
-	return func(r *SynonymRuleDeleteRequest) {
+func (f SecurityUpdateSettings) WithFilterPath(v ...string) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymRuleDelete) WithHeader(h map[string]string) func(*SynonymRuleDeleteRequest) {
-	return func(r *SynonymRuleDeleteRequest) {
+func (f SecurityUpdateSettings) WithHeader(h map[string]string) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -187,8 +184,8 @@ func (f SynonymRuleDelete) WithHeader(h map[string]string) func(*SynonymRuleDele
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymRuleDelete) WithOpaqueID(s string) func(*SynonymRuleDeleteRequest) {
-	return func(r *SynonymRuleDeleteRequest) {
+func (f SecurityUpdateSettings) WithOpaqueID(s string) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

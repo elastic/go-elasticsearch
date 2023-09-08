@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0: DO NOT EDIT
+// Code generated from specification version 8.11.0: DO NOT EDIT
 
 package esapi
 
@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newSynonymsDeleteFunc(t Transport) SynonymsDelete {
-	return func(synonyms_set string, o ...func(*SynonymsDeleteRequest)) (*Response, error) {
-		var r = SynonymsDeleteRequest{SynonymsSet: synonyms_set}
+func newFleetDeleteSecretFunc(t Transport) FleetDeleteSecret {
+	return func(id string, o ...func(*FleetDeleteSecretRequest)) (*Response, error) {
+		var r = FleetDeleteSecretRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,16 +37,14 @@ func newSynonymsDeleteFunc(t Transport) SynonymsDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsDelete deletes a synonym set
+// FleetDeleteSecret deletes a secret stored by Fleet.
 //
 // This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms.html.
-type SynonymsDelete func(synonyms_set string, o ...func(*SynonymsDeleteRequest)) (*Response, error)
+type FleetDeleteSecret func(id string, o ...func(*FleetDeleteSecretRequest)) (*Response, error)
 
-// SynonymsDeleteRequest configures the Synonyms Delete API request.
-type SynonymsDeleteRequest struct {
-	SynonymsSet string
+// FleetDeleteSecretRequest configures the Fleet Delete Secret API request.
+type FleetDeleteSecretRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -59,7 +57,7 @@ type SynonymsDeleteRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsDeleteRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FleetDeleteSecretRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -68,12 +66,14 @@ func (r SynonymsDeleteRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet))
+	path.Grow(7 + 1 + len("_fleet") + 1 + len("secret") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_synonyms")
+	path.WriteString("_fleet")
 	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
+	path.WriteString("secret")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -137,43 +137,43 @@ func (r SynonymsDeleteRequest) Do(ctx context.Context, transport Transport) (*Re
 }
 
 // WithContext sets the request context.
-func (f SynonymsDelete) WithContext(v context.Context) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f FleetDeleteSecret) WithContext(v context.Context) func(*FleetDeleteSecretRequest) {
+	return func(r *FleetDeleteSecretRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsDelete) WithPretty() func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f FleetDeleteSecret) WithPretty() func(*FleetDeleteSecretRequest) {
+	return func(r *FleetDeleteSecretRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsDelete) WithHuman() func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f FleetDeleteSecret) WithHuman() func(*FleetDeleteSecretRequest) {
+	return func(r *FleetDeleteSecretRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsDelete) WithErrorTrace() func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f FleetDeleteSecret) WithErrorTrace() func(*FleetDeleteSecretRequest) {
+	return func(r *FleetDeleteSecretRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsDelete) WithFilterPath(v ...string) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f FleetDeleteSecret) WithFilterPath(v ...string) func(*FleetDeleteSecretRequest) {
+	return func(r *FleetDeleteSecretRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsDelete) WithHeader(h map[string]string) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f FleetDeleteSecret) WithHeader(h map[string]string) func(*FleetDeleteSecretRequest) {
+	return func(r *FleetDeleteSecretRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -184,8 +184,8 @@ func (f SynonymsDelete) WithHeader(h map[string]string) func(*SynonymsDeleteRequ
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsDelete) WithOpaqueID(s string) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f FleetDeleteSecret) WithOpaqueID(s string) func(*FleetDeleteSecretRequest) {
+	return func(r *FleetDeleteSecretRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

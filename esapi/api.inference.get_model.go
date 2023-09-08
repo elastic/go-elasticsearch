@@ -15,20 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0: DO NOT EDIT
+// Code generated from specification version 8.11.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newSynonymsSetsGetFunc(t Transport) SynonymsSetsGet {
-	return func(o ...func(*SynonymsSetsGetRequest)) (*Response, error) {
-		var r = SynonymsSetsGetRequest{}
+func newInferenceGetModelFunc(t Transport) InferenceGetModel {
+	return func(model_id string, task_type string, o ...func(*InferenceGetModelRequest)) (*Response, error) {
+		var r = InferenceGetModelRequest{ModelID: model_id, TaskType: task_type}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,17 +37,17 @@ func newSynonymsSetsGetFunc(t Transport) SynonymsSetsGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsSetsGet retrieves a summary of all defined synonym sets
+// InferenceGetModel get a model in the Inference API
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms.html.
-type SynonymsSetsGet func(o ...func(*SynonymsSetsGetRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/inference_get_model.html.
+type InferenceGetModel func(model_id string, task_type string, o ...func(*InferenceGetModelRequest)) (*Response, error)
 
-// SynonymsSetsGetRequest configures the Synonyms Sets Get API request.
-type SynonymsSetsGetRequest struct {
-	From *int
-	Size *int
+// InferenceGetModelRequest configures the Inference Get Model API request.
+type InferenceGetModelRequest struct {
+	ModelID  string
+	TaskType string
 
 	Pretty     bool
 	Human      bool
@@ -61,7 +60,7 @@ type SynonymsSetsGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsSetsGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r InferenceGetModelRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -70,19 +69,16 @@ func (r SynonymsSetsGetRequest) Do(ctx context.Context, transport Transport) (*R
 
 	method = "GET"
 
-	path.Grow(7 + len("/_synonyms"))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.ModelID))
 	path.WriteString("http://")
-	path.WriteString("/_synonyms")
+	path.WriteString("/")
+	path.WriteString("_inference")
+	path.WriteString("/")
+	path.WriteString(r.TaskType)
+	path.WriteString("/")
+	path.WriteString(r.ModelID)
 
 	params = make(map[string]string)
-
-	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
-	}
-
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -144,57 +140,43 @@ func (r SynonymsSetsGetRequest) Do(ctx context.Context, transport Transport) (*R
 }
 
 // WithContext sets the request context.
-func (f SynonymsSetsGet) WithContext(v context.Context) func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
+func (f InferenceGetModel) WithContext(v context.Context) func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
 		r.ctx = v
 	}
 }
 
-// WithFrom - starting offset.
-func (f SynonymsSetsGet) WithFrom(v int) func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
-		r.From = &v
-	}
-}
-
-// WithSize - specifies a max number of results to get.
-func (f SynonymsSetsGet) WithSize(v int) func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
-		r.Size = &v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsSetsGet) WithPretty() func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
+func (f InferenceGetModel) WithPretty() func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsSetsGet) WithHuman() func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
+func (f InferenceGetModel) WithHuman() func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsSetsGet) WithErrorTrace() func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
+func (f InferenceGetModel) WithErrorTrace() func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsSetsGet) WithFilterPath(v ...string) func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
+func (f InferenceGetModel) WithFilterPath(v ...string) func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsSetsGet) WithHeader(h map[string]string) func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
+func (f InferenceGetModel) WithHeader(h map[string]string) func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -205,8 +187,8 @@ func (f SynonymsSetsGet) WithHeader(h map[string]string) func(*SynonymsSetsGetRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsSetsGet) WithOpaqueID(s string) func(*SynonymsSetsGetRequest) {
-	return func(r *SynonymsSetsGetRequest) {
+func (f InferenceGetModel) WithOpaqueID(s string) func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

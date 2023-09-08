@@ -15,20 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0: DO NOT EDIT
+// Code generated from specification version 8.11.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newSynonymRulePutFunc(t Transport) SynonymRulePut {
-	return func(body io.Reader, synonym_rule string, synonyms_set string, o ...func(*SynonymRulePutRequest)) (*Response, error) {
-		var r = SynonymRulePutRequest{Body: body, SynonymRule: synonym_rule, SynonymsSet: synonyms_set}
+func newSynonymsGetSynonymRuleFunc(t Transport) SynonymsGetSynonymRule {
+	return func(rule_id string, set_id string, o ...func(*SynonymsGetSynonymRuleRequest)) (*Response, error) {
+		var r = SynonymsGetSynonymRuleRequest{RuleID: rule_id, SetID: set_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,19 +37,17 @@ func newSynonymRulePutFunc(t Transport) SynonymRulePut {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymRulePut creates or updates a synonym rule in a synonym set
+// SynonymsGetSynonymRule retrieves a synonym rule from a synonym set
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html.
-type SynonymRulePut func(body io.Reader, synonym_rule string, synonyms_set string, o ...func(*SynonymRulePutRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonym-rule.html.
+type SynonymsGetSynonymRule func(rule_id string, set_id string, o ...func(*SynonymsGetSynonymRuleRequest)) (*Response, error)
 
-// SynonymRulePutRequest configures the Synonym Rule Put API request.
-type SynonymRulePutRequest struct {
-	Body io.Reader
-
-	SynonymRule string
-	SynonymsSet string
+// SynonymsGetSynonymRuleRequest configures the Synonyms Get Synonym Rule API request.
+type SynonymsGetSynonymRuleRequest struct {
+	RuleID string
+	SetID  string
 
 	Pretty     bool
 	Human      bool
@@ -63,23 +60,23 @@ type SynonymRulePutRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SynonymsGetSynonymRuleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet) + 1 + len(r.SynonymRule))
+	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SetID) + 1 + len(r.RuleID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_synonyms")
 	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
+	path.WriteString(r.SetID)
 	path.WriteString("/")
-	path.WriteString(r.SynonymRule)
+	path.WriteString(r.RuleID)
 
 	params = make(map[string]string)
 
@@ -99,7 +96,7 @@ func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -124,10 +121,6 @@ func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Re
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -147,43 +140,43 @@ func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Re
 }
 
 // WithContext sets the request context.
-func (f SynonymRulePut) WithContext(v context.Context) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f SynonymsGetSynonymRule) WithContext(v context.Context) func(*SynonymsGetSynonymRuleRequest) {
+	return func(r *SynonymsGetSynonymRuleRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymRulePut) WithPretty() func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f SynonymsGetSynonymRule) WithPretty() func(*SynonymsGetSynonymRuleRequest) {
+	return func(r *SynonymsGetSynonymRuleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymRulePut) WithHuman() func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f SynonymsGetSynonymRule) WithHuman() func(*SynonymsGetSynonymRuleRequest) {
+	return func(r *SynonymsGetSynonymRuleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymRulePut) WithErrorTrace() func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f SynonymsGetSynonymRule) WithErrorTrace() func(*SynonymsGetSynonymRuleRequest) {
+	return func(r *SynonymsGetSynonymRuleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymRulePut) WithFilterPath(v ...string) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f SynonymsGetSynonymRule) WithFilterPath(v ...string) func(*SynonymsGetSynonymRuleRequest) {
+	return func(r *SynonymsGetSynonymRuleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymRulePut) WithHeader(h map[string]string) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f SynonymsGetSynonymRule) WithHeader(h map[string]string) func(*SynonymsGetSynonymRuleRequest) {
+	return func(r *SynonymsGetSynonymRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -194,8 +187,8 @@ func (f SynonymRulePut) WithHeader(h map[string]string) func(*SynonymRulePutRequ
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymRulePut) WithOpaqueID(s string) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f SynonymsGetSynonymRule) WithOpaqueID(s string) func(*SynonymsGetSynonymRuleRequest) {
+	return func(r *SynonymsGetSynonymRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

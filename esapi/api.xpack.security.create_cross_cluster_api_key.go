@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0: DO NOT EDIT
+// Code generated from specification version 8.11.0: DO NOT EDIT
 
 package esapi
 
@@ -40,7 +40,7 @@ func newSecurityCreateCrossClusterAPIKeyFunc(t Transport) SecurityCreateCrossClu
 
 // SecurityCreateCrossClusterAPIKey - Creates a cross-cluster API key for API key based remote cluster access.
 //
-// This API is experimental.
+// This API is beta.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-cross-cluster-api-key.html.
 type SecurityCreateCrossClusterAPIKey func(body io.Reader, o ...func(*SecurityCreateCrossClusterAPIKeyRequest)) (*Response, error)

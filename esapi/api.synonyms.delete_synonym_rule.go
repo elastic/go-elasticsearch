@@ -15,20 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0: DO NOT EDIT
+// Code generated from specification version 8.11.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newSynonymsGetFunc(t Transport) SynonymsGet {
-	return func(synonyms_set string, o ...func(*SynonymsGetRequest)) (*Response, error) {
-		var r = SynonymsGetRequest{SynonymsSet: synonyms_set}
+func newSynonymsDeleteSynonymRuleFunc(t Transport) SynonymsDeleteSynonymRule {
+	return func(rule_id string, set_id string, o ...func(*SynonymsDeleteSynonymRuleRequest)) (*Response, error) {
+		var r = SynonymsDeleteSynonymRuleRequest{RuleID: rule_id, SetID: set_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,19 +37,17 @@ func newSynonymsGetFunc(t Transport) SynonymsGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsGet retrieves a synonym set
+// SynonymsDeleteSynonymRule deletes a synonym rule in a synonym set
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms.html.
-type SynonymsGet func(synonyms_set string, o ...func(*SynonymsGetRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html.
+type SynonymsDeleteSynonymRule func(rule_id string, set_id string, o ...func(*SynonymsDeleteSynonymRuleRequest)) (*Response, error)
 
-// SynonymsGetRequest configures the Synonyms Get API request.
-type SynonymsGetRequest struct {
-	SynonymsSet string
-
-	From *int
-	Size *int
+// SynonymsDeleteSynonymRuleRequest configures the Synonyms Delete Synonym Rule API request.
+type SynonymsDeleteSynonymRuleRequest struct {
+	RuleID string
+	SetID  string
 
 	Pretty     bool
 	Human      bool
@@ -63,31 +60,25 @@ type SynonymsGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SynonymsDeleteSynonymRuleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet))
+	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SetID) + 1 + len(r.RuleID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_synonyms")
 	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
+	path.WriteString(r.SetID)
+	path.WriteString("/")
+	path.WriteString(r.RuleID)
 
 	params = make(map[string]string)
-
-	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
-	}
-
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -149,57 +140,43 @@ func (r SynonymsGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 }
 
 // WithContext sets the request context.
-func (f SynonymsGet) WithContext(v context.Context) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsDeleteSynonymRule) WithContext(v context.Context) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithFrom - starting offset.
-func (f SynonymsGet) WithFrom(v int) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
-		r.From = &v
-	}
-}
-
-// WithSize - specifies a max number of results to get.
-func (f SynonymsGet) WithSize(v int) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
-		r.Size = &v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsGet) WithPretty() func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsDeleteSynonymRule) WithPretty() func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsGet) WithHuman() func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsDeleteSynonymRule) WithHuman() func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsGet) WithErrorTrace() func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsDeleteSynonymRule) WithErrorTrace() func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsGet) WithFilterPath(v ...string) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsDeleteSynonymRule) WithFilterPath(v ...string) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsGet) WithHeader(h map[string]string) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsDeleteSynonymRule) WithHeader(h map[string]string) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -210,8 +187,8 @@ func (f SynonymsGet) WithHeader(h map[string]string) func(*SynonymsGetRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsGet) WithOpaqueID(s string) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsDeleteSynonymRule) WithOpaqueID(s string) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
