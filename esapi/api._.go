@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.10.0 (9e769a6): DO NOT EDIT
+// Code generated from specification version 8.10.0 (6c67864): DO NOT EDIT
 
 package esapi
 
@@ -74,8 +74,11 @@ type API struct {
 	FeaturesGetFeatures                           FeaturesGetFeatures
 	FeaturesResetFeatures                         FeaturesResetFeatures
 	FieldCaps                                     FieldCaps
+	FleetDeleteSecret                             FleetDeleteSecret
+	FleetGetSecret                                FleetGetSecret
 	FleetGlobalCheckpoints                        FleetGlobalCheckpoints
 	FleetMsearch                                  FleetMsearch
+	FleetPostSecret                               FleetPostSecret
 	FleetSearch                                   FleetSearch
 	Get                                           Get
 	GetScriptContext                              GetScriptContext
@@ -137,13 +140,13 @@ type API struct {
 	SlmPutLifecycle                               SlmPutLifecycle
 	SlmStart                                      SlmStart
 	SlmStop                                       SlmStop
-	SynonymRuleDelete                             SynonymRuleDelete
-	SynonymRuleGet                                SynonymRuleGet
-	SynonymRulePut                                SynonymRulePut
-	SynonymsDelete                                SynonymsDelete
-	SynonymsGet                                   SynonymsGet
-	SynonymsPut                                   SynonymsPut
-	SynonymsSetsGet                               SynonymsSetsGet
+	SynonymsDeleteSynonym                         SynonymsDeleteSynonym
+	SynonymsDeleteSynonymRule                     SynonymsDeleteSynonymRule
+	SynonymsGetSynonym                            SynonymsGetSynonym
+	SynonymsGetSynonymRule                        SynonymsGetSynonymRule
+	SynonymsGetSynonymsSets                       SynonymsGetSynonymsSets
+	SynonymsPutSynonym                            SynonymsPutSynonym
+	SynonymsPutSynonymRule                        SynonymsPutSynonymRule
 	TermsEnum                                     TermsEnum
 	Termvectors                                   Termvectors
 	TextStructureFindStructure                    TextStructureFindStructure
@@ -507,6 +510,7 @@ type Security struct {
 	GetRole                     SecurityGetRole
 	GetServiceAccounts          SecurityGetServiceAccounts
 	GetServiceCredentials       SecurityGetServiceCredentials
+	GetSettings                 SecurityGetSettings
 	GetToken                    SecurityGetToken
 	GetUserPrivileges           SecurityGetUserPrivileges
 	GetUserProfile              SecurityGetUserProfile
@@ -533,6 +537,7 @@ type Security struct {
 	SuggestUserProfiles         SecuritySuggestUserProfiles
 	UpdateAPIKey                SecurityUpdateAPIKey
 	UpdateCrossClusterAPIKey    SecurityUpdateCrossClusterAPIKey
+	UpdateSettings              SecurityUpdateSettings
 	UpdateUserProfileData       SecurityUpdateUserProfileData
 }
 
@@ -608,8 +613,11 @@ func New(t Transport) *API {
 		FeaturesGetFeatures:                newFeaturesGetFeaturesFunc(t),
 		FeaturesResetFeatures:              newFeaturesResetFeaturesFunc(t),
 		FieldCaps:                          newFieldCapsFunc(t),
+		FleetDeleteSecret:                  newFleetDeleteSecretFunc(t),
+		FleetGetSecret:                     newFleetGetSecretFunc(t),
 		FleetGlobalCheckpoints:             newFleetGlobalCheckpointsFunc(t),
 		FleetMsearch:                       newFleetMsearchFunc(t),
+		FleetPostSecret:                    newFleetPostSecretFunc(t),
 		FleetSearch:                        newFleetSearchFunc(t),
 		Get:                                newGetFunc(t),
 		GetScriptContext:                   newGetScriptContextFunc(t),
@@ -671,13 +679,13 @@ func New(t Transport) *API {
 		SlmPutLifecycle:                               newSlmPutLifecycleFunc(t),
 		SlmStart:                                      newSlmStartFunc(t),
 		SlmStop:                                       newSlmStopFunc(t),
-		SynonymRuleDelete:                             newSynonymRuleDeleteFunc(t),
-		SynonymRuleGet:                                newSynonymRuleGetFunc(t),
-		SynonymRulePut:                                newSynonymRulePutFunc(t),
-		SynonymsDelete:                                newSynonymsDeleteFunc(t),
-		SynonymsGet:                                   newSynonymsGetFunc(t),
-		SynonymsPut:                                   newSynonymsPutFunc(t),
-		SynonymsSetsGet:                               newSynonymsSetsGetFunc(t),
+		SynonymsDeleteSynonym:                         newSynonymsDeleteSynonymFunc(t),
+		SynonymsDeleteSynonymRule:                     newSynonymsDeleteSynonymRuleFunc(t),
+		SynonymsGetSynonym:                            newSynonymsGetSynonymFunc(t),
+		SynonymsGetSynonymRule:                        newSynonymsGetSynonymRuleFunc(t),
+		SynonymsGetSynonymsSets:                       newSynonymsGetSynonymsSetsFunc(t),
+		SynonymsPutSynonym:                            newSynonymsPutSynonymFunc(t),
+		SynonymsPutSynonymRule:                        newSynonymsPutSynonymRuleFunc(t),
 		TermsEnum:                                     newTermsEnumFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
 		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
@@ -1005,6 +1013,7 @@ func New(t Transport) *API {
 			GetRole:                     newSecurityGetRoleFunc(t),
 			GetServiceAccounts:          newSecurityGetServiceAccountsFunc(t),
 			GetServiceCredentials:       newSecurityGetServiceCredentialsFunc(t),
+			GetSettings:                 newSecurityGetSettingsFunc(t),
 			GetToken:                    newSecurityGetTokenFunc(t),
 			GetUserPrivileges:           newSecurityGetUserPrivilegesFunc(t),
 			GetUserProfile:              newSecurityGetUserProfileFunc(t),
@@ -1031,6 +1040,7 @@ func New(t Transport) *API {
 			SuggestUserProfiles:         newSecuritySuggestUserProfilesFunc(t),
 			UpdateAPIKey:                newSecurityUpdateAPIKeyFunc(t),
 			UpdateCrossClusterAPIKey:    newSecurityUpdateCrossClusterAPIKeyFunc(t),
+			UpdateSettings:              newSecurityUpdateSettingsFunc(t),
 			UpdateUserProfileData:       newSecurityUpdateUserProfileDataFunc(t),
 		},
 		SQL: &SQL{

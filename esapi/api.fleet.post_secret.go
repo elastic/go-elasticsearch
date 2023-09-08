@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClusterAPIKey {
-	return func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error) {
-		var r = SecurityUpdateCrossClusterAPIKeyRequest{DocumentID: id, Body: body}
+func newFleetPostSecretFunc(t Transport) FleetPostSecret {
+	return func(body io.Reader, o ...func(*FleetPostSecretRequest)) (*Response, error) {
+		var r = FleetPostSecretRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,17 +38,13 @@ func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateCrossClusterAPIKey - Updates attributes of an existing cross-cluster API key.
+// FleetPostSecret creates a secret stored by Fleet.
 //
-// This API is beta.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html.
-type SecurityUpdateCrossClusterAPIKey func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error)
+// This API is experimental.
+type FleetPostSecret func(body io.Reader, o ...func(*FleetPostSecretRequest)) (*Response, error)
 
-// SecurityUpdateCrossClusterAPIKeyRequest configures the Security Update Cross ClusterAPI Key API request.
-type SecurityUpdateCrossClusterAPIKeyRequest struct {
-	DocumentID string
-
+// FleetPostSecretRequest configures the Fleet Post Secret API request.
+type FleetPostSecretRequest struct {
 	Body io.Reader
 
 	Pretty     bool
@@ -62,25 +58,18 @@ type SecurityUpdateCrossClusterAPIKeyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FleetPostSecretRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_security") + 1 + len("cross_cluster") + 1 + len("api_key") + 1 + len(r.DocumentID))
+	path.Grow(7 + len("/_fleet/secret"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_security")
-	path.WriteString("/")
-	path.WriteString("cross_cluster")
-	path.WriteString("/")
-	path.WriteString("api_key")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString("/_fleet/secret")
 
 	params = make(map[string]string)
 
@@ -148,43 +137,43 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 }
 
 // WithContext sets the request context.
-func (f SecurityUpdateCrossClusterAPIKey) WithContext(v context.Context) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f FleetPostSecret) WithContext(v context.Context) func(*FleetPostSecretRequest) {
+	return func(r *FleetPostSecretRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SecurityUpdateCrossClusterAPIKey) WithPretty() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f FleetPostSecret) WithPretty() func(*FleetPostSecretRequest) {
+	return func(r *FleetPostSecretRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SecurityUpdateCrossClusterAPIKey) WithHuman() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f FleetPostSecret) WithHuman() func(*FleetPostSecretRequest) {
+	return func(r *FleetPostSecretRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithErrorTrace() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f FleetPostSecret) WithErrorTrace() func(*FleetPostSecretRequest) {
+	return func(r *FleetPostSecretRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithFilterPath(v ...string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f FleetPostSecret) WithFilterPath(v ...string) func(*FleetPostSecretRequest) {
+	return func(r *FleetPostSecretRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f FleetPostSecret) WithHeader(h map[string]string) func(*FleetPostSecretRequest) {
+	return func(r *FleetPostSecretRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +184,8 @@ func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithOpaqueID(s string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f FleetPostSecret) WithOpaqueID(s string) func(*FleetPostSecretRequest) {
+	return func(r *FleetPostSecretRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newSynonymsPutFunc(t Transport) SynonymsPut {
-	return func(body io.Reader, synonyms_set string, o ...func(*SynonymsPutRequest)) (*Response, error) {
-		var r = SynonymsPutRequest{Body: body, SynonymsSet: synonyms_set}
+func newSynonymsDeleteSynonymFunc(t Transport) SynonymsDeleteSynonym {
+	return func(id string, o ...func(*SynonymsDeleteSynonymRequest)) (*Response, error) {
+		var r = SynonymsDeleteSynonymRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,18 +37,16 @@ func newSynonymsPutFunc(t Transport) SynonymsPut {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsPut creates or updates a synonyms set
+// SynonymsDeleteSynonym deletes a synonym set
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonyms.html.
-type SynonymsPut func(body io.Reader, synonyms_set string, o ...func(*SynonymsPutRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms-set.html.
+type SynonymsDeleteSynonym func(id string, o ...func(*SynonymsDeleteSynonymRequest)) (*Response, error)
 
-// SynonymsPutRequest configures the Synonyms Put API request.
-type SynonymsPutRequest struct {
-	Body io.Reader
-
-	SynonymsSet string
+// SynonymsDeleteSynonymRequest configures the Synonyms Delete Synonym API request.
+type SynonymsDeleteSynonymRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -62,21 +59,21 @@ type SynonymsPutRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsPutRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SynonymsDeleteSynonymRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet))
+	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_synonyms")
 	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -96,7 +93,7 @@ func (r SynonymsPutRequest) Do(ctx context.Context, transport Transport) (*Respo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -121,10 +118,6 @@ func (r SynonymsPutRequest) Do(ctx context.Context, transport Transport) (*Respo
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -144,43 +137,43 @@ func (r SynonymsPutRequest) Do(ctx context.Context, transport Transport) (*Respo
 }
 
 // WithContext sets the request context.
-func (f SynonymsPut) WithContext(v context.Context) func(*SynonymsPutRequest) {
-	return func(r *SynonymsPutRequest) {
+func (f SynonymsDeleteSynonym) WithContext(v context.Context) func(*SynonymsDeleteSynonymRequest) {
+	return func(r *SynonymsDeleteSynonymRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsPut) WithPretty() func(*SynonymsPutRequest) {
-	return func(r *SynonymsPutRequest) {
+func (f SynonymsDeleteSynonym) WithPretty() func(*SynonymsDeleteSynonymRequest) {
+	return func(r *SynonymsDeleteSynonymRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsPut) WithHuman() func(*SynonymsPutRequest) {
-	return func(r *SynonymsPutRequest) {
+func (f SynonymsDeleteSynonym) WithHuman() func(*SynonymsDeleteSynonymRequest) {
+	return func(r *SynonymsDeleteSynonymRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsPut) WithErrorTrace() func(*SynonymsPutRequest) {
-	return func(r *SynonymsPutRequest) {
+func (f SynonymsDeleteSynonym) WithErrorTrace() func(*SynonymsDeleteSynonymRequest) {
+	return func(r *SynonymsDeleteSynonymRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsPut) WithFilterPath(v ...string) func(*SynonymsPutRequest) {
-	return func(r *SynonymsPutRequest) {
+func (f SynonymsDeleteSynonym) WithFilterPath(v ...string) func(*SynonymsDeleteSynonymRequest) {
+	return func(r *SynonymsDeleteSynonymRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsPut) WithHeader(h map[string]string) func(*SynonymsPutRequest) {
-	return func(r *SynonymsPutRequest) {
+func (f SynonymsDeleteSynonym) WithHeader(h map[string]string) func(*SynonymsDeleteSynonymRequest) {
+	return func(r *SynonymsDeleteSynonymRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -191,8 +184,8 @@ func (f SynonymsPut) WithHeader(h map[string]string) func(*SynonymsPutRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsPut) WithOpaqueID(s string) func(*SynonymsPutRequest) {
-	return func(r *SynonymsPutRequest) {
+func (f SynonymsDeleteSynonym) WithOpaqueID(s string) func(*SynonymsDeleteSynonymRequest) {
+	return func(r *SynonymsDeleteSynonymRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

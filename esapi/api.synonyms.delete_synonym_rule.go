@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClusterAPIKey {
-	return func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error) {
-		var r = SecurityUpdateCrossClusterAPIKeyRequest{DocumentID: id, Body: body}
+func newSynonymsDeleteSynonymRuleFunc(t Transport) SynonymsDeleteSynonymRule {
+	return func(rule_id string, set_id string, o ...func(*SynonymsDeleteSynonymRuleRequest)) (*Response, error) {
+		var r = SynonymsDeleteSynonymRuleRequest{RuleID: rule_id, SetID: set_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,18 +37,17 @@ func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateCrossClusterAPIKey - Updates attributes of an existing cross-cluster API key.
+// SynonymsDeleteSynonymRule deletes a synonym rule in a synonym set
 //
-// This API is beta.
+// This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html.
-type SecurityUpdateCrossClusterAPIKey func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html.
+type SynonymsDeleteSynonymRule func(rule_id string, set_id string, o ...func(*SynonymsDeleteSynonymRuleRequest)) (*Response, error)
 
-// SecurityUpdateCrossClusterAPIKeyRequest configures the Security Update Cross ClusterAPI Key API request.
-type SecurityUpdateCrossClusterAPIKeyRequest struct {
-	DocumentID string
-
-	Body io.Reader
+// SynonymsDeleteSynonymRuleRequest configures the Synonyms Delete Synonym Rule API request.
+type SynonymsDeleteSynonymRuleRequest struct {
+	RuleID string
+	SetID  string
 
 	Pretty     bool
 	Human      bool
@@ -62,25 +60,23 @@ type SecurityUpdateCrossClusterAPIKeyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SynonymsDeleteSynonymRuleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_security") + 1 + len("cross_cluster") + 1 + len("api_key") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SetID) + 1 + len(r.RuleID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_security")
+	path.WriteString("_synonyms")
 	path.WriteString("/")
-	path.WriteString("cross_cluster")
+	path.WriteString(r.SetID)
 	path.WriteString("/")
-	path.WriteString("api_key")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.RuleID)
 
 	params = make(map[string]string)
 
@@ -100,7 +96,7 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -125,10 +121,6 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -148,43 +140,43 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 }
 
 // WithContext sets the request context.
-func (f SecurityUpdateCrossClusterAPIKey) WithContext(v context.Context) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsDeleteSynonymRule) WithContext(v context.Context) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SecurityUpdateCrossClusterAPIKey) WithPretty() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsDeleteSynonymRule) WithPretty() func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SecurityUpdateCrossClusterAPIKey) WithHuman() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsDeleteSynonymRule) WithHuman() func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithErrorTrace() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsDeleteSynonymRule) WithErrorTrace() func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithFilterPath(v ...string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsDeleteSynonymRule) WithFilterPath(v ...string) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsDeleteSynonymRule) WithHeader(h map[string]string) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +187,8 @@ func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithOpaqueID(s string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsDeleteSynonymRule) WithOpaqueID(s string) func(*SynonymsDeleteSynonymRuleRequest) {
+	return func(r *SynonymsDeleteSynonymRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

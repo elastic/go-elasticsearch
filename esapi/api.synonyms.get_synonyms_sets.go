@@ -21,14 +21,14 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClusterAPIKey {
-	return func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error) {
-		var r = SecurityUpdateCrossClusterAPIKeyRequest{DocumentID: id, Body: body}
+func newSynonymsGetSynonymsSetsFunc(t Transport) SynonymsGetSynonymsSets {
+	return func(o ...func(*SynonymsGetSynonymsSetsRequest)) (*Response, error) {
+		var r = SynonymsGetSynonymsSetsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,18 +38,17 @@ func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateCrossClusterAPIKey - Updates attributes of an existing cross-cluster API key.
+// SynonymsGetSynonymsSets retrieves a summary of all defined synonym sets
 //
-// This API is beta.
+// This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html.
-type SecurityUpdateCrossClusterAPIKey func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-synonyms-sets.html.
+type SynonymsGetSynonymsSets func(o ...func(*SynonymsGetSynonymsSetsRequest)) (*Response, error)
 
-// SecurityUpdateCrossClusterAPIKeyRequest configures the Security Update Cross ClusterAPI Key API request.
-type SecurityUpdateCrossClusterAPIKeyRequest struct {
-	DocumentID string
-
-	Body io.Reader
+// SynonymsGetSynonymsSetsRequest configures the Synonyms Get Synonyms Sets API request.
+type SynonymsGetSynonymsSetsRequest struct {
+	From *int
+	Size *int
 
 	Pretty     bool
 	Human      bool
@@ -62,27 +61,28 @@ type SecurityUpdateCrossClusterAPIKeyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SynonymsGetSynonymsSetsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_security") + 1 + len("cross_cluster") + 1 + len("api_key") + 1 + len(r.DocumentID))
+	path.Grow(7 + len("/_synonyms"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_security")
-	path.WriteString("/")
-	path.WriteString("cross_cluster")
-	path.WriteString("/")
-	path.WriteString("api_key")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString("/_synonyms")
 
 	params = make(map[string]string)
+
+	if r.From != nil {
+		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if r.Size != nil {
+		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -100,7 +100,7 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -125,10 +125,6 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -148,43 +144,57 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 }
 
 // WithContext sets the request context.
-func (f SecurityUpdateCrossClusterAPIKey) WithContext(v context.Context) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsGetSynonymsSets) WithContext(v context.Context) func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
 		r.ctx = v
 	}
 }
 
+// WithFrom - starting offset.
+func (f SynonymsGetSynonymsSets) WithFrom(v int) func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
+		r.From = &v
+	}
+}
+
+// WithSize - specifies a max number of results to get.
+func (f SynonymsGetSynonymsSets) WithSize(v int) func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
+		r.Size = &v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
-func (f SecurityUpdateCrossClusterAPIKey) WithPretty() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsGetSynonymsSets) WithPretty() func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SecurityUpdateCrossClusterAPIKey) WithHuman() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsGetSynonymsSets) WithHuman() func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithErrorTrace() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsGetSynonymsSets) WithErrorTrace() func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithFilterPath(v ...string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsGetSynonymsSets) WithFilterPath(v ...string) func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsGetSynonymsSets) WithHeader(h map[string]string) func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +205,8 @@ func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithOpaqueID(s string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SynonymsGetSynonymsSets) WithOpaqueID(s string) func(*SynonymsGetSynonymsSetsRequest) {
+	return func(r *SynonymsGetSynonymsSetsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

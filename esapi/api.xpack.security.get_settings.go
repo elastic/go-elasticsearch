@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClusterAPIKey {
-	return func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error) {
-		var r = SecurityUpdateCrossClusterAPIKeyRequest{DocumentID: id, Body: body}
+func newSecurityGetSettingsFunc(t Transport) SecurityGetSettings {
+	return func(o ...func(*SecurityGetSettingsRequest)) (*Response, error) {
+		var r = SecurityGetSettingsRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,19 +37,13 @@ func newSecurityUpdateCrossClusterAPIKeyFunc(t Transport) SecurityUpdateCrossClu
 
 // ----- API Definition -------------------------------------------------------
 
-// SecurityUpdateCrossClusterAPIKey - Updates attributes of an existing cross-cluster API key.
+// SecurityGetSettings - Retrieve settings for the security system indices
 //
-// This API is beta.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html.
-type SecurityUpdateCrossClusterAPIKey func(id string, body io.Reader, o ...func(*SecurityUpdateCrossClusterAPIKeyRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html.
+type SecurityGetSettings func(o ...func(*SecurityGetSettingsRequest)) (*Response, error)
 
-// SecurityUpdateCrossClusterAPIKeyRequest configures the Security Update Cross ClusterAPI Key API request.
-type SecurityUpdateCrossClusterAPIKeyRequest struct {
-	DocumentID string
-
-	Body io.Reader
-
+// SecurityGetSettingsRequest configures the Security Get Settings API request.
+type SecurityGetSettingsRequest struct {
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -62,25 +55,18 @@ type SecurityUpdateCrossClusterAPIKeyRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityGetSettingsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_security") + 1 + len("cross_cluster") + 1 + len("api_key") + 1 + len(r.DocumentID))
+	path.Grow(7 + len("/_security/settings"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_security")
-	path.WriteString("/")
-	path.WriteString("cross_cluster")
-	path.WriteString("/")
-	path.WriteString("api_key")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString("/_security/settings")
 
 	params = make(map[string]string)
 
@@ -100,7 +86,7 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -125,10 +111,6 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -148,43 +130,43 @@ func (r SecurityUpdateCrossClusterAPIKeyRequest) Do(ctx context.Context, transpo
 }
 
 // WithContext sets the request context.
-func (f SecurityUpdateCrossClusterAPIKey) WithContext(v context.Context) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SecurityGetSettings) WithContext(v context.Context) func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SecurityUpdateCrossClusterAPIKey) WithPretty() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SecurityGetSettings) WithPretty() func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SecurityUpdateCrossClusterAPIKey) WithHuman() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SecurityGetSettings) WithHuman() func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithErrorTrace() func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SecurityGetSettings) WithErrorTrace() func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SecurityUpdateCrossClusterAPIKey) WithFilterPath(v ...string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SecurityGetSettings) WithFilterPath(v ...string) func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SecurityGetSettings) WithHeader(h map[string]string) func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -195,8 +177,8 @@ func (f SecurityUpdateCrossClusterAPIKey) WithHeader(h map[string]string) func(*
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SecurityUpdateCrossClusterAPIKey) WithOpaqueID(s string) func(*SecurityUpdateCrossClusterAPIKeyRequest) {
-	return func(r *SecurityUpdateCrossClusterAPIKeyRequest) {
+func (f SecurityGetSettings) WithOpaqueID(s string) func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
