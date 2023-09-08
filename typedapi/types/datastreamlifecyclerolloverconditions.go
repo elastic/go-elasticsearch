@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -28,10 +28,10 @@ import (
 	"strconv"
 )
 
-// DlmRolloverConditions type.
+// DataStreamLifecycleRolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/DataLifecycle.ts#L50-L62
-type DlmRolloverConditions struct {
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/DataStreamLifecycle.ts#L57-L69
+type DataStreamLifecycleRolloverConditions struct {
 	MaxAge              *string  `json:"max_age,omitempty"`
 	MaxDocs             *int64   `json:"max_docs,omitempty"`
 	MaxPrimaryShardDocs *int64   `json:"max_primary_shard_docs,omitempty"`
@@ -44,7 +44,7 @@ type DlmRolloverConditions struct {
 	MinSize             ByteSize `json:"min_size,omitempty"`
 }
 
-func (s *DlmRolloverConditions) UnmarshalJSON(data []byte) error {
+func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -161,9 +161,9 @@ func (s *DlmRolloverConditions) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewDlmRolloverConditions returns a DlmRolloverConditions.
-func NewDlmRolloverConditions() *DlmRolloverConditions {
-	r := &DlmRolloverConditions{}
+// NewDataStreamLifecycleRolloverConditions returns a DataStreamLifecycleRolloverConditions.
+func NewDataStreamLifecycleRolloverConditions() *DataStreamLifecycleRolloverConditions {
+	r := &DataStreamLifecycleRolloverConditions{}
 
 	return r
 }

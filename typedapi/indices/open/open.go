@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Opens an index.
 package open
@@ -213,7 +213,15 @@ func (r *Open) Header(key, value string) *Open {
 	return r
 }
 
-// Index A comma separated list of indices to open
+// Index Comma-separated list of data streams, indices, and aliases used to limit the
+// request.
+// Supports wildcards (`*`).
+// By default, you must explicitly name the indices you using to limit the
+// request.
+// To limit a request using `_all`, `*`, or other wildcard expressions, change
+// the `action.destructive_requires_name` setting to false.
+// You can update this setting in the `elasticsearch.yml` file or using the
+// cluster update settings API.
 // API Name: index
 func (r *Open) Index(index string) *Open {
 	r.paramSet |= indexMask
@@ -222,8 +230,9 @@ func (r *Open) Index(index string) *Open {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Open) AllowNoIndices(allownoindices bool) *Open {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -231,8 +240,11 @@ func (r *Open) AllowNoIndices(allownoindices bool) *Open {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *Open) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Open {
 	tmp := []string{}
@@ -244,8 +256,8 @@ func (r *Open) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard)
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *Open) IgnoreUnavailable(ignoreunavailable bool) *Open {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -253,7 +265,9 @@ func (r *Open) IgnoreUnavailable(ignoreunavailable bool) *Open {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Open) MasterTimeout(duration string) *Open {
 	r.values.Set("master_timeout", duration)
@@ -261,7 +275,9 @@ func (r *Open) MasterTimeout(duration string) *Open {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Open) Timeout(duration string) *Open {
 	r.values.Set("timeout", duration)
@@ -269,7 +285,10 @@ func (r *Open) Timeout(duration string) *Open {
 	return r
 }
 
-// WaitForActiveShards Sets the number of active shards to wait for before the operation returns.
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to `all` or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Open) WaitForActiveShards(waitforactiveshards string) *Open {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)

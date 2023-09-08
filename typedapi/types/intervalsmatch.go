@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,14 +30,24 @@ import (
 
 // IntervalsMatch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/fulltext.ts#L99-L108
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/fulltext.ts#L186-L216
 type IntervalsMatch struct {
-	Analyzer *string          `json:"analyzer,omitempty"`
-	Filter   *IntervalsFilter `json:"filter,omitempty"`
-	MaxGaps  *int             `json:"max_gaps,omitempty"`
-	Ordered  *bool            `json:"ordered,omitempty"`
-	Query    string           `json:"query"`
-	UseField *string          `json:"use_field,omitempty"`
+	// Analyzer Analyzer used to analyze terms in the query.
+	Analyzer *string `json:"analyzer,omitempty"`
+	// Filter An optional interval filter.
+	Filter *IntervalsFilter `json:"filter,omitempty"`
+	// MaxGaps Maximum number of positions between the matching terms.
+	// Terms further apart than this are not considered matches.
+	MaxGaps *int `json:"max_gaps,omitempty"`
+	// Ordered If `true`, matching terms must appear in their specified order.
+	Ordered *bool `json:"ordered,omitempty"`
+	// Query Text you wish to find in the provided field.
+	Query string `json:"query"`
+	// UseField If specified, match intervals from this field rather than the top-level
+	// field.
+	// The `term` is normalized using the search analyzer from this field, unless
+	// `analyzer` is specified separately.
+	UseField *string `json:"use_field,omitempty"`
 }
 
 func (s *IntervalsMatch) UnmarshalJSON(data []byte) error {

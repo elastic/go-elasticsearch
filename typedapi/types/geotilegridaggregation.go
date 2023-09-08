@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,15 +30,25 @@ import (
 
 // GeoTileGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L192-L198
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L432-L458
 type GeoTileGridAggregation struct {
-	Bounds    GeoBounds `json:"bounds,omitempty"`
-	Field     *string   `json:"field,omitempty"`
-	Meta      Metadata  `json:"meta,omitempty"`
-	Name      *string   `json:"name,omitempty"`
-	Precision *int      `json:"precision,omitempty"`
-	ShardSize *int      `json:"shard_size,omitempty"`
-	Size      *int      `json:"size,omitempty"`
+	// Bounds A bounding box to filter the geo-points or geo-shapes in each bucket.
+	Bounds GeoBounds `json:"bounds,omitempty"`
+	// Field Field containing indexed `geo_point` or `geo_shape` values.
+	// If the field contains an array, `geotile_grid` aggregates all array values.
+	Field *string  `json:"field,omitempty"`
+	Meta  Metadata `json:"meta,omitempty"`
+	Name  *string  `json:"name,omitempty"`
+	// Precision Integer zoom of the key used to define cells/buckets in the results.
+	// Values outside of the range [0,29] will be rejected.
+	Precision *int `json:"precision,omitempty"`
+	// ShardSize Allows for more accurate counting of the top cells returned in the final
+	// result the aggregation.
+	// Defaults to returning `max(10,(size x number-of-shards))` buckets from each
+	// shard.
+	ShardSize *int `json:"shard_size,omitempty"`
+	// Size The maximum number of buckets to return.
+	Size *int `json:"size,omitempty"`
 }
 
 func (s *GeoTileGridAggregation) UnmarshalJSON(data []byte) error {

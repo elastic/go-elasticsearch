@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,21 +30,38 @@ import (
 
 // ReindexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/reindex_rethrottle/types.ts#L37-L51
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/reindex_rethrottle/types.ts#L37-L85
 type ReindexStatus struct {
-	Batches              int64    `json:"batches"`
-	Created              int64    `json:"created"`
-	Deleted              int64    `json:"deleted"`
-	Noops                int64    `json:"noops"`
-	RequestsPerSecond    float32  `json:"requests_per_second"`
-	Retries              Retries  `json:"retries"`
-	Throttled            Duration `json:"throttled,omitempty"`
-	ThrottledMillis      int64    `json:"throttled_millis"`
-	ThrottledUntil       Duration `json:"throttled_until,omitempty"`
-	ThrottledUntilMillis int64    `json:"throttled_until_millis"`
-	Total                int64    `json:"total"`
-	Updated              int64    `json:"updated"`
-	VersionConflicts     int64    `json:"version_conflicts"`
+	// Batches The number of scroll responses pulled back by the reindex.
+	Batches int64 `json:"batches"`
+	// Created The number of documents that were successfully created.
+	Created int64 `json:"created"`
+	// Deleted The number of documents that were successfully deleted.
+	Deleted int64 `json:"deleted"`
+	// Noops The number of documents that were ignored because the script used for the
+	// reindex returned a `noop` value for `ctx.op`.
+	Noops int64 `json:"noops"`
+	// RequestsPerSecond The number of requests per second effectively executed during the reindex.
+	RequestsPerSecond float32 `json:"requests_per_second"`
+	// Retries The number of retries attempted by reindex. `bulk` is the number of bulk
+	// actions retried and `search` is the number of search actions retried.
+	Retries   Retries  `json:"retries"`
+	Throttled Duration `json:"throttled,omitempty"`
+	// ThrottledMillis Number of milliseconds the request slept to conform to `requests_per_second`.
+	ThrottledMillis int64    `json:"throttled_millis"`
+	ThrottledUntil  Duration `json:"throttled_until,omitempty"`
+	// ThrottledUntilMillis This field should always be equal to zero in a `_reindex` response.
+	// It only has meaning when using the Task API, where it indicates the next time
+	// (in milliseconds since epoch) a throttled request will be executed again in
+	// order to conform to `requests_per_second`.
+	ThrottledUntilMillis int64 `json:"throttled_until_millis"`
+	// Total The number of documents that were successfully processed.
+	Total int64 `json:"total"`
+	// Updated The number of documents that were successfully updated, for example, a
+	// document with same ID already existed prior to reindex updating it.
+	Updated int64 `json:"updated"`
+	// VersionConflicts The number of version conflicts that reindex hits.
+	VersionConflicts int64 `json:"version_conflicts"`
 }
 
 func (s *ReindexStatus) UnmarshalJSON(data []byte) error {

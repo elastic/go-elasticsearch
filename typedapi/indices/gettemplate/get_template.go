@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns an index template.
 package gettemplate
@@ -215,7 +215,10 @@ func (r *GetTemplate) Header(key, value string) *GetTemplate {
 	return r
 }
 
-// Name The comma separated names of the index templates
+// Name Comma-separated list of index template names used to limit the request.
+// Wildcard (`*`) expressions are supported.
+// To return all index templates, omit this parameter or use a value of `_all`
+// or `*`.
 // API Name: name
 func (r *GetTemplate) Name(name string) *GetTemplate {
 	r.paramSet |= nameMask
@@ -224,7 +227,7 @@ func (r *GetTemplate) Name(name string) *GetTemplate {
 	return r
 }
 
-// FlatSettings Return settings in flat format (default: false)
+// FlatSettings If `true`, returns settings in flat format.
 // API name: flat_settings
 func (r *GetTemplate) FlatSettings(flatsettings bool) *GetTemplate {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
@@ -232,8 +235,7 @@ func (r *GetTemplate) FlatSettings(flatsettings bool) *GetTemplate {
 	return r
 }
 
-// Local Return local information, do not retrieve the state from master node
-// (default: false)
+// Local If `true`, the request retrieves information from the local node only.
 // API name: local
 func (r *GetTemplate) Local(local bool) *GetTemplate {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -241,7 +243,9 @@ func (r *GetTemplate) Local(local bool) *GetTemplate {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *GetTemplate) MasterTimeout(duration string) *GetTemplate {
 	r.values.Set("master_timeout", duration)

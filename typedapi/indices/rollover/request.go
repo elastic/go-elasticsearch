@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package rollover
 
@@ -29,12 +29,29 @@ import (
 
 // Request holds the request body struct for the package rollover
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/rollover/IndicesRolloverRequest.ts#L29-L51
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/rollover/IndicesRolloverRequest.ts#L29-L99
 type Request struct {
-	Aliases    map[string]types.Alias     `json:"aliases,omitempty"`
-	Conditions *types.RolloverConditions  `json:"conditions,omitempty"`
-	Mappings   *types.TypeMapping         `json:"mappings,omitempty"`
-	Settings   map[string]json.RawMessage `json:"settings,omitempty"`
+
+	// Aliases Aliases for the target index.
+	// Data streams do not support this parameter.
+	Aliases map[string]types.Alias `json:"aliases,omitempty"`
+	// Conditions Conditions for the rollover.
+	// If specified, Elasticsearch only performs the rollover if the current index
+	// satisfies these conditions.
+	// If this parameter is not specified, Elasticsearch performs the rollover
+	// unconditionally.
+	// If conditions are specified, at least one of them must be a `max_*`
+	// condition.
+	// The index will rollover if any `max_*` condition is satisfied and all `min_*`
+	// conditions are satisfied.
+	Conditions *types.RolloverConditions `json:"conditions,omitempty"`
+	// Mappings Mapping for fields in the index.
+	// If specified, this mapping can include field names, field data types, and
+	// mapping paramaters.
+	Mappings *types.TypeMapping `json:"mappings,omitempty"`
+	// Settings Configuration options for the index.
+	// Data streams do not support this parameter.
+	Settings map[string]json.RawMessage `json:"settings,omitempty"`
 }
 
 // NewRequest returns a Request

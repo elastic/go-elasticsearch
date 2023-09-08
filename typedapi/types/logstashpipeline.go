@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,14 +30,25 @@ import (
 
 // LogstashPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/logstash/_types/Pipeline.ts#L37-L44
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/logstash/_types/Pipeline.ts#L60-L92
 type LogstashPipeline struct {
-	Description      string           `json:"description"`
-	LastModified     DateTime         `json:"last_modified"`
-	Pipeline         string           `json:"pipeline"`
+	// Description Description of the pipeline.
+	// This description is not used by Elasticsearch or Logstash.
+	Description string `json:"description"`
+	// LastModified Date the pipeline was last updated.
+	// Must be in the `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
+	LastModified DateTime `json:"last_modified"`
+	// Pipeline Configuration for the pipeline.
+	Pipeline string `json:"pipeline"`
+	// PipelineMetadata Optional metadata about the pipeline.
+	// May have any contents.
+	// This metadata is not generated or used by Elasticsearch or Logstash.
 	PipelineMetadata PipelineMetadata `json:"pipeline_metadata"`
+	// PipelineSettings Settings for the pipeline.
+	// Supports only flat keys in dot notation.
 	PipelineSettings PipelineSettings `json:"pipeline_settings"`
-	Username         string           `json:"username"`
+	// Username User who last updated the pipeline.
+	Username string `json:"username"`
 }
 
 func (s *LogstashPipeline) UnmarshalJSON(data []byte) error {

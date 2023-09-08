@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,18 +32,38 @@ import (
 
 // JsonProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L271-L277
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L807-L836
 type JsonProcessor struct {
-	AddToRoot                 *bool                                                        `json:"add_to_root,omitempty"`
+	// AddToRoot Flag that forces the parsed JSON to be added at the top level of the
+	// document.
+	// `target_field` must not be set when this option is chosen.
+	AddToRoot *bool `json:"add_to_root,omitempty"`
+	// AddToRootConflictStrategy When set to `replace`, root fields that conflict with fields from the parsed
+	// JSON will be overridden.
+	// When set to `merge`, conflicting fields will be merged.
+	// Only applicable `if add_to_root` is set to true.
 	AddToRootConflictStrategy *jsonprocessorconflictstrategy.JsonProcessorConflictStrategy `json:"add_to_root_conflict_strategy,omitempty"`
-	AllowDuplicateKeys        *bool                                                        `json:"allow_duplicate_keys,omitempty"`
-	Description               *string                                                      `json:"description,omitempty"`
-	Field                     string                                                       `json:"field"`
-	If                        *string                                                      `json:"if,omitempty"`
-	IgnoreFailure             *bool                                                        `json:"ignore_failure,omitempty"`
-	OnFailure                 []ProcessorContainer                                         `json:"on_failure,omitempty"`
-	Tag                       *string                                                      `json:"tag,omitempty"`
-	TargetField               *string                                                      `json:"target_field,omitempty"`
+	// AllowDuplicateKeys When set to `true`, the JSON parser will not fail if the JSON contains
+	// duplicate keys.
+	// Instead, the last encountered value for any duplicate key wins.
+	AllowDuplicateKeys *bool `json:"allow_duplicate_keys,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to be parsed.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field that the converted structured object will be written into.
+	// Any existing content in this field will be overwritten.
+	TargetField *string `json:"target_field,omitempty"`
 }
 
 func (s *JsonProcessor) UnmarshalJSON(data []byte) error {

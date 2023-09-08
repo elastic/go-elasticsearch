@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/DataStream.ts#L32-L96
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/DataStream.ts#L32-L96
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -57,7 +57,7 @@ type DataStream struct {
 	Indices []DataStreamIndex `json:"indices"`
 	// Lifecycle Contains the configuration for the data lifecycle management of this data
 	// stream.
-	Lifecycle *DataLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
 	// Meta_ Custom metadata for the stream, copied from the `_meta` object of the
 	// stream’s matching index template.
 	// If empty, the response omits this property.

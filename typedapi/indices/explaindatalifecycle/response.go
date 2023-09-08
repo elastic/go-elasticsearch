@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package explaindatalifecycle
 
@@ -26,16 +26,16 @@ import (
 
 // Response holds the response body struct for the package explaindatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L25-L29
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L25-L29
 
 type Response struct {
-	Indices map[string]types.DataLifecycleExplain `json:"indices"`
+	Indices map[string]types.DataStreamLifecycleExplain `json:"indices"`
 }
 
 // NewResponse returns a Response
 func NewResponse() *Response {
 	r := &Response{
-		Indices: make(map[string]types.DataLifecycleExplain, 0),
+		Indices: make(map[string]types.DataStreamLifecycleExplain, 0),
 	}
 	return r
 }

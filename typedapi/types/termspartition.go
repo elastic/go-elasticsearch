@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,10 +30,12 @@ import (
 
 // TermsPartition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L425-L428
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L1004-L1013
 type TermsPartition struct {
+	// NumPartitions The number of partitions.
 	NumPartitions int64 `json:"num_partitions"`
-	Partition     int64 `json:"partition"`
+	// Partition The partition number for this request.
+	Partition int64 `json:"partition"`
 }
 
 func (s *TermsPartition) UnmarshalJSON(data []byte) error {

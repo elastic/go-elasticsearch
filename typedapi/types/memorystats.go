@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,18 +30,25 @@ import (
 
 // MemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/nodes/_types/Stats.ts#L248-L259
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/nodes/_types/Stats.ts#L596-L620
 type MemoryStats struct {
-	AdjustedTotalInBytes *int64  `json:"adjusted_total_in_bytes,omitempty"`
-	FreeInBytes          *int64  `json:"free_in_bytes,omitempty"`
-	Resident             *string `json:"resident,omitempty"`
-	ResidentInBytes      *int64  `json:"resident_in_bytes,omitempty"`
-	Share                *string `json:"share,omitempty"`
-	ShareInBytes         *int64  `json:"share_in_bytes,omitempty"`
-	TotalInBytes         *int64  `json:"total_in_bytes,omitempty"`
-	TotalVirtual         *string `json:"total_virtual,omitempty"`
-	TotalVirtualInBytes  *int64  `json:"total_virtual_in_bytes,omitempty"`
-	UsedInBytes          *int64  `json:"used_in_bytes,omitempty"`
+	// AdjustedTotalInBytes If the amount of physical memory has been overridden using the
+	// `es`.`total_memory_bytes` system property then this reports the overridden
+	// value in bytes.
+	// Otherwise it reports the same value as `total_in_bytes`.
+	AdjustedTotalInBytes *int64 `json:"adjusted_total_in_bytes,omitempty"`
+	// FreeInBytes Amount of free physical memory in bytes.
+	FreeInBytes     *int64  `json:"free_in_bytes,omitempty"`
+	Resident        *string `json:"resident,omitempty"`
+	ResidentInBytes *int64  `json:"resident_in_bytes,omitempty"`
+	Share           *string `json:"share,omitempty"`
+	ShareInBytes    *int64  `json:"share_in_bytes,omitempty"`
+	// TotalInBytes Total amount of physical memory in bytes.
+	TotalInBytes        *int64  `json:"total_in_bytes,omitempty"`
+	TotalVirtual        *string `json:"total_virtual,omitempty"`
+	TotalVirtualInBytes *int64  `json:"total_virtual_in_bytes,omitempty"`
+	// UsedInBytes Amount of used physical memory in bytes.
+	UsedInBytes *int64 `json:"used_in_bytes,omitempty"`
 }
 
 func (s *MemoryStats) UnmarshalJSON(data []byte) error {

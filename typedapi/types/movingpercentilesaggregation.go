@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,17 +32,26 @@ import (
 
 // MovingPercentilesAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/pipeline.ts#L256-L260
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/pipeline.ts#L307-L319
 type MovingPercentilesAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath BucketsPath          `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Keyed       *bool                `json:"keyed,omitempty"`
-	Meta        Metadata             `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
-	Shift       *int                 `json:"shift,omitempty"`
-	Window      *int                 `json:"window,omitempty"`
+	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
+	// Format `DecimalFormat` pattern for the output value.
+	// If specified, the formatted value is returned in the aggregation’s
+	// `value_as_string` property.
+	Format *string `json:"format,omitempty"`
+	// GapPolicy Policy to apply when gaps are found in the data.
+	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
+	Keyed     *bool                `json:"keyed,omitempty"`
+	Meta      Metadata             `json:"meta,omitempty"`
+	Name      *string              `json:"name,omitempty"`
+	// Shift By default, the window consists of the last n values excluding the current
+	// bucket.
+	// Increasing `shift` by 1, moves the starting window position by 1 to the
+	// right.
+	Shift *int `json:"shift,omitempty"`
+	// Window The size of window to "slide" across the histogram.
+	Window *int `json:"window,omitempty"`
 }
 
 func (s *MovingPercentilesAggregation) UnmarshalJSON(data []byte) error {

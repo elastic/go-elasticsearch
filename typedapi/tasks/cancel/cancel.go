@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Cancels a task, if it can be cancelled through an API.
 package cancel
@@ -219,7 +219,7 @@ func (r *Cancel) Header(key, value string) *Cancel {
 	return r
 }
 
-// TaskId Cancel the task with specified task id (node_id:task_number)
+// TaskId ID of the task.
 // API Name: taskid
 func (r *Cancel) TaskId(taskid string) *Cancel {
 	r.paramSet |= taskidMask
@@ -228,8 +228,8 @@ func (r *Cancel) TaskId(taskid string) *Cancel {
 	return r
 }
 
-// Actions A comma-separated list of actions that should be cancelled. Leave empty to
-// cancel all.
+// Actions Comma-separated list or wildcard expression of actions used to limit the
+// request.
 // API name: actions
 func (r *Cancel) Actions(actions ...string) *Cancel {
 	tmp := []string{}
@@ -241,9 +241,7 @@ func (r *Cancel) Actions(actions ...string) *Cancel {
 	return r
 }
 
-// Nodes A comma-separated list of node IDs or names to limit the returned
-// information; use `_local` to return information from the node you're
-// connecting to, leave empty to get information from all nodes
+// Nodes Comma-separated list of node IDs or names used to limit the request.
 // API name: nodes
 func (r *Cancel) Nodes(nodes ...string) *Cancel {
 	tmp := []string{}
@@ -255,8 +253,7 @@ func (r *Cancel) Nodes(nodes ...string) *Cancel {
 	return r
 }
 
-// ParentTaskId Cancel tasks with specified parent task id (node_id:task_number). Set to -1
-// to cancel all.
+// ParentTaskId Parent task ID used to limit the tasks.
 // API name: parent_task_id
 func (r *Cancel) ParentTaskId(parenttaskid string) *Cancel {
 	r.values.Set("parent_task_id", parenttaskid)

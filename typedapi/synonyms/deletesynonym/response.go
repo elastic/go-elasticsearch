@@ -15,30 +15,24 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package msearch
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
-import (
-	"encoding/json"
+package deletesynonym
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
+// Response holds the response body struct for the package deletesynonym
+//
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/synonyms/delete_synonym/SynonymsDeleteResponse.ts#L22-L24
 
-// AddSearch is a helper function to add a new search to the buffer of the current msearch request.
-func (r *Msearch) AddSearch(header types.MultisearchHeader, body types.MultisearchBody) error {
-	h, err := json.Marshal(header)
-	if err != nil {
-		return err
-	}
+type Response struct {
 
-	b, err := json.Marshal(body)
-	if err != nil {
-		return err
-	}
+	// Acknowledged For a successful response, this value is always true. On failure, an
+	// exception is returned instead.
+	Acknowledged bool `json:"acknowledged"`
+}
 
-	r.buf.Write(h)
-	r.buf.Write([]byte("\n"))
-	r.buf.Write(b)
-	r.buf.Write([]byte("\n"))
-
-	return nil
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
+	return r
 }

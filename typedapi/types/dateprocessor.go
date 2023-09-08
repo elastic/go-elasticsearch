@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,18 +30,35 @@ import (
 
 // DateProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L179-L185
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L531-L558
 type DateProcessor struct {
-	Description   *string              `json:"description,omitempty"`
-	Field         string               `json:"field"`
-	Formats       []string             `json:"formats"`
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	Locale        *string              `json:"locale,omitempty"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *string              `json:"target_field,omitempty"`
-	Timezone      *string              `json:"timezone,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to get the date from.
+	Field string `json:"field"`
+	// Formats An array of the expected date formats.
+	// Can be a java time pattern or one of the following formats: ISO8601, UNIX,
+	// UNIX_MS, or TAI64N.
+	Formats []string `json:"formats"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// Locale The locale to use when parsing the date, relevant when parsing month names or
+	// week days.
+	// Supports template snippets.
+	Locale *string `json:"locale,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field that will hold the parsed date.
+	TargetField *string `json:"target_field,omitempty"`
+	// Timezone The timezone to use when parsing the date.
+	// Supports template snippets.
+	Timezone *string `json:"timezone,omitempty"`
 }
 
 func (s *DateProcessor) UnmarshalJSON(data []byte) error {

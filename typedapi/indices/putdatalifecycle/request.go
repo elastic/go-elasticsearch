@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package putdatalifecycle
 
@@ -29,9 +29,18 @@ import (
 
 // Request holds the request body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L24-L42
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L75
 type Request struct {
+
+	// DataRetention If defined, every document added to this data stream will be stored at least
+	// for this time frame.
+	// Any time after this duration the document could be deleted.
+	// When empty, every document in this data stream will be stored indefinitely.
 	DataRetention types.Duration `json:"data_retention,omitempty"`
+	// Downsampling If defined, every backing index will execute the configured downsampling
+	// configuration after the backing
+	// index is not the data stream write index anymore.
+	Downsampling *types.DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
 }
 
 // NewRequest returns a Request

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns the capabilities of any rollup jobs that have been configured for a
 // specific index or index pattern.
@@ -220,8 +220,8 @@ func (r *GetRollupCaps) Header(key, value string) *GetRollupCaps {
 	return r
 }
 
-// Id The ID of the index to check rollup capabilities on, or left blank for all
-// jobs
+// Id Index, indices or index-pattern to return rollup capabilities for.
+// `_all` may be used to fetch rollup capabilities from all jobs.
 // API Name: id
 func (r *GetRollupCaps) Id(id string) *GetRollupCaps {
 	r.paramSet |= idMask

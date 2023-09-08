@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Updates index aliases.
 package updatealiases
@@ -228,7 +228,9 @@ func (r *UpdateAliases) Header(key, value string) *UpdateAliases {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *UpdateAliases) MasterTimeout(duration string) *UpdateAliases {
 	r.values.Set("master_timeout", duration)
@@ -236,7 +238,9 @@ func (r *UpdateAliases) MasterTimeout(duration string) *UpdateAliases {
 	return r
 }
 
-// Timeout Request timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *UpdateAliases) Timeout(duration string) *UpdateAliases {
 	r.values.Set("timeout", duration)
@@ -244,6 +248,7 @@ func (r *UpdateAliases) Timeout(duration string) *UpdateAliases {
 	return r
 }
 
+// Actions Actions to perform.
 // API name: actions
 func (r *UpdateAliases) Actions(actions ...types.IndicesAction) *UpdateAliases {
 	r.req.Actions = actions

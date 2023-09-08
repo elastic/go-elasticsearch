@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package typedapi
 
@@ -315,6 +315,10 @@ import (
 	nodes_reload_secure_settings "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/reloadsecuresettings"
 	nodes_stats "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/stats"
 	nodes_usage "github.com/elastic/go-elasticsearch/v8/typedapi/nodes/usage"
+	query_ruleset_delete "github.com/elastic/go-elasticsearch/v8/typedapi/queryruleset/delete"
+	query_ruleset_get "github.com/elastic/go-elasticsearch/v8/typedapi/queryruleset/get"
+	query_ruleset_list "github.com/elastic/go-elasticsearch/v8/typedapi/queryruleset/list"
+	query_ruleset_put "github.com/elastic/go-elasticsearch/v8/typedapi/queryruleset/put"
 	rollup_delete_job "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/deletejob"
 	rollup_get_jobs "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/getjobs"
 	rollup_get_rollup_caps "github.com/elastic/go-elasticsearch/v8/typedapi/rollup/getrollupcaps"
@@ -421,6 +425,13 @@ import (
 	sql_query "github.com/elastic/go-elasticsearch/v8/typedapi/sql/query"
 	sql_translate "github.com/elastic/go-elasticsearch/v8/typedapi/sql/translate"
 	ssl_certificates "github.com/elastic/go-elasticsearch/v8/typedapi/ssl/certificates"
+	synonyms_delete_synonym "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/deletesynonym"
+	synonyms_delete_synonym_rule "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/deletesynonymrule"
+	synonyms_get_synonym "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/getsynonym"
+	synonyms_get_synonym_rule "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/getsynonymrule"
+	synonyms_get_synonyms_sets "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/getsynonymssets"
+	synonyms_put_synonym "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/putsynonym"
+	synonyms_put_synonym_rule "github.com/elastic/go-elasticsearch/v8/typedapi/synonyms/putsynonymrule"
 	tasks_cancel "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/cancel"
 	tasks_get "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/get"
 	tasks_list "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/list"
@@ -875,11 +886,11 @@ type Eql struct {
 	Delete eql_delete.NewDelete
 	// Returns async results from previously executed Event Query Language (EQL)
 	// search
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+	//  https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-search-api.html
 	Get eql_get.NewGet
 	// Returns the status of a previously submitted async or stored Event Query
 	// Language (EQL) search
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
+	//  https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-status-api.html
 	GetStatus eql_get_status.NewGetStatus
 	// Returns results matching a query expressed in Event Query Language (EQL)
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
@@ -976,7 +987,7 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-clone-index.html
 	Clone indices_clone.NewClone
 	// Closes an index.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-open-close.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-close.html
 	Close indices_close.NewClose
 	// Creates an index with optional settings and mappings.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html
@@ -993,8 +1004,8 @@ type Indices struct {
 	// Deletes an alias.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 	DeleteAlias indices_delete_alias.NewDeleteAlias
-	// Deletes the data lifecycle of the selected data streams.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-delete-lifecycle.html
+	// Deletes the data stream lifecycle of the selected data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-delete-lifecycle.html
 	DeleteDataLifecycle indices_delete_data_lifecycle.NewDeleteDataLifecycle
 	// Deletes a data stream.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
@@ -1009,7 +1020,7 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-disk-usage.html
 	DiskUsage indices_disk_usage.NewDiskUsage
 	// Downsample an index
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-downsample-data-stream.html
 	Downsample indices_downsample.NewDownsample
 	// Returns information about whether a particular index exists.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-exists.html
@@ -1023,9 +1034,9 @@ type Indices struct {
 	// Returns information about whether a particular index template exists.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
 	ExistsTemplate indices_exists_template.NewExistsTemplate
-	// Retrieves information about the index's current DLM lifecycle, such as any
-	// potential encountered error, time since creation etc.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-explain-lifecycle.html
+	// Retrieves information about the index's current data stream lifecycle, such
+	// as any potential encountered error, time since creation etc.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html
 	ExplainDataLifecycle indices_explain_data_lifecycle.NewExplainDataLifecycle
 	// Returns the field usage stats for each field of an index
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/field-usage-stats.html
@@ -1042,8 +1053,8 @@ type Indices struct {
 	// Returns an alias.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 	GetAlias indices_get_alias.NewGetAlias
-	// Returns the data lifecycle of the selected data streams.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-get-lifecycle.html
+	// Returns the data stream lifecycle of the selected data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-get-lifecycle.html
 	GetDataLifecycle indices_get_data_lifecycle.NewGetDataLifecycle
 	// Returns data streams.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
@@ -1079,8 +1090,8 @@ type Indices struct {
 	// Creates or updates an alias.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 	PutAlias indices_put_alias.NewPutAlias
-	// Updates the data lifecycle of the selected data streams.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-put-lifecycle.html
+	// Updates the data stream lifecycle of the selected data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-put-lifecycle.html
 	PutDataLifecycle indices_put_data_lifecycle.NewPutDataLifecycle
 	// Creates or updates an index template.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
@@ -1150,16 +1161,16 @@ type Ingest struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-pipeline-api.html
 	DeletePipeline ingest_delete_pipeline.NewDeletePipeline
 	// Returns statistical information about geoip databases
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-stats-api.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html
 	GeoIpStats ingest_geo_ip_stats.NewGeoIpStats
 	// Returns a pipeline.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-pipeline-api.html
 	GetPipeline ingest_get_pipeline.NewGetPipeline
 	// Returns a list of the built-in patterns.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/grok-processor.html#grok-processor-rest-get
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/grok-processor.html
 	ProcessorGrok ingest_processor_grok.NewProcessorGrok
 	// Creates or updates a pipeline.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-pipeline-api.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html
 	PutPipeline ingest_put_pipeline.NewPutPipeline
 	// Allows to simulate a pipeline with example documents.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/simulate-pipeline-api.html
@@ -1471,6 +1482,21 @@ type Nodes struct {
 	// Returns low-level information about REST actions usage on nodes.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-usage.html
 	Usage nodes_usage.NewUsage
+}
+
+type QueryRuleset struct {
+	// Deletes a query ruleset.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-query-ruleset.html
+	Delete query_ruleset_delete.NewDelete
+	// Returns the details about a query ruleset.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-query-ruleset.html
+	Get query_ruleset_get.NewGet
+	// Lists query rulesets.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/list-query-rulesets.html
+	List query_ruleset_list.NewList
+	// Creates or updates a query ruleset.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-query-ruleset.html
+	Put query_ruleset_put.NewPut
 }
 
 type Rollup struct {
@@ -1844,6 +1870,30 @@ type Ssl struct {
 	Certificates ssl_certificates.NewCertificates
 }
 
+type Synonyms struct {
+	// Deletes a synonym set
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-synonyms-set.html
+	DeleteSynonym synonyms_delete_synonym.NewDeleteSynonym
+	// Deletes a synonym rule in a synonym set
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-synonym-rule.html
+	DeleteSynonymRule synonyms_delete_synonym_rule.NewDeleteSynonymRule
+	// Retrieves a synonym set
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-synonyms-set.html
+	GetSynonym synonyms_get_synonym.NewGetSynonym
+	// Retrieves a synonym rule from a synonym set
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-synonym-rule.html
+	GetSynonymRule synonyms_get_synonym_rule.NewGetSynonymRule
+	// Retrieves a summary of all defined synonym sets
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/list-synonyms-sets.html
+	GetSynonymsSets synonyms_get_synonyms_sets.NewGetSynonymsSets
+	// Creates or updates a synonyms set
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-synonyms-set.html
+	PutSynonym synonyms_put_synonym.NewPutSynonym
+	// Creates or updates a synonym rule in a synonym set
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-synonym-rule.html
+	PutSynonymRule synonyms_put_synonym_rule.NewPutSynonymRule
+}
+
 type Tasks struct {
 	// Cancels a task, if it can be cancelled through an API.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html
@@ -1973,6 +2023,7 @@ type API struct {
 	Ml                  Ml
 	Monitoring          Monitoring
 	Nodes               Nodes
+	QueryRuleset        QueryRuleset
 	Rollup              Rollup
 	SearchApplication   SearchApplication
 	SearchableSnapshots SearchableSnapshots
@@ -1982,6 +2033,7 @@ type API struct {
 	Snapshot            Snapshot
 	Sql                 Sql
 	Ssl                 Ssl
+	Synonyms            Synonyms
 	Tasks               Tasks
 	TextStructure       TextStructure
 	Transform           Transform
@@ -2520,6 +2572,14 @@ func New(tp elastictransport.Interface) *API {
 			Usage:                            nodes_usage.NewUsageFunc(tp),
 		},
 
+		// QueryRuleset
+		QueryRuleset: QueryRuleset{
+			Delete: query_ruleset_delete.NewDeleteFunc(tp),
+			Get:    query_ruleset_get.NewGetFunc(tp),
+			List:   query_ruleset_list.NewListFunc(tp),
+			Put:    query_ruleset_put.NewPutFunc(tp),
+		},
+
 		// Rollup
 		Rollup: Rollup{
 			DeleteJob:          rollup_delete_job.NewDeleteJobFunc(tp),
@@ -2660,6 +2720,17 @@ func New(tp elastictransport.Interface) *API {
 		// Ssl
 		Ssl: Ssl{
 			Certificates: ssl_certificates.NewCertificatesFunc(tp),
+		},
+
+		// Synonyms
+		Synonyms: Synonyms{
+			DeleteSynonym:     synonyms_delete_synonym.NewDeleteSynonymFunc(tp),
+			DeleteSynonymRule: synonyms_delete_synonym_rule.NewDeleteSynonymRuleFunc(tp),
+			GetSynonym:        synonyms_get_synonym.NewGetSynonymFunc(tp),
+			GetSynonymRule:    synonyms_get_synonym_rule.NewGetSynonymRuleFunc(tp),
+			GetSynonymsSets:   synonyms_get_synonyms_sets.NewGetSynonymsSetsFunc(tp),
+			PutSynonym:        synonyms_put_synonym.NewPutSynonymFunc(tp),
+			PutSynonymRule:    synonyms_put_synonym_rule.NewPutSynonymRuleFunc(tp),
 		},
 
 		// Tasks

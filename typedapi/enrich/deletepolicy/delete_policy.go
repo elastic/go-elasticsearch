@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Deletes an existing enrich policy and its enrich index.
 package deletepolicy
@@ -213,7 +213,7 @@ func (r *DeletePolicy) Header(key, value string) *DeletePolicy {
 	return r
 }
 
-// Name The name of the enrich policy
+// Name Enrich policy to delete.
 // API Name: name
 func (r *DeletePolicy) Name(name string) *DeletePolicy {
 	r.paramSet |= nameMask

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Clears all or specific caches for one or more indices.
 package clearcache
@@ -220,7 +220,11 @@ func (r *ClearCache) Header(key, value string) *ClearCache {
 	return r
 }
 
-// Index A comma-separated list of index name to limit the operation
+// Index Comma-separated list of data streams, indices, and aliases used to limit the
+// request.
+// Supports wildcards (`*`).
+// To target all data streams and indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *ClearCache) Index(index string) *ClearCache {
 	r.paramSet |= indexMask
@@ -229,8 +233,9 @@ func (r *ClearCache) Index(index string) *ClearCache {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *ClearCache) AllowNoIndices(allownoindices bool) *ClearCache {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -238,8 +243,11 @@ func (r *ClearCache) AllowNoIndices(allownoindices bool) *ClearCache {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ClearCache {
 	tmp := []string{}
@@ -251,7 +259,8 @@ func (r *ClearCache) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWil
 	return r
 }
 
-// Fielddata Clear field data
+// Fielddata If `true`, clears the fields cache.
+// Use the `fields` parameter to clear the cache of specific fields only.
 // API name: fielddata
 func (r *ClearCache) Fielddata(fielddata bool) *ClearCache {
 	r.values.Set("fielddata", strconv.FormatBool(fielddata))
@@ -259,8 +268,7 @@ func (r *ClearCache) Fielddata(fielddata bool) *ClearCache {
 	return r
 }
 
-// Fields A comma-separated list of fields to clear when using the `fielddata`
-// parameter (default: all)
+// Fields Comma-separated list of field names used to limit the `fielddata` parameter.
 // API name: fields
 func (r *ClearCache) Fields(fields ...string) *ClearCache {
 	r.values.Set("fields", strings.Join(fields, ","))
@@ -268,8 +276,8 @@ func (r *ClearCache) Fields(fields ...string) *ClearCache {
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *ClearCache) IgnoreUnavailable(ignoreunavailable bool) *ClearCache {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -277,7 +285,7 @@ func (r *ClearCache) IgnoreUnavailable(ignoreunavailable bool) *ClearCache {
 	return r
 }
 
-// Query Clear query caches
+// Query If `true`, clears the query cache.
 // API name: query
 func (r *ClearCache) Query(query bool) *ClearCache {
 	r.values.Set("query", strconv.FormatBool(query))
@@ -285,7 +293,7 @@ func (r *ClearCache) Query(query bool) *ClearCache {
 	return r
 }
 
-// Request Clear request cache
+// Request If `true`, clears the request cache.
 // API name: request
 func (r *ClearCache) Request(request bool) *ClearCache {
 	r.values.Set("request", strconv.FormatBool(request))

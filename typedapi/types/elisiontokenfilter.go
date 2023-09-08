@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,13 +30,13 @@ import (
 
 // ElisionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/analysis/token_filters.ts#L187-L192
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/analysis/token_filters.ts#L187-L192
 type ElisionTokenFilter struct {
-	Articles     []string `json:"articles,omitempty"`
-	ArticlesCase *bool    `json:"articles_case,omitempty"`
-	ArticlesPath *string  `json:"articles_path,omitempty"`
-	Type         string   `json:"type,omitempty"`
-	Version      *string  `json:"version,omitempty"`
+	Articles     []string           `json:"articles,omitempty"`
+	ArticlesCase Stringifiedboolean `json:"articles_case,omitempty"`
+	ArticlesPath *string            `json:"articles_path,omitempty"`
+	Type         string             `json:"type,omitempty"`
+	Version      *string            `json:"version,omitempty"`
 }
 
 func (s *ElisionTokenFilter) UnmarshalJSON(data []byte) error {
@@ -60,17 +60,8 @@ func (s *ElisionTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "articles_case":
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return err
-				}
-				s.ArticlesCase = &value
-			case bool:
-				s.ArticlesCase = &v
+			if err := dec.Decode(&s.ArticlesCase); err != nil {
+				return err
 			}
 
 		case "articles_path":

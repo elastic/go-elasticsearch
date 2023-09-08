@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,9 +30,9 @@ import (
 
 // FrequentItemSetsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L551-L575
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L1159-L1183
 type FrequentItemSetsAggregation struct {
-	// Fields Fields to analyze
+	// Fields Fields to analyze.
 	Fields []FrequentItemSetsField `json:"fields"`
 	// Filter Query that filters documents from analysis.
 	Filter *Query `json:"filter,omitempty"`

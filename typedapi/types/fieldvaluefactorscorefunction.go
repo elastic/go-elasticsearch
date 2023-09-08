@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,11 +32,17 @@ import (
 
 // FieldValueFactorScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/compound.ts#L70-L75
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/compound.ts#L132-L151
 type FieldValueFactorScoreFunction struct {
-	Factor   *Float64                                           `json:"factor,omitempty"`
-	Field    string                                             `json:"field"`
-	Missing  *Float64                                           `json:"missing,omitempty"`
+	// Factor Optional factor to multiply the field value with.
+	Factor *Float64 `json:"factor,omitempty"`
+	// Field Field to be extracted from the document.
+	Field string `json:"field"`
+	// Missing Value used if the document doesn’t have that field.
+	// The modifier and factor are still applied to it as though it were read from
+	// the document.
+	Missing *Float64 `json:"missing,omitempty"`
+	// Modifier Modifier to apply to the field value.
 	Modifier *fieldvaluefactormodifier.FieldValueFactorModifier `json:"modifier,omitempty"`
 }
 

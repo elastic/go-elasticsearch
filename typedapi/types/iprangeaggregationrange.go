@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,14 @@ import (
 
 // IpRangeAggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L254-L258
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L559-L572
 type IpRangeAggregationRange struct {
-	From string  `json:"from,omitempty"`
+	// From Start of the range.
+	From string `json:"from,omitempty"`
+	// Mask IP range defined as a CIDR mask.
 	Mask *string `json:"mask,omitempty"`
-	To   string  `json:"to,omitempty"`
+	// To End of the range.
+	To string `json:"to,omitempty"`
 }
 
 func (s *IpRangeAggregationRange) UnmarshalJSON(data []byte) error {

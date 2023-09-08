@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Allow to shrink an existing index into a new index with fewer primary shards.
 package shrink
@@ -83,7 +83,7 @@ func NewShrinkFunc(tp elastictransport.Interface) NewShrink {
 
 // Allow to shrink an existing index into a new index with fewer primary shards.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-shrink-index.html
 func New(tp elastictransport.Interface) *Shrink {
 	r := &Shrink{
 		transport: tp,
@@ -247,7 +247,7 @@ func (r *Shrink) Header(key, value string) *Shrink {
 	return r
 }
 
-// Index The name of the source index to shrink
+// Index Name of the source index to shrink.
 // API Name: index
 func (r *Shrink) Index(index string) *Shrink {
 	r.paramSet |= indexMask
@@ -256,7 +256,7 @@ func (r *Shrink) Index(index string) *Shrink {
 	return r
 }
 
-// Target The name of the target index to shrink into
+// Target Name of the target index to create.
 // API Name: target
 func (r *Shrink) Target(target string) *Shrink {
 	r.paramSet |= targetMask
@@ -265,7 +265,9 @@ func (r *Shrink) Target(target string) *Shrink {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Shrink) MasterTimeout(duration string) *Shrink {
 	r.values.Set("master_timeout", duration)
@@ -273,7 +275,9 @@ func (r *Shrink) MasterTimeout(duration string) *Shrink {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Shrink) Timeout(duration string) *Shrink {
 	r.values.Set("timeout", duration)
@@ -281,8 +285,10 @@ func (r *Shrink) Timeout(duration string) *Shrink {
 	return r
 }
 
-// WaitForActiveShards Set the number of active shards to wait for on the shrunken index before the
-// operation returns.
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to `all` or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Shrink) WaitForActiveShards(waitforactiveshards string) *Shrink {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -290,6 +296,8 @@ func (r *Shrink) WaitForActiveShards(waitforactiveshards string) *Shrink {
 	return r
 }
 
+// Aliases The key is the alias name.
+// Index alias names support date math.
 // API name: aliases
 func (r *Shrink) Aliases(aliases map[string]types.Alias) *Shrink {
 
@@ -298,6 +306,7 @@ func (r *Shrink) Aliases(aliases map[string]types.Alias) *Shrink {
 	return r
 }
 
+// Settings Configuration options for the target index.
 // API name: settings
 func (r *Shrink) Settings(settings map[string]json.RawMessage) *Shrink {
 

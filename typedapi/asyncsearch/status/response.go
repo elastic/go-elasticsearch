@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package status
 
@@ -26,15 +26,22 @@ import (
 
 // Response holds the response body struct for the package status
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/async_search/status/AsyncSearchStatusResponse.ts#L34-L36
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/async_search/status/AsyncSearchStatusResponse.ts#L39-L41
 
 type Response struct {
 
+	// Clusters_ Metadata about clusters involved in the cross-cluster search.
+	// Not shown for local-only searches.
+	Clusters_ *types.ClusterStatistics `json:"_clusters,omitempty"`
 	// CompletionStatus If the async search completed, this field shows the status code of the
 	// search.
 	// For example, 200 indicates that the async search was successfully completed.
 	// 503 indicates that the async search was completed with an error.
 	CompletionStatus *int `json:"completion_status,omitempty"`
+	// CompletionTime Indicates when the async search completed. Only present
+	// when the search has completed.
+	CompletionTime         types.DateTime `json:"completion_time,omitempty"`
+	CompletionTimeInMillis *int64         `json:"completion_time_in_millis,omitempty"`
 	// ExpirationTime Indicates when the async search will expire.
 	ExpirationTime         types.DateTime `json:"expiration_time,omitempty"`
 	ExpirationTimeInMillis int64          `json:"expiration_time_in_millis"`

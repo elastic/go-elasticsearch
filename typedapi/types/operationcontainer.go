@@ -16,17 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
 // OperationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/bulk/types.ts#L85-L91
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/bulk/types.ts#L145-L167
 type OperationContainer struct {
+	// Create Indexes the specified document if it does not already exist.
+	// The following line must contain the source data to be indexed.
 	Create *CreateOperation `json:"create,omitempty"`
+	// Delete Removes the specified document from the index.
 	Delete *DeleteOperation `json:"delete,omitempty"`
-	Index  *IndexOperation  `json:"index,omitempty"`
+	// Index Indexes the specified document.
+	// If the document exists, replaces the document and increments the version.
+	// The following line must contain the source data to be indexed.
+	Index *IndexOperation `json:"index,omitempty"`
+	// Update Performs a partial document update.
+	// The following line must contain the partial document and update options.
 	Update *UpdateOperation `json:"update,omitempty"`
 }
 

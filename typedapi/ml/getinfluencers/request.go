@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package getinfluencers
 
@@ -29,8 +29,11 @@ import (
 
 // Request holds the request body struct for the package getinfluencers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ml/get_influencers/MlGetInfluencersRequest.ts#L26-L93
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ml/get_influencers/MlGetInfluencersRequest.ts#L26-L97
 type Request struct {
+
+	// Page Configures pagination.
+	// This parameter has the `from` and `size` properties.
 	Page *types.Page `json:"page,omitempty"`
 }
 

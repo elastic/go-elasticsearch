@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,13 +30,16 @@ import (
 
 // GeoCentroidAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L76-L79
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/metric.ts#L116-L119
 type GeoCentroidAggregation struct {
-	Count    *int64      `json:"count,omitempty"`
+	Count *int64 `json:"count,omitempty"`
+	// Field The field on which to run the aggregation.
 	Field    *string     `json:"field,omitempty"`
 	Location GeoLocation `json:"location,omitempty"`
-	Missing  Missing     `json:"missing,omitempty"`
-	Script   Script      `json:"script,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	Script  Script  `json:"script,omitempty"`
 }
 
 func (s *GeoCentroidAggregation) UnmarshalJSON(data []byte) error {

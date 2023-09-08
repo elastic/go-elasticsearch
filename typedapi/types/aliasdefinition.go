@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,13 +30,22 @@ import (
 
 // AliasDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/AliasDefinition.ts#L22-L33
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/AliasDefinition.ts#L22-L54
 type AliasDefinition struct {
-	Filter        *Query  `json:"filter,omitempty"`
-	IndexRouting  *string `json:"index_routing,omitempty"`
-	IsHidden      *bool   `json:"is_hidden,omitempty"`
-	IsWriteIndex  *bool   `json:"is_write_index,omitempty"`
-	Routing       *string `json:"routing,omitempty"`
+	// Filter Query used to limit documents the alias can access.
+	Filter *Query `json:"filter,omitempty"`
+	// IndexRouting Value used to route indexing operations to a specific shard.
+	// If specified, this overwrites the `routing` value for indexing operations.
+	IndexRouting *string `json:"index_routing,omitempty"`
+	// IsHidden If `true`, the alias is hidden.
+	// All indices for the alias must have the same `is_hidden` value.
+	IsHidden *bool `json:"is_hidden,omitempty"`
+	// IsWriteIndex If `true`, the index is the write index for the alias.
+	IsWriteIndex *bool `json:"is_write_index,omitempty"`
+	// Routing Value used to route indexing and search operations to a specific shard.
+	Routing *string `json:"routing,omitempty"`
+	// SearchRouting Value used to route search operations to a specific shard.
+	// If specified, this overwrites the `routing` value for search operations.
 	SearchRouting *string `json:"search_routing,omitempty"`
 }
 

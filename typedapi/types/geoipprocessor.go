@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,19 +30,38 @@ import (
 
 // GeoIpProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L106-L113
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L328-L357
 type GeoIpProcessor struct {
-	DatabaseFile  *string              `json:"database_file,omitempty"`
-	Description   *string              `json:"description,omitempty"`
-	Field         string               `json:"field"`
-	FirstOnly     *bool                `json:"first_only,omitempty"`
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Properties    []string             `json:"properties,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *string              `json:"target_field,omitempty"`
+	// DatabaseFile The database filename referring to a database the module ships with
+	// (GeoLite2-City.mmdb, GeoLite2-Country.mmdb, or GeoLite2-ASN.mmdb) or a custom
+	// database in the ingest-geoip config directory.
+	DatabaseFile *string `json:"database_file,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to get the ip address from for the geographical lookup.
+	Field string `json:"field"`
+	// FirstOnly If `true`, only the first found geoip data will be returned, even if the
+	// field contains an array.
+	FirstOnly *bool `json:"first_only,omitempty"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and `field` does not exist, the processor quietly exits without
+	// modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Properties Controls what properties are added to the `target_field` based on the geoip
+	// lookup.
+	Properties []string `json:"properties,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field that will hold the geographical information looked up from the
+	// MaxMind database.
+	TargetField *string `json:"target_field,omitempty"`
 }
 
 func (s *GeoIpProcessor) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,9 +30,13 @@ import (
 
 // DataPathStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/nodes/_types/Stats.ts#L229-L246
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/nodes/_types/Stats.ts#L550-L594
 type DataPathStats struct {
-	Available            *string `json:"available,omitempty"`
+	// Available Total amount of disk space available to this Java virtual machine on this
+	// file store.
+	Available *string `json:"available,omitempty"`
+	// AvailableInBytes Total number of bytes available to this Java virtual machine on this file
+	// store.
 	AvailableInBytes     *int64  `json:"available_in_bytes,omitempty"`
 	DiskQueue            *string `json:"disk_queue,omitempty"`
 	DiskReadSize         *string `json:"disk_read_size,omitempty"`
@@ -41,13 +45,20 @@ type DataPathStats struct {
 	DiskWriteSize        *string `json:"disk_write_size,omitempty"`
 	DiskWriteSizeInBytes *int64  `json:"disk_write_size_in_bytes,omitempty"`
 	DiskWrites           *int64  `json:"disk_writes,omitempty"`
-	Free                 *string `json:"free,omitempty"`
-	FreeInBytes          *int64  `json:"free_in_bytes,omitempty"`
-	Mount                *string `json:"mount,omitempty"`
-	Path                 *string `json:"path,omitempty"`
-	Total                *string `json:"total,omitempty"`
-	TotalInBytes         *int64  `json:"total_in_bytes,omitempty"`
-	Type                 *string `json:"type,omitempty"`
+	// Free Total amount of unallocated disk space in the file store.
+	Free *string `json:"free,omitempty"`
+	// FreeInBytes Total number of unallocated bytes in the file store.
+	FreeInBytes *int64 `json:"free_in_bytes,omitempty"`
+	// Mount Mount point of the file store (for example: `/dev/sda2`).
+	Mount *string `json:"mount,omitempty"`
+	// Path Path to the file store.
+	Path *string `json:"path,omitempty"`
+	// Total Total size of the file store.
+	Total *string `json:"total,omitempty"`
+	// TotalInBytes Total size of the file store in bytes.
+	TotalInBytes *int64 `json:"total_in_bytes,omitempty"`
+	// Type Type of the file store (ex: ext4).
+	Type *string `json:"type,omitempty"`
 }
 
 func (s *DataPathStats) UnmarshalJSON(data []byte) error {

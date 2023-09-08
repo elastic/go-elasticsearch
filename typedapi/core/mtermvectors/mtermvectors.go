@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns multiple termvectors in one request.
 package mtermvectors
@@ -244,7 +244,7 @@ func (r *Mtermvectors) Header(key, value string) *Mtermvectors {
 	return r
 }
 
-// Index The index in which the document resides.
+// Index Name of the index that contains the documents.
 // API Name: index
 func (r *Mtermvectors) Index(index string) *Mtermvectors {
 	r.paramSet |= indexMask
@@ -253,8 +253,10 @@ func (r *Mtermvectors) Index(index string) *Mtermvectors {
 	return r
 }
 
-// Fields A comma-separated list of fields to return. Applies to all returned documents
-// unless otherwise specified in body "params" or "docs".
+// Fields Comma-separated list or wildcard expressions of fields to include in the
+// statistics.
+// Used as the default list unless a specific field list is provided in the
+// `completion_fields` or `fielddata_fields` parameters.
 // API name: fields
 func (r *Mtermvectors) Fields(fields ...string) *Mtermvectors {
 	r.values.Set("fields", strings.Join(fields, ","))
@@ -262,9 +264,8 @@ func (r *Mtermvectors) Fields(fields ...string) *Mtermvectors {
 	return r
 }
 
-// FieldStatistics Specifies if document count, sum of document frequencies and sum of total
-// term frequencies should be returned. Applies to all returned documents unless
-// otherwise specified in body "params" or "docs".
+// FieldStatistics If `true`, the response includes the document count, sum of document
+// frequencies, and sum of total term frequencies.
 // API name: field_statistics
 func (r *Mtermvectors) FieldStatistics(fieldstatistics bool) *Mtermvectors {
 	r.values.Set("field_statistics", strconv.FormatBool(fieldstatistics))
@@ -272,8 +273,7 @@ func (r *Mtermvectors) FieldStatistics(fieldstatistics bool) *Mtermvectors {
 	return r
 }
 
-// Offsets Specifies if term offsets should be returned. Applies to all returned
-// documents unless otherwise specified in body "params" or "docs".
+// Offsets If `true`, the response includes term offsets.
 // API name: offsets
 func (r *Mtermvectors) Offsets(offsets bool) *Mtermvectors {
 	r.values.Set("offsets", strconv.FormatBool(offsets))
@@ -281,8 +281,7 @@ func (r *Mtermvectors) Offsets(offsets bool) *Mtermvectors {
 	return r
 }
 
-// Payloads Specifies if term payloads should be returned. Applies to all returned
-// documents unless otherwise specified in body "params" or "docs".
+// Payloads If `true`, the response includes term payloads.
 // API name: payloads
 func (r *Mtermvectors) Payloads(payloads bool) *Mtermvectors {
 	r.values.Set("payloads", strconv.FormatBool(payloads))
@@ -290,8 +289,7 @@ func (r *Mtermvectors) Payloads(payloads bool) *Mtermvectors {
 	return r
 }
 
-// Positions Specifies if term positions should be returned. Applies to all returned
-// documents unless otherwise specified in body "params" or "docs".
+// Positions If `true`, the response includes term positions.
 // API name: positions
 func (r *Mtermvectors) Positions(positions bool) *Mtermvectors {
 	r.values.Set("positions", strconv.FormatBool(positions))
@@ -299,9 +297,8 @@ func (r *Mtermvectors) Positions(positions bool) *Mtermvectors {
 	return r
 }
 
-// Preference Specify the node or shard the operation should be performed on (default:
-// random) .Applies to all returned documents unless otherwise specified in body
-// "params" or "docs".
+// Preference Specifies the node or shard the operation should be performed on.
+// Random by default.
 // API name: preference
 func (r *Mtermvectors) Preference(preference string) *Mtermvectors {
 	r.values.Set("preference", preference)
@@ -309,8 +306,7 @@ func (r *Mtermvectors) Preference(preference string) *Mtermvectors {
 	return r
 }
 
-// Realtime Specifies if requests are real-time as opposed to near-real-time (default:
-// true).
+// Realtime If true, the request is real-time as opposed to near-real-time.
 // API name: realtime
 func (r *Mtermvectors) Realtime(realtime bool) *Mtermvectors {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
@@ -318,8 +314,7 @@ func (r *Mtermvectors) Realtime(realtime bool) *Mtermvectors {
 	return r
 }
 
-// Routing Specific routing value. Applies to all returned documents unless otherwise
-// specified in body "params" or "docs".
+// Routing Custom value used to route operations to a specific shard.
 // API name: routing
 func (r *Mtermvectors) Routing(routing string) *Mtermvectors {
 	r.values.Set("routing", routing)
@@ -327,9 +322,7 @@ func (r *Mtermvectors) Routing(routing string) *Mtermvectors {
 	return r
 }
 
-// TermStatistics Specifies if total term frequency and document frequency should be returned.
-// Applies to all returned documents unless otherwise specified in body "params"
-// or "docs".
+// TermStatistics If true, the response includes term frequency and document frequency.
 // API name: term_statistics
 func (r *Mtermvectors) TermStatistics(termstatistics bool) *Mtermvectors {
 	r.values.Set("term_statistics", strconv.FormatBool(termstatistics))
@@ -337,7 +330,7 @@ func (r *Mtermvectors) TermStatistics(termstatistics bool) *Mtermvectors {
 	return r
 }
 
-// Version Explicit version number for concurrency control
+// Version If `true`, returns the document version as part of a hit.
 // API name: version
 func (r *Mtermvectors) Version(versionnumber string) *Mtermvectors {
 	r.values.Set("version", versionnumber)
@@ -345,7 +338,7 @@ func (r *Mtermvectors) Version(versionnumber string) *Mtermvectors {
 	return r
 }
 
-// VersionType Specific version type
+// VersionType Specific version type.
 // API name: version_type
 func (r *Mtermvectors) VersionType(versiontype versiontype.VersionType) *Mtermvectors {
 	r.values.Set("version_type", versiontype.String())
@@ -353,6 +346,7 @@ func (r *Mtermvectors) VersionType(versiontype versiontype.VersionType) *Mtermve
 	return r
 }
 
+// Docs Array of existing or artificial documents.
 // API name: docs
 func (r *Mtermvectors) Docs(docs ...types.MTermVectorsOperation) *Mtermvectors {
 	r.req.Docs = docs
@@ -360,6 +354,8 @@ func (r *Mtermvectors) Docs(docs ...types.MTermVectorsOperation) *Mtermvectors {
 	return r
 }
 
+// Ids Simplified syntax to specify documents by their ID if they're in the same
+// index.
 // API name: ids
 func (r *Mtermvectors) Ids(ids ...string) *Mtermvectors {
 	r.req.Ids = ids

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Allows to use the Mustache language to pre-render a search definition.
 package rendersearchtemplate
@@ -246,7 +246,9 @@ func (r *RenderSearchTemplate) Header(key, value string) *RenderSearchTemplate {
 	return r
 }
 
-// Id The id of the stored search template
+// Id ID of the search template to render.
+// If no `source` is specified, this or the `id` request body parameter is
+// required.
 // API Name: id
 func (r *RenderSearchTemplate) Id(id string) *RenderSearchTemplate {
 	r.paramSet |= idMask
@@ -263,6 +265,9 @@ func (r *RenderSearchTemplate) File(file string) *RenderSearchTemplate {
 	return r
 }
 
+// Params Key-value pairs used to replace Mustache variables in the template.
+// The key is the variable name.
+// The value is the variable value.
 // API name: params
 func (r *RenderSearchTemplate) Params(params map[string]json.RawMessage) *RenderSearchTemplate {
 
@@ -271,6 +276,10 @@ func (r *RenderSearchTemplate) Params(params map[string]json.RawMessage) *Render
 	return r
 }
 
+// Source An inline search template.
+// Supports the same parameters as the search API's request body.
+// These parameters also support Mustache variables.
+// If no `id` or `<templated-id>` is specified, this parameter is required.
 // API name: source
 func (r *RenderSearchTemplate) Source(source string) *RenderSearchTemplate {
 

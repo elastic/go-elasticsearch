@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,9 +30,11 @@ import (
 
 // WeightedAverageValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L218-L222
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/metric.ts#L448-L458
 type WeightedAverageValue struct {
-	Field   *string  `json:"field,omitempty"`
+	// Field The field from which to extract the values or weights.
+	Field *string `json:"field,omitempty"`
+	// Missing A value or weight to use if the field is missing.
 	Missing *Float64 `json:"missing,omitempty"`
 	Script  Script   `json:"script,omitempty"`
 }

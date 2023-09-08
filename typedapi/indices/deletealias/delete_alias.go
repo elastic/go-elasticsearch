@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Deletes an alias.
 package deletealias
@@ -230,8 +230,8 @@ func (r *DeleteAlias) Header(key, value string) *DeleteAlias {
 	return r
 }
 
-// Index A comma-separated list of index names (supports wildcards); use `_all` for
-// all indices
+// Index Comma-separated list of data streams or indices used to limit the request.
+// Supports wildcards (`*`).
 // API Name: index
 func (r *DeleteAlias) Index(index string) *DeleteAlias {
 	r.paramSet |= indexMask
@@ -240,8 +240,8 @@ func (r *DeleteAlias) Index(index string) *DeleteAlias {
 	return r
 }
 
-// Name A comma-separated list of aliases to delete (supports wildcards); use `_all`
-// to delete all aliases for the specified indices.
+// Name Comma-separated list of aliases to remove.
+// Supports wildcards (`*`). To remove all aliases, use `*` or `_all`.
 // API Name: name
 func (r *DeleteAlias) Name(name string) *DeleteAlias {
 	r.paramSet |= nameMask
@@ -250,7 +250,9 @@ func (r *DeleteAlias) Name(name string) *DeleteAlias {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *DeleteAlias) MasterTimeout(duration string) *DeleteAlias {
 	r.values.Set("master_timeout", duration)
@@ -258,7 +260,9 @@ func (r *DeleteAlias) MasterTimeout(duration string) *DeleteAlias {
 	return r
 }
 
-// Timeout Explicit timestamp for the document
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *DeleteAlias) Timeout(duration string) *DeleteAlias {
 	r.values.Set("timeout", duration)

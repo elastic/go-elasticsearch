@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,13 +32,17 @@ import (
 
 // MatrixStatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/matrix.ts#L31-L33
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/matrix.ts#L38-L44
 type MatrixStatsAggregation struct {
-	Fields  []string           `json:"fields,omitempty"`
-	Meta    Metadata           `json:"meta,omitempty"`
+	// Fields An array of fields for computing the statistics.
+	Fields []string `json:"fields,omitempty"`
+	Meta   Metadata `json:"meta,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
 	Missing map[string]Float64 `json:"missing,omitempty"`
-	Mode    *sortmode.SortMode `json:"mode,omitempty"`
-	Name    *string            `json:"name,omitempty"`
+	// Mode Array value the aggregation will use for array or multi-valued fields.
+	Mode *sortmode.SortMode `json:"mode,omitempty"`
+	Name *string            `json:"name,omitempty"`
 }
 
 func (s *MatrixStatsAggregation) UnmarshalJSON(data []byte) error {

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
-// Updates the data lifecycle of the selected data streams.
+// Updates the data stream lifecycle of the selected data streams.
 package putdatalifecycle
 
 import (
@@ -77,9 +77,9 @@ func NewPutDataLifecycleFunc(tp elastictransport.Interface) NewPutDataLifecycle 
 	}
 }
 
-// Updates the data lifecycle of the selected data streams.
+// Updates the data stream lifecycle of the selected data streams.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-put-lifecycle.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html
 func New(tp elastictransport.Interface) *PutDataLifecycle {
 	r := &PutDataLifecycle{
 		transport: tp,
@@ -236,8 +236,9 @@ func (r *PutDataLifecycle) Header(key, value string) *PutDataLifecycle {
 	return r
 }
 
-// Name A comma-separated list of data streams whose lifecycle will be updated; use
-// `*` to set the lifecycle to all data streams
+// Name Comma-separated list of data streams used to limit the request.
+// Supports wildcards (`*`).
+// To target all data streams use `*` or `_all`.
 // API Name: name
 func (r *PutDataLifecycle) Name(name string) *PutDataLifecycle {
 	r.paramSet |= nameMask
@@ -246,8 +247,9 @@ func (r *PutDataLifecycle) Name(name string) *PutDataLifecycle {
 	return r
 }
 
-// ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
-// (default: open)
+// ExpandWildcards Type of data stream that wildcard patterns can match.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `hidden`, `open`, `closed`, `none`.
 // API name: expand_wildcards
 func (r *PutDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutDataLifecycle {
 	tmp := []string{}
@@ -259,7 +261,9 @@ func (r *PutDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.Exp
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an
+// error.
 // API name: master_timeout
 func (r *PutDataLifecycle) MasterTimeout(duration string) *PutDataLifecycle {
 	r.values.Set("master_timeout", duration)
@@ -267,7 +271,9 @@ func (r *PutDataLifecycle) MasterTimeout(duration string) *PutDataLifecycle {
 	return r
 }
 
-// Timeout Explicit timestamp for the document
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *PutDataLifecycle) Timeout(duration string) *PutDataLifecycle {
 	r.values.Set("timeout", duration)
@@ -275,9 +281,24 @@ func (r *PutDataLifecycle) Timeout(duration string) *PutDataLifecycle {
 	return r
 }
 
+// DataRetention If defined, every document added to this data stream will be stored at least
+// for this time frame.
+// Any time after this duration the document could be deleted.
+// When empty, every document in this data stream will be stored indefinitely.
 // API name: data_retention
 func (r *PutDataLifecycle) DataRetention(duration types.Duration) *PutDataLifecycle {
 	r.req.DataRetention = duration
+
+	return r
+}
+
+// Downsampling If defined, every backing index will execute the configured downsampling
+// configuration after the backing
+// index is not the data stream write index anymore.
+// API name: downsampling
+func (r *PutDataLifecycle) Downsampling(downsampling *types.DataStreamLifecycleDownsampling) *PutDataLifecycle {
+
+	r.req.Downsampling = downsampling
 
 	return r
 }

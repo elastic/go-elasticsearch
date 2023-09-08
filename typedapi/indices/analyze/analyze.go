@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Performs the analysis process on a text and return the tokens breakdown of
 // the text.
@@ -78,7 +78,7 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 // Performs the analysis process on a text and return the tokens breakdown of
 // the text.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-analyze.html
 func New(tp elastictransport.Interface) *Analyze {
 	r := &Analyze{
 		transport: tp,
@@ -244,7 +244,10 @@ func (r *Analyze) Header(key, value string) *Analyze {
 	return r
 }
 
-// Index The name of the index to scope the operation
+// Index Index used to derive the analyzer.
+// If specified, the `analyzer` or field parameter overrides this value.
+// If no index is specified or the index does not have a default analyzer, the
+// analyze API uses the standard analyzer.
 // API Name: index
 func (r *Analyze) Index(index string) *Analyze {
 	r.paramSet |= indexMask
@@ -253,6 +256,9 @@ func (r *Analyze) Index(index string) *Analyze {
 	return r
 }
 
+// Analyzer The name of the analyzer that should be applied to the provided `text`.
+// This could be a built-in analyzer, or an analyzer that’s been configured in
+// the index.
 // API name: analyzer
 func (r *Analyze) Analyzer(analyzer string) *Analyze {
 
@@ -261,6 +267,8 @@ func (r *Analyze) Analyzer(analyzer string) *Analyze {
 	return r
 }
 
+// Attributes Array of token attributes used to filter the output of the `explain`
+// parameter.
 // API name: attributes
 func (r *Analyze) Attributes(attributes ...string) *Analyze {
 	r.req.Attributes = attributes
@@ -268,6 +276,8 @@ func (r *Analyze) Attributes(attributes ...string) *Analyze {
 	return r
 }
 
+// CharFilter Array of character filters used to preprocess characters before the
+// tokenizer.
 // API name: char_filter
 func (r *Analyze) CharFilter(charfilters ...types.CharFilter) *Analyze {
 	r.req.CharFilter = charfilters
@@ -275,6 +285,7 @@ func (r *Analyze) CharFilter(charfilters ...types.CharFilter) *Analyze {
 	return r
 }
 
+// Explain If `true`, the response includes token attributes and additional details.
 // API name: explain
 func (r *Analyze) Explain(explain bool) *Analyze {
 	r.req.Explain = &explain
@@ -282,6 +293,9 @@ func (r *Analyze) Explain(explain bool) *Analyze {
 	return r
 }
 
+// Field Field used to derive the analyzer.
+// To use this parameter, you must specify an index.
+// If specified, the `analyzer` parameter overrides this value.
 // API name: field
 func (r *Analyze) Field(field string) *Analyze {
 	r.req.Field = &field
@@ -289,6 +303,7 @@ func (r *Analyze) Field(field string) *Analyze {
 	return r
 }
 
+// Filter Array of token filters used to apply after the tokenizer.
 // API name: filter
 func (r *Analyze) Filter(filters ...types.TokenFilter) *Analyze {
 	r.req.Filter = filters
@@ -296,6 +311,7 @@ func (r *Analyze) Filter(filters ...types.TokenFilter) *Analyze {
 	return r
 }
 
+// Normalizer Normalizer to use to convert text into a single token.
 // API name: normalizer
 func (r *Analyze) Normalizer(normalizer string) *Analyze {
 
@@ -304,6 +320,8 @@ func (r *Analyze) Normalizer(normalizer string) *Analyze {
 	return r
 }
 
+// Text Text to analyze.
+// If an array of strings is provided, it is analyzed as a multi-value field.
 // API name: text
 func (r *Analyze) Text(texttoanalyzes ...string) *Analyze {
 	r.req.Text = texttoanalyzes
@@ -311,6 +329,7 @@ func (r *Analyze) Text(texttoanalyzes ...string) *Analyze {
 	return r
 }
 
+// Tokenizer Tokenizer to use to convert text into tokens.
 // API name: tokenizer
 func (r *Analyze) Tokenizer(tokenizer types.Tokenizer) *Analyze {
 	r.req.Tokenizer = tokenizer

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package clearapikeycache
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package clearapikeycache
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/security/clear_api_key_cache/SecurityClearApiKeyCacheResponse.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/security/clear_api_key_cache/SecurityClearApiKeyCacheResponse.ts#L25-L32
 
 type Response struct {
 	ClusterName string                       `json:"cluster_name"`

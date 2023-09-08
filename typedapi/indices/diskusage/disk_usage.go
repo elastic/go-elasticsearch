@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Analyzes the disk usage of each field of an index or data stream
 package diskusage
@@ -77,7 +77,7 @@ func NewDiskUsageFunc(tp elastictransport.Interface) NewDiskUsage {
 
 // Analyzes the disk usage of each field of an index or data stream
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-disk-usage.html
 func New(tp elastictransport.Interface) *DiskUsage {
 	r := &DiskUsage{
 		transport: tp,
@@ -214,9 +214,9 @@ func (r *DiskUsage) Header(key, value string) *DiskUsage {
 }
 
 // Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request. It’s recommended to execute this API with a single index (or the
-// latest backing index of a data stream) as the API consumes resources
-// significantly.
+// request.
+// It’s recommended to execute this API with a single index (or the latest
+// backing index of a data stream) as the API consumes resources significantly.
 // API Name: index
 func (r *DiskUsage) Index(index string) *DiskUsage {
 	r.paramSet |= indexMask
@@ -226,10 +226,10 @@ func (r *DiskUsage) Index(index string) *DiskUsage {
 }
 
 // AllowNoIndices If false, the request returns an error if any wildcard expression, index
-// alias, or _all value targets only missing or closed indices. This behavior
-// applies even if the request targets other open indices. For example, a
-// request targeting foo*,bar* returns an error if an index starts with foo but
-// no index starts with bar.
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
+// For example, a request targeting `foo*,bar*` returns an error if an index
+// starts with `foo` but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *DiskUsage) AllowNoIndices(allownoindices bool) *DiskUsage {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -237,9 +237,10 @@ func (r *DiskUsage) AllowNoIndices(allownoindices bool) *DiskUsage {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-// data streams, this argument determines whether wildcard expressions match
-// hidden data streams. Supports comma-separated values, such as open,hidden.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *DiskUsage) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *DiskUsage {
 	tmp := []string{}
@@ -251,8 +252,8 @@ func (r *DiskUsage) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWild
 	return r
 }
 
-// Flush If true, the API performs a flush before analysis. If false, the response may
-// not include uncommitted data.
+// Flush If `true`, the API performs a flush before analysis.
+// If `false`, the response may not include uncommitted data.
 // API name: flush
 func (r *DiskUsage) Flush(flush bool) *DiskUsage {
 	r.values.Set("flush", strconv.FormatBool(flush))
@@ -260,7 +261,7 @@ func (r *DiskUsage) Flush(flush bool) *DiskUsage {
 	return r
 }
 
-// IgnoreUnavailable If true, missing or closed indices are not included in the response.
+// IgnoreUnavailable If `true`, missing or closed indices are not included in the response.
 // API name: ignore_unavailable
 func (r *DiskUsage) IgnoreUnavailable(ignoreunavailable bool) *DiskUsage {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -268,8 +269,8 @@ func (r *DiskUsage) IgnoreUnavailable(ignoreunavailable bool) *DiskUsage {
 	return r
 }
 
-// RunExpensiveTasks Analyzing field disk usage is resource-intensive. To use the API, this
-// parameter must be set to true.
+// RunExpensiveTasks Analyzing field disk usage is resource-intensive.
+// To use the API, this parameter must be set to `true`.
 // API name: run_expensive_tasks
 func (r *DiskUsage) RunExpensiveTasks(runexpensivetasks bool) *DiskUsage {
 	r.values.Set("run_expensive_tasks", strconv.FormatBool(runexpensivetasks))

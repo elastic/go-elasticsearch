@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,13 +30,23 @@ import (
 
 // TermsSetQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/term.ts#L144-L148
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/term.ts#L249-L262
 type TermsSetQuery struct {
-	Boost                    *float32 `json:"boost,omitempty"`
-	MinimumShouldMatchField  *string  `json:"minimum_should_match_field,omitempty"`
-	MinimumShouldMatchScript Script   `json:"minimum_should_match_script,omitempty"`
-	QueryName_               *string  `json:"_name,omitempty"`
-	Terms                    []string `json:"terms"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// MinimumShouldMatchField Numeric field containing the number of matching terms required to return a
+	// document.
+	MinimumShouldMatchField *string `json:"minimum_should_match_field,omitempty"`
+	// MinimumShouldMatchScript Custom script containing the number of matching terms required to return a
+	// document.
+	MinimumShouldMatchScript Script  `json:"minimum_should_match_script,omitempty"`
+	QueryName_               *string `json:"_name,omitempty"`
+	// Terms Array of terms you wish to find in the provided field.
+	Terms []string `json:"terms"`
 }
 
 func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {

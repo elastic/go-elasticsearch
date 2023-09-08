@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,15 +32,20 @@ import (
 
 // ExtendedStatsBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/pipeline.ts#L167-L169
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/pipeline.ts#L198-L203
 type ExtendedStatsBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
-	BucketsPath BucketsPath          `json:"buckets_path,omitempty"`
-	Format      *string              `json:"format,omitempty"`
-	GapPolicy   *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta        Metadata             `json:"meta,omitempty"`
-	Name        *string              `json:"name,omitempty"`
-	Sigma       *Float64             `json:"sigma,omitempty"`
+	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
+	// Format `DecimalFormat` pattern for the output value.
+	// If specified, the formatted value is returned in the aggregation’s
+	// `value_as_string` property.
+	Format *string `json:"format,omitempty"`
+	// GapPolicy Policy to apply when gaps are found in the data.
+	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
+	Meta      Metadata             `json:"meta,omitempty"`
+	Name      *string              `json:"name,omitempty"`
+	// Sigma The number of standard deviations above/below the mean to display.
+	Sigma *Float64 `json:"sigma,omitempty"`
 }
 
 func (s *ExtendedStatsBucketAggregation) UnmarshalJSON(data []byte) error {

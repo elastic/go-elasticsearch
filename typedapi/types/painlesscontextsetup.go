@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -29,11 +29,16 @@ import (
 
 // PainlessContextSetup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/scripts_painless_execute/types.ts#L25-L29
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/scripts_painless_execute/types.ts#L25-L39
 type PainlessContextSetup struct {
+	// Document Document that’s temporarily indexed in-memory and accessible from the script.
 	Document json.RawMessage `json:"document,omitempty"`
-	Index    string          `json:"index"`
-	Query    Query           `json:"query"`
+	// Index Index containing a mapping that’s compatible with the indexed document.
+	// You may specify a remote index by prefixing the index with the remote cluster
+	// alias.
+	Index string `json:"index"`
+	// Query Use this parameter to specify a query for computing a score.
+	Query Query `json:"query"`
 }
 
 func (s *PainlessContextSetup) UnmarshalJSON(data []byte) error {

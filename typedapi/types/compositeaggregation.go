@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,12 +30,17 @@ import (
 
 // CompositeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L79-L84
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L120-L136
 type CompositeAggregation struct {
-	After   CompositeAggregateKey                   `json:"after,omitempty"`
-	Meta    Metadata                                `json:"meta,omitempty"`
-	Name    *string                                 `json:"name,omitempty"`
-	Size    *int                                    `json:"size,omitempty"`
+	// After When paginating, use the `after_key` value returned in the previous response
+	// to retrieve the next page.
+	After CompositeAggregateKey `json:"after,omitempty"`
+	Meta  Metadata              `json:"meta,omitempty"`
+	Name  *string               `json:"name,omitempty"`
+	// Size The number of composite buckets that should be returned.
+	Size *int `json:"size,omitempty"`
+	// Sources The value sources used to build composite buckets.
+	// Keys are returned in the order of the `sources` definition.
 	Sources []map[string]CompositeAggregationSource `json:"sources,omitempty"`
 }
 

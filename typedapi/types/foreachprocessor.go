@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,16 +30,27 @@ import (
 
 // ForeachProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L215-L219
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L645-L659
 type ForeachProcessor struct {
-	Description   *string              `json:"description,omitempty"`
-	Field         string               `json:"field"`
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Processor     *ProcessorContainer  `json:"processor,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field Field containing array or object values.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true`, the processor silently exits without changing the document if the
+	// `field` is `null` or missing.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Processor Ingest processor to run on each element.
+	Processor *ProcessorContainer `json:"processor,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
 }
 
 func (s *ForeachProcessor) UnmarshalJSON(data []byte) error {

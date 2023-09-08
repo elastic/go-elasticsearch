@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,14 +30,25 @@ import (
 
 // IoStatDevice type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/nodes/_types/Stats.ts#L298-L305
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/nodes/_types/Stats.ts#L730-L755
 type IoStatDevice struct {
-	DeviceName      *string `json:"device_name,omitempty"`
-	Operations      *int64  `json:"operations,omitempty"`
-	ReadKilobytes   *int64  `json:"read_kilobytes,omitempty"`
-	ReadOperations  *int64  `json:"read_operations,omitempty"`
-	WriteKilobytes  *int64  `json:"write_kilobytes,omitempty"`
-	WriteOperations *int64  `json:"write_operations,omitempty"`
+	// DeviceName The Linux device name.
+	DeviceName *string `json:"device_name,omitempty"`
+	// Operations The total number of read and write operations for the device completed since
+	// starting Elasticsearch.
+	Operations *int64 `json:"operations,omitempty"`
+	// ReadKilobytes The total number of kilobytes read for the device since starting
+	// Elasticsearch.
+	ReadKilobytes *int64 `json:"read_kilobytes,omitempty"`
+	// ReadOperations The total number of read operations for the device completed since starting
+	// Elasticsearch.
+	ReadOperations *int64 `json:"read_operations,omitempty"`
+	// WriteKilobytes The total number of kilobytes written for the device since starting
+	// Elasticsearch.
+	WriteKilobytes *int64 `json:"write_kilobytes,omitempty"`
+	// WriteOperations The total number of write operations for the device completed since starting
+	// Elasticsearch.
+	WriteOperations *int64 `json:"write_operations,omitempty"`
 }
 
 func (s *IoStatDevice) UnmarshalJSON(data []byte) error {

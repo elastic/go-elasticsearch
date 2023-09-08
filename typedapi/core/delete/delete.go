@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Removes a document from the index.
 package delete
@@ -245,7 +245,7 @@ func (r *Delete) Header(key, value string) *Delete {
 	return r
 }
 
-// Id The document ID
+// Id Unique identifier for the document.
 // API Name: id
 func (r *Delete) Id(id string) *Delete {
 	r.paramSet |= idMask
@@ -254,7 +254,7 @@ func (r *Delete) Id(id string) *Delete {
 	return r
 }
 
-// Index The name of the index
+// Index Name of the target index.
 // API Name: index
 func (r *Delete) Index(index string) *Delete {
 	r.paramSet |= indexMask
@@ -263,8 +263,7 @@ func (r *Delete) Index(index string) *Delete {
 	return r
 }
 
-// IfPrimaryTerm only perform the delete operation if the last operation that has changed the
-// document has the specified primary term
+// IfPrimaryTerm Only perform the operation if the document has this primary term.
 // API name: if_primary_term
 func (r *Delete) IfPrimaryTerm(ifprimaryterm string) *Delete {
 	r.values.Set("if_primary_term", ifprimaryterm)
@@ -272,8 +271,7 @@ func (r *Delete) IfPrimaryTerm(ifprimaryterm string) *Delete {
 	return r
 }
 
-// IfSeqNo only perform the delete operation if the last operation that has changed the
-// document has the specified sequence number
+// IfSeqNo Only perform the operation if the document has this sequence number.
 // API name: if_seq_no
 func (r *Delete) IfSeqNo(sequencenumber string) *Delete {
 	r.values.Set("if_seq_no", sequencenumber)
@@ -281,9 +279,10 @@ func (r *Delete) IfSeqNo(sequencenumber string) *Delete {
 	return r
 }
 
-// Refresh If `true` then refresh the affected shards to make this operation visible to
-// search, if `wait_for` then wait for a refresh to make this operation visible
-// to search, if `false` (the default) then do nothing with refreshes.
+// Refresh If `true`, Elasticsearch refreshes the affected shards to make this operation
+// visible to search, if `wait_for` then wait for a refresh to make this
+// operation visible to search, if `false` do nothing with refreshes.
+// Valid values: `true`, `false`, `wait_for`.
 // API name: refresh
 func (r *Delete) Refresh(refresh refresh.Refresh) *Delete {
 	r.values.Set("refresh", refresh.String())
@@ -291,7 +290,7 @@ func (r *Delete) Refresh(refresh refresh.Refresh) *Delete {
 	return r
 }
 
-// Routing Specific routing value
+// Routing Custom value used to route operations to a specific shard.
 // API name: routing
 func (r *Delete) Routing(routing string) *Delete {
 	r.values.Set("routing", routing)
@@ -299,7 +298,7 @@ func (r *Delete) Routing(routing string) *Delete {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for active shards.
 // API name: timeout
 func (r *Delete) Timeout(duration string) *Delete {
 	r.values.Set("timeout", duration)
@@ -307,7 +306,9 @@ func (r *Delete) Timeout(duration string) *Delete {
 	return r
 }
 
-// Version Explicit version number for concurrency control
+// Version Explicit version number for concurrency control.
+// The specified version must match the current version of the document for the
+// request to succeed.
 // API name: version
 func (r *Delete) Version(versionnumber string) *Delete {
 	r.values.Set("version", versionnumber)
@@ -315,7 +316,7 @@ func (r *Delete) Version(versionnumber string) *Delete {
 	return r
 }
 
-// VersionType Specific version type
+// VersionType Specific version type: `external`, `external_gte`.
 // API name: version_type
 func (r *Delete) VersionType(versiontype versiontype.VersionType) *Delete {
 	r.values.Set("version_type", versiontype.String())
@@ -323,10 +324,10 @@ func (r *Delete) VersionType(versiontype versiontype.VersionType) *Delete {
 	return r
 }
 
-// WaitForActiveShards Sets the number of shard copies that must be active before proceeding with
-// the delete operation. Defaults to 1, meaning the primary shard only. Set to
-// `all` for all shard copies, otherwise set to any non-negative value less than
-// or equal to the total number of copies for the shard (number of replicas + 1)
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to `all` or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Delete) WaitForActiveShards(waitforactiveshards string) *Delete {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)

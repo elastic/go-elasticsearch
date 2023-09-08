@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -29,11 +29,15 @@ import (
 
 // FieldLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/abstractions.ts#L173-L178
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/abstractions.ts#L393-L410
 type FieldLookup struct {
-	Id      string  `json:"id"`
-	Index   *string `json:"index,omitempty"`
-	Path    *string `json:"path,omitempty"`
+	// Id `id` of the document.
+	Id string `json:"id"`
+	// Index Index from which to retrieve the document.
+	Index *string `json:"index,omitempty"`
+	// Path Name of the field.
+	Path *string `json:"path,omitempty"`
+	// Routing Custom routing value.
 	Routing *string `json:"routing,omitempty"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,14 +30,22 @@ import (
 
 // Breaker type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/nodes/_types/Stats.ts#L179-L186
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/nodes/_types/Stats.ts#L434-L459
 type Breaker struct {
-	EstimatedSize        *string  `json:"estimated_size,omitempty"`
-	EstimatedSizeInBytes *int64   `json:"estimated_size_in_bytes,omitempty"`
-	LimitSize            *string  `json:"limit_size,omitempty"`
-	LimitSizeInBytes     *int64   `json:"limit_size_in_bytes,omitempty"`
-	Overhead             *float32 `json:"overhead,omitempty"`
-	Tripped              *float32 `json:"tripped,omitempty"`
+	// EstimatedSize Estimated memory used for the operation.
+	EstimatedSize *string `json:"estimated_size,omitempty"`
+	// EstimatedSizeInBytes Estimated memory used, in bytes, for the operation.
+	EstimatedSizeInBytes *int64 `json:"estimated_size_in_bytes,omitempty"`
+	// LimitSize Memory limit for the circuit breaker.
+	LimitSize *string `json:"limit_size,omitempty"`
+	// LimitSizeInBytes Memory limit, in bytes, for the circuit breaker.
+	LimitSizeInBytes *int64 `json:"limit_size_in_bytes,omitempty"`
+	// Overhead A constant that all estimates for the circuit breaker are multiplied with to
+	// calculate a final estimate.
+	Overhead *float32 `json:"overhead,omitempty"`
+	// Tripped Total number of times the circuit breaker has been triggered and prevented an
+	// out of memory error.
+	Tripped *float32 `json:"tripped,omitempty"`
 }
 
 func (s *Breaker) UnmarshalJSON(data []byte) error {

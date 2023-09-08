@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,24 +30,49 @@ import (
 
 // KeyValueProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L286-L298
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L845-L897
 type KeyValueProcessor struct {
-	Description   *string              `json:"description,omitempty"`
-	ExcludeKeys   []string             `json:"exclude_keys,omitempty"`
-	Field         string               `json:"field"`
-	FieldSplit    string               `json:"field_split"`
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
-	IncludeKeys   []string             `json:"include_keys,omitempty"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Prefix        *string              `json:"prefix,omitempty"`
-	StripBrackets *bool                `json:"strip_brackets,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *string              `json:"target_field,omitempty"`
-	TrimKey       *string              `json:"trim_key,omitempty"`
-	TrimValue     *string              `json:"trim_value,omitempty"`
-	ValueSplit    string               `json:"value_split"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// ExcludeKeys List of keys to exclude from document.
+	ExcludeKeys []string `json:"exclude_keys,omitempty"`
+	// Field The field to be parsed.
+	// Supports template snippets.
+	Field string `json:"field"`
+	// FieldSplit Regex pattern to use for splitting key-value pairs.
+	FieldSplit string `json:"field_split"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and `field` does not exist or is `null`, the processor quietly
+	// exits without modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// IncludeKeys List of keys to filter and insert into document.
+	// Defaults to including all keys.
+	IncludeKeys []string `json:"include_keys,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Prefix Prefix to be added to extracted keys.
+	Prefix *string `json:"prefix,omitempty"`
+	// StripBrackets If `true`. strip brackets `()`, `<>`, `[]` as well as quotes `'` and `"` from
+	// extracted values.
+	StripBrackets *bool `json:"strip_brackets,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field to insert the extracted keys into.
+	// Defaults to the root of the document.
+	// Supports template snippets.
+	TargetField *string `json:"target_field,omitempty"`
+	// TrimKey String of characters to trim from extracted keys.
+	TrimKey *string `json:"trim_key,omitempty"`
+	// TrimValue String of characters to trim from extracted values.
+	TrimValue *string `json:"trim_value,omitempty"`
+	// ValueSplit Regex pattern to use for splitting the key from the value within a key-value
+	// pair.
+	ValueSplit string `json:"value_split"`
 }
 
 func (s *KeyValueProcessor) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Creates an index with optional settings and mappings.
 package create
@@ -78,7 +78,7 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 
 // Creates an index with optional settings and mappings.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-create-index.html
 func New(tp elastictransport.Interface) *Create {
 	r := &Create{
 		transport: tp,
@@ -237,7 +237,7 @@ func (r *Create) Header(key, value string) *Create {
 	return r
 }
 
-// Index The name of the index
+// Index Name of the index you wish to create.
 // API Name: index
 func (r *Create) Index(index string) *Create {
 	r.paramSet |= indexMask
@@ -246,7 +246,9 @@ func (r *Create) Index(index string) *Create {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Create) MasterTimeout(duration string) *Create {
 	r.values.Set("master_timeout", duration)
@@ -254,7 +256,9 @@ func (r *Create) MasterTimeout(duration string) *Create {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Create) Timeout(duration string) *Create {
 	r.values.Set("timeout", duration)
@@ -262,7 +266,10 @@ func (r *Create) Timeout(duration string) *Create {
 	return r
 }
 
-// WaitForActiveShards Set the number of active shards to wait for before the operation returns.
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to `all` or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Create) WaitForActiveShards(waitforactiveshards string) *Create {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -270,6 +277,7 @@ func (r *Create) WaitForActiveShards(waitforactiveshards string) *Create {
 	return r
 }
 
+// Aliases Aliases for the index.
 // API name: aliases
 func (r *Create) Aliases(aliases map[string]types.Alias) *Create {
 
@@ -290,6 +298,7 @@ func (r *Create) Mappings(mappings *types.TypeMapping) *Create {
 	return r
 }
 
+// Settings Configuration options for the index.
 // API name: settings
 func (r *Create) Settings(settings *types.IndexSettings) *Create {
 

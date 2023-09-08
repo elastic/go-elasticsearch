@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,17 +30,30 @@ import (
 
 // InferenceProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L237-L242
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L714-L733
 type InferenceProcessor struct {
-	Description     *string                    `json:"description,omitempty"`
-	FieldMap        map[string]json.RawMessage `json:"field_map,omitempty"`
-	If              *string                    `json:"if,omitempty"`
-	IgnoreFailure   *bool                      `json:"ignore_failure,omitempty"`
-	InferenceConfig *InferenceConfig           `json:"inference_config,omitempty"`
-	ModelId         string                     `json:"model_id"`
-	OnFailure       []ProcessorContainer       `json:"on_failure,omitempty"`
-	Tag             *string                    `json:"tag,omitempty"`
-	TargetField     *string                    `json:"target_field,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// FieldMap Maps the document field names to the known field names of the model.
+	// This mapping takes precedence over any default mappings provided in the model
+	// configuration.
+	FieldMap map[string]json.RawMessage `json:"field_map,omitempty"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// InferenceConfig Contains the inference type and its options.
+	InferenceConfig *InferenceConfig `json:"inference_config,omitempty"`
+	// ModelId The ID or alias for the trained model, or the ID of the deployment.
+	ModelId string `json:"model_id"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField Field added to incoming documents to contain results objects.
+	TargetField *string `json:"target_field,omitempty"`
 }
 
 func (s *InferenceProcessor) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns a document.
 package get
@@ -272,7 +272,7 @@ func (r *Get) Preference(preference string) *Get {
 	return r
 }
 
-// Realtime Boolean) If true, the request is real-time as opposed to near-real-time.
+// Realtime If `true`, the request is real-time as opposed to near-real-time.
 // API name: realtime
 func (r *Get) Realtime(realtime bool) *Get {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
@@ -322,7 +322,9 @@ func (r *Get) SourceIncludes_(fields ...string) *Get {
 	return r
 }
 
-// StoredFields A comma-separated list of stored fields to return in the response
+// StoredFields List of stored fields to return as part of a hit.
+// If no fields are specified, no stored fields are included in the response.
+// If this field is specified, the `_source` parameter defaults to false.
 // API name: stored_fields
 func (r *Get) StoredFields(fields ...string) *Get {
 	r.values.Set("stored_fields", strings.Join(fields, ","))

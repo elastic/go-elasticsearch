@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Creates or updates a search application.
 package put
@@ -240,7 +240,7 @@ func (r *Put) Header(key, value string) *Put {
 	return r
 }
 
-// Name The name of the search application to be created or updated
+// Name The name of the search application to be created or updated.
 // API Name: name
 func (r *Put) Name(name string) *Put {
 	r.paramSet |= nameMask
@@ -249,8 +249,8 @@ func (r *Put) Name(name string) *Put {
 	return r
 }
 
-// Create If true, requires that a search application with the specified resource_id
-// does not already exist. (default: false)
+// Create If `true`, this request cannot replace or update existing Search
+// Applications.
 // API name: create
 func (r *Put) Create(create bool) *Put {
 	r.values.Set("create", strconv.FormatBool(create))

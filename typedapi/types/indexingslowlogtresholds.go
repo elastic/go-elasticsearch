@@ -16,52 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"io"
-)
-
-// DataLifecycle type.
+// IndexingSlowlogTresholds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/DataLifecycle.ts#L24-L29
-type DataLifecycle struct {
-	DataRetention Duration `json:"data_retention,omitempty"`
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/IndexSettings.ts#L554-L561
+type IndexingSlowlogTresholds struct {
+	// Index The indexing slow log, similar in functionality to the search slow log. The
+	// log file name ends with `_index_indexing_slowlog.json`.
+	// Log and the thresholds are configured in the same way as the search slowlog.
+	Index *SlowlogTresholdLevels `json:"index,omitempty"`
 }
 
-func (s *DataLifecycle) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "data_retention":
-			if err := dec.Decode(&s.DataRetention); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
-}
-
-// NewDataLifecycle returns a DataLifecycle.
-func NewDataLifecycle() *DataLifecycle {
-	r := &DataLifecycle{}
+// NewIndexingSlowlogTresholds returns a IndexingSlowlogTresholds.
+func NewIndexingSlowlogTresholds() *IndexingSlowlogTresholds {
+	r := &IndexingSlowlogTresholds{}
 
 	return r
 }

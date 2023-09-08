@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -28,22 +28,22 @@ import (
 	"strconv"
 )
 
-// DataLifecycleExplain type.
+// DataStreamLifecycleExplain type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L41
-type DataLifecycleExplain struct {
-	Error                   *string                    `json:"error,omitempty"`
-	GenerationTime          Duration                   `json:"generation_time,omitempty"`
-	Index                   string                     `json:"index"`
-	IndexCreationDateMillis *int64                     `json:"index_creation_date_millis,omitempty"`
-	Lifecycle               *DataLifecycleWithRollover `json:"lifecycle,omitempty"`
-	ManagedByDlm            bool                       `json:"managed_by_dlm"`
-	RolloverDateMillis      *int64                     `json:"rollover_date_millis,omitempty"`
-	TimeSinceIndexCreation  Duration                   `json:"time_since_index_creation,omitempty"`
-	TimeSinceRollover       Duration                   `json:"time_since_rollover,omitempty"`
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L41
+type DataStreamLifecycleExplain struct {
+	Error                   *string                          `json:"error,omitempty"`
+	GenerationTime          Duration                         `json:"generation_time,omitempty"`
+	Index                   string                           `json:"index"`
+	IndexCreationDateMillis *int64                           `json:"index_creation_date_millis,omitempty"`
+	Lifecycle               *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
+	ManagedByLifecycle      bool                             `json:"managed_by_lifecycle"`
+	RolloverDateMillis      *int64                           `json:"rollover_date_millis,omitempty"`
+	TimeSinceIndexCreation  Duration                         `json:"time_since_index_creation,omitempty"`
+	TimeSinceRollover       Duration                         `json:"time_since_rollover,omitempty"`
 }
 
-func (s *DataLifecycleExplain) UnmarshalJSON(data []byte) error {
+func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -90,7 +90,7 @@ func (s *DataLifecycleExplain) UnmarshalJSON(data []byte) error {
 				return err
 			}
 
-		case "managed_by_dlm":
+		case "managed_by_lifecycle":
 			var tmp interface{}
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
@@ -99,9 +99,9 @@ func (s *DataLifecycleExplain) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return err
 				}
-				s.ManagedByDlm = value
+				s.ManagedByLifecycle = value
 			case bool:
-				s.ManagedByDlm = v
+				s.ManagedByLifecycle = v
 			}
 
 		case "rollover_date_millis":
@@ -124,9 +124,9 @@ func (s *DataLifecycleExplain) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewDataLifecycleExplain returns a DataLifecycleExplain.
-func NewDataLifecycleExplain() *DataLifecycleExplain {
-	r := &DataLifecycleExplain{}
+// NewDataStreamLifecycleExplain returns a DataStreamLifecycleExplain.
+func NewDataStreamLifecycleExplain() *DataStreamLifecycleExplain {
+	r := &DataStreamLifecycleExplain{}
 
 	return r
 }
