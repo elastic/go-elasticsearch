@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,16 +30,22 @@ import (
 
 // RangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L289-L296
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L650-L670
 type RangeAggregation struct {
-	Field   *string            `json:"field,omitempty"`
-	Format  *string            `json:"format,omitempty"`
-	Keyed   *bool              `json:"keyed,omitempty"`
-	Meta    Metadata           `json:"meta,omitempty"`
-	Missing *int               `json:"missing,omitempty"`
-	Name    *string            `json:"name,omitempty"`
-	Ranges  []AggregationRange `json:"ranges,omitempty"`
-	Script  Script             `json:"script,omitempty"`
+	// Field The date field whose values are use to build ranges.
+	Field  *string `json:"field,omitempty"`
+	Format *string `json:"format,omitempty"`
+	// Keyed Set to `true` to associate a unique string key with each bucket and return
+	// the ranges as a hash rather than an array.
+	Keyed *bool    `json:"keyed,omitempty"`
+	Meta  Metadata `json:"meta,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing *int    `json:"missing,omitempty"`
+	Name    *string `json:"name,omitempty"`
+	// Ranges An array of ranges used to bucket documents.
+	Ranges []AggregationRange `json:"ranges,omitempty"`
+	Script Script             `json:"script,omitempty"`
 }
 
 func (s *RangeAggregation) UnmarshalJSON(data []byte) error {

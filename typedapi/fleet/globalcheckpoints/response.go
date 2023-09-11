@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package globalcheckpoints
 
 // Response holds the response body struct for the package globalcheckpoints
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/fleet/global_checkpoints/GlobalCheckpointsResponse.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/fleet/global_checkpoints/GlobalCheckpointsResponse.ts#L22-L27
 
 type Response struct {
 	GlobalCheckpoints []int64 `json:"global_checkpoints"`

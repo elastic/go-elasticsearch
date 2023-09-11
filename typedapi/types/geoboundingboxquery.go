@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -34,14 +34,25 @@ import (
 
 // GeoBoundingBoxQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/geo.ts#L32-L41
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/geo.ts#L32-L50
 type GeoBoundingBoxQuery struct {
-	Boost               *float32                                 `json:"boost,omitempty"`
-	GeoBoundingBoxQuery map[string]GeoBounds                     `json:"GeoBoundingBoxQuery,omitempty"`
-	IgnoreUnmapped      *bool                                    `json:"ignore_unmapped,omitempty"`
-	QueryName_          *string                                  `json:"_name,omitempty"`
-	Type                *geoexecution.GeoExecution               `json:"type,omitempty"`
-	ValidationMethod    *geovalidationmethod.GeoValidationMethod `json:"validation_method,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost               *float32             `json:"boost,omitempty"`
+	GeoBoundingBoxQuery map[string]GeoBounds `json:"GeoBoundingBoxQuery,omitempty"`
+	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
+	// this query.
+	// Set to `false` to throw an exception if the field is not mapped.
+	IgnoreUnmapped *bool                      `json:"ignore_unmapped,omitempty"`
+	QueryName_     *string                    `json:"_name,omitempty"`
+	Type           *geoexecution.GeoExecution `json:"type,omitempty"`
+	// ValidationMethod Set to `IGNORE_MALFORMED` to accept geo points with invalid latitude or
+	// longitude.
+	// Set to `COERCE` to also try to infer correct latitude or longitude.
+	ValidationMethod *geovalidationmethod.GeoValidationMethod `json:"validation_method,omitempty"`
 }
 
 func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {

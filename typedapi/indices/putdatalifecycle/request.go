@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package putdatalifecycle
 
@@ -29,8 +29,13 @@ import (
 
 // Request holds the request body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L24-L42
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L24-L69
 type Request struct {
+
+	// DataRetention If defined, every document added to this data stream will be stored at least
+	// for this time frame.
+	// Any time after this duration the document could be deleted.
+	// When empty, every document in this data stream will be stored indefinitely.
 	DataRetention types.Duration `json:"data_retention,omitempty"`
 }
 

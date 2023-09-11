@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package updatedatafeed
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L162
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L162
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations

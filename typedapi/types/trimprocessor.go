@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,16 +30,28 @@ import (
 
 // TrimProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L362-L366
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L1079-L1095
 type TrimProcessor struct {
-	Description   *string              `json:"description,omitempty"`
-	Field         string               `json:"field"`
-	If            *string              `json:"if,omitempty"`
-	IgnoreFailure *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing *bool                `json:"ignore_missing,omitempty"`
-	OnFailure     []ProcessorContainer `json:"on_failure,omitempty"`
-	Tag           *string              `json:"tag,omitempty"`
-	TargetField   *string              `json:"target_field,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The string-valued field to trim whitespace from.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and `field` does not exist, the processor quietly exits without
+	// modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field to assign the trimmed value to.
+	// By default, the field is updated in-place.
+	TargetField *string `json:"target_field,omitempty"`
 }
 
 func (s *TrimProcessor) UnmarshalJSON(data []byte) error {

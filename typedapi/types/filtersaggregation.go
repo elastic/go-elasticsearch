@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,14 +30,20 @@ import (
 
 // FiltersAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L169-L174
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L358-L378
 type FiltersAggregation struct {
-	Filters        BucketsQuery `json:"filters,omitempty"`
-	Keyed          *bool        `json:"keyed,omitempty"`
-	Meta           Metadata     `json:"meta,omitempty"`
-	Name           *string      `json:"name,omitempty"`
-	OtherBucket    *bool        `json:"other_bucket,omitempty"`
-	OtherBucketKey *string      `json:"other_bucket_key,omitempty"`
+	// Filters Collection of queries from which to build buckets.
+	Filters BucketsQuery `json:"filters,omitempty"`
+	// Keyed By default, the named filters aggregation returns the buckets as an object.
+	// Set to `false` to return the buckets as an array of objects.
+	Keyed *bool    `json:"keyed,omitempty"`
+	Meta  Metadata `json:"meta,omitempty"`
+	Name  *string  `json:"name,omitempty"`
+	// OtherBucket Set to `true` to add a bucket to the response which will contain all
+	// documents that do not match any of the given filters.
+	OtherBucket *bool `json:"other_bucket,omitempty"`
+	// OtherBucketKey The key with which the other bucket is returned.
+	OtherBucketKey *string `json:"other_bucket_key,omitempty"`
 }
 
 func (s *FiltersAggregation) UnmarshalJSON(data []byte) error {

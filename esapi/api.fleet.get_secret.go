@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newSynonymRulePutFunc(t Transport) SynonymRulePut {
-	return func(body io.Reader, synonym_rule string, synonyms_set string, o ...func(*SynonymRulePutRequest)) (*Response, error) {
-		var r = SynonymRulePutRequest{Body: body, SynonymRule: synonym_rule, SynonymsSet: synonyms_set}
+func newFleetGetSecretFunc(t Transport) FleetGetSecret {
+	return func(id string, o ...func(*FleetGetSecretRequest)) (*Response, error) {
+		var r = FleetGetSecretRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,19 +37,14 @@ func newSynonymRulePutFunc(t Transport) SynonymRulePut {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymRulePut creates or updates a synonym rule in a synonym set
+// FleetGetSecret retrieves a secret stored by Fleet.
 //
 // This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html.
-type SynonymRulePut func(body io.Reader, synonym_rule string, synonyms_set string, o ...func(*SynonymRulePutRequest)) (*Response, error)
+type FleetGetSecret func(id string, o ...func(*FleetGetSecretRequest)) (*Response, error)
 
-// SynonymRulePutRequest configures the Synonym Rule Put API request.
-type SynonymRulePutRequest struct {
-	Body io.Reader
-
-	SynonymRule string
-	SynonymsSet string
+// FleetGetSecretRequest configures the Fleet Get Secret API request.
+type FleetGetSecretRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -63,23 +57,23 @@ type SynonymRulePutRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r FleetGetSecretRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet) + 1 + len(r.SynonymRule))
+	path.Grow(7 + 1 + len("_fleet") + 1 + len("secret") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_synonyms")
+	path.WriteString("_fleet")
 	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
+	path.WriteString("secret")
 	path.WriteString("/")
-	path.WriteString(r.SynonymRule)
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -99,7 +93,7 @@ func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -124,10 +118,6 @@ func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Re
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -147,43 +137,43 @@ func (r SynonymRulePutRequest) Do(ctx context.Context, transport Transport) (*Re
 }
 
 // WithContext sets the request context.
-func (f SynonymRulePut) WithContext(v context.Context) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f FleetGetSecret) WithContext(v context.Context) func(*FleetGetSecretRequest) {
+	return func(r *FleetGetSecretRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymRulePut) WithPretty() func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f FleetGetSecret) WithPretty() func(*FleetGetSecretRequest) {
+	return func(r *FleetGetSecretRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymRulePut) WithHuman() func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f FleetGetSecret) WithHuman() func(*FleetGetSecretRequest) {
+	return func(r *FleetGetSecretRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymRulePut) WithErrorTrace() func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f FleetGetSecret) WithErrorTrace() func(*FleetGetSecretRequest) {
+	return func(r *FleetGetSecretRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymRulePut) WithFilterPath(v ...string) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f FleetGetSecret) WithFilterPath(v ...string) func(*FleetGetSecretRequest) {
+	return func(r *FleetGetSecretRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymRulePut) WithHeader(h map[string]string) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f FleetGetSecret) WithHeader(h map[string]string) func(*FleetGetSecretRequest) {
+	return func(r *FleetGetSecretRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -194,8 +184,8 @@ func (f SynonymRulePut) WithHeader(h map[string]string) func(*SynonymRulePutRequ
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymRulePut) WithOpaqueID(s string) func(*SynonymRulePutRequest) {
-	return func(r *SynonymRulePutRequest) {
+func (f FleetGetSecret) WithOpaqueID(s string) func(*FleetGetSecretRequest) {
+	return func(r *FleetGetSecretRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

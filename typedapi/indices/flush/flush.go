@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Performs the flush operation on one or more indices.
 package flush
@@ -75,7 +75,7 @@ func NewFlushFunc(tp elastictransport.Interface) NewFlush {
 
 // Performs the flush operation on one or more indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-flush.html
 func New(tp elastictransport.Interface) *Flush {
 	r := &Flush{
 		transport: tp,
@@ -216,8 +216,10 @@ func (r *Flush) Header(key, value string) *Flush {
 	return r
 }
 
-// Index A comma-separated list of index names; use `_all` or empty string for all
-// indices
+// Index Comma-separated list of data streams, indices, and aliases to flush.
+// Supports wildcards (`*`).
+// To flush all data streams and indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *Flush) Index(index string) *Flush {
 	r.paramSet |= indexMask
@@ -226,8 +228,9 @@ func (r *Flush) Index(index string) *Flush {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *Flush) AllowNoIndices(allownoindices bool) *Flush {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -235,8 +238,11 @@ func (r *Flush) AllowNoIndices(allownoindices bool) *Flush {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *Flush) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Flush {
 	tmp := []string{}
@@ -248,10 +254,8 @@ func (r *Flush) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard
 	return r
 }
 
-// Force Whether a flush should be forced even if it is not necessarily needed ie. if
-// no changes will be committed to the index. This is useful if transaction log
-// IDs should be incremented even if no uncommitted changes are present. (This
-// setting can be considered as internal)
+// Force If `true`, the request forces a flush even if there are no changes to commit
+// to the index.
 // API name: force
 func (r *Flush) Force(force bool) *Flush {
 	r.values.Set("force", strconv.FormatBool(force))
@@ -259,8 +263,8 @@ func (r *Flush) Force(force bool) *Flush {
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *Flush) IgnoreUnavailable(ignoreunavailable bool) *Flush {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -268,10 +272,10 @@ func (r *Flush) IgnoreUnavailable(ignoreunavailable bool) *Flush {
 	return r
 }
 
-// WaitIfOngoing If set to true the flush operation will block until the flush can be executed
-// if another flush operation is already executing. The default is true. If set
-// to false the flush will be skipped iff if another flush operation is already
-// running.
+// WaitIfOngoing If `true`, the flush operation blocks until execution when another flush
+// operation is running.
+// If `false`, Elasticsearch returns an error if you request a flush when
+// another flush operation is running.
 // API name: wait_if_ongoing
 func (r *Flush) WaitIfOngoing(waitifongoing bool) *Flush {
 	r.values.Set("wait_if_ongoing", strconv.FormatBool(waitifongoing))

@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newSynonymsGetFunc(t Transport) SynonymsGet {
-	return func(synonyms_set string, o ...func(*SynonymsGetRequest)) (*Response, error) {
-		var r = SynonymsGetRequest{SynonymsSet: synonyms_set}
+func newSynonymsGetSynonymFunc(t Transport) SynonymsGetSynonym {
+	return func(id string, o ...func(*SynonymsGetSynonymRequest)) (*Response, error) {
+		var r = SynonymsGetSynonymRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,16 +38,16 @@ func newSynonymsGetFunc(t Transport) SynonymsGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsGet retrieves a synonym set
+// SynonymsGetSynonym retrieves a synonym set
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms.html.
-type SynonymsGet func(synonyms_set string, o ...func(*SynonymsGetRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms-set.html.
+type SynonymsGetSynonym func(id string, o ...func(*SynonymsGetSynonymRequest)) (*Response, error)
 
-// SynonymsGetRequest configures the Synonyms Get API request.
-type SynonymsGetRequest struct {
-	SynonymsSet string
+// SynonymsGetSynonymRequest configures the Synonyms Get Synonym API request.
+type SynonymsGetSynonymRequest struct {
+	DocumentID string
 
 	From *int
 	Size *int
@@ -63,7 +63,7 @@ type SynonymsGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SynonymsGetSynonymRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -72,12 +72,12 @@ func (r SynonymsGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet))
+	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_synonyms")
 	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
+	path.WriteString(r.DocumentID)
 
 	params = make(map[string]string)
 
@@ -149,57 +149,57 @@ func (r SynonymsGetRequest) Do(ctx context.Context, transport Transport) (*Respo
 }
 
 // WithContext sets the request context.
-func (f SynonymsGet) WithContext(v context.Context) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithContext(v context.Context) func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		r.ctx = v
 	}
 }
 
 // WithFrom - starting offset.
-func (f SynonymsGet) WithFrom(v int) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithFrom(v int) func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		r.From = &v
 	}
 }
 
 // WithSize - specifies a max number of results to get.
-func (f SynonymsGet) WithSize(v int) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithSize(v int) func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		r.Size = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsGet) WithPretty() func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithPretty() func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsGet) WithHuman() func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithHuman() func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsGet) WithErrorTrace() func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithErrorTrace() func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsGet) WithFilterPath(v ...string) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithFilterPath(v ...string) func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsGet) WithHeader(h map[string]string) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithHeader(h map[string]string) func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -210,8 +210,8 @@ func (f SynonymsGet) WithHeader(h map[string]string) func(*SynonymsGetRequest) {
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsGet) WithOpaqueID(s string) func(*SynonymsGetRequest) {
-	return func(r *SynonymsGetRequest) {
+func (f SynonymsGetSynonym) WithOpaqueID(s string) func(*SynonymsGetSynonymRequest) {
+	return func(r *SynonymsGetSynonymRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

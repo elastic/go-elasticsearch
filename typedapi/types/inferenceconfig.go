@@ -16,16 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
 // InferenceConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L244-L250
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L735-L747
 type InferenceConfig struct {
+	// Classification Classification configuration for inference.
 	Classification *InferenceConfigClassification `json:"classification,omitempty"`
-	Regression     *InferenceConfigRegression     `json:"regression,omitempty"`
+	// Regression Regression configuration for inference.
+	Regression *InferenceConfigRegression `json:"regression,omitempty"`
 }
 
 // NewInferenceConfig returns a InferenceConfig.

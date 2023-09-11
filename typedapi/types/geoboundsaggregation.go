@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,12 +30,17 @@ import (
 
 // GeoBoundsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L72-L74
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/metric.ts#L108-L114
 type GeoBoundsAggregation struct {
-	Field         *string `json:"field,omitempty"`
-	Missing       Missing `json:"missing,omitempty"`
-	Script        Script  `json:"script,omitempty"`
-	WrapLongitude *bool   `json:"wrap_longitude,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field *string `json:"field,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	Script  Script  `json:"script,omitempty"`
+	// WrapLongitude Specifies whether the bounding box should be allowed to overlap the
+	// international date line.
+	WrapLongitude *bool `json:"wrap_longitude,omitempty"`
 }
 
 func (s *GeoBoundsAggregation) UnmarshalJSON(data []byte) error {

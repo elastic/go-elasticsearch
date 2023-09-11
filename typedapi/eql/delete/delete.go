@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Deletes an async EQL search by ID. If the search is still running, the search
 // request will be cancelled. Otherwise, the saved search results are deleted.
@@ -216,6 +216,9 @@ func (r *Delete) Header(key, value string) *Delete {
 }
 
 // Id Identifier for the search to delete.
+// A search ID is provided in the EQL search API's response for an async search.
+// A search ID is also provided if the request’s `keep_on_completion` parameter
+// is `true`.
 // API Name: id
 func (r *Delete) Id(id string) *Delete {
 	r.paramSet |= idMask

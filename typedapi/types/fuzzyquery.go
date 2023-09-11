@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,16 +30,28 @@ import (
 
 // FuzzyQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/term.ts#L40-L51
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/term.ts#L43-L78
 type FuzzyQuery struct {
-	Boost          *float32  `json:"boost,omitempty"`
-	Fuzziness      Fuzziness `json:"fuzziness,omitempty"`
-	MaxExpansions  *int      `json:"max_expansions,omitempty"`
-	PrefixLength   *int      `json:"prefix_length,omitempty"`
-	QueryName_     *string   `json:"_name,omitempty"`
-	Rewrite        *string   `json:"rewrite,omitempty"`
-	Transpositions *bool     `json:"transpositions,omitempty"`
-	Value          string    `json:"value"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// Fuzziness Maximum edit distance allowed for matching.
+	Fuzziness Fuzziness `json:"fuzziness,omitempty"`
+	// MaxExpansions Maximum number of variations created.
+	MaxExpansions *int `json:"max_expansions,omitempty"`
+	// PrefixLength Number of beginning characters left unchanged when creating expansions.
+	PrefixLength *int    `json:"prefix_length,omitempty"`
+	QueryName_   *string `json:"_name,omitempty"`
+	// Rewrite Number of beginning characters left unchanged when creating expansions.
+	Rewrite *string `json:"rewrite,omitempty"`
+	// Transpositions Indicates whether edits include transpositions of two adjacent characters
+	// (for example `ab` to `ba`).
+	Transpositions *bool `json:"transpositions,omitempty"`
+	// Value Term you wish to find in the provided field.
+	Value string `json:"value"`
 }
 
 func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {

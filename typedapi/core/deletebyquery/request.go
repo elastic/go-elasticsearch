@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package deletebyquery
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L81
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L81
 type Request struct {
 	MaxDocs *int64              `json:"max_docs,omitempty"`
 	Query   *types.Query        `json:"query,omitempty"`

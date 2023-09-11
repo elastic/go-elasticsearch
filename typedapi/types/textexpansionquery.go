@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,24 +30,22 @@ import (
 
 // TextExpansionQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/TextExpansionQuery.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/TextExpansionQuery.ts#L22-L27
 type TextExpansionQuery struct {
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
 	// ModelId The text expansion NLP model to use
 	ModelId string `json:"model_id"`
 	// ModelText The query text
 	ModelText  string  `json:"model_text"`
 	QueryName_ *string `json:"_name,omitempty"`
-	// Value The name of the rank features field to search against
-	Value string `json:"value"`
 }
 
 func (s *TextExpansionQuery) UnmarshalJSON(data []byte) error {
-
-	if !bytes.HasPrefix(data, []byte(`{`)) {
-		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Value)
-		return err
-	}
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -113,11 +111,6 @@ func (s *TextExpansionQuery) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.QueryName_ = &o
-
-		case "value":
-			if err := dec.Decode(&s.Value); err != nil {
-				return err
-			}
 
 		}
 	}

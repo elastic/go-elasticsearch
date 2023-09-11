@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -33,25 +33,48 @@ import (
 
 // DateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L93-L110
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L189-L247
 type DateHistogramAggregation struct {
+	// CalendarInterval Calendar-aware interval.
+	// Can be specified using the unit name, such as `month`, or as a single unit
+	// quantity, such as `1M`.
 	CalendarInterval *calendarinterval.CalendarInterval `json:"calendar_interval,omitempty"`
-	ExtendedBounds   *ExtendedBoundsFieldDateMath       `json:"extended_bounds,omitempty"`
-	Field            *string                            `json:"field,omitempty"`
-	FixedInterval    Duration                           `json:"fixed_interval,omitempty"`
-	Format           *string                            `json:"format,omitempty"`
-	HardBounds       *ExtendedBoundsFieldDateMath       `json:"hard_bounds,omitempty"`
-	Interval         Duration                           `json:"interval,omitempty"`
-	Keyed            *bool                              `json:"keyed,omitempty"`
-	Meta             Metadata                           `json:"meta,omitempty"`
-	MinDocCount      *int                               `json:"min_doc_count,omitempty"`
-	Missing          DateTime                           `json:"missing,omitempty"`
-	Name             *string                            `json:"name,omitempty"`
-	Offset           Duration                           `json:"offset,omitempty"`
-	Order            AggregateOrder                     `json:"order,omitempty"`
-	Params           map[string]json.RawMessage         `json:"params,omitempty"`
-	Script           Script                             `json:"script,omitempty"`
-	TimeZone         *string                            `json:"time_zone,omitempty"`
+	// ExtendedBounds Enables extending the bounds of the histogram beyond the data itself.
+	ExtendedBounds *ExtendedBoundsFieldDateMath `json:"extended_bounds,omitempty"`
+	// Field The date field whose values are use to build a histogram.
+	Field *string `json:"field,omitempty"`
+	// FixedInterval Fixed intervals: a fixed number of SI units and never deviate, regardless of
+	// where they fall on the calendar.
+	FixedInterval Duration `json:"fixed_interval,omitempty"`
+	// Format The date format used to format `key_as_string` in the response.
+	// If no `format` is specified, the first date format specified in the field
+	// mapping is used.
+	Format *string `json:"format,omitempty"`
+	// HardBounds Limits the histogram to specified bounds.
+	HardBounds *ExtendedBoundsFieldDateMath `json:"hard_bounds,omitempty"`
+	Interval   Duration                     `json:"interval,omitempty"`
+	// Keyed Set to `true` to associate a unique string key with each bucket and return
+	// the ranges as a hash rather than an array.
+	Keyed *bool    `json:"keyed,omitempty"`
+	Meta  Metadata `json:"meta,omitempty"`
+	// MinDocCount Only returns buckets that have `min_doc_count` number of documents.
+	// By default, all buckets between the first bucket that matches documents and
+	// the last one are returned.
+	MinDocCount *int `json:"min_doc_count,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing DateTime `json:"missing,omitempty"`
+	Name    *string  `json:"name,omitempty"`
+	// Offset Changes the start value of each bucket by the specified positive (`+`) or
+	// negative offset (`-`) duration.
+	Offset Duration `json:"offset,omitempty"`
+	// Order The sort order of the returned buckets.
+	Order  AggregateOrder             `json:"order,omitempty"`
+	Params map[string]json.RawMessage `json:"params,omitempty"`
+	Script Script                     `json:"script,omitempty"`
+	// TimeZone Time zone used for bucketing and rounding.
+	// Defaults to Coordinated Universal Time (UTC).
+	TimeZone *string `json:"time_zone,omitempty"`
 }
 
 func (s *DateHistogramAggregation) UnmarshalJSON(data []byte) error {

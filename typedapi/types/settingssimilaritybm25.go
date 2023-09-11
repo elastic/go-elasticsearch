@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SettingsSimilarityBm25 type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/IndexSettings.ts#L180-L185
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/_types/IndexSettings.ts#L180-L185
 type SettingsSimilarityBm25 struct {
 	B                Float64 `json:"b"`
 	DiscountOverlaps bool    `json:"discount_overlaps"`

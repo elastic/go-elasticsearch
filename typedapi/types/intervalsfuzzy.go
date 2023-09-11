@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,14 +30,24 @@ import (
 
 // IntervalsFuzzy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/fulltext.ts#L88-L97
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/query_dsl/fulltext.ts#L154-L184
 type IntervalsFuzzy struct {
-	Analyzer       *string   `json:"analyzer,omitempty"`
-	Fuzziness      Fuzziness `json:"fuzziness,omitempty"`
-	PrefixLength   *int      `json:"prefix_length,omitempty"`
-	Term           string    `json:"term"`
-	Transpositions *bool     `json:"transpositions,omitempty"`
-	UseField       *string   `json:"use_field,omitempty"`
+	// Analyzer Analyzer used to normalize the term.
+	Analyzer *string `json:"analyzer,omitempty"`
+	// Fuzziness Maximum edit distance allowed for matching.
+	Fuzziness Fuzziness `json:"fuzziness,omitempty"`
+	// PrefixLength Number of beginning characters left unchanged when creating expansions.
+	PrefixLength *int `json:"prefix_length,omitempty"`
+	// Term The term to match.
+	Term string `json:"term"`
+	// Transpositions Indicates whether edits include transpositions of two adjacent characters
+	// (for example, `ab` to `ba`).
+	Transpositions *bool `json:"transpositions,omitempty"`
+	// UseField If specified, match intervals from this field rather than the top-level
+	// field.
+	// The `term` is normalized using the search analyzer from this field, unless
+	// `analyzer` is specified separately.
+	UseField *string `json:"use_field,omitempty"`
 }
 
 func (s *IntervalsFuzzy) UnmarshalJSON(data []byte) error {

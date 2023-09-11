@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,11 +30,11 @@ import (
 
 // PatternTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/analysis/tokenizers.ts#L97-L102
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/analysis/tokenizers.ts#L98-L103
 type PatternTokenizer struct {
-	Flags   string  `json:"flags"`
-	Group   int     `json:"group"`
-	Pattern string  `json:"pattern"`
+	Flags   *string `json:"flags,omitempty"`
+	Group   *int    `json:"group,omitempty"`
+	Pattern *string `json:"pattern,omitempty"`
 	Type    string  `json:"type,omitempty"`
 	Version *string `json:"version,omitempty"`
 }
@@ -64,7 +64,7 @@ func (s *PatternTokenizer) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Flags = o
+			s.Flags = &o
 
 		case "group":
 
@@ -76,10 +76,10 @@ func (s *PatternTokenizer) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return err
 				}
-				s.Group = value
+				s.Group = &value
 			case float64:
 				f := int(v)
-				s.Group = f
+				s.Group = &f
 			}
 
 		case "pattern":
@@ -92,7 +92,7 @@ func (s *PatternTokenizer) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Pattern = o
+			s.Pattern = &o
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {

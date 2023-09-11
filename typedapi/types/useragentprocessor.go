@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -32,18 +32,34 @@ import (
 
 // UserAgentProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L115-L121
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ingest/_types/Processors.ts#L359-L379
 type UserAgentProcessor struct {
-	Description   *string                               `json:"description,omitempty"`
-	Field         string                                `json:"field"`
-	If            *string                               `json:"if,omitempty"`
-	IgnoreFailure *bool                                 `json:"ignore_failure,omitempty"`
-	IgnoreMissing *bool                                 `json:"ignore_missing,omitempty"`
-	OnFailure     []ProcessorContainer                  `json:"on_failure,omitempty"`
-	Options       []useragentproperty.UserAgentProperty `json:"options,omitempty"`
-	RegexFile     *string                               `json:"regex_file,omitempty"`
-	Tag           *string                               `json:"tag,omitempty"`
-	TargetField   *string                               `json:"target_field,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field containing the user agent string.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and `field` does not exist, the processor quietly exits without
+	// modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer                  `json:"on_failure,omitempty"`
+	Options   []useragentproperty.UserAgentProperty `json:"options,omitempty"`
+	// RegexFile The name of the file in the `config/ingest-user-agent` directory containing
+	// the regular expressions for parsing the user agent string. Both the directory
+	// and the file have to be created before starting Elasticsearch. If not
+	// specified, ingest-user-agent will use the `regexes.yaml` from uap-core it
+	// ships with.
+	RegexFile *string `json:"regex_file,omitempty"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field that will be filled with the user agent details.
+	TargetField *string `json:"target_field,omitempty"`
 }
 
 func (s *UserAgentProcessor) UnmarshalJSON(data []byte) error {

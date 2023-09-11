@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Returns the field usage stats for each field of an index
 package fieldusagestats
@@ -223,13 +223,11 @@ func (r *FieldUsageStats) Index(index string) *FieldUsageStats {
 	return r
 }
 
-// AllowNoIndices If false, the request returns an error if any wildcard expression, index
-// alias, or _all value targets
-// only missing or closed indices. This behavior applies even if the request
-// targets other open indices.
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
 // For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index
-// starts with `bar`.
+// starts with `foo` but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *FieldUsageStats) AllowNoIndices(allownoindices bool) *FieldUsageStats {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -237,11 +235,10 @@ func (r *FieldUsageStats) AllowNoIndices(allownoindices bool) *FieldUsageStats {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
-// data streams, this argument
-// determines whether wildcard expressions match hidden data streams. Supports
-// comma-separated values,
-// such as `open,hidden`.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *FieldUsageStats) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *FieldUsageStats {
 	tmp := []string{}
@@ -253,7 +250,7 @@ func (r *FieldUsageStats) ExpandWildcards(expandwildcards ...expandwildcard.Expa
 	return r
 }
 
-// IgnoreUnavailable If true, missing or closed indices are not included in the response.
+// IgnoreUnavailable If `true`, missing or closed indices are not included in the response.
 // API name: ignore_unavailable
 func (r *FieldUsageStats) IgnoreUnavailable(ignoreunavailable bool) *FieldUsageStats {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -270,9 +267,9 @@ func (r *FieldUsageStats) Fields(fields ...string) *FieldUsageStats {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires,
-// the request fails and returns an error.
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *FieldUsageStats) MasterTimeout(duration string) *FieldUsageStats {
 	r.values.Set("master_timeout", duration)
@@ -280,9 +277,9 @@ func (r *FieldUsageStats) MasterTimeout(duration string) *FieldUsageStats {
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails
-// and returns an error.
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *FieldUsageStats) Timeout(duration string) *FieldUsageStats {
 	r.values.Set("timeout", duration)
@@ -291,9 +288,9 @@ func (r *FieldUsageStats) Timeout(duration string) *FieldUsageStats {
 }
 
 // WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation. Set to all or any
-// positive integer up to the total number of shards in the index
-// (`number_of_replicas+1`).
+// operation.
+// Set to all or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *FieldUsageStats) WaitForActiveShards(waitforactiveshards string) *FieldUsageStats {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)

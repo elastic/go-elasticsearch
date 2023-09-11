@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -32,13 +32,23 @@ import (
 
 // GeoLineAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L81-L87
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/metric.ts#L121-L146
 type GeoLineAggregation struct {
-	IncludeSort *bool                `json:"include_sort,omitempty"`
-	Point       GeoLinePoint         `json:"point"`
-	Size        *int                 `json:"size,omitempty"`
-	Sort        GeoLineSort          `json:"sort"`
-	SortOrder   *sortorder.SortOrder `json:"sort_order,omitempty"`
+	// IncludeSort When `true`, returns an additional array of the sort values in the feature
+	// properties.
+	IncludeSort *bool `json:"include_sort,omitempty"`
+	// Point The name of the geo_point field.
+	Point GeoLinePoint `json:"point"`
+	// Size The maximum length of the line represented in the aggregation.
+	// Valid sizes are between 1 and 10000.
+	Size *int `json:"size,omitempty"`
+	// Sort The name of the numeric field to use as the sort key for ordering the points.
+	// When the `geo_line` aggregation is nested inside a `time_series` aggregation,
+	// this field defaults to `@timestamp`, and any other value will result in
+	// error.
+	Sort GeoLineSort `json:"sort"`
+	// SortOrder The order in which the line is sorted (ascending or descending).
+	SortOrder *sortorder.SortOrder `json:"sort_order,omitempty"`
 }
 
 func (s *GeoLineAggregation) UnmarshalJSON(data []byte) error {

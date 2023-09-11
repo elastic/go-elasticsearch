@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,23 +30,44 @@ import (
 
 // TopHitsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L171-L184
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/metric.ts#L337-L392
 type TopHitsAggregation struct {
-	DocvalueFields   []string               `json:"docvalue_fields,omitempty"`
-	Explain          *bool                  `json:"explain,omitempty"`
-	Field            *string                `json:"field,omitempty"`
-	From             *int                   `json:"from,omitempty"`
-	Highlight        *Highlight             `json:"highlight,omitempty"`
-	Missing          Missing                `json:"missing,omitempty"`
-	Script           Script                 `json:"script,omitempty"`
-	ScriptFields     map[string]ScriptField `json:"script_fields,omitempty"`
-	SeqNoPrimaryTerm *bool                  `json:"seq_no_primary_term,omitempty"`
-	Size             *int                   `json:"size,omitempty"`
-	Sort             []SortCombinations     `json:"sort,omitempty"`
-	Source_          SourceConfig           `json:"_source,omitempty"`
-	StoredFields     []string               `json:"stored_fields,omitempty"`
-	TrackScores      *bool                  `json:"track_scores,omitempty"`
-	Version          *bool                  `json:"version,omitempty"`
+	// DocvalueFields Fields for which to return doc values.
+	DocvalueFields []string `json:"docvalue_fields,omitempty"`
+	// Explain If `true`, returns detailed information about score computation as part of a
+	// hit.
+	Explain *bool `json:"explain,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field *string `json:"field,omitempty"`
+	// From Starting document offset.
+	From *int `json:"from,omitempty"`
+	// Highlight Specifies the highlighter to use for retrieving highlighted snippets from one
+	// or more fields in the search results.
+	Highlight *Highlight `json:"highlight,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	Script  Script  `json:"script,omitempty"`
+	// ScriptFields Returns the result of one or more script evaluations for each hit.
+	ScriptFields map[string]ScriptField `json:"script_fields,omitempty"`
+	// SeqNoPrimaryTerm If `true`, returns sequence number and primary term of the last modification
+	// of each hit.
+	SeqNoPrimaryTerm *bool `json:"seq_no_primary_term,omitempty"`
+	// Size The maximum number of top matching hits to return per bucket.
+	Size *int `json:"size,omitempty"`
+	// Sort Sort order of the top matching hits.
+	// By default, the hits are sorted by the score of the main query.
+	Sort []SortCombinations `json:"sort,omitempty"`
+	// Source_ Selects the fields of the source that are returned.
+	Source_ SourceConfig `json:"_source,omitempty"`
+	// StoredFields Returns values for the specified stored fields (fields that use the `store`
+	// mapping option).
+	StoredFields []string `json:"stored_fields,omitempty"`
+	// TrackScores If `true`, calculates and returns document scores, even if the scores are not
+	// used for sorting.
+	TrackScores *bool `json:"track_scores,omitempty"`
+	// Version If `true`, returns document version as part of a hit.
+	Version *bool `json:"version,omitempty"`
 }
 
 func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {

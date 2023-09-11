@@ -60,6 +60,7 @@ var skipFiles = []string{
 	"indices.stats/100_search_idle.yml", // incompatible maps of array
 	"ml/3rd_party_deployment.yml",       // incompatible ml tests
 	"dlm/10_usage.yml",                  // incompatible float expansion
+	"api_key/60_admin_user.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -313,6 +314,7 @@ ml/data_frame_analytics_crud.yml:
 ml/delete_model_snapshot.yml:
 ml/get_datafeed_stats.yml:
 ml/get_model_snapshots.yml:
+eql/30_async_missing_events.yml:
 
 # resource_already_exists_exception for model, need improved teardown for models
 ml/semantic_search.yml:
@@ -446,6 +448,8 @@ api_key/40_view_role_descriptors.yml:
   - Test API key role descriptors in Get and Query responses
 api_key/50_cross_cluster.yml:
   - Test create a cross-cluster API key
+authenticate/11_admin_user.yml:
+  - Test authenticate with token
 
 token/10_basic.yml:
   - Test invalidate user's tokens

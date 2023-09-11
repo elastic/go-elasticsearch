@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Creates or updates an index template.
 package puttemplate
@@ -257,6 +257,7 @@ func (r *PutTemplate) Create(create bool) *PutTemplate {
 	return r
 }
 
+// FlatSettings If `true`, returns settings in flat format.
 // API name: flat_settings
 func (r *PutTemplate) FlatSettings(flatsettings bool) *PutTemplate {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
@@ -273,6 +274,9 @@ func (r *PutTemplate) MasterTimeout(duration string) *PutTemplate {
 	return r
 }
 
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *PutTemplate) Timeout(duration string) *PutTemplate {
 	r.values.Set("timeout", duration)

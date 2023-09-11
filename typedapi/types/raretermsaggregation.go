@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -30,17 +30,25 @@ import (
 
 // RareTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L304-L312
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L687-L717
 type RareTermsAggregation struct {
-	Exclude     []string     `json:"exclude,omitempty"`
-	Field       *string      `json:"field,omitempty"`
-	Include     TermsInclude `json:"include,omitempty"`
-	MaxDocCount *int64       `json:"max_doc_count,omitempty"`
-	Meta        Metadata     `json:"meta,omitempty"`
-	Missing     Missing      `json:"missing,omitempty"`
-	Name        *string      `json:"name,omitempty"`
-	Precision   *Float64     `json:"precision,omitempty"`
-	ValueType   *string      `json:"value_type,omitempty"`
+	// Exclude Terms that should be excluded from the aggregation.
+	Exclude []string `json:"exclude,omitempty"`
+	// Field The field from which to return rare terms.
+	Field *string `json:"field,omitempty"`
+	// Include Terms that should be included in the aggregation.
+	Include TermsInclude `json:"include,omitempty"`
+	// MaxDocCount The maximum number of documents a term should appear in.
+	MaxDocCount *int64   `json:"max_doc_count,omitempty"`
+	Meta        Metadata `json:"meta,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	Name    *string `json:"name,omitempty"`
+	// Precision The precision of the internal CuckooFilters.
+	// Smaller precision leads to better approximation, but higher memory usage.
+	Precision *Float64 `json:"precision,omitempty"`
+	ValueType *string  `json:"value_type,omitempty"`
 }
 
 func (s *RareTermsAggregation) UnmarshalJSON(data []byte) error {

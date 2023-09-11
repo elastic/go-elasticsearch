@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Returns information about any matching indices, aliases, and data streams
 package resolveindex
@@ -214,7 +214,10 @@ func (r *ResolveIndex) Header(key, value string) *ResolveIndex {
 	return r
 }
 
-// Name A comma-separated list of names or wildcard expressions
+// Name Comma-separated name(s) or index pattern(s) of the indices, aliases, and data
+// streams to resolve.
+// Resources on remote clusters can be specified using the `<cluster>`:`<name>`
+// syntax.
 // API Name: name
 func (r *ResolveIndex) Name(name string) *ResolveIndex {
 	r.paramSet |= nameMask
@@ -223,8 +226,11 @@ func (r *ResolveIndex) Name(name string) *ResolveIndex {
 	return r
 }
 
-// ExpandWildcards Whether wildcard expressions should get expanded to open or closed indices
-// (default: open)
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *ResolveIndex) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ResolveIndex {
 	tmp := []string{}

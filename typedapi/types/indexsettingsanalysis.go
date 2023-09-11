@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // IndexSettingsAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/IndexSettings.ts#L310-L316
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/_types/IndexSettings.ts#L310-L316
 type IndexSettingsAnalysis struct {
 	Analyzer   map[string]Analyzer    `json:"analyzer,omitempty"`
 	CharFilter map[string]CharFilter  `json:"char_filter,omitempty"`
@@ -65,7 +65,9 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 				localDec := json.NewDecoder(buf)
 				localDec.Decode(&kind)
 				buf.Seek(0, io.SeekStart)
-
+				if _, ok := kind["type"]; !ok {
+					kind["type"] = "custom"
+				}
 				switch kind["type"] {
 				case "custom":
 					oo := NewCustomAnalyzer()
@@ -152,9 +154,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Analyzer[key] = oo
 				default:
-					if err := localDec.Decode(&s.Analyzer); err != nil {
+					oo := new(Analyzer)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Analyzer[key] = oo
 				}
 			}
 
@@ -203,9 +207,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.CharFilter[key] = oo
 				default:
-					if err := localDec.Decode(&s.CharFilter); err != nil {
+					oo := new(CharFilter)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.CharFilter[key] = oo
 				}
 			}
 
@@ -512,9 +518,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Filter[key] = oo
 				default:
-					if err := localDec.Decode(&s.Filter); err != nil {
+					oo := new(TokenFilter)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Filter[key] = oo
 				}
 			}
 
@@ -545,9 +553,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Normalizer[key] = oo
 				default:
-					if err := localDec.Decode(&s.Normalizer); err != nil {
+					oo := new(Normalizer)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Normalizer[key] = oo
 				}
 			}
 
@@ -650,9 +660,11 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 					}
 					s.Tokenizer[key] = oo
 				default:
-					if err := localDec.Decode(&s.Tokenizer); err != nil {
+					oo := new(Tokenizer)
+					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
+					s.Tokenizer[key] = oo
 				}
 			}
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 package types
 
@@ -33,15 +33,20 @@ import (
 
 // GeoDistanceAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L176-L182
+// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L380-L403
 type GeoDistanceAggregation struct {
+	// DistanceType The distance calculation type.
 	DistanceType *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	Field        *string                          `json:"field,omitempty"`
-	Meta         Metadata                         `json:"meta,omitempty"`
-	Name         *string                          `json:"name,omitempty"`
-	Origin       GeoLocation                      `json:"origin,omitempty"`
-	Ranges       []AggregationRange               `json:"ranges,omitempty"`
-	Unit         *distanceunit.DistanceUnit       `json:"unit,omitempty"`
+	// Field A field of type `geo_point` used to evaluate the distance.
+	Field *string  `json:"field,omitempty"`
+	Meta  Metadata `json:"meta,omitempty"`
+	Name  *string  `json:"name,omitempty"`
+	// Origin The origin  used to evaluate the distance.
+	Origin GeoLocation `json:"origin,omitempty"`
+	// Ranges An array of ranges used to bucket documents.
+	Ranges []AggregationRange `json:"ranges,omitempty"`
+	// Unit The distance unit.
+	Unit *distanceunit.DistanceUnit `json:"unit,omitempty"`
 }
 
 func (s *GeoDistanceAggregation) UnmarshalJSON(data []byte) error {

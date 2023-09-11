@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
 
 // Allows a user to validate a potentially expensive query without executing it.
 package validatequery
@@ -249,8 +249,10 @@ func (r *ValidateQuery) Header(key, value string) *ValidateQuery {
 	return r
 }
 
-// Index A comma-separated list of index names to restrict the operation; use `_all`
-// or empty string to perform the operation on all indices
+// Index Comma-separated list of data streams, indices, and aliases to search.
+// Supports wildcards (`*`).
+// To search all data streams or indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *ValidateQuery) Index(index string) *ValidateQuery {
 	r.paramSet |= indexMask
@@ -259,8 +261,9 @@ func (r *ValidateQuery) Index(index string) *ValidateQuery {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *ValidateQuery) AllowNoIndices(allownoindices bool) *ValidateQuery {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -268,7 +271,8 @@ func (r *ValidateQuery) AllowNoIndices(allownoindices bool) *ValidateQuery {
 	return r
 }
 
-// AllShards Execute validation on all shards instead of one random shard per index
+// AllShards If `true`, the validation is executed on all shards instead of one random
+// shard per index.
 // API name: all_shards
 func (r *ValidateQuery) AllShards(allshards bool) *ValidateQuery {
 	r.values.Set("all_shards", strconv.FormatBool(allshards))
@@ -276,7 +280,9 @@ func (r *ValidateQuery) AllShards(allshards bool) *ValidateQuery {
 	return r
 }
 
-// Analyzer The analyzer to use for the query string
+// Analyzer Analyzer to use for the query string.
+// This parameter can only be used when the `q` query string parameter is
+// specified.
 // API name: analyzer
 func (r *ValidateQuery) Analyzer(analyzer string) *ValidateQuery {
 	r.values.Set("analyzer", analyzer)
@@ -284,8 +290,7 @@ func (r *ValidateQuery) Analyzer(analyzer string) *ValidateQuery {
 	return r
 }
 
-// AnalyzeWildcard Specify whether wildcard and prefix queries should be analyzed (default:
-// false)
+// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed.
 // API name: analyze_wildcard
 func (r *ValidateQuery) AnalyzeWildcard(analyzewildcard bool) *ValidateQuery {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -293,7 +298,7 @@ func (r *ValidateQuery) AnalyzeWildcard(analyzewildcard bool) *ValidateQuery {
 	return r
 }
 
-// DefaultOperator The default operator for query string query (AND or OR)
+// DefaultOperator The default operator for query string query: `AND` or `OR`.
 // API name: default_operator
 func (r *ValidateQuery) DefaultOperator(defaultoperator operator.Operator) *ValidateQuery {
 	r.values.Set("default_operator", defaultoperator.String())
@@ -301,8 +306,9 @@ func (r *ValidateQuery) DefaultOperator(defaultoperator operator.Operator) *Vali
 	return r
 }
 
-// Df The field to use as default where no field prefix is given in the query
-// string
+// Df Field to use as default where no field prefix is given in the query string.
+// This parameter can only be used when the `q` query string parameter is
+// specified.
 // API name: df
 func (r *ValidateQuery) Df(df string) *ValidateQuery {
 	r.values.Set("df", df)
@@ -310,8 +316,11 @@ func (r *ValidateQuery) Df(df string) *ValidateQuery {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *ValidateQuery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *ValidateQuery {
 	tmp := []string{}
@@ -323,7 +332,8 @@ func (r *ValidateQuery) ExpandWildcards(expandwildcards ...expandwildcard.Expand
 	return r
 }
 
-// Explain Return detailed information about the error
+// Explain If `true`, the response returns detailed information if an error has
+// occurred.
 // API name: explain
 func (r *ValidateQuery) Explain(explain bool) *ValidateQuery {
 	r.values.Set("explain", strconv.FormatBool(explain))
@@ -331,8 +341,8 @@ func (r *ValidateQuery) Explain(explain bool) *ValidateQuery {
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *ValidateQuery) IgnoreUnavailable(ignoreunavailable bool) *ValidateQuery {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -340,8 +350,8 @@ func (r *ValidateQuery) IgnoreUnavailable(ignoreunavailable bool) *ValidateQuery
 	return r
 }
 
-// Lenient Specify whether format-based query failures (such as providing text to a
-// numeric field) should be ignored
+// Lenient If `true`, format-based query failures (such as providing text to a numeric
+// field) in the query string will be ignored.
 // API name: lenient
 func (r *ValidateQuery) Lenient(lenient bool) *ValidateQuery {
 	r.values.Set("lenient", strconv.FormatBool(lenient))
@@ -349,8 +359,8 @@ func (r *ValidateQuery) Lenient(lenient bool) *ValidateQuery {
 	return r
 }
 
-// Rewrite Provide a more detailed explanation showing the actual Lucene query that will
-// be executed.
+// Rewrite If `true`, returns a more detailed explanation showing the actual Lucene
+// query that will be executed.
 // API name: rewrite
 func (r *ValidateQuery) Rewrite(rewrite bool) *ValidateQuery {
 	r.values.Set("rewrite", strconv.FormatBool(rewrite))
@@ -358,7 +368,7 @@ func (r *ValidateQuery) Rewrite(rewrite bool) *ValidateQuery {
 	return r
 }
 
-// Q Query in the Lucene query string syntax
+// Q Query in the Lucene query string syntax.
 // API name: q
 func (r *ValidateQuery) Q(q string) *ValidateQuery {
 	r.values.Set("q", q)
@@ -366,6 +376,7 @@ func (r *ValidateQuery) Q(q string) *ValidateQuery {
 	return r
 }
 
+// Query Query in the Lucene query string syntax.
 // API name: query
 func (r *ValidateQuery) Query(query *types.Query) *ValidateQuery {
 

@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newSynonymsDeleteFunc(t Transport) SynonymsDelete {
-	return func(synonyms_set string, o ...func(*SynonymsDeleteRequest)) (*Response, error) {
-		var r = SynonymsDeleteRequest{SynonymsSet: synonyms_set}
+func newSecurityUpdateSettingsFunc(t Transport) SecurityUpdateSettings {
+	return func(body io.Reader, o ...func(*SecurityUpdateSettingsRequest)) (*Response, error) {
+		var r = SecurityUpdateSettingsRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -37,16 +38,14 @@ func newSynonymsDeleteFunc(t Transport) SynonymsDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// SynonymsDelete deletes a synonym set
+// SecurityUpdateSettings - Update settings for the security system index
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonyms.html.
-type SynonymsDelete func(synonyms_set string, o ...func(*SynonymsDeleteRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html.
+type SecurityUpdateSettings func(body io.Reader, o ...func(*SecurityUpdateSettingsRequest)) (*Response, error)
 
-// SynonymsDeleteRequest configures the Synonyms Delete API request.
-type SynonymsDeleteRequest struct {
-	SynonymsSet string
+// SecurityUpdateSettingsRequest configures the Security Update Settings API request.
+type SecurityUpdateSettingsRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -59,21 +58,18 @@ type SynonymsDeleteRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r SynonymsDeleteRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityUpdateSettingsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len("_synonyms") + 1 + len(r.SynonymsSet))
+	path.Grow(7 + len("/_security/settings"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_synonyms")
-	path.WriteString("/")
-	path.WriteString(r.SynonymsSet)
+	path.WriteString("/_security/settings")
 
 	params = make(map[string]string)
 
@@ -93,7 +89,7 @@ func (r SynonymsDeleteRequest) Do(ctx context.Context, transport Transport) (*Re
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +114,10 @@ func (r SynonymsDeleteRequest) Do(ctx context.Context, transport Transport) (*Re
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
@@ -137,43 +137,43 @@ func (r SynonymsDeleteRequest) Do(ctx context.Context, transport Transport) (*Re
 }
 
 // WithContext sets the request context.
-func (f SynonymsDelete) WithContext(v context.Context) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f SecurityUpdateSettings) WithContext(v context.Context) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f SynonymsDelete) WithPretty() func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f SecurityUpdateSettings) WithPretty() func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f SynonymsDelete) WithHuman() func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f SecurityUpdateSettings) WithHuman() func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f SynonymsDelete) WithErrorTrace() func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f SecurityUpdateSettings) WithErrorTrace() func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f SynonymsDelete) WithFilterPath(v ...string) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f SecurityUpdateSettings) WithFilterPath(v ...string) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f SynonymsDelete) WithHeader(h map[string]string) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f SecurityUpdateSettings) WithHeader(h map[string]string) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -184,8 +184,8 @@ func (f SynonymsDelete) WithHeader(h map[string]string) func(*SynonymsDeleteRequ
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f SynonymsDelete) WithOpaqueID(s string) func(*SynonymsDeleteRequest) {
-	return func(r *SynonymsDeleteRequest) {
+func (f SecurityUpdateSettings) WithOpaqueID(s string) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
