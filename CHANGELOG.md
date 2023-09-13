@@ -1,3 +1,31 @@
+# 8.10.0
+
+## API
+**Experimental APIs for internal use**
+* `FleetDeleteSecret`
+* `FleetGetSecret`
+* `FleetPostSecret`
+
+**Exprimental APIs**
+
+`QueryRulesetList`
+
+**Stable APIs**
+
+`Security.GetSettings`
+`Security.UpdateSettings`
+
+## Typed API
+**Exprimental APIs**
+
+`QueryRuleset.List`
+
+**Technical Preview**
+* [QueryRuleSet](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-rules-apis.html)
+
+**Beta**
+* [Synonyms](https://www.elastic.co/guide/en/elasticsearch/reference/current/synonyms-apis.html)
+
 # 8.9.0
 
 ## API
