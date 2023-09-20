@@ -214,11 +214,13 @@ cluster.desired_nodes/10_basic.yml:
 
 # ----- X-Pack ----------------------------------------------------------------
 
-# Float "3.0" decoded as "3" by gopkg.in/yaml.v2
+# Floats "3.0" decoded as int "3" by gopkg.in/yaml.v2
 analytics/top_metrics.yml:
 runtime_fields/30_double.yml:
   - docvalue_fields
   - fetch fields
+search.vectors/60_dense_vector_dynamic_mapping.yml:
+  - Fields with float arrays below the threshold still map as float
 
 # Stash in body
 api_key/10_basic.yml:
