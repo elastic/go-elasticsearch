@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,17 @@ import (
 
 // IdsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/term.ts#L53-L55
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/term.ts#L80-L85
 type IdsQuery struct {
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
 	Boost      *float32 `json:"boost,omitempty"`
 	QueryName_ *string  `json:"_name,omitempty"`
-	Values     []string `json:"values,omitempty"`
+	// Values An array of document IDs.
+	Values []string `json:"values,omitempty"`
 }
 
 func (s *IdsQuery) UnmarshalJSON(data []byte) error {

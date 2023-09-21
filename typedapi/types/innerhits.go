@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,24 +30,30 @@ import (
 
 // InnerHits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/search/_types/hits.ts#L106-L124
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/search/_types/hits.ts#L106-L140
 type InnerHits struct {
-	Collapse         *FieldCollapse         `json:"collapse,omitempty"`
-	DocvalueFields   []FieldAndFormat       `json:"docvalue_fields,omitempty"`
-	Explain          *bool                  `json:"explain,omitempty"`
-	Fields           []string               `json:"fields,omitempty"`
-	From             *int                   `json:"from,omitempty"`
-	Highlight        *Highlight             `json:"highlight,omitempty"`
-	IgnoreUnmapped   *bool                  `json:"ignore_unmapped,omitempty"`
+	Collapse       *FieldCollapse   `json:"collapse,omitempty"`
+	DocvalueFields []FieldAndFormat `json:"docvalue_fields,omitempty"`
+	Explain        *bool            `json:"explain,omitempty"`
+	Fields         []string         `json:"fields,omitempty"`
+	// From Inner hit starting document offset.
+	From           *int       `json:"from,omitempty"`
+	Highlight      *Highlight `json:"highlight,omitempty"`
+	IgnoreUnmapped *bool      `json:"ignore_unmapped,omitempty"`
+	// Name The name for the particular inner hit definition in the response.
+	// Useful when a search request contains multiple inner hits.
 	Name             *string                `json:"name,omitempty"`
 	ScriptFields     map[string]ScriptField `json:"script_fields,omitempty"`
 	SeqNoPrimaryTerm *bool                  `json:"seq_no_primary_term,omitempty"`
-	Size             *int                   `json:"size,omitempty"`
-	Sort             []SortCombinations     `json:"sort,omitempty"`
-	Source_          SourceConfig           `json:"_source,omitempty"`
-	StoredField      []string               `json:"stored_field,omitempty"`
-	TrackScores      *bool                  `json:"track_scores,omitempty"`
-	Version          *bool                  `json:"version,omitempty"`
+	// Size The maximum number of hits to return per `inner_hits`.
+	Size *int `json:"size,omitempty"`
+	// Sort How the inner hits should be sorted per `inner_hits`.
+	// By default, inner hits are sorted by score.
+	Sort        []SortCombinations `json:"sort,omitempty"`
+	Source_     SourceConfig       `json:"_source,omitempty"`
+	StoredField []string           `json:"stored_field,omitempty"`
+	TrackScores *bool              `json:"track_scores,omitempty"`
+	Version     *bool              `json:"version,omitempty"`
 }
 
 func (s *InnerHits) UnmarshalJSON(data []byte) error {

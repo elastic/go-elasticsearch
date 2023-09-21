@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Clones an index
 package clone
@@ -247,7 +247,7 @@ func (r *Clone) Header(key, value string) *Clone {
 	return r
 }
 
-// Index The name of the source index to clone
+// Index Name of the source index to clone.
 // API Name: index
 func (r *Clone) Index(index string) *Clone {
 	r.paramSet |= indexMask
@@ -256,7 +256,7 @@ func (r *Clone) Index(index string) *Clone {
 	return r
 }
 
-// Target The name of the target index to clone into
+// Target Name of the target index to create.
 // API Name: target
 func (r *Clone) Target(target string) *Clone {
 	r.paramSet |= targetMask
@@ -265,7 +265,9 @@ func (r *Clone) Target(target string) *Clone {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Clone) MasterTimeout(duration string) *Clone {
 	r.values.Set("master_timeout", duration)
@@ -273,7 +275,9 @@ func (r *Clone) MasterTimeout(duration string) *Clone {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Clone) Timeout(duration string) *Clone {
 	r.values.Set("timeout", duration)
@@ -281,8 +285,10 @@ func (r *Clone) Timeout(duration string) *Clone {
 	return r
 }
 
-// WaitForActiveShards Set the number of active shards to wait for on the cloned index before the
-// operation returns.
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to `all` or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Clone) WaitForActiveShards(waitforactiveshards string) *Clone {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -290,6 +296,7 @@ func (r *Clone) WaitForActiveShards(waitforactiveshards string) *Clone {
 	return r
 }
 
+// Aliases Aliases for the resulting index.
 // API name: aliases
 func (r *Clone) Aliases(aliases map[string]types.Alias) *Clone {
 
@@ -298,6 +305,7 @@ func (r *Clone) Aliases(aliases map[string]types.Alias) *Clone {
 	return r
 }
 
+// Settings Configuration options for the target index.
 // API name: settings
 func (r *Clone) Settings(settings map[string]json.RawMessage) *Clone {
 

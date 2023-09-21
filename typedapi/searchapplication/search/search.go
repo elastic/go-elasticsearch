@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Perform a search against a search application
 package search
@@ -243,7 +243,7 @@ func (r *Search) Header(key, value string) *Search {
 	return r
 }
 
-// Name The name of the search application to be searched
+// Name The name of the search application to be searched.
 // API Name: name
 func (r *Search) Name(name string) *Search {
 	r.paramSet |= nameMask
@@ -252,6 +252,8 @@ func (r *Search) Name(name string) *Search {
 	return r
 }
 
+// Params Query parameters specific to this request, which will override any defaults
+// specified in the template.
 // API name: params
 func (r *Search) Params(params map[string]json.RawMessage) *Search {
 

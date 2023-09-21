@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,13 +30,20 @@ import (
 
 // SuggestFuzziness type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/search/_types/suggester.ts#L142-L148
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/search/_types/suggester.ts#L193-L221
 type SuggestFuzziness struct {
-	Fuzziness      Fuzziness `json:"fuzziness,omitempty"`
-	MinLength      *int      `json:"min_length,omitempty"`
-	PrefixLength   *int      `json:"prefix_length,omitempty"`
-	Transpositions *bool     `json:"transpositions,omitempty"`
-	UnicodeAware   *bool     `json:"unicode_aware,omitempty"`
+	// Fuzziness The fuzziness factor.
+	Fuzziness Fuzziness `json:"fuzziness,omitempty"`
+	// MinLength Minimum length of the input before fuzzy suggestions are returned.
+	MinLength *int `json:"min_length,omitempty"`
+	// PrefixLength Minimum length of the input, which is not checked for fuzzy alternatives.
+	PrefixLength *int `json:"prefix_length,omitempty"`
+	// Transpositions If set to `true`, transpositions are counted as one change instead of two.
+	Transpositions *bool `json:"transpositions,omitempty"`
+	// UnicodeAware If `true`, all measurements (like fuzzy edit distance, transpositions, and
+	// lengths) are measured in Unicode code points instead of in bytes.
+	// This is slightly slower than raw bytes.
+	UnicodeAware *bool `json:"unicode_aware,omitempty"`
 }
 
 func (s *SuggestFuzziness) UnmarshalJSON(data []byte) error {

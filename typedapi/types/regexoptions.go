@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,10 +30,12 @@ import (
 
 // RegexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/search/_types/suggester.ts#L137-L140
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/search/_types/suggester.ts#L180-L191
 type RegexOptions struct {
-	Flags                 string `json:"flags,omitempty"`
-	MaxDeterminizedStates *int   `json:"max_determinized_states,omitempty"`
+	// Flags Optional operators for the regular expression.
+	Flags string `json:"flags,omitempty"`
+	// MaxDeterminizedStates Maximum number of automaton states required for the query.
+	MaxDeterminizedStates *int `json:"max_determinized_states,omitempty"`
 }
 
 func (s *RegexOptions) UnmarshalJSON(data []byte) error {

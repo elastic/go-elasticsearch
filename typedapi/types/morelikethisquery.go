@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,29 +32,65 @@ import (
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/specialized.ts#L62-L89
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/specialized.ts#L78-L163
 type MoreLikeThisQuery struct {
-	Analyzer               *string                  `json:"analyzer,omitempty"`
-	Boost                  *float32                 `json:"boost,omitempty"`
-	BoostTerms             *Float64                 `json:"boost_terms,omitempty"`
-	FailOnUnsupportedField *bool                    `json:"fail_on_unsupported_field,omitempty"`
-	Fields                 []string                 `json:"fields,omitempty"`
-	Include                *bool                    `json:"include,omitempty"`
-	Like                   []Like                   `json:"like"`
-	MaxDocFreq             *int                     `json:"max_doc_freq,omitempty"`
-	MaxQueryTerms          *int                     `json:"max_query_terms,omitempty"`
-	MaxWordLength          *int                     `json:"max_word_length,omitempty"`
-	MinDocFreq             *int                     `json:"min_doc_freq,omitempty"`
-	MinTermFreq            *int                     `json:"min_term_freq,omitempty"`
-	MinWordLength          *int                     `json:"min_word_length,omitempty"`
-	MinimumShouldMatch     MinimumShouldMatch       `json:"minimum_should_match,omitempty"`
-	PerFieldAnalyzer       map[string]string        `json:"per_field_analyzer,omitempty"`
-	QueryName_             *string                  `json:"_name,omitempty"`
-	Routing                *string                  `json:"routing,omitempty"`
-	StopWords              []string                 `json:"stop_words,omitempty"`
-	Unlike                 []Like                   `json:"unlike,omitempty"`
-	Version                *int64                   `json:"version,omitempty"`
-	VersionType            *versiontype.VersionType `json:"version_type,omitempty"`
+	// Analyzer The analyzer that is used to analyze the free form text.
+	// Defaults to the analyzer associated with the first field in fields.
+	Analyzer *string `json:"analyzer,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// BoostTerms Each term in the formed query could be further boosted by their tf-idf score.
+	// This sets the boost factor to use when using this feature.
+	// Defaults to deactivated (0).
+	BoostTerms *Float64 `json:"boost_terms,omitempty"`
+	// FailOnUnsupportedField Controls whether the query should fail (throw an exception) if any of the
+	// specified fields are not of the supported types (`text` or `keyword`).
+	FailOnUnsupportedField *bool `json:"fail_on_unsupported_field,omitempty"`
+	// Fields A list of fields to fetch and analyze the text from.
+	// Defaults to the `index.query.default_field` index setting, which has a
+	// default value of `*`.
+	Fields []string `json:"fields,omitempty"`
+	// Include Specifies whether the input documents should also be included in the search
+	// results returned.
+	Include *bool `json:"include,omitempty"`
+	// Like Specifies free form text and/or a single or multiple documents for which you
+	// want to find similar documents.
+	Like []Like `json:"like"`
+	// MaxDocFreq The maximum document frequency above which the terms are ignored from the
+	// input document.
+	MaxDocFreq *int `json:"max_doc_freq,omitempty"`
+	// MaxQueryTerms The maximum number of query terms that can be selected.
+	MaxQueryTerms *int `json:"max_query_terms,omitempty"`
+	// MaxWordLength The maximum word length above which the terms are ignored.
+	// Defaults to unbounded (`0`).
+	MaxWordLength *int `json:"max_word_length,omitempty"`
+	// MinDocFreq The minimum document frequency below which the terms are ignored from the
+	// input document.
+	MinDocFreq *int `json:"min_doc_freq,omitempty"`
+	// MinTermFreq The minimum term frequency below which the terms are ignored from the input
+	// document.
+	MinTermFreq *int `json:"min_term_freq,omitempty"`
+	// MinWordLength The minimum word length below which the terms are ignored.
+	MinWordLength *int `json:"min_word_length,omitempty"`
+	// MinimumShouldMatch After the disjunctive query has been formed, this parameter controls the
+	// number of terms that must match.
+	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
+	// PerFieldAnalyzer Overrides the default analyzer.
+	PerFieldAnalyzer map[string]string `json:"per_field_analyzer,omitempty"`
+	QueryName_       *string           `json:"_name,omitempty"`
+	Routing          *string           `json:"routing,omitempty"`
+	// StopWords An array of stop words.
+	// Any word in this set is ignored.
+	StopWords []string `json:"stop_words,omitempty"`
+	// Unlike Used in combination with `like` to exclude documents that match a set of
+	// terms.
+	Unlike      []Like                   `json:"unlike,omitempty"`
+	Version     *int64                   `json:"version,omitempty"`
+	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
 
 func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {

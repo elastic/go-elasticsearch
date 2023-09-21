@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,12 @@ import (
 
 // NestedAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L281-L283
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L636-L641
 type NestedAggregation struct {
 	Meta Metadata `json:"meta,omitempty"`
 	Name *string  `json:"name,omitempty"`
-	Path *string  `json:"path,omitempty"`
+	// Path The path to the field of type `nested`.
+	Path *string `json:"path,omitempty"`
 }
 
 func (s *NestedAggregation) UnmarshalJSON(data []byte) error {

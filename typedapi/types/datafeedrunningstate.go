@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,18 @@ import (
 
 // DatafeedRunningState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ml/_types/Datafeed.ts#L158-L162
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ml/_types/Datafeed.ts#L198-L212
 type DatafeedRunningState struct {
-	RealTimeConfigured bool                        `json:"real_time_configured"`
-	RealTimeRunning    bool                        `json:"real_time_running"`
-	SearchInterval     *RunningStateSearchInterval `json:"search_interval,omitempty"`
+	// RealTimeConfigured Indicates if the datafeed is "real-time"; meaning that the datafeed has no
+	// configured `end` time.
+	RealTimeConfigured bool `json:"real_time_configured"`
+	// RealTimeRunning Indicates whether the datafeed has finished running on the available past
+	// data.
+	// For datafeeds without a configured `end` time, this means that the datafeed
+	// is now running on "real-time" data.
+	RealTimeRunning bool `json:"real_time_running"`
+	// SearchInterval Provides the latest time interval the datafeed has searched.
+	SearchInterval *RunningStateSearchInterval `json:"search_interval,omitempty"`
 }
 
 func (s *DatafeedRunningState) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Close a point in time
 package closepointintime
@@ -253,6 +253,7 @@ func (r *ClosePointInTime) Header(key, value string) *ClosePointInTime {
 	return r
 }
 
+// Id The ID of the point-in-time.
 // API name: id
 func (r *ClosePointInTime) Id(id string) *ClosePointInTime {
 	r.req.Id = id

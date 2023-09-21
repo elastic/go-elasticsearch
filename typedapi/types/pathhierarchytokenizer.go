@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,15 +30,15 @@ import (
 
 // PathHierarchyTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/analysis/tokenizers.ts#L88-L95
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/analysis/tokenizers.ts#L89-L96
 type PathHierarchyTokenizer struct {
-	BufferSize  int     `json:"buffer_size"`
-	Delimiter   string  `json:"delimiter"`
-	Replacement string  `json:"replacement"`
-	Reverse     bool    `json:"reverse"`
-	Skip        int     `json:"skip"`
-	Type        string  `json:"type,omitempty"`
-	Version     *string `json:"version,omitempty"`
+	BufferSize  Stringifiedinteger `json:"buffer_size"`
+	Delimiter   string             `json:"delimiter"`
+	Replacement string             `json:"replacement"`
+	Reverse     Stringifiedboolean `json:"reverse"`
+	Skip        Stringifiedinteger `json:"skip"`
+	Type        string             `json:"type,omitempty"`
+	Version     *string            `json:"version,omitempty"`
 }
 
 func (s *PathHierarchyTokenizer) UnmarshalJSON(data []byte) error {
@@ -57,19 +57,8 @@ func (s *PathHierarchyTokenizer) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "buffer_size":
-
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return err
-				}
-				s.BufferSize = value
-			case float64:
-				f := int(v)
-				s.BufferSize = f
+			if err := dec.Decode(&s.BufferSize); err != nil {
+				return err
 			}
 
 		case "delimiter":
@@ -97,33 +86,13 @@ func (s *PathHierarchyTokenizer) UnmarshalJSON(data []byte) error {
 			s.Replacement = o
 
 		case "reverse":
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return err
-				}
-				s.Reverse = value
-			case bool:
-				s.Reverse = v
+			if err := dec.Decode(&s.Reverse); err != nil {
+				return err
 			}
 
 		case "skip":
-
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return err
-				}
-				s.Skip = value
-			case float64:
-				f := int(v)
-				s.Skip = f
+			if err := dec.Decode(&s.Skip); err != nil {
+				return err
 			}
 
 		case "type":

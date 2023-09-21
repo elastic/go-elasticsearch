@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,13 +30,17 @@ import (
 
 // ExtendedStatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L68-L70
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/metric.ts#L101-L106
 type ExtendedStatsAggregation struct {
-	Field   *string  `json:"field,omitempty"`
-	Format  *string  `json:"format,omitempty"`
-	Missing Missing  `json:"missing,omitempty"`
-	Script  Script   `json:"script,omitempty"`
-	Sigma   *Float64 `json:"sigma,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field  *string `json:"field,omitempty"`
+	Format *string `json:"format,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	Script  Script  `json:"script,omitempty"`
+	// Sigma The number of standard deviations above/below the mean to display.
+	Sigma *Float64 `json:"sigma,omitempty"`
 }
 
 func (s *ExtendedStatsAggregation) UnmarshalJSON(data []byte) error {

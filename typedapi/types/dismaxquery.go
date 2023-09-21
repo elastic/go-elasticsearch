@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,22 @@ import (
 
 // DisMaxQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/compound.ts#L46-L50
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/compound.ts#L78-L90
 type DisMaxQuery struct {
-	Boost      *float32 `json:"boost,omitempty"`
-	Queries    []Query  `json:"queries"`
-	QueryName_ *string  `json:"_name,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// Queries One or more query clauses.
+	// Returned documents must match one or more of these queries.
+	// If a document matches multiple queries, Elasticsearch uses the highest
+	// relevance score.
+	Queries    []Query `json:"queries"`
+	QueryName_ *string `json:"_name,omitempty"`
+	// TieBreaker Floating point number between 0 and 1.0 used to increase the relevance scores
+	// of documents matching multiple query clauses.
 	TieBreaker *Float64 `json:"tie_breaker,omitempty"`
 }
 

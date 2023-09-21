@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,13 @@ import (
 
 // SamplerAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L318-L320
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L727-L733
 type SamplerAggregation struct {
-	Meta      Metadata `json:"meta,omitempty"`
-	Name      *string  `json:"name,omitempty"`
-	ShardSize *int     `json:"shard_size,omitempty"`
+	Meta Metadata `json:"meta,omitempty"`
+	Name *string  `json:"name,omitempty"`
+	// ShardSize Limits how many top-scoring documents are collected in the sample processed
+	// on each shard.
+	ShardSize *int `json:"shard_size,omitempty"`
 }
 
 func (s *SamplerAggregation) UnmarshalJSON(data []byte) error {

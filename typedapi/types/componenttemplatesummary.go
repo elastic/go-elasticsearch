@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -29,14 +29,14 @@ import (
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/cluster/_types/ComponentTemplate.ts#L42-L54
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/cluster/_types/ComponentTemplate.ts#L42-L54
 type ComponentTemplateSummary struct {
-	Aliases   map[string]AliasDefinition `json:"aliases,omitempty"`
-	Lifecycle *DataLifecycleWithRollover `json:"lifecycle,omitempty"`
-	Mappings  *TypeMapping               `json:"mappings,omitempty"`
-	Meta_     Metadata                   `json:"_meta,omitempty"`
-	Settings  map[string]IndexSettings   `json:"settings,omitempty"`
-	Version   *int64                     `json:"version,omitempty"`
+	Aliases   map[string]AliasDefinition       `json:"aliases,omitempty"`
+	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
+	Mappings  *TypeMapping                     `json:"mappings,omitempty"`
+	Meta_     Metadata                         `json:"_meta,omitempty"`
+	Settings  map[string]IndexSettings         `json:"settings,omitempty"`
+	Version   *int64                           `json:"version,omitempty"`
 }
 
 func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Creates a new enrich policy.
 package putpolicy
@@ -78,7 +78,7 @@ func NewPutPolicyFunc(tp elastictransport.Interface) NewPutPolicy {
 
 // Creates a new enrich policy.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/put-enrich-policy-api.html
 func New(tp elastictransport.Interface) *PutPolicy {
 	r := &PutPolicy{
 		transport: tp,
@@ -241,7 +241,7 @@ func (r *PutPolicy) Header(key, value string) *PutPolicy {
 	return r
 }
 
-// Name The name of the enrich policy
+// Name Name of the enrich policy to create or update.
 // API Name: name
 func (r *PutPolicy) Name(name string) *PutPolicy {
 	r.paramSet |= nameMask
@@ -250,6 +250,7 @@ func (r *PutPolicy) Name(name string) *PutPolicy {
 	return r
 }
 
+// GeoMatch Matches enrich data to incoming documents based on a `geo_shape` query.
 // API name: geo_match
 func (r *PutPolicy) GeoMatch(geomatch *types.EnrichPolicy) *PutPolicy {
 
@@ -258,6 +259,7 @@ func (r *PutPolicy) GeoMatch(geomatch *types.EnrichPolicy) *PutPolicy {
 	return r
 }
 
+// Match Matches enrich data to incoming documents based on a `term` query.
 // API name: match
 func (r *PutPolicy) Match(match *types.EnrichPolicy) *PutPolicy {
 
@@ -266,6 +268,8 @@ func (r *PutPolicy) Match(match *types.EnrichPolicy) *PutPolicy {
 	return r
 }
 
+// Range Matches a number, date, or IP address in incoming documents to a range in the
+// enrich index based on a `term` query.
 // API name: range
 func (r *PutPolicy) Range(range_ *types.EnrichPolicy) *PutPolicy {
 

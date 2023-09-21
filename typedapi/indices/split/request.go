@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package split
 
@@ -29,9 +29,12 @@ import (
 
 // Request holds the request body struct for the package split
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/split/IndicesSplitRequest.ts#L27-L45
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/split/IndicesSplitRequest.ts#L27-L74
 type Request struct {
-	Aliases  map[string]types.Alias     `json:"aliases,omitempty"`
+
+	// Aliases Aliases for the resulting index.
+	Aliases map[string]types.Alias `json:"aliases,omitempty"`
+	// Settings Configuration options for the target index.
 	Settings map[string]json.RawMessage `json:"settings,omitempty"`
 }
 

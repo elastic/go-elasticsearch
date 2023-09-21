@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Package simplequerystringflag
 package simplequerystringflag
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/fulltext.ts#L278-L292
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/fulltext.ts#L708-L763
 type SimpleQueryStringFlag struct {
 	Name string
 }
@@ -33,9 +33,9 @@ var (
 
 	AND = SimpleQueryStringFlag{"AND"}
 
-	OR = SimpleQueryStringFlag{"OR"}
-
 	NOT = SimpleQueryStringFlag{"NOT"}
+
+	OR = SimpleQueryStringFlag{"OR"}
 
 	PREFIX = SimpleQueryStringFlag{"PREFIX"}
 
@@ -67,10 +67,10 @@ func (s *SimpleQueryStringFlag) UnmarshalText(text []byte) error {
 		*s = NONE
 	case "AND":
 		*s = AND
-	case "OR":
-		*s = OR
 	case "NOT":
 		*s = NOT
+	case "OR":
+		*s = OR
 	case "PREFIX":
 		*s = PREFIX
 	case "PHRASE":

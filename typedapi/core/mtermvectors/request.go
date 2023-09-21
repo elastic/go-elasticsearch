@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package mtermvectors
 
@@ -29,10 +29,14 @@ import (
 
 // Request holds the request body struct for the package mtermvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/mtermvectors/MultiTermVectorsRequest.ts#L31-L58
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/mtermvectors/MultiTermVectorsRequest.ts#L31-L109
 type Request struct {
+
+	// Docs Array of existing or artificial documents.
 	Docs []types.MTermVectorsOperation `json:"docs,omitempty"`
-	Ids  []string                      `json:"ids,omitempty"`
+	// Ids Simplified syntax to specify documents by their ID if they're in the same
+	// index.
+	Ids []string `json:"ids,omitempty"`
 }
 
 // NewRequest returns a Request

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Retrieves anomaly detection job results for one or more influencers.
 package getinfluencers
@@ -325,6 +325,8 @@ func (r *GetInfluencers) Start(datetime string) *GetInfluencers {
 	return r
 }
 
+// Page Configures pagination.
+// This parameter has the `from` and `size` properties.
 // API name: page
 func (r *GetInfluencers) Page(page *types.Page) *GetInfluencers {
 

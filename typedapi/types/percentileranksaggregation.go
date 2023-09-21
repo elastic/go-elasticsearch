@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,16 +30,27 @@ import (
 
 // PercentileRanksAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L105-L110
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/metric.ts#L174-L193
 type PercentileRanksAggregation struct {
-	Field   *string    `json:"field,omitempty"`
-	Format  *string    `json:"format,omitempty"`
-	Hdr     *HdrMethod `json:"hdr,omitempty"`
-	Keyed   *bool      `json:"keyed,omitempty"`
-	Missing Missing    `json:"missing,omitempty"`
-	Script  Script     `json:"script,omitempty"`
-	Tdigest *TDigest   `json:"tdigest,omitempty"`
-	Values  []Float64  `json:"values,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field  *string `json:"field,omitempty"`
+	Format *string `json:"format,omitempty"`
+	// Hdr Uses the alternative High Dynamic Range Histogram algorithm to calculate
+	// percentile ranks.
+	Hdr *HdrMethod `json:"hdr,omitempty"`
+	// Keyed By default, the aggregation associates a unique string key with each bucket
+	// and returns the ranges as a hash rather than an array.
+	// Set to `false` to disable this behavior.
+	Keyed *bool `json:"keyed,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	Script  Script  `json:"script,omitempty"`
+	// Tdigest Sets parameters for the default TDigest algorithm used to calculate
+	// percentile ranks.
+	Tdigest *TDigest `json:"tdigest,omitempty"`
+	// Values An array of values for which to calculate the percentile ranks.
+	Values []Float64 `json:"values,omitempty"`
 }
 
 func (s *PercentileRanksAggregation) UnmarshalJSON(data []byte) error {

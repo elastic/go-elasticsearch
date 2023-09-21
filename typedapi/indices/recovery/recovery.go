@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns information about ongoing index shard recoveries.
 package recovery
@@ -215,8 +215,11 @@ func (r *Recovery) Header(key, value string) *Recovery {
 	return r
 }
 
-// Index A comma-separated list of index names; use `_all` or empty string to perform
-// the operation on all indices
+// Index Comma-separated list of data streams, indices, and aliases used to limit the
+// request.
+// Supports wildcards (`*`).
+// To target all data streams and indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *Recovery) Index(index string) *Recovery {
 	r.paramSet |= indexMask
@@ -225,7 +228,7 @@ func (r *Recovery) Index(index string) *Recovery {
 	return r
 }
 
-// ActiveOnly Display only those recoveries that are currently on-going
+// ActiveOnly If `true`, the response only includes ongoing shard recoveries.
 // API name: active_only
 func (r *Recovery) ActiveOnly(activeonly bool) *Recovery {
 	r.values.Set("active_only", strconv.FormatBool(activeonly))
@@ -233,7 +236,7 @@ func (r *Recovery) ActiveOnly(activeonly bool) *Recovery {
 	return r
 }
 
-// Detailed Whether to display detailed information about shard recovery
+// Detailed If `true`, the response includes detailed information about shard recoveries.
 // API name: detailed
 func (r *Recovery) Detailed(detailed bool) *Recovery {
 	r.values.Set("detailed", strconv.FormatBool(detailed))

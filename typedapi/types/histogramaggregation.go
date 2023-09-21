@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,21 +32,39 @@ import (
 
 // HistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L235-L247
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L500-L546
 type HistogramAggregation struct {
+	// ExtendedBounds Enables extending the bounds of the histogram beyond the data itself.
 	ExtendedBounds *ExtendedBoundsdouble `json:"extended_bounds,omitempty"`
-	Field          *string               `json:"field,omitempty"`
-	Format         *string               `json:"format,omitempty"`
-	HardBounds     *ExtendedBoundsdouble `json:"hard_bounds,omitempty"`
-	Interval       *Float64              `json:"interval,omitempty"`
-	Keyed          *bool                 `json:"keyed,omitempty"`
-	Meta           Metadata              `json:"meta,omitempty"`
-	MinDocCount    *int                  `json:"min_doc_count,omitempty"`
-	Missing        *Float64              `json:"missing,omitempty"`
-	Name           *string               `json:"name,omitempty"`
-	Offset         *Float64              `json:"offset,omitempty"`
-	Order          AggregateOrder        `json:"order,omitempty"`
-	Script         Script                `json:"script,omitempty"`
+	// Field The name of the field to aggregate on.
+	Field  *string `json:"field,omitempty"`
+	Format *string `json:"format,omitempty"`
+	// HardBounds Limits the range of buckets in the histogram.
+	// It is particularly useful in the case of open data ranges that can result in
+	// a very large number of buckets.
+	HardBounds *ExtendedBoundsdouble `json:"hard_bounds,omitempty"`
+	// Interval The interval for the buckets.
+	// Must be a positive decimal.
+	Interval *Float64 `json:"interval,omitempty"`
+	// Keyed If `true`, returns buckets as a hash instead of an array, keyed by the bucket
+	// keys.
+	Keyed *bool    `json:"keyed,omitempty"`
+	Meta  Metadata `json:"meta,omitempty"`
+	// MinDocCount Only returns buckets that have `min_doc_count` number of documents.
+	// By default, the response will fill gaps in the histogram with empty buckets.
+	MinDocCount *int `json:"min_doc_count,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing *Float64 `json:"missing,omitempty"`
+	Name    *string  `json:"name,omitempty"`
+	// Offset By default, the bucket keys start with 0 and then continue in even spaced
+	// steps of `interval`.
+	// The bucket boundaries can be shifted by using the `offset` option.
+	Offset *Float64 `json:"offset,omitempty"`
+	// Order The sort order of the returned buckets.
+	// By default, the returned buckets are sorted by their key ascending.
+	Order  AggregateOrder `json:"order,omitempty"`
+	Script Script         `json:"script,omitempty"`
 }
 
 func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Downsample an index
 package downsample
@@ -83,7 +83,7 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 
 // Downsample an index
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/xpack-rollup.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-downsample-data-stream.html
 func New(tp elastictransport.Interface) *Downsample {
 	r := &Downsample{
 		transport: tp,
@@ -245,7 +245,7 @@ func (r *Downsample) Header(key, value string) *Downsample {
 	return r
 }
 
-// Index The index to downsample
+// Index Name of the time series index to downsample.
 // API Name: index
 func (r *Downsample) Index(index string) *Downsample {
 	r.paramSet |= indexMask
@@ -254,7 +254,7 @@ func (r *Downsample) Index(index string) *Downsample {
 	return r
 }
 
-// TargetIndex The name of the target index to store downsampled data
+// TargetIndex Name of the index to create.
 // API Name: targetindex
 func (r *Downsample) TargetIndex(targetindex string) *Downsample {
 	r.paramSet |= targetindexMask

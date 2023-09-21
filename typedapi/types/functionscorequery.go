@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -33,16 +33,28 @@ import (
 
 // FunctionScoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/compound.ts#L52-L59
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/compound.ts#L92-L118
 type FunctionScoreQuery struct {
-	Boost      *float32                             `json:"boost,omitempty"`
-	BoostMode  *functionboostmode.FunctionBoostMode `json:"boost_mode,omitempty"`
-	Functions  []FunctionScore                      `json:"functions,omitempty"`
-	MaxBoost   *Float64                             `json:"max_boost,omitempty"`
-	MinScore   *Float64                             `json:"min_score,omitempty"`
-	Query      *Query                               `json:"query,omitempty"`
-	QueryName_ *string                              `json:"_name,omitempty"`
-	ScoreMode  *functionscoremode.FunctionScoreMode `json:"score_mode,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// BoostMode Defines how he newly computed score is combined with the score of the query
+	BoostMode *functionboostmode.FunctionBoostMode `json:"boost_mode,omitempty"`
+	// Functions One or more functions that compute a new score for each document returned by
+	// the query.
+	Functions []FunctionScore `json:"functions,omitempty"`
+	// MaxBoost Restricts the new score to not exceed the provided limit.
+	MaxBoost *Float64 `json:"max_boost,omitempty"`
+	// MinScore Excludes documents that do not meet the provided score threshold.
+	MinScore *Float64 `json:"min_score,omitempty"`
+	// Query A query that determines the documents for which a new score is computed.
+	Query      *Query  `json:"query,omitempty"`
+	QueryName_ *string `json:"_name,omitempty"`
+	// ScoreMode Specifies how the computed scores are combined
+	ScoreMode *functionscoremode.FunctionScoreMode `json:"score_mode,omitempty"`
 }
 
 func (s *FunctionScoreQuery) UnmarshalJSON(data []byte) error {

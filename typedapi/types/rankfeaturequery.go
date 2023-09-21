@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,15 +30,29 @@ import (
 
 // RankFeatureQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/specialized.ts#L154-L162
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/specialized.ts#L293-L316
 type RankFeatureQuery struct {
-	Boost      *float32                       `json:"boost,omitempty"`
-	Field      string                         `json:"field"`
-	Linear     *RankFeatureFunctionLinear     `json:"linear,omitempty"`
-	Log        *RankFeatureFunctionLogarithm  `json:"log,omitempty"`
-	QueryName_ *string                        `json:"_name,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// Field `rank_feature` or `rank_features` field used to boost relevance scores.
+	Field string `json:"field"`
+	// Linear Linear function used to boost relevance scores based on the value of the rank
+	// feature `field`.
+	Linear *RankFeatureFunctionLinear `json:"linear,omitempty"`
+	// Log Logarithmic function used to boost relevance scores based on the value of the
+	// rank feature `field`.
+	Log        *RankFeatureFunctionLogarithm `json:"log,omitempty"`
+	QueryName_ *string                       `json:"_name,omitempty"`
+	// Saturation Saturation function used to boost relevance scores based on the value of the
+	// rank feature `field`.
 	Saturation *RankFeatureFunctionSaturation `json:"saturation,omitempty"`
-	Sigmoid    *RankFeatureFunctionSigmoid    `json:"sigmoid,omitempty"`
+	// Sigmoid Sigmoid function used to boost relevance scores based on the value of the
+	// rank feature `field`.
+	Sigmoid *RankFeatureFunctionSigmoid `json:"sigmoid,omitempty"`
 }
 
 func (s *RankFeatureQuery) UnmarshalJSON(data []byte) error {

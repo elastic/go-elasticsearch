@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,14 +30,20 @@ import (
 
 // ThreadCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/nodes/_types/Stats.ts#L404-L411
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/nodes/_types/Stats.ts#L1004-L1029
 type ThreadCount struct {
-	Active    *int64 `json:"active,omitempty"`
+	// Active Number of active threads in the thread pool.
+	Active *int64 `json:"active,omitempty"`
+	// Completed Number of tasks completed by the thread pool executor.
 	Completed *int64 `json:"completed,omitempty"`
-	Largest   *int64 `json:"largest,omitempty"`
-	Queue     *int64 `json:"queue,omitempty"`
-	Rejected  *int64 `json:"rejected,omitempty"`
-	Threads   *int64 `json:"threads,omitempty"`
+	// Largest Highest number of active threads in the thread pool.
+	Largest *int64 `json:"largest,omitempty"`
+	// Queue Number of tasks in queue for the thread pool.
+	Queue *int64 `json:"queue,omitempty"`
+	// Rejected Number of tasks rejected by the thread pool executor.
+	Rejected *int64 `json:"rejected,omitempty"`
+	// Threads Number of threads in the thread pool.
+	Threads *int64 `json:"threads,omitempty"`
 }
 
 func (s *ThreadCount) UnmarshalJSON(data []byte) error {

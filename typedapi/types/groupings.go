@@ -16,17 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
 // Groupings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/rollup/_types/Groupings.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/rollup/_types/Groupings.ts#L24-L40
 type Groupings struct {
+	// DateHistogram A date histogram group aggregates a date field into time-based buckets.
+	// This group is mandatory; you currently cannot roll up documents without a
+	// timestamp and a `date_histogram` group.
 	DateHistogram *DateHistogramGrouping `json:"date_histogram,omitempty"`
-	Histogram     *HistogramGrouping     `json:"histogram,omitempty"`
-	Terms         *TermsGrouping         `json:"terms,omitempty"`
+	// Histogram The histogram group aggregates one or more numeric fields into numeric
+	// histogram intervals.
+	Histogram *HistogramGrouping `json:"histogram,omitempty"`
+	// Terms The terms group can be used on keyword or numeric fields to allow bucketing
+	// via the terms aggregation at a later point.
+	// The indexer enumerates and stores all values of a field for each time-period.
+	// This can be potentially costly for high-cardinality groups such as IP
+	// addresses, especially if the time-bucket is particularly sparse.
+	Terms *TermsGrouping `json:"terms,omitempty"`
 }
 
 // NewGroupings returns a Groupings.

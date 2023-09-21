@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,17 +30,29 @@ import (
 
 // DissectProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L187-L192
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L560-L579
 type DissectProcessor struct {
-	AppendSeparator *string              `json:"append_separator,omitempty"`
-	Description     *string              `json:"description,omitempty"`
-	Field           string               `json:"field"`
-	If              *string              `json:"if,omitempty"`
-	IgnoreFailure   *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing   *bool                `json:"ignore_missing,omitempty"`
-	OnFailure       []ProcessorContainer `json:"on_failure,omitempty"`
-	Pattern         string               `json:"pattern"`
-	Tag             *string              `json:"tag,omitempty"`
+	// AppendSeparator The character(s) that separate the appended fields.
+	AppendSeparator *string `json:"append_separator,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to dissect.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and `field` does not exist or is `null`, the processor quietly
+	// exits without modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Pattern The pattern to apply to the field.
+	Pattern string `json:"pattern"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
 }
 
 func (s *DissectProcessor) UnmarshalJSON(data []byte) error {

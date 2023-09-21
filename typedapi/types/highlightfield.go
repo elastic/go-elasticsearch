@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/search/_types/highlighting.ts#L193-L197
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/search/_types/highlighting.ts#L193-L197
 type HighlightField struct {
 	Analyzer Analyzer `json:"analyzer,omitempty"`
 	// BoundaryChars A string that contains each boundary character.
@@ -139,7 +139,9 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			localDec.Decode(&kind)
 			source.Seek(0, io.SeekStart)
-
+			if _, ok := kind["type"]; !ok {
+				kind["type"] = "custom"
+			}
 			switch kind["type"] {
 
 			case "custom":

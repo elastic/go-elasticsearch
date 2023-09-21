@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,16 @@ import (
 
 // RemoveIndexAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/update_aliases/types.ts#L55-L60
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/update_aliases/types.ts#L124-L139
 type RemoveIndexAction struct {
-	Index     *string  `json:"index,omitempty"`
-	Indices   []string `json:"indices,omitempty"`
-	MustExist *bool    `json:"must_exist,omitempty"`
+	// Index Data stream or index for the action.
+	// Supports wildcards (`*`).
+	Index *string `json:"index,omitempty"`
+	// Indices Data streams or indices for the action.
+	// Supports wildcards (`*`).
+	Indices []string `json:"indices,omitempty"`
+	// MustExist If `true`, the alias must exist to perform the action.
+	MustExist *bool `json:"must_exist,omitempty"`
 }
 
 func (s *RemoveIndexAction) UnmarshalJSON(data []byte) error {

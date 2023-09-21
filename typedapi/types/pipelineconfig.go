@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,15 @@ import (
 
 // PipelineConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Pipeline.ts#L44-L48
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Pipeline.ts#L57-L71
 type PipelineConfig struct {
-	Description *string              `json:"description,omitempty"`
-	Processors  []ProcessorContainer `json:"processors"`
-	Version     *int64               `json:"version,omitempty"`
+	// Description Description of the ingest pipeline.
+	Description *string `json:"description,omitempty"`
+	// Processors Processors used to perform transformations on documents before indexing.
+	// Processors run sequentially in the order specified.
+	Processors []ProcessorContainer `json:"processors"`
+	// Version Version number used by external systems to track ingest pipelines.
+	Version *int64 `json:"version,omitempty"`
 }
 
 func (s *PipelineConfig) UnmarshalJSON(data []byte) error {

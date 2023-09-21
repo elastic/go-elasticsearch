@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,14 +32,20 @@ import (
 
 // CardinalityAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L62-L66
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/metric.ts#L87-L99
 type CardinalityAggregation struct {
-	ExecutionHint      *cardinalityexecutionmode.CardinalityExecutionMode `json:"execution_hint,omitempty"`
-	Field              *string                                            `json:"field,omitempty"`
-	Missing            Missing                                            `json:"missing,omitempty"`
-	PrecisionThreshold *int                                               `json:"precision_threshold,omitempty"`
-	Rehash             *bool                                              `json:"rehash,omitempty"`
-	Script             Script                                             `json:"script,omitempty"`
+	// ExecutionHint Mechanism by which cardinality aggregations is run.
+	ExecutionHint *cardinalityexecutionmode.CardinalityExecutionMode `json:"execution_hint,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field *string `json:"field,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	// PrecisionThreshold A unique count below which counts are expected to be close to accurate.
+	// This allows to trade memory for accuracy.
+	PrecisionThreshold *int   `json:"precision_threshold,omitempty"`
+	Rehash             *bool  `json:"rehash,omitempty"`
+	Script             Script `json:"script,omitempty"`
 }
 
 func (s *CardinalityAggregation) UnmarshalJSON(data []byte) error {

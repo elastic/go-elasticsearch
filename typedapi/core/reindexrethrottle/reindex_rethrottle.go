@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Changes the number of requests per second for a particular Reindex operation.
 package reindexrethrottle
@@ -213,7 +213,7 @@ func (r *ReindexRethrottle) Header(key, value string) *ReindexRethrottle {
 	return r
 }
 
-// TaskId The task id to rethrottle
+// TaskId Identifier for the task.
 // API Name: taskid
 func (r *ReindexRethrottle) TaskId(taskid string) *ReindexRethrottle {
 	r.paramSet |= taskidMask
@@ -222,8 +222,7 @@ func (r *ReindexRethrottle) TaskId(taskid string) *ReindexRethrottle {
 	return r
 }
 
-// RequestsPerSecond The throttle to set on this request in floating sub-requests per second. -1
-// means set no throttle.
+// RequestsPerSecond The throttle for this request in sub-requests per second.
 // API name: requests_per_second
 func (r *ReindexRethrottle) RequestsPerSecond(requestspersecond string) *ReindexRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)

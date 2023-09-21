@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,11 +30,12 @@ import (
 
 // ParentAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L285-L287
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L643-L648
 type ParentAggregation struct {
 	Meta Metadata `json:"meta,omitempty"`
 	Name *string  `json:"name,omitempty"`
-	Type *string  `json:"type,omitempty"`
+	// Type The child type that should be selected.
+	Type *string `json:"type,omitempty"`
 }
 
 func (s *ParentAggregation) UnmarshalJSON(data []byte) error {

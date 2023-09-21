@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
-// Retrieves information about the index's current DLM lifecycle, such as any
-// potential encountered error, time since creation etc.
+// Retrieves information about the index's current data stream lifecycle, such
+// as any potential encountered error, time since creation etc.
 package explaindatalifecycle
 
 import (
@@ -75,10 +75,10 @@ func NewExplainDataLifecycleFunc(tp elastictransport.Interface) NewExplainDataLi
 	}
 }
 
-// Retrieves information about the index's current DLM lifecycle, such as any
-// potential encountered error, time since creation etc.
+// Retrieves information about the index's current data stream lifecycle, such
+// as any potential encountered error, time since creation etc.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-explain-lifecycle.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html
 func New(tp elastictransport.Interface) *ExplainDataLifecycle {
 	r := &ExplainDataLifecycle{
 		transport: tp,

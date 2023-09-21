@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package updatebyquery
 
@@ -30,13 +30,20 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L85
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L221
 type Request struct {
+
+	// Conflicts What to do if update by query hits version conflicts: `abort` or `proceed`.
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
-	MaxDocs   *int64               `json:"max_docs,omitempty"`
-	Query     *types.Query         `json:"query,omitempty"`
-	Script    types.Script         `json:"script,omitempty"`
-	Slice     *types.SlicedScroll  `json:"slice,omitempty"`
+	// MaxDocs The maximum number of documents to update.
+	MaxDocs *int64 `json:"max_docs,omitempty"`
+	// Query Specifies the documents to update using the Query DSL.
+	Query *types.Query `json:"query,omitempty"`
+	// Script The script to run to update the document source or metadata when updating.
+	Script types.Script `json:"script,omitempty"`
+	// Slice Slice the request manually using the provided slice ID and total number of
+	// slices.
+	Slice *types.SlicedScroll `json:"slice,omitempty"`
 }
 
 // NewRequest returns a Request

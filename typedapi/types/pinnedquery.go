@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,13 +30,24 @@ import (
 
 // PinnedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/specialized.ts#L122-L130
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/specialized.ts#L232-L251
 type PinnedQuery struct {
-	Boost      *float32    `json:"boost,omitempty"`
-	Docs       []PinnedDoc `json:"docs,omitempty"`
-	Ids        []string    `json:"ids,omitempty"`
-	Organic    *Query      `json:"organic,omitempty"`
-	QueryName_ *string     `json:"_name,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// Docs Documents listed in the order they are to appear in results.
+	// Required if `ids` is not specified.
+	Docs []PinnedDoc `json:"docs,omitempty"`
+	// Ids Document IDs listed in the order they are to appear in results.
+	// Required if `docs` is not specified.
+	Ids []string `json:"ids,omitempty"`
+	// Organic Any choice of query used to rank documents which will be ranked below the
+	// "pinned" documents.
+	Organic    *Query  `json:"organic,omitempty"`
+	QueryName_ *string `json:"_name,omitempty"`
 }
 
 func (s *PinnedQuery) UnmarshalJSON(data []byte) error {

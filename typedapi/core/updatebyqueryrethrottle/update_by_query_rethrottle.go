@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Changes the number of requests per second for a particular Update By Query
 // operation.
@@ -215,7 +215,7 @@ func (r *UpdateByQueryRethrottle) Header(key, value string) *UpdateByQueryRethro
 	return r
 }
 
-// TaskId The task id to rethrottle
+// TaskId The ID for the task.
 // API Name: taskid
 func (r *UpdateByQueryRethrottle) TaskId(taskid string) *UpdateByQueryRethrottle {
 	r.paramSet |= taskidMask
@@ -224,8 +224,7 @@ func (r *UpdateByQueryRethrottle) TaskId(taskid string) *UpdateByQueryRethrottle
 	return r
 }
 
-// RequestsPerSecond The throttle to set on this request in floating sub-requests per second. -1
-// means set no throttle.
+// RequestsPerSecond The throttle for this request in sub-requests per second.
 // API name: requests_per_second
 func (r *UpdateByQueryRethrottle) RequestsPerSecond(requestspersecond string) *UpdateByQueryRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -29,16 +29,16 @@ import (
 
 // IndexState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/IndexState.ts#L27-L40
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/IndexState.ts#L27-L40
 type IndexState struct {
 	Aliases    map[string]Alias `json:"aliases,omitempty"`
 	DataStream *string          `json:"data_stream,omitempty"`
 	// Defaults Default settings, included when the request's `include_default` is `true`.
 	Defaults *IndexSettings `json:"defaults,omitempty"`
 	// Lifecycle Data lifecycle applicable if this is a data stream.
-	Lifecycle *DataLifecycle `json:"lifecycle,omitempty"`
-	Mappings  *TypeMapping   `json:"mappings,omitempty"`
-	Settings  *IndexSettings `json:"settings,omitempty"`
+	Lifecycle *DataStreamLifecycle `json:"lifecycle,omitempty"`
+	Mappings  *TypeMapping         `json:"mappings,omitempty"`
+	Settings  *IndexSettings       `json:"settings,omitempty"`
 }
 
 func (s *IndexState) UnmarshalJSON(data []byte) error {

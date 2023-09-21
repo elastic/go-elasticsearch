@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Allows you to split an existing index into a new index with more primary
 // shards.
@@ -85,7 +85,7 @@ func NewSplitFunc(tp elastictransport.Interface) NewSplit {
 // Allows you to split an existing index into a new index with more primary
 // shards.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-split-index.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-split-index.html
 func New(tp elastictransport.Interface) *Split {
 	r := &Split{
 		transport: tp,
@@ -249,7 +249,7 @@ func (r *Split) Header(key, value string) *Split {
 	return r
 }
 
-// Index The name of the source index to split
+// Index Name of the source index to split.
 // API Name: index
 func (r *Split) Index(index string) *Split {
 	r.paramSet |= indexMask
@@ -258,7 +258,7 @@ func (r *Split) Index(index string) *Split {
 	return r
 }
 
-// Target The name of the target index to split into
+// Target Name of the target index to create.
 // API Name: target
 func (r *Split) Target(target string) *Split {
 	r.paramSet |= targetMask
@@ -267,7 +267,9 @@ func (r *Split) Target(target string) *Split {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *Split) MasterTimeout(duration string) *Split {
 	r.values.Set("master_timeout", duration)
@@ -275,7 +277,9 @@ func (r *Split) MasterTimeout(duration string) *Split {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Split) Timeout(duration string) *Split {
 	r.values.Set("timeout", duration)
@@ -283,8 +287,10 @@ func (r *Split) Timeout(duration string) *Split {
 	return r
 }
 
-// WaitForActiveShards Set the number of active shards to wait for on the shrunken index before the
-// operation returns.
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to `all` or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *Split) WaitForActiveShards(waitforactiveshards string) *Split {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -292,6 +298,7 @@ func (r *Split) WaitForActiveShards(waitforactiveshards string) *Split {
 	return r
 }
 
+// Aliases Aliases for the resulting index.
 // API name: aliases
 func (r *Split) Aliases(aliases map[string]types.Alias) *Split {
 
@@ -300,6 +307,7 @@ func (r *Split) Aliases(aliases map[string]types.Alias) *Split {
 	return r
 }
 
+// Settings Configuration options for the target index.
 // API name: settings
 func (r *Split) Settings(settings map[string]json.RawMessage) *Split {
 

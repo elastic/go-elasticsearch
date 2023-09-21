@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/indices/_types/IndexSettings.ts#L69-L168
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/IndexSettings.ts#L69-L168
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -55,7 +55,7 @@ type IndexSettings struct {
 	IndexSettings      map[string]json.RawMessage               `json:"-"`
 	// IndexingPressure Configure indexing back pressure limits.
 	IndexingPressure              *IndicesIndexingPressure `json:"indexing_pressure,omitempty"`
-	IndexingSlowlog               *SlowlogSettings         `json:"indexing.slowlog,omitempty"`
+	IndexingSlowlog               *IndexingSlowlogSettings `json:"indexing.slowlog,omitempty"`
 	Lifecycle                     *IndexSettingsLifecycle  `json:"lifecycle,omitempty"`
 	LoadFixedBitsetFiltersEagerly *bool                    `json:"load_fixed_bitset_filters_eagerly,omitempty"`
 	// Mapping Enable or disable dynamic mapping for an index.

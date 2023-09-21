@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,10 +30,14 @@ import (
 
 // ChiSquareHeuristic type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L322-L325
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L735-L744
 type ChiSquareHeuristic struct {
+	// BackgroundIsSuperset Set to `false` if you defined a custom background filter that represents a
+	// different set of documents that you want to compare to.
 	BackgroundIsSuperset bool `json:"background_is_superset"`
-	IncludeNegatives     bool `json:"include_negatives"`
+	// IncludeNegatives Set to `false` to filter out the terms that appear less often in the subset
+	// than in documents outside the subset.
+	IncludeNegatives bool `json:"include_negatives"`
 }
 
 func (s *ChiSquareHeuristic) UnmarshalJSON(data []byte) error {

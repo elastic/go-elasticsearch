@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -34,13 +34,26 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/geo.ts#L48-L57
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/geo.ts#L57-L79
 type GeoDistanceQuery struct {
-	Boost            *float32                                 `json:"boost,omitempty"`
-	Distance         string                                   `json:"distance"`
-	DistanceType     *geodistancetype.GeoDistanceType         `json:"distance_type,omitempty"`
-	GeoDistanceQuery map[string]GeoLocation                   `json:"GeoDistanceQuery,omitempty"`
-	QueryName_       *string                                  `json:"_name,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// Distance The radius of the circle centred on the specified location.
+	// Points which fall into this circle are considered to be matches.
+	Distance string `json:"distance"`
+	// DistanceType How to compute the distance.
+	// Set to `plane` for a faster calculation that's inaccurate on long distances
+	// and close to the poles.
+	DistanceType     *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
+	GeoDistanceQuery map[string]GeoLocation           `json:"GeoDistanceQuery,omitempty"`
+	QueryName_       *string                          `json:"_name,omitempty"`
+	// ValidationMethod Set to `IGNORE_MALFORMED` to accept geo points with invalid latitude or
+	// longitude.
+	// Set to `COERCE` to also try to infer correct latitude or longitude.
 	ValidationMethod *geovalidationmethod.GeoValidationMethod `json:"validation_method,omitempty"`
 }
 

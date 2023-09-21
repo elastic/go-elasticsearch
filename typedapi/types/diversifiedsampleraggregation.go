@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -32,15 +32,20 @@ import (
 
 // DiversifiedSamplerAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L155-L161
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L320-L341
 type DiversifiedSamplerAggregation struct {
-	ExecutionHint   *sampleraggregationexecutionhint.SamplerAggregationExecutionHint `json:"execution_hint,omitempty"`
-	Field           *string                                                          `json:"field,omitempty"`
-	MaxDocsPerValue *int                                                             `json:"max_docs_per_value,omitempty"`
-	Meta            Metadata                                                         `json:"meta,omitempty"`
-	Name            *string                                                          `json:"name,omitempty"`
-	Script          Script                                                           `json:"script,omitempty"`
-	ShardSize       *int                                                             `json:"shard_size,omitempty"`
+	// ExecutionHint The type of value used for de-duplication.
+	ExecutionHint *sampleraggregationexecutionhint.SamplerAggregationExecutionHint `json:"execution_hint,omitempty"`
+	// Field The field used to provide values used for de-duplication.
+	Field *string `json:"field,omitempty"`
+	// MaxDocsPerValue Limits how many documents are permitted per choice of de-duplicating value.
+	MaxDocsPerValue *int     `json:"max_docs_per_value,omitempty"`
+	Meta            Metadata `json:"meta,omitempty"`
+	Name            *string  `json:"name,omitempty"`
+	Script          Script   `json:"script,omitempty"`
+	// ShardSize Limits how many top-scoring documents are collected in the sample processed
+	// on each shard.
+	ShardSize *int `json:"shard_size,omitempty"`
 }
 
 func (s *DiversifiedSamplerAggregation) UnmarshalJSON(data []byte) error {

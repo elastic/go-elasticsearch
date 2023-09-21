@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,16 +30,28 @@ import (
 
 // IntervalsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/fulltext.ts#L116-L125
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/fulltext.ts#L235-L263
 type IntervalsQuery struct {
-	AllOf      *IntervalsAllOf    `json:"all_of,omitempty"`
-	AnyOf      *IntervalsAnyOf    `json:"any_of,omitempty"`
-	Boost      *float32           `json:"boost,omitempty"`
-	Fuzzy      *IntervalsFuzzy    `json:"fuzzy,omitempty"`
-	Match      *IntervalsMatch    `json:"match,omitempty"`
-	Prefix     *IntervalsPrefix   `json:"prefix,omitempty"`
-	QueryName_ *string            `json:"_name,omitempty"`
-	Wildcard   *IntervalsWildcard `json:"wildcard,omitempty"`
+	// AllOf Returns matches that span a combination of other rules.
+	AllOf *IntervalsAllOf `json:"all_of,omitempty"`
+	// AnyOf Returns intervals produced by any of its sub-rules.
+	AnyOf *IntervalsAnyOf `json:"any_of,omitempty"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// Fuzzy Matches terms that are similar to the provided term, within an edit distance
+	// defined by `fuzziness`.
+	Fuzzy *IntervalsFuzzy `json:"fuzzy,omitempty"`
+	// Match Matches analyzed text.
+	Match *IntervalsMatch `json:"match,omitempty"`
+	// Prefix Matches terms that start with a specified set of characters.
+	Prefix     *IntervalsPrefix `json:"prefix,omitempty"`
+	QueryName_ *string          `json:"_name,omitempty"`
+	// Wildcard Matches terms using a wildcard pattern.
+	Wildcard *IntervalsWildcard `json:"wildcard,omitempty"`
 }
 
 func (s *IntervalsQuery) UnmarshalJSON(data []byte) error {

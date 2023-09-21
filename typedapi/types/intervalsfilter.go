@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -29,17 +29,35 @@ import (
 
 // IntervalsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/fulltext.ts#L74-L86
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/fulltext.ts#L112-L152
 type IntervalsFilter struct {
-	After          *Intervals `json:"after,omitempty"`
-	Before         *Intervals `json:"before,omitempty"`
-	ContainedBy    *Intervals `json:"contained_by,omitempty"`
-	Containing     *Intervals `json:"containing,omitempty"`
+	// After Query used to return intervals that follow an interval from the `filter`
+	// rule.
+	After *Intervals `json:"after,omitempty"`
+	// Before Query used to return intervals that occur before an interval from the
+	// `filter` rule.
+	Before *Intervals `json:"before,omitempty"`
+	// ContainedBy Query used to return intervals contained by an interval from the `filter`
+	// rule.
+	ContainedBy *Intervals `json:"contained_by,omitempty"`
+	// Containing Query used to return intervals that contain an interval from the `filter`
+	// rule.
+	Containing *Intervals `json:"containing,omitempty"`
+	// NotContainedBy Query used to return intervals that are **not** contained by an interval from
+	// the `filter` rule.
 	NotContainedBy *Intervals `json:"not_contained_by,omitempty"`
-	NotContaining  *Intervals `json:"not_containing,omitempty"`
+	// NotContaining Query used to return intervals that do **not** contain an interval from the
+	// `filter` rule.
+	NotContaining *Intervals `json:"not_containing,omitempty"`
+	// NotOverlapping Query used to return intervals that do **not** overlap with an interval from
+	// the `filter` rule.
 	NotOverlapping *Intervals `json:"not_overlapping,omitempty"`
-	Overlapping    *Intervals `json:"overlapping,omitempty"`
-	Script         Script     `json:"script,omitempty"`
+	// Overlapping Query used to return intervals that overlap with an interval from the
+	// `filter` rule.
+	Overlapping *Intervals `json:"overlapping,omitempty"`
+	// Script Script used to return matching documents.
+	// This script must return a boolean value: `true` or `false`.
+	Script Script `json:"script,omitempty"`
 }
 
 func (s *IntervalsFilter) UnmarshalJSON(data []byte) error {

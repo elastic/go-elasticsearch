@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns a list of the built-in patterns.
 package processorgrok
@@ -67,7 +67,7 @@ func NewProcessorGrokFunc(tp elastictransport.Interface) NewProcessorGrok {
 
 // Returns a list of the built-in patterns.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
+// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/grok-processor.html
 func New(tp elastictransport.Interface) *ProcessorGrok {
 	r := &ProcessorGrok{
 		transport: tp,

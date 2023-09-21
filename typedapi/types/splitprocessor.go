@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,18 +30,32 @@ import (
 
 // SplitProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/ingest/_types/Processors.ts#L354-L360
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ingest/_types/Processors.ts#L1052-L1077
 type SplitProcessor struct {
-	Description      *string              `json:"description,omitempty"`
-	Field            string               `json:"field"`
-	If               *string              `json:"if,omitempty"`
-	IgnoreFailure    *bool                `json:"ignore_failure,omitempty"`
-	IgnoreMissing    *bool                `json:"ignore_missing,omitempty"`
-	OnFailure        []ProcessorContainer `json:"on_failure,omitempty"`
-	PreserveTrailing *bool                `json:"preserve_trailing,omitempty"`
-	Separator        string               `json:"separator"`
-	Tag              *string              `json:"tag,omitempty"`
-	TargetField      *string              `json:"target_field,omitempty"`
+	// Description Description of the processor.
+	// Useful for describing the purpose of the processor or its configuration.
+	Description *string `json:"description,omitempty"`
+	// Field The field to split.
+	Field string `json:"field"`
+	// If Conditionally execute the processor.
+	If *string `json:"if,omitempty"`
+	// IgnoreFailure Ignore failures for the processor.
+	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
+	// IgnoreMissing If `true` and `field` does not exist, the processor quietly exits without
+	// modifying the document.
+	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// OnFailure Handle failures for the processor.
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// PreserveTrailing Preserves empty trailing fields, if any.
+	PreserveTrailing *bool `json:"preserve_trailing,omitempty"`
+	// Separator A regex which matches the separator, for example, `,` or `\s+`.
+	Separator string `json:"separator"`
+	// Tag Identifier for the processor.
+	// Useful for debugging and metrics.
+	Tag *string `json:"tag,omitempty"`
+	// TargetField The field to assign the split value to.
+	// By default, the field is updated in-place.
+	TargetField *string `json:"target_field,omitempty"`
 }
 
 func (s *SplitProcessor) UnmarshalJSON(data []byte) error {

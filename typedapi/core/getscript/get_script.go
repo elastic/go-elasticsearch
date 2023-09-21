@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns a script.
 package getscript
@@ -211,7 +211,7 @@ func (r *GetScript) Header(key, value string) *GetScript {
 	return r
 }
 
-// Id Script ID
+// Id Identifier for the stored script or search template.
 // API Name: id
 func (r *GetScript) Id(id string) *GetScript {
 	r.paramSet |= idMask

@@ -16,22 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package get
 
 import (
+	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/tasks/get/GetTaskResponse.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/tasks/get/GetTaskResponse.ts#L24-L31
 
 type Response struct {
 	Completed bool              `json:"completed"`
 	Error     *types.ErrorCause `json:"error,omitempty"`
-	Response  *types.TaskStatus `json:"response,omitempty"`
+	Response  json.RawMessage   `json:"response,omitempty"`
 	Task      types.TaskInfo    `json:"task"`
 }
 

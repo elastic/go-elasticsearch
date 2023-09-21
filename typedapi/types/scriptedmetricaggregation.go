@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -29,16 +29,33 @@ import (
 
 // ScriptedMetricAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/metric.ts#L137-L143
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/metric.ts#L254-L280
 type ScriptedMetricAggregation struct {
-	CombineScript Script                     `json:"combine_script,omitempty"`
-	Field         *string                    `json:"field,omitempty"`
-	InitScript    Script                     `json:"init_script,omitempty"`
-	MapScript     Script                     `json:"map_script,omitempty"`
-	Missing       Missing                    `json:"missing,omitempty"`
-	Params        map[string]json.RawMessage `json:"params,omitempty"`
-	ReduceScript  Script                     `json:"reduce_script,omitempty"`
-	Script        Script                     `json:"script,omitempty"`
+	// CombineScript Runs once on each shard after document collection is complete.
+	// Allows the aggregation to consolidate the state returned from each shard.
+	CombineScript Script `json:"combine_script,omitempty"`
+	// Field The field on which to run the aggregation.
+	Field *string `json:"field,omitempty"`
+	// InitScript Runs prior to any collection of documents.
+	// Allows the aggregation to set up any initial state.
+	InitScript Script `json:"init_script,omitempty"`
+	// MapScript Run once per document collected.
+	// If no `combine_script` is specified, the resulting state needs to be stored
+	// in the `state` object.
+	MapScript Script `json:"map_script,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing Missing `json:"missing,omitempty"`
+	// Params A global object with script parameters for `init`, `map` and `combine`
+	// scripts.
+	// It is shared between the scripts.
+	Params map[string]json.RawMessage `json:"params,omitempty"`
+	// ReduceScript Runs once on the coordinating node after all shards have returned their
+	// results.
+	// The script is provided with access to a variable `states`, which is an array
+	// of the result of the `combine_script` on each shard.
+	ReduceScript Script `json:"reduce_script,omitempty"`
+	Script       Script `json:"script,omitempty"`
 }
 
 func (s *ScriptedMetricAggregation) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -30,15 +30,28 @@ import (
 
 // RegexpQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/query_dsl/term.ts#L103-L116
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/term.ts#L185-L215
 type RegexpQuery struct {
-	Boost                 *float32 `json:"boost,omitempty"`
-	CaseInsensitive       *bool    `json:"case_insensitive,omitempty"`
-	Flags                 *string  `json:"flags,omitempty"`
-	MaxDeterminizedStates *int     `json:"max_determinized_states,omitempty"`
-	QueryName_            *string  `json:"_name,omitempty"`
-	Rewrite               *string  `json:"rewrite,omitempty"`
-	Value                 string   `json:"value"`
+	// Boost Floating point number used to decrease or increase the relevance scores of
+	// the query.
+	// Boost values are relative to the default value of 1.0.
+	// A boost value between 0 and 1.0 decreases the relevance score.
+	// A value greater than 1.0 increases the relevance score.
+	Boost *float32 `json:"boost,omitempty"`
+	// CaseInsensitive Allows case insensitive matching of the regular expression value with the
+	// indexed field values when set to `true`.
+	// When `false`, case sensitivity of matching depends on the underlying field’s
+	// mapping.
+	CaseInsensitive *bool `json:"case_insensitive,omitempty"`
+	// Flags Enables optional operators for the regular expression.
+	Flags *string `json:"flags,omitempty"`
+	// MaxDeterminizedStates Maximum number of automaton states required for the query.
+	MaxDeterminizedStates *int    `json:"max_determinized_states,omitempty"`
+	QueryName_            *string `json:"_name,omitempty"`
+	// Rewrite Method used to rewrite the query.
+	Rewrite *string `json:"rewrite,omitempty"`
+	// Value Regular expression for terms you wish to find in the provided field.
+	Value string `json:"value"`
 }
 
 func (s *RegexpQuery) UnmarshalJSON(data []byte) error {

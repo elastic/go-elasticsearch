@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 // Returns mapping for one or more fields.
 package getfieldmapping
@@ -231,7 +231,8 @@ func (r *GetFieldMapping) Header(key, value string) *GetFieldMapping {
 	return r
 }
 
-// Fields A comma-separated list of fields
+// Fields Comma-separated list or wildcard expression of fields used to limit returned
+// information.
 // API Name: fields
 func (r *GetFieldMapping) Fields(fields string) *GetFieldMapping {
 	r.paramSet |= fieldsMask
@@ -240,7 +241,11 @@ func (r *GetFieldMapping) Fields(fields string) *GetFieldMapping {
 	return r
 }
 
-// Index A comma-separated list of index names
+// Index Comma-separated list of data streams, indices, and aliases used to limit the
+// request.
+// Supports wildcards (`*`).
+// To target all data streams and indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *GetFieldMapping) Index(index string) *GetFieldMapping {
 	r.paramSet |= indexMask
@@ -249,8 +254,9 @@ func (r *GetFieldMapping) Index(index string) *GetFieldMapping {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
 // API name: allow_no_indices
 func (r *GetFieldMapping) AllowNoIndices(allownoindices bool) *GetFieldMapping {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -258,8 +264,11 @@ func (r *GetFieldMapping) AllowNoIndices(allownoindices bool) *GetFieldMapping {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *GetFieldMapping) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *GetFieldMapping {
 	tmp := []string{}
@@ -271,8 +280,8 @@ func (r *GetFieldMapping) ExpandWildcards(expandwildcards ...expandwildcard.Expa
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *GetFieldMapping) IgnoreUnavailable(ignoreunavailable bool) *GetFieldMapping {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -280,7 +289,7 @@ func (r *GetFieldMapping) IgnoreUnavailable(ignoreunavailable bool) *GetFieldMap
 	return r
 }
 
-// IncludeDefaults Whether the default mapping values should be returned as well
+// IncludeDefaults If `true`, return all default settings in the response.
 // API name: include_defaults
 func (r *GetFieldMapping) IncludeDefaults(includedefaults bool) *GetFieldMapping {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
@@ -288,8 +297,7 @@ func (r *GetFieldMapping) IncludeDefaults(includedefaults bool) *GetFieldMapping
 	return r
 }
 
-// Local Return local information, do not retrieve the state from master node
-// (default: false)
+// Local If `true`, the request retrieves information from the local node only.
 // API name: local
 func (r *GetFieldMapping) Local(local bool) *GetFieldMapping {
 	r.values.Set("local", strconv.FormatBool(local))

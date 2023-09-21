@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/33e8a1c9cad22a5946ac735c4fba31af2da2cec2
+// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
 
 package types
 
@@ -35,26 +35,47 @@ import (
 
 // TermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/33e8a1c9cad22a5946ac735c4fba31af2da2cec2/specification/_types/aggregations/bucket.ts#L380-L397
+// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/bucket.ts#L910-L970
 type TermsAggregation struct {
-	CollectMode           *termsaggregationcollectmode.TermsAggregationCollectMode     `json:"collect_mode,omitempty"`
-	Exclude               []string                                                     `json:"exclude,omitempty"`
-	ExecutionHint         *termsaggregationexecutionhint.TermsAggregationExecutionHint `json:"execution_hint,omitempty"`
-	Field                 *string                                                      `json:"field,omitempty"`
-	Format                *string                                                      `json:"format,omitempty"`
-	Include               TermsInclude                                                 `json:"include,omitempty"`
-	Meta                  Metadata                                                     `json:"meta,omitempty"`
-	MinDocCount           *int                                                         `json:"min_doc_count,omitempty"`
-	Missing               Missing                                                      `json:"missing,omitempty"`
-	MissingBucket         *bool                                                        `json:"missing_bucket,omitempty"`
-	MissingOrder          *missingorder.MissingOrder                                   `json:"missing_order,omitempty"`
-	Name                  *string                                                      `json:"name,omitempty"`
-	Order                 AggregateOrder                                               `json:"order,omitempty"`
-	Script                Script                                                       `json:"script,omitempty"`
-	ShardSize             *int                                                         `json:"shard_size,omitempty"`
-	ShowTermDocCountError *bool                                                        `json:"show_term_doc_count_error,omitempty"`
-	Size                  *int                                                         `json:"size,omitempty"`
-	ValueType             *string                                                      `json:"value_type,omitempty"`
+	// CollectMode Determines how child aggregations should be calculated: breadth-first or
+	// depth-first.
+	CollectMode *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
+	// Exclude Values to exclude.
+	// Accepts regular expressions and partitions.
+	Exclude []string `json:"exclude,omitempty"`
+	// ExecutionHint Determines whether the aggregation will use field values directly or global
+	// ordinals.
+	ExecutionHint *termsaggregationexecutionhint.TermsAggregationExecutionHint `json:"execution_hint,omitempty"`
+	// Field The field from which to return terms.
+	Field  *string `json:"field,omitempty"`
+	Format *string `json:"format,omitempty"`
+	// Include Values to include.
+	// Accepts regular expressions and partitions.
+	Include TermsInclude `json:"include,omitempty"`
+	Meta    Metadata     `json:"meta,omitempty"`
+	// MinDocCount Only return values that are found in more than `min_doc_count` hits.
+	MinDocCount *int `json:"min_doc_count,omitempty"`
+	// Missing The value to apply to documents that do not have a value.
+	// By default, documents without a value are ignored.
+	Missing       Missing                    `json:"missing,omitempty"`
+	MissingBucket *bool                      `json:"missing_bucket,omitempty"`
+	MissingOrder  *missingorder.MissingOrder `json:"missing_order,omitempty"`
+	Name          *string                    `json:"name,omitempty"`
+	// Order Specifies the sort order of the buckets.
+	// Defaults to sorting by descending document count.
+	Order  AggregateOrder `json:"order,omitempty"`
+	Script Script         `json:"script,omitempty"`
+	// ShardSize The number of candidate terms produced by each shard.
+	// By default, `shard_size` will be automatically estimated based on the number
+	// of shards and the `size` parameter.
+	ShardSize *int `json:"shard_size,omitempty"`
+	// ShowTermDocCountError Set to `true` to return the `doc_count_error_upper_bound`, which is an upper
+	// bound to the error on the `doc_count` returned by each shard.
+	ShowTermDocCountError *bool `json:"show_term_doc_count_error,omitempty"`
+	// Size The number of buckets returned out of the overall terms list.
+	Size *int `json:"size,omitempty"`
+	// ValueType Coerced unmapped fields into the specified type.
+	ValueType *string `json:"value_type,omitempty"`
 }
 
 func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
