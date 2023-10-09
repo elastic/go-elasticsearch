@@ -143,7 +143,7 @@ This is how you can create a single match query with the low-level API:
 
 [source,go]
 ----
-query := `{ query: { match_all: {} } }`
+query := `{ "query": { "match_all": {} } }`
 client.Search(
     client.Search.WithIndex("my_index"),
     client.Search.WithBody(strings.NewReader(query)),
