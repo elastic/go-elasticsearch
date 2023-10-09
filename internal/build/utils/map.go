@@ -18,25 +18,29 @@
 package utils
 
 // MapKeys returns the map keys as a slice of strings.
-//
-func MapKeys(s interface{}) (keys []string) {
+func MapKeys(s interface{}) []string {
 	if s, ok := s.(map[interface{}]interface{}); ok {
+		keys := make([]string, 0, len(s))
 		for k := range s {
 			if k, ok := k.(string); ok {
 				keys = append(keys, k)
 			}
 		}
+		return keys
 	}
+	keys := make([]string, 0)
 	return keys
 }
 
 // MapValues returns the map values as a slice of interfaces.
-//
-func MapValues(s interface{}) (values []interface{}) {
+func MapValues(s interface{}) []interface{} {
 	if s, ok := s.(map[interface{}]interface{}); ok {
+		values := make([]interface{}, 0, len(s))
 		for _, v := range s {
 			values = append(values, v)
 		}
+		return values
 	}
+	values := make([]interface{}, 0)
 	return values
 }
