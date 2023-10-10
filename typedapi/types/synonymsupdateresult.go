@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // SynonymsUpdateResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/synonyms/_types/SynonymsUpdateResult.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/synonyms/_types/SynonymsUpdateResult.ts#L23-L34
 type SynonymsUpdateResult struct {
 	// ReloadAnalyzersDetails Updating synonyms in a synonym set reloads the associated analyzers.
 	// This is the analyzers reloading result

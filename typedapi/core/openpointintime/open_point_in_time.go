@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Open a point in time that can be used in subsequent searches
 package openpointintime
@@ -223,7 +223,7 @@ func (r *OpenPointInTime) Index(index string) *OpenPointInTime {
 	return r
 }
 
-// KeepAlive Specific the time to live for the point in time
+// KeepAlive Extends the time to live of the corresponding point in time.
 // API name: keep_alive
 func (r *OpenPointInTime) KeepAlive(duration string) *OpenPointInTime {
 	r.values.Set("keep_alive", duration)
@@ -231,8 +231,8 @@ func (r *OpenPointInTime) KeepAlive(duration string) *OpenPointInTime {
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *OpenPointInTime) IgnoreUnavailable(ignoreunavailable bool) *OpenPointInTime {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -240,8 +240,8 @@ func (r *OpenPointInTime) IgnoreUnavailable(ignoreunavailable bool) *OpenPointIn
 	return r
 }
 
-// Preference Specify the node or shard the operation should be performed on (default:
-// random)
+// Preference Specifies the node or shard the operation should be performed on.
+// Random by default.
 // API name: preference
 func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
 	r.values.Set("preference", preference)
@@ -249,7 +249,7 @@ func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
 	return r
 }
 
-// Routing Specific routing value
+// Routing Custom value used to route operations to a specific shard.
 // API name: routing
 func (r *OpenPointInTime) Routing(routing string) *OpenPointInTime {
 	r.values.Set("routing", routing)
@@ -257,8 +257,11 @@ func (r *OpenPointInTime) Routing(routing string) *OpenPointInTime {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`. Valid values are:
+// `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *OpenPointInTime) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *OpenPointInTime {
 	tmp := []string{}

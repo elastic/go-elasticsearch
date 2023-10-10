@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // FrequentItemSetsField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L1145-L1157
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_types/aggregations/bucket.ts#L1145-L1157
 type FrequentItemSetsField struct {
 	// Exclude Values to exclude.
 	// Can be regular expression strings or arrays of strings of exact terms.
@@ -37,7 +37,7 @@ type FrequentItemSetsField struct {
 	Field   string   `json:"field"`
 	// Include Values to include.
 	// Can be regular expression strings or arrays of strings of exact terms.
-	Include []string `json:"include,omitempty"`
+	Include TermsInclude `json:"include,omitempty"`
 }
 
 func (s *FrequentItemSetsField) UnmarshalJSON(data []byte) error {
@@ -77,19 +77,8 @@ func (s *FrequentItemSetsField) UnmarshalJSON(data []byte) error {
 			}
 
 		case "include":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
-				}
-
-				s.Include = append(s.Include, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Include); err != nil {
-					return err
-				}
+			if err := dec.Decode(&s.Include); err != nil {
+				return err
 			}
 
 		}

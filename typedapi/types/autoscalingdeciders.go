@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
 // AutoscalingDeciders type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L31-L36
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L31-L36
 type AutoscalingDeciders struct {
 	CurrentCapacity  AutoscalingCapacity           `json:"current_capacity"`
 	CurrentNodes     []AutoscalingNode             `json:"current_nodes"`

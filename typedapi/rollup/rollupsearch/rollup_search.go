@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Enables searching rolled-up data using the standard query DSL.
 package rollupsearch
@@ -242,8 +242,7 @@ func (r *RollupSearch) Header(key, value string) *RollupSearch {
 	return r
 }
 
-// Index The indices or index-pattern(s) (containing rollup or regular data) that
-// should be searched
+// Index Enables searching rolled-up data using the standard Query DSL.
 // API Name: index
 func (r *RollupSearch) Index(index string) *RollupSearch {
 	r.paramSet |= indexMask
@@ -270,6 +269,7 @@ func (r *RollupSearch) TypedKeys(typedkeys bool) *RollupSearch {
 	return r
 }
 
+// Aggregations Specifies aggregations.
 // API name: aggregations
 func (r *RollupSearch) Aggregations(aggregations map[string]types.Aggregations) *RollupSearch {
 
@@ -278,6 +278,7 @@ func (r *RollupSearch) Aggregations(aggregations map[string]types.Aggregations) 
 	return r
 }
 
+// Query Specifies a DSL query.
 // API name: query
 func (r *RollupSearch) Query(query *types.Query) *RollupSearch {
 
@@ -286,7 +287,7 @@ func (r *RollupSearch) Query(query *types.Query) *RollupSearch {
 	return r
 }
 
-// Size Must be zero if set, as rollups work on pre-aggregated data
+// Size Must be zero if set, as rollups work on pre-aggregated data.
 // API name: size
 func (r *RollupSearch) Size(size int) *RollupSearch {
 	r.req.Size = &size

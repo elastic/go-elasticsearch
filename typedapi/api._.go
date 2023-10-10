@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package typedapi
 
@@ -1004,8 +1004,8 @@ type Indices struct {
 	// Deletes an alias.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 	DeleteAlias indices_delete_alias.NewDeleteAlias
-	// Deletes the data lifecycle of the selected data streams.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-delete-lifecycle.html
+	// Deletes the data stream lifecycle of the selected data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-delete-lifecycle.html
 	DeleteDataLifecycle indices_delete_data_lifecycle.NewDeleteDataLifecycle
 	// Deletes a data stream.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
@@ -1034,9 +1034,9 @@ type Indices struct {
 	// Returns information about whether a particular index template exists.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
 	ExistsTemplate indices_exists_template.NewExistsTemplate
-	// Retrieves information about the index's current DLM lifecycle, such as any
-	// potential encountered error, time since creation etc.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-explain-lifecycle.html
+	// Retrieves information about the index's current data stream lifecycle, such
+	// as any potential encountered error, time since creation etc.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html
 	ExplainDataLifecycle indices_explain_data_lifecycle.NewExplainDataLifecycle
 	// Returns the field usage stats for each field of an index
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/field-usage-stats.html
@@ -1053,8 +1053,8 @@ type Indices struct {
 	// Returns an alias.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 	GetAlias indices_get_alias.NewGetAlias
-	// Returns the data lifecycle of the selected data streams.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-get-lifecycle.html
+	// Returns the data stream lifecycle of the selected data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-get-lifecycle.html
 	GetDataLifecycle indices_get_data_lifecycle.NewGetDataLifecycle
 	// Returns data streams.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
@@ -1090,8 +1090,8 @@ type Indices struct {
 	// Creates or updates an alias.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 	PutAlias indices_put_alias.NewPutAlias
-	// Updates the data lifecycle of the selected data streams.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/dlm-put-lifecycle.html
+	// Updates the data stream lifecycle of the selected data streams.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-put-lifecycle.html
 	PutDataLifecycle indices_put_data_lifecycle.NewPutDataLifecycle
 	// Creates or updates an index template.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html

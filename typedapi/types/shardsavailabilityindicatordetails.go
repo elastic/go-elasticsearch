@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ShardsAvailabilityIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/health_report/types.ts#L109-L119
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/health_report/types.ts#L109-L119
 type ShardsAvailabilityIndicatorDetails struct {
 	CreatingPrimaries     int64 `json:"creating_primaries"`
 	InitializingPrimaries int64 `json:"initializing_primaries"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Deletes scheduled events from a calendar.
 package deletecalendarevent
@@ -223,7 +223,7 @@ func (r *DeleteCalendarEvent) Header(key, value string) *DeleteCalendarEvent {
 	return r
 }
 
-// CalendarId The ID of the calendar to modify
+// CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
 func (r *DeleteCalendarEvent) CalendarId(calendarid string) *DeleteCalendarEvent {
 	r.paramSet |= calendaridMask
@@ -232,7 +232,8 @@ func (r *DeleteCalendarEvent) CalendarId(calendarid string) *DeleteCalendarEvent
 	return r
 }
 
-// EventId The ID of the event to remove from the calendar
+// EventId Identifier for the scheduled event.
+// You can obtain this identifier by using the get calendar events API.
 // API Name: eventid
 func (r *DeleteCalendarEvent) EventId(eventid string) *DeleteCalendarEvent {
 	r.paramSet |= eventidMask

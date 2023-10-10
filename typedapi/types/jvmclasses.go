@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,10 +30,13 @@ import (
 
 // JvmClasses type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L357-L361
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L908-L921
 type JvmClasses struct {
+	// CurrentLoadedCount Number of classes currently loaded by JVM.
 	CurrentLoadedCount *int64 `json:"current_loaded_count,omitempty"`
-	TotalLoadedCount   *int64 `json:"total_loaded_count,omitempty"`
+	// TotalLoadedCount Total number of classes loaded since the JVM started.
+	TotalLoadedCount *int64 `json:"total_loaded_count,omitempty"`
+	// TotalUnloadedCount Total number of classes unloaded since the JVM started.
 	TotalUnloadedCount *int64 `json:"total_unloaded_count,omitempty"`
 }
 

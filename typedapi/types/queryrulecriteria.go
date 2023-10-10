@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // QueryRuleCriteria type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/query_ruleset/_types/QueryRuleset.ts#L48-L52
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/query_ruleset/_types/QueryRuleset.ts#L48-L52
 type QueryRuleCriteria struct {
 	Metadata string                                      `json:"metadata"`
 	Type     queryrulecriteriatype.QueryRuleCriteriaType `json:"type"`

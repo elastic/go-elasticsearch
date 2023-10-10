@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -29,10 +29,10 @@ import (
 
 // DataStreamLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/get_data_lifecycle/IndicesGetDataLifecycleResponse.ts#L27-L30
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/_types/DataStreamLifecycle.ts#L25-L31
 type DataStreamLifecycle struct {
-	Lifecycle *DataLifecycle `json:"lifecycle,omitempty"`
-	Name      string         `json:"name"`
+	DataRetention Duration                         `json:"data_retention,omitempty"`
+	Downsampling  *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
 }
 
 func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
@@ -50,13 +50,13 @@ func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "lifecycle":
-			if err := dec.Decode(&s.Lifecycle); err != nil {
+		case "data_retention":
+			if err := dec.Decode(&s.DataRetention); err != nil {
 				return err
 			}
 
-		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
+		case "downsampling":
+			if err := dec.Decode(&s.Downsampling); err != nil {
 				return err
 			}
 

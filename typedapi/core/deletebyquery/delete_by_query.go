@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Deletes documents matching the provided query.
 package deletebyquery
@@ -244,8 +244,10 @@ func (r *DeleteByQuery) Header(key, value string) *DeleteByQuery {
 	return r
 }
 
-// Index A comma-separated list of index names to search; use `_all` or empty string
-// to perform the operation on all indices
+// Index Comma-separated list of data streams, indices, and aliases to search.
+// Supports wildcards (`*`).
+// To search all data streams or indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *DeleteByQuery) Index(index string) *DeleteByQuery {
 	r.paramSet |= indexMask
@@ -254,8 +256,11 @@ func (r *DeleteByQuery) Index(index string) *DeleteByQuery {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
+// For example, a request targeting `foo*,bar*` returns an error if an index
+// starts with `foo` but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *DeleteByQuery) AllowNoIndices(allownoindices bool) *DeleteByQuery {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -263,7 +268,7 @@ func (r *DeleteByQuery) AllowNoIndices(allownoindices bool) *DeleteByQuery {
 	return r
 }
 
-// Analyzer The analyzer to use for the query string
+// Analyzer Analyzer to use for the query string.
 // API name: analyzer
 func (r *DeleteByQuery) Analyzer(analyzer string) *DeleteByQuery {
 	r.values.Set("analyzer", analyzer)
@@ -271,8 +276,7 @@ func (r *DeleteByQuery) Analyzer(analyzer string) *DeleteByQuery {
 	return r
 }
 
-// AnalyzeWildcard Specify whether wildcard and prefix queries should be analyzed (default:
-// false)
+// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed.
 // API name: analyze_wildcard
 func (r *DeleteByQuery) AnalyzeWildcard(analyzewildcard bool) *DeleteByQuery {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -280,7 +284,7 @@ func (r *DeleteByQuery) AnalyzeWildcard(analyzewildcard bool) *DeleteByQuery {
 	return r
 }
 
-// Conflicts What to do when the delete by query hits version conflicts?
+// Conflicts What to do if delete by query hits version conflicts: `abort` or `proceed`.
 // API name: conflicts
 func (r *DeleteByQuery) Conflicts(conflicts conflicts.Conflicts) *DeleteByQuery {
 	r.values.Set("conflicts", conflicts.String())
@@ -288,7 +292,7 @@ func (r *DeleteByQuery) Conflicts(conflicts conflicts.Conflicts) *DeleteByQuery 
 	return r
 }
 
-// DefaultOperator The default operator for query string query (AND or OR)
+// DefaultOperator The default operator for query string query: `AND` or `OR`.
 // API name: default_operator
 func (r *DeleteByQuery) DefaultOperator(defaultoperator operator.Operator) *DeleteByQuery {
 	r.values.Set("default_operator", defaultoperator.String())
@@ -296,8 +300,7 @@ func (r *DeleteByQuery) DefaultOperator(defaultoperator operator.Operator) *Dele
 	return r
 }
 
-// Df The field to use as default where no field prefix is given in the query
-// string
+// Df Field to use as default where no field prefix is given in the query string.
 // API name: df
 func (r *DeleteByQuery) Df(df string) *DeleteByQuery {
 	r.values.Set("df", df)
@@ -305,8 +308,11 @@ func (r *DeleteByQuery) Df(df string) *DeleteByQuery {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`. Valid values are:
+// `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *DeleteByQuery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *DeleteByQuery {
 	tmp := []string{}
@@ -326,8 +332,8 @@ func (r *DeleteByQuery) From(from string) *DeleteByQuery {
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *DeleteByQuery) IgnoreUnavailable(ignoreunavailable bool) *DeleteByQuery {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -335,8 +341,8 @@ func (r *DeleteByQuery) IgnoreUnavailable(ignoreunavailable bool) *DeleteByQuery
 	return r
 }
 
-// Lenient Specify whether format-based query failures (such as providing text to a
-// numeric field) should be ignored
+// Lenient If `true`, format-based query failures (such as providing text to a numeric
+// field) in the query string will be ignored.
 // API name: lenient
 func (r *DeleteByQuery) Lenient(lenient bool) *DeleteByQuery {
 	r.values.Set("lenient", strconv.FormatBool(lenient))
@@ -344,8 +350,8 @@ func (r *DeleteByQuery) Lenient(lenient bool) *DeleteByQuery {
 	return r
 }
 
-// Preference Specify the node or shard the operation should be performed on (default:
-// random)
+// Preference Specifies the node or shard the operation should be performed on.
+// Random by default.
 // API name: preference
 func (r *DeleteByQuery) Preference(preference string) *DeleteByQuery {
 	r.values.Set("preference", preference)
@@ -353,7 +359,8 @@ func (r *DeleteByQuery) Preference(preference string) *DeleteByQuery {
 	return r
 }
 
-// Refresh Should the affected indexes be refreshed?
+// Refresh If `true`, Elasticsearch refreshes all shards involved in the delete by query
+// after the request completes.
 // API name: refresh
 func (r *DeleteByQuery) Refresh(refresh bool) *DeleteByQuery {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -361,8 +368,8 @@ func (r *DeleteByQuery) Refresh(refresh bool) *DeleteByQuery {
 	return r
 }
 
-// RequestCache Specify if request cache should be used for this request or not, defaults to
-// index level setting
+// RequestCache If `true`, the request cache is used for this request.
+// Defaults to the index-level setting.
 // API name: request_cache
 func (r *DeleteByQuery) RequestCache(requestcache bool) *DeleteByQuery {
 	r.values.Set("request_cache", strconv.FormatBool(requestcache))
@@ -370,8 +377,7 @@ func (r *DeleteByQuery) RequestCache(requestcache bool) *DeleteByQuery {
 	return r
 }
 
-// RequestsPerSecond The throttle for this request in sub-requests per second. -1 means no
-// throttle.
+// RequestsPerSecond The throttle for this request in sub-requests per second.
 // API name: requests_per_second
 func (r *DeleteByQuery) RequestsPerSecond(requestspersecond string) *DeleteByQuery {
 	r.values.Set("requests_per_second", requestspersecond)
@@ -379,7 +385,7 @@ func (r *DeleteByQuery) RequestsPerSecond(requestspersecond string) *DeleteByQue
 	return r
 }
 
-// Routing A comma-separated list of specific routing values
+// Routing Custom value used to route operations to a specific shard.
 // API name: routing
 func (r *DeleteByQuery) Routing(routing string) *DeleteByQuery {
 	r.values.Set("routing", routing)
@@ -387,7 +393,7 @@ func (r *DeleteByQuery) Routing(routing string) *DeleteByQuery {
 	return r
 }
 
-// Q Query in the Lucene query string syntax
+// Q Query in the Lucene query string syntax.
 // API name: q
 func (r *DeleteByQuery) Q(q string) *DeleteByQuery {
 	r.values.Set("q", q)
@@ -395,8 +401,7 @@ func (r *DeleteByQuery) Q(q string) *DeleteByQuery {
 	return r
 }
 
-// Scroll Specify how long a consistent view of the index should be maintained for
-// scrolled search
+// Scroll Period to retain the search context for scrolling.
 // API name: scroll
 func (r *DeleteByQuery) Scroll(duration string) *DeleteByQuery {
 	r.values.Set("scroll", duration)
@@ -404,7 +409,7 @@ func (r *DeleteByQuery) Scroll(duration string) *DeleteByQuery {
 	return r
 }
 
-// ScrollSize Size on the scroll request powering the delete by query
+// ScrollSize Size of the scroll request that powers the operation.
 // API name: scroll_size
 func (r *DeleteByQuery) ScrollSize(scrollsize string) *DeleteByQuery {
 	r.values.Set("scroll_size", scrollsize)
@@ -412,7 +417,8 @@ func (r *DeleteByQuery) ScrollSize(scrollsize string) *DeleteByQuery {
 	return r
 }
 
-// SearchTimeout Explicit timeout for each search request. Defaults to no timeout.
+// SearchTimeout Explicit timeout for each search request.
+// Defaults to no timeout.
 // API name: search_timeout
 func (r *DeleteByQuery) SearchTimeout(duration string) *DeleteByQuery {
 	r.values.Set("search_timeout", duration)
@@ -420,7 +426,8 @@ func (r *DeleteByQuery) SearchTimeout(duration string) *DeleteByQuery {
 	return r
 }
 
-// SearchType Search operation type
+// SearchType The type of the search operation.
+// Available options: `query_then_fetch`, `dfs_query_then_fetch`.
 // API name: search_type
 func (r *DeleteByQuery) SearchType(searchtype searchtype.SearchType) *DeleteByQuery {
 	r.values.Set("search_type", searchtype.String())
@@ -428,8 +435,7 @@ func (r *DeleteByQuery) SearchType(searchtype searchtype.SearchType) *DeleteByQu
 	return r
 }
 
-// Slices The number of slices this task should be divided into. Defaults to 1, meaning
-// the task isn't sliced into subtasks. Can be set to `auto`.
+// Slices The number of slices this task should be divided into.
 // API name: slices
 func (r *DeleteByQuery) Slices(slices string) *DeleteByQuery {
 	r.values.Set("slices", slices)
@@ -437,7 +443,7 @@ func (r *DeleteByQuery) Slices(slices string) *DeleteByQuery {
 	return r
 }
 
-// Sort A comma-separated list of <field>:<direction> pairs
+// Sort A comma-separated list of <field>:<direction> pairs.
 // API name: sort
 func (r *DeleteByQuery) Sort(sorts ...string) *DeleteByQuery {
 	tmp := []string{}
@@ -449,7 +455,7 @@ func (r *DeleteByQuery) Sort(sorts ...string) *DeleteByQuery {
 	return r
 }
 
-// Stats Specific 'tag' of the request for logging and statistical purposes
+// Stats Specific `tag` of the request for logging and statistical purposes.
 // API name: stats
 func (r *DeleteByQuery) Stats(stats ...string) *DeleteByQuery {
 	tmp := []string{}
@@ -461,8 +467,14 @@ func (r *DeleteByQuery) Stats(stats ...string) *DeleteByQuery {
 	return r
 }
 
-// TerminateAfter The maximum number of documents to collect for each shard, upon reaching
-// which the query execution will terminate early.
+// TerminateAfter Maximum number of documents to collect for each shard.
+// If a query reaches this limit, Elasticsearch terminates the query early.
+// Elasticsearch collects documents before sorting.
+// Use with caution.
+// Elasticsearch applies this parameter to each shard handling the request.
+// When possible, let Elasticsearch perform early termination automatically.
+// Avoid specifying this parameter for requests that target data streams with
+// backing indices across multiple data tiers.
 // API name: terminate_after
 func (r *DeleteByQuery) TerminateAfter(terminateafter string) *DeleteByQuery {
 	r.values.Set("terminate_after", terminateafter)
@@ -470,8 +482,7 @@ func (r *DeleteByQuery) TerminateAfter(terminateafter string) *DeleteByQuery {
 	return r
 }
 
-// Timeout Time each individual bulk request should wait for shards that are
-// unavailable.
+// Timeout Period each deletion request waits for active shards.
 // API name: timeout
 func (r *DeleteByQuery) Timeout(duration string) *DeleteByQuery {
 	r.values.Set("timeout", duration)
@@ -479,7 +490,7 @@ func (r *DeleteByQuery) Timeout(duration string) *DeleteByQuery {
 	return r
 }
 
-// Version Specify whether to return document version as part of a hit
+// Version If `true`, returns the document version as part of a hit.
 // API name: version
 func (r *DeleteByQuery) Version(version bool) *DeleteByQuery {
 	r.values.Set("version", strconv.FormatBool(version))
@@ -487,11 +498,10 @@ func (r *DeleteByQuery) Version(version bool) *DeleteByQuery {
 	return r
 }
 
-// WaitForActiveShards Sets the number of shard copies that must be active before proceeding with
-// the delete by query operation. Defaults to 1, meaning the primary shard only.
-// Set to `all` for all shard copies, otherwise set to any non-negative value
-// less than or equal to the total number of copies for the shard (number of
-// replicas + 1)
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to all or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *DeleteByQuery) WaitForActiveShards(waitforactiveshards string) *DeleteByQuery {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -499,7 +509,7 @@ func (r *DeleteByQuery) WaitForActiveShards(waitforactiveshards string) *DeleteB
 	return r
 }
 
-// WaitForCompletion Should the request should block until the delete by query is complete.
+// WaitForCompletion If `true`, the request blocks until the operation is complete.
 // API name: wait_for_completion
 func (r *DeleteByQuery) WaitForCompletion(waitforcompletion bool) *DeleteByQuery {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -507,6 +517,7 @@ func (r *DeleteByQuery) WaitForCompletion(waitforcompletion bool) *DeleteByQuery
 	return r
 }
 
+// MaxDocs The maximum number of documents to delete.
 // API name: max_docs
 func (r *DeleteByQuery) MaxDocs(maxdocs int64) *DeleteByQuery {
 
@@ -515,6 +526,7 @@ func (r *DeleteByQuery) MaxDocs(maxdocs int64) *DeleteByQuery {
 	return r
 }
 
+// Query Specifies the documents to delete using the Query DSL.
 // API name: query
 func (r *DeleteByQuery) Query(query *types.Query) *DeleteByQuery {
 
@@ -523,6 +535,8 @@ func (r *DeleteByQuery) Query(query *types.Query) *DeleteByQuery {
 	return r
 }
 
+// Slice Slice the request manually using the provided slice ID and total number of
+// slices.
 // API name: slice
 func (r *DeleteByQuery) Slice(slice *types.SlicedScroll) *DeleteByQuery {
 

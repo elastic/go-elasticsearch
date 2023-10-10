@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Creates or updates a script.
 package putscript
@@ -253,7 +253,8 @@ func (r *PutScript) Header(key, value string) *PutScript {
 	return r
 }
 
-// Id Script ID
+// Id Identifier for the stored script or search template.
+// Must be unique within the cluster.
 // API Name: id
 func (r *PutScript) Id(id string) *PutScript {
 	r.paramSet |= idMask
@@ -262,7 +263,9 @@ func (r *PutScript) Id(id string) *PutScript {
 	return r
 }
 
-// Context Script context
+// Context Context in which the script or search template should run.
+// To prevent errors, the API immediately compiles the script or template in
+// this context.
 // API Name: context
 func (r *PutScript) Context(context string) *PutScript {
 	r.paramSet |= contextMask
@@ -271,7 +274,9 @@ func (r *PutScript) Context(context string) *PutScript {
 	return r
 }
 
-// MasterTimeout Specify timeout for connection to master
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *PutScript) MasterTimeout(duration string) *PutScript {
 	r.values.Set("master_timeout", duration)
@@ -279,7 +284,9 @@ func (r *PutScript) MasterTimeout(duration string) *PutScript {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *PutScript) Timeout(duration string) *PutScript {
 	r.values.Set("timeout", duration)
@@ -287,6 +294,7 @@ func (r *PutScript) Timeout(duration string) *PutScript {
 	return r
 }
 
+// Script Contains the script or search template, its parameters, and its language.
 // API name: script
 func (r *PutScript) Script(script *types.StoredScript) *PutScript {
 

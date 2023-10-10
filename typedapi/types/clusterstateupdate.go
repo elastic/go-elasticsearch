@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,23 +30,78 @@ import (
 
 // ClusterStateUpdate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L126-L142
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L278-L343
 type ClusterStateUpdate struct {
-	CommitTime                    Duration `json:"commit_time,omitempty"`
-	CommitTimeMillis              *int64   `json:"commit_time_millis,omitempty"`
-	CompletionTime                Duration `json:"completion_time,omitempty"`
-	CompletionTimeMillis          *int64   `json:"completion_time_millis,omitempty"`
-	ComputationTime               Duration `json:"computation_time,omitempty"`
-	ComputationTimeMillis         *int64   `json:"computation_time_millis,omitempty"`
-	ContextConstructionTime       Duration `json:"context_construction_time,omitempty"`
-	ContextConstructionTimeMillis *int64   `json:"context_construction_time_millis,omitempty"`
-	Count                         int64    `json:"count"`
-	MasterApplyTime               Duration `json:"master_apply_time,omitempty"`
-	MasterApplyTimeMillis         *int64   `json:"master_apply_time_millis,omitempty"`
-	NotificationTime              Duration `json:"notification_time,omitempty"`
-	NotificationTimeMillis        *int64   `json:"notification_time_millis,omitempty"`
-	PublicationTime               Duration `json:"publication_time,omitempty"`
-	PublicationTimeMillis         *int64   `json:"publication_time_millis,omitempty"`
+	// CommitTime The cumulative amount of time spent waiting for a successful cluster state
+	// update to commit, which measures the time from the start of each publication
+	// until a majority of the master-eligible nodes have written the state to disk
+	// and confirmed the write to the elected master.
+	CommitTime Duration `json:"commit_time,omitempty"`
+	// CommitTimeMillis The cumulative amount of time, in milliseconds, spent waiting for a
+	// successful cluster state update to commit, which measures the time from the
+	// start of each publication until a majority of the master-eligible nodes have
+	// written the state to disk and confirmed the write to the elected master.
+	CommitTimeMillis *int64 `json:"commit_time_millis,omitempty"`
+	// CompletionTime The cumulative amount of time spent waiting for a successful cluster state
+	// update to complete, which measures the time from the start of each
+	// publication until all the other nodes have notified the elected master that
+	// they have applied the cluster state.
+	CompletionTime Duration `json:"completion_time,omitempty"`
+	// CompletionTimeMillis The cumulative amount of time, in milliseconds,  spent waiting for a
+	// successful cluster state update to complete, which measures the time from the
+	// start of each publication until all the other nodes have notified the elected
+	// master that they have applied the cluster state.
+	CompletionTimeMillis *int64 `json:"completion_time_millis,omitempty"`
+	// ComputationTime The cumulative amount of time spent computing no-op cluster state updates
+	// since the node started.
+	ComputationTime Duration `json:"computation_time,omitempty"`
+	// ComputationTimeMillis The cumulative amount of time, in milliseconds, spent computing no-op cluster
+	// state updates since the node started.
+	ComputationTimeMillis *int64 `json:"computation_time_millis,omitempty"`
+	// ContextConstructionTime The cumulative amount of time spent constructing a publication context since
+	// the node started for publications that ultimately succeeded.
+	// This statistic includes the time spent computing the difference between the
+	// current and new cluster state preparing a serialized representation of this
+	// difference.
+	ContextConstructionTime Duration `json:"context_construction_time,omitempty"`
+	// ContextConstructionTimeMillis The cumulative amount of time, in milliseconds, spent constructing a
+	// publication context since the node started for publications that ultimately
+	// succeeded.
+	// This statistic includes the time spent computing the difference between the
+	// current and new cluster state preparing a serialized representation of this
+	// difference.
+	ContextConstructionTimeMillis *int64 `json:"context_construction_time_millis,omitempty"`
+	// Count The number of cluster state update attempts that did not change the cluster
+	// state since the node started.
+	Count int64 `json:"count"`
+	// MasterApplyTime The cumulative amount of time spent successfully applying cluster state
+	// updates on the elected master since the node started.
+	MasterApplyTime Duration `json:"master_apply_time,omitempty"`
+	// MasterApplyTimeMillis The cumulative amount of time, in milliseconds, spent successfully applying
+	// cluster state updates on the elected master since the node started.
+	MasterApplyTimeMillis *int64 `json:"master_apply_time_millis,omitempty"`
+	// NotificationTime The cumulative amount of time spent notifying listeners of a no-op cluster
+	// state update since the node started.
+	NotificationTime Duration `json:"notification_time,omitempty"`
+	// NotificationTimeMillis The cumulative amount of time, in milliseconds, spent notifying listeners of
+	// a no-op cluster state update since the node started.
+	NotificationTimeMillis *int64 `json:"notification_time_millis,omitempty"`
+	// PublicationTime The cumulative amount of time spent publishing cluster state updates which
+	// ultimately succeeded, which includes everything from the start of the
+	// publication (just after the computation of the new cluster state) until the
+	// publication has finished and the master node is ready to start processing the
+	// next state update.
+	// This includes the time measured by `context_construction_time`,
+	// `commit_time`, `completion_time` and `master_apply_time`.
+	PublicationTime Duration `json:"publication_time,omitempty"`
+	// PublicationTimeMillis The cumulative amount of time, in milliseconds, spent publishing cluster
+	// state updates which ultimately succeeded, which includes everything from the
+	// start of the publication (just after the computation of the new cluster
+	// state) until the publication has finished and the master node is ready to
+	// start processing the next state update.
+	// This includes the time measured by `context_construction_time`,
+	// `commit_time`, `completion_time` and `master_apply_time`.
+	PublicationTimeMillis *int64 `json:"publication_time_millis,omitempty"`
 }
 
 func (s *ClusterStateUpdate) UnmarshalJSON(data []byte) error {

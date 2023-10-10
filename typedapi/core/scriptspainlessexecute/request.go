@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package scriptspainlessexecute
 
@@ -29,11 +29,15 @@ import (
 
 // Request holds the request body struct for the package scriptspainlessexecute
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/scripts_painless_execute/ExecutePainlessScriptRequest.ts#L24-L46
 type Request struct {
-	Context      *string                     `json:"context,omitempty"`
+
+	// Context The context that the script should run in.
+	Context *string `json:"context,omitempty"`
+	// ContextSetup Additional parameters for the `context`.
 	ContextSetup *types.PainlessContextSetup `json:"context_setup,omitempty"`
-	Script       *types.InlineScript         `json:"script,omitempty"`
+	// Script The Painless script to execute.
+	Script *types.InlineScript `json:"script,omitempty"`
 }
 
 // NewRequest returns a Request

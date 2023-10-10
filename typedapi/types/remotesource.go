@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -29,14 +29,21 @@ import (
 
 // RemoteSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/reindex/types.ts#L59-L66
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/reindex/types.ts#L99-L125
 type RemoteSource struct {
-	ConnectTimeout Duration          `json:"connect_timeout,omitempty"`
-	Headers        map[string]string `json:"headers,omitempty"`
-	Host           string            `json:"host"`
-	Password       *string           `json:"password,omitempty"`
-	SocketTimeout  Duration          `json:"socket_timeout,omitempty"`
-	Username       *string           `json:"username,omitempty"`
+	// ConnectTimeout The remote connection timeout.
+	// Defaults to 30 seconds.
+	ConnectTimeout Duration `json:"connect_timeout,omitempty"`
+	// Headers An object containing the headers of the request.
+	Headers map[string]string `json:"headers,omitempty"`
+	// Host The URL for the remote instance of Elasticsearch that you want to index from.
+	Host string `json:"host"`
+	// Password The password to use for authentication with the remote host.
+	Password *string `json:"password,omitempty"`
+	// SocketTimeout The remote socket read timeout. Defaults to 30 seconds.
+	SocketTimeout Duration `json:"socket_timeout,omitempty"`
+	// Username The username to use for authentication with the remote host.
+	Username *string `json:"username,omitempty"`
 }
 
 func (s *RemoteSource) UnmarshalJSON(data []byte) error {

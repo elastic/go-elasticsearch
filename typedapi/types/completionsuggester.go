@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,15 +30,26 @@ import (
 
 // CompletionSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/search/_types/suggester.ts#L130-L135
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/search/_types/suggester.ts#L160-L178
 type CompletionSuggester struct {
-	Analyzer       *string                        `json:"analyzer,omitempty"`
-	Contexts       map[string][]CompletionContext `json:"contexts,omitempty"`
-	Field          string                         `json:"field"`
-	Fuzzy          *SuggestFuzziness              `json:"fuzzy,omitempty"`
-	Regex          *RegexOptions                  `json:"regex,omitempty"`
-	Size           *int                           `json:"size,omitempty"`
-	SkipDuplicates *bool                          `json:"skip_duplicates,omitempty"`
+	// Analyzer The analyzer to analyze the suggest text with.
+	// Defaults to the search analyzer of the suggest field.
+	Analyzer *string `json:"analyzer,omitempty"`
+	// Contexts A value, geo point object, or a geo hash string to filter or boost the
+	// suggestion on.
+	Contexts map[string][]CompletionContext `json:"contexts,omitempty"`
+	// Field The field to fetch the candidate suggestions from.
+	// Needs to be set globally or per suggestion.
+	Field string `json:"field"`
+	// Fuzzy Enables fuzziness, meaning you can have a typo in your search and still get
+	// results back.
+	Fuzzy *SuggestFuzziness `json:"fuzzy,omitempty"`
+	// Regex A regex query that expresses a prefix as a regular expression.
+	Regex *RegexOptions `json:"regex,omitempty"`
+	// Size The maximum corrections to be returned per suggest text token.
+	Size *int `json:"size,omitempty"`
+	// SkipDuplicates Whether duplicate suggestions should be filtered out.
+	SkipDuplicates *bool `json:"skip_duplicates,omitempty"`
 }
 
 func (s *CompletionSuggester) UnmarshalJSON(data []byte) error {

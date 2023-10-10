@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SignificantTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_types/aggregations/bucket.ts#L836-L908
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_types/aggregations/bucket.ts#L836-L908
 type SignificantTextAggregation struct {
 	// BackgroundFilter A background filter that can be used to focus in on significant terms within
 	// a narrower context, instead of the entire index.
@@ -53,7 +53,7 @@ type SignificantTextAggregation struct {
 	// Distance", Cilibrasi and Vitanyi, 2007, as the significance score.
 	Gnd *GoogleNormalizedDistanceHeuristic `json:"gnd,omitempty"`
 	// Include Values to include.
-	Include []string `json:"include,omitempty"`
+	Include TermsInclude `json:"include,omitempty"`
 	// Jlh Use JLH score as the significance score.
 	Jlh  *EmptyObject `json:"jlh,omitempty"`
 	Meta Metadata     `json:"meta,omitempty"`
@@ -154,19 +154,8 @@ func (s *SignificantTextAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "include":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
-				}
-
-				s.Include = append(s.Include, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Include); err != nil {
-					return err
-				}
+			if err := dec.Decode(&s.Include); err != nil {
+				return err
 			}
 
 		case "jlh":

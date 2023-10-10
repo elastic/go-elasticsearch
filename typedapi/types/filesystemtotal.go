@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,14 +30,29 @@ import (
 
 // FileSystemTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L307-L314
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L757-L786
 type FileSystemTotal struct {
-	Available        *string `json:"available,omitempty"`
-	AvailableInBytes *int64  `json:"available_in_bytes,omitempty"`
-	Free             *string `json:"free,omitempty"`
-	FreeInBytes      *int64  `json:"free_in_bytes,omitempty"`
-	Total            *string `json:"total,omitempty"`
-	TotalInBytes     *int64  `json:"total_in_bytes,omitempty"`
+	// Available Total disk space available to this Java virtual machine on all file stores.
+	// Depending on OS or process level restrictions, this might appear less than
+	// `free`.
+	// This is the actual amount of free disk space the Elasticsearch node can
+	// utilise.
+	Available *string `json:"available,omitempty"`
+	// AvailableInBytes Total number of bytes available to this Java virtual machine on all file
+	// stores.
+	// Depending on OS or process level restrictions, this might appear less than
+	// `free_in_bytes`.
+	// This is the actual amount of free disk space the Elasticsearch node can
+	// utilise.
+	AvailableInBytes *int64 `json:"available_in_bytes,omitempty"`
+	// Free Total unallocated disk space in all file stores.
+	Free *string `json:"free,omitempty"`
+	// FreeInBytes Total number of unallocated bytes in all file stores.
+	FreeInBytes *int64 `json:"free_in_bytes,omitempty"`
+	// Total Total size of all file stores.
+	Total *string `json:"total,omitempty"`
+	// TotalInBytes Total size of all file stores in bytes.
+	TotalInBytes *int64 `json:"total_in_bytes,omitempty"`
 }
 
 func (s *FileSystemTotal) UnmarshalJSON(data []byte) error {

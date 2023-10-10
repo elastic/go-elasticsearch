@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,14 +30,24 @@ import (
 
 // TermVectorsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/termvectors/types.ts#L49-L57
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/termvectors/types.ts#L49-L86
 type TermVectorsFilter struct {
-	MaxDocFreq    *int `json:"max_doc_freq,omitempty"`
-	MaxNumTerms   *int `json:"max_num_terms,omitempty"`
-	MaxTermFreq   *int `json:"max_term_freq,omitempty"`
+	// MaxDocFreq Ignore words which occur in more than this many docs.
+	// Defaults to unbounded.
+	MaxDocFreq *int `json:"max_doc_freq,omitempty"`
+	// MaxNumTerms Maximum number of terms that must be returned per field.
+	MaxNumTerms *int `json:"max_num_terms,omitempty"`
+	// MaxTermFreq Ignore words with more than this frequency in the source doc.
+	// Defaults to unbounded.
+	MaxTermFreq *int `json:"max_term_freq,omitempty"`
+	// MaxWordLength The maximum word length above which words will be ignored.
+	// Defaults to unbounded.
 	MaxWordLength *int `json:"max_word_length,omitempty"`
-	MinDocFreq    *int `json:"min_doc_freq,omitempty"`
-	MinTermFreq   *int `json:"min_term_freq,omitempty"`
+	// MinDocFreq Ignore terms which do not occur in at least this many docs.
+	MinDocFreq *int `json:"min_doc_freq,omitempty"`
+	// MinTermFreq Ignore words with less than this frequency in the source doc.
+	MinTermFreq *int `json:"min_term_freq,omitempty"`
+	// MinWordLength The minimum word length below which words will be ignored.
 	MinWordLength *int `json:"min_word_length,omitempty"`
 }
 

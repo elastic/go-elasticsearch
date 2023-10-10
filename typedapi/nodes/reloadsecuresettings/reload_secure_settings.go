@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Reloads secure settings.
 package reloadsecuresettings
@@ -246,8 +246,7 @@ func (r *ReloadSecureSettings) Header(key, value string) *ReloadSecureSettings {
 	return r
 }
 
-// NodeId A comma-separated list of node IDs to span the reload/reinit call. Should
-// stay empty because reloading usually involves all cluster nodes.
+// NodeId The names of particular nodes in the cluster to target.
 // API Name: nodeid
 func (r *ReloadSecureSettings) NodeId(nodeid string) *ReloadSecureSettings {
 	r.paramSet |= nodeidMask
@@ -256,7 +255,9 @@ func (r *ReloadSecureSettings) NodeId(nodeid string) *ReloadSecureSettings {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *ReloadSecureSettings) Timeout(duration string) *ReloadSecureSettings {
 	r.values.Set("timeout", duration)
@@ -264,6 +265,7 @@ func (r *ReloadSecureSettings) Timeout(duration string) *ReloadSecureSettings {
 	return r
 }
 
+// SecureSettingsPassword The password for the Elasticsearch keystore.
 // API name: secure_settings_password
 func (r *ReloadSecureSettings) SecureSettingsPassword(password string) *ReloadSecureSettings {
 	r.req.SecureSettingsPassword = &password

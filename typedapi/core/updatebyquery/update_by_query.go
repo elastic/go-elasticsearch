@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Performs an update on every document in the index without changing the
 // source,
@@ -248,8 +248,10 @@ func (r *UpdateByQuery) Header(key, value string) *UpdateByQuery {
 	return r
 }
 
-// Index A comma-separated list of index names to search; use `_all` or empty string
-// to perform the operation on all indices
+// Index Comma-separated list of data streams, indices, and aliases to search.
+// Supports wildcards (`*`).
+// To search all data streams or indices, omit this parameter or use `*` or
+// `_all`.
 // API Name: index
 func (r *UpdateByQuery) Index(index string) *UpdateByQuery {
 	r.paramSet |= indexMask
@@ -258,8 +260,11 @@ func (r *UpdateByQuery) Index(index string) *UpdateByQuery {
 	return r
 }
 
-// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
-// indices. (This includes `_all` string or when no indices have been specified)
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
+// For example, a request targeting `foo*,bar*` returns an error if an index
+// starts with `foo` but no index starts with `bar`.
 // API name: allow_no_indices
 func (r *UpdateByQuery) AllowNoIndices(allownoindices bool) *UpdateByQuery {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -267,7 +272,7 @@ func (r *UpdateByQuery) AllowNoIndices(allownoindices bool) *UpdateByQuery {
 	return r
 }
 
-// Analyzer The analyzer to use for the query string
+// Analyzer Analyzer to use for the query string.
 // API name: analyzer
 func (r *UpdateByQuery) Analyzer(analyzer string) *UpdateByQuery {
 	r.values.Set("analyzer", analyzer)
@@ -275,8 +280,7 @@ func (r *UpdateByQuery) Analyzer(analyzer string) *UpdateByQuery {
 	return r
 }
 
-// AnalyzeWildcard Specify whether wildcard and prefix queries should be analyzed (default:
-// false)
+// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed.
 // API name: analyze_wildcard
 func (r *UpdateByQuery) AnalyzeWildcard(analyzewildcard bool) *UpdateByQuery {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -284,7 +288,7 @@ func (r *UpdateByQuery) AnalyzeWildcard(analyzewildcard bool) *UpdateByQuery {
 	return r
 }
 
-// DefaultOperator The default operator for query string query (AND or OR)
+// DefaultOperator The default operator for query string query: `AND` or `OR`.
 // API name: default_operator
 func (r *UpdateByQuery) DefaultOperator(defaultoperator operator.Operator) *UpdateByQuery {
 	r.values.Set("default_operator", defaultoperator.String())
@@ -292,8 +296,7 @@ func (r *UpdateByQuery) DefaultOperator(defaultoperator operator.Operator) *Upda
 	return r
 }
 
-// Df The field to use as default where no field prefix is given in the query
-// string
+// Df Field to use as default where no field prefix is given in the query string.
 // API name: df
 func (r *UpdateByQuery) Df(df string) *UpdateByQuery {
 	r.values.Set("df", df)
@@ -301,8 +304,11 @@ func (r *UpdateByQuery) Df(df string) *UpdateByQuery {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// ExpandWildcards Type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// Supports comma-separated values, such as `open,hidden`.
+// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *UpdateByQuery) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *UpdateByQuery {
 	tmp := []string{}
@@ -322,8 +328,8 @@ func (r *UpdateByQuery) From(from string) *UpdateByQuery {
 	return r
 }
 
-// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
-// (missing or closed)
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
 // API name: ignore_unavailable
 func (r *UpdateByQuery) IgnoreUnavailable(ignoreunavailable bool) *UpdateByQuery {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -331,8 +337,8 @@ func (r *UpdateByQuery) IgnoreUnavailable(ignoreunavailable bool) *UpdateByQuery
 	return r
 }
 
-// Lenient Specify whether format-based query failures (such as providing text to a
-// numeric field) should be ignored
+// Lenient If `true`, format-based query failures (such as providing text to a numeric
+// field) in the query string will be ignored.
 // API name: lenient
 func (r *UpdateByQuery) Lenient(lenient bool) *UpdateByQuery {
 	r.values.Set("lenient", strconv.FormatBool(lenient))
@@ -340,7 +346,11 @@ func (r *UpdateByQuery) Lenient(lenient bool) *UpdateByQuery {
 	return r
 }
 
-// Pipeline Ingest pipeline to set on index requests made by this action. (default: none)
+// Pipeline ID of the pipeline to use to preprocess incoming documents.
+// If the index has a default ingest pipeline specified, then setting the value
+// to `_none` disables the default ingest pipeline for this request.
+// If a final pipeline is configured it will always run, regardless of the value
+// of this parameter.
 // API name: pipeline
 func (r *UpdateByQuery) Pipeline(pipeline string) *UpdateByQuery {
 	r.values.Set("pipeline", pipeline)
@@ -348,8 +358,8 @@ func (r *UpdateByQuery) Pipeline(pipeline string) *UpdateByQuery {
 	return r
 }
 
-// Preference Specify the node or shard the operation should be performed on (default:
-// random)
+// Preference Specifies the node or shard the operation should be performed on.
+// Random by default.
 // API name: preference
 func (r *UpdateByQuery) Preference(preference string) *UpdateByQuery {
 	r.values.Set("preference", preference)
@@ -357,7 +367,8 @@ func (r *UpdateByQuery) Preference(preference string) *UpdateByQuery {
 	return r
 }
 
-// Refresh Should the affected indexes be refreshed?
+// Refresh If `true`, Elasticsearch refreshes affected shards to make the operation
+// visible to search.
 // API name: refresh
 func (r *UpdateByQuery) Refresh(refresh bool) *UpdateByQuery {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -365,8 +376,7 @@ func (r *UpdateByQuery) Refresh(refresh bool) *UpdateByQuery {
 	return r
 }
 
-// RequestCache Specify if request cache should be used for this request or not, defaults to
-// index level setting
+// RequestCache If `true`, the request cache is used for this request.
 // API name: request_cache
 func (r *UpdateByQuery) RequestCache(requestcache bool) *UpdateByQuery {
 	r.values.Set("request_cache", strconv.FormatBool(requestcache))
@@ -374,8 +384,7 @@ func (r *UpdateByQuery) RequestCache(requestcache bool) *UpdateByQuery {
 	return r
 }
 
-// RequestsPerSecond The throttle to set on this request in sub-requests per second. -1 means no
-// throttle.
+// RequestsPerSecond The throttle for this request in sub-requests per second.
 // API name: requests_per_second
 func (r *UpdateByQuery) RequestsPerSecond(requestspersecond string) *UpdateByQuery {
 	r.values.Set("requests_per_second", requestspersecond)
@@ -383,7 +392,7 @@ func (r *UpdateByQuery) RequestsPerSecond(requestspersecond string) *UpdateByQue
 	return r
 }
 
-// Routing A comma-separated list of specific routing values
+// Routing Custom value used to route operations to a specific shard.
 // API name: routing
 func (r *UpdateByQuery) Routing(routing string) *UpdateByQuery {
 	r.values.Set("routing", routing)
@@ -391,8 +400,7 @@ func (r *UpdateByQuery) Routing(routing string) *UpdateByQuery {
 	return r
 }
 
-// Scroll Specify how long a consistent view of the index should be maintained for
-// scrolled search
+// Scroll Period to retain the search context for scrolling.
 // API name: scroll
 func (r *UpdateByQuery) Scroll(duration string) *UpdateByQuery {
 	r.values.Set("scroll", duration)
@@ -400,7 +408,7 @@ func (r *UpdateByQuery) Scroll(duration string) *UpdateByQuery {
 	return r
 }
 
-// ScrollSize Size on the scroll request powering the update by query
+// ScrollSize Size of the scroll request that powers the operation.
 // API name: scroll_size
 func (r *UpdateByQuery) ScrollSize(scrollsize string) *UpdateByQuery {
 	r.values.Set("scroll_size", scrollsize)
@@ -408,7 +416,7 @@ func (r *UpdateByQuery) ScrollSize(scrollsize string) *UpdateByQuery {
 	return r
 }
 
-// SearchTimeout Explicit timeout for each search request. Defaults to no timeout.
+// SearchTimeout Explicit timeout for each search request.
 // API name: search_timeout
 func (r *UpdateByQuery) SearchTimeout(duration string) *UpdateByQuery {
 	r.values.Set("search_timeout", duration)
@@ -416,7 +424,8 @@ func (r *UpdateByQuery) SearchTimeout(duration string) *UpdateByQuery {
 	return r
 }
 
-// SearchType Search operation type
+// SearchType The type of the search operation. Available options: `query_then_fetch`,
+// `dfs_query_then_fetch`.
 // API name: search_type
 func (r *UpdateByQuery) SearchType(searchtype searchtype.SearchType) *UpdateByQuery {
 	r.values.Set("search_type", searchtype.String())
@@ -424,8 +433,7 @@ func (r *UpdateByQuery) SearchType(searchtype searchtype.SearchType) *UpdateByQu
 	return r
 }
 
-// Slices The number of slices this task should be divided into. Defaults to 1, meaning
-// the task isn't sliced into subtasks. Can be set to `auto`.
+// Slices The number of slices this task should be divided into.
 // API name: slices
 func (r *UpdateByQuery) Slices(slices string) *UpdateByQuery {
 	r.values.Set("slices", slices)
@@ -433,7 +441,7 @@ func (r *UpdateByQuery) Slices(slices string) *UpdateByQuery {
 	return r
 }
 
-// Sort A comma-separated list of <field>:<direction> pairs
+// Sort A comma-separated list of <field>:<direction> pairs.
 // API name: sort
 func (r *UpdateByQuery) Sort(sorts ...string) *UpdateByQuery {
 	tmp := []string{}
@@ -445,7 +453,7 @@ func (r *UpdateByQuery) Sort(sorts ...string) *UpdateByQuery {
 	return r
 }
 
-// Stats Specific 'tag' of the request for logging and statistical purposes
+// Stats Specific `tag` of the request for logging and statistical purposes.
 // API name: stats
 func (r *UpdateByQuery) Stats(stats ...string) *UpdateByQuery {
 	tmp := []string{}
@@ -457,8 +465,14 @@ func (r *UpdateByQuery) Stats(stats ...string) *UpdateByQuery {
 	return r
 }
 
-// TerminateAfter The maximum number of documents to collect for each shard, upon reaching
-// which the query execution will terminate early.
+// TerminateAfter Maximum number of documents to collect for each shard.
+// If a query reaches this limit, Elasticsearch terminates the query early.
+// Elasticsearch collects documents before sorting.
+// Use with caution.
+// Elasticsearch applies this parameter to each shard handling the request.
+// When possible, let Elasticsearch perform early termination automatically.
+// Avoid specifying this parameter for requests that target data streams with
+// backing indices across multiple data tiers.
 // API name: terminate_after
 func (r *UpdateByQuery) TerminateAfter(terminateafter string) *UpdateByQuery {
 	r.values.Set("terminate_after", terminateafter)
@@ -466,8 +480,8 @@ func (r *UpdateByQuery) TerminateAfter(terminateafter string) *UpdateByQuery {
 	return r
 }
 
-// Timeout Time each individual bulk request should wait for shards that are
-// unavailable.
+// Timeout Period each update request waits for the following operations: dynamic
+// mapping updates, waiting for active shards.
 // API name: timeout
 func (r *UpdateByQuery) Timeout(duration string) *UpdateByQuery {
 	r.values.Set("timeout", duration)
@@ -475,7 +489,7 @@ func (r *UpdateByQuery) Timeout(duration string) *UpdateByQuery {
 	return r
 }
 
-// Version Specify whether to return document version as part of a hit
+// Version If `true`, returns the document version as part of a hit.
 // API name: version
 func (r *UpdateByQuery) Version(version bool) *UpdateByQuery {
 	r.values.Set("version", strconv.FormatBool(version))
@@ -492,11 +506,10 @@ func (r *UpdateByQuery) VersionType(versiontype bool) *UpdateByQuery {
 	return r
 }
 
-// WaitForActiveShards Sets the number of shard copies that must be active before proceeding with
-// the update by query operation. Defaults to 1, meaning the primary shard only.
-// Set to `all` for all shard copies, otherwise set to any non-negative value
-// less than or equal to the total number of copies for the shard (number of
-// replicas + 1)
+// WaitForActiveShards The number of shard copies that must be active before proceeding with the
+// operation.
+// Set to `all` or any positive integer up to the total number of shards in the
+// index (`number_of_replicas+1`).
 // API name: wait_for_active_shards
 func (r *UpdateByQuery) WaitForActiveShards(waitforactiveshards string) *UpdateByQuery {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -504,8 +517,7 @@ func (r *UpdateByQuery) WaitForActiveShards(waitforactiveshards string) *UpdateB
 	return r
 }
 
-// WaitForCompletion Should the request should block until the update by query operation is
-// complete.
+// WaitForCompletion If `true`, the request blocks until the operation is complete.
 // API name: wait_for_completion
 func (r *UpdateByQuery) WaitForCompletion(waitforcompletion bool) *UpdateByQuery {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -513,6 +525,7 @@ func (r *UpdateByQuery) WaitForCompletion(waitforcompletion bool) *UpdateByQuery
 	return r
 }
 
+// Conflicts What to do if update by query hits version conflicts: `abort` or `proceed`.
 // API name: conflicts
 func (r *UpdateByQuery) Conflicts(conflicts conflicts.Conflicts) *UpdateByQuery {
 	r.req.Conflicts = &conflicts
@@ -520,6 +533,7 @@ func (r *UpdateByQuery) Conflicts(conflicts conflicts.Conflicts) *UpdateByQuery 
 	return r
 }
 
+// MaxDocs The maximum number of documents to update.
 // API name: max_docs
 func (r *UpdateByQuery) MaxDocs(maxdocs int64) *UpdateByQuery {
 
@@ -528,6 +542,7 @@ func (r *UpdateByQuery) MaxDocs(maxdocs int64) *UpdateByQuery {
 	return r
 }
 
+// Query Specifies the documents to update using the Query DSL.
 // API name: query
 func (r *UpdateByQuery) Query(query *types.Query) *UpdateByQuery {
 
@@ -536,6 +551,7 @@ func (r *UpdateByQuery) Query(query *types.Query) *UpdateByQuery {
 	return r
 }
 
+// Script The script to run to update the document source or metadata when updating.
 // API name: script
 func (r *UpdateByQuery) Script(script types.Script) *UpdateByQuery {
 	r.req.Script = script
@@ -543,6 +559,8 @@ func (r *UpdateByQuery) Script(script types.Script) *UpdateByQuery {
 	return r
 }
 
+// Slice Slice the request manually using the provided slice ID and total number of
+// slices.
 // API name: slice
 func (r *UpdateByQuery) Slice(slice *types.SlicedScroll) *UpdateByQuery {
 

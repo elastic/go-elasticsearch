@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -32,21 +32,39 @@ import (
 
 // MTermVectorsOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/mtermvectors/types.ts#L35-L49
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/mtermvectors/types.ts#L35-L94
 type MTermVectorsOperation struct {
-	Doc             json.RawMessage          `json:"doc,omitempty"`
-	FieldStatistics *bool                    `json:"field_statistics,omitempty"`
-	Fields          []string                 `json:"fields,omitempty"`
-	Filter          *TermVectorsFilter       `json:"filter,omitempty"`
-	Id_             string                   `json:"_id"`
-	Index_          *string                  `json:"_index,omitempty"`
-	Offsets         *bool                    `json:"offsets,omitempty"`
-	Payloads        *bool                    `json:"payloads,omitempty"`
-	Positions       *bool                    `json:"positions,omitempty"`
-	Routing         *string                  `json:"routing,omitempty"`
-	TermStatistics  *bool                    `json:"term_statistics,omitempty"`
-	Version         *int64                   `json:"version,omitempty"`
-	VersionType     *versiontype.VersionType `json:"version_type,omitempty"`
+	// Doc An artificial document (a document not present in the index) for which you
+	// want to retrieve term vectors.
+	Doc json.RawMessage `json:"doc,omitempty"`
+	// FieldStatistics If `true`, the response includes the document count, sum of document
+	// frequencies, and sum of total term frequencies.
+	FieldStatistics *bool `json:"field_statistics,omitempty"`
+	// Fields Comma-separated list or wildcard expressions of fields to include in the
+	// statistics.
+	// Used as the default list unless a specific field list is provided in the
+	// `completion_fields` or `fielddata_fields` parameters.
+	Fields []string `json:"fields,omitempty"`
+	// Filter Filter terms based on their tf-idf scores.
+	Filter *TermVectorsFilter `json:"filter,omitempty"`
+	// Id_ The ID of the document.
+	Id_ string `json:"_id"`
+	// Index_ The index of the document.
+	Index_ *string `json:"_index,omitempty"`
+	// Offsets If `true`, the response includes term offsets.
+	Offsets *bool `json:"offsets,omitempty"`
+	// Payloads If `true`, the response includes term payloads.
+	Payloads *bool `json:"payloads,omitempty"`
+	// Positions If `true`, the response includes term positions.
+	Positions *bool `json:"positions,omitempty"`
+	// Routing Custom value used to route operations to a specific shard.
+	Routing *string `json:"routing,omitempty"`
+	// TermStatistics If true, the response includes term frequency and document frequency.
+	TermStatistics *bool `json:"term_statistics,omitempty"`
+	// Version If `true`, returns the document version as part of a hit.
+	Version *int64 `json:"version,omitempty"`
+	// VersionType Specific version type.
+	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
 
 func (s *MTermVectorsOperation) UnmarshalJSON(data []byte) error {

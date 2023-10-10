@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,16 +30,25 @@ import (
 
 // Jvm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L324-L333
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L811-L845
 type Jvm struct {
-	BufferPools    map[string]NodeBufferPool `json:"buffer_pools,omitempty"`
-	Classes        *JvmClasses               `json:"classes,omitempty"`
-	Gc             *GarbageCollector         `json:"gc,omitempty"`
-	Mem            *JvmMemoryStats           `json:"mem,omitempty"`
-	Threads        *JvmThreads               `json:"threads,omitempty"`
-	Timestamp      *int64                    `json:"timestamp,omitempty"`
-	Uptime         *string                   `json:"uptime,omitempty"`
-	UptimeInMillis *int64                    `json:"uptime_in_millis,omitempty"`
+	// BufferPools Contains statistics about JVM buffer pools for the node.
+	BufferPools map[string]NodeBufferPool `json:"buffer_pools,omitempty"`
+	// Classes Contains statistics about classes loaded by JVM for the node.
+	Classes *JvmClasses `json:"classes,omitempty"`
+	// Gc Contains statistics about JVM garbage collectors for the node.
+	Gc *GarbageCollector `json:"gc,omitempty"`
+	// Mem Contains JVM memory usage statistics for the node.
+	Mem *JvmMemoryStats `json:"mem,omitempty"`
+	// Threads Contains statistics about JVM thread usage for the node.
+	Threads *JvmThreads `json:"threads,omitempty"`
+	// Timestamp Last time JVM statistics were refreshed.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+	// Uptime Human-readable JVM uptime.
+	// Only returned if the `human` query parameter is `true`.
+	Uptime *string `json:"uptime,omitempty"`
+	// UptimeInMillis JVM uptime in milliseconds.
+	UptimeInMillis *int64 `json:"uptime_in_millis,omitempty"`
 }
 
 func (s *Jvm) UnmarshalJSON(data []byte) error {

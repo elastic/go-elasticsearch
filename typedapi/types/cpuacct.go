@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,10 +30,13 @@ import (
 
 // CpuAcct type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L194-L197
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L476-L485
 type CpuAcct struct {
+	// ControlGroup The `cpuacct` control group to which the Elasticsearch process belongs.
 	ControlGroup *string `json:"control_group,omitempty"`
-	UsageNanos   *int64  `json:"usage_nanos,omitempty"`
+	// UsageNanos The total CPU time, in nanoseconds, consumed by all tasks in the same cgroup
+	// as the Elasticsearch process.
+	UsageNanos *int64 `json:"usage_nanos,omitempty"`
 }
 
 func (s *CpuAcct) UnmarshalJSON(data []byte) error {

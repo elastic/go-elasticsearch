@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
 // DataframeAnalysisFeatureProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ml/_types/DataframeAnalytics.ts#L246-L258
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/_types/DataframeAnalytics.ts#L246-L258
 type DataframeAnalysisFeatureProcessor struct {
 	// FrequencyEncoding The configuration information necessary to perform frequency encoding.
 	FrequencyEncoding *DataframeAnalysisFeatureProcessorFrequencyEncoding `json:"frequency_encoding,omitempty"`

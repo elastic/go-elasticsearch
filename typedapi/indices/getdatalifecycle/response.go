@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package getdatalifecycle
 
@@ -26,10 +26,10 @@ import (
 
 // Response holds the response body struct for the package getdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/get_data_lifecycle/IndicesGetDataLifecycleResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/get_data_lifecycle/IndicesGetDataLifecycleResponse.ts#L23-L25
 
 type Response struct {
-	DataStreams []types.DataStreamLifecycle `json:"data_streams"`
+	DataStreams []types.DataStreamWithLifecycle `json:"data_streams"`
 }
 
 // NewResponse returns a Response

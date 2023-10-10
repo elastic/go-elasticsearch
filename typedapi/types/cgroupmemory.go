@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,10 +30,21 @@ import (
 
 // CgroupMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L212-L216
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L521-L537
 type CgroupMemory struct {
+	// ControlGroup The `memory` control group to which the Elasticsearch process belongs.
 	ControlGroup *string `json:"control_group,omitempty"`
+	// LimitInBytes The maximum amount of user memory (including file cache) allowed for all
+	// tasks in the same cgroup as the Elasticsearch process.
+	// This value can be too big to store in a `long`, so is returned as a string so
+	// that the value returned can exactly match what the underlying operating
+	// system interface returns.
+	// Any value that is too large to parse into a `long` almost certainly means no
+	// limit has been set for the cgroup.
 	LimitInBytes *string `json:"limit_in_bytes,omitempty"`
+	// UsageInBytes The total current memory usage by processes in the cgroup, in bytes, by all
+	// tasks in the same cgroup as the Elasticsearch process.
+	// This value is stored as a string for consistency with `limit_in_bytes`.
 	UsageInBytes *string `json:"usage_in_bytes,omitempty"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,10 +30,13 @@ import (
 
 // PublishedClusterStates type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L120-L124
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L263-L276
 type PublishedClusterStates struct {
-	CompatibleDiffs   *int64 `json:"compatible_diffs,omitempty"`
-	FullStates        *int64 `json:"full_states,omitempty"`
+	// CompatibleDiffs Number of compatible differences between published cluster states.
+	CompatibleDiffs *int64 `json:"compatible_diffs,omitempty"`
+	// FullStates Number of published cluster states.
+	FullStates *int64 `json:"full_states,omitempty"`
+	// IncompatibleDiffs Number of incompatible differences between published cluster states.
 	IncompatibleDiffs *int64 `json:"incompatible_diffs,omitempty"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,15 +30,28 @@ import (
 
 // AdaptiveSelection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L169-L177
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L403-L432
 type AdaptiveSelection struct {
-	AvgQueueSize      *int64   `json:"avg_queue_size,omitempty"`
-	AvgResponseTime   Duration `json:"avg_response_time,omitempty"`
-	AvgResponseTimeNs *int64   `json:"avg_response_time_ns,omitempty"`
-	AvgServiceTime    Duration `json:"avg_service_time,omitempty"`
-	AvgServiceTimeNs  *int64   `json:"avg_service_time_ns,omitempty"`
-	OutgoingSearches  *int64   `json:"outgoing_searches,omitempty"`
-	Rank              *string  `json:"rank,omitempty"`
+	// AvgQueueSize The exponentially weighted moving average queue size of search requests on
+	// the keyed node.
+	AvgQueueSize *int64 `json:"avg_queue_size,omitempty"`
+	// AvgResponseTime The exponentially weighted moving average response time of search requests on
+	// the keyed node.
+	AvgResponseTime Duration `json:"avg_response_time,omitempty"`
+	// AvgResponseTimeNs The exponentially weighted moving average response time, in nanoseconds, of
+	// search requests on the keyed node.
+	AvgResponseTimeNs *int64 `json:"avg_response_time_ns,omitempty"`
+	// AvgServiceTime The exponentially weighted moving average service time of search requests on
+	// the keyed node.
+	AvgServiceTime Duration `json:"avg_service_time,omitempty"`
+	// AvgServiceTimeNs The exponentially weighted moving average service time, in nanoseconds, of
+	// search requests on the keyed node.
+	AvgServiceTimeNs *int64 `json:"avg_service_time_ns,omitempty"`
+	// OutgoingSearches The number of outstanding search requests to the keyed node from the node
+	// these stats are for.
+	OutgoingSearches *int64 `json:"outgoing_searches,omitempty"`
+	// Rank The rank of this node; used for shard selection when routing search requests.
+	Rank *string `json:"rank,omitempty"`
 }
 
 func (s *AdaptiveSelection) UnmarshalJSON(data []byte) error {

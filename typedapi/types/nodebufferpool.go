@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,13 +30,18 @@ import (
 
 // NodeBufferPool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L316-L322
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L788-L809
 type NodeBufferPool struct {
-	Count                *int64  `json:"count,omitempty"`
-	TotalCapacity        *string `json:"total_capacity,omitempty"`
-	TotalCapacityInBytes *int64  `json:"total_capacity_in_bytes,omitempty"`
-	Used                 *string `json:"used,omitempty"`
-	UsedInBytes          *int64  `json:"used_in_bytes,omitempty"`
+	// Count Number of buffer pools.
+	Count *int64 `json:"count,omitempty"`
+	// TotalCapacity Total capacity of buffer pools.
+	TotalCapacity *string `json:"total_capacity,omitempty"`
+	// TotalCapacityInBytes Total capacity of buffer pools in bytes.
+	TotalCapacityInBytes *int64 `json:"total_capacity_in_bytes,omitempty"`
+	// Used Size of buffer pools.
+	Used *string `json:"used,omitempty"`
+	// UsedInBytes Size of buffer pools in bytes.
+	UsedInBytes *int64 `json:"used_in_bytes,omitempty"`
 }
 
 func (s *NodeBufferPool) UnmarshalJSON(data []byte) error {
