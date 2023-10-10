@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,19 +30,35 @@ import (
 
 // ResponseItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/bulk/types.ts#L37-L49
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/bulk/types.ts#L37-L81
 type ResponseItem struct {
+	// Error Contains additional information about the failed operation.
+	// The parameter is only returned for failed operations.
 	Error         *ErrorCause               `json:"error,omitempty"`
 	ForcedRefresh *bool                     `json:"forced_refresh,omitempty"`
 	Get           *InlineGetDictUserDefined `json:"get,omitempty"`
-	Id_           string                    `json:"_id,omitempty"`
-	Index_        string                    `json:"_index"`
-	PrimaryTerm_  *int64                    `json:"_primary_term,omitempty"`
-	Result        *string                   `json:"result,omitempty"`
-	SeqNo_        *int64                    `json:"_seq_no,omitempty"`
-	Shards_       *ShardStatistics          `json:"_shards,omitempty"`
-	Status        int                       `json:"status"`
-	Version_      *int64                    `json:"_version,omitempty"`
+	// Id_ The document ID associated with the operation.
+	Id_ string `json:"_id,omitempty"`
+	// Index_ Name of the index associated with the operation.
+	// If the operation targeted a data stream, this is the backing index into which
+	// the document was written.
+	Index_ string `json:"_index"`
+	// PrimaryTerm_ The primary term assigned to the document for the operation.
+	PrimaryTerm_ *int64 `json:"_primary_term,omitempty"`
+	// Result Result of the operation.
+	// Successful values are `created`, `deleted`, and `updated`.
+	Result *string `json:"result,omitempty"`
+	// SeqNo_ The sequence number assigned to the document for the operation.
+	// Sequence numbers are used to ensure an older version of a document doesn’t
+	// overwrite a newer version.
+	SeqNo_ *int64 `json:"_seq_no,omitempty"`
+	// Shards_ Contains shard information for the operation.
+	Shards_ *ShardStatistics `json:"_shards,omitempty"`
+	// Status HTTP status code returned for the operation.
+	Status int `json:"status"`
+	// Version_ The document version associated with the operation.
+	// The document version is incremented each time the document is updated.
+	Version_ *int64 `json:"_version,omitempty"`
 }
 
 func (s *ResponseItem) UnmarshalJSON(data []byte) error {

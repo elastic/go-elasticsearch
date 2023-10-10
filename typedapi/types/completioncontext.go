@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,13 +30,26 @@ import (
 
 // CompletionContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/search/_types/suggester.ts#L159-L166
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/search/_types/suggester.ts#L232-L261
 type CompletionContext struct {
-	Boost      *Float64           `json:"boost,omitempty"`
-	Context    Context            `json:"context"`
+	// Boost The factor by which the score of the suggestion should be boosted.
+	// The score is computed by multiplying the boost with the suggestion weight.
+	Boost *Float64 `json:"boost,omitempty"`
+	// Context The value of the category to filter/boost on.
+	Context Context `json:"context"`
+	// Neighbours An array of precision values at which neighboring geohashes should be taken
+	// into account.
+	// Precision value can be a distance value (`5m`, `10km`, etc.) or a raw geohash
+	// precision (`1`..`12`).
+	// Defaults to generating neighbors for index time precision level.
 	Neighbours []GeoHashPrecision `json:"neighbours,omitempty"`
-	Precision  GeoHashPrecision   `json:"precision,omitempty"`
-	Prefix     *bool              `json:"prefix,omitempty"`
+	// Precision The precision of the geohash to encode the query geo point.
+	// Can be specified as a distance value (`5m`, `10km`, etc.), or as a raw
+	// geohash precision (`1`..`12`).
+	// Defaults to index time precision level.
+	Precision GeoHashPrecision `json:"precision,omitempty"`
+	// Prefix Whether the category value should be treated as a prefix or not.
+	Prefix *bool `json:"prefix,omitempty"`
 }
 
 func (s *CompletionContext) UnmarshalJSON(data []byte) error {

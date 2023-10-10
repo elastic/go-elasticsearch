@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -29,11 +29,16 @@ import (
 
 // DataframeAnalyticsStatsOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ml/_types/DataframeAnalytics.ts#L392-L396
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/_types/DataframeAnalytics.ts#L404-L417
 type DataframeAnalyticsStatsOutlierDetection struct {
-	Parameters  OutlierDetectionParameters `json:"parameters"`
-	Timestamp   int64                      `json:"timestamp"`
-	TimingStats TimingStats                `json:"timing_stats"`
+	// Parameters The list of job parameters specified by the user or determined by algorithmic
+	// heuristics.
+	Parameters OutlierDetectionParameters `json:"parameters"`
+	// Timestamp The timestamp when the statistics were reported in milliseconds since the
+	// epoch.
+	Timestamp int64 `json:"timestamp"`
+	// TimingStats An object containing time statistics about the data frame analytics job.
+	TimingStats TimingStats `json:"timing_stats"`
 }
 
 func (s *DataframeAnalyticsStatsOutlierDetection) UnmarshalJSON(data []byte) error {

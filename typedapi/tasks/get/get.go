@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Returns information about a task.
 package get
@@ -212,7 +212,7 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// TaskId Return the task with specified id (node_id:task_number)
+// TaskId ID of the task.
 // API Name: taskid
 func (r *Get) TaskId(taskid string) *Get {
 	r.paramSet |= taskidMask
@@ -221,7 +221,9 @@ func (r *Get) TaskId(taskid string) *Get {
 	return r
 }
 
-// Timeout Explicit operation timeout
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Get) Timeout(duration string) *Get {
 	r.values.Set("timeout", duration)
@@ -229,7 +231,7 @@ func (r *Get) Timeout(duration string) *Get {
 	return r
 }
 
-// WaitForCompletion Wait for the matching tasks to complete (default: false)
+// WaitForCompletion If `true`, the request blocks until the task has completed.
 // API name: wait_for_completion
 func (r *Get) WaitForCompletion(waitforcompletion bool) *Get {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))

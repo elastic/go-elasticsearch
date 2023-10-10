@@ -16,17 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
 // SmoothingModelContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/search/_types/suggester.ts#L228-L235
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/search/_types/suggester.ts#L442-L458
 type SmoothingModelContainer struct {
-	Laplace             *LaplaceSmoothingModel             `json:"laplace,omitempty"`
+	// Laplace A smoothing model that uses an additive smoothing where a constant (typically
+	// `1.0` or smaller) is added to all counts to balance weights.
+	Laplace *LaplaceSmoothingModel `json:"laplace,omitempty"`
+	// LinearInterpolation A smoothing model that takes the weighted mean of the unigrams, bigrams, and
+	// trigrams based on user supplied weights (lambdas).
 	LinearInterpolation *LinearInterpolationSmoothingModel `json:"linear_interpolation,omitempty"`
-	StupidBackoff       *StupidBackoffSmoothingModel       `json:"stupid_backoff,omitempty"`
+	// StupidBackoff A simple backoff model that backs off to lower order n-gram models if the
+	// higher order count is `0` and discounts the lower order n-gram model by a
+	// constant factor.
+	StupidBackoff *StupidBackoffSmoothingModel `json:"stupid_backoff,omitempty"`
 }
 
 // NewSmoothingModelContainer returns a SmoothingModelContainer.

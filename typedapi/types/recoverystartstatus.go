@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // RecoveryStartStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/recovery/types.ts#L91-L96
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/recovery/types.ts#L91-L96
 type RecoveryStartStatus struct {
 	CheckIndexTime         Duration `json:"check_index_time,omitempty"`
 	CheckIndexTimeInMillis int64    `json:"check_index_time_in_millis"`

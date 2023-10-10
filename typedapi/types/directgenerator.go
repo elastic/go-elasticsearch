@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -32,19 +32,51 @@ import (
 
 // DirectGenerator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/search/_types/suggester.ts#L170-L182
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/search/_types/suggester.ts#L265-L328
 type DirectGenerator struct {
-	Field          string                   `json:"field"`
-	MaxEdits       *int                     `json:"max_edits,omitempty"`
-	MaxInspections *float32                 `json:"max_inspections,omitempty"`
-	MaxTermFreq    *float32                 `json:"max_term_freq,omitempty"`
-	MinDocFreq     *float32                 `json:"min_doc_freq,omitempty"`
-	MinWordLength  *int                     `json:"min_word_length,omitempty"`
-	PostFilter     *string                  `json:"post_filter,omitempty"`
-	PreFilter      *string                  `json:"pre_filter,omitempty"`
-	PrefixLength   *int                     `json:"prefix_length,omitempty"`
-	Size           *int                     `json:"size,omitempty"`
-	SuggestMode    *suggestmode.SuggestMode `json:"suggest_mode,omitempty"`
+	// Field The field to fetch the candidate suggestions from.
+	// Needs to be set globally or per suggestion.
+	Field string `json:"field"`
+	// MaxEdits The maximum edit distance candidate suggestions can have in order to be
+	// considered as a suggestion.
+	// Can only be `1` or `2`.
+	MaxEdits *int `json:"max_edits,omitempty"`
+	// MaxInspections A factor that is used to multiply with the shard_size in order to inspect
+	// more candidate spelling corrections on the shard level.
+	// Can improve accuracy at the cost of performance.
+	MaxInspections *float32 `json:"max_inspections,omitempty"`
+	// MaxTermFreq The maximum threshold in number of documents in which a suggest text token
+	// can exist in order to be included.
+	// This can be used to exclude high frequency terms — which are usually spelled
+	// correctly — from being spellchecked.
+	// Can be a relative percentage number (for example `0.4`) or an absolute number
+	// to represent document frequencies.
+	// If a value higher than 1 is specified, then fractional can not be specified.
+	MaxTermFreq *float32 `json:"max_term_freq,omitempty"`
+	// MinDocFreq The minimal threshold in number of documents a suggestion should appear in.
+	// This can improve quality by only suggesting high frequency terms.
+	// Can be specified as an absolute number or as a relative percentage of number
+	// of documents.
+	// If a value higher than 1 is specified, the number cannot be fractional.
+	MinDocFreq *float32 `json:"min_doc_freq,omitempty"`
+	// MinWordLength The minimum length a suggest text term must have in order to be included.
+	MinWordLength *int `json:"min_word_length,omitempty"`
+	// PostFilter A filter (analyzer) that is applied to each of the generated tokens before
+	// they are passed to the actual phrase scorer.
+	PostFilter *string `json:"post_filter,omitempty"`
+	// PreFilter A filter (analyzer) that is applied to each of the tokens passed to this
+	// candidate generator.
+	// This filter is applied to the original token before candidates are generated.
+	PreFilter *string `json:"pre_filter,omitempty"`
+	// PrefixLength The number of minimal prefix characters that must match in order be a
+	// candidate suggestions.
+	// Increasing this number improves spellcheck performance.
+	PrefixLength *int `json:"prefix_length,omitempty"`
+	// Size The maximum corrections to be returned per suggest text token.
+	Size *int `json:"size,omitempty"`
+	// SuggestMode Controls what suggestions are included on the suggestions generated on each
+	// shard.
+	SuggestMode *suggestmode.SuggestMode `json:"suggest_mode,omitempty"`
 }
 
 func (s *DirectGenerator) UnmarshalJSON(data []byte) error {

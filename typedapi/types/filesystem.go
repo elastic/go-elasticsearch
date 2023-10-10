@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,12 +30,17 @@ import (
 
 // FileSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L286-L291
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L698-L716
 type FileSystem struct {
-	Data      []DataPathStats  `json:"data,omitempty"`
-	IoStats   *IoStats         `json:"io_stats,omitempty"`
-	Timestamp *int64           `json:"timestamp,omitempty"`
-	Total     *FileSystemTotal `json:"total,omitempty"`
+	// Data List of all file stores.
+	Data []DataPathStats `json:"data,omitempty"`
+	// IoStats Contains I/O statistics for the node.
+	IoStats *IoStats `json:"io_stats,omitempty"`
+	// Timestamp Last time the file stores statistics were refreshed.
+	// Recorded in milliseconds since the Unix Epoch.
+	Timestamp *int64 `json:"timestamp,omitempty"`
+	// Total Contains statistics for all file stores of the node.
+	Total *FileSystemTotal `json:"total,omitempty"`
 }
 
 func (s *FileSystem) UnmarshalJSON(data []byte) error {

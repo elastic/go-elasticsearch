@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,10 +30,14 @@ import (
 
 // PhraseSuggestHighlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/search/_types/suggester.ts#L211-L214
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/search/_types/suggester.ts#L416-L425
 type PhraseSuggestHighlight struct {
+	// PostTag Use in conjunction with `pre_tag` to define the HTML tags to use for the
+	// highlighted text.
 	PostTag string `json:"post_tag"`
-	PreTag  string `json:"pre_tag"`
+	// PreTag Use in conjunction with `post_tag` to define the HTML tags to use for the
+	// highlighted text.
+	PreTag string `json:"pre_tag"`
 }
 
 func (s *PhraseSuggestHighlight) UnmarshalJSON(data []byte) error {

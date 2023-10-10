@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -32,17 +32,21 @@ import (
 
 // UpdateOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/_global/bulk/types.ts#L80-L83
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/bulk/types.ts#L136-L143
 type UpdateOperation struct {
-	Id_             *string                  `json:"_id,omitempty"`
-	IfPrimaryTerm   *int64                   `json:"if_primary_term,omitempty"`
-	IfSeqNo         *int64                   `json:"if_seq_no,omitempty"`
-	Index_          *string                  `json:"_index,omitempty"`
-	RequireAlias    *bool                    `json:"require_alias,omitempty"`
-	RetryOnConflict *int                     `json:"retry_on_conflict,omitempty"`
-	Routing         *string                  `json:"routing,omitempty"`
-	Version         *int64                   `json:"version,omitempty"`
-	VersionType     *versiontype.VersionType `json:"version_type,omitempty"`
+	// Id_ The document ID.
+	Id_           *string `json:"_id,omitempty"`
+	IfPrimaryTerm *int64  `json:"if_primary_term,omitempty"`
+	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
+	// Index_ Name of the index or index alias to perform the action on.
+	Index_ *string `json:"_index,omitempty"`
+	// RequireAlias If `true`, the request’s actions must target an index alias.
+	RequireAlias    *bool `json:"require_alias,omitempty"`
+	RetryOnConflict *int  `json:"retry_on_conflict,omitempty"`
+	// Routing Custom value used to route operations to a specific shard.
+	Routing     *string                  `json:"routing,omitempty"`
+	Version     *int64                   `json:"version,omitempty"`
+	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
 
 func (s *UpdateOperation) UnmarshalJSON(data []byte) error {

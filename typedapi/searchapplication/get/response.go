@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package get
 
@@ -26,19 +26,19 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/search_application/get/SearchApplicationsGetResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/search_application/get/SearchApplicationsGetResponse.ts#L22-L24
 
 type Response struct {
 
-	// AnalyticsCollectionName Analytics collection associated to the Search Application
+	// AnalyticsCollectionName Analytics collection associated to the Search Application.
 	AnalyticsCollectionName *string `json:"analytics_collection_name,omitempty"`
-	// Indices Indices that are part of the Search Application
+	// Indices Indices that are part of the Search Application.
 	Indices []string `json:"indices"`
-	// Name Search Application name
+	// Name Search Application name.
 	Name string `json:"name"`
-	// Template Search template to use on search operations
+	// Template Search template to use on search operations.
 	Template *types.SearchApplicationTemplate `json:"template,omitempty"`
-	// UpdatedAtMillis Last time the Search Application was updated
+	// UpdatedAtMillis Last time the Search Application was updated.
 	UpdatedAtMillis int64 `json:"updated_at_millis"`
 }
 

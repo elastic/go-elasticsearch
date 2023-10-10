@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 // Creates or updates a query ruleset.
 package put
@@ -52,8 +52,8 @@ type Put struct {
 
 	buf *gobytes.Buffer
 
-	req      *types.QueryRuleset
-	deferred []func(request *types.QueryRuleset) error
+	req      *Request
+	deferred []func(request *Request) error
 	raw      io.Reader
 
 	paramSet int
@@ -85,6 +85,8 @@ func New(tp elastictransport.Interface) *Put {
 		values:    make(url.Values),
 		headers:   make(http.Header),
 		buf:       gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	return r
@@ -99,7 +101,7 @@ func (r *Put) Raw(raw io.Reader) *Put {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *Put) Request(req *types.QueryRuleset) *Put {
+func (r *Put) Request(req *Request) *Put {
 	r.req = req
 
 	return r
@@ -242,6 +244,13 @@ func (r *Put) Header(key, value string) *Put {
 func (r *Put) RulesetId(rulesetid string) *Put {
 	r.paramSet |= rulesetidMask
 	r.rulesetid = rulesetid
+
+	return r
+}
+
+// API name: rules
+func (r *Put) Rules(rules ...types.QueryRule) *Put {
+	r.req.Rules = rules
 
 	return r
 }

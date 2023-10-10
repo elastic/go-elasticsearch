@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package getdataframeanalytics
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/ml/get_data_frame_analytics/MlGetDataFrameAnalyticsResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/get_data_frame_analytics/MlGetDataFrameAnalyticsResponse.ts#L23-L29
 
 type Response struct {
 	Count int `json:"count"`

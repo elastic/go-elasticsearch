@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,10 +30,16 @@ import (
 
 // TransportHistogram type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L433-L437
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L1092-L1106
 type TransportHistogram struct {
-	Count    *int64 `json:"count,omitempty"`
+	// Count The number of times a transport thread took a period of time within the
+	// bounds of this bucket to handle an inbound message.
+	Count *int64 `json:"count,omitempty"`
+	// GeMillis The inclusive lower bound of the bucket in milliseconds. May be omitted on
+	// the first bucket if this bucket has no lower bound.
 	GeMillis *int64 `json:"ge_millis,omitempty"`
+	// LtMillis The exclusive upper bound of the bucket in milliseconds.
+	// May be omitted on the last bucket if this bucket has no upper bound.
 	LtMillis *int64 `json:"lt_millis,omitempty"`
 }
 

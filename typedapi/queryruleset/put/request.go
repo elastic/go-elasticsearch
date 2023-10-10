@@ -16,52 +16,38 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
-package types
+package put
 
 import (
-	"bytes"
 	"encoding/json"
-	"errors"
-	"io"
+	"fmt"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
-// DataLifecycle type.
+// Request holds the request body struct for the package put
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/indices/_types/DataLifecycle.ts#L24-L29
-type DataLifecycle struct {
-	DataRetention Duration `json:"data_retention,omitempty"`
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/query_ruleset/put/QueryRulesetPutRequest.ts#L23-L43
+type Request struct {
+	Rules []types.QueryRule `json:"rules"`
 }
 
-func (s *DataLifecycle) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "data_retention":
-			if err := dec.Decode(&s.DataRetention); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
-}
-
-// NewDataLifecycle returns a DataLifecycle.
-func NewDataLifecycle() *DataLifecycle {
-	r := &DataLifecycle{}
-
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := &Request{}
 	return r
+}
+
+// FromJSON allows to load an arbitrary json into the request structure
+func (r *Request) FromJSON(data string) (*Request, error) {
+	var req Request
+	err := json.Unmarshal([]byte(data), &req)
+
+	if err != nil {
+		return nil, fmt.Errorf("could not deserialise json into Put request: %w", err)
+	}
+
+	return &req, nil
 }

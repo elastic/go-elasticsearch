@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package types
 
@@ -30,21 +30,41 @@ import (
 
 // PressureMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/nodes/_types/Stats.ts#L66-L80
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L144-L199
 type PressureMemory struct {
-	All                                   ByteSize `json:"all,omitempty"`
-	AllInBytes                            *int64   `json:"all_in_bytes,omitempty"`
-	CombinedCoordinatingAndPrimary        ByteSize `json:"combined_coordinating_and_primary,omitempty"`
-	CombinedCoordinatingAndPrimaryInBytes *int64   `json:"combined_coordinating_and_primary_in_bytes,omitempty"`
-	Coordinating                          ByteSize `json:"coordinating,omitempty"`
-	CoordinatingInBytes                   *int64   `json:"coordinating_in_bytes,omitempty"`
-	CoordinatingRejections                *int64   `json:"coordinating_rejections,omitempty"`
-	Primary                               ByteSize `json:"primary,omitempty"`
-	PrimaryInBytes                        *int64   `json:"primary_in_bytes,omitempty"`
-	PrimaryRejections                     *int64   `json:"primary_rejections,omitempty"`
-	Replica                               ByteSize `json:"replica,omitempty"`
-	ReplicaInBytes                        *int64   `json:"replica_in_bytes,omitempty"`
-	ReplicaRejections                     *int64   `json:"replica_rejections,omitempty"`
+	// All Memory consumed by indexing requests in the coordinating, primary, or replica
+	// stage.
+	All ByteSize `json:"all,omitempty"`
+	// AllInBytes Memory consumed, in bytes, by indexing requests in the coordinating, primary,
+	// or replica stage.
+	AllInBytes *int64 `json:"all_in_bytes,omitempty"`
+	// CombinedCoordinatingAndPrimary Memory consumed by indexing requests in the coordinating or primary stage.
+	// This value is not the sum of coordinating and primary as a node can reuse the
+	// coordinating memory if the primary stage is executed locally.
+	CombinedCoordinatingAndPrimary ByteSize `json:"combined_coordinating_and_primary,omitempty"`
+	// CombinedCoordinatingAndPrimaryInBytes Memory consumed, in bytes, by indexing requests in the coordinating or
+	// primary stage.
+	// This value is not the sum of coordinating and primary as a node can reuse the
+	// coordinating memory if the primary stage is executed locally.
+	CombinedCoordinatingAndPrimaryInBytes *int64 `json:"combined_coordinating_and_primary_in_bytes,omitempty"`
+	// Coordinating Memory consumed by indexing requests in the coordinating stage.
+	Coordinating ByteSize `json:"coordinating,omitempty"`
+	// CoordinatingInBytes Memory consumed, in bytes, by indexing requests in the coordinating stage.
+	CoordinatingInBytes *int64 `json:"coordinating_in_bytes,omitempty"`
+	// CoordinatingRejections Number of indexing requests rejected in the coordinating stage.
+	CoordinatingRejections *int64 `json:"coordinating_rejections,omitempty"`
+	// Primary Memory consumed by indexing requests in the primary stage.
+	Primary ByteSize `json:"primary,omitempty"`
+	// PrimaryInBytes Memory consumed, in bytes, by indexing requests in the primary stage.
+	PrimaryInBytes *int64 `json:"primary_in_bytes,omitempty"`
+	// PrimaryRejections Number of indexing requests rejected in the primary stage.
+	PrimaryRejections *int64 `json:"primary_rejections,omitempty"`
+	// Replica Memory consumed by indexing requests in the replica stage.
+	Replica ByteSize `json:"replica,omitempty"`
+	// ReplicaInBytes Memory consumed, in bytes, by indexing requests in the replica stage.
+	ReplicaInBytes *int64 `json:"replica_in_bytes,omitempty"`
+	// ReplicaRejections Number of indexing requests rejected in the replica stage.
+	ReplicaRejections *int64 `json:"replica_rejections,omitempty"`
 }
 
 func (s *PressureMemory) UnmarshalJSON(data []byte) error {

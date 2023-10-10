@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b89646a75dd9e8001caf92d22bd8b3704c59dfdf
+// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
 
 package mount
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package mount
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b89646a75dd9e8001caf92d22bd8b3704c59dfdf/specification/searchable_snapshots/mount/SearchableSnapshotsMountResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/searchable_snapshots/mount/SearchableSnapshotsMountResponse.ts#L22-L26
 
 type Response struct {
 	Snapshot types.MountedSnapshot `json:"snapshot"`
