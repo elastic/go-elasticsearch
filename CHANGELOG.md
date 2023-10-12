@@ -1,3 +1,9 @@
+# 8.10.1
+
+## Typed API
+
+Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elastic/elasticsearch-specification/commit/3b09f9d8e90178243f8a340a7bc324aab152c602)
+
 # 8.10.0
 
 ## API
