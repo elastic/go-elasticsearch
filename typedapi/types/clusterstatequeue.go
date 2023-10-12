@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,14 +30,11 @@ import (
 
 // ClusterStateQueue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L248-L261
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L114-L118
 type ClusterStateQueue struct {
-	// Committed Number of committed cluster states in queue.
 	Committed *int64 `json:"committed,omitempty"`
-	// Pending Number of pending cluster states in queue.
-	Pending *int64 `json:"pending,omitempty"`
-	// Total Total number of cluster states in queue.
-	Total *int64 `json:"total,omitempty"`
+	Pending   *int64 `json:"pending,omitempty"`
+	Total     *int64 `json:"total,omitempty"`
 }
 
 func (s *ClusterStateQueue) UnmarshalJSON(data []byte) error {

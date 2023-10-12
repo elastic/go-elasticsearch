@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -32,39 +32,18 @@ import (
 
 // JobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/_types/Job.ts#L284-L330
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/ml/_types/Job.ts#L106-L120
 type JobStats struct {
-	// AssignmentExplanation For open anomaly detection jobs only, contains messages relating to the
-	// selection of a node to run the job.
-	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
-	// DataCounts An object that describes the quantity of input to the job and any related
-	// error counts.
-	// The `data_count` values are cumulative for the lifetime of a job.
-	// If a model snapshot is reverted or old results are deleted, the job counts
-	// are not reset.
-	DataCounts DataCounts `json:"data_counts"`
-	// Deleting Indicates that the process of deleting the job is in progress but not yet
-	// completed. It is only reported when `true`.
-	Deleting *bool `json:"deleting,omitempty"`
-	// ForecastsStats An object that provides statistical information about forecasts belonging to
-	// this job.
-	// Some statistics are omitted if no forecasts have been made.
-	ForecastsStats JobForecastStatistics `json:"forecasts_stats"`
-	// JobId Identifier for the anomaly detection job.
-	JobId string `json:"job_id"`
-	// ModelSizeStats An object that provides information about the size and contents of the model.
-	ModelSizeStats ModelSizeStats `json:"model_size_stats"`
-	// Node Contains properties for the node that runs the job.
-	// This information is available only for open jobs.
-	Node *DiscoveryNode `json:"node,omitempty"`
-	// OpenTime For open jobs only, the elapsed time for which the job has been open.
-	OpenTime DateTime `json:"open_time,omitempty"`
-	// State The status of the anomaly detection job, which can be one of the following
-	// values: `closed`, `closing`, `failed`, `opened`, `opening`.
-	State jobstate.JobState `json:"state"`
-	// TimingStats An object that provides statistical information about timing aspect of this
-	// job.
-	TimingStats JobTimingStats `json:"timing_stats"`
+	AssignmentExplanation *string               `json:"assignment_explanation,omitempty"`
+	DataCounts            DataCounts            `json:"data_counts"`
+	Deleting              *bool                 `json:"deleting,omitempty"`
+	ForecastsStats        JobForecastStatistics `json:"forecasts_stats"`
+	JobId                 string                `json:"job_id"`
+	ModelSizeStats        ModelSizeStats        `json:"model_size_stats"`
+	Node                  *DiscoveryNode        `json:"node,omitempty"`
+	OpenTime              DateTime              `json:"open_time,omitempty"`
+	State                 jobstate.JobState     `json:"state"`
+	TimingStats           JobTimingStats        `json:"timing_stats"`
 }
 
 func (s *JobStats) UnmarshalJSON(data []byte) error {

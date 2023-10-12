@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Translog type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/_types/IndexSettings.ts#L332-L354
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/indices/_types/IndexSettings.ts#L332-L354
 type Translog struct {
 	// Durability Whether or not to `fsync` and commit the translog after every index, delete,
 	// update, or bulk request.

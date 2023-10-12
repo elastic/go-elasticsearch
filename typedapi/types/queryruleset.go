@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // QueryRuleset type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/query_ruleset/_types/QueryRuleset.ts#L26-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/query_ruleset/_types/QueryRuleset.ts#L26-L35
 type QueryRuleset struct {
 	// Rules Rules associated with the query ruleset
 	Rules []QueryRule `json:"rules"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Allows to execute several search template operations in one request.
 package msearchtemplate
@@ -253,9 +253,7 @@ func (r *MsearchTemplate) Header(key, value string) *MsearchTemplate {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases to search.
-// Supports wildcards (`*`).
-// To search all data streams and indices, omit this parameter or use `*`.
+// Index A comma-separated list of index names to use as default
 // API Name: index
 func (r *MsearchTemplate) Index(index string) *MsearchTemplate {
 	r.paramSet |= indexMask
@@ -264,8 +262,8 @@ func (r *MsearchTemplate) Index(index string) *MsearchTemplate {
 	return r
 }
 
-// CcsMinimizeRoundtrips If `true`, network round-trips are minimized for cross-cluster search
-// requests.
+// CcsMinimizeRoundtrips Indicates whether network round-trips should be minimized as part of
+// cross-cluster search requests execution
 // API name: ccs_minimize_roundtrips
 func (r *MsearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *MsearchTemplate {
 	r.values.Set("ccs_minimize_roundtrips", strconv.FormatBool(ccsminimizeroundtrips))
@@ -273,7 +271,8 @@ func (r *MsearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Mse
 	return r
 }
 
-// MaxConcurrentSearches Maximum number of concurrent searches the API can run.
+// MaxConcurrentSearches Controls the maximum number of concurrent searches the multi search api will
+// execute
 // API name: max_concurrent_searches
 func (r *MsearchTemplate) MaxConcurrentSearches(maxconcurrentsearches string) *MsearchTemplate {
 	r.values.Set("max_concurrent_searches", maxconcurrentsearches)
@@ -281,8 +280,7 @@ func (r *MsearchTemplate) MaxConcurrentSearches(maxconcurrentsearches string) *M
 	return r
 }
 
-// SearchType The type of the search operation.
-// Available options: `query_then_fetch`, `dfs_query_then_fetch`.
+// SearchType Search operation type
 // API name: search_type
 func (r *MsearchTemplate) SearchType(searchtype searchtype.SearchType) *MsearchTemplate {
 	r.values.Set("search_type", searchtype.String())
@@ -290,8 +288,8 @@ func (r *MsearchTemplate) SearchType(searchtype searchtype.SearchType) *MsearchT
 	return r
 }
 
-// RestTotalHitsAsInt If `true`, the response returns `hits.total` as an integer.
-// If `false`, it returns `hits.total` as an object.
+// RestTotalHitsAsInt Indicates whether hits.total should be rendered as an integer or an object in
+// the rest search response
 // API name: rest_total_hits_as_int
 func (r *MsearchTemplate) RestTotalHitsAsInt(resttotalhitsasint bool) *MsearchTemplate {
 	r.values.Set("rest_total_hits_as_int", strconv.FormatBool(resttotalhitsasint))
@@ -299,8 +297,8 @@ func (r *MsearchTemplate) RestTotalHitsAsInt(resttotalhitsasint bool) *MsearchTe
 	return r
 }
 
-// TypedKeys If `true`, the response prefixes aggregation and suggester names with their
-// respective types.
+// TypedKeys Specify whether aggregation and suggester names should be prefixed by their
+// respective types in the response
 // API name: typed_keys
 func (r *MsearchTemplate) TypedKeys(typedkeys bool) *MsearchTemplate {
 	r.values.Set("typed_keys", strconv.FormatBool(typedkeys))

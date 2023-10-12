@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,17 +30,11 @@ import (
 
 // Http type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L633-L647
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L266-L270
 type Http struct {
-	// Clients Information on current and recently-closed HTTP client connections.
-	// Clients that have been closed longer than the
-	// `http.client_stats.closed_channels.max_age` setting will not be represented
-	// here.
-	Clients []Client `json:"clients,omitempty"`
-	// CurrentOpen Current number of open HTTP connections for the node.
-	CurrentOpen *int `json:"current_open,omitempty"`
-	// TotalOpened Total number of HTTP connections opened for the node.
-	TotalOpened *int64 `json:"total_opened,omitempty"`
+	Clients     []Client `json:"clients,omitempty"`
+	CurrentOpen *int     `json:"current_open,omitempty"`
+	TotalOpened *int64   `json:"total_opened,omitempty"`
 }
 
 func (s *Http) UnmarshalJSON(data []byte) error {

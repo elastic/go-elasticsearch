@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,17 +30,11 @@ import (
 
 // CgroupCpuStat type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L506-L519
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L206-L210
 type CgroupCpuStat struct {
-	// NumberOfElapsedPeriods The number of reporting periods (as specified by `cfs_period_micros`) that
-	// have elapsed.
 	NumberOfElapsedPeriods *int64 `json:"number_of_elapsed_periods,omitempty"`
-	// NumberOfTimesThrottled The number of times all tasks in the same cgroup as the Elasticsearch process
-	// have been throttled.
 	NumberOfTimesThrottled *int64 `json:"number_of_times_throttled,omitempty"`
-	// TimeThrottledNanos The total amount of time, in nanoseconds, for which all tasks in the same
-	// cgroup as the Elasticsearch process have been throttled.
-	TimeThrottledNanos *int64 `json:"time_throttled_nanos,omitempty"`
+	TimeThrottledNanos     *int64 `json:"time_throttled_nanos,omitempty"`
 }
 
 func (s *CgroupCpuStat) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Allows to perform multiple index/update/delete operations in a single
 // request.
@@ -249,7 +249,7 @@ func (r *Bulk) Header(key, value string) *Bulk {
 	return r
 }
 
-// Index Name of the data stream, index, or index alias to perform bulk actions on.
+// Index Default index for items which don't provide one
 // API Name: index
 func (r *Bulk) Index(index string) *Bulk {
 	r.paramSet |= indexMask
@@ -258,11 +258,7 @@ func (r *Bulk) Index(index string) *Bulk {
 	return r
 }
 
-// Pipeline ID of the pipeline to use to preprocess incoming documents.
-// If the index has a default ingest pipeline specified, then setting the value
-// to `_none` disables the default ingest pipeline for this request.
-// If a final pipeline is configured it will always run, regardless of the value
-// of this parameter.
+// Pipeline The pipeline id to preprocess incoming documents with
 // API name: pipeline
 func (r *Bulk) Pipeline(pipeline string) *Bulk {
 	r.values.Set("pipeline", pipeline)
@@ -270,10 +266,9 @@ func (r *Bulk) Pipeline(pipeline string) *Bulk {
 	return r
 }
 
-// Refresh If `true`, Elasticsearch refreshes the affected shards to make this operation
-// visible to search, if `wait_for` then wait for a refresh to make this
-// operation visible to search, if `false` do nothing with refreshes.
-// Valid values: `true`, `false`, `wait_for`.
+// Refresh If `true` then refresh the affected shards to make this operation visible to
+// search, if `wait_for` then wait for a refresh to make this operation visible
+// to search, if `false` (the default) then do nothing with refreshes.
 // API name: refresh
 func (r *Bulk) Refresh(refresh refresh.Refresh) *Bulk {
 	r.values.Set("refresh", refresh.String())
@@ -281,7 +276,7 @@ func (r *Bulk) Refresh(refresh refresh.Refresh) *Bulk {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing Specific routing value
 // API name: routing
 func (r *Bulk) Routing(routing string) *Bulk {
 	r.values.Set("routing", routing)
@@ -289,8 +284,8 @@ func (r *Bulk) Routing(routing string) *Bulk {
 	return r
 }
 
-// Source_ `true` or `false` to return the `_source` field or not, or a list of fields
-// to return.
+// Source_ True or false to return the _source field or not, or default list of fields
+// to return, can be overridden on each sub-request
 // API name: _source
 func (r *Bulk) Source_(sourceconfigparam string) *Bulk {
 	r.values.Set("_source", sourceconfigparam)
@@ -298,7 +293,8 @@ func (r *Bulk) Source_(sourceconfigparam string) *Bulk {
 	return r
 }
 
-// SourceExcludes_ A comma-separated list of source fields to exclude from the response.
+// SourceExcludes_ Default list of fields to exclude from the returned _source field, can be
+// overridden on each sub-request
 // API name: _source_excludes
 func (r *Bulk) SourceExcludes_(fields ...string) *Bulk {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
@@ -306,7 +302,8 @@ func (r *Bulk) SourceExcludes_(fields ...string) *Bulk {
 	return r
 }
 
-// SourceIncludes_ A comma-separated list of source fields to include in the response.
+// SourceIncludes_ Default list of fields to extract and return from the _source field, can be
+// overridden on each sub-request
 // API name: _source_includes
 func (r *Bulk) SourceIncludes_(fields ...string) *Bulk {
 	r.values.Set("_source_includes", strings.Join(fields, ","))
@@ -314,8 +311,7 @@ func (r *Bulk) SourceIncludes_(fields ...string) *Bulk {
 	return r
 }
 
-// Timeout Period each action waits for the following operations: automatic index
-// creation, dynamic mapping updates, waiting for active shards.
+// Timeout Explicit operation timeout
 // API name: timeout
 func (r *Bulk) Timeout(duration string) *Bulk {
 	r.values.Set("timeout", duration)
@@ -323,10 +319,10 @@ func (r *Bulk) Timeout(duration string) *Bulk {
 	return r
 }
 
-// WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to all or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
+// WaitForActiveShards Sets the number of shard copies that must be active before proceeding with
+// the bulk operation. Defaults to 1, meaning the primary shard only. Set to
+// `all` for all shard copies, otherwise set to any non-negative value less than
+// or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
 func (r *Bulk) WaitForActiveShards(waitforactiveshards string) *Bulk {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -334,7 +330,7 @@ func (r *Bulk) WaitForActiveShards(waitforactiveshards string) *Bulk {
 	return r
 }
 
-// RequireAlias If `true`, the request’s actions must target an index alias.
+// RequireAlias Sets require_alias for all incoming documents. Defaults to unset (false)
 // API name: require_alias
 func (r *Bulk) RequireAlias(requirealias bool) *Bulk {
 	r.values.Set("require_alias", strconv.FormatBool(requirealias))

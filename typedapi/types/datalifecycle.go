@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -27,17 +27,14 @@ import (
 	"io"
 )
 
-// DownsamplingRound type.
+// DataLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/_types/DownsamplingRound.ts#L23-L32
-type DownsamplingRound struct {
-	// After The duration since rollover when this downsampling round should execute
-	After Duration `json:"after"`
-	// Config The downsample configuration to execute.
-	Config DownsampleConfig `json:"config"`
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/indices/_types/DataLifecycle.ts#L24-L29
+type DataLifecycle struct {
+	DataRetention Duration `json:"data_retention,omitempty"`
 }
 
-func (s *DownsamplingRound) UnmarshalJSON(data []byte) error {
+func (s *DataLifecycle) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -52,13 +49,8 @@ func (s *DownsamplingRound) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "after":
-			if err := dec.Decode(&s.After); err != nil {
-				return err
-			}
-
-		case "config":
-			if err := dec.Decode(&s.Config); err != nil {
+		case "data_retention":
+			if err := dec.Decode(&s.DataRetention); err != nil {
 				return err
 			}
 
@@ -67,9 +59,9 @@ func (s *DownsamplingRound) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewDownsamplingRound returns a DownsamplingRound.
-func NewDownsamplingRound() *DownsamplingRound {
-	r := &DownsamplingRound{}
+// NewDataLifecycle returns a DataLifecycle.
+func NewDataLifecycle() *DataLifecycle {
+	r := &DataLifecycle{}
 
 	return r
 }

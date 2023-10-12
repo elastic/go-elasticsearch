@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,20 +30,14 @@ import (
 
 // TemplateConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/msearch_template/types.ts#L28-L54
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/_global/msearch_template/types.ts#L28-L45
 type TemplateConfig struct {
-	// Explain If `true`, returns detailed information about score calculation as part of
-	// each hit.
 	Explain *bool `json:"explain,omitempty"`
 	// Id ID of the search template to use. If no source is specified,
 	// this parameter is required.
-	Id *string `json:"id,omitempty"`
-	// Params Key-value pairs used to replace Mustache variables in the template.
-	// The key is the variable name.
-	// The value is the variable value.
-	Params map[string]json.RawMessage `json:"params,omitempty"`
-	// Profile If `true`, the query execution is profiled.
-	Profile *bool `json:"profile,omitempty"`
+	Id      *string                    `json:"id,omitempty"`
+	Params  map[string]json.RawMessage `json:"params,omitempty"`
+	Profile *bool                      `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
 	// request body. Also supports Mustache variables. If no id is specified, this
 	// parameter is required.

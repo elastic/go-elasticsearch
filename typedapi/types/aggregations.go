@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_types/aggregations/AggregationContainer.ts#L106-L515
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/_types/aggregations/AggregationContainer.ts#L106-L515
 type Aggregations struct {
 	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix.
 	// The request provides a collection of named filter expressions, similar to the

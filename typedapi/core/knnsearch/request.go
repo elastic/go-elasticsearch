@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package knnsearch
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package knnsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/knn_search/KnnSearchRequest.ts#L27-L80
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/_global/knn_search/KnnSearchRequest.ts#L27-L80
 type Request struct {
 
 	// DocvalueFields The request returns doc values for field names matching these patterns

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Influence type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/_types/Anomaly.ts#L140-L143
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/ml/_types/Anomaly.ts#L140-L143
 type Influence struct {
 	InfluencerFieldName   string   `json:"influencer_field_name"`
 	InfluencerFieldValues []string `json:"influencer_field_values"`

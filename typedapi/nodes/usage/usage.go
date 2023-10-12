@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Returns low-level information about REST actions usage on nodes.
 package usage
@@ -255,8 +255,7 @@ func (r *Usage) NodeId(nodeid string) *Usage {
 	return r
 }
 
-// Metric Limits the information returned to the specific metrics.
-// A comma-separated list of the following options: `_all`, `rest_actions`.
+// Metric Limit the information returned to the specified metrics
 // API Name: metric
 func (r *Usage) Metric(metric string) *Usage {
 	r.paramSet |= metricMask
@@ -265,9 +264,7 @@ func (r *Usage) Metric(metric string) *Usage {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Explicit operation timeout
 // API name: timeout
 func (r *Usage) Timeout(duration string) *Usage {
 	r.values.Set("timeout", duration)

@@ -16,28 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
 // Discovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L201-L219
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L82-L88
 type Discovery struct {
-	ClusterApplierStats *ClusterAppliedStats `json:"cluster_applier_stats,omitempty"`
-	// ClusterStateQueue Contains statistics for the cluster state queue of the node.
-	ClusterStateQueue *ClusterStateQueue `json:"cluster_state_queue,omitempty"`
-	// ClusterStateUpdate Contains low-level statistics about how long various activities took during
-	// cluster state updates while the node was the elected master.
-	// Omitted if the node is not master-eligible.
-	// Every field whose name ends in `_time` within this object is also represented
-	// as a raw number of milliseconds in a field whose name ends in `_time_millis`.
-	// The human-readable fields with a `_time` suffix are only returned if
-	// requested with the `?human=true` query parameter.
-	ClusterStateUpdate map[string]ClusterStateUpdate `json:"cluster_state_update,omitempty"`
-	// PublishedClusterStates Contains statistics for the published cluster states of the node.
-	PublishedClusterStates  *PublishedClusterStates `json:"published_cluster_states,omitempty"`
-	SerializedClusterStates *SerializedClusterState `json:"serialized_cluster_states,omitempty"`
+	ClusterApplierStats     *ClusterAppliedStats          `json:"cluster_applier_stats,omitempty"`
+	ClusterStateQueue       *ClusterStateQueue            `json:"cluster_state_queue,omitempty"`
+	ClusterStateUpdate      map[string]ClusterStateUpdate `json:"cluster_state_update,omitempty"`
+	PublishedClusterStates  *PublishedClusterStates       `json:"published_cluster_states,omitempty"`
+	SerializedClusterStates *SerializedClusterState       `json:"serialized_cluster_states,omitempty"`
 }
 
 // NewDiscovery returns a Discovery.

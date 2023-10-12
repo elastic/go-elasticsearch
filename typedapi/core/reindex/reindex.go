@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Allows to copy documents from one index to another, optionally filtering the
 // source
@@ -238,8 +238,7 @@ func (r *Reindex) Header(key, value string) *Reindex {
 	return r
 }
 
-// Refresh If `true`, the request refreshes affected shards to make this operation
-// visible to search.
+// Refresh Should the affected indexes be refreshed?
 // API name: refresh
 func (r *Reindex) Refresh(refresh bool) *Reindex {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -247,8 +246,8 @@ func (r *Reindex) Refresh(refresh bool) *Reindex {
 	return r
 }
 
-// RequestsPerSecond The throttle for this request in sub-requests per second.
-// Defaults to no throttle.
+// RequestsPerSecond The throttle to set on this request in sub-requests per second. -1 means no
+// throttle.
 // API name: requests_per_second
 func (r *Reindex) RequestsPerSecond(requestspersecond string) *Reindex {
 	r.values.Set("requests_per_second", requestspersecond)
@@ -256,8 +255,7 @@ func (r *Reindex) RequestsPerSecond(requestspersecond string) *Reindex {
 	return r
 }
 
-// Scroll Specifies how long a consistent view of the index should be maintained for
-// scrolled search.
+// Scroll Control how long to keep the search context alive
 // API name: scroll
 func (r *Reindex) Scroll(duration string) *Reindex {
 	r.values.Set("scroll", duration)
@@ -265,8 +263,8 @@ func (r *Reindex) Scroll(duration string) *Reindex {
 	return r
 }
 
-// Slices The number of slices this task should be divided into.
-// Defaults to 1 slice, meaning the task isn’t sliced into subtasks.
+// Slices The number of slices this task should be divided into. Defaults to 1, meaning
+// the task isn't sliced into subtasks. Can be set to `auto`.
 // API name: slices
 func (r *Reindex) Slices(slices string) *Reindex {
 	r.values.Set("slices", slices)
@@ -274,8 +272,8 @@ func (r *Reindex) Slices(slices string) *Reindex {
 	return r
 }
 
-// Timeout Period each indexing waits for automatic index creation, dynamic mapping
-// updates, and waiting for active shards.
+// Timeout Time each individual bulk request should wait for shards that are
+// unavailable.
 // API name: timeout
 func (r *Reindex) Timeout(duration string) *Reindex {
 	r.values.Set("timeout", duration)
@@ -283,10 +281,10 @@ func (r *Reindex) Timeout(duration string) *Reindex {
 	return r
 }
 
-// WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to `all` or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
+// WaitForActiveShards Sets the number of shard copies that must be active before proceeding with
+// the reindex operation. Defaults to 1, meaning the primary shard only. Set to
+// `all` for all shard copies, otherwise set to any non-negative value less than
+// or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
 func (r *Reindex) WaitForActiveShards(waitforactiveshards string) *Reindex {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -294,7 +292,7 @@ func (r *Reindex) WaitForActiveShards(waitforactiveshards string) *Reindex {
 	return r
 }
 
-// WaitForCompletion If `true`, the request blocks until the operation is complete.
+// WaitForCompletion Should the request should block until the reindex is complete.
 // API name: wait_for_completion
 func (r *Reindex) WaitForCompletion(waitforcompletion bool) *Reindex {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -302,7 +300,6 @@ func (r *Reindex) WaitForCompletion(waitforcompletion bool) *Reindex {
 	return r
 }
 
-// RequireAlias If `true`, the destination must be an index alias.
 // API name: require_alias
 func (r *Reindex) RequireAlias(requirealias bool) *Reindex {
 	r.values.Set("require_alias", strconv.FormatBool(requirealias))
@@ -310,7 +307,6 @@ func (r *Reindex) RequireAlias(requirealias bool) *Reindex {
 	return r
 }
 
-// Conflicts Set to proceed to continue reindexing even if there are conflicts.
 // API name: conflicts
 func (r *Reindex) Conflicts(conflicts conflicts.Conflicts) *Reindex {
 	r.req.Conflicts = &conflicts
@@ -318,7 +314,6 @@ func (r *Reindex) Conflicts(conflicts conflicts.Conflicts) *Reindex {
 	return r
 }
 
-// Dest The destination you are copying to.
 // API name: dest
 func (r *Reindex) Dest(dest *types.ReindexDestination) *Reindex {
 
@@ -327,7 +322,6 @@ func (r *Reindex) Dest(dest *types.ReindexDestination) *Reindex {
 	return r
 }
 
-// MaxDocs The maximum number of documents to reindex.
 // API name: max_docs
 func (r *Reindex) MaxDocs(maxdocs int64) *Reindex {
 
@@ -336,7 +330,6 @@ func (r *Reindex) MaxDocs(maxdocs int64) *Reindex {
 	return r
 }
 
-// Script The script to run to update the document source or metadata when reindexing.
 // API name: script
 func (r *Reindex) Script(script types.Script) *Reindex {
 	r.req.Script = script
@@ -352,7 +345,6 @@ func (r *Reindex) Size(size int64) *Reindex {
 	return r
 }
 
-// Source The source you are copying from.
 // API name: source
 func (r *Reindex) Source(source *types.ReindexSource) *Reindex {
 

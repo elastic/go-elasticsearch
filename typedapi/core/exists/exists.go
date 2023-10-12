@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Returns information about whether a document exists in an index.
 package exists
@@ -191,7 +191,7 @@ func (r *Exists) Header(key, value string) *Exists {
 	return r
 }
 
-// Id Identifier of the document.
+// Id The document ID
 // API Name: id
 func (r *Exists) Id(id string) *Exists {
 	r.paramSet |= idMask
@@ -200,8 +200,7 @@ func (r *Exists) Id(id string) *Exists {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases.
-// Supports wildcards (`*`).
+// Index The name of the index
 // API Name: index
 func (r *Exists) Index(index string) *Exists {
 	r.paramSet |= indexMask
@@ -210,8 +209,8 @@ func (r *Exists) Index(index string) *Exists {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference Specify the node or shard the operation should be performed on (default:
+// random)
 // API name: preference
 func (r *Exists) Preference(preference string) *Exists {
 	r.values.Set("preference", preference)
@@ -219,7 +218,7 @@ func (r *Exists) Preference(preference string) *Exists {
 	return r
 }
 
-// Realtime If `true`, the request is real-time as opposed to near-real-time.
+// Realtime Specify whether to perform the operation in realtime or search mode
 // API name: realtime
 func (r *Exists) Realtime(realtime bool) *Exists {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
@@ -227,8 +226,7 @@ func (r *Exists) Realtime(realtime bool) *Exists {
 	return r
 }
 
-// Refresh If `true`, Elasticsearch refreshes all shards involved in the delete by query
-// after the request completes.
+// Refresh Refresh the shard containing the document before performing the operation
 // API name: refresh
 func (r *Exists) Refresh(refresh bool) *Exists {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -236,7 +234,7 @@ func (r *Exists) Refresh(refresh bool) *Exists {
 	return r
 }
 
-// Routing Target the specified primary shard.
+// Routing Specific routing value
 // API name: routing
 func (r *Exists) Routing(routing string) *Exists {
 	r.values.Set("routing", routing)
@@ -244,8 +242,8 @@ func (r *Exists) Routing(routing string) *Exists {
 	return r
 }
 
-// Source_ `true` or `false` to return the `_source` field or not, or a list of fields
-// to return.
+// Source_ True or false to return the _source field or not, or a list of fields to
+// return
 // API name: _source
 func (r *Exists) Source_(sourceconfigparam string) *Exists {
 	r.values.Set("_source", sourceconfigparam)
@@ -253,7 +251,7 @@ func (r *Exists) Source_(sourceconfigparam string) *Exists {
 	return r
 }
 
-// SourceExcludes_ A comma-separated list of source fields to exclude in the response.
+// SourceExcludes_ A list of fields to exclude from the returned _source field
 // API name: _source_excludes
 func (r *Exists) SourceExcludes_(fields ...string) *Exists {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
@@ -261,7 +259,7 @@ func (r *Exists) SourceExcludes_(fields ...string) *Exists {
 	return r
 }
 
-// SourceIncludes_ A comma-separated list of source fields to include in the response.
+// SourceIncludes_ A list of fields to extract and return from the _source field
 // API name: _source_includes
 func (r *Exists) SourceIncludes_(fields ...string) *Exists {
 	r.values.Set("_source_includes", strings.Join(fields, ","))
@@ -269,9 +267,7 @@ func (r *Exists) SourceIncludes_(fields ...string) *Exists {
 	return r
 }
 
-// StoredFields List of stored fields to return as part of a hit.
-// If no fields are specified, no stored fields are included in the response.
-// If this field is specified, the `_source` parameter defaults to false.
+// StoredFields A comma-separated list of stored fields to return in the response
 // API name: stored_fields
 func (r *Exists) StoredFields(fields ...string) *Exists {
 	r.values.Set("stored_fields", strings.Join(fields, ","))
@@ -279,9 +275,7 @@ func (r *Exists) StoredFields(fields ...string) *Exists {
 	return r
 }
 
-// Version Explicit version number for concurrency control.
-// The specified version must match the current version of the document for the
-// request to succeed.
+// Version Explicit version number for concurrency control
 // API name: version
 func (r *Exists) Version(versionnumber string) *Exists {
 	r.values.Set("version", versionnumber)
@@ -289,7 +283,7 @@ func (r *Exists) Version(versionnumber string) *Exists {
 	return r
 }
 
-// VersionType Specific version type: `external`, `external_gte`.
+// VersionType Specific version type
 // API name: version_type
 func (r *Exists) VersionType(versiontype versiontype.VersionType) *Exists {
 	r.values.Set("version_type", versiontype.String())

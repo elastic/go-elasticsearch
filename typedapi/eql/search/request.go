@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package search
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/eql/search/EqlSearchRequest.ts#L28-L118
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/eql/search/EqlSearchRequest.ts#L28-L117
 type Request struct {
 	CaseSensitive *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Translates SQL into Elasticsearch queries
 package translate
@@ -230,7 +230,6 @@ func (r *Translate) Header(key, value string) *Translate {
 	return r
 }
 
-// FetchSize The maximum number of rows (or entries) to return in one response.
 // API name: fetch_size
 func (r *Translate) FetchSize(fetchsize int) *Translate {
 	r.req.FetchSize = &fetchsize
@@ -238,7 +237,6 @@ func (r *Translate) FetchSize(fetchsize int) *Translate {
 	return r
 }
 
-// Filter Elasticsearch query DSL for additional filtering.
 // API name: filter
 func (r *Translate) Filter(filter *types.Query) *Translate {
 
@@ -247,7 +245,6 @@ func (r *Translate) Filter(filter *types.Query) *Translate {
 	return r
 }
 
-// Query SQL query to run.
 // API name: query
 func (r *Translate) Query(query string) *Translate {
 
@@ -256,7 +253,6 @@ func (r *Translate) Query(query string) *Translate {
 	return r
 }
 
-// TimeZone ISO-8601 time zone ID for the search.
 // API name: time_zone
 func (r *Translate) TimeZone(timezone string) *Translate {
 	r.req.TimeZone = &timezone

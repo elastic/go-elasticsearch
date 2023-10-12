@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package segments
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package segments
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/segments/IndicesSegmentsResponse.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/indices/segments/IndicesSegmentsResponse.ts#L24-L29
 
 type Response struct {
 	Indices map[string]types.IndexSegment `json:"indices"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Deletes a script.
 package deletescript
@@ -211,7 +211,7 @@ func (r *DeleteScript) Header(key, value string) *DeleteScript {
 	return r
 }
 
-// Id Identifier for the stored script or search template.
+// Id Script ID
 // API Name: id
 func (r *DeleteScript) Id(id string) *DeleteScript {
 	r.paramSet |= idMask
@@ -220,9 +220,7 @@ func (r *DeleteScript) Id(id string) *DeleteScript {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// MasterTimeout Specify timeout for connection to master
 // API name: master_timeout
 func (r *DeleteScript) MasterTimeout(duration string) *DeleteScript {
 	r.values.Set("master_timeout", duration)
@@ -230,9 +228,7 @@ func (r *DeleteScript) MasterTimeout(duration string) *DeleteScript {
 	return r
 }
 
-// Timeout Period to wait for a response.
-// If no response is received before the timeout expires, the request fails and
-// returns an error.
+// Timeout Explicit operation timeout
 // API name: timeout
 func (r *DeleteScript) Timeout(duration string) *DeleteScript {
 	r.values.Set("timeout", duration)

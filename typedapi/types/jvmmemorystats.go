@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,22 +30,15 @@ import (
 
 // JvmMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L847-L876
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L335-L343
 type JvmMemoryStats struct {
-	// HeapCommittedInBytes Amount of memory, in bytes, available for use by the heap.
-	HeapCommittedInBytes *int64 `json:"heap_committed_in_bytes,omitempty"`
-	// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
-	HeapMaxInBytes *int64 `json:"heap_max_in_bytes,omitempty"`
-	// HeapUsedInBytes Memory, in bytes, currently in use by the heap.
-	HeapUsedInBytes *int64 `json:"heap_used_in_bytes,omitempty"`
-	// HeapUsedPercent Percentage of memory currently in use by the heap.
-	HeapUsedPercent *int64 `json:"heap_used_percent,omitempty"`
-	// NonHeapCommittedInBytes Amount of non-heap memory available, in bytes.
-	NonHeapCommittedInBytes *int64 `json:"non_heap_committed_in_bytes,omitempty"`
-	// NonHeapUsedInBytes Non-heap memory used, in bytes.
-	NonHeapUsedInBytes *int64 `json:"non_heap_used_in_bytes,omitempty"`
-	// Pools Contains statistics about heap memory usage for the node.
-	Pools map[string]Pool `json:"pools,omitempty"`
+	HeapCommittedInBytes    *int64          `json:"heap_committed_in_bytes,omitempty"`
+	HeapMaxInBytes          *int64          `json:"heap_max_in_bytes,omitempty"`
+	HeapUsedInBytes         *int64          `json:"heap_used_in_bytes,omitempty"`
+	HeapUsedPercent         *int64          `json:"heap_used_percent,omitempty"`
+	NonHeapCommittedInBytes *int64          `json:"non_heap_committed_in_bytes,omitempty"`
+	NonHeapUsedInBytes      *int64          `json:"non_heap_used_in_bytes,omitempty"`
+	Pools                   map[string]Pool `json:"pools,omitempty"`
 }
 
 func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Executes a SQL request
 package query
@@ -228,7 +228,7 @@ func (r *Query) Header(key, value string) *Query {
 	return r
 }
 
-// Format Format for the response.
+// Format a short version of the Accept header, e.g. json, yaml
 // API name: format
 func (r *Query) Format(format string) *Query {
 	r.values.Set("format", format)
@@ -255,10 +255,6 @@ func (r *Query) Columnar(columnar bool) *Query {
 	return r
 }
 
-// Cursor Cursor used to retrieve a set of paginated results.
-// If you specify a cursor, the API only uses the `columnar` and `time_zone`
-// request body parameters.
-// It ignores other request body parameters.
 // API name: cursor
 func (r *Query) Cursor(cursor string) *Query {
 
@@ -285,7 +281,7 @@ func (r *Query) FieldMultiValueLeniency(fieldmultivalueleniency bool) *Query {
 	return r
 }
 
-// Filter Elasticsearch query DSL for additional filtering.
+// Filter Optional Elasticsearch query DSL for additional filtering.
 // API name: filter
 func (r *Query) Filter(filter *types.Query) *Query {
 
@@ -337,7 +333,7 @@ func (r *Query) Params(params map[string]json.RawMessage) *Query {
 	return r
 }
 
-// Query SQL query to run.
+// Query SQL query to execute
 // API name: query
 func (r *Query) Query(query string) *Query {
 
@@ -363,7 +359,8 @@ func (r *Query) RuntimeMappings(runtimefields types.RuntimeFields) *Query {
 	return r
 }
 
-// TimeZone ISO-8601 time zone ID for the search.
+// TimeZone Time-zone in ISO 8601 used for executing the query on the server. More
+// information available here.
 // API name: time_zone
 func (r *Query) TimeZone(timezone string) *Query {
 	r.req.TimeZone = &timezone

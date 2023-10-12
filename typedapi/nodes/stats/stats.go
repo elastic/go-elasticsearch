@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Returns statistical information about nodes in the cluster.
 package stats
@@ -389,8 +389,8 @@ func (r *Stats) Types(types ...string) *Stats {
 	return r
 }
 
-// IncludeUnloadedSegments If `true`, the response includes information from segments that are not
-// loaded into memory.
+// IncludeUnloadedSegments If set to true segment stats will include stats for segments that are not
+// currently loaded into memory
 // API name: include_unloaded_segments
 func (r *Stats) IncludeUnloadedSegments(includeunloadedsegments bool) *Stats {
 	r.values.Set("include_unloaded_segments", strconv.FormatBool(includeunloadedsegments))

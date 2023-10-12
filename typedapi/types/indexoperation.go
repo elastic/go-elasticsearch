@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -32,33 +32,18 @@ import (
 
 // IndexOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/bulk/types.ts#L132-L132
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/_global/bulk/types.ts#L76-L76
 type IndexOperation struct {
-	// DynamicTemplates A map from the full name of fields to the name of dynamic templates.
-	// Defaults to an empty map.
-	// If a name matches a dynamic template, then that template will be applied
-	// regardless of other match predicates defined in the template.
-	// If a field is already defined in the mapping, then this parameter won’t be
-	// used.
-	DynamicTemplates map[string]string `json:"dynamic_templates,omitempty"`
-	// Id_ The document ID.
-	Id_           *string `json:"_id,omitempty"`
-	IfPrimaryTerm *int64  `json:"if_primary_term,omitempty"`
-	IfSeqNo       *int64  `json:"if_seq_no,omitempty"`
-	// Index_ Name of the index or index alias to perform the action on.
-	Index_ *string `json:"_index,omitempty"`
-	// Pipeline ID of the pipeline to use to preprocess incoming documents.
-	// If the index has a default ingest pipeline specified, then setting the value
-	// to `_none` disables the default ingest pipeline for this request.
-	// If a final pipeline is configured it will always run, regardless of the value
-	// of this parameter.
-	Pipeline *string `json:"pipeline,omitempty"`
-	// RequireAlias If `true`, the request’s actions must target an index alias.
-	RequireAlias *bool `json:"require_alias,omitempty"`
-	// Routing Custom value used to route operations to a specific shard.
-	Routing     *string                  `json:"routing,omitempty"`
-	Version     *int64                   `json:"version,omitempty"`
-	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
+	DynamicTemplates map[string]string        `json:"dynamic_templates,omitempty"`
+	Id_              *string                  `json:"_id,omitempty"`
+	IfPrimaryTerm    *int64                   `json:"if_primary_term,omitempty"`
+	IfSeqNo          *int64                   `json:"if_seq_no,omitempty"`
+	Index_           *string                  `json:"_index,omitempty"`
+	Pipeline         *string                  `json:"pipeline,omitempty"`
+	RequireAlias     *bool                    `json:"require_alias,omitempty"`
+	Routing          *string                  `json:"routing,omitempty"`
+	Version          *int64                   `json:"version,omitempty"`
+	VersionType      *versiontype.VersionType `json:"version_type,omitempty"`
 }
 
 func (s *IndexOperation) UnmarshalJSON(data []byte) error {

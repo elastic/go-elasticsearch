@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -27,27 +27,24 @@ import (
 	"io"
 )
 
-// DataStreamLifecycleWithRollover type.
+// DataLifecycleWithRollover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/_types/DataStreamLifecycle.ts#L33-L55
-type DataStreamLifecycleWithRollover struct {
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/indices/_types/DataLifecycle.ts#L31-L48
+type DataLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
 	// Any time after this duration the document could be deleted.
 	// When empty, every document in this data stream will be stored indefinitely.
 	DataRetention Duration `json:"data_retention,omitempty"`
-	// Downsampling The downsampling configuration to execute for the managed backing index after
-	// rollover.
-	Downsampling *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
 	// Rollover The conditions which will trigger the rollover of a backing index as
 	// configured by the cluster setting `cluster.lifecycle.default.rollover`.
 	// This property is an implementation detail and it will only be retrieved when
 	// the query param `include_defaults` is set to true.
 	// The contents of this field are subject to change.
-	Rollover *DataStreamLifecycleRolloverConditions `json:"rollover,omitempty"`
+	Rollover *DlmRolloverConditions `json:"rollover,omitempty"`
 }
 
-func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
+func (s *DataLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -67,11 +64,6 @@ func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 				return err
 			}
 
-		case "downsampling":
-			if err := dec.Decode(&s.Downsampling); err != nil {
-				return err
-			}
-
 		case "rollover":
 			if err := dec.Decode(&s.Rollover); err != nil {
 				return err
@@ -82,9 +74,9 @@ func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewDataStreamLifecycleWithRollover returns a DataStreamLifecycleWithRollover.
-func NewDataStreamLifecycleWithRollover() *DataStreamLifecycleWithRollover {
-	r := &DataStreamLifecycleWithRollover{}
+// NewDataLifecycleWithRollover returns a DataLifecycleWithRollover.
+func NewDataLifecycleWithRollover() *DataLifecycleWithRollover {
+	r := &DataLifecycleWithRollover{}
 
 	return r
 }

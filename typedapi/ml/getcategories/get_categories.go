@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Retrieves anomaly detection job results for one or more categories.
 package getcategories
@@ -312,8 +312,6 @@ func (r *GetCategories) Size(size int) *GetCategories {
 	return r
 }
 
-// Page Configures pagination.
-// This parameter has the `from` and `size` properties.
 // API name: page
 func (r *GetCategories) Page(page *types.Page) *GetCategories {
 

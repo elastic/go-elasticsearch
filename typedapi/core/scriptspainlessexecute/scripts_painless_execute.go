@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Allows an arbitrary script to be executed and a result to be returned
 package scriptspainlessexecute
@@ -232,7 +232,6 @@ func (r *ScriptsPainlessExecute) Header(key, value string) *ScriptsPainlessExecu
 	return r
 }
 
-// Context The context that the script should run in.
 // API name: context
 func (r *ScriptsPainlessExecute) Context(context string) *ScriptsPainlessExecute {
 
@@ -241,7 +240,6 @@ func (r *ScriptsPainlessExecute) Context(context string) *ScriptsPainlessExecute
 	return r
 }
 
-// ContextSetup Additional parameters for the `context`.
 // API name: context_setup
 func (r *ScriptsPainlessExecute) ContextSetup(contextsetup *types.PainlessContextSetup) *ScriptsPainlessExecute {
 
@@ -250,7 +248,6 @@ func (r *ScriptsPainlessExecute) ContextSetup(contextsetup *types.PainlessContex
 	return r
 }
 
-// Script The Painless script to execute.
 // API name: script
 func (r *ScriptsPainlessExecute) Script(script *types.InlineScript) *ScriptsPainlessExecute {
 

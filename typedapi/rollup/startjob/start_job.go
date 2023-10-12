@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Starts an existing, stopped rollup job.
 package startjob
@@ -215,7 +215,7 @@ func (r *StartJob) Header(key, value string) *StartJob {
 	return r
 }
 
-// Id Identifier for the rollup job.
+// Id The ID of the job to start
 // API Name: id
 func (r *StartJob) Id(id string) *StartJob {
 	r.paramSet |= idMask

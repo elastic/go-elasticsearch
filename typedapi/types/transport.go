@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,41 +30,18 @@ import (
 
 // Transport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L1047-L1090
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L420-L431
 type Transport struct {
-	// InboundHandlingTimeHistogram The distribution of the time spent handling each inbound message on a
-	// transport thread, represented as a histogram.
-	InboundHandlingTimeHistogram []TransportHistogram `json:"inbound_handling_time_histogram,omitempty"`
-	// OutboundHandlingTimeHistogram The distribution of the time spent sending each outbound transport message on
-	// a transport thread, represented as a histogram.
+	InboundHandlingTimeHistogram  []TransportHistogram `json:"inbound_handling_time_histogram,omitempty"`
 	OutboundHandlingTimeHistogram []TransportHistogram `json:"outbound_handling_time_histogram,omitempty"`
-	// RxCount Total number of RX (receive) packets received by the node during internal
-	// cluster communication.
-	RxCount *int64 `json:"rx_count,omitempty"`
-	// RxSize Size of RX packets received by the node during internal cluster
-	// communication.
-	RxSize *string `json:"rx_size,omitempty"`
-	// RxSizeInBytes Size, in bytes, of RX packets received by the node during internal cluster
-	// communication.
-	RxSizeInBytes *int64 `json:"rx_size_in_bytes,omitempty"`
-	// ServerOpen Current number of inbound TCP connections used for internal communication
-	// between nodes.
-	ServerOpen *int `json:"server_open,omitempty"`
-	// TotalOutboundConnections The cumulative number of outbound transport connections that this node has
-	// opened since it started.
-	// Each transport connection may comprise multiple TCP connections but is only
-	// counted once in this statistic.
-	// Transport connections are typically long-lived so this statistic should
-	// remain constant in a stable cluster.
-	TotalOutboundConnections *int64 `json:"total_outbound_connections,omitempty"`
-	// TxCount Total number of TX (transmit) packets sent by the node during internal
-	// cluster communication.
-	TxCount *int64 `json:"tx_count,omitempty"`
-	// TxSize Size of TX packets sent by the node during internal cluster communication.
-	TxSize *string `json:"tx_size,omitempty"`
-	// TxSizeInBytes Size, in bytes, of TX packets sent by the node during internal cluster
-	// communication.
-	TxSizeInBytes *int64 `json:"tx_size_in_bytes,omitempty"`
+	RxCount                       *int64               `json:"rx_count,omitempty"`
+	RxSize                        *string              `json:"rx_size,omitempty"`
+	RxSizeInBytes                 *int64               `json:"rx_size_in_bytes,omitempty"`
+	ServerOpen                    *int                 `json:"server_open,omitempty"`
+	TotalOutboundConnections      *int64               `json:"total_outbound_connections,omitempty"`
+	TxCount                       *int64               `json:"tx_count,omitempty"`
+	TxSize                        *string              `json:"tx_size,omitempty"`
+	TxSizeInBytes                 *int64               `json:"tx_size_in_bytes,omitempty"`
 }
 
 func (s *Transport) UnmarshalJSON(data []byte) error {

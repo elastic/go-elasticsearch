@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Returns information and statistics about terms in the fields of a particular
 // document.
@@ -257,7 +257,7 @@ func (r *Termvectors) Header(key, value string) *Termvectors {
 	return r
 }
 
-// Index Name of the index that contains the document.
+// Index The index in which the document resides.
 // API Name: index
 func (r *Termvectors) Index(index string) *Termvectors {
 	r.paramSet |= indexMask
@@ -266,7 +266,7 @@ func (r *Termvectors) Index(index string) *Termvectors {
 	return r
 }
 
-// Id Unique identifier of the document.
+// Id The id of the document, when not specified a doc param should be supplied.
 // API Name: id
 func (r *Termvectors) Id(id string) *Termvectors {
 	r.paramSet |= idMask
@@ -275,10 +275,7 @@ func (r *Termvectors) Id(id string) *Termvectors {
 	return r
 }
 
-// Fields Comma-separated list or wildcard expressions of fields to include in the
-// statistics.
-// Used as the default list unless a specific field list is provided in the
-// `completion_fields` or `fielddata_fields` parameters.
+// Fields A comma-separated list of fields to return.
 // API name: fields
 func (r *Termvectors) Fields(fields ...string) *Termvectors {
 	r.values.Set("fields", strings.Join(fields, ","))
@@ -286,8 +283,8 @@ func (r *Termvectors) Fields(fields ...string) *Termvectors {
 	return r
 }
 
-// FieldStatistics If `true`, the response includes the document count, sum of document
-// frequencies, and sum of total term frequencies.
+// FieldStatistics Specifies if document count, sum of document frequencies and sum of total
+// term frequencies should be returned.
 // API name: field_statistics
 func (r *Termvectors) FieldStatistics(fieldstatistics bool) *Termvectors {
 	r.values.Set("field_statistics", strconv.FormatBool(fieldstatistics))
@@ -295,7 +292,7 @@ func (r *Termvectors) FieldStatistics(fieldstatistics bool) *Termvectors {
 	return r
 }
 
-// Offsets If `true`, the response includes term offsets.
+// Offsets Specifies if term offsets should be returned.
 // API name: offsets
 func (r *Termvectors) Offsets(offsets bool) *Termvectors {
 	r.values.Set("offsets", strconv.FormatBool(offsets))
@@ -303,7 +300,7 @@ func (r *Termvectors) Offsets(offsets bool) *Termvectors {
 	return r
 }
 
-// Payloads If `true`, the response includes term payloads.
+// Payloads Specifies if term payloads should be returned.
 // API name: payloads
 func (r *Termvectors) Payloads(payloads bool) *Termvectors {
 	r.values.Set("payloads", strconv.FormatBool(payloads))
@@ -311,7 +308,7 @@ func (r *Termvectors) Payloads(payloads bool) *Termvectors {
 	return r
 }
 
-// Positions If `true`, the response includes term positions.
+// Positions Specifies if term positions should be returned.
 // API name: positions
 func (r *Termvectors) Positions(positions bool) *Termvectors {
 	r.values.Set("positions", strconv.FormatBool(positions))
@@ -319,8 +316,8 @@ func (r *Termvectors) Positions(positions bool) *Termvectors {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference Specify the node or shard the operation should be performed on (default:
+// random).
 // API name: preference
 func (r *Termvectors) Preference(preference string) *Termvectors {
 	r.values.Set("preference", preference)
@@ -328,7 +325,8 @@ func (r *Termvectors) Preference(preference string) *Termvectors {
 	return r
 }
 
-// Realtime If true, the request is real-time as opposed to near-real-time.
+// Realtime Specifies if request is real-time as opposed to near-real-time (default:
+// true).
 // API name: realtime
 func (r *Termvectors) Realtime(realtime bool) *Termvectors {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
@@ -336,7 +334,7 @@ func (r *Termvectors) Realtime(realtime bool) *Termvectors {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing Specific routing value.
 // API name: routing
 func (r *Termvectors) Routing(routing string) *Termvectors {
 	r.values.Set("routing", routing)
@@ -344,7 +342,7 @@ func (r *Termvectors) Routing(routing string) *Termvectors {
 	return r
 }
 
-// TermStatistics If `true`, the response includes term frequency and document frequency.
+// TermStatistics Specifies if total term frequency and document frequency should be returned.
 // API name: term_statistics
 func (r *Termvectors) TermStatistics(termstatistics bool) *Termvectors {
 	r.values.Set("term_statistics", strconv.FormatBool(termstatistics))
@@ -352,7 +350,7 @@ func (r *Termvectors) TermStatistics(termstatistics bool) *Termvectors {
 	return r
 }
 
-// Version If `true`, returns the document version as part of a hit.
+// Version Explicit version number for concurrency control
 // API name: version
 func (r *Termvectors) Version(versionnumber string) *Termvectors {
 	r.values.Set("version", versionnumber)
@@ -360,7 +358,7 @@ func (r *Termvectors) Version(versionnumber string) *Termvectors {
 	return r
 }
 
-// VersionType Specific version type.
+// VersionType Specific version type
 // API name: version_type
 func (r *Termvectors) VersionType(versiontype versiontype.VersionType) *Termvectors {
 	r.values.Set("version_type", versiontype.String())
@@ -368,8 +366,6 @@ func (r *Termvectors) VersionType(versiontype versiontype.VersionType) *Termvect
 	return r
 }
 
-// Doc An artificial document (a document not present in the index) for which you
-// want to retrieve term vectors.
 // API name: doc
 //
 // doc should be a json.RawMessage or a structure
@@ -393,7 +389,6 @@ func (r *Termvectors) Doc(doc interface{}) *Termvectors {
 	return r
 }
 
-// Filter Filter terms based on their tf-idf scores.
 // API name: filter
 func (r *Termvectors) Filter(filter *types.TermVectorsFilter) *Termvectors {
 
@@ -402,7 +397,6 @@ func (r *Termvectors) Filter(filter *types.TermVectorsFilter) *Termvectors {
 	return r
 }
 
-// PerFieldAnalyzer Overrides the default per-field analyzer.
 // API name: per_field_analyzer
 func (r *Termvectors) PerFieldAnalyzer(perfieldanalyzer map[string]string) *Termvectors {
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package putlifecycle
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putlifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ilm/put_lifecycle/PutLifecycleRequest.ts#L25-L55
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/ilm/put_lifecycle/PutLifecycleRequest.ts#L25-L55
 type Request struct {
 	Policy *types.IlmPolicy `json:"policy,omitempty"`
 }

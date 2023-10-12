@@ -16,20 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
 // Cgroup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L461-L474
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L188-L192
 type Cgroup struct {
-	// Cpu Contains statistics about `cpu` control group for the node.
-	Cpu *CgroupCpu `json:"cpu,omitempty"`
-	// Cpuacct Contains statistics about `cpuacct` control group for the node.
-	Cpuacct *CpuAcct `json:"cpuacct,omitempty"`
-	// Memory Contains statistics about the memory control group for the node.
-	Memory *CgroupMemory `json:"memory,omitempty"`
+	Cpu     *CgroupCpu    `json:"cpu,omitempty"`
+	Cpuacct *CpuAcct      `json:"cpuacct,omitempty"`
+	Memory  *CgroupMemory `json:"memory,omitempty"`
 }
 
 // NewCgroup returns a Cgroup.

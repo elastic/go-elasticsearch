@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // ShardStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/indices/shard_stores/types.ts#L30-L34
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/indices/shard_stores/types.ts#L30-L34
 type ShardStore struct {
 	Allocation     shardstoreallocation.ShardStoreAllocation `json:"allocation"`
 	AllocationId   *string                                   `json:"allocation_id,omitempty"`

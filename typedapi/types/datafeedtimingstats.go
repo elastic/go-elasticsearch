@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,20 +30,14 @@ import (
 
 // DatafeedTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/_types/Datafeed.ts#L171-L196
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/ml/_types/Datafeed.ts#L152-L159
 type DatafeedTimingStats struct {
-	// AverageSearchTimePerBucketMs The average search time per bucket, in milliseconds.
-	AverageSearchTimePerBucketMs Float64 `json:"average_search_time_per_bucket_ms,omitempty"`
-	// BucketCount The number of buckets processed.
-	BucketCount int64 `json:"bucket_count"`
-	// ExponentialAverageSearchTimePerHourMs The exponential average search time per hour, in milliseconds.
+	AverageSearchTimePerBucketMs          Float64 `json:"average_search_time_per_bucket_ms,omitempty"`
+	BucketCount                           int64   `json:"bucket_count"`
 	ExponentialAverageSearchTimePerHourMs Float64 `json:"exponential_average_search_time_per_hour_ms"`
-	// JobId Identifier for the anomaly detection job.
-	JobId string `json:"job_id"`
-	// SearchCount The number of searches run by the datafeed.
-	SearchCount int64 `json:"search_count"`
-	// TotalSearchTimeMs The total time the datafeed spent searching, in milliseconds.
-	TotalSearchTimeMs Float64 `json:"total_search_time_ms"`
+	JobId                                 string  `json:"job_id"`
+	SearchCount                           int64   `json:"search_count"`
+	TotalSearchTimeMs                     Float64 `json:"total_search_time_ms"`
 }
 
 func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {

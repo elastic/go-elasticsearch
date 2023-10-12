@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -32,28 +32,14 @@ import (
 
 // DatafeedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/_types/Datafeed.ts#L140-L169
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/ml/_types/Datafeed.ts#L140-L150
 type DatafeedStats struct {
-	// AssignmentExplanation For started datafeeds only, contains messages relating to the selection of a
-	// node.
-	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
-	// DatafeedId A numerical character string that uniquely identifies the datafeed.
-	// This identifier can contain lowercase alphanumeric characters (a-z and 0-9),
-	// hyphens, and underscores.
-	// It must start and end with alphanumeric characters.
-	DatafeedId string `json:"datafeed_id"`
-	// Node For started datafeeds only, this information pertains to the node upon which
-	// the datafeed is started.
-	Node *DiscoveryNode `json:"node,omitempty"`
-	// RunningState An object containing the running state for this datafeed.
-	// It is only provided if the datafeed is started.
-	RunningState *DatafeedRunningState `json:"running_state,omitempty"`
-	// State The status of the datafeed, which can be one of the following values:
-	// `starting`, `started`, `stopping`, `stopped`.
-	State datafeedstate.DatafeedState `json:"state"`
-	// TimingStats An object that provides statistical information about timing aspect of this
-	// datafeed.
-	TimingStats DatafeedTimingStats `json:"timing_stats"`
+	AssignmentExplanation *string                     `json:"assignment_explanation,omitempty"`
+	DatafeedId            string                      `json:"datafeed_id"`
+	Node                  *DiscoveryNode              `json:"node,omitempty"`
+	RunningState          *DatafeedRunningState       `json:"running_state,omitempty"`
+	State                 datafeedstate.DatafeedState `json:"state"`
+	TimingStats           DatafeedTimingStats         `json:"timing_stats"`
 }
 
 func (s *DatafeedStats) UnmarshalJSON(data []byte) error {

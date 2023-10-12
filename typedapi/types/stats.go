@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -32,55 +32,30 @@ import (
 
 // Stats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L30-L114
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L30-L53
 type Stats struct {
-	// AdaptiveSelection Statistics about adaptive replica selection.
 	AdaptiveSelection map[string]AdaptiveSelection `json:"adaptive_selection,omitempty"`
-	// Attributes Contains a list of attributes for the node.
-	Attributes map[string]string `json:"attributes,omitempty"`
-	// Breakers Statistics about the field data circuit breaker.
-	Breakers map[string]Breaker `json:"breakers,omitempty"`
-	// Discovery Contains node discovery statistics for the node.
-	Discovery *Discovery `json:"discovery,omitempty"`
-	// Fs File system information, data path, free disk space, read/write stats.
-	Fs *FileSystem `json:"fs,omitempty"`
-	// Host Network host for the node, based on the network host setting.
-	Host *string `json:"host,omitempty"`
-	// Http HTTP connection information.
-	Http *Http `json:"http,omitempty"`
-	// IndexingPressure Contains indexing pressure statistics for the node.
-	IndexingPressure *NodesIndexingPressure `json:"indexing_pressure,omitempty"`
-	// Indices Indices stats about size, document count, indexing and deletion times, search
-	// times, field cache size, merges and flushes.
-	Indices *IndicesShardStats `json:"indices,omitempty"`
-	// Ingest Statistics about ingest preprocessing.
-	Ingest *NodesIngest `json:"ingest,omitempty"`
-	// Ip IP address and port for the node.
-	Ip []string `json:"ip,omitempty"`
-	// Jvm JVM stats, memory pool information, garbage collection, buffer pools, number
-	// of loaded/unloaded classes.
-	Jvm *Jvm `json:"jvm,omitempty"`
-	// Name Human-readable identifier for the node.
-	// Based on the node name setting.
-	Name *string `json:"name,omitempty"`
-	// Os Operating system stats, load average, mem, swap.
-	Os *OperatingSystem `json:"os,omitempty"`
-	// Process Process statistics, memory consumption, cpu usage, open file descriptors.
-	Process *Process `json:"process,omitempty"`
-	// Roles Roles assigned to the node.
-	Roles []noderole.NodeRole `json:"roles,omitempty"`
-	// Script Contains script statistics for the node.
-	Script      *Scripting               `json:"script,omitempty"`
-	ScriptCache map[string][]ScriptCache `json:"script_cache,omitempty"`
-	// ThreadPool Statistics about each thread pool, including current size, queue and rejected
-	// tasks.
-	ThreadPool map[string]ThreadCount `json:"thread_pool,omitempty"`
-	Timestamp  *int64                 `json:"timestamp,omitempty"`
-	// Transport Transport statistics about sent and received bytes in cluster communication.
-	Transport *Transport `json:"transport,omitempty"`
-	// TransportAddress Host and port for the transport layer, used for internal communication
-	// between nodes in a cluster.
-	TransportAddress *string `json:"transport_address,omitempty"`
+	Attributes        map[string]string            `json:"attributes,omitempty"`
+	Breakers          map[string]Breaker           `json:"breakers,omitempty"`
+	Discovery         *Discovery                   `json:"discovery,omitempty"`
+	Fs                *FileSystem                  `json:"fs,omitempty"`
+	Host              *string                      `json:"host,omitempty"`
+	Http              *Http                        `json:"http,omitempty"`
+	IndexingPressure  *NodesIndexingPressure       `json:"indexing_pressure,omitempty"`
+	Indices           *IndicesShardStats           `json:"indices,omitempty"`
+	Ingest            *NodesIngest                 `json:"ingest,omitempty"`
+	Ip                []string                     `json:"ip,omitempty"`
+	Jvm               *Jvm                         `json:"jvm,omitempty"`
+	Name              *string                      `json:"name,omitempty"`
+	Os                *OperatingSystem             `json:"os,omitempty"`
+	Process           *Process                     `json:"process,omitempty"`
+	Roles             []noderole.NodeRole          `json:"roles,omitempty"`
+	Script            *Scripting                   `json:"script,omitempty"`
+	ScriptCache       map[string][]ScriptCache     `json:"script_cache,omitempty"`
+	ThreadPool        map[string]ThreadCount       `json:"thread_pool,omitempty"`
+	Timestamp         *int64                       `json:"timestamp,omitempty"`
+	Transport         *Transport                   `json:"transport,omitempty"`
+	TransportAddress  *string                      `json:"transport_address,omitempty"`
 }
 
 func (s *Stats) UnmarshalJSON(data []byte) error {

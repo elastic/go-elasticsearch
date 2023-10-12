@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
-// Returns the data stream lifecycle of the selected data streams.
+// Returns the data lifecycle of the selected data streams.
 package getdatalifecycle
 
 import (
@@ -75,9 +75,9 @@ func NewGetDataLifecycleFunc(tp elastictransport.Interface) NewGetDataLifecycle 
 	}
 }
 
-// Returns the data stream lifecycle of the selected data streams.
+// Returns the data lifecycle of the selected data streams.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-get-lifecycle.html
 func New(tp elastictransport.Interface) *GetDataLifecycle {
 	r := &GetDataLifecycle{
 		transport: tp,

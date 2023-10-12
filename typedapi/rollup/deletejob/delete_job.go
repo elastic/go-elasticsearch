@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Deletes an existing rollup job.
 package deletejob
@@ -213,7 +213,7 @@ func (r *DeleteJob) Header(key, value string) *DeleteJob {
 	return r
 }
 
-// Id Identifier for the job.
+// Id The ID of the job to delete
 // API Name: id
 func (r *DeleteJob) Id(id string) *DeleteJob {
 	r.paramSet |= idMask
