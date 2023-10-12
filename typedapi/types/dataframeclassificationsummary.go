@@ -16,27 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
 // DataframeClassificationSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/ml/evaluate_data_frame/types.ts#L44-L66
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/ml/evaluate_data_frame/types.ts#L31-L37
 type DataframeClassificationSummary struct {
-	// Accuracy Accuracy of predictions (per-class and overall).
-	Accuracy *DataframeClassificationSummaryAccuracy `json:"accuracy,omitempty"`
-	// AucRoc The AUC ROC (area under the curve of the receiver operating characteristic)
-	// score and optionally the curve.
-	// It is calculated for a specific class (provided as "class_name") treated as
-	// positive.
-	AucRoc *DataframeEvaluationSummaryAucRoc `json:"auc_roc,omitempty"`
-	// MulticlassConfusionMatrix Multiclass confusion matrix.
+	Accuracy                  *DataframeClassificationSummaryAccuracy                  `json:"accuracy,omitempty"`
+	AucRoc                    *DataframeEvaluationSummaryAucRoc                        `json:"auc_roc,omitempty"`
 	MulticlassConfusionMatrix *DataframeClassificationSummaryMulticlassConfusionMatrix `json:"multiclass_confusion_matrix,omitempty"`
-	// Precision Precision of predictions (per-class and average).
-	Precision *DataframeClassificationSummaryPrecision `json:"precision,omitempty"`
-	// Recall Recall of predictions (per-class and average).
-	Recall *DataframeClassificationSummaryRecall `json:"recall,omitempty"`
+	Precision                 *DataframeClassificationSummaryPrecision                 `json:"precision,omitempty"`
+	Recall                    *DataframeClassificationSummaryRecall                    `json:"recall,omitempty"`
 }
 
 // NewDataframeClassificationSummary returns a DataframeClassificationSummary.

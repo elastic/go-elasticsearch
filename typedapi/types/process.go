@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,21 +30,13 @@ import (
 
 // Process type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L953-L975
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L381-L387
 type Process struct {
-	// Cpu Contains CPU statistics for the node.
-	Cpu *Cpu `json:"cpu,omitempty"`
-	// MaxFileDescriptors Maximum number of file descriptors allowed on the system, or `-1` if not
-	// supported.
-	MaxFileDescriptors *int `json:"max_file_descriptors,omitempty"`
-	// Mem Contains virtual memory statistics for the node.
-	Mem *MemoryStats `json:"mem,omitempty"`
-	// OpenFileDescriptors Number of opened file descriptors associated with the current or `-1` if not
-	// supported.
-	OpenFileDescriptors *int `json:"open_file_descriptors,omitempty"`
-	// Timestamp Last time the statistics were refreshed.
-	// Recorded in milliseconds since the Unix Epoch.
-	Timestamp *int64 `json:"timestamp,omitempty"`
+	Cpu                 *Cpu         `json:"cpu,omitempty"`
+	MaxFileDescriptors  *int         `json:"max_file_descriptors,omitempty"`
+	Mem                 *MemoryStats `json:"mem,omitempty"`
+	OpenFileDescriptors *int         `json:"open_file_descriptors,omitempty"`
+	Timestamp           *int64       `json:"timestamp,omitempty"`
 }
 
 func (s *Process) UnmarshalJSON(data []byte) error {

@@ -16,16 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
 // SerializedClusterState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L232-L238
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L101-L104
 type SerializedClusterState struct {
-	Diffs *SerializedClusterStateDetail `json:"diffs,omitempty"`
-	// FullStates Number of published cluster states.
+	Diffs      *SerializedClusterStateDetail `json:"diffs,omitempty"`
 	FullStates *SerializedClusterStateDetail `json:"full_states,omitempty"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Returns information about whether a document source exists in an index.
 package existssource
@@ -191,7 +191,7 @@ func (r *ExistsSource) Header(key, value string) *ExistsSource {
 	return r
 }
 
-// Id Identifier of the document.
+// Id The document ID
 // API Name: id
 func (r *ExistsSource) Id(id string) *ExistsSource {
 	r.paramSet |= idMask
@@ -200,8 +200,7 @@ func (r *ExistsSource) Id(id string) *ExistsSource {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases.
-// Supports wildcards (`*`).
+// Index The name of the index
 // API Name: index
 func (r *ExistsSource) Index(index string) *ExistsSource {
 	r.paramSet |= indexMask
@@ -210,8 +209,8 @@ func (r *ExistsSource) Index(index string) *ExistsSource {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference Specify the node or shard the operation should be performed on (default:
+// random)
 // API name: preference
 func (r *ExistsSource) Preference(preference string) *ExistsSource {
 	r.values.Set("preference", preference)
@@ -219,7 +218,7 @@ func (r *ExistsSource) Preference(preference string) *ExistsSource {
 	return r
 }
 
-// Realtime If true, the request is real-time as opposed to near-real-time.
+// Realtime Specify whether to perform the operation in realtime or search mode
 // API name: realtime
 func (r *ExistsSource) Realtime(realtime bool) *ExistsSource {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
@@ -227,8 +226,7 @@ func (r *ExistsSource) Realtime(realtime bool) *ExistsSource {
 	return r
 }
 
-// Refresh If `true`, Elasticsearch refreshes all shards involved in the delete by query
-// after the request completes.
+// Refresh Refresh the shard containing the document before performing the operation
 // API name: refresh
 func (r *ExistsSource) Refresh(refresh bool) *ExistsSource {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -236,7 +234,7 @@ func (r *ExistsSource) Refresh(refresh bool) *ExistsSource {
 	return r
 }
 
-// Routing Target the specified primary shard.
+// Routing Specific routing value
 // API name: routing
 func (r *ExistsSource) Routing(routing string) *ExistsSource {
 	r.values.Set("routing", routing)
@@ -244,8 +242,8 @@ func (r *ExistsSource) Routing(routing string) *ExistsSource {
 	return r
 }
 
-// Source_ `true` or `false` to return the `_source` field or not, or a list of fields
-// to return.
+// Source_ True or false to return the _source field or not, or a list of fields to
+// return
 // API name: _source
 func (r *ExistsSource) Source_(sourceconfigparam string) *ExistsSource {
 	r.values.Set("_source", sourceconfigparam)
@@ -253,7 +251,7 @@ func (r *ExistsSource) Source_(sourceconfigparam string) *ExistsSource {
 	return r
 }
 
-// SourceExcludes_ A comma-separated list of source fields to exclude in the response.
+// SourceExcludes_ A list of fields to exclude from the returned _source field
 // API name: _source_excludes
 func (r *ExistsSource) SourceExcludes_(fields ...string) *ExistsSource {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
@@ -261,7 +259,7 @@ func (r *ExistsSource) SourceExcludes_(fields ...string) *ExistsSource {
 	return r
 }
 
-// SourceIncludes_ A comma-separated list of source fields to include in the response.
+// SourceIncludes_ A list of fields to extract and return from the _source field
 // API name: _source_includes
 func (r *ExistsSource) SourceIncludes_(fields ...string) *ExistsSource {
 	r.values.Set("_source_includes", strings.Join(fields, ","))
@@ -269,9 +267,7 @@ func (r *ExistsSource) SourceIncludes_(fields ...string) *ExistsSource {
 	return r
 }
 
-// Version Explicit version number for concurrency control.
-// The specified version must match the current version of the document for the
-// request to succeed.
+// Version Explicit version number for concurrency control
 // API name: version
 func (r *ExistsSource) Version(versionnumber string) *ExistsSource {
 	r.values.Set("version", versionnumber)
@@ -279,7 +275,7 @@ func (r *ExistsSource) Version(versionnumber string) *ExistsSource {
 	return r
 }
 
-// VersionType Specific version type: `external`, `external_gte`.
+// VersionType Specific version type
 // API name: version_type
 func (r *ExistsSource) VersionType(versiontype versiontype.VersionType) *ExistsSource {
 	r.values.Set("version_type", versiontype.String())

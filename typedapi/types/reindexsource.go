@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,27 +30,16 @@ import (
 
 // ReindexSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/reindex/types.ts#L66-L97
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/_global/reindex/types.ts#L47-L57
 type ReindexSource struct {
-	// Index The name of the data stream, index, or alias you are copying from.
-	// Accepts a comma-separated list to reindex from multiple sources.
-	Index []string `json:"index"`
-	// Query Specifies the documents to reindex using the Query DSL.
-	Query *Query `json:"query,omitempty"`
-	// Remote A remote instance of Elasticsearch that you want to index from.
-	Remote          *RemoteSource `json:"remote,omitempty"`
-	RuntimeMappings RuntimeFields `json:"runtime_mappings,omitempty"`
-	// Size The number of documents to index per batch.
-	// Use when indexing from remote to ensure that the batches fit within the
-	// on-heap buffer, which defaults to a maximum size of 100 MB.
-	Size *int `json:"size,omitempty"`
-	// Slice Slice the reindex request manually using the provided slice ID and total
-	// number of slices.
-	Slice *SlicedScroll      `json:"slice,omitempty"`
-	Sort  []SortCombinations `json:"sort,omitempty"`
-	// SourceFields_ If `true` reindexes all source fields.
-	// Set to a list to reindex select fields.
-	SourceFields_ []string `json:"_source,omitempty"`
+	Index           []string           `json:"index"`
+	Query           *Query             `json:"query,omitempty"`
+	Remote          *RemoteSource      `json:"remote,omitempty"`
+	RuntimeMappings RuntimeFields      `json:"runtime_mappings,omitempty"`
+	Size            *int               `json:"size,omitempty"`
+	Slice           *SlicedScroll      `json:"slice,omitempty"`
+	Sort            []SortCombinations `json:"sort,omitempty"`
+	SourceFields_   []string           `json:"_source,omitempty"`
 }
 
 func (s *ReindexSource) UnmarshalJSON(data []byte) error {

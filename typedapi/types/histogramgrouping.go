@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,18 +30,10 @@ import (
 
 // HistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/rollup/_types/Groupings.ts#L84-L97
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/rollup/_types/Groupings.ts#L44-L47
 type HistogramGrouping struct {
-	// Fields The set of fields that you wish to build histograms for.
-	// All fields specified must be some kind of numeric.
-	// Order does not matter.
-	Fields []string `json:"fields"`
-	// Interval The interval of histogram buckets to be generated when rolling up.
-	// For example, a value of `5` creates buckets that are five units wide (`0-5`,
-	// `5-10`, etc).
-	// Note that only one interval can be specified in the histogram group, meaning
-	// that all fields being grouped via the histogram must share the same interval.
-	Interval int64 `json:"interval"`
+	Fields   []string `json:"fields"`
+	Interval int64    `json:"interval"`
 }
 
 func (s *HistogramGrouping) UnmarshalJSON(data []byte) error {

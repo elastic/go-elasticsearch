@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Changes the number of requests per second for a particular Delete By Query
 // operation.
@@ -215,7 +215,7 @@ func (r *DeleteByQueryRethrottle) Header(key, value string) *DeleteByQueryRethro
 	return r
 }
 
-// TaskId The ID for the task.
+// TaskId The task id to rethrottle
 // API Name: taskid
 func (r *DeleteByQueryRethrottle) TaskId(taskid string) *DeleteByQueryRethrottle {
 	r.paramSet |= taskidMask
@@ -224,7 +224,8 @@ func (r *DeleteByQueryRethrottle) TaskId(taskid string) *DeleteByQueryRethrottle
 	return r
 }
 
-// RequestsPerSecond The throttle for this request in sub-requests per second.
+// RequestsPerSecond The throttle to set on this request in floating sub-requests per second. -1
+// means set no throttle.
 // API name: requests_per_second
 func (r *DeleteByQueryRethrottle) RequestsPerSecond(requestspersecond string) *DeleteByQueryRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)

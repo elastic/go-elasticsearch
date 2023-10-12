@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Creates or updates a document in an index.
 package index
@@ -262,7 +262,7 @@ func (r *Index) Header(key, value string) *Index {
 	return r
 }
 
-// Id Unique identifier for the document.
+// Id Document ID
 // API Name: id
 func (r *Index) Id(id string) *Index {
 	r.paramSet |= idMask
@@ -271,7 +271,7 @@ func (r *Index) Id(id string) *Index {
 	return r
 }
 
-// Index Name of the data stream or index to target.
+// Index The name of the index
 // API Name: index
 func (r *Index) Index(index string) *Index {
 	r.paramSet |= indexMask
@@ -280,7 +280,8 @@ func (r *Index) Index(index string) *Index {
 	return r
 }
 
-// IfPrimaryTerm Only perform the operation if the document has this primary term.
+// IfPrimaryTerm only perform the index operation if the last operation that has changed the
+// document has the specified primary term
 // API name: if_primary_term
 func (r *Index) IfPrimaryTerm(ifprimaryterm string) *Index {
 	r.values.Set("if_primary_term", ifprimaryterm)
@@ -288,7 +289,8 @@ func (r *Index) IfPrimaryTerm(ifprimaryterm string) *Index {
 	return r
 }
 
-// IfSeqNo Only perform the operation if the document has this sequence number.
+// IfSeqNo only perform the index operation if the last operation that has changed the
+// document has the specified sequence number
 // API name: if_seq_no
 func (r *Index) IfSeqNo(sequencenumber string) *Index {
 	r.values.Set("if_seq_no", sequencenumber)
@@ -296,14 +298,8 @@ func (r *Index) IfSeqNo(sequencenumber string) *Index {
 	return r
 }
 
-// OpType Set to create to only index the document if it does not already exist (put if
-// absent).
-// If a document with the specified `_id` already exists, the indexing operation
-// will fail.
-// Same as using the `<index>/_create` endpoint.
-// Valid values: `index`, `create`.
-// If document id is specified, it defaults to `index`.
-// Otherwise, it defaults to `create`.
+// OpType Explicit operation type. Defaults to `index` for requests with an explicit
+// document ID, and to `create`for requests without an explicit document ID
 // API name: op_type
 func (r *Index) OpType(optype optype.OpType) *Index {
 	r.values.Set("op_type", optype.String())
@@ -311,11 +307,7 @@ func (r *Index) OpType(optype optype.OpType) *Index {
 	return r
 }
 
-// Pipeline ID of the pipeline to use to preprocess incoming documents.
-// If the index has a default ingest pipeline specified, then setting the value
-// to `_none` disables the default ingest pipeline for this request.
-// If a final pipeline is configured it will always run, regardless of the value
-// of this parameter.
+// Pipeline The pipeline id to preprocess incoming documents with
 // API name: pipeline
 func (r *Index) Pipeline(pipeline string) *Index {
 	r.values.Set("pipeline", pipeline)
@@ -323,10 +315,9 @@ func (r *Index) Pipeline(pipeline string) *Index {
 	return r
 }
 
-// Refresh If `true`, Elasticsearch refreshes the affected shards to make this operation
-// visible to search, if `wait_for` then wait for a refresh to make this
-// operation visible to search, if `false` do nothing with refreshes.
-// Valid values: `true`, `false`, `wait_for`.
+// Refresh If `true` then refresh the affected shards to make this operation visible to
+// search, if `wait_for` then wait for a refresh to make this operation visible
+// to search, if `false` (the default) then do nothing with refreshes.
 // API name: refresh
 func (r *Index) Refresh(refresh refresh.Refresh) *Index {
 	r.values.Set("refresh", refresh.String())
@@ -334,7 +325,7 @@ func (r *Index) Refresh(refresh refresh.Refresh) *Index {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing Specific routing value
 // API name: routing
 func (r *Index) Routing(routing string) *Index {
 	r.values.Set("routing", routing)
@@ -342,8 +333,7 @@ func (r *Index) Routing(routing string) *Index {
 	return r
 }
 
-// Timeout Period the request waits for the following operations: automatic index
-// creation, dynamic mapping updates, waiting for active shards.
+// Timeout Explicit operation timeout
 // API name: timeout
 func (r *Index) Timeout(duration string) *Index {
 	r.values.Set("timeout", duration)
@@ -351,9 +341,7 @@ func (r *Index) Timeout(duration string) *Index {
 	return r
 }
 
-// Version Explicit version number for concurrency control.
-// The specified version must match the current version of the document for the
-// request to succeed.
+// Version Explicit version number for concurrency control
 // API name: version
 func (r *Index) Version(versionnumber string) *Index {
 	r.values.Set("version", versionnumber)
@@ -361,7 +349,7 @@ func (r *Index) Version(versionnumber string) *Index {
 	return r
 }
 
-// VersionType Specific version type: `external`, `external_gte`.
+// VersionType Specific version type
 // API name: version_type
 func (r *Index) VersionType(versiontype versiontype.VersionType) *Index {
 	r.values.Set("version_type", versiontype.String())
@@ -369,10 +357,10 @@ func (r *Index) VersionType(versiontype versiontype.VersionType) *Index {
 	return r
 }
 
-// WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to all or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
+// WaitForActiveShards Sets the number of shard copies that must be active before proceeding with
+// the index operation. Defaults to 1, meaning the primary shard only. Set to
+// `all` for all shard copies, otherwise set to any non-negative value less than
+// or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
 func (r *Index) WaitForActiveShards(waitforactiveshards string) *Index {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -380,7 +368,7 @@ func (r *Index) WaitForActiveShards(waitforactiveshards string) *Index {
 	return r
 }
 
-// RequireAlias If `true`, the destination must be an index alias.
+// RequireAlias When true, requires destination to be an alias. Default is false
 // API name: require_alias
 func (r *Index) RequireAlias(requirealias bool) *Index {
 	r.values.Set("require_alias", strconv.FormatBool(requirealias))

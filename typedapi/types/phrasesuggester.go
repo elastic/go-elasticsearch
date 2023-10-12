@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,59 +30,24 @@ import (
 
 // PhraseSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/search/_types/suggester.ts#L356-L414
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/_global/search/_types/suggester.ts#L195-L209
 type PhraseSuggester struct {
-	// Analyzer The analyzer to analyze the suggest text with.
-	// Defaults to the search analyzer of the suggest field.
-	Analyzer *string `json:"analyzer,omitempty"`
-	// Collate Checks each suggestion against the specified query to prune suggestions for
-	// which no matching docs exist in the index.
-	Collate *PhraseSuggestCollate `json:"collate,omitempty"`
-	// Confidence Defines a factor applied to the input phrases score, which is used as a
-	// threshold for other suggest candidates.
-	// Only candidates that score higher than the threshold will be included in the
-	// result.
-	Confidence *Float64 `json:"confidence,omitempty"`
-	// DirectGenerator A list of candidate generators that produce a list of possible terms per term
-	// in the given text.
-	DirectGenerator []DirectGenerator `json:"direct_generator,omitempty"`
-	// Field The field to fetch the candidate suggestions from.
-	// Needs to be set globally or per suggestion.
-	Field         string `json:"field"`
-	ForceUnigrams *bool  `json:"force_unigrams,omitempty"`
-	// GramSize Sets max size of the n-grams (shingles) in the field.
-	// If the field doesn’t contain n-grams (shingles), this should be omitted or
-	// set to `1`.
-	// If the field uses a shingle filter, the `gram_size` is set to the
-	// `max_shingle_size` if not explicitly set.
-	GramSize *int `json:"gram_size,omitempty"`
-	// Highlight Sets up suggestion highlighting.
-	// If not provided, no highlighted field is returned.
-	Highlight *PhraseSuggestHighlight `json:"highlight,omitempty"`
-	// MaxErrors The maximum percentage of the terms considered to be misspellings in order to
-	// form a correction.
-	// This method accepts a float value in the range `[0..1)` as a fraction of the
-	// actual query terms or a number `>=1` as an absolute number of query terms.
-	MaxErrors *Float64 `json:"max_errors,omitempty"`
-	// RealWordErrorLikelihood The likelihood of a term being misspelled even if the term exists in the
-	// dictionary.
-	RealWordErrorLikelihood *Float64 `json:"real_word_error_likelihood,omitempty"`
-	// Separator The separator that is used to separate terms in the bigram field.
-	// If not set, the whitespace character is used as a separator.
-	Separator *string `json:"separator,omitempty"`
-	// ShardSize Sets the maximum number of suggested terms to be retrieved from each
-	// individual shard.
-	ShardSize *int `json:"shard_size,omitempty"`
-	// Size The maximum corrections to be returned per suggest text token.
-	Size *int `json:"size,omitempty"`
-	// Smoothing The smoothing model used to balance weight between infrequent grams (grams
-	// (shingles) are not existing in the index) and frequent grams (appear at least
-	// once in the index).
-	// The default model is Stupid Backoff.
-	Smoothing *SmoothingModelContainer `json:"smoothing,omitempty"`
-	// Text The text/query to provide suggestions for.
-	Text       *string `json:"text,omitempty"`
-	TokenLimit *int    `json:"token_limit,omitempty"`
+	Analyzer                *string                  `json:"analyzer,omitempty"`
+	Collate                 *PhraseSuggestCollate    `json:"collate,omitempty"`
+	Confidence              *Float64                 `json:"confidence,omitempty"`
+	DirectGenerator         []DirectGenerator        `json:"direct_generator,omitempty"`
+	Field                   string                   `json:"field"`
+	ForceUnigrams           *bool                    `json:"force_unigrams,omitempty"`
+	GramSize                *int                     `json:"gram_size,omitempty"`
+	Highlight               *PhraseSuggestHighlight  `json:"highlight,omitempty"`
+	MaxErrors               *Float64                 `json:"max_errors,omitempty"`
+	RealWordErrorLikelihood *Float64                 `json:"real_word_error_likelihood,omitempty"`
+	Separator               *string                  `json:"separator,omitempty"`
+	ShardSize               *int                     `json:"shard_size,omitempty"`
+	Size                    *int                     `json:"size,omitempty"`
+	Smoothing               *SmoothingModelContainer `json:"smoothing,omitempty"`
+	Text                    *string                  `json:"text,omitempty"`
+	TokenLimit              *int                     `json:"token_limit,omitempty"`
 }
 
 func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -33,22 +33,12 @@ import (
 
 // ReindexDestination type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/_global/reindex/types.ts#L39-L64
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/_global/reindex/types.ts#L39-L45
 type ReindexDestination struct {
-	// Index The name of the data stream, index, or index alias you are copying to.
-	Index string `json:"index"`
-	// OpType Set to `create` to only index documents that do not already exist.
-	// Important: To reindex to a data stream destination, this argument must be
-	// `create`.
-	OpType *optype.OpType `json:"op_type,omitempty"`
-	// Pipeline The name of the pipeline to use.
-	Pipeline *string `json:"pipeline,omitempty"`
-	// Routing By default, a document's routing is preserved unless it’s changed by the
-	// script.
-	// Set to `discard` to set routing to `null`,  or `=value` to route using the
-	// specified `value`.
-	Routing *string `json:"routing,omitempty"`
-	// VersionType The versioning to use for the indexing operation.
+	Index       string                   `json:"index"`
+	OpType      *optype.OpType           `json:"op_type,omitempty"`
+	Pipeline    *string                  `json:"pipeline,omitempty"`
+	Routing     *string                  `json:"routing,omitempty"`
 	VersionType *versiontype.VersionType `json:"version_type,omitempty"`
 }
 

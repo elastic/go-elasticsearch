@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Retrieves the configuration, stats, and status of rollup jobs.
 package getjobs
@@ -218,8 +218,8 @@ func (r *GetJobs) Header(key, value string) *GetJobs {
 	return r
 }
 
-// Id Identifier for the rollup job.
-// If it is `_all` or omitted, the API returns all rollup jobs.
+// Id The ID of the job(s) to fetch. Accepts glob patterns, or left blank for all
+// jobs
 // API Name: id
 func (r *GetJobs) Id(id string) *GetJobs {
 	r.paramSet |= idMask

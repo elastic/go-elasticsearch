@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,29 +30,15 @@ import (
 
 // DateHistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/rollup/_types/Groupings.ts#L42-L73
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/rollup/_types/Groupings.ts#L30-L38
 type DateHistogramGrouping struct {
-	// CalendarInterval The interval of time buckets to be generated when rolling up.
 	CalendarInterval Duration `json:"calendar_interval,omitempty"`
-	// Delay How long to wait before rolling up new documents.
-	// By default, the indexer attempts to roll up all data that is available.
-	// However, it is not uncommon for data to arrive out of order.
-	// The indexer is unable to deal with data that arrives after a time-span has
-	// been rolled up.
-	// You need to specify a delay that matches the longest period of time you
-	// expect out-of-order data to arrive.
-	Delay Duration `json:"delay,omitempty"`
-	// Field The date field that is to be rolled up.
-	Field string `json:"field"`
-	// FixedInterval The interval of time buckets to be generated when rolling up.
-	FixedInterval Duration `json:"fixed_interval,omitempty"`
-	Format        *string  `json:"format,omitempty"`
-	Interval      Duration `json:"interval,omitempty"`
-	// TimeZone Defines what `time_zone` the rollup documents are stored as.
-	// Unlike raw data, which can shift timezones on the fly, rolled documents have
-	// to be stored with a specific timezone.
-	// By default, rollup documents are stored in `UTC`.
-	TimeZone *string `json:"time_zone,omitempty"`
+	Delay            Duration `json:"delay,omitempty"`
+	Field            string   `json:"field"`
+	FixedInterval    Duration `json:"fixed_interval,omitempty"`
+	Format           *string  `json:"format,omitempty"`
+	Interval         Duration `json:"interval,omitempty"`
+	TimeZone         *string  `json:"time_zone,omitempty"`
 }
 
 func (s *DateHistogramGrouping) UnmarshalJSON(data []byte) error {

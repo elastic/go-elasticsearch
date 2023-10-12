@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Explicitly clears the search context for a scroll.
 package clearscroll
@@ -271,8 +271,7 @@ func (r *ClearScroll) Header(key, value string) *ClearScroll {
 	return r
 }
 
-// ScrollId Comma-separated list of scroll IDs to clear.
-// To clear all scroll IDs, use `_all`.
+// ScrollId A comma-separated list of scroll IDs to clear
 // API Name: scrollid
 func (r *ClearScroll) ScrollId(scrollid string) *ClearScroll {
 	r.paramSet |= scrollidMask

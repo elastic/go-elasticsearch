@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
-// Updates the data stream lifecycle of the selected data streams.
+// Updates the data lifecycle of the selected data streams.
 package putdatalifecycle
 
 import (
@@ -77,9 +77,9 @@ func NewPutDataLifecycleFunc(tp elastictransport.Interface) NewPutDataLifecycle 
 	}
 }
 
-// Updates the data stream lifecycle of the selected data streams.
+// Updates the data lifecycle of the selected data streams.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/master/dlm-put-lifecycle.html
 func New(tp elastictransport.Interface) *PutDataLifecycle {
 	r := &PutDataLifecycle{
 		transport: tp,
@@ -288,17 +288,6 @@ func (r *PutDataLifecycle) Timeout(duration string) *PutDataLifecycle {
 // API name: data_retention
 func (r *PutDataLifecycle) DataRetention(duration types.Duration) *PutDataLifecycle {
 	r.req.DataRetention = duration
-
-	return r
-}
-
-// Downsampling If defined, every backing index will execute the configured downsampling
-// configuration after the backing
-// index is not the data stream write index anymore.
-// API name: downsampling
-func (r *PutDataLifecycle) Downsampling(downsampling *types.DataStreamLifecycleDownsampling) *PutDataLifecycle {
-
-	r.req.Downsampling = downsampling
 
 	return r
 }

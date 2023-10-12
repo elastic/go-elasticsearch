@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Returns information about the indices and shards that a search request would
 // be executed against.
@@ -218,8 +218,8 @@ func (r *SearchShards) Header(key, value string) *SearchShards {
 	return r
 }
 
-// Index Returns the indices and shards that a search request would be executed
-// against.
+// Index A comma-separated list of index names to search; use `_all` or empty string
+// to perform the operation on all indices
 // API Name: index
 func (r *SearchShards) Index(index string) *SearchShards {
 	r.paramSet |= indexMask
@@ -228,11 +228,8 @@ func (r *SearchShards) Index(index string) *SearchShards {
 	return r
 }
 
-// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
+// indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *SearchShards) AllowNoIndices(allownoindices bool) *SearchShards {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -240,11 +237,8 @@ func (r *SearchShards) AllowNoIndices(allownoindices bool) *SearchShards {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
+// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
+// closed or both.
 // API name: expand_wildcards
 func (r *SearchShards) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *SearchShards {
 	tmp := []string{}
@@ -256,8 +250,8 @@ func (r *SearchShards) ExpandWildcards(expandwildcards ...expandwildcard.ExpandW
 	return r
 }
 
-// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
-// index.
+// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
+// (missing or closed)
 // API name: ignore_unavailable
 func (r *SearchShards) IgnoreUnavailable(ignoreunavailable bool) *SearchShards {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -265,7 +259,8 @@ func (r *SearchShards) IgnoreUnavailable(ignoreunavailable bool) *SearchShards {
 	return r
 }
 
-// Local If `true`, the request retrieves information from the local node only.
+// Local Return local information, do not retrieve the state from master node
+// (default: false)
 // API name: local
 func (r *SearchShards) Local(local bool) *SearchShards {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -273,8 +268,8 @@ func (r *SearchShards) Local(local bool) *SearchShards {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference Specify the node or shard the operation should be performed on (default:
+// random)
 // API name: preference
 func (r *SearchShards) Preference(preference string) *SearchShards {
 	r.values.Set("preference", preference)
@@ -282,7 +277,7 @@ func (r *SearchShards) Preference(preference string) *SearchShards {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing Specific routing value
 // API name: routing
 func (r *SearchShards) Routing(routing string) *SearchShards {
 	r.values.Set("routing", routing)

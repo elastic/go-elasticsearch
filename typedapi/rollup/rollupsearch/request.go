@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package rollupsearch
 
@@ -29,14 +29,11 @@ import (
 
 // Request holds the request body struct for the package rollupsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/rollup/rollup_search/RollupSearchRequest.ts#L27-L57
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/rollup/rollup_search/RollupSearchRequest.ts#L27-L46
 type Request struct {
-
-	// Aggregations Specifies aggregations.
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
-	// Query Specifies a DSL query.
-	Query *types.Query `json:"query,omitempty"`
-	// Size Must be zero if set, as rollups work on pre-aggregated data.
+	Query        *types.Query                  `json:"query,omitempty"`
+	// Size Must be zero if set, as rollups work on pre-aggregated data
 	Size *int `json:"size,omitempty"`
 }
 

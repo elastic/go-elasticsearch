@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Creates a new document in the index.
 //
@@ -260,7 +260,7 @@ func (r *Create) Header(key, value string) *Create {
 	return r
 }
 
-// Id Unique identifier for the document.
+// Id Document ID
 // API Name: id
 func (r *Create) Id(id string) *Create {
 	r.paramSet |= idMask
@@ -269,12 +269,7 @@ func (r *Create) Id(id string) *Create {
 	return r
 }
 
-// Index Name of the data stream or index to target.
-// If the target doesn’t exist and matches the name or wildcard (`*`) pattern of
-// an index template with a `data_stream` definition, this request creates the
-// data stream.
-// If the target doesn’t exist and doesn’t match a data stream template, this
-// request creates the index.
+// Index The name of the index
 // API Name: index
 func (r *Create) Index(index string) *Create {
 	r.paramSet |= indexMask
@@ -283,11 +278,7 @@ func (r *Create) Index(index string) *Create {
 	return r
 }
 
-// Pipeline ID of the pipeline to use to preprocess incoming documents.
-// If the index has a default ingest pipeline specified, then setting the value
-// to `_none` disables the default ingest pipeline for this request.
-// If a final pipeline is configured it will always run, regardless of the value
-// of this parameter.
+// Pipeline The pipeline id to preprocess incoming documents with
 // API name: pipeline
 func (r *Create) Pipeline(pipeline string) *Create {
 	r.values.Set("pipeline", pipeline)
@@ -295,10 +286,9 @@ func (r *Create) Pipeline(pipeline string) *Create {
 	return r
 }
 
-// Refresh If `true`, Elasticsearch refreshes the affected shards to make this operation
-// visible to search, if `wait_for` then wait for a refresh to make this
-// operation visible to search, if `false` do nothing with refreshes.
-// Valid values: `true`, `false`, `wait_for`.
+// Refresh If `true` then refresh the affected shards to make this operation visible to
+// search, if `wait_for` then wait for a refresh to make this operation visible
+// to search, if `false` (the default) then do nothing with refreshes.
 // API name: refresh
 func (r *Create) Refresh(refresh refresh.Refresh) *Create {
 	r.values.Set("refresh", refresh.String())
@@ -306,7 +296,7 @@ func (r *Create) Refresh(refresh refresh.Refresh) *Create {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing Specific routing value
 // API name: routing
 func (r *Create) Routing(routing string) *Create {
 	r.values.Set("routing", routing)
@@ -314,8 +304,7 @@ func (r *Create) Routing(routing string) *Create {
 	return r
 }
 
-// Timeout Period the request waits for the following operations: automatic index
-// creation, dynamic mapping updates, waiting for active shards.
+// Timeout Explicit operation timeout
 // API name: timeout
 func (r *Create) Timeout(duration string) *Create {
 	r.values.Set("timeout", duration)
@@ -323,9 +312,7 @@ func (r *Create) Timeout(duration string) *Create {
 	return r
 }
 
-// Version Explicit version number for concurrency control.
-// The specified version must match the current version of the document for the
-// request to succeed.
+// Version Explicit version number for concurrency control
 // API name: version
 func (r *Create) Version(versionnumber string) *Create {
 	r.values.Set("version", versionnumber)
@@ -333,7 +320,7 @@ func (r *Create) Version(versionnumber string) *Create {
 	return r
 }
 
-// VersionType Specific version type: `external`, `external_gte`.
+// VersionType Specific version type
 // API name: version_type
 func (r *Create) VersionType(versiontype versiontype.VersionType) *Create {
 	r.values.Set("version_type", versiontype.String())
@@ -341,10 +328,10 @@ func (r *Create) VersionType(versiontype versiontype.VersionType) *Create {
 	return r
 }
 
-// WaitForActiveShards The number of shard copies that must be active before proceeding with the
-// operation.
-// Set to `all` or any positive integer up to the total number of shards in the
-// index (`number_of_replicas+1`).
+// WaitForActiveShards Sets the number of shard copies that must be active before proceeding with
+// the index operation. Defaults to 1, meaning the primary shard only. Set to
+// `all` for all shard copies, otherwise set to any non-negative value less than
+// or equal to the total number of copies for the shard (number of replicas + 1)
 // API name: wait_for_active_shards
 func (r *Create) WaitForActiveShards(waitforactiveshards string) *Create {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Allows to use the Mustache language to pre-render a search definition.
 package searchtemplate
@@ -261,11 +261,8 @@ func (r *SearchTemplate) Index(index string) *SearchTemplate {
 	return r
 }
 
-// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
-// alias, or `_all` value targets only missing or closed indices.
-// This behavior applies even if the request targets other open indices.
-// For example, a request targeting `foo*,bar*` returns an error if an index
-// starts with `foo` but no index starts with `bar`.
+// AllowNoIndices Whether to ignore if a wildcard indices expression resolves into no concrete
+// indices. (This includes `_all` string or when no indices have been specified)
 // API name: allow_no_indices
 func (r *SearchTemplate) AllowNoIndices(allownoindices bool) *SearchTemplate {
 	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
@@ -273,8 +270,8 @@ func (r *SearchTemplate) AllowNoIndices(allownoindices bool) *SearchTemplate {
 	return r
 }
 
-// CcsMinimizeRoundtrips If `true`, network round-trips are minimized for cross-cluster search
-// requests.
+// CcsMinimizeRoundtrips Indicates whether network round-trips should be minimized as part of
+// cross-cluster search requests execution
 // API name: ccs_minimize_roundtrips
 func (r *SearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *SearchTemplate {
 	r.values.Set("ccs_minimize_roundtrips", strconv.FormatBool(ccsminimizeroundtrips))
@@ -282,11 +279,8 @@ func (r *SearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Sear
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
-// If the request can target data streams, this argument determines whether
-// wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
-// Valid values are: `all`, `open`, `closed`, `hidden`, `none`.
+// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
+// closed or both.
 // API name: expand_wildcards
 func (r *SearchTemplate) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *SearchTemplate {
 	tmp := []string{}
@@ -298,8 +292,8 @@ func (r *SearchTemplate) ExpandWildcards(expandwildcards ...expandwildcard.Expan
 	return r
 }
 
-// IgnoreThrottled If `true`, specified concrete, expanded, or aliased indices are not included
-// in the response when throttled.
+// IgnoreThrottled Whether specified concrete, expanded or aliased indices should be ignored
+// when throttled
 // API name: ignore_throttled
 func (r *SearchTemplate) IgnoreThrottled(ignorethrottled bool) *SearchTemplate {
 	r.values.Set("ignore_throttled", strconv.FormatBool(ignorethrottled))
@@ -307,8 +301,8 @@ func (r *SearchTemplate) IgnoreThrottled(ignorethrottled bool) *SearchTemplate {
 	return r
 }
 
-// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
-// index.
+// IgnoreUnavailable Whether specified concrete indices should be ignored when unavailable
+// (missing or closed)
 // API name: ignore_unavailable
 func (r *SearchTemplate) IgnoreUnavailable(ignoreunavailable bool) *SearchTemplate {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
@@ -316,8 +310,8 @@ func (r *SearchTemplate) IgnoreUnavailable(ignoreunavailable bool) *SearchTempla
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference Specify the node or shard the operation should be performed on (default:
+// random)
 // API name: preference
 func (r *SearchTemplate) Preference(preference string) *SearchTemplate {
 	r.values.Set("preference", preference)
@@ -358,8 +352,8 @@ func (r *SearchTemplate) RestTotalHitsAsInt(resttotalhitsasint bool) *SearchTemp
 	return r
 }
 
-// TypedKeys If `true`, the response prefixes aggregation and suggester names with their
-// respective types.
+// TypedKeys Specify whether aggregation and suggester names should be prefixed by their
+// respective types in the response
 // API name: typed_keys
 func (r *SearchTemplate) TypedKeys(typedkeys bool) *SearchTemplate {
 	r.values.Set("typed_keys", strconv.FormatBool(typedkeys))
@@ -367,8 +361,6 @@ func (r *SearchTemplate) TypedKeys(typedkeys bool) *SearchTemplate {
 	return r
 }
 
-// Explain If `true`, returns detailed information about score calculation as part of
-// each hit.
 // API name: explain
 func (r *SearchTemplate) Explain(explain bool) *SearchTemplate {
 	r.req.Explain = &explain
@@ -385,9 +377,6 @@ func (r *SearchTemplate) Id(id string) *SearchTemplate {
 	return r
 }
 
-// Params Key-value pairs used to replace Mustache variables in the template.
-// The key is the variable name.
-// The value is the variable value.
 // API name: params
 func (r *SearchTemplate) Params(params map[string]json.RawMessage) *SearchTemplate {
 
@@ -396,7 +385,6 @@ func (r *SearchTemplate) Params(params map[string]json.RawMessage) *SearchTempla
 	return r
 }
 
-// Profile If `true`, the query execution is profiled.
 // API name: profile
 func (r *SearchTemplate) Profile(profile bool) *SearchTemplate {
 	r.req.Profile = &profile

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Stops an existing, started rollup job.
 package stopjob
@@ -216,7 +216,7 @@ func (r *StopJob) Header(key, value string) *StopJob {
 	return r
 }
 
-// Id Identifier for the rollup job.
+// Id The ID of the job to stop
 // API Name: id
 func (r *StopJob) Id(id string) *StopJob {
 	r.paramSet |= idMask
@@ -225,9 +225,8 @@ func (r *StopJob) Id(id string) *StopJob {
 	return r
 }
 
-// Timeout If `wait_for_completion` is `true`, the API blocks for (at maximum) the
-// specified duration while waiting for the job to stop.
-// If more than `timeout` time has passed, the API throws a timeout exception.
+// Timeout Block for (at maximum) the specified duration while waiting for the job to
+// stop.  Defaults to 30s.
 // API name: timeout
 func (r *StopJob) Timeout(duration string) *StopJob {
 	r.values.Set("timeout", duration)
@@ -235,10 +234,8 @@ func (r *StopJob) Timeout(duration string) *StopJob {
 	return r
 }
 
-// WaitForCompletion If set to `true`, causes the API to block until the indexer state completely
-// stops.
-// If set to `false`, the API returns immediately and the indexer is stopped
-// asynchronously in the background.
+// WaitForCompletion True if the API should block until the job has fully stopped, false if should
+// be executed async. Defaults to false.
 // API name: wait_for_completion
 func (r *StopJob) WaitForCompletion(waitforcompletion bool) *StopJob {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))

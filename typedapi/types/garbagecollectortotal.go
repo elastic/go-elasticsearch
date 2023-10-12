@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 package types
 
@@ -30,14 +30,11 @@ import (
 
 // GarbageCollectorTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/24afbdf78c21fde141eb2cad34491d952bd6daa8/specification/nodes/_types/Stats.ts#L930-L943
+// https://github.com/elastic/elasticsearch-specification/blob/3b09f9d8e90178243f8a340a7bc324aab152c602/specification/nodes/_types/Stats.ts#L367-L371
 type GarbageCollectorTotal struct {
-	// CollectionCount Total number of JVM garbage collectors that collect objects.
-	CollectionCount *int64 `json:"collection_count,omitempty"`
-	// CollectionTime Total time spent by JVM collecting objects.
-	CollectionTime *string `json:"collection_time,omitempty"`
-	// CollectionTimeInMillis Total time, in milliseconds, spent by JVM collecting objects.
-	CollectionTimeInMillis *int64 `json:"collection_time_in_millis,omitempty"`
+	CollectionCount        *int64  `json:"collection_count,omitempty"`
+	CollectionTime         *string `json:"collection_time,omitempty"`
+	CollectionTimeInMillis *int64  `json:"collection_time_in_millis,omitempty"`
 }
 
 func (s *GarbageCollectorTotal) UnmarshalJSON(data []byte) error {

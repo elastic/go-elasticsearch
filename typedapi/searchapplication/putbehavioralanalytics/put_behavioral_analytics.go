@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/24afbdf78c21fde141eb2cad34491d952bd6daa8
+// https://github.com/elastic/elasticsearch-specification/tree/3b09f9d8e90178243f8a340a7bc324aab152c602
 
 // Creates a behavioral analytics collection.
 package putbehavioralanalytics
@@ -213,7 +213,7 @@ func (r *PutBehavioralAnalytics) Header(key, value string) *PutBehavioralAnalyti
 	return r
 }
 
-// Name The name of the analytics collection to be created or updated.
+// Name The name of the analytics collection to be created or updated
 // API Name: name
 func (r *PutBehavioralAnalytics) Name(name string) *PutBehavioralAnalytics {
 	r.paramSet |= nameMask
