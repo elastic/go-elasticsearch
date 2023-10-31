@@ -41,7 +41,7 @@ func newInferenceDeleteModelFunc(t Transport) InferenceDeleteModel {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/inference_delete_model.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html.
 type InferenceDeleteModel func(model_id string, task_type string, o ...func(*InferenceDeleteModelRequest)) (*Response, error)
 
 // InferenceDeleteModelRequest configures the Inference Delete Model API request.

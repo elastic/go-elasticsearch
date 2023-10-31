@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Validates an anomaly detection detector.
 package validatedetector
@@ -34,6 +34,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/excludefrequent"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -48,8 +49,8 @@ type ValidateDetector struct {
 
 	buf *gobytes.Buffer
 
-	req      *types.Detector
-	deferred []func(request *types.Detector) error
+	req      *Request
+	deferred []func(request *Request) error
 	raw      io.Reader
 
 	paramSet int
@@ -91,7 +92,7 @@ func (r *ValidateDetector) Raw(raw io.Reader) *ValidateDetector {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *ValidateDetector) Request(req *types.Detector) *ValidateDetector {
+func (r *ValidateDetector) Request(req *Request) *ValidateDetector {
 	r.req = req
 
 	return r
@@ -228,6 +229,104 @@ func (r ValidateDetector) Do(ctx context.Context) (*Response, error) {
 // Header set a key, value pair in the ValidateDetector headers map.
 func (r *ValidateDetector) Header(key, value string) *ValidateDetector {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ByFieldName The field used to split the data. In particular, this property is used for
+// analyzing the splits with respect to their own history. It is used for
+// finding unusual values in the context of the split.
+// API name: by_field_name
+func (r *ValidateDetector) ByFieldName(field string) *ValidateDetector {
+	r.req.ByFieldName = &field
+
+	return r
+}
+
+// CustomRules Custom rules enable you to customize the way detectors operate. For example,
+// a rule may dictate conditions under which results should be skipped. Kibana
+// refers to custom rules as job rules.
+// API name: custom_rules
+func (r *ValidateDetector) CustomRules(customrules ...types.DetectionRule) *ValidateDetector {
+	r.req.CustomRules = customrules
+
+	return r
+}
+
+// DetectorDescription A description of the detector.
+// API name: detector_description
+func (r *ValidateDetector) DetectorDescription(detectordescription string) *ValidateDetector {
+
+	r.req.DetectorDescription = &detectordescription
+
+	return r
+}
+
+// DetectorIndex A unique identifier for the detector. This identifier is based on the order
+// of the detectors in the `analysis_config`, starting at zero. If you specify a
+// value for this property, it is ignored.
+// API name: detector_index
+func (r *ValidateDetector) DetectorIndex(detectorindex int) *ValidateDetector {
+	r.req.DetectorIndex = &detectorindex
+
+	return r
+}
+
+// ExcludeFrequent If set, frequent entities are excluded from influencing the anomaly results.
+// Entities can be considered frequent over time or frequent in a population. If
+// you are working with both over and by fields, you can set `exclude_frequent`
+// to `all` for both fields, or to `by` or `over` for those specific fields.
+// API name: exclude_frequent
+func (r *ValidateDetector) ExcludeFrequent(excludefrequent excludefrequent.ExcludeFrequent) *ValidateDetector {
+	r.req.ExcludeFrequent = &excludefrequent
+
+	return r
+}
+
+// FieldName The field that the detector uses in the function. If you use an event rate
+// function such as count or rare, do not specify this field. The `field_name`
+// cannot contain double quotes or backslashes.
+// API name: field_name
+func (r *ValidateDetector) FieldName(field string) *ValidateDetector {
+	r.req.FieldName = &field
+
+	return r
+}
+
+// Function The analysis function that is used. For example, `count`, `rare`, `mean`,
+// `min`, `max`, or `sum`.
+// API name: function
+func (r *ValidateDetector) Function(function string) *ValidateDetector {
+
+	r.req.Function = &function
+
+	return r
+}
+
+// OverFieldName The field used to split the data. In particular, this property is used for
+// analyzing the splits with respect to the history of all splits. It is used
+// for finding unusual values in the population of all splits.
+// API name: over_field_name
+func (r *ValidateDetector) OverFieldName(field string) *ValidateDetector {
+	r.req.OverFieldName = &field
+
+	return r
+}
+
+// PartitionFieldName The field used to segment the analysis. When you use this property, you have
+// completely independent baselines for each value of this field.
+// API name: partition_field_name
+func (r *ValidateDetector) PartitionFieldName(field string) *ValidateDetector {
+	r.req.PartitionFieldName = &field
+
+	return r
+}
+
+// UseNull Defines whether a new series is used as the null series when there is no
+// value for the by or partition fields.
+// API name: use_null
+func (r *ValidateDetector) UseNull(usenull bool) *ValidateDetector {
+	r.req.UseNull = &usenull
 
 	return r
 }

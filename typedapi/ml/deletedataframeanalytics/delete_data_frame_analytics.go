@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes an existing data frame analytics job.
 package deletedataframeanalytics
@@ -68,7 +68,7 @@ func NewDeleteDataFrameAnalyticsFunc(tp elastictransport.Interface) NewDeleteDat
 	return func(id string) *DeleteDataFrameAnalytics {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *DeleteDataFrameAnalytics) Header(key, value string) *DeleteDataFrameAna
 
 // Id Identifier for the data frame analytics job.
 // API Name: id
-func (r *DeleteDataFrameAnalytics) Id(id string) *DeleteDataFrameAnalytics {
+func (r *DeleteDataFrameAnalytics) _id(id string) *DeleteDataFrameAnalytics {
 	r.paramSet |= idMask
 	r.id = id
 

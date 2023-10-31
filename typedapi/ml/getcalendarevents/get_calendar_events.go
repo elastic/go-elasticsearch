@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Retrieves information about the scheduled events in calendars.
 package getcalendarevents
@@ -68,7 +68,7 @@ func NewGetCalendarEventsFunc(tp elastictransport.Interface) NewGetCalendarEvent
 	return func(calendarid string) *GetCalendarEvents {
 		n := New(tp)
 
-		n.CalendarId(calendarid)
+		n._calendarid(calendarid)
 
 		return n
 	}
@@ -221,7 +221,7 @@ func (r *GetCalendarEvents) Header(key, value string) *GetCalendarEvents {
 // expression. You can get information for all calendars by using `_all` or `*`
 // or by omitting the calendar identifier.
 // API Name: calendarid
-func (r *GetCalendarEvents) CalendarId(calendarid string) *GetCalendarEvents {
+func (r *GetCalendarEvents) _calendarid(calendarid string) *GetCalendarEvents {
 	r.paramSet |= calendaridMask
 	r.calendarid = calendarid
 

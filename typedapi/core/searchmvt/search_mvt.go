@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Searches a vector tile for geospatial values. Returns results as a binary
 // Mapbox vector tile.
@@ -85,15 +85,15 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 	return func(index, field, zoom, x, y string) *SearchMvt {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.Field(field)
+		n._field(field)
 
-		n.Zoom(zoom)
+		n._zoom(zoom)
 
-		n.X(x)
+		n._x(x)
 
-		n.Y(y)
+		n._y(y)
 
 		return n
 	}
@@ -277,7 +277,7 @@ func (r *SearchMvt) Header(key, value string) *SearchMvt {
 
 // Index Comma-separated list of data streams, indices, or aliases to search
 // API Name: index
-func (r *SearchMvt) Index(index string) *SearchMvt {
+func (r *SearchMvt) _index(index string) *SearchMvt {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -286,7 +286,7 @@ func (r *SearchMvt) Index(index string) *SearchMvt {
 
 // Field Field containing geospatial data to return
 // API Name: field
-func (r *SearchMvt) Field(field string) *SearchMvt {
+func (r *SearchMvt) _field(field string) *SearchMvt {
 	r.paramSet |= fieldMask
 	r.field = field
 
@@ -295,7 +295,7 @@ func (r *SearchMvt) Field(field string) *SearchMvt {
 
 // Zoom Zoom level for the vector tile to search
 // API Name: zoom
-func (r *SearchMvt) Zoom(zoom string) *SearchMvt {
+func (r *SearchMvt) _zoom(zoom string) *SearchMvt {
 	r.paramSet |= zoomMask
 	r.zoom = zoom
 
@@ -304,7 +304,7 @@ func (r *SearchMvt) Zoom(zoom string) *SearchMvt {
 
 // X X coordinate for the vector tile to search
 // API Name: x
-func (r *SearchMvt) X(x string) *SearchMvt {
+func (r *SearchMvt) _x(x string) *SearchMvt {
 	r.paramSet |= xMask
 	r.x = x
 
@@ -313,7 +313,7 @@ func (r *SearchMvt) X(x string) *SearchMvt {
 
 // Y Y coordinate for the vector tile to search
 // API Name: y
-func (r *SearchMvt) Y(y string) *SearchMvt {
+func (r *SearchMvt) _y(y string) *SearchMvt {
 	r.paramSet |= yMask
 	r.y = y
 

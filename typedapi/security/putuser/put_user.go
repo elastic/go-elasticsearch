@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Adds and updates users in the native realm. These users are commonly referred
 // to as native users.
@@ -72,7 +72,7 @@ func NewPutUserFunc(tp elastictransport.Interface) NewPutUser {
 	return func(username string) *PutUser {
 		n := New(tp)
 
-		n.Username(username)
+		n._username(username)
 
 		return n
 	}
@@ -246,7 +246,7 @@ func (r *PutUser) Header(key, value string) *PutUser {
 
 // Username The username of the User
 // API Name: username
-func (r *PutUser) Username(username string) *PutUser {
+func (r *PutUser) _username(username string) *PutUser {
 	r.paramSet |= usernameMask
 	r.username = username
 

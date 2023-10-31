@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Schedules now a transform.
 package schedulenowtransform
@@ -67,7 +67,7 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 	return func(transformid string) *ScheduleNowTransform {
 		n := New(tp)
 
-		n.TransformId(transformid)
+		n._transformid(transformid)
 
 		return n
 	}
@@ -221,7 +221,7 @@ func (r *ScheduleNowTransform) Header(key, value string) *ScheduleNowTransform {
 
 // TransformId Identifier for the transform.
 // API Name: transformid
-func (r *ScheduleNowTransform) TransformId(transformid string) *ScheduleNowTransform {
+func (r *ScheduleNowTransform) _transformid(transformid string) *ScheduleNowTransform {
 	r.paramSet |= transformidMask
 	r.transformid = transformid
 

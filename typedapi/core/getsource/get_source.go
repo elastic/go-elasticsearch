@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Returns the source of a document.
 package getsource
@@ -72,9 +72,9 @@ func NewGetSourceFunc(tp elastictransport.Interface) NewGetSource {
 	return func(index, id string) *GetSource {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -223,7 +223,7 @@ func (r *GetSource) Header(key, value string) *GetSource {
 
 // Id Unique identifier of the document.
 // API Name: id
-func (r *GetSource) Id(id string) *GetSource {
+func (r *GetSource) _id(id string) *GetSource {
 	r.paramSet |= idMask
 	r.id = id
 
@@ -232,7 +232,7 @@ func (r *GetSource) Id(id string) *GetSource {
 
 // Index Name of the index that contains the document.
 // API Name: index
-func (r *GetSource) Index(index string) *GetSource {
+func (r *GetSource) _index(index string) *GetSource {
 	r.paramSet |= indexMask
 	r.index = index
 

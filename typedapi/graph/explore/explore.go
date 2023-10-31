@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Explore extracted and summarized information about the documents and terms in
 // an index.
@@ -71,7 +71,7 @@ func NewExploreFunc(tp elastictransport.Interface) NewExplore {
 	return func(index string) *Explore {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *Explore) Header(key, value string) *Explore {
 
 // Index Name of the index.
 // API Name: index
-func (r *Explore) Index(index string) *Explore {
+func (r *Explore) _index(index string) *Explore {
 	r.paramSet |= indexMask
 	r.index = index
 

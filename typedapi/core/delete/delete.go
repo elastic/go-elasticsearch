@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Removes a document from the index.
 package delete
@@ -72,9 +72,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	return func(index, id string) *Delete {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -247,7 +247,7 @@ func (r *Delete) Header(key, value string) *Delete {
 
 // Id Unique identifier for the document.
 // API Name: id
-func (r *Delete) Id(id string) *Delete {
+func (r *Delete) _id(id string) *Delete {
 	r.paramSet |= idMask
 	r.id = id
 
@@ -256,7 +256,7 @@ func (r *Delete) Id(id string) *Delete {
 
 // Index Name of the target index.
 // API Name: index
-func (r *Delete) Index(index string) *Delete {
+func (r *Delete) _index(index string) *Delete {
 	r.paramSet |= indexMask
 	r.index = index
 

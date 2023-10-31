@@ -109,13 +109,13 @@ func TestFloat64_UnmarshalJSON(t *testing.T) {
 		{
 			name:    "+Inf",
 			f:       Float64(math.Inf(1)),
-			data:    "+Infinity",
+			data:    "Infinity",
 			wantErr: false,
 		},
 		{
 			name:    "+Inf",
 			f:       Float64(math.Inf(1)),
-			data:    `"+Infinity"`,
+			data:    `"Infinity"`,
 			wantErr: false,
 		},
 		{

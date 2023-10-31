@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Closes one or more anomaly detection jobs. A job can be opened and closed
 // multiple times throughout its lifecycle.
@@ -71,7 +71,7 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 	return func(jobid string) *CloseJob {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -251,7 +251,7 @@ func (r *CloseJob) Header(key, value string) *CloseJob {
 // jobs, or a wildcard expression. You can close all jobs by using `_all` or by
 // specifying `*` as the job identifier.
 // API Name: jobid
-func (r *CloseJob) JobId(jobid string) *CloseJob {
+func (r *CloseJob) _jobid(jobid string) *CloseJob {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 package putuser
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putuser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/security/put_user/SecurityPutUserRequest.ts#L23-L44
+// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/security/put_user/SecurityPutUserRequest.ts#L23-L44
 type Request struct {
 	Email        string         `json:"email,omitempty"`
 	Enabled      *bool          `json:"enabled,omitempty"`

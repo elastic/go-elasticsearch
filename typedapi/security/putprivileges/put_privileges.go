@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Adds or updates application privileges.
 package putprivileges
@@ -49,8 +49,8 @@ type PutPrivileges struct {
 
 	buf *gobytes.Buffer
 
-	req      map[string]map[string]types.PrivilegesActions
-	deferred []func(request map[string]map[string]types.PrivilegesActions) error
+	req      *Request
+	deferred []func(request *Request) error
 	raw      io.Reader
 
 	paramSet int
@@ -92,7 +92,7 @@ func (r *PutPrivileges) Raw(raw io.Reader) *PutPrivileges {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *PutPrivileges) Request(req map[string]map[string]types.PrivilegesActions) *PutPrivileges {
+func (r *PutPrivileges) Request(req *Request) *PutPrivileges {
 	r.req = req
 
 	return r

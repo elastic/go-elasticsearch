@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Retrieves overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
@@ -71,7 +71,7 @@ func NewGetOverallBucketsFunc(tp elastictransport.Interface) NewGetOverallBucket
 	return func(jobid string) *GetOverallBuckets {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -254,7 +254,7 @@ func (r *GetOverallBuckets) Header(key, value string) *GetOverallBuckets {
 // You can summarize the bucket results for all anomaly detection jobs by
 // using `_all` or by specifying `*` as the `<job_id>`.
 // API Name: jobid
-func (r *GetOverallBuckets) JobId(jobid string) *GetOverallBuckets {
+func (r *GetOverallBuckets) _jobid(jobid string) *GetOverallBuckets {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

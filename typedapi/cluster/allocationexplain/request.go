@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 package allocationexplain
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package allocationexplain
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/cluster/allocation_explain/ClusterAllocationExplainRequest.ts#L24-L61
+// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/cluster/allocation_explain/ClusterAllocationExplainRequest.ts#L24-L61
 type Request struct {
 
 	// CurrentNode Specifies the node ID or the name of the node to only explain a shard that is

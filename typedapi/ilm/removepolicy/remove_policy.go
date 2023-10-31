@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Removes the assigned lifecycle policy and stops managing the specified index
 package removepolicy
@@ -67,7 +67,7 @@ func NewRemovePolicyFunc(tp elastictransport.Interface) NewRemovePolicy {
 	return func(index string) *RemovePolicy {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *RemovePolicy) Header(key, value string) *RemovePolicy {
 
 // Index The name of the index to remove policy on
 // API Name: index
-func (r *RemovePolicy) Index(index string) *RemovePolicy {
+func (r *RemovePolicy) _index(index string) *RemovePolicy {
 	r.paramSet |= indexMask
 	r.index = index
 

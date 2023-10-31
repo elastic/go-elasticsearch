@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
 // ECK. Direct use is not supported.
@@ -53,8 +53,8 @@ type PutAutoscalingPolicy struct {
 
 	buf *gobytes.Buffer
 
-	req      *types.AutoscalingPolicy
-	deferred []func(request *types.AutoscalingPolicy) error
+	req      *Request
+	deferred []func(request *Request) error
 	raw      io.Reader
 
 	paramSet int
@@ -71,7 +71,7 @@ func NewPutAutoscalingPolicyFunc(tp elastictransport.Interface) NewPutAutoscalin
 	return func(name string) *PutAutoscalingPolicy {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -101,7 +101,7 @@ func (r *PutAutoscalingPolicy) Raw(raw io.Reader) *PutAutoscalingPolicy {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *PutAutoscalingPolicy) Request(req *types.AutoscalingPolicy) *PutAutoscalingPolicy {
+func (r *PutAutoscalingPolicy) Request(req *Request) *PutAutoscalingPolicy {
 	r.req = req
 
 	return r
@@ -243,9 +243,25 @@ func (r *PutAutoscalingPolicy) Header(key, value string) *PutAutoscalingPolicy {
 
 // Name the name of the autoscaling policy
 // API Name: name
-func (r *PutAutoscalingPolicy) Name(name string) *PutAutoscalingPolicy {
+func (r *PutAutoscalingPolicy) _name(name string) *PutAutoscalingPolicy {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// Deciders Decider settings
+// API name: deciders
+func (r *PutAutoscalingPolicy) Deciders(deciders map[string]json.RawMessage) *PutAutoscalingPolicy {
+
+	r.req.Deciders = deciders
+
+	return r
+}
+
+// API name: roles
+func (r *PutAutoscalingPolicy) Roles(roles ...string) *PutAutoscalingPolicy {
+	r.req.Roles = roles
 
 	return r
 }

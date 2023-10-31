@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Enables a user profile so it's visible in user profile searches.
 package enableuserprofile
@@ -68,7 +68,7 @@ func NewEnableUserProfileFunc(tp elastictransport.Interface) NewEnableUserProfil
 	return func(uid string) *EnableUserProfile {
 		n := New(tp)
 
-		n.Uid(uid)
+		n._uid(uid)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *EnableUserProfile) Header(key, value string) *EnableUserProfile {
 
 // Uid Unique identifier for the user profile.
 // API Name: uid
-func (r *EnableUserProfile) Uid(uid string) *EnableUserProfile {
+func (r *EnableUserProfile) _uid(uid string) *EnableUserProfile {
 	r.paramSet |= uidMask
 	r.uid = uid
 

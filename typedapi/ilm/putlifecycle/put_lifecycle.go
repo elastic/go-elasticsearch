@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a lifecycle policy
 package putlifecycle
@@ -70,7 +70,7 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 	return func(policy string) *PutLifecycle {
 		n := New(tp)
 
-		n.Policy(policy)
+		n._policy(policy)
 
 		return n
 	}
@@ -243,7 +243,7 @@ func (r *PutLifecycle) Header(key, value string) *PutLifecycle {
 
 // Policy Identifier for the policy.
 // API Name: policy
-func (r *PutLifecycle) Policy(policy string) *PutLifecycle {
+func (r *PutLifecycle) _policy(policy string) *PutLifecycle {
 	r.paramSet |= policyMask
 	r.policy = policy
 

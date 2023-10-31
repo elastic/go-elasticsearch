@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 package search
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/search_application/search/SearchApplicationsSearchResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/search_application/search/SearchApplicationsSearchResponse.ts#L23-L25
 
 type Response struct {
 	Aggregations    map[string]types.Aggregate `json:"aggregations,omitempty"`

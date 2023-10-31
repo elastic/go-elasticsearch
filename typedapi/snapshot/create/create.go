@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a snapshot in a repository.
 package create
@@ -74,9 +74,9 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 	return func(repository, snapshot string) *Create {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
-		n.Snapshot(snapshot)
+		n._snapshot(snapshot)
 
 		return n
 	}
@@ -250,7 +250,7 @@ func (r *Create) Header(key, value string) *Create {
 
 // Repository Repository for the snapshot.
 // API Name: repository
-func (r *Create) Repository(repository string) *Create {
+func (r *Create) _repository(repository string) *Create {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 
@@ -259,7 +259,7 @@ func (r *Create) Repository(repository string) *Create {
 
 // Snapshot Name of the snapshot. Must be unique in the repository.
 // API Name: snapshot
-func (r *Create) Snapshot(snapshot string) *Create {
+func (r *Create) _snapshot(snapshot string) *Create {
 	r.paramSet |= snapshotMask
 	r.snapshot = snapshot
 

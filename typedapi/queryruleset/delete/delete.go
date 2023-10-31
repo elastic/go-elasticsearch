@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes a query ruleset.
 package delete
@@ -67,7 +67,7 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	return func(rulesetid string) *Delete {
 		n := New(tp)
 
-		n.RulesetId(rulesetid)
+		n._rulesetid(rulesetid)
 
 		return n
 	}
@@ -213,7 +213,7 @@ func (r *Delete) Header(key, value string) *Delete {
 
 // RulesetId The unique identifier of the query ruleset to delete
 // API Name: rulesetid
-func (r *Delete) RulesetId(rulesetid string) *Delete {
+func (r *Delete) _rulesetid(rulesetid string) *Delete {
 	r.paramSet |= rulesetidMask
 	r.rulesetid = rulesetid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Disables a user profile so it's not visible in user profile searches.
 package disableuserprofile
@@ -68,7 +68,7 @@ func NewDisableUserProfileFunc(tp elastictransport.Interface) NewDisableUserProf
 	return func(uid string) *DisableUserProfile {
 		n := New(tp)
 
-		n.Uid(uid)
+		n._uid(uid)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *DisableUserProfile) Header(key, value string) *DisableUserProfile {
 
 // Uid Unique identifier for the user profile.
 // API Name: uid
-func (r *DisableUserProfile) Uid(uid string) *DisableUserProfile {
+func (r *DisableUserProfile) _uid(uid string) *DisableUserProfile {
 	r.paramSet |= uidMask
 	r.uid = uid
 

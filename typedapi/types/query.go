@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/query_dsl/abstractions.ts#L98-L391
+// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_types/query_dsl/abstractions.ts#L98-L391
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -176,8 +176,8 @@ type Query struct {
 	// values, including whitespace and capitalization.
 	TermsSet map[string]TermsSetQuery `json:"terms_set,omitempty"`
 	// TextExpansion Uses a natural language processing model to convert the query text into a
-	// list of token-weight pairs which are then used in a query against a rank
-	// features field.
+	// list of token-weight pairs which are then used in a query against a sparse
+	// vector or rank features field.
 	TextExpansion map[string]TextExpansionQuery `json:"text_expansion,omitempty"`
 	Type          *TypeQuery                    `json:"type,omitempty"`
 	// Wildcard Returns documents that contain terms matching a wildcard pattern.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes Logstash Pipelines used by Central Management
 package deletepipeline
@@ -65,7 +65,7 @@ func NewDeletePipelineFunc(tp elastictransport.Interface) NewDeletePipeline {
 	return func(id string) *DeletePipeline {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -185,7 +185,7 @@ func (r *DeletePipeline) Header(key, value string) *DeletePipeline {
 
 // Id Identifier for the pipeline.
 // API Name: id
-func (r *DeletePipeline) Id(id string) *DeletePipeline {
+func (r *DeletePipeline) _id(id string) *DeletePipeline {
 	r.paramSet |= idMask
 	r.id = id
 

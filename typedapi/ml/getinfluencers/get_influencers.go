@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Retrieves anomaly detection job results for one or more influencers.
 package getinfluencers
@@ -71,7 +71,7 @@ func NewGetInfluencersFunc(tp elastictransport.Interface) NewGetInfluencers {
 	return func(jobid string) *GetInfluencers {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -248,7 +248,7 @@ func (r *GetInfluencers) Header(key, value string) *GetInfluencers {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetInfluencers) JobId(jobid string) *GetInfluencers {
+func (r *GetInfluencers) _jobid(jobid string) *GetInfluencers {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TextEmbeddingInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ml/_types/inference.ts#L237-L245
+// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/ml/_types/inference.ts#L237-L245
 type TextEmbeddingInferenceOptions struct {
 	// EmbeddingSize The number of dimensions in the embedding output
 	EmbeddingSize *int `json:"embedding_size,omitempty"`

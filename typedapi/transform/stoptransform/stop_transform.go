@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Stops one or more transforms.
 package stoptransform
@@ -68,7 +68,7 @@ func NewStopTransformFunc(tp elastictransport.Interface) NewStopTransform {
 	return func(transformid string) *StopTransform {
 		n := New(tp)
 
-		n.TransformId(transformid)
+		n._transformid(transformid)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *StopTransform) Header(key, value string) *StopTransform {
 // comma-separated list or a wildcard expression.
 // To stop all transforms, use `_all` or `*` as the identifier.
 // API Name: transformid
-func (r *StopTransform) TransformId(transformid string) *StopTransform {
+func (r *StopTransform) _transformid(transformid string) *StopTransform {
 	r.paramSet |= transformidMask
 	r.transformid = transformid
 

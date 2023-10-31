@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Evicts application privileges from the native application privileges cache.
 package clearcachedprivileges
@@ -67,7 +67,7 @@ func NewClearCachedPrivilegesFunc(tp elastictransport.Interface) NewClearCachedP
 	return func(application string) *ClearCachedPrivileges {
 		n := New(tp)
 
-		n.Application(application)
+		n._application(application)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *ClearCachedPrivileges) Header(key, value string) *ClearCachedPrivileges
 
 // Application A comma-separated list of application names
 // API Name: application
-func (r *ClearCachedPrivileges) Application(application string) *ClearCachedPrivileges {
+func (r *ClearCachedPrivileges) _application(application string) *ClearCachedPrivileges {
 	r.paramSet |= applicationMask
 	r.application = application
 

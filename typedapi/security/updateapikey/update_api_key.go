@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Updates attributes of an existing API key.
 package updateapikey
@@ -70,7 +70,7 @@ func NewUpdateApiKeyFunc(tp elastictransport.Interface) NewUpdateApiKey {
 	return func(id string) *UpdateApiKey {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -243,7 +243,7 @@ func (r *UpdateApiKey) Header(key, value string) *UpdateApiKey {
 
 // Id The ID of the API key to update.
 // API Name: id
-func (r *UpdateApiKey) Id(id string) *UpdateApiKey {
+func (r *UpdateApiKey) _id(id string) *UpdateApiKey {
 	r.paramSet |= idMask
 	r.id = id
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Enables searching rolled-up data using the standard query DSL.
 package rollupsearch
@@ -71,7 +71,7 @@ func NewRollupSearchFunc(tp elastictransport.Interface) NewRollupSearch {
 	return func(index string) *RollupSearch {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -244,7 +244,7 @@ func (r *RollupSearch) Header(key, value string) *RollupSearch {
 
 // Index Enables searching rolled-up data using the standard Query DSL.
 // API Name: index
-func (r *RollupSearch) Index(index string) *RollupSearch {
+func (r *RollupSearch) _index(index string) *RollupSearch {
 	r.paramSet |= indexMask
 	r.index = index
 

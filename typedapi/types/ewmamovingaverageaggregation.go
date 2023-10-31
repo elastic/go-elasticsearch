@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // EwmaMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/aggregations/pipeline.ts#L252-L255
+// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_types/aggregations/pipeline.ts#L252-L255
 type EwmaMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`

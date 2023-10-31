@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Clones an index
 package clone
@@ -73,9 +73,9 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 	return func(index, target string) *Clone {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.Target(target)
+		n._target(target)
 
 		return n
 	}
@@ -249,7 +249,7 @@ func (r *Clone) Header(key, value string) *Clone {
 
 // Index Name of the source index to clone.
 // API Name: index
-func (r *Clone) Index(index string) *Clone {
+func (r *Clone) _index(index string) *Clone {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -258,7 +258,7 @@ func (r *Clone) Index(index string) *Clone {
 
 // Target Name of the target index to create.
 // API Name: target
-func (r *Clone) Target(target string) *Clone {
+func (r *Clone) _target(target string) *Clone {
 	r.paramSet |= targetMask
 	r.target = target
 

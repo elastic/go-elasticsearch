@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes an existing model snapshot.
 package deletemodelsnapshot
@@ -70,9 +70,9 @@ func NewDeleteModelSnapshotFunc(tp elastictransport.Interface) NewDeleteModelSna
 	return func(jobid, snapshotid string) *DeleteModelSnapshot {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
-		n.SnapshotId(snapshotid)
+		n._snapshotid(snapshotid)
 
 		return n
 	}
@@ -225,7 +225,7 @@ func (r *DeleteModelSnapshot) Header(key, value string) *DeleteModelSnapshot {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *DeleteModelSnapshot) JobId(jobid string) *DeleteModelSnapshot {
+func (r *DeleteModelSnapshot) _jobid(jobid string) *DeleteModelSnapshot {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 
@@ -234,7 +234,7 @@ func (r *DeleteModelSnapshot) JobId(jobid string) *DeleteModelSnapshot {
 
 // SnapshotId Identifier for the model snapshot.
 // API Name: snapshotid
-func (r *DeleteModelSnapshot) SnapshotId(snapshotid string) *DeleteModelSnapshot {
+func (r *DeleteModelSnapshot) _snapshotid(snapshotid string) *DeleteModelSnapshot {
 	r.paramSet |= snapshotidMask
 	r.snapshotid = snapshotid
 
