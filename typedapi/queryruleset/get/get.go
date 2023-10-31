@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Returns the details about a query ruleset.
 package get
@@ -67,7 +67,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	return func(rulesetid string) *Get {
 		n := New(tp)
 
-		n.RulesetId(rulesetid)
+		n._rulesetid(rulesetid)
 
 		return n
 	}
@@ -213,7 +213,7 @@ func (r *Get) Header(key, value string) *Get {
 
 // RulesetId The unique identifier of the query ruleset
 // API Name: rulesetid
-func (r *Get) RulesetId(rulesetid string) *Get {
+func (r *Get) _rulesetid(rulesetid string) *Get {
 	r.paramSet |= rulesetidMask
 	r.rulesetid = rulesetid
 

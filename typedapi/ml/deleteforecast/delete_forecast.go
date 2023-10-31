@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes forecasts from a machine learning job.
 package deleteforecast
@@ -71,7 +71,7 @@ func NewDeleteForecastFunc(tp elastictransport.Interface) NewDeleteForecast {
 	return func(jobid string) *DeleteForecast {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -236,7 +236,7 @@ func (r *DeleteForecast) Header(key, value string) *DeleteForecast {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *DeleteForecast) JobId(jobid string) *DeleteForecast {
+func (r *DeleteForecast) _jobid(jobid string) *DeleteForecast {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

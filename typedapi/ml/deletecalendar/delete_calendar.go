@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes a calendar.
 package deletecalendar
@@ -67,7 +67,7 @@ func NewDeleteCalendarFunc(tp elastictransport.Interface) NewDeleteCalendar {
 	return func(calendarid string) *DeleteCalendar {
 		n := New(tp)
 
-		n.CalendarId(calendarid)
+		n._calendarid(calendarid)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *DeleteCalendar) Header(key, value string) *DeleteCalendar {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *DeleteCalendar) CalendarId(calendarid string) *DeleteCalendar {
+func (r *DeleteCalendar) _calendarid(calendarid string) *DeleteCalendar {
 	r.paramSet |= calendaridMask
 	r.calendarid = calendarid
 

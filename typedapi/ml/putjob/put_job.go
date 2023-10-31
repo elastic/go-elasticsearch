@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Instantiates an anomaly detection job.
 package putjob
@@ -70,7 +70,7 @@ func NewPutJobFunc(tp elastictransport.Interface) NewPutJob {
 	return func(jobid string) *PutJob {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *PutJob) Header(key, value string) *PutJob {
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and underscores. It
 // must start and end with alphanumeric characters.
 // API Name: jobid
-func (r *PutJob) JobId(jobid string) *PutJob {
+func (r *PutJob) _jobid(jobid string) *PutJob {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Changes the number of requests per second for a particular Update By Query
 // operation.
@@ -68,7 +68,7 @@ func NewUpdateByQueryRethrottleFunc(tp elastictransport.Interface) NewUpdateByQu
 	return func(taskid string) *UpdateByQueryRethrottle {
 		n := New(tp)
 
-		n.TaskId(taskid)
+		n._taskid(taskid)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *UpdateByQueryRethrottle) Header(key, value string) *UpdateByQueryRethro
 
 // TaskId The ID for the task.
 // API Name: taskid
-func (r *UpdateByQueryRethrottle) TaskId(taskid string) *UpdateByQueryRethrottle {
+func (r *UpdateByQueryRethrottle) _taskid(taskid string) *UpdateByQueryRethrottle {
 	r.paramSet |= taskidMask
 	r.taskid = taskid
 

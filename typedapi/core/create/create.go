@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a new document in the index.
 //
@@ -78,9 +78,9 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 	return func(index, id string) *Create {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -262,7 +262,7 @@ func (r *Create) Header(key, value string) *Create {
 
 // Id Unique identifier for the document.
 // API Name: id
-func (r *Create) Id(id string) *Create {
+func (r *Create) _id(id string) *Create {
 	r.paramSet |= idMask
 	r.id = id
 
@@ -276,7 +276,7 @@ func (r *Create) Id(id string) *Create {
 // If the target doesn’t exist and doesn’t match a data stream template, this
 // request creates the index.
 // API Name: index
-func (r *Create) Index(index string) *Create {
+func (r *Create) _index(index string) *Create {
 	r.paramSet |= indexMask
 	r.index = index
 

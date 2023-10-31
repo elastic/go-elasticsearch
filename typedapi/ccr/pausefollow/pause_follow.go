@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Pauses a follower index. The follower index will not fetch any additional
 // operations from the leader index.
@@ -68,7 +68,7 @@ func NewPauseFollowFunc(tp elastictransport.Interface) NewPauseFollow {
 	return func(index string) *PauseFollow {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *PauseFollow) Header(key, value string) *PauseFollow {
 
 // Index The name of the follower index that should pause following its leader index.
 // API Name: index
-func (r *PauseFollow) Index(index string) *PauseFollow {
+func (r *PauseFollow) _index(index string) *PauseFollow {
 	r.paramSet |= indexMask
 	r.index = index
 

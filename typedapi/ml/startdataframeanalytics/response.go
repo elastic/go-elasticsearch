@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 package startdataframeanalytics
 
 // Response holds the response body struct for the package startdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ml/start_data_frame_analytics/MlStartDataFrameAnalyticsResponse.ts#L22-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/ml/start_data_frame_analytics/MlStartDataFrameAnalyticsResponse.ts#L22-L34
 
 type Response struct {
 	Acknowledged bool `json:"acknowledged"`

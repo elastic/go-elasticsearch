@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Changes the number of requests per second for a particular Reindex operation.
 package reindexrethrottle
@@ -67,7 +67,7 @@ func NewReindexRethrottleFunc(tp elastictransport.Interface) NewReindexRethrottl
 	return func(taskid string) *ReindexRethrottle {
 		n := New(tp)
 
-		n.TaskId(taskid)
+		n._taskid(taskid)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *ReindexRethrottle) Header(key, value string) *ReindexRethrottle {
 
 // TaskId Identifier for the task.
 // API Name: taskid
-func (r *ReindexRethrottle) TaskId(taskid string) *ReindexRethrottle {
+func (r *ReindexRethrottle) _taskid(taskid string) *ReindexRethrottle {
 	r.paramSet |= taskidMask
 	r.taskid = taskid
 

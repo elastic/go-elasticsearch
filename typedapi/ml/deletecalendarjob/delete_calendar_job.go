@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes anomaly detection jobs from a calendar.
 package deletecalendarjob
@@ -70,9 +70,9 @@ func NewDeleteCalendarJobFunc(tp elastictransport.Interface) NewDeleteCalendarJo
 	return func(calendarid, jobid string) *DeleteCalendarJob {
 		n := New(tp)
 
-		n.CalendarId(calendarid)
+		n._calendarid(calendarid)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -225,7 +225,7 @@ func (r *DeleteCalendarJob) Header(key, value string) *DeleteCalendarJob {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *DeleteCalendarJob) CalendarId(calendarid string) *DeleteCalendarJob {
+func (r *DeleteCalendarJob) _calendarid(calendarid string) *DeleteCalendarJob {
 	r.paramSet |= calendaridMask
 	r.calendarid = calendarid
 
@@ -236,7 +236,7 @@ func (r *DeleteCalendarJob) CalendarId(calendarid string) *DeleteCalendarJob {
 // group name, or a
 // comma-separated list of jobs or groups.
 // API Name: jobid
-func (r *DeleteCalendarJob) JobId(jobid string) *DeleteCalendarJob {
+func (r *DeleteCalendarJob) _jobid(jobid string) *DeleteCalendarJob {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

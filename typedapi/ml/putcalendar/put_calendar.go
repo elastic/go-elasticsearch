@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Instantiates a calendar.
 package putcalendar
@@ -70,7 +70,7 @@ func NewPutCalendarFunc(tp elastictransport.Interface) NewPutCalendar {
 	return func(calendarid string) *PutCalendar {
 		n := New(tp)
 
-		n.CalendarId(calendarid)
+		n._calendarid(calendarid)
 
 		return n
 	}
@@ -243,7 +243,7 @@ func (r *PutCalendar) Header(key, value string) *PutCalendar {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *PutCalendar) CalendarId(calendarid string) *PutCalendar {
+func (r *PutCalendar) _calendarid(calendarid string) *PutCalendar {
 	r.paramSet |= calendaridMask
 	r.calendarid = calendarid
 

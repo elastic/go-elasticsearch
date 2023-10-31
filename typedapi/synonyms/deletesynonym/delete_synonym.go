@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes a synonym set
 package deletesynonym
@@ -67,7 +67,7 @@ func NewDeleteSynonymFunc(tp elastictransport.Interface) NewDeleteSynonym {
 	return func(id string) *DeleteSynonym {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -213,7 +213,7 @@ func (r *DeleteSynonym) Header(key, value string) *DeleteSynonym {
 
 // Id The id of the synonyms set to be deleted
 // API Name: id
-func (r *DeleteSynonym) Id(id string) *DeleteSynonym {
+func (r *DeleteSynonym) _id(id string) *DeleteSynonym {
 	r.paramSet |= idMask
 	r.id = id
 

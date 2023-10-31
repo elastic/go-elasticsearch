@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes an autoscaling policy. Designed for indirect use by ECE/ESS and ECK.
 // Direct use is not supported.
@@ -68,7 +68,7 @@ func NewDeleteAutoscalingPolicyFunc(tp elastictransport.Interface) NewDeleteAuto
 	return func(name string) *DeleteAutoscalingPolicy {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *DeleteAutoscalingPolicy) Header(key, value string) *DeleteAutoscalingPo
 
 // Name the name of the autoscaling policy
 // API Name: name
-func (r *DeleteAutoscalingPolicy) Name(name string) *DeleteAutoscalingPolicy {
+func (r *DeleteAutoscalingPolicy) _name(name string) *DeleteAutoscalingPolicy {
 	r.paramSet |= nameMask
 	r.name = name
 

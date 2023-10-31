@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes the specified lifecycle policy definition. A currently used policy
 // cannot be deleted.
@@ -68,7 +68,7 @@ func NewDeleteLifecycleFunc(tp elastictransport.Interface) NewDeleteLifecycle {
 	return func(policy string) *DeleteLifecycle {
 		n := New(tp)
 
-		n.Policy(policy)
+		n._policy(policy)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *DeleteLifecycle) Header(key, value string) *DeleteLifecycle {
 
 // Policy Identifier for the policy.
 // API Name: policy
-func (r *DeleteLifecycle) Policy(policy string) *DeleteLifecycle {
+func (r *DeleteLifecycle) _policy(policy string) *DeleteLifecycle {
 	r.paramSet |= policyMask
 	r.policy = policy
 

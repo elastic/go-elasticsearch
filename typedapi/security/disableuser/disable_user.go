@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Disables users in the native realm.
 package disableuser
@@ -68,7 +68,7 @@ func NewDisableUserFunc(tp elastictransport.Interface) NewDisableUser {
 	return func(username string) *DisableUser {
 		n := New(tp)
 
-		n.Username(username)
+		n._username(username)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *DisableUser) Header(key, value string) *DisableUser {
 
 // Username The username of the user to disable
 // API Name: username
-func (r *DisableUser) Username(username string) *DisableUser {
+func (r *DisableUser) _username(username string) *DisableUser {
 	r.paramSet |= usernameMask
 	r.username = username
 

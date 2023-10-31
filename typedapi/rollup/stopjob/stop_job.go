@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Stops an existing, started rollup job.
 package stopjob
@@ -68,7 +68,7 @@ func NewStopJobFunc(tp elastictransport.Interface) NewStopJob {
 	return func(id string) *StopJob {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *StopJob) Header(key, value string) *StopJob {
 
 // Id Identifier for the rollup job.
 // API Name: id
-func (r *StopJob) Id(id string) *StopJob {
+func (r *StopJob) _id(id string) *StopJob {
 	r.paramSet |= idMask
 	r.id = id
 

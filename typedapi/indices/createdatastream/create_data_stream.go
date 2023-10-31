@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a data stream
 package createdatastream
@@ -67,7 +67,7 @@ func NewCreateDataStreamFunc(tp elastictransport.Interface) NewCreateDataStream 
 	return func(name string) *CreateDataStream {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -220,7 +220,7 @@ func (r *CreateDataStream) Header(key, value string) *CreateDataStream {
 // Cannot be longer than 255 bytes. Multi-byte characters count towards this
 // limit faster.
 // API Name: name
-func (r *CreateDataStream) Name(name string) *CreateDataStream {
+func (r *CreateDataStream) _name(name string) *CreateDataStream {
 	r.paramSet |= nameMask
 	r.name = name
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Updates certain properties of a transform.
 package updatetransform
@@ -71,7 +71,7 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 	return func(transformid string) *UpdateTransform {
 		n := New(tp)
 
-		n.TransformId(transformid)
+		n._transformid(transformid)
 
 		return n
 	}
@@ -244,7 +244,7 @@ func (r *UpdateTransform) Header(key, value string) *UpdateTransform {
 
 // TransformId Identifier for the transform.
 // API Name: transformid
-func (r *UpdateTransform) TransformId(transformid string) *UpdateTransform {
+func (r *UpdateTransform) _transformid(transformid string) *UpdateTransform {
 	r.paramSet |= transformidMask
 	r.transformid = transformid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates or updates a document in an index.
 package index
@@ -77,7 +77,7 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 	return func(index string) *Index {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -273,7 +273,7 @@ func (r *Index) Id(id string) *Index {
 
 // Index Name of the data stream or index to target.
 // API Name: index
-func (r *Index) Index(index string) *Index {
+func (r *Index) _index(index string) *Index {
 	r.paramSet |= indexMask
 	r.index = index
 

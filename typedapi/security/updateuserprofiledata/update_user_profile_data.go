@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Update application specific data for the user profile of the given unique ID.
 package updateuserprofiledata
@@ -71,7 +71,7 @@ func NewUpdateUserProfileDataFunc(tp elastictransport.Interface) NewUpdateUserPr
 	return func(uid string) *UpdateUserProfileData {
 		n := New(tp)
 
-		n.Uid(uid)
+		n._uid(uid)
 
 		return n
 	}
@@ -246,7 +246,7 @@ func (r *UpdateUserProfileData) Header(key, value string) *UpdateUserProfileData
 
 // Uid A unique identifier for the user profile.
 // API Name: uid
-func (r *UpdateUserProfileData) Uid(uid string) *UpdateUserProfileData {
+func (r *UpdateUserProfileData) _uid(uid string) *UpdateUserProfileData {
 	r.paramSet |= uidMask
 	r.uid = uid
 

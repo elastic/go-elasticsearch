@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a repository.
 package createrepository
@@ -71,7 +71,7 @@ func NewCreateRepositoryFunc(tp elastictransport.Interface) NewCreateRepository 
 	return func(repository string) *CreateRepository {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
 		return n
 	}
@@ -242,7 +242,7 @@ func (r *CreateRepository) Header(key, value string) *CreateRepository {
 
 // Repository A repository name
 // API Name: repository
-func (r *CreateRepository) Repository(repository string) *CreateRepository {
+func (r *CreateRepository) _repository(repository string) *CreateRepository {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 

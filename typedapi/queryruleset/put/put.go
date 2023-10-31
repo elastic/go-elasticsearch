@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates or updates a query ruleset.
 package put
@@ -70,7 +70,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 	return func(rulesetid string) *Put {
 		n := New(tp)
 
-		n.RulesetId(rulesetid)
+		n._rulesetid(rulesetid)
 
 		return n
 	}
@@ -241,7 +241,7 @@ func (r *Put) Header(key, value string) *Put {
 
 // RulesetId The unique identifier of the query ruleset to be created or updated
 // API Name: rulesetid
-func (r *Put) RulesetId(rulesetid string) *Put {
+func (r *Put) _rulesetid(rulesetid string) *Put {
 	r.paramSet |= rulesetidMask
 	r.rulesetid = rulesetid
 

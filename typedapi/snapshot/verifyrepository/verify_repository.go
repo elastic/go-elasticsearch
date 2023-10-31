@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Verifies a repository.
 package verifyrepository
@@ -67,7 +67,7 @@ func NewVerifyRepositoryFunc(tp elastictransport.Interface) NewVerifyRepository 
 	return func(repository string) *VerifyRepository {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *VerifyRepository) Header(key, value string) *VerifyRepository {
 
 // Repository A repository name
 // API Name: repository
-func (r *VerifyRepository) Repository(repository string) *VerifyRepository {
+func (r *VerifyRepository) _repository(repository string) *VerifyRepository {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 

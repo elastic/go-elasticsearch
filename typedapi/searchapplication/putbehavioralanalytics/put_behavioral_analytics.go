@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a behavioral analytics collection.
 package putbehavioralanalytics
@@ -67,7 +67,7 @@ func NewPutBehavioralAnalyticsFunc(tp elastictransport.Interface) NewPutBehavior
 	return func(name string) *PutBehavioralAnalytics {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *PutBehavioralAnalytics) Header(key, value string) *PutBehavioralAnalyti
 
 // Name The name of the analytics collection to be created or updated.
 // API Name: name
-func (r *PutBehavioralAnalytics) Name(name string) *PutBehavioralAnalytics {
+func (r *PutBehavioralAnalytics) _name(name string) *PutBehavioralAnalytics {
 	r.paramSet |= nameMask
 	r.name = name
 

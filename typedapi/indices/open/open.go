@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Opens an index.
 package open
@@ -69,7 +69,7 @@ func NewOpenFunc(tp elastictransport.Interface) NewOpen {
 	return func(index string) *Open {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -223,7 +223,7 @@ func (r *Open) Header(key, value string) *Open {
 // You can update this setting in the `elasticsearch.yml` file or using the
 // cluster update settings API.
 // API Name: index
-func (r *Open) Index(index string) *Open {
+func (r *Open) _index(index string) *Open {
 	r.paramSet |= indexMask
 	r.index = index
 

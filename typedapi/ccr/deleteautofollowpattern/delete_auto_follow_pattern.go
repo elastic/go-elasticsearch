@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes auto-follow patterns.
 package deleteautofollowpattern
@@ -67,7 +67,7 @@ func NewDeleteAutoFollowPatternFunc(tp elastictransport.Interface) NewDeleteAuto
 	return func(name string) *DeleteAutoFollowPattern {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *DeleteAutoFollowPattern) Header(key, value string) *DeleteAutoFollowPat
 
 // Name The name of the auto follow pattern.
 // API Name: name
-func (r *DeleteAutoFollowPattern) Name(name string) *DeleteAutoFollowPattern {
+func (r *DeleteAutoFollowPattern) _name(name string) *DeleteAutoFollowPattern {
 	r.paramSet |= nameMask
 	r.name = name
 

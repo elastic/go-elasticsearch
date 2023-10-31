@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Search API where the search will only be executed after specified checkpoints
 // are available due to a refresh. This API is designed for internal use by the
@@ -77,7 +77,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	return func(index string) *Search {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -86,6 +86,8 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // Search API where the search will only be executed after specified checkpoints
 // are available due to a refresh. This API is designed for internal use by the
 // fleet server project.
+//
+//
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -253,7 +255,7 @@ func (r *Search) Header(key, value string) *Search {
 // Index A single target to search. If the target is an index alias, it must resolve
 // to a single index.
 // API Name: index
-func (r *Search) Index(index string) *Search {
+func (r *Search) _index(index string) *Search {
 	r.paramSet |= indexMask
 	r.index = index
 

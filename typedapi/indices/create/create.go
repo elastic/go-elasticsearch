@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates an index with optional settings and mappings.
 package create
@@ -70,7 +70,7 @@ func NewCreateFunc(tp elastictransport.Interface) NewCreate {
 	return func(index string) *Create {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -239,7 +239,7 @@ func (r *Create) Header(key, value string) *Create {
 
 // Index Name of the index you wish to create.
 // API Name: index
-func (r *Create) Index(index string) *Create {
+func (r *Create) _index(index string) *Create {
 	r.paramSet |= indexMask
 	r.index = index
 

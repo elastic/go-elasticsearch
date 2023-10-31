@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Performs an update on every document in the index without changing the
 // source,
@@ -77,7 +77,7 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 	return func(index string) *UpdateByQuery {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -253,7 +253,7 @@ func (r *UpdateByQuery) Header(key, value string) *UpdateByQuery {
 // To search all data streams or indices, omit this parameter or use `*` or
 // `_all`.
 // API Name: index
-func (r *UpdateByQuery) Index(index string) *UpdateByQuery {
+func (r *UpdateByQuery) _index(index string) *UpdateByQuery {
 	r.paramSet |= indexMask
 	r.index = index
 

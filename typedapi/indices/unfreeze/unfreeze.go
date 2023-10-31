@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Unfreezes an index. When a frozen index is unfrozen, the index goes through
 // the normal recovery process and becomes writeable again.
@@ -70,7 +70,7 @@ func NewUnfreezeFunc(tp elastictransport.Interface) NewUnfreeze {
 	return func(index string) *Unfreeze {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *Unfreeze) Header(key, value string) *Unfreeze {
 
 // Index Identifier for the index.
 // API Name: index
-func (r *Unfreeze) Index(index string) *Unfreeze {
+func (r *Unfreeze) _index(index string) *Unfreeze {
 	r.paramSet |= indexMask
 	r.index = index
 

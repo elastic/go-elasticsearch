@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Promotes a data stream from a replicated data stream managed by CCR to a
 // regular data stream
@@ -68,7 +68,7 @@ func NewPromoteDataStreamFunc(tp elastictransport.Interface) NewPromoteDataStrea
 	return func(name string) *PromoteDataStream {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *PromoteDataStream) Header(key, value string) *PromoteDataStream {
 
 // Name The name of the data stream
 // API Name: name
-func (r *PromoteDataStream) Name(name string) *PromoteDataStream {
+func (r *PromoteDataStream) _name(name string) *PromoteDataStream {
 	r.paramSet |= nameMask
 	r.name = name
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates or updates a component template
 package putcomponenttemplate
@@ -71,7 +71,7 @@ func NewPutComponentTemplateFunc(tp elastictransport.Interface) NewPutComponentT
 	return func(name string) *PutComponentTemplate {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -252,7 +252,7 @@ func (r *PutComponentTemplate) Header(key, value string) *PutComponentTemplate {
 // index templates, set `stack.templates.enabled` to `false` using the cluster
 // update settings API.
 // API Name: name
-func (r *PutComponentTemplate) Name(name string) *PutComponentTemplate {
+func (r *PutComponentTemplate) _name(name string) *PutComponentTemplate {
 	r.paramSet |= nameMask
 	r.name = name
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Resumes an auto-follow pattern that has been paused
 package resumeautofollowpattern
@@ -67,7 +67,7 @@ func NewResumeAutoFollowPatternFunc(tp elastictransport.Interface) NewResumeAuto
 	return func(name string) *ResumeAutoFollowPattern {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *ResumeAutoFollowPattern) Header(key, value string) *ResumeAutoFollowPat
 // Name The name of the auto follow pattern to resume discovering new indices to
 // follow.
 // API Name: name
-func (r *ResumeAutoFollowPattern) Name(name string) *ResumeAutoFollowPattern {
+func (r *ResumeAutoFollowPattern) _name(name string) *ResumeAutoFollowPattern {
 	r.paramSet |= nameMask
 	r.name = name
 

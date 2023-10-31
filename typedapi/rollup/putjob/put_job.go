@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Creates a rollup job.
 package putjob
@@ -70,7 +70,7 @@ func NewPutJobFunc(tp elastictransport.Interface) NewPutJob {
 	return func(id string) *PutJob {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -251,7 +251,7 @@ func (r *PutJob) Header(key, value string) *PutJob {
 // job with the same ID
 // since that could lead to problems with mismatched job configurations.
 // API Name: id
-func (r *PutJob) Id(id string) *PutJob {
+func (r *PutJob) _id(id string) *PutJob {
 	r.paramSet |= idMask
 	r.id = id
 

@@ -47,7 +47,7 @@ func (f *Float64) UnmarshalJSON(data []byte) error {
 	switch {
 	case bytes.Equal(data, []byte(`"NaN"`)):
 		*f = Float64(math.NaN())
-	case bytes.Equal(data, []byte(`"+Infinity"`)):
+	case bytes.Equal(data, []byte(`"Infinity"`)):
 		*f = Float64(math.Inf(1))
 	case bytes.Equal(data, []byte(`"-Infinity"`)):
 		*f = Float64(math.Inf(-1))

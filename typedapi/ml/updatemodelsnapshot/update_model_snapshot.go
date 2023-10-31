@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Updates certain properties of a snapshot.
 package updatemodelsnapshot
@@ -73,9 +73,9 @@ func NewUpdateModelSnapshotFunc(tp elastictransport.Interface) NewUpdateModelSna
 	return func(jobid, snapshotid string) *UpdateModelSnapshot {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
-		n.SnapshotId(snapshotid)
+		n._snapshotid(snapshotid)
 
 		return n
 	}
@@ -255,7 +255,7 @@ func (r *UpdateModelSnapshot) Header(key, value string) *UpdateModelSnapshot {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *UpdateModelSnapshot) JobId(jobid string) *UpdateModelSnapshot {
+func (r *UpdateModelSnapshot) _jobid(jobid string) *UpdateModelSnapshot {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 
@@ -264,7 +264,7 @@ func (r *UpdateModelSnapshot) JobId(jobid string) *UpdateModelSnapshot {
 
 // SnapshotId Identifier for the model snapshot.
 // API Name: snapshotid
-func (r *UpdateModelSnapshot) SnapshotId(snapshotid string) *UpdateModelSnapshot {
+func (r *UpdateModelSnapshot) _snapshotid(snapshotid string) *UpdateModelSnapshot {
 	r.paramSet |= snapshotidMask
 	r.snapshotid = snapshotid
 

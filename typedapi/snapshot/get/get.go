@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Returns information about a snapshot.
 package get
@@ -73,9 +73,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	return func(repository, snapshot string) *Get {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
-		n.Snapshot(snapshot)
+		n._snapshot(snapshot)
 
 		return n
 	}
@@ -225,7 +225,7 @@ func (r *Get) Header(key, value string) *Get {
 // Repository Comma-separated list of snapshot repository names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: repository
-func (r *Get) Repository(repository string) *Get {
+func (r *Get) _repository(repository string) *Get {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 
@@ -239,7 +239,7 @@ func (r *Get) Repository(repository string) *Get {
 // - To get information about any snapshots that are currently running, use
 // _current.
 // API Name: snapshot
-func (r *Get) Snapshot(snapshot string) *Get {
+func (r *Get) _snapshot(snapshot string) *Get {
 	r.paramSet |= snapshotMask
 	r.snapshot = snapshot
 

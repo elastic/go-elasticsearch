@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Returns information about whether a particular component template exist
 package existscomponenttemplate
@@ -66,7 +66,7 @@ func NewExistsComponentTemplateFunc(tp elastictransport.Interface) NewExistsComp
 	return func(name string) *ExistsComponentTemplate {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -185,7 +185,7 @@ func (r *ExistsComponentTemplate) Header(key, value string) *ExistsComponentTemp
 // Name Comma-separated list of component template names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: name
-func (r *ExistsComponentTemplate) Name(name string) *ExistsComponentTemplate {
+func (r *ExistsComponentTemplate) _name(name string) *ExistsComponentTemplate {
 	r.paramSet |= nameMask
 	r.name = name
 

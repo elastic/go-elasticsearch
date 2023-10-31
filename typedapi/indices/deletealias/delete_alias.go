@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Deletes an alias.
 package deletealias
@@ -70,9 +70,9 @@ func NewDeleteAliasFunc(tp elastictransport.Interface) NewDeleteAlias {
 	return func(index, name string) *DeleteAlias {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -233,7 +233,7 @@ func (r *DeleteAlias) Header(key, value string) *DeleteAlias {
 // Index Comma-separated list of data streams or indices used to limit the request.
 // Supports wildcards (`*`).
 // API Name: index
-func (r *DeleteAlias) Index(index string) *DeleteAlias {
+func (r *DeleteAlias) _index(index string) *DeleteAlias {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -243,7 +243,7 @@ func (r *DeleteAlias) Index(index string) *DeleteAlias {
 // Name Comma-separated list of aliases to remove.
 // Supports wildcards (`*`). To remove all aliases, use `*` or `_all`.
 // API Name: name
-func (r *DeleteAlias) Name(name string) *DeleteAlias {
+func (r *DeleteAlias) _name(name string) *DeleteAlias {
 	r.paramSet |= nameMask
 	r.name = name
 

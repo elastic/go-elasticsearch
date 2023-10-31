@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Clones indices from one snapshot into another snapshot in the same
 // repository.
@@ -77,11 +77,11 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 	return func(repository, snapshot, targetsnapshot string) *Clone {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
-		n.Snapshot(snapshot)
+		n._snapshot(snapshot)
 
-		n.TargetSnapshot(targetsnapshot)
+		n._targetsnapshot(targetsnapshot)
 
 		return n
 	}
@@ -261,7 +261,7 @@ func (r *Clone) Header(key, value string) *Clone {
 
 // Repository A repository name
 // API Name: repository
-func (r *Clone) Repository(repository string) *Clone {
+func (r *Clone) _repository(repository string) *Clone {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 
@@ -270,7 +270,7 @@ func (r *Clone) Repository(repository string) *Clone {
 
 // Snapshot The name of the snapshot to clone from
 // API Name: snapshot
-func (r *Clone) Snapshot(snapshot string) *Clone {
+func (r *Clone) _snapshot(snapshot string) *Clone {
 	r.paramSet |= snapshotMask
 	r.snapshot = snapshot
 
@@ -279,7 +279,7 @@ func (r *Clone) Snapshot(snapshot string) *Clone {
 
 // TargetSnapshot The name of the cloned snapshot to create
 // API Name: targetsnapshot
-func (r *Clone) TargetSnapshot(targetsnapshot string) *Clone {
+func (r *Clone) _targetsnapshot(targetsnapshot string) *Clone {
 	r.paramSet |= targetsnapshotMask
 	r.targetsnapshot = targetsnapshot
 

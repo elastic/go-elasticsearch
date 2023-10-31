@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Retrieves information of all service credentials for a service account.
 package getservicecredentials
@@ -70,9 +70,9 @@ func NewGetServiceCredentialsFunc(tp elastictransport.Interface) NewGetServiceCr
 	return func(namespace, service string) *GetServiceCredentials {
 		n := New(tp)
 
-		n.Namespace(namespace)
+		n._namespace(namespace)
 
-		n.Service(service)
+		n._service(service)
 
 		return n
 	}
@@ -225,7 +225,7 @@ func (r *GetServiceCredentials) Header(key, value string) *GetServiceCredentials
 
 // Namespace Name of the namespace.
 // API Name: namespace
-func (r *GetServiceCredentials) Namespace(namespace string) *GetServiceCredentials {
+func (r *GetServiceCredentials) _namespace(namespace string) *GetServiceCredentials {
 	r.paramSet |= namespaceMask
 	r.namespace = namespace
 
@@ -234,7 +234,7 @@ func (r *GetServiceCredentials) Namespace(namespace string) *GetServiceCredentia
 
 // Service Name of the service name.
 // API Name: service
-func (r *GetServiceCredentials) Service(service string) *GetServiceCredentials {
+func (r *GetServiceCredentials) _service(service string) *GetServiceCredentials {
 	r.paramSet |= serviceMask
 	r.service = service
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Instantiates a data frame analytics job.
 package putdataframeanalytics
@@ -70,7 +70,7 @@ func NewPutDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPutDataFrame
 	return func(id string) *PutDataFrameAnalytics {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -247,7 +247,7 @@ func (r *PutDataFrameAnalytics) Header(key, value string) *PutDataFrameAnalytics
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and
 // underscores. It must start and end with alphanumeric characters.
 // API Name: id
-func (r *PutDataFrameAnalytics) Id(id string) *PutDataFrameAnalytics {
+func (r *PutDataFrameAnalytics) _id(id string) *PutDataFrameAnalytics {
 	r.paramSet |= idMask
 	r.id = id
 

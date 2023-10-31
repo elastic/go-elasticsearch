@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Returns the field usage stats for each field of an index
 package fieldusagestats
@@ -69,7 +69,7 @@ func NewFieldUsageStatsFunc(tp elastictransport.Interface) NewFieldUsageStats {
 	return func(index string) *FieldUsageStats {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -216,7 +216,7 @@ func (r *FieldUsageStats) Header(key, value string) *FieldUsageStats {
 // Index Comma-separated list or wildcard expression of index names used to limit the
 // request.
 // API Name: index
-func (r *FieldUsageStats) Index(index string) *FieldUsageStats {
+func (r *FieldUsageStats) _index(index string) *FieldUsageStats {
 	r.paramSet |= indexMask
 	r.index = index
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Analyzes the disk usage of each field of an index or data stream
 package diskusage
@@ -69,7 +69,7 @@ func NewDiskUsageFunc(tp elastictransport.Interface) NewDiskUsage {
 	return func(index string) *DiskUsage {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *DiskUsage) Header(key, value string) *DiskUsage {
 // It’s recommended to execute this API with a single index (or the latest
 // backing index of a data stream) as the API consumes resources significantly.
 // API Name: index
-func (r *DiskUsage) Index(index string) *DiskUsage {
+func (r *DiskUsage) _index(index string) *DiskUsage {
 	r.paramSet |= indexMask
 	r.index = index
 

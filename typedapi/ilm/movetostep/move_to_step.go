@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Manually moves an index into the specified step and executes that step.
 package movetostep
@@ -70,7 +70,7 @@ func NewMoveToStepFunc(tp elastictransport.Interface) NewMoveToStep {
 	return func(index string) *MoveToStep {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -243,7 +243,7 @@ func (r *MoveToStep) Header(key, value string) *MoveToStep {
 
 // Index The name of the index whose lifecycle step is to change
 // API Name: index
-func (r *MoveToStep) Index(index string) *MoveToStep {
+func (r *MoveToStep) _index(index string) *MoveToStep {
 	r.paramSet |= indexMask
 	r.index = index
 

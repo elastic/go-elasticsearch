@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Removes a node from the shutdown list. Designed for indirect use by ECE/ESS
 // and ECK. Direct use is not supported.
@@ -69,7 +69,7 @@ func NewDeleteNodeFunc(tp elastictransport.Interface) NewDeleteNode {
 	return func(nodeid string) *DeleteNode {
 		n := New(tp)
 
-		n.NodeId(nodeid)
+		n._nodeid(nodeid)
 
 		return n
 	}
@@ -224,7 +224,7 @@ func (r *DeleteNode) Header(key, value string) *DeleteNode {
 
 // NodeId The node id of node to be removed from the shutdown state
 // API Name: nodeid
-func (r *DeleteNode) NodeId(nodeid string) *DeleteNode {
+func (r *DeleteNode) _nodeid(nodeid string) *DeleteNode {
 	r.paramSet |= nodeidMask
 	r.nodeid = nodeid
 

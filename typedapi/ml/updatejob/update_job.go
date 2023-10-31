@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Updates certain properties of an anomaly detection job.
 package updatejob
@@ -70,7 +70,7 @@ func NewUpdateJobFunc(tp elastictransport.Interface) NewUpdateJob {
 	return func(jobid string) *UpdateJob {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *UpdateJob) Header(key, value string) *UpdateJob {
 
 // JobId Identifier for the job.
 // API Name: jobid
-func (r *UpdateJob) JobId(jobid string) *UpdateJob {
+func (r *UpdateJob) _jobid(jobid string) *UpdateJob {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

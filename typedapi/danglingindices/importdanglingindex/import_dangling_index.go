@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
 
 // Imports the specified dangling index
 package importdanglingindex
@@ -68,7 +68,7 @@ func NewImportDanglingIndexFunc(tp elastictransport.Interface) NewImportDangling
 	return func(indexuuid string) *ImportDanglingIndex {
 		n := New(tp)
 
-		n.IndexUuid(indexuuid)
+		n._indexuuid(indexuuid)
 
 		return n
 	}
@@ -214,7 +214,7 @@ func (r *ImportDanglingIndex) Header(key, value string) *ImportDanglingIndex {
 
 // IndexUuid The UUID of the dangling index
 // API Name: indexuuid
-func (r *ImportDanglingIndex) IndexUuid(indexuuid string) *ImportDanglingIndex {
+func (r *ImportDanglingIndex) _indexuuid(indexuuid string) *ImportDanglingIndex {
 	r.paramSet |= indexuuidMask
 	r.indexuuid = indexuuid
 
