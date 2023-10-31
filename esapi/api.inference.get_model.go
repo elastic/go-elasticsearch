@@ -41,7 +41,7 @@ func newInferenceGetModelFunc(t Transport) InferenceGetModel {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/inference_get_model.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html.
 type InferenceGetModel func(model_id string, task_type string, o ...func(*InferenceGetModelRequest)) (*Response, error)
 
 // InferenceGetModelRequest configures the Inference Get Model API request.

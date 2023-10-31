@@ -41,6 +41,8 @@ func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
 
 // IndicesGetDataLifecycle returns the data stream lifecycle of the selected data streams.
 //
+// This API is experimental.
+//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html.
 type IndicesGetDataLifecycle func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error)
 
