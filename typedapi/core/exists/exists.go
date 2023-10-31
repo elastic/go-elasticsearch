@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns information about whether a document exists in an index.
 package exists
@@ -70,9 +70,9 @@ func NewExistsFunc(tp elastictransport.Interface) NewExists {
 	return func(index, id string) *Exists {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -193,7 +193,7 @@ func (r *Exists) Header(key, value string) *Exists {
 
 // Id Identifier of the document.
 // API Name: id
-func (r *Exists) Id(id string) *Exists {
+func (r *Exists) _id(id string) *Exists {
 	r.paramSet |= idMask
 	r.id = id
 
@@ -203,7 +203,7 @@ func (r *Exists) Id(id string) *Exists {
 // Index Comma-separated list of data streams, indices, and aliases.
 // Supports wildcards (`*`).
 // API Name: index
-func (r *Exists) Index(index string) *Exists {
+func (r *Exists) _index(index string) *Exists {
 	r.paramSet |= indexMask
 	r.index = index
 

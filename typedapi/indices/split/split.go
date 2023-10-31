@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Allows you to split an existing index into a new index with more primary
 // shards.
@@ -74,9 +74,9 @@ func NewSplitFunc(tp elastictransport.Interface) NewSplit {
 	return func(index, target string) *Split {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.Target(target)
+		n._target(target)
 
 		return n
 	}
@@ -251,7 +251,7 @@ func (r *Split) Header(key, value string) *Split {
 
 // Index Name of the source index to split.
 // API Name: index
-func (r *Split) Index(index string) *Split {
+func (r *Split) _index(index string) *Split {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -260,7 +260,7 @@ func (r *Split) Index(index string) *Split {
 
 // Target Name of the target index to create.
 // API Name: target
-func (r *Split) Target(target string) *Split {
+func (r *Split) _target(target string) *Split {
 	r.paramSet |= targetMask
 	r.target = target
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Adds a node to be shut down. Designed for indirect use by ECE/ESS and ECK.
 // Direct use is not supported.
@@ -73,7 +73,7 @@ func NewPutNodeFunc(tp elastictransport.Interface) NewPutNode {
 	return func(nodeid string) *PutNode {
 		n := New(tp)
 
-		n.NodeId(nodeid)
+		n._nodeid(nodeid)
 
 		return n
 	}
@@ -247,7 +247,7 @@ func (r *PutNode) Header(key, value string) *PutNode {
 
 // NodeId The node id of node to be shut down
 // API Name: nodeid
-func (r *PutNode) NodeId(nodeid string) *PutNode {
+func (r *PutNode) _nodeid(nodeid string) *PutNode {
 	r.paramSet |= nodeidMask
 	r.nodeid = nodeid
 

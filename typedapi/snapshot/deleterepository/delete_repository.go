@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes a repository.
 package deleterepository
@@ -67,7 +67,7 @@ func NewDeleteRepositoryFunc(tp elastictransport.Interface) NewDeleteRepository 
 	return func(repository string) *DeleteRepository {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
 		return n
 	}
@@ -214,7 +214,7 @@ func (r *DeleteRepository) Header(key, value string) *DeleteRepository {
 // Repository Name of the snapshot repository to unregister. Wildcard (`*`) patterns are
 // supported.
 // API Name: repository
-func (r *DeleteRepository) Repository(repository string) *DeleteRepository {
+func (r *DeleteRepository) _repository(repository string) *DeleteRepository {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 

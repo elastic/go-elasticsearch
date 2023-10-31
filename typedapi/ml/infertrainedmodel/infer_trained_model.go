@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Evaluate a trained model.
 package infertrainedmodel
@@ -70,7 +70,7 @@ func NewInferTrainedModelFunc(tp elastictransport.Interface) NewInferTrainedMode
 	return func(modelid string) *InferTrainedModel {
 		n := New(tp)
 
-		n.ModelId(modelid)
+		n._modelid(modelid)
 
 		return n
 	}
@@ -259,7 +259,7 @@ func (r *InferTrainedModel) Header(key, value string) *InferTrainedModel {
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *InferTrainedModel) ModelId(modelid string) *InferTrainedModel {
+func (r *InferTrainedModel) _modelid(modelid string) *InferTrainedModel {
 	r.paramSet |= modelidMask
 	r.modelid = modelid
 

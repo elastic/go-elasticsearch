@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Stops one or more data frame analytics jobs.
 package stopdataframeanalytics
@@ -68,7 +68,7 @@ func NewStopDataFrameAnalyticsFunc(tp elastictransport.Interface) NewStopDataFra
 	return func(id string) *StopDataFrameAnalytics {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -228,7 +228,7 @@ func (r *StopDataFrameAnalytics) Header(key, value string) *StopDataFrameAnalyti
 // lowercase alphanumeric characters (a-z and 0-9), hyphens, and
 // underscores. It must start and end with alphanumeric characters.
 // API Name: id
-func (r *StopDataFrameAnalytics) Id(id string) *StopDataFrameAnalytics {
+func (r *StopDataFrameAnalytics) _id(id string) *StopDataFrameAnalytics {
 	r.paramSet |= idMask
 	r.id = id
 

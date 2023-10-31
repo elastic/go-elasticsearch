@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Delete a behavioral analytics collection.
 package deletebehavioralanalytics
@@ -67,7 +67,7 @@ func NewDeleteBehavioralAnalyticsFunc(tp elastictransport.Interface) NewDeleteBe
 	return func(name string) *DeleteBehavioralAnalytics {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *DeleteBehavioralAnalytics) Header(key, value string) *DeleteBehavioralA
 
 // Name The name of the analytics collection to be deleted
 // API Name: name
-func (r *DeleteBehavioralAnalytics) Name(name string) *DeleteBehavioralAnalytics {
+func (r *DeleteBehavioralAnalytics) _name(name string) *DeleteBehavioralAnalytics {
 	r.paramSet |= nameMask
 	r.name = name
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns mapping for one or more fields.
 package getfieldmapping
@@ -72,7 +72,7 @@ func NewGetFieldMappingFunc(tp elastictransport.Interface) NewGetFieldMapping {
 	return func(fields string) *GetFieldMapping {
 		n := New(tp)
 
-		n.Fields(fields)
+		n._fields(fields)
 
 		return n
 	}
@@ -234,7 +234,7 @@ func (r *GetFieldMapping) Header(key, value string) *GetFieldMapping {
 // Fields Comma-separated list or wildcard expression of fields used to limit returned
 // information.
 // API Name: fields
-func (r *GetFieldMapping) Fields(fields string) *GetFieldMapping {
+func (r *GetFieldMapping) _fields(fields string) *GetFieldMapping {
 	r.paramSet |= fieldsMask
 	r.fields = fields
 

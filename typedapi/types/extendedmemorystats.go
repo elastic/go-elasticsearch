@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ExtendedMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/nodes/_types/Stats.ts#L622-L631
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/nodes/_types/Stats.ts#L622-L631
 type ExtendedMemoryStats struct {
 	// AdjustedTotalInBytes If the amount of physical memory has been overridden using the
 	// `es`.`total_memory_bytes` system property then this reports the overridden

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Instantiates a datafeed.
 package putdatafeed
@@ -72,7 +72,7 @@ func NewPutDatafeedFunc(tp elastictransport.Interface) NewPutDatafeed {
 	return func(datafeedid string) *PutDatafeed {
 		n := New(tp)
 
-		n.DatafeedId(datafeedid)
+		n._datafeedid(datafeedid)
 
 		return n
 	}
@@ -248,7 +248,7 @@ func (r *PutDatafeed) Header(key, value string) *PutDatafeed {
 // hyphens, and underscores.
 // It must start and end with alphanumeric characters.
 // API Name: datafeedid
-func (r *PutDatafeed) DatafeedId(datafeedid string) *PutDatafeed {
+func (r *PutDatafeed) _datafeedid(datafeedid string) *PutDatafeed {
 	r.paramSet |= datafeedidMask
 	r.datafeedid = datafeedid
 

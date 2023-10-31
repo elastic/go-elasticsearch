@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes a data stream.
 package deletedatastream
@@ -68,7 +68,7 @@ func NewDeleteDataStreamFunc(tp elastictransport.Interface) NewDeleteDataStream 
 	return func(name string) *DeleteDataStream {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *DeleteDataStream) Header(key, value string) *DeleteDataStream {
 // Name Comma-separated list of data streams to delete. Wildcard (`*`) expressions
 // are supported.
 // API Name: name
-func (r *DeleteDataStream) Name(name string) *DeleteDataStream {
+func (r *DeleteDataStream) _name(name string) *DeleteDataStream {
 	r.paramSet |= nameMask
 	r.name = name
 

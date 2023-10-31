@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
 // IndicesAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/update_aliases/types.ts#L23-L39
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/indices/update_aliases/types.ts#L23-L39
 type IndicesAction struct {
 	// Add Adds a data stream or index to an alias.
 	// If the alias doesn’t exist, the `add` action creates it.

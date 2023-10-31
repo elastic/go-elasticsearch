@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AutoFollowPatternSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ccr/get_auto_follow_pattern/types.ts#L28-L52
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/ccr/get_auto_follow_pattern/types.ts#L28-L52
 type AutoFollowPatternSummary struct {
 	Active bool `json:"active"`
 	// FollowIndexPattern The name of follower index.

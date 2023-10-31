@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ThreadPoolRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/cat/thread_pool/types.ts#L22-L124
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/cat/thread_pool/types.ts#L22-L124
 type ThreadPoolRecord struct {
 	// Active The number of active threads in the current thread pool.
 	Active *string `json:"active,omitempty"`

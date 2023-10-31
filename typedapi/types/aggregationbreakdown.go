@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AggregationBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_global/search/_types/profile.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/_global/search/_types/profile.ts#L23-L36
 type AggregationBreakdown struct {
 	BuildAggregation        int64  `json:"build_aggregation"`
 	BuildAggregationCount   int64  `json:"build_aggregation_count"`

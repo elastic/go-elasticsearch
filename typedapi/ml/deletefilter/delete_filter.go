@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes a filter.
 package deletefilter
@@ -67,7 +67,7 @@ func NewDeleteFilterFunc(tp elastictransport.Interface) NewDeleteFilter {
 	return func(filterid string) *DeleteFilter {
 		n := New(tp)
 
-		n.FilterId(filterid)
+		n._filterid(filterid)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *DeleteFilter) Header(key, value string) *DeleteFilter {
 
 // FilterId A string that uniquely identifies a filter.
 // API Name: filterid
-func (r *DeleteFilter) FilterId(filterid string) *DeleteFilter {
+func (r *DeleteFilter) _filterid(filterid string) *DeleteFilter {
 	r.paramSet |= filteridMask
 	r.filterid = filterid
 

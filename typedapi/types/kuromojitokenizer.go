@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // KuromojiTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/_types/analysis/kuromoji-plugin.ts#L58-L67
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/_types/analysis/kuromoji-plugin.ts#L58-L67
 type KuromojiTokenizer struct {
 	DiscardCompoundToken *bool                                             `json:"discard_compound_token,omitempty"`
 	DiscardPunctuation   *bool                                             `json:"discard_punctuation,omitempty"`

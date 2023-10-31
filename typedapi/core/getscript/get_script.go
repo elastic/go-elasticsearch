@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns a script.
 package getscript
@@ -67,7 +67,7 @@ func NewGetScriptFunc(tp elastictransport.Interface) NewGetScript {
 	return func(id string) *GetScript {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -213,7 +213,7 @@ func (r *GetScript) Header(key, value string) *GetScript {
 
 // Id Identifier for the stored script or search template.
 // API Name: id
-func (r *GetScript) Id(id string) *GetScript {
+func (r *GetScript) _id(id string) *GetScript {
 	r.paramSet |= idMask
 	r.id = id
 

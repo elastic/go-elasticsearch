@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
 // SlowlogTresholds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/IndexSettings.ts#L479-L482
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/indices/_types/IndexSettings.ts#L479-L482
 type SlowlogTresholds struct {
 	Fetch *SlowlogTresholdLevels `json:"fetch,omitempty"`
 	Query *SlowlogTresholdLevels `json:"query,omitempty"`

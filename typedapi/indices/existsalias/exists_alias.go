@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns information about whether a particular alias exists.
 package existsalias
@@ -70,7 +70,7 @@ func NewExistsAliasFunc(tp elastictransport.Interface) NewExistsAlias {
 	return func(name string) *ExistsAlias {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -199,7 +199,7 @@ func (r *ExistsAlias) Header(key, value string) *ExistsAlias {
 
 // Name Comma-separated list of aliases to check. Supports wildcards (`*`).
 // API Name: name
-func (r *ExistsAlias) Name(name string) *ExistsAlias {
+func (r *ExistsAlias) _name(name string) *ExistsAlias {
 	r.paramSet |= nameMask
 	r.name = name
 

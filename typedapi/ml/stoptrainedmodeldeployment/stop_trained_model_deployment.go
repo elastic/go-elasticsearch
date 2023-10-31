@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Stop a trained model deployment.
 package stoptrainedmodeldeployment
@@ -68,7 +68,7 @@ func NewStopTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStopTra
 	return func(modelid string) *StopTrainedModelDeployment {
 		n := New(tp)
 
-		n.ModelId(modelid)
+		n._modelid(modelid)
 
 		return n
 	}
@@ -226,7 +226,7 @@ func (r *StopTrainedModelDeployment) Header(key, value string) *StopTrainedModel
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *StopTrainedModelDeployment) ModelId(modelid string) *StopTrainedModelDeployment {
+func (r *StopTrainedModelDeployment) _modelid(modelid string) *StopTrainedModelDeployment {
 	r.paramSet |= modelidMask
 	r.modelid = modelid
 

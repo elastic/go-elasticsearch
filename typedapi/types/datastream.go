@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/DataStream.ts#L32-L96
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/indices/_types/DataStream.ts#L33-L105
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -64,6 +64,12 @@ type DataStream struct {
 	Meta_ Metadata `json:"_meta,omitempty"`
 	// Name Name of the data stream.
 	Name string `json:"name"`
+	// NextGenerationManagedBy Name of the lifecycle system that'll manage the next generation of the data
+	// stream.
+	NextGenerationManagedBy ManagedBy `json:"next_generation_managed_by"`
+	// PreferIlm Indicates if ILM should take precedence over DSL in case both are configured
+	// to managed this data stream.
+	PreferIlm bool `json:"prefer_ilm"`
 	// Replicated If `true`, the data stream is created and managed by cross-cluster
 	// replication and the local cluster can not write into this data stream or
 	// change its mappings.
@@ -164,6 +170,25 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
 				return err
+			}
+
+		case "next_generation_managed_by":
+			if err := dec.Decode(&s.NextGenerationManagedBy); err != nil {
+				return err
+			}
+
+		case "prefer_ilm":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.PreferIlm = value
+			case bool:
+				s.PreferIlm = v
 			}
 
 		case "replicated":

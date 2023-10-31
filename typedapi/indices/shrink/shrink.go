@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Allow to shrink an existing index into a new index with fewer primary shards.
 package shrink
@@ -73,9 +73,9 @@ func NewShrinkFunc(tp elastictransport.Interface) NewShrink {
 	return func(index, target string) *Shrink {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.Target(target)
+		n._target(target)
 
 		return n
 	}
@@ -249,7 +249,7 @@ func (r *Shrink) Header(key, value string) *Shrink {
 
 // Index Name of the source index to shrink.
 // API Name: index
-func (r *Shrink) Index(index string) *Shrink {
+func (r *Shrink) _index(index string) *Shrink {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -258,7 +258,7 @@ func (r *Shrink) Index(index string) *Shrink {
 
 // Target Name of the target index to create.
 // API Name: target
-func (r *Shrink) Target(target string) *Shrink {
+func (r *Shrink) _target(target string) *Shrink {
 	r.paramSet |= targetMask
 	r.target = target
 

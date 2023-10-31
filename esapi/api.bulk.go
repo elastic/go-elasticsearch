@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -51,16 +51,17 @@ type BulkRequest struct {
 
 	Body io.Reader
 
-	Pipeline            string
-	Refresh             string
-	RequireAlias        *bool
-	Routing             string
-	Source              []string
-	SourceExcludes      []string
-	SourceIncludes      []string
-	Timeout             time.Duration
-	DocumentType        string
-	WaitForActiveShards string
+	ListExecutedPipelines *bool
+	Pipeline              string
+	Refresh               string
+	RequireAlias          *bool
+	Routing               string
+	Source                []string
+	SourceExcludes        []string
+	SourceIncludes        []string
+	Timeout               time.Duration
+	DocumentType          string
+	WaitForActiveShards   string
 
 	Pretty     bool
 	Human      bool
@@ -92,6 +93,10 @@ func (r BulkRequest) Do(ctx context.Context, transport Transport) (*Response, er
 	path.WriteString("_bulk")
 
 	params = make(map[string]string)
+
+	if r.ListExecutedPipelines != nil {
+		params["list_executed_pipelines"] = strconv.FormatBool(*r.ListExecutedPipelines)
+	}
 
 	if r.Pipeline != "" {
 		params["pipeline"] = r.Pipeline
@@ -207,6 +212,13 @@ func (f Bulk) WithContext(v context.Context) func(*BulkRequest) {
 func (f Bulk) WithIndex(v string) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Index = v
+	}
+}
+
+// WithListExecutedPipelines - sets list_executed_pipelines for all incoming documents. defaults to unset (false).
+func (f Bulk) WithListExecutedPipelines(v bool) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.ListExecutedPipelines = &v
 	}
 }
 

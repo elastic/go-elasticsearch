@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates the enrich index for an existing enrich policy.
 package executepolicy
@@ -68,7 +68,7 @@ func NewExecutePolicyFunc(tp elastictransport.Interface) NewExecutePolicy {
 	return func(name string) *ExecutePolicy {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *ExecutePolicy) Header(key, value string) *ExecutePolicy {
 
 // Name Enrich policy to execute.
 // API Name: name
-func (r *ExecutePolicy) Name(name string) *ExecutePolicy {
+func (r *ExecutePolicy) _name(name string) *ExecutePolicy {
 	r.paramSet |= nameMask
 	r.name = name
 

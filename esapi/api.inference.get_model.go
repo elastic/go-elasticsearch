@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,7 @@ func newInferenceGetModelFunc(t Transport) InferenceGetModel {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/inference_get_model.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html.
 type InferenceGetModel func(model_id string, task_type string, o ...func(*InferenceGetModelRequest)) (*Response, error)
 
 // InferenceGetModelRequest configures the Inference Get Model API request.

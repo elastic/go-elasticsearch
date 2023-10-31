@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Immediately creates a snapshot according to the lifecycle policy, without
 // waiting for the scheduled time.
@@ -68,7 +68,7 @@ func NewExecuteLifecycleFunc(tp elastictransport.Interface) NewExecuteLifecycle 
 	return func(policyid string) *ExecuteLifecycle {
 		n := New(tp)
 
-		n.PolicyId(policyid)
+		n._policyid(policyid)
 
 		return n
 	}
@@ -219,7 +219,7 @@ func (r *ExecuteLifecycle) Header(key, value string) *ExecuteLifecycle {
 
 // PolicyId The id of the snapshot lifecycle policy to be executed
 // API Name: policyid
-func (r *ExecuteLifecycle) PolicyId(policyid string) *ExecuteLifecycle {
+func (r *ExecuteLifecycle) _policyid(policyid string) *ExecuteLifecycle {
 	r.paramSet |= policyidMask
 	r.policyid = policyid
 

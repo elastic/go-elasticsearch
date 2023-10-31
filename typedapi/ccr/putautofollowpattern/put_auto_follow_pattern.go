@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates a new named collection of auto-follow patterns against a specified
 // remote cluster. Newly created indices on the remote cluster matching any of
@@ -72,7 +72,7 @@ func NewPutAutoFollowPatternFunc(tp elastictransport.Interface) NewPutAutoFollow
 	return func(name string) *PutAutoFollowPattern {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -247,7 +247,7 @@ func (r *PutAutoFollowPattern) Header(key, value string) *PutAutoFollowPattern {
 
 // Name The name of the collection of auto-follow patterns.
 // API Name: name
-func (r *PutAutoFollowPattern) Name(name string) *PutAutoFollowPattern {
+func (r *PutAutoFollowPattern) _name(name string) *PutAutoFollowPattern {
 	r.paramSet |= nameMask
 	r.name = name
 

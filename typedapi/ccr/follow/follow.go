@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates a new follower index configured to follow the referenced leader
 // index.
@@ -71,7 +71,7 @@ func NewFollowFunc(tp elastictransport.Interface) NewFollow {
 	return func(index string) *Follow {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *Follow) Header(key, value string) *Follow {
 
 // Index The name of the follower index
 // API Name: index
-func (r *Follow) Index(index string) *Follow {
+func (r *Follow) _index(index string) *Follow {
 	r.paramSet |= indexMask
 	r.index = index
 

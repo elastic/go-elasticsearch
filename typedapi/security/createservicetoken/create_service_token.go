@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates a service account token for access without requiring basic
 // authentication.
@@ -75,9 +75,9 @@ func NewCreateServiceTokenFunc(tp elastictransport.Interface) NewCreateServiceTo
 	return func(namespace, service string) *CreateServiceToken {
 		n := New(tp)
 
-		n.Namespace(namespace)
+		n._namespace(namespace)
 
-		n.Service(service)
+		n._service(service)
 
 		return n
 	}
@@ -253,7 +253,7 @@ func (r *CreateServiceToken) Header(key, value string) *CreateServiceToken {
 
 // Namespace An identifier for the namespace
 // API Name: namespace
-func (r *CreateServiceToken) Namespace(namespace string) *CreateServiceToken {
+func (r *CreateServiceToken) _namespace(namespace string) *CreateServiceToken {
 	r.paramSet |= namespaceMask
 	r.namespace = namespace
 
@@ -262,7 +262,7 @@ func (r *CreateServiceToken) Namespace(namespace string) *CreateServiceToken {
 
 // Service An identifier for the service name
 // API Name: service
-func (r *CreateServiceToken) Service(service string) *CreateServiceToken {
+func (r *CreateServiceToken) _service(service string) *CreateServiceToken {
 	r.paramSet |= serviceMask
 	r.service = service
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Gets stats for anomaly detection job model snapshot upgrades that are in
 // progress.
@@ -72,9 +72,9 @@ func NewGetModelSnapshotUpgradeStatsFunc(tp elastictransport.Interface) NewGetMo
 	return func(jobid, snapshotid string) *GetModelSnapshotUpgradeStats {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
-		n.SnapshotId(snapshotid)
+		n._snapshotid(snapshotid)
 
 		return n
 	}
@@ -232,7 +232,7 @@ func (r *GetModelSnapshotUpgradeStats) Header(key, value string) *GetModelSnapsh
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetModelSnapshotUpgradeStats) JobId(jobid string) *GetModelSnapshotUpgradeStats {
+func (r *GetModelSnapshotUpgradeStats) _jobid(jobid string) *GetModelSnapshotUpgradeStats {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 
@@ -245,7 +245,7 @@ func (r *GetModelSnapshotUpgradeStats) JobId(jobid string) *GetModelSnapshotUpgr
 // get all snapshots by using `_all`,
 // by specifying `*` as the snapshot ID, or by omitting the snapshot ID.
 // API Name: snapshotid
-func (r *GetModelSnapshotUpgradeStats) SnapshotId(snapshotid string) *GetModelSnapshotUpgradeStats {
+func (r *GetModelSnapshotUpgradeStats) _snapshotid(snapshotid string) *GetModelSnapshotUpgradeStats {
 	r.paramSet |= snapshotidMask
 	r.snapshotid = snapshotid
 
@@ -254,9 +254,9 @@ func (r *GetModelSnapshotUpgradeStats) SnapshotId(snapshotid string) *GetModelSn
 
 // AllowNoMatch Specifies what to do when the request:
 //
-//   - Contains wildcard expressions and there are no jobs that match.
-//   - Contains the _all string or no identifiers and there are no matches.
-//   - Contains wildcard expressions and there are only partial matches.
+//  -  Contains wildcard expressions and there are no jobs that match.
+//  -  Contains the _all string or no identifiers and there are no matches.
+//  -  Contains wildcard expressions and there are only partial matches.
 //
 // The default value is true, which returns an empty jobs array when there are
 // no matches and the subset of results

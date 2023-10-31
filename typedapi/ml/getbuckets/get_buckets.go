@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves anomaly detection job results for one or more buckets.
 package getbuckets
@@ -74,7 +74,7 @@ func NewGetBucketsFunc(tp elastictransport.Interface) NewGetBuckets {
 	return func(jobid string) *GetBuckets {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -268,7 +268,7 @@ func (r *GetBuckets) Header(key, value string) *GetBuckets {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetBuckets) JobId(jobid string) *GetBuckets {
+func (r *GetBuckets) _jobid(jobid string) *GetBuckets {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

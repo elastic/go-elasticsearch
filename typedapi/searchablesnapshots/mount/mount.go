@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Mount a snapshot as a searchable index.
 package mount
@@ -74,9 +74,9 @@ func NewMountFunc(tp elastictransport.Interface) NewMount {
 	return func(repository, snapshot string) *Mount {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
-		n.Snapshot(snapshot)
+		n._snapshot(snapshot)
 
 		return n
 	}
@@ -252,7 +252,7 @@ func (r *Mount) Header(key, value string) *Mount {
 
 // Repository The name of the repository containing the snapshot of the index to mount
 // API Name: repository
-func (r *Mount) Repository(repository string) *Mount {
+func (r *Mount) _repository(repository string) *Mount {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 
@@ -261,7 +261,7 @@ func (r *Mount) Repository(repository string) *Mount {
 
 // Snapshot The name of the snapshot of the index to mount
 // API Name: snapshot
-func (r *Mount) Snapshot(snapshot string) *Mount {
+func (r *Mount) _snapshot(snapshot string) *Mount {
 	r.paramSet |= snapshotMask
 	r.snapshot = snapshot
 

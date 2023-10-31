@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Removes a watch from Watcher.
 package deletewatch
@@ -67,7 +67,7 @@ func NewDeleteWatchFunc(tp elastictransport.Interface) NewDeleteWatch {
 	return func(id string) *DeleteWatch {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *DeleteWatch) Header(key, value string) *DeleteWatch {
 
 // Id Watch ID
 // API Name: id
-func (r *DeleteWatch) Id(id string) *DeleteWatch {
+func (r *DeleteWatch) _id(id string) *DeleteWatch {
 	r.paramSet |= idMask
 	r.id = id
 

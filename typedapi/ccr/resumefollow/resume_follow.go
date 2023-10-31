@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Resumes a follower index that has been paused
 package resumefollow
@@ -70,7 +70,7 @@ func NewResumeFollowFunc(tp elastictransport.Interface) NewResumeFollow {
 	return func(index string) *ResumeFollow {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -243,7 +243,7 @@ func (r *ResumeFollow) Header(key, value string) *ResumeFollow {
 
 // Index The name of the follow index to resume following.
 // API Name: index
-func (r *ResumeFollow) Index(index string) *ResumeFollow {
+func (r *ResumeFollow) _index(index string) *ResumeFollow {
 	r.paramSet |= indexMask
 	r.index = index
 

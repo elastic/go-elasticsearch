@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns information about why a specific matches (or doesn't match) a query.
 package explain
@@ -75,9 +75,9 @@ func NewExplainFunc(tp elastictransport.Interface) NewExplain {
 	return func(index, id string) *Explain {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -251,7 +251,7 @@ func (r *Explain) Header(key, value string) *Explain {
 
 // Id Defines the document ID.
 // API Name: id
-func (r *Explain) Id(id string) *Explain {
+func (r *Explain) _id(id string) *Explain {
 	r.paramSet |= idMask
 	r.id = id
 
@@ -261,7 +261,7 @@ func (r *Explain) Id(id string) *Explain {
 // Index Index names used to limit the request.
 // Only a single index name can be provided to this parameter.
 // API Name: index
-func (r *Explain) Index(index string) *Explain {
+func (r *Explain) _index(index string) *Explain {
 	r.paramSet |= indexMask
 	r.index = index
 

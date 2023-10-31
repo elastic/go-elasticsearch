@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Evicts users from the user cache. Can completely clear the cache or evict
 // specific users.
@@ -68,7 +68,7 @@ func NewClearCachedRealmsFunc(tp elastictransport.Interface) NewClearCachedRealm
 	return func(realms string) *ClearCachedRealms {
 		n := New(tp)
 
-		n.Realms(realms)
+		n._realms(realms)
 
 		return n
 	}
@@ -219,7 +219,7 @@ func (r *ClearCachedRealms) Header(key, value string) *ClearCachedRealms {
 
 // Realms Comma-separated list of realms to clear
 // API Name: realms
-func (r *ClearCachedRealms) Realms(realms string) *ClearCachedRealms {
+func (r *ClearCachedRealms) _realms(realms string) *ClearCachedRealms {
 	r.paramSet |= realmsMask
 	r.realms = realms
 

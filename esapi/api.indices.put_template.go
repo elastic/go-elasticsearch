@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newIndicesPutTemplateFunc(t Transport) IndicesPutTemplate {
 
 // IndicesPutTemplate creates or updates an index template.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates-v1.html.
 type IndicesPutTemplate func(name string, body io.Reader, o ...func(*IndicesPutTemplateRequest)) (*Response, error)
 
 // IndicesPutTemplateRequest configures the Indices Put Template API request.

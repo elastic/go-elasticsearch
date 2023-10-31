@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Restores a snapshot.
 package restore
@@ -74,9 +74,9 @@ func NewRestoreFunc(tp elastictransport.Interface) NewRestore {
 	return func(repository, snapshot string) *Restore {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
-		n.Snapshot(snapshot)
+		n._snapshot(snapshot)
 
 		return n
 	}
@@ -252,7 +252,7 @@ func (r *Restore) Header(key, value string) *Restore {
 
 // Repository A repository name
 // API Name: repository
-func (r *Restore) Repository(repository string) *Restore {
+func (r *Restore) _repository(repository string) *Restore {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 
@@ -261,7 +261,7 @@ func (r *Restore) Repository(repository string) *Restore {
 
 // Snapshot A snapshot name
 // API Name: snapshot
-func (r *Restore) Snapshot(snapshot string) *Restore {
+func (r *Restore) _snapshot(snapshot string) *Restore {
 	r.paramSet |= snapshotMask
 	r.snapshot = snapshot
 

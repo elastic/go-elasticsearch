@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Closes an index.
 package close
@@ -69,7 +69,7 @@ func NewCloseFunc(tp elastictransport.Interface) NewClose {
 	return func(index string) *Close {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -216,7 +216,7 @@ func (r *Close) Header(key, value string) *Close {
 // Index Comma-separated list or wildcard expression of index names used to limit the
 // request.
 // API Name: index
-func (r *Close) Index(index string) *Close {
+func (r *Close) _index(index string) *Close {
 	r.paramSet |= indexMask
 	r.index = index
 

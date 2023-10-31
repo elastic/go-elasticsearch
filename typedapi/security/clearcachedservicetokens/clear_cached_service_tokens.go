@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Evicts tokens from the service account token caches.
 package clearcachedservicetokens
@@ -73,11 +73,11 @@ func NewClearCachedServiceTokensFunc(tp elastictransport.Interface) NewClearCach
 	return func(namespace, service, name string) *ClearCachedServiceTokens {
 		n := New(tp)
 
-		n.Namespace(namespace)
+		n._namespace(namespace)
 
-		n.Service(service)
+		n._service(service)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -237,7 +237,7 @@ func (r *ClearCachedServiceTokens) Header(key, value string) *ClearCachedService
 
 // Namespace An identifier for the namespace
 // API Name: namespace
-func (r *ClearCachedServiceTokens) Namespace(namespace string) *ClearCachedServiceTokens {
+func (r *ClearCachedServiceTokens) _namespace(namespace string) *ClearCachedServiceTokens {
 	r.paramSet |= namespaceMask
 	r.namespace = namespace
 
@@ -246,7 +246,7 @@ func (r *ClearCachedServiceTokens) Namespace(namespace string) *ClearCachedServi
 
 // Service An identifier for the service name
 // API Name: service
-func (r *ClearCachedServiceTokens) Service(service string) *ClearCachedServiceTokens {
+func (r *ClearCachedServiceTokens) _service(service string) *ClearCachedServiceTokens {
 	r.paramSet |= serviceMask
 	r.service = service
 
@@ -255,7 +255,7 @@ func (r *ClearCachedServiceTokens) Service(service string) *ClearCachedServiceTo
 
 // Name A comma-separated list of service token names
 // API Name: name
-func (r *ClearCachedServiceTokens) Name(name string) *ClearCachedServiceTokens {
+func (r *ClearCachedServiceTokens) _name(name string) *ClearCachedServiceTokens {
 	r.paramSet |= nameMask
 	r.name = name
 

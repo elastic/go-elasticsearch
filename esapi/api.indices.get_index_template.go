@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,7 @@ func newIndicesGetIndexTemplateFunc(t Transport) IndicesGetIndexTemplate {
 
 // IndicesGetIndexTemplate returns an index template.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-template.html.
 type IndicesGetIndexTemplate func(o ...func(*IndicesGetIndexTemplateRequest)) (*Response, error)
 
 // IndicesGetIndexTemplateRequest configures the Indices Get Index Template API request.

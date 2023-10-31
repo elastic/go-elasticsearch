@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns the details about a search application.
 package get
@@ -67,7 +67,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	return func(name string) *Get {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *Get) Header(key, value string) *Get {
 
 // Name The name of the search application
 // API Name: name
-func (r *Get) Name(name string) *Get {
+func (r *Get) _name(name string) *Get {
 	r.paramSet |= nameMask
 	r.name = name
 

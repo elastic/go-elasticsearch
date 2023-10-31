@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Upgrades a given job snapshot to the current major version.
 package upgradejobsnapshot
@@ -71,9 +71,9 @@ func NewUpgradeJobSnapshotFunc(tp elastictransport.Interface) NewUpgradeJobSnaps
 	return func(jobid, snapshotid string) *UpgradeJobSnapshot {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
-		n.SnapshotId(snapshotid)
+		n._snapshotid(snapshotid)
 
 		return n
 	}
@@ -228,7 +228,7 @@ func (r *UpgradeJobSnapshot) Header(key, value string) *UpgradeJobSnapshot {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *UpgradeJobSnapshot) JobId(jobid string) *UpgradeJobSnapshot {
+func (r *UpgradeJobSnapshot) _jobid(jobid string) *UpgradeJobSnapshot {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 
@@ -237,7 +237,7 @@ func (r *UpgradeJobSnapshot) JobId(jobid string) *UpgradeJobSnapshot {
 
 // SnapshotId A numerical character string that uniquely identifies the model snapshot.
 // API Name: snapshotid
-func (r *UpgradeJobSnapshot) SnapshotId(snapshotid string) *UpgradeJobSnapshot {
+func (r *UpgradeJobSnapshot) _snapshotid(snapshotid string) *UpgradeJobSnapshot {
 	r.paramSet |= snapshotidMask
 	r.snapshotid = snapshotid
 

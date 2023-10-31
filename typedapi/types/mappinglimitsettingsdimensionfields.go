@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package types
 
@@ -30,11 +30,11 @@ import (
 
 // MappingLimitSettingsDimensionFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/indices/_types/IndexSettings.ts#L464-L470
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/indices/_types/IndexSettings.ts#L464-L470
 type MappingLimitSettingsDimensionFields struct {
 	// Limit [preview] This functionality is in technical preview and may be changed or
-	// removed in a future release. Elastic will
-	// apply best effort to fix any issues, but features in technical preview are
+	// removed in a future release.
+	// Elastic will work to fix any issues, but features in technical preview are
 	// not subject to the support SLA of official GA features.
 	Limit *int `json:"limit,omitempty"`
 }

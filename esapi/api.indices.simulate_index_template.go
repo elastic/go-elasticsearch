@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newIndicesSimulateIndexTemplateFunc(t Transport) IndicesSimulateIndexTempla
 
 // IndicesSimulateIndexTemplate simulate matching the given index name against the index templates in the system
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-simulate-index.html.
 type IndicesSimulateIndexTemplate func(name string, o ...func(*IndicesSimulateIndexTemplateRequest)) (*Response, error)
 
 // IndicesSimulateIndexTemplateRequest configures the Indices Simulate Index Template API request.

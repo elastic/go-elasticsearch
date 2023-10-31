@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates a new enrich policy.
 package putpolicy
@@ -70,7 +70,7 @@ func NewPutPolicyFunc(tp elastictransport.Interface) NewPutPolicy {
 	return func(name string) *PutPolicy {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -243,7 +243,7 @@ func (r *PutPolicy) Header(key, value string) *PutPolicy {
 
 // Name Name of the enrich policy to create or update.
 // API Name: name
-func (r *PutPolicy) Name(name string) *PutPolicy {
+func (r *PutPolicy) _name(name string) *PutPolicy {
 	r.paramSet |= nameMask
 	r.name = name
 

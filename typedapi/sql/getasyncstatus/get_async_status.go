@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns the current status of an async SQL search or a stored synchronous SQL
 // search
@@ -68,7 +68,7 @@ func NewGetAsyncStatusFunc(tp elastictransport.Interface) NewGetAsyncStatus {
 	return func(id string) *GetAsyncStatus {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -219,7 +219,7 @@ func (r *GetAsyncStatus) Header(key, value string) *GetAsyncStatus {
 
 // Id Identifier for the search.
 // API Name: id
-func (r *GetAsyncStatus) Id(id string) *GetAsyncStatus {
+func (r *GetAsyncStatus) _id(id string) *GetAsyncStatus {
 	r.paramSet |= idMask
 	r.id = id
 

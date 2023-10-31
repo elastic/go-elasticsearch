@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves information about the index's current data stream lifecycle, such
 // as any potential encountered error, time since creation etc.
@@ -69,7 +69,7 @@ func NewExplainDataLifecycleFunc(tp elastictransport.Interface) NewExplainDataLi
 	return func(index string) *ExplainDataLifecycle {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *ExplainDataLifecycle) Header(key, value string) *ExplainDataLifecycle {
 
 // Index The name of the index to explain
 // API Name: index
-func (r *ExplainDataLifecycle) Index(index string) *ExplainDataLifecycle {
+func (r *ExplainDataLifecycle) _index(index string) *ExplainDataLifecycle {
 	r.paramSet |= indexMask
 	r.index = index
 

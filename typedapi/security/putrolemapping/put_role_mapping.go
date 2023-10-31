@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates and updates role mappings.
 package putrolemapping
@@ -71,7 +71,7 @@ func NewPutRoleMappingFunc(tp elastictransport.Interface) NewPutRoleMapping {
 	return func(name string) *PutRoleMapping {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -244,7 +244,7 @@ func (r *PutRoleMapping) Header(key, value string) *PutRoleMapping {
 
 // Name Role-mapping name
 // API Name: name
-func (r *PutRoleMapping) Name(name string) *PutRoleMapping {
+func (r *PutRoleMapping) _name(name string) *PutRoleMapping {
 	r.paramSet |= nameMask
 	r.name = name
 

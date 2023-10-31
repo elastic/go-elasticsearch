@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Reverts to a specific snapshot.
 package revertmodelsnapshot
@@ -73,9 +73,9 @@ func NewRevertModelSnapshotFunc(tp elastictransport.Interface) NewRevertModelSna
 	return func(jobid, snapshotid string) *RevertModelSnapshot {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
-		n.SnapshotId(snapshotid)
+		n._snapshotid(snapshotid)
 
 		return n
 	}
@@ -255,7 +255,7 @@ func (r *RevertModelSnapshot) Header(key, value string) *RevertModelSnapshot {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *RevertModelSnapshot) JobId(jobid string) *RevertModelSnapshot {
+func (r *RevertModelSnapshot) _jobid(jobid string) *RevertModelSnapshot {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 
@@ -266,7 +266,7 @@ func (r *RevertModelSnapshot) JobId(jobid string) *RevertModelSnapshot {
 // snapshot means the anomaly detection job starts learning a new model from
 // scratch when it is started.
 // API Name: snapshotid
-func (r *RevertModelSnapshot) SnapshotId(snapshotid string) *RevertModelSnapshot {
+func (r *RevertModelSnapshot) _snapshotid(snapshotid string) *RevertModelSnapshot {
 	r.paramSet |= snapshotidMask
 	r.snapshotid = snapshotid
 

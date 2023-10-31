@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,7 @@ func newInferenceDeleteModelFunc(t Transport) InferenceDeleteModel {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/inference_delete_model.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html.
 type InferenceDeleteModel func(model_id string, task_type string, o ...func(*InferenceDeleteModelRequest)) (*Response, error)
 
 // InferenceDeleteModelRequest configures the Inference Delete Model API request.

@@ -115,7 +115,7 @@ func TestBulk_CreateOp(t *testing.T) {
 				}
 				t.Errorf("CreateOp() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if !tt.wantErr && bytes.Compare(r.buf.Bytes(), tt.expects) != 0 {
+			if !tt.wantErr && !bytes.Equal(r.buf.Bytes(), tt.expects) {
 				t.Errorf("serialized buffer invalid\nexpected: %s\ngot: %s", tt.expects, r.buf)
 			}
 		})
@@ -155,7 +155,7 @@ func TestBulk_DeleteOp(t *testing.T) {
 				}
 				t.Errorf("DeleteOp() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if bytes.Compare(r.buf.Bytes(), tt.expects) != 0 {
+			if !bytes.Equal(r.buf.Bytes(), tt.expects) {
 				t.Errorf("serialized buffer invalid\nexpected: %s\ngot: %s", tt.expects, r.buf)
 			}
 		})
@@ -242,7 +242,7 @@ func TestBulk_IndexOp(t *testing.T) {
 				}
 				t.Errorf("IndexOp() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if !tt.wantErr && bytes.Compare(r.buf.Bytes(), tt.expects) != 0 {
+			if !tt.wantErr && !bytes.Equal(r.buf.Bytes(), tt.expects) {
 				t.Errorf("serialized buffer invalid\nexpected: %s\ngot: %s", tt.expects, r.buf)
 			}
 		})
@@ -373,7 +373,7 @@ func TestBulk_UpdateOp(t *testing.T) {
 				}
 				t.Errorf("UpdateOp() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if bytes.Compare(r.buf.Bytes(), tt.expects) != 0 {
+			if !bytes.Equal(r.buf.Bytes(), tt.expects) {
 				t.Errorf("serialized buffer invalid\nexpected: %s\ngot: %s", tt.expects, r.buf)
 			}
 		})

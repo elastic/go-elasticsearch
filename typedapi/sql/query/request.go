@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package query
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/sql/query/QuerySqlRequest.ts#L28-L122
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/sql/query/QuerySqlRequest.ts#L28-L122
 type Request struct {
 
 	// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on

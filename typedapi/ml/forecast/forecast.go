@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Predicts the future behavior of a time series by using its historical
 // behavior.
@@ -71,7 +71,7 @@ func NewForecastFunc(tp elastictransport.Interface) NewForecast {
 	return func(jobid string) *Forecast {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -248,7 +248,7 @@ func (r *Forecast) Header(key, value string) *Forecast {
 // JobId Identifier for the anomaly detection job. The job must be open when you
 // create a forecast; otherwise, an error occurs.
 // API Name: jobid
-func (r *Forecast) JobId(jobid string) *Forecast {
+func (r *Forecast) _jobid(jobid string) *Forecast {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates a new watch, or updates an existing one.
 package putwatch
@@ -71,7 +71,7 @@ func NewPutWatchFunc(tp elastictransport.Interface) NewPutWatch {
 	return func(id string) *PutWatch {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -244,7 +244,7 @@ func (r *PutWatch) Header(key, value string) *PutWatch {
 
 // Id Watch ID
 // API Name: id
-func (r *PutWatch) Id(id string) *PutWatch {
+func (r *PutWatch) _id(id string) *PutWatch {
 	r.paramSet |= idMask
 	r.id = id
 

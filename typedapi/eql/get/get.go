@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns async results from previously executed Event Query Language (EQL)
 // search
@@ -68,7 +68,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	return func(id string) *Get {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -77,7 +77,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // Returns async results from previously executed Event Query Language (EQL)
 // search
 //
-//	https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/get-async-eql-search-api.html
+//  https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/get-async-eql-search-api.html
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -217,7 +217,7 @@ func (r *Get) Header(key, value string) *Get {
 
 // Id Identifier for the search.
 // API Name: id
-func (r *Get) Id(id string) *Get {
+func (r *Get) _id(id string) *Get {
 	r.paramSet |= idMask
 	r.id = id
 

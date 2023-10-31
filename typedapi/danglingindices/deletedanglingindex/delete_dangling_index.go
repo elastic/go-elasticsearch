@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes the specified dangling index
 package deletedanglingindex
@@ -68,7 +68,7 @@ func NewDeleteDanglingIndexFunc(tp elastictransport.Interface) NewDeleteDangling
 	return func(indexuuid string) *DeleteDanglingIndex {
 		n := New(tp)
 
-		n.IndexUuid(indexuuid)
+		n._indexuuid(indexuuid)
 
 		return n
 	}
@@ -214,7 +214,7 @@ func (r *DeleteDanglingIndex) Header(key, value string) *DeleteDanglingIndex {
 
 // IndexUuid The UUID of the dangling index
 // API Name: indexuuid
-func (r *DeleteDanglingIndex) IndexUuid(indexuuid string) *DeleteDanglingIndex {
+func (r *DeleteDanglingIndex) _indexuuid(indexuuid string) *DeleteDanglingIndex {
 	r.paramSet |= indexuuidMask
 	r.indexuuid = indexuuid
 
