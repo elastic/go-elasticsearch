@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Downsample an index
 package downsample
@@ -54,8 +54,8 @@ type Downsample struct {
 
 	buf *gobytes.Buffer
 
-	req      *types.DownsampleConfig
-	deferred []func(request *types.DownsampleConfig) error
+	req      *Request
+	deferred []func(request *Request) error
 	raw      io.Reader
 
 	paramSet int
@@ -73,9 +73,9 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 	return func(index, targetindex string) *Downsample {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.TargetIndex(targetindex)
+		n._targetindex(targetindex)
 
 		return n
 	}
@@ -104,7 +104,7 @@ func (r *Downsample) Raw(raw io.Reader) *Downsample {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *Downsample) Request(req *types.DownsampleConfig) *Downsample {
+func (r *Downsample) Request(req *Request) *Downsample {
 	r.req = req
 
 	return r
@@ -247,7 +247,7 @@ func (r *Downsample) Header(key, value string) *Downsample {
 
 // Index Name of the time series index to downsample.
 // API Name: index
-func (r *Downsample) Index(index string) *Downsample {
+func (r *Downsample) _index(index string) *Downsample {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -256,9 +256,17 @@ func (r *Downsample) Index(index string) *Downsample {
 
 // TargetIndex Name of the index to create.
 // API Name: targetindex
-func (r *Downsample) TargetIndex(targetindex string) *Downsample {
+func (r *Downsample) _targetindex(targetindex string) *Downsample {
 	r.paramSet |= targetindexMask
 	r.targetindex = targetindex
+
+	return r
+}
+
+// FixedInterval The interval at which to aggregate the original time series index.
+// API name: fixed_interval
+func (r *Downsample) FixedInterval(durationlarge string) *Downsample {
+	r.req.FixedInterval = durationlarge
 
 	return r
 }

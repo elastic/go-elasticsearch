@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves information about model snapshots.
 package getmodelsnapshots
@@ -74,7 +74,7 @@ func NewGetModelSnapshotsFunc(tp elastictransport.Interface) NewGetModelSnapshot
 	return func(jobid string) *GetModelSnapshots {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -264,7 +264,7 @@ func (r *GetModelSnapshots) Header(key, value string) *GetModelSnapshots {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetModelSnapshots) JobId(jobid string) *GetModelSnapshots {
+func (r *GetModelSnapshots) _jobid(jobid string) *GetModelSnapshots {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

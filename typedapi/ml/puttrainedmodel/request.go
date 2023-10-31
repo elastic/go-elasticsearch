@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 package puttrainedmodel
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5260ec5b7c899ab1a7939f752218cae07ef07dd7/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L28-L96
+// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/ml/put_trained_model/MlPutTrainedModelRequest.ts#L28-L106
 type Request struct {
 
 	// CompressedDefinition The compressed (GZipped and Base64 encoded) inference definition of the
@@ -57,6 +57,17 @@ type Request struct {
 	ModelSizeBytes *int64 `json:"model_size_bytes,omitempty"`
 	// ModelType The model type.
 	ModelType *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
+	// PlatformArchitecture The platform architecture (if applicable) of the trained mode. If the model
+	// only works on one platform, because it is heavily optimized for a particular
+	// processor architecture and OS combination, then this field specifies which.
+	// The format of the string must match the platform identifiers used by
+	// Elasticsearch,
+	// so one of, `linux-x86_64`, `linux-aarch64`, `darwin-x86_64`,
+	// `darwin-aarch64`,
+	// or `windows-x86_64`. For portable models (those that work independent of
+	// processor
+	// architecture or OS features), leave this field unset.
+	PlatformArchitecture *string `json:"platform_architecture,omitempty"`
 	// Tags An array of tags to organize the model.
 	Tags []string `json:"tags,omitempty"`
 }

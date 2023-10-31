@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Enables users in the native realm.
 package enableuser
@@ -68,7 +68,7 @@ func NewEnableUserFunc(tp elastictransport.Interface) NewEnableUser {
 	return func(username string) *EnableUser {
 		n := New(tp)
 
-		n.Username(username)
+		n._username(username)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *EnableUser) Header(key, value string) *EnableUser {
 
 // Username The username of the user to enable
 // API Name: username
-func (r *EnableUser) Username(username string) *EnableUser {
+func (r *EnableUser) _username(username string) *EnableUser {
 	r.paramSet |= usernameMask
 	r.username = username
 

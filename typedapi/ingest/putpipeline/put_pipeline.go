@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates or updates a pipeline.
 package putpipeline
@@ -70,7 +70,7 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 	return func(id string) *PutPipeline {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -243,7 +243,7 @@ func (r *PutPipeline) Header(key, value string) *PutPipeline {
 
 // Id ID of the ingest pipeline to create or update.
 // API Name: id
-func (r *PutPipeline) Id(id string) *PutPipeline {
+func (r *PutPipeline) _id(id string) *PutPipeline {
 	r.paramSet |= idMask
 	r.id = id
 

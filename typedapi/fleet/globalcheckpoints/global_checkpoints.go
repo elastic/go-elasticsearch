@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns the current global checkpoints for an index. This API is design for
 // internal use by the fleet server project.
@@ -69,7 +69,7 @@ func NewGlobalCheckpointsFunc(tp elastictransport.Interface) NewGlobalCheckpoint
 	return func(index string) *GlobalCheckpoints {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -224,7 +224,7 @@ func (r *GlobalCheckpoints) Header(key, value string) *GlobalCheckpoints {
 
 // Index A single index or index alias that resolves to a single index.
 // API Name: index
-func (r *GlobalCheckpoints) Index(index string) *GlobalCheckpoints {
+func (r *GlobalCheckpoints) _index(index string) *GlobalCheckpoints {
 	r.paramSet |= indexMask
 	r.index = index
 

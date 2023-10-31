@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns results matching a query expressed in Event Query Language (EQL)
 package search
@@ -73,7 +73,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	return func(index string) *Search {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -246,7 +246,7 @@ func (r *Search) Header(key, value string) *Search {
 
 // Index The name of the index to scope the operation
 // API Name: index
-func (r *Search) Index(index string) *Search {
+func (r *Search) _index(index string) *Search {
 	r.paramSet |= indexMask
 	r.index = index
 

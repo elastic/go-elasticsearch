@@ -184,6 +184,10 @@ func (r *Bulk) UpdateOp(op types.UpdateOperation, doc interface{}, update *types
 				return fmt.Errorf("bulk.UpdateOp: invalid json")
 			}
 		default:
+			//doc can be nil if passed in script
+			if doc == nil {
+				break
+			}
 			body, err := json.Marshal(doc)
 			if err != nil {
 				r.buf.Reset()

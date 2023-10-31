@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes an existing trained inference model that is currently not referenced
 // by an ingest pipeline.
@@ -69,7 +69,7 @@ func NewDeleteTrainedModelFunc(tp elastictransport.Interface) NewDeleteTrainedMo
 	return func(modelid string) *DeleteTrainedModel {
 		n := New(tp)
 
-		n.ModelId(modelid)
+		n._modelid(modelid)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *DeleteTrainedModel) Header(key, value string) *DeleteTrainedModel {
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *DeleteTrainedModel) ModelId(modelid string) *DeleteTrainedModel {
+func (r *DeleteTrainedModel) _modelid(modelid string) *DeleteTrainedModel {
 	r.paramSet |= modelidMask
 	r.modelid = modelid
 

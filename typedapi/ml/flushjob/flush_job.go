@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Forces any buffered data to be processed by the job.
 package flushjob
@@ -70,7 +70,7 @@ func NewFlushJobFunc(tp elastictransport.Interface) NewFlushJob {
 	return func(jobid string) *FlushJob {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *FlushJob) Header(key, value string) *FlushJob {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *FlushJob) JobId(jobid string) *FlushJob {
+func (r *FlushJob) _jobid(jobid string) *FlushJob {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Generates SAML metadata for the Elastic stack SAML 2.0 Service Provider
 package samlserviceprovidermetadata
@@ -67,7 +67,7 @@ func NewSamlServiceProviderMetadataFunc(tp elastictransport.Interface) NewSamlSe
 	return func(realmname string) *SamlServiceProviderMetadata {
 		n := New(tp)
 
-		n.RealmName(realmname)
+		n._realmname(realmname)
 
 		return n
 	}
@@ -223,7 +223,7 @@ func (r *SamlServiceProviderMetadata) Header(key, value string) *SamlServiceProv
 
 // RealmName The name of the SAML realm in Elasticsearch.
 // API Name: realmname
-func (r *SamlServiceProviderMetadata) RealmName(realmname string) *SamlServiceProviderMetadata {
+func (r *SamlServiceProviderMetadata) _realmname(realmname string) *SamlServiceProviderMetadata {
 	r.paramSet |= realmnameMask
 	r.realmname = realmname
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates an inference trained model.
 package puttrainedmodel
@@ -72,7 +72,7 @@ func NewPutTrainedModelFunc(tp elastictransport.Interface) NewPutTrainedModel {
 	return func(modelid string) *PutTrainedModel {
 		n := New(tp)
 
-		n.ModelId(modelid)
+		n._modelid(modelid)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *PutTrainedModel) Header(key, value string) *PutTrainedModel {
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *PutTrainedModel) ModelId(modelid string) *PutTrainedModel {
+func (r *PutTrainedModel) _modelid(modelid string) *PutTrainedModel {
 	r.paramSet |= modelidMask
 	r.modelid = modelid
 
@@ -351,6 +351,24 @@ func (r *PutTrainedModel) ModelSizeBytes(modelsizebytes int64) *PutTrainedModel 
 // API name: model_type
 func (r *PutTrainedModel) ModelType(modeltype trainedmodeltype.TrainedModelType) *PutTrainedModel {
 	r.req.ModelType = &modeltype
+
+	return r
+}
+
+// PlatformArchitecture The platform architecture (if applicable) of the trained mode. If the model
+// only works on one platform, because it is heavily optimized for a particular
+// processor architecture and OS combination, then this field specifies which.
+// The format of the string must match the platform identifiers used by
+// Elasticsearch,
+// so one of, `linux-x86_64`, `linux-aarch64`, `darwin-x86_64`,
+// `darwin-aarch64`,
+// or `windows-x86_64`. For portable models (those that work independent of
+// processor
+// architecture or OS features), leave this field unset.
+// API name: platform_architecture
+func (r *PutTrainedModel) PlatformArchitecture(platformarchitecture string) *PutTrainedModel {
+
+	r.req.PlatformArchitecture = &platformarchitecture
 
 	return r
 }

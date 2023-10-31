@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves anomaly records for an anomaly detection job.
 package getrecords
@@ -71,7 +71,7 @@ func NewGetRecordsFunc(tp elastictransport.Interface) NewGetRecords {
 	return func(jobid string) *GetRecords {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -248,7 +248,7 @@ func (r *GetRecords) Header(key, value string) *GetRecords {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetRecords) JobId(jobid string) *GetRecords {
+func (r *GetRecords) _jobid(jobid string) *GetRecords {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

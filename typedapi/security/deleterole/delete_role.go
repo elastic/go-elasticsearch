@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Removes roles in the native realm.
 package deleterole
@@ -68,7 +68,7 @@ func NewDeleteRoleFunc(tp elastictransport.Interface) NewDeleteRole {
 	return func(name string) *DeleteRole {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -216,7 +216,7 @@ func (r *DeleteRole) Header(key, value string) *DeleteRole {
 
 // Name Role name
 // API Name: name
-func (r *DeleteRole) Name(name string) *DeleteRole {
+func (r *DeleteRole) _name(name string) *DeleteRole {
 	r.paramSet |= nameMask
 	r.name = name
 

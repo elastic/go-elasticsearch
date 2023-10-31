@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Removes the follower retention leases from the leader.
 package forgetfollower
@@ -70,7 +70,7 @@ func NewForgetFollowerFunc(tp elastictransport.Interface) NewForgetFollower {
 	return func(index string) *ForgetFollower {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -244,7 +244,7 @@ func (r *ForgetFollower) Header(key, value string) *ForgetFollower {
 // Index the name of the leader index for which specified follower retention leases
 // should be removed
 // API Name: index
-func (r *ForgetFollower) Index(index string) *ForgetFollower {
+func (r *ForgetFollower) _index(index string) *ForgetFollower {
 	r.paramSet |= indexMask
 	r.index = index
 

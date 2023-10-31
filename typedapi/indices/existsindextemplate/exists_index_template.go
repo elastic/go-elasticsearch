@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns information about whether a particular index template exists.
 package existsindextemplate
@@ -65,7 +65,7 @@ func NewExistsIndexTemplateFunc(tp elastictransport.Interface) NewExistsIndexTem
 	return func(name string) *ExistsIndexTemplate {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -184,7 +184,7 @@ func (r *ExistsIndexTemplate) Header(key, value string) *ExistsIndexTemplate {
 // Name Comma-separated list of index template names used to limit the request.
 // Wildcard (*) expressions are supported.
 // API Name: name
-func (r *ExistsIndexTemplate) Name(name string) *ExistsIndexTemplate {
+func (r *ExistsIndexTemplate) _name(name string) *ExistsIndexTemplate {
 	r.paramSet |= nameMask
 	r.name = name
 

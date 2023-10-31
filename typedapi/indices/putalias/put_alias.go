@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates or updates an alias.
 package putalias
@@ -73,9 +73,9 @@ func NewPutAliasFunc(tp elastictransport.Interface) NewPutAlias {
 	return func(index, name string) *PutAlias {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -262,7 +262,7 @@ func (r *PutAlias) Header(key, value string) *PutAlias {
 // Supports wildcards (`*`).
 // Wildcard patterns that match both data streams and indices return an error.
 // API Name: index
-func (r *PutAlias) Index(index string) *PutAlias {
+func (r *PutAlias) _index(index string) *PutAlias {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -273,7 +273,7 @@ func (r *PutAlias) Index(index string) *PutAlias {
 // If the alias doesn’t exist, the request creates it.
 // Index alias names support date math.
 // API Name: name
-func (r *PutAlias) Name(name string) *PutAlias {
+func (r *PutAlias) _name(name string) *PutAlias {
 	r.paramSet |= nameMask
 	r.name = name
 

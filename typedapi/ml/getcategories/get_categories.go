@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves anomaly detection job results for one or more categories.
 package getcategories
@@ -74,7 +74,7 @@ func NewGetCategoriesFunc(tp elastictransport.Interface) NewGetCategories {
 	return func(jobid string) *GetCategories {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -268,7 +268,7 @@ func (r *GetCategories) Header(key, value string) *GetCategories {
 
 // JobId Identifier for the anomaly detection job.
 // API Name: jobid
-func (r *GetCategories) JobId(jobid string) *GetCategories {
+func (r *GetCategories) _jobid(jobid string) *GetCategories {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns information and statistics about terms in the fields of a particular
 // document.
@@ -76,7 +76,7 @@ func NewTermvectorsFunc(tp elastictransport.Interface) NewTermvectors {
 	return func(index string) *Termvectors {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -259,7 +259,7 @@ func (r *Termvectors) Header(key, value string) *Termvectors {
 
 // Index Name of the index that contains the document.
 // API Name: index
-func (r *Termvectors) Index(index string) *Termvectors {
+func (r *Termvectors) _index(index string) *Termvectors {
 	r.paramSet |= indexMask
 	r.index = index
 

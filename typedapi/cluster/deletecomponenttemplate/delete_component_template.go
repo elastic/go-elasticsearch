@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes a component template
 package deletecomponenttemplate
@@ -67,7 +67,7 @@ func NewDeleteComponentTemplateFunc(tp elastictransport.Interface) NewDeleteComp
 	return func(name string) *DeleteComponentTemplate {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -214,7 +214,7 @@ func (r *DeleteComponentTemplate) Header(key, value string) *DeleteComponentTemp
 // Name Comma-separated list or wildcard expression of component template names used
 // to limit the request.
 // API Name: name
-func (r *DeleteComponentTemplate) Name(name string) *DeleteComponentTemplate {
+func (r *DeleteComponentTemplate) _name(name string) *DeleteComponentTemplate {
 	r.paramSet |= nameMask
 	r.name = name
 

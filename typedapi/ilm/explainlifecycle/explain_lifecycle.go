@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves information about the index's current lifecycle state, such as the
 // currently executing phase, action, and step.
@@ -69,7 +69,7 @@ func NewExplainLifecycleFunc(tp elastictransport.Interface) NewExplainLifecycle 
 	return func(index string) *ExplainLifecycle {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -220,7 +220,7 @@ func (r *ExplainLifecycle) Header(key, value string) *ExplainLifecycle {
 // Supports wildcards (`*`).
 // To target all data streams and indices, use `*` or `_all`.
 // API Name: index
-func (r *ExplainLifecycle) Index(index string) *ExplainLifecycle {
+func (r *ExplainLifecycle) _index(index string) *ExplainLifecycle {
 	r.paramSet |= indexMask
 	r.index = index
 

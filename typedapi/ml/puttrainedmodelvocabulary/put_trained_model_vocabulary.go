@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates a trained model vocabulary
 package puttrainedmodelvocabulary
@@ -70,7 +70,7 @@ func NewPutTrainedModelVocabularyFunc(tp elastictransport.Interface) NewPutTrain
 	return func(modelid string) *PutTrainedModelVocabulary {
 		n := New(tp)
 
-		n.ModelId(modelid)
+		n._modelid(modelid)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *PutTrainedModelVocabulary) Header(key, value string) *PutTrainedModelVo
 
 // ModelId The unique identifier of the trained model.
 // API Name: modelid
-func (r *PutTrainedModelVocabulary) ModelId(modelid string) *PutTrainedModelVocabulary {
+func (r *PutTrainedModelVocabulary) _modelid(modelid string) *PutTrainedModelVocabulary {
 	r.paramSet |= modelidMask
 	r.modelid = modelid
 
@@ -256,6 +256,14 @@ func (r *PutTrainedModelVocabulary) ModelId(modelid string) *PutTrainedModelVoca
 // API name: merges
 func (r *PutTrainedModelVocabulary) Merges(merges ...string) *PutTrainedModelVocabulary {
 	r.req.Merges = merges
+
+	return r
+}
+
+// Scores The optional vocabulary value scores if required by the tokenizer.
+// API name: scores
+func (r *PutTrainedModelVocabulary) Scores(scores ...types.Float64) *PutTrainedModelVocabulary {
+	r.req.Scores = scores
 
 	return r
 }

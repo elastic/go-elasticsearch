@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deactivates a currently active watch.
 package deactivatewatch
@@ -67,7 +67,7 @@ func NewDeactivateWatchFunc(tp elastictransport.Interface) NewDeactivateWatch {
 	return func(watchid string) *DeactivateWatch {
 		n := New(tp)
 
-		n.WatchId(watchid)
+		n._watchid(watchid)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *DeactivateWatch) Header(key, value string) *DeactivateWatch {
 
 // WatchId Watch ID
 // API Name: watchid
-func (r *DeactivateWatch) WatchId(watchid string) *DeactivateWatch {
+func (r *DeactivateWatch) _watchid(watchid string) *DeactivateWatch {
 	r.paramSet |= watchidMask
 	r.watchid = watchid
 

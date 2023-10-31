@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes a synonym rule in a synonym set
 package deletesynonymrule
@@ -70,9 +70,9 @@ func NewDeleteSynonymRuleFunc(tp elastictransport.Interface) NewDeleteSynonymRul
 	return func(setid, ruleid string) *DeleteSynonymRule {
 		n := New(tp)
 
-		n.SetId(setid)
+		n._setid(setid)
 
-		n.RuleId(ruleid)
+		n._ruleid(ruleid)
 
 		return n
 	}
@@ -227,7 +227,7 @@ func (r *DeleteSynonymRule) Header(key, value string) *DeleteSynonymRule {
 
 // SetId The id of the synonym set to be updated
 // API Name: setid
-func (r *DeleteSynonymRule) SetId(setid string) *DeleteSynonymRule {
+func (r *DeleteSynonymRule) _setid(setid string) *DeleteSynonymRule {
 	r.paramSet |= setidMask
 	r.setid = setid
 
@@ -236,7 +236,7 @@ func (r *DeleteSynonymRule) SetId(setid string) *DeleteSynonymRule {
 
 // RuleId The id of the synonym rule to be deleted
 // API Name: ruleid
-func (r *DeleteSynonymRule) RuleId(ruleid string) *DeleteSynonymRule {
+func (r *DeleteSynonymRule) _ruleid(ruleid string) *DeleteSynonymRule {
 	r.paramSet |= ruleidMask
 	r.ruleid = ruleid
 

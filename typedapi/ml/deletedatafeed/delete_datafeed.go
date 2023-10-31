@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes an existing datafeed.
 package deletedatafeed
@@ -68,7 +68,7 @@ func NewDeleteDatafeedFunc(tp elastictransport.Interface) NewDeleteDatafeed {
 	return func(datafeedid string) *DeleteDatafeed {
 		n := New(tp)
 
-		n.DatafeedId(datafeedid)
+		n._datafeedid(datafeedid)
 
 		return n
 	}
@@ -219,7 +219,7 @@ func (r *DeleteDatafeed) Header(key, value string) *DeleteDatafeed {
 // hyphens, and underscores. It must start and end with alphanumeric
 // characters.
 // API Name: datafeedid
-func (r *DeleteDatafeed) DatafeedId(datafeedid string) *DeleteDatafeed {
+func (r *DeleteDatafeed) _datafeedid(datafeedid string) *DeleteDatafeed {
 	r.paramSet |= datafeedidMask
 	r.datafeedid = datafeedid
 

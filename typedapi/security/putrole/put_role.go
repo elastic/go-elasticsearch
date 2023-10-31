@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Adds and updates roles in the native realm.
 package putrole
@@ -72,7 +72,7 @@ func NewPutRoleFunc(tp elastictransport.Interface) NewPutRole {
 	return func(name string) *PutRole {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *PutRole) Header(key, value string) *PutRole {
 
 // Name The name of the role.
 // API Name: name
-func (r *PutRole) Name(name string) *PutRole {
+func (r *PutRole) _name(name string) *PutRole {
 	r.paramSet |= nameMask
 	r.name = name
 

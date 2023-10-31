@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns information about a task.
 package get
@@ -68,7 +68,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	return func(taskid string) *Get {
 		n := New(tp)
 
-		n.TaskId(taskid)
+		n._taskid(taskid)
 
 		return n
 	}
@@ -214,7 +214,7 @@ func (r *Get) Header(key, value string) *Get {
 
 // TaskId ID of the task.
 // API Name: taskid
-func (r *Get) TaskId(taskid string) *Get {
+func (r *Get) _taskid(taskid string) *Get {
 	r.paramSet |= taskidMask
 	r.taskid = taskid
 

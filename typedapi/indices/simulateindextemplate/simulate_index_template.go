@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Simulate matching the given index name against the index templates in the
 // system
@@ -72,7 +72,7 @@ func NewSimulateIndexTemplateFunc(tp elastictransport.Interface) NewSimulateInde
 	return func(name string) *SimulateIndexTemplate {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -246,7 +246,7 @@ func (r *SimulateIndexTemplate) Header(key, value string) *SimulateIndexTemplate
 
 // Name Index or template name to simulate
 // API Name: name
-func (r *SimulateIndexTemplate) Name(name string) *SimulateIndexTemplate {
+func (r *SimulateIndexTemplate) _name(name string) *SimulateIndexTemplate {
 	r.paramSet |= nameMask
 	r.name = name
 

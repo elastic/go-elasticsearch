@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Stops the following task associated with a follower index and removes index
 // metadata and settings associated with cross-cluster replication.
@@ -68,7 +68,7 @@ func NewUnfollowFunc(tp elastictransport.Interface) NewUnfollow {
 	return func(index string) *Unfollow {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *Unfollow) Header(key, value string) *Unfollow {
 
 // Index The name of the follower index that should be turned into a regular index.
 // API Name: index
-func (r *Unfollow) Index(index string) *Unfollow {
+func (r *Unfollow) _index(index string) *Unfollow {
 	r.paramSet |= indexMask
 	r.index = index
 

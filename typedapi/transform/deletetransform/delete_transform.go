@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes an existing transform.
 package deletetransform
@@ -68,7 +68,7 @@ func NewDeleteTransformFunc(tp elastictransport.Interface) NewDeleteTransform {
 	return func(transformid string) *DeleteTransform {
 		n := New(tp)
 
-		n.TransformId(transformid)
+		n._transformid(transformid)
 
 		return n
 	}
@@ -214,7 +214,7 @@ func (r *DeleteTransform) Header(key, value string) *DeleteTransform {
 
 // TransformId Identifier for the transform.
 // API Name: transformid
-func (r *DeleteTransform) TransformId(transformid string) *DeleteTransform {
+func (r *DeleteTransform) _transformid(transformid string) *DeleteTransform {
 	r.paramSet |= transformidMask
 	r.transformid = transformid
 

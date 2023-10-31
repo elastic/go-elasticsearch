@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Removes stale data from repository.
 package cleanuprepository
@@ -67,7 +67,7 @@ func NewCleanupRepositoryFunc(tp elastictransport.Interface) NewCleanupRepositor
 	return func(repository string) *CleanupRepository {
 		n := New(tp)
 
-		n.Repository(repository)
+		n._repository(repository)
 
 		return n
 	}
@@ -215,7 +215,7 @@ func (r *CleanupRepository) Header(key, value string) *CleanupRepository {
 
 // Repository Snapshot repository to clean up.
 // API Name: repository
-func (r *CleanupRepository) Repository(repository string) *CleanupRepository {
+func (r *CleanupRepository) _repository(repository string) *CleanupRepository {
 	r.paramSet |= repositoryMask
 	r.repository = repository
 

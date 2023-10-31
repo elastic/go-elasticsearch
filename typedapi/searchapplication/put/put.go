@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Creates or updates a search application.
 package put
@@ -53,8 +53,8 @@ type Put struct {
 
 	buf *gobytes.Buffer
 
-	req      *types.SearchApplication
-	deferred []func(request *types.SearchApplication) error
+	req      *Request
+	deferred []func(request *Request) error
 	raw      io.Reader
 
 	paramSet int
@@ -71,7 +71,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 	return func(name string) *Put {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -100,7 +100,7 @@ func (r *Put) Raw(raw io.Reader) *Put {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *Put) Request(req *types.SearchApplication) *Put {
+func (r *Put) Request(req *Request) *Put {
 	r.req = req
 
 	return r
@@ -242,7 +242,7 @@ func (r *Put) Header(key, value string) *Put {
 
 // Name The name of the search application to be created or updated.
 // API Name: name
-func (r *Put) Name(name string) *Put {
+func (r *Put) _name(name string) *Put {
 	r.paramSet |= nameMask
 	r.name = name
 
@@ -254,6 +254,47 @@ func (r *Put) Name(name string) *Put {
 // API name: create
 func (r *Put) Create(create bool) *Put {
 	r.values.Set("create", strconv.FormatBool(create))
+
+	return r
+}
+
+// AnalyticsCollectionName Analytics collection associated to the Search Application.
+// API name: analytics_collection_name
+func (r *Put) AnalyticsCollectionName(name string) *Put {
+	r.req.AnalyticsCollectionName = &name
+
+	return r
+}
+
+// Indices Indices that are part of the Search Application.
+// API name: indices
+func (r *Put) Indices(indices ...string) *Put {
+	r.req.Indices = indices
+
+	return r
+}
+
+// Name Search Application name.
+// API name: name
+func (r *Put) Name(name string) *Put {
+	r.req.Name = name
+
+	return r
+}
+
+// Template Search template to use on search operations.
+// API name: template
+func (r *Put) Template(template *types.SearchApplicationTemplate) *Put {
+
+	r.req.Template = template
+
+	return r
+}
+
+// UpdatedAtMillis Last time the Search Application was updated.
+// API name: updated_at_millis
+func (r *Put) UpdatedAtMillis(epochtimeunitmillis int64) *Put {
+	r.req.UpdatedAtMillis = epochtimeunitmillis
 
 	return r
 }

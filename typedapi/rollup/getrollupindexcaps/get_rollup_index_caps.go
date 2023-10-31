@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Returns the rollup capabilities of all jobs inside of a rollup index (e.g.
 // the index where rollup data is stored).
@@ -68,7 +68,7 @@ func NewGetRollupIndexCapsFunc(tp elastictransport.Interface) NewGetRollupIndexC
 	return func(index string) *GetRollupIndexCaps {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *GetRollupIndexCaps) Header(key, value string) *GetRollupIndexCaps {
 // Index Data stream or index to check for rollup capabilities.
 // Wildcard (`*`) expressions are supported.
 // API Name: index
-func (r *GetRollupIndexCaps) Index(index string) *GetRollupIndexCaps {
+func (r *GetRollupIndexCaps) _index(index string) *GetRollupIndexCaps {
 	r.paramSet |= indexMask
 	r.index = index
 

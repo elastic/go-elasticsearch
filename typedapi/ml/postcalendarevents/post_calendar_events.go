@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Posts scheduled events in a calendar.
 package postcalendarevents
@@ -70,7 +70,7 @@ func NewPostCalendarEventsFunc(tp elastictransport.Interface) NewPostCalendarEve
 	return func(calendarid string) *PostCalendarEvents {
 		n := New(tp)
 
-		n.CalendarId(calendarid)
+		n._calendarid(calendarid)
 
 		return n
 	}
@@ -245,7 +245,7 @@ func (r *PostCalendarEvents) Header(key, value string) *PostCalendarEvents {
 
 // CalendarId A string that uniquely identifies a calendar.
 // API Name: calendarid
-func (r *PostCalendarEvents) CalendarId(calendarid string) *PostCalendarEvents {
+func (r *PostCalendarEvents) _calendarid(calendarid string) *PostCalendarEvents {
 	r.paramSet |= calendaridMask
 	r.calendarid = calendarid
 

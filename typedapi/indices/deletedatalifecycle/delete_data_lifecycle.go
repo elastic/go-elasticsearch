@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes the data stream lifecycle of the selected data streams.
 package deletedatalifecycle
@@ -68,7 +68,7 @@ func NewDeleteDataLifecycleFunc(tp elastictransport.Interface) NewDeleteDataLife
 	return func(name string) *DeleteDataLifecycle {
 		n := New(tp)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *DeleteDataLifecycle) Header(key, value string) *DeleteDataLifecycle {
 // Name A comma-separated list of data streams of which the data stream lifecycle
 // will be deleted; use `*` to get all data streams
 // API Name: name
-func (r *DeleteDataLifecycle) Name(name string) *DeleteDataLifecycle {
+func (r *DeleteDataLifecycle) _name(name string) *DeleteDataLifecycle {
 	r.paramSet |= nameMask
 	r.name = name
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes an index.
 package delete
@@ -69,7 +69,7 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	return func(index string) *Delete {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *Delete) Header(key, value string) *Delete {
 // To use wildcards or `_all`, set the `action.destructive_requires_name`
 // cluster setting to `false`.
 // API Name: index
-func (r *Delete) Index(index string) *Delete {
+func (r *Delete) _index(index string) *Delete {
 	r.paramSet |= indexMask
 	r.index = index
 

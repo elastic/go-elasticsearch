@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Removes application privileges.
 package deleteprivileges
@@ -71,9 +71,9 @@ func NewDeletePrivilegesFunc(tp elastictransport.Interface) NewDeletePrivileges 
 	return func(application, name string) *DeletePrivileges {
 		n := New(tp)
 
-		n.Application(application)
+		n._application(application)
 
-		n.Name(name)
+		n._name(name)
 
 		return n
 	}
@@ -224,7 +224,7 @@ func (r *DeletePrivileges) Header(key, value string) *DeletePrivileges {
 
 // Application Application name
 // API Name: application
-func (r *DeletePrivileges) Application(application string) *DeletePrivileges {
+func (r *DeletePrivileges) _application(application string) *DeletePrivileges {
 	r.paramSet |= applicationMask
 	r.application = application
 
@@ -233,7 +233,7 @@ func (r *DeletePrivileges) Application(application string) *DeletePrivileges {
 
 // Name Privilege name
 // API Name: name
-func (r *DeletePrivileges) Name(name string) *DeletePrivileges {
+func (r *DeletePrivileges) _name(name string) *DeletePrivileges {
 	r.paramSet |= nameMask
 	r.name = name
 

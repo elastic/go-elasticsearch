@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes a pipeline.
 package deletepipeline
@@ -67,7 +67,7 @@ func NewDeletePipelineFunc(tp elastictransport.Interface) NewDeletePipeline {
 	return func(id string) *DeletePipeline {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -216,7 +216,7 @@ func (r *DeletePipeline) Header(key, value string) *DeletePipeline {
 // Id Pipeline ID or wildcard expression of pipeline IDs used to limit the request.
 // To delete all ingest pipelines in a cluster, use a value of `*`.
 // API Name: id
-func (r *DeletePipeline) Id(id string) *DeletePipeline {
+func (r *DeletePipeline) _id(id string) *DeletePipeline {
 	r.paramSet |= idMask
 	r.id = id
 

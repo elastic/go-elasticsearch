@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Deletes an async SQL search or a stored synchronous SQL search. If the search
 // is still running, the API cancels it.
@@ -68,7 +68,7 @@ func NewDeleteAsyncFunc(tp elastictransport.Interface) NewDeleteAsync {
 	return func(id string) *DeleteAsync {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -219,7 +219,7 @@ func (r *DeleteAsync) Header(key, value string) *DeleteAsync {
 
 // Id Identifier for the search.
 // API Name: id
-func (r *DeleteAsync) Id(id string) *DeleteAsync {
+func (r *DeleteAsync) _id(id string) *DeleteAsync {
 	r.paramSet |= idMask
 	r.id = id
 

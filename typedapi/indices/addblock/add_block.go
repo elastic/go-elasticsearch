@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Adds a block to an index.
 package addblock
@@ -72,9 +72,9 @@ func NewAddBlockFunc(tp elastictransport.Interface) NewAddBlock {
 	return func(index, block string) *AddBlock {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
-		n.Block(block)
+		n._block(block)
 
 		return n
 	}
@@ -223,7 +223,7 @@ func (r *AddBlock) Header(key, value string) *AddBlock {
 
 // Index A comma separated list of indices to add a block to
 // API Name: index
-func (r *AddBlock) Index(index string) *AddBlock {
+func (r *AddBlock) _index(index string) *AddBlock {
 	r.paramSet |= indexMask
 	r.index = index
 
@@ -232,7 +232,7 @@ func (r *AddBlock) Index(index string) *AddBlock {
 
 // Block The block to add (one of read, write, read_only or metadata)
 // API Name: block
-func (r *AddBlock) Block(block string) *AddBlock {
+func (r *AddBlock) _block(block string) *AddBlock {
 	r.paramSet |= blockMask
 	r.block = block
 

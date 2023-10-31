@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Changes the number of requests per second for a particular Delete By Query
 // operation.
@@ -68,7 +68,7 @@ func NewDeleteByQueryRethrottleFunc(tp elastictransport.Interface) NewDeleteByQu
 	return func(taskid string) *DeleteByQueryRethrottle {
 		n := New(tp)
 
-		n.TaskId(taskid)
+		n._taskid(taskid)
 
 		return n
 	}
@@ -217,7 +217,7 @@ func (r *DeleteByQueryRethrottle) Header(key, value string) *DeleteByQueryRethro
 
 // TaskId The ID for the task.
 // API Name: taskid
-func (r *DeleteByQueryRethrottle) TaskId(taskid string) *DeleteByQueryRethrottle {
+func (r *DeleteByQueryRethrottle) _taskid(taskid string) *DeleteByQueryRethrottle {
 	r.paramSet |= taskidMask
 	r.taskid = taskid
 

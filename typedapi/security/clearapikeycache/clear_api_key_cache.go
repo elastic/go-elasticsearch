@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Clear a subset or all entries from the API key cache.
 package clearapikeycache
@@ -67,7 +67,7 @@ func NewClearApiKeyCacheFunc(tp elastictransport.Interface) NewClearApiKeyCache 
 	return func(ids string) *ClearApiKeyCache {
 		n := New(tp)
 
-		n.Ids(ids)
+		n._ids(ids)
 
 		return n
 	}
@@ -219,7 +219,7 @@ func (r *ClearApiKeyCache) Header(key, value string) *ClearApiKeyCache {
 // To evict all API keys, use `*`.
 // Does not support other wildcard patterns.
 // API Name: ids
-func (r *ClearApiKeyCache) Ids(ids string) *ClearApiKeyCache {
+func (r *ClearApiKeyCache) _ids(ids string) *ClearApiKeyCache {
 	r.paramSet |= idsMask
 	r.ids = ids
 

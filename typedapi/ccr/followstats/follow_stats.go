@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves follower stats. return shard-level stats about the following tasks
 // associated with each shard for the specified indices.
@@ -68,7 +68,7 @@ func NewFollowStatsFunc(tp elastictransport.Interface) NewFollowStats {
 	return func(index string) *FollowStats {
 		n := New(tp)
 
-		n.Index(index)
+		n._index(index)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *FollowStats) Header(key, value string) *FollowStats {
 // Index A comma-separated list of index patterns; use `_all` to perform the operation
 // on all indices
 // API Name: index
-func (r *FollowStats) Index(index string) *FollowStats {
+func (r *FollowStats) _index(index string) *FollowStats {
 	r.paramSet |= indexMask
 	r.index = index
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Retrieves the results of a previously submitted async search request given
 // its ID.
@@ -69,7 +69,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	return func(id string) *Get {
 		n := New(tp)
 
-		n.Id(id)
+		n._id(id)
 
 		return n
 	}
@@ -218,7 +218,7 @@ func (r *Get) Header(key, value string) *Get {
 
 // Id A unique identifier for the async search.
 // API Name: id
-func (r *Get) Id(id string) *Get {
+func (r *Get) _id(id string) *Get {
 	r.paramSet |= idMask
 	r.id = id
 

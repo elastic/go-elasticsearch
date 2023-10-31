@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5260ec5b7c899ab1a7939f752218cae07ef07dd7
+// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
 
 // Sends data to an anomaly detection job for analysis.
 package postdata
@@ -52,8 +52,8 @@ type PostData struct {
 
 	buf *gobytes.Buffer
 
-	req      []json.RawMessage
-	deferred []func(request []json.RawMessage) error
+	req      *Request
+	deferred []func(request *Request) error
 	raw      io.Reader
 
 	paramSet int
@@ -70,7 +70,7 @@ func NewPostDataFunc(tp elastictransport.Interface) NewPostData {
 	return func(jobid string) *PostData {
 		n := New(tp)
 
-		n.JobId(jobid)
+		n._jobid(jobid)
 
 		return n
 	}
@@ -99,7 +99,7 @@ func (r *PostData) Raw(raw io.Reader) *PostData {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *PostData) Request(req []json.RawMessage) *PostData {
+func (r *PostData) Request(req *Request) *PostData {
 	r.req = req
 
 	return r
@@ -244,7 +244,7 @@ func (r *PostData) Header(key, value string) *PostData {
 // JobId Identifier for the anomaly detection job. The job must have a state of open
 // to receive and process the data.
 // API Name: jobid
-func (r *PostData) JobId(jobid string) *PostData {
+func (r *PostData) _jobid(jobid string) *PostData {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
 
