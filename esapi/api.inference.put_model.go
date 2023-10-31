@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newInferencePutModelFunc(t Transport) InferencePutModel {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/inference_put_model.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html.
 type InferencePutModel func(model_id string, task_type string, o ...func(*InferencePutModelRequest)) (*Response, error)
 
 // InferencePutModelRequest configures the Inference Put Model API request.

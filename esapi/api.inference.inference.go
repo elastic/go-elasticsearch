@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -42,7 +42,7 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/inference.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
 type InferenceInference func(model_id string, task_type string, o ...func(*InferenceInferenceRequest)) (*Response, error)
 
 // InferenceInferenceRequest configures the Inference Inference API request.

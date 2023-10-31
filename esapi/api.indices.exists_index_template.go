@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0: DO NOT EDIT
+// Code generated from specification version 8.12.0: DO NOT EDIT
 
 package esapi
 
@@ -41,7 +41,7 @@ func newIndicesExistsIndexTemplateFunc(t Transport) IndicesExistsIndexTemplate {
 
 // IndicesExistsIndexTemplate returns information about whether a particular index template exists.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/index-templates.html.
 type IndicesExistsIndexTemplate func(name string, o ...func(*IndicesExistsIndexTemplateRequest)) (*Response, error)
 
 // IndicesExistsIndexTemplateRequest configures the Indices Exists Index Template API request.

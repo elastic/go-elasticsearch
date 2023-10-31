@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.11.0 (9ce92a9): DO NOT EDIT
+// Code generated from specification version 8.12.0 (fb03858): DO NOT EDIT
 
 package esapi
 
@@ -104,6 +104,7 @@ type API struct {
 	Mtermvectors                                  Mtermvectors
 	OpenPointInTime                               OpenPointInTime
 	Ping                                          Ping
+	ProfilingStatus                               ProfilingStatus
 	PutScript                                     PutScript
 	QueryRulesetDelete                            QueryRulesetDelete
 	QueryRulesetGet                               QueryRulesetGet
@@ -648,6 +649,7 @@ func New(t Transport) *API {
 		Mtermvectors:                       newMtermvectorsFunc(t),
 		OpenPointInTime:                    newOpenPointInTimeFunc(t),
 		Ping:                               newPingFunc(t),
+		ProfilingStatus:                    newProfilingStatusFunc(t),
 		PutScript:                          newPutScriptFunc(t),
 		QueryRulesetDelete:                 newQueryRulesetDeleteFunc(t),
 		QueryRulesetGet:                    newQueryRulesetGetFunc(t),

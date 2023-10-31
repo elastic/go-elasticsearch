@@ -24,11 +24,12 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
-func newMLDeleteDatafeedFunc(t Transport) MLDeleteDatafeed {
-	return func(datafeed_id string, o ...func(*MLDeleteDatafeedRequest)) (*Response, error) {
-		var r = MLDeleteDatafeedRequest{DatafeedID: datafeed_id}
+func newProfilingStatusFunc(t Transport) ProfilingStatus {
+	return func(o ...func(*ProfilingStatusRequest)) (*Response, error) {
+		var r = ProfilingStatusRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -38,16 +39,16 @@ func newMLDeleteDatafeedFunc(t Transport) MLDeleteDatafeed {
 
 // ----- API Definition -------------------------------------------------------
 
-// MLDeleteDatafeed - Deletes an existing datafeed.
+// ProfilingStatus returns basic information about the status of Universal Profiling.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-datafeed.html.
-type MLDeleteDatafeed func(datafeed_id string, o ...func(*MLDeleteDatafeedRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/observability/current/universal-profiling.html.
+type ProfilingStatus func(o ...func(*ProfilingStatusRequest)) (*Response, error)
 
-// MLDeleteDatafeedRequest configures the ML Delete Datafeed API request.
-type MLDeleteDatafeedRequest struct {
-	DatafeedID string
-
-	Force *bool
+// ProfilingStatusRequest configures the Profiling Status API request.
+type ProfilingStatusRequest struct {
+	MasterTimeout           time.Duration
+	Timeout                 time.Duration
+	WaitForResourcesCreated *bool
 
 	Pretty     bool
 	Human      bool
@@ -60,28 +61,31 @@ type MLDeleteDatafeedRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r MLDeleteDatafeedRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ProfilingStatusRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
 	)
 
-	method = "DELETE"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_ml") + 1 + len("datafeeds") + 1 + len(r.DatafeedID))
+	path.Grow(7 + len("/_profiling/status"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_ml")
-	path.WriteString("/")
-	path.WriteString("datafeeds")
-	path.WriteString("/")
-	path.WriteString(r.DatafeedID)
+	path.WriteString("/_profiling/status")
 
 	params = make(map[string]string)
 
-	if r.Force != nil {
-		params["force"] = strconv.FormatBool(*r.Force)
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
+
+	if r.WaitForResourcesCreated != nil {
+		params["wait_for_resources_created"] = strconv.FormatBool(*r.WaitForResourcesCreated)
 	}
 
 	if r.Pretty {
@@ -144,50 +148,64 @@ func (r MLDeleteDatafeedRequest) Do(ctx context.Context, transport Transport) (*
 }
 
 // WithContext sets the request context.
-func (f MLDeleteDatafeed) WithContext(v context.Context) func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
+func (f ProfilingStatus) WithContext(v context.Context) func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
 		r.ctx = v
 	}
 }
 
-// WithForce - true if the datafeed should be forcefully deleted.
-func (f MLDeleteDatafeed) WithForce(v bool) func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
-		r.Force = &v
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ProfilingStatus) WithMasterTimeout(v time.Duration) func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f ProfilingStatus) WithTimeout(v time.Duration) func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
+		r.Timeout = v
+	}
+}
+
+// WithWaitForResourcesCreated - whether to return immediately or wait until resources have been created.
+func (f ProfilingStatus) WithWaitForResourcesCreated(v bool) func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
+		r.WaitForResourcesCreated = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f MLDeleteDatafeed) WithPretty() func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
+func (f ProfilingStatus) WithPretty() func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f MLDeleteDatafeed) WithHuman() func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
+func (f ProfilingStatus) WithHuman() func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f MLDeleteDatafeed) WithErrorTrace() func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
+func (f ProfilingStatus) WithErrorTrace() func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f MLDeleteDatafeed) WithFilterPath(v ...string) func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
+func (f ProfilingStatus) WithFilterPath(v ...string) func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f MLDeleteDatafeed) WithHeader(h map[string]string) func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
+func (f ProfilingStatus) WithHeader(h map[string]string) func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -198,8 +216,8 @@ func (f MLDeleteDatafeed) WithHeader(h map[string]string) func(*MLDeleteDatafeed
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f MLDeleteDatafeed) WithOpaqueID(s string) func(*MLDeleteDatafeedRequest) {
-	return func(r *MLDeleteDatafeedRequest) {
+func (f ProfilingStatus) WithOpaqueID(s string) func(*ProfilingStatusRequest) {
+	return func(r *ProfilingStatusRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
