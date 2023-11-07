@@ -1,3 +1,11 @@
+# 8.11.0
+
+# New Compatibility Policy
+
+Starting from version 8.12, we will follow the Go language [policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
+
+If you have any questions or concerns, please do not hesitate to reach out to us.
+
 # 8.10.1
 
 ## Typed API
