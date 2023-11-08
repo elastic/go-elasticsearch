@@ -321,6 +321,10 @@ eql/30_async_missing_events.yml:
 # resource_already_exists_exception for model, need improved teardown for models
 ml/semantic_search.yml:
 
+# model is not deployed to any node
+ml/text_expansion_search.yml:
+ml/text_expansion_search_sparse_vector.yml:
+
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
   - Create a source only snapshot and then restore it
