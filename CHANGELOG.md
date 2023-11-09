@@ -1,8 +1,22 @@
 # 8.11.0
 
+## API
+
+**Experimental APIs**
+
+* `EsqlQuery`            [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html)
+* `InferenceDeleteModel` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html)
+* `InferenceGetModel`    [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html)
+* `InferenceInference`   [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html)
+* `InferencePutModel`    [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html)
+
+## Typed API
+
+* Mandatory URL parameters are not exposed as functions anymore as they already exist in the constructor.
+
 # New Compatibility Policy
 
-Starting from version 8.12, we will follow the Go language [policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
+Starting from version `8.12.0`, this library follow the Go language [policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
 
 If you have any questions or concerns, please do not hesitate to reach out to us.
 
