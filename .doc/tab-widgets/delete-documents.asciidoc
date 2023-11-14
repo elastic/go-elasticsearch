@@ -1,0 +1,18 @@
+// tag::low-level[]
+
+[source,go]
+----
+client.Delete("my_index", "id")
+----
+
+// end::low-level[]
+
+
+// tag::fully-typed[]
+
+[source,go]
+----
+typedClient.Delete("my_index", "id").Do(context.TODO())
+----
+
+// end::fully-typed[]
