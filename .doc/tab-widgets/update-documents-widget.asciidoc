@@ -1,0 +1,39 @@
+++++
+<div class="tabs" data-tab-group="go-get-started">
+  <div role="tablist" aria-label="go-get-started">
+    <button role="tab"
+            aria-selected="true"
+            aria-controls="low-level-api-tab-update-document"
+            id="low-level-api-update-document">
+      Low-level API
+    </button>
+    <button role="tab"
+            aria-selected="false"
+            aria-controls="fully-typed-api-tab-update-document"
+            id="fully-typed-api-update-document">
+      Fully-typed API
+    </button>
+  </div>
+  <div tabindex="0"
+       role="tabpanel"
+       id="low-level-api-tab-update-document"
+       aria-labelledby="low-level-api-update-document">
+++++
+
+include::update-documents.asciidoc[tag=low-level]
+
+++++
+  </div>
+  <div tabindex="0"
+       role="tabpanel"
+       id="fully-typed-api-tab-update-document"
+       aria-labelledby="fully-typed-api-update-document"
+       hidden="">
+++++
+
+include::update-documents.asciidoc[tag=fully-typed]
+
+++++
+  </div>
+</div>
+++++

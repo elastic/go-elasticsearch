@@ -1,0 +1,36 @@
+// tag::low-level[]
+
+This is a simple way of indexing a document by using the low-level API:
+
+[source,go]
+----
+document := struct {
+    Name string `json:"name"`
+}{
+    "go-elasticsearch",
+}
+data, _ := json.Marshal(document)
+client.Index("my_index", bytes.NewReader(data))
+----
+
+// end::low-level[]
+
+
+// tag::fully-typed[]
+
+This is a simple way of indexing a documen by using the fully-typed API:
+
+[source,go]
+----
+document := struct {
+    Name string `json:"name"`
+}{
+    "go-elasticsearch",
+}
+typedClient.Index("my_index").
+		Id("1").
+		Request(document).
+		Do(context.TODO())
+----
+
+// end::fully-typed[]

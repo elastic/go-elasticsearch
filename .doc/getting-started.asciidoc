@@ -27,26 +27,7 @@ Refer to the <<installation>> page to learn more.
 [discrete]
 === Connecting
 
-You can connect to the Elastic Cloud using an API key and the Elasticsearch 
-endpoint for the low level API:
-
-[source,go]
-----
-client, err := elasticsearch.NewClient(elasticsearch.Config{
-    CloudID: "<CloudID>",
-    APIKey: "<ApiKey>",
-})
-----
-
-This is the same for the fully-typed API:
-
-[source,go]
-----
-typedClient, err := elasticsearch.NewTypedClient(elasticsearch.Config{
-    CloudID: "<CloudID>",
-    APIKey:  "<ApiKey>",
-})
-----
+include::tab-widgets/connecting-widget.asciidoc[]
 
 
 Your Elasticsearch endpoint can be found on the **My deployment** page of your 
@@ -72,153 +53,43 @@ examples, refer to the <<examples>> page.
 [discrete]
 ==== Creating an index
 
-This is how you create the `my_index` index with the low level API:
-
-[source,go]
-----
-client.Indices.Create("my_index")
-----
-
-This is how you create the `my_index` index with the fully-typed API:
-
-[source,go]
-----
-typedClient.Indices.Create("my_index").Do(context.TODO())
-----
+include::tab-widgets/create-index-widget.asciidoc[]
 
 
 [discrete]
 ==== Indexing documents
 
-This is a simple way of indexing a document by using the low-level API:
+include::tab-widgets/index-document-widget.asciidoc[]
 
-[source,go]
-----
-document := struct {
-    Name string `json:"name"`
-}{
-    "go-elasticsearch",
-}
-data, _ := json.Marshal(document)
-client.Index("my_index", bytes.NewReader(data))
-----
-
-The same operation by using the fully-typed API:
-
-[source,go]
-----
-document := struct {
-    Name string `json:"name"`
-}{
-    "go-elasticsearch",
-}
-typedClient.Index("my_index").
-		Id("1").
-		Request(document).
-		Do(context.TODO())
-----
 
 [discrete]
 ==== Getting documents
 
-You can get documents by using the following code with the low-level API:
-
-[source,go]
-----
-client.Get("my_index", "id")
-----
-
-This is how you can get documents by using the fully-typed API:
-
-[source,go]
-----
-typedClient.Get("my_index", "id").Do(context.TODO())
-----
+include::tab-widgets/get-documents-widget.asciidoc[]
 
 
 [discrete]
 ==== Searching documents
 
-This is how you can create a single match query with the low-level API: 
-
-[source,go]
-----
-query := `{ "query": { "match_all": {} } }`
-client.Search(
-    client.Search.WithIndex("my_index"),
-    client.Search.WithBody(strings.NewReader(query)),
-)
-----
-
-You can perform a single match query with the fully-typed API, too:
-
-[source,go]
-----
-typedClient.Search().
-    Index("my_index").
-    Request(&search.Request{
-        Query: &types.Query{MatchAll: &types.MatchAllQuery{}},
-    }).
-    Do(context.TODO())
-----
+include::tab-widgets/search-documents-widget.asciidoc[]
 
 
 [discrete]
 ==== Updating documents
 
-This is how you can update a document, for example to add a new field, by using 
-the low-level API:
-
-[source,go]
-----
-client.Update("my_index", "id", strings.NewReader(`{doc: { language: "Go" }}`))
-----
-
-And this is how you can update a document with the fully-typed API:
-
-[source,go]
-----
-typedClient.Update("my_index", "id").
-	Request(&update.Request{
-        Doc: json.RawMessage(`{ language: "Go" }`),
-    }).Do(context.TODO())
-----
+include::tab-widgets/update-documents-widget.asciidoc[]
 
 
 [discrete]
 ==== Deleting documents
 
-Low-level API:
-
-[source,go]
-----
-client.Delete("my_index", "id")
-----
-
-Fully-typed API:
-
-[source,go]
-----
-typedClient.Delete("my_index", "id").Do(context.TODO())
-----
+include::tab-widgets/delete-documents-widget.asciidoc[]
 
 
 [discrete]
 ==== Deleting an index
 
-Low-level API:
-
-[source,go]
-----
-client.Indices.Delete([]string{"my_index"})
-----
-
-Fully-typed API:
-
-[source,go]
-----
-typedClient.Indices.Delete("my_index").Do(context.TODO())
-----
+include::tab-widgets/delete-index-widget.asciidoc[]
 
 
 [discrete]
