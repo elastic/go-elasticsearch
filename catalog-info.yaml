@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: buildkite-pipeline-go-elasticsearch
+spec:
+  implementation:
+    apiVersion: buildkite.elastic.dev/v1
+    kind: Pipeline
+    metadata:
+      description: Elasticsearch Go Client
+      name: go-elasticsearch
+    spec:
+      repository: elastic/go-elasticsearch
+      teams:
+        clients-team: {}
+        everyone:
+          access_level: READ_ONLY
+  owner: group:clients-team
+  type: buildkite-pipeline
