@@ -71,10 +71,6 @@ include::tab-widgets/get-documents-widget.asciidoc[]
 [discrete]
 ==== Searching documents
 
-<<<<<<< HEAD
-This is how you can create a single match query with the low-level API: 
-
-[source,go]
 ----
 query := `{ query: { match_all: {} } }`
 client.Search(
@@ -94,9 +90,7 @@ typedClient.Search().
     }).
     Do(context.TODO())
 ----
-=======
 include::tab-widgets/search-documents-widget.asciidoc[]
->>>>>>> 0fba0e4b6 ([DOCS] Adds context selector widget to the getting started page. (#751))
 
 
 [discrete]
