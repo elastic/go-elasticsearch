@@ -1,0 +1,30 @@
+// tag::low-level[]
+
+You can connect to the Elastic Cloud using an API key and the Elasticsearch 
+endpoint for the low level API:
+
+[source,go]
+----
+client, err := elasticsearch.NewClient(elasticsearch.Config{
+    CloudID: "<CloudID>",
+    APIKey: "<ApiKey>",
+})
+----
+
+// end::low-level[]
+
+
+// tag::fully-typed[]
+
+You can connect to the Elastic Cloud using an API key and the Elasticsearch 
+endpoint for the fully-typed API:
+
+[source,go]
+----
+typedClient, err := elasticsearch.NewTypedClient(elasticsearch.Config{
+    CloudID: "<CloudID>",
+    APIKey:  "<ApiKey>",
+})
+----
+
+// end::fully-typed[]
