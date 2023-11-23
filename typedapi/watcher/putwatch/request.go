@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package putwatch
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L53
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L53
 type Request struct {
 	Actions        map[string]types.WatcherAction `json:"actions,omitempty"`
 	Condition      *types.WatcherCondition        `json:"condition,omitempty"`

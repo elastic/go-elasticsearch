@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
 // ECK. Direct use is not supported.
@@ -80,7 +80,7 @@ func NewPutAutoscalingPolicyFunc(tp elastictransport.Interface) NewPutAutoscalin
 // Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
 // ECK. Direct use is not supported.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/autoscaling-put-autoscaling-policy.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html
 func New(tp elastictransport.Interface) *PutAutoscalingPolicy {
 	r := &PutAutoscalingPolicy{
 		transport: tp,

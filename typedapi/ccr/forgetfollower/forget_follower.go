@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Removes the follower retention leases from the leader.
 package forgetfollower
@@ -78,7 +78,7 @@ func NewForgetFollowerFunc(tp elastictransport.Interface) NewForgetFollower {
 
 // Removes the follower retention leases from the leader.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ccr-post-forget-follower.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html
 func New(tp elastictransport.Interface) *ForgetFollower {
 	r := &ForgetFollower{
 		transport: tp,

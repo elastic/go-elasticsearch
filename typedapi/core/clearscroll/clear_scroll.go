@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Explicitly clears the search context for a scroll.
 package clearscroll
@@ -77,7 +77,7 @@ func NewClearScrollFunc(tp elastictransport.Interface) NewClearScroll {
 
 // Explicitly clears the search context for a scroll.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/clear-scroll-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html
 func New(tp elastictransport.Interface) *ClearScroll {
 	r := &ClearScroll{
 		transport: tp,

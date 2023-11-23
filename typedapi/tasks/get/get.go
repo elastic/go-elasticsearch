@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns information about a task.
 package get
@@ -76,7 +76,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 
 // Returns information about a task.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/tasks.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,

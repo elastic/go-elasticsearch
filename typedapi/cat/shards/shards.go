@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Provides a detailed view of shard allocation on nodes.
 package shards
@@ -74,7 +74,7 @@ func NewShardsFunc(tp elastictransport.Interface) NewShards {
 
 // Provides a detailed view of shard allocation on nodes.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-shards.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-shards.html
 func New(tp elastictransport.Interface) *Shards {
 	r := &Shards{
 		transport: tp,

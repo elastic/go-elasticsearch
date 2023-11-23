@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Start a trained model deployment.
 package starttrainedmodeldeployment
@@ -78,7 +78,7 @@ func NewStartTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStartT
 
 // Start a trained model deployment.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/start-trained-model-deployment.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/start-trained-model-deployment.html
 func New(tp elastictransport.Interface) *StartTrainedModelDeployment {
 	r := &StartTrainedModelDeployment{
 		transport: tp,
@@ -244,6 +244,14 @@ func (r *StartTrainedModelDeployment) _modelid(modelid string) *StartTrainedMode
 // API name: cache_size
 func (r *StartTrainedModelDeployment) CacheSize(bytesize string) *StartTrainedModelDeployment {
 	r.values.Set("cache_size", bytesize)
+
+	return r
+}
+
+// DeploymentId A unique identifier for the deployment of the model.
+// API name: deployment_id
+func (r *StartTrainedModelDeployment) DeploymentId(deploymentid string) *StartTrainedModelDeployment {
+	r.values.Set("deployment_id", deploymentid)
 
 	return r
 }

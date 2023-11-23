@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns help for the Cat APIs.
 package help
@@ -67,7 +67,7 @@ func NewHelpFunc(tp elastictransport.Interface) NewHelp {
 
 // Returns help for the Cat APIs.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat.html
 func New(tp elastictransport.Interface) *Help {
 	r := &Help{
 		transport: tp,

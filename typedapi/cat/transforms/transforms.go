@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Gets configuration and usage information about transforms.
 package transforms
@@ -76,7 +76,7 @@ func NewTransformsFunc(tp elastictransport.Interface) NewTransforms {
 
 // Gets configuration and usage information about transforms.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-transforms.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html
 func New(tp elastictransport.Interface) *Transforms {
 	r := &Transforms{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Retrieves the results of a previously submitted async search request given
 // its ID.
@@ -78,7 +78,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // Retrieves the results of a previously submitted async search request given
 // its ID.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/async-search.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,

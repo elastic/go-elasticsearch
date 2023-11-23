@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Shows how much heap memory is currently being used by fielddata on every data
 // node in the cluster.
@@ -76,7 +76,7 @@ func NewFielddataFunc(tp elastictransport.Interface) NewFielddata {
 // Shows how much heap memory is currently being used by fielddata on every data
 // node in the cluster.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-fielddata.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-fielddata.html
 func New(tp elastictransport.Interface) *Fielddata {
 	r := &Fielddata{
 		transport: tp,

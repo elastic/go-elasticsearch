@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Updates the index settings.
 package putsettings
@@ -79,7 +79,7 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 
 // Updates the index settings.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html
 func New(tp elastictransport.Interface) *PutSettings {
 	r := &PutSettings{
 		transport: tp,
@@ -239,6 +239,17 @@ func (r PutSettings) Do(ctx context.Context) (*Response, error) {
 // Header set a key, value pair in the PutSettings headers map.
 func (r *PutSettings) Header(key, value string) *PutSettings {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Index Comma-separated list of data streams, indices, and aliases used to limit
+// the request. Supports wildcards (`*`). To target all data streams and
+// indices, omit this parameter or use `*` or `_all`.
+// API Name: index
+func (r *PutSettings) Indices(index string) *PutSettings {
+	r.paramSet |= indexMask
+	r.index = index
 
 	return r
 }

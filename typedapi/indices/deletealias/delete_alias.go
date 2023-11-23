@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Deletes an alias.
 package deletealias
@@ -80,7 +80,7 @@ func NewDeleteAliasFunc(tp elastictransport.Interface) NewDeleteAlias {
 
 // Deletes an alias.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 func New(tp elastictransport.Interface) *DeleteAlias {
 	r := &DeleteAlias{
 		transport: tp,

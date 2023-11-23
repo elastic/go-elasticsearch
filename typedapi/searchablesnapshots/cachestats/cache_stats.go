@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Retrieve node-level cache statistics about searchable snapshots.
 package cachestats
@@ -73,7 +73,7 @@ func NewCacheStatsFunc(tp elastictransport.Interface) NewCacheStats {
 
 // Retrieve node-level cache statistics about searchable snapshots.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/searchable-snapshots-apis.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-apis.html
 func New(tp elastictransport.Interface) *CacheStats {
 	r := &CacheStats{
 		transport: tp,

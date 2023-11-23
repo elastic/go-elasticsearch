@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns the existing search applications.
 package list
@@ -68,7 +68,7 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 
 // Returns the existing search applications.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/list-search-applications.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/list-search-applications.html
 func New(tp elastictransport.Interface) *List {
 	r := &List{
 		transport: tp,

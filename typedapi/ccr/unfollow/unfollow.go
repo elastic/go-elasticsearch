@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Stops the following task associated with a follower index and removes index
 // metadata and settings associated with cross-cluster replication.
@@ -77,7 +77,7 @@ func NewUnfollowFunc(tp elastictransport.Interface) NewUnfollow {
 // Stops the following task associated with a follower index and removes index
 // metadata and settings associated with cross-cluster replication.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ccr-post-unfollow.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html
 func New(tp elastictransport.Interface) *Unfollow {
 	r := &Unfollow{
 		transport: tp,

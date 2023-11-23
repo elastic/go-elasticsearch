@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns a list of any cluster-level changes (e.g. create index, update
 // mapping,
@@ -72,7 +72,7 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 // mapping,
 // allocate or fail shard) which have not yet been executed.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cluster-pending.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-pending.html
 func New(tp elastictransport.Interface) *PendingTasks {
 	r := &PendingTasks{
 		transport: tp,

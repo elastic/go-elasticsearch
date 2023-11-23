@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Updates an alias to point to a new index when the existing index
 // is considered to be too large or too old.
@@ -84,7 +84,7 @@ func NewRolloverFunc(tp elastictransport.Interface) NewRollover {
 // Updates an alias to point to a new index when the existing index
 // is considered to be too large or too old.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/indices-rollover-index.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-rollover-index.html
 func New(tp elastictransport.Interface) *Rollover {
 	r := &Rollover{
 		transport: tp,

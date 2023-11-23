@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Gets the current autoscaling capacity based on the configured autoscaling
 // policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not
@@ -71,7 +71,7 @@ func NewGetAutoscalingCapacityFunc(tp elastictransport.Interface) NewGetAutoscal
 // policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not
 // supported.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/autoscaling-get-autoscaling-capacity.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html
 func New(tp elastictransport.Interface) *GetAutoscalingCapacity {
 	r := &GetAutoscalingCapacity{
 		transport: tp,

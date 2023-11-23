@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns information about the master node.
 package master
@@ -67,7 +67,7 @@ func NewMasterFunc(tp elastictransport.Interface) NewMaster {
 
 // Returns information about the master node.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-master.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-master.html
 func New(tp elastictransport.Interface) *Master {
 	r := &Master{
 		transport: tp,

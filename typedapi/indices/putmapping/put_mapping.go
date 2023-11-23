@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Updates the index mappings.
 package putmapping
@@ -81,7 +81,7 @@ func NewPutMappingFunc(tp elastictransport.Interface) NewPutMapping {
 
 // Updates the index mappings.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html
 func New(tp elastictransport.Interface) *PutMapping {
 	r := &PutMapping{
 		transport: tp,

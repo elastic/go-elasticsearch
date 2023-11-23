@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Allows to retrieve a large numbers of results from a single search request.
 package scroll
@@ -77,7 +77,7 @@ func NewScrollFunc(tp elastictransport.Interface) NewScroll {
 
 // Allows to retrieve a large numbers of results from a single search request.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/search-request-body.html#request-body-search-scroll
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html#request-body-search-scroll
 func New(tp elastictransport.Interface) *Scroll {
 	r := &Scroll{
 		transport: tp,

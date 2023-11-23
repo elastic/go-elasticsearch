@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Shows information about currently configured aliases to indices including
 // filter and routing infos.
@@ -76,7 +76,7 @@ func NewAliasesFunc(tp elastictransport.Interface) NewAliases {
 // Shows information about currently configured aliases to indices including
 // filter and routing infos.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-alias.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-alias.html
 func New(tp elastictransport.Interface) *Aliases {
 	r := &Aliases{
 		transport: tp,

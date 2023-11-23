@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Resumes an auto-follow pattern that has been paused
 package resumeautofollowpattern
@@ -75,7 +75,7 @@ func NewResumeAutoFollowPatternFunc(tp elastictransport.Interface) NewResumeAuto
 
 // Resumes an auto-follow pattern that has been paused
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ccr-resume-auto-follow-pattern.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-resume-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *ResumeAutoFollowPattern {
 	r := &ResumeAutoFollowPattern{
 		transport: tp,

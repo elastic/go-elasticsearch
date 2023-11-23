@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns a script.
 package getscript
@@ -75,7 +75,7 @@ func NewGetScriptFunc(tp elastictransport.Interface) NewGetScript {
 
 // Returns a script.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html
 func New(tp elastictransport.Interface) *GetScript {
 	r := &GetScript{
 		transport: tp,

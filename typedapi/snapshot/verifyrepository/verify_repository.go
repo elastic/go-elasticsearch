@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Verifies a repository.
 package verifyrepository
@@ -75,7 +75,7 @@ func NewVerifyRepositoryFunc(tp elastictransport.Interface) NewVerifyRepository 
 
 // Verifies a repository.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-snapshots.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
 func New(tp elastictransport.Interface) *VerifyRepository {
 	r := &VerifyRepository{
 		transport: tp,

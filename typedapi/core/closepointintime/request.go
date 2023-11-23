@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package closepointintime
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package closepointintime
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_global/close_point_in_time/ClosePointInTimeRequest.ts#L23-L37
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/_global/close_point_in_time/ClosePointInTimeRequest.ts#L23-L37
 type Request struct {
 
 	// Id The ID of the point-in-time.

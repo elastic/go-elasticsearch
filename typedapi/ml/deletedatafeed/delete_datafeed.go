@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Deletes an existing datafeed.
 package deletedatafeed
@@ -76,7 +76,7 @@ func NewDeleteDatafeedFunc(tp elastictransport.Interface) NewDeleteDatafeed {
 
 // Deletes an existing datafeed.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ml-delete-datafeed.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-datafeed.html
 func New(tp elastictransport.Interface) *DeleteDatafeed {
 	r := &DeleteDatafeed{
 		transport: tp,

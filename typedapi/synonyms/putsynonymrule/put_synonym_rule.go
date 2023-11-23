@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Creates or updates a synonym rule in a synonym set
 package putsynonymrule
@@ -83,7 +83,7 @@ func NewPutSynonymRuleFunc(tp elastictransport.Interface) NewPutSynonymRule {
 
 // Creates or updates a synonym rule in a synonym set
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-synonym-rule.html
 func New(tp elastictransport.Interface) *PutSynonymRule {
 	r := &PutSynonymRule{
 		transport: tp,

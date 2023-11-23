@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Resumes a follower index that has been paused
 package resumefollow
@@ -78,7 +78,7 @@ func NewResumeFollowFunc(tp elastictransport.Interface) NewResumeFollow {
 
 // Resumes a follower index that has been paused
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ccr-post-resume-follow.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html
 func New(tp elastictransport.Interface) *ResumeFollow {
 	r := &ResumeFollow{
 		transport: tp,

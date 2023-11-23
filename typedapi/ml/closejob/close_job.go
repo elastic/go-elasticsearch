@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Closes one or more anomaly detection jobs. A job can be opened and closed
 // multiple times throughout its lifecycle.
@@ -80,7 +80,7 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 // Closes one or more anomaly detection jobs. A job can be opened and closed
 // multiple times throughout its lifecycle.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ml-close-job.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-close-job.html
 func New(tp elastictransport.Interface) *CloseJob {
 	r := &CloseJob{
 		transport: tp,

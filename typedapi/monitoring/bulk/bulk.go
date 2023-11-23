@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Used by the monitoring features to send monitoring data.
 package bulk
@@ -76,7 +76,7 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 
 // Used by the monitoring features to send monitoring data.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/monitor-elasticsearch-cluster.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/monitor-elasticsearch-cluster.html
 func New(tp elastictransport.Interface) *Bulk {
 	r := &Bulk{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Allows to execute several search operations in one request.
 package msearch
@@ -79,7 +79,7 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 
 // Allows to execute several search operations in one request.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/search-multi-search.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html
 func New(tp elastictransport.Interface) *Msearch {
 	r := &Msearch{
 		transport: tp,

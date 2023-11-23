@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Open a point in time that can be used in subsequent searches
 package openpointintime
@@ -77,7 +77,7 @@ func NewOpenPointInTimeFunc(tp elastictransport.Interface) NewOpenPointInTime {
 
 // Open a point in time that can be used in subsequent searches
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/point-in-time-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
 func New(tp elastictransport.Interface) *OpenPointInTime {
 	r := &OpenPointInTime{
 		transport: tp,

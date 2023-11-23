@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package typedapi
 
@@ -886,11 +886,11 @@ type Eql struct {
 	Delete eql_delete.NewDelete
 	// Returns async results from previously executed Event Query Language (EQL)
 	// search
-	//  https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-search-api.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-search-api.html
 	Get eql_get.NewGet
 	// Returns the status of a previously submitted async or stored Event Query
 	// Language (EQL) search
-	//  https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-status-api.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-status-api.html
 	GetStatus eql_get_status.NewGetStatus
 	// Returns results matching a query expressed in Event Query Language (EQL)
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html

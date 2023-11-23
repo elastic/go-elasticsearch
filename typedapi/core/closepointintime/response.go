@@ -16,14 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package closepointintime
 
 // Response holds the response body struct for the package closepointintime
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_global/close_point_in_time/ClosePointInTimeResponse.ts#L22-L36
-
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/_global/close_point_in_time/ClosePointInTimeResponse.ts#L22-L36
 type Response struct {
 	NumFreed  int  `json:"num_freed"`
 	Succeeded bool `json:"succeeded"`

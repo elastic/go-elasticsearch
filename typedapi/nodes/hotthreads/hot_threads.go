@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns information about hot threads on each node in the cluster.
 package hotthreads
@@ -75,7 +75,7 @@ func NewHotThreadsFunc(tp elastictransport.Interface) NewHotThreads {
 
 // Returns information about hot threads on each node in the cluster.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cluster-nodes-hot-threads.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-hot-threads.html
 func New(tp elastictransport.Interface) *HotThreads {
 	r := &HotThreads{
 		transport: tp,

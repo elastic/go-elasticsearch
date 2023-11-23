@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Creates a new enrich policy.
 package putpolicy
@@ -78,7 +78,7 @@ func NewPutPolicyFunc(tp elastictransport.Interface) NewPutPolicy {
 
 // Creates a new enrich policy.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/put-enrich-policy-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-enrich-policy-api.html
 func New(tp elastictransport.Interface) *PutPolicy {
 	r := &PutPolicy{
 		transport: tp,

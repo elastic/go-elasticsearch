@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Allows to simulate a pipeline with example documents.
 package simulate
@@ -77,7 +77,7 @@ func NewSimulateFunc(tp elastictransport.Interface) NewSimulate {
 
 // Allows to simulate a pipeline with example documents.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/simulate-pipeline-api.html
 func New(tp elastictransport.Interface) *Simulate {
 	r := &Simulate{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Removes stale data from repository.
 package cleanuprepository
@@ -75,7 +75,7 @@ func NewCleanupRepositoryFunc(tp elastictransport.Interface) NewCleanupRepositor
 
 // Removes stale data from repository.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/clean-up-snapshot-repo-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/clean-up-snapshot-repo-api.html
 func New(tp elastictransport.Interface) *CleanupRepository {
 	r := &CleanupRepository{
 		transport: tp,
