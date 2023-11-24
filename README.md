@@ -2,6 +2,11 @@
 
 The official Go client for [Elasticsearch](https://www.elastic.co/products/elasticsearch).
 
+**[Download the latest version of Elasticsearch](https://www.elastic.co/downloads/elasticsearch)**
+or
+**[sign-up](https://cloud.elastic.co/registration?elektra=en-ess-sign-up-page)**
+**for a free trial of Elastic Cloud**.
+
 [![GoDoc](https://godoc.org/github.com/elastic/go-elasticsearch?status.svg)](https://pkg.go.dev/github.com/elastic/go-elasticsearch/v8)
 [![Go Report Card](https://goreportcard.com/badge/github.com/elastic/go-elasticsearch)](https://goreportcard.com/report/github.com/elastic/go-elasticsearch)
 [![codecov.io](https://codecov.io/github/elastic/go-elasticsearch/coverage.svg?branch=main)](https://codecov.io/gh/elastic/go-elasticsearch?branch=main)
@@ -10,13 +15,13 @@ The official Go client for [Elasticsearch](https://www.elastic.co/products/elast
 [![Integration](https://github.com/elastic/go-elasticsearch/workflows/Integration/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
 [![API](https://github.com/elastic/go-elasticsearch/workflows/API/badge.svg)](https://github.com/elastic/go-elasticsearch/actions?query=branch%3Amain)
 
-# Compatibility
+## Compatibility
 
-## Go
+### Go
 
 Starting from version `8.12.0`, this library follow the Go language [policy](https://go.dev/doc/devel/release#policy). Each major Go release is supported until there are two newer major releases. For example, Go 1.5 was supported until the Go 1.7 release, and Go 1.6 was supported until the Go 1.8 release.
 
-## Elasticsearch
+### Elasticsearch
 
 Language clients are forward compatible; meaning that clients support communicating with greater or equal minor versions of Elasticsearch.
 Elasticsearch language clients are only backwards compatible with default distributions and without guarantees made.
