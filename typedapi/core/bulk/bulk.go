@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Allows to perform multiple index/update/delete operations in a single
 // request.
@@ -80,7 +80,7 @@ func NewBulkFunc(tp elastictransport.Interface) NewBulk {
 // Allows to perform multiple index/update/delete operations in a single
 // request.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/docs-bulk.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html
 func New(tp elastictransport.Interface) *Bulk {
 	r := &Bulk{
 		transport: tp,

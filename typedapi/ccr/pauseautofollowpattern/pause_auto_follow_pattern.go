@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Pauses an auto-follow pattern
 package pauseautofollowpattern
@@ -75,7 +75,7 @@ func NewPauseAutoFollowPatternFunc(tp elastictransport.Interface) NewPauseAutoFo
 
 // Pauses an auto-follow pattern
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ccr-pause-auto-follow-pattern.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *PauseAutoFollowPattern {
 	r := &PauseAutoFollowPattern{
 		transport: tp,

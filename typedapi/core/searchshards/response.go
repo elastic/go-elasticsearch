@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package searchshards
 
@@ -26,8 +26,7 @@ import (
 
 // Response holds the response body struct for the package searchshards
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_global/search_shards/SearchShardsResponse.ts#L25-L31
-
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/_global/search_shards/SearchShardsResponse.ts#L25-L31
 type Response struct {
 	Indices map[string]types.ShardStoreIndex `json:"indices"`
 	Nodes   map[string]types.NodeAttributes  `json:"nodes"`

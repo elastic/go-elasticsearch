@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Creates a new named collection of auto-follow patterns against a specified
 // remote cluster. Newly created indices on the remote cluster matching any of
@@ -82,7 +82,7 @@ func NewPutAutoFollowPatternFunc(tp elastictransport.Interface) NewPutAutoFollow
 // remote cluster. Newly created indices on the remote cluster matching any of
 // the specified patterns will be automatically configured as follower indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ccr-put-auto-follow-pattern.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-put-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *PutAutoFollowPattern {
 	r := &PutAutoFollowPattern{
 		transport: tp,

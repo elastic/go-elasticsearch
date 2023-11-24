@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Deletes anomaly detection jobs from a calendar.
 package deletecalendarjob
@@ -80,7 +80,7 @@ func NewDeleteCalendarJobFunc(tp elastictransport.Interface) NewDeleteCalendarJo
 
 // Deletes anomaly detection jobs from a calendar.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ml-delete-calendar-job.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-calendar-job.html
 func New(tp elastictransport.Interface) *DeleteCalendarJob {
 	r := &DeleteCalendarJob{
 		transport: tp,

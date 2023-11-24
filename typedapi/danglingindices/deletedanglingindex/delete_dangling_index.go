@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Deletes the specified dangling index
 package deletedanglingindex
@@ -76,7 +76,7 @@ func NewDeleteDanglingIndexFunc(tp elastictransport.Interface) NewDeleteDangling
 
 // Deletes the specified dangling index
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway-dangling-indices.html
 func New(tp elastictransport.Interface) *DeleteDanglingIndex {
 	r := &DeleteDanglingIndex{
 		transport: tp,

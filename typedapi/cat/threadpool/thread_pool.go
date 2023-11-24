@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns cluster-wide thread pool statistics per node.
 // By default the active, queue and rejected statistics are returned for all
@@ -78,7 +78,7 @@ func NewThreadPoolFunc(tp elastictransport.Interface) NewThreadPool {
 // By default the active, queue and rejected statistics are returned for all
 // thread pools.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-thread-pool.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-thread-pool.html
 func New(tp elastictransport.Interface) *ThreadPool {
 	r := &ThreadPool{
 		transport: tp,

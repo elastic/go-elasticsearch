@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Retrieves a synonym set
 package getsynonym
@@ -76,7 +76,7 @@ func NewGetSynonymFunc(tp elastictransport.Interface) NewGetSynonym {
 
 // Retrieves a synonym set
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/get-synonyms-set.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-synonyms-set.html
 func New(tp elastictransport.Interface) *GetSynonym {
 	r := &GetSynonym{
 		transport: tp,

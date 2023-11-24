@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns information and statistics about terms in the fields of a particular
 // document.
@@ -85,7 +85,7 @@ func NewTermvectorsFunc(tp elastictransport.Interface) NewTermvectors {
 // Returns information and statistics about terms in the fields of a particular
 // document.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-termvectors.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-termvectors.html
 func New(tp elastictransport.Interface) *Termvectors {
 	r := &Termvectors{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TopHit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/text_structure/find_structure/types.ts#L35-L38
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/text_structure/find_structure/types.ts#L35-L38
 type TopHit struct {
 	Count int64           `json:"count"`
 	Value json.RawMessage `json:"value,omitempty"`

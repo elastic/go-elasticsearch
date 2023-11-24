@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Explore extracted and summarized information about the documents and terms in
 // an index.
@@ -80,7 +80,7 @@ func NewExploreFunc(tp elastictransport.Interface) NewExplore {
 // Explore extracted and summarized information about the documents and terms in
 // an index.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/graph-explore-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html
 func New(tp elastictransport.Interface) *Explore {
 	r := &Explore{
 		transport: tp,

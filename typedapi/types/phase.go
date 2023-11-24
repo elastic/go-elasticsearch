@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // Phase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/ilm/_types/Phase.ts#L25-L36
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/ilm/_types/Phase.ts#L25-L36
 type Phase struct {
 	Actions        json.RawMessage `json:"actions,omitempty"`
 	Configurations *Configurations `json:"configurations,omitempty"`

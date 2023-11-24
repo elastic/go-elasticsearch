@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns low-level information about REST actions usage on nodes.
 package usage
@@ -76,7 +76,7 @@ func NewUsageFunc(tp elastictransport.Interface) NewUsage {
 
 // Returns low-level information about REST actions usage on nodes.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cluster-nodes-usage.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-usage.html
 func New(tp elastictransport.Interface) *Usage {
 	r := &Usage{
 		transport: tp,

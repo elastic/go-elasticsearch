@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Updates the cluster voting config exclusions by node ids or node names.
 package postvotingconfigexclusions
@@ -65,7 +65,7 @@ func NewPostVotingConfigExclusionsFunc(tp elastictransport.Interface) NewPostVot
 
 // Updates the cluster voting config exclusions by node ids or node names.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/voting-config-exclusions.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/voting-config-exclusions.html
 func New(tp elastictransport.Interface) *PostVotingConfigExclusions {
 	r := &PostVotingConfigExclusions{
 		transport: tp,

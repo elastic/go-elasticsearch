@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Retrieves information about the status of the trial license.
 package gettrialstatus
@@ -67,7 +67,7 @@ func NewGetTrialStatusFunc(tp elastictransport.Interface) NewGetTrialStatus {
 
 // Retrieves information about the status of the trial license.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/get-trial-status.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trial-status.html
 func New(tp elastictransport.Interface) *GetTrialStatus {
 	r := &GetTrialStatus{
 		transport: tp,

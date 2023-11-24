@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Promotes a data stream from a replicated data stream managed by CCR to a
 // regular data stream
@@ -77,7 +77,7 @@ func NewPromoteDataStreamFunc(tp elastictransport.Interface) NewPromoteDataStrea
 // Promotes a data stream from a replicated data stream managed by CCR to a
 // regular data stream
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
 func New(tp elastictransport.Interface) *PromoteDataStream {
 	r := &PromoteDataStream{
 		transport: tp,

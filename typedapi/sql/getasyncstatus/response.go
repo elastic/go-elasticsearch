@@ -16,14 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package getasyncstatus
 
 // Response holds the response body struct for the package getasyncstatus
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/sql/get_async_status/SqlGetAsyncStatusResponse.ts#L23-L55
-
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/sql/get_async_status/SqlGetAsyncStatusResponse.ts#L23-L55
 type Response struct {
 
 	// CompletionStatus HTTP status code for the search. The API only returns this property for

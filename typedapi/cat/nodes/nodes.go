@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns basic statistics about performance of cluster nodes.
 package nodes
@@ -69,7 +69,7 @@ func NewNodesFunc(tp elastictransport.Interface) NewNodes {
 
 // Returns basic statistics about performance of cluster nodes.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-nodes.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-nodes.html
 func New(tp elastictransport.Interface) *Nodes {
 	r := &Nodes{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // PainlessContextSetup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_global/scripts_painless_execute/types.ts#L25-L39
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/_global/scripts_painless_execute/types.ts#L25-L39
 type PainlessContextSetup struct {
 	// Document Document that’s temporarily indexed in-memory and accessible from the script.
 	Document json.RawMessage `json:"document,omitempty"`

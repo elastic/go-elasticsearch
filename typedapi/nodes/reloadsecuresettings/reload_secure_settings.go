@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Reloads secure settings.
 package reloadsecuresettings
@@ -76,7 +76,7 @@ func NewReloadSecureSettingsFunc(tp elastictransport.Interface) NewReloadSecureS
 
 // Reloads secure settings.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/secure-settings.html#reloadable-secure-settings
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/secure-settings.html#reloadable-secure-settings
 func New(tp elastictransport.Interface) *ReloadSecureSettings {
 	r := &ReloadSecureSettings{
 		transport: tp,

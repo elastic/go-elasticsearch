@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Creates a trained model vocabulary
 package puttrainedmodelvocabulary
@@ -256,6 +256,14 @@ func (r *PutTrainedModelVocabulary) _modelid(modelid string) *PutTrainedModelVoc
 // API name: merges
 func (r *PutTrainedModelVocabulary) Merges(merges ...string) *PutTrainedModelVocabulary {
 	r.req.Merges = merges
+
+	return r
+}
+
+// Scores The optional vocabulary value scores if required by the tokenizer.
+// API name: scores
+func (r *PutTrainedModelVocabulary) Scores(scores ...types.Float64) *PutTrainedModelVocabulary {
+	r.req.Scores = scores
 
 	return r
 }

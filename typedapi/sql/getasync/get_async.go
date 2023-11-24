@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns the current status and available results for an async SQL search or
 // stored synchronous SQL search
@@ -77,7 +77,7 @@ func NewGetAsyncFunc(tp elastictransport.Interface) NewGetAsync {
 // Returns the current status and available results for an async SQL search or
 // stored synchronous SQL search
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/get-async-sql-search-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-sql-search-api.html
 func New(tp elastictransport.Interface) *GetAsync {
 	r := &GetAsync{
 		transport: tp,

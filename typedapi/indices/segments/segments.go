@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Provides low-level information about segments in a Lucene index.
 package segments
@@ -75,7 +75,7 @@ func NewSegmentsFunc(tp elastictransport.Interface) NewSegments {
 
 // Provides low-level information about segments in a Lucene index.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-segments.html
 func New(tp elastictransport.Interface) *Segments {
 	r := &Segments{
 		transport: tp,

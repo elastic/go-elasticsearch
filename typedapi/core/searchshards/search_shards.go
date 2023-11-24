@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns information about the indices and shards that a search request would
 // be executed against.
@@ -77,7 +77,7 @@ func NewSearchShardsFunc(tp elastictransport.Interface) NewSearchShards {
 // Returns information about the indices and shards that a search request would
 // be executed against.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/search-shards.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-shards.html
 func New(tp elastictransport.Interface) *SearchShards {
 	r := &SearchShards{
 		transport: tp,

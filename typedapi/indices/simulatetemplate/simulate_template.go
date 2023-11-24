@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Simulate resolving the given template name or body
 package simulatetemplate
@@ -77,7 +77,7 @@ func NewSimulateTemplateFunc(tp elastictransport.Interface) NewSimulateTemplate 
 
 // Simulate resolving the given template name or body
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
 func New(tp elastictransport.Interface) *SimulateTemplate {
 	r := &SimulateTemplate{
 		transport: tp,

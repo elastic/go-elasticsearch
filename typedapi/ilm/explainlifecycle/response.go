@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package explainlifecycle
 
@@ -31,8 +31,7 @@ import (
 
 // Response holds the response body struct for the package explainlifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/ilm/explain_lifecycle/ExplainLifecycleResponse.ts#L24-L28
-
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/ilm/explain_lifecycle/ExplainLifecycleResponse.ts#L24-L28
 type Response struct {
 	Indices map[string]types.LifecycleExplain `json:"indices"`
 }

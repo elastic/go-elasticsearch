@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Deletes an existing transform.
 package deletetransform
@@ -227,6 +227,16 @@ func (r *DeleteTransform) _transformid(transformid string) *DeleteTransform {
 // API name: force
 func (r *DeleteTransform) Force(force bool) *DeleteTransform {
 	r.values.Set("force", strconv.FormatBool(force))
+
+	return r
+}
+
+// DeleteDestIndex If this value is true, the destination index is deleted together with the
+// transform. If false, the destination
+// index will not be deleted
+// API name: delete_dest_index
+func (r *DeleteTransform) DeleteDestIndex(deletedestindex bool) *DeleteTransform {
+	r.values.Set("delete_dest_index", strconv.FormatBool(deletedestindex))
 
 	return r
 }

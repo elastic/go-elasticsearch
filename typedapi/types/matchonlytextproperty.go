@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // MatchOnlyTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_types/mapping/core.ts#L215-L240
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/_types/mapping/core.ts#L215-L240
 type MatchOnlyTextProperty struct {
 	// CopyTo Allows you to copy the values of multiple fields into a group
 	// field, which can then be queried as a single field.
@@ -189,6 +189,12 @@ func (s *MatchOnlyTextProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "dense_vector":
 					oo := NewDenseVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Fields[key] = oo
+				case "sparse_vector":
+					oo := NewSparseVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}

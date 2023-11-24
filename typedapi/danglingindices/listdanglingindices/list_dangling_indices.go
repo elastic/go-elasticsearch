@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns all dangling indices.
 package listdanglingindices
@@ -67,7 +67,7 @@ func NewListDanglingIndicesFunc(tp elastictransport.Interface) NewListDanglingIn
 
 // Returns all dangling indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-gateway-dangling-indices.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway-dangling-indices.html
 func New(tp elastictransport.Interface) *ListDanglingIndices {
 	r := &ListDanglingIndices{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Creates a rollup job.
 package putjob
@@ -78,7 +78,7 @@ func NewPutJobFunc(tp elastictransport.Interface) NewPutJob {
 
 // Creates a rollup job.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/rollup-put-job.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/rollup-put-job.html
 func New(tp elastictransport.Interface) *PutJob {
 	r := &PutJob{
 		transport: tp,

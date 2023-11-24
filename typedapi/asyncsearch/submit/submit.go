@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Executes a search request asynchronously.
 package submit
@@ -81,7 +81,7 @@ func NewSubmitFunc(tp elastictransport.Interface) NewSubmit {
 
 // Executes a search request asynchronously.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/async-search.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
 func New(tp elastictransport.Interface) *Submit {
 	r := &Submit{
 		transport: tp,

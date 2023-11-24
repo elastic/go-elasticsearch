@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns mappings for one or more indices.
 package getmapping
@@ -75,7 +75,7 @@ func NewGetMappingFunc(tp elastictransport.Interface) NewGetMapping {
 
 // Returns mappings for one or more indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-mapping.html
 func New(tp elastictransport.Interface) *GetMapping {
 	r := &GetMapping{
 		transport: tp,

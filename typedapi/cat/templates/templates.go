@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Returns information about existing templates.
 package templates
@@ -73,7 +73,7 @@ func NewTemplatesFunc(tp elastictransport.Interface) NewTemplates {
 
 // Returns information about existing templates.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-templates.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-templates.html
 func New(tp elastictransport.Interface) *Templates {
 	r := &Templates{
 		transport: tp,

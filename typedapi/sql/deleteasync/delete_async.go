@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Deletes an async SQL search or a stored synchronous SQL search. If the search
 // is still running, the API cancels it.
@@ -77,7 +77,7 @@ func NewDeleteAsyncFunc(tp elastictransport.Interface) NewDeleteAsync {
 // Deletes an async SQL search or a stored synchronous SQL search. If the search
 // is still running, the API cancels it.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-async-sql-search-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-async-sql-search-api.html
 func New(tp elastictransport.Interface) *DeleteAsync {
 	r := &DeleteAsync{
 		transport: tp,

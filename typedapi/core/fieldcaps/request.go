@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package fieldcaps
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package fieldcaps
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L99
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L99
 type Request struct {
 
 	// Fields List of fields to retrieve capabilities for. Wildcard (`*`) expressions are

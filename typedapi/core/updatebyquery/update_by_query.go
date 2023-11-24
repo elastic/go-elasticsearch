@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Performs an update on every document in the index without changing the
 // source,
@@ -87,7 +87,7 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 // source,
 // for example to pick up a mapping change.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/docs-update-by-query.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
 func New(tp elastictransport.Interface) *UpdateByQuery {
 	r := &UpdateByQuery{
 		transport: tp,

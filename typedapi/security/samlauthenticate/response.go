@@ -16,14 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package samlauthenticate
 
 // Response holds the response body struct for the package samlauthenticate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/security/saml_authenticate/Response.ts#L22-L30
-
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/security/saml_authenticate/Response.ts#L22-L30
 type Response struct {
 	AccessToken  string `json:"access_token"`
 	ExpiresIn    int    `json:"expires_in"`

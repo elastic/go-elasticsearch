@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package previewdataframeanalytics
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package previewdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/ml/preview_data_frame_analytics/MlPreviewDataFrameAnalyticsRequest.ts#L24-L47
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/ml/preview_data_frame_analytics/MlPreviewDataFrameAnalyticsRequest.ts#L24-L47
 type Request struct {
 
 	// Config A data frame analytics config as described in create data frame analytics

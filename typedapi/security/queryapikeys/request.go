@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package queryapikeys
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L74
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L74
 type Request struct {
 
 	// From Starting document offset.

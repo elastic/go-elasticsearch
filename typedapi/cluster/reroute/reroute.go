@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Allows to manually change the allocation of individual shards in the cluster.
 package reroute
@@ -71,7 +71,7 @@ func NewRerouteFunc(tp elastictransport.Interface) NewReroute {
 
 // Allows to manually change the allocation of individual shards in the cluster.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cluster-reroute.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html
 func New(tp elastictransport.Interface) *Reroute {
 	r := &Reroute{
 		transport: tp,

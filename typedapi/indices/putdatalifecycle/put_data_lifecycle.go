@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Updates the data stream lifecycle of the selected data streams.
 package putdatalifecycle
@@ -79,7 +79,7 @@ func NewPutDataLifecycleFunc(tp elastictransport.Interface) NewPutDataLifecycle 
 
 // Updates the data stream lifecycle of the selected data streams.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-put-lifecycle.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-put-lifecycle.html
 func New(tp elastictransport.Interface) *PutDataLifecycle {
 	r := &PutDataLifecycle{
 		transport: tp,

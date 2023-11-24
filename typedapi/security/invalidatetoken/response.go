@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package invalidatetoken
 
@@ -26,8 +26,7 @@ import (
 
 // Response holds the response body struct for the package invalidatetoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/security/invalidate_token/SecurityInvalidateTokenResponse.ts#L23-L30
-
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/security/invalidate_token/SecurityInvalidateTokenResponse.ts#L23-L30
 type Response struct {
 	ErrorCount                  int64              `json:"error_count"`
 	ErrorDetails                []types.ErrorCause `json:"error_details,omitempty"`

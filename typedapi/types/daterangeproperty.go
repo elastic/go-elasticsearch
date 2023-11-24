@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // DateRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/ac9c431ec04149d9048f2b8f9731e3c2f7f38754/specification/_types/mapping/range.ts#L29-L32
+// https://github.com/elastic/elasticsearch-specification/blob/5fea44e006349579bf3561a82e997002e5716117/specification/_types/mapping/range.ts#L29-L32
 type DateRangeProperty struct {
 	Boost       *Float64                       `json:"boost,omitempty"`
 	Coerce      *bool                          `json:"coerce,omitempty"`
@@ -245,6 +245,12 @@ func (s *DateRangeProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "dense_vector":
 					oo := NewDenseVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Fields[key] = oo
+				case "sparse_vector":
+					oo := NewSparseVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
@@ -596,6 +602,12 @@ func (s *DateRangeProperty) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "dense_vector":
 					oo := NewDenseVectorProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Properties[key] = oo
+				case "sparse_vector":
+					oo := NewSparseVectorProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}

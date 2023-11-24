@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Provides a snapshot of how many shards are allocated to each data node and
 // how much disk space they are using.
@@ -76,7 +76,7 @@ func NewAllocationFunc(tp elastictransport.Interface) NewAllocation {
 // Provides a snapshot of how many shards are allocated to each data node and
 // how much disk space they are using.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/cat-allocation.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-allocation.html
 func New(tp elastictransport.Interface) *Allocation {
 	r := &Allocation{
 		transport: tp,

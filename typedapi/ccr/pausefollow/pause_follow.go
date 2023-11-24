@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/ac9c431ec04149d9048f2b8f9731e3c2f7f38754
+// https://github.com/elastic/elasticsearch-specification/tree/5fea44e006349579bf3561a82e997002e5716117
 
 // Pauses a follower index. The follower index will not fetch any additional
 // operations from the leader index.
@@ -77,7 +77,7 @@ func NewPauseFollowFunc(tp elastictransport.Interface) NewPauseFollow {
 // Pauses a follower index. The follower index will not fetch any additional
 // operations from the leader index.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/{branch}/ccr-post-pause-follow.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
 func New(tp elastictransport.Interface) *PauseFollow {
 	r := &PauseFollow{
 		transport: tp,
