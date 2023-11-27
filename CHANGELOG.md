@@ -1,3 +1,9 @@
+# 8.11.1
+
+## Typed API
+
+* Fix https://github.com/elastic/go-elasticsearch/issues/756 preventing from settings indices in `indices.PutSettings`
+
 # 8.11.0
 
 ## API
