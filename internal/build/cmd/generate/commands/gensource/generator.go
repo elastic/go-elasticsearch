@@ -135,6 +135,11 @@ func new` + g.Endpoint.MethodWithNamespace() + `Func(t Transport) ` + g.Endpoint
 	g.w(`		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -281,7 +286,9 @@ type ` + g.Endpoint.MethodWithNamespace() + `Request struct {`)
 
 	g.w("\n\n\tHeader\thttp.Header\n")
 
-	g.w("\n\tctx context.Context\n}\n")
+	g.w("\n\tctx context.Context\n")
+	g.w("\n\tinstrument Instrumentation\n")
+	g.w("}\n")
 }
 
 func (g *Generator) genWithOptions() {
@@ -494,12 +501,21 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithOpaqueID(s string) func(*`
 func (g *Generator) genDoMethod() {
 	g.w(`// Do executes the request and returns response or error.
 //
-func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method  string
 		path    strings.Builder
 		params  map[string]string
+		ctx     context.Context
 	)` + "\n\n")
+
+	g.w(`if instrument, ok := r.instrument.(Instrumentation); ok {
+			ctx = instrument.Start(providedCtx, "` + g.Endpoint.Name + `")
+			defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}` + "\n\n")
 
 	switch g.Endpoint.Name {
 	case "index":
@@ -630,17 +646,29 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
+							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
+							}` + "\n")
 						case "string":
 							pathGrow.WriteString(`len(r.` + p + `) + `)
 							pathContent.WriteString(`	path.WriteString(r.` + p + `)` + "\n")
+							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								instrument.RecordPathPart(ctx, "` + a.Name + `", r.` + p + `)
+							}` + "\n")
 						case "list":
 							requiredArgsValidation.WriteString(`if len(r.` + p + `) == 0 { return nil, errors.New("` + a.Name + ` is required and cannot be nil or empty") }` + "\n")
 							pathGrow.WriteString(`len(strings.Join(r.` + p + `, ",")) + `)
 							pathContent.WriteString(`	path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
+							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								instrument.RecordPathPart(ctx, "` + a.Name + `", strings.Join(r.` + p + `, ","))
+							}` + "\n")
 						case "long":
 							requiredArgsValidation.WriteString(`if r.` + p + ` == nil { return nil, errors.New("` + a.Name + ` is required and cannot be nil") }` + "\n")
 							pathGrow.WriteString(`len(strconv.Itoa(*r.` + p + `)) + `)
 							pathContent.WriteString(`	path.WriteString(strconv.Itoa(*r.` + p + `))` + "\n")
+							pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								instrument.RecordPathPart(ctx, "` + a.Name + `", strconv.Itoa(*r.` + p + `))
+							}` + "\n")
 						default:
 							panic(fmt.Sprintf("FAIL: %q: unexpected type %q for URL part %q\n", g.Endpoint.Name, a.Type, a.Name))
 						}
@@ -661,12 +689,18 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 								pathContent.WriteString(`	if r.` + p + ` != "" {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(r.` + p + `)` + "\n")
+								pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								instrument.RecordPathPart(ctx, "` + a.Name + `", r.` + p + `)
+							}` + "\n")
 								pathContent.WriteString(`	}` + "\n")
 							case "list":
 								pathGrow.WriteString(`1 + len(strings.Join(r.` + p + `, ",")) + `)
 								pathContent.WriteString(`	if len(r.` + p + `) > 0 {` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(strings.Join(r.` + p + `, ","))` + "\n")
+								pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								instrument.RecordPathPart(ctx, "` + a.Name + `", strings.Join(r.` + p + `, ","))
+							}` + "\n")
 								pathContent.WriteString(`	}` + "\n")
 							case "int", "long":
 								pathContent.WriteString(`	if r.` + p + ` != nil {` + "\n")
@@ -674,6 +708,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 								pathContent.WriteString(`		path.Grow(1 + len(value))` + "\n")
 								pathContent.WriteString(`		path.WriteString("/")` + "\n")
 								pathContent.WriteString(`		path.WriteString(value)` + "\n")
+								pathContent.WriteString(`if instrument, ok := r.instrument.(Instrumentation); ok {
+								instrument.RecordPathPart(ctx, "` + a.Name + `", value)
+							}` + "\n")
 								pathContent.WriteString(`	}` + "\n")
 							default:
 								panic(fmt.Sprintf("FAIL: %q: unexpected type %q for URL part %q\n", g.Endpoint.Name, a.Type, a.Name))
@@ -811,6 +848,9 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	g.w(`req, err := newRequest(method, path.String(), ` + httpBody + `)` + "\n")
 
 	g.w(`if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}` + "\n\n")
 
@@ -845,8 +885,25 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(ctx context.Context,
 	}` + "\n\n")
 
 	g.w(`
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "` + g.Endpoint.Name + `")
+		`)
+	if g.Endpoint.Body != nil {
+		g.w(`if instrument.ShouldRecordQuery("` + g.Endpoint.Name + `") {
+			req.Body = instrument.RecordQuery(ctx, r.Body)
+		}`)
+	}
+
+	g.w(`}`)
+	g.w(`
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "` + g.Endpoint.Name + `")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}` + "\n\n")
 

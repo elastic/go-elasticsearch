@@ -22,25 +22,29 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 // Version returns the package version as a string.
-//
 const Version = version.Client
 
 // Transport defines the interface for an API client.
-//
 type Transport interface {
 	Perform(*http.Request) (*http.Response, error)
 }
+
+// Instrumented allows to retrieve the current transport Instrumentation
+type Instrumented elastictransport.Instrumented
+
+// Instrumentation defines the interface for the instrumentation API.
+type Instrumentation elastictransport.Instrumentation
 
 // BoolPtr returns a pointer to v.
 //
 // It is used as a convenience function for converting a bool value
 // into a pointer when passing the value to a function or struct field
 // which expects a pointer.
-//
 func BoolPtr(v bool) *bool { return &v }
 
 // IntPtr returns a pointer to v.
@@ -48,12 +52,10 @@ func BoolPtr(v bool) *bool { return &v }
 // It is used as a convenience function for converting an int value
 // into a pointer when passing the value to a function or struct field
 // which expects a pointer.
-//
 func IntPtr(v int) *int { return &v }
 
 // formatDuration converts duration to a string in the format
 // accepted by Elasticsearch.
-//
 func formatDuration(d time.Duration) string {
 	if d < time.Millisecond {
 		return strconv.FormatInt(int64(d), 10) + "nanos"

@@ -354,6 +354,7 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 	return res, err
 }
 
+// InstrumentationEnabled propagates back to the client the Instrumentation provided by the transport.
 func (c *BaseClient) InstrumentationEnabled() elastictransport.Instrumentation {
 	if tp, ok := c.Transport.(elastictransport.Instrumented); ok {
 		return tp.InstrumentationEnabled()
