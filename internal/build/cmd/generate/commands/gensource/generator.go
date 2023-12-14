@@ -889,8 +889,8 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 		instrument.BeforeRequest(req, "` + g.Endpoint.Name + `")
 		`)
 	if g.Endpoint.Body != nil {
-		g.w(`if instrument.ShouldRecordQuery("` + g.Endpoint.Name + `") {
-			req.Body = instrument.RecordQuery(ctx, r.Body)
+		g.w(`if reader := instrument.RecordQuery(ctx, "` + g.Endpoint.Name + `", r.Body); reader != nil {
+			req.Body = reader
 		}`)
 	}
 

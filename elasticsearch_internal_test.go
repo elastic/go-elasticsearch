@@ -1020,12 +1020,12 @@ func (c *FakeInstrumentation) RecordPathPart(ctx context.Context, pathPart, valu
 	c.PathParts[pathPart] = value
 }
 
-func (c *FakeInstrumentation) ShouldRecordQuery(endpoint string) bool {
+func (c *FakeInstrumentation) RecordQuery(ctx context.Context, endpoint string, query io.Reader) io.ReadCloser {
 	c.QueryEndpoint = endpoint
-	return c.PersistQuery
-}
-
-func (c *FakeInstrumentation) RecordQuery(ctx context.Context, query io.Reader) io.ReadCloser {
+	if !c.PersistQuery {
+		return nil
+	}
+	
 	buf := bytes.Buffer{}
 	buf.ReadFrom(query)
 	c.Query = buf.String()

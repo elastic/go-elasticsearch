@@ -110,8 +110,7 @@ type Config struct {
 	// Optional constructor function for a custom ConnectionPool. Default: nil.
 	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
 
-	EnableOpenTelemetryQueryCapture bool                             // Enable the OpenTelemetry query capture for search endpoints.
-	Instrumentation                 elastictransport.Instrumentation // Enable instrumentation throughout the client.
+	Instrumentation elastictransport.Instrumentation // Enable instrumentation throughout the client.
 }
 
 // NewOpenTelemetryInstrumentation provides the OpenTelemetry integration for both low-level and TypedAPI.
@@ -306,8 +305,7 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		Selector:           cfg.Selector,
 		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
 
-		EnableOpenTelemetryQueryCapture: cfg.EnableOpenTelemetryQueryCapture,
-		Instrumentation:                 cfg.Instrumentation,
+		Instrumentation: cfg.Instrumentation,
 	}
 
 	tp, err := elastictransport.New(tpConfig)
