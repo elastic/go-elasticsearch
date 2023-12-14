@@ -1008,12 +1008,13 @@ func (c *FakeInstrumentation) RecordError(ctx context.Context, err error) {
 	c.Error = err
 }
 
-func (c *FakeInstrumentation) RecordClusterId(ctx context.Context, id string) {
-	c.ClusterId = id
-}
-
-func (c *FakeInstrumentation) RecordNodeName(ctx context.Context, name string) {
-	c.NodeName = name
+func (c *FakeInstrumentation) AfterResponse(ctx context.Context, res *http.Response) {
+	if id := res.Header.Get("X-Found-Handling-Cluster"); id != "" {
+		c.ClusterId = id
+	}
+	if name := res.Header.Get("X-Found-Handling-Instance"); name != "" {
+		c.NodeName = name
+	}
 }
 
 func (c *FakeInstrumentation) RecordPathPart(ctx context.Context, pathPart, value string) {
@@ -1025,7 +1026,7 @@ func (c *FakeInstrumentation) RecordQuery(ctx context.Context, endpoint string, 
 	if !c.PersistQuery {
 		return nil
 	}
-	
+
 	buf := bytes.Buffer{}
 	buf.ReadFrom(query)
 	c.Query = buf.String()
