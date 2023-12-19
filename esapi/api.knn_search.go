@@ -33,6 +33,11 @@ func newKnnSearchFunc(t Transport) KnnSearch {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -62,15 +67,26 @@ type KnnSearchRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r KnnSearchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r KnnSearchRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "knn_search")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -82,6 +98,9 @@ func (r KnnSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+	}
 	path.WriteString("/")
 	path.WriteString("_knn_search")
 
@@ -109,6 +128,9 @@ func (r KnnSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -140,8 +162,20 @@ func (r KnnSearchRequest) Do(ctx context.Context, transport Transport) (*Respons
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "knn_search")
+		if reader := instrument.RecordRequestBody(ctx, "knn_search", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "knn_search")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

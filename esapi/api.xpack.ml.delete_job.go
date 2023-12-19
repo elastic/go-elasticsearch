@@ -32,6 +32,11 @@ func newMLDeleteJobFunc(t Transport) MLDeleteJob {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -59,15 +64,26 @@ type MLDeleteJobRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLDeleteJobRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.delete_job")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -79,6 +95,9 @@ func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Respo
 	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
 	path.WriteString(r.JobID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "job_id", r.JobID)
+	}
 
 	params = make(map[string]string)
 
@@ -112,6 +131,9 @@ func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -139,8 +161,17 @@ func (r MLDeleteJobRequest) Do(ctx context.Context, transport Transport) (*Respo
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.delete_job")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.delete_job")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

@@ -32,6 +32,11 @@ func newSecurityPutRoleMappingFunc(t Transport) SecurityPutRoleMapping {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -59,15 +64,26 @@ type SecurityPutRoleMappingRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityPutRoleMappingRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityPutRoleMappingRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "security.put_role_mapping")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "PUT"
 
@@ -79,6 +95,9 @@ func (r SecurityPutRoleMappingRequest) Do(ctx context.Context, transport Transpo
 	path.WriteString("role_mapping")
 	path.WriteString("/")
 	path.WriteString(r.Name)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
 
 	params = make(map[string]string)
 
@@ -104,6 +123,9 @@ func (r SecurityPutRoleMappingRequest) Do(ctx context.Context, transport Transpo
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -135,8 +157,20 @@ func (r SecurityPutRoleMappingRequest) Do(ctx context.Context, transport Transpo
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "security.put_role_mapping")
+		if reader := instrument.RecordRequestBody(ctx, "security.put_role_mapping", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "security.put_role_mapping")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

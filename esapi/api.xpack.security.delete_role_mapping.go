@@ -31,6 +31,11 @@ func newSecurityDeleteRoleMappingFunc(t Transport) SecurityDeleteRoleMapping {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -56,15 +61,26 @@ type SecurityDeleteRoleMappingRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityDeleteRoleMappingRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityDeleteRoleMappingRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "security.delete_role_mapping")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -76,6 +92,9 @@ func (r SecurityDeleteRoleMappingRequest) Do(ctx context.Context, transport Tran
 	path.WriteString("role_mapping")
 	path.WriteString("/")
 	path.WriteString(r.Name)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
 
 	params = make(map[string]string)
 
@@ -101,6 +120,9 @@ func (r SecurityDeleteRoleMappingRequest) Do(ctx context.Context, transport Tran
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -128,8 +150,17 @@ func (r SecurityDeleteRoleMappingRequest) Do(ctx context.Context, transport Tran
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "security.delete_role_mapping")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "security.delete_role_mapping")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

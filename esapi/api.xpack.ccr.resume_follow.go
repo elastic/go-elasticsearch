@@ -32,6 +32,11 @@ func newCCRResumeFollowFunc(t Transport) CCRResumeFollow {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -57,15 +62,26 @@ type CCRResumeFollowRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r CCRResumeFollowRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r CCRResumeFollowRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ccr.resume_follow")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -73,6 +89,9 @@ func (r CCRResumeFollowRequest) Do(ctx context.Context, transport Transport) (*R
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
 	path.WriteString("/")
 	path.WriteString("_ccr")
 	path.WriteString("/")
@@ -98,6 +117,9 @@ func (r CCRResumeFollowRequest) Do(ctx context.Context, transport Transport) (*R
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -129,8 +151,20 @@ func (r CCRResumeFollowRequest) Do(ctx context.Context, transport Transport) (*R
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ccr.resume_follow")
+		if reader := instrument.RecordRequestBody(ctx, "ccr.resume_follow", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ccr.resume_follow")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

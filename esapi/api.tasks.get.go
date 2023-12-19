@@ -33,6 +33,11 @@ func newTasksGetFunc(t Transport) TasksGet {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -61,15 +66,26 @@ type TasksGetRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r TasksGetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "tasks.get")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "GET"
 
@@ -79,6 +95,9 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 	path.WriteString("_tasks")
 	path.WriteString("/")
 	path.WriteString(r.TaskID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "task_id", r.TaskID)
+	}
 
 	params = make(map[string]string)
 
@@ -108,6 +127,9 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -135,8 +157,17 @@ func (r TasksGetRequest) Do(ctx context.Context, transport Transport) (*Response
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "tasks.get")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "tasks.get")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

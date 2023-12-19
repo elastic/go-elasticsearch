@@ -33,6 +33,11 @@ func newIndicesDeleteAliasFunc(t Transport) IndicesDeleteAlias {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -61,15 +66,26 @@ type IndicesDeleteAliasRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesDeleteAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesDeleteAliasRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "indices.delete_alias")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -84,10 +100,16 @@ func (r IndicesDeleteAliasRequest) Do(ctx context.Context, transport Transport) 
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Index, ","))
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+	}
 	path.WriteString("/")
 	path.WriteString("_aliases")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Name, ","))
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+	}
 
 	params = make(map[string]string)
 
@@ -117,6 +139,9 @@ func (r IndicesDeleteAliasRequest) Do(ctx context.Context, transport Transport) 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -144,8 +169,17 @@ func (r IndicesDeleteAliasRequest) Do(ctx context.Context, transport Transport) 
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "indices.delete_alias")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "indices.delete_alias")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

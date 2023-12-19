@@ -32,6 +32,11 @@ func newExistsFunc(t Transport) Exists {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -67,15 +72,26 @@ type ExistsRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r ExistsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ExistsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "exists")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "HEAD"
 
@@ -83,10 +99,16 @@ func (r ExistsRequest) Do(ctx context.Context, transport Transport) (*Response, 
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString(r.Index)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "index", r.Index)
+	}
 	path.WriteString("/")
 	path.WriteString("_doc")
 	path.WriteString("/")
 	path.WriteString(r.DocumentID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+	}
 
 	params = make(map[string]string)
 
@@ -148,6 +170,9 @@ func (r ExistsRequest) Do(ctx context.Context, transport Transport) (*Response, 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -175,8 +200,17 @@ func (r ExistsRequest) Do(ctx context.Context, transport Transport) (*Response, 
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "exists")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "exists")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

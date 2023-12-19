@@ -31,6 +31,11 @@ func newWatcherAckWatchFunc(t Transport) WatcherAckWatch {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -55,15 +60,26 @@ type WatcherAckWatchRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r WatcherAckWatchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r WatcherAckWatchRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "watcher.ack_watch")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "PUT"
 
@@ -75,11 +91,17 @@ func (r WatcherAckWatchRequest) Do(ctx context.Context, transport Transport) (*R
 	path.WriteString("watch")
 	path.WriteString("/")
 	path.WriteString(r.WatchID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "watch_id", r.WatchID)
+	}
 	path.WriteString("/")
 	path.WriteString("_ack")
 	if len(r.ActionID) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.ActionID, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "action_id", strings.Join(r.ActionID, ","))
+		}
 	}
 
 	params = make(map[string]string)
@@ -102,6 +124,9 @@ func (r WatcherAckWatchRequest) Do(ctx context.Context, transport Transport) (*R
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -129,8 +154,17 @@ func (r WatcherAckWatchRequest) Do(ctx context.Context, transport Transport) (*R
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "watcher.ack_watch")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "watcher.ack_watch")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

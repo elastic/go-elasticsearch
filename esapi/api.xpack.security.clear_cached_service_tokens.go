@@ -32,6 +32,11 @@ func newSecurityClearCachedServiceTokensFunc(t Transport) SecurityClearCachedSer
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -57,15 +62,26 @@ type SecurityClearCachedServiceTokensRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityClearCachedServiceTokensRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "security.clear_cached_service_tokens")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -81,14 +97,23 @@ func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transpo
 	path.WriteString("service")
 	path.WriteString("/")
 	path.WriteString(r.Namespace)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "namespace", r.Namespace)
+	}
 	path.WriteString("/")
 	path.WriteString(r.Service)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "service", r.Service)
+	}
 	path.WriteString("/")
 	path.WriteString("credential")
 	path.WriteString("/")
 	path.WriteString("token")
 	path.WriteString("/")
 	path.WriteString(strings.Join(r.Name, ","))
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+	}
 	path.WriteString("/")
 	path.WriteString("_clear_cache")
 
@@ -112,6 +137,9 @@ func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transpo
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -139,8 +167,17 @@ func (r SecurityClearCachedServiceTokensRequest) Do(ctx context.Context, transpo
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "security.clear_cached_service_tokens")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "security.clear_cached_service_tokens")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

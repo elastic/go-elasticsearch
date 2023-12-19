@@ -31,6 +31,11 @@ func newSearchApplicationPutBehavioralAnalyticsFunc(t Transport) SearchApplicati
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -56,15 +61,26 @@ type SearchApplicationPutBehavioralAnalyticsRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SearchApplicationPutBehavioralAnalyticsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SearchApplicationPutBehavioralAnalyticsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "search_application.put_behavioral_analytics")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "PUT"
 
@@ -76,6 +92,9 @@ func (r SearchApplicationPutBehavioralAnalyticsRequest) Do(ctx context.Context, 
 	path.WriteString("analytics")
 	path.WriteString("/")
 	path.WriteString(r.Name)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
 
 	params = make(map[string]string)
 
@@ -97,6 +116,9 @@ func (r SearchApplicationPutBehavioralAnalyticsRequest) Do(ctx context.Context, 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -124,8 +146,17 @@ func (r SearchApplicationPutBehavioralAnalyticsRequest) Do(ctx context.Context, 
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "search_application.put_behavioral_analytics")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "search_application.put_behavioral_analytics")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
