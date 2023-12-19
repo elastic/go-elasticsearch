@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package resolveindex
 
@@ -26,8 +26,7 @@ import (
 
 // Response holds the response body struct for the package resolveindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/indices/resolve_index/ResolveIndexResponse.ts#L22-L28
-
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/indices/resolve_index/ResolveIndexResponse.ts#L22-L28
 type Response struct {
 	Aliases     []types.ResolveIndexAliasItem       `json:"aliases"`
 	DataStreams []types.ResolveIndexDataStreamsItem `json:"data_streams"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 // Searches a vector tile for geospatial values. Returns results as a binary
 // Mapbox vector tile.
@@ -61,11 +61,11 @@ type SearchMvt struct {
 	values  url.Values
 	path    url.URL
 
-	buf *gobytes.Buffer
+	raw io.Reader
 
 	req      *Request
 	deferred []func(request *Request) error
-	raw      io.Reader
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -74,6 +74,10 @@ type SearchMvt struct {
 	zoom  string
 	x     string
 	y     string
+
+	spanStarted bool
+
+	instrument elastictransport.Instrumentation
 }
 
 // NewSearchMvt type alias for index.
@@ -102,15 +106,22 @@ func NewSearchMvtFunc(tp elastictransport.Interface) NewSearchMvt {
 // Searches a vector tile for geospatial values. Returns results as a binary
 // Mapbox vector tile.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/master/search-vector-tile-api.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-vector-tile-api.html
 func New(tp elastictransport.Interface) *SearchMvt {
 	r := &SearchMvt{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
-		buf:       gobytes.NewBuffer(nil),
+
+		buf: gobytes.NewBuffer(nil),
 
 		req: NewRequest(),
+	}
+
+	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
+		if instrument := instrumented.InstrumentationEnabled(); instrument != nil {
+			r.instrument = instrument
+		}
 	}
 
 	return r
@@ -149,9 +160,7 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 	}
 
-	if r.raw != nil {
-		r.buf.ReadFrom(r.raw)
-	} else if r.req != nil {
+	if r.raw == nil && r.req != nil {
 
 		data, err := json.Marshal(r.req)
 
@@ -163,26 +172,45 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	}
 
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
+
 	r.path.Scheme = "http"
 
 	switch {
 	case r.paramSet == indexMask|fieldMask|zoomMask|xMask|yMask:
 		path.WriteString("/")
 
+		if r.instrument != nil {
+			r.instrument.RecordPathPart(ctx, "index", r.index)
+		}
 		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_mvt")
 		path.WriteString("/")
 
+		if r.instrument != nil {
+			r.instrument.RecordPathPart(ctx, "field", r.field)
+		}
 		path.WriteString(r.field)
 		path.WriteString("/")
 
+		if r.instrument != nil {
+			r.instrument.RecordPathPart(ctx, "zoom", r.zoom)
+		}
 		path.WriteString(r.zoom)
 		path.WriteString("/")
 
+		if r.instrument != nil {
+			r.instrument.RecordPathPart(ctx, "x", r.x)
+		}
 		path.WriteString(r.x)
 		path.WriteString("/")
 
+		if r.instrument != nil {
+			r.instrument.RecordPathPart(ctx, "y", r.y)
+		}
 		path.WriteString(r.y)
 
 		method = http.MethodPost
@@ -196,15 +224,15 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 	}
 
 	if ctx != nil {
-		req, err = http.NewRequestWithContext(ctx, method, r.path.String(), r.buf)
+		req, err = http.NewRequestWithContext(ctx, method, r.path.String(), r.raw)
 	} else {
-		req, err = http.NewRequest(method, r.path.String(), r.buf)
+		req, err = http.NewRequest(method, r.path.String(), r.raw)
 	}
 
 	req.Header = r.headers.Clone()
 
 	if req.Header.Get("Content-Type") == "" {
-		if r.buf.Len() > 0 {
+		if r.raw != nil {
 			req.Header.Set("Content-Type", "application/json")
 		}
 	}
@@ -221,27 +249,66 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 }
 
 // Perform runs the http.Request through the provided transport and returns an http.Response.
-func (r SearchMvt) Perform(ctx context.Context) (*http.Response, error) {
+func (r SearchMvt) Perform(providedCtx context.Context) (*http.Response, error) {
+	var ctx context.Context
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		if r.spanStarted == false {
+			ctx := instrument.Start(providedCtx, "search_mvt")
+			defer instrument.Close(ctx)
+		}
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
 	req, err := r.HttpRequest(ctx)
 	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.BeforeRequest(req, "search_mvt")
+		if reader := instrument.RecordRequestBody(ctx, "search_mvt", r.raw); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := r.transport.Perform(req)
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "search_mvt")
+	}
 	if err != nil {
-		return nil, fmt.Errorf("an error happened during the SearchMvt query execution: %w", err)
+		localErr := fmt.Errorf("an error happened during the SearchMvt query execution: %w", err)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, localErr)
+		}
+		return nil, localErr
 	}
 
 	return res, nil
 }
 
 // Do runs the request through the transport, handle the response and returns a searchmvt.Response
-func (r SearchMvt) Do(ctx context.Context) (Response, error) {
+func (r SearchMvt) Do(providedCtx context.Context) (Response, error) {
+	var ctx context.Context
+	r.spanStarted = true
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "search_mvt")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	response := NewResponse()
 
 	res, err := r.Perform(ctx)
 	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 	defer res.Body.Close()
@@ -249,6 +316,9 @@ func (r SearchMvt) Do(ctx context.Context) (Response, error) {
 	if res.StatusCode < 299 {
 		err = json.NewDecoder(res.Body).Decode(&response)
 		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
 			return nil, err
 		}
 
@@ -258,6 +328,9 @@ func (r SearchMvt) Do(ctx context.Context) (Response, error) {
 	errorResponse := types.NewElasticsearchError()
 	err = json.NewDecoder(res.Body).Decode(errorResponse)
 	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -265,6 +338,9 @@ func (r SearchMvt) Do(ctx context.Context) (Response, error) {
 		errorResponse.Status = res.StatusCode
 	}
 
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
 	return nil, errorResponse
 }
 
