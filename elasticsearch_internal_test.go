@@ -1021,7 +1021,7 @@ func (c *FakeInstrumentation) RecordPathPart(ctx context.Context, pathPart, valu
 	c.PathParts[pathPart] = value
 }
 
-func (c *FakeInstrumentation) RecordQuery(ctx context.Context, endpoint string, query io.Reader) io.ReadCloser {
+func (c *FakeInstrumentation) RecordRequestBody(ctx context.Context, endpoint string, query io.Reader) io.ReadCloser {
 	c.QueryEndpoint = endpoint
 	if !c.PersistQuery {
 		return nil
