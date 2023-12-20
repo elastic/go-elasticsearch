@@ -117,16 +117,16 @@ func (r *AddBlock) HttpRequest(ctx context.Context) (*http.Request, error) {
 	case r.paramSet == indexMask|blockMask:
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "index", r.index)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_block")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "block", r.block)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "block", r.block)
 		}
 		path.WriteString(r.block)
 

@@ -112,8 +112,8 @@ func (r *Delete) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_query_rules")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "rulesetid", r.rulesetid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "rulesetid", r.rulesetid)
 		}
 		path.WriteString(r.rulesetid)
 

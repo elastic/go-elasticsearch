@@ -160,8 +160,8 @@ func (r *PreviewDatafeed) HttpRequest(ctx context.Context) (*http.Request, error
 		path.WriteString("datafeeds")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "datafeedid", r.datafeedid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "datafeedid", r.datafeedid)
 		}
 		path.WriteString(r.datafeedid)
 		path.WriteString("/")

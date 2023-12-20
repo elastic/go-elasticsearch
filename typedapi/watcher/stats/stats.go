@@ -120,8 +120,8 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("stats")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "metric", r.metric)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "metric", r.metric)
 		}
 		path.WriteString(r.metric)
 

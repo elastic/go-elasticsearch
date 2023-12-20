@@ -117,8 +117,8 @@ func (r *DeleteTrainedModel) HttpRequest(ctx context.Context) (*http.Request, er
 		path.WriteString("trained_models")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "modelid", r.modelid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "modelid", r.modelid)
 		}
 		path.WriteString(r.modelid)
 

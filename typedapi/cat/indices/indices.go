@@ -126,8 +126,8 @@ func (r *Indices) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("indices")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "index", r.index)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
 

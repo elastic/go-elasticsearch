@@ -112,8 +112,8 @@ func (r *ReindexRethrottle) HttpRequest(ctx context.Context) (*http.Request, err
 		path.WriteString("_reindex")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "taskid", r.taskid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "taskid", r.taskid)
 		}
 		path.WriteString(r.taskid)
 		path.WriteString("/")

@@ -118,8 +118,8 @@ func (r *Cancel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_tasks")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "taskid", r.taskid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "taskid", r.taskid)
 		}
 		path.WriteString(r.taskid)
 		path.WriteString("/")

@@ -119,8 +119,8 @@ func (r *GetFieldMapping) HttpRequest(ctx context.Context) (*http.Request, error
 		path.WriteString("field")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "fields", r.fields)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "fields", r.fields)
 		}
 		path.WriteString(r.fields)
 
@@ -128,8 +128,8 @@ func (r *GetFieldMapping) HttpRequest(ctx context.Context) (*http.Request, error
 	case r.paramSet == indexMask|fieldsMask:
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "index", r.index)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
 		path.WriteString("/")
@@ -138,8 +138,8 @@ func (r *GetFieldMapping) HttpRequest(ctx context.Context) (*http.Request, error
 		path.WriteString("field")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "fields", r.fields)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "fields", r.fields)
 		}
 		path.WriteString(r.fields)
 

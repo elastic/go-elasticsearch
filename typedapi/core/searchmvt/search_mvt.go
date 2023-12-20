@@ -182,34 +182,34 @@ func (r *SearchMvt) HttpRequest(ctx context.Context) (*http.Request, error) {
 	case r.paramSet == indexMask|fieldMask|zoomMask|xMask|yMask:
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "index", r.index)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_mvt")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "field", r.field)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "field", r.field)
 		}
 		path.WriteString(r.field)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "zoom", r.zoom)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "zoom", r.zoom)
 		}
 		path.WriteString(r.zoom)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "x", r.x)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "x", r.x)
 		}
 		path.WriteString(r.x)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "y", r.y)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "y", r.y)
 		}
 		path.WriteString(r.y)
 

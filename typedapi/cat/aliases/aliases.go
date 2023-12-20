@@ -122,8 +122,8 @@ func (r *Aliases) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("aliases")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "name", r.name)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
 		}
 		path.WriteString(r.name)
 

@@ -166,8 +166,8 @@ func (r *GetCategories) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "jobid", r.jobid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "jobid", r.jobid)
 		}
 		path.WriteString(r.jobid)
 		path.WriteString("/")
@@ -176,8 +176,8 @@ func (r *GetCategories) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("categories")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "categoryid", r.categoryid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "categoryid", r.categoryid)
 		}
 		path.WriteString(r.categoryid)
 
@@ -189,8 +189,8 @@ func (r *GetCategories) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "jobid", r.jobid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "jobid", r.jobid)
 		}
 		path.WriteString(r.jobid)
 		path.WriteString("/")

@@ -125,8 +125,8 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_nodes")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
 		}
 		path.WriteString(r.nodeid)
 		path.WriteString("/")
@@ -140,8 +140,8 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("stats")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "metric", r.metric)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "metric", r.metric)
 		}
 		path.WriteString(r.metric)
 
@@ -151,16 +151,16 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_nodes")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
 		}
 		path.WriteString(r.nodeid)
 		path.WriteString("/")
 		path.WriteString("stats")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "metric", r.metric)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "metric", r.metric)
 		}
 		path.WriteString(r.metric)
 
@@ -172,14 +172,14 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("stats")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "metric", r.metric)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "metric", r.metric)
 		}
 		path.WriteString(r.metric)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "indexmetric", r.indexmetric)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "indexmetric", r.indexmetric)
 		}
 		path.WriteString(r.indexmetric)
 
@@ -189,22 +189,22 @@ func (r *Stats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_nodes")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
 		}
 		path.WriteString(r.nodeid)
 		path.WriteString("/")
 		path.WriteString("stats")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "metric", r.metric)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "metric", r.metric)
 		}
 		path.WriteString(r.metric)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "indexmetric", r.indexmetric)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "indexmetric", r.indexmetric)
 		}
 		path.WriteString(r.indexmetric)
 

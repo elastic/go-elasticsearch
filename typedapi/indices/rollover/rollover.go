@@ -164,8 +164,8 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 	case r.paramSet == aliasMask:
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "alias", r.alias)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "alias", r.alias)
 		}
 		path.WriteString(r.alias)
 		path.WriteString("/")
@@ -175,16 +175,16 @@ func (r *Rollover) HttpRequest(ctx context.Context) (*http.Request, error) {
 	case r.paramSet == aliasMask|newindexMask:
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "alias", r.alias)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "alias", r.alias)
 		}
 		path.WriteString(r.alias)
 		path.WriteString("/")
 		path.WriteString("_rollover")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "newindex", r.newindex)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "newindex", r.newindex)
 		}
 		path.WriteString(r.newindex)
 

@@ -119,8 +119,8 @@ func (r *AckWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("watch")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "watchid", r.watchid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "watchid", r.watchid)
 		}
 		path.WriteString(r.watchid)
 		path.WriteString("/")
@@ -134,16 +134,16 @@ func (r *AckWatch) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("watch")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "watchid", r.watchid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "watchid", r.watchid)
 		}
 		path.WriteString(r.watchid)
 		path.WriteString("/")
 		path.WriteString("_ack")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "actionid", r.actionid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "actionid", r.actionid)
 		}
 		path.WriteString(r.actionid)
 

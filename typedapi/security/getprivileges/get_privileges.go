@@ -122,8 +122,8 @@ func (r *GetPrivileges) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("privilege")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "application", r.application)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "application", r.application)
 		}
 		path.WriteString(r.application)
 
@@ -135,14 +135,14 @@ func (r *GetPrivileges) HttpRequest(ctx context.Context) (*http.Request, error) 
 		path.WriteString("privilege")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "application", r.application)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "application", r.application)
 		}
 		path.WriteString(r.application)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "name", r.name)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
 		}
 		path.WriteString(r.name)
 

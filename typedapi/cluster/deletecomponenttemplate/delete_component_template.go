@@ -112,8 +112,8 @@ func (r *DeleteComponentTemplate) HttpRequest(ctx context.Context) (*http.Reques
 		path.WriteString("_component_template")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "name", r.name)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
 		}
 		path.WriteString(r.name)
 

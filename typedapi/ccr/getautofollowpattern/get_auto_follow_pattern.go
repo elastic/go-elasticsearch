@@ -121,8 +121,8 @@ func (r *GetAutoFollowPattern) HttpRequest(ctx context.Context) (*http.Request, 
 		path.WriteString("auto_follow")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "name", r.name)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
 		}
 		path.WriteString(r.name)
 

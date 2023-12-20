@@ -165,16 +165,16 @@ func (r *Split) HttpRequest(ctx context.Context) (*http.Request, error) {
 	case r.paramSet == indexMask|targetMask:
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "index", r.index)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_split")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "target", r.target)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "target", r.target)
 		}
 		path.WriteString(r.target)
 

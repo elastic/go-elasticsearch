@@ -119,8 +119,8 @@ func (r *ComponentTemplates) HttpRequest(ctx context.Context) (*http.Request, er
 		path.WriteString("component_templates")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "name", r.name)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
 		}
 		path.WriteString(r.name)
 

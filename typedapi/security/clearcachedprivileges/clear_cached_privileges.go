@@ -114,8 +114,8 @@ func (r *ClearCachedPrivileges) HttpRequest(ctx context.Context) (*http.Request,
 		path.WriteString("privilege")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "application", r.application)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "application", r.application)
 		}
 		path.WriteString(r.application)
 		path.WriteString("/")

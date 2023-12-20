@@ -112,8 +112,8 @@ func (r *DeleteRepository) HttpRequest(ctx context.Context) (*http.Request, erro
 		path.WriteString("_snapshot")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "repository", r.repository)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "repository", r.repository)
 		}
 		path.WriteString(r.repository)
 

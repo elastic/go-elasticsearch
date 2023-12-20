@@ -115,8 +115,8 @@ func (r *EnableUserProfile) HttpRequest(ctx context.Context) (*http.Request, err
 		path.WriteString("profile")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "uid", r.uid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "uid", r.uid)
 		}
 		path.WriteString(r.uid)
 		path.WriteString("/")

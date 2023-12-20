@@ -117,8 +117,8 @@ func (r *DeleteDataFrameAnalytics) HttpRequest(ctx context.Context) (*http.Reque
 		path.WriteString("analytics")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "id", r.id)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", r.id)
 		}
 		path.WriteString(r.id)
 

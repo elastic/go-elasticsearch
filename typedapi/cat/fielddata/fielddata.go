@@ -122,8 +122,8 @@ func (r *Fielddata) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("fielddata")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "fields", r.fields)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "fields", r.fields)
 		}
 		path.WriteString(r.fields)
 

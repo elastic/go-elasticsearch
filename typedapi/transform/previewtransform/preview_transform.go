@@ -158,8 +158,8 @@ func (r *PreviewTransform) HttpRequest(ctx context.Context) (*http.Request, erro
 		path.WriteString("_transform")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "transformid", r.transformid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "transformid", r.transformid)
 		}
 		path.WriteString(r.transformid)
 		path.WriteString("/")

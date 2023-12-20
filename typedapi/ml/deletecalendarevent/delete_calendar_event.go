@@ -119,16 +119,16 @@ func (r *DeleteCalendarEvent) HttpRequest(ctx context.Context) (*http.Request, e
 		path.WriteString("calendars")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "calendarid", r.calendarid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "calendarid", r.calendarid)
 		}
 		path.WriteString(r.calendarid)
 		path.WriteString("/")
 		path.WriteString("events")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "eventid", r.eventid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "eventid", r.eventid)
 		}
 		path.WriteString(r.eventid)
 

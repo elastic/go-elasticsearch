@@ -114,8 +114,8 @@ func (r *DeleteCalendar) HttpRequest(ctx context.Context) (*http.Request, error)
 		path.WriteString("calendars")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "calendarid", r.calendarid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "calendarid", r.calendarid)
 		}
 		path.WriteString(r.calendarid)
 

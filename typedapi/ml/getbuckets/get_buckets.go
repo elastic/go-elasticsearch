@@ -166,8 +166,8 @@ func (r *GetBuckets) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "jobid", r.jobid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "jobid", r.jobid)
 		}
 		path.WriteString(r.jobid)
 		path.WriteString("/")
@@ -176,8 +176,8 @@ func (r *GetBuckets) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("buckets")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "timestamp", r.timestamp)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "timestamp", r.timestamp)
 		}
 		path.WriteString(r.timestamp)
 
@@ -189,8 +189,8 @@ func (r *GetBuckets) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "jobid", r.jobid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "jobid", r.jobid)
 		}
 		path.WriteString(r.jobid)
 		path.WriteString("/")

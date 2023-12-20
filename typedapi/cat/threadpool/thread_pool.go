@@ -124,8 +124,8 @@ func (r *ThreadPool) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("thread_pool")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "threadpoolpatterns", r.threadpoolpatterns)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "threadpoolpatterns", r.threadpoolpatterns)
 		}
 		path.WriteString(r.threadpoolpatterns)
 

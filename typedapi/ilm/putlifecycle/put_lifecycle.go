@@ -162,8 +162,8 @@ func (r *PutLifecycle) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("policy")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "policy", r.policy)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "policy", r.policy)
 		}
 		path.WriteString(r.policy)
 

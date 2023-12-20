@@ -119,8 +119,8 @@ func (r *CacheStats) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_searchable_snapshots")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "nodeid", r.nodeid)
 		}
 		path.WriteString(r.nodeid)
 		path.WriteString("/")

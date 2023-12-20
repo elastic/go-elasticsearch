@@ -114,8 +114,8 @@ func (r *UpdateByQueryRethrottle) HttpRequest(ctx context.Context) (*http.Reques
 		path.WriteString("_update_by_query")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "taskid", r.taskid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "taskid", r.taskid)
 		}
 		path.WriteString(r.taskid)
 		path.WriteString("/")

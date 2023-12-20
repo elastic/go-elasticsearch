@@ -167,16 +167,16 @@ func (r *PutTrainedModelDefinitionPart) HttpRequest(ctx context.Context) (*http.
 		path.WriteString("trained_models")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "modelid", r.modelid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "modelid", r.modelid)
 		}
 		path.WriteString(r.modelid)
 		path.WriteString("/")
 		path.WriteString("definition")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "part", r.part)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "part", r.part)
 		}
 		path.WriteString(r.part)
 

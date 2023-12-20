@@ -114,8 +114,8 @@ func (r *DeleteLifecycle) HttpRequest(ctx context.Context) (*http.Request, error
 		path.WriteString("policy")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "policyid", r.policyid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "policyid", r.policyid)
 		}
 		path.WriteString(r.policyid)
 

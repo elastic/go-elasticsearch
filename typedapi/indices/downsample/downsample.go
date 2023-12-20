@@ -161,16 +161,16 @@ func (r *Downsample) HttpRequest(ctx context.Context) (*http.Request, error) {
 	case r.paramSet == indexMask|targetindexMask:
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "index", r.index)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
 		path.WriteString("/")
 		path.WriteString("_downsample")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "targetindex", r.targetindex)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "targetindex", r.targetindex)
 		}
 		path.WriteString(r.targetindex)
 

@@ -116,8 +116,8 @@ func (r *ClearCachedRealms) HttpRequest(ctx context.Context) (*http.Request, err
 		path.WriteString("realm")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "realms", r.realms)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "realms", r.realms)
 		}
 		path.WriteString(r.realms)
 		path.WriteString("/")

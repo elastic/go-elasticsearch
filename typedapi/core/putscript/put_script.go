@@ -163,8 +163,8 @@ func (r *PutScript) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_scripts")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "id", r.id)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", r.id)
 		}
 		path.WriteString(r.id)
 
@@ -174,14 +174,14 @@ func (r *PutScript) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_scripts")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "id", r.id)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", r.id)
 		}
 		path.WriteString(r.id)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "context", r.context)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "context", r.context)
 		}
 		path.WriteString(r.context)
 

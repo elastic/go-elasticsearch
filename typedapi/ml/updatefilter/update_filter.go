@@ -162,8 +162,8 @@ func (r *UpdateFilter) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("filters")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "filterid", r.filterid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "filterid", r.filterid)
 		}
 		path.WriteString(r.filterid)
 		path.WriteString("/")

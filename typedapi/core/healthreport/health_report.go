@@ -116,8 +116,8 @@ func (r *HealthReport) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_health_report")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "feature", r.feature)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "feature", r.feature)
 		}
 		path.WriteString(r.feature)
 

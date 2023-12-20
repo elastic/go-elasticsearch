@@ -113,8 +113,8 @@ func (r *DeleteDataLifecycle) HttpRequest(ctx context.Context) (*http.Request, e
 		path.WriteString("_data_stream")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "name", r.name)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", r.name)
 		}
 		path.WriteString(r.name)
 		path.WriteString("/")

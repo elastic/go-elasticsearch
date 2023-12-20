@@ -114,8 +114,8 @@ func (r *ClearApiKeyCache) HttpRequest(ctx context.Context) (*http.Request, erro
 		path.WriteString("api_key")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "ids", r.ids)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "ids", r.ids)
 		}
 		path.WriteString(r.ids)
 		path.WriteString("/")

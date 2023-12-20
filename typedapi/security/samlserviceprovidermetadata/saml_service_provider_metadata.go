@@ -116,8 +116,8 @@ func (r *SamlServiceProviderMetadata) HttpRequest(ctx context.Context) (*http.Re
 		path.WriteString("metadata")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "realmname", r.realmname)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "realmname", r.realmname)
 		}
 		path.WriteString(r.realmname)
 

@@ -160,8 +160,8 @@ func (r *PutPipeline) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("pipeline")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "id", r.id)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", r.id)
 		}
 		path.WriteString(r.id)
 

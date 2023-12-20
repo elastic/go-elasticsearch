@@ -167,16 +167,16 @@ func (r *RevertModelSnapshot) HttpRequest(ctx context.Context) (*http.Request, e
 		path.WriteString("anomaly_detectors")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "jobid", r.jobid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "jobid", r.jobid)
 		}
 		path.WriteString(r.jobid)
 		path.WriteString("/")
 		path.WriteString("model_snapshots")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "snapshotid", r.snapshotid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "snapshotid", r.snapshotid)
 		}
 		path.WriteString(r.snapshotid)
 		path.WriteString("/")

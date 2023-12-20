@@ -165,14 +165,14 @@ func (r *PutSynonymRule) HttpRequest(ctx context.Context) (*http.Request, error)
 		path.WriteString("_synonyms")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "setid", r.setid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "setid", r.setid)
 		}
 		path.WriteString(r.setid)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "ruleid", r.ruleid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "ruleid", r.ruleid)
 		}
 		path.WriteString(r.ruleid)
 

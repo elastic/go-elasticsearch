@@ -113,8 +113,8 @@ func (r *ImportDanglingIndex) HttpRequest(ctx context.Context) (*http.Request, e
 		path.WriteString("_dangling")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "indexuuid", r.indexuuid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "indexuuid", r.indexuuid)
 		}
 		path.WriteString(r.indexuuid)
 

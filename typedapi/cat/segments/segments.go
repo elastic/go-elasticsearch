@@ -120,8 +120,8 @@ func (r *Segments) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("segments")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "index", r.index)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", r.index)
 		}
 		path.WriteString(r.index)
 

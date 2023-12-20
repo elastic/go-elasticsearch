@@ -121,8 +121,8 @@ func (r *Status) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_snapshot")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "repository", r.repository)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "repository", r.repository)
 		}
 		path.WriteString(r.repository)
 		path.WriteString("/")
@@ -134,14 +134,14 @@ func (r *Status) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_snapshot")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "repository", r.repository)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "repository", r.repository)
 		}
 		path.WriteString(r.repository)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "snapshot", r.snapshot)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "snapshot", r.snapshot)
 		}
 		path.WriteString(r.snapshot)
 		path.WriteString("/")

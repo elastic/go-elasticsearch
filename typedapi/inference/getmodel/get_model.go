@@ -117,14 +117,14 @@ func (r *GetModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_inference")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "tasktype", r.tasktype)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "tasktype", r.tasktype)
 		}
 		path.WriteString(r.tasktype)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "modelid", r.modelid)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "modelid", r.modelid)
 		}
 		path.WriteString(r.modelid)
 

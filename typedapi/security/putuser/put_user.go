@@ -165,8 +165,8 @@ func (r *PutUser) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("user")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "username", r.username)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "username", r.username)
 		}
 		path.WriteString(r.username)
 

@@ -115,14 +115,14 @@ func (r *GetServiceAccounts) HttpRequest(ctx context.Context) (*http.Request, er
 		path.WriteString("service")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "namespace", r.namespace)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "namespace", r.namespace)
 		}
 		path.WriteString(r.namespace)
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "service", r.service)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "service", r.service)
 		}
 		path.WriteString(r.service)
 
@@ -134,8 +134,8 @@ func (r *GetServiceAccounts) HttpRequest(ctx context.Context) (*http.Request, er
 		path.WriteString("service")
 		path.WriteString("/")
 
-		if r.instrument != nil {
-			r.instrument.RecordPathPart(ctx, "namespace", r.namespace)
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "namespace", r.namespace)
 		}
 		path.WriteString(r.namespace)
 
