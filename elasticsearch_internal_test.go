@@ -976,7 +976,7 @@ type FakeInstrumentation struct {
 
 	Name                string
 	Closed              bool
-	ClusterId           string
+	ClusterID           string
 	NodeName            string
 	PathParts           map[string]string
 	PersistQuery        bool
@@ -1010,7 +1010,7 @@ func (c *FakeInstrumentation) RecordError(ctx context.Context, err error) {
 
 func (c *FakeInstrumentation) AfterResponse(ctx context.Context, res *http.Response) {
 	if id := res.Header.Get("X-Found-Handling-Cluster"); id != "" {
-		c.ClusterId = id
+		c.ClusterID = id
 	}
 	if name := res.Header.Get("X-Found-Handling-Instance"); name != "" {
 		c.NodeName = name
@@ -1110,7 +1110,7 @@ func TestInstrumentation(t *testing.T) {
 			want: &FakeInstrumentation{
 				Name:                "search",
 				Closed:              true,
-				ClusterId:           "foo-bar-cluster-id",
+				ClusterID:           "foo-bar-cluster-id",
 				NodeName:            "0123456789",
 				PathParts:           map[string]string{"index": "foo"},
 				PersistQuery:        true,
@@ -1152,7 +1152,7 @@ func TestInstrumentation(t *testing.T) {
 			want: &FakeInstrumentation{
 				Name:                "search",
 				Closed:              true,
-				ClusterId:           "foo-bar-cluster-id",
+				ClusterID:           "foo-bar-cluster-id",
 				NodeName:            "0123456789",
 				PathParts:           map[string]string{"index": "foo"},
 				PersistQuery:        true,
@@ -1173,7 +1173,7 @@ func TestInstrumentation(t *testing.T) {
 			want: &FakeInstrumentation{
 				Name:                "search",
 				Closed:              true,
-				ClusterId:           "foo-bar-cluster-id",
+				ClusterID:           "foo-bar-cluster-id",
 				NodeName:            "0123456789",
 				PathParts:           map[string]string{"index": "foo"},
 				PersistQuery:        true,
@@ -1218,7 +1218,7 @@ func TestInstrumentation(t *testing.T) {
 					instrument.Query != test.want.Query ||
 					instrument.QueryEndpoint != test.want.QueryEndpoint ||
 					instrument.NodeName != test.want.NodeName ||
-					instrument.ClusterId != test.want.ClusterId ||
+					instrument.ClusterID != test.want.ClusterID ||
 					instrument.Closed == false {
 					t.Errorf("instrument didn't record the expected values:\ngot:  %#v\nwant: %#v", instrument, test.want)
 				}
@@ -1254,7 +1254,7 @@ func TestInstrumentation(t *testing.T) {
 					instrument.Query != test.want.Query ||
 					instrument.QueryEndpoint != test.want.QueryEndpoint ||
 					instrument.NodeName != test.want.NodeName ||
-					instrument.ClusterId != test.want.ClusterId ||
+					instrument.ClusterID != test.want.ClusterID ||
 					instrument.Closed == false {
 					t.Errorf("instrument didn't record the expected values:\ngot:  %#v\nwant: %#v", instrument, test.want)
 				}
