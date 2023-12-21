@@ -28,6 +28,8 @@ import (
 	"encoding/base64"
 	"errors"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -967,4 +969,301 @@ func TestContentTypeOverride(t *testing.T) {
 		search.Header.Set("Content-Type", contentType)
 		search.Do(context.Background(), tp)
 	})
+}
+
+type FakeInstrumentation struct {
+	Error error
+
+	Name                string
+	Closed              bool
+	ClusterID           string
+	NodeName            string
+	PathParts           map[string]string
+	PersistQuery        bool
+	QueryEndpoint       string
+	Query               string
+	BeforeRequestFunc   func(r *http.Request, endpoint string) bool
+	BeforeRequestResult bool
+	AfterRequestFunc    func(r *http.Request, system, endpoint string) bool
+	AfterRequestResult  bool
+}
+
+func NewFakeInstrumentation(recordQuery bool) *FakeInstrumentation {
+	return &FakeInstrumentation{
+		PersistQuery: recordQuery,
+		PathParts:    make(map[string]string),
+	}
+}
+
+func (c *FakeInstrumentation) Start(ctx context.Context, name string) context.Context {
+	c.Name = name
+	return ctx
+}
+
+func (c *FakeInstrumentation) Close(ctx context.Context) {
+	c.Closed = true
+}
+
+func (c *FakeInstrumentation) RecordError(ctx context.Context, err error) {
+	c.Error = err
+}
+
+func (c *FakeInstrumentation) AfterResponse(ctx context.Context, res *http.Response) {
+	if id := res.Header.Get("X-Found-Handling-Cluster"); id != "" {
+		c.ClusterID = id
+	}
+	if name := res.Header.Get("X-Found-Handling-Instance"); name != "" {
+		c.NodeName = name
+	}
+}
+
+func (c *FakeInstrumentation) RecordPathPart(ctx context.Context, pathPart, value string) {
+	c.PathParts[pathPart] = value
+}
+
+func (c *FakeInstrumentation) RecordRequestBody(ctx context.Context, endpoint string, query io.Reader) io.ReadCloser {
+	c.QueryEndpoint = endpoint
+	if !c.PersistQuery {
+		return nil
+	}
+
+	buf := bytes.Buffer{}
+	buf.ReadFrom(query)
+	c.Query = buf.String()
+	return io.NopCloser(&buf)
+}
+
+func (c *FakeInstrumentation) BeforeRequest(req *http.Request, endpoint string) {
+	if c.BeforeRequestFunc != nil {
+		c.BeforeRequestResult = c.BeforeRequestFunc(req, endpoint)
+	}
+}
+
+func (c *FakeInstrumentation) AfterRequest(req *http.Request, system, endpoint string) {
+	if c.AfterRequestFunc != nil {
+		c.AfterRequestResult = c.AfterRequestFunc(req, system, endpoint)
+	}
+}
+
+func TestInstrumentation(t *testing.T) {
+	successTp := func(request *http.Request) (*http.Response, error) {
+		h := http.Header{}
+		h.Add("X-Elastic-Product", "Elasticsearch")
+		h.Add("X-Found-Handling-Cluster", "foo-bar-cluster-id")
+		h.Add("X-Found-Handling-Instance", "0123456789")
+		return &http.Response{
+			StatusCode: http.StatusOK,
+			Header:     h,
+			Body:       io.NopCloser(strings.NewReader(`{}`)),
+		}, nil
+	}
+
+	errorTp := func(request *http.Request) (*http.Response, error) {
+		h := http.Header{}
+		h.Add("X-Elastic-Product", "Elasticsearch")
+		h.Add("X-Found-Handling-Cluster", "foo-bar-cluster-id")
+		h.Add("X-Found-Handling-Instance", "0123456789")
+		return &http.Response{
+			StatusCode: http.StatusNotFound,
+			Header:     h,
+			Body: io.NopCloser(strings.NewReader(`{
+  "error": {
+    "root_cause": [
+      {
+        "type": "index_not_found_exception",
+        "reason": "no such index [foo]",
+        "resource.type": "index_or_alias",
+        "resource.id": "foo",
+        "index_uuid": "_na_",
+        "index": "foo"
+      }
+    ],
+    "type": "index_not_found_exception",
+    "reason": "no such index [foo]",
+    "resource.type": "index_or_alias",
+    "resource.id": "foo",
+    "index_uuid": "_na_",
+    "index": "foo"
+  },
+  "status": 404
+}`)),
+		}, nil
+	}
+
+	reason := "index_not_found_exception"
+
+	type args struct {
+		roundTripFunc   func(request *http.Request) (*http.Response, error)
+		instrumentation *FakeInstrumentation
+	}
+	tests := []struct {
+		name string
+		args args
+		want *FakeInstrumentation
+	}{
+		{
+			name: "with query",
+			args: args{
+				successTp,
+				NewFakeInstrumentation(true),
+			},
+			want: &FakeInstrumentation{
+				Name:                "search",
+				Closed:              true,
+				ClusterID:           "foo-bar-cluster-id",
+				NodeName:            "0123456789",
+				PathParts:           map[string]string{"index": "foo"},
+				PersistQuery:        true,
+				QueryEndpoint:       "search",
+				Query:               "{\"query\":{\"match_all\":{}}}",
+				BeforeRequestResult: true,
+				AfterRequestResult:  true,
+				BeforeRequestFunc: func(r *http.Request, endpoint string) bool {
+					if r != nil {
+						if r.URL.Path != "/foo/_search" {
+							return false
+						}
+						if r.Method != http.MethodPost {
+							return false
+						}
+					}
+
+					return true
+				},
+				AfterRequestFunc: func(r *http.Request, system, endpoint string) bool {
+					if r != nil {
+						if r.URL.Path != "/foo/_search" {
+							return false
+						}
+						if r.Method != http.MethodPost {
+							return false
+						}
+					}
+					return true
+				},
+			},
+		},
+		{
+			name: "without query",
+			args: args{
+				successTp,
+				NewFakeInstrumentation(false),
+			},
+			want: &FakeInstrumentation{
+				Name:                "search",
+				Closed:              true,
+				ClusterID:           "foo-bar-cluster-id",
+				NodeName:            "0123456789",
+				PathParts:           map[string]string{"index": "foo"},
+				PersistQuery:        true,
+				QueryEndpoint:       "search",
+				Query:               "",
+				BeforeRequestResult: true,
+				AfterRequestResult:  true,
+				BeforeRequestFunc:   func(r *http.Request, endpoint string) bool { return true },
+				AfterRequestFunc:    func(r *http.Request, system, endpoint string) bool { return true },
+			},
+		},
+		{
+			name: "with error",
+			args: args{
+				errorTp,
+				NewFakeInstrumentation(false),
+			},
+			want: &FakeInstrumentation{
+				Name:                "search",
+				Closed:              true,
+				ClusterID:           "foo-bar-cluster-id",
+				NodeName:            "0123456789",
+				PathParts:           map[string]string{"index": "foo"},
+				PersistQuery:        true,
+				QueryEndpoint:       "search",
+				Query:               "",
+				BeforeRequestResult: true,
+				AfterRequestResult:  true,
+				BeforeRequestFunc:   func(r *http.Request, endpoint string) bool { return true },
+				AfterRequestFunc:    func(r *http.Request, system, endpoint string) bool { return true },
+				Error:               &types.ElasticsearchError{Status: http.StatusNotFound, ErrorCause: types.ErrorCause{Type: reason}},
+			},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			t.Run("typed client", func(t *testing.T) {
+				instrument := test.args.instrumentation
+				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
+				instrument.AfterRequestFunc = test.want.AfterRequestFunc
+
+				es, _ := NewTypedClient(Config{
+					Transport:       &mockTransp{RoundTripFunc: test.args.roundTripFunc},
+					Instrumentation: instrument,
+				})
+				es.Search().
+					Index("foo").
+					Query(&types.Query{
+						MatchAll: types.NewMatchAllQuery(),
+					}).
+					Do(context.Background())
+
+				if test.want.Error != nil {
+					if !errors.Is(instrument.Error, test.want.Error) {
+						t.Error("ploup")
+					}
+				}
+
+				if instrument.BeforeRequestResult != test.want.BeforeRequestResult ||
+					instrument.AfterRequestResult != test.want.AfterRequestResult ||
+					instrument.Name != test.want.Name ||
+					instrument.Query != test.want.Query ||
+					instrument.QueryEndpoint != test.want.QueryEndpoint ||
+					instrument.NodeName != test.want.NodeName ||
+					instrument.ClusterID != test.want.ClusterID ||
+					instrument.Closed == false {
+					t.Errorf("instrument didn't record the expected values:\ngot:  %#v\nwant: %#v", instrument, test.want)
+				}
+
+				if !reflect.DeepEqual(instrument.PathParts, test.want.PathParts) {
+					t.Errorf("path parts not within expected values, got: %#v, want: %#v", instrument.PathParts, test.want.PathParts)
+				}
+			})
+			t.Run("low-level client", func(t *testing.T) {
+				instrument := test.args.instrumentation
+				instrument.BeforeRequestFunc = test.want.BeforeRequestFunc
+				instrument.AfterRequestFunc = test.want.AfterRequestFunc
+
+				es, _ := NewClient(Config{
+					Transport:       &mockTransp{RoundTripFunc: test.args.roundTripFunc},
+					Instrumentation: instrument,
+				})
+				es.Search(
+					es.Search.WithIndex("foo"),
+					es.Search.WithBody(strings.NewReader("{\"query\":{\"match_all\":{}}}")),
+					es.Search.WithContext(context.Background()),
+				)
+
+				if test.want.Error != nil {
+					if !errors.Is(instrument.Error, test.want.Error) {
+						t.Error("ploup")
+					}
+				}
+
+				if instrument.BeforeRequestResult != test.want.BeforeRequestResult ||
+					instrument.AfterRequestResult != test.want.AfterRequestResult ||
+					instrument.Name != test.want.Name ||
+					instrument.Query != test.want.Query ||
+					instrument.QueryEndpoint != test.want.QueryEndpoint ||
+					instrument.NodeName != test.want.NodeName ||
+					instrument.ClusterID != test.want.ClusterID ||
+					instrument.Closed == false {
+					t.Errorf("instrument didn't record the expected values:\ngot:  %#v\nwant: %#v", instrument, test.want)
+				}
+
+				if !reflect.DeepEqual(instrument.PathParts, test.want.PathParts) {
+					t.Errorf("path parts not within expected values, got: %#v, want: %#v", instrument.PathParts, test.want.PathParts)
+				}
+			})
+		})
+	}
+
 }

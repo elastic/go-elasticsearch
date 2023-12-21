@@ -32,6 +32,11 @@ func newSearchableSnapshotsClearCacheFunc(t Transport) SearchableSnapshotsClearC
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -61,15 +66,26 @@ type SearchableSnapshotsClearCacheRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SearchableSnapshotsClearCacheRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SearchableSnapshotsClearCacheRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "searchable_snapshots.clear_cache")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -78,6 +94,9 @@ func (r SearchableSnapshotsClearCacheRequest) Do(ctx context.Context, transport 
 	if len(r.Index) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Index, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index", strings.Join(r.Index, ","))
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_searchable_snapshots")
@@ -122,6 +141,9 @@ func (r SearchableSnapshotsClearCacheRequest) Do(ctx context.Context, transport 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -149,8 +171,17 @@ func (r SearchableSnapshotsClearCacheRequest) Do(ctx context.Context, transport 
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "searchable_snapshots.clear_cache")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "searchable_snapshots.clear_cache")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

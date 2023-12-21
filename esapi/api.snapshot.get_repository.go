@@ -33,6 +33,11 @@ func newSnapshotGetRepositoryFunc(t Transport) SnapshotGetRepository {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -59,15 +64,26 @@ type SnapshotGetRepositoryRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SnapshotGetRepositoryRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SnapshotGetRepositoryRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "snapshot.get_repository")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "GET"
 
@@ -78,6 +94,9 @@ func (r SnapshotGetRepositoryRequest) Do(ctx context.Context, transport Transpor
 	if len(r.Repository) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Repository, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "repository", strings.Join(r.Repository, ","))
+		}
 	}
 
 	params = make(map[string]string)
@@ -108,6 +127,9 @@ func (r SnapshotGetRepositoryRequest) Do(ctx context.Context, transport Transpor
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -135,8 +157,17 @@ func (r SnapshotGetRepositoryRequest) Do(ctx context.Context, transport Transpor
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "snapshot.get_repository")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "snapshot.get_repository")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

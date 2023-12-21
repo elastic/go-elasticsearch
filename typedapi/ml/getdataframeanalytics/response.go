@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package getdataframeanalytics
 
@@ -26,8 +26,7 @@ import (
 
 // Response holds the response body struct for the package getdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/ml/get_data_frame_analytics/MlGetDataFrameAnalyticsResponse.ts#L23-L29
-
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/ml/get_data_frame_analytics/MlGetDataFrameAnalyticsResponse.ts#L23-L29
 type Response struct {
 	Count int `json:"count"`
 	// DataFrameAnalytics An array of data frame analytics job resources, which are sorted by the id

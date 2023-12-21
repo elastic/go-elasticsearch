@@ -31,6 +31,11 @@ func newSecurityDeleteUserFunc(t Transport) SecurityDeleteUser {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -56,15 +61,26 @@ type SecurityDeleteUserRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityDeleteUserRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityDeleteUserRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "security.delete_user")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -76,6 +92,9 @@ func (r SecurityDeleteUserRequest) Do(ctx context.Context, transport Transport) 
 	path.WriteString("user")
 	path.WriteString("/")
 	path.WriteString(r.Username)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "username", r.Username)
+	}
 
 	params = make(map[string]string)
 
@@ -101,6 +120,9 @@ func (r SecurityDeleteUserRequest) Do(ctx context.Context, transport Transport) 
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -128,8 +150,17 @@ func (r SecurityDeleteUserRequest) Do(ctx context.Context, transport Transport) 
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "security.delete_user")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "security.delete_user")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

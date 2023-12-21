@@ -21,7 +21,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/typedapi"
+	"go.opentelemetry.io/otel/trace"
 	"net/http"
 	"net/url"
 	"os"
@@ -31,6 +31,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
@@ -65,7 +67,6 @@ func init() {
 }
 
 // Config represents the client configuration.
-//
 type Config struct {
 	Addresses []string // A list of Elasticsearch nodes to use.
 	Username  string   // Username for HTTP Basic Authentication.
@@ -88,8 +89,8 @@ type Config struct {
 	MaxRetries    int                             // Default: 3.
 	RetryOnError  func(*http.Request, error) bool // Optional function allowing to indicate which error should be retried. Default: nil.
 
-	CompressRequestBody bool // Default: false.
-	CompressRequestBodyLevel int // Default: gzip.DefaultCompression.
+	CompressRequestBody      bool // Default: false.
+	CompressRequestBodyLevel int  // Default: gzip.DefaultCompression.
 
 	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
 	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
@@ -108,10 +109,28 @@ type Config struct {
 
 	// Optional constructor function for a custom ConnectionPool. Default: nil.
 	ConnectionPoolFunc func([]*elastictransport.Connection, elastictransport.Selector) elastictransport.ConnectionPool
+
+	Instrumentation elastictransport.Instrumentation // Enable instrumentation throughout the client.
+}
+
+// NewOpenTelemetryInstrumentation provides the OpenTelemetry integration for both low-level and TypedAPI.
+// provider is optional, if nil is passed the integration will retrieve the provider set globally by otel.
+// captureSearchBody allows to define if the search queries body should be included in the span.
+// Search endpoints are:
+//
+//	search
+//	async_search.submit
+//	msearch
+//	eql.search
+//	terms_enum
+//	search_template
+//	msearch_template
+//	render_search_template
+func NewOpenTelemetryInstrumentation(provider trace.TracerProvider, captureSearchBody bool) elastictransport.Instrumentation {
+	return elastictransport.NewOtelInstrumentation(provider, captureSearchBody, Version)
 }
 
 // BaseClient represents the Elasticsearch client.
-//
 type BaseClient struct {
 	Transport           elastictransport.Interface
 	metaHeader          string
@@ -140,7 +159,6 @@ type TypedClient struct {
 //
 // It will use the ELASTICSEARCH_URL environment variable, if set,
 // to configure the addresses; use a comma to separate multiple URLs.
-//
 func NewDefaultClient() (*Client, error) {
 	return NewClient(Config{})
 }
@@ -156,7 +174,6 @@ func NewDefaultClient() (*Client, error) {
 // environment variable is ignored.
 //
 // It's an error to set both cfg.Addresses and cfg.CloudID.
-//
 func NewClient(cfg Config) (*Client, error) {
 	tp, err := newTransport(cfg)
 	if err != nil {
@@ -256,7 +273,7 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		cfg.Password = pw
 	}
 
-	tp, err := elastictransport.New(elastictransport.Config{
+	tpConfig := elastictransport.Config{
 		UserAgent: userAgent,
 
 		URLs:                   urls,
@@ -275,7 +292,7 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		MaxRetries:    cfg.MaxRetries,
 		RetryBackoff:  cfg.RetryBackoff,
 
-		CompressRequestBody: cfg.CompressRequestBody,
+		CompressRequestBody:      cfg.CompressRequestBody,
 		CompressRequestBodyLevel: cfg.CompressRequestBodyLevel,
 
 		EnableMetrics:     cfg.EnableMetrics,
@@ -287,7 +304,11 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		Logger:             cfg.Logger,
 		Selector:           cfg.Selector,
 		ConnectionPoolFunc: cfg.ConnectionPoolFunc,
-	})
+
+		Instrumentation: cfg.Instrumentation,
+	}
+
+	tp, err := elastictransport.New(tpConfig)
 	if err != nil {
 		return nil, fmt.Errorf("error creating transport: %s", err)
 	}
@@ -296,7 +317,6 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 }
 
 // Perform delegates to Transport to execute a request and return a response.
-//
 func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 	// Compatibility Header
 	if c.compatibilityHeader {
@@ -332,6 +352,14 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 	return res, err
 }
 
+// InstrumentationEnabled propagates back to the client the Instrumentation provided by the transport.
+func (c *BaseClient) InstrumentationEnabled() elastictransport.Instrumentation {
+	if tp, ok := c.Transport.(elastictransport.Instrumented); ok {
+		return tp.InstrumentationEnabled()
+	}
+	return nil
+}
+
 // doProductCheck calls f if there as not been a prior successful call to doProductCheck,
 // returning nil otherwise.
 func (c *BaseClient) doProductCheck(f func() error) error {
@@ -360,7 +388,6 @@ func (c *BaseClient) doProductCheck(f func() error) error {
 }
 
 // genuineCheckHeader validates the presence of the X-Elastic-Product header
-//
 func genuineCheckHeader(header http.Header) error {
 	if header.Get("X-Elastic-Product") != "Elasticsearch" {
 		return errors.New(unknownProduct)
@@ -369,7 +396,6 @@ func genuineCheckHeader(header http.Header) error {
 }
 
 // Metrics returns the client metrics.
-//
 func (c *BaseClient) Metrics() (elastictransport.Metrics, error) {
 	if mt, ok := c.Transport.(elastictransport.Measurable); ok {
 		return mt.Metrics()
@@ -378,7 +404,6 @@ func (c *BaseClient) Metrics() (elastictransport.Metrics, error) {
 }
 
 // DiscoverNodes reloads the client connections by fetching information from the cluster.
-//
 func (c *BaseClient) DiscoverNodes() error {
 	if dt, ok := c.Transport.(elastictransport.Discoverable); ok {
 		return dt.DiscoverNodes()
@@ -388,7 +413,6 @@ func (c *BaseClient) DiscoverNodes() error {
 
 // addrsFromEnvironment returns a list of addresses by splitting
 // the ELASTICSEARCH_URL environment variable with comma, or an empty list.
-//
 func addrsFromEnvironment() []string {
 	var addrs []string
 
@@ -403,7 +427,6 @@ func addrsFromEnvironment() []string {
 }
 
 // addrsToURLs creates a list of url.URL structures from url list.
-//
 func addrsToURLs(addrs []string) ([]*url.URL, error) {
 	var urls []*url.URL
 	for _, addr := range addrs {
@@ -419,7 +442,6 @@ func addrsToURLs(addrs []string) ([]*url.URL, error) {
 
 // addrFromCloudID extracts the Elasticsearch URL from CloudID.
 // See: https://www.elastic.co/guide/en/cloud/current/ec-cloud-id.html
-//
 func addrFromCloudID(input string) (string, error) {
 	var scheme = "https://"
 

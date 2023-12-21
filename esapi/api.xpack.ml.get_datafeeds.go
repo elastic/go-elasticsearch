@@ -32,6 +32,11 @@ func newMLGetDatafeedsFunc(t Transport) MLGetDatafeeds {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -58,15 +63,26 @@ type MLGetDatafeedsRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLGetDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLGetDatafeedsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.get_datafeeds")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "GET"
 
@@ -79,6 +95,9 @@ func (r MLGetDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 	if r.DatafeedID != "" {
 		path.WriteString("/")
 		path.WriteString(r.DatafeedID)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "datafeed_id", r.DatafeedID)
+		}
 	}
 
 	params = make(map[string]string)
@@ -109,6 +128,9 @@ func (r MLGetDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -136,8 +158,17 @@ func (r MLGetDatafeedsRequest) Do(ctx context.Context, transport Transport) (*Re
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.get_datafeeds")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.get_datafeeds")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

@@ -31,6 +31,11 @@ func newMLDeleteModelSnapshotFunc(t Transport) MLDeleteModelSnapshot {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -55,15 +60,26 @@ type MLDeleteModelSnapshotRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLDeleteModelSnapshotRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLDeleteModelSnapshotRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.delete_model_snapshot")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -75,10 +91,16 @@ func (r MLDeleteModelSnapshotRequest) Do(ctx context.Context, transport Transpor
 	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
 	path.WriteString(r.JobID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "job_id", r.JobID)
+	}
 	path.WriteString("/")
 	path.WriteString("model_snapshots")
 	path.WriteString("/")
 	path.WriteString(r.SnapshotID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "snapshot_id", r.SnapshotID)
+	}
 
 	params = make(map[string]string)
 
@@ -100,6 +122,9 @@ func (r MLDeleteModelSnapshotRequest) Do(ctx context.Context, transport Transpor
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -127,8 +152,17 @@ func (r MLDeleteModelSnapshotRequest) Do(ctx context.Context, transport Transpor
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.delete_model_snapshot")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.delete_model_snapshot")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

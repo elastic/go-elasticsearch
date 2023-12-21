@@ -33,6 +33,11 @@ func newTransformGetTransformStatsFunc(t Transport) TransformGetTransformStats {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -61,15 +66,26 @@ type TransformGetTransformStatsRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r TransformGetTransformStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r TransformGetTransformStatsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "transform.get_transform_stats")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "GET"
 
@@ -79,6 +95,9 @@ func (r TransformGetTransformStatsRequest) Do(ctx context.Context, transport Tra
 	path.WriteString("_transform")
 	path.WriteString("/")
 	path.WriteString(r.TransformID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "transform_id", r.TransformID)
+	}
 	path.WriteString("/")
 	path.WriteString("_stats")
 
@@ -118,6 +137,9 @@ func (r TransformGetTransformStatsRequest) Do(ctx context.Context, transport Tra
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -145,8 +167,17 @@ func (r TransformGetTransformStatsRequest) Do(ctx context.Context, transport Tra
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "transform.get_transform_stats")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "transform.get_transform_stats")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

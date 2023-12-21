@@ -32,6 +32,11 @@ func newDeleteByQueryRethrottleFunc(t Transport) DeleteByQueryRethrottle {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -57,15 +62,26 @@ type DeleteByQueryRethrottleRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r DeleteByQueryRethrottleRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r DeleteByQueryRethrottleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "delete_by_query_rethrottle")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -75,6 +91,9 @@ func (r DeleteByQueryRethrottleRequest) Do(ctx context.Context, transport Transp
 	path.WriteString("_delete_by_query")
 	path.WriteString("/")
 	path.WriteString(r.TaskID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "task_id", r.TaskID)
+	}
 	path.WriteString("/")
 	path.WriteString("_rethrottle")
 
@@ -102,6 +121,9 @@ func (r DeleteByQueryRethrottleRequest) Do(ctx context.Context, transport Transp
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -129,8 +151,17 @@ func (r DeleteByQueryRethrottleRequest) Do(ctx context.Context, transport Transp
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "delete_by_query_rethrottle")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "delete_by_query_rethrottle")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

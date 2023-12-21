@@ -32,6 +32,11 @@ func newTransformStartTransformFunc(t Transport) TransformStartTransform {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -58,15 +63,26 @@ type TransformStartTransformRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r TransformStartTransformRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "transform.start_transform")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -76,6 +92,9 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 	path.WriteString("_transform")
 	path.WriteString("/")
 	path.WriteString(r.TransformID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "transform_id", r.TransformID)
+	}
 	path.WriteString("/")
 	path.WriteString("_start")
 
@@ -107,6 +126,9 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -134,8 +156,17 @@ func (r TransformStartTransformRequest) Do(ctx context.Context, transport Transp
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "transform.start_transform")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "transform.start_transform")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

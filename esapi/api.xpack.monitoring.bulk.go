@@ -32,6 +32,11 @@ func newMonitoringBulkFunc(t Transport) MonitoringBulk {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -61,15 +66,26 @@ type MonitoringBulkRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MonitoringBulkRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "monitoring.bulk")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -80,6 +96,9 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 	if r.DocumentType != "" {
 		path.WriteString("/")
 		path.WriteString(r.DocumentType)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "type", r.DocumentType)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("bulk")
@@ -116,6 +135,9 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -147,8 +169,20 @@ func (r MonitoringBulkRequest) Do(ctx context.Context, transport Transport) (*Re
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "monitoring.bulk")
+		if reader := instrument.RecordRequestBody(ctx, "monitoring.bulk", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "monitoring.bulk")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
