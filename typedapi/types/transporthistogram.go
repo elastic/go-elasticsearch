@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TransportHistogram type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/nodes/_types/Stats.ts#L1092-L1106
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/nodes/_types/Stats.ts#L1092-L1106
 type TransportHistogram struct {
 	// Count The number of times a transport thread took a period of time within the
 	// bounds of this bucket to handle an inbound message.

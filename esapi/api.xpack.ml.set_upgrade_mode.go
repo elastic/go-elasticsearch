@@ -33,6 +33,11 @@ func newMLSetUpgradeModeFunc(t Transport) MLSetUpgradeMode {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -57,15 +62,26 @@ type MLSetUpgradeModeRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLSetUpgradeModeRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLSetUpgradeModeRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.set_upgrade_mode")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -101,6 +117,9 @@ func (r MLSetUpgradeModeRequest) Do(ctx context.Context, transport Transport) (*
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -128,8 +147,17 @@ func (r MLSetUpgradeModeRequest) Do(ctx context.Context, transport Transport) (*
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.set_upgrade_mode")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.set_upgrade_mode")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

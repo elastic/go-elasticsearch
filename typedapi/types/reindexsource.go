@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ReindexSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/_global/reindex/types.ts#L66-L97
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_global/reindex/types.ts#L66-L97
 type ReindexSource struct {
 	// Index The name of the data stream, index, or alias you are copying from.
 	// Accepts a comma-separated list to reindex from multiple sources.

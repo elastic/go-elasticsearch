@@ -34,6 +34,11 @@ func newIndicesSimulateIndexTemplateFunc(t Transport) IndicesSimulateIndexTempla
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -64,15 +69,26 @@ type IndicesSimulateIndexTemplateRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesSimulateIndexTemplateRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "indices.simulate_index_template")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -84,6 +100,9 @@ func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport T
 	path.WriteString("_simulate_index")
 	path.WriteString("/")
 	path.WriteString(r.Name)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
 
 	params = make(map[string]string)
 
@@ -121,6 +140,9 @@ func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport T
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -152,8 +174,20 @@ func (r IndicesSimulateIndexTemplateRequest) Do(ctx context.Context, transport T
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "indices.simulate_index_template")
+		if reader := instrument.RecordRequestBody(ctx, "indices.simulate_index_template", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "indices.simulate_index_template")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

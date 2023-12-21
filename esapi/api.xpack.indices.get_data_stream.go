@@ -32,6 +32,11 @@ func newIndicesGetDataStreamFunc(t Transport) IndicesGetDataStream {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -58,15 +63,26 @@ type IndicesGetDataStreamRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r IndicesGetDataStreamRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "indices.get_data_stream")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "GET"
 
@@ -77,6 +93,9 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 	if len(r.Name) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Name, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+		}
 	}
 
 	params = make(map[string]string)
@@ -107,6 +126,9 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -134,8 +156,17 @@ func (r IndicesGetDataStreamRequest) Do(ctx context.Context, transport Transport
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "indices.get_data_stream")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "indices.get_data_stream")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

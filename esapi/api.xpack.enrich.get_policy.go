@@ -31,6 +31,11 @@ func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -54,15 +59,26 @@ type EnrichGetPolicyRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r EnrichGetPolicyRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "enrich.get_policy")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "GET"
 
@@ -75,6 +91,9 @@ func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 	if len(r.Name) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Name, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+		}
 	}
 
 	params = make(map[string]string)
@@ -97,6 +116,9 @@ func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -124,8 +146,17 @@ func (r EnrichGetPolicyRequest) Do(ctx context.Context, transport Transport) (*R
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "enrich.get_policy")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "enrich.get_policy")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

@@ -32,6 +32,11 @@ func newInferencePutModelFunc(t Transport) InferencePutModel {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -60,15 +65,26 @@ type InferencePutModelRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r InferencePutModelRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutModelRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "inference.put_model")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "PUT"
 
@@ -78,8 +94,14 @@ func (r InferencePutModelRequest) Do(ctx context.Context, transport Transport) (
 	path.WriteString("_inference")
 	path.WriteString("/")
 	path.WriteString(r.TaskType)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	}
 	path.WriteString("/")
 	path.WriteString(r.ModelID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+	}
 
 	params = make(map[string]string)
 
@@ -101,6 +123,9 @@ func (r InferencePutModelRequest) Do(ctx context.Context, transport Transport) (
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -132,8 +157,20 @@ func (r InferencePutModelRequest) Do(ctx context.Context, transport Transport) (
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "inference.put_model")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put_model", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "inference.put_model")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

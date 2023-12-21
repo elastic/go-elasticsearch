@@ -32,6 +32,11 @@ func newSnapshotCleanupRepositoryFunc(t Transport) SnapshotCleanupRepository {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -58,15 +63,26 @@ type SnapshotCleanupRepositoryRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SnapshotCleanupRepositoryRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "snapshot.cleanup_repository")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -76,6 +92,9 @@ func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Tran
 	path.WriteString("_snapshot")
 	path.WriteString("/")
 	path.WriteString(r.Repository)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "repository", r.Repository)
+	}
 	path.WriteString("/")
 	path.WriteString("_cleanup")
 
@@ -107,6 +126,9 @@ func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Tran
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -134,8 +156,17 @@ func (r SnapshotCleanupRepositoryRequest) Do(ctx context.Context, transport Tran
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "snapshot.cleanup_repository")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "snapshot.cleanup_repository")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

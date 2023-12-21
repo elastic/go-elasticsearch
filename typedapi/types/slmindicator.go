@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SlmIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/_global/health_report/types.ts#L155-L159
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_global/health_report/types.ts#L155-L159
 type SlmIndicator struct {
 	Details   *SlmIndicatorDetails                        `json:"details,omitempty"`
 	Diagnosis []Diagnosis                                 `json:"diagnosis,omitempty"`

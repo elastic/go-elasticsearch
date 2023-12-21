@@ -32,6 +32,11 @@ func newMLPostDataFunc(t Transport) MLPostData {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -60,15 +65,26 @@ type MLPostDataRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLPostDataRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLPostDataRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.post_data")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -80,6 +96,9 @@ func (r MLPostDataRequest) Do(ctx context.Context, transport Transport) (*Respon
 	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
 	path.WriteString(r.JobID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "job_id", r.JobID)
+	}
 	path.WriteString("/")
 	path.WriteString("_data")
 
@@ -111,6 +130,9 @@ func (r MLPostDataRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -142,8 +164,20 @@ func (r MLPostDataRequest) Do(ctx context.Context, transport Transport) (*Respon
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.post_data")
+		if reader := instrument.RecordRequestBody(ctx, "ml.post_data", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.post_data")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

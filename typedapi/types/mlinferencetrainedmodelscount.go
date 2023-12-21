@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MlInferenceTrainedModelsCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/xpack/usage/types.ts#L244-L253
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/xpack/usage/types.ts#L244-L253
 type MlInferenceTrainedModelsCount struct {
 	Classification *int64 `json:"classification,omitempty"`
 	Ner            *int64 `json:"ner,omitempty"`

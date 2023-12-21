@@ -31,6 +31,11 @@ func newWatcherDeactivateWatchFunc(t Transport) WatcherDeactivateWatch {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -54,15 +59,26 @@ type WatcherDeactivateWatchRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r WatcherDeactivateWatchRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r WatcherDeactivateWatchRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "watcher.deactivate_watch")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "PUT"
 
@@ -74,6 +90,9 @@ func (r WatcherDeactivateWatchRequest) Do(ctx context.Context, transport Transpo
 	path.WriteString("watch")
 	path.WriteString("/")
 	path.WriteString(r.WatchID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "watch_id", r.WatchID)
+	}
 	path.WriteString("/")
 	path.WriteString("_deactivate")
 
@@ -97,6 +116,9 @@ func (r WatcherDeactivateWatchRequest) Do(ctx context.Context, transport Transpo
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -124,8 +146,17 @@ func (r WatcherDeactivateWatchRequest) Do(ctx context.Context, transport Transpo
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "watcher.deactivate_watch")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "watcher.deactivate_watch")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

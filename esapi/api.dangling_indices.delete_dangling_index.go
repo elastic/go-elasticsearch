@@ -33,6 +33,11 @@ func newDanglingIndicesDeleteDanglingIndexFunc(t Transport) DanglingIndicesDelet
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -60,15 +65,26 @@ type DanglingIndicesDeleteDanglingIndexRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r DanglingIndicesDeleteDanglingIndexRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r DanglingIndicesDeleteDanglingIndexRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "dangling_indices.delete_dangling_index")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -78,6 +94,9 @@ func (r DanglingIndicesDeleteDanglingIndexRequest) Do(ctx context.Context, trans
 	path.WriteString("_dangling")
 	path.WriteString("/")
 	path.WriteString(r.IndexUUID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "index_uuid", r.IndexUUID)
+	}
 
 	params = make(map[string]string)
 
@@ -111,6 +130,9 @@ func (r DanglingIndicesDeleteDanglingIndexRequest) Do(ctx context.Context, trans
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -138,8 +160,17 @@ func (r DanglingIndicesDeleteDanglingIndexRequest) Do(ctx context.Context, trans
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "dangling_indices.delete_dangling_index")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "dangling_indices.delete_dangling_index")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

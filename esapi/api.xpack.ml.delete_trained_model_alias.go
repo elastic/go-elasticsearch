@@ -31,6 +31,11 @@ func newMLDeleteTrainedModelAliasFunc(t Transport) MLDeleteTrainedModelAlias {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -55,15 +60,26 @@ type MLDeleteTrainedModelAliasRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLDeleteTrainedModelAliasRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.delete_trained_model_alias")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -75,10 +91,16 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 	path.WriteString("trained_models")
 	path.WriteString("/")
 	path.WriteString(r.ModelID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+	}
 	path.WriteString("/")
 	path.WriteString("model_aliases")
 	path.WriteString("/")
 	path.WriteString(r.ModelAlias)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "model_alias", r.ModelAlias)
+	}
 
 	params = make(map[string]string)
 
@@ -100,6 +122,9 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -127,8 +152,17 @@ func (r MLDeleteTrainedModelAliasRequest) Do(ctx context.Context, transport Tran
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.delete_trained_model_alias")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.delete_trained_model_alias")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

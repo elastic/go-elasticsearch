@@ -32,6 +32,11 @@ func newClearScrollFunc(t Transport) ClearScroll {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -57,15 +62,26 @@ type ClearScrollRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r ClearScrollRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r ClearScrollRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "clear_scroll")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -78,6 +94,9 @@ func (r ClearScrollRequest) Do(ctx context.Context, transport Transport) (*Respo
 	if len(r.ScrollID) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.ScrollID, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "scroll_id", strings.Join(r.ScrollID, ","))
+		}
 	}
 
 	params = make(map[string]string)
@@ -100,6 +119,9 @@ func (r ClearScrollRequest) Do(ctx context.Context, transport Transport) (*Respo
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -131,8 +153,20 @@ func (r ClearScrollRequest) Do(ctx context.Context, transport Transport) (*Respo
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "clear_scroll")
+		if reader := instrument.RecordRequestBody(ctx, "clear_scroll", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "clear_scroll")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

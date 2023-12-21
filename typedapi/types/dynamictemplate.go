@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/_types/mapping/dynamic-template.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_types/mapping/dynamic-template.ts#L22-L30
 type DynamicTemplate struct {
 	Mapping          Property             `json:"mapping,omitempty"`
 	Match            *string              `json:"match,omitempty"`
@@ -170,6 +170,12 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 				s.Mapping = *o
 			case "dense_vector":
 				o := NewDenseVectorProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Mapping = *o
+			case "sparse_vector":
+				o := NewSparseVectorProperty()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}

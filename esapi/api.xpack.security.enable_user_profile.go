@@ -31,6 +31,11 @@ func newSecurityEnableUserProfileFunc(t Transport) SecurityEnableUserProfile {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -56,15 +61,26 @@ type SecurityEnableUserProfileRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityEnableUserProfileRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityEnableUserProfileRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "security.enable_user_profile")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "PUT"
 
@@ -76,6 +92,9 @@ func (r SecurityEnableUserProfileRequest) Do(ctx context.Context, transport Tran
 	path.WriteString("profile")
 	path.WriteString("/")
 	path.WriteString(r.UID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "uid", r.UID)
+	}
 	path.WriteString("/")
 	path.WriteString("_enable")
 
@@ -103,6 +122,9 @@ func (r SecurityEnableUserProfileRequest) Do(ctx context.Context, transport Tran
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -130,8 +152,17 @@ func (r SecurityEnableUserProfileRequest) Do(ctx context.Context, transport Tran
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "security.enable_user_profile")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "security.enable_user_profile")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

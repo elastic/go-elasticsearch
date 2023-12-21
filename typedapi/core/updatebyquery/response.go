@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package updatebyquery
 
@@ -26,8 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/_global/update_by_query/UpdateByQueryResponse.ts#L26-L45
-
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_global/update_by_query/UpdateByQueryResponse.ts#L26-L45
 type Response struct {
 	Batches              *int64                           `json:"batches,omitempty"`
 	Deleted              *int64                           `json:"deleted,omitempty"`

@@ -1,3 +1,50 @@
+# 8.12.0
+
+## Client
+
+The client now provides OpenTelemetry integration. This integration can be enabled in the config using the `elasticsearch.NewOpenTelemetryInstrumentation`.
+Once set up, the provided `context` will be used to record spans with useful information about the request being made to the server.
+
+More about what you can expect in the [Semantic Conventions for Elasticsearch](https://opentelemetry.io/docs/specs/semconv/database/elasticsearch/).
+
+## API
+
+* `SimulateIngest`
+* `ConnectorCheckIn`
+* `ConnectorDelete`
+* `ConnectorGet`
+* `ConnectorLastSync`
+* `ConnectorList`
+* `ConnectorPost`
+* `ConnectorPut`
+* `ConnectorSyncJobCancel`
+* `ConnectorSyncJobCheckIn`
+* `ConnectorSyncJobDelete`
+* `ConnectorSyncJobError`
+* `ConnectorSyncJobGet`
+* `ConnectorSyncJobList`
+* `ConnectorSyncJobPost`
+* `ConnectorSyncJobUpdateStats`
+* `ConnectorUpdateConfiguration`
+* `ConnectorUpdateError`
+* `ConnectorUpdateFiltering`
+* `ConnectorUpdateName`
+* `ConnectorUpdatePipeline`
+* `ConnectorUpdateScheduling`
+
+## Typed API
+
+* `Esql.Query` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html)
+* `Fleet.PostSecret`
+* `Inference` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/inference-apis.html)
+  * `DeleteModel` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-inference-api.html)
+  * `GetModel` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html)
+  * `Inference` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/post-inference-api.html)
+  * `PutModel` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html)
+* `SearchApplication`
+  * `GetSettings` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html)
+  * `UpdateSettings` [documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html)
+
 # 8.11.1
 
 ## Typed API

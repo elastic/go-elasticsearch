@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package putsynonymrule
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package putsynonymrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e279583a47508af40eb07b84694c5aae7885aa09/specification/synonyms/put_synonym_rule/SynonymRulePutRequest.ts#L23-L47
+// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/synonyms/put_synonym_rule/SynonymRulePutRequest.ts#L23-L47
 type Request struct {
 	Synonyms []string `json:"synonyms"`
 }
