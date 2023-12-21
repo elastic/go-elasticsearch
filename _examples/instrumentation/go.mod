@@ -13,5 +13,5 @@ require (
 	go.elastic.co/apm v1.11.0
 	go.elastic.co/apm/module/apmelasticsearch v1.5.0
 	go.opencensus.io v0.19.0
-	golang.org/x/crypto v0.1.0
+	golang.org/x/crypto v0.17.0
 )
