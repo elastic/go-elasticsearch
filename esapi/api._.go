@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0 (fb03858): DO NOT EDIT
+// Code generated from specification version 8.12.0 (9326953): DO NOT EDIT
 
 package esapi
 
@@ -50,6 +50,27 @@ type API struct {
 	Bulk                                          Bulk
 	ClearScroll                                   ClearScroll
 	ClosePointInTime                              ClosePointInTime
+	ConnectorCheckIn                              ConnectorCheckIn
+	ConnectorDelete                               ConnectorDelete
+	ConnectorGet                                  ConnectorGet
+	ConnectorLastSync                             ConnectorLastSync
+	ConnectorList                                 ConnectorList
+	ConnectorPost                                 ConnectorPost
+	ConnectorPut                                  ConnectorPut
+	ConnectorSyncJobCancel                        ConnectorSyncJobCancel
+	ConnectorSyncJobCheckIn                       ConnectorSyncJobCheckIn
+	ConnectorSyncJobDelete                        ConnectorSyncJobDelete
+	ConnectorSyncJobError                         ConnectorSyncJobError
+	ConnectorSyncJobGet                           ConnectorSyncJobGet
+	ConnectorSyncJobList                          ConnectorSyncJobList
+	ConnectorSyncJobPost                          ConnectorSyncJobPost
+	ConnectorSyncJobUpdateStats                   ConnectorSyncJobUpdateStats
+	ConnectorUpdateConfiguration                  ConnectorUpdateConfiguration
+	ConnectorUpdateError                          ConnectorUpdateError
+	ConnectorUpdateFiltering                      ConnectorUpdateFiltering
+	ConnectorUpdateName                           ConnectorUpdateName
+	ConnectorUpdatePipeline                       ConnectorUpdatePipeline
+	ConnectorUpdateScheduling                     ConnectorUpdateScheduling
 	Count                                         Count
 	Create                                        Create
 	DanglingIndicesDeleteDanglingIndex            DanglingIndicesDeleteDanglingIndex
@@ -137,6 +158,7 @@ type API struct {
 	ShutdownDeleteNode                            ShutdownDeleteNode
 	ShutdownGetNode                               ShutdownGetNode
 	ShutdownPutNode                               ShutdownPutNode
+	SimulateIngest                                SimulateIngest
 	SlmDeleteLifecycle                            SlmDeleteLifecycle
 	SlmExecuteLifecycle                           SlmExecuteLifecycle
 	SlmExecuteRetention                           SlmExecuteRetention
@@ -595,6 +617,27 @@ func New(t Transport) *API {
 		Bulk:                               newBulkFunc(t),
 		ClearScroll:                        newClearScrollFunc(t),
 		ClosePointInTime:                   newClosePointInTimeFunc(t),
+		ConnectorCheckIn:                   newConnectorCheckInFunc(t),
+		ConnectorDelete:                    newConnectorDeleteFunc(t),
+		ConnectorGet:                       newConnectorGetFunc(t),
+		ConnectorLastSync:                  newConnectorLastSyncFunc(t),
+		ConnectorList:                      newConnectorListFunc(t),
+		ConnectorPost:                      newConnectorPostFunc(t),
+		ConnectorPut:                       newConnectorPutFunc(t),
+		ConnectorSyncJobCancel:             newConnectorSyncJobCancelFunc(t),
+		ConnectorSyncJobCheckIn:            newConnectorSyncJobCheckInFunc(t),
+		ConnectorSyncJobDelete:             newConnectorSyncJobDeleteFunc(t),
+		ConnectorSyncJobError:              newConnectorSyncJobErrorFunc(t),
+		ConnectorSyncJobGet:                newConnectorSyncJobGetFunc(t),
+		ConnectorSyncJobList:               newConnectorSyncJobListFunc(t),
+		ConnectorSyncJobPost:               newConnectorSyncJobPostFunc(t),
+		ConnectorSyncJobUpdateStats:        newConnectorSyncJobUpdateStatsFunc(t),
+		ConnectorUpdateConfiguration:       newConnectorUpdateConfigurationFunc(t),
+		ConnectorUpdateError:               newConnectorUpdateErrorFunc(t),
+		ConnectorUpdateFiltering:           newConnectorUpdateFilteringFunc(t),
+		ConnectorUpdateName:                newConnectorUpdateNameFunc(t),
+		ConnectorUpdatePipeline:            newConnectorUpdatePipelineFunc(t),
+		ConnectorUpdateScheduling:          newConnectorUpdateSchedulingFunc(t),
 		Count:                              newCountFunc(t),
 		Create:                             newCreateFunc(t),
 		DanglingIndicesDeleteDanglingIndex: newDanglingIndicesDeleteDanglingIndexFunc(t),
@@ -682,6 +725,7 @@ func New(t Transport) *API {
 		ShutdownDeleteNode:                            newShutdownDeleteNodeFunc(t),
 		ShutdownGetNode:                               newShutdownGetNodeFunc(t),
 		ShutdownPutNode:                               newShutdownPutNodeFunc(t),
+		SimulateIngest:                                newSimulateIngestFunc(t),
 		SlmDeleteLifecycle:                            newSlmDeleteLifecycleFunc(t),
 		SlmExecuteLifecycle:                           newSlmExecuteLifecycleFunc(t),
 		SlmExecuteRetention:                           newSlmExecuteRetentionFunc(t),

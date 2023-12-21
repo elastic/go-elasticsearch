@@ -31,6 +31,11 @@ func newCCRResumeAutoFollowPatternFunc(t Transport) CCRResumeAutoFollowPattern {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -54,15 +59,26 @@ type CCRResumeAutoFollowPatternRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r CCRResumeAutoFollowPatternRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r CCRResumeAutoFollowPatternRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ccr.resume_auto_follow_pattern")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -74,6 +90,9 @@ func (r CCRResumeAutoFollowPatternRequest) Do(ctx context.Context, transport Tra
 	path.WriteString("auto_follow")
 	path.WriteString("/")
 	path.WriteString(r.Name)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "name", r.Name)
+	}
 	path.WriteString("/")
 	path.WriteString("resume")
 
@@ -97,6 +116,9 @@ func (r CCRResumeAutoFollowPatternRequest) Do(ctx context.Context, transport Tra
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -124,8 +146,17 @@ func (r CCRResumeAutoFollowPatternRequest) Do(ctx context.Context, transport Tra
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ccr.resume_auto_follow_pattern")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ccr.resume_auto_follow_pattern")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

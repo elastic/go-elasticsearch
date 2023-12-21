@@ -33,6 +33,11 @@ func newNodesStatsFunc(t Transport) NodesStats {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -68,15 +73,26 @@ type NodesStatsRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r NodesStatsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r NodesStatsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "nodes.stats")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "GET"
 
@@ -87,16 +103,25 @@ func (r NodesStatsRequest) Do(ctx context.Context, transport Transport) (*Respon
 	if len(r.NodeID) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.NodeID, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "node_id", strings.Join(r.NodeID, ","))
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("stats")
 	if len(r.Metric) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.Metric, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "metric", strings.Join(r.Metric, ","))
+		}
 	}
 	if len(r.IndexMetric) > 0 {
 		path.WriteString("/")
 		path.WriteString(strings.Join(r.IndexMetric, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "index_metric", strings.Join(r.IndexMetric, ","))
+		}
 	}
 
 	params = make(map[string]string)
@@ -155,6 +180,9 @@ func (r NodesStatsRequest) Do(ctx context.Context, transport Transport) (*Respon
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -182,8 +210,17 @@ func (r NodesStatsRequest) Do(ctx context.Context, transport Transport) (*Respon
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "nodes.stats")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "nodes.stats")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

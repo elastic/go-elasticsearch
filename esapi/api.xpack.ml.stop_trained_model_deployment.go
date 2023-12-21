@@ -33,6 +33,11 @@ func newMLStopTrainedModelDeploymentFunc(t Transport) MLStopTrainedModelDeployme
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -61,15 +66,26 @@ type MLStopTrainedModelDeploymentRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLStopTrainedModelDeploymentRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.stop_trained_model_deployment")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -81,6 +97,9 @@ func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport T
 	path.WriteString("trained_models")
 	path.WriteString("/")
 	path.WriteString(r.ModelID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+	}
 	path.WriteString("/")
 	path.WriteString("deployment")
 	path.WriteString("/")
@@ -114,6 +133,9 @@ func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport T
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -145,8 +167,20 @@ func (r MLStopTrainedModelDeploymentRequest) Do(ctx context.Context, transport T
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.stop_trained_model_deployment")
+		if reader := instrument.RecordRequestBody(ctx, "ml.stop_trained_model_deployment", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.stop_trained_model_deployment")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

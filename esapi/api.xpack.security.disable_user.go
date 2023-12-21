@@ -31,6 +31,11 @@ func newSecurityDisableUserFunc(t Transport) SecurityDisableUser {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -56,15 +61,26 @@ type SecurityDisableUserRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r SecurityDisableUserRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r SecurityDisableUserRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "security.disable_user")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "PUT"
 
@@ -76,6 +92,9 @@ func (r SecurityDisableUserRequest) Do(ctx context.Context, transport Transport)
 	path.WriteString("user")
 	path.WriteString("/")
 	path.WriteString(r.Username)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "username", r.Username)
+	}
 	path.WriteString("/")
 	path.WriteString("_disable")
 
@@ -103,6 +122,9 @@ func (r SecurityDisableUserRequest) Do(ctx context.Context, transport Transport)
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -130,8 +152,17 @@ func (r SecurityDisableUserRequest) Do(ctx context.Context, transport Transport)
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "security.disable_user")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "security.disable_user")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

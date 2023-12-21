@@ -31,6 +31,11 @@ func newMLDeleteCalendarEventFunc(t Transport) MLDeleteCalendarEvent {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -55,15 +60,26 @@ type MLDeleteCalendarEventRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLDeleteCalendarEventRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLDeleteCalendarEventRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.delete_calendar_event")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "DELETE"
 
@@ -75,10 +91,16 @@ func (r MLDeleteCalendarEventRequest) Do(ctx context.Context, transport Transpor
 	path.WriteString("calendars")
 	path.WriteString("/")
 	path.WriteString(r.CalendarID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "calendar_id", r.CalendarID)
+	}
 	path.WriteString("/")
 	path.WriteString("events")
 	path.WriteString("/")
 	path.WriteString(r.EventID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "event_id", r.EventID)
+	}
 
 	params = make(map[string]string)
 
@@ -100,6 +122,9 @@ func (r MLDeleteCalendarEventRequest) Do(ctx context.Context, transport Transpor
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -127,8 +152,17 @@ func (r MLDeleteCalendarEventRequest) Do(ctx context.Context, transport Transpor
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.delete_calendar_event")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.delete_calendar_event")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

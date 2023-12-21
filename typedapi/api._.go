@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e279583a47508af40eb07b84694c5aae7885aa09
+// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
 
 package typedapi
 
@@ -141,10 +141,12 @@ import (
 	eql_get "github.com/elastic/go-elasticsearch/v8/typedapi/eql/get"
 	eql_get_status "github.com/elastic/go-elasticsearch/v8/typedapi/eql/getstatus"
 	eql_search "github.com/elastic/go-elasticsearch/v8/typedapi/eql/search"
+	esql_query "github.com/elastic/go-elasticsearch/v8/typedapi/esql/query"
 	features_get_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/getfeatures"
 	features_reset_features "github.com/elastic/go-elasticsearch/v8/typedapi/features/resetfeatures"
 	fleet_global_checkpoints "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/globalcheckpoints"
 	fleet_msearch "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/msearch"
+	fleet_post_secret "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/postsecret"
 	fleet_search "github.com/elastic/go-elasticsearch/v8/typedapi/fleet/search"
 	graph_explore "github.com/elastic/go-elasticsearch/v8/typedapi/graph/explore"
 	ilm_delete_lifecycle "github.com/elastic/go-elasticsearch/v8/typedapi/ilm/deletelifecycle"
@@ -216,6 +218,10 @@ import (
 	indices_unfreeze "github.com/elastic/go-elasticsearch/v8/typedapi/indices/unfreeze"
 	indices_update_aliases "github.com/elastic/go-elasticsearch/v8/typedapi/indices/updatealiases"
 	indices_validate_query "github.com/elastic/go-elasticsearch/v8/typedapi/indices/validatequery"
+	inference_delete_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/deletemodel"
+	inference_get_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/getmodel"
+	inference_inference "github.com/elastic/go-elasticsearch/v8/typedapi/inference/inference"
+	inference_put_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putmodel"
 	ingest_delete_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/deletepipeline"
 	ingest_geo_ip_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/geoipstats"
 	ingest_get_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/getpipeline"
@@ -369,6 +375,7 @@ import (
 	security_get_role_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/security/getrolemapping"
 	security_get_service_accounts "github.com/elastic/go-elasticsearch/v8/typedapi/security/getserviceaccounts"
 	security_get_service_credentials "github.com/elastic/go-elasticsearch/v8/typedapi/security/getservicecredentials"
+	security_get_settings "github.com/elastic/go-elasticsearch/v8/typedapi/security/getsettings"
 	security_get_token "github.com/elastic/go-elasticsearch/v8/typedapi/security/gettoken"
 	security_get_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/getuser"
 	security_get_user_privileges "github.com/elastic/go-elasticsearch/v8/typedapi/security/getuserprivileges"
@@ -394,6 +401,7 @@ import (
 	security_saml_service_provider_metadata "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlserviceprovidermetadata"
 	security_suggest_user_profiles "github.com/elastic/go-elasticsearch/v8/typedapi/security/suggestuserprofiles"
 	security_update_api_key "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateapikey"
+	security_update_settings "github.com/elastic/go-elasticsearch/v8/typedapi/security/updatesettings"
 	security_update_user_profile_data "github.com/elastic/go-elasticsearch/v8/typedapi/security/updateuserprofiledata"
 	shutdown_delete_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/deletenode"
 	shutdown_get_node "github.com/elastic/go-elasticsearch/v8/typedapi/shutdown/getnode"
@@ -886,15 +894,21 @@ type Eql struct {
 	Delete eql_delete.NewDelete
 	// Returns async results from previously executed Event Query Language (EQL)
 	// search
-	//  https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-search-api.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-search-api.html
 	Get eql_get.NewGet
 	// Returns the status of a previously submitted async or stored Event Query
 	// Language (EQL) search
-	//  https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-status-api.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-eql-status-api.html
 	GetStatus eql_get_status.NewGetStatus
 	// Returns results matching a query expressed in Event Query Language (EQL)
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
 	Search eql_search.NewSearch
+}
+
+type Esql struct {
+	// Executes an ESQL request
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html
+	Query esql_query.NewQuery
 }
 
 type Features struct {
@@ -917,6 +931,9 @@ type Fleet struct {
 	// use by the fleet server project.
 	//
 	Msearch fleet_msearch.NewMsearch
+	// Creates a secret stored by Fleet.
+	//
+	PostSecret fleet_post_secret.NewPostSecret
 	// Search API where the search will only be executed after specified checkpoints
 	// are available due to a refresh. This API is designed for internal use by the
 	// fleet server project.
@@ -1011,10 +1028,10 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
 	DeleteDataStream indices_delete_data_stream.NewDeleteDataStream
 	// Deletes an index template.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-template.html
 	DeleteIndexTemplate indices_delete_index_template.NewDeleteIndexTemplate
 	// Deletes an index template.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-template-v1.html
 	DeleteTemplate indices_delete_template.NewDeleteTemplate
 	// Analyzes the disk usage of each field of an index or data stream
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-disk-usage.html
@@ -1029,10 +1046,10 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-aliases.html
 	ExistsAlias indices_exists_alias.NewExistsAlias
 	// Returns information about whether a particular index template exists.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html
 	ExistsIndexTemplate indices_exists_index_template.NewExistsIndexTemplate
 	// Returns information about whether a particular index template exists.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-template-exists-v1.html
 	ExistsTemplate indices_exists_template.NewExistsTemplate
 	// Retrieves information about the index's current data stream lifecycle, such
 	// as any potential encountered error, time since creation etc.
@@ -1063,7 +1080,7 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html
 	GetFieldMapping indices_get_field_mapping.NewGetFieldMapping
 	// Returns an index template.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-template.html
 	GetIndexTemplate indices_get_index_template.NewGetIndexTemplate
 	// Returns mappings for one or more indices.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-mapping.html
@@ -1072,7 +1089,7 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-settings.html
 	GetSettings indices_get_settings.NewGetSettings
 	// Returns an index template.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-template-v1.html
 	GetTemplate indices_get_template.NewGetTemplate
 	// Migrates an alias to a data stream
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
@@ -1094,7 +1111,7 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-put-lifecycle.html
 	PutDataLifecycle indices_put_data_lifecycle.NewPutDataLifecycle
 	// Creates or updates an index template.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-template.html
 	PutIndexTemplate indices_put_index_template.NewPutIndexTemplate
 	// Updates the index mappings.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html
@@ -1103,7 +1120,7 @@ type Indices struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html
 	PutSettings indices_put_settings.NewPutSettings
 	// Creates or updates an index template.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates-v1.html
 	PutTemplate indices_put_template.NewPutTemplate
 	// Returns information about ongoing index shard recoveries.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-recovery.html
@@ -1132,10 +1149,10 @@ type Indices struct {
 	Shrink indices_shrink.NewShrink
 	// Simulate matching the given index name against the index templates in the
 	// system
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-simulate-index.html
 	SimulateIndexTemplate indices_simulate_index_template.NewSimulateIndexTemplate
 	// Simulate resolving the given template name or body
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-simulate-template.html
 	SimulateTemplate indices_simulate_template.NewSimulateTemplate
 	// Allows you to split an existing index into a new index with more primary
 	// shards.
@@ -1154,6 +1171,21 @@ type Indices struct {
 	// Allows a user to validate a potentially expensive query without executing it.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-validate.html
 	ValidateQuery indices_validate_query.NewValidateQuery
+}
+
+type Inference struct {
+	// Delete model in the Inference API
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-inference-api.html
+	DeleteModel inference_delete_model.NewDeleteModel
+	// Get a model in the Inference API
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html
+	GetModel inference_get_model.NewGetModel
+	// Perform inference on a model
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/post-inference-api.html
+	Inference inference_inference.NewInference
+	// Configure a model for use in the Inference API
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html
+	PutModel inference_put_model.NewPutModel
 }
 
 type Ingest struct {
@@ -1530,7 +1562,7 @@ type Rollup struct {
 
 type SearchApplication struct {
 	// Deletes a search application.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-search-application.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-search-application.html
 	Delete search_application_delete.NewDelete
 	// Delete a behavioral analytics collection.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-analytics-collection.html
@@ -1666,6 +1698,9 @@ type Security struct {
 	// Retrieves information of all service credentials for a service account.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-credentials.html
 	GetServiceCredentials security_get_service_credentials.NewGetServiceCredentials
+	// Retrieve settings for the security system indices
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html
+	GetSettings security_get_settings.NewGetSettings
 	// Creates a bearer token for access without requiring basic authentication.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html
 	GetToken security_get_token.NewGetToken
@@ -1747,6 +1782,9 @@ type Security struct {
 	// Updates attributes of an existing API key.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-api-key.html
 	UpdateApiKey security_update_api_key.NewUpdateApiKey
+	// Update settings for the security system index
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-settings.html
+	UpdateSettings security_update_settings.NewUpdateSettings
 	// Update application specific data for the user profile of the given unique ID.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-user-profile-data.html
 	UpdateUserProfileData security_update_user_profile_data.NewUpdateUserProfileData
@@ -2011,11 +2049,13 @@ type API struct {
 	DanglingIndices     DanglingIndices
 	Enrich              Enrich
 	Eql                 Eql
+	Esql                Esql
 	Features            Features
 	Fleet               Fleet
 	Graph               Graph
 	Ilm                 Ilm
 	Indices             Indices
+	Inference           Inference
 	Ingest              Ingest
 	License             License
 	Logstash            Logstash
@@ -2350,6 +2390,11 @@ func New(tp elastictransport.Interface) *API {
 			Search:    eql_search.NewSearchFunc(tp),
 		},
 
+		// Esql
+		Esql: Esql{
+			Query: esql_query.NewQueryFunc(tp),
+		},
+
 		// Features
 		Features: Features{
 			GetFeatures:   features_get_features.NewGetFeaturesFunc(tp),
@@ -2360,6 +2405,7 @@ func New(tp elastictransport.Interface) *API {
 		Fleet: Fleet{
 			GlobalCheckpoints: fleet_global_checkpoints.NewGlobalCheckpointsFunc(tp),
 			Msearch:           fleet_msearch.NewMsearchFunc(tp),
+			PostSecret:        fleet_post_secret.NewPostSecretFunc(tp),
 			Search:            fleet_search.NewSearchFunc(tp),
 		},
 
@@ -2443,6 +2489,14 @@ func New(tp elastictransport.Interface) *API {
 			Unfreeze:              indices_unfreeze.NewUnfreezeFunc(tp),
 			UpdateAliases:         indices_update_aliases.NewUpdateAliasesFunc(tp),
 			ValidateQuery:         indices_validate_query.NewValidateQueryFunc(tp),
+		},
+
+		// Inference
+		Inference: Inference{
+			DeleteModel: inference_delete_model.NewDeleteModelFunc(tp),
+			GetModel:    inference_get_model.NewGetModelFunc(tp),
+			Inference:   inference_inference.NewInferenceFunc(tp),
+			PutModel:    inference_put_model.NewPutModelFunc(tp),
 		},
 
 		// Ingest
@@ -2644,6 +2698,7 @@ func New(tp elastictransport.Interface) *API {
 			GetRoleMapping:              security_get_role_mapping.NewGetRoleMappingFunc(tp),
 			GetServiceAccounts:          security_get_service_accounts.NewGetServiceAccountsFunc(tp),
 			GetServiceCredentials:       security_get_service_credentials.NewGetServiceCredentialsFunc(tp),
+			GetSettings:                 security_get_settings.NewGetSettingsFunc(tp),
 			GetToken:                    security_get_token.NewGetTokenFunc(tp),
 			GetUser:                     security_get_user.NewGetUserFunc(tp),
 			GetUserPrivileges:           security_get_user_privileges.NewGetUserPrivilegesFunc(tp),
@@ -2669,6 +2724,7 @@ func New(tp elastictransport.Interface) *API {
 			SamlServiceProviderMetadata: security_saml_service_provider_metadata.NewSamlServiceProviderMetadataFunc(tp),
 			SuggestUserProfiles:         security_suggest_user_profiles.NewSuggestUserProfilesFunc(tp),
 			UpdateApiKey:                security_update_api_key.NewUpdateApiKeyFunc(tp),
+			UpdateSettings:              security_update_settings.NewUpdateSettingsFunc(tp),
 			UpdateUserProfileData:       security_update_user_profile_data.NewUpdateUserProfileDataFunc(tp),
 		},
 

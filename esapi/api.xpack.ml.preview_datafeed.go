@@ -32,6 +32,11 @@ func newMLPreviewDatafeedFunc(t Transport) MLPreviewDatafeed {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -60,15 +65,26 @@ type MLPreviewDatafeedRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLPreviewDatafeedRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.preview_datafeed")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -81,6 +97,9 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 	if r.DatafeedID != "" {
 		path.WriteString("/")
 		path.WriteString(r.DatafeedID)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "datafeed_id", r.DatafeedID)
+		}
 	}
 	path.WriteString("/")
 	path.WriteString("_preview")
@@ -113,6 +132,9 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -144,8 +166,20 @@ func (r MLPreviewDatafeedRequest) Do(ctx context.Context, transport Transport) (
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.preview_datafeed")
+		if reader := instrument.RecordRequestBody(ctx, "ml.preview_datafeed", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.preview_datafeed")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

@@ -31,6 +31,11 @@ func newMLClearTrainedModelDeploymentCacheFunc(t Transport) MLClearTrainedModelD
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -54,15 +59,26 @@ type MLClearTrainedModelDeploymentCacheRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLClearTrainedModelDeploymentCacheRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLClearTrainedModelDeploymentCacheRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.clear_trained_model_deployment_cache")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -74,6 +90,9 @@ func (r MLClearTrainedModelDeploymentCacheRequest) Do(ctx context.Context, trans
 	path.WriteString("trained_models")
 	path.WriteString("/")
 	path.WriteString(r.ModelID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+	}
 	path.WriteString("/")
 	path.WriteString("deployment")
 	path.WriteString("/")
@@ -101,6 +120,9 @@ func (r MLClearTrainedModelDeploymentCacheRequest) Do(ctx context.Context, trans
 
 	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -128,8 +150,17 @@ func (r MLClearTrainedModelDeploymentCacheRequest) Do(ctx context.Context, trans
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.clear_trained_model_deployment_cache")
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.clear_trained_model_deployment_cache")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 

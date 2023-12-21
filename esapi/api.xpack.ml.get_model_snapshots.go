@@ -34,6 +34,11 @@ func newMLGetModelSnapshotsFunc(t Transport) MLGetModelSnapshots {
 		for _, f := range o {
 			f(&r)
 		}
+
+		if transport, ok := t.(Instrumented); ok {
+			r.instrument = transport.InstrumentationEnabled()
+		}
+
 		return r.Do(r.ctx, t)
 	}
 }
@@ -67,15 +72,26 @@ type MLGetModelSnapshotsRequest struct {
 	Header http.Header
 
 	ctx context.Context
+
+	instrument Instrumentation
 }
 
 // Do executes the request and returns response or error.
-func (r MLGetModelSnapshotsRequest) Do(ctx context.Context, transport Transport) (*Response, error) {
+func (r MLGetModelSnapshotsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
 		params map[string]string
+		ctx    context.Context
 	)
+
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "ml.get_model_snapshots")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
 
 	method = "POST"
 
@@ -87,11 +103,17 @@ func (r MLGetModelSnapshotsRequest) Do(ctx context.Context, transport Transport)
 	path.WriteString("anomaly_detectors")
 	path.WriteString("/")
 	path.WriteString(r.JobID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "job_id", r.JobID)
+	}
 	path.WriteString("/")
 	path.WriteString("model_snapshots")
 	if r.SnapshotID != "" {
 		path.WriteString("/")
 		path.WriteString(r.SnapshotID)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "snapshot_id", r.SnapshotID)
+		}
 	}
 
 	params = make(map[string]string)
@@ -138,6 +160,9 @@ func (r MLGetModelSnapshotsRequest) Do(ctx context.Context, transport Transport)
 
 	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
@@ -169,8 +194,20 @@ func (r MLGetModelSnapshotsRequest) Do(ctx context.Context, transport Transport)
 		req = req.WithContext(ctx)
 	}
 
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.BeforeRequest(req, "ml.get_model_snapshots")
+		if reader := instrument.RecordRequestBody(ctx, "ml.get_model_snapshots", r.Body); reader != nil {
+			req.Body = reader
+		}
+	}
 	res, err := transport.Perform(req)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.AfterRequest(req, "elasticsearch", "ml.get_model_snapshots")
+	}
 	if err != nil {
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
 		return nil, err
 	}
 
