@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package mldatafeeds
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package mldatafeeds
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/cat/ml_datafeeds/CatDatafeedsResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/cat/ml_datafeeds/CatDatafeedsResponse.ts#L22-L24
 
 type Response []types.DatafeedsRecord
 

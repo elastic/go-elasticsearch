@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package types
 
@@ -26,13 +26,11 @@ import (
 	"errors"
 	"io"
 	"strconv"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/managedby"
 )
 
 // DataStreamIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/indices/_types/DataStream.ts#L125-L146
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/indices/_types/DataStream.ts#L114-L135
 type DataStreamIndex struct {
 	// IlmPolicy Name of the current ILM lifecycle policy configured for this backing index.
 	IlmPolicy *string `json:"ilm_policy,omitempty"`
@@ -41,7 +39,7 @@ type DataStreamIndex struct {
 	// IndexUuid Universally unique identifier (UUID) for the index.
 	IndexUuid string `json:"index_uuid"`
 	// ManagedBy Name of the lifecycle system that's currently managing this backing index.
-	ManagedBy managedby.ManagedBy `json:"managed_by"`
+	ManagedBy ManagedBy `json:"managed_by"`
 	// PreferIlm Indicates if ILM should take precedence over DSL in case both are configured
 	// to manage this index.
 	PreferIlm bool `json:"prefer_ilm"`

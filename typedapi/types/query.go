@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_types/query_dsl/abstractions.ts#L98-L391
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/_types/query_dsl/abstractions.ts#L98-L391
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -235,8 +235,18 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 			}
 
 		case "distance_feature":
-			if err := dec.Decode(&s.DistanceFeature); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return err
+			}
+			o := NewGeoDistanceFeatureQuery()
+			err := json.Unmarshal(message, &o)
+			if err != nil {
+				o := NewDateDistanceFeatureQuery()
+				err := json.Unmarshal(message, &o)
+				if err != nil {
+					return err
+				}
 			}
 
 		case "exists":

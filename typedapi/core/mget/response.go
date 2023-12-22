@@ -16,17 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package mget
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Response holds the response body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_global/mget/MultiGetResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/_global/mget/MultiGetResponse.ts#L22-L26
 type Response struct {
 	Docs []types.MgetResponseItem `json:"docs"`
 }
@@ -35,4 +40,64 @@ type Response struct {
 func NewResponse() *Response {
 	r := &Response{}
 	return r
+}
+
+func (s *Response) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "docs":
+			messageArray := []json.RawMessage{}
+			if err := dec.Decode(&messageArray); err != nil {
+				return err
+			}
+		docs:
+			for _, message := range messageArray {
+				keyDec := json.NewDecoder(bytes.NewReader(message))
+				for {
+					t, err := keyDec.Token()
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return err
+					}
+
+					switch t {
+
+					case "fields", "found", "_primary_term", "_routing", "_seq_no", "_source", "_version":
+						o := types.NewGetResult()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return err
+						}
+						s.Docs = append(s.Docs, o)
+						continue docs
+
+					case "error":
+						o := types.NewMultiGetError()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return err
+						}
+						s.Docs = append(s.Docs, o)
+						continue docs
+
+					}
+				}
+			}
+
+		}
+	}
+	return nil
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package types
 
@@ -28,12 +28,11 @@ import (
 	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/managedby"
 )
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/indices/_types/DataStream.ts#L43-L116
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/indices/_types/DataStream.ts#L33-L105
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -67,7 +66,7 @@ type DataStream struct {
 	Name string `json:"name"`
 	// NextGenerationManagedBy Name of the lifecycle system that'll manage the next generation of the data
 	// stream.
-	NextGenerationManagedBy managedby.ManagedBy `json:"next_generation_managed_by"`
+	NextGenerationManagedBy ManagedBy `json:"next_generation_managed_by"`
 	// PreferIlm Indicates if ILM should take precedence over DSL in case both are configured
 	// to managed this data stream.
 	PreferIlm bool `json:"prefer_ilm"`

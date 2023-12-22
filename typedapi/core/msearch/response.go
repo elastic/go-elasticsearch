@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package msearch
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Response holds the response body struct for the package msearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_global/msearch/MultiSearchResponse.ts#L25-L27
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/_global/msearch/MultiSearchResponse.ts#L25-L27
 type Response struct {
 	Responses []types.MsearchResponseItem `json:"responses"`
 	Took      int64                       `json:"took"`
@@ -36,4 +42,79 @@ type Response struct {
 func NewResponse() *Response {
 	r := &Response{}
 	return r
+}
+
+func (s *Response) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "responses":
+			messageArray := []json.RawMessage{}
+			if err := dec.Decode(&messageArray); err != nil {
+				return err
+			}
+		responses:
+			for _, message := range messageArray {
+				keyDec := json.NewDecoder(bytes.NewReader(message))
+				for {
+					t, err := keyDec.Token()
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return err
+					}
+
+					switch t {
+
+					case "aggregations", "_clusters", "fields", "hits", "max_score", "num_reduce_phases", "pit_id", "profile", "_scroll_id", "_shards", "suggest", "terminated_early", "timed_out", "took":
+						o := types.NewMultiSearchItem()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return err
+						}
+						s.Responses = append(s.Responses, o)
+						continue responses
+
+					case "error":
+						o := types.NewErrorResponseBase()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return err
+						}
+						s.Responses = append(s.Responses, o)
+						continue responses
+
+					}
+				}
+			}
+
+		case "took":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return err
+				}
+				s.Took = value
+			case float64:
+				f := int64(v)
+				s.Took = f
+			}
+
+		}
+	}
+	return nil
 }
