@@ -399,6 +399,21 @@ func TestTypedClient(t *testing.T) {
 			t.Fatalf("could not retrieve document: %s", err)
 		}
 
+		mgetResponse, err := es.Mget().Index(indexName).Ids("1", "2").Do(context.Background())
+		if err != nil {
+			t.Fatalf("could not mget documents: %s", err)
+		}
+		for _, doc := range mgetResponse.Docs {
+			switch d := doc.(type) {
+			case *types.GetResult:
+				if d.Found != true {
+					t.Fatalf("error while doing reading mget response")
+				}
+			case *types.MultiGetError:
+				t.Fatalf("document should exist at this point")
+			}
+		}
+
 		// Try to retrieve a faulty index name
 		if ok, _ := es.Get("non-existent-index", "9999").IsSuccess(context.Background()); ok {
 			t.Fatalf("index shouldn't exist")
@@ -463,6 +478,39 @@ func TestTypedClient(t *testing.T) {
 					}
 				default:
 					fmt.Printf("unexpected aggregation: %#v\n", agg)
+				}
+			}
+		}
+
+		msearch := es.Msearch()
+		_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.MultisearchBody{Query: &types.Query{
+			Match: map[string]types.MatchQuery{
+				"name": {Query: "Foo"},
+			},
+		}})
+		_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.MultisearchBody{Aggregations: map[string]types.Aggregations{
+			"total_prices": {
+				Sum: &types.SumAggregation{
+					Field: some.String("price"),
+				},
+			},
+		}})
+		_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{"non-existent-index"}}, types.MultisearchBody{Query: &types.Query{Match: map[string]types.MatchQuery{
+			"foo": {Query: "bzz"},
+		}}})
+		msearchRes, err := msearch.Do(context.Background())
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, response := range msearchRes.Responses {
+			switch r := response.(type) {
+			case *types.MultiSearchItem:
+				if *r.Status != 200 {
+					t.Fatalf("error while reading multisearch response")
+				}
+			case *types.ErrorResponseBase:
+				if r.Status != 404 {
+					t.Fatalf("expected 404 index_not_found_exception, got: %v", r)
 				}
 			}
 		}

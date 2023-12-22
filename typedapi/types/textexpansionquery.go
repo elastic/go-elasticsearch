@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TextExpansionQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_types/query_dsl/TextExpansionQuery.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/TextExpansionQuery.ts#L23-L33
 type TextExpansionQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -41,8 +41,10 @@ type TextExpansionQuery struct {
 	// ModelId The text expansion NLP model to use
 	ModelId string `json:"model_id"`
 	// ModelText The query text
-	ModelText  string  `json:"model_text"`
-	QueryName_ *string `json:"_name,omitempty"`
+	ModelText string `json:"model_text"`
+	// PruningConfig Token pruning configurations
+	PruningConfig *TokenPruningConfig `json:"pruning_config,omitempty"`
+	QueryName_    *string             `json:"_name,omitempty"`
 }
 
 func (s *TextExpansionQuery) UnmarshalJSON(data []byte) error {
@@ -99,6 +101,11 @@ func (s *TextExpansionQuery) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.ModelText = o
+
+		case "pruning_config":
+			if err := dec.Decode(&s.PruningConfig); err != nil {
+				return err
+			}
 
 		case "_name":
 			var tmp json.RawMessage

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MultiSearchResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_global/msearch/types.ts#L204-L207
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/msearch/types.ts#L204-L207
 type MultiSearchResult struct {
 	Responses []MsearchResponseItem `json:"responses"`
 	Took      int64                 `json:"took"`
@@ -52,8 +52,44 @@ func (s *MultiSearchResult) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "responses":
-			if err := dec.Decode(&s.Responses); err != nil {
+			messageArray := []json.RawMessage{}
+			if err := dec.Decode(&messageArray); err != nil {
 				return err
+			}
+		responses:
+			for _, message := range messageArray {
+				keyDec := json.NewDecoder(bytes.NewReader(message))
+				for {
+					t, err := keyDec.Token()
+					if err != nil {
+						if errors.Is(err, io.EOF) {
+							break
+						}
+						return err
+					}
+
+					switch t {
+
+					case "aggregations", "_clusters", "fields", "hits", "max_score", "num_reduce_phases", "pit_id", "profile", "_scroll_id", "_shards", "suggest", "terminated_early", "timed_out", "took":
+						o := NewMultiSearchItem()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return err
+						}
+						s.Responses = append(s.Responses, o)
+						continue responses
+
+					case "error":
+						o := NewErrorResponseBase()
+						localDec := json.NewDecoder(bytes.NewReader(message))
+						if err := localDec.Decode(&o); err != nil {
+							return err
+						}
+						s.Responses = append(s.Responses, o)
+						continue responses
+
+					}
+				}
 			}
 
 		case "took":
