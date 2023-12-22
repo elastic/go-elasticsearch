@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/abstractions.ts#L99-L399
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/_types/query_dsl/abstractions.ts#L98-L391
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -180,9 +180,6 @@ type Query struct {
 	// vector or rank features field.
 	TextExpansion map[string]TextExpansionQuery `json:"text_expansion,omitempty"`
 	Type          *TypeQuery                    `json:"type,omitempty"`
-	// WeightedTokens Supports returning text_expansion query results by sending in precomputed
-	// tokens with the query.
-	WeightedTokens map[string]WeightedTokensQuery `json:"weighted_tokens,omitempty"`
 	// Wildcard Returns documents that contain terms matching a wildcard pattern.
 	Wildcard map[string]WildcardQuery `json:"wildcard,omitempty"`
 	// Wrapper A query that accepts any other query as base64 encoded string.
@@ -526,14 +523,6 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				return err
 			}
 
-		case "weighted_tokens":
-			if s.WeightedTokens == nil {
-				s.WeightedTokens = make(map[string]WeightedTokensQuery, 0)
-			}
-			if err := dec.Decode(&s.WeightedTokens); err != nil {
-				return err
-			}
-
 		case "wildcard":
 			if s.Wildcard == nil {
 				s.Wildcard = make(map[string]WildcardQuery, 0)
@@ -569,7 +558,6 @@ func NewQuery() *Query {
 		Term:              make(map[string]TermQuery, 0),
 		TermsSet:          make(map[string]TermsSetQuery, 0),
 		TextExpansion:     make(map[string]TextExpansionQuery, 0),
-		WeightedTokens:    make(map[string]WeightedTokensQuery, 0),
 		Wildcard:          make(map[string]WildcardQuery, 0),
 	}
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
 
 package types
 
@@ -30,14 +30,14 @@ import (
 
 // EnrichPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/enrich/_types/Policy.ts#L34-L41
+// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/enrich/_types/Policy.ts#L33-L40
 type EnrichPolicy struct {
 	ElasticsearchVersion *string  `json:"elasticsearch_version,omitempty"`
 	EnrichFields         []string `json:"enrich_fields"`
 	Indices              []string `json:"indices"`
 	MatchField           string   `json:"match_field"`
 	Name                 *string  `json:"name,omitempty"`
-	Query                *Query   `json:"query,omitempty"`
+	Query                *string  `json:"query,omitempty"`
 }
 
 func (s *EnrichPolicy) UnmarshalJSON(data []byte) error {
@@ -110,9 +110,16 @@ func (s *EnrichPolicy) UnmarshalJSON(data []byte) error {
 			}
 
 		case "query":
-			if err := dec.Decode(&s.Query); err != nil {
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
 				return err
 			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Query = &o
 
 		}
 	}
