@@ -47,7 +47,7 @@ func newConnectorUpdateNameFunc(t Transport) ConnectorUpdateName {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-name-description-api.html.
 type ConnectorUpdateName func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateNameRequest)) (*Response, error)
 
 // ConnectorUpdateNameRequest configures the Connector Update Name API request.

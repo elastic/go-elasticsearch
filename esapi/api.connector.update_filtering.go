@@ -47,7 +47,7 @@ func newConnectorUpdateFilteringFunc(t Transport) ConnectorUpdateFiltering {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html.
 type ConnectorUpdateFiltering func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateFilteringRequest)) (*Response, error)
 
 // ConnectorUpdateFilteringRequest configures the Connector Update Filtering API request.

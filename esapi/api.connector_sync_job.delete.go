@@ -46,7 +46,7 @@ func newConnectorSyncJobDeleteFunc(t Transport) ConnectorSyncJobDelete {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-sync-job-api.html.
 type ConnectorSyncJobDelete func(connector_sync_job_id string, o ...func(*ConnectorSyncJobDeleteRequest)) (*Response, error)
 
 // ConnectorSyncJobDeleteRequest configures the Connector Sync Job Delete API request.

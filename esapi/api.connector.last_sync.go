@@ -47,7 +47,7 @@ func newConnectorLastSyncFunc(t Transport) ConnectorLastSync {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-last-sync-api.html.
 type ConnectorLastSync func(body io.Reader, connector_id string, o ...func(*ConnectorLastSyncRequest)) (*Response, error)
 
 // ConnectorLastSyncRequest configures the Connector Last Sync API request.
