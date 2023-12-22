@@ -47,7 +47,7 @@ func newConnectorPutFunc(t Transport) ConnectorPut {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html.
 type ConnectorPut func(body io.Reader, connector_id string, o ...func(*ConnectorPutRequest)) (*Response, error)
 
 // ConnectorPutRequest configures the Connector Put API request.

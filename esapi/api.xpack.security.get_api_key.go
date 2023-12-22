@@ -50,6 +50,7 @@ type SecurityGetAPIKey func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, er
 
 // SecurityGetAPIKeyRequest configures the Security GetAPI Key API request.
 type SecurityGetAPIKeyRequest struct {
+	ActiveOnly    *bool
 	ID            string
 	Name          string
 	Owner         *bool
@@ -93,6 +94,10 @@ func (r SecurityGetAPIKeyRequest) Do(providedCtx context.Context, transport Tran
 	path.WriteString("/_security/api_key")
 
 	params = make(map[string]string)
+
+	if r.ActiveOnly != nil {
+		params["active_only"] = strconv.FormatBool(*r.ActiveOnly)
+	}
 
 	if r.ID != "" {
 		params["id"] = r.ID
@@ -193,6 +198,13 @@ func (r SecurityGetAPIKeyRequest) Do(providedCtx context.Context, transport Tran
 func (f SecurityGetAPIKey) WithContext(v context.Context) func(*SecurityGetAPIKeyRequest) {
 	return func(r *SecurityGetAPIKeyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithActiveOnly - flag to limit response to only active (not invalidated or expired) api keys.
+func (f SecurityGetAPIKey) WithActiveOnly(v bool) func(*SecurityGetAPIKeyRequest) {
+	return func(r *SecurityGetAPIKeyRequest) {
+		r.ActiveOnly = &v
 	}
 }
 

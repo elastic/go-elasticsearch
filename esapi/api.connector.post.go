@@ -47,7 +47,7 @@ func newConnectorPostFunc(t Transport) ConnectorPost {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html.
 type ConnectorPost func(body io.Reader, o ...func(*ConnectorPostRequest)) (*Response, error)
 
 // ConnectorPostRequest configures the Connector Post API request.

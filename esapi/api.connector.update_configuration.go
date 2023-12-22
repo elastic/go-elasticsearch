@@ -47,7 +47,7 @@ func newConnectorUpdateConfigurationFunc(t Transport) ConnectorUpdateConfigurati
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-configuration-api.html.
 type ConnectorUpdateConfiguration func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateConfigurationRequest)) (*Response, error)
 
 // ConnectorUpdateConfigurationRequest configures the Connector Update Configuration API request.
