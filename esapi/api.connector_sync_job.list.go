@@ -47,7 +47,7 @@ func newConnectorSyncJobListFunc(t Transport) ConnectorSyncJobList {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-sync-jobs-api.html.
 type ConnectorSyncJobList func(o ...func(*ConnectorSyncJobListRequest)) (*Response, error)
 
 // ConnectorSyncJobListRequest configures the Connector Sync Job List API request.

@@ -47,7 +47,7 @@ func newConnectorSyncJobErrorFunc(t Transport) ConnectorSyncJobError {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html.
 type ConnectorSyncJobError func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error)
 
 // ConnectorSyncJobErrorRequest configures the Connector Sync Job Error API request.

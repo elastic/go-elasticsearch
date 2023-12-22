@@ -46,7 +46,7 @@ func newConnectorCheckInFunc(t Transport) ConnectorCheckIn {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-api.html.
 type ConnectorCheckIn func(connector_id string, o ...func(*ConnectorCheckInRequest)) (*Response, error)
 
 // ConnectorCheckInRequest configures the Connector Check In API request.

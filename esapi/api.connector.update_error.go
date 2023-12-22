@@ -47,7 +47,7 @@ func newConnectorUpdateErrorFunc(t Transport) ConnectorUpdateError {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-error-api.html.
 type ConnectorUpdateError func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateErrorRequest)) (*Response, error)
 
 // ConnectorUpdateErrorRequest configures the Connector Update Error API request.
