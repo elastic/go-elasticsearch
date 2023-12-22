@@ -399,6 +399,21 @@ func TestTypedClient(t *testing.T) {
 			t.Fatalf("could not retrieve document: %s", err)
 		}
 
+		mgetResponse, err := es.Mget().Index(indexName).Ids("1", "2").Do(context.Background())
+		if err != nil {
+			t.Fatalf("could not mget documents: %s", err)
+		}
+		for _, doc := range mgetResponse.Docs {
+			switch d := doc.(type) {
+			case *types.GetResult:
+				if d.Found != true {
+					t.Fatalf("error while doing reading mget response")
+				}
+			case *types.MultiGetError:
+				t.Fatalf("document should exist at this point")
+			}
+		}
+
 		// Try to retrieve a faulty index name
 		if ok, _ := es.Get("non-existent-index", "9999").IsSuccess(context.Background()); ok {
 			t.Fatalf("index shouldn't exist")
