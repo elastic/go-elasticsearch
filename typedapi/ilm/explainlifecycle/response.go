@@ -62,8 +62,35 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			if s.Indices == nil {
 				s.Indices = make(map[string]types.LifecycleExplain, 0)
 			}
-			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+			refs := make(map[string]json.RawMessage, 0)
+			dec.Decode(&refs)
+			for key, message := range refs {
+				kind := make(map[string]interface{})
+				buf := bytes.NewReader(message)
+				localDec := json.NewDecoder(buf)
+				localDec.Decode(&kind)
+				buf.Seek(0, io.SeekStart)
+
+				switch kind["managed"] {
+				case true:
+					oo := types.NewLifecycleExplainManaged()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Indices[key] = oo
+				case false:
+					oo := types.NewLifecycleExplainUnmanaged()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Indices[key] = oo
+				default:
+					oo := new(types.LifecycleExplain)
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Indices[key] = oo
+				}
 			}
 
 		}

@@ -530,8 +530,35 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 			if s.Normalizer == nil {
 				s.Normalizer = make(map[string]Normalizer, 0)
 			}
-			if err := dec.Decode(&s.Normalizer); err != nil {
-				return err
+			refs := make(map[string]json.RawMessage, 0)
+			dec.Decode(&refs)
+			for key, message := range refs {
+				kind := make(map[string]interface{})
+				buf := bytes.NewReader(message)
+				localDec := json.NewDecoder(buf)
+				localDec.Decode(&kind)
+				buf.Seek(0, io.SeekStart)
+
+				switch kind["type"] {
+				case "lowercase":
+					oo := NewLowercaseNormalizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Normalizer[key] = oo
+				case "custom":
+					oo := NewCustomNormalizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Normalizer[key] = oo
+				default:
+					oo := new(Normalizer)
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Normalizer[key] = oo
+				}
 			}
 
 		case "tokenizer":
