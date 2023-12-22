@@ -481,6 +481,39 @@ func TestTypedClient(t *testing.T) {
 				}
 			}
 		}
+
+		msearch := es.Msearch()
+		_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.MultisearchBody{Query: &types.Query{
+			Match: map[string]types.MatchQuery{
+				"name": {Query: "Foo"},
+			},
+		}})
+		_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{indexName}}, types.MultisearchBody{Aggregations: map[string]types.Aggregations{
+			"total_prices": {
+				Sum: &types.SumAggregation{
+					Field: some.String("price"),
+				},
+			},
+		}})
+		_ = msearch.AddSearch(types.MultisearchHeader{Index: []string{"non-existent-index"}}, types.MultisearchBody{Query: &types.Query{Match: map[string]types.MatchQuery{
+			"foo": {Query: "bzz"},
+		}}})
+		msearchRes, err := msearch.Do(context.Background())
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, response := range msearchRes.Responses {
+			switch r := response.(type) {
+			case *types.MultiSearchItem:
+				if *r.Status != 200 {
+					t.Fatalf("error while reading multisearch response")
+				}
+			case *types.ErrorResponseBase:
+				if r.Status != 404 {
+					t.Fatalf("expected 404 index_not_found_exception, got: %v", r)
+				}
+			}
+		}
 	})
 
 	t.Run("Term query from JSON", func(t *testing.T) {
