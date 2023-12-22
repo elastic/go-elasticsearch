@@ -46,7 +46,7 @@ func newConnectorSyncJobCheckInFunc(t Transport) ConnectorSyncJobCheckIn {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/check-in-connector-sync-job-api.html.
 type ConnectorSyncJobCheckIn func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCheckInRequest)) (*Response, error)
 
 // ConnectorSyncJobCheckInRequest configures the Connector Sync Job Check In API request.

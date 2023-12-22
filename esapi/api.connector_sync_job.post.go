@@ -47,7 +47,7 @@ func newConnectorSyncJobPostFunc(t Transport) ConnectorSyncJobPost {
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/enterprise-search/current/connectors.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-sync-job-api.html.
 type ConnectorSyncJobPost func(body io.Reader, o ...func(*ConnectorSyncJobPostRequest)) (*Response, error)
 
 // ConnectorSyncJobPostRequest configures the Connector Sync Job Post API request.

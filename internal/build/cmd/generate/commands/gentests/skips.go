@@ -153,6 +153,9 @@ cat.aliases/10_basic.yml:
   - "Column headers (pre 7.4.0)"
   - "Alias against closed index (pre 7.4.0)"
 
+count/30_min_score.yml:
+  - "count with min_score"
+
 # Checks for nil required arguments makes this test incompatible with the integration tests
 indices.delete_alias/all_path_options.yml:
   - check delete with blank index and blank alias
@@ -492,4 +495,18 @@ search/400_synthetic_source.yml:
 
 health/10_usage.yml:
   - Usage stats on the health API
+
+esql/10_basic.yml:
+  - Test Mixed Input Params
+
+esql/20_aggs.yml:
+
+esql/30_types.yml:
+  - unsigned_long
+
+esql/40_unsupported_types.yml:
+  - spatial types unsupported in 8.11
+
+esql/50_index_patterns.yml:
+  - disjoint_mappings
 `
