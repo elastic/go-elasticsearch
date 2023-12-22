@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TDigest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_types/aggregations/metric.ts#L223-L228
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/aggregations/metric.ts#L223-L228
 type TDigest struct {
 	// Compression Limits the maximum number of nodes used by the underlying TDigest algorithm
 	// to `20 * compression`, enabling control of memory usage and approximation

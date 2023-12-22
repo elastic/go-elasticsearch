@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // NodesIndexingPressureMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/nodes/_types/Stats.ts#L123-L142
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/_types/Stats.ts#L123-L142
 type NodesIndexingPressureMemory struct {
 	// Current Contains statistics for current indexing load.
 	Current *PressureMemory `json:"current,omitempty"`

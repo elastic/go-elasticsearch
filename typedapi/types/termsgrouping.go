@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // TermsGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/rollup/_types/Groupings.ts#L75-L82
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/rollup/_types/Groupings.ts#L75-L82
 type TermsGrouping struct {
 	// Fields The set of fields that you wish to collect terms for.
 	// This array can contain fields that are both keyword and numerics.

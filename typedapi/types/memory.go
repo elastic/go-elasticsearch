@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // Memory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/ml/get_memory_stats/types.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/get_memory_stats/types.ts#L25-L48
 type Memory struct {
 	Attributes  map[string]string `json:"attributes"`
 	EphemeralId string            `json:"ephemeral_id"`

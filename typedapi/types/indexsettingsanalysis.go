@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // IndexSettingsAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/indices/_types/IndexSettings.ts#L310-L316
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/IndexSettings.ts#L310-L316
 type IndexSettingsAnalysis struct {
 	Analyzer   map[string]Analyzer    `json:"analyzer,omitempty"`
 	CharFilter map[string]CharFilter  `json:"char_filter,omitempty"`
@@ -530,35 +530,8 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 			if s.Normalizer == nil {
 				s.Normalizer = make(map[string]Normalizer, 0)
 			}
-			refs := make(map[string]json.RawMessage, 0)
-			dec.Decode(&refs)
-			for key, message := range refs {
-				kind := make(map[string]interface{})
-				buf := bytes.NewReader(message)
-				localDec := json.NewDecoder(buf)
-				localDec.Decode(&kind)
-				buf.Seek(0, io.SeekStart)
-
-				switch kind["type"] {
-				case "lowercase":
-					oo := NewLowercaseNormalizer()
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Normalizer[key] = oo
-				case "custom":
-					oo := NewCustomNormalizer()
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Normalizer[key] = oo
-				default:
-					oo := new(Normalizer)
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Normalizer[key] = oo
-				}
+			if err := dec.Decode(&s.Normalizer); err != nil {
+				return err
 			}
 
 		case "tokenizer":

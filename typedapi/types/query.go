@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_types/query_dsl/abstractions.ts#L98-L391
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/abstractions.ts#L99-L399
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -180,6 +180,9 @@ type Query struct {
 	// vector or rank features field.
 	TextExpansion map[string]TextExpansionQuery `json:"text_expansion,omitempty"`
 	Type          *TypeQuery                    `json:"type,omitempty"`
+	// WeightedTokens Supports returning text_expansion query results by sending in precomputed
+	// tokens with the query.
+	WeightedTokens map[string]WeightedTokensQuery `json:"weighted_tokens,omitempty"`
 	// Wildcard Returns documents that contain terms matching a wildcard pattern.
 	Wildcard map[string]WildcardQuery `json:"wildcard,omitempty"`
 	// Wrapper A query that accepts any other query as base64 encoded string.
@@ -235,8 +238,18 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 			}
 
 		case "distance_feature":
-			if err := dec.Decode(&s.DistanceFeature); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return err
+			}
+			o := NewGeoDistanceFeatureQuery()
+			err := json.Unmarshal(message, &o)
+			if err != nil {
+				o := NewDateDistanceFeatureQuery()
+				err := json.Unmarshal(message, &o)
+				if err != nil {
+					return err
+				}
 			}
 
 		case "exists":
@@ -513,6 +526,14 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				return err
 			}
 
+		case "weighted_tokens":
+			if s.WeightedTokens == nil {
+				s.WeightedTokens = make(map[string]WeightedTokensQuery, 0)
+			}
+			if err := dec.Decode(&s.WeightedTokens); err != nil {
+				return err
+			}
+
 		case "wildcard":
 			if s.Wildcard == nil {
 				s.Wildcard = make(map[string]WildcardQuery, 0)
@@ -548,6 +569,7 @@ func NewQuery() *Query {
 		Term:              make(map[string]TermQuery, 0),
 		TermsSet:          make(map[string]TermsSetQuery, 0),
 		TextExpansion:     make(map[string]TextExpansionQuery, 0),
+		WeightedTokens:    make(map[string]WeightedTokensQuery, 0),
 		Wildcard:          make(map[string]WildcardQuery, 0),
 	}
 

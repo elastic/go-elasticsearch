@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DiskIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/_global/health_report/types.ts#L126-L132
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/health_report/types.ts#L126-L132
 type DiskIndicatorDetails struct {
 	IndicesWithReadonlyBlock     int64 `json:"indices_with_readonly_block"`
 	NodesOverFloodStageWatermark int64 `json:"nodes_over_flood_stage_watermark"`

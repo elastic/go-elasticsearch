@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package explainlifecycle
 
@@ -31,7 +31,7 @@ import (
 
 // Response holds the response body struct for the package explainlifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/ilm/explain_lifecycle/ExplainLifecycleResponse.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ilm/explain_lifecycle/ExplainLifecycleResponse.ts#L24-L28
 type Response struct {
 	Indices map[string]types.LifecycleExplain `json:"indices"`
 }
@@ -62,35 +62,8 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			if s.Indices == nil {
 				s.Indices = make(map[string]types.LifecycleExplain, 0)
 			}
-			refs := make(map[string]json.RawMessage, 0)
-			dec.Decode(&refs)
-			for key, message := range refs {
-				kind := make(map[string]interface{})
-				buf := bytes.NewReader(message)
-				localDec := json.NewDecoder(buf)
-				localDec.Decode(&kind)
-				buf.Seek(0, io.SeekStart)
-
-				switch kind["managed"] {
-				case true:
-					oo := types.NewLifecycleExplainManaged()
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Indices[key] = oo
-				case false:
-					oo := types.NewLifecycleExplainUnmanaged()
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Indices[key] = oo
-				default:
-					oo := new(types.LifecycleExplain)
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Indices[key] = oo
-				}
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
 			}
 
 		}

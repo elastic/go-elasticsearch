@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ClusterJvm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/cluster/stats/types.ts#L275-L292
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/stats/types.ts#L275-L292
 type ClusterJvm struct {
 	// MaxUptimeInMillis Uptime duration, in milliseconds, since JVM last started.
 	MaxUptimeInMillis int64 `json:"max_uptime_in_millis"`

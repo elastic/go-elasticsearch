@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe
+// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // HealthResponseBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5c8fed5fe577b0d5e9fde34fb13795c5a66fe9fe/specification/cluster/health/ClusterHealthResponse.ts#L39-L72
+// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/health/ClusterHealthResponse.ts#L39-L72
 type HealthResponseBody struct {
 	// ActivePrimaryShards The number of active primary shards.
 	ActivePrimaryShards int `json:"active_primary_shards"`
