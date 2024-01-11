@@ -598,6 +598,8 @@ func TestBulkIndexer(t *testing.T) {
 	})
 	t.Run("Worker.writeMeta()", func(t *testing.T) {
 		v := int64(23)
+		ifSeqNo := int64(45)
+		ifPrimaryTerm := int64(67)
 		type args struct {
 			item BulkIndexerItem
 		}
@@ -705,6 +707,16 @@ func TestBulkIndexer(t *testing.T) {
 					RetryOnConflict: esapi.IntPtr(3),
 				}},
 				`{"update":{"_id":"1","retry_on_conflict":3}}` + "\n",
+			},
+			{
+				"with if_seq_no and if_primary_term",
+				args{BulkIndexerItem{
+					Action:        "index",
+					DocumentID:    "1",
+					IfSeqNo:       &ifSeqNo,
+					IfPrimaryTerm: &ifPrimaryTerm,
+				}},
+				`{"index":{"_id":"1","if_seq_no":45,"if_primary_term":67}}` + "\n",
 			},
 		}
 		for _, tt := range tests {
