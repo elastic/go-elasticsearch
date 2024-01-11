@@ -107,6 +107,8 @@ type BulkIndexerItem struct {
 	VersionType     string
 	Body            io.ReadSeeker
 	RetryOnConflict *int
+	IfSeqNo         *int64
+	IfPrimaryTerm   *int64
 	meta            bytes.Buffer // Item metadata header
 	payloadLength   int          // Item payload total length metadata+newline+body length
 
@@ -175,6 +177,15 @@ func (item *BulkIndexerItem) marshallMeta() {
 		item.meta.WriteString(`"require_alias":`)
 		item.meta.Write(strconv.AppendBool(aux, item.RequireAlias))
 		aux = aux[:0]
+	}
+
+	if item.DocumentID != "" && item.IfSeqNo != nil && item.IfPrimaryTerm != nil {
+		item.meta.WriteRune(',')
+		item.meta.WriteString(`"if_seq_no":`)
+		item.meta.WriteString(strconv.FormatInt(*item.IfSeqNo, 10))
+		item.meta.WriteRune(',')
+		item.meta.WriteString(`"if_primary_term":`)
+		item.meta.WriteString(strconv.FormatInt(*item.IfPrimaryTerm, 10))
 	}
 
 	item.meta.WriteRune('}')
