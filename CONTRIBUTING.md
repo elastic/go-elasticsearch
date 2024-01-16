@@ -13,7 +13,7 @@ before we can accept pull requests from you.
 
 ### Prerequisites
 
-You need at least Go 1.13 to build the project.
+You need at least Go 1.20 to build the project.
 
 Docker is used for some tests to spawn an Elasticsearch server.
 
