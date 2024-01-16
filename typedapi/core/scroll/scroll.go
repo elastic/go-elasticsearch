@@ -153,28 +153,12 @@ func (r *Scroll) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	r.path.Scheme = "http"
 
-	switch {
-	case r.paramSet == 0:
-		path.WriteString("/")
-		path.WriteString("_search")
-		path.WriteString("/")
-		path.WriteString("scroll")
+	path.WriteString("/")
+	path.WriteString("_search")
+	path.WriteString("/")
+	path.WriteString("scroll")
 
-		method = http.MethodPost
-	case r.paramSet == scrollidMask:
-		path.WriteString("/")
-		path.WriteString("_search")
-		path.WriteString("/")
-		path.WriteString("scroll")
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "scrollid", r.scrollid)
-		}
-		path.WriteString(r.scrollid)
-
-		method = http.MethodPost
-	}
+	method = http.MethodPost
 
 	r.path.Path = path.String()
 	r.path.RawQuery = r.values.Encode()
@@ -315,7 +299,7 @@ func (r *Scroll) Header(key, value string) *Scroll {
 // API Name: scrollid
 func (r *Scroll) ScrollId(scrollid string) *Scroll {
 	r.paramSet |= scrollidMask
-	r.scrollid = scrollid
+	r.req.Scroll = scrollid
 
 	return r
 }
