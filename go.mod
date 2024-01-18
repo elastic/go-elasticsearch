@@ -3,7 +3,7 @@ module github.com/elastic/go-elasticsearch/v8
 go 1.20
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.3.1-0.20231219154625-903383caf56b
+	github.com/elastic/elastic-transport-go/v8 v8.4.0
 	go.opentelemetry.io/otel/trace v1.21.0
 )
 
