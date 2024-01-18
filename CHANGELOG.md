@@ -2,10 +2,20 @@
 
 ## Client
 
+### Golang version
+
+The client now requires Golang version 1.20
+
+### OpenTelemetry
+
 The client now provides OpenTelemetry integration. This integration can be enabled in the config using the `elasticsearch.NewOpenTelemetryInstrumentation`.
 Once set up, the provided `context` will be used to record spans with useful information about the request being made to the server.
 
 More about what you can expect in the [Semantic Conventions for Elasticsearch](https://opentelemetry.io/docs/specs/semconv/database/elasticsearch/).
+
+### BulkIndexer
+
+`if_seq_no` & `if_primary_term` are now supported thanks to @benjyiw [#783](https://github.com/elastic/go-elasticsearch/pull/783)
 
 ## API
 
