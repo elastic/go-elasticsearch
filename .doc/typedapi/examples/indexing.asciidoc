@@ -8,11 +8,11 @@ The standard way of indexing a document is to provide a `struct` to the `Request
 document := struct {
     Id    int    `json:"id"`
     Name  string `json:"name"`
-	Price int    `json:"price"`
+    Price int    `json:"price"`
 }{
     Id:    1,
     Name:  "Foo",
-	Price: 10,
+    Price: 10,
 }
 
 res, err := es.Index("index_name").
