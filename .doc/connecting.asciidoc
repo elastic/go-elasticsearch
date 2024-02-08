@@ -74,7 +74,7 @@ Once you have the `http_ca.crt` file somewhere accessible pass the content of th
 
 [source,go]
 ------------------------------------
-cert, _ := ioutil.ReadFile("/path/to/http_ca.crt")
+cert, _ := os.ReadFile("/path/to/http_ca.crt")
 
 cfg := elasticsearch.Config{
         Addresses: []string{
