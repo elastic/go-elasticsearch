@@ -4,7 +4,7 @@ steps:
       provider: "gcp"
     env:
       TEST_SUITE: "{{ matrix.suite }}"
-      STACK_VERSION: 8.12.0-SNAPSHOT
+      STACK_VERSION: 8.12.1-SNAPSHOT
       WORKSPACE: /tmp/go-elasticsearch
     matrix:
       setup:
