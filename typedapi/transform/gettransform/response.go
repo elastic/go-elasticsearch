@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package gettransform
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package gettransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/transform/get_transform/GetTransformResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/transform/get_transform/GetTransformResponse.ts#L23-L25
 type Response struct {
 	Count      int64                    `json:"count"`
 	Transforms []types.TransformSummary `json:"transforms"`

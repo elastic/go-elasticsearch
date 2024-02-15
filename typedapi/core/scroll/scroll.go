@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 // Allows to retrieve a large numbers of results from a single search request.
 package scroll
@@ -35,10 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
-
-const (
-	scrollidMask = iota + 1
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -159,19 +155,6 @@ func (r *Scroll) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_search")
 		path.WriteString("/")
 		path.WriteString("scroll")
-
-		method = http.MethodPost
-	case r.paramSet == scrollidMask:
-		path.WriteString("/")
-		path.WriteString("_search")
-		path.WriteString("/")
-		path.WriteString("scroll")
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "scrollid", r.scrollid)
-		}
-		path.WriteString(r.scrollid)
 
 		method = http.MethodPost
 	}
@@ -311,15 +294,6 @@ func (r *Scroll) Header(key, value string) *Scroll {
 	return r
 }
 
-// ScrollId The scroll ID
-// API Name: scrollid
-func (r *Scroll) ScrollId(scrollid string) *Scroll {
-	r.paramSet |= scrollidMask
-	r.scrollid = scrollid
-
-	return r
-}
-
 // RestTotalHitsAsInt If true, the API response’s hit.total property is returned as an integer. If
 // false, the API response’s hit.total property is returned as an object.
 // API name: rest_total_hits_as_int
@@ -333,6 +307,14 @@ func (r *Scroll) RestTotalHitsAsInt(resttotalhitsasint bool) *Scroll {
 // API name: scroll
 func (r *Scroll) Scroll(duration types.Duration) *Scroll {
 	r.req.Scroll = duration
+
+	return r
+}
+
+// ScrollId Scroll ID of the search.
+// API name: scroll_id
+func (r *Scroll) ScrollId(scrollid string) *Scroll {
+	r.req.ScrollId = scrollid
 
 	return r
 }

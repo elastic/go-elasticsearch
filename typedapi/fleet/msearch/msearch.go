@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 // Multi Search API where the search will only be executed after specified
 // checkpoints are available due to a refresh. This API is designed for internal
@@ -86,8 +86,6 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 // Multi Search API where the search will only be executed after specified
 // checkpoints are available due to a refresh. This API is designed for internal
 // use by the fleet server project.
-//
-//
 func New(tp elastictransport.Interface) *Msearch {
 	r := &Msearch{
 		transport: tp,

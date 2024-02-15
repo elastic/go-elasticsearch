@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package updatedatafeed
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package updatedatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L162
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/ml/update_datafeed/MlUpdateDatafeedRequest.ts#L31-L162
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
@@ -132,4 +136,116 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aggregations":
+			if s.Aggregations == nil {
+				s.Aggregations = make(map[string]types.Aggregations, 0)
+			}
+			if err := dec.Decode(&s.Aggregations); err != nil {
+				return err
+			}
+
+		case "chunking_config":
+			if err := dec.Decode(&s.ChunkingConfig); err != nil {
+				return err
+			}
+
+		case "delayed_data_check_config":
+			if err := dec.Decode(&s.DelayedDataCheckConfig); err != nil {
+				return err
+			}
+
+		case "frequency":
+			if err := dec.Decode(&s.Frequency); err != nil {
+				return err
+			}
+
+		case "indices", "indexes":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "indices_options":
+			if err := dec.Decode(&s.IndicesOptions); err != nil {
+				return err
+			}
+
+		case "job_id":
+			if err := dec.Decode(&s.JobId); err != nil {
+				return err
+			}
+
+		case "max_empty_searches":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.MaxEmptySearches = &value
+			case float64:
+				f := int(v)
+				s.MaxEmptySearches = &f
+			}
+
+		case "query":
+			if err := dec.Decode(&s.Query); err != nil {
+				return err
+			}
+
+		case "query_delay":
+			if err := dec.Decode(&s.QueryDelay); err != nil {
+				return err
+			}
+
+		case "runtime_mappings":
+			if err := dec.Decode(&s.RuntimeMappings); err != nil {
+				return err
+			}
+
+		case "script_fields":
+			if s.ScriptFields == nil {
+				s.ScriptFields = make(map[string]types.ScriptField, 0)
+			}
+			if err := dec.Decode(&s.ScriptFields); err != nil {
+				return err
+			}
+
+		case "scroll_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.ScrollSize = &value
+			case float64:
+				f := int(v)
+				s.ScrollSize = &f
+			}
+
+		}
+	}
+	return nil
 }

@@ -16,22 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package updateapikey
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package updateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/security/update_api_key/Request.ts#L25-L62
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/security/update_api_key/Request.ts#L26-L65
 type Request struct {
 
+	// Expiration Expiration time for the API key.
+	Expiration types.Duration `json:"expiration,omitempty"`
 	// Metadata Arbitrary metadata that you want to associate with the API key. It supports
 	// nested data structure. Within the metadata object, keys beginning with _ are
 	// reserved for system usage.
@@ -65,4 +70,41 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "expiration":
+			if err := dec.Decode(&s.Expiration); err != nil {
+				return err
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "role_descriptors":
+			if s.RoleDescriptors == nil {
+				s.RoleDescriptors = make(map[string]types.RoleDescriptor, 0)
+			}
+			if err := dec.Decode(&s.RoleDescriptors); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

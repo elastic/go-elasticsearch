@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package putwatch
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L53
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L53
 type Request struct {
 	Actions        map[string]types.WatcherAction `json:"actions,omitempty"`
 	Condition      *types.WatcherCondition        `json:"condition,omitempty"`
@@ -58,4 +62,68 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "actions":
+			if s.Actions == nil {
+				s.Actions = make(map[string]types.WatcherAction, 0)
+			}
+			if err := dec.Decode(&s.Actions); err != nil {
+				return err
+			}
+
+		case "condition":
+			if err := dec.Decode(&s.Condition); err != nil {
+				return err
+			}
+
+		case "input":
+			if err := dec.Decode(&s.Input); err != nil {
+				return err
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "throttle_period":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ThrottlePeriod = &o
+
+		case "transform":
+			if err := dec.Decode(&s.Transform); err != nil {
+				return err
+			}
+
+		case "trigger":
+			if err := dec.Decode(&s.Trigger); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }
