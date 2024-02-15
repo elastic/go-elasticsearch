@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // HistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/_types/aggregations/bucket.ts#L500-L546
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/_types/aggregations/bucket.ts#L500-L546
 type HistogramAggregation struct {
 	// ExtendedBounds Enables extending the bounds of the histogram beyond the data itself.
 	ExtendedBounds *ExtendedBoundsdouble `json:"extended_bounds,omitempty"`

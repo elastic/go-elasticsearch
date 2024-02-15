@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package putindextemplate
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L36-L95
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L36-L95
 type Request struct {
 
 	// ComposedOf An ordered list of component template names.
@@ -79,4 +83,80 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "composed_of":
+			if err := dec.Decode(&s.ComposedOf); err != nil {
+				return err
+			}
+
+		case "data_stream":
+			if err := dec.Decode(&s.DataStream); err != nil {
+				return err
+			}
+
+		case "index_patterns":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return err
+				}
+
+				s.IndexPatterns = append(s.IndexPatterns, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IndexPatterns); err != nil {
+					return err
+				}
+			}
+
+		case "_meta":
+			if err := dec.Decode(&s.Meta_); err != nil {
+				return err
+			}
+
+		case "priority":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.Priority = &value
+			case float64:
+				f := int(v)
+				s.Priority = &f
+			}
+
+		case "template":
+			if err := dec.Decode(&s.Template); err != nil {
+				return err
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

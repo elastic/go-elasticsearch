@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MappingLimitSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/indices/_types/IndexSettings.ts#L402-L415
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/indices/_types/IndexSettings.ts#L401-L414
 type MappingLimitSettings struct {
 	Coerce          *bool                                `json:"coerce,omitempty"`
 	Depth           *MappingLimitSettingsDepth           `json:"depth,omitempty"`

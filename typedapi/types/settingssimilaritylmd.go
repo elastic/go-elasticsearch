@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SettingsSimilarityLmd type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/indices/_types/IndexSettings.ts#L206-L209
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/indices/_types/IndexSettings.ts#L205-L208
 type SettingsSimilarityLmd struct {
 	Mu   int    `json:"mu"`
 	Type string `json:"type,omitempty"`

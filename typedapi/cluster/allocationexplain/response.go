@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package allocationexplain
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package allocationexplain
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/cluster/allocation_explain/ClusterAllocationExplainResponse.ts#L32-L64
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/cluster/allocation_explain/ClusterAllocationExplainResponse.ts#L32-L64
 type Response struct {
 	AllocateExplanation          *string                           `json:"allocate_explanation,omitempty"`
 	AllocationDelay              types.Duration                    `json:"allocation_delay,omitempty"`

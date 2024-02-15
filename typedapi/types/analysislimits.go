@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AnalysisLimits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/ml/_types/Analysis.ts#L161-L172
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/ml/_types/Analysis.ts#L161-L172
 type AnalysisLimits struct {
 	// CategorizationExamplesLimit The maximum number of examples stored per category in memory and in the
 	// results data store. If you increase this value, more examples are available,

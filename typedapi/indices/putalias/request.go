@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package putalias
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putalias
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L91
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L91
 type Request struct {
 
 	// Filter Query used to limit documents the alias can access.
@@ -71,4 +75,57 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return err
+			}
+
+		case "index_routing":
+			if err := dec.Decode(&s.IndexRouting); err != nil {
+				return err
+			}
+
+		case "is_write_index":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IsWriteIndex = &value
+			case bool:
+				s.IsWriteIndex = &v
+			}
+
+		case "routing":
+			if err := dec.Decode(&s.Routing); err != nil {
+				return err
+			}
+
+		case "search_routing":
+			if err := dec.Decode(&s.SearchRouting); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

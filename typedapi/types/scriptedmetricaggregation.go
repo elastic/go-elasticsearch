@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // ScriptedMetricAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/_types/aggregations/metric.ts#L254-L280
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/_types/aggregations/metric.ts#L254-L280
 type ScriptedMetricAggregation struct {
 	// CombineScript Runs once on each shard after document collection is complete.
 	// Allows the aggregation to consolidate the state returned from each shard.

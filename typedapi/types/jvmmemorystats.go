@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/17ac39c7f9266bc303baa029f90194aecb1c3b7c
+// https://github.com/elastic/elasticsearch-specification/tree/50c316c036cf0c3f567011c2bc24e7d2e1b8c781
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // JvmMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/17ac39c7f9266bc303baa029f90194aecb1c3b7c/specification/nodes/_types/Stats.ts#L847-L876
+// https://github.com/elastic/elasticsearch-specification/blob/50c316c036cf0c3f567011c2bc24e7d2e1b8c781/specification/nodes/_types/Stats.ts#L847-L876
 type JvmMemoryStats struct {
 	// HeapCommittedInBytes Amount of memory, in bytes, available for use by the heap.
 	HeapCommittedInBytes *int64 `json:"heap_committed_in_bytes,omitempty"`
