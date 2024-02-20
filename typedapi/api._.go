@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package typedapi
 
@@ -444,6 +444,7 @@ import (
 	tasks_get "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/get"
 	tasks_list "github.com/elastic/go-elasticsearch/v8/typedapi/tasks/list"
 	text_structure_find_structure "github.com/elastic/go-elasticsearch/v8/typedapi/textstructure/findstructure"
+	text_structure_test_grok_pattern "github.com/elastic/go-elasticsearch/v8/typedapi/textstructure/testgrokpattern"
 	transform_delete_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/deletetransform"
 	transform_get_transform "github.com/elastic/go-elasticsearch/v8/typedapi/transform/gettransform"
 	transform_get_transform_stats "github.com/elastic/go-elasticsearch/v8/typedapi/transform/gettransformstats"
@@ -845,7 +846,8 @@ type Core struct {
 	// Updates a document with a script or partial document.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html
 	Update core_update.NewUpdate
-	// Performs an update on every document in the index without changing the
+	// Updates documents that match the specified query. If no query is specified,
+	//  performs an update on every document in the index without changing the
 	// source,
 	// for example to pick up a mapping change.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
@@ -1949,6 +1951,9 @@ type TextStructure struct {
 	// suitable to be ingested into Elasticsearch.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html
 	FindStructure text_structure_find_structure.NewFindStructure
+	// Tests a Grok pattern on some text.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/test-grok-pattern-api.html
+	TestGrokPattern text_structure_test_grok_pattern.NewTestGrokPattern
 }
 
 type Transform struct {
@@ -2222,7 +2227,8 @@ type API struct {
 	// Updates a document with a script or partial document.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html
 	Update core_update.NewUpdate
-	// Performs an update on every document in the index without changing the
+	// Updates documents that match the specified query. If no query is specified,
+	//  performs an update on every document in the index without changing the
 	// source,
 	// for example to pick up a mapping change.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
@@ -2798,7 +2804,8 @@ func New(tp elastictransport.Interface) *API {
 
 		// TextStructure
 		TextStructure: TextStructure{
-			FindStructure: text_structure_find_structure.NewFindStructureFunc(tp),
+			FindStructure:   text_structure_find_structure.NewFindStructureFunc(tp),
+			TestGrokPattern: text_structure_test_grok_pattern.NewTestGrokPatternFunc(tp),
 		},
 
 		// Transform

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 // Gets stats for anomaly detection job model snapshot upgrades that are in
 // progress.
@@ -334,9 +334,9 @@ func (r *GetModelSnapshotUpgradeStats) _snapshotid(snapshotid string) *GetModelS
 
 // AllowNoMatch Specifies what to do when the request:
 //
-//  -  Contains wildcard expressions and there are no jobs that match.
-//  -  Contains the _all string or no identifiers and there are no matches.
-//  -  Contains wildcard expressions and there are only partial matches.
+//   - Contains wildcard expressions and there are no jobs that match.
+//   - Contains the _all string or no identifiers and there are no matches.
+//   - Contains wildcard expressions and there are only partial matches.
 //
 // The default value is true, which returns an empty jobs array when there are
 // no matches and the subset of results

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 // Explicitly clears the search context for a scroll.
 package clearscroll
@@ -35,10 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
-
-const (
-	scrollidMask = iota + 1
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -159,19 +155,6 @@ func (r *ClearScroll) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("_search")
 		path.WriteString("/")
 		path.WriteString("scroll")
-
-		method = http.MethodDelete
-	case r.paramSet == scrollidMask:
-		path.WriteString("/")
-		path.WriteString("_search")
-		path.WriteString("/")
-		path.WriteString("scroll")
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "scrollid", r.scrollid)
-		}
-		path.WriteString(r.scrollid)
 
 		method = http.MethodDelete
 	}
@@ -347,12 +330,11 @@ func (r *ClearScroll) Header(key, value string) *ClearScroll {
 	return r
 }
 
-// ScrollId Comma-separated list of scroll IDs to clear.
+// ScrollId Scroll IDs to clear.
 // To clear all scroll IDs, use `_all`.
-// API Name: scrollid
-func (r *ClearScroll) ScrollId(scrollid string) *ClearScroll {
-	r.paramSet |= scrollidMask
-	r.scrollid = scrollid
+// API name: scroll_id
+func (r *ClearScroll) ScrollId(scrollids ...string) *ClearScroll {
+	r.req.ScrollId = scrollids
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 // Updates the index settings.
 package putsettings
@@ -380,7 +380,9 @@ func (r *PutSettings) PreserveExisting(preserveexisting bool) *PutSettings {
 }
 
 // Timeout Period to wait for a response. If no response is received before the
-//  timeout expires, the request fails and returns an error.
+//
+//	timeout expires, the request fails and returns an error.
+//
 // API name: timeout
 func (r *PutSettings) Timeout(duration string) *PutSettings {
 	r.values.Set("timeout", duration)
@@ -736,13 +738,6 @@ func (r *PutSettings) Search(search *types.SettingsSearch) *PutSettings {
 func (r *PutSettings) Settings(settings *types.IndexSettings) *PutSettings {
 
 	r.req.Settings = settings
-
-	return r
-}
-
-// API name: shards
-func (r *PutSettings) Shards(shards int) *PutSettings {
-	r.req.Shards = &shards
 
 	return r
 }

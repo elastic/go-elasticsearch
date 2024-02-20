@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AttachmentProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ingest/_types/Processors.ts#L290-L326
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/_types/Processors.ts#L296-L337
 type AttachmentProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -56,6 +56,8 @@ type AttachmentProcessor struct {
 	// Can be `content`, `title`, `name`, `author`, `keywords`, `date`,
 	// `content_type`, `content_length`, `language`.
 	Properties []string `json:"properties,omitempty"`
+	// RemoveBinary If true, the binary field will be removed from the document
+	RemoveBinary *bool `json:"remove_binary,omitempty"`
 	// ResourceName Field containing the name of the resource to decode.
 	// If specified, the processor passes this resource name to the underlying Tika
 	// library to enable Resource Name Based Detection.
@@ -167,6 +169,20 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 		case "properties":
 			if err := dec.Decode(&s.Properties); err != nil {
 				return err
+			}
+
+		case "remove_binary":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.RemoveBinary = &value
+			case bool:
+				s.RemoveBinary = &v
 			}
 
 		case "resource_name":

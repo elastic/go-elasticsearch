@@ -16,13 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package putrole
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
@@ -30,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/put_role/SecurityPutRoleRequest.ts#L31-L80
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/put_role/SecurityPutRoleRequest.ts#L31-L80
 type Request struct {
 
 	// Applications A list of application privilege entries.
@@ -76,4 +79,61 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "applications":
+			if err := dec.Decode(&s.Applications); err != nil {
+				return err
+			}
+
+		case "cluster":
+			if err := dec.Decode(&s.Cluster); err != nil {
+				return err
+			}
+
+		case "global":
+			if s.Global == nil {
+				s.Global = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Global); err != nil {
+				return err
+			}
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return err
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return err
+			}
+
+		case "run_as":
+			if err := dec.Decode(&s.RunAs); err != nil {
+				return err
+			}
+
+		case "transient_metadata":
+			if err := dec.Decode(&s.TransientMetadata); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

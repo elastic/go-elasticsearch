@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 // Returns the information about the capabilities of fields among multiple
 // indices.
@@ -381,6 +381,14 @@ func (r *FieldCaps) Types(types ...string) *FieldCaps {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
 	}
 	r.values.Set("types", strings.Join(tmp, ","))
+
+	return r
+}
+
+// IncludeEmptyFields If false, empty fields are not included in the response.
+// API name: include_empty_fields
+func (r *FieldCaps) IncludeEmptyFields(includeemptyfields bool) *FieldCaps {
+	r.values.Set("include_empty_fields", strconv.FormatBool(includeemptyfields))
 
 	return r
 }

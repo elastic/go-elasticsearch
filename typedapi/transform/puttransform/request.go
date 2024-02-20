@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package puttransform
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package puttransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
 type Request struct {
 
 	// Description Free text description of the transform.
@@ -79,4 +83,80 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
+
+		case "dest":
+			if err := dec.Decode(&s.Dest); err != nil {
+				return err
+			}
+
+		case "frequency":
+			if err := dec.Decode(&s.Frequency); err != nil {
+				return err
+			}
+
+		case "latest":
+			if err := dec.Decode(&s.Latest); err != nil {
+				return err
+			}
+
+		case "_meta":
+			if err := dec.Decode(&s.Meta_); err != nil {
+				return err
+			}
+
+		case "pivot":
+			if err := dec.Decode(&s.Pivot); err != nil {
+				return err
+			}
+
+		case "retention_policy":
+			if err := dec.Decode(&s.RetentionPolicy); err != nil {
+				return err
+			}
+
+		case "settings":
+			if err := dec.Decode(&s.Settings); err != nil {
+				return err
+			}
+
+		case "source":
+			if err := dec.Decode(&s.Source); err != nil {
+				return err
+			}
+
+		case "sync":
+			if err := dec.Decode(&s.Sync); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

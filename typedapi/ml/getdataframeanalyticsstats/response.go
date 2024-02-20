@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package getdataframeanalyticsstats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getdataframeanalyticsstats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/get_data_frame_analytics_stats/MlGetDataFrameAnalyticsStatsResponse.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/get_data_frame_analytics_stats/MlGetDataFrameAnalyticsStatsResponse.ts#L24-L30
 type Response struct {
 	Count int64 `json:"count"`
 	// DataFrameAnalytics An array of objects that contain usage information for data frame analytics

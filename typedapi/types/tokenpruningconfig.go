@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TokenPruningConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/TokenPruningConfig.ts#L22-L35
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/TokenPruningConfig.ts#L22-L35
 type TokenPruningConfig struct {
 	// OnlyScorePrunedTokens Whether to only score pruned tokens, vs only scoring kept tokens.
 	OnlyScorePrunedTokens *bool `json:"only_score_pruned_tokens,omitempty"`

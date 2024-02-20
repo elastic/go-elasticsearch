@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package deletebyquery
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L26-L45
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/delete_by_query/DeleteByQueryResponse.ts#L26-L45
 type Response struct {
 	Batches              *int64                           `json:"batches,omitempty"`
 	Deleted              *int64                           `json:"deleted,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/geo.ts#L57-L79
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/geo.ts#L57-L85
 type GeoDistanceQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -50,7 +50,11 @@ type GeoDistanceQuery struct {
 	// and close to the poles.
 	DistanceType     *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	GeoDistanceQuery map[string]GeoLocation           `json:"GeoDistanceQuery,omitempty"`
-	QueryName_       *string                          `json:"_name,omitempty"`
+	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
+	// this query.
+	// Set to `false` to throw an exception if the field is not mapped.
+	IgnoreUnmapped *bool   `json:"ignore_unmapped,omitempty"`
+	QueryName_     *string `json:"_name,omitempty"`
 	// ValidationMethod Set to `IGNORE_MALFORMED` to accept geo points with invalid latitude or
 	// longitude.
 	// Set to `COERCE` to also try to infer correct latitude or longitude.
@@ -104,6 +108,20 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 			}
 			if err := dec.Decode(&s.GeoDistanceQuery); err != nil {
 				return err
+			}
+
+		case "ignore_unmapped":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IgnoreUnmapped = &value
+			case bool:
+				s.IgnoreUnmapped = &v
 			}
 
 		case "_name":

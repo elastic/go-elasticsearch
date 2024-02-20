@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // TrainedModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/TrainedModel.ts#L165-L199
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L165-L200
 type TrainedModelConfig struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -66,7 +66,8 @@ type TrainedModelConfig struct {
 	ModelId        string   `json:"model_id"`
 	ModelSizeBytes ByteSize `json:"model_size_bytes,omitempty"`
 	// ModelType The model type
-	ModelType *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
+	ModelType     *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
+	PrefixStrings *TrainedModelPrefixStrings         `json:"prefix_strings,omitempty"`
 	// Tags A comma delimited string of tags. A trained model can have many tags, or
 	// none.
 	Tags []string `json:"tags"`
@@ -228,6 +229,11 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 
 		case "model_type":
 			if err := dec.Decode(&s.ModelType); err != nil {
+				return err
+			}
+
+		case "prefix_strings":
+			if err := dec.Decode(&s.PrefixStrings); err != nil {
 				return err
 			}
 

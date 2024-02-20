@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // CategorizationAnalyzerDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/Analysis.ts#L184-L197
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Analysis.ts#L184-L197
 type CategorizationAnalyzerDefinition struct {
 	// CharFilter One or more character filters. In addition to the built-in character filters,
 	// other plugins can provide more character filters. If this property is not
@@ -397,12 +397,6 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 						s.Filter = append(s.Filter, *o)
 					case "kuromoji_part_of_speech":
 						o := NewKuromojiPartOfSpeechTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "icu_tokenizer":
-						o := NewIcuTokenizer()
 						if err := localDec.Decode(&o); err != nil {
 							return err
 						}
