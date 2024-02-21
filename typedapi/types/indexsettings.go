@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/IndexSettings.ts#L69-L168
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L69-L167
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -86,7 +86,6 @@ type IndexSettings struct {
 	RoutingPath             []string              `json:"routing_path,omitempty"`
 	Search                  *SettingsSearch       `json:"search,omitempty"`
 	Settings                *IndexSettings        `json:"settings,omitempty"`
-	Shards                  *int                  `json:"shards,omitempty"`
 	// Similarity Configure custom similarity settings to customize how search results are
 	// scored.
 	Similarity  *SettingsSimilarity `json:"similarity,omitempty"`
@@ -554,22 +553,6 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 		case "settings":
 			if err := dec.Decode(&s.Settings); err != nil {
 				return err
-			}
-
-		case "shards":
-
-			var tmp interface{}
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return err
-				}
-				s.Shards = &value
-			case float64:
-				f := int(v)
-				s.Shards = &f
 			}
 
 		case "similarity":

@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package query
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/sql/query/QuerySqlRequest.ts#L28-L122
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/sql/query/QuerySqlRequest.ts#L28-L122
 type Request struct {
 
 	// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on
@@ -96,4 +100,174 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "catalog":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Catalog = &o
+
+		case "columnar":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.Columnar = &value
+			case bool:
+				s.Columnar = &v
+			}
+
+		case "cursor":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Cursor = &o
+
+		case "fetch_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.FetchSize = &value
+			case float64:
+				f := int(v)
+				s.FetchSize = &f
+			}
+
+		case "field_multi_value_leniency":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.FieldMultiValueLeniency = &value
+			case bool:
+				s.FieldMultiValueLeniency = &v
+			}
+
+		case "filter":
+			if err := dec.Decode(&s.Filter); err != nil {
+				return err
+			}
+
+		case "index_using_frozen":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.IndexUsingFrozen = &value
+			case bool:
+				s.IndexUsingFrozen = &v
+			}
+
+		case "keep_alive":
+			if err := dec.Decode(&s.KeepAlive); err != nil {
+				return err
+			}
+
+		case "keep_on_completion":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.KeepOnCompletion = &value
+			case bool:
+				s.KeepOnCompletion = &v
+			}
+
+		case "page_timeout":
+			if err := dec.Decode(&s.PageTimeout); err != nil {
+				return err
+			}
+
+		case "params":
+			if s.Params == nil {
+				s.Params = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Params); err != nil {
+				return err
+			}
+
+		case "query":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Query = &o
+
+		case "request_timeout":
+			if err := dec.Decode(&s.RequestTimeout); err != nil {
+				return err
+			}
+
+		case "runtime_mappings":
+			if err := dec.Decode(&s.RuntimeMappings); err != nil {
+				return err
+			}
+
+		case "time_zone":
+			if err := dec.Decode(&s.TimeZone); err != nil {
+				return err
+			}
+
+		case "wait_for_completion_timeout":
+			if err := dec.Decode(&s.WaitForCompletionTimeout); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

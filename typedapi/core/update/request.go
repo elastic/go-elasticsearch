@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package update
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package update
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/update/UpdateRequest.ts#L38-L151
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/update/UpdateRequest.ts#L38-L151
 type Request struct {
 
 	// DetectNoop Set to false to disable setting 'result' in the response
@@ -69,4 +73,116 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "detect_noop":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.DetectNoop = &value
+			case bool:
+				s.DetectNoop = &v
+			}
+
+		case "doc":
+			if err := dec.Decode(&s.Doc); err != nil {
+				return err
+			}
+
+		case "doc_as_upsert":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.DocAsUpsert = &value
+			case bool:
+				s.DocAsUpsert = &v
+			}
+
+		case "script":
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
+				return err
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return err
+				}
+
+				switch t {
+
+				case "lang", "options", "source":
+					o := types.NewInlineScript()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Script = o
+
+				case "id":
+					o := types.NewStoredScriptId()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Script = o
+
+				}
+			}
+
+		case "scripted_upsert":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.ScriptedUpsert = &value
+			case bool:
+				s.ScriptedUpsert = &v
+			}
+
+		case "_source":
+			if err := dec.Decode(&s.Source_); err != nil {
+				return err
+			}
+
+		case "upsert":
+			if err := dec.Decode(&s.Upsert); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

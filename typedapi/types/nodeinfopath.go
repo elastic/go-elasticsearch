@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -30,12 +30,12 @@ import (
 
 // NodeInfoPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L157-L162
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/info/types.ts#L158-L163
 type NodeInfoPath struct {
 	Data []string `json:"data,omitempty"`
-	Home string   `json:"home"`
-	Logs string   `json:"logs"`
-	Repo []string `json:"repo"`
+	Home *string  `json:"home,omitempty"`
+	Logs *string  `json:"logs,omitempty"`
+	Repo []string `json:"repo,omitempty"`
 }
 
 func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
@@ -68,7 +68,7 @@ func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Home = o
+			s.Home = &o
 
 		case "logs":
 			var tmp json.RawMessage
@@ -80,7 +80,7 @@ func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Logs = o
+			s.Logs = &o
 
 		case "repo":
 			if err := dec.Decode(&s.Repo); err != nil {

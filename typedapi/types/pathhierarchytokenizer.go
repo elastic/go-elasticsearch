@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -30,13 +30,13 @@ import (
 
 // PathHierarchyTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/analysis/tokenizers.ts#L89-L96
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/tokenizers.ts#L89-L96
 type PathHierarchyTokenizer struct {
-	BufferSize  Stringifiedinteger `json:"buffer_size"`
-	Delimiter   string             `json:"delimiter"`
+	BufferSize  Stringifiedinteger `json:"buffer_size,omitempty"`
+	Delimiter   *string            `json:"delimiter,omitempty"`
 	Replacement *string            `json:"replacement,omitempty"`
-	Reverse     Stringifiedboolean `json:"reverse"`
-	Skip        Stringifiedinteger `json:"skip"`
+	Reverse     Stringifiedboolean `json:"reverse,omitempty"`
+	Skip        Stringifiedinteger `json:"skip,omitempty"`
 	Type        string             `json:"type,omitempty"`
 	Version     *string            `json:"version,omitempty"`
 }
@@ -71,7 +71,7 @@ func (s *PathHierarchyTokenizer) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Delimiter = o
+			s.Delimiter = &o
 
 		case "replacement":
 			var tmp json.RawMessage

@@ -16,52 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
-package types
+package testgrokpattern
 
 import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"io"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
-// SecurityRealm type.
+// Response holds the response body struct for the package testgrokpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/_types/RoleMappingRule.ts#L44-L46
-type SecurityRealm struct {
-	Name string `json:"name"`
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/text_structure/test_grok_pattern/TestGrokPatternResponse.ts#L22-L26
+type Response struct {
+	Matches []types.MatchedText `json:"matches"`
 }
 
-func (s *SecurityRealm) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
-}
-
-// NewSecurityRealm returns a SecurityRealm.
-func NewSecurityRealm() *SecurityRealm {
-	r := &SecurityRealm{}
-
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
 	return r
 }

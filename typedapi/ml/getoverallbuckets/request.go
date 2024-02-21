@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package getoverallbuckets
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
@@ -64,4 +68,94 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allow_no_match":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.AllowNoMatch = &value
+			case bool:
+				s.AllowNoMatch = &v
+			}
+
+		case "bucket_span":
+			if err := dec.Decode(&s.BucketSpan); err != nil {
+				return err
+			}
+
+		case "end":
+			if err := dec.Decode(&s.End); err != nil {
+				return err
+			}
+
+		case "exclude_interim":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return err
+				}
+				s.ExcludeInterim = &value
+			case bool:
+				s.ExcludeInterim = &v
+			}
+
+		case "overall_score":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.OverallScore = o
+
+		case "start":
+			if err := dec.Decode(&s.Start); err != nil {
+				return err
+			}
+
+		case "top_n":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return err
+				}
+				s.TopN = &value
+			case float64:
+				f := int(v)
+				s.TopN = &f
+			}
+
+		}
+	}
+	return nil
 }

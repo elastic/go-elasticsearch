@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // KnnQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Knn.ts#L26-L43
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/Knn.ts#L27-L49
 type KnnQuery struct {
 	// Boost Boost value to apply to kNN scores
 	Boost *float32 `json:"boost,omitempty"`
@@ -38,6 +38,8 @@ type KnnQuery struct {
 	Field string `json:"field"`
 	// Filter Filters for the kNN search query
 	Filter []Query `json:"filter,omitempty"`
+	// InnerHits If defined, each search hit will contain inner hits.
+	InnerHits *InnerHits `json:"inner_hits,omitempty"`
 	// K The final number of nearest neighbors to return as top hits
 	K int64 `json:"k"`
 	// NumCandidates The number of nearest neighbor candidates to consider per shard
@@ -101,6 +103,11 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Filter); err != nil {
 					return err
 				}
+			}
+
+		case "inner_hits":
+			if err := dec.Decode(&s.InnerHits); err != nil {
+				return err
 			}
 
 		case "k":

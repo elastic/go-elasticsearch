@@ -7,13 +7,15 @@ on:
     branches:
       - github-actions
       - main
-      - 8.5
-      - 7.17
+      - "8.12"
+      - "8.13"
+      - "7.17"
   pull_request:
     branches:
-      - main
-      - 8.5
-      - 7.17
+      - "main"
+      - "8.12"
+      - "8.13"
+      - "7.17"
 
 env:
   GITHUB_ACTIONS: true

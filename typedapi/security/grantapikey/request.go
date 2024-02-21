@@ -16,13 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package grantapikey
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/apikeygranttype"
@@ -30,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L75
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L75
 type Request struct {
 
 	// AccessToken The user’s access token.
@@ -69,4 +73,60 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "access_token":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return err
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.AccessToken = &o
+
+		case "api_key":
+			if err := dec.Decode(&s.ApiKey); err != nil {
+				return err
+			}
+
+		case "grant_type":
+			if err := dec.Decode(&s.GrantType); err != nil {
+				return err
+			}
+
+		case "password":
+			if err := dec.Decode(&s.Password); err != nil {
+				return err
+			}
+
+		case "run_as":
+			if err := dec.Decode(&s.RunAs); err != nil {
+				return err
+			}
+
+		case "username":
+			if err := dec.Decode(&s.Username); err != nil {
+				return err
+			}
+
+		}
+	}
+	return nil
 }

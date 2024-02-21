@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // HttpInputRequestResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/_types/Actions.ts#L300-L300
+// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L300-L300
 type HttpInputRequestResult struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
