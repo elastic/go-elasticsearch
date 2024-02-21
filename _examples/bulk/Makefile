@@ -14,7 +14,7 @@ test-benchmarks: clean setup
 
 setup:
 	go get -u github.com/mailru/easyjson/...
-	go generate ./model
+	cd benchmarks && go generate ./model
 
 clean:
 	@rm -f benchmarks/model/*_easyjson.go
