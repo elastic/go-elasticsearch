@@ -501,6 +501,9 @@ esql/10_basic.yml:
 
 esql/20_aggs.yml:
 
+esql/25_aggs_on_null.yml:
+  - group on null, long
+
 esql/30_types.yml:
   - unsigned_long
 
