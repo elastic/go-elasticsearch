@@ -1,6 +1,6 @@
 module github.com/elastic/go-elasticsearch/v8/_examples/bulk/kafka
 
-go 1.11
+go 1.20
 
 replace github.com/elastic/go-elasticsearch/v8 => ../../..
 
