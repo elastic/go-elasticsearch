@@ -1,3 +1,9 @@
+# 8.12.1
+
+* Fix: ticker memory leak in bulk indexer due to internal flush call resetting the ticker. #797
+* Fix: Scroll now uses the body to pass the scroll_id. #785
+* Add: generated UnmarshalJSON for Requests to allow injecting payloads using aliases.
+
 # 8.12.0
 
 ## Client
