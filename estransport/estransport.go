@@ -391,8 +391,9 @@ func (c *Client) Perform(req *http.Request) (*http.Response, error) {
 			}
 
 			// Retry on network errors, but not on timeout errors, unless configured
-			if err, ok := err.(net.Error); ok {
-				if (!err.Timeout() || c.enableRetryOnTimeout) && !c.disableRetry {
+			var netErr net.Error
+			if errors.As(err,&netErr) {
+				if (!netErr.Timeout() || c.enableRetryOnTimeout) && !c.disableRetry {
 					shouldRetry = true
 				}
 			}
