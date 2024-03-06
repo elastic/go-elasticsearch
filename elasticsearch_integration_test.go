@@ -27,12 +27,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
 	"log"
 	"net"
 	"net/http"
@@ -47,11 +41,37 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
 )
 
 func TestClientTransport(t *testing.T) {
+	elasticsearchContainer, err := containertest.SetupElasticsearch(t)
+	if err != nil {
+		t.Fatalf("Error setting up Elasticsearch container: %s", err)
+	}
+	defer func() {
+		if err := elasticsearchContainer.Terminate(context.Background()); err != nil {
+			t.Fatalf("Error terminating Elasticsearch container: %s", err)
+		}
+	}()
+
+	tcCfg := elasticsearch.Config{
+		Addresses: []string{
+			elasticsearchContainer.Settings.Address,
+		},
+		Username: "elastic",
+		Password: elasticsearchContainer.Settings.Password,
+		CACert:   elasticsearchContainer.Settings.CACert,
+	}
+
 	t.Run("Persistent", func(t *testing.T) {
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.NewClient(tcCfg)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s", err)
 		}
@@ -103,7 +123,7 @@ func TestClientTransport(t *testing.T) {
 	t.Run("Concurrent", func(t *testing.T) {
 		var wg sync.WaitGroup
 
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.NewClient(tcCfg)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s", err)
 		}
@@ -126,7 +146,7 @@ func TestClientTransport(t *testing.T) {
 	})
 
 	t.Run("WithContext", func(t *testing.T) {
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.NewClient(tcCfg)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s", err)
 		}
@@ -154,6 +174,12 @@ func TestClientTransport(t *testing.T) {
 					InsecureSkipVerify: true,
 				},
 			},
+			Addresses: []string{
+				elasticsearchContainer.Settings.Address,
+			},
+			Username: "elastic",
+			Password: elasticsearchContainer.Settings.Password,
+			CACert:   elasticsearchContainer.Settings.CACert,
 		}
 
 		es, err := elasticsearch.NewClient(cfg)
