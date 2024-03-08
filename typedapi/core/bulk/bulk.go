@@ -137,7 +137,6 @@ func (r *Bulk) HttpRequest(ctx context.Context) (*http.Request, error) {
 	}
 
 	if r.raw == nil && r.req != nil {
-
 		for _, elem := range *r.req {
 			data, err := json.Marshal(elem)
 			if err != nil {
@@ -146,11 +145,6 @@ func (r *Bulk) HttpRequest(ctx context.Context) (*http.Request, error) {
 			r.buf.Write(data)
 			r.buf.Write([]byte("\n"))
 		}
-
-		if err != nil {
-			return nil, fmt.Errorf("could not serialise request for Bulk: %w", err)
-		}
-
 	}
 
 	if r.buf.Len() > 0 {
