@@ -22,23 +22,38 @@ package containertest
 
 import (
 	"context"
-	"os"
-	"testing"
 
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
+	"github.com/elastic/go-elasticsearch/v8"
 
 	"github.com/testcontainers/testcontainers-go"
 	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
 )
 
-// SetupElasticsearch starts an Elasticsearch container and sets the environment variables
-// ELASTICSEARCH_URL, ELASTICSEARCH_USERNAME, and ELASTICSEARCH_PASSWORD in the test context.
-func SetupElasticsearch(t *testing.T) (*tces.ElasticsearchContainer, error) {
-	stackVersion := version.Client
-	if v := os.Getenv("STACK_VERSION"); v != "" {
-		stackVersion = v
-	}
+// ElasticsearchService represents an Elasticsearch service, storing
+// the container and configuration options.
+type ElasticsearchService struct {
+	container     *tces.ElasticsearchContainer
+	configOptions tces.Options
+}
 
+// ESConfig returns the Elasticsearch client configuration.
+func (es *ElasticsearchService) ESConfig() elasticsearch.Config {
+	return elasticsearch.Config{
+		Addresses: []string{
+			es.configOptions.Address,
+		},
+		Username: "elastic",
+		Password: es.configOptions.Password,
+		CACert:   es.configOptions.CACert,
+	}
+}
+
+// Terminate terminates the Elasticsearch container.
+func (es *ElasticsearchService) Terminate(ctx context.Context) error {
+	return es.container.Terminate(ctx)
+}
+
+func NewElasticsearchService(stackVersion string) (*ElasticsearchService, error) {
 	elasticsearchContainer, err := tces.RunContainer(
 		context.Background(),
 		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:"+stackVersion),
@@ -48,9 +63,8 @@ func SetupElasticsearch(t *testing.T) (*tces.ElasticsearchContainer, error) {
 		return nil, err
 	}
 
-	t.Setenv("ELASTICSEARCH_URL", elasticsearchContainer.Settings.Address)
-	t.Setenv("ELASTICSEARCH_USERNAME", elasticsearchContainer.Settings.Username)
-	t.Setenv("ELASTICSEARCH_PASSWORD", elasticsearchContainer.Settings.Password)
-
-	return elasticsearchContainer, nil
+	return &ElasticsearchService{
+		container:     elasticsearchContainer,
+		configOptions: elasticsearchContainer.Settings,
+	}, nil
 }

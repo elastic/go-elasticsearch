@@ -42,6 +42,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
@@ -51,24 +52,26 @@ import (
 )
 
 func TestClientTransport(t *testing.T) {
-	elasticsearchContainer, err := containertest.SetupElasticsearch(t)
+	stackVersion := version.Client
+	if v := os.Getenv("STACK_VERSION"); v != "" {
+		stackVersion = v
+	}
+
+	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion)
 	if err != nil {
 		t.Fatalf("Error setting up Elasticsearch container: %s", err)
 	}
 	defer func() {
-		if err := elasticsearchContainer.Terminate(context.Background()); err != nil {
+		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
 			t.Fatalf("Error terminating Elasticsearch container: %s", err)
 		}
 	}()
 
-	tcCfg := elasticsearch.Config{
-		Addresses: []string{
-			elasticsearchContainer.Settings.Address,
-		},
-		Username: "elastic",
-		Password: elasticsearchContainer.Settings.Password,
-		CACert:   elasticsearchContainer.Settings.CACert,
-	}
+	tcCfg := elasticsearchSrv.ESConfig()
+
+	t.Setenv("ELASTICSEARCH_URL", tcCfg.Addresses[0])
+	t.Setenv("ELASTICSEARCH_USERNAME", tcCfg.Username)
+	t.Setenv("ELASTICSEARCH_PASSWORD", tcCfg.Password)
 
 	t.Run("Persistent", func(t *testing.T) {
 		es, err := elasticsearch.NewClient(tcCfg)
@@ -175,11 +178,11 @@ func TestClientTransport(t *testing.T) {
 				},
 			},
 			Addresses: []string{
-				elasticsearchContainer.Settings.Address,
+				tcCfg.Addresses[0],
 			},
-			Username: "elastic",
-			Password: elasticsearchContainer.Settings.Password,
-			CACert:   elasticsearchContainer.Settings.CACert,
+			Username: tcCfg.Username,
+			Password: tcCfg.Password,
+			CACert:   tcCfg.CACert,
 		}
 
 		es, err := elasticsearch.NewClient(cfg)
