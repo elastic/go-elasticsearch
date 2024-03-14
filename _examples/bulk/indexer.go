@@ -15,15 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build ignore
-// +build ignore
+//go:build bulk_indexer
+// +build bulk_indexer
 
 // This example demonstrates indexing documents using the esutil.BulkIndexer helper.
 //
 // You can configure the settings with command line flags:
 //
-//     go run indexer.go --workers=8 --count=100000 --flush=1000000
-//
+//	go run indexer.go --workers=8 --count=100000 --flush=1000000
 package main
 
 import (

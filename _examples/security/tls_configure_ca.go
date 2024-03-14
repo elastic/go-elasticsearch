@@ -15,8 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build ignore
-// +build ignore
+//go:build ca_from_tp
+// +build ca_from_tp
 
 package main
 
