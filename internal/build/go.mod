@@ -1,6 +1,6 @@
 module github.com/elastic/go-elasticsearch/v8/internal/build
 
-go 1.20
+go 1.21
 
 replace github.com/elastic/go-elasticsearch/v8 => ../../
 

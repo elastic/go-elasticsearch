@@ -13,7 +13,7 @@ test-benchmarks: clean setup
 	cd benchmarks && go run benchmarks.go
 
 setup:
-	go get -u github.com/mailru/easyjson/...
+	go install github.com/mailru/easyjson/easyjson@latest
 	cd benchmarks && go generate ./model
 
 clean:
