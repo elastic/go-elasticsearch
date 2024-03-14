@@ -9,7 +9,7 @@ fully typed API. This getting started shows you examples of both APIs.
 [discrete]
 === Requirements
 
-Go version 1.20+
+Go version 1.21+
 
 [discrete]
 === Installation 
