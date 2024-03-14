@@ -15,22 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build ignore
-// +build ignore
+//go:build bulk_default
+// +build bulk_default
 
 // This example demonstrates indexing documents using the Elasticsearch "Bulk" API
 // [https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html].
 //
 // You can configure the number of documents and the batch size with command line flags:
 //
-//     go run default.go -count=10000 -batch=2500
+//	go run default.go -count=10000 -batch=2500
 //
 // The example intentionally doesn't use any abstractions or helper functions, to
 // demonstrate the low-level mechanics of working with the Bulk API: preparing
 // the meta+data payloads, sending the payloads in batches,
 // inspecting the error results, and printing a report.
-//
-//
 package main
 
 import (

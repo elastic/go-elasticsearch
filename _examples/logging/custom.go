@@ -15,8 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//go:build ignore
-// +build ignore
+//go:build logging_custom
+// +build logging_custom
 
 // This examples demonstrates how to implement the "elastictransport.Logger" interface with a custom type,
 // and use it with the client for structured logging via the "rs/zerolog" package.
@@ -37,13 +37,11 @@ import (
 )
 
 // CustomLogger implements the elastictransport.Logger interface.
-//
 type CustomLogger struct {
 	zerolog.Logger
 }
 
 // LogRoundTrip prints the information about request and response.
-//
 func (l *CustomLogger) LogRoundTrip(
 	req *http.Request,
 	res *http.Response,

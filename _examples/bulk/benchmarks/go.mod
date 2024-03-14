@@ -1,6 +1,8 @@
 module github.com/elastic/go-elasticsearch/v8/_examples/bulk/benchmarks
 
-go 1.20
+go 1.21
+
+toolchain go1.21.8
 
 replace github.com/elastic/go-elasticsearch/v8 => ../../..
 
