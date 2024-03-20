@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.13.0: DO NOT EDIT
 
 package esapi
 
@@ -26,8 +26,8 @@ import (
 )
 
 func newInferenceGetModelFunc(t Transport) InferenceGetModel {
-	return func(model_id string, task_type string, o ...func(*InferenceGetModelRequest)) (*Response, error) {
-		var r = InferenceGetModelRequest{ModelID: model_id, TaskType: task_type}
+	return func(inference_id string, o ...func(*InferenceGetModelRequest)) (*Response, error) {
+		var r = InferenceGetModelRequest{InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,12 +47,12 @@ func newInferenceGetModelFunc(t Transport) InferenceGetModel {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html.
-type InferenceGetModel func(model_id string, task_type string, o ...func(*InferenceGetModelRequest)) (*Response, error)
+type InferenceGetModel func(inference_id string, o ...func(*InferenceGetModelRequest)) (*Response, error)
 
 // InferenceGetModelRequest configures the Inference Get Model API request.
 type InferenceGetModelRequest struct {
-	ModelID  string
-	TaskType string
+	InferenceID string
+	TaskType    string
 
 	Pretty     bool
 	Human      bool
@@ -85,19 +85,21 @@ func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Tran
 
 	method = "GET"
 
-	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.ModelID))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_inference")
-	path.WriteString("/")
-	path.WriteString(r.TaskType)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	if r.TaskType != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskType)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+		}
 	}
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
+	path.WriteString(r.InferenceID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
 	}
 
 	params = make(map[string]string)
@@ -177,6 +179,13 @@ func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Tran
 func (f InferenceGetModel) WithContext(v context.Context) func(*InferenceGetModelRequest) {
 	return func(r *InferenceGetModelRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTaskType - the task type.
+func (f InferenceGetModel) WithTaskType(v string) func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
+		r.TaskType = v
 	}
 }
 

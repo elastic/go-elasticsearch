@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.13.0: DO NOT EDIT
 
 package esapi
 
@@ -60,6 +60,7 @@ type BulkRequest struct {
 	Pipeline              string
 	Refresh               string
 	RequireAlias          *bool
+	RequireDataStream     *bool
 	Routing               string
 	Source                []string
 	SourceExcludes        []string
@@ -127,6 +128,10 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 
 	if r.RequireAlias != nil {
 		params["require_alias"] = strconv.FormatBool(*r.RequireAlias)
+	}
+
+	if r.RequireDataStream != nil {
+		params["require_data_stream"] = strconv.FormatBool(*r.RequireDataStream)
 	}
 
 	if r.Routing != "" {
@@ -274,6 +279,13 @@ func (f Bulk) WithRefresh(v string) func(*BulkRequest) {
 func (f Bulk) WithRequireAlias(v bool) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.RequireAlias = &v
+	}
+}
+
+// WithRequireDataStream - when true, requires the destination to be a data stream (existing or to-be-created). default is false.
+func (f Bulk) WithRequireDataStream(v bool) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.RequireDataStream = &v
 	}
 }
 

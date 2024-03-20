@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.13.0: DO NOT EDIT
 
 package esapi
 
@@ -44,8 +44,6 @@ func newSynonymsPutSynonymRuleFunc(t Transport) SynonymsPutSynonymRule {
 // ----- API Definition -------------------------------------------------------
 
 // SynonymsPutSynonymRule creates or updates a synonym rule in a synonym set
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-synonym-rule.html.
 type SynonymsPutSynonymRule func(body io.Reader, rule_id string, set_id string, o ...func(*SynonymsPutSynonymRuleRequest)) (*Response, error)
