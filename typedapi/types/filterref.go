@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/filtertype"
@@ -31,7 +32,7 @@ import (
 
 // FilterRef type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/Filter.ts#L31-L41
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/Filter.ts#L31-L41
 type FilterRef struct {
 	// FilterId The identifier for the filter.
 	FilterId string `json:"filter_id"`
@@ -57,12 +58,12 @@ func (s *FilterRef) UnmarshalJSON(data []byte) error {
 
 		case "filter_id":
 			if err := dec.Decode(&s.FilterId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FilterId", err)
 			}
 
 		case "filter_type":
 			if err := dec.Decode(&s.FilterType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FilterType", err)
 			}
 
 		}

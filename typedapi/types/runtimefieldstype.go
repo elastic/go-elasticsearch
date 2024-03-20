@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RuntimeFieldsType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/xpack/usage/types.ts#L279-L294
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/xpack/usage/types.ts#L279-L294
 type RuntimeFieldsType struct {
 	CharsMax        int64    `json:"chars_max"`
 	CharsTotal      int64    `json:"chars_total"`
@@ -70,7 +71,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CharsMax", err)
 				}
 				s.CharsMax = value
 			case float64:
@@ -85,7 +86,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CharsTotal", err)
 				}
 				s.CharsTotal = value
 			case float64:
@@ -100,7 +101,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -115,7 +116,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocMax", err)
 				}
 				s.DocMax = value
 			case float64:
@@ -130,7 +131,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocTotal", err)
 				}
 				s.DocTotal = value
 			case float64:
@@ -145,7 +146,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexCount", err)
 				}
 				s.IndexCount = value
 			case float64:
@@ -155,7 +156,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 
 		case "lang":
 			if err := dec.Decode(&s.Lang); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lang", err)
 			}
 
 		case "lines_max":
@@ -165,7 +166,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LinesMax", err)
 				}
 				s.LinesMax = value
 			case float64:
@@ -180,7 +181,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LinesTotal", err)
 				}
 				s.LinesTotal = value
 			case float64:
@@ -190,7 +191,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "scriptless_count":
@@ -200,7 +201,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ScriptlessCount", err)
 				}
 				s.ScriptlessCount = value
 			case float64:
@@ -215,7 +216,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShadowedCount", err)
 				}
 				s.ShadowedCount = value
 			case float64:
@@ -230,7 +231,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SourceMax", err)
 				}
 				s.SourceMax = value
 			case float64:
@@ -245,7 +246,7 @@ func (s *RuntimeFieldsType) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SourceTotal", err)
 				}
 				s.SourceTotal = value
 			case float64:

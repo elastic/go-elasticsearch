@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FunctionScore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/compound.ts#L201-L241
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/compound.ts#L201-L241
 type FunctionScore struct {
 	// Exp Function that scores a document with a exponential decay, depending on the
 	// distance of a numeric field value of the document from an origin.
@@ -75,37 +76,37 @@ func (s *FunctionScore) UnmarshalJSON(data []byte) error {
 
 		case "exp":
 			if err := dec.Decode(&s.Exp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Exp", err)
 			}
 
 		case "field_value_factor":
 			if err := dec.Decode(&s.FieldValueFactor); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldValueFactor", err)
 			}
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "gauss":
 			if err := dec.Decode(&s.Gauss); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Gauss", err)
 			}
 
 		case "linear":
 			if err := dec.Decode(&s.Linear); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Linear", err)
 			}
 
 		case "random_score":
 			if err := dec.Decode(&s.RandomScore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RandomScore", err)
 			}
 
 		case "script_score":
 			if err := dec.Decode(&s.ScriptScore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptScore", err)
 			}
 
 		case "weight":
@@ -115,7 +116,7 @@ func (s *FunctionScore) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Weight", err)
 				}
 				f := Float64(value)
 				s.Weight = &f

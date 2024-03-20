@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Status type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/snapshot/_types/SnapshotStatus.ts#L26-L35
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/snapshot/_types/SnapshotStatus.ts#L26-L35
 type Status struct {
 	IncludeGlobalState bool                          `json:"include_global_state"`
 	Indices            map[string]SnapshotIndexStats `json:"indices"`
@@ -64,7 +65,7 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IncludeGlobalState", err)
 				}
 				s.IncludeGlobalState = value
 			case bool:
@@ -76,13 +77,13 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 				s.Indices = make(map[string]SnapshotIndexStats, 0)
 			}
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "repository":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Repository", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -93,13 +94,13 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 
 		case "shards_stats":
 			if err := dec.Decode(&s.ShardsStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ShardsStats", err)
 			}
 
 		case "snapshot":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Snapshot", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -111,7 +112,7 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 		case "state":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -122,12 +123,12 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 
 		case "stats":
 			if err := dec.Decode(&s.Stats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Stats", err)
 			}
 
 		case "uuid":
 			if err := dec.Decode(&s.Uuid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Uuid", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/abstractions.ts#L99-L399
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/abstractions.ts#L100-L407
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -84,6 +85,10 @@ type Query struct {
 	Ids *IdsQuery `json:"ids,omitempty"`
 	// Intervals Returns documents based on the order and proximity of matching terms.
 	Intervals map[string]IntervalsQuery `json:"intervals,omitempty"`
+	// Knn Finds the k nearest vectors to a query vector, as measured by a similarity
+	// metric. knn query finds nearest vectors through approximate search on indexed
+	// dense_vectors.
+	Knn *KnnQuery `json:"knn,omitempty"`
 	// Match Returns documents that match a provided text, number, date or boolean value.
 	// The provided text is analyzed before matching.
 	Match map[string]MatchQuery `json:"match,omitempty"`
@@ -206,17 +211,17 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 
 		case "bool":
 			if err := dec.Decode(&s.Bool); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Bool", err)
 			}
 
 		case "boosting":
 			if err := dec.Decode(&s.Boosting); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Boosting", err)
 			}
 
 		case "combined_fields":
 			if err := dec.Decode(&s.CombinedFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CombinedFields", err)
 			}
 
 		case "common":
@@ -224,23 +229,23 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Common = make(map[string]CommonTermsQuery, 0)
 			}
 			if err := dec.Decode(&s.Common); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Common", err)
 			}
 
 		case "constant_score":
 			if err := dec.Decode(&s.ConstantScore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ConstantScore", err)
 			}
 
 		case "dis_max":
 			if err := dec.Decode(&s.DisMax); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DisMax", err)
 			}
 
 		case "distance_feature":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DistanceFeature", err)
 			}
 			o := NewGeoDistanceFeatureQuery()
 			err := json.Unmarshal(message, &o)
@@ -248,23 +253,23 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				o := NewDateDistanceFeatureQuery()
 				err := json.Unmarshal(message, &o)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DistanceFeature", err)
 				}
 			}
 
 		case "exists":
 			if err := dec.Decode(&s.Exists); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Exists", err)
 			}
 
 		case "field_masking_span":
 			if err := dec.Decode(&s.FieldMaskingSpan); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldMaskingSpan", err)
 			}
 
 		case "function_score":
 			if err := dec.Decode(&s.FunctionScore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FunctionScore", err)
 			}
 
 		case "fuzzy":
@@ -272,42 +277,42 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Fuzzy = make(map[string]FuzzyQuery, 0)
 			}
 			if err := dec.Decode(&s.Fuzzy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fuzzy", err)
 			}
 
 		case "geo_bounding_box":
 			if err := dec.Decode(&s.GeoBoundingBox); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoBoundingBox", err)
 			}
 
 		case "geo_distance":
 			if err := dec.Decode(&s.GeoDistance); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoDistance", err)
 			}
 
 		case "geo_polygon":
 			if err := dec.Decode(&s.GeoPolygon); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoPolygon", err)
 			}
 
 		case "geo_shape":
 			if err := dec.Decode(&s.GeoShape); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoShape", err)
 			}
 
 		case "has_child":
 			if err := dec.Decode(&s.HasChild); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HasChild", err)
 			}
 
 		case "has_parent":
 			if err := dec.Decode(&s.HasParent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HasParent", err)
 			}
 
 		case "ids":
 			if err := dec.Decode(&s.Ids); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ids", err)
 			}
 
 		case "intervals":
@@ -315,7 +320,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Intervals = make(map[string]IntervalsQuery, 0)
 			}
 			if err := dec.Decode(&s.Intervals); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Intervals", err)
+			}
+
+		case "knn":
+			if err := dec.Decode(&s.Knn); err != nil {
+				return fmt.Errorf("%s | %w", "Knn", err)
 			}
 
 		case "match":
@@ -323,12 +333,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Match = make(map[string]MatchQuery, 0)
 			}
 			if err := dec.Decode(&s.Match); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Match", err)
 			}
 
 		case "match_all":
 			if err := dec.Decode(&s.MatchAll); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchAll", err)
 			}
 
 		case "match_bool_prefix":
@@ -336,12 +346,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.MatchBoolPrefix = make(map[string]MatchBoolPrefixQuery, 0)
 			}
 			if err := dec.Decode(&s.MatchBoolPrefix); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchBoolPrefix", err)
 			}
 
 		case "match_none":
 			if err := dec.Decode(&s.MatchNone); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchNone", err)
 			}
 
 		case "match_phrase":
@@ -349,7 +359,7 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.MatchPhrase = make(map[string]MatchPhraseQuery, 0)
 			}
 			if err := dec.Decode(&s.MatchPhrase); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchPhrase", err)
 			}
 
 		case "match_phrase_prefix":
@@ -357,37 +367,37 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.MatchPhrasePrefix = make(map[string]MatchPhrasePrefixQuery, 0)
 			}
 			if err := dec.Decode(&s.MatchPhrasePrefix); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchPhrasePrefix", err)
 			}
 
 		case "more_like_this":
 			if err := dec.Decode(&s.MoreLikeThis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MoreLikeThis", err)
 			}
 
 		case "multi_match":
 			if err := dec.Decode(&s.MultiMatch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MultiMatch", err)
 			}
 
 		case "nested":
 			if err := dec.Decode(&s.Nested); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nested", err)
 			}
 
 		case "parent_id":
 			if err := dec.Decode(&s.ParentId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ParentId", err)
 			}
 
 		case "percolate":
 			if err := dec.Decode(&s.Percolate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Percolate", err)
 			}
 
 		case "pinned":
 			if err := dec.Decode(&s.Pinned); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pinned", err)
 			}
 
 		case "prefix":
@@ -395,12 +405,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Prefix = make(map[string]PrefixQuery, 0)
 			}
 			if err := dec.Decode(&s.Prefix); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Prefix", err)
 			}
 
 		case "query_string":
 			if err := dec.Decode(&s.QueryString); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryString", err)
 			}
 
 		case "range":
@@ -408,12 +418,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Range = make(map[string]RangeQuery, 0)
 			}
 			if err := dec.Decode(&s.Range); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Range", err)
 			}
 
 		case "rank_feature":
 			if err := dec.Decode(&s.RankFeature); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RankFeature", err)
 			}
 
 		case "regexp":
@@ -421,62 +431,62 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Regexp = make(map[string]RegexpQuery, 0)
 			}
 			if err := dec.Decode(&s.Regexp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Regexp", err)
 			}
 
 		case "rule_query":
 			if err := dec.Decode(&s.RuleQuery); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuleQuery", err)
 			}
 
 		case "script":
 			if err := dec.Decode(&s.Script); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 
 		case "script_score":
 			if err := dec.Decode(&s.ScriptScore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptScore", err)
 			}
 
 		case "shape":
 			if err := dec.Decode(&s.Shape); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shape", err)
 			}
 
 		case "simple_query_string":
 			if err := dec.Decode(&s.SimpleQueryString); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SimpleQueryString", err)
 			}
 
 		case "span_containing":
 			if err := dec.Decode(&s.SpanContaining); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanContaining", err)
 			}
 
 		case "span_first":
 			if err := dec.Decode(&s.SpanFirst); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanFirst", err)
 			}
 
 		case "span_multi":
 			if err := dec.Decode(&s.SpanMulti); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanMulti", err)
 			}
 
 		case "span_near":
 			if err := dec.Decode(&s.SpanNear); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanNear", err)
 			}
 
 		case "span_not":
 			if err := dec.Decode(&s.SpanNot); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanNot", err)
 			}
 
 		case "span_or":
 			if err := dec.Decode(&s.SpanOr); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanOr", err)
 			}
 
 		case "span_term":
@@ -484,12 +494,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.SpanTerm = make(map[string]SpanTermQuery, 0)
 			}
 			if err := dec.Decode(&s.SpanTerm); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanTerm", err)
 			}
 
 		case "span_within":
 			if err := dec.Decode(&s.SpanWithin); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanWithin", err)
 			}
 
 		case "term":
@@ -497,12 +507,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Term = make(map[string]TermQuery, 0)
 			}
 			if err := dec.Decode(&s.Term); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Term", err)
 			}
 
 		case "terms":
 			if err := dec.Decode(&s.Terms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Terms", err)
 			}
 
 		case "terms_set":
@@ -510,7 +520,7 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.TermsSet = make(map[string]TermsSetQuery, 0)
 			}
 			if err := dec.Decode(&s.TermsSet); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TermsSet", err)
 			}
 
 		case "text_expansion":
@@ -518,12 +528,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.TextExpansion = make(map[string]TextExpansionQuery, 0)
 			}
 			if err := dec.Decode(&s.TextExpansion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TextExpansion", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "weighted_tokens":
@@ -531,7 +541,7 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.WeightedTokens = make(map[string]WeightedTokensQuery, 0)
 			}
 			if err := dec.Decode(&s.WeightedTokens); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WeightedTokens", err)
 			}
 
 		case "wildcard":
@@ -539,12 +549,12 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				s.Wildcard = make(map[string]WildcardQuery, 0)
 			}
 			if err := dec.Decode(&s.Wildcard); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Wildcard", err)
 			}
 
 		case "wrapper":
 			if err := dec.Decode(&s.Wrapper); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Wrapper", err)
 			}
 
 		}

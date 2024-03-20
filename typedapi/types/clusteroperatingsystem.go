@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ClusterOperatingSystem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/stats/types.ts#L415-L442
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cluster/stats/types.ts#L415-L442
 type ClusterOperatingSystem struct {
 	// AllocatedProcessors Number of processors used to calculate thread pool size across all selected
 	// nodes.
@@ -74,7 +75,7 @@ func (s *ClusterOperatingSystem) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllocatedProcessors", err)
 				}
 				s.AllocatedProcessors = value
 			case float64:
@@ -84,7 +85,7 @@ func (s *ClusterOperatingSystem) UnmarshalJSON(data []byte) error {
 
 		case "architectures":
 			if err := dec.Decode(&s.Architectures); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Architectures", err)
 			}
 
 		case "available_processors":
@@ -95,7 +96,7 @@ func (s *ClusterOperatingSystem) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AvailableProcessors", err)
 				}
 				s.AvailableProcessors = value
 			case float64:
@@ -105,17 +106,17 @@ func (s *ClusterOperatingSystem) UnmarshalJSON(data []byte) error {
 
 		case "mem":
 			if err := dec.Decode(&s.Mem); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mem", err)
 			}
 
 		case "names":
 			if err := dec.Decode(&s.Names); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Names", err)
 			}
 
 		case "pretty_names":
 			if err := dec.Decode(&s.PrettyNames); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PrettyNames", err)
 			}
 
 		}

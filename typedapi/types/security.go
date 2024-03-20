@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Security type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/xpack/usage/types.ts#L434-L447
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/xpack/usage/types.ts#L434-L447
 type Security struct {
 	Anonymous          FeatureToggle               `json:"anonymous"`
 	ApiKeyService      FeatureToggle               `json:"api_key_service"`
@@ -65,17 +66,17 @@ func (s *Security) UnmarshalJSON(data []byte) error {
 
 		case "anonymous":
 			if err := dec.Decode(&s.Anonymous); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Anonymous", err)
 			}
 
 		case "api_key_service":
 			if err := dec.Decode(&s.ApiKeyService); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ApiKeyService", err)
 			}
 
 		case "audit":
 			if err := dec.Decode(&s.Audit); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Audit", err)
 			}
 
 		case "available":
@@ -85,7 +86,7 @@ func (s *Security) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Available", err)
 				}
 				s.Available = value
 			case bool:
@@ -99,7 +100,7 @@ func (s *Security) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -108,17 +109,17 @@ func (s *Security) UnmarshalJSON(data []byte) error {
 
 		case "fips_140":
 			if err := dec.Decode(&s.Fips140); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fips140", err)
 			}
 
 		case "ipfilter":
 			if err := dec.Decode(&s.Ipfilter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ipfilter", err)
 			}
 
 		case "operator_privileges":
 			if err := dec.Decode(&s.OperatorPrivileges); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OperatorPrivileges", err)
 			}
 
 		case "realms":
@@ -126,7 +127,7 @@ func (s *Security) UnmarshalJSON(data []byte) error {
 				s.Realms = make(map[string]XpackRealm, 0)
 			}
 			if err := dec.Decode(&s.Realms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Realms", err)
 			}
 
 		case "role_mapping":
@@ -134,27 +135,27 @@ func (s *Security) UnmarshalJSON(data []byte) error {
 				s.RoleMapping = make(map[string]XpackRoleMapping, 0)
 			}
 			if err := dec.Decode(&s.RoleMapping); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RoleMapping", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "ssl":
 			if err := dec.Decode(&s.Ssl); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ssl", err)
 			}
 
 		case "system_key":
 			if err := dec.Decode(&s.SystemKey); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SystemKey", err)
 			}
 
 		case "token_service":
 			if err := dec.Decode(&s.TokenService); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TokenService", err)
 			}
 
 		}

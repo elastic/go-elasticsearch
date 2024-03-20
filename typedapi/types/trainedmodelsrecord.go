@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TrainedModelsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cat/ml_trained_models/types.ts#L23-L115
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cat/ml_trained_models/types.ts#L23-L115
 type TrainedModelsRecord struct {
 	// CreateTime The time the model was created.
 	CreateTime DateTime `json:"create_time,omitempty"`
@@ -88,13 +89,13 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 
 		case "create_time", "ct":
 			if err := dec.Decode(&s.CreateTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreateTime", err)
 			}
 
 		case "created_by", "c", "createdBy":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreatedBy", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -106,7 +107,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "data_frame.analysis", "dfa", "dataFrameAnalyticsAnalysis":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataFrameAnalysis", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -118,7 +119,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "data_frame.create_time", "dft", "dataFrameAnalyticsTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataFrameCreateTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -130,7 +131,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "data_frame.id", "dfid", "dataFrameAnalytics":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataFrameId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -142,7 +143,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "data_frame.source_index", "dfsi", "dataFrameAnalyticsSrcIndex":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataFrameSourceIndex", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -154,7 +155,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "description", "d":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -165,18 +166,18 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 
 		case "heap_size", "hs", "modelHeapSize":
 			if err := dec.Decode(&s.HeapSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HeapSize", err)
 			}
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "ingest.count", "ic", "ingestCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IngestCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -188,7 +189,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "ingest.current", "icurr", "ingestCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IngestCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -200,7 +201,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "ingest.failed", "if", "ingestFailed":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IngestFailed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -212,7 +213,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "ingest.pipelines", "ip", "ingestPipelines":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IngestPipelines", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -224,7 +225,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "ingest.time", "it", "ingestTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IngestTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -236,7 +237,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "license", "l":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "License", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -248,7 +249,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "operations", "o", "modelOperations":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Operations", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -260,7 +261,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -271,7 +272,7 @@ func (s *TrainedModelsRecord) UnmarshalJSON(data []byte) error {
 
 		case "version", "v":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

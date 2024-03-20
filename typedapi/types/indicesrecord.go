@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // IndicesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cat/indices/types.ts#L20-L801
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cat/indices/types.ts#L20-L801
 type IndicesRecord struct {
 	// BulkAvgSizeInBytes average size in bytes of shard bulk
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
@@ -336,7 +337,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.avg_size_in_bytes", "basi", "bulkAvgSizeInBytes":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkAvgSizeInBytes", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -348,7 +349,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.avg_time", "bati", "bulkAvgTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkAvgTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -360,7 +361,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.total_operations", "bto", "bulkTotalOperation":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkTotalOperations", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -372,7 +373,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.total_size_in_bytes", "btsi", "bulkTotalSizeInBytes":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkTotalSizeInBytes", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -384,7 +385,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.total_time", "btti", "bulkTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -396,7 +397,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "completion.size", "cs", "completionSize":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CompletionSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -408,7 +409,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "creation.date", "cd":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreationDate", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -420,7 +421,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "creation.date.string", "cds":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreationDateString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -432,7 +433,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "docs.count", "dc", "docsCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -444,7 +445,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "docs.deleted", "dd", "docsDeleted":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocsDeleted", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -456,7 +457,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "fielddata.evictions", "fe", "fielddataEvictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FielddataEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -468,7 +469,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "fielddata.memory_size", "fm", "fielddataMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FielddataMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -480,7 +481,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "flush.total", "ft", "flushTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FlushTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -492,7 +493,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "flush.total_time", "ftt", "flushTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FlushTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -504,7 +505,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "get.current", "gc", "getCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -516,7 +517,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "get.exists_time", "geti", "getExistsTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetExistsTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -528,7 +529,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "get.exists_total", "geto", "getExistsTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetExistsTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -540,7 +541,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "get.missing_time", "gmti", "getMissingTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetMissingTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -552,7 +553,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "get.missing_total", "gmto", "getMissingTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetMissingTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -564,7 +565,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "get.time", "gti", "getTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -576,7 +577,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "get.total", "gto", "getTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -588,7 +589,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "health", "h":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Health", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -600,7 +601,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "index", "i", "idx":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -612,7 +613,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.delete_current", "idc", "indexingDeleteCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingDeleteCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -624,7 +625,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.delete_time", "idti", "indexingDeleteTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingDeleteTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -636,7 +637,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.delete_total", "idto", "indexingDeleteTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingDeleteTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -648,7 +649,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_current", "iic", "indexingIndexCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -660,7 +661,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_failed", "iif", "indexingIndexFailed":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexFailed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -672,7 +673,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_time", "iiti", "indexingIndexTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -684,7 +685,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_total", "iito", "indexingIndexTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -696,7 +697,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "memory.total", "tm", "memoryTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MemoryTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -708,7 +709,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "merges.current", "mc", "mergesCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -720,7 +721,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "merges.current_docs", "mcd", "mergesCurrentDocs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesCurrentDocs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -732,7 +733,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "merges.current_size", "mcs", "mergesCurrentSize":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesCurrentSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -744,7 +745,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total", "mt", "mergesTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -756,7 +757,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total_docs", "mtd", "mergesTotalDocs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotalDocs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -768,7 +769,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total_size", "mts", "mergesTotalSize":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotalSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -780,7 +781,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total_time", "mtt", "mergesTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -792,7 +793,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri", "p", "shards.primary", "shardsPrimary":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pri", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -804,7 +805,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.bulk.avg_size_in_bytes":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriBulkAvgSizeInBytes", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -816,7 +817,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.bulk.avg_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriBulkAvgTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -828,7 +829,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.bulk.total_operations":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriBulkTotalOperations", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -840,7 +841,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.bulk.total_size_in_bytes":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriBulkTotalSizeInBytes", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -852,7 +853,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.bulk.total_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriBulkTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -864,7 +865,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.completion.size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriCompletionSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -876,7 +877,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.fielddata.evictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriFielddataEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -888,7 +889,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.fielddata.memory_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriFielddataMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -900,7 +901,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.flush.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriFlushTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -912,7 +913,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.flush.total_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriFlushTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -924,7 +925,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.get.current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriGetCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -936,7 +937,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.get.exists_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriGetExistsTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -948,7 +949,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.get.exists_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriGetExistsTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -960,7 +961,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.get.missing_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriGetMissingTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -972,7 +973,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.get.missing_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriGetMissingTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -984,7 +985,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.get.time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriGetTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -996,7 +997,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.get.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriGetTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1008,7 +1009,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.indexing.delete_current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriIndexingDeleteCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1020,7 +1021,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.indexing.delete_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriIndexingDeleteTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1032,7 +1033,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.indexing.delete_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriIndexingDeleteTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1044,7 +1045,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.indexing.index_current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriIndexingIndexCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1056,7 +1057,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.indexing.index_failed":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriIndexingIndexFailed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1068,7 +1069,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.indexing.index_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriIndexingIndexTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1080,7 +1081,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.indexing.index_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriIndexingIndexTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1092,7 +1093,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.memory.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMemoryTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1104,7 +1105,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.merges.current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMergesCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1116,7 +1117,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.merges.current_docs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMergesCurrentDocs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1128,7 +1129,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.merges.current_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMergesCurrentSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1140,7 +1141,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.merges.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMergesTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1152,7 +1153,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.merges.total_docs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMergesTotalDocs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1164,7 +1165,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.merges.total_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMergesTotalSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1176,7 +1177,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.merges.total_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriMergesTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1188,7 +1189,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.query_cache.evictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriQueryCacheEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1200,7 +1201,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.query_cache.memory_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriQueryCacheMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1212,7 +1213,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.refresh.external_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRefreshExternalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1224,7 +1225,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.refresh.external_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRefreshExternalTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1236,7 +1237,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.refresh.listeners":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRefreshListeners", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1248,7 +1249,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.refresh.time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRefreshTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1260,7 +1261,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.refresh.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRefreshTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1272,7 +1273,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.request_cache.evictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRequestCacheEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1284,7 +1285,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.request_cache.hit_count":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRequestCacheHitCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1296,7 +1297,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.request_cache.memory_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRequestCacheMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1308,7 +1309,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.request_cache.miss_count":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriRequestCacheMissCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1320,7 +1321,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.fetch_current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchFetchCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1332,7 +1333,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.fetch_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchFetchTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1344,7 +1345,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.fetch_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchFetchTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1356,7 +1357,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.open_contexts":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchOpenContexts", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1368,7 +1369,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.query_current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchQueryCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1380,7 +1381,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.query_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchQueryTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1392,7 +1393,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.query_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchQueryTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1404,7 +1405,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.scroll_current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchScrollCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1416,7 +1417,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.scroll_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchScrollTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1428,7 +1429,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.search.scroll_total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSearchScrollTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1440,7 +1441,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.segments.count":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSegmentsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1452,7 +1453,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.segments.fixed_bitset_memory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSegmentsFixedBitsetMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1464,7 +1465,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.segments.index_writer_memory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSegmentsIndexWriterMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1476,7 +1477,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.segments.memory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSegmentsMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1488,7 +1489,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.segments.version_map_memory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSegmentsVersionMapMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1500,7 +1501,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.store.size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriStoreSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1512,7 +1513,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.suggest.current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSuggestCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1524,7 +1525,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.suggest.time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSuggestTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1536,7 +1537,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.suggest.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriSuggestTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1548,7 +1549,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.warmer.current":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriWarmerCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1560,7 +1561,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.warmer.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriWarmerTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1572,7 +1573,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "pri.warmer.total_time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PriWarmerTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1584,7 +1585,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "query_cache.evictions", "qce", "queryCacheEvictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryCacheEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1596,7 +1597,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "query_cache.memory_size", "qcm", "queryCacheMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryCacheMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1608,7 +1609,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.external_time", "reti":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshExternalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1620,7 +1621,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.external_total", "reto":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshExternalTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1632,7 +1633,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.listeners", "rli", "refreshListeners":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshListeners", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1644,7 +1645,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.time", "rti", "refreshTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1656,7 +1657,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.total", "rto", "refreshTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1668,7 +1669,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "rep", "r", "shards.replica", "shardsReplica":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rep", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1680,7 +1681,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "request_cache.evictions", "rce", "requestCacheEvictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RequestCacheEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1692,7 +1693,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "request_cache.hit_count", "rchc", "requestCacheHitCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RequestCacheHitCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1704,7 +1705,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "request_cache.memory_size", "rcm", "requestCacheMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RequestCacheMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1716,7 +1717,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "request_cache.miss_count", "rcmc", "requestCacheMissCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RequestCacheMissCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1728,7 +1729,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.fetch_current", "sfc", "searchFetchCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchFetchCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1740,7 +1741,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.fetch_time", "sfti", "searchFetchTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchFetchTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1752,7 +1753,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.fetch_total", "sfto", "searchFetchTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchFetchTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1764,7 +1765,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.open_contexts", "so", "searchOpenContexts":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchOpenContexts", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1776,7 +1777,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.query_current", "sqc", "searchQueryCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchQueryCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1788,7 +1789,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.query_time", "sqti", "searchQueryTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchQueryTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1800,7 +1801,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.query_total", "sqto", "searchQueryTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchQueryTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1812,7 +1813,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.scroll_current", "scc", "searchScrollCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchScrollCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1824,7 +1825,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.scroll_time", "scti", "searchScrollTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchScrollTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1836,7 +1837,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.scroll_total", "scto", "searchScrollTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchScrollTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1848,7 +1849,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "search.throttled", "sth":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchThrottled", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1860,7 +1861,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "segments.count", "sc", "segmentsCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1872,7 +1873,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "segments.fixed_bitset_memory", "sfbm", "fixedBitsetMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsFixedBitsetMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1884,7 +1885,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "segments.index_writer_memory", "siwm", "segmentsIndexWriterMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsIndexWriterMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1896,7 +1897,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "segments.memory", "sm", "segmentsMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1908,7 +1909,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "segments.version_map_memory", "svmm", "segmentsVersionMapMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsVersionMapMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1920,7 +1921,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "status", "s":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1932,7 +1933,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "store.size", "ss", "storeSize":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StoreSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1944,7 +1945,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "suggest.current", "suc", "suggestCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SuggestCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1956,7 +1957,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "suggest.time", "suti", "suggestTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SuggestTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1968,7 +1969,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "suggest.total", "suto", "suggestTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SuggestTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1980,7 +1981,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "uuid", "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Uuid", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1992,7 +1993,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "warmer.current", "wc", "warmerCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WarmerCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -2004,7 +2005,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "warmer.total", "wto", "warmerTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WarmerTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -2016,7 +2017,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 		case "warmer.total_time", "wtt", "warmerTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WarmerTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

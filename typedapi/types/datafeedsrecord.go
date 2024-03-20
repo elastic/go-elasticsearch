@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // DatafeedsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cat/ml_datafeeds/types.ts#L22-L87
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cat/ml_datafeeds/types.ts#L22-L87
 type DatafeedsRecord struct {
 	// AssignmentExplanation For started datafeeds only, contains messages relating to the selection of a
 	// node.
@@ -87,7 +88,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "assignment_explanation", "ae":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AssignmentExplanation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -99,7 +100,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "buckets.count", "bc", "bucketsCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -111,7 +112,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -123,7 +124,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "node.address", "na", "nodeAddress":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeAddress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -135,7 +136,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "node.ephemeral_id", "ne", "nodeEphemeralId":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeEphemeralId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -147,7 +148,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "node.id", "ni", "nodeId":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -159,7 +160,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "node.name", "nn", "nodeName":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -171,7 +172,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "search.bucket_avg", "sba", "searchBucketAvg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchBucketAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -183,7 +184,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "search.count", "sc", "searchCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -195,7 +196,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "search.exp_avg_hour", "seah", "searchExpAvgHour":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchExpAvgHour", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -207,7 +208,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 		case "search.time", "st", "searchTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -218,7 +219,7 @@ func (s *DatafeedsRecord) UnmarshalJSON(data []byte) error {
 
 		case "state", "s":
 			if err := dec.Decode(&s.State); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 
 		}

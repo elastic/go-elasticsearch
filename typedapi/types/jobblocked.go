@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/jobblockedreason"
@@ -31,7 +32,7 @@ import (
 
 // JobBlocked type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/Job.ts#L392-L395
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/Job.ts#L392-L395
 type JobBlocked struct {
 	Reason jobblockedreason.JobBlockedReason `json:"reason"`
 	TaskId TaskId                            `json:"task_id,omitempty"`
@@ -54,12 +55,12 @@ func (s *JobBlocked) UnmarshalJSON(data []byte) error {
 
 		case "reason":
 			if err := dec.Decode(&s.Reason); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 
 		case "task_id":
 			if err := dec.Decode(&s.TaskId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TaskId", err)
 			}
 
 		}

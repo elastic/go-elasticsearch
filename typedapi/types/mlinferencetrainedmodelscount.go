@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MlInferenceTrainedModelsCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/xpack/usage/types.ts#L244-L253
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/xpack/usage/types.ts#L244-L253
 type MlInferenceTrainedModelsCount struct {
 	Classification *int64 `json:"classification,omitempty"`
 	Ner            *int64 `json:"ner,omitempty"`
@@ -64,7 +65,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Classification", err)
 				}
 				s.Classification = &value
 			case float64:
@@ -79,7 +80,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Ner", err)
 				}
 				s.Ner = &value
 			case float64:
@@ -94,7 +95,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Other", err)
 				}
 				s.Other = value
 			case float64:
@@ -109,7 +110,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PassThrough", err)
 				}
 				s.PassThrough = &value
 			case float64:
@@ -124,7 +125,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Prepackaged", err)
 				}
 				s.Prepackaged = value
 			case float64:
@@ -139,7 +140,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Regression", err)
 				}
 				s.Regression = &value
 			case float64:
@@ -154,7 +155,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TextEmbedding", err)
 				}
 				s.TextEmbedding = &value
 			case float64:
@@ -169,7 +170,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:

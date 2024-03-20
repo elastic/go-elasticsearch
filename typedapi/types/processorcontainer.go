@@ -16,20 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"io"
-)
-
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ingest/_types/Processors.ts#L28-L233
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ingest/_types/Processors.ts#L27-L239
 type ProcessorContainer struct {
 	// Append Appends one or more values to an existing array if the field already exists
 	// and it is an array.
@@ -129,9 +122,16 @@ type ProcessorContainer struct {
 	// If the field doesn’t exist or the new name is already used, an exception will
 	// be thrown.
 	Rename *RenameProcessor `json:"rename,omitempty"`
+	// Reroute Routes a document to another target index or data stream.
+	// When setting the `destination` option, the target is explicitly specified and
+	// the dataset and namespace options can’t be set.
+	// When the `destination` option is not set, this processor is in a data stream
+	// mode. Note that in this mode, the reroute processor can only be used on data
+	// streams that follow the data stream naming scheme.
+	Reroute *RerouteProcessor `json:"reroute,omitempty"`
 	// Script Runs an inline or stored script on incoming documents.
 	// The script runs in the `ingest` context.
-	Script Script `json:"script,omitempty"`
+	Script *ScriptProcessor `json:"script,omitempty"`
 	// Set Adds a field with the specified value.
 	// If the field already exists, its value will be replaced with the provided
 	// one.
@@ -166,227 +166,6 @@ type ProcessorContainer struct {
 	// browser sends with its web requests.
 	// This processor adds this information by default under the `user_agent` field.
 	UserAgent *UserAgentProcessor `json:"user_agent,omitempty"`
-}
-
-func (s *ProcessorContainer) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "append":
-			if err := dec.Decode(&s.Append); err != nil {
-				return err
-			}
-
-		case "attachment":
-			if err := dec.Decode(&s.Attachment); err != nil {
-				return err
-			}
-
-		case "bytes":
-			if err := dec.Decode(&s.Bytes); err != nil {
-				return err
-			}
-
-		case "circle":
-			if err := dec.Decode(&s.Circle); err != nil {
-				return err
-			}
-
-		case "convert":
-			if err := dec.Decode(&s.Convert); err != nil {
-				return err
-			}
-
-		case "csv":
-			if err := dec.Decode(&s.Csv); err != nil {
-				return err
-			}
-
-		case "date":
-			if err := dec.Decode(&s.Date); err != nil {
-				return err
-			}
-
-		case "date_index_name":
-			if err := dec.Decode(&s.DateIndexName); err != nil {
-				return err
-			}
-
-		case "dissect":
-			if err := dec.Decode(&s.Dissect); err != nil {
-				return err
-			}
-
-		case "dot_expander":
-			if err := dec.Decode(&s.DotExpander); err != nil {
-				return err
-			}
-
-		case "drop":
-			if err := dec.Decode(&s.Drop); err != nil {
-				return err
-			}
-
-		case "enrich":
-			if err := dec.Decode(&s.Enrich); err != nil {
-				return err
-			}
-
-		case "fail":
-			if err := dec.Decode(&s.Fail); err != nil {
-				return err
-			}
-
-		case "foreach":
-			if err := dec.Decode(&s.Foreach); err != nil {
-				return err
-			}
-
-		case "geoip":
-			if err := dec.Decode(&s.Geoip); err != nil {
-				return err
-			}
-
-		case "grok":
-			if err := dec.Decode(&s.Grok); err != nil {
-				return err
-			}
-
-		case "gsub":
-			if err := dec.Decode(&s.Gsub); err != nil {
-				return err
-			}
-
-		case "inference":
-			if err := dec.Decode(&s.Inference); err != nil {
-				return err
-			}
-
-		case "join":
-			if err := dec.Decode(&s.Join); err != nil {
-				return err
-			}
-
-		case "json":
-			if err := dec.Decode(&s.Json); err != nil {
-				return err
-			}
-
-		case "kv":
-			if err := dec.Decode(&s.Kv); err != nil {
-				return err
-			}
-
-		case "lowercase":
-			if err := dec.Decode(&s.Lowercase); err != nil {
-				return err
-			}
-
-		case "pipeline":
-			if err := dec.Decode(&s.Pipeline); err != nil {
-				return err
-			}
-
-		case "remove":
-			if err := dec.Decode(&s.Remove); err != nil {
-				return err
-			}
-
-		case "rename":
-			if err := dec.Decode(&s.Rename); err != nil {
-				return err
-			}
-
-		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
-				return err
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return err
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Script = o
-
-				}
-			}
-
-		case "set":
-			if err := dec.Decode(&s.Set); err != nil {
-				return err
-			}
-
-		case "set_security_user":
-			if err := dec.Decode(&s.SetSecurityUser); err != nil {
-				return err
-			}
-
-		case "sort":
-			if err := dec.Decode(&s.Sort); err != nil {
-				return err
-			}
-
-		case "split":
-			if err := dec.Decode(&s.Split); err != nil {
-				return err
-			}
-
-		case "trim":
-			if err := dec.Decode(&s.Trim); err != nil {
-				return err
-			}
-
-		case "uppercase":
-			if err := dec.Decode(&s.Uppercase); err != nil {
-				return err
-			}
-
-		case "urldecode":
-			if err := dec.Decode(&s.Urldecode); err != nil {
-				return err
-			}
-
-		case "user_agent":
-			if err := dec.Decode(&s.UserAgent); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
 }
 
 // NewProcessorContainer returns a ProcessorContainer.

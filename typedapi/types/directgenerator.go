@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // DirectGenerator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/search/_types/suggester.ts#L265-L328
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/search/_types/suggester.ts#L265-L328
 type DirectGenerator struct {
 	// Field The field to fetch the candidate suggestions from.
 	// Needs to be set globally or per suggestion.
@@ -96,7 +97,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "max_edits":
@@ -107,7 +108,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxEdits", err)
 				}
 				s.MaxEdits = &value
 			case float64:
@@ -122,7 +123,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxInspections", err)
 				}
 				f := float32(value)
 				s.MaxInspections = &f
@@ -138,7 +139,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxTermFreq", err)
 				}
 				f := float32(value)
 				s.MaxTermFreq = &f
@@ -154,7 +155,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinDocFreq", err)
 				}
 				f := float32(value)
 				s.MinDocFreq = &f
@@ -171,7 +172,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinWordLength", err)
 				}
 				s.MinWordLength = &value
 			case float64:
@@ -182,7 +183,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 		case "post_filter":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PostFilter", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -194,7 +195,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 		case "pre_filter":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PreFilter", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -211,7 +212,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PrefixLength", err)
 				}
 				s.PrefixLength = &value
 			case float64:
@@ -227,7 +228,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -237,7 +238,7 @@ func (s *DirectGenerator) UnmarshalJSON(data []byte) error {
 
 		case "suggest_mode":
 			if err := dec.Decode(&s.SuggestMode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SuggestMode", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // WatchRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/execute_watch/types.ts#L27-L39
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/execute_watch/types.ts#L27-L39
 type WatchRecord struct {
 	Condition    WatcherCondition                `json:"condition"`
 	Input        WatcherInput                    `json:"input"`
@@ -64,28 +65,28 @@ func (s *WatchRecord) UnmarshalJSON(data []byte) error {
 
 		case "condition":
 			if err := dec.Decode(&s.Condition); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Condition", err)
 			}
 
 		case "input":
 			if err := dec.Decode(&s.Input); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Input", err)
 			}
 
 		case "messages":
 			if err := dec.Decode(&s.Messages); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Messages", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "node":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -96,32 +97,32 @@ func (s *WatchRecord) UnmarshalJSON(data []byte) error {
 
 		case "result":
 			if err := dec.Decode(&s.Result); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Result", err)
 			}
 
 		case "state":
 			if err := dec.Decode(&s.State); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "trigger_event":
 			if err := dec.Decode(&s.TriggerEvent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TriggerEvent", err)
 			}
 
 		case "user":
 			if err := dec.Decode(&s.User); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "User", err)
 			}
 
 		case "watch_id":
 			if err := dec.Decode(&s.WatchId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WatchId", err)
 			}
 
 		}

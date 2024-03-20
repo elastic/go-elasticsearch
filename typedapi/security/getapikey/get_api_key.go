@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 // Retrieves information for one or more API keys.
 package getapikey
@@ -335,6 +335,18 @@ func (r *GetApiKey) Username(username string) *GetApiKey {
 // API name: with_limited_by
 func (r *GetApiKey) WithLimitedBy(withlimitedby bool) *GetApiKey {
 	r.values.Set("with_limited_by", strconv.FormatBool(withlimitedby))
+
+	return r
+}
+
+// ActiveOnly A boolean flag that can be used to query API keys that are currently active.
+// An API key is considered active if it is neither invalidated, nor expired at
+// query time. You can specify this together with other parameters such as
+// `owner` or `name`. If `active_only` is false, the response will include both
+// active and inactive (expired or invalidated) keys.
+// API name: active_only
+func (r *GetApiKey) ActiveOnly(activeonly bool) *GetApiKey {
+	r.values.Set("active_only", strconv.FormatBool(activeonly))
 
 	return r
 }

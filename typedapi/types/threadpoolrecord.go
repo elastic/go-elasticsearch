@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ThreadPoolRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cat/thread_pool/types.ts#L22-L124
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cat/thread_pool/types.ts#L22-L124
 type ThreadPoolRecord struct {
 	// Active The number of active threads in the current thread pool.
 	Active *string `json:"active,omitempty"`
@@ -94,7 +95,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "active", "a":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Active", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -106,7 +107,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "completed", "c":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Completed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -118,7 +119,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "core", "cr":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Core", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -130,7 +131,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "ephemeral_node_id", "eid":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EphemeralNodeId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -142,7 +143,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "host", "h":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -154,7 +155,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "ip", "i":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -166,7 +167,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "keep_alive", "ka":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "KeepAlive", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -178,7 +179,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "largest", "l":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Largest", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -190,7 +191,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "max", "mx":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Max", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -202,7 +203,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "name", "n":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -213,13 +214,13 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 
 		case "node_id", "id":
 			if err := dec.Decode(&s.NodeId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 
 		case "node_name", "nn":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -231,7 +232,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "pid", "p":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pid", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -243,7 +244,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "pool_size", "psz":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PoolSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -255,7 +256,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "port", "po":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Port", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -267,7 +268,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "queue", "q":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Queue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -279,7 +280,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "queue_size", "qs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueueSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -291,7 +292,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "rejected", "r":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rejected", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -303,7 +304,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "size", "sz":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -315,7 +316,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 		case "type", "t":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

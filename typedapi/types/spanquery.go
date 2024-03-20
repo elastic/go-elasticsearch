@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // SpanQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/span.ts#L131-L170
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/span.ts#L131-L170
 type SpanQuery struct {
 	// FieldMaskingSpan Allows queries like `span_near` or `span_or` across different fields.
 	FieldMaskingSpan *SpanFieldMaskingQuery `json:"field_masking_span,omitempty"`
@@ -74,42 +75,42 @@ func (s *SpanQuery) UnmarshalJSON(data []byte) error {
 
 		case "field_masking_span":
 			if err := dec.Decode(&s.FieldMaskingSpan); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldMaskingSpan", err)
 			}
 
 		case "span_containing":
 			if err := dec.Decode(&s.SpanContaining); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanContaining", err)
 			}
 
 		case "span_first":
 			if err := dec.Decode(&s.SpanFirst); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanFirst", err)
 			}
 
 		case "span_gap":
 			if err := dec.Decode(&s.SpanGap); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanGap", err)
 			}
 
 		case "span_multi":
 			if err := dec.Decode(&s.SpanMulti); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanMulti", err)
 			}
 
 		case "span_near":
 			if err := dec.Decode(&s.SpanNear); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanNear", err)
 			}
 
 		case "span_not":
 			if err := dec.Decode(&s.SpanNot); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanNot", err)
 			}
 
 		case "span_or":
 			if err := dec.Decode(&s.SpanOr); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanOr", err)
 			}
 
 		case "span_term":
@@ -117,12 +118,12 @@ func (s *SpanQuery) UnmarshalJSON(data []byte) error {
 				s.SpanTerm = make(map[string]SpanTermQuery, 0)
 			}
 			if err := dec.Decode(&s.SpanTerm); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanTerm", err)
 			}
 
 		case "span_within":
 			if err := dec.Decode(&s.SpanWithin); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpanWithin", err)
 			}
 
 		}

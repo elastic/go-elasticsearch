@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // WriteOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/bulk/types.ts#L109-L128
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/bulk/types.ts#L109-L128
 type WriteOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates.
 	// Defaults to an empty map.
@@ -81,12 +82,12 @@ func (s *WriteOperation) UnmarshalJSON(data []byte) error {
 				s.DynamicTemplates = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.DynamicTemplates); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DynamicTemplates", err)
 			}
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "if_primary_term":
@@ -96,7 +97,7 @@ func (s *WriteOperation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IfPrimaryTerm", err)
 				}
 				s.IfPrimaryTerm = &value
 			case float64:
@@ -106,18 +107,18 @@ func (s *WriteOperation) UnmarshalJSON(data []byte) error {
 
 		case "if_seq_no":
 			if err := dec.Decode(&s.IfSeqNo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IfSeqNo", err)
 			}
 
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
 		case "pipeline":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pipeline", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -133,7 +134,7 @@ func (s *WriteOperation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequireAlias", err)
 				}
 				s.RequireAlias = &value
 			case bool:
@@ -142,17 +143,17 @@ func (s *WriteOperation) UnmarshalJSON(data []byte) error {
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		case "version_type":
 			if err := dec.Decode(&s.VersionType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VersionType", err)
 			}
 
 		}

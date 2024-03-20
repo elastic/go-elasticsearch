@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // Detector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/Detector.ts#L25-L67
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/Detector.ts#L25-L67
 type Detector struct {
 	// ByFieldName The field used to split the data. In particular, this property is used for
 	// analyzing the splits with respect to their own history. It is used for
@@ -89,18 +90,18 @@ func (s *Detector) UnmarshalJSON(data []byte) error {
 
 		case "by_field_name":
 			if err := dec.Decode(&s.ByFieldName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ByFieldName", err)
 			}
 
 		case "custom_rules":
 			if err := dec.Decode(&s.CustomRules); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CustomRules", err)
 			}
 
 		case "detector_description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DetectorDescription", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -117,7 +118,7 @@ func (s *Detector) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DetectorIndex", err)
 				}
 				s.DetectorIndex = &value
 			case float64:
@@ -127,18 +128,18 @@ func (s *Detector) UnmarshalJSON(data []byte) error {
 
 		case "exclude_frequent":
 			if err := dec.Decode(&s.ExcludeFrequent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExcludeFrequent", err)
 			}
 
 		case "field_name":
 			if err := dec.Decode(&s.FieldName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldName", err)
 			}
 
 		case "function":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Function", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -149,12 +150,12 @@ func (s *Detector) UnmarshalJSON(data []byte) error {
 
 		case "over_field_name":
 			if err := dec.Decode(&s.OverFieldName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OverFieldName", err)
 			}
 
 		case "partition_field_name":
 			if err := dec.Decode(&s.PartitionFieldName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PartitionFieldName", err)
 			}
 
 		case "use_null":
@@ -164,7 +165,7 @@ func (s *Detector) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UseNull", err)
 				}
 				s.UseNull = &value
 			case bool:

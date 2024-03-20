@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MatrixStatsFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/aggregations/Aggregate.ts#L763-L772
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/aggregations/Aggregate.ts#L763-L772
 type MatrixStatsFields struct {
 	Correlation map[string]Float64 `json:"correlation"`
 	Count       int64              `json:"count"`
@@ -62,7 +63,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 				s.Correlation = make(map[string]Float64, 0)
 			}
 			if err := dec.Decode(&s.Correlation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Correlation", err)
 			}
 
 		case "count":
@@ -72,7 +73,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -85,7 +86,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 				s.Covariance = make(map[string]Float64, 0)
 			}
 			if err := dec.Decode(&s.Covariance); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Covariance", err)
 			}
 
 		case "kurtosis":
@@ -95,7 +96,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Kurtosis", err)
 				}
 				f := Float64(value)
 				s.Kurtosis = f
@@ -111,7 +112,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Mean", err)
 				}
 				f := Float64(value)
 				s.Mean = f
@@ -122,7 +123,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "skewness":
@@ -132,7 +133,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Skewness", err)
 				}
 				f := Float64(value)
 				s.Skewness = f
@@ -148,7 +149,7 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Variance", err)
 				}
 				f := Float64(value)
 				s.Variance = f

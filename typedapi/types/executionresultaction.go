@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // ExecutionResultAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/_types/Execution.ts#L74-L86
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/_types/Execution.ts#L74-L86
 type ExecutionResultAction struct {
 	Email     *EmailResult                            `json:"email,omitempty"`
 	Error     *ErrorCause                             `json:"error,omitempty"`
@@ -65,38 +66,38 @@ func (s *ExecutionResultAction) UnmarshalJSON(data []byte) error {
 
 		case "email":
 			if err := dec.Decode(&s.Email); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Email", err)
 			}
 
 		case "error":
 			if err := dec.Decode(&s.Error); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Error", err)
 			}
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "logging":
 			if err := dec.Decode(&s.Logging); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Logging", err)
 			}
 
 		case "pagerduty":
 			if err := dec.Decode(&s.Pagerduty); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pagerduty", err)
 			}
 
 		case "reason":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -107,22 +108,22 @@ func (s *ExecutionResultAction) UnmarshalJSON(data []byte) error {
 
 		case "slack":
 			if err := dec.Decode(&s.Slack); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Slack", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "webhook":
 			if err := dec.Decode(&s.Webhook); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Webhook", err)
 			}
 
 		}

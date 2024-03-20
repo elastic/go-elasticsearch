@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,18 +24,19 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L157-L162
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/info/types.ts#L158-L163
 type NodeInfoPath struct {
 	Data []string `json:"data,omitempty"`
-	Home string   `json:"home"`
-	Logs string   `json:"logs"`
-	Repo []string `json:"repo"`
+	Home *string  `json:"home,omitempty"`
+	Logs *string  `json:"logs,omitempty"`
+	Repo []string `json:"repo,omitempty"`
 }
 
 func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
@@ -55,36 +56,36 @@ func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
 
 		case "data":
 			if err := dec.Decode(&s.Data); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Data", err)
 			}
 
 		case "home":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Home", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Home = o
+			s.Home = &o
 
 		case "logs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Logs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Logs = o
+			s.Logs = &o
 
 		case "repo":
 			if err := dec.Decode(&s.Repo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Repo", err)
 			}
 
 		}

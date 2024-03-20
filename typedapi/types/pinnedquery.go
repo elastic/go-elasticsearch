@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // PinnedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/specialized.ts#L232-L251
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/specialized.ts#L232-L251
 type PinnedQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -72,7 +73,7 @@ func (s *PinnedQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -83,23 +84,23 @@ func (s *PinnedQuery) UnmarshalJSON(data []byte) error {
 
 		case "docs":
 			if err := dec.Decode(&s.Docs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Docs", err)
 			}
 
 		case "ids":
 			if err := dec.Decode(&s.Ids); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ids", err)
 			}
 
 		case "organic":
 			if err := dec.Decode(&s.Organic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Organic", err)
 			}
 
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

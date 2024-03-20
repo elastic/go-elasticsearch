@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // QueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/fulltext.ts#L580-L700
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/fulltext.ts#L580-L700
 type QueryStringQuery struct {
 	// AllowLeadingWildcard If `true`, the wildcard characters `*` and `?` are allowed as the first
 	// character of the query string.
@@ -129,7 +130,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowLeadingWildcard", err)
 				}
 				s.AllowLeadingWildcard = &value
 			case bool:
@@ -143,7 +144,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AnalyzeWildcard", err)
 				}
 				s.AnalyzeWildcard = &value
 			case bool:
@@ -153,7 +154,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -169,7 +170,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AutoGenerateSynonymsPhraseQuery", err)
 				}
 				s.AutoGenerateSynonymsPhraseQuery = &value
 			case bool:
@@ -183,7 +184,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -194,12 +195,12 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "default_field":
 			if err := dec.Decode(&s.DefaultField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DefaultField", err)
 			}
 
 		case "default_operator":
 			if err := dec.Decode(&s.DefaultOperator); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DefaultOperator", err)
 			}
 
 		case "enable_position_increments":
@@ -209,7 +210,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EnablePositionIncrements", err)
 				}
 				s.EnablePositionIncrements = &value
 			case bool:
@@ -223,7 +224,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Escape", err)
 				}
 				s.Escape = &value
 			case bool:
@@ -232,12 +233,12 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "fields":
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "fuzziness":
 			if err := dec.Decode(&s.Fuzziness); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fuzziness", err)
 			}
 
 		case "fuzzy_max_expansions":
@@ -248,7 +249,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FuzzyMaxExpansions", err)
 				}
 				s.FuzzyMaxExpansions = &value
 			case float64:
@@ -264,7 +265,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FuzzyPrefixLength", err)
 				}
 				s.FuzzyPrefixLength = &value
 			case float64:
@@ -274,7 +275,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "fuzzy_rewrite":
 			if err := dec.Decode(&s.FuzzyRewrite); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FuzzyRewrite", err)
 			}
 
 		case "fuzzy_transpositions":
@@ -284,7 +285,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FuzzyTranspositions", err)
 				}
 				s.FuzzyTranspositions = &value
 			case bool:
@@ -298,7 +299,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Lenient", err)
 				}
 				s.Lenient = &value
 			case bool:
@@ -313,7 +314,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxDeterminizedStates", err)
 				}
 				s.MaxDeterminizedStates = &value
 			case float64:
@@ -323,7 +324,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "minimum_should_match":
 			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumShouldMatch", err)
 			}
 
 		case "phrase_slop":
@@ -333,7 +334,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PhraseSlop", err)
 				}
 				f := Float64(value)
 				s.PhraseSlop = &f
@@ -345,7 +346,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -357,7 +358,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -369,7 +370,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 		case "quote_analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QuoteAnalyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -381,7 +382,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 		case "quote_field_suffix":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QuoteFieldSuffix", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -392,7 +393,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "rewrite":
 			if err := dec.Decode(&s.Rewrite); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rewrite", err)
 			}
 
 		case "tie_breaker":
@@ -402,7 +403,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TieBreaker", err)
 				}
 				f := Float64(value)
 				s.TieBreaker = &f
@@ -413,12 +414,12 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "time_zone":
 			if err := dec.Decode(&s.TimeZone); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

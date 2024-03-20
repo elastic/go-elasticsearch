@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // PostMigrationFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/migration/post_feature_upgrade/PostFeatureUpgradeResponse.ts#L27-L29
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/migration/post_feature_upgrade/PostFeatureUpgradeResponse.ts#L27-L29
 type PostMigrationFeature struct {
 	FeatureName string `json:"feature_name"`
 }
@@ -53,7 +54,7 @@ func (s *PostMigrationFeature) UnmarshalJSON(data []byte) error {
 		case "feature_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FeatureName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

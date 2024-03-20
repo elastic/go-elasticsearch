@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CompletionSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/search/_types/suggester.ts#L160-L178
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/search/_types/suggester.ts#L160-L178
 type CompletionSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with.
 	// Defaults to the search analyzer of the suggest field.
@@ -70,7 +71,7 @@ func (s *CompletionSuggester) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -91,14 +92,14 @@ func (s *CompletionSuggester) UnmarshalJSON(data []byte) error {
 					o := NewCompletionContext()
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Contexts", err)
 					}
 					s.Contexts[key] = append(s.Contexts[key], *o)
 				default:
 					o := []CompletionContext{}
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Contexts", err)
 					}
 					s.Contexts[key] = o
 				}
@@ -106,17 +107,17 @@ func (s *CompletionSuggester) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "fuzzy":
 			if err := dec.Decode(&s.Fuzzy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fuzzy", err)
 			}
 
 		case "regex":
 			if err := dec.Decode(&s.Regex); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Regex", err)
 			}
 
 		case "size":
@@ -127,7 +128,7 @@ func (s *CompletionSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -142,7 +143,7 @@ func (s *CompletionSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SkipDuplicates", err)
 				}
 				s.SkipDuplicates = &value
 			case bool:

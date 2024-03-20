@@ -16,13 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package putrole
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
@@ -30,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/put_role/SecurityPutRoleRequest.ts#L31-L80
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/put_role/SecurityPutRoleRequest.ts#L30-L79
 type Request struct {
 
 	// Applications A list of application privilege entries.
@@ -55,13 +58,14 @@ type Request struct {
 	// updated dynamically to list the incompatible features. If `enabled` is
 	// `false`, the role is ignored, but is still listed in the response from the
 	// authenticate API.
-	TransientMetadata *types.TransientMetadataConfig `json:"transient_metadata,omitempty"`
+	TransientMetadata map[string]json.RawMessage `json:"transient_metadata,omitempty"`
 }
 
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{
-		Global: make(map[string]json.RawMessage, 0),
+		Global:            make(map[string]json.RawMessage, 0),
+		TransientMetadata: make(map[string]json.RawMessage, 0),
 	}
 	return r
 }
@@ -76,4 +80,64 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "applications":
+			if err := dec.Decode(&s.Applications); err != nil {
+				return fmt.Errorf("%s | %w", "Applications", err)
+			}
+
+		case "cluster":
+			if err := dec.Decode(&s.Cluster); err != nil {
+				return fmt.Errorf("%s | %w", "Cluster", err)
+			}
+
+		case "global":
+			if s.Global == nil {
+				s.Global = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Global); err != nil {
+				return fmt.Errorf("%s | %w", "Global", err)
+			}
+
+		case "indices":
+			if err := dec.Decode(&s.Indices); err != nil {
+				return fmt.Errorf("%s | %w", "Indices", err)
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return fmt.Errorf("%s | %w", "Metadata", err)
+			}
+
+		case "run_as":
+			if err := dec.Decode(&s.RunAs); err != nil {
+				return fmt.Errorf("%s | %w", "RunAs", err)
+			}
+
+		case "transient_metadata":
+			if s.TransientMetadata == nil {
+				s.TransientMetadata = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.TransientMetadata); err != nil {
+				return fmt.Errorf("%s | %w", "TransientMetadata", err)
+			}
+
+		}
+	}
+	return nil
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // QueryProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/search/_types/profile.ts#L118-L124
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/search/_types/profile.ts#L118-L124
 type QueryProfile struct {
 	Breakdown   QueryBreakdown `json:"breakdown"`
 	Children    []QueryProfile `json:"children,omitempty"`
@@ -56,18 +57,18 @@ func (s *QueryProfile) UnmarshalJSON(data []byte) error {
 
 		case "breakdown":
 			if err := dec.Decode(&s.Breakdown); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Breakdown", err)
 			}
 
 		case "children":
 			if err := dec.Decode(&s.Children); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Children", err)
 			}
 
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -78,13 +79,13 @@ func (s *QueryProfile) UnmarshalJSON(data []byte) error {
 
 		case "time_in_nanos":
 			if err := dec.Decode(&s.TimeInNanos); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeInNanos", err)
 			}
 
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

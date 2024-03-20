@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataStreamLifecycleExplain type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L41
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L31-L41
 type DataStreamLifecycleExplain struct {
 	Error                   *string                          `json:"error,omitempty"`
 	GenerationTime          Duration                         `json:"generation_time,omitempty"`
@@ -61,7 +62,7 @@ func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
 		case "error":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Error", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -72,22 +73,22 @@ func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
 
 		case "generation_time":
 			if err := dec.Decode(&s.GenerationTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GenerationTime", err)
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "index_creation_date_millis":
 			if err := dec.Decode(&s.IndexCreationDateMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexCreationDateMillis", err)
 			}
 
 		case "lifecycle":
 			if err := dec.Decode(&s.Lifecycle); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lifecycle", err)
 			}
 
 		case "managed_by_lifecycle":
@@ -97,7 +98,7 @@ func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ManagedByLifecycle", err)
 				}
 				s.ManagedByLifecycle = value
 			case bool:
@@ -106,17 +107,17 @@ func (s *DataStreamLifecycleExplain) UnmarshalJSON(data []byte) error {
 
 		case "rollover_date_millis":
 			if err := dec.Decode(&s.RolloverDateMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RolloverDateMillis", err)
 			}
 
 		case "time_since_index_creation":
 			if err := dec.Decode(&s.TimeSinceIndexCreation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSinceIndexCreation", err)
 			}
 
 		case "time_since_rollover":
 			if err := dec.Decode(&s.TimeSinceRollover); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSinceRollover", err)
 			}
 
 		}

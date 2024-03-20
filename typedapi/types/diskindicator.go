@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // DiskIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/health_report/types.ts#L121-L125
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/health_report/types.ts#L121-L125
 type DiskIndicator struct {
 	Details   *DiskIndicatorDetails                       `json:"details,omitempty"`
 	Diagnosis []Diagnosis                                 `json:"diagnosis,omitempty"`
@@ -58,28 +59,28 @@ func (s *DiskIndicator) UnmarshalJSON(data []byte) error {
 
 		case "details":
 			if err := dec.Decode(&s.Details); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Details", err)
 			}
 
 		case "diagnosis":
 			if err := dec.Decode(&s.Diagnosis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Diagnosis", err)
 			}
 
 		case "impacts":
 			if err := dec.Decode(&s.Impacts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Impacts", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "symptom":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Symptom", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

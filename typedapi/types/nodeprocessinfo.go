@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeProcessInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L386-L393
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/info/types.ts#L391-L398
 type NodeProcessInfo struct {
 	// Id Process identifier (PID)
 	Id int64 `json:"id"`
@@ -62,7 +63,7 @@ func (s *NodeProcessInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Id", err)
 				}
 				s.Id = value
 			case float64:
@@ -77,7 +78,7 @@ func (s *NodeProcessInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Mlockall", err)
 				}
 				s.Mlockall = value
 			case bool:
@@ -86,7 +87,7 @@ func (s *NodeProcessInfo) UnmarshalJSON(data []byte) error {
 
 		case "refresh_interval_in_millis":
 			if err := dec.Decode(&s.RefreshIntervalInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshIntervalInMillis", err)
 			}
 
 		}

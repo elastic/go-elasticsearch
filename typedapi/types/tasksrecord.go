@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TasksRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cat/tasks/types.ts#L22-L101
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cat/tasks/types.ts#L22-L101
 type TasksRecord struct {
 	// Action The task action.
 	Action *string `json:"action,omitempty"`
@@ -84,7 +85,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "action", "ac":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Action", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -96,7 +97,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "description", "desc":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -107,13 +108,13 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "ip", "i":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -125,7 +126,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "node", "n":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -136,13 +137,13 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 
 		case "node_id", "ni":
 			if err := dec.Decode(&s.NodeId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 
 		case "parent_task_id", "pti":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ParentTaskId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -154,7 +155,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "port", "po":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Port", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -166,7 +167,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "running_time", "time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RunningTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -178,7 +179,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "running_time_ns":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RunningTimeNs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -190,7 +191,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "start_time", "start":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -201,13 +202,13 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 
 		case "task_id", "ti":
 			if err := dec.Decode(&s.TaskId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TaskId", err)
 			}
 
 		case "timestamp", "ts", "hms", "hhmmss":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -219,7 +220,7 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 		case "type", "ty":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -230,13 +231,13 @@ func (s *TasksRecord) UnmarshalJSON(data []byte) error {
 
 		case "version", "v":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		case "x_opaque_id", "x":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "XOpaqueId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // HyphenationDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/analysis/token_filters.ts#L58-L60
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/analysis/token_filters.ts#L58-L60
 type HyphenationDecompounderTokenFilter struct {
 	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
 	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
@@ -61,7 +62,7 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 		case "hyphenation_patterns_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HyphenationPatternsPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -78,7 +79,7 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxSubwordSize", err)
 				}
 				s.MaxSubwordSize = &value
 			case float64:
@@ -94,7 +95,7 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinSubwordSize", err)
 				}
 				s.MinSubwordSize = &value
 			case float64:
@@ -110,7 +111,7 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinWordSize", err)
 				}
 				s.MinWordSize = &value
 			case float64:
@@ -125,7 +126,7 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OnlyLongestMatch", err)
 				}
 				s.OnlyLongestMatch = &value
 			case bool:
@@ -134,23 +135,23 @@ func (s *HyphenationDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		case "word_list":
 			if err := dec.Decode(&s.WordList); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WordList", err)
 			}
 
 		case "word_list_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WordListPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

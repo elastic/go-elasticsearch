@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // AllocationDecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/allocation_explain/types.ts#L26-L30
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cluster/allocation_explain/types.ts#L26-L30
 type AllocationDecision struct {
 	Decider     string                                              `json:"decider"`
 	Decision    allocationexplaindecision.AllocationExplainDecision `json:"decision"`
@@ -57,7 +58,7 @@ func (s *AllocationDecision) UnmarshalJSON(data []byte) error {
 		case "decider":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Decider", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -68,13 +69,13 @@ func (s *AllocationDecision) UnmarshalJSON(data []byte) error {
 
 		case "decision":
 			if err := dec.Decode(&s.Decision); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Decision", err)
 			}
 
 		case "explanation":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Explanation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

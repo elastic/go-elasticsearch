@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // MatchQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/fulltext.ts#L282-L347
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/fulltext.ts#L282-L347
 type MatchQuery struct {
 	// Analyzer Analyzer used to convert the text in the query value into tokens.
 	Analyzer *string `json:"analyzer,omitempty"`
@@ -76,6 +77,10 @@ type MatchQuery struct {
 func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 
 	if !bytes.HasPrefix(data, []byte(`{`)) {
+		if !bytes.HasPrefix(data, []byte(`"`)) {
+			data = append([]byte{'"'}, data...)
+			data = append(data, []byte{'"'}...)
+		}
 		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Query)
 		return err
 	}
@@ -96,7 +101,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -112,7 +117,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AutoGenerateSynonymsPhraseQuery", err)
 				}
 				s.AutoGenerateSynonymsPhraseQuery = &value
 			case bool:
@@ -126,7 +131,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -142,7 +147,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CutoffFrequency", err)
 				}
 				f := Float64(value)
 				s.CutoffFrequency = &f
@@ -153,12 +158,12 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 
 		case "fuzziness":
 			if err := dec.Decode(&s.Fuzziness); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fuzziness", err)
 			}
 
 		case "fuzzy_rewrite":
 			if err := dec.Decode(&s.FuzzyRewrite); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FuzzyRewrite", err)
 			}
 
 		case "fuzzy_transpositions":
@@ -168,7 +173,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FuzzyTranspositions", err)
 				}
 				s.FuzzyTranspositions = &value
 			case bool:
@@ -182,7 +187,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Lenient", err)
 				}
 				s.Lenient = &value
 			case bool:
@@ -197,7 +202,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxExpansions", err)
 				}
 				s.MaxExpansions = &value
 			case float64:
@@ -207,12 +212,12 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 
 		case "minimum_should_match":
 			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumShouldMatch", err)
 			}
 
 		case "operator":
 			if err := dec.Decode(&s.Operator); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Operator", err)
 			}
 
 		case "prefix_length":
@@ -223,7 +228,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PrefixLength", err)
 				}
 				s.PrefixLength = &value
 			case float64:
@@ -234,7 +239,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -246,7 +251,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -257,7 +262,7 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 
 		case "zero_terms_query":
 			if err := dec.Decode(&s.ZeroTermsQuery); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ZeroTermsQuery", err)
 			}
 
 		}

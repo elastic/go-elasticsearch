@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MappingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/stats/types.ts#L186-L190
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/stats/types.ts#L186-L190
 type MappingStats struct {
 	TotalCount                    int64    `json:"total_count"`
 	TotalEstimatedOverhead        ByteSize `json:"total_estimated_overhead,omitempty"`
@@ -59,7 +60,7 @@ func (s *MappingStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalCount", err)
 				}
 				s.TotalCount = value
 			case float64:
@@ -69,7 +70,7 @@ func (s *MappingStats) UnmarshalJSON(data []byte) error {
 
 		case "total_estimated_overhead":
 			if err := dec.Decode(&s.TotalEstimatedOverhead); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalEstimatedOverhead", err)
 			}
 
 		case "total_estimated_overhead_in_bytes":
@@ -79,7 +80,7 @@ func (s *MappingStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalEstimatedOverheadInBytes", err)
 				}
 				s.TotalEstimatedOverheadInBytes = value
 			case float64:

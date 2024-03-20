@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ConfusionMatrixThreshold type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/evaluate_data_frame/types.ts#L137-L158
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/evaluate_data_frame/types.ts#L137-L158
 type ConfusionMatrixThreshold struct {
 	// FalseNegative False Negative
 	FalseNegative int `json:"fn"`
@@ -65,7 +66,7 @@ func (s *ConfusionMatrixThreshold) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FalseNegative", err)
 				}
 				s.FalseNegative = value
 			case float64:
@@ -81,7 +82,7 @@ func (s *ConfusionMatrixThreshold) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FalsePositive", err)
 				}
 				s.FalsePositive = value
 			case float64:
@@ -97,7 +98,7 @@ func (s *ConfusionMatrixThreshold) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TrueNegative", err)
 				}
 				s.TrueNegative = value
 			case float64:
@@ -113,7 +114,7 @@ func (s *ConfusionMatrixThreshold) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TruePositive", err)
 				}
 				s.TruePositive = value
 			case float64:

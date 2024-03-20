@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // TopLeftBottomRightGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Geo.ts#L170-L173
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Geo.ts#L161-L164
 type TopLeftBottomRightGeoBounds struct {
 	BottomRight GeoLocation `json:"bottom_right"`
 	TopLeft     GeoLocation `json:"top_left"`
@@ -52,12 +53,12 @@ func (s *TopLeftBottomRightGeoBounds) UnmarshalJSON(data []byte) error {
 
 		case "bottom_right":
 			if err := dec.Decode(&s.BottomRight); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BottomRight", err)
 			}
 
 		case "top_left":
 			if err := dec.Decode(&s.TopLeft); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TopLeft", err)
 			}
 
 		}

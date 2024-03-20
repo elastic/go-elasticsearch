@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MergesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Stats.ts#L161-L178
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Stats.ts#L161-L178
 type MergesStats struct {
 	Current                    int64    `json:"current"`
 	CurrentDocs                int64    `json:"current_docs"`
@@ -72,7 +73,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Current", err)
 				}
 				s.Current = value
 			case float64:
@@ -87,7 +88,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CurrentDocs", err)
 				}
 				s.CurrentDocs = value
 			case float64:
@@ -98,7 +99,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 		case "current_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CurrentSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -114,7 +115,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CurrentSizeInBytes", err)
 				}
 				s.CurrentSizeInBytes = value
 			case float64:
@@ -129,7 +130,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:
@@ -140,7 +141,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 		case "total_auto_throttle":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalAutoThrottle", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -156,7 +157,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalAutoThrottleInBytes", err)
 				}
 				s.TotalAutoThrottleInBytes = value
 			case float64:
@@ -171,7 +172,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalDocs", err)
 				}
 				s.TotalDocs = value
 			case float64:
@@ -182,7 +183,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 		case "total_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -198,7 +199,7 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalSizeInBytes", err)
 				}
 				s.TotalSizeInBytes = value
 			case float64:
@@ -208,32 +209,32 @@ func (s *MergesStats) UnmarshalJSON(data []byte) error {
 
 		case "total_stopped_time":
 			if err := dec.Decode(&s.TotalStoppedTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalStoppedTime", err)
 			}
 
 		case "total_stopped_time_in_millis":
 			if err := dec.Decode(&s.TotalStoppedTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalStoppedTimeInMillis", err)
 			}
 
 		case "total_throttled_time":
 			if err := dec.Decode(&s.TotalThrottledTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalThrottledTime", err)
 			}
 
 		case "total_throttled_time_in_millis":
 			if err := dec.Decode(&s.TotalThrottledTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalThrottledTimeInMillis", err)
 			}
 
 		case "total_time":
 			if err := dec.Decode(&s.TotalTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTime", err)
 			}
 
 		case "total_time_in_millis":
 			if err := dec.Decode(&s.TotalTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTimeInMillis", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ExtendedStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/aggregations/Aggregate.ts#L278-L296
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/aggregations/Aggregate.ts#L278-L296
 type ExtendedStatsAggregate struct {
 	Avg                        Float64                          `json:"avg,omitempty"`
 	AvgAsString                *string                          `json:"avg_as_string,omitempty"`
@@ -75,13 +76,13 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "avg":
 			if err := dec.Decode(&s.Avg); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Avg", err)
 			}
 
 		case "avg_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AvgAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -97,7 +98,7 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -107,13 +108,13 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "max":
 			if err := dec.Decode(&s.Max); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Max", err)
 			}
 
 		case "max_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,18 +125,18 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "min":
 			if err := dec.Decode(&s.Min); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Min", err)
 			}
 
 		case "min_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -146,13 +147,13 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "std_deviation":
 			if err := dec.Decode(&s.StdDeviation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StdDeviation", err)
 			}
 
 		case "std_deviation_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StdDeviationAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -163,22 +164,22 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "std_deviation_bounds":
 			if err := dec.Decode(&s.StdDeviationBounds); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StdDeviationBounds", err)
 			}
 
 		case "std_deviation_bounds_as_string":
 			if err := dec.Decode(&s.StdDeviationBoundsAsString); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StdDeviationBoundsAsString", err)
 			}
 
 		case "std_deviation_population":
 			if err := dec.Decode(&s.StdDeviationPopulation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StdDeviationPopulation", err)
 			}
 
 		case "std_deviation_sampling":
 			if err := dec.Decode(&s.StdDeviationSampling); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StdDeviationSampling", err)
 			}
 
 		case "sum":
@@ -188,7 +189,7 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sum", err)
 				}
 				f := Float64(value)
 				s.Sum = f
@@ -200,7 +201,7 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 		case "sum_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SumAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -211,13 +212,13 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "sum_of_squares":
 			if err := dec.Decode(&s.SumOfSquares); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SumOfSquares", err)
 			}
 
 		case "sum_of_squares_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SumOfSquaresAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -228,13 +229,13 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "variance":
 			if err := dec.Decode(&s.Variance); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Variance", err)
 			}
 
 		case "variance_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VarianceAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -245,13 +246,13 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "variance_population":
 			if err := dec.Decode(&s.VariancePopulation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VariancePopulation", err)
 			}
 
 		case "variance_population_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VariancePopulationAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -262,13 +263,13 @@ func (s *ExtendedStatsAggregate) UnmarshalJSON(data []byte) error {
 
 		case "variance_sampling":
 			if err := dec.Decode(&s.VarianceSampling); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VarianceSampling", err)
 			}
 
 		case "variance_sampling_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VarianceSamplingAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoXpackSecurity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L237-L242
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/info/types.ts#L242-L247
 type NodeInfoXpackSecurity struct {
 	Authc     *NodeInfoXpackSecurityAuthc `json:"authc,omitempty"`
 	Enabled   string                      `json:"enabled"`
@@ -55,13 +56,13 @@ func (s *NodeInfoXpackSecurity) UnmarshalJSON(data []byte) error {
 
 		case "authc":
 			if err := dec.Decode(&s.Authc); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Authc", err)
 			}
 
 		case "enabled":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Enabled", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -72,12 +73,12 @@ func (s *NodeInfoXpackSecurity) UnmarshalJSON(data []byte) error {
 
 		case "http":
 			if err := dec.Decode(&s.Http); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Http", err)
 			}
 
 		case "transport":
 			if err := dec.Decode(&s.Transport); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Transport", err)
 			}
 
 		}

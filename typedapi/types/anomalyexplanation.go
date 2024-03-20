@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AnomalyExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/Anomaly.ts#L156-L197
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/Anomaly.ts#L156-L197
 type AnomalyExplanation struct {
 	// AnomalyCharacteristicsImpact Impact from the duration and magnitude of the detected anomaly relative to
 	// the historical average.
@@ -81,7 +82,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AnomalyCharacteristicsImpact", err)
 				}
 				s.AnomalyCharacteristicsImpact = &value
 			case float64:
@@ -97,7 +98,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AnomalyLength", err)
 				}
 				s.AnomalyLength = &value
 			case float64:
@@ -108,7 +109,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 		case "anomaly_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnomalyType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,7 +125,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HighVariancePenalty", err)
 				}
 				s.HighVariancePenalty = &value
 			case bool:
@@ -138,7 +139,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IncompleteBucketPenalty", err)
 				}
 				s.IncompleteBucketPenalty = &value
 			case bool:
@@ -152,7 +153,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LowerConfidenceBound", err)
 				}
 				f := Float64(value)
 				s.LowerConfidenceBound = &f
@@ -169,7 +170,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MultiBucketImpact", err)
 				}
 				s.MultiBucketImpact = &value
 			case float64:
@@ -185,7 +186,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SingleBucketImpact", err)
 				}
 				s.SingleBucketImpact = &value
 			case float64:
@@ -200,7 +201,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TypicalValue", err)
 				}
 				f := Float64(value)
 				s.TypicalValue = &f
@@ -216,7 +217,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UpperConfidenceBound", err)
 				}
 				f := Float64(value)
 				s.UpperConfidenceBound = &f

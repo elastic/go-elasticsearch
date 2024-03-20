@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // SearchApplicationListItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/search_application/list/SearchApplicationsListResponse.ts#L31-L48
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/search_application/list/SearchApplicationsListResponse.ts#L31-L48
 type SearchApplicationListItem struct {
 	// AnalyticsCollectionName Analytics collection associated to the Search Application
 	AnalyticsCollectionName *string `json:"analytics_collection_name,omitempty"`
@@ -58,22 +59,22 @@ func (s *SearchApplicationListItem) UnmarshalJSON(data []byte) error {
 
 		case "analytics_collection_name":
 			if err := dec.Decode(&s.AnalyticsCollectionName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnalyticsCollectionName", err)
 			}
 
 		case "indices":
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "updated_at_millis":
 			if err := dec.Decode(&s.UpdatedAtMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UpdatedAtMillis", err)
 			}
 
 		}

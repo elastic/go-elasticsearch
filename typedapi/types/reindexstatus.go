@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ReindexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/reindex_rethrottle/types.ts#L37-L85
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/reindex_rethrottle/types.ts#L37-L85
 type ReindexStatus struct {
 	// Batches The number of scroll responses pulled back by the reindex.
 	Batches int64 `json:"batches"`
@@ -86,7 +87,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Batches", err)
 				}
 				s.Batches = value
 			case float64:
@@ -101,7 +102,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Created", err)
 				}
 				s.Created = value
 			case float64:
@@ -116,7 +117,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Deleted", err)
 				}
 				s.Deleted = value
 			case float64:
@@ -131,7 +132,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Noops", err)
 				}
 				s.Noops = value
 			case float64:
@@ -146,7 +147,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequestsPerSecond", err)
 				}
 				f := float32(value)
 				s.RequestsPerSecond = f
@@ -157,27 +158,27 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 
 		case "retries":
 			if err := dec.Decode(&s.Retries); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Retries", err)
 			}
 
 		case "throttled":
 			if err := dec.Decode(&s.Throttled); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Throttled", err)
 			}
 
 		case "throttled_millis":
 			if err := dec.Decode(&s.ThrottledMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottledMillis", err)
 			}
 
 		case "throttled_until":
 			if err := dec.Decode(&s.ThrottledUntil); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottledUntil", err)
 			}
 
 		case "throttled_until_millis":
 			if err := dec.Decode(&s.ThrottledUntilMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottledUntilMillis", err)
 			}
 
 		case "total":
@@ -187,7 +188,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:
@@ -202,7 +203,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Updated", err)
 				}
 				s.Updated = value
 			case float64:
@@ -217,7 +218,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "VersionConflicts", err)
 				}
 				s.VersionConflicts = value
 			case float64:

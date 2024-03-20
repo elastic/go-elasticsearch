@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CheckpointStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/transform/get_transform_stats/types.ts#L76-L83
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/transform/get_transform_stats/types.ts#L76-L83
 type CheckpointStats struct {
 	Checkpoint           int64              `json:"checkpoint"`
 	CheckpointProgress   *TransformProgress `json:"checkpoint_progress,omitempty"`
@@ -62,7 +63,7 @@ func (s *CheckpointStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Checkpoint", err)
 				}
 				s.Checkpoint = value
 			case float64:
@@ -72,27 +73,27 @@ func (s *CheckpointStats) UnmarshalJSON(data []byte) error {
 
 		case "checkpoint_progress":
 			if err := dec.Decode(&s.CheckpointProgress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CheckpointProgress", err)
 			}
 
 		case "time_upper_bound":
 			if err := dec.Decode(&s.TimeUpperBound); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeUpperBound", err)
 			}
 
 		case "time_upper_bound_millis":
 			if err := dec.Decode(&s.TimeUpperBoundMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeUpperBoundMillis", err)
 			}
 
 		case "timestamp":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		case "timestamp_millis":
 			if err := dec.Decode(&s.TimestampMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimestampMillis", err)
 			}
 
 		}

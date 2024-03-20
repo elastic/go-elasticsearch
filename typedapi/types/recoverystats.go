@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RecoveryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Stats.ts#L228-L233
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Stats.ts#L228-L233
 type RecoveryStats struct {
 	CurrentAsSource      int64    `json:"current_as_source"`
 	CurrentAsTarget      int64    `json:"current_as_target"`
@@ -60,7 +61,7 @@ func (s *RecoveryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CurrentAsSource", err)
 				}
 				s.CurrentAsSource = value
 			case float64:
@@ -75,7 +76,7 @@ func (s *RecoveryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CurrentAsTarget", err)
 				}
 				s.CurrentAsTarget = value
 			case float64:
@@ -85,12 +86,12 @@ func (s *RecoveryStats) UnmarshalJSON(data []byte) error {
 
 		case "throttle_time":
 			if err := dec.Decode(&s.ThrottleTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottleTime", err)
 			}
 
 		case "throttle_time_in_millis":
 			if err := dec.Decode(&s.ThrottleTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottleTimeInMillis", err)
 			}
 
 		}

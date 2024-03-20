@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SnapshotShardsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/snapshot/_types/SnapshotShardsStats.ts#L22-L29
 type SnapshotShardsStats struct {
 	Done         int64 `json:"done"`
 	Failed       int64 `json:"failed"`
@@ -62,7 +63,7 @@ func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Done", err)
 				}
 				s.Done = value
 			case float64:
@@ -77,7 +78,7 @@ func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Failed", err)
 				}
 				s.Failed = value
 			case float64:
@@ -92,7 +93,7 @@ func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Finalizing", err)
 				}
 				s.Finalizing = value
 			case float64:
@@ -107,7 +108,7 @@ func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Initializing", err)
 				}
 				s.Initializing = value
 			case float64:
@@ -122,7 +123,7 @@ func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Started", err)
 				}
 				s.Started = value
 			case float64:
@@ -137,7 +138,7 @@ func (s *SnapshotShardsStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:

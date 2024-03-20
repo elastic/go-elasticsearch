@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // DataStreamIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/DataStream.ts#L125-L146
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/_types/DataStream.ts#L121-L142
 type DataStreamIndex struct {
 	// IlmPolicy Name of the current ILM lifecycle policy configured for this backing index.
 	IlmPolicy *string `json:"ilm_policy,omitempty"`
@@ -64,22 +65,22 @@ func (s *DataStreamIndex) UnmarshalJSON(data []byte) error {
 
 		case "ilm_policy":
 			if err := dec.Decode(&s.IlmPolicy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IlmPolicy", err)
 			}
 
 		case "index_name":
 			if err := dec.Decode(&s.IndexName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexName", err)
 			}
 
 		case "index_uuid":
 			if err := dec.Decode(&s.IndexUuid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexUuid", err)
 			}
 
 		case "managed_by":
 			if err := dec.Decode(&s.ManagedBy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ManagedBy", err)
 			}
 
 		case "prefer_ilm":
@@ -89,7 +90,7 @@ func (s *DataStreamIndex) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PreferIlm", err)
 				}
 				s.PreferIlm = value
 			case bool:

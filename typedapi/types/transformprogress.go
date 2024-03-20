@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TransformProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/transform/get_transform_stats/types.ts#L48-L54
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/transform/get_transform_stats/types.ts#L48-L54
 type TransformProgress struct {
 	DocsIndexed     int64   `json:"docs_indexed"`
 	DocsProcessed   int64   `json:"docs_processed"`
@@ -61,7 +62,7 @@ func (s *TransformProgress) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocsIndexed", err)
 				}
 				s.DocsIndexed = value
 			case float64:
@@ -76,7 +77,7 @@ func (s *TransformProgress) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocsProcessed", err)
 				}
 				s.DocsProcessed = value
 			case float64:
@@ -91,7 +92,7 @@ func (s *TransformProgress) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocsRemaining", err)
 				}
 				s.DocsRemaining = value
 			case float64:
@@ -106,7 +107,7 @@ func (s *TransformProgress) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PercentComplete", err)
 				}
 				f := Float64(value)
 				s.PercentComplete = f
@@ -122,7 +123,7 @@ func (s *TransformProgress) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalDocs", err)
 				}
 				s.TotalDocs = value
 			case float64:

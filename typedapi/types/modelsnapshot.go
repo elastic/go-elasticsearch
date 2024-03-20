@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ModelSnapshot type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/Model.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/Model.ts#L25-L46
 type ModelSnapshot struct {
 	// Description An optional description of the job.
 	Description *string `json:"description,omitempty"`
@@ -75,7 +76,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -86,7 +87,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "latest_record_time_stamp":
@@ -97,7 +98,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LatestRecordTimeStamp", err)
 				}
 				s.LatestRecordTimeStamp = &value
 			case float64:
@@ -113,7 +114,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LatestResultTimeStamp", err)
 				}
 				s.LatestResultTimeStamp = &value
 			case float64:
@@ -123,12 +124,12 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 
 		case "min_version":
 			if err := dec.Decode(&s.MinVersion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinVersion", err)
 			}
 
 		case "model_size_stats":
 			if err := dec.Decode(&s.ModelSizeStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelSizeStats", err)
 			}
 
 		case "retain":
@@ -138,7 +139,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Retain", err)
 				}
 				s.Retain = value
 			case bool:
@@ -152,7 +153,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SnapshotDocCount", err)
 				}
 				s.SnapshotDocCount = value
 			case float64:
@@ -162,7 +163,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 
 		case "snapshot_id":
 			if err := dec.Decode(&s.SnapshotId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SnapshotId", err)
 			}
 
 		case "timestamp":
@@ -172,7 +173,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Timestamp", err)
 				}
 				s.Timestamp = value
 			case float64:

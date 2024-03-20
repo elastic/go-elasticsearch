@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // JobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/Job.ts#L284-L330
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/Job.ts#L284-L330
 type JobStats struct {
 	// AssignmentExplanation For open anomaly detection jobs only, contains messages relating to the
 	// selection of a node to run the job.
@@ -85,7 +86,7 @@ func (s *JobStats) UnmarshalJSON(data []byte) error {
 		case "assignment_explanation":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AssignmentExplanation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -96,7 +97,7 @@ func (s *JobStats) UnmarshalJSON(data []byte) error {
 
 		case "data_counts":
 			if err := dec.Decode(&s.DataCounts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataCounts", err)
 			}
 
 		case "deleting":
@@ -106,7 +107,7 @@ func (s *JobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Deleting", err)
 				}
 				s.Deleting = &value
 			case bool:
@@ -115,13 +116,13 @@ func (s *JobStats) UnmarshalJSON(data []byte) error {
 
 		case "forecasts_stats":
 			if err := dec.Decode(&s.ForecastsStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsStats", err)
 			}
 
 		case "job_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -132,27 +133,27 @@ func (s *JobStats) UnmarshalJSON(data []byte) error {
 
 		case "model_size_stats":
 			if err := dec.Decode(&s.ModelSizeStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelSizeStats", err)
 			}
 
 		case "node":
 			if err := dec.Decode(&s.Node); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 
 		case "open_time":
 			if err := dec.Decode(&s.OpenTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OpenTime", err)
 			}
 
 		case "state":
 			if err := dec.Decode(&s.State); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 
 		case "timing_stats":
 			if err := dec.Decode(&s.TimingStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimingStats", err)
 			}
 
 		}

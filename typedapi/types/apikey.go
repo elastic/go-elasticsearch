@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/_types/ApiKey.ts#L27-L77
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/_types/ApiKey.ts#L27-L77
 type ApiKey struct {
 	// Creation Creation time for the API key in milliseconds.
 	Creation *int64 `json:"creation,omitempty"`
@@ -85,7 +86,7 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Creation", err)
 				}
 				s.Creation = &value
 			case float64:
@@ -100,7 +101,7 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Expiration", err)
 				}
 				s.Expiration = &value
 			case float64:
@@ -110,7 +111,7 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "invalidated":
@@ -120,7 +121,7 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Invalidated", err)
 				}
 				s.Invalidated = &value
 			case bool:
@@ -129,23 +130,23 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 
 		case "limited_by":
 			if err := dec.Decode(&s.LimitedBy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LimitedBy", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "realm":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Realm", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -159,17 +160,17 @@ func (s *ApiKey) UnmarshalJSON(data []byte) error {
 				s.RoleDescriptors = make(map[string]RoleDescriptor, 0)
 			}
 			if err := dec.Decode(&s.RoleDescriptors); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RoleDescriptors", err)
 			}
 
 		case "_sort":
 			if err := dec.Decode(&s.Sort_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sort_", err)
 			}
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 
 		}

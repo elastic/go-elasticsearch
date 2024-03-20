@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Hyperparameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/DataframeAnalytics.ts#L419-L525
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/DataframeAnalytics.ts#L419-L525
 type Hyperparameters struct {
 	// Alpha Advanced configuration option.
 	// Machine learning uses loss guided tree growing, which means that the decision
@@ -153,7 +154,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Alpha", err)
 				}
 				f := Float64(value)
 				s.Alpha = &f
@@ -169,7 +170,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DownsampleFactor", err)
 				}
 				f := Float64(value)
 				s.DownsampleFactor = &f
@@ -185,7 +186,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Eta", err)
 				}
 				f := Float64(value)
 				s.Eta = &f
@@ -201,7 +202,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EtaGrowthRatePerTree", err)
 				}
 				f := Float64(value)
 				s.EtaGrowthRatePerTree = &f
@@ -217,7 +218,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FeatureBagFraction", err)
 				}
 				f := Float64(value)
 				s.FeatureBagFraction = &f
@@ -233,7 +234,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Gamma", err)
 				}
 				f := Float64(value)
 				s.Gamma = &f
@@ -249,7 +250,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Lambda", err)
 				}
 				f := Float64(value)
 				s.Lambda = &f
@@ -266,7 +267,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxAttemptsToAddTree", err)
 				}
 				s.MaxAttemptsToAddTree = &value
 			case float64:
@@ -282,7 +283,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxOptimizationRoundsPerHyperparameter", err)
 				}
 				s.MaxOptimizationRoundsPerHyperparameter = &value
 			case float64:
@@ -298,7 +299,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxTrees", err)
 				}
 				s.MaxTrees = &value
 			case float64:
@@ -314,7 +315,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumFolds", err)
 				}
 				s.NumFolds = &value
 			case float64:
@@ -330,7 +331,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumSplitsPerFeature", err)
 				}
 				s.NumSplitsPerFeature = &value
 			case float64:
@@ -346,7 +347,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SoftTreeDepthLimit", err)
 				}
 				s.SoftTreeDepthLimit = &value
 			case float64:
@@ -361,7 +362,7 @@ func (s *Hyperparameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SoftTreeDepthTolerance", err)
 				}
 				f := Float64(value)
 				s.SoftTreeDepthTolerance = &f

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoHttp type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L298-L303
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/info/types.ts#L303-L308
 type NodeInfoHttp struct {
 	BoundAddress            []string `json:"bound_address"`
 	MaxContentLength        ByteSize `json:"max_content_length,omitempty"`
@@ -55,12 +56,12 @@ func (s *NodeInfoHttp) UnmarshalJSON(data []byte) error {
 
 		case "bound_address":
 			if err := dec.Decode(&s.BoundAddress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BoundAddress", err)
 			}
 
 		case "max_content_length":
 			if err := dec.Decode(&s.MaxContentLength); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxContentLength", err)
 			}
 
 		case "max_content_length_in_bytes":
@@ -70,7 +71,7 @@ func (s *NodeInfoHttp) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxContentLengthInBytes", err)
 				}
 				s.MaxContentLengthInBytes = value
 			case float64:
@@ -81,7 +82,7 @@ func (s *NodeInfoHttp) UnmarshalJSON(data []byte) error {
 		case "publish_address":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PublishAddress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

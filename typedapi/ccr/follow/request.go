@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package follow
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package follow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L51
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L51
 type Request struct {
 	LeaderIndex                   *string        `json:"leader_index,omitempty"`
 	MaxOutstandingReadRequests    *int64         `json:"max_outstanding_read_requests,omitempty"`
@@ -61,4 +65,161 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "leader_index":
+			if err := dec.Decode(&s.LeaderIndex); err != nil {
+				return fmt.Errorf("%s | %w", "LeaderIndex", err)
+			}
+
+		case "max_outstanding_read_requests":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxOutstandingReadRequests", err)
+				}
+				s.MaxOutstandingReadRequests = &value
+			case float64:
+				f := int64(v)
+				s.MaxOutstandingReadRequests = &f
+			}
+
+		case "max_outstanding_write_requests":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxOutstandingWriteRequests", err)
+				}
+				s.MaxOutstandingWriteRequests = &value
+			case float64:
+				f := int64(v)
+				s.MaxOutstandingWriteRequests = &f
+			}
+
+		case "max_read_request_operation_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxReadRequestOperationCount", err)
+				}
+				s.MaxReadRequestOperationCount = &value
+			case float64:
+				f := int64(v)
+				s.MaxReadRequestOperationCount = &f
+			}
+
+		case "max_read_request_size":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MaxReadRequestSize", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MaxReadRequestSize = &o
+
+		case "max_retry_delay":
+			if err := dec.Decode(&s.MaxRetryDelay); err != nil {
+				return fmt.Errorf("%s | %w", "MaxRetryDelay", err)
+			}
+
+		case "max_write_buffer_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxWriteBufferCount", err)
+				}
+				s.MaxWriteBufferCount = &value
+			case float64:
+				f := int64(v)
+				s.MaxWriteBufferCount = &f
+			}
+
+		case "max_write_buffer_size":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MaxWriteBufferSize", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MaxWriteBufferSize = &o
+
+		case "max_write_request_operation_count":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxWriteRequestOperationCount", err)
+				}
+				s.MaxWriteRequestOperationCount = &value
+			case float64:
+				f := int64(v)
+				s.MaxWriteRequestOperationCount = &f
+			}
+
+		case "max_write_request_size":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "MaxWriteRequestSize", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.MaxWriteRequestSize = &o
+
+		case "read_poll_timeout":
+			if err := dec.Decode(&s.ReadPollTimeout); err != nil {
+				return fmt.Errorf("%s | %w", "ReadPollTimeout", err)
+			}
+
+		case "remote_cluster":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.RemoteCluster = &o
+
+		}
+	}
+	return nil
 }

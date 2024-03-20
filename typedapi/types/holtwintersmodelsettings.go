@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // HoltWintersModelSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/aggregations/pipeline.ts#L275-L282
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/aggregations/pipeline.ts#L275-L282
 type HoltWintersModelSettings struct {
 	Alpha  *float32                         `json:"alpha,omitempty"`
 	Beta   *float32                         `json:"beta,omitempty"`
@@ -64,7 +65,7 @@ func (s *HoltWintersModelSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Alpha", err)
 				}
 				f := float32(value)
 				s.Alpha = &f
@@ -80,7 +81,7 @@ func (s *HoltWintersModelSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Beta", err)
 				}
 				f := float32(value)
 				s.Beta = &f
@@ -96,7 +97,7 @@ func (s *HoltWintersModelSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Gamma", err)
 				}
 				f := float32(value)
 				s.Gamma = &f
@@ -112,7 +113,7 @@ func (s *HoltWintersModelSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Pad", err)
 				}
 				s.Pad = &value
 			case bool:
@@ -127,7 +128,7 @@ func (s *HoltWintersModelSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Period", err)
 				}
 				s.Period = &value
 			case float64:
@@ -137,7 +138,7 @@ func (s *HoltWintersModelSettings) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

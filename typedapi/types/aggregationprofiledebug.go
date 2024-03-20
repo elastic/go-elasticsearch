@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AggregationProfileDebug type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/search/_types/profile.ts#L39-L68
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/search/_types/profile.ts#L39-L68
 type AggregationProfileDebug struct {
 	BuiltBuckets                      *int                                    `json:"built_buckets,omitempty"`
 	CharsFetched                      *int                                    `json:"chars_fetched,omitempty"`
@@ -85,7 +86,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BuiltBuckets", err)
 				}
 				s.BuiltBuckets = &value
 			case float64:
@@ -101,7 +102,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CharsFetched", err)
 				}
 				s.CharsFetched = &value
 			case float64:
@@ -117,7 +118,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CollectAnalyzedCount", err)
 				}
 				s.CollectAnalyzedCount = &value
 			case float64:
@@ -133,7 +134,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CollectAnalyzedNs", err)
 				}
 				s.CollectAnalyzedNs = &value
 			case float64:
@@ -144,7 +145,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 		case "collection_strategy":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CollectionStrategy", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -155,13 +156,13 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "deferred_aggregators":
 			if err := dec.Decode(&s.DeferredAggregators); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DeferredAggregators", err)
 			}
 
 		case "delegate":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Delegate", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -172,7 +173,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "delegate_debug":
 			if err := dec.Decode(&s.DelegateDebug); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DelegateDebug", err)
 			}
 
 		case "empty_collectors_used":
@@ -183,7 +184,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EmptyCollectorsUsed", err)
 				}
 				s.EmptyCollectorsUsed = &value
 			case float64:
@@ -199,7 +200,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExtractCount", err)
 				}
 				s.ExtractCount = &value
 			case float64:
@@ -215,7 +216,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExtractNs", err)
 				}
 				s.ExtractNs = &value
 			case float64:
@@ -225,7 +226,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "filters":
 			if err := dec.Decode(&s.Filters); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filters", err)
 			}
 
 		case "has_filter":
@@ -235,7 +236,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HasFilter", err)
 				}
 				s.HasFilter = &value
 			case bool:
@@ -245,7 +246,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 		case "map_reducer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MapReducer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -262,7 +263,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumericCollectorsUsed", err)
 				}
 				s.NumericCollectorsUsed = &value
 			case float64:
@@ -278,7 +279,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OrdinalsCollectorsOverheadTooHigh", err)
 				}
 				s.OrdinalsCollectorsOverheadTooHigh = &value
 			case float64:
@@ -294,7 +295,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OrdinalsCollectorsUsed", err)
 				}
 				s.OrdinalsCollectorsUsed = &value
 			case float64:
@@ -305,7 +306,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 		case "result_strategy":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultStrategy", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -322,7 +323,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SegmentsCollected", err)
 				}
 				s.SegmentsCollected = &value
 			case float64:
@@ -338,7 +339,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SegmentsCounted", err)
 				}
 				s.SegmentsCounted = &value
 			case float64:
@@ -354,7 +355,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SegmentsWithDeletedDocs", err)
 				}
 				s.SegmentsWithDeletedDocs = &value
 			case float64:
@@ -370,7 +371,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SegmentsWithDocCountField", err)
 				}
 				s.SegmentsWithDocCountField = &value
 			case float64:
@@ -386,7 +387,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SegmentsWithMultiValuedOrds", err)
 				}
 				s.SegmentsWithMultiValuedOrds = &value
 			case float64:
@@ -402,7 +403,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SegmentsWithSingleValuedOrds", err)
 				}
 				s.SegmentsWithSingleValuedOrds = &value
 			case float64:
@@ -418,7 +419,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StringHashingCollectorsUsed", err)
 				}
 				s.StringHashingCollectorsUsed = &value
 			case float64:
@@ -434,7 +435,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SurvivingBuckets", err)
 				}
 				s.SurvivingBuckets = &value
 			case float64:
@@ -450,7 +451,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalBuckets", err)
 				}
 				s.TotalBuckets = &value
 			case float64:
@@ -466,7 +467,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ValuesFetched", err)
 				}
 				s.ValuesFetched = &value
 			case float64:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TermVectorsResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/mtermvectors/types.ts#L96-L104
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/mtermvectors/types.ts#L96-L104
 type TermVectorsResult struct {
 	Error       *ErrorCause           `json:"error,omitempty"`
 	Found       *bool                 `json:"found,omitempty"`
@@ -58,7 +59,7 @@ func (s *TermVectorsResult) UnmarshalJSON(data []byte) error {
 
 		case "error":
 			if err := dec.Decode(&s.Error); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Error", err)
 			}
 
 		case "found":
@@ -68,7 +69,7 @@ func (s *TermVectorsResult) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Found", err)
 				}
 				s.Found = &value
 			case bool:
@@ -77,12 +78,12 @@ func (s *TermVectorsResult) UnmarshalJSON(data []byte) error {
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
 		case "term_vectors":
@@ -90,7 +91,7 @@ func (s *TermVectorsResult) UnmarshalJSON(data []byte) error {
 				s.TermVectors = make(map[string]TermVector, 0)
 			}
 			if err := dec.Decode(&s.TermVectors); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TermVectors", err)
 			}
 
 		case "took":
@@ -100,7 +101,7 @@ func (s *TermVectorsResult) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Took", err)
 				}
 				s.Took = &value
 			case float64:
@@ -110,7 +111,7 @@ func (s *TermVectorsResult) UnmarshalJSON(data []byte) error {
 
 		case "_version":
 			if err := dec.Decode(&s.Version_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version_", err)
 			}
 
 		}

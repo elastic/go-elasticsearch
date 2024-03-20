@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Statistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
 type Statistics struct {
 	Policy                        *string  `json:"policy,omitempty"`
 	RetentionDeletionTime         Duration `json:"retention_deletion_time,omitempty"`
@@ -61,17 +62,17 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 
 		case "policy":
 			if err := dec.Decode(&s.Policy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Policy", err)
 			}
 
 		case "retention_deletion_time":
 			if err := dec.Decode(&s.RetentionDeletionTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RetentionDeletionTime", err)
 			}
 
 		case "retention_deletion_time_millis":
 			if err := dec.Decode(&s.RetentionDeletionTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RetentionDeletionTimeMillis", err)
 			}
 
 		case "retention_failed":
@@ -81,7 +82,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RetentionFailed", err)
 				}
 				s.RetentionFailed = &value
 			case float64:
@@ -96,7 +97,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RetentionRuns", err)
 				}
 				s.RetentionRuns = &value
 			case float64:
@@ -111,7 +112,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RetentionTimedOut", err)
 				}
 				s.RetentionTimedOut = &value
 			case float64:
@@ -126,7 +127,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalSnapshotDeletionFailures", err)
 				}
 				s.TotalSnapshotDeletionFailures = &value
 			case float64:
@@ -141,7 +142,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalSnapshotsDeleted", err)
 				}
 				s.TotalSnapshotsDeleted = &value
 			case float64:
@@ -156,7 +157,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalSnapshotsFailed", err)
 				}
 				s.TotalSnapshotsFailed = &value
 			case float64:
@@ -171,7 +172,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalSnapshotsTaken", err)
 				}
 				s.TotalSnapshotsTaken = &value
 			case float64:

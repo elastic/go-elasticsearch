@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // IndexPrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/has_privileges/types.ts#L33-L44
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/has_privileges/types.ts#L33-L44
 type IndexPrivilegesCheck struct {
 	// AllowRestrictedIndices This needs to be set to true (default is false) if using wildcards or regexps
 	// for patterns that cover restricted indices.
@@ -71,7 +72,7 @@ func (s *IndexPrivilegesCheck) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowRestrictedIndices", err)
 				}
 				s.AllowRestrictedIndices = &value
 			case bool:
@@ -84,19 +85,19 @@ func (s *IndexPrivilegesCheck) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Names", err)
 				}
 
 				s.Names = append(s.Names, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Names); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Names", err)
 				}
 			}
 
 		case "privileges":
 			if err := dec.Decode(&s.Privileges); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Privileges", err)
 			}
 
 		}
