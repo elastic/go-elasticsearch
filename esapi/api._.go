@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0 (8395c37): DO NOT EDIT
+// Code generated from specification version 8.14.0 (999dcb8): DO NOT EDIT
 
 package esapi
 
@@ -57,6 +57,10 @@ type API struct {
 	ConnectorList                                 ConnectorList
 	ConnectorPost                                 ConnectorPost
 	ConnectorPut                                  ConnectorPut
+	ConnectorSecretDelete                         ConnectorSecretDelete
+	ConnectorSecretGet                            ConnectorSecretGet
+	ConnectorSecretPost                           ConnectorSecretPost
+	ConnectorSecretPut                            ConnectorSecretPut
 	ConnectorSyncJobCancel                        ConnectorSyncJobCancel
 	ConnectorSyncJobCheckIn                       ConnectorSyncJobCheckIn
 	ConnectorSyncJobDelete                        ConnectorSyncJobDelete
@@ -65,12 +69,17 @@ type API struct {
 	ConnectorSyncJobList                          ConnectorSyncJobList
 	ConnectorSyncJobPost                          ConnectorSyncJobPost
 	ConnectorSyncJobUpdateStats                   ConnectorSyncJobUpdateStats
+	ConnectorUpdateAPIKeyDocumentID               ConnectorUpdateAPIKeyDocumentID
 	ConnectorUpdateConfiguration                  ConnectorUpdateConfiguration
 	ConnectorUpdateError                          ConnectorUpdateError
 	ConnectorUpdateFiltering                      ConnectorUpdateFiltering
+	ConnectorUpdateIndexName                      ConnectorUpdateIndexName
 	ConnectorUpdateName                           ConnectorUpdateName
+	ConnectorUpdateNative                         ConnectorUpdateNative
 	ConnectorUpdatePipeline                       ConnectorUpdatePipeline
 	ConnectorUpdateScheduling                     ConnectorUpdateScheduling
+	ConnectorUpdateServiceDocumentType            ConnectorUpdateServiceDocumentType
+	ConnectorUpdateStatus                         ConnectorUpdateStatus
 	Count                                         Count
 	Create                                        Create
 	DanglingIndicesDeleteDanglingIndex            DanglingIndicesDeleteDanglingIndex
@@ -89,6 +98,8 @@ type API struct {
 	EqlGet                                        EqlGet
 	EqlGetStatus                                  EqlGetStatus
 	EqlSearch                                     EqlSearch
+	EsqlAsyncQueryGet                             EsqlAsyncQueryGet
+	EsqlAsyncQuery                                EsqlAsyncQuery
 	EsqlQuery                                     EsqlQuery
 	Exists                                        Exists
 	ExistsSource                                  ExistsSource
@@ -125,6 +136,8 @@ type API struct {
 	Mtermvectors                                  Mtermvectors
 	OpenPointInTime                               OpenPointInTime
 	Ping                                          Ping
+	ProfilingFlamegraph                           ProfilingFlamegraph
+	ProfilingStacktraces                          ProfilingStacktraces
 	ProfilingStatus                               ProfilingStatus
 	PutScript                                     PutScript
 	QueryRulesetDelete                            QueryRulesetDelete
@@ -177,7 +190,10 @@ type API struct {
 	SynonymsPutSynonymRule                        SynonymsPutSynonymRule
 	TermsEnum                                     TermsEnum
 	Termvectors                                   Termvectors
+	TextStructureFindFieldStructure               TextStructureFindFieldStructure
+	TextStructureFindMessageStructure             TextStructureFindMessageStructure
 	TextStructureFindStructure                    TextStructureFindStructure
+	TextStructureTestGrokPattern                  TextStructureTestGrokPattern
 	TransformDeleteTransform                      TransformDeleteTransform
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
@@ -292,6 +308,7 @@ type Indices struct {
 	Recovery              IndicesRecovery
 	Refresh               IndicesRefresh
 	ReloadSearchAnalyzers IndicesReloadSearchAnalyzers
+	ResolveCluster        IndicesResolveCluster
 	ResolveIndex          IndicesResolveIndex
 	Rollover              IndicesRollover
 	Segments              IndicesSegments
@@ -556,6 +573,7 @@ type Security struct {
 	PutRole                     SecurityPutRole
 	PutUser                     SecurityPutUser
 	QueryAPIKeys                SecurityQueryAPIKeys
+	QueryUser                   SecurityQueryUser
 	SamlAuthenticate            SecuritySamlAuthenticate
 	SamlCompleteLogout          SecuritySamlCompleteLogout
 	SamlInvalidate              SecuritySamlInvalidate
@@ -624,6 +642,10 @@ func New(t Transport) *API {
 		ConnectorList:                      newConnectorListFunc(t),
 		ConnectorPost:                      newConnectorPostFunc(t),
 		ConnectorPut:                       newConnectorPutFunc(t),
+		ConnectorSecretDelete:              newConnectorSecretDeleteFunc(t),
+		ConnectorSecretGet:                 newConnectorSecretGetFunc(t),
+		ConnectorSecretPost:                newConnectorSecretPostFunc(t),
+		ConnectorSecretPut:                 newConnectorSecretPutFunc(t),
 		ConnectorSyncJobCancel:             newConnectorSyncJobCancelFunc(t),
 		ConnectorSyncJobCheckIn:            newConnectorSyncJobCheckInFunc(t),
 		ConnectorSyncJobDelete:             newConnectorSyncJobDeleteFunc(t),
@@ -632,12 +654,17 @@ func New(t Transport) *API {
 		ConnectorSyncJobList:               newConnectorSyncJobListFunc(t),
 		ConnectorSyncJobPost:               newConnectorSyncJobPostFunc(t),
 		ConnectorSyncJobUpdateStats:        newConnectorSyncJobUpdateStatsFunc(t),
+		ConnectorUpdateAPIKeyDocumentID:    newConnectorUpdateAPIKeyDocumentIDFunc(t),
 		ConnectorUpdateConfiguration:       newConnectorUpdateConfigurationFunc(t),
 		ConnectorUpdateError:               newConnectorUpdateErrorFunc(t),
 		ConnectorUpdateFiltering:           newConnectorUpdateFilteringFunc(t),
+		ConnectorUpdateIndexName:           newConnectorUpdateIndexNameFunc(t),
 		ConnectorUpdateName:                newConnectorUpdateNameFunc(t),
+		ConnectorUpdateNative:              newConnectorUpdateNativeFunc(t),
 		ConnectorUpdatePipeline:            newConnectorUpdatePipelineFunc(t),
 		ConnectorUpdateScheduling:          newConnectorUpdateSchedulingFunc(t),
+		ConnectorUpdateServiceDocumentType: newConnectorUpdateServiceDocumentTypeFunc(t),
+		ConnectorUpdateStatus:              newConnectorUpdateStatusFunc(t),
 		Count:                              newCountFunc(t),
 		Create:                             newCreateFunc(t),
 		DanglingIndicesDeleteDanglingIndex: newDanglingIndicesDeleteDanglingIndexFunc(t),
@@ -656,6 +683,8 @@ func New(t Transport) *API {
 		EqlGet:                             newEqlGetFunc(t),
 		EqlGetStatus:                       newEqlGetStatusFunc(t),
 		EqlSearch:                          newEqlSearchFunc(t),
+		EsqlAsyncQueryGet:                  newEsqlAsyncQueryGetFunc(t),
+		EsqlAsyncQuery:                     newEsqlAsyncQueryFunc(t),
 		EsqlQuery:                          newEsqlQueryFunc(t),
 		Exists:                             newExistsFunc(t),
 		ExistsSource:                       newExistsSourceFunc(t),
@@ -692,6 +721,8 @@ func New(t Transport) *API {
 		Mtermvectors:                       newMtermvectorsFunc(t),
 		OpenPointInTime:                    newOpenPointInTimeFunc(t),
 		Ping:                               newPingFunc(t),
+		ProfilingFlamegraph:                newProfilingFlamegraphFunc(t),
+		ProfilingStacktraces:               newProfilingStacktracesFunc(t),
 		ProfilingStatus:                    newProfilingStatusFunc(t),
 		PutScript:                          newPutScriptFunc(t),
 		QueryRulesetDelete:                 newQueryRulesetDeleteFunc(t),
@@ -744,7 +775,10 @@ func New(t Transport) *API {
 		SynonymsPutSynonymRule:                        newSynonymsPutSynonymRuleFunc(t),
 		TermsEnum:                                     newTermsEnumFunc(t),
 		Termvectors:                                   newTermvectorsFunc(t),
+		TextStructureFindFieldStructure:               newTextStructureFindFieldStructureFunc(t),
+		TextStructureFindMessageStructure:             newTextStructureFindMessageStructureFunc(t),
 		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
+		TextStructureTestGrokPattern:                  newTextStructureTestGrokPatternFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
 		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
@@ -852,6 +886,7 @@ func New(t Transport) *API {
 			Recovery:              newIndicesRecoveryFunc(t),
 			Refresh:               newIndicesRefreshFunc(t),
 			ReloadSearchAnalyzers: newIndicesReloadSearchAnalyzersFunc(t),
+			ResolveCluster:        newIndicesResolveClusterFunc(t),
 			ResolveIndex:          newIndicesResolveIndexFunc(t),
 			Rollover:              newIndicesRolloverFunc(t),
 			Segments:              newIndicesSegmentsFunc(t),
@@ -1087,6 +1122,7 @@ func New(t Transport) *API {
 			PutRole:                     newSecurityPutRoleFunc(t),
 			PutUser:                     newSecurityPutUserFunc(t),
 			QueryAPIKeys:                newSecurityQueryAPIKeysFunc(t),
+			QueryUser:                   newSecurityQueryUserFunc(t),
 			SamlAuthenticate:            newSecuritySamlAuthenticateFunc(t),
 			SamlCompleteLogout:          newSecuritySamlCompleteLogoutFunc(t),
 			SamlInvalidate:              newSecuritySamlInvalidateFunc(t),

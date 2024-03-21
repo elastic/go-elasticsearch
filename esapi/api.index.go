@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.14.0: DO NOT EDIT
 
 package esapi
 
@@ -63,6 +63,7 @@ type IndexRequest struct {
 	Pipeline            string
 	Refresh             string
 	RequireAlias        *bool
+	RequireDataStream   *bool
 	Routing             string
 	Timeout             time.Duration
 	Version             *int
@@ -145,6 +146,10 @@ func (r IndexRequest) Do(providedCtx context.Context, transport Transport) (*Res
 
 	if r.RequireAlias != nil {
 		params["require_alias"] = strconv.FormatBool(*r.RequireAlias)
+	}
+
+	if r.RequireDataStream != nil {
+		params["require_data_stream"] = strconv.FormatBool(*r.RequireDataStream)
 	}
 
 	if r.Routing != "" {
@@ -298,6 +303,13 @@ func (f Index) WithRefresh(v string) func(*IndexRequest) {
 func (f Index) WithRequireAlias(v bool) func(*IndexRequest) {
 	return func(r *IndexRequest) {
 		r.RequireAlias = &v
+	}
+}
+
+// WithRequireDataStream - when true, requires the destination to be a data stream (existing or to-be-created). default is false.
+func (f Index) WithRequireDataStream(v bool) func(*IndexRequest) {
+	return func(r *IndexRequest) {
+		r.RequireDataStream = &v
 	}
 }
 

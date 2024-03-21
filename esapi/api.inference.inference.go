@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.14.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newInferenceInferenceFunc(t Transport) InferenceInference {
-	return func(model_id string, task_type string, o ...func(*InferenceInferenceRequest)) (*Response, error) {
-		var r = InferenceInferenceRequest{ModelID: model_id, TaskType: task_type}
+	return func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error) {
+		var r = InferenceInferenceRequest{InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -48,14 +48,14 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-inference-api.html.
-type InferenceInference func(model_id string, task_type string, o ...func(*InferenceInferenceRequest)) (*Response, error)
+type InferenceInference func(inference_id string, o ...func(*InferenceInferenceRequest)) (*Response, error)
 
 // InferenceInferenceRequest configures the Inference Inference API request.
 type InferenceInferenceRequest struct {
 	Body io.Reader
 
-	ModelID  string
-	TaskType string
+	InferenceID string
+	TaskType    string
 
 	Pretty     bool
 	Human      bool
@@ -88,19 +88,21 @@ func (r InferenceInferenceRequest) Do(providedCtx context.Context, transport Tra
 
 	method = "POST"
 
-	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.ModelID))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_inference")
-	path.WriteString("/")
-	path.WriteString(r.TaskType)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	if r.TaskType != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskType)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+		}
 	}
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
+	path.WriteString(r.InferenceID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
 	}
 
 	params = make(map[string]string)
@@ -194,6 +196,13 @@ func (f InferenceInference) WithContext(v context.Context) func(*InferenceInfere
 func (f InferenceInference) WithBody(v io.Reader) func(*InferenceInferenceRequest) {
 	return func(r *InferenceInferenceRequest) {
 		r.Body = v
+	}
+}
+
+// WithTaskType - the task type.
+func (f InferenceInference) WithTaskType(v string) func(*InferenceInferenceRequest) {
+	return func(r *InferenceInferenceRequest) {
+		r.TaskType = v
 	}
 }
 
