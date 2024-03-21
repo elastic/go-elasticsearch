@@ -44,7 +44,6 @@ func init() {
 }
 
 // Generator represents the "gentests" generator.
-//
 type Generator struct {
 	b bytes.Buffer
 
@@ -52,7 +51,6 @@ type Generator struct {
 }
 
 // Output returns the generator output.
-//
 func (g *Generator) Output() (io.Reader, error) {
 	name := g.TestSuite.Name()
 	if g.TestSuite.Type == "xpack" {
@@ -121,7 +119,6 @@ func (g *Generator) Output() (io.Reader, error) {
 }
 
 // OutputFormatted returns a formatted generator output.
-//
 func (g *Generator) OutputFormatted() (io.Reader, error) {
 	out, err := g.Output()
 	if err != nil {
@@ -306,7 +303,6 @@ _ = recoverPanic
 }
 
 // Reference: https://github.com/elastic/elasticsearch/blob/master/test/framework/src/main/java/org/elasticsearch/test/rest/ESRestTestCase.java
-//
 func (g *Generator) genCommonSetup() {
 	g.w(`
 	// ----- Common Setup -------------------------------------------------------------
@@ -488,7 +484,6 @@ func (g *Generator) genCommonSetup() {
 
 // Reference: https://github.com/elastic/elasticsearch/blob/master/x-pack/plugin/src/test/java/org/elasticsearch/xpack/test/rest/XPackRestIT.java
 // Reference: https://github.com/elastic/elasticsearch/blob/master/x-pack/plugin/core/src/test/java/org/elasticsearch/xpack/core/ml/integration/MlRestTestStateCleaner.java
-//
 func (g *Generator) genXPackSetup() {
 	g.w(`
 		// ----- XPack Setup -------------------------------------------------------------
@@ -1306,6 +1301,17 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 						panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
 					}
 					g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
+				}
+			case "*bool":
+				switch v.(type) {
+				case []interface{}:
+					var vvv string
+					for _, vv := range v.([]interface{}) {
+						vvv = fmt.Sprintf("%v", vv)
+					}
+					g.w(fmt.Sprintf("&[]bool{%s}[0]", vvv))
+				default:
+					panic(fmt.Sprintf("<%s> %s{}.%s: unexpected value <%T> %#v", typ, a.Request(), k, v, v))
 				}
 			}
 			g.w(",\n")
