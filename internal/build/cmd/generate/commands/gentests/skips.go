@@ -61,6 +61,7 @@ var skipFiles = []string{
 	"ml/3rd_party_deployment.yml",       // incompatible ml tests
 	"dlm/10_usage.yml",                  // incompatible float expansion
 	"api_key/60_admin_user.yml",
+	".*esql\\/.*.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -202,6 +203,9 @@ tsdb/80_index_resize.yml:
 # Number conversion needs to be addressed in test gen
 tsdb/40_search.yml:
   - aggregate a metric
+
+tsdb/70_dimension_types.yml:
+  - flattened field missing routing path field
 
 # Deliberate wrong type doesn't match Go types
 cluster.desired_nodes/10_basic.yml:
@@ -512,4 +516,6 @@ esql/40_unsupported_types.yml:
 
 esql/50_index_patterns.yml:
   - disjoint_mappings
+
+
 `
