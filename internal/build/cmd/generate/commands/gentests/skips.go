@@ -234,6 +234,8 @@ api_key/10_basic.yml:
   - Test invalidate api keys
 api_key/11_invalidation.yml:
   - Test invalidate api key by username
+api_key/21_query_with_aggs.yml:
+  - Test composite aggs api key
 rollup/put_job.yml:
   - Test put job with templates
 
@@ -339,6 +341,9 @@ snapshot/10_basic.yml:
 # illegal_argument_exception: Provided password hash uses [NOOP] but the configured hashing algorithm is [BCRYPT]
 users/10_basic.yml:
   - Test put user with password hash
+
+users/40_query.yml:
+  - Test query user
 
 # Slash in index name is not escaped (BUG)
 security/authz/13_index_datemath.yml:
