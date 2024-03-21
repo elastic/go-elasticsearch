@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package getoverallbuckets
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L143
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
@@ -91,7 +91,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowNoMatch", err)
 				}
 				s.AllowNoMatch = &value
 			case bool:
@@ -100,12 +100,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "bucket_span":
 			if err := dec.Decode(&s.BucketSpan); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketSpan", err)
 			}
 
 		case "end":
 			if err := dec.Decode(&s.End); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "End", err)
 			}
 
 		case "exclude_interim":
@@ -115,7 +115,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExcludeInterim", err)
 				}
 				s.ExcludeInterim = &value
 			case bool:
@@ -125,7 +125,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "overall_score":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OverallScore", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -136,7 +136,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "start":
 			if err := dec.Decode(&s.Start); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Start", err)
 			}
 
 		case "top_n":
@@ -147,7 +147,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TopN", err)
 				}
 				s.TopN = &value
 			case float64:

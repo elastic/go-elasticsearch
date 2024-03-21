@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package poststartbasic
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package poststartbasic
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
 type Response struct {
 	Acknowledge     map[string][]string      `json:"acknowledge,omitempty"`
 	Acknowledged    bool                     `json:"acknowledged"`
@@ -75,14 +76,14 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 					o := new(string)
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Acknowledge", err)
 					}
 					s.Acknowledge[key] = append(s.Acknowledge[key], *o)
 				default:
 					o := []string{}
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Acknowledge", err)
 					}
 					s.Acknowledge[key] = o
 				}
@@ -95,7 +96,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Acknowledged", err)
 				}
 				s.Acknowledged = value
 			case bool:
@@ -109,7 +110,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BasicWasStarted", err)
 				}
 				s.BasicWasStarted = value
 			case bool:
@@ -119,7 +120,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 		case "error_message":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ErrorMessage", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -130,7 +131,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

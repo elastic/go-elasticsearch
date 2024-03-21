@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoBoundingBoxQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/geo.ts#L32-L50
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/geo.ts#L32-L50
 type GeoBoundingBoxQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -77,7 +77,7 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -91,7 +91,7 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 				s.GeoBoundingBoxQuery = make(map[string]GeoBounds, 0)
 			}
 			if err := dec.Decode(&s.GeoBoundingBoxQuery); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoBoundingBoxQuery", err)
 			}
 
 		case "ignore_unmapped":
@@ -101,7 +101,7 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreUnmapped", err)
 				}
 				s.IgnoreUnmapped = &value
 			case bool:
@@ -111,7 +111,7 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -122,12 +122,12 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "validation_method":
 			if err := dec.Decode(&s.ValidationMethod); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ValidationMethod", err)
 			}
 
 		default:

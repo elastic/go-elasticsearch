@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // QueryBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/profile.ts#L97-L116
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/search/_types/profile.ts#L97-L116
 type QueryBreakdown struct {
 	Advance                     int64 `json:"advance"`
 	AdvanceCount                int64 `json:"advance_count"`
@@ -74,7 +75,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Advance", err)
 				}
 				s.Advance = value
 			case float64:
@@ -89,7 +90,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AdvanceCount", err)
 				}
 				s.AdvanceCount = value
 			case float64:
@@ -104,7 +105,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BuildScorer", err)
 				}
 				s.BuildScorer = value
 			case float64:
@@ -119,7 +120,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BuildScorerCount", err)
 				}
 				s.BuildScorerCount = value
 			case float64:
@@ -134,7 +135,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ComputeMaxScore", err)
 				}
 				s.ComputeMaxScore = value
 			case float64:
@@ -149,7 +150,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ComputeMaxScoreCount", err)
 				}
 				s.ComputeMaxScoreCount = value
 			case float64:
@@ -164,7 +165,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CreateWeight", err)
 				}
 				s.CreateWeight = value
 			case float64:
@@ -179,7 +180,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CreateWeightCount", err)
 				}
 				s.CreateWeightCount = value
 			case float64:
@@ -194,7 +195,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Match", err)
 				}
 				s.Match = value
 			case float64:
@@ -209,7 +210,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MatchCount", err)
 				}
 				s.MatchCount = value
 			case float64:
@@ -224,7 +225,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NextDoc", err)
 				}
 				s.NextDoc = value
 			case float64:
@@ -239,7 +240,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NextDocCount", err)
 				}
 				s.NextDocCount = value
 			case float64:
@@ -254,7 +255,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Score", err)
 				}
 				s.Score = value
 			case float64:
@@ -269,7 +270,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ScoreCount", err)
 				}
 				s.ScoreCount = value
 			case float64:
@@ -284,7 +285,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SetMinCompetitiveScore", err)
 				}
 				s.SetMinCompetitiveScore = value
 			case float64:
@@ -299,7 +300,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SetMinCompetitiveScoreCount", err)
 				}
 				s.SetMinCompetitiveScoreCount = value
 			case float64:
@@ -314,7 +315,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShallowAdvance", err)
 				}
 				s.ShallowAdvance = value
 			case float64:
@@ -329,7 +330,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShallowAdvanceCount", err)
 				}
 				s.ShallowAdvanceCount = value
 			case float64:

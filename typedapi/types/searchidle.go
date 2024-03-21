@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // SearchIdle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L239-L242
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/IndexSettings.ts#L243-L246
 type SearchIdle struct {
 	After Duration `json:"after,omitempty"`
 }
@@ -51,7 +52,7 @@ func (s *SearchIdle) UnmarshalJSON(data []byte) error {
 
 		case "after":
 			if err := dec.Decode(&s.After); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "After", err)
 			}
 
 		}

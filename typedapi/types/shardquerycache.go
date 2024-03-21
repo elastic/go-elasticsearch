@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardQueryCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/stats/types.ts#L146-L154
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/stats/types.ts#L146-L154
 type ShardQueryCache struct {
 	CacheCount        int64 `json:"cache_count"`
 	CacheSize         int64 `json:"cache_size"`
@@ -63,7 +64,7 @@ func (s *ShardQueryCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CacheCount", err)
 				}
 				s.CacheCount = value
 			case float64:
@@ -78,7 +79,7 @@ func (s *ShardQueryCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CacheSize", err)
 				}
 				s.CacheSize = value
 			case float64:
@@ -93,7 +94,7 @@ func (s *ShardQueryCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Evictions", err)
 				}
 				s.Evictions = value
 			case float64:
@@ -108,7 +109,7 @@ func (s *ShardQueryCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HitCount", err)
 				}
 				s.HitCount = value
 			case float64:
@@ -123,7 +124,7 @@ func (s *ShardQueryCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MemorySizeInBytes", err)
 				}
 				s.MemorySizeInBytes = value
 			case float64:
@@ -138,7 +139,7 @@ func (s *ShardQueryCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MissCount", err)
 				}
 				s.MissCount = value
 			case float64:
@@ -153,7 +154,7 @@ func (s *ShardQueryCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalCount", err)
 				}
 				s.TotalCount = value
 			case float64:

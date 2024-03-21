@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // WatcherNodeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/stats/types.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/watcher/stats/types.ts#L33-L40
 type WatcherNodeStats struct {
 	CurrentWatches      []WatchRecordStats        `json:"current_watches,omitempty"`
 	ExecutionThreadPool ExecutionThreadPool       `json:"execution_thread_pool"`
@@ -59,22 +60,22 @@ func (s *WatcherNodeStats) UnmarshalJSON(data []byte) error {
 
 		case "current_watches":
 			if err := dec.Decode(&s.CurrentWatches); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CurrentWatches", err)
 			}
 
 		case "execution_thread_pool":
 			if err := dec.Decode(&s.ExecutionThreadPool); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExecutionThreadPool", err)
 			}
 
 		case "node_id":
 			if err := dec.Decode(&s.NodeId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 
 		case "queued_watches":
 			if err := dec.Decode(&s.QueuedWatches); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueuedWatches", err)
 			}
 
 		case "watch_count":
@@ -84,7 +85,7 @@ func (s *WatcherNodeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "WatchCount", err)
 				}
 				s.WatchCount = value
 			case float64:
@@ -94,7 +95,7 @@ func (s *WatcherNodeStats) UnmarshalJSON(data []byte) error {
 
 		case "watcher_state":
 			if err := dec.Decode(&s.WatcherState); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WatcherState", err)
 			}
 
 		}

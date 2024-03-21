@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RecoveryRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/recovery/types.ts#L24-L155
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/cat/recovery/types.ts#L24-L155
 type RecoveryRecord struct {
 	// Bytes The number of bytes to recover.
 	Bytes *string `json:"bytes,omitempty"`
@@ -104,7 +105,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "bytes", "b":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Bytes", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -115,13 +116,13 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 
 		case "bytes_percent", "bp":
 			if err := dec.Decode(&s.BytesPercent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BytesPercent", err)
 			}
 
 		case "bytes_recovered", "br":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BytesRecovered", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -133,7 +134,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "bytes_total", "tb":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BytesTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -145,7 +146,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "files", "f":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Files", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -156,13 +157,13 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 
 		case "files_percent", "fp":
 			if err := dec.Decode(&s.FilesPercent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FilesPercent", err)
 			}
 
 		case "files_recovered", "fr":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FilesRecovered", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -174,7 +175,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "files_total", "tf":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FilesTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -185,13 +186,13 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 
 		case "index", "i", "idx":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "repository", "rep":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Repository", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -203,7 +204,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "shard", "s", "sh":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shard", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -215,7 +216,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "snapshot", "snap":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Snapshot", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -227,7 +228,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "source_host", "shost":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SourceHost", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -239,7 +240,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "source_node", "snode":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SourceNode", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -251,7 +252,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "stage", "st":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Stage", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -262,28 +263,28 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 
 		case "start_time", "start":
 			if err := dec.Decode(&s.StartTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTime", err)
 			}
 
 		case "start_time_millis", "start_millis":
 			if err := dec.Decode(&s.StartTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTimeMillis", err)
 			}
 
 		case "stop_time", "stop":
 			if err := dec.Decode(&s.StopTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StopTime", err)
 			}
 
 		case "stop_time_millis", "stop_millis":
 			if err := dec.Decode(&s.StopTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StopTimeMillis", err)
 			}
 
 		case "target_host", "thost":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TargetHost", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -295,7 +296,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "target_node", "tnode":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TargetNode", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -306,13 +307,13 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 
 		case "time", "t", "ti":
 			if err := dec.Decode(&s.Time); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		case "translog_ops", "to":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TranslogOps", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -323,13 +324,13 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 
 		case "translog_ops_percent", "top":
 			if err := dec.Decode(&s.TranslogOpsPercent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TranslogOpsPercent", err)
 			}
 
 		case "translog_ops_recovered", "tor":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TranslogOpsRecovered", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -341,7 +342,7 @@ func (s *RecoveryRecord) UnmarshalJSON(data []byte) error {
 		case "type", "ty":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

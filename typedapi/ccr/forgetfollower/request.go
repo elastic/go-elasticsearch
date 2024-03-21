@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package forgetfollower
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package forgetfollower
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ccr/forget_follower/ForgetFollowerIndexRequest.ts#L23-L38
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ccr/forget_follower/ForgetFollowerIndexRequest.ts#L23-L38
 type Request struct {
 	FollowerCluster     *string `json:"follower_cluster,omitempty"`
 	FollowerIndex       *string `json:"follower_index,omitempty"`
@@ -74,7 +74,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "follower_cluster":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerCluster", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -85,18 +85,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "follower_index":
 			if err := dec.Decode(&s.FollowerIndex); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerIndex", err)
 			}
 
 		case "follower_index_uuid":
 			if err := dec.Decode(&s.FollowerIndexUuid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerIndexUuid", err)
 			}
 
 		case "leader_remote_cluster":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LeaderRemoteCluster", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Acknowledgement type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/license/post/types.ts#L20-L23
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/license/post/types.ts#L20-L23
 type Acknowledgement struct {
 	License []string `json:"license"`
 	Message string   `json:"message"`
@@ -53,13 +54,13 @@ func (s *Acknowledgement) UnmarshalJSON(data []byte) error {
 
 		case "license":
 			if err := dec.Decode(&s.License); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "License", err)
 			}
 
 		case "message":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Message", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package analyze
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package analyze
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L92
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L92
 type Request struct {
 
 	// Analyzer The name of the analyzer that should be applied to the provided `text`.
@@ -98,7 +98,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -109,7 +109,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "attributes":
 			if err := dec.Decode(&s.Attributes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attributes", err)
 			}
 
 		case "char_filter":
@@ -170,7 +170,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					source := bytes.NewReader(rawMsg)
 					o := new(interface{})
 					if err := json.NewDecoder(source).Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "CharFilter", err)
 					}
 					s.CharFilter = append(s.CharFilter, *o)
 				}
@@ -183,7 +183,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Explain", err)
 				}
 				s.Explain = &value
 			case bool:
@@ -192,7 +192,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "filter":
@@ -505,7 +505,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					source := bytes.NewReader(rawMsg)
 					o := new(interface{})
 					if err := json.NewDecoder(source).Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Filter", err)
 					}
 					s.Filter = append(s.Filter, *o)
 				}
@@ -514,7 +514,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "normalizer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Normalizer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -529,13 +529,13 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Text", err)
 				}
 
 				s.Text = append(s.Text, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Text); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Text", err)
 				}
 			}
 
@@ -645,7 +645,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				}
 			default:
 				if err := localDec.Decode(&s.Tokenizer); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Tokenizer", err)
 				}
 			}
 

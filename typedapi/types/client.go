@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Client type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/Stats.ts#L649-L696
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/_types/Stats.ts#L649-L696
 type Client struct {
 	// Agent Reported agent for the HTTP client.
 	// If unavailable, this property is not included in the response.
@@ -76,7 +77,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 		case "agent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Agent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,7 +93,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ClosedTimeMillis", err)
 				}
 				s.ClosedTimeMillis = &value
 			case float64:
@@ -107,7 +108,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Id", err)
 				}
 				s.Id = &value
 			case float64:
@@ -122,7 +123,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LastRequestTimeMillis", err)
 				}
 				s.LastRequestTimeMillis = &value
 			case float64:
@@ -133,7 +134,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 		case "last_uri":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LastUri", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -145,7 +146,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 		case "local_address":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LocalAddress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -161,7 +162,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OpenedTimeMillis", err)
 				}
 				s.OpenedTimeMillis = &value
 			case float64:
@@ -172,7 +173,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 		case "remote_address":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RemoteAddress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -188,7 +189,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequestCount", err)
 				}
 				s.RequestCount = &value
 			case float64:
@@ -203,7 +204,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequestSizeBytes", err)
 				}
 				s.RequestSizeBytes = &value
 			case float64:
@@ -214,7 +215,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 		case "x_opaque_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "XOpaqueId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // IndexSettingsLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L270-L303
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/IndexSettings.ts#L274-L307
 type IndexSettingsLifecycle struct {
 	// IndexingComplete Indicates whether or not the index has been rolled over. Automatically set to
 	// true when ILM completes the rollover action.
@@ -80,12 +81,12 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 
 		case "indexing_complete":
 			if err := dec.Decode(&s.IndexingComplete); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingComplete", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "origination_date":
@@ -95,7 +96,7 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OriginationDate", err)
 				}
 				s.OriginationDate = &value
 			case float64:
@@ -110,7 +111,7 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ParseOriginationDate", err)
 				}
 				s.ParseOriginationDate = &value
 			case bool:
@@ -120,7 +121,7 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 		case "rollover_alias":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RolloverAlias", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -131,7 +132,7 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 
 		case "step":
 			if err := dec.Decode(&s.Step); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Step", err)
 			}
 
 		}

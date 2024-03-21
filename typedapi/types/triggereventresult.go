@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TriggerEventResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Trigger.ts#L39-L43
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/watcher/_types/Trigger.ts#L39-L43
 type TriggerEventResult struct {
 	Manual        TriggerEventContainer `json:"manual"`
 	TriggeredTime DateTime              `json:"triggered_time"`
@@ -54,18 +55,18 @@ func (s *TriggerEventResult) UnmarshalJSON(data []byte) error {
 
 		case "manual":
 			if err := dec.Decode(&s.Manual); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Manual", err)
 			}
 
 		case "triggered_time":
 			if err := dec.Decode(&s.TriggeredTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TriggeredTime", err)
 			}
 
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

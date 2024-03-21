@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // ShardStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/shard_stores/types.ts#L30-L34
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/shard_stores/types.ts#L30-L34
 type ShardStore struct {
 	Allocation     shardstoreallocation.ShardStoreAllocation `json:"allocation"`
 	AllocationId   *string                                   `json:"allocation_id,omitempty"`
@@ -57,12 +57,12 @@ func (s *ShardStore) UnmarshalJSON(data []byte) error {
 
 		case "allocation":
 			if err := dec.Decode(&s.Allocation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Allocation", err)
 			}
 
 		case "allocation_id":
 			if err := dec.Decode(&s.AllocationId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AllocationId", err)
 			}
 
 		case "ShardStore":
@@ -70,12 +70,12 @@ func (s *ShardStore) UnmarshalJSON(data []byte) error {
 				s.ShardStore = make(map[string]ShardStoreNode, 0)
 			}
 			if err := dec.Decode(&s.ShardStore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ShardStore", err)
 			}
 
 		case "store_exception":
 			if err := dec.Decode(&s.StoreException); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StoreException", err)
 			}
 
 		default:

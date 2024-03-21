@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // NodeShutdownStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L29-L38
 type NodeShutdownStatus struct {
 	NodeId                string                        `json:"node_id"`
 	PersistentTasks       PersistentTaskStatus          `json:"persistent_tasks"`
@@ -62,23 +63,23 @@ func (s *NodeShutdownStatus) UnmarshalJSON(data []byte) error {
 
 		case "node_id":
 			if err := dec.Decode(&s.NodeId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 
 		case "persistent_tasks":
 			if err := dec.Decode(&s.PersistentTasks); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PersistentTasks", err)
 			}
 
 		case "plugins":
 			if err := dec.Decode(&s.Plugins); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Plugins", err)
 			}
 
 		case "reason":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -89,22 +90,22 @@ func (s *NodeShutdownStatus) UnmarshalJSON(data []byte) error {
 
 		case "shard_migration":
 			if err := dec.Decode(&s.ShardMigration); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ShardMigration", err)
 			}
 
 		case "shutdown_startedmillis":
 			if err := dec.Decode(&s.ShutdownStartedmillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ShutdownStartedmillis", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

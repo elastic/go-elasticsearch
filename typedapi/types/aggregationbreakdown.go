@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AggregationBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/profile.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/search/_types/profile.ts#L23-L36
 type AggregationBreakdown struct {
 	BuildAggregation        int64  `json:"build_aggregation"`
 	BuildAggregationCount   int64  `json:"build_aggregation_count"`
@@ -68,7 +69,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BuildAggregation", err)
 				}
 				s.BuildAggregation = value
 			case float64:
@@ -83,7 +84,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BuildAggregationCount", err)
 				}
 				s.BuildAggregationCount = value
 			case float64:
@@ -98,7 +99,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BuildLeafCollector", err)
 				}
 				s.BuildLeafCollector = value
 			case float64:
@@ -113,7 +114,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BuildLeafCollectorCount", err)
 				}
 				s.BuildLeafCollectorCount = value
 			case float64:
@@ -128,7 +129,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Collect", err)
 				}
 				s.Collect = value
 			case float64:
@@ -143,7 +144,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CollectCount", err)
 				}
 				s.CollectCount = value
 			case float64:
@@ -158,7 +159,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Initialize", err)
 				}
 				s.Initialize = value
 			case float64:
@@ -173,7 +174,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InitializeCount", err)
 				}
 				s.InitializeCount = value
 			case float64:
@@ -188,7 +189,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PostCollection", err)
 				}
 				s.PostCollection = &value
 			case float64:
@@ -203,7 +204,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PostCollectionCount", err)
 				}
 				s.PostCollectionCount = &value
 			case float64:
@@ -218,7 +219,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Reduce", err)
 				}
 				s.Reduce = value
 			case float64:
@@ -233,7 +234,7 @@ func (s *AggregationBreakdown) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ReduceCount", err)
 				}
 				s.ReduceCount = value
 			case float64:

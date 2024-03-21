@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -34,7 +35,7 @@ import (
 
 // SearchAsYouTypeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/core.ts#L197-L207
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/mapping/core.ts#L198-L208
 type SearchAsYouTypeProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	CopyTo         []string                       `json:"copy_to,omitempty"`
@@ -74,7 +75,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -89,19 +90,19 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 
 				s.CopyTo = append(s.CopyTo, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.CopyTo); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 			}
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "fields":
@@ -419,7 +420,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -434,7 +435,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Index", err)
 				}
 				s.Index = &value
 			case bool:
@@ -443,7 +444,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 
 		case "index_options":
 			if err := dec.Decode(&s.IndexOptions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexOptions", err)
 			}
 
 		case "max_shingle_size":
@@ -454,7 +455,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxShingleSize", err)
 				}
 				s.MaxShingleSize = &value
 			case float64:
@@ -467,7 +468,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "norms":
@@ -477,7 +478,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Norms", err)
 				}
 				s.Norms = &value
 			case bool:
@@ -794,7 +795,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 		case "search_analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchAnalyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -806,7 +807,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 		case "search_quote_analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchQuoteAnalyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -818,7 +819,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 		case "similarity":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -834,7 +835,7 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Store", err)
 				}
 				s.Store = &value
 			case bool:
@@ -843,12 +844,12 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 
 		case "term_vector":
 			if err := dec.Decode(&s.TermVector); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TermVector", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

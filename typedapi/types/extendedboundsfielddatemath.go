@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // ExtendedBoundsFieldDateMath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/bucket.ts#L489-L498
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/aggregations/bucket.ts#L489-L498
 type ExtendedBoundsFieldDateMath struct {
 	// Max Maximum value for the bound.
 	Max FieldDateMath `json:"max"`
@@ -54,12 +55,12 @@ func (s *ExtendedBoundsFieldDateMath) UnmarshalJSON(data []byte) error {
 
 		case "max":
 			if err := dec.Decode(&s.Max); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Max", err)
 			}
 
 		case "min":
 			if err := dec.Decode(&s.Min); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Min", err)
 			}
 
 		}

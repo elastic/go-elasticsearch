@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // Latest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/transform/_types/Transform.ts#L47-L52
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/transform/_types/Transform.ts#L47-L52
 type Latest struct {
 	// Sort Specifies the date field that is used to identify the latest documents.
 	Sort string `json:"sort"`
@@ -54,12 +55,12 @@ func (s *Latest) UnmarshalJSON(data []byte) error {
 
 		case "sort":
 			if err := dec.Decode(&s.Sort); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sort", err)
 			}
 
 		case "unique_key":
 			if err := dec.Decode(&s.UniqueKey); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UniqueKey", err)
 			}
 
 		}

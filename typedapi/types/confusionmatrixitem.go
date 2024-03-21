@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ConfusionMatrixItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/evaluate_data_frame/types.ts#L125-L130
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/evaluate_data_frame/types.ts#L125-L130
 type ConfusionMatrixItem struct {
 	ActualClass                 string                      `json:"actual_class"`
 	ActualClassDocCount         int                         `json:"actual_class_doc_count"`
@@ -55,7 +56,7 @@ func (s *ConfusionMatrixItem) UnmarshalJSON(data []byte) error {
 
 		case "actual_class":
 			if err := dec.Decode(&s.ActualClass); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActualClass", err)
 			}
 
 		case "actual_class_doc_count":
@@ -66,7 +67,7 @@ func (s *ConfusionMatrixItem) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ActualClassDocCount", err)
 				}
 				s.ActualClassDocCount = value
 			case float64:
@@ -82,7 +83,7 @@ func (s *ConfusionMatrixItem) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OtherPredictedClassDocCount", err)
 				}
 				s.OtherPredictedClassDocCount = value
 			case float64:
@@ -92,7 +93,7 @@ func (s *ConfusionMatrixItem) UnmarshalJSON(data []byte) error {
 
 		case "predicted_classes":
 			if err := dec.Decode(&s.PredictedClasses); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PredictedClasses", err)
 			}
 
 		}

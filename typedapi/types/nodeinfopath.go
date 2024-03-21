@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/info/types.ts#L158-L163
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/info/types.ts#L158-L163
 type NodeInfoPath struct {
 	Data []string `json:"data,omitempty"`
 	Home *string  `json:"home,omitempty"`
@@ -55,13 +56,13 @@ func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
 
 		case "data":
 			if err := dec.Decode(&s.Data); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Data", err)
 			}
 
 		case "home":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Home", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -73,7 +74,7 @@ func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
 		case "logs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Logs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -84,7 +85,7 @@ func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
 
 		case "repo":
 			if err := dec.Decode(&s.Repo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Repo", err)
 			}
 
 		}

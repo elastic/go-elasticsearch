@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 // Adds and updates roles in the native realm.
 package putrole
@@ -386,7 +386,7 @@ func (r *PutRole) RunAs(runas ...string) *PutRole {
 // `false`, the role is ignored, but is still listed in the response from the
 // authenticate API.
 // API name: transient_metadata
-func (r *PutRole) TransientMetadata(transientmetadata *types.TransientMetadataConfig) *PutRole {
+func (r *PutRole) TransientMetadata(transientmetadata map[string]json.RawMessage) *PutRole {
 
 	r.req.TransientMetadata = transientmetadata
 

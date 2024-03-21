@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Influencer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Influencer.ts#L31-L83
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/Influencer.ts#L31-L83
 type Influencer struct {
 	// BucketSpan The length of the bucket in seconds. This value matches the bucket span that
 	// is specified in the job.
@@ -90,13 +91,13 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 
 		case "bucket_span":
 			if err := dec.Decode(&s.BucketSpan); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketSpan", err)
 			}
 
 		case "foo":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Foo", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -107,13 +108,13 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 
 		case "influencer_field_name":
 			if err := dec.Decode(&s.InfluencerFieldName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InfluencerFieldName", err)
 			}
 
 		case "influencer_field_value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InfluencerFieldValue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -129,7 +130,7 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InfluencerScore", err)
 				}
 				f := Float64(value)
 				s.InfluencerScore = f
@@ -145,7 +146,7 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InitialInfluencerScore", err)
 				}
 				f := Float64(value)
 				s.InitialInfluencerScore = f
@@ -161,7 +162,7 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsInterim", err)
 				}
 				s.IsInterim = value
 			case bool:
@@ -170,7 +171,7 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "probability":
@@ -180,7 +181,7 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Probability", err)
 				}
 				f := Float64(value)
 				s.Probability = f
@@ -192,7 +193,7 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 		case "result_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -203,7 +204,7 @@ func (s *Influencer) UnmarshalJSON(data []byte) error {
 
 		case "timestamp":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		}

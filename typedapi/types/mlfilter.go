@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MLFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Filter.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/Filter.ts#L22-L29
 type MLFilter struct {
 	// Description A description of the filter.
 	Description *string `json:"description,omitempty"`
@@ -58,7 +59,7 @@ func (s *MLFilter) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -69,12 +70,12 @@ func (s *MLFilter) UnmarshalJSON(data []byte) error {
 
 		case "filter_id":
 			if err := dec.Decode(&s.FilterId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FilterId", err)
 			}
 
 		case "items":
 			if err := dec.Decode(&s.Items); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Items", err)
 			}
 
 		}

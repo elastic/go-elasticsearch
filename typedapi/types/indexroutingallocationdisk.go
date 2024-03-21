@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // IndexRoutingAllocationDisk type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexRouting.ts#L62-L64
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/IndexRouting.ts#L62-L64
 type IndexRoutingAllocationDisk struct {
 	ThresholdEnabled string `json:"threshold_enabled,omitempty"`
 }
@@ -53,7 +54,7 @@ func (s *IndexRoutingAllocationDisk) UnmarshalJSON(data []byte) error {
 		case "threshold_enabled":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThresholdEnabled", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

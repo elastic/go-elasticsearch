@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FieldTypesMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/stats/types.ts#L109-L134
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/cluster/stats/types.ts#L109-L134
 type FieldTypesMappings struct {
 	// FieldTypes Contains statistics about field data types used in selected nodes.
 	FieldTypes []FieldTypes `json:"field_types"`
@@ -64,12 +65,12 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 
 		case "field_types":
 			if err := dec.Decode(&s.FieldTypes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldTypes", err)
 			}
 
 		case "runtime_field_types":
 			if err := dec.Decode(&s.RuntimeFieldTypes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuntimeFieldTypes", err)
 			}
 
 		case "total_deduplicated_field_count":
@@ -80,7 +81,7 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalDeduplicatedFieldCount", err)
 				}
 				s.TotalDeduplicatedFieldCount = &value
 			case float64:
@@ -90,7 +91,7 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 
 		case "total_deduplicated_mapping_size":
 			if err := dec.Decode(&s.TotalDeduplicatedMappingSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalDeduplicatedMappingSize", err)
 			}
 
 		case "total_deduplicated_mapping_size_in_bytes":
@@ -100,7 +101,7 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalDeduplicatedMappingSizeInBytes", err)
 				}
 				s.TotalDeduplicatedMappingSizeInBytes = &value
 			case float64:
@@ -116,7 +117,7 @@ func (s *FieldTypesMappings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalFieldCount", err)
 				}
 				s.TotalFieldCount = &value
 			case float64:

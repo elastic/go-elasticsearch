@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,15 +24,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 )
 
 // GeoPointProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/geo.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/mapping/geo.ts#L24-L32
 type GeoPointProperty struct {
 	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
@@ -41,13 +43,16 @@ type GeoPointProperty struct {
 	IgnoreAbove     *int                           `json:"ignore_above,omitempty"`
 	IgnoreMalformed *bool                          `json:"ignore_malformed,omitempty"`
 	IgnoreZValue    *bool                          `json:"ignore_z_value,omitempty"`
+	Index           *bool                          `json:"index,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string   `json:"meta,omitempty"`
-	NullValue  GeoLocation         `json:"null_value,omitempty"`
-	Properties map[string]Property `json:"properties,omitempty"`
-	Similarity *string             `json:"similarity,omitempty"`
-	Store      *bool               `json:"store,omitempty"`
-	Type       string              `json:"type,omitempty"`
+	Meta          map[string]string            `json:"meta,omitempty"`
+	NullValue     GeoLocation                  `json:"null_value,omitempty"`
+	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
+	Properties    map[string]Property          `json:"properties,omitempty"`
+	Script        Script                       `json:"script,omitempty"`
+	Similarity    *string                      `json:"similarity,omitempty"`
+	Store         *bool                        `json:"store,omitempty"`
+	Type          string                       `json:"type,omitempty"`
 }
 
 func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
@@ -71,13 +76,13 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 
 				s.CopyTo = append(s.CopyTo, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.CopyTo); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 			}
 
@@ -88,7 +93,7 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocValues", err)
 				}
 				s.DocValues = &value
 			case bool:
@@ -97,7 +102,7 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "fields":
@@ -415,7 +420,7 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -430,7 +435,7 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreMalformed", err)
 				}
 				s.IgnoreMalformed = &value
 			case bool:
@@ -444,11 +449,25 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreZValue", err)
 				}
 				s.IgnoreZValue = &value
 			case bool:
 				s.IgnoreZValue = &v
+			}
+
+		case "index":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Index", err)
+				}
+				s.Index = &value
+			case bool:
+				s.Index = &v
 			}
 
 		case "meta":
@@ -456,12 +475,17 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "null_value":
 			if err := dec.Decode(&s.NullValue); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NullValue", err)
+			}
+
+		case "on_script_error":
+			if err := dec.Decode(&s.OnScriptError); err != nil {
+				return fmt.Errorf("%s | %w", "OnScriptError", err)
 			}
 
 		case "properties":
@@ -771,10 +795,46 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "script":
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
+				return fmt.Errorf("%s | %w", "Script", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Script", err)
+				}
+
+				switch t {
+
+				case "lang", "options", "source":
+					o := NewInlineScript()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Script", err)
+					}
+					s.Script = o
+
+				case "id":
+					o := NewStoredScriptId()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Script", err)
+					}
+					s.Script = o
+
+				}
+			}
+
 		case "similarity":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -790,7 +850,7 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Store", err)
 				}
 				s.Store = &value
 			case bool:
@@ -799,7 +859,7 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}
@@ -818,9 +878,12 @@ func (s GeoPointProperty) MarshalJSON() ([]byte, error) {
 		IgnoreAbove:     s.IgnoreAbove,
 		IgnoreMalformed: s.IgnoreMalformed,
 		IgnoreZValue:    s.IgnoreZValue,
+		Index:           s.Index,
 		Meta:            s.Meta,
 		NullValue:       s.NullValue,
+		OnScriptError:   s.OnScriptError,
 		Properties:      s.Properties,
+		Script:          s.Script,
 		Similarity:      s.Similarity,
 		Store:           s.Store,
 		Type:            s.Type,

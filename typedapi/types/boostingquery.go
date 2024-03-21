@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // BoostingQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/compound.ts#L54-L67
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/compound.ts#L54-L67
 type BoostingQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -70,7 +71,7 @@ func (s *BoostingQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -81,7 +82,7 @@ func (s *BoostingQuery) UnmarshalJSON(data []byte) error {
 
 		case "negative":
 			if err := dec.Decode(&s.Negative); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Negative", err)
 			}
 
 		case "negative_boost":
@@ -91,7 +92,7 @@ func (s *BoostingQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NegativeBoost", err)
 				}
 				f := Float64(value)
 				s.NegativeBoost = f
@@ -102,13 +103,13 @@ func (s *BoostingQuery) UnmarshalJSON(data []byte) error {
 
 		case "positive":
 			if err := dec.Decode(&s.Positive); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Positive", err)
 			}
 
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

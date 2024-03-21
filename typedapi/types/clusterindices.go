@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ClusterIndices type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/stats/types.ts#L74-L107
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/cluster/stats/types.ts#L74-L107
 type ClusterIndices struct {
 	// Analysis Contains statistics about analyzers and analyzer components used in selected
 	// nodes.
@@ -75,12 +76,12 @@ func (s *ClusterIndices) UnmarshalJSON(data []byte) error {
 
 		case "analysis":
 			if err := dec.Decode(&s.Analysis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analysis", err)
 			}
 
 		case "completion":
 			if err := dec.Decode(&s.Completion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Completion", err)
 			}
 
 		case "count":
@@ -90,7 +91,7 @@ func (s *ClusterIndices) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -100,42 +101,42 @@ func (s *ClusterIndices) UnmarshalJSON(data []byte) error {
 
 		case "docs":
 			if err := dec.Decode(&s.Docs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Docs", err)
 			}
 
 		case "fielddata":
 			if err := dec.Decode(&s.Fielddata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fielddata", err)
 			}
 
 		case "mappings":
 			if err := dec.Decode(&s.Mappings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mappings", err)
 			}
 
 		case "query_cache":
 			if err := dec.Decode(&s.QueryCache); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryCache", err)
 			}
 
 		case "segments":
 			if err := dec.Decode(&s.Segments); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Segments", err)
 			}
 
 		case "shards":
 			if err := dec.Decode(&s.Shards); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shards", err)
 			}
 
 		case "store":
 			if err := dec.Decode(&s.Store); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Store", err)
 			}
 
 		case "versions":
 			if err := dec.Decode(&s.Versions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Versions", err)
 			}
 
 		}

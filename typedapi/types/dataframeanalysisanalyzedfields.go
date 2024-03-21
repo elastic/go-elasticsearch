@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DataframeAnalysisAnalyzedFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L238-L244
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/DataframeAnalytics.ts#L238-L244
 type DataframeAnalysisAnalyzedFields struct {
 	// Excludes An array of strings that defines the fields that will be included in the
 	// analysis.
@@ -62,12 +63,12 @@ func (s *DataframeAnalysisAnalyzedFields) UnmarshalJSON(data []byte) error {
 
 		case "excludes":
 			if err := dec.Decode(&s.Excludes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Excludes", err)
 			}
 
 		case "includes":
 			if err := dec.Decode(&s.Includes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Includes", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // SourceField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/meta-fields.ts#L58-L65
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/mapping/meta-fields.ts#L58-L65
 type SourceField struct {
 	Compress          *bool                            `json:"compress,omitempty"`
 	CompressThreshold *string                          `json:"compress_threshold,omitempty"`
@@ -64,7 +65,7 @@ func (s *SourceField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Compress", err)
 				}
 				s.Compress = &value
 			case bool:
@@ -74,7 +75,7 @@ func (s *SourceField) UnmarshalJSON(data []byte) error {
 		case "compress_threshold":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CompressThreshold", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -90,7 +91,7 @@ func (s *SourceField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = &value
 			case bool:
@@ -99,17 +100,17 @@ func (s *SourceField) UnmarshalJSON(data []byte) error {
 
 		case "excludes":
 			if err := dec.Decode(&s.Excludes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Excludes", err)
 			}
 
 		case "includes":
 			if err := dec.Decode(&s.Includes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Includes", err)
 			}
 
 		case "mode":
 			if err := dec.Decode(&s.Mode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mode", err)
 			}
 
 		}

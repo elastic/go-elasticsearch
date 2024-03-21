@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // InProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/slm/_types/SnapshotLifecycle.ts#L131-L136
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/slm/_types/SnapshotLifecycle.ts#L131-L136
 type InProgress struct {
 	Name            string `json:"name"`
 	StartTimeMillis int64  `json:"start_time_millis"`
@@ -55,18 +56,18 @@ func (s *InProgress) UnmarshalJSON(data []byte) error {
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "start_time_millis":
 			if err := dec.Decode(&s.StartTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTimeMillis", err)
 			}
 
 		case "state":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -77,7 +78,7 @@ func (s *InProgress) UnmarshalJSON(data []byte) error {
 
 		case "uuid":
 			if err := dec.Decode(&s.Uuid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Uuid", err)
 			}
 
 		}

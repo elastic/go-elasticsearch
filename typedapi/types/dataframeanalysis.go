@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataframeAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L134-L213
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/DataframeAnalytics.ts#L134-L213
 type DataframeAnalysis struct {
 	// Alpha Advanced configuration option. Machine learning uses loss guided tree
 	// growing, which means that the decision trees grow where the regularized loss
@@ -169,7 +170,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Alpha", err)
 				}
 				f := Float64(value)
 				s.Alpha = &f
@@ -181,7 +182,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 		case "dependent_variable":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DependentVariable", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -197,7 +198,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DownsampleFactor", err)
 				}
 				f := Float64(value)
 				s.DownsampleFactor = &f
@@ -213,7 +214,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EarlyStoppingEnabled", err)
 				}
 				s.EarlyStoppingEnabled = &value
 			case bool:
@@ -227,7 +228,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Eta", err)
 				}
 				f := Float64(value)
 				s.Eta = &f
@@ -243,7 +244,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EtaGrowthRatePerTree", err)
 				}
 				f := Float64(value)
 				s.EtaGrowthRatePerTree = &f
@@ -259,7 +260,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FeatureBagFraction", err)
 				}
 				f := Float64(value)
 				s.FeatureBagFraction = &f
@@ -270,7 +271,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 
 		case "feature_processors":
 			if err := dec.Decode(&s.FeatureProcessors); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FeatureProcessors", err)
 			}
 
 		case "gamma":
@@ -280,7 +281,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Gamma", err)
 				}
 				f := Float64(value)
 				s.Gamma = &f
@@ -296,7 +297,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Lambda", err)
 				}
 				f := Float64(value)
 				s.Lambda = &f
@@ -313,7 +314,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxOptimizationRoundsPerHyperparameter", err)
 				}
 				s.MaxOptimizationRoundsPerHyperparameter = &value
 			case float64:
@@ -329,7 +330,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxTrees", err)
 				}
 				s.MaxTrees = &value
 			case float64:
@@ -345,7 +346,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumTopFeatureImportanceValues", err)
 				}
 				s.NumTopFeatureImportanceValues = &value
 			case float64:
@@ -355,7 +356,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 
 		case "prediction_field_name":
 			if err := dec.Decode(&s.PredictionFieldName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PredictionFieldName", err)
 			}
 
 		case "randomize_seed":
@@ -365,7 +366,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RandomizeSeed", err)
 				}
 				f := Float64(value)
 				s.RandomizeSeed = &f
@@ -382,7 +383,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SoftTreeDepthLimit", err)
 				}
 				s.SoftTreeDepthLimit = &value
 			case float64:
@@ -397,7 +398,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SoftTreeDepthTolerance", err)
 				}
 				f := Float64(value)
 				s.SoftTreeDepthTolerance = &f
@@ -408,7 +409,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 
 		case "training_percent":
 			if err := dec.Decode(&s.TrainingPercent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TrainingPercent", err)
 			}
 
 		}

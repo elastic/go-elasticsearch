@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // GetMigrationFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L37-L42
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L37-L42
 type GetMigrationFeature struct {
 	FeatureName         string                          `json:"feature_name"`
 	Indices             []MigrationFeatureIndexInfo     `json:"indices"`
@@ -58,7 +59,7 @@ func (s *GetMigrationFeature) UnmarshalJSON(data []byte) error {
 		case "feature_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FeatureName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -69,17 +70,17 @@ func (s *GetMigrationFeature) UnmarshalJSON(data []byte) error {
 
 		case "indices":
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "migration_status":
 			if err := dec.Decode(&s.MigrationStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MigrationStatus", err)
 			}
 
 		case "minimum_index_version":
 			if err := dec.Decode(&s.MinimumIndexVersion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumIndexVersion", err)
 			}
 
 		}

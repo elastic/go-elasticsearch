@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MemMlStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/get_memory_stats/types.ts#L90-L111
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/get_memory_stats/types.ts#L90-L111
 type MemMlStats struct {
 	// AnomalyDetectors Amount of native memory set aside for anomaly detection jobs.
 	AnomalyDetectors ByteSize `json:"anomaly_detectors,omitempty"`
@@ -77,7 +78,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 
 		case "anomaly_detectors":
 			if err := dec.Decode(&s.AnomalyDetectors); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnomalyDetectors", err)
 			}
 
 		case "anomaly_detectors_in_bytes":
@@ -88,7 +89,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AnomalyDetectorsInBytes", err)
 				}
 				s.AnomalyDetectorsInBytes = value
 			case float64:
@@ -98,7 +99,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 
 		case "data_frame_analytics":
 			if err := dec.Decode(&s.DataFrameAnalytics); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataFrameAnalytics", err)
 			}
 
 		case "data_frame_analytics_in_bytes":
@@ -109,7 +110,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DataFrameAnalyticsInBytes", err)
 				}
 				s.DataFrameAnalyticsInBytes = value
 			case float64:
@@ -119,7 +120,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 
 		case "max":
 			if err := dec.Decode(&s.Max); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Max", err)
 			}
 
 		case "max_in_bytes":
@@ -130,7 +131,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxInBytes", err)
 				}
 				s.MaxInBytes = value
 			case float64:
@@ -140,7 +141,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 
 		case "native_code_overhead":
 			if err := dec.Decode(&s.NativeCodeOverhead); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NativeCodeOverhead", err)
 			}
 
 		case "native_code_overhead_in_bytes":
@@ -151,7 +152,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NativeCodeOverheadInBytes", err)
 				}
 				s.NativeCodeOverheadInBytes = value
 			case float64:
@@ -161,7 +162,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 
 		case "native_inference":
 			if err := dec.Decode(&s.NativeInference); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NativeInference", err)
 			}
 
 		case "native_inference_in_bytes":
@@ -172,7 +173,7 @@ func (s *MemMlStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NativeInferenceInBytes", err)
 				}
 				s.NativeInferenceInBytes = value
 			case float64:

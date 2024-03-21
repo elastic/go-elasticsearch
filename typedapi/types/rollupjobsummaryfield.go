@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RollupJobSummaryField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/rollup/get_rollup_index_caps/types.ts#L35-L39
 type RollupJobSummaryField struct {
 	Agg              string   `json:"agg"`
 	CalendarInterval Duration `json:"calendar_interval,omitempty"`
@@ -55,7 +56,7 @@ func (s *RollupJobSummaryField) UnmarshalJSON(data []byte) error {
 		case "agg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Agg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -66,12 +67,12 @@ func (s *RollupJobSummaryField) UnmarshalJSON(data []byte) error {
 
 		case "calendar_interval":
 			if err := dec.Decode(&s.CalendarInterval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CalendarInterval", err)
 			}
 
 		case "time_zone":
 			if err := dec.Decode(&s.TimeZone); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
 		}

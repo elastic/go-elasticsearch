@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
@@ -31,7 +32,7 @@ import (
 
 // UpdateByQueryRethrottleNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleNode.ts#L25-L27
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleNode.ts#L25-L27
 type UpdateByQueryRethrottleNode struct {
 	Attributes       map[string]string   `json:"attributes"`
 	Host             string              `json:"host"`
@@ -62,27 +63,27 @@ func (s *UpdateByQueryRethrottleNode) UnmarshalJSON(data []byte) error {
 				s.Attributes = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Attributes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attributes", err)
 			}
 
 		case "host":
 			if err := dec.Decode(&s.Host); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 
 		case "ip":
 			if err := dec.Decode(&s.Ip); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "tasks":
@@ -90,12 +91,12 @@ func (s *UpdateByQueryRethrottleNode) UnmarshalJSON(data []byte) error {
 				s.Tasks = make(map[string]TaskInfo, 0)
 			}
 			if err := dec.Decode(&s.Tasks); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tasks", err)
 			}
 
 		case "transport_address":
 			if err := dec.Decode(&s.TransportAddress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TransportAddress", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // NodeInfoSettingsCluster type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/info/types.ts#L132-L142
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/info/types.ts#L132-L142
 type NodeInfoSettingsCluster struct {
 	DeprecationIndexing *DeprecationIndexing            `json:"deprecation_indexing,omitempty"`
 	Election            NodeInfoSettingsClusterElection `json:"election"`
@@ -55,27 +56,27 @@ func (s *NodeInfoSettingsCluster) UnmarshalJSON(data []byte) error {
 
 		case "deprecation_indexing":
 			if err := dec.Decode(&s.DeprecationIndexing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DeprecationIndexing", err)
 			}
 
 		case "election":
 			if err := dec.Decode(&s.Election); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Election", err)
 			}
 
 		case "initial_master_nodes":
 			if err := dec.Decode(&s.InitialMasterNodes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InitialMasterNodes", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		}

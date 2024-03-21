@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FollowerIndexParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ccr/follow_info/types.ts#L38-L49
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ccr/follow_info/types.ts#L38-L49
 type FollowerIndexParameters struct {
 	MaxOutstandingReadRequests    int      `json:"max_outstanding_read_requests"`
 	MaxOutstandingWriteRequests   int      `json:"max_outstanding_write_requests"`
@@ -67,7 +68,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxOutstandingReadRequests", err)
 				}
 				s.MaxOutstandingReadRequests = value
 			case float64:
@@ -83,7 +84,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxOutstandingWriteRequests", err)
 				}
 				s.MaxOutstandingWriteRequests = value
 			case float64:
@@ -99,7 +100,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxReadRequestOperationCount", err)
 				}
 				s.MaxReadRequestOperationCount = value
 			case float64:
@@ -110,7 +111,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 		case "max_read_request_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxReadRequestSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -121,7 +122,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 
 		case "max_retry_delay":
 			if err := dec.Decode(&s.MaxRetryDelay); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxRetryDelay", err)
 			}
 
 		case "max_write_buffer_count":
@@ -132,7 +133,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxWriteBufferCount", err)
 				}
 				s.MaxWriteBufferCount = value
 			case float64:
@@ -143,7 +144,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 		case "max_write_buffer_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxWriteBufferSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -160,7 +161,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxWriteRequestOperationCount", err)
 				}
 				s.MaxWriteRequestOperationCount = value
 			case float64:
@@ -171,7 +172,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 		case "max_write_request_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxWriteRequestSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -182,7 +183,7 @@ func (s *FollowerIndexParameters) UnmarshalJSON(data []byte) error {
 
 		case "read_poll_timeout":
 			if err := dec.Decode(&s.ReadPollTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReadPollTimeout", err)
 			}
 
 		}

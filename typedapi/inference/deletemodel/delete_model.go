@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 // Delete model in the Inference API
 package deletemodel
@@ -39,7 +39,7 @@ import (
 const (
 	tasktypeMask = iota + 1
 
-	modelidMask
+	inferenceidMask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -56,8 +56,8 @@ type DeleteModel struct {
 
 	paramSet int
 
-	tasktype string
-	modelid  string
+	tasktype    string
+	inferenceid string
 
 	spanStarted bool
 
@@ -65,17 +65,15 @@ type DeleteModel struct {
 }
 
 // NewDeleteModel type alias for index.
-type NewDeleteModel func(tasktype, modelid string) *DeleteModel
+type NewDeleteModel func(inferenceid string) *DeleteModel
 
 // NewDeleteModelFunc returns a new instance of DeleteModel with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
 func NewDeleteModelFunc(tp elastictransport.Interface) NewDeleteModel {
-	return func(tasktype, modelid string) *DeleteModel {
+	return func(inferenceid string) *DeleteModel {
 		n := New(tp)
 
-		n._tasktype(tasktype)
-
-		n._modelid(modelid)
+		n._inferenceid(inferenceid)
 
 		return n
 	}
@@ -112,7 +110,18 @@ func (r *DeleteModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
-	case r.paramSet == tasktypeMask|modelidMask:
+	case r.paramSet == inferenceidMask:
+		path.WriteString("/")
+		path.WriteString("_inference")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
+		}
+		path.WriteString(r.inferenceid)
+
+		method = http.MethodDelete
+	case r.paramSet == tasktypeMask|inferenceidMask:
 		path.WriteString("/")
 		path.WriteString("_inference")
 		path.WriteString("/")
@@ -124,9 +133,9 @@ func (r *DeleteModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "modelid", r.modelid)
+			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
 		}
-		path.WriteString(r.modelid)
+		path.WriteString(r.inferenceid)
 
 		method = http.MethodDelete
 	}
@@ -299,20 +308,20 @@ func (r *DeleteModel) Header(key, value string) *DeleteModel {
 	return r
 }
 
-// TaskType The model task type
+// TaskType The task type
 // API Name: tasktype
-func (r *DeleteModel) _tasktype(tasktype string) *DeleteModel {
+func (r *DeleteModel) TaskType(tasktype string) *DeleteModel {
 	r.paramSet |= tasktypeMask
 	r.tasktype = tasktype
 
 	return r
 }
 
-// ModelId The unique identifier of the inference model.
-// API Name: modelid
-func (r *DeleteModel) _modelid(modelid string) *DeleteModel {
-	r.paramSet |= modelidMask
-	r.modelid = modelid
+// InferenceId The inference Id
+// API Name: inferenceid
+func (r *DeleteModel) _inferenceid(inferenceid string) *DeleteModel {
+	r.paramSet |= inferenceidMask
+	r.inferenceid = inferenceid
 
 	return r
 }

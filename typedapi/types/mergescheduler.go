@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // MergeScheduler type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L330-L333
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/IndexSettings.ts#L334-L337
 type MergeScheduler struct {
 	MaxMergeCount  Stringifiedinteger `json:"max_merge_count,omitempty"`
 	MaxThreadCount Stringifiedinteger `json:"max_thread_count,omitempty"`
@@ -52,12 +53,12 @@ func (s *MergeScheduler) UnmarshalJSON(data []byte) error {
 
 		case "max_merge_count":
 			if err := dec.Decode(&s.MaxMergeCount); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxMergeCount", err)
 			}
 
 		case "max_thread_count":
 			if err := dec.Decode(&s.MaxThreadCount); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxThreadCount", err)
 			}
 
 		}

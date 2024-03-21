@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // Role type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/get_role/types.ts#L29-L42
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/get_role/types.ts#L29-L42
 type Role struct {
 	Applications      []ApplicationPrivileges                   `json:"applications"`
 	Cluster           []string                                  `json:"cluster"`
@@ -38,7 +39,7 @@ type Role struct {
 	Metadata          Metadata                                  `json:"metadata"`
 	RoleTemplates     []RoleTemplate                            `json:"role_templates,omitempty"`
 	RunAs             []string                                  `json:"run_as"`
-	TransientMetadata TransientMetadataConfig                   `json:"transient_metadata"`
+	TransientMetadata map[string]json.RawMessage                `json:"transient_metadata,omitempty"`
 }
 
 func (s *Role) UnmarshalJSON(data []byte) error {
@@ -58,12 +59,12 @@ func (s *Role) UnmarshalJSON(data []byte) error {
 
 		case "applications":
 			if err := dec.Decode(&s.Applications); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Applications", err)
 			}
 
 		case "cluster":
 			if err := dec.Decode(&s.Cluster); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cluster", err)
 			}
 
 		case "global":
@@ -71,32 +72,35 @@ func (s *Role) UnmarshalJSON(data []byte) error {
 				s.Global = make(map[string]map[string]map[string][]string, 0)
 			}
 			if err := dec.Decode(&s.Global); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Global", err)
 			}
 
 		case "indices":
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "role_templates":
 			if err := dec.Decode(&s.RoleTemplates); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RoleTemplates", err)
 			}
 
 		case "run_as":
 			if err := dec.Decode(&s.RunAs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RunAs", err)
 			}
 
 		case "transient_metadata":
+			if s.TransientMetadata == nil {
+				s.TransientMetadata = make(map[string]json.RawMessage, 0)
+			}
 			if err := dec.Decode(&s.TransientMetadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TransientMetadata", err)
 			}
 
 		}
@@ -107,7 +111,8 @@ func (s *Role) UnmarshalJSON(data []byte) error {
 // NewRole returns a Role.
 func NewRole() *Role {
 	r := &Role{
-		Global: make(map[string]map[string]map[string][]string, 0),
+		Global:            make(map[string]map[string]map[string][]string, 0),
+		TransientMetadata: make(map[string]json.RawMessage, 0),
 	}
 
 	return r

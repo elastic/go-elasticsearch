@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CatComponentTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/component_templates/types.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/cat/component_templates/types.ts#L20-L28
 type CatComponentTemplate struct {
 	AliasCount    string `json:"alias_count"`
 	IncludedIn    string `json:"included_in"`
@@ -59,7 +60,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 		case "alias_count":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AliasCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -71,7 +72,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 		case "included_in":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IncludedIn", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -83,7 +84,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 		case "mapping_count":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MappingCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -95,7 +96,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 		case "metadata_count":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MetadataCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -107,7 +108,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -119,7 +120,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 		case "settings_count":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SettingsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -131,7 +132,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 		case "version":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

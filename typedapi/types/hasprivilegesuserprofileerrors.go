@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // HasPrivilegesUserProfileErrors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/has_privileges_user_profile/types.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/has_privileges_user_profile/types.ts#L39-L42
 type HasPrivilegesUserProfileErrors struct {
 	Count   int64                 `json:"count"`
 	Details map[string]ErrorCause `json:"details"`
@@ -58,7 +59,7 @@ func (s *HasPrivilegesUserProfileErrors) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -71,7 +72,7 @@ func (s *HasPrivilegesUserProfileErrors) UnmarshalJSON(data []byte) error {
 				s.Details = make(map[string]ErrorCause, 0)
 			}
 			if err := dec.Decode(&s.Details); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Details", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/optype"
@@ -32,7 +33,7 @@ import (
 
 // IndexAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L256-L265
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/watcher/_types/Actions.ts#L256-L265
 type IndexAction struct {
 	DocId              *string          `json:"doc_id,omitempty"`
 	ExecutionTimeField *string          `json:"execution_time_field,omitempty"`
@@ -59,32 +60,32 @@ func (s *IndexAction) UnmarshalJSON(data []byte) error {
 
 		case "doc_id":
 			if err := dec.Decode(&s.DocId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocId", err)
 			}
 
 		case "execution_time_field":
 			if err := dec.Decode(&s.ExecutionTimeField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExecutionTimeField", err)
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "op_type":
 			if err := dec.Decode(&s.OpType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OpType", err)
 			}
 
 		case "refresh":
 			if err := dec.Decode(&s.Refresh); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Refresh", err)
 			}
 
 		case "timeout":
 			if err := dec.Decode(&s.Timeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 
 		}

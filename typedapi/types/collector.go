@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Collector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/profile.ts#L86-L91
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/search/_types/profile.ts#L86-L91
 type Collector struct {
 	Children    []Collector `json:"children,omitempty"`
 	Name        string      `json:"name"`
@@ -55,13 +56,13 @@ func (s *Collector) UnmarshalJSON(data []byte) error {
 
 		case "children":
 			if err := dec.Decode(&s.Children); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Children", err)
 			}
 
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -73,7 +74,7 @@ func (s *Collector) UnmarshalJSON(data []byte) error {
 		case "reason":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -84,7 +85,7 @@ func (s *Collector) UnmarshalJSON(data []byte) error {
 
 		case "time_in_nanos":
 			if err := dec.Decode(&s.TimeInNanos); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeInNanos", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // NodeUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/usage/types.ts#L25-L30
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/usage/types.ts#L25-L30
 type NodeUsage struct {
 	Aggregations map[string]json.RawMessage `json:"aggregations"`
 	RestActions  map[string]int             `json:"rest_actions"`
@@ -57,7 +58,7 @@ func (s *NodeUsage) UnmarshalJSON(data []byte) error {
 				s.Aggregations = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Aggregations", err)
 			}
 
 		case "rest_actions":
@@ -65,17 +66,17 @@ func (s *NodeUsage) UnmarshalJSON(data []byte) error {
 				s.RestActions = make(map[string]int, 0)
 			}
 			if err := dec.Decode(&s.RestActions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RestActions", err)
 			}
 
 		case "since":
 			if err := dec.Decode(&s.Since); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Since", err)
 			}
 
 		case "timestamp":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		}

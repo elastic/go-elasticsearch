@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // IlmIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L150-L153
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/health_report/types.ts#L150-L153
 type IlmIndicatorDetails struct {
 	IlmStatus lifecycleoperationmode.LifecycleOperationMode `json:"ilm_status"`
 	Policies  int64                                         `json:"policies"`
@@ -55,7 +56,7 @@ func (s *IlmIndicatorDetails) UnmarshalJSON(data []byte) error {
 
 		case "ilm_status":
 			if err := dec.Decode(&s.IlmStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IlmStatus", err)
 			}
 
 		case "policies":
@@ -65,7 +66,7 @@ func (s *IlmIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Policies", err)
 				}
 				s.Policies = value
 			case float64:

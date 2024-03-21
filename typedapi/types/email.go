@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // Email type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L238-L250
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/watcher/_types/Actions.ts#L238-L250
 type Email struct {
 	Attachments map[string]EmailAttachmentContainer `json:"attachments,omitempty"`
 	Bcc         []string                            `json:"bcc,omitempty"`
@@ -67,28 +68,28 @@ func (s *Email) UnmarshalJSON(data []byte) error {
 				s.Attachments = make(map[string]EmailAttachmentContainer, 0)
 			}
 			if err := dec.Decode(&s.Attachments); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attachments", err)
 			}
 
 		case "bcc":
 			if err := dec.Decode(&s.Bcc); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Bcc", err)
 			}
 
 		case "body":
 			if err := dec.Decode(&s.Body); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Body", err)
 			}
 
 		case "cc":
 			if err := dec.Decode(&s.Cc); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cc", err)
 			}
 
 		case "from":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "From", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -99,28 +100,28 @@ func (s *Email) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "priority":
 			if err := dec.Decode(&s.Priority); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Priority", err)
 			}
 
 		case "reply_to":
 			if err := dec.Decode(&s.ReplyTo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReplyTo", err)
 			}
 
 		case "sent_date":
 			if err := dec.Decode(&s.SentDate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SentDate", err)
 			}
 
 		case "subject":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Subject", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -131,7 +132,7 @@ func (s *Email) UnmarshalJSON(data []byte) error {
 
 		case "to":
 			if err := dec.Decode(&s.To); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "To", err)
 			}
 
 		}

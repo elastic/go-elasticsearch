@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DistanceFeatureQueryBaseGeoLocationDistance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/specialized.ts#L40-L60
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/specialized.ts#L40-L60
 type DistanceFeatureQueryBaseGeoLocationDistance struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -83,7 +84,7 @@ func (s *DistanceFeatureQueryBaseGeoLocationDistance) UnmarshalJSON(data []byte)
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -94,23 +95,23 @@ func (s *DistanceFeatureQueryBaseGeoLocationDistance) UnmarshalJSON(data []byte)
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "origin":
 			if err := dec.Decode(&s.Origin); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Origin", err)
 			}
 
 		case "pivot":
 			if err := dec.Decode(&s.Pivot); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pivot", err)
 			}
 
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

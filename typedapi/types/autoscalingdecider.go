@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AutoscalingDecider type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L52-L56
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/autoscaling/get_autoscaling_capacity/GetAutoscalingCapacityResponse.ts#L52-L56
 type AutoscalingDecider struct {
 	ReasonDetails    json.RawMessage     `json:"reason_details,omitempty"`
 	ReasonSummary    *string             `json:"reason_summary,omitempty"`
@@ -54,13 +55,13 @@ func (s *AutoscalingDecider) UnmarshalJSON(data []byte) error {
 
 		case "reason_details":
 			if err := dec.Decode(&s.ReasonDetails); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReasonDetails", err)
 			}
 
 		case "reason_summary":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReasonSummary", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -71,7 +72,7 @@ func (s *AutoscalingDecider) UnmarshalJSON(data []byte) error {
 
 		case "required_capacity":
 			if err := dec.Decode(&s.RequiredCapacity); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RequiredCapacity", err)
 			}
 
 		}

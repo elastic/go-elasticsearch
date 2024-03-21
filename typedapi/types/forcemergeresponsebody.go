@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ForceMergeResponseBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/forcemerge/_types/response.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/forcemerge/_types/response.ts#L22-L28
 type ForceMergeResponseBody struct {
 	Shards_ ShardStatistics `json:"_shards"`
 	// Task task contains a task id returned when wait_for_completion=false,
@@ -55,13 +56,13 @@ func (s *ForceMergeResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "_shards":
 			if err := dec.Decode(&s.Shards_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shards_", err)
 			}
 
 		case "task":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Task", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

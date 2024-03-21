@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
@@ -32,7 +33,7 @@ import (
 
 // IndicesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/stats/types.ts#L95-L110
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/stats/types.ts#L95-L110
 type IndicesStats struct {
 	Health    *healthstatus.HealthStatus             `json:"health,omitempty"`
 	Primaries *IndexStats                            `json:"primaries,omitempty"`
@@ -59,12 +60,12 @@ func (s *IndicesStats) UnmarshalJSON(data []byte) error {
 
 		case "health":
 			if err := dec.Decode(&s.Health); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Health", err)
 			}
 
 		case "primaries":
 			if err := dec.Decode(&s.Primaries); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Primaries", err)
 			}
 
 		case "shards":
@@ -72,22 +73,22 @@ func (s *IndicesStats) UnmarshalJSON(data []byte) error {
 				s.Shards = make(map[string][]IndicesShardStats, 0)
 			}
 			if err := dec.Decode(&s.Shards); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shards", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "total":
 			if err := dec.Decode(&s.Total); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Total", err)
 			}
 
 		case "uuid":
 			if err := dec.Decode(&s.Uuid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Uuid", err)
 			}
 
 		}

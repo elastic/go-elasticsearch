@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Diagnosis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L49-L55
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/health_report/types.ts#L49-L55
 type Diagnosis struct {
 	Action            string                     `json:"action"`
 	AffectedResources DiagnosisAffectedResources `json:"affected_resources"`
@@ -57,7 +58,7 @@ func (s *Diagnosis) UnmarshalJSON(data []byte) error {
 		case "action":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Action", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -68,13 +69,13 @@ func (s *Diagnosis) UnmarshalJSON(data []byte) error {
 
 		case "affected_resources":
 			if err := dec.Decode(&s.AffectedResources); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AffectedResources", err)
 			}
 
 		case "cause":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cause", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -86,7 +87,7 @@ func (s *Diagnosis) UnmarshalJSON(data []byte) error {
 		case "help_url":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HelpUrl", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -98,7 +99,7 @@ func (s *Diagnosis) UnmarshalJSON(data []byte) error {
 		case "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

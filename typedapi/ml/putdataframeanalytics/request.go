@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package putdataframeanalytics
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putdataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsRequest.ts#L30-L141
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/put_data_frame_analytics/MlPutDataFrameAnalyticsRequest.ts#L30-L141
 type Request struct {
 
 	// AllowLazyStart Specifies whether this job can start when there is insufficient machine
@@ -138,7 +138,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowLazyStart", err)
 				}
 				s.AllowLazyStart = &value
 			case bool:
@@ -147,18 +147,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "analysis":
 			if err := dec.Decode(&s.Analysis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analysis", err)
 			}
 
 		case "analyzed_fields":
 			if err := dec.Decode(&s.AnalyzedFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnalyzedFields", err)
 			}
 
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -169,12 +169,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "dest":
 			if err := dec.Decode(&s.Dest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dest", err)
 			}
 
 		case "headers":
 			if err := dec.Decode(&s.Headers); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Headers", err)
 			}
 
 		case "max_num_threads":
@@ -185,7 +185,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxNumThreads", err)
 				}
 				s.MaxNumThreads = &value
 			case float64:
@@ -196,7 +196,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "model_memory_limit":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelMemoryLimit", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -207,12 +207,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "source":
 			if err := dec.Decode(&s.Source); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

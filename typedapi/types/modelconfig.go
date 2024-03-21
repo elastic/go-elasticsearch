@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/inference/_types/Services.ts#L23-L39
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/inference/_types/Services.ts#L23-L39
 type ModelConfig struct {
 	// Service The service type
 	Service string `json:"service"`
@@ -58,7 +59,7 @@ func (s *ModelConfig) UnmarshalJSON(data []byte) error {
 		case "service":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Service", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -69,12 +70,12 @@ func (s *ModelConfig) UnmarshalJSON(data []byte) error {
 
 		case "service_settings":
 			if err := dec.Decode(&s.ServiceSettings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ServiceSettings", err)
 			}
 
 		case "task_settings":
 			if err := dec.Decode(&s.TaskSettings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TaskSettings", err)
 			}
 
 		}
