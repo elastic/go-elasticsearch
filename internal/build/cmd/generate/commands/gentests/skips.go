@@ -171,6 +171,8 @@ indices.put_mapping/10_basic.yml:
 test/indices.put_template/10_basic.yml:
 
 # Incompatible regex
+cat.indices/10_basic.yml:
+ - Test cat indices output for closed index (pre 7.2.0)
 cat.templates/10_basic.yml:
   - "Sort templates"
   - "Multiple template"
@@ -333,6 +335,9 @@ ml/semantic_search.yml:
 # model is not deployed to any node
 ml/text_expansion_search.yml:
 ml/text_expansion_search_sparse_vector.yml:
+ml/search_knn_query_vector_builder.yml:
+ml/text_embedding_search.yml:
+ml/text_expansion_search_rank_features.yml:
 
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
