@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package putdatalifecycle
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L75
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L75
 type Request struct {
 
 	// DataRetention If defined, every document added to this data stream will be stored at least
@@ -80,12 +80,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "data_retention":
 			if err := dec.Decode(&s.DataRetention); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataRetention", err)
 			}
 
 		case "downsampling":
 			if err := dec.Decode(&s.Downsampling); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Downsampling", err)
 			}
 
 		}

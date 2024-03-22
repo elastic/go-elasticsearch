@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardRecovery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/recovery/types.ts#L118-L135
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/recovery/types.ts#L118-L135
 type ShardRecovery struct {
 	Id                int64                `json:"id"`
 	Index             RecoveryIndexStatus  `json:"index"`
@@ -72,7 +73,7 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Id", err)
 				}
 				s.Id = value
 			case float64:
@@ -82,7 +83,7 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "primary":
@@ -92,7 +93,7 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Primary", err)
 				}
 				s.Primary = value
 			case bool:
@@ -101,13 +102,13 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 
 		case "source":
 			if err := dec.Decode(&s.Source); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 
 		case "stage":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Stage", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -118,53 +119,53 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 
 		case "start":
 			if err := dec.Decode(&s.Start); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Start", err)
 			}
 
 		case "start_time":
 			if err := dec.Decode(&s.StartTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTime", err)
 			}
 
 		case "start_time_in_millis":
 			if err := dec.Decode(&s.StartTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTimeInMillis", err)
 			}
 
 		case "stop_time":
 			if err := dec.Decode(&s.StopTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StopTime", err)
 			}
 
 		case "stop_time_in_millis":
 			if err := dec.Decode(&s.StopTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StopTimeInMillis", err)
 			}
 
 		case "target":
 			if err := dec.Decode(&s.Target); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Target", err)
 			}
 
 		case "total_time":
 			if err := dec.Decode(&s.TotalTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTime", err)
 			}
 
 		case "total_time_in_millis":
 			if err := dec.Decode(&s.TotalTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTimeInMillis", err)
 			}
 
 		case "translog":
 			if err := dec.Decode(&s.Translog); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Translog", err)
 			}
 
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -175,7 +176,7 @@ func (s *ShardRecovery) UnmarshalJSON(data []byte) error {
 
 		case "verify_index":
 			if err := dec.Decode(&s.VerifyIndex); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VerifyIndex", err)
 			}
 
 		}

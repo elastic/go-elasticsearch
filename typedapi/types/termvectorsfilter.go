@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TermVectorsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/termvectors/types.ts#L49-L86
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/termvectors/types.ts#L49-L86
 type TermVectorsFilter struct {
 	// MaxDocFreq Ignore words which occur in more than this many docs.
 	// Defaults to unbounded.
@@ -74,7 +75,7 @@ func (s *TermVectorsFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxDocFreq", err)
 				}
 				s.MaxDocFreq = &value
 			case float64:
@@ -90,7 +91,7 @@ func (s *TermVectorsFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxNumTerms", err)
 				}
 				s.MaxNumTerms = &value
 			case float64:
@@ -106,7 +107,7 @@ func (s *TermVectorsFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxTermFreq", err)
 				}
 				s.MaxTermFreq = &value
 			case float64:
@@ -122,7 +123,7 @@ func (s *TermVectorsFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxWordLength", err)
 				}
 				s.MaxWordLength = &value
 			case float64:
@@ -138,7 +139,7 @@ func (s *TermVectorsFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinDocFreq", err)
 				}
 				s.MinDocFreq = &value
 			case float64:
@@ -154,7 +155,7 @@ func (s *TermVectorsFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinTermFreq", err)
 				}
 				s.MinTermFreq = &value
 			case float64:
@@ -170,7 +171,7 @@ func (s *TermVectorsFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinWordLength", err)
 				}
 				s.MinWordLength = &value
 			case float64:

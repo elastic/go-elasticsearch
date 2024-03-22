@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package clearcachedroles
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package clearcachedroles
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/clear_cached_roles/ClearCachedRolesResponse.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/clear_cached_roles/ClearCachedRolesResponse.ts#L25-L32
 type Response struct {
 	ClusterName string                       `json:"cluster_name"`
 	NodeStats   types.NodeStatistics         `json:"_nodes"`

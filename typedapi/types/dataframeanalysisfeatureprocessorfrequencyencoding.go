@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DataframeAnalysisFeatureProcessorFrequencyEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L260-L267
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/DataframeAnalytics.ts#L260-L267
 type DataframeAnalysisFeatureProcessorFrequencyEncoding struct {
 	// FeatureName The resulting feature name.
 	FeatureName string `json:"feature_name"`
@@ -56,12 +57,12 @@ func (s *DataframeAnalysisFeatureProcessorFrequencyEncoding) UnmarshalJSON(data 
 
 		case "feature_name":
 			if err := dec.Decode(&s.FeatureName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FeatureName", err)
 			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "frequency_map":
@@ -69,7 +70,7 @@ func (s *DataframeAnalysisFeatureProcessorFrequencyEncoding) UnmarshalJSON(data 
 				s.FrequencyMap = make(map[string]Float64, 0)
 			}
 			if err := dec.Decode(&s.FrequencyMap); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FrequencyMap", err)
 			}
 
 		}

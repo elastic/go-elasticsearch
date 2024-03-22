@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // Invocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/slm/_types/SnapshotLifecycle.ts#L138-L141
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/slm/_types/SnapshotLifecycle.ts#L138-L141
 type Invocation struct {
 	SnapshotName string   `json:"snapshot_name"`
 	Time         DateTime `json:"time"`
@@ -52,12 +53,12 @@ func (s *Invocation) UnmarshalJSON(data []byte) error {
 
 		case "snapshot_name":
 			if err := dec.Decode(&s.SnapshotName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SnapshotName", err)
 			}
 
 		case "time":
 			if err := dec.Decode(&s.Time); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		}

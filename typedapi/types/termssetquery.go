@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TermsSetQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/term.ts#L249-L262
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/term.ts#L249-L262
 type TermsSetQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -71,7 +72,7 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -82,13 +83,13 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 
 		case "minimum_should_match_field":
 			if err := dec.Decode(&s.MinimumShouldMatchField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumShouldMatchField", err)
 			}
 
 		case "minimum_should_match_script":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumShouldMatchScript", err)
 			}
 			keyDec := json.NewDecoder(bytes.NewReader(message))
 			for {
@@ -97,7 +98,7 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 					if errors.Is(err, io.EOF) {
 						break
 					}
-					return err
+					return fmt.Errorf("%s | %w", "MinimumShouldMatchScript", err)
 				}
 
 				switch t {
@@ -106,7 +107,7 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 					o := NewInlineScript()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "MinimumShouldMatchScript", err)
 					}
 					s.MinimumShouldMatchScript = o
 
@@ -114,7 +115,7 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 					o := NewStoredScriptId()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "MinimumShouldMatchScript", err)
 					}
 					s.MinimumShouldMatchScript = o
 
@@ -124,7 +125,7 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -135,7 +136,7 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 
 		case "terms":
 			if err := dec.Decode(&s.Terms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Terms", err)
 			}
 
 		}

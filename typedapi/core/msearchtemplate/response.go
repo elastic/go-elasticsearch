@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package msearchtemplate
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package msearchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/msearch_template/MultiSearchTemplateResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/msearch_template/MultiSearchTemplateResponse.ts#L22-L24
 type Response struct {
 	Responses []types.MsearchResponseItem `json:"responses"`
 	Took      int64                       `json:"took"`
@@ -61,7 +62,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 		case "responses":
 			messageArray := []json.RawMessage{}
 			if err := dec.Decode(&messageArray); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Responses", err)
 			}
 		responses:
 			for _, message := range messageArray {
@@ -72,7 +73,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 						if errors.Is(err, io.EOF) {
 							break
 						}
-						return err
+						return fmt.Errorf("%s | %w", "Responses", err)
 					}
 
 					switch t {
@@ -81,7 +82,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 						o := types.NewMultiSearchItem()
 						localDec := json.NewDecoder(bytes.NewReader(message))
 						if err := localDec.Decode(&o); err != nil {
-							return err
+							return fmt.Errorf("%s | %w", "Responses", err)
 						}
 						s.Responses = append(s.Responses, o)
 						continue responses
@@ -90,7 +91,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 						o := types.NewErrorResponseBase()
 						localDec := json.NewDecoder(bytes.NewReader(message))
 						if err := localDec.Decode(&o); err != nil {
-							return err
+							return fmt.Errorf("%s | %w", "Responses", err)
 						}
 						s.Responses = append(s.Responses, o)
 						continue responses
@@ -106,7 +107,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Took", err)
 				}
 				s.Took = value
 			case float64:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // PagerDutyEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L40-L52
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/watcher/_types/Actions.ts#L40-L52
 type PagerDutyEvent struct {
 	Account       *string                                `json:"account,omitempty"`
 	AttachPayload bool                                   `json:"attach_payload"`
@@ -63,7 +64,7 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 		case "account":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Account", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -79,7 +80,7 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AttachPayload", err)
 				}
 				s.AttachPayload = value
 			case bool:
@@ -89,7 +90,7 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 		case "client":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Client", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -101,7 +102,7 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 		case "client_url":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ClientUrl", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -112,13 +113,13 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 
 		case "contexts", "context":
 			if err := dec.Decode(&s.Contexts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Contexts", err)
 			}
 
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -129,13 +130,13 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 
 		case "event_type":
 			if err := dec.Decode(&s.EventType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EventType", err)
 			}
 
 		case "incident_key":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IncidentKey", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -146,7 +147,7 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 
 		case "proxy":
 			if err := dec.Decode(&s.Proxy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Proxy", err)
 			}
 
 		}

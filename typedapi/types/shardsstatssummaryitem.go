@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardsStatsSummaryItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/snapshot/_types/SnapshotShardsStatus.ts#L37-L40
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/snapshot/_types/SnapshotShardsStatus.ts#L37-L40
 type ShardsStatsSummaryItem struct {
 	FileCount   int64 `json:"file_count"`
 	SizeInBytes int64 `json:"size_in_bytes"`
@@ -58,7 +59,7 @@ func (s *ShardsStatsSummaryItem) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FileCount", err)
 				}
 				s.FileCount = value
 			case float64:
@@ -73,7 +74,7 @@ func (s *ShardsStatsSummaryItem) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SizeInBytes", err)
 				}
 				s.SizeInBytes = value
 			case float64:

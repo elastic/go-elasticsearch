@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Shared type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/searchable_snapshots/cache_stats/Response.ts#L34-L43
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/searchable_snapshots/cache_stats/Response.ts#L34-L43
 type Shared struct {
 	BytesReadInBytes    ByteSize `json:"bytes_read_in_bytes"`
 	BytesWrittenInBytes ByteSize `json:"bytes_written_in_bytes"`
@@ -59,12 +60,12 @@ func (s *Shared) UnmarshalJSON(data []byte) error {
 
 		case "bytes_read_in_bytes":
 			if err := dec.Decode(&s.BytesReadInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BytesReadInBytes", err)
 			}
 
 		case "bytes_written_in_bytes":
 			if err := dec.Decode(&s.BytesWrittenInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BytesWrittenInBytes", err)
 			}
 
 		case "evictions":
@@ -74,7 +75,7 @@ func (s *Shared) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Evictions", err)
 				}
 				s.Evictions = value
 			case float64:
@@ -90,7 +91,7 @@ func (s *Shared) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumRegions", err)
 				}
 				s.NumRegions = value
 			case float64:
@@ -105,7 +106,7 @@ func (s *Shared) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Reads", err)
 				}
 				s.Reads = value
 			case float64:
@@ -115,12 +116,12 @@ func (s *Shared) UnmarshalJSON(data []byte) error {
 
 		case "region_size_in_bytes":
 			if err := dec.Decode(&s.RegionSizeInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RegionSizeInBytes", err)
 			}
 
 		case "size_in_bytes":
 			if err := dec.Decode(&s.SizeInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SizeInBytes", err)
 			}
 
 		case "writes":
@@ -130,7 +131,7 @@ func (s *Shared) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Writes", err)
 				}
 				s.Writes = value
 			case float64:

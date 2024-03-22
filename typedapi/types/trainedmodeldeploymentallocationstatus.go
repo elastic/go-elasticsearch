@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // TrainedModelDeploymentAllocationStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L394-L401
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/TrainedModel.ts#L394-L401
 type TrainedModelDeploymentAllocationStatus struct {
 	// AllocationCount The current number of nodes where the model is allocated.
 	AllocationCount int `json:"allocation_count"`
@@ -65,7 +66,7 @@ func (s *TrainedModelDeploymentAllocationStatus) UnmarshalJSON(data []byte) erro
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllocationCount", err)
 				}
 				s.AllocationCount = value
 			case float64:
@@ -75,7 +76,7 @@ func (s *TrainedModelDeploymentAllocationStatus) UnmarshalJSON(data []byte) erro
 
 		case "state":
 			if err := dec.Decode(&s.State); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 
 		case "target_allocation_count":
@@ -86,7 +87,7 @@ func (s *TrainedModelDeploymentAllocationStatus) UnmarshalJSON(data []byte) erro
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TargetAllocationCount", err)
 				}
 				s.TargetAllocationCount = value
 			case float64:

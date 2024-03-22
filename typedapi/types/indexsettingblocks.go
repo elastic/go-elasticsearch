@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // IndexSettingBlocks type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L248-L254
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/IndexSettings.ts#L252-L258
 type IndexSettingBlocks struct {
 	Metadata            Stringifiedboolean `json:"metadata,omitempty"`
 	Read                Stringifiedboolean `json:"read,omitempty"`
@@ -55,27 +56,27 @@ func (s *IndexSettingBlocks) UnmarshalJSON(data []byte) error {
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "read":
 			if err := dec.Decode(&s.Read); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Read", err)
 			}
 
 		case "read_only":
 			if err := dec.Decode(&s.ReadOnly); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReadOnly", err)
 			}
 
 		case "read_only_allow_delete":
 			if err := dec.Decode(&s.ReadOnlyAllowDelete); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReadOnlyAllowDelete", err)
 			}
 
 		case "write":
 			if err := dec.Decode(&s.Write); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Write", err)
 			}
 
 		}

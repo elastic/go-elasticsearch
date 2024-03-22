@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DataStreamLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/DataStreamLifecycle.ts#L25-L31
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/DataStreamLifecycle.ts#L25-L31
 type DataStreamLifecycle struct {
 	DataRetention Duration                         `json:"data_retention,omitempty"`
 	Downsampling  *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
@@ -52,12 +53,12 @@ func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
 
 		case "data_retention":
 			if err := dec.Decode(&s.DataRetention); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataRetention", err)
 			}
 
 		case "downsampling":
 			if err := dec.Decode(&s.Downsampling); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Downsampling", err)
 			}
 
 		}

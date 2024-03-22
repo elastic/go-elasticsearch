@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataPathStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/Stats.ts#L550-L594
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/_types/Stats.ts#L550-L594
 type DataPathStats struct {
 	// Available Total amount of disk space available to this Java virtual machine on this
 	// file store.
@@ -79,7 +80,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "available":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Available", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -95,7 +96,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AvailableInBytes", err)
 				}
 				s.AvailableInBytes = &value
 			case float64:
@@ -106,7 +107,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "disk_queue":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskQueue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -118,7 +119,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "disk_read_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskReadSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -134,7 +135,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DiskReadSizeInBytes", err)
 				}
 				s.DiskReadSizeInBytes = &value
 			case float64:
@@ -149,7 +150,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DiskReads", err)
 				}
 				s.DiskReads = &value
 			case float64:
@@ -160,7 +161,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "disk_write_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskWriteSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -176,7 +177,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DiskWriteSizeInBytes", err)
 				}
 				s.DiskWriteSizeInBytes = &value
 			case float64:
@@ -191,7 +192,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DiskWrites", err)
 				}
 				s.DiskWrites = &value
 			case float64:
@@ -202,7 +203,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "free":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Free", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -218,7 +219,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FreeInBytes", err)
 				}
 				s.FreeInBytes = &value
 			case float64:
@@ -229,7 +230,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "mount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -241,7 +242,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Path", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -253,7 +254,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Total", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -269,7 +270,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalInBytes", err)
 				}
 				s.TotalInBytes = &value
 			case float64:
@@ -280,7 +281,7 @@ func (s *DataPathStats) UnmarshalJSON(data []byte) error {
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

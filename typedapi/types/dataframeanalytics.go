@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // DataframeAnalytics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L324-L344
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/DataframeAnalytics.ts#L324-L344
 type DataframeAnalytics struct {
 	// AnalysisStats An object containing information about the analysis job.
 	AnalysisStats *DataframeAnalyticsStatsContainer `json:"analysis_stats,omitempty"`
@@ -74,13 +75,13 @@ func (s *DataframeAnalytics) UnmarshalJSON(data []byte) error {
 
 		case "analysis_stats":
 			if err := dec.Decode(&s.AnalysisStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnalysisStats", err)
 			}
 
 		case "assignment_explanation":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AssignmentExplanation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -91,32 +92,32 @@ func (s *DataframeAnalytics) UnmarshalJSON(data []byte) error {
 
 		case "data_counts":
 			if err := dec.Decode(&s.DataCounts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataCounts", err)
 			}
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "memory_usage":
 			if err := dec.Decode(&s.MemoryUsage); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MemoryUsage", err)
 			}
 
 		case "node":
 			if err := dec.Decode(&s.Node); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 
 		case "progress":
 			if err := dec.Decode(&s.Progress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Progress", err)
 			}
 
 		case "state":
 			if err := dec.Decode(&s.State); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 
 		}

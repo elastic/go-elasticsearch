@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // PhraseSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/suggester.ts#L356-L414
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/search/_types/suggester.ts#L356-L414
 type PhraseSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with.
 	// Defaults to the search analyzer of the suggest field.
@@ -103,7 +104,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -114,7 +115,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "collate":
 			if err := dec.Decode(&s.Collate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Collate", err)
 			}
 
 		case "confidence":
@@ -124,7 +125,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Confidence", err)
 				}
 				f := Float64(value)
 				s.Confidence = &f
@@ -135,12 +136,12 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "direct_generator":
 			if err := dec.Decode(&s.DirectGenerator); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DirectGenerator", err)
 			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "force_unigrams":
@@ -150,7 +151,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ForceUnigrams", err)
 				}
 				s.ForceUnigrams = &value
 			case bool:
@@ -165,7 +166,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "GramSize", err)
 				}
 				s.GramSize = &value
 			case float64:
@@ -175,7 +176,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "highlight":
 			if err := dec.Decode(&s.Highlight); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Highlight", err)
 			}
 
 		case "max_errors":
@@ -185,7 +186,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxErrors", err)
 				}
 				f := Float64(value)
 				s.MaxErrors = &f
@@ -201,7 +202,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RealWordErrorLikelihood", err)
 				}
 				f := Float64(value)
 				s.RealWordErrorLikelihood = &f
@@ -213,7 +214,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 		case "separator":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Separator", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -230,7 +231,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShardSize", err)
 				}
 				s.ShardSize = &value
 			case float64:
@@ -246,7 +247,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -256,13 +257,13 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "smoothing":
 			if err := dec.Decode(&s.Smoothing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Smoothing", err)
 			}
 
 		case "text":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Text", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -279,7 +280,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TokenLimit", err)
 				}
 				s.TokenLimit = &value
 			case float64:

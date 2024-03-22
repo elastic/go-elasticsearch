@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // GrantApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/grant_api_key/types.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/grant_api_key/types.ts#L25-L46
 type GrantApiKey struct {
 	// Expiration Expiration time for the API key. By default, API keys never expire.
 	Expiration *string `json:"expiration,omitempty"`
@@ -65,17 +66,17 @@ func (s *GrantApiKey) UnmarshalJSON(data []byte) error {
 
 		case "expiration":
 			if err := dec.Decode(&s.Expiration); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Expiration", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "role_descriptors":
@@ -88,13 +89,13 @@ func (s *GrantApiKey) UnmarshalJSON(data []byte) error {
 			case '{':
 				o := make(map[string]RoleDescriptor, 0)
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RoleDescriptors", err)
 				}
 				s.RoleDescriptors = append(s.RoleDescriptors, o)
 			case '[':
 				o := make([]map[string]RoleDescriptor, 0)
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RoleDescriptors", err)
 				}
 				s.RoleDescriptors = o
 			}

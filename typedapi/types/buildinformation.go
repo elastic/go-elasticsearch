@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // BuildInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/info/types.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/xpack/info/types.ts#L24-L27
 type BuildInformation struct {
 	Date DateTime `json:"date"`
 	Hash string   `json:"hash"`
@@ -53,13 +54,13 @@ func (s *BuildInformation) UnmarshalJSON(data []byte) error {
 
 		case "date":
 			if err := dec.Decode(&s.Date); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Date", err)
 			}
 
 		case "hash":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Hash", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

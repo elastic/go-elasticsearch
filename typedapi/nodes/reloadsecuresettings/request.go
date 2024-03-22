@@ -16,21 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package reloadsecuresettings
 
 import (
-	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"io"
 )
 
 // Request holds the request body struct for the package reloadsecuresettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L50
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/reload_secure_settings/ReloadSecureSettingsRequest.ts#L24-L50
 type Request struct {
 
 	// SecureSettingsPassword The password for the Elasticsearch keystore.
@@ -53,28 +50,4 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-func (s *Request) UnmarshalJSON(data []byte) error {
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "secure_settings_password":
-			if err := dec.Decode(&s.SecureSettingsPassword); err != nil {
-				return err
-			}
-
-		}
-	}
-	return nil
 }

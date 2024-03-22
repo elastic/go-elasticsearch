@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package putwatch
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putwatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L53
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/watcher/put_watch/WatcherPutWatchRequest.ts#L30-L53
 type Request struct {
 	Actions        map[string]types.WatcherAction `json:"actions,omitempty"`
 	Condition      *types.WatcherCondition        `json:"condition,omitempty"`
@@ -83,28 +83,28 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Actions = make(map[string]types.WatcherAction, 0)
 			}
 			if err := dec.Decode(&s.Actions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Actions", err)
 			}
 
 		case "condition":
 			if err := dec.Decode(&s.Condition); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Condition", err)
 			}
 
 		case "input":
 			if err := dec.Decode(&s.Input); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Input", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "throttle_period":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottlePeriod", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -115,12 +115,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "transform":
 			if err := dec.Decode(&s.Transform); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Transform", err)
 			}
 
 		case "trigger":
 			if err := dec.Decode(&s.Trigger); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Trigger", err)
 			}
 
 		}

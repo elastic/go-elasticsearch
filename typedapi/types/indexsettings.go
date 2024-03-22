@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L69-L167
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/IndexSettings.ts#L69-L167
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -88,9 +88,9 @@ type IndexSettings struct {
 	Settings                *IndexSettings        `json:"settings,omitempty"`
 	// Similarity Configure custom similarity settings to customize how search results are
 	// scored.
-	Similarity  *SettingsSimilarity `json:"similarity,omitempty"`
-	SoftDeletes *SoftDeletes        `json:"soft_deletes,omitempty"`
-	Sort        *IndexSegmentSort   `json:"sort,omitempty"`
+	Similarity  map[string]SettingsSimilarity `json:"similarity,omitempty"`
+	SoftDeletes *SoftDeletes                  `json:"soft_deletes,omitempty"`
+	Sort        *IndexSegmentSort             `json:"sort,omitempty"`
 	// Store The store module allows you to control how index data is stored and accessed
 	// on disk.
 	Store               *Storage                 `json:"store,omitempty"`
@@ -119,18 +119,18 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "analysis":
 			if err := dec.Decode(&s.Analysis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analysis", err)
 			}
 
 		case "analyze":
 			if err := dec.Decode(&s.Analyze); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyze", err)
 			}
 
 		case "auto_expand_replicas":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AutoExpandReplicas", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -141,18 +141,18 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "blocks":
 			if err := dec.Decode(&s.Blocks); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Blocks", err)
 			}
 
 		case "check_on_startup":
 			if err := dec.Decode(&s.CheckOnStartup); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CheckOnStartup", err)
 			}
 
 		case "codec":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Codec", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -163,28 +163,28 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "creation_date":
 			if err := dec.Decode(&s.CreationDate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreationDate", err)
 			}
 
 		case "creation_date_string":
 			if err := dec.Decode(&s.CreationDateString); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreationDateString", err)
 			}
 
 		case "default_pipeline":
 			if err := dec.Decode(&s.DefaultPipeline); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DefaultPipeline", err)
 			}
 
 		case "final_pipeline":
 			if err := dec.Decode(&s.FinalPipeline); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FinalPipeline", err)
 			}
 
 		case "format":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -195,13 +195,13 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "gc_deletes":
 			if err := dec.Decode(&s.GcDeletes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GcDeletes", err)
 			}
 
 		case "hidden":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Hidden", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -212,27 +212,27 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "highlight":
 			if err := dec.Decode(&s.Highlight); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Highlight", err)
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "indexing_pressure":
 			if err := dec.Decode(&s.IndexingPressure); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingPressure", err)
 			}
 
 		case "indexing.slowlog":
 			if err := dec.Decode(&s.IndexingSlowlog); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingSlowlog", err)
 			}
 
 		case "lifecycle":
 			if err := dec.Decode(&s.Lifecycle); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lifecycle", err)
 			}
 
 		case "load_fixed_bitset_filters_eagerly":
@@ -242,7 +242,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LoadFixedBitsetFiltersEagerly", err)
 				}
 				s.LoadFixedBitsetFiltersEagerly = &value
 			case bool:
@@ -251,7 +251,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "mapping":
 			if err := dec.Decode(&s.Mapping); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mapping", err)
 			}
 
 		case "max_docvalue_fields_search":
@@ -262,7 +262,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxDocvalueFieldsSearch", err)
 				}
 				s.MaxDocvalueFieldsSearch = &value
 			case float64:
@@ -278,7 +278,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxInnerResultWindow", err)
 				}
 				s.MaxInnerResultWindow = &value
 			case float64:
@@ -294,7 +294,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxNgramDiff", err)
 				}
 				s.MaxNgramDiff = &value
 			case float64:
@@ -310,7 +310,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxRefreshListeners", err)
 				}
 				s.MaxRefreshListeners = &value
 			case float64:
@@ -326,7 +326,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxRegexLength", err)
 				}
 				s.MaxRegexLength = &value
 			case float64:
@@ -342,7 +342,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxRescoreWindow", err)
 				}
 				s.MaxRescoreWindow = &value
 			case float64:
@@ -358,7 +358,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxResultWindow", err)
 				}
 				s.MaxResultWindow = &value
 			case float64:
@@ -374,7 +374,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxScriptFields", err)
 				}
 				s.MaxScriptFields = &value
 			case float64:
@@ -390,7 +390,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxShingleDiff", err)
 				}
 				s.MaxShingleDiff = &value
 			case float64:
@@ -406,7 +406,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxSlicesPerScroll", err)
 				}
 				s.MaxSlicesPerScroll = &value
 			case float64:
@@ -422,7 +422,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxTermsCount", err)
 				}
 				s.MaxTermsCount = &value
 			case float64:
@@ -432,13 +432,13 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "merge":
 			if err := dec.Decode(&s.Merge); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Merge", err)
 			}
 
 		case "mode":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mode", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -450,7 +450,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 		case "number_of_replicas":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NumberOfReplicas", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -467,7 +467,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfRoutingShards", err)
 				}
 				s.NumberOfRoutingShards = &value
 			case float64:
@@ -478,7 +478,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 		case "number_of_shards":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NumberOfShards", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -490,7 +490,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 		case "priority":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Priority", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -501,32 +501,32 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "provided_name":
 			if err := dec.Decode(&s.ProvidedName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProvidedName", err)
 			}
 
 		case "queries":
 			if err := dec.Decode(&s.Queries); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Queries", err)
 			}
 
 		case "query_string":
 			if err := dec.Decode(&s.QueryString); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryString", err)
 			}
 
 		case "refresh_interval":
 			if err := dec.Decode(&s.RefreshInterval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshInterval", err)
 			}
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		case "routing_partition_size":
 			if err := dec.Decode(&s.RoutingPartitionSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RoutingPartitionSize", err)
 			}
 
 		case "routing_path":
@@ -535,49 +535,115 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RoutingPath", err)
 				}
 
 				s.RoutingPath = append(s.RoutingPath, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.RoutingPath); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RoutingPath", err)
 				}
 			}
 
 		case "search":
 			if err := dec.Decode(&s.Search); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Search", err)
 			}
 
 		case "settings":
 			if err := dec.Decode(&s.Settings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Settings", err)
 			}
 
 		case "similarity":
-			if err := dec.Decode(&s.Similarity); err != nil {
-				return err
+			if s.Similarity == nil {
+				s.Similarity = make(map[string]SettingsSimilarity, 0)
+			}
+			refs := make(map[string]json.RawMessage, 0)
+			dec.Decode(&refs)
+			for key, message := range refs {
+				kind := make(map[string]interface{})
+				buf := bytes.NewReader(message)
+				localDec := json.NewDecoder(buf)
+				localDec.Decode(&kind)
+				buf.Seek(0, io.SeekStart)
+
+				switch kind["type"] {
+				case "BM25":
+					oo := NewSettingsSimilarityBm25()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				case "boolean":
+					oo := NewSettingsSimilarityBoolean()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				case "DFI":
+					oo := NewSettingsSimilarityDfi()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				case "DFR":
+					oo := NewSettingsSimilarityDfr()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				case "IB":
+					oo := NewSettingsSimilarityIb()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				case "LMDirichlet":
+					oo := NewSettingsSimilarityLmd()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				case "LMJelinekMercer":
+					oo := NewSettingsSimilarityLmj()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				case "scripted":
+					oo := NewSettingsSimilarityScripted()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				default:
+					oo := new(SettingsSimilarity)
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Similarity[key] = oo
+				}
 			}
 
 		case "soft_deletes":
 			if err := dec.Decode(&s.SoftDeletes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SoftDeletes", err)
 			}
 
 		case "sort":
 			if err := dec.Decode(&s.Sort); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sort", err)
 			}
 
 		case "store":
 			if err := dec.Decode(&s.Store); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Store", err)
 			}
 
 		case "time_series":
 			if err := dec.Decode(&s.TimeSeries); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSeries", err)
 			}
 
 		case "top_metrics_max_size":
@@ -588,7 +654,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TopMetricsMaxSize", err)
 				}
 				s.TopMetricsMaxSize = &value
 			case float64:
@@ -598,18 +664,18 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "translog":
 			if err := dec.Decode(&s.Translog); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Translog", err)
 			}
 
 		case "uuid":
 			if err := dec.Decode(&s.Uuid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Uuid", err)
 			}
 
 		case "verified_before_close":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VerifiedBeforeClose", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -620,7 +686,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		default:
@@ -631,7 +697,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 				}
 				raw := new(json.RawMessage)
 				if err := dec.Decode(&raw); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexSettings", err)
 				}
 				s.IndexSettings[key] = *raw
 			}
@@ -674,6 +740,7 @@ func (s IndexSettings) MarshalJSON() ([]byte, error) {
 func NewIndexSettings() *IndexSettings {
 	r := &IndexSettings{
 		IndexSettings: make(map[string]json.RawMessage, 0),
+		Similarity:    make(map[string]SettingsSimilarity, 0),
 	}
 
 	return r

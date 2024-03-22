@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/chunkingmode"
@@ -31,7 +32,7 @@ import (
 
 // ChunkingConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Datafeed.ts#L239-L252
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/Datafeed.ts#L239-L252
 type ChunkingConfig struct {
 	// Mode If the mode is `auto`, the chunk size is dynamically calculated;
 	// this is the recommended value when the datafeed does not use aggregations.
@@ -62,12 +63,12 @@ func (s *ChunkingConfig) UnmarshalJSON(data []byte) error {
 
 		case "mode":
 			if err := dec.Decode(&s.Mode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mode", err)
 			}
 
 		case "time_span":
 			if err := dec.Decode(&s.TimeSpan); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSpan", err)
 			}
 
 		}

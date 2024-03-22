@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DiagnosisAffectedResources type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L57-L63
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/health_report/types.ts#L57-L63
 type DiagnosisAffectedResources struct {
 	FeatureStates        []string        `json:"feature_states,omitempty"`
 	Indices              []string        `json:"indices,omitempty"`
@@ -55,7 +56,7 @@ func (s *DiagnosisAffectedResources) UnmarshalJSON(data []byte) error {
 
 		case "feature_states":
 			if err := dec.Decode(&s.FeatureStates); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FeatureStates", err)
 			}
 
 		case "indices":
@@ -64,29 +65,29 @@ func (s *DiagnosisAffectedResources) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Indices", err)
 				}
 
 				s.Indices = append(s.Indices, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Indices); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Indices", err)
 				}
 			}
 
 		case "nodes":
 			if err := dec.Decode(&s.Nodes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nodes", err)
 			}
 
 		case "slm_policies":
 			if err := dec.Decode(&s.SlmPolicies); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SlmPolicies", err)
 			}
 
 		case "snapshot_repositories":
 			if err := dec.Decode(&s.SnapshotRepositories); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SnapshotRepositories", err)
 			}
 
 		}

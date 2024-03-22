@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // LifecycleExplainUnmanaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ilm/explain_lifecycle/types.ts#L54-L57
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ilm/explain_lifecycle/types.ts#L54-L57
 type LifecycleExplainUnmanaged struct {
 	Index   string `json:"index"`
 	Managed bool   `json:"managed,omitempty"`
@@ -52,12 +53,12 @@ func (s *LifecycleExplainUnmanaged) UnmarshalJSON(data []byte) error {
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "managed":
 			if err := dec.Decode(&s.Managed); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Managed", err)
 			}
 
 		}

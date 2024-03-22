@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package samlcompletelogout
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package samlcompletelogout
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/saml_complete_logout/Request.ts#L23-L40
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/saml_complete_logout/Request.ts#L23-L40
 type Request struct {
 
 	// Content If the SAML IdP sends the logout response with the HTTP-Post binding, this
@@ -84,7 +84,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "content":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Content", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -99,20 +99,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Ids", err)
 				}
 
 				s.Ids = append(s.Ids, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Ids); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Ids", err)
 				}
 			}
 
 		case "query_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,7 +124,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "realm":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Realm", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

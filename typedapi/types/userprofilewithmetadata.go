@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // UserProfileWithMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/_types/UserProfile.ts#L50-L53
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/_types/UserProfile.ts#L50-L53
 type UserProfileWithMetadata struct {
 	Data             map[string]json.RawMessage `json:"data"`
 	Doc_             UserProfileHitMetadata     `json:"_doc"`
@@ -61,12 +62,12 @@ func (s *UserProfileWithMetadata) UnmarshalJSON(data []byte) error {
 				s.Data = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Data); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Data", err)
 			}
 
 		case "_doc":
 			if err := dec.Decode(&s.Doc_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Doc_", err)
 			}
 
 		case "enabled":
@@ -76,7 +77,7 @@ func (s *UserProfileWithMetadata) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = &value
 			case bool:
@@ -88,7 +89,7 @@ func (s *UserProfileWithMetadata) UnmarshalJSON(data []byte) error {
 				s.Labels = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Labels); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Labels", err)
 			}
 
 		case "last_synchronized":
@@ -98,7 +99,7 @@ func (s *UserProfileWithMetadata) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LastSynchronized", err)
 				}
 				s.LastSynchronized = value
 			case float64:
@@ -108,12 +109,12 @@ func (s *UserProfileWithMetadata) UnmarshalJSON(data []byte) error {
 
 		case "uid":
 			if err := dec.Decode(&s.Uid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Uid", err)
 			}
 
 		case "user":
 			if err := dec.Decode(&s.User); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "User", err)
 			}
 
 		}

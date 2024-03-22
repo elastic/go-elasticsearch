@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AnalyzeDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/analyze/types.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/analyze/types.ts#L24-L30
 type AnalyzeDetail struct {
 	Analyzer       *AnalyzerDetail    `json:"analyzer,omitempty"`
 	Charfilters    []CharFilterDetail `json:"charfilters,omitempty"`
@@ -56,12 +57,12 @@ func (s *AnalyzeDetail) UnmarshalJSON(data []byte) error {
 
 		case "analyzer":
 			if err := dec.Decode(&s.Analyzer); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 
 		case "charfilters":
 			if err := dec.Decode(&s.Charfilters); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Charfilters", err)
 			}
 
 		case "custom_analyzer":
@@ -71,7 +72,7 @@ func (s *AnalyzeDetail) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CustomAnalyzer", err)
 				}
 				s.CustomAnalyzer = value
 			case bool:
@@ -80,12 +81,12 @@ func (s *AnalyzeDetail) UnmarshalJSON(data []byte) error {
 
 		case "tokenfilters":
 			if err := dec.Decode(&s.Tokenfilters); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tokenfilters", err)
 			}
 
 		case "tokenizer":
 			if err := dec.Decode(&s.Tokenizer); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tokenizer", err)
 			}
 
 		}

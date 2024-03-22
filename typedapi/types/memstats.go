@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MemStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/get_memory_stats/types.ts#L65-L88
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/get_memory_stats/types.ts#L65-L88
 type MemStats struct {
 	// AdjustedTotal If the amount of physical memory has been overridden using the
 	// es.total_memory_bytes system property
@@ -67,7 +68,7 @@ func (s *MemStats) UnmarshalJSON(data []byte) error {
 
 		case "adjusted_total":
 			if err := dec.Decode(&s.AdjustedTotal); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AdjustedTotal", err)
 			}
 
 		case "adjusted_total_in_bytes":
@@ -78,7 +79,7 @@ func (s *MemStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AdjustedTotalInBytes", err)
 				}
 				s.AdjustedTotalInBytes = value
 			case float64:
@@ -88,12 +89,12 @@ func (s *MemStats) UnmarshalJSON(data []byte) error {
 
 		case "ml":
 			if err := dec.Decode(&s.Ml); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ml", err)
 			}
 
 		case "total":
 			if err := dec.Decode(&s.Total); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Total", err)
 			}
 
 		case "total_in_bytes":
@@ -104,7 +105,7 @@ func (s *MemStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalInBytes", err)
 				}
 				s.TotalInBytes = value
 			case float64:

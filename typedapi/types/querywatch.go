@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // QueryWatch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Watch.ts#L58-L64
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/watcher/_types/Watch.ts#L58-L64
 type QueryWatch struct {
 	Id_          string       `json:"_id"`
 	PrimaryTerm_ *int         `json:"_primary_term,omitempty"`
@@ -56,7 +57,7 @@ func (s *QueryWatch) UnmarshalJSON(data []byte) error {
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "_primary_term":
@@ -67,7 +68,7 @@ func (s *QueryWatch) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PrimaryTerm_", err)
 				}
 				s.PrimaryTerm_ = &value
 			case float64:
@@ -77,17 +78,17 @@ func (s *QueryWatch) UnmarshalJSON(data []byte) error {
 
 		case "_seq_no":
 			if err := dec.Decode(&s.SeqNo_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SeqNo_", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "watch":
 			if err := dec.Decode(&s.Watch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Watch", err)
 			}
 
 		}

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.14.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -54,8 +55,9 @@ type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, er
 type EsqlQueryRequest struct {
 	Body io.Reader
 
-	Delimiter string
-	Format    string
+	Delimiter       string
+	DropNullColumns *bool
+	Format          string
 
 	Pretty     bool
 	Human      bool
@@ -96,6 +98,10 @@ func (r EsqlQueryRequest) Do(providedCtx context.Context, transport Transport) (
 
 	if r.Delimiter != "" {
 		params["delimiter"] = r.Delimiter
+	}
+
+	if r.DropNullColumns != nil {
+		params["drop_null_columns"] = strconv.FormatBool(*r.DropNullColumns)
 	}
 
 	if r.Format != "" {
@@ -191,6 +197,13 @@ func (f EsqlQuery) WithContext(v context.Context) func(*EsqlQueryRequest) {
 func (f EsqlQuery) WithDelimiter(v string) func(*EsqlQueryRequest) {
 	return func(r *EsqlQueryRequest) {
 		r.Delimiter = v
+	}
+}
+
+// WithDropNullColumns - should entirely null columns be removed from the results? their name and type will be returning in a new `all_columns` section..
+func (f EsqlQuery) WithDropNullColumns(v bool) func(*EsqlQueryRequest) {
+	return func(r *EsqlQueryRequest) {
+		r.DropNullColumns = &v
 	}
 }
 

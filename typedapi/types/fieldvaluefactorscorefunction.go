@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // FieldValueFactorScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/compound.ts#L132-L151
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/compound.ts#L132-L151
 type FieldValueFactorScoreFunction struct {
 	// Factor Optional factor to multiply the field value with.
 	Factor *Float64 `json:"factor,omitempty"`
@@ -68,7 +69,7 @@ func (s *FieldValueFactorScoreFunction) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Factor", err)
 				}
 				f := Float64(value)
 				s.Factor = &f
@@ -79,7 +80,7 @@ func (s *FieldValueFactorScoreFunction) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "missing":
@@ -89,7 +90,7 @@ func (s *FieldValueFactorScoreFunction) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Missing", err)
 				}
 				f := Float64(value)
 				s.Missing = &f
@@ -100,7 +101,7 @@ func (s *FieldValueFactorScoreFunction) UnmarshalJSON(data []byte) error {
 
 		case "modifier":
 			if err := dec.Decode(&s.Modifier); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Modifier", err)
 			}
 
 		}

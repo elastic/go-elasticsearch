@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.14.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newAsyncSearchStatusFunc(t Transport) AsyncSearchStatus {
@@ -50,6 +51,8 @@ type AsyncSearchStatus func(id string, o ...func(*AsyncSearchStatusRequest)) (*R
 // AsyncSearchStatusRequest configures the Async Search Status API request.
 type AsyncSearchStatusRequest struct {
 	DocumentID string
+
+	KeepAlive time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r AsyncSearchStatusRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	params = make(map[string]string)
+
+	if r.KeepAlive != 0 {
+		params["keep_alive"] = formatDuration(r.KeepAlive)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r AsyncSearchStatusRequest) Do(providedCtx context.Context, transport Tran
 func (f AsyncSearchStatus) WithContext(v context.Context) func(*AsyncSearchStatusRequest) {
 	return func(r *AsyncSearchStatusRequest) {
 		r.ctx = v
+	}
+}
+
+// WithKeepAlive - specify the time interval in which the results (partial or final) for this search will be available.
+func (f AsyncSearchStatus) WithKeepAlive(v time.Duration) func(*AsyncSearchStatusRequest) {
+	return func(r *AsyncSearchStatusRequest) {
+		r.KeepAlive = v
 	}
 }
 

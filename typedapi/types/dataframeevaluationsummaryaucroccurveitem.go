@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataframeEvaluationSummaryAucRocCurveItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/evaluate_data_frame/types.ts#L95-L99
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/evaluate_data_frame/types.ts#L95-L99
 type DataframeEvaluationSummaryAucRocCurveItem struct {
 	Fpr       Float64 `json:"fpr"`
 	Threshold Float64 `json:"threshold"`
@@ -59,7 +60,7 @@ func (s *DataframeEvaluationSummaryAucRocCurveItem) UnmarshalJSON(data []byte) e
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Fpr", err)
 				}
 				f := Float64(value)
 				s.Fpr = f
@@ -75,7 +76,7 @@ func (s *DataframeEvaluationSummaryAucRocCurveItem) UnmarshalJSON(data []byte) e
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Threshold", err)
 				}
 				f := Float64(value)
 				s.Threshold = f
@@ -91,7 +92,7 @@ func (s *DataframeEvaluationSummaryAucRocCurveItem) UnmarshalJSON(data []byte) e
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Tpr", err)
 				}
 				f := Float64(value)
 				s.Tpr = f

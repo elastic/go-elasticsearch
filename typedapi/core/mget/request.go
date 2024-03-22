@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package mget
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/mget/MultiGetRequest.ts#L25-L91
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/mget/MultiGetRequest.ts#L25-L91
 type Request struct {
 
 	// Docs The documents you want to retrieve. Required if no index is specified in the
@@ -77,7 +77,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "docs":
 			if err := dec.Decode(&s.Docs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Docs", err)
 			}
 
 		case "ids":
@@ -86,13 +86,13 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Ids", err)
 				}
 
 				s.Ids = append(s.Ids, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Ids); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Ids", err)
 				}
 			}
 

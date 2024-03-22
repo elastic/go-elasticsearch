@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // SignificantTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/bucket.ts#L770-L834
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/aggregations/bucket.ts#L770-L834
 type SignificantTermsAggregation struct {
 	// BackgroundFilter A background filter that can be used to focus in on significant terms within
 	// a narrower context, instead of the entire index.
@@ -96,12 +97,12 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "background_filter":
 			if err := dec.Decode(&s.BackgroundFilter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BackgroundFilter", err)
 			}
 
 		case "chi_square":
 			if err := dec.Decode(&s.ChiSquare); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ChiSquare", err)
 			}
 
 		case "exclude":
@@ -110,44 +111,44 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Exclude", err)
 				}
 
 				s.Exclude = append(s.Exclude, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Exclude); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Exclude", err)
 				}
 			}
 
 		case "execution_hint":
 			if err := dec.Decode(&s.ExecutionHint); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExecutionHint", err)
 			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "gnd":
 			if err := dec.Decode(&s.Gnd); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Gnd", err)
 			}
 
 		case "include":
 			if err := dec.Decode(&s.Include); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Include", err)
 			}
 
 		case "jlh":
 			if err := dec.Decode(&s.Jlh); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Jlh", err)
 			}
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "min_doc_count":
@@ -157,7 +158,7 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinDocCount", err)
 				}
 				s.MinDocCount = &value
 			case float64:
@@ -167,13 +168,13 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "mutual_information":
 			if err := dec.Decode(&s.MutualInformation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MutualInformation", err)
 			}
 
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -184,12 +185,12 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "percentage":
 			if err := dec.Decode(&s.Percentage); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Percentage", err)
 			}
 
 		case "script_heuristic":
 			if err := dec.Decode(&s.ScriptHeuristic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptHeuristic", err)
 			}
 
 		case "shard_min_doc_count":
@@ -199,7 +200,7 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShardMinDocCount", err)
 				}
 				s.ShardMinDocCount = &value
 			case float64:
@@ -215,7 +216,7 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShardSize", err)
 				}
 				s.ShardSize = &value
 			case float64:
@@ -231,7 +232,7 @@ func (s *SignificantTermsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // AggregateMetricDoubleProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/complex.ts#L59-L64
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/mapping/complex.ts#L60-L65
 type AggregateMetricDoubleProperty struct {
 	DefaultMetric string                         `json:"default_metric"`
 	Dynamic       *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
@@ -65,7 +66,7 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 		case "default_metric":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DefaultMetric", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -76,7 +77,7 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "fields":
@@ -394,7 +395,7 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -407,12 +408,12 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "metrics":
 			if err := dec.Decode(&s.Metrics); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metrics", err)
 			}
 
 		case "properties":
@@ -724,12 +725,12 @@ func (s *AggregateMetricDoubleProperty) UnmarshalJSON(data []byte) error {
 
 		case "time_series_metric":
 			if err := dec.Decode(&s.TimeSeriesMetric); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSeriesMetric", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

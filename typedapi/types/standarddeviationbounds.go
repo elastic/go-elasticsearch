@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // StandardDeviationBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/Aggregate.ts#L260-L267
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/aggregations/Aggregate.ts#L260-L267
 type StandardDeviationBounds struct {
 	Lower           Float64 `json:"lower,omitempty"`
 	LowerPopulation Float64 `json:"lower_population,omitempty"`
@@ -56,32 +57,32 @@ func (s *StandardDeviationBounds) UnmarshalJSON(data []byte) error {
 
 		case "lower":
 			if err := dec.Decode(&s.Lower); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lower", err)
 			}
 
 		case "lower_population":
 			if err := dec.Decode(&s.LowerPopulation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LowerPopulation", err)
 			}
 
 		case "lower_sampling":
 			if err := dec.Decode(&s.LowerSampling); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LowerSampling", err)
 			}
 
 		case "upper":
 			if err := dec.Decode(&s.Upper); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Upper", err)
 			}
 
 		case "upper_population":
 			if err := dec.Decode(&s.UpperPopulation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UpperPopulation", err)
 			}
 
 		case "upper_sampling":
 			if err := dec.Decode(&s.UpperSampling); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UpperSampling", err)
 			}
 
 		}

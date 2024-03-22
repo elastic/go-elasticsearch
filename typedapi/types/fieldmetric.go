@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/metric"
@@ -31,7 +32,7 @@ import (
 
 // FieldMetric type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/rollup/_types/Metric.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/rollup/_types/Metric.ts#L30-L35
 type FieldMetric struct {
 	// Field The field to collect metrics for. This must be a numeric of some kind.
 	Field string `json:"field"`
@@ -57,12 +58,12 @@ func (s *FieldMetric) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "metrics":
 			if err := dec.Decode(&s.Metrics); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metrics", err)
 			}
 
 		}

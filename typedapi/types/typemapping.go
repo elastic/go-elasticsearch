@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // TypeMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/TypeMapping.ts#L34-L56
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/mapping/TypeMapping.ts#L34-L57
 type TypeMapping struct {
 	AllField             *AllField                      `json:"all_field,omitempty"`
 	DataStreamTimestamp_ *DataStreamTimestamp           `json:"_data_stream_timestamp,omitempty"`
@@ -50,6 +51,7 @@ type TypeMapping struct {
 	Runtime              map[string]RuntimeField        `json:"runtime,omitempty"`
 	Size_                *SizeField                     `json:"_size,omitempty"`
 	Source_              *SourceField                   `json:"_source,omitempty"`
+	Subobjects           *bool                          `json:"subobjects,omitempty"`
 }
 
 func (s *TypeMapping) UnmarshalJSON(data []byte) error {
@@ -69,12 +71,12 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 
 		case "all_field":
 			if err := dec.Decode(&s.AllField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AllField", err)
 			}
 
 		case "_data_stream_timestamp":
 			if err := dec.Decode(&s.DataStreamTimestamp_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataStreamTimestamp_", err)
 			}
 
 		case "date_detection":
@@ -84,7 +86,7 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DateDetection", err)
 				}
 				s.DateDetection = &value
 			case bool:
@@ -93,17 +95,17 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "dynamic_date_formats":
 			if err := dec.Decode(&s.DynamicDateFormats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DynamicDateFormats", err)
 			}
 
 		case "dynamic_templates":
 			if err := dec.Decode(&s.DynamicTemplates); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DynamicTemplates", err)
 			}
 
 		case "enabled":
@@ -113,7 +115,7 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = &value
 			case bool:
@@ -122,17 +124,17 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 
 		case "_field_names":
 			if err := dec.Decode(&s.FieldNames_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldNames_", err)
 			}
 
 		case "index_field":
 			if err := dec.Decode(&s.IndexField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexField", err)
 			}
 
 		case "_meta":
 			if err := dec.Decode(&s.Meta_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta_", err)
 			}
 
 		case "numeric_detection":
@@ -142,7 +144,7 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumericDetection", err)
 				}
 				s.NumericDetection = &value
 			case bool:
@@ -458,7 +460,7 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 
 		case "_routing":
 			if err := dec.Decode(&s.Routing_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing_", err)
 			}
 
 		case "runtime":
@@ -466,17 +468,31 @@ func (s *TypeMapping) UnmarshalJSON(data []byte) error {
 				s.Runtime = make(map[string]RuntimeField, 0)
 			}
 			if err := dec.Decode(&s.Runtime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Runtime", err)
 			}
 
 		case "_size":
 			if err := dec.Decode(&s.Size_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size_", err)
 			}
 
 		case "_source":
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
+			}
+
+		case "subobjects":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Subobjects", err)
+				}
+				s.Subobjects = &value
+			case bool:
+				s.Subobjects = &v
 			}
 
 		}

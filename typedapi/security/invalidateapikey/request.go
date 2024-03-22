@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package invalidateapikey
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package invalidateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L66
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/invalidate_api_key/SecurityInvalidateApiKeyRequest.ts#L23-L66
 type Request struct {
 	Id *string `json:"id,omitempty"`
 	// Ids A list of API key ids.
@@ -90,17 +90,17 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "ids":
 			if err := dec.Decode(&s.Ids); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ids", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "owner":
@@ -110,7 +110,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Owner", err)
 				}
 				s.Owner = &value
 			case bool:
@@ -120,7 +120,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "realm_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RealmName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -131,7 +131,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/shards/types.ts#L20-L421
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/cat/shards/types.ts#L20-L421
 type ShardsRecord struct {
 	// BulkAvgSizeInBytes The average size in bytes of shard bulk operations.
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
@@ -244,7 +245,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.avg_size_in_bytes", "basi", "bulkAvgSizeInBytes":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkAvgSizeInBytes", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -256,7 +257,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.avg_time", "bati", "bulkAvgTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkAvgTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -268,7 +269,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.total_operations", "bto", "bulkTotalOperations":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkTotalOperations", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -280,7 +281,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.total_size_in_bytes", "btsi", "bulkTotalSizeInBytes":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkTotalSizeInBytes", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -292,7 +293,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "bulk.total_time", "btti", "bulkTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BulkTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -304,7 +305,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "completion.size", "cs", "completionSize":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CompletionSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -316,7 +317,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "docs", "d", "dc":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Docs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -328,7 +329,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "fielddata.evictions", "fe", "fielddataEvictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FielddataEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -340,7 +341,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "fielddata.memory_size", "fm", "fielddataMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FielddataMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -352,7 +353,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "flush.total", "ft", "flushTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FlushTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -364,7 +365,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "flush.total_time", "ftt", "flushTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FlushTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -376,7 +377,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "get.current", "gc", "getCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -388,7 +389,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "get.exists_time", "geti", "getExistsTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetExistsTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -400,7 +401,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "get.exists_total", "geto", "getExistsTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetExistsTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -412,7 +413,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "get.missing_time", "gmti", "getMissingTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetMissingTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -424,7 +425,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "get.missing_total", "gmto", "getMissingTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetMissingTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -436,7 +437,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "get.time", "gti", "getTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -448,7 +449,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "get.total", "gto", "getTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GetTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -460,7 +461,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -472,7 +473,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "index", "i", "idx":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -484,7 +485,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.delete_current", "idc", "indexingDeleteCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingDeleteCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -496,7 +497,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.delete_time", "idti", "indexingDeleteTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingDeleteTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -508,7 +509,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.delete_total", "idto", "indexingDeleteTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingDeleteTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -520,7 +521,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_current", "iic", "indexingIndexCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -532,7 +533,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_failed", "iif", "indexingIndexFailed":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexFailed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -544,7 +545,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_time", "iiti", "indexingIndexTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -556,7 +557,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "indexing.index_total", "iito", "indexingIndexTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexingIndexTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -568,7 +569,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "ip":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -580,7 +581,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "merges.current", "mc", "mergesCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -592,7 +593,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "merges.current_docs", "mcd", "mergesCurrentDocs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesCurrentDocs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -604,7 +605,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "merges.current_size", "mcs", "mergesCurrentSize":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesCurrentSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -616,7 +617,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total", "mt", "mergesTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -628,7 +629,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total_docs", "mtd", "mergesTotalDocs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotalDocs", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -640,7 +641,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total_size", "mts", "mergesTotalSize":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotalSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -652,7 +653,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "merges.total_time", "mtt", "mergesTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MergesTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -664,7 +665,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "node", "n":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -676,7 +677,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "path.data", "pd", "dataPath":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PathData", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -688,7 +689,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "path.state", "ps", "statsPath":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PathState", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -700,7 +701,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "prirep", "p", "pr", "primaryOrReplica":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Prirep", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -712,7 +713,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "query_cache.evictions", "qce", "queryCacheEvictions":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryCacheEvictions", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -724,7 +725,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "query_cache.memory_size", "qcm", "queryCacheMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryCacheMemorySize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -736,7 +737,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "recoverysource.type", "rs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RecoverysourceType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -748,7 +749,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.external_time", "rti", "refreshTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshExternalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -760,7 +761,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.external_total", "rto", "refreshTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshExternalTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -772,7 +773,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.listeners", "rli", "refreshListeners":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshListeners", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -784,7 +785,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.time":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -796,7 +797,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "refresh.total":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RefreshTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -808,7 +809,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.fetch_current", "sfc", "searchFetchCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchFetchCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -820,7 +821,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.fetch_time", "sfti", "searchFetchTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchFetchTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -832,7 +833,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.fetch_total", "sfto", "searchFetchTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchFetchTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -844,7 +845,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.open_contexts", "so", "searchOpenContexts":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchOpenContexts", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -856,7 +857,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.query_current", "sqc", "searchQueryCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchQueryCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -868,7 +869,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.query_time", "sqti", "searchQueryTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchQueryTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -880,7 +881,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.query_total", "sqto", "searchQueryTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchQueryTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -892,7 +893,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.scroll_current", "scc", "searchScrollCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchScrollCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -904,7 +905,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.scroll_time", "scti", "searchScrollTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchScrollTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -916,7 +917,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "search.scroll_total", "scto", "searchScrollTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchScrollTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -928,7 +929,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "segments.count", "sc", "segmentsCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -940,7 +941,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "segments.fixed_bitset_memory", "sfbm", "fixedBitsetMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsFixedBitsetMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -952,7 +953,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "segments.index_writer_memory", "siwm", "segmentsIndexWriterMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsIndexWriterMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -964,7 +965,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "segments.memory", "sm", "segmentsMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -976,7 +977,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "segments.version_map_memory", "svmm", "segmentsVersionMapMemory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SegmentsVersionMapMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -988,7 +989,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "seq_no.global_checkpoint", "sqg", "globalCheckpoint":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SeqNoGlobalCheckpoint", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1000,7 +1001,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "seq_no.local_checkpoint", "sql", "localCheckpoint":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SeqNoLocalCheckpoint", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1012,7 +1013,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "seq_no.max", "sqm", "maxSeqNo":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SeqNoMax", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1024,7 +1025,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "shard", "s", "sh":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shard", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1036,7 +1037,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "state", "st":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1048,7 +1049,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "store", "sto":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Store", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1060,7 +1061,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "sync_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SyncId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1072,7 +1073,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "unassigned.at", "ua":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UnassignedAt", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1084,7 +1085,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "unassigned.details", "ud":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UnassignedDetails", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1096,7 +1097,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "unassigned.for", "uf":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UnassignedFor", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1108,7 +1109,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "unassigned.reason", "ur":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UnassignedReason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1120,7 +1121,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "warmer.current", "wc", "warmerCurrent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WarmerCurrent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1132,7 +1133,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "warmer.total", "wto", "warmerTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WarmerTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -1144,7 +1145,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 		case "warmer.total_time", "wtt", "warmerTotalTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WarmerTotalTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

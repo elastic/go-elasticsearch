@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataframeAnalyticsAuthorization type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Authorization.ts#L45-L57
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/Authorization.ts#L45-L57
 type DataframeAnalyticsAuthorization struct {
 	// ApiKey If an API key was used for the most recent update to the job, its name and
 	// identifier are listed in the response.
@@ -60,18 +61,18 @@ func (s *DataframeAnalyticsAuthorization) UnmarshalJSON(data []byte) error {
 
 		case "api_key":
 			if err := dec.Decode(&s.ApiKey); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ApiKey", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "service_account":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ServiceAccount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // SynonymTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/token_filters.ts#L121-L130
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/analysis/token_filters.ts#L121-L130
 type SynonymTokenFilter struct {
 	Expand       *bool                        `json:"expand,omitempty"`
 	Format       *synonymformat.SynonymFormat `json:"format,omitempty"`
@@ -67,7 +68,7 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Expand", err)
 				}
 				s.Expand = &value
 			case bool:
@@ -76,7 +77,7 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "format":
 			if err := dec.Decode(&s.Format); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 
 		case "lenient":
@@ -86,7 +87,7 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Lenient", err)
 				}
 				s.Lenient = &value
 			case bool:
@@ -95,13 +96,13 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "synonyms":
 			if err := dec.Decode(&s.Synonyms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Synonyms", err)
 			}
 
 		case "synonyms_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SynonymsPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -113,7 +114,7 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 		case "tokenizer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tokenizer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,7 +125,7 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "updateable":
@@ -134,7 +135,7 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Updateable", err)
 				}
 				s.Updateable = &value
 			case bool:
@@ -143,7 +144,7 @@ func (s *SynonymTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

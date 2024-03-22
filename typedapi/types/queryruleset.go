@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // QueryRuleset type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/query_ruleset/_types/QueryRuleset.ts#L26-L35
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/query_ruleset/_types/QueryRuleset.ts#L26-L35
 type QueryRuleset struct {
 	// Rules Rules associated with the query ruleset
 	Rules []QueryRule `json:"rules"`
@@ -54,12 +55,12 @@ func (s *QueryRuleset) UnmarshalJSON(data []byte) error {
 
 		case "rules":
 			if err := dec.Decode(&s.Rules); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rules", err)
 			}
 
 		case "ruleset_id":
 			if err := dec.Decode(&s.RulesetId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RulesetId", err)
 			}
 
 		}

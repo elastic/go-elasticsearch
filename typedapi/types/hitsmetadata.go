@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // HitsMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/hits.ts#L66-L72
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/search/_types/hits.ts#L66-L72
 type HitsMetadata struct {
 	Hits     []Hit   `json:"hits"`
 	MaxScore Float64 `json:"max_score,omitempty"`
@@ -55,17 +56,17 @@ func (s *HitsMetadata) UnmarshalJSON(data []byte) error {
 
 		case "hits":
 			if err := dec.Decode(&s.Hits); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Hits", err)
 			}
 
 		case "max_score":
 			if err := dec.Decode(&s.MaxScore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxScore", err)
 			}
 
 		case "total":
 			if err := dec.Decode(&s.Total); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Total", err)
 			}
 
 		}

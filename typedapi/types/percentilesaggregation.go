@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // PercentilesAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/metric.ts#L195-L214
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/aggregations/metric.ts#L195-L214
 type PercentilesAggregation struct {
 	// Field The field on which to run the aggregation.
 	Field  *string `json:"field,omitempty"`
@@ -70,13 +71,13 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "format":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -87,7 +88,7 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 
 		case "hdr":
 			if err := dec.Decode(&s.Hdr); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Hdr", err)
 			}
 
 		case "keyed":
@@ -97,7 +98,7 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Keyed", err)
 				}
 				s.Keyed = &value
 			case bool:
@@ -106,18 +107,18 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Missing", err)
 			}
 
 		case "percents":
 			if err := dec.Decode(&s.Percents); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Percents", err)
 			}
 
 		case "script":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 			keyDec := json.NewDecoder(bytes.NewReader(message))
 			for {
@@ -126,7 +127,7 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 					if errors.Is(err, io.EOF) {
 						break
 					}
-					return err
+					return fmt.Errorf("%s | %w", "Script", err)
 				}
 
 				switch t {
@@ -135,7 +136,7 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 					o := NewInlineScript()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -143,7 +144,7 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 					o := NewStoredScriptId()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -152,7 +153,7 @@ func (s *PercentilesAggregation) UnmarshalJSON(data []byte) error {
 
 		case "tdigest":
 			if err := dec.Decode(&s.Tdigest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tdigest", err)
 			}
 
 		}

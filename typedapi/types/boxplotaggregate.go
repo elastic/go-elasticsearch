@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // BoxPlotAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/Aggregate.ts#L706-L722
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/aggregations/Aggregate.ts#L706-L722
 type BoxPlotAggregate struct {
 	Lower         Float64  `json:"lower"`
 	LowerAsString *string  `json:"lower_as_string,omitempty"`
@@ -71,7 +72,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Lower", err)
 				}
 				f := Float64(value)
 				s.Lower = f
@@ -83,7 +84,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		case "lower_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LowerAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -99,7 +100,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Max", err)
 				}
 				f := Float64(value)
 				s.Max = f
@@ -111,7 +112,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		case "max_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -122,7 +123,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "min":
@@ -132,7 +133,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Min", err)
 				}
 				f := Float64(value)
 				s.Min = f
@@ -144,7 +145,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		case "min_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -160,7 +161,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Q1", err)
 				}
 				f := Float64(value)
 				s.Q1 = f
@@ -172,7 +173,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		case "q1_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Q1AsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -188,7 +189,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Q2", err)
 				}
 				f := Float64(value)
 				s.Q2 = f
@@ -200,7 +201,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		case "q2_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Q2AsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -216,7 +217,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Q3", err)
 				}
 				f := Float64(value)
 				s.Q3 = f
@@ -228,7 +229,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		case "q3_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Q3AsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -244,7 +245,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Upper", err)
 				}
 				f := Float64(value)
 				s.Upper = f
@@ -256,7 +257,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		case "upper_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UpperAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

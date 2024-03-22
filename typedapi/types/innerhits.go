@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // InnerHits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/hits.ts#L106-L140
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/search/_types/hits.ts#L106-L140
 type InnerHits struct {
 	Collapse       *FieldCollapse   `json:"collapse,omitempty"`
 	DocvalueFields []FieldAndFormat `json:"docvalue_fields,omitempty"`
@@ -49,11 +50,11 @@ type InnerHits struct {
 	Size *int `json:"size,omitempty"`
 	// Sort How the inner hits should be sorted per `inner_hits`.
 	// By default, inner hits are sorted by score.
-	Sort        []SortCombinations `json:"sort,omitempty"`
-	Source_     SourceConfig       `json:"_source,omitempty"`
-	StoredField []string           `json:"stored_field,omitempty"`
-	TrackScores *bool              `json:"track_scores,omitempty"`
-	Version     *bool              `json:"version,omitempty"`
+	Sort         []SortCombinations `json:"sort,omitempty"`
+	Source_      SourceConfig       `json:"_source,omitempty"`
+	StoredFields []string           `json:"stored_fields,omitempty"`
+	TrackScores  *bool              `json:"track_scores,omitempty"`
+	Version      *bool              `json:"version,omitempty"`
 }
 
 func (s *InnerHits) UnmarshalJSON(data []byte) error {
@@ -73,12 +74,12 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 
 		case "collapse":
 			if err := dec.Decode(&s.Collapse); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Collapse", err)
 			}
 
 		case "docvalue_fields":
 			if err := dec.Decode(&s.DocvalueFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocvalueFields", err)
 			}
 
 		case "explain":
@@ -88,7 +89,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Explain", err)
 				}
 				s.Explain = &value
 			case bool:
@@ -101,13 +102,13 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Fields", err)
 				}
 
 				s.Fields = append(s.Fields, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Fields); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Fields", err)
 				}
 			}
 
@@ -119,7 +120,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "From", err)
 				}
 				s.From = &value
 			case float64:
@@ -129,7 +130,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 
 		case "highlight":
 			if err := dec.Decode(&s.Highlight); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Highlight", err)
 			}
 
 		case "ignore_unmapped":
@@ -139,7 +140,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreUnmapped", err)
 				}
 				s.IgnoreUnmapped = &value
 			case bool:
@@ -148,7 +149,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "script_fields":
@@ -156,7 +157,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 				s.ScriptFields = make(map[string]ScriptField, 0)
 			}
 			if err := dec.Decode(&s.ScriptFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptFields", err)
 			}
 
 		case "seq_no_primary_term":
@@ -166,7 +167,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SeqNoPrimaryTerm", err)
 				}
 				s.SeqNoPrimaryTerm = &value
 			case bool:
@@ -181,7 +182,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -195,34 +196,34 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(SortCombinations)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sort", err)
 				}
 
 				s.Sort = append(s.Sort, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Sort); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sort", err)
 				}
 			}
 
 		case "_source":
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
 
-		case "stored_field":
+		case "stored_fields":
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoredFields", err)
 				}
 
-				s.StoredField = append(s.StoredField, *o)
+				s.StoredFields = append(s.StoredFields, *o)
 			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StoredField); err != nil {
-					return err
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StoredFields); err != nil {
+					return fmt.Errorf("%s | %w", "StoredFields", err)
 				}
 			}
 
@@ -233,7 +234,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TrackScores", err)
 				}
 				s.TrackScores = &value
 			case bool:
@@ -247,7 +248,7 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Version", err)
 				}
 				s.Version = &value
 			case bool:

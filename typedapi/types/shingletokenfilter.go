@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShingleTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/token_filters.ts#L87-L95
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/analysis/token_filters.ts#L87-L95
 type ShingleTokenFilter struct {
 	FillerToken                *string `json:"filler_token,omitempty"`
 	MaxShingleSize             string  `json:"max_shingle_size,omitempty"`
@@ -60,7 +61,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 		case "filler_token":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FillerToken", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -72,7 +73,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 		case "max_shingle_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxShingleSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -84,7 +85,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 		case "min_shingle_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinShingleSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -100,7 +101,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OutputUnigrams", err)
 				}
 				s.OutputUnigrams = &value
 			case bool:
@@ -114,7 +115,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OutputUnigramsIfNoShingles", err)
 				}
 				s.OutputUnigramsIfNoShingles = &value
 			case bool:
@@ -124,7 +125,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 		case "token_separator":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TokenSeparator", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -135,12 +136,12 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

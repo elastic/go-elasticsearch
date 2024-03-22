@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SlowlogSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L475-L480
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/IndexSettings.ts#L479-L484
 type SlowlogSettings struct {
 	Level     *string           `json:"level,omitempty"`
 	Reformat  *bool             `json:"reformat,omitempty"`
@@ -56,7 +57,7 @@ func (s *SlowlogSettings) UnmarshalJSON(data []byte) error {
 		case "level":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Level", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -72,7 +73,7 @@ func (s *SlowlogSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Reformat", err)
 				}
 				s.Reformat = &value
 			case bool:
@@ -87,7 +88,7 @@ func (s *SlowlogSettings) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Source", err)
 				}
 				s.Source = &value
 			case float64:
@@ -97,7 +98,7 @@ func (s *SlowlogSettings) UnmarshalJSON(data []byte) error {
 
 		case "threshold":
 			if err := dec.Decode(&s.Threshold); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Threshold", err)
 			}
 
 		}

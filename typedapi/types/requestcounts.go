@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RequestCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/RepositoryMeteringInformation.ts#L76-L103
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/_types/RepositoryMeteringInformation.ts#L76-L103
 type RequestCounts struct {
 	// GetBlob Number of Get Blob requests (Azure)
 	GetBlob *int64 `json:"GetBlob,omitempty"`
@@ -83,7 +84,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "GetBlob", err)
 				}
 				s.GetBlob = &value
 			case float64:
@@ -98,7 +99,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "GetBlobProperties", err)
 				}
 				s.GetBlobProperties = &value
 			case float64:
@@ -113,7 +114,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "GetObject", err)
 				}
 				s.GetObject = &value
 			case float64:
@@ -128,7 +129,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InsertObject", err)
 				}
 				s.InsertObject = &value
 			case float64:
@@ -143,7 +144,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ListBlobs", err)
 				}
 				s.ListBlobs = &value
 			case float64:
@@ -158,7 +159,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ListObjects", err)
 				}
 				s.ListObjects = &value
 			case float64:
@@ -173,7 +174,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PutBlob", err)
 				}
 				s.PutBlob = &value
 			case float64:
@@ -188,7 +189,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PutBlock", err)
 				}
 				s.PutBlock = &value
 			case float64:
@@ -203,7 +204,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PutBlockList", err)
 				}
 				s.PutBlockList = &value
 			case float64:
@@ -218,7 +219,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PutMultipartObject", err)
 				}
 				s.PutMultipartObject = &value
 			case float64:
@@ -233,7 +234,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PutObject", err)
 				}
 				s.PutObject = &value
 			case float64:

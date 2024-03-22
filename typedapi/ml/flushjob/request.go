@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package flushjob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package flushjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L99
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/flush_job/MlFlushJobRequest.ts#L24-L99
 type Request struct {
 
 	// AdvanceTime Refer to the description for the `advance_time` query parameter.
@@ -82,7 +82,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "advance_time":
 			if err := dec.Decode(&s.AdvanceTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AdvanceTime", err)
 			}
 
 		case "calc_interim":
@@ -92,7 +92,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CalcInterim", err)
 				}
 				s.CalcInterim = &value
 			case bool:
@@ -101,17 +101,17 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "end":
 			if err := dec.Decode(&s.End); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "End", err)
 			}
 
 		case "skip_time":
 			if err := dec.Decode(&s.SkipTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SkipTime", err)
 			}
 
 		case "start":
 			if err := dec.Decode(&s.Start); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Start", err)
 			}
 
 		}

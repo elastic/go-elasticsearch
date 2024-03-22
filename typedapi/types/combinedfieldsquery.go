@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // CombinedFieldsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/abstractions.ts#L445-L479
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/abstractions.ts#L445-L479
 type CombinedFieldsQuery struct {
 	// AutoGenerateSynonymsPhraseQuery If true, match phrase queries are automatically created for multi-term
 	// synonyms.
@@ -83,7 +84,7 @@ func (s *CombinedFieldsQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AutoGenerateSynonymsPhraseQuery", err)
 				}
 				s.AutoGenerateSynonymsPhraseQuery = &value
 			case bool:
@@ -97,7 +98,7 @@ func (s *CombinedFieldsQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -108,23 +109,23 @@ func (s *CombinedFieldsQuery) UnmarshalJSON(data []byte) error {
 
 		case "fields":
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "minimum_should_match":
 			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumShouldMatch", err)
 			}
 
 		case "operator":
 			if err := dec.Decode(&s.Operator); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Operator", err)
 			}
 
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -136,7 +137,7 @@ func (s *CombinedFieldsQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -147,7 +148,7 @@ func (s *CombinedFieldsQuery) UnmarshalJSON(data []byte) error {
 
 		case "zero_terms_query":
 			if err := dec.Decode(&s.ZeroTermsQuery); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ZeroTermsQuery", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package putrolemapping
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putrolemapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L25-L45
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L25-L45
 type Request struct {
 	Enabled       *bool                  `json:"enabled,omitempty"`
 	Metadata      types.Metadata         `json:"metadata,omitempty"`
@@ -82,7 +82,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = &value
 			case bool:
@@ -91,27 +91,27 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "role_templates":
 			if err := dec.Decode(&s.RoleTemplates); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RoleTemplates", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "rules":
 			if err := dec.Decode(&s.Rules); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rules", err)
 			}
 
 		case "run_as":
 			if err := dec.Decode(&s.RunAs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RunAs", err)
 			}
 
 		}

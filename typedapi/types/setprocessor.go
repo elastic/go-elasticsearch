@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SetProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/_types/Processors.ts#L1023-L1057
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ingest/_types/Processors.ts#L1023-L1057
 type SetProcessor struct {
 	// CopyFrom The origin field which will be copied to `field`, cannot set `value`
 	// simultaneously.
@@ -87,13 +88,13 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 
 		case "copy_from":
 			if err := dec.Decode(&s.CopyFrom); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CopyFrom", err)
 			}
 
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -104,13 +105,13 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "if":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "If", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -126,7 +127,7 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreEmptyValue", err)
 				}
 				s.IgnoreEmptyValue = &value
 			case bool:
@@ -140,7 +141,7 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreFailure", err)
 				}
 				s.IgnoreFailure = &value
 			case bool:
@@ -150,7 +151,7 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 		case "media_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MediaType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -161,7 +162,7 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OnFailure", err)
 			}
 
 		case "override":
@@ -171,7 +172,7 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Override", err)
 				}
 				s.Override = &value
 			case bool:
@@ -181,7 +182,7 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 		case "tag":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tag", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -192,7 +193,7 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 
 		case "value":
 			if err := dec.Decode(&s.Value); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Value", err)
 			}
 
 		}

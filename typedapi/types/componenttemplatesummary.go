@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/_types/ComponentTemplate.ts#L42-L54
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/cluster/_types/ComponentTemplate.ts#L42-L54
 type ComponentTemplateSummary struct {
 	Aliases   map[string]AliasDefinition       `json:"aliases,omitempty"`
 	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
@@ -59,22 +60,22 @@ func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
 				s.Aliases = make(map[string]AliasDefinition, 0)
 			}
 			if err := dec.Decode(&s.Aliases); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Aliases", err)
 			}
 
 		case "lifecycle":
 			if err := dec.Decode(&s.Lifecycle); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lifecycle", err)
 			}
 
 		case "mappings":
 			if err := dec.Decode(&s.Mappings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mappings", err)
 			}
 
 		case "_meta":
 			if err := dec.Decode(&s.Meta_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta_", err)
 			}
 
 		case "settings":
@@ -82,12 +83,12 @@ func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
 				s.Settings = make(map[string]IndexSettings, 0)
 			}
 			if err := dec.Decode(&s.Settings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Settings", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Audit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L73-L75
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/xpack/usage/types.ts#L73-L75
 type Audit struct {
 	Enabled bool     `json:"enabled"`
 	Outputs []string `json:"outputs,omitempty"`
@@ -58,7 +59,7 @@ func (s *Audit) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -67,7 +68,7 @@ func (s *Audit) UnmarshalJSON(data []byte) error {
 
 		case "outputs":
 			if err := dec.Decode(&s.Outputs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Outputs", err)
 			}
 
 		}

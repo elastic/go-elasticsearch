@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // GeoDistanceSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/sort.ts#L58-L66
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/sort.ts#L58-L66
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	GeoDistanceSort map[string][]GeoLocation         `json:"GeoDistanceSort,omitempty"`
@@ -63,7 +63,7 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 
 		case "distance_type":
 			if err := dec.Decode(&s.DistanceType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DistanceType", err)
 			}
 
 		case "GeoDistanceSort":
@@ -78,14 +78,14 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 					o := new(GeoLocation)
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
 					}
 					s.GeoDistanceSort[key] = append(s.GeoDistanceSort[key], o)
 				default:
 					o := []GeoLocation{}
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
 					}
 					s.GeoDistanceSort[key] = o
 				}
@@ -98,7 +98,7 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreUnmapped", err)
 				}
 				s.IgnoreUnmapped = &value
 			case bool:
@@ -107,17 +107,17 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 
 		case "mode":
 			if err := dec.Decode(&s.Mode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mode", err)
 			}
 
 		case "order":
 			if err := dec.Decode(&s.Order); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Order", err)
 			}
 
 		case "unit":
 			if err := dec.Decode(&s.Unit); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Unit", err)
 			}
 
 		default:

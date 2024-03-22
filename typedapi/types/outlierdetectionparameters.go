@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // OutlierDetectionParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L527-L561
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/DataframeAnalytics.ts#L527-L561
 type OutlierDetectionParameters struct {
 	// ComputeFeatureInfluence Specifies whether the feature influence calculation is enabled.
 	ComputeFeatureInfluence *bool `json:"compute_feature_influence,omitempty"`
@@ -85,7 +86,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ComputeFeatureInfluence", err)
 				}
 				s.ComputeFeatureInfluence = &value
 			case bool:
@@ -99,7 +100,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FeatureInfluenceThreshold", err)
 				}
 				f := Float64(value)
 				s.FeatureInfluenceThreshold = &f
@@ -111,7 +112,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 		case "method":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Method", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -128,7 +129,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NNeighbors", err)
 				}
 				s.NNeighbors = &value
 			case float64:
@@ -143,7 +144,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OutlierFraction", err)
 				}
 				f := Float64(value)
 				s.OutlierFraction = &f
@@ -159,7 +160,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StandardizationEnabled", err)
 				}
 				s.StandardizationEnabled = &value
 			case bool:

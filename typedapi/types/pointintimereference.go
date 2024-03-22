@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // PointInTimeReference type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/PointInTimeReference.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/search/_types/PointInTimeReference.ts#L23-L26
 type PointInTimeReference struct {
 	Id        string   `json:"id"`
 	KeepAlive Duration `json:"keep_alive,omitempty"`
@@ -52,12 +53,12 @@ func (s *PointInTimeReference) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "keep_alive":
 			if err := dec.Decode(&s.KeepAlive); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "KeepAlive", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // GetScriptContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/get_script_context/types.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/get_script_context/types.ts#L22-L25
 type GetScriptContext struct {
 	Methods []ContextMethod `json:"methods"`
 	Name    string          `json:"name"`
@@ -52,12 +53,12 @@ func (s *GetScriptContext) UnmarshalJSON(data []byte) error {
 
 		case "methods":
 			if err := dec.Decode(&s.Methods); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Methods", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		}

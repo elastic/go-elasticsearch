@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // RunningStateSearchInterval type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Datafeed.ts#L214-L231
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/Datafeed.ts#L214-L231
 type RunningStateSearchInterval struct {
 	// End The end time.
 	End Duration `json:"end,omitempty"`
@@ -58,22 +59,22 @@ func (s *RunningStateSearchInterval) UnmarshalJSON(data []byte) error {
 
 		case "end":
 			if err := dec.Decode(&s.End); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "End", err)
 			}
 
 		case "end_ms":
 			if err := dec.Decode(&s.EndMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EndMs", err)
 			}
 
 		case "start":
 			if err := dec.Decode(&s.Start); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Start", err)
 			}
 
 		case "start_ms":
 			if err := dec.Decode(&s.StartMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartMs", err)
 			}
 
 		}

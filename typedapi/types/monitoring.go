@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Monitoring type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L381-L384
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/xpack/usage/types.ts#L381-L384
 type Monitoring struct {
 	Available         bool             `json:"available"`
 	CollectionEnabled bool             `json:"collection_enabled"`
@@ -60,7 +61,7 @@ func (s *Monitoring) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Available", err)
 				}
 				s.Available = value
 			case bool:
@@ -74,7 +75,7 @@ func (s *Monitoring) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CollectionEnabled", err)
 				}
 				s.CollectionEnabled = value
 			case bool:
@@ -88,7 +89,7 @@ func (s *Monitoring) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -100,7 +101,7 @@ func (s *Monitoring) UnmarshalJSON(data []byte) error {
 				s.EnabledExporters = make(map[string]int64, 0)
 			}
 			if err := dec.Decode(&s.EnabledExporters); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EnabledExporters", err)
 			}
 
 		}

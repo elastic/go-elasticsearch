@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -35,7 +36,7 @@ import (
 
 // IcuCollationTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/icu-plugin.ts#L51-L65
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/analysis/icu-plugin.ts#L51-L65
 type IcuCollationTokenFilter struct {
 	Alternate              *icucollationalternate.IcuCollationAlternate         `json:"alternate,omitempty"`
 	CaseFirst              *icucollationcasefirst.IcuCollationCaseFirst         `json:"caseFirst,omitempty"`
@@ -70,12 +71,12 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "alternate":
 			if err := dec.Decode(&s.Alternate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Alternate", err)
 			}
 
 		case "caseFirst":
 			if err := dec.Decode(&s.CaseFirst); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CaseFirst", err)
 			}
 
 		case "caseLevel":
@@ -85,7 +86,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CaseLevel", err)
 				}
 				s.CaseLevel = &value
 			case bool:
@@ -95,7 +96,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 		case "country":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Country", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -106,7 +107,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "decomposition":
 			if err := dec.Decode(&s.Decomposition); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Decomposition", err)
 			}
 
 		case "hiraganaQuaternaryMode":
@@ -116,7 +117,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HiraganaQuaternaryMode", err)
 				}
 				s.HiraganaQuaternaryMode = &value
 			case bool:
@@ -126,7 +127,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 		case "language":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Language", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -142,7 +143,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Numeric", err)
 				}
 				s.Numeric = &value
 			case bool:
@@ -152,7 +153,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 		case "rules":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rules", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -163,18 +164,18 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "strength":
 			if err := dec.Decode(&s.Strength); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Strength", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "variableTop":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VariableTop", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -186,7 +187,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 		case "variant":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Variant", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -197,7 +198,7 @@ func (s *IcuCollationTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

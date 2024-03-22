@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // TrainedModelAssignmentTaskParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L316-L349
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/TrainedModel.ts#L316-L349
 type TrainedModelAssignmentTaskParameters struct {
 	// CacheSize The size of the trained model cache.
 	CacheSize ByteSize `json:"cache_size"`
@@ -68,12 +69,12 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 
 		case "cache_size":
 			if err := dec.Decode(&s.CacheSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CacheSize", err)
 			}
 
 		case "deployment_id":
 			if err := dec.Decode(&s.DeploymentId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DeploymentId", err)
 			}
 
 		case "model_bytes":
@@ -84,7 +85,7 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ModelBytes", err)
 				}
 				s.ModelBytes = value
 			case float64:
@@ -94,7 +95,7 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 
 		case "model_id":
 			if err := dec.Decode(&s.ModelId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelId", err)
 			}
 
 		case "number_of_allocations":
@@ -105,7 +106,7 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfAllocations", err)
 				}
 				s.NumberOfAllocations = value
 			case float64:
@@ -115,7 +116,7 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 
 		case "priority":
 			if err := dec.Decode(&s.Priority); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Priority", err)
 			}
 
 		case "queue_capacity":
@@ -126,7 +127,7 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "QueueCapacity", err)
 				}
 				s.QueueCapacity = value
 			case float64:
@@ -142,7 +143,7 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ThreadsPerAllocation", err)
 				}
 				s.ThreadsPerAllocation = value
 			case float64:

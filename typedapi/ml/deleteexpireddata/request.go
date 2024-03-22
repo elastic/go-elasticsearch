@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package deleteexpireddata
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package deleteexpireddata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/delete_expired_data/MlDeleteExpiredDataRequest.ts#L25-L72
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/delete_expired_data/MlDeleteExpiredDataRequest.ts#L25-L72
 type Request struct {
 
 	// RequestsPerSecond The desired requests per second for the deletion processes. The default
@@ -82,7 +82,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequestsPerSecond", err)
 				}
 				f := float32(value)
 				s.RequestsPerSecond = &f
@@ -93,7 +93,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "timeout":
 			if err := dec.Decode(&s.Timeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 
 		}

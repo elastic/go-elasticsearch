@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CertificateInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ssl/certificates/types.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ssl/certificates/types.ts#L22-L31
 type CertificateInformation struct {
 	Alias         string   `json:"alias,omitempty"`
 	Expiry        DateTime `json:"expiry"`
@@ -60,7 +61,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 		case "alias":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Alias", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -71,13 +72,13 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 
 		case "expiry":
 			if err := dec.Decode(&s.Expiry); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Expiry", err)
 			}
 
 		case "format":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -93,7 +94,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HasPrivateKey", err)
 				}
 				s.HasPrivateKey = value
 			case bool:
@@ -103,7 +104,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 		case "issuer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Issuer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -115,7 +116,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 		case "path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Path", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -127,7 +128,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 		case "serial_number":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SerialNumber", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -139,7 +140,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 		case "subject_dn":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SubjectDn", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

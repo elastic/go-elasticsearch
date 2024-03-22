@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // InferenceConfigClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/_types/Processors.ts#L773-L799
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ingest/_types/Processors.ts#L773-L799
 type InferenceConfigClassification struct {
 	// NumTopClasses Specifies the number of top class predictions to return.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`
@@ -69,7 +70,7 @@ func (s *InferenceConfigClassification) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumTopClasses", err)
 				}
 				s.NumTopClasses = &value
 			case float64:
@@ -85,7 +86,7 @@ func (s *InferenceConfigClassification) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumTopFeatureImportanceValues", err)
 				}
 				s.NumTopFeatureImportanceValues = &value
 			case float64:
@@ -96,7 +97,7 @@ func (s *InferenceConfigClassification) UnmarshalJSON(data []byte) error {
 		case "prediction_field_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PredictionFieldType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -107,12 +108,12 @@ func (s *InferenceConfigClassification) UnmarshalJSON(data []byte) error {
 
 		case "results_field":
 			if err := dec.Decode(&s.ResultsField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultsField", err)
 			}
 
 		case "top_classes_results_field":
 			if err := dec.Decode(&s.TopClassesResultsField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TopClassesResultsField", err)
 			}
 
 		}

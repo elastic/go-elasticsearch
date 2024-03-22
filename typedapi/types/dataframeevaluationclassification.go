@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DataframeEvaluationClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeEvaluation.ts#L35-L44
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/DataframeEvaluation.ts#L35-L44
 type DataframeEvaluationClassification struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field can be boolean or integer. If the data type is integer, the value has
@@ -63,22 +64,22 @@ func (s *DataframeEvaluationClassification) UnmarshalJSON(data []byte) error {
 
 		case "actual_field":
 			if err := dec.Decode(&s.ActualField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActualField", err)
 			}
 
 		case "metrics":
 			if err := dec.Decode(&s.Metrics); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metrics", err)
 			}
 
 		case "predicted_field":
 			if err := dec.Decode(&s.PredictedField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PredictedField", err)
 			}
 
 		case "top_classes_field":
 			if err := dec.Decode(&s.TopClassesField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TopClassesField", err)
 			}
 
 		}

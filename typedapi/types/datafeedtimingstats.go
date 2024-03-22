@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DatafeedTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Datafeed.ts#L171-L196
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/Datafeed.ts#L171-L196
 type DatafeedTimingStats struct {
 	// AverageSearchTimePerBucketMs The average search time per bucket, in milliseconds.
 	AverageSearchTimePerBucketMs Float64 `json:"average_search_time_per_bucket_ms,omitempty"`
@@ -63,7 +64,7 @@ func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {
 
 		case "average_search_time_per_bucket_ms":
 			if err := dec.Decode(&s.AverageSearchTimePerBucketMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AverageSearchTimePerBucketMs", err)
 			}
 
 		case "bucket_count":
@@ -73,7 +74,7 @@ func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BucketCount", err)
 				}
 				s.BucketCount = value
 			case float64:
@@ -83,12 +84,12 @@ func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {
 
 		case "exponential_average_search_time_per_hour_ms":
 			if err := dec.Decode(&s.ExponentialAverageSearchTimePerHourMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExponentialAverageSearchTimePerHourMs", err)
 			}
 
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "search_count":
@@ -98,7 +99,7 @@ func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SearchCount", err)
 				}
 				s.SearchCount = value
 			case float64:
@@ -108,7 +109,7 @@ func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {
 
 		case "total_search_time_ms":
 			if err := dec.Decode(&s.TotalSearchTimeMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalSearchTimeMs", err)
 			}
 
 		}

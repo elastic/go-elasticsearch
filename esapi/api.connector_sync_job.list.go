@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.14.0: DO NOT EDIT
 
 package esapi
 
@@ -54,6 +54,7 @@ type ConnectorSyncJobList func(o ...func(*ConnectorSyncJobListRequest)) (*Respon
 type ConnectorSyncJobListRequest struct {
 	ConnectorID string
 	From        *int
+	JobType     []string
 	Size        *int
 	Status      string
 
@@ -100,6 +101,10 @@ func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport T
 
 	if r.From != nil {
 		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if len(r.JobType) > 0 {
+		params["job_type"] = strings.Join(r.JobType, ",")
 	}
 
 	if r.Size != nil {
@@ -199,6 +204,13 @@ func (f ConnectorSyncJobList) WithConnectorID(v string) func(*ConnectorSyncJobLi
 func (f ConnectorSyncJobList) WithFrom(v int) func(*ConnectorSyncJobListRequest) {
 	return func(r *ConnectorSyncJobListRequest) {
 		r.From = &v
+	}
+}
+
+// WithJobType - a list of job types.
+func (f ConnectorSyncJobList) WithJobType(v ...string) func(*ConnectorSyncJobListRequest) {
+	return func(r *ConnectorSyncJobListRequest) {
+		r.JobType = v
 	}
 }
 

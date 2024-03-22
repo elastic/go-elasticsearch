@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package puttemplate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package puttemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/put_template/IndicesPutTemplateRequest.ts#L29-L105
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/put_template/IndicesPutTemplateRequest.ts#L29-L105
 type Request struct {
 
 	// Aliases Aliases for the index.
@@ -96,7 +96,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Aliases = make(map[string]types.Alias, 0)
 			}
 			if err := dec.Decode(&s.Aliases); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Aliases", err)
 			}
 
 		case "index_patterns":
@@ -105,19 +105,19 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexPatterns", err)
 				}
 
 				s.IndexPatterns = append(s.IndexPatterns, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IndexPatterns); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexPatterns", err)
 				}
 			}
 
 		case "mappings":
 			if err := dec.Decode(&s.Mappings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mappings", err)
 			}
 
 		case "order":
@@ -128,7 +128,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Order", err)
 				}
 				s.Order = &value
 			case float64:
@@ -141,12 +141,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Settings = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Settings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Settings", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

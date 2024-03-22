@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SnapshotsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/snapshots/types.ts#L24-L96
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/cat/snapshots/types.ts#L24-L96
 type SnapshotsRecord struct {
 	// Duration The time it took the snapshot process to complete, in time units.
 	Duration Duration `json:"duration,omitempty"`
@@ -86,23 +87,23 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 
 		case "duration", "dur":
 			if err := dec.Decode(&s.Duration); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Duration", err)
 			}
 
 		case "end_epoch", "ete", "endEpoch":
 			if err := dec.Decode(&s.EndEpoch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EndEpoch", err)
 			}
 
 		case "end_time", "eti", "endTime":
 			if err := dec.Decode(&s.EndTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EndTime", err)
 			}
 
 		case "failed_shards", "fs":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FailedShards", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -114,7 +115,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 		case "id", "snapshot":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -126,7 +127,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 		case "indices", "i":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -138,7 +139,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 		case "reason", "r":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -150,7 +151,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 		case "repository", "re", "repo":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Repository", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -161,7 +162,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 
 		case "start_epoch", "ste", "startEpoch":
 			if err := dec.Decode(&s.StartEpoch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartEpoch", err)
 			}
 
 		case "start_time", "sti", "startTime":
@@ -180,14 +181,14 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 
 			default:
 				if err := localDec.Decode(&s.StartTime); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StartTime", err)
 				}
 			}
 
 		case "status", "s":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -199,7 +200,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 		case "successful_shards", "ss":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SuccessfulShards", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -211,7 +212,7 @@ func (s *SnapshotsRecord) UnmarshalJSON(data []byte) error {
 		case "total_shards", "ts":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalShards", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

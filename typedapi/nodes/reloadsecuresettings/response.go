@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package reloadsecuresettings
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
@@ -31,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package reloadsecuresettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/reload_secure_settings/ReloadSecureSettingsResponse.ts#L30-L32
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/nodes/reload_secure_settings/ReloadSecureSettingsResponse.ts#L30-L32
 type Response struct {
 	ClusterName string `json:"cluster_name"`
 	// NodeStats Contains statistics about the number of nodes selected by the request’s node
@@ -64,12 +65,12 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 		case "cluster_name":
 			if err := dec.Decode(&s.ClusterName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ClusterName", err)
 			}
 
 		case "_nodes":
 			if err := dec.Decode(&s.NodeStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeStats", err)
 			}
 
 		case "nodes":
@@ -77,7 +78,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 				s.Nodes = make(map[string]types.NodeReloadResult, 0)
 			}
 			if err := dec.Decode(&s.Nodes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nodes", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CloseIndexResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/close/CloseIndexResponse.ts#L32-L35
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/close/CloseIndexResponse.ts#L32-L35
 type CloseIndexResult struct {
 	Closed bool                        `json:"closed"`
 	Shards map[string]CloseShardResult `json:"shards,omitempty"`
@@ -58,7 +59,7 @@ func (s *CloseIndexResult) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Closed", err)
 				}
 				s.Closed = value
 			case bool:
@@ -70,7 +71,7 @@ func (s *CloseIndexResult) UnmarshalJSON(data []byte) error {
 				s.Shards = make(map[string]CloseShardResult, 0)
 			}
 			if err := dec.Decode(&s.Shards); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shards", err)
 			}
 
 		}

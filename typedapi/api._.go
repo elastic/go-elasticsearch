@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package typedapi
 
@@ -206,6 +206,7 @@ import (
 	indices_recovery "github.com/elastic/go-elasticsearch/v8/typedapi/indices/recovery"
 	indices_refresh "github.com/elastic/go-elasticsearch/v8/typedapi/indices/refresh"
 	indices_reload_search_analyzers "github.com/elastic/go-elasticsearch/v8/typedapi/indices/reloadsearchanalyzers"
+	indices_resolve_cluster "github.com/elastic/go-elasticsearch/v8/typedapi/indices/resolvecluster"
 	indices_resolve_index "github.com/elastic/go-elasticsearch/v8/typedapi/indices/resolveindex"
 	indices_rollover "github.com/elastic/go-elasticsearch/v8/typedapi/indices/rollover"
 	indices_segments "github.com/elastic/go-elasticsearch/v8/typedapi/indices/segments"
@@ -1133,6 +1134,10 @@ type Indices struct {
 	// Reloads an index's search analyzers and their resources.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-reload-analyzers.html
 	ReloadSearchAnalyzers indices_reload_search_analyzers.NewReloadSearchAnalyzers
+	// Resolves the specified index expressions to return information about each
+	// cluster, including the local cluster, if included.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-resolve-cluster-api.html
+	ResolveCluster indices_resolve_cluster.NewResolveCluster
 	// Returns information about any matching indices, aliases, and data streams
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-resolve-index-api.html
 	ResolveIndex indices_resolve_index.NewResolveIndex
@@ -1952,7 +1957,7 @@ type TextStructure struct {
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/find-structure.html
 	FindStructure text_structure_find_structure.NewFindStructure
 	// Tests a Grok pattern on some text.
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/test-grok-pattern-api.html
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/test-grok-pattern.html
 	TestGrokPattern text_structure_test_grok_pattern.NewTestGrokPattern
 }
 
@@ -2483,6 +2488,7 @@ func New(tp elastictransport.Interface) *API {
 			Recovery:              indices_recovery.NewRecoveryFunc(tp),
 			Refresh:               indices_refresh.NewRefreshFunc(tp),
 			ReloadSearchAnalyzers: indices_reload_search_analyzers.NewReloadSearchAnalyzersFunc(tp),
+			ResolveCluster:        indices_resolve_cluster.NewResolveClusterFunc(tp),
 			ResolveIndex:          indices_resolve_index.NewResolveIndexFunc(tp),
 			Rollover:              indices_rollover.NewRolloverFunc(tp),
 			Segments:              indices_segments.NewSegmentsFunc(tp),

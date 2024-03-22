@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ExploreControls type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/graph/_types/ExploreControls.ts#L24-L49
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/graph/_types/ExploreControls.ts#L24-L49
 type ExploreControls struct {
 	// SampleDiversity To avoid the top-matching documents sample being dominated by a single source
 	// of results, it is sometimes necessary to request diversity in the sample.
@@ -73,7 +74,7 @@ func (s *ExploreControls) UnmarshalJSON(data []byte) error {
 
 		case "sample_diversity":
 			if err := dec.Decode(&s.SampleDiversity); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SampleDiversity", err)
 			}
 
 		case "sample_size":
@@ -84,7 +85,7 @@ func (s *ExploreControls) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SampleSize", err)
 				}
 				s.SampleSize = &value
 			case float64:
@@ -94,7 +95,7 @@ func (s *ExploreControls) UnmarshalJSON(data []byte) error {
 
 		case "timeout":
 			if err := dec.Decode(&s.Timeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 
 		case "use_significance":
@@ -104,7 +105,7 @@ func (s *ExploreControls) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UseSignificance", err)
 				}
 				s.UseSignificance = value
 			case bool:

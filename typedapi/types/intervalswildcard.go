@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // IntervalsWildcard type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/fulltext.ts#L265-L280
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/fulltext.ts#L265-L280
 type IntervalsWildcard struct {
 	// Analyzer Analyzer used to analyze the `pattern`.
 	// Defaults to the top-level field's analyzer.
@@ -62,7 +63,7 @@ func (s *IntervalsWildcard) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -74,7 +75,7 @@ func (s *IntervalsWildcard) UnmarshalJSON(data []byte) error {
 		case "pattern":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pattern", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -85,7 +86,7 @@ func (s *IntervalsWildcard) UnmarshalJSON(data []byte) error {
 
 		case "use_field":
 			if err := dec.Decode(&s.UseField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UseField", err)
 			}
 
 		}

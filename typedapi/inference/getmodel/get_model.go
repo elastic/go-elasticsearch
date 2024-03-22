@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 // Get a model in the Inference API
 package getmodel
@@ -39,7 +39,7 @@ import (
 const (
 	tasktypeMask = iota + 1
 
-	modelidMask
+	inferenceidMask
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -56,8 +56,8 @@ type GetModel struct {
 
 	paramSet int
 
-	tasktype string
-	modelid  string
+	tasktype    string
+	inferenceid string
 
 	spanStarted bool
 
@@ -65,17 +65,15 @@ type GetModel struct {
 }
 
 // NewGetModel type alias for index.
-type NewGetModel func(tasktype, modelid string) *GetModel
+type NewGetModel func(inferenceid string) *GetModel
 
 // NewGetModelFunc returns a new instance of GetModel with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
 func NewGetModelFunc(tp elastictransport.Interface) NewGetModel {
-	return func(tasktype, modelid string) *GetModel {
+	return func(inferenceid string) *GetModel {
 		n := New(tp)
 
-		n._tasktype(tasktype)
-
-		n._modelid(modelid)
+		n._inferenceid(inferenceid)
 
 		return n
 	}
@@ -112,7 +110,18 @@ func (r *GetModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
-	case r.paramSet == tasktypeMask|modelidMask:
+	case r.paramSet == inferenceidMask:
+		path.WriteString("/")
+		path.WriteString("_inference")
+		path.WriteString("/")
+
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
+		}
+		path.WriteString(r.inferenceid)
+
+		method = http.MethodGet
+	case r.paramSet == tasktypeMask|inferenceidMask:
 		path.WriteString("/")
 		path.WriteString("_inference")
 		path.WriteString("/")
@@ -124,9 +133,9 @@ func (r *GetModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString("/")
 
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "modelid", r.modelid)
+			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
 		}
-		path.WriteString(r.modelid)
+		path.WriteString(r.inferenceid)
 
 		method = http.MethodGet
 	}
@@ -299,20 +308,20 @@ func (r *GetModel) Header(key, value string) *GetModel {
 	return r
 }
 
-// TaskType The model task type
+// TaskType The task type
 // API Name: tasktype
-func (r *GetModel) _tasktype(tasktype string) *GetModel {
+func (r *GetModel) TaskType(tasktype string) *GetModel {
 	r.paramSet |= tasktypeMask
 	r.tasktype = tasktype
 
 	return r
 }
 
-// ModelId The unique identifier of the inference model.
-// API Name: modelid
-func (r *GetModel) _modelid(modelid string) *GetModel {
-	r.paramSet |= modelidMask
-	r.modelid = modelid
+// InferenceId The inference Id
+// API Name: inferenceid
+func (r *GetModel) _inferenceid(inferenceid string) *GetModel {
+	r.paramSet |= inferenceidMask
+	r.inferenceid = inferenceid
 
 	return r
 }

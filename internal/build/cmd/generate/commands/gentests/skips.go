@@ -61,6 +61,7 @@ var skipFiles = []string{
 	"ml/3rd_party_deployment.yml",       // incompatible ml tests
 	"dlm/10_usage.yml",                  // incompatible float expansion
 	"api_key/60_admin_user.yml",
+	".*esql\\/.*.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -170,6 +171,8 @@ indices.put_mapping/10_basic.yml:
 test/indices.put_template/10_basic.yml:
 
 # Incompatible regex
+cat.indices/10_basic.yml:
+ - Test cat indices output for closed index (pre 7.2.0)
 cat.templates/10_basic.yml:
   - "Sort templates"
   - "Multiple template"
@@ -203,6 +206,9 @@ tsdb/80_index_resize.yml:
 tsdb/40_search.yml:
   - aggregate a metric
 
+tsdb/70_dimension_types.yml:
+  - flattened field missing routing path field
+
 # Deliberate wrong type doesn't match Go types
 cluster.desired_nodes/10_basic.yml:
   - Test version must be a number
@@ -230,6 +236,8 @@ api_key/10_basic.yml:
   - Test invalidate api keys
 api_key/11_invalidation.yml:
   - Test invalidate api key by username
+api_key/21_query_with_aggs.yml:
+  - Test composite aggs api key
 rollup/put_job.yml:
   - Test put job with templates
 
@@ -327,6 +335,9 @@ ml/semantic_search.yml:
 # model is not deployed to any node
 ml/text_expansion_search.yml:
 ml/text_expansion_search_sparse_vector.yml:
+ml/search_knn_query_vector_builder.yml:
+ml/text_embedding_search.yml:
+ml/text_expansion_search_rank_features.yml:
 
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
@@ -335,6 +346,9 @@ snapshot/10_basic.yml:
 # illegal_argument_exception: Provided password hash uses [NOOP] but the configured hashing algorithm is [BCRYPT]
 users/10_basic.yml:
   - Test put user with password hash
+
+users/40_query.yml:
+  - Test query user
 
 # Slash in index name is not escaped (BUG)
 security/authz/13_index_datemath.yml:
@@ -512,4 +526,6 @@ esql/40_unsupported_types.yml:
 
 esql/50_index_patterns.yml:
   - disjoint_mappings
+
+
 `

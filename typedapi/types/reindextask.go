@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ReindexTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/reindex_rethrottle/types.ts#L87-L98
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/reindex_rethrottle/types.ts#L87-L98
 type ReindexTask struct {
 	Action             string        `json:"action"`
 	Cancellable        bool          `json:"cancellable"`
@@ -62,7 +63,7 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 		case "action":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Action", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -78,7 +79,7 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Cancellable", err)
 				}
 				s.Cancellable = value
 			case bool:
@@ -88,7 +89,7 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -99,7 +100,7 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 
 		case "headers":
 			if err := dec.Decode(&s.Headers); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Headers", err)
 			}
 
 		case "id":
@@ -109,7 +110,7 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Id", err)
 				}
 				s.Id = value
 			case float64:
@@ -119,28 +120,28 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 
 		case "node":
 			if err := dec.Decode(&s.Node); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 
 		case "running_time_in_nanos":
 			if err := dec.Decode(&s.RunningTimeInNanos); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RunningTimeInNanos", err)
 			}
 
 		case "start_time_in_millis":
 			if err := dec.Decode(&s.StartTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTimeInMillis", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

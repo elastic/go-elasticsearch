@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Anomaly type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Anomaly.ts#L24-L121
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/_types/Anomaly.ts#L24-L121
 type Anomaly struct {
 	// Actual The actual value for the bucket.
 	Actual []Float64 `json:"actual,omitempty"`
@@ -128,23 +129,23 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 
 		case "actual":
 			if err := dec.Decode(&s.Actual); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Actual", err)
 			}
 
 		case "anomaly_score_explanation":
 			if err := dec.Decode(&s.AnomalyScoreExplanation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnomalyScoreExplanation", err)
 			}
 
 		case "bucket_span":
 			if err := dec.Decode(&s.BucketSpan); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketSpan", err)
 			}
 
 		case "by_field_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ByFieldName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -156,7 +157,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "by_field_value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ByFieldValue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -167,7 +168,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 
 		case "causes":
 			if err := dec.Decode(&s.Causes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Causes", err)
 			}
 
 		case "detector_index":
@@ -178,7 +179,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DetectorIndex", err)
 				}
 				s.DetectorIndex = value
 			case float64:
@@ -189,7 +190,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "field_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -201,7 +202,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "function":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Function", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -213,7 +214,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "function_description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FunctionDescription", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -224,12 +225,12 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 
 		case "geo_results":
 			if err := dec.Decode(&s.GeoResults); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoResults", err)
 			}
 
 		case "influencers":
 			if err := dec.Decode(&s.Influencers); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Influencers", err)
 			}
 
 		case "initial_record_score":
@@ -239,7 +240,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InitialRecordScore", err)
 				}
 				f := Float64(value)
 				s.InitialRecordScore = f
@@ -255,7 +256,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsInterim", err)
 				}
 				s.IsInterim = value
 			case bool:
@@ -265,7 +266,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "job_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -277,7 +278,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "over_field_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OverFieldName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -289,7 +290,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "over_field_value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OverFieldValue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -301,7 +302,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "partition_field_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PartitionFieldName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -313,7 +314,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "partition_field_value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PartitionFieldValue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -329,7 +330,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Probability", err)
 				}
 				f := Float64(value)
 				s.Probability = f
@@ -345,7 +346,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RecordScore", err)
 				}
 				f := Float64(value)
 				s.RecordScore = f
@@ -357,7 +358,7 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 		case "result_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -368,12 +369,12 @@ func (s *Anomaly) UnmarshalJSON(data []byte) error {
 
 		case "timestamp":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		case "typical":
 			if err := dec.Decode(&s.Typical); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Typical", err)
 			}
 
 		}

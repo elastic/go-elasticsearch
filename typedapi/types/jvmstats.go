@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // JvmStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/get_memory_stats/types.ts#L50-L63
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/ml/get_memory_stats/types.ts#L50-L63
 type JvmStats struct {
 	// HeapMax Maximum amount of memory available for use by the heap.
 	HeapMax ByteSize `json:"heap_max,omitempty"`
@@ -65,7 +66,7 @@ func (s *JvmStats) UnmarshalJSON(data []byte) error {
 
 		case "heap_max":
 			if err := dec.Decode(&s.HeapMax); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HeapMax", err)
 			}
 
 		case "heap_max_in_bytes":
@@ -76,7 +77,7 @@ func (s *JvmStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HeapMaxInBytes", err)
 				}
 				s.HeapMaxInBytes = value
 			case float64:
@@ -86,7 +87,7 @@ func (s *JvmStats) UnmarshalJSON(data []byte) error {
 
 		case "java_inference":
 			if err := dec.Decode(&s.JavaInference); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JavaInference", err)
 			}
 
 		case "java_inference_in_bytes":
@@ -97,7 +98,7 @@ func (s *JvmStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "JavaInferenceInBytes", err)
 				}
 				s.JavaInferenceInBytes = value
 			case float64:
@@ -107,7 +108,7 @@ func (s *JvmStats) UnmarshalJSON(data []byte) error {
 
 		case "java_inference_max":
 			if err := dec.Decode(&s.JavaInferenceMax); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JavaInferenceMax", err)
 			}
 
 		case "java_inference_max_in_bytes":
@@ -118,7 +119,7 @@ func (s *JvmStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "JavaInferenceMaxInBytes", err)
 				}
 				s.JavaInferenceMaxInBytes = value
 			case float64:

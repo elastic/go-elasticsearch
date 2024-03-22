@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MasterIsStableIndicatorExceptionFetchingHistory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L94-L97
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_global/health_report/types.ts#L94-L97
 type MasterIsStableIndicatorExceptionFetchingHistory struct {
 	Message    string `json:"message"`
 	StackTrace string `json:"stack_trace"`
@@ -54,7 +55,7 @@ func (s *MasterIsStableIndicatorExceptionFetchingHistory) UnmarshalJSON(data []b
 		case "message":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Message", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -66,7 +67,7 @@ func (s *MasterIsStableIndicatorExceptionFetchingHistory) UnmarshalJSON(data []b
 		case "stack_trace":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StackTrace", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

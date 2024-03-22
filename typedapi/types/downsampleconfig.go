@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DownsampleConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/Downsample.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/indices/_types/Downsample.ts#L22-L27
 type DownsampleConfig struct {
 	// FixedInterval The interval at which to aggregate the original time series index.
 	FixedInterval string `json:"fixed_interval"`
@@ -52,7 +53,7 @@ func (s *DownsampleConfig) UnmarshalJSON(data []byte) error {
 
 		case "fixed_interval":
 			if err := dec.Decode(&s.FixedInterval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FixedInterval", err)
 			}
 
 		}

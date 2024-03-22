@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // BulkIndexByScrollFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/Errors.ts#L58-L64
+// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/Errors.ts#L58-L64
 type BulkIndexByScrollFailure struct {
 	Cause  ErrorCause `json:"cause"`
 	Id     string     `json:"id"`
@@ -56,17 +57,17 @@ func (s *BulkIndexByScrollFailure) UnmarshalJSON(data []byte) error {
 
 		case "cause":
 			if err := dec.Decode(&s.Cause); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cause", err)
 			}
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "status":
@@ -77,7 +78,7 @@ func (s *BulkIndexByScrollFailure) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Status", err)
 				}
 				s.Status = value
 			case float64:
@@ -88,7 +89,7 @@ func (s *BulkIndexByScrollFailure) UnmarshalJSON(data []byte) error {
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
