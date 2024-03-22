@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Hyperparameter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/TrainedModel.ts#L216-L230
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/TrainedModel.ts#L217-L231
 type Hyperparameter struct {
 	// AbsoluteImportance A positive number showing how much the parameter influences the variation of
 	// the loss function. For hyperparameters with values that are not specified by
@@ -72,7 +73,7 @@ func (s *Hyperparameter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AbsoluteImportance", err)
 				}
 				f := Float64(value)
 				s.AbsoluteImportance = &f
@@ -83,7 +84,7 @@ func (s *Hyperparameter) UnmarshalJSON(data []byte) error {
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "relative_importance":
@@ -93,7 +94,7 @@ func (s *Hyperparameter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RelativeImportance", err)
 				}
 				f := Float64(value)
 				s.RelativeImportance = &f
@@ -109,7 +110,7 @@ func (s *Hyperparameter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Supplied", err)
 				}
 				s.Supplied = value
 			case bool:
@@ -123,7 +124,7 @@ func (s *Hyperparameter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Value", err)
 				}
 				f := Float64(value)
 				s.Value = f

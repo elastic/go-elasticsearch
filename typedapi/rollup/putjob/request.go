@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package putjob
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
 type Request struct {
 
 	// Cron A cron string which defines the intervals when the rollup job should be
@@ -96,4 +100,88 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "cron":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Cron", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Cron = o
+
+		case "groups":
+			if err := dec.Decode(&s.Groups); err != nil {
+				return fmt.Errorf("%s | %w", "Groups", err)
+			}
+
+		case "headers":
+			if err := dec.Decode(&s.Headers); err != nil {
+				return fmt.Errorf("%s | %w", "Headers", err)
+			}
+
+		case "index_pattern":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "IndexPattern", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.IndexPattern = o
+
+		case "metrics":
+			if err := dec.Decode(&s.Metrics); err != nil {
+				return fmt.Errorf("%s | %w", "Metrics", err)
+			}
+
+		case "page_size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "PageSize", err)
+				}
+				s.PageSize = value
+			case float64:
+				f := int(v)
+				s.PageSize = f
+			}
+
+		case "rollup_index":
+			if err := dec.Decode(&s.RollupIndex); err != nil {
+				return fmt.Errorf("%s | %w", "RollupIndex", err)
+			}
+
+		case "timeout":
+			if err := dec.Decode(&s.Timeout); err != nil {
+				return fmt.Errorf("%s | %w", "Timeout", err)
+			}
+
+		}
+	}
+	return nil
 }

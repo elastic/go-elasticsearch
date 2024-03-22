@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 // Creates a repository.
 package createrepository
@@ -91,8 +91,6 @@ func New(tp elastictransport.Interface) *CreateRepository {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -333,22 +331,6 @@ func (r *CreateRepository) Timeout(duration string) *CreateRepository {
 // API name: verify
 func (r *CreateRepository) Verify(verify bool) *CreateRepository {
 	r.values.Set("verify", strconv.FormatBool(verify))
-
-	return r
-}
-
-// API name: settings
-func (r *CreateRepository) Settings(settings *types.RepositorySettings) *CreateRepository {
-
-	r.req.Settings = *settings
-
-	return r
-}
-
-// API name: type
-func (r *CreateRepository) Type(type_ string) *CreateRepository {
-
-	r.req.Type = type_
 
 	return r
 }

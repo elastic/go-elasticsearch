@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // ExtendedStatsBucketAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/aggregations/pipeline.ts#L198-L203
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/aggregations/pipeline.ts#L198-L203
 type ExtendedStatsBucketAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -65,13 +66,13 @@ func (s *ExtendedStatsBucketAggregation) UnmarshalJSON(data []byte) error {
 
 		case "buckets_path":
 			if err := dec.Decode(&s.BucketsPath); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsPath", err)
 			}
 
 		case "format":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -82,18 +83,18 @@ func (s *ExtendedStatsBucketAggregation) UnmarshalJSON(data []byte) error {
 
 		case "gap_policy":
 			if err := dec.Decode(&s.GapPolicy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GapPolicy", err)
 			}
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -109,7 +110,7 @@ func (s *ExtendedStatsBucketAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sigma", err)
 				}
 				f := Float64(value)
 				s.Sigma = &f

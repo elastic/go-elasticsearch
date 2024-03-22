@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RerouteParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/reroute/types.ts#L98-L105
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cluster/reroute/types.ts#L98-L105
 type RerouteParameters struct {
 	AllowPrimary bool    `json:"allow_primary"`
 	FromNode     *string `json:"from_node,omitempty"`
@@ -62,7 +63,7 @@ func (s *RerouteParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowPrimary", err)
 				}
 				s.AllowPrimary = value
 			case bool:
@@ -71,17 +72,17 @@ func (s *RerouteParameters) UnmarshalJSON(data []byte) error {
 
 		case "from_node":
 			if err := dec.Decode(&s.FromNode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FromNode", err)
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "node":
 			if err := dec.Decode(&s.Node); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 
 		case "shard":
@@ -92,7 +93,7 @@ func (s *RerouteParameters) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Shard", err)
 				}
 				s.Shard = value
 			case float64:
@@ -102,7 +103,7 @@ func (s *RerouteParameters) UnmarshalJSON(data []byte) error {
 
 		case "to_node":
 			if err := dec.Decode(&s.ToNode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ToNode", err)
 			}
 
 		}

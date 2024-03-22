@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.13.0: DO NOT EDIT
 
 package esapi
 
@@ -26,8 +26,8 @@ import (
 )
 
 func newInferenceDeleteModelFunc(t Transport) InferenceDeleteModel {
-	return func(model_id string, task_type string, o ...func(*InferenceDeleteModelRequest)) (*Response, error) {
-		var r = InferenceDeleteModelRequest{ModelID: model_id, TaskType: task_type}
+	return func(inference_id string, o ...func(*InferenceDeleteModelRequest)) (*Response, error) {
+		var r = InferenceDeleteModelRequest{InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,12 +47,12 @@ func newInferenceDeleteModelFunc(t Transport) InferenceDeleteModel {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html.
-type InferenceDeleteModel func(model_id string, task_type string, o ...func(*InferenceDeleteModelRequest)) (*Response, error)
+type InferenceDeleteModel func(inference_id string, o ...func(*InferenceDeleteModelRequest)) (*Response, error)
 
 // InferenceDeleteModelRequest configures the Inference Delete Model API request.
 type InferenceDeleteModelRequest struct {
-	ModelID  string
-	TaskType string
+	InferenceID string
+	TaskType    string
 
 	Pretty     bool
 	Human      bool
@@ -85,19 +85,21 @@ func (r InferenceDeleteModelRequest) Do(providedCtx context.Context, transport T
 
 	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.ModelID))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_inference")
-	path.WriteString("/")
-	path.WriteString(r.TaskType)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+	if r.TaskType != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskType)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+		}
 	}
 	path.WriteString("/")
-	path.WriteString(r.ModelID)
+	path.WriteString(r.InferenceID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "model_id", r.ModelID)
+		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
 	}
 
 	params = make(map[string]string)
@@ -177,6 +179,13 @@ func (r InferenceDeleteModelRequest) Do(providedCtx context.Context, transport T
 func (f InferenceDeleteModel) WithContext(v context.Context) func(*InferenceDeleteModelRequest) {
 	return func(r *InferenceDeleteModelRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTaskType - the task type.
+func (f InferenceDeleteModel) WithTaskType(v string) func(*InferenceDeleteModelRequest) {
+	return func(r *InferenceDeleteModelRequest) {
+		r.TaskType = v
 	}
 }
 

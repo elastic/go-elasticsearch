@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package getrecords
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package getrecords
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/get_records/MlGetAnomalyRecordsRequest.ts#L26-L127
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/get_records/MlGetAnomalyRecordsRequest.ts#L26-L127
 type Request struct {
 
 	// Desc Refer to the description for the `desc` query parameter.
@@ -63,4 +67,87 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "desc":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Desc", err)
+				}
+				s.Desc = &value
+			case bool:
+				s.Desc = &v
+			}
+
+		case "end":
+			if err := dec.Decode(&s.End); err != nil {
+				return fmt.Errorf("%s | %w", "End", err)
+			}
+
+		case "exclude_interim":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ExcludeInterim", err)
+				}
+				s.ExcludeInterim = &value
+			case bool:
+				s.ExcludeInterim = &v
+			}
+
+		case "page":
+			if err := dec.Decode(&s.Page); err != nil {
+				return fmt.Errorf("%s | %w", "Page", err)
+			}
+
+		case "record_score":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RecordScore", err)
+				}
+				f := types.Float64(value)
+				s.RecordScore = &f
+			case float64:
+				f := types.Float64(v)
+				s.RecordScore = &f
+			}
+
+		case "sort":
+			if err := dec.Decode(&s.Sort); err != nil {
+				return fmt.Errorf("%s | %w", "Sort", err)
+			}
+
+		case "start":
+			if err := dec.Decode(&s.Start); err != nil {
+				return fmt.Errorf("%s | %w", "Start", err)
+			}
+
+		}
+	}
+	return nil
 }

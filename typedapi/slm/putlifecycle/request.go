@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package putlifecycle
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putlifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/slm/put_lifecycle/PutSnapshotLifecycleRequest.ts#L26-L72
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/slm/put_lifecycle/PutSnapshotLifecycleRequest.ts#L26-L72
 type Request struct {
 
 	// Config Configuration for each snapshot created by the policy.
@@ -65,4 +69,55 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "config":
+			if err := dec.Decode(&s.Config); err != nil {
+				return fmt.Errorf("%s | %w", "Config", err)
+			}
+
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return fmt.Errorf("%s | %w", "Name", err)
+			}
+
+		case "repository":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Repository", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Repository = &o
+
+		case "retention":
+			if err := dec.Decode(&s.Retention); err != nil {
+				return fmt.Errorf("%s | %w", "Retention", err)
+			}
+
+		case "schedule":
+			if err := dec.Decode(&s.Schedule); err != nil {
+				return fmt.Errorf("%s | %w", "Schedule", err)
+			}
+
+		}
+	}
+	return nil
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // TranslogRetention type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/IndexSettings.ts#L373-L392
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/_types/IndexSettings.ts#L380-L399
 type TranslogRetention struct {
 	// Age This controls the maximum duration for which translog files are kept by each
 	// shard. Keeping more
@@ -70,12 +71,12 @@ func (s *TranslogRetention) UnmarshalJSON(data []byte) error {
 
 		case "age":
 			if err := dec.Decode(&s.Age); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Age", err)
 			}
 
 		case "size":
 			if err := dec.Decode(&s.Size); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 
 		}

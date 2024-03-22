@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AttachmentProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ingest/_types/Processors.ts#L290-L326
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ingest/_types/Processors.ts#L296-L337
 type AttachmentProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -56,6 +57,8 @@ type AttachmentProcessor struct {
 	// Can be `content`, `title`, `name`, `author`, `keywords`, `date`,
 	// `content_type`, `content_length`, `language`.
 	Properties []string `json:"properties,omitempty"`
+	// RemoveBinary If true, the binary field will be removed from the document
+	RemoveBinary *bool `json:"remove_binary,omitempty"`
 	// ResourceName Field containing the name of the resource to decode.
 	// If specified, the processor passes this resource name to the underlying Tika
 	// library to enable Resource Name Based Detection.
@@ -85,7 +88,7 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -96,13 +99,13 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "if":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "If", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -118,7 +121,7 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreFailure", err)
 				}
 				s.IgnoreFailure = &value
 			case bool:
@@ -132,7 +135,7 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreMissing", err)
 				}
 				s.IgnoreMissing = &value
 			case bool:
@@ -146,7 +149,7 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexedChars", err)
 				}
 				s.IndexedChars = &value
 			case float64:
@@ -156,23 +159,37 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 
 		case "indexed_chars_field":
 			if err := dec.Decode(&s.IndexedCharsField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexedCharsField", err)
 			}
 
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OnFailure", err)
 			}
 
 		case "properties":
 			if err := dec.Decode(&s.Properties); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Properties", err)
+			}
+
+		case "remove_binary":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RemoveBinary", err)
+				}
+				s.RemoveBinary = &value
+			case bool:
+				s.RemoveBinary = &v
 			}
 
 		case "resource_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResourceName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -184,7 +201,7 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 		case "tag":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tag", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -195,7 +212,7 @@ func (s *AttachmentProcessor) UnmarshalJSON(data []byte) error {
 
 		case "target_field":
 			if err := dec.Decode(&s.TargetField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TargetField", err)
 			}
 
 		}

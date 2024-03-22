@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.13.0: DO NOT EDIT
 
 package esapi
 
@@ -55,13 +55,14 @@ type FieldCapsRequest struct {
 
 	Body io.Reader
 
-	AllowNoIndices    *bool
-	ExpandWildcards   string
-	Fields            []string
-	Filters           []string
-	IgnoreUnavailable *bool
-	IncludeUnmapped   *bool
-	Types             []string
+	AllowNoIndices     *bool
+	ExpandWildcards    string
+	Fields             []string
+	Filters            []string
+	IgnoreUnavailable  *bool
+	IncludeEmptyFields *bool
+	IncludeUnmapped    *bool
+	Types              []string
 
 	Pretty     bool
 	Human      bool
@@ -126,6 +127,10 @@ func (r FieldCapsRequest) Do(providedCtx context.Context, transport Transport) (
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
+	}
+
+	if r.IncludeEmptyFields != nil {
+		params["include_empty_fields"] = strconv.FormatBool(*r.IncludeEmptyFields)
 	}
 
 	if r.IncludeUnmapped != nil {
@@ -267,6 +272,13 @@ func (f FieldCaps) WithFilters(v ...string) func(*FieldCapsRequest) {
 func (f FieldCaps) WithIgnoreUnavailable(v bool) func(*FieldCapsRequest) {
 	return func(r *FieldCapsRequest) {
 		r.IgnoreUnavailable = &v
+	}
+}
+
+// WithIncludeEmptyFields - include empty fields in result.
+func (f FieldCaps) WithIncludeEmptyFields(v bool) func(*FieldCapsRequest) {
+	return func(r *FieldCapsRequest) {
+		r.IncludeEmptyFields = &v
 	}
 }
 

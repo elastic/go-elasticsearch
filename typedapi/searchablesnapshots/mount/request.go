@@ -16,18 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package mount
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 )
 
 // Request holds the request body struct for the package mount
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L49
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/searchable_snapshots/mount/SearchableSnapshotsMountRequest.ts#L26-L49
 type Request struct {
 	IgnoreIndexSettings []string                   `json:"ignore_index_settings,omitempty"`
 	Index               string                     `json:"index"`
@@ -53,4 +56,46 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "ignore_index_settings":
+			if err := dec.Decode(&s.IgnoreIndexSettings); err != nil {
+				return fmt.Errorf("%s | %w", "IgnoreIndexSettings", err)
+			}
+
+		case "index":
+			if err := dec.Decode(&s.Index); err != nil {
+				return fmt.Errorf("%s | %w", "Index", err)
+			}
+
+		case "index_settings":
+			if s.IndexSettings == nil {
+				s.IndexSettings = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.IndexSettings); err != nil {
+				return fmt.Errorf("%s | %w", "IndexSettings", err)
+			}
+
+		case "renamed_index":
+			if err := dec.Decode(&s.RenamedIndex); err != nil {
+				return fmt.Errorf("%s | %w", "RenamedIndex", err)
+			}
+
+		}
+	}
+	return nil
 }

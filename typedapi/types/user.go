@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // User type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/_types/User.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/_types/User.ts#L23-L31
 type User struct {
 	Email      string   `json:"email,omitempty"`
 	Enabled    bool     `json:"enabled"`
@@ -59,7 +60,7 @@ func (s *User) UnmarshalJSON(data []byte) error {
 		case "email":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Email", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -75,7 +76,7 @@ func (s *User) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -84,27 +85,27 @@ func (s *User) UnmarshalJSON(data []byte) error {
 
 		case "full_name":
 			if err := dec.Decode(&s.FullName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FullName", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "profile_uid":
 			if err := dec.Decode(&s.ProfileUid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProfileUid", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 
 		}

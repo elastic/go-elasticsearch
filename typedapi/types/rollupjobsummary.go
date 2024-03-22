@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RollupJobSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/rollup/get_rollup_index_caps/types.ts#L28-L33
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/rollup/get_rollup_index_caps/types.ts#L28-L33
 type RollupJobSummary struct {
 	Fields       map[string][]RollupJobSummaryField `json:"fields"`
 	IndexPattern string                             `json:"index_pattern"`
@@ -58,13 +59,13 @@ func (s *RollupJobSummary) UnmarshalJSON(data []byte) error {
 				s.Fields = make(map[string][]RollupJobSummaryField, 0)
 			}
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "index_pattern":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexPattern", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -75,12 +76,12 @@ func (s *RollupJobSummary) UnmarshalJSON(data []byte) error {
 
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "rollup_index":
 			if err := dec.Decode(&s.RollupIndex); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RollupIndex", err)
 			}
 
 		}

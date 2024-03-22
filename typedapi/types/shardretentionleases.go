@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardRetentionLeases type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/stats/types.ts#L156-L160
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/stats/types.ts#L156-L160
 type ShardRetentionLeases struct {
 	Leases      []ShardLease `json:"leases"`
 	PrimaryTerm int64        `json:"primary_term"`
@@ -54,7 +55,7 @@ func (s *ShardRetentionLeases) UnmarshalJSON(data []byte) error {
 
 		case "leases":
 			if err := dec.Decode(&s.Leases); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Leases", err)
 			}
 
 		case "primary_term":
@@ -64,7 +65,7 @@ func (s *ShardRetentionLeases) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PrimaryTerm", err)
 				}
 				s.PrimaryTerm = value
 			case float64:
@@ -74,7 +75,7 @@ func (s *ShardRetentionLeases) UnmarshalJSON(data []byte) error {
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

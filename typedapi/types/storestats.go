@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // StoreStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Stats.ts#L368-L395
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Stats.ts#L368-L395
 type StoreStats struct {
 	// Reserved A prediction of how much larger the shard stores will eventually grow due to
 	// ongoing peer recoveries, restoring snapshots, and similar activities.
@@ -70,7 +71,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 
 		case "reserved":
 			if err := dec.Decode(&s.Reserved); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reserved", err)
 			}
 
 		case "reserved_in_bytes":
@@ -80,7 +81,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ReservedInBytes", err)
 				}
 				s.ReservedInBytes = value
 			case float64:
@@ -90,7 +91,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 
 		case "size":
 			if err := dec.Decode(&s.Size); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 
 		case "size_in_bytes":
@@ -100,7 +101,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SizeInBytes", err)
 				}
 				s.SizeInBytes = value
 			case float64:
@@ -110,7 +111,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 
 		case "total_data_set_size":
 			if err := dec.Decode(&s.TotalDataSetSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalDataSetSize", err)
 			}
 
 		case "total_data_set_size_in_bytes":
@@ -120,7 +121,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalDataSetSizeInBytes", err)
 				}
 				s.TotalDataSetSizeInBytes = &value
 			case float64:

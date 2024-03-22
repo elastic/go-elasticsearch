@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CgroupCpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/_types/Stats.ts#L487-L504
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/_types/Stats.ts#L487-L504
 type CgroupCpu struct {
 	// CfsPeriodMicros The period of time, in microseconds, for how regularly all tasks in the same
 	// cgroup as the Elasticsearch process should have their access to CPU resources
@@ -69,7 +70,7 @@ func (s *CgroupCpu) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CfsPeriodMicros", err)
 				}
 				s.CfsPeriodMicros = &value
 			case float64:
@@ -85,7 +86,7 @@ func (s *CgroupCpu) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CfsQuotaMicros", err)
 				}
 				s.CfsQuotaMicros = &value
 			case float64:
@@ -96,7 +97,7 @@ func (s *CgroupCpu) UnmarshalJSON(data []byte) error {
 		case "control_group":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ControlGroup", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -107,7 +108,7 @@ func (s *CgroupCpu) UnmarshalJSON(data []byte) error {
 
 		case "stat":
 			if err := dec.Decode(&s.Stat); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Stat", err)
 			}
 
 		}

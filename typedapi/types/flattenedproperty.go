@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // FlattenedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/mapping/complex.ts#L26-L37
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/mapping/complex.ts#L26-L37
 type FlattenedProperty struct {
 	Boost               *Float64                       `json:"boost,omitempty"`
 	DepthLimit          *int                           `json:"depth_limit,omitempty"`
@@ -75,7 +76,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := Float64(value)
 				s.Boost = &f
@@ -92,7 +93,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DepthLimit", err)
 				}
 				s.DepthLimit = &value
 			case float64:
@@ -107,7 +108,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocValues", err)
 				}
 				s.DocValues = &value
 			case bool:
@@ -116,7 +117,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "eager_global_ordinals":
@@ -126,7 +127,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EagerGlobalOrdinals", err)
 				}
 				s.EagerGlobalOrdinals = &value
 			case bool:
@@ -448,7 +449,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -463,7 +464,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Index", err)
 				}
 				s.Index = &value
 			case bool:
@@ -472,7 +473,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 
 		case "index_options":
 			if err := dec.Decode(&s.IndexOptions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexOptions", err)
 			}
 
 		case "meta":
@@ -480,13 +481,13 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "null_value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NullValue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -805,7 +806,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 		case "similarity":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -821,7 +822,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SplitQueriesOnWhitespace", err)
 				}
 				s.SplitQueriesOnWhitespace = &value
 			case bool:
@@ -830,7 +831,7 @@ func (s *FlattenedProperty) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // SearchTransform type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Transform.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Transform.ts#L46-L49
 type SearchTransform struct {
 	Request SearchInputRequestDefinition `json:"request"`
 	Timeout Duration                     `json:"timeout"`
@@ -52,12 +53,12 @@ func (s *SearchTransform) UnmarshalJSON(data []byte) error {
 
 		case "request":
 			if err := dec.Decode(&s.Request); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Request", err)
 			}
 
 		case "timeout":
 			if err := dec.Decode(&s.Timeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 
 		}

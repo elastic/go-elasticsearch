@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package list
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
@@ -31,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package list
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/tasks/list/ListTasksResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/tasks/list/ListTasksResponse.ts#L22-L24
 type Response struct {
 	NodeFailures []types.ErrorCause `json:"node_failures,omitempty"`
 	// Nodes Task information grouped by node, if `group_by` was set to `node` (the
@@ -68,7 +69,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 		case "node_failures":
 			if err := dec.Decode(&s.NodeFailures); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeFailures", err)
 			}
 
 		case "nodes":
@@ -76,12 +77,12 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 				s.Nodes = make(map[string]types.NodeTasks, 0)
 			}
 			if err := dec.Decode(&s.Nodes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nodes", err)
 			}
 
 		case "task_failures":
 			if err := dec.Decode(&s.TaskFailures); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TaskFailures", err)
 			}
 
 		case "tasks":
@@ -94,13 +95,13 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			case '{':
 				o := make(map[string]types.ParentTaskInfo, 0)
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Tasks", err)
 				}
 				s.Tasks = o
 			case '[':
 				o := []types.TaskInfo{}
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Tasks", err)
 				}
 				s.Tasks = o
 			}

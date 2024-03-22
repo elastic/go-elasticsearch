@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // ClusterComponentTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/_types/ComponentTemplate.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cluster/_types/ComponentTemplate.ts#L30-L33
 type ClusterComponentTemplate struct {
 	ComponentTemplate ComponentTemplateNode `json:"component_template"`
 	Name              string                `json:"name"`
@@ -52,12 +53,12 @@ func (s *ClusterComponentTemplate) UnmarshalJSON(data []byte) error {
 
 		case "component_template":
 			if err := dec.Decode(&s.ComponentTemplate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ComponentTemplate", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -36,7 +37,7 @@ import (
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/search/_types/highlighting.ts#L193-L197
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/search/_types/highlighting.ts#L193-L197
 type HighlightField struct {
 	Analyzer Analyzer `json:"analyzer,omitempty"`
 	// BoundaryChars A string that contains each boundary character.
@@ -237,7 +238,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 		case "boundary_chars":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BoundaryChars", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -254,7 +255,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BoundaryMaxScan", err)
 				}
 				s.BoundaryMaxScan = &value
 			case float64:
@@ -264,13 +265,13 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 
 		case "boundary_scanner":
 			if err := dec.Decode(&s.BoundaryScanner); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BoundaryScanner", err)
 			}
 
 		case "boundary_scanner_locale":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BoundaryScannerLocale", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -286,7 +287,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ForceSource", err)
 				}
 				s.ForceSource = &value
 			case bool:
@@ -301,7 +302,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FragmentOffset", err)
 				}
 				s.FragmentOffset = &value
 			case float64:
@@ -317,7 +318,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FragmentSize", err)
 				}
 				s.FragmentSize = &value
 			case float64:
@@ -327,7 +328,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 
 		case "fragmenter":
 			if err := dec.Decode(&s.Fragmenter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fragmenter", err)
 			}
 
 		case "highlight_filter":
@@ -337,7 +338,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HighlightFilter", err)
 				}
 				s.HighlightFilter = &value
 			case bool:
@@ -346,7 +347,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 
 		case "highlight_query":
 			if err := dec.Decode(&s.HighlightQuery); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HighlightQuery", err)
 			}
 
 		case "matched_fields":
@@ -355,13 +356,13 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MatchedFields", err)
 				}
 
 				s.MatchedFields = append(s.MatchedFields, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.MatchedFields); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MatchedFields", err)
 				}
 			}
 
@@ -373,7 +374,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxAnalyzedOffset", err)
 				}
 				s.MaxAnalyzedOffset = &value
 			case float64:
@@ -389,7 +390,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxFragmentLength", err)
 				}
 				s.MaxFragmentLength = &value
 			case float64:
@@ -405,7 +406,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NoMatchSize", err)
 				}
 				s.NoMatchSize = &value
 			case float64:
@@ -421,7 +422,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfFragments", err)
 				}
 				s.NumberOfFragments = &value
 			case float64:
@@ -434,12 +435,12 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 				s.Options = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Options); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Options", err)
 			}
 
 		case "order":
 			if err := dec.Decode(&s.Order); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Order", err)
 			}
 
 		case "phrase_limit":
@@ -450,7 +451,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PhraseLimit", err)
 				}
 				s.PhraseLimit = &value
 			case float64:
@@ -460,12 +461,12 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 
 		case "post_tags":
 			if err := dec.Decode(&s.PostTags); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PostTags", err)
 			}
 
 		case "pre_tags":
 			if err := dec.Decode(&s.PreTags); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PreTags", err)
 			}
 
 		case "require_field_match":
@@ -475,7 +476,7 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequireFieldMatch", err)
 				}
 				s.RequireFieldMatch = &value
 			case bool:
@@ -484,12 +485,12 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 
 		case "tags_schema":
 			if err := dec.Decode(&s.TagsSchema); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TagsSchema", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

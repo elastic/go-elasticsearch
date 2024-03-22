@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // Deprecation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/migration/deprecations/types.ts#L29-L35
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/migration/deprecations/types.ts#L29-L35
 type Deprecation struct {
 	Details string `json:"details"`
 	// Level The level property describes the significance of the issue.
@@ -59,7 +60,7 @@ func (s *Deprecation) UnmarshalJSON(data []byte) error {
 		case "details":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Details", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -70,13 +71,13 @@ func (s *Deprecation) UnmarshalJSON(data []byte) error {
 
 		case "level":
 			if err := dec.Decode(&s.Level); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Level", err)
 			}
 
 		case "message":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Message", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -88,7 +89,7 @@ func (s *Deprecation) UnmarshalJSON(data []byte) error {
 		case "url":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Url", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AuthenticatedUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/get_token/types.ts#L40-L45
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/get_token/types.ts#L40-L45
 type AuthenticatedUser struct {
 	AuthenticationProvider *AuthenticationProvider `json:"authentication_provider,omitempty"`
 	AuthenticationRealm    UserRealm               `json:"authentication_realm"`
@@ -62,18 +63,18 @@ func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
 
 		case "authentication_provider":
 			if err := dec.Decode(&s.AuthenticationProvider); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AuthenticationProvider", err)
 			}
 
 		case "authentication_realm":
 			if err := dec.Decode(&s.AuthenticationRealm); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AuthenticationRealm", err)
 			}
 
 		case "authentication_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AuthenticationType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -85,7 +86,7 @@ func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
 		case "email":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Email", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -101,7 +102,7 @@ func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -110,32 +111,32 @@ func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
 
 		case "full_name":
 			if err := dec.Decode(&s.FullName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FullName", err)
 			}
 
 		case "lookup_realm":
 			if err := dec.Decode(&s.LookupRealm); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LookupRealm", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "profile_uid":
 			if err := dec.Decode(&s.ProfileUid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProfileUid", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // HttpInputResponseResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/_types/Actions.ts#L302-L306
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/_types/Actions.ts#L302-L306
 type HttpInputResponseResult struct {
 	Body    string      `json:"body"`
 	Headers HttpHeaders `json:"headers"`
@@ -55,7 +56,7 @@ func (s *HttpInputResponseResult) UnmarshalJSON(data []byte) error {
 		case "body":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Body", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -66,7 +67,7 @@ func (s *HttpInputResponseResult) UnmarshalJSON(data []byte) error {
 
 		case "headers":
 			if err := dec.Decode(&s.Headers); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Headers", err)
 			}
 
 		case "status":
@@ -77,7 +78,7 @@ func (s *HttpInputResponseResult) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Status", err)
 				}
 				s.Status = value
 			case float64:

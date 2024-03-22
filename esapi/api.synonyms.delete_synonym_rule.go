@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.13.0: DO NOT EDIT
 
 package esapi
 
@@ -43,8 +43,6 @@ func newSynonymsDeleteSynonymRuleFunc(t Transport) SynonymsDeleteSynonymRule {
 // ----- API Definition -------------------------------------------------------
 
 // SynonymsDeleteSynonymRule deletes a synonym rule in a synonym set
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-synonym-rule.html.
 type SynonymsDeleteSynonymRule func(rule_id string, set_id string, o ...func(*SynonymsDeleteSynonymRuleRequest)) (*Response, error)

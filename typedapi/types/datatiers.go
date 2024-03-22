@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataTiers type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/xpack/usage/types.ts#L339-L349
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/xpack/usage/types.ts#L339-L349
 type DataTiers struct {
 	Available   bool                     `json:"available"`
 	DataCold    DataTierPhaseStatistics  `json:"data_cold"`
@@ -63,7 +64,7 @@ func (s *DataTiers) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Available", err)
 				}
 				s.Available = value
 			case bool:
@@ -72,27 +73,27 @@ func (s *DataTiers) UnmarshalJSON(data []byte) error {
 
 		case "data_cold":
 			if err := dec.Decode(&s.DataCold); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataCold", err)
 			}
 
 		case "data_content":
 			if err := dec.Decode(&s.DataContent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataContent", err)
 			}
 
 		case "data_frozen":
 			if err := dec.Decode(&s.DataFrozen); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataFrozen", err)
 			}
 
 		case "data_hot":
 			if err := dec.Decode(&s.DataHot); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataHot", err)
 			}
 
 		case "data_warm":
 			if err := dec.Decode(&s.DataWarm); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataWarm", err)
 			}
 
 		case "enabled":
@@ -102,7 +103,7 @@ func (s *DataTiers) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:

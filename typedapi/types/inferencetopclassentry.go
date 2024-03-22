@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // InferenceTopClassEntry type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/aggregations/Aggregate.ts#L672-L676
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/aggregations/Aggregate.ts#L672-L676
 type InferenceTopClassEntry struct {
 	ClassName        FieldValue `json:"class_name"`
 	ClassProbability Float64    `json:"class_probability"`
@@ -54,7 +55,7 @@ func (s *InferenceTopClassEntry) UnmarshalJSON(data []byte) error {
 
 		case "class_name":
 			if err := dec.Decode(&s.ClassName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ClassName", err)
 			}
 
 		case "class_probability":
@@ -64,7 +65,7 @@ func (s *InferenceTopClassEntry) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ClassProbability", err)
 				}
 				f := Float64(value)
 				s.ClassProbability = f
@@ -80,7 +81,7 @@ func (s *InferenceTopClassEntry) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ClassScore", err)
 				}
 				f := Float64(value)
 				s.ClassScore = f

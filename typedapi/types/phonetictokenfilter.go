@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -35,7 +36,7 @@ import (
 
 // PhoneticTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/analysis/phonetic-plugin.ts#L64-L72
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/analysis/phonetic-plugin.ts#L64-L72
 type PhoneticTokenFilter struct {
 	Encoder     phoneticencoder.PhoneticEncoder     `json:"encoder"`
 	Languageset []phoneticlanguage.PhoneticLanguage `json:"languageset"`
@@ -64,12 +65,12 @@ func (s *PhoneticTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "encoder":
 			if err := dec.Decode(&s.Encoder); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Encoder", err)
 			}
 
 		case "languageset":
 			if err := dec.Decode(&s.Languageset); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Languageset", err)
 			}
 
 		case "max_code_len":
@@ -80,7 +81,7 @@ func (s *PhoneticTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxCodeLen", err)
 				}
 				s.MaxCodeLen = &value
 			case float64:
@@ -90,7 +91,7 @@ func (s *PhoneticTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "name_type":
 			if err := dec.Decode(&s.NameType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NameType", err)
 			}
 
 		case "replace":
@@ -100,7 +101,7 @@ func (s *PhoneticTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Replace", err)
 				}
 				s.Replace = &value
 			case bool:
@@ -109,17 +110,17 @@ func (s *PhoneticTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "rule_type":
 			if err := dec.Decode(&s.RuleType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuleType", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

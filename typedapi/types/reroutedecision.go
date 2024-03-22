@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RerouteDecision type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/reroute/types.ts#L86-L90
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cluster/reroute/types.ts#L86-L90
 type RerouteDecision struct {
 	Decider     string `json:"decider"`
 	Decision    string `json:"decision"`
@@ -55,7 +56,7 @@ func (s *RerouteDecision) UnmarshalJSON(data []byte) error {
 		case "decider":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Decider", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -67,7 +68,7 @@ func (s *RerouteDecision) UnmarshalJSON(data []byte) error {
 		case "decision":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Decision", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -79,7 +80,7 @@ func (s *RerouteDecision) UnmarshalJSON(data []byte) error {
 		case "explanation":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Explanation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

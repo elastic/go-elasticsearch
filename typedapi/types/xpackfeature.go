@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // XpackFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/xpack/info/types.ts#L77-L82
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/xpack/info/types.ts#L77-L82
 type XpackFeature struct {
 	Available      bool                   `json:"available"`
 	Description    *string                `json:"description,omitempty"`
@@ -60,7 +61,7 @@ func (s *XpackFeature) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Available", err)
 				}
 				s.Available = value
 			case bool:
@@ -70,7 +71,7 @@ func (s *XpackFeature) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -86,7 +87,7 @@ func (s *XpackFeature) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -95,7 +96,7 @@ func (s *XpackFeature) UnmarshalJSON(data []byte) error {
 
 		case "native_code_info":
 			if err := dec.Decode(&s.NativeCodeInfo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NativeCodeInfo", err)
 			}
 
 		}

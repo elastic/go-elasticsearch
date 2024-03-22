@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Limits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/info/types.ts#L34-L38
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/info/types.ts#L34-L38
 type Limits struct {
 	EffectiveMaxModelMemoryLimit string  `json:"effective_max_model_memory_limit"`
 	MaxModelMemoryLimit          *string `json:"max_model_memory_limit,omitempty"`
@@ -55,7 +56,7 @@ func (s *Limits) UnmarshalJSON(data []byte) error {
 		case "effective_max_model_memory_limit":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EffectiveMaxModelMemoryLimit", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -67,7 +68,7 @@ func (s *Limits) UnmarshalJSON(data []byte) error {
 		case "max_model_memory_limit":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxModelMemoryLimit", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -79,7 +80,7 @@ func (s *Limits) UnmarshalJSON(data []byte) error {
 		case "total_ml_memory":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalMlMemory", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

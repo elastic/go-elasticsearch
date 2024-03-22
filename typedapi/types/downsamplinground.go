@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DownsamplingRound type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/DownsamplingRound.ts#L23-L32
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/_types/DownsamplingRound.ts#L23-L32
 type DownsamplingRound struct {
 	// After The duration since rollover when this downsampling round should execute
 	After Duration `json:"after"`
@@ -54,12 +55,12 @@ func (s *DownsamplingRound) UnmarshalJSON(data []byte) error {
 
 		case "after":
 			if err := dec.Decode(&s.After); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "After", err)
 			}
 
 		case "config":
 			if err := dec.Decode(&s.Config); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Config", err)
 			}
 
 		}

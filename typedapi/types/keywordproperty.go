@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // KeywordProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/mapping/core.ts#L89-L105
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/mapping/core.ts#L89-L105
 type KeywordProperty struct {
 	Boost               *Float64                       `json:"boost,omitempty"`
 	CopyTo              []string                       `json:"copy_to,omitempty"`
@@ -81,7 +82,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := Float64(value)
 				s.Boost = &f
@@ -96,13 +97,13 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 
 				s.CopyTo = append(s.CopyTo, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.CopyTo); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 			}
 
@@ -113,7 +114,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocValues", err)
 				}
 				s.DocValues = &value
 			case bool:
@@ -122,7 +123,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "eager_global_ordinals":
@@ -132,7 +133,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EagerGlobalOrdinals", err)
 				}
 				s.EagerGlobalOrdinals = &value
 			case bool:
@@ -454,7 +455,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -469,7 +470,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Index", err)
 				}
 				s.Index = &value
 			case bool:
@@ -478,7 +479,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 
 		case "index_options":
 			if err := dec.Decode(&s.IndexOptions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexOptions", err)
 			}
 
 		case "meta":
@@ -486,13 +487,13 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "normalizer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Normalizer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -508,7 +509,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Norms", err)
 				}
 				s.Norms = &value
 			case bool:
@@ -518,7 +519,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 		case "null_value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NullValue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -837,7 +838,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 		case "similarity":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -853,7 +854,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SplitQueriesOnWhitespace", err)
 				}
 				s.SplitQueriesOnWhitespace = &value
 			case bool:
@@ -867,7 +868,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Store", err)
 				}
 				s.Store = &value
 			case bool:
@@ -881,7 +882,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TimeSeriesDimension", err)
 				}
 				s.TimeSeriesDimension = &value
 			case bool:
@@ -890,7 +891,7 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

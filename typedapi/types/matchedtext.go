@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,18 +24,20 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
-// TransientMetadataConfig type.
+// MatchedText type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/_types/TransientMetadataConfig.ts#L20-L22
-type TransientMetadataConfig struct {
-	Enabled bool `json:"enabled"`
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/text_structure/test_grok_pattern/types.ts#L29-L32
+type MatchedText struct {
+	Fields  map[string][]MatchedField `json:"fields,omitempty"`
+	Matched bool                      `json:"matched"`
 }
 
-func (s *TransientMetadataConfig) UnmarshalJSON(data []byte) error {
+func (s *MatchedText) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -50,18 +52,26 @@ func (s *TransientMetadataConfig) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "enabled":
+		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string][]MatchedField, 0)
+			}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return fmt.Errorf("%s | %w", "Fields", err)
+			}
+
+		case "matched":
 			var tmp interface{}
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Matched", err)
 				}
-				s.Enabled = value
+				s.Matched = value
 			case bool:
-				s.Enabled = v
+				s.Matched = v
 			}
 
 		}
@@ -69,9 +79,11 @@ func (s *TransientMetadataConfig) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewTransientMetadataConfig returns a TransientMetadataConfig.
-func NewTransientMetadataConfig() *TransientMetadataConfig {
-	r := &TransientMetadataConfig{}
+// NewMatchedText returns a MatchedText.
+func NewMatchedText() *MatchedText {
+	r := &MatchedText{
+		Fields: make(map[string][]MatchedField, 0),
+	}
 
 	return r
 }

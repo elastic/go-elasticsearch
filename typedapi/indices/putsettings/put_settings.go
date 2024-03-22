@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 // Updates the index settings.
 package putsettings
@@ -380,7 +380,9 @@ func (r *PutSettings) PreserveExisting(preserveexisting bool) *PutSettings {
 }
 
 // Timeout Period to wait for a response. If no response is received before the
-//  timeout expires, the request fails and returns an error.
+//
+//	timeout expires, the request fails and returns an error.
+//
 // API name: timeout
 func (r *PutSettings) Timeout(duration string) *PutSettings {
 	r.values.Set("timeout", duration)
@@ -740,17 +742,10 @@ func (r *PutSettings) Settings(settings *types.IndexSettings) *PutSettings {
 	return r
 }
 
-// API name: shards
-func (r *PutSettings) Shards(shards int) *PutSettings {
-	r.req.Shards = &shards
-
-	return r
-}
-
 // Similarity Configure custom similarity settings to customize how search results are
 // scored.
 // API name: similarity
-func (r *PutSettings) Similarity(similarity *types.SettingsSimilarity) *PutSettings {
+func (r *PutSettings) Similarity(similarity map[string]types.SettingsSimilarity) *PutSettings {
 
 	r.req.Similarity = similarity
 

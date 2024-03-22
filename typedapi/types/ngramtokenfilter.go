@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/analysis/token_filters.ts#L266-L271
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/analysis/token_filters.ts#L266-L271
 type NGramTokenFilter struct {
 	MaxGram          *int               `json:"max_gram,omitempty"`
 	MinGram          *int               `json:"min_gram,omitempty"`
@@ -62,7 +63,7 @@ func (s *NGramTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxGram", err)
 				}
 				s.MaxGram = &value
 			case float64:
@@ -78,7 +79,7 @@ func (s *NGramTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinGram", err)
 				}
 				s.MinGram = &value
 			case float64:
@@ -88,17 +89,17 @@ func (s *NGramTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "preserve_original":
 			if err := dec.Decode(&s.PreserveOriginal); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PreserveOriginal", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

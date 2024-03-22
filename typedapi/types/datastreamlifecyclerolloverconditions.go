@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataStreamLifecycleRolloverConditions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/DataStreamLifecycle.ts#L57-L69
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/_types/DataStreamLifecycle.ts#L57-L69
 type DataStreamLifecycleRolloverConditions struct {
 	MaxAge              *string  `json:"max_age,omitempty"`
 	MaxDocs             *int64   `json:"max_docs,omitempty"`
@@ -62,7 +63,7 @@ func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error
 		case "max_age":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxAge", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -78,7 +79,7 @@ func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxDocs", err)
 				}
 				s.MaxDocs = &value
 			case float64:
@@ -93,7 +94,7 @@ func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxPrimaryShardDocs", err)
 				}
 				s.MaxPrimaryShardDocs = &value
 			case float64:
@@ -103,17 +104,17 @@ func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error
 
 		case "max_primary_shard_size":
 			if err := dec.Decode(&s.MaxPrimaryShardSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxPrimaryShardSize", err)
 			}
 
 		case "max_size":
 			if err := dec.Decode(&s.MaxSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxSize", err)
 			}
 
 		case "min_age":
 			if err := dec.Decode(&s.MinAge); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinAge", err)
 			}
 
 		case "min_docs":
@@ -123,7 +124,7 @@ func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinDocs", err)
 				}
 				s.MinDocs = &value
 			case float64:
@@ -138,7 +139,7 @@ func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinPrimaryShardDocs", err)
 				}
 				s.MinPrimaryShardDocs = &value
 			case float64:
@@ -148,12 +149,12 @@ func (s *DataStreamLifecycleRolloverConditions) UnmarshalJSON(data []byte) error
 
 		case "min_primary_shard_size":
 			if err := dec.Decode(&s.MinPrimaryShardSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinPrimaryShardSize", err)
 			}
 
 		case "min_size":
 			if err := dec.Decode(&s.MinSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinSize", err)
 			}
 
 		}

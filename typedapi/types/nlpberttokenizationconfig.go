@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // NlpBertTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/inference.ts#L131-L158
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/inference.ts#L131-L158
 type NlpBertTokenizationConfig struct {
 	// DoLowerCase Should the tokenizer lower case the text
 	DoLowerCase *bool `json:"do_lower_case,omitempty"`
@@ -70,7 +71,7 @@ func (s *NlpBertTokenizationConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DoLowerCase", err)
 				}
 				s.DoLowerCase = &value
 			case bool:
@@ -85,7 +86,7 @@ func (s *NlpBertTokenizationConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxSequenceLength", err)
 				}
 				s.MaxSequenceLength = &value
 			case float64:
@@ -101,7 +102,7 @@ func (s *NlpBertTokenizationConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Span", err)
 				}
 				s.Span = &value
 			case float64:
@@ -111,7 +112,7 @@ func (s *NlpBertTokenizationConfig) UnmarshalJSON(data []byte) error {
 
 		case "truncate":
 			if err := dec.Decode(&s.Truncate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Truncate", err)
 			}
 
 		case "with_special_tokens":
@@ -121,7 +122,7 @@ func (s *NlpBertTokenizationConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "WithSpecialTokens", err)
 				}
 				s.WithSpecialTokens = &value
 			case bool:

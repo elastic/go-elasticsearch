@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SlackAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/_types/Actions.ts#L91-L94
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/_types/Actions.ts#L91-L94
 type SlackAction struct {
 	Account *string      `json:"account,omitempty"`
 	Message SlackMessage `json:"message"`
@@ -54,7 +55,7 @@ func (s *SlackAction) UnmarshalJSON(data []byte) error {
 		case "account":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Account", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -65,7 +66,7 @@ func (s *SlackAction) UnmarshalJSON(data []byte) error {
 
 		case "message":
 			if err := dec.Decode(&s.Message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Message", err)
 			}
 
 		}

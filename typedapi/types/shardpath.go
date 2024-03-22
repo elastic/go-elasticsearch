@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/stats/types.ts#L140-L144
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/stats/types.ts#L140-L144
 type ShardPath struct {
 	DataPath         string `json:"data_path"`
 	IsCustomDataPath bool   `json:"is_custom_data_path"`
@@ -55,7 +56,7 @@ func (s *ShardPath) UnmarshalJSON(data []byte) error {
 		case "data_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -71,7 +72,7 @@ func (s *ShardPath) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsCustomDataPath", err)
 				}
 				s.IsCustomDataPath = value
 			case bool:
@@ -81,7 +82,7 @@ func (s *ShardPath) UnmarshalJSON(data []byte) error {
 		case "state_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StatePath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

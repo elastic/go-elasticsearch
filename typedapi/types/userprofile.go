@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // UserProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/_types/UserProfile.ts#L42-L48
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/_types/UserProfile.ts#L42-L48
 type UserProfile struct {
 	Data    map[string]json.RawMessage `json:"data"`
 	Enabled *bool                      `json:"enabled,omitempty"`
@@ -59,7 +60,7 @@ func (s *UserProfile) UnmarshalJSON(data []byte) error {
 				s.Data = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Data); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Data", err)
 			}
 
 		case "enabled":
@@ -69,7 +70,7 @@ func (s *UserProfile) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = &value
 			case bool:
@@ -81,17 +82,17 @@ func (s *UserProfile) UnmarshalJSON(data []byte) error {
 				s.Labels = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Labels); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Labels", err)
 			}
 
 		case "uid":
 			if err := dec.Decode(&s.Uid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Uid", err)
 			}
 
 		case "user":
 			if err := dec.Decode(&s.User); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "User", err)
 			}
 
 		}

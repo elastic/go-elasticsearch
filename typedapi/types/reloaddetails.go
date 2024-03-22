@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ReloadDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/reload_search_analyzers/types.ts#L27-L31
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/reload_search_analyzers/types.ts#L27-L31
 type ReloadDetails struct {
 	Index             string   `json:"index"`
 	ReloadedAnalyzers []string `json:"reloaded_analyzers"`
@@ -55,7 +56,7 @@ func (s *ReloadDetails) UnmarshalJSON(data []byte) error {
 		case "index":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -66,12 +67,12 @@ func (s *ReloadDetails) UnmarshalJSON(data []byte) error {
 
 		case "reloaded_analyzers":
 			if err := dec.Decode(&s.ReloadedAnalyzers); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReloadedAnalyzers", err)
 			}
 
 		case "reloaded_node_ids":
 			if err := dec.Decode(&s.ReloadedNodeIds); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReloadedNodeIds", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NestedSortValue type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/sort.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/sort.ts#L30-L35
 type NestedSortValue struct {
 	Filter      *Query           `json:"filter,omitempty"`
 	MaxChildren *int             `json:"max_children,omitempty"`
@@ -55,7 +56,7 @@ func (s *NestedSortValue) UnmarshalJSON(data []byte) error {
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "max_children":
@@ -66,7 +67,7 @@ func (s *NestedSortValue) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxChildren", err)
 				}
 				s.MaxChildren = &value
 			case float64:
@@ -76,12 +77,12 @@ func (s *NestedSortValue) UnmarshalJSON(data []byte) error {
 
 		case "nested":
 			if err := dec.Decode(&s.Nested); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nested", err)
 			}
 
 		case "path":
 			if err := dec.Decode(&s.Path); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Path", err)
 			}
 
 		}

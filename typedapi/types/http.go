@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Http type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/_types/Stats.ts#L633-L647
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/_types/Stats.ts#L633-L647
 type Http struct {
 	// Clients Information on current and recently-closed HTTP client connections.
 	// Clients that have been closed longer than the
@@ -60,7 +61,7 @@ func (s *Http) UnmarshalJSON(data []byte) error {
 
 		case "clients":
 			if err := dec.Decode(&s.Clients); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Clients", err)
 			}
 
 		case "current_open":
@@ -71,7 +72,7 @@ func (s *Http) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CurrentOpen", err)
 				}
 				s.CurrentOpen = &value
 			case float64:
@@ -86,7 +87,7 @@ func (s *Http) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalOpened", err)
 				}
 				s.TotalOpened = &value
 			case float64:

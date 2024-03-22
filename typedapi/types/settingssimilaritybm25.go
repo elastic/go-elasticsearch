@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,18 +24,19 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SettingsSimilarityBm25 type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/IndexSettings.ts#L180-L185
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/_types/IndexSettings.ts#L186-L191
 type SettingsSimilarityBm25 struct {
-	B                Float64 `json:"b"`
-	DiscountOverlaps bool    `json:"discount_overlaps"`
-	K1               Float64 `json:"k1"`
-	Type             string  `json:"type,omitempty"`
+	B                *Float64 `json:"b,omitempty"`
+	DiscountOverlaps *bool    `json:"discount_overlaps,omitempty"`
+	K1               *Float64 `json:"k1,omitempty"`
+	Type             string   `json:"type,omitempty"`
 }
 
 func (s *SettingsSimilarityBm25) UnmarshalJSON(data []byte) error {
@@ -60,13 +61,13 @@ func (s *SettingsSimilarityBm25) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "B", err)
 				}
 				f := Float64(value)
-				s.B = f
+				s.B = &f
 			case float64:
 				f := Float64(v)
-				s.B = f
+				s.B = &f
 			}
 
 		case "discount_overlaps":
@@ -76,11 +77,11 @@ func (s *SettingsSimilarityBm25) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DiscountOverlaps", err)
 				}
-				s.DiscountOverlaps = value
+				s.DiscountOverlaps = &value
 			case bool:
-				s.DiscountOverlaps = v
+				s.DiscountOverlaps = &v
 			}
 
 		case "k1":
@@ -90,18 +91,18 @@ func (s *SettingsSimilarityBm25) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "K1", err)
 				}
 				f := Float64(value)
-				s.K1 = f
+				s.K1 = &f
 			case float64:
 				f := Float64(v)
-				s.K1 = f
+				s.K1 = &f
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

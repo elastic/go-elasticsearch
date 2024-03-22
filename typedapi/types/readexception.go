@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ReadException type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ccr/_types/FollowIndexStats.ts#L71-L75
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ccr/_types/FollowIndexStats.ts#L71-L75
 type ReadException struct {
 	Exception ErrorCause `json:"exception"`
 	FromSeqNo int64      `json:"from_seq_no"`
@@ -54,12 +55,12 @@ func (s *ReadException) UnmarshalJSON(data []byte) error {
 
 		case "exception":
 			if err := dec.Decode(&s.Exception); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Exception", err)
 			}
 
 		case "from_seq_no":
 			if err := dec.Decode(&s.FromSeqNo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FromSeqNo", err)
 			}
 
 		case "retries":
@@ -70,7 +71,7 @@ func (s *ReadException) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Retries", err)
 				}
 				s.Retries = value
 			case float64:

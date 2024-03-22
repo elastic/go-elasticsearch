@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Cpu type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/_types/Stats.ts#L539-L548
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/_types/Stats.ts#L539-L548
 type Cpu struct {
 	LoadAverage   map[string]Float64 `json:"load_average,omitempty"`
 	Percent       *int               `json:"percent,omitempty"`
@@ -62,7 +63,7 @@ func (s *Cpu) UnmarshalJSON(data []byte) error {
 				s.LoadAverage = make(map[string]Float64, 0)
 			}
 			if err := dec.Decode(&s.LoadAverage); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LoadAverage", err)
 			}
 
 		case "percent":
@@ -73,7 +74,7 @@ func (s *Cpu) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Percent", err)
 				}
 				s.Percent = &value
 			case float64:
@@ -83,32 +84,32 @@ func (s *Cpu) UnmarshalJSON(data []byte) error {
 
 		case "sys":
 			if err := dec.Decode(&s.Sys); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sys", err)
 			}
 
 		case "sys_in_millis":
 			if err := dec.Decode(&s.SysInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SysInMillis", err)
 			}
 
 		case "total":
 			if err := dec.Decode(&s.Total); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Total", err)
 			}
 
 		case "total_in_millis":
 			if err := dec.Decode(&s.TotalInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalInMillis", err)
 			}
 
 		case "user":
 			if err := dec.Decode(&s.User); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "User", err)
 			}
 
 		case "user_in_millis":
 			if err := dec.Decode(&s.UserInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UserInMillis", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Node.ts#L28-L39
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Node.ts#L28-L39
 type NodeStatistics struct {
 	// Failed Number of nodes that rejected the request or failed to respond. If this value
 	// is not 0, a reason for the rejection or failure is included in the response.
@@ -65,7 +66,7 @@ func (s *NodeStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Failed", err)
 				}
 				s.Failed = value
 			case float64:
@@ -75,7 +76,7 @@ func (s *NodeStatistics) UnmarshalJSON(data []byte) error {
 
 		case "failures":
 			if err := dec.Decode(&s.Failures); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Failures", err)
 			}
 
 		case "successful":
@@ -86,7 +87,7 @@ func (s *NodeStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Successful", err)
 				}
 				s.Successful = value
 			case float64:
@@ -102,7 +103,7 @@ func (s *NodeStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeJvmInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L351-L365
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/info/types.ts#L356-L370
 type NodeJvmInfo struct {
 	GcCollectors                          []string          `json:"gc_collectors"`
 	InputArguments                        []string          `json:"input_arguments"`
@@ -63,22 +64,22 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 
 		case "gc_collectors":
 			if err := dec.Decode(&s.GcCollectors); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GcCollectors", err)
 			}
 
 		case "input_arguments":
 			if err := dec.Decode(&s.InputArguments); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InputArguments", err)
 			}
 
 		case "mem":
 			if err := dec.Decode(&s.Mem); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mem", err)
 			}
 
 		case "memory_pools":
 			if err := dec.Decode(&s.MemoryPools); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MemoryPools", err)
 			}
 
 		case "pid":
@@ -89,7 +90,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Pid", err)
 				}
 				s.Pid = value
 			case float64:
@@ -99,7 +100,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 
 		case "start_time_in_millis":
 			if err := dec.Decode(&s.StartTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTimeInMillis", err)
 			}
 
 		case "using_bundled_jdk", "bundled_jdk":
@@ -109,7 +110,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UsingBundledJdk", err)
 				}
 				s.UsingBundledJdk = value
 			case bool:
@@ -119,7 +120,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 		case "using_compressed_ordinary_object_pointers":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UsingCompressedOrdinaryObjectPointers", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -130,18 +131,18 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		case "vm_name":
 			if err := dec.Decode(&s.VmName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VmName", err)
 			}
 
 		case "vm_vendor":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VmVendor", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -152,7 +153,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 
 		case "vm_version":
 			if err := dec.Decode(&s.VmVersion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VmVersion", err)
 			}
 
 		}

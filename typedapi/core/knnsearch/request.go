@@ -16,20 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package knnsearch
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package knnsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/knn_search/KnnSearchRequest.ts#L27-L80
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/knn_search/KnnSearchRequest.ts#L27-L80
 type Request struct {
 
 	// DocvalueFields The request returns doc values for field names matching these patterns
@@ -75,4 +78,86 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "docvalue_fields":
+			if err := dec.Decode(&s.DocvalueFields); err != nil {
+				return fmt.Errorf("%s | %w", "DocvalueFields", err)
+			}
+
+		case "fields":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Fields", err)
+				}
+
+				s.Fields = append(s.Fields, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Fields); err != nil {
+					return fmt.Errorf("%s | %w", "Fields", err)
+				}
+			}
+
+		case "filter":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := types.NewQuery()
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Filter", err)
+				}
+
+				s.Filter = append(s.Filter, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Filter); err != nil {
+					return fmt.Errorf("%s | %w", "Filter", err)
+				}
+			}
+
+		case "knn":
+			if err := dec.Decode(&s.Knn); err != nil {
+				return fmt.Errorf("%s | %w", "Knn", err)
+			}
+
+		case "_source":
+			if err := dec.Decode(&s.Source_); err != nil {
+				return fmt.Errorf("%s | %w", "Source_", err)
+			}
+
+		case "stored_fields":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "StoredFields", err)
+				}
+
+				s.StoredFields = append(s.StoredFields, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StoredFields); err != nil {
+					return fmt.Errorf("%s | %w", "StoredFields", err)
+				}
+			}
+
+		}
+	}
+	return nil
 }

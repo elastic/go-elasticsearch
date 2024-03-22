@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FuzzyQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/query_dsl/term.ts#L43-L78
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/term.ts#L43-L78
 type FuzzyQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -57,6 +58,10 @@ type FuzzyQuery struct {
 func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 
 	if !bytes.HasPrefix(data, []byte(`{`)) {
+		if !bytes.HasPrefix(data, []byte(`"`)) {
+			data = append([]byte{'"'}, data...)
+			data = append(data, []byte{'"'}...)
+		}
 		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Value)
 		return err
 	}
@@ -81,7 +86,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -92,7 +97,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 
 		case "fuzziness":
 			if err := dec.Decode(&s.Fuzziness); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fuzziness", err)
 			}
 
 		case "max_expansions":
@@ -103,7 +108,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxExpansions", err)
 				}
 				s.MaxExpansions = &value
 			case float64:
@@ -119,7 +124,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PrefixLength", err)
 				}
 				s.PrefixLength = &value
 			case float64:
@@ -130,7 +135,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -141,7 +146,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 
 		case "rewrite":
 			if err := dec.Decode(&s.Rewrite); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rewrite", err)
 			}
 
 		case "transpositions":
@@ -151,7 +156,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Transpositions", err)
 				}
 				s.Transpositions = &value
 			case bool:
@@ -161,7 +166,7 @@ func (s *FuzzyQuery) UnmarshalJSON(data []byte) error {
 		case "value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Value", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

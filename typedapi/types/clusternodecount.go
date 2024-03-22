@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ClusterNodeCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cluster/stats/types.ts#L348-L367
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cluster/stats/types.ts#L348-L367
 type ClusterNodeCount struct {
 	CoordinatingOnly    int  `json:"coordinating_only"`
 	Data                int  `json:"data"`
@@ -71,7 +72,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CoordinatingOnly", err)
 				}
 				s.CoordinatingOnly = value
 			case float64:
@@ -87,7 +88,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Data", err)
 				}
 				s.Data = value
 			case float64:
@@ -103,7 +104,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DataCold", err)
 				}
 				s.DataCold = value
 			case float64:
@@ -119,7 +120,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DataContent", err)
 				}
 				s.DataContent = value
 			case float64:
@@ -135,7 +136,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DataFrozen", err)
 				}
 				s.DataFrozen = &value
 			case float64:
@@ -151,7 +152,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DataHot", err)
 				}
 				s.DataHot = value
 			case float64:
@@ -167,7 +168,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DataWarm", err)
 				}
 				s.DataWarm = value
 			case float64:
@@ -183,7 +184,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Ingest", err)
 				}
 				s.Ingest = value
 			case float64:
@@ -199,7 +200,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Master", err)
 				}
 				s.Master = value
 			case float64:
@@ -215,7 +216,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Ml", err)
 				}
 				s.Ml = value
 			case float64:
@@ -231,7 +232,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RemoteClusterClient", err)
 				}
 				s.RemoteClusterClient = value
 			case float64:
@@ -247,7 +248,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:
@@ -263,7 +264,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Transform", err)
 				}
 				s.Transform = value
 			case float64:
@@ -279,7 +280,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "VotingOnly", err)
 				}
 				s.VotingOnly = value
 			case float64:

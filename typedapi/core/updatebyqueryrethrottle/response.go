@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package updatebyqueryrethrottle
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatebyqueryrethrottle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/update_by_query_rethrottle/UpdateByQueryRethrottleResponse.ts#L23-L25
 type Response struct {
 	Nodes map[string]types.UpdateByQueryRethrottleNode `json:"nodes"`
 }

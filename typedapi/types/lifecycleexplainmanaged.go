@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // LifecycleExplainManaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ilm/explain_lifecycle/types.ts#L26-L52
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ilm/explain_lifecycle/types.ts#L26-L52
 type LifecycleExplainManaged struct {
 	Action                  *string                         `json:"action,omitempty"`
 	ActionTime              DateTime                        `json:"action_time,omitempty"`
@@ -74,27 +75,27 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 
 		case "action":
 			if err := dec.Decode(&s.Action); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Action", err)
 			}
 
 		case "action_time":
 			if err := dec.Decode(&s.ActionTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActionTime", err)
 			}
 
 		case "action_time_millis":
 			if err := dec.Decode(&s.ActionTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActionTimeMillis", err)
 			}
 
 		case "age":
 			if err := dec.Decode(&s.Age); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Age", err)
 			}
 
 		case "failed_step":
 			if err := dec.Decode(&s.FailedStep); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FailedStep", err)
 			}
 
 		case "failed_step_retry_count":
@@ -105,7 +106,7 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FailedStepRetryCount", err)
 				}
 				s.FailedStepRetryCount = &value
 			case float64:
@@ -115,17 +116,17 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "index_creation_date":
 			if err := dec.Decode(&s.IndexCreationDate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexCreationDate", err)
 			}
 
 		case "index_creation_date_millis":
 			if err := dec.Decode(&s.IndexCreationDateMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexCreationDateMillis", err)
 			}
 
 		case "is_auto_retryable_error":
@@ -135,7 +136,7 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsAutoRetryableError", err)
 				}
 				s.IsAutoRetryableError = &value
 			case bool:
@@ -144,47 +145,47 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 
 		case "lifecycle_date":
 			if err := dec.Decode(&s.LifecycleDate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LifecycleDate", err)
 			}
 
 		case "lifecycle_date_millis":
 			if err := dec.Decode(&s.LifecycleDateMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LifecycleDateMillis", err)
 			}
 
 		case "managed":
 			if err := dec.Decode(&s.Managed); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Managed", err)
 			}
 
 		case "phase":
 			if err := dec.Decode(&s.Phase); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Phase", err)
 			}
 
 		case "phase_execution":
 			if err := dec.Decode(&s.PhaseExecution); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PhaseExecution", err)
 			}
 
 		case "phase_time":
 			if err := dec.Decode(&s.PhaseTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PhaseTime", err)
 			}
 
 		case "phase_time_millis":
 			if err := dec.Decode(&s.PhaseTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PhaseTimeMillis", err)
 			}
 
 		case "policy":
 			if err := dec.Decode(&s.Policy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Policy", err)
 			}
 
 		case "step":
 			if err := dec.Decode(&s.Step); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Step", err)
 			}
 
 		case "step_info":
@@ -192,22 +193,22 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 				s.StepInfo = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.StepInfo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StepInfo", err)
 			}
 
 		case "step_time":
 			if err := dec.Decode(&s.StepTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StepTime", err)
 			}
 
 		case "step_time_millis":
 			if err := dec.Decode(&s.StepTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StepTimeMillis", err)
 			}
 
 		case "time_since_index_creation":
 			if err := dec.Decode(&s.TimeSinceIndexCreation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSinceIndexCreation", err)
 			}
 
 		}

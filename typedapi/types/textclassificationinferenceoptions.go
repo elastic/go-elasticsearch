@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TextClassificationInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/_types/inference.ts#L189-L199
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/_types/inference.ts#L189-L199
 type TextClassificationInferenceOptions struct {
 	// ClassificationLabels Classification labels to apply other than the stored labels. Must have the
 	// same deminsions as the default configured labels
@@ -61,7 +62,7 @@ func (s *TextClassificationInferenceOptions) UnmarshalJSON(data []byte) error {
 
 		case "classification_labels":
 			if err := dec.Decode(&s.ClassificationLabels); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ClassificationLabels", err)
 			}
 
 		case "num_top_classes":
@@ -72,7 +73,7 @@ func (s *TextClassificationInferenceOptions) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumTopClasses", err)
 				}
 				s.NumTopClasses = &value
 			case float64:
@@ -83,7 +84,7 @@ func (s *TextClassificationInferenceOptions) UnmarshalJSON(data []byte) error {
 		case "results_field":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultsField", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -94,7 +95,7 @@ func (s *TextClassificationInferenceOptions) UnmarshalJSON(data []byte) error {
 
 		case "tokenization":
 			if err := dec.Decode(&s.Tokenization); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tokenization", err)
 			}
 
 		}

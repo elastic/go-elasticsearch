@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // HttpInputProxy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/_types/Input.ts#L67-L70
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/_types/Input.ts#L67-L70
 type HttpInputProxy struct {
 	Host string `json:"host"`
 	Port uint   `json:"port"`
@@ -52,12 +53,12 @@ func (s *HttpInputProxy) UnmarshalJSON(data []byte) error {
 
 		case "host":
 			if err := dec.Decode(&s.Host); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 
 		case "port":
 			if err := dec.Decode(&s.Port); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Port", err)
 			}
 
 		}

@@ -16,20 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package startdatafeed
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package startdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/start_datafeed/MlStartDatafeedRequest.ts#L24-L91
 type Request struct {
 
 	// End Refer to the description for the `end` query parameter.
@@ -56,4 +59,38 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "end":
+			if err := dec.Decode(&s.End); err != nil {
+				return fmt.Errorf("%s | %w", "End", err)
+			}
+
+		case "start":
+			if err := dec.Decode(&s.Start); err != nil {
+				return fmt.Errorf("%s | %w", "Start", err)
+			}
+
+		case "timeout":
+			if err := dec.Decode(&s.Timeout); err != nil {
+				return fmt.Errorf("%s | %w", "Timeout", err)
+			}
+
+		}
+	}
+	return nil
 }

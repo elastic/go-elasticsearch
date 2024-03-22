@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // LogstashPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/logstash/_types/Pipeline.ts#L60-L92
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/logstash/_types/Pipeline.ts#L60-L92
 type LogstashPipeline struct {
 	// Description Description of the pipeline.
 	// This description is not used by Elasticsearch or Logstash.
@@ -69,7 +70,7 @@ func (s *LogstashPipeline) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -80,13 +81,13 @@ func (s *LogstashPipeline) UnmarshalJSON(data []byte) error {
 
 		case "last_modified":
 			if err := dec.Decode(&s.LastModified); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LastModified", err)
 			}
 
 		case "pipeline":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pipeline", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -97,18 +98,18 @@ func (s *LogstashPipeline) UnmarshalJSON(data []byte) error {
 
 		case "pipeline_metadata":
 			if err := dec.Decode(&s.PipelineMetadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PipelineMetadata", err)
 			}
 
 		case "pipeline_settings":
 			if err := dec.Decode(&s.PipelineSettings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PipelineSettings", err)
 			}
 
 		case "username":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

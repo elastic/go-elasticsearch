@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // GeoLine type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Geo.ts#L65-L71
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Geo.ts#L56-L62
 type GeoLine struct {
 	// Coordinates Array of `[lon, lat]` coordinates
 	Coordinates [][]Float64 `json:"coordinates"`
@@ -55,13 +56,13 @@ func (s *GeoLine) UnmarshalJSON(data []byte) error {
 
 		case "coordinates":
 			if err := dec.Decode(&s.Coordinates); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Coordinates", err)
 			}
 
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

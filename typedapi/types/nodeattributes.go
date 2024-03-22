@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // NodeAttributes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Node.ts#L41-L58
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Node.ts#L41-L58
 type NodeAttributes struct {
 	// Attributes Lists node attributes.
 	Attributes map[string]string `json:"attributes"`
@@ -68,18 +69,18 @@ func (s *NodeAttributes) UnmarshalJSON(data []byte) error {
 				s.Attributes = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Attributes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attributes", err)
 			}
 
 		case "ephemeral_id":
 			if err := dec.Decode(&s.EphemeralId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EphemeralId", err)
 			}
 
 		case "external_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExternalId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -90,22 +91,22 @@ func (s *NodeAttributes) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "transport_address":
 			if err := dec.Decode(&s.TransportAddress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TransportAddress", err)
 			}
 
 		}

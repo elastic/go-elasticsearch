@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,16 +24,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SettingsSimilarityLmd type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/_types/IndexSettings.ts#L206-L209
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/_types/IndexSettings.ts#L212-L215
 type SettingsSimilarityLmd struct {
-	Mu   int    `json:"mu"`
-	Type string `json:"type,omitempty"`
+	Mu   *Float64 `json:"mu,omitempty"`
+	Type string   `json:"type,omitempty"`
 }
 
 func (s *SettingsSimilarityLmd) UnmarshalJSON(data []byte) error {
@@ -52,24 +53,24 @@ func (s *SettingsSimilarityLmd) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "mu":
-
 			var tmp interface{}
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.Atoi(v)
+				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Mu", err)
 				}
-				s.Mu = value
+				f := Float64(value)
+				s.Mu = &f
 			case float64:
-				f := int(v)
-				s.Mu = f
+				f := Float64(v)
+				s.Mu = &f
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

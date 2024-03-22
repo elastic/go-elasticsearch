@@ -16,20 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package updatejob
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L138
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L138
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
@@ -112,4 +116,157 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allow_lazy_open":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AllowLazyOpen", err)
+				}
+				s.AllowLazyOpen = &value
+			case bool:
+				s.AllowLazyOpen = &v
+			}
+
+		case "analysis_limits":
+			if err := dec.Decode(&s.AnalysisLimits); err != nil {
+				return fmt.Errorf("%s | %w", "AnalysisLimits", err)
+			}
+
+		case "background_persist_interval":
+			if err := dec.Decode(&s.BackgroundPersistInterval); err != nil {
+				return fmt.Errorf("%s | %w", "BackgroundPersistInterval", err)
+			}
+
+		case "categorization_filters":
+			if err := dec.Decode(&s.CategorizationFilters); err != nil {
+				return fmt.Errorf("%s | %w", "CategorizationFilters", err)
+			}
+
+		case "custom_settings":
+			if s.CustomSettings == nil {
+				s.CustomSettings = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.CustomSettings); err != nil {
+				return fmt.Errorf("%s | %w", "CustomSettings", err)
+			}
+
+		case "daily_model_snapshot_retention_after_days":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "DailyModelSnapshotRetentionAfterDays", err)
+				}
+				s.DailyModelSnapshotRetentionAfterDays = &value
+			case float64:
+				f := int64(v)
+				s.DailyModelSnapshotRetentionAfterDays = &f
+			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Description", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
+
+		case "detectors":
+			if err := dec.Decode(&s.Detectors); err != nil {
+				return fmt.Errorf("%s | %w", "Detectors", err)
+			}
+
+		case "groups":
+			if err := dec.Decode(&s.Groups); err != nil {
+				return fmt.Errorf("%s | %w", "Groups", err)
+			}
+
+		case "model_plot_config":
+			if err := dec.Decode(&s.ModelPlotConfig); err != nil {
+				return fmt.Errorf("%s | %w", "ModelPlotConfig", err)
+			}
+
+		case "model_prune_window":
+			if err := dec.Decode(&s.ModelPruneWindow); err != nil {
+				return fmt.Errorf("%s | %w", "ModelPruneWindow", err)
+			}
+
+		case "model_snapshot_retention_days":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ModelSnapshotRetentionDays", err)
+				}
+				s.ModelSnapshotRetentionDays = &value
+			case float64:
+				f := int64(v)
+				s.ModelSnapshotRetentionDays = &f
+			}
+
+		case "per_partition_categorization":
+			if err := dec.Decode(&s.PerPartitionCategorization); err != nil {
+				return fmt.Errorf("%s | %w", "PerPartitionCategorization", err)
+			}
+
+		case "renormalization_window_days":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "RenormalizationWindowDays", err)
+				}
+				s.RenormalizationWindowDays = &value
+			case float64:
+				f := int64(v)
+				s.RenormalizationWindowDays = &f
+			}
+
+		case "results_retention_days":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ResultsRetentionDays", err)
+				}
+				s.ResultsRetentionDays = &value
+			case float64:
+				f := int64(v)
+				s.ResultsRetentionDays = &f
+			}
+
+		}
+	}
+	return nil
 }

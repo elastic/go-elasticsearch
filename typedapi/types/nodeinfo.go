@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // NodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L30-L66
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/info/types.ts#L31-L67
 type NodeInfo struct {
 	Aggregations map[string]NodeInfoAggregation `json:"aggregations,omitempty"`
 	Attributes   map[string]string              `json:"attributes"`
@@ -90,7 +91,7 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 				s.Aggregations = make(map[string]NodeInfoAggregation, 0)
 			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Aggregations", err)
 			}
 
 		case "attributes":
@@ -98,13 +99,13 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 				s.Attributes = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Attributes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attributes", err)
 			}
 
 		case "build_flavor":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BuildFlavor", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -116,7 +117,7 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 		case "build_hash":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BuildHash", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -128,7 +129,7 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 		case "build_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BuildType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -139,67 +140,67 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 
 		case "host":
 			if err := dec.Decode(&s.Host); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 
 		case "http":
 			if err := dec.Decode(&s.Http); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Http", err)
 			}
 
 		case "ingest":
 			if err := dec.Decode(&s.Ingest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ingest", err)
 			}
 
 		case "ip":
 			if err := dec.Decode(&s.Ip); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 
 		case "jvm":
 			if err := dec.Decode(&s.Jvm); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Jvm", err)
 			}
 
 		case "modules":
 			if err := dec.Decode(&s.Modules); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Modules", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "network":
 			if err := dec.Decode(&s.Network); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Network", err)
 			}
 
 		case "os":
 			if err := dec.Decode(&s.Os); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Os", err)
 			}
 
 		case "plugins":
 			if err := dec.Decode(&s.Plugins); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Plugins", err)
 			}
 
 		case "process":
 			if err := dec.Decode(&s.Process); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Process", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "settings":
 			if err := dec.Decode(&s.Settings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Settings", err)
 			}
 
 		case "thread_pool":
@@ -207,7 +208,7 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 				s.ThreadPool = make(map[string]NodeThreadPoolInfo, 0)
 			}
 			if err := dec.Decode(&s.ThreadPool); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThreadPool", err)
 			}
 
 		case "total_indexing_buffer":
@@ -217,7 +218,7 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalIndexingBuffer", err)
 				}
 				s.TotalIndexingBuffer = &value
 			case float64:
@@ -227,22 +228,22 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 
 		case "total_indexing_buffer_in_bytes":
 			if err := dec.Decode(&s.TotalIndexingBufferInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalIndexingBufferInBytes", err)
 			}
 
 		case "transport":
 			if err := dec.Decode(&s.Transport); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Transport", err)
 			}
 
 		case "transport_address":
 			if err := dec.Decode(&s.TransportAddress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TransportAddress", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

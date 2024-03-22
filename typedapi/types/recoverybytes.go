@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // RecoveryBytes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/indices/recovery/types.ts#L38-L48
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/indices/recovery/types.ts#L38-L48
 type RecoveryBytes struct {
 	Percent                      Percentage `json:"percent"`
 	Recovered                    ByteSize   `json:"recovered,omitempty"`
@@ -59,47 +60,47 @@ func (s *RecoveryBytes) UnmarshalJSON(data []byte) error {
 
 		case "percent":
 			if err := dec.Decode(&s.Percent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Percent", err)
 			}
 
 		case "recovered":
 			if err := dec.Decode(&s.Recovered); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Recovered", err)
 			}
 
 		case "recovered_from_snapshot":
 			if err := dec.Decode(&s.RecoveredFromSnapshot); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RecoveredFromSnapshot", err)
 			}
 
 		case "recovered_from_snapshot_in_bytes":
 			if err := dec.Decode(&s.RecoveredFromSnapshotInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RecoveredFromSnapshotInBytes", err)
 			}
 
 		case "recovered_in_bytes":
 			if err := dec.Decode(&s.RecoveredInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RecoveredInBytes", err)
 			}
 
 		case "reused":
 			if err := dec.Decode(&s.Reused); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reused", err)
 			}
 
 		case "reused_in_bytes":
 			if err := dec.Decode(&s.ReusedInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReusedInBytes", err)
 			}
 
 		case "total":
 			if err := dec.Decode(&s.Total); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Total", err)
 			}
 
 		case "total_in_bytes":
 			if err := dec.Decode(&s.TotalInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalInBytes", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package putsynonym
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package putsynonym
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/synonyms/put_synonym/SynonymsPutResponse.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/synonyms/put_synonym/SynonymsPutResponse.ts#L24-L29
 type Response struct {
 	ReloadAnalyzersDetails types.ReloadDetails `json:"reload_analyzers_details"`
 	Result                 result.Result       `json:"result"`

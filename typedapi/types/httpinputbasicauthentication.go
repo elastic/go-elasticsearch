@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // HttpInputBasicAuthentication type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/_types/Input.ts#L54-L57
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/_types/Input.ts#L54-L57
 type HttpInputBasicAuthentication struct {
 	Password string `json:"password"`
 	Username string `json:"username"`
@@ -52,12 +53,12 @@ func (s *HttpInputBasicAuthentication) UnmarshalJSON(data []byte) error {
 
 		case "password":
 			if err := dec.Decode(&s.Password); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Password", err)
 			}
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 
 		}

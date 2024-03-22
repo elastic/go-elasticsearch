@@ -16,32 +16,50 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package queryapikeys
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/security/query_api_keys/QueryApiKeysRequest.ts#L25-L74
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/query_api_keys/QueryApiKeysRequest.ts#L26-L86
 type Request struct {
 
+	// Aggregations Any aggregations to run over the corpus of returned API keys.
+	// Aggregations and queries work together. Aggregations are computed only on the
+	// API keys that match the query.
+	// This supports only a subset of aggregation types, namely: `terms`, `range`,
+	// `date_range`, `missing`,
+	// `cardinality`, `value_count`, `composite`, `filter`, and `filters`.
+	// Additionally, aggregations only run over the same subset of fields that query
+	// works with.
+	Aggregations map[string]types.APIKeyAggregationContainer `json:"aggregations,omitempty"`
 	// From Starting document offset.
 	// By default, you cannot page through more than 10,000 hits using the from and
 	// size parameters.
 	// To page through more hits, use the `search_after` parameter.
 	From *int `json:"from,omitempty"`
 	// Query A query to filter which API keys to return.
+	// If the query parameter is missing, it is equivalent to a `match_all` query.
 	// The query supports a subset of query types, including `match_all`, `bool`,
-	// `term`, `terms`, `ids`, `prefix`, `wildcard`, and `range`.
-	// You can query all public information associated with an API key.
-	Query *types.Query `json:"query,omitempty"`
+	// `term`, `terms`, `match`,
+	// `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
+	// You can query the following public information associated with an API key:
+	// `id`, `type`, `name`,
+	// `creation`, `expiration`, `invalidated`, `invalidation`, `username`, `realm`,
+	// and `metadata`.
+	Query *types.APIKeyQueryContainer `json:"query,omitempty"`
 	// SearchAfter Search after definition
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
 	// Size The number of hits to return.
@@ -57,7 +75,9 @@ type Request struct {
 
 // NewRequest returns a Request
 func NewRequest() *Request {
-	r := &Request{}
+	r := &Request{
+		Aggregations: make(map[string]types.APIKeyAggregationContainer, 0),
+	}
 	return r
 }
 
@@ -71,4 +91,89 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "aggregations", "aggs":
+			if s.Aggregations == nil {
+				s.Aggregations = make(map[string]types.APIKeyAggregationContainer, 0)
+			}
+			if err := dec.Decode(&s.Aggregations); err != nil {
+				return fmt.Errorf("%s | %w", "Aggregations", err)
+			}
+
+		case "from":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "From", err)
+				}
+				s.From = &value
+			case float64:
+				f := int(v)
+				s.From = &f
+			}
+
+		case "query":
+			if err := dec.Decode(&s.Query); err != nil {
+				return fmt.Errorf("%s | %w", "Query", err)
+			}
+
+		case "search_after":
+			if err := dec.Decode(&s.SearchAfter); err != nil {
+				return fmt.Errorf("%s | %w", "SearchAfter", err)
+			}
+
+		case "size":
+
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Size", err)
+				}
+				s.Size = &value
+			case float64:
+				f := int(v)
+				s.Size = &f
+			}
+
+		case "sort":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(types.SortCombinations)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Sort", err)
+				}
+
+				s.Sort = append(s.Sort, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Sort); err != nil {
+					return fmt.Errorf("%s | %w", "Sort", err)
+				}
+			}
+
+		}
+	}
+	return nil
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DateHistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/rollup/_types/Groupings.ts#L42-L73
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/rollup/_types/Groupings.ts#L42-L73
 type DateHistogramGrouping struct {
 	// CalendarInterval The interval of time buckets to be generated when rolling up.
 	CalendarInterval Duration `json:"calendar_interval,omitempty"`
@@ -72,28 +73,28 @@ func (s *DateHistogramGrouping) UnmarshalJSON(data []byte) error {
 
 		case "calendar_interval":
 			if err := dec.Decode(&s.CalendarInterval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CalendarInterval", err)
 			}
 
 		case "delay":
 			if err := dec.Decode(&s.Delay); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Delay", err)
 			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "fixed_interval":
 			if err := dec.Decode(&s.FixedInterval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FixedInterval", err)
 			}
 
 		case "format":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -104,12 +105,12 @@ func (s *DateHistogramGrouping) UnmarshalJSON(data []byte) error {
 
 		case "interval":
 			if err := dec.Decode(&s.Interval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Interval", err)
 			}
 
 		case "time_zone":
 			if err := dec.Decode(&s.TimeZone); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
 		}

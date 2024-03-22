@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // SlmIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/health_report/types.ts#L160-L164
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/health_report/types.ts#L160-L164
 type SlmIndicatorDetails struct {
 	Policies          int64                                         `json:"policies"`
 	SlmStatus         lifecycleoperationmode.LifecycleOperationMode `json:"slm_status"`
@@ -61,7 +62,7 @@ func (s *SlmIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Policies", err)
 				}
 				s.Policies = value
 			case float64:
@@ -71,12 +72,12 @@ func (s *SlmIndicatorDetails) UnmarshalJSON(data []byte) error {
 
 		case "slm_status":
 			if err := dec.Decode(&s.SlmStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SlmStatus", err)
 			}
 
 		case "unhealthy_policies":
 			if err := dec.Decode(&s.UnhealthyPolicies); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UnhealthyPolicies", err)
 			}
 
 		}

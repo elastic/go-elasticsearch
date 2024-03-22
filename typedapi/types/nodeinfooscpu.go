@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoOSCPU type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/nodes/info/types.ts#L334-L343
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/nodes/info/types.ts#L339-L348
 type NodeInfoOSCPU struct {
 	CacheSize        string `json:"cache_size"`
 	CacheSizeInBytes int    `json:"cache_size_in_bytes"`
@@ -60,7 +61,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 		case "cache_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CacheSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -77,7 +78,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CacheSizeInBytes", err)
 				}
 				s.CacheSizeInBytes = value
 			case float64:
@@ -93,7 +94,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CoresPerSocket", err)
 				}
 				s.CoresPerSocket = value
 			case float64:
@@ -109,7 +110,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Mhz", err)
 				}
 				s.Mhz = value
 			case float64:
@@ -120,7 +121,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 		case "model":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Model", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -137,7 +138,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalCores", err)
 				}
 				s.TotalCores = value
 			case float64:
@@ -153,7 +154,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalSockets", err)
 				}
 				s.TotalSockets = value
 			case float64:
@@ -164,7 +165,7 @@ func (s *NodeInfoOSCPU) UnmarshalJSON(data []byte) error {
 		case "vendor":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Vendor", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

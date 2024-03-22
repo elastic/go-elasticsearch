@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Hit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_global/search/_types/hits.ts#L40-L64
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_global/search/_types/hits.ts#L40-L64
 type Hit struct {
 	Explanation_       *Explanation               `json:"_explanation,omitempty"`
 	Fields             map[string]json.RawMessage `json:"fields,omitempty"`
@@ -70,7 +71,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 
 		case "_explanation":
 			if err := dec.Decode(&s.Explanation_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Explanation_", err)
 			}
 
 		case "fields":
@@ -78,7 +79,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 				s.Fields = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "highlight":
@@ -86,12 +87,12 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 				s.Highlight = make(map[string][]string, 0)
 			}
 			if err := dec.Decode(&s.Highlight); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Highlight", err)
 			}
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "ignored_field_values":
@@ -99,17 +100,17 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 				s.IgnoredFieldValues = make(map[string][]string, 0)
 			}
 			if err := dec.Decode(&s.IgnoredFieldValues); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IgnoredFieldValues", err)
 			}
 
 		case "_ignored":
 			if err := dec.Decode(&s.Ignored_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ignored_", err)
 			}
 
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
 		case "inner_hits":
@@ -117,23 +118,23 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 				s.InnerHits = make(map[string]InnerHitsResult, 0)
 			}
 			if err := dec.Decode(&s.InnerHits); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InnerHits", err)
 			}
 
 		case "matched_queries":
 			if err := dec.Decode(&s.MatchedQueries); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchedQueries", err)
 			}
 
 		case "_nested":
 			if err := dec.Decode(&s.Nested_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nested_", err)
 			}
 
 		case "_node":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -149,7 +150,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PrimaryTerm_", err)
 				}
 				s.PrimaryTerm_ = &value
 			case float64:
@@ -160,7 +161,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 		case "_routing":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -171,18 +172,18 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 
 		case "_score":
 			if err := dec.Decode(&s.Score_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Score_", err)
 			}
 
 		case "_seq_no":
 			if err := dec.Decode(&s.SeqNo_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SeqNo_", err)
 			}
 
 		case "_shard":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shard_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -193,17 +194,17 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 
 		case "sort":
 			if err := dec.Decode(&s.Sort); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sort", err)
 			}
 
 		case "_source":
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
 
 		case "_version":
 			if err := dec.Decode(&s.Version_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version_", err)
 			}
 
 		}

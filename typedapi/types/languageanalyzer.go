@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // LanguageAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/analysis/analyzers.ts#L52-L59
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/analysis/analyzers.ts#L52-L59
 type LanguageAnalyzer struct {
 	Language      language.Language `json:"language"`
 	StemExclusion []string          `json:"stem_exclusion"`
@@ -59,12 +60,12 @@ func (s *LanguageAnalyzer) UnmarshalJSON(data []byte) error {
 
 		case "language":
 			if err := dec.Decode(&s.Language); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Language", err)
 			}
 
 		case "stem_exclusion":
 			if err := dec.Decode(&s.StemExclusion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StemExclusion", err)
 			}
 
 		case "stopwords":
@@ -73,20 +74,20 @@ func (s *LanguageAnalyzer) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Stopwords", err)
 				}
 
 				s.Stopwords = append(s.Stopwords, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Stopwords); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Stopwords", err)
 				}
 			}
 
 		case "stopwords_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StopwordsPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -97,12 +98,12 @@ func (s *LanguageAnalyzer) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

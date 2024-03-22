@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AllocationRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/cat/allocation/types.ts#L24-L75
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cat/allocation/types.ts#L24-L75
 type AllocationRecord struct {
 	// DiskAvail Free disk space available to Elasticsearch.
 	// Elasticsearch retrieves this metric from the node’s operating system.
@@ -82,43 +83,43 @@ func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
 
 		case "disk.avail", "da", "diskAvail":
 			if err := dec.Decode(&s.DiskAvail); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskAvail", err)
 			}
 
 		case "disk.indices", "di", "diskIndices":
 			if err := dec.Decode(&s.DiskIndices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskIndices", err)
 			}
 
 		case "disk.percent", "dp", "diskPercent":
 			if err := dec.Decode(&s.DiskPercent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskPercent", err)
 			}
 
 		case "disk.total", "dt", "diskTotal":
 			if err := dec.Decode(&s.DiskTotal); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskTotal", err)
 			}
 
 		case "disk.used", "du", "diskUsed":
 			if err := dec.Decode(&s.DiskUsed); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiskUsed", err)
 			}
 
 		case "host", "h":
 			if err := dec.Decode(&s.Host); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 
 		case "ip":
 			if err := dec.Decode(&s.Ip); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 
 		case "node", "n":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -130,7 +131,7 @@ func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
 		case "shards", "s":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shards", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

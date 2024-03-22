@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.13.0: DO NOT EDIT
 
 package esapi
 
@@ -59,6 +59,7 @@ type IndicesRolloverRequest struct {
 	NewIndex string
 
 	DryRun              *bool
+	Lazy                *bool
 	MasterTimeout       time.Duration
 	Timeout             time.Duration
 	WaitForActiveShards string
@@ -115,6 +116,10 @@ func (r IndicesRolloverRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.DryRun != nil {
 		params["dry_run"] = strconv.FormatBool(*r.DryRun)
+	}
+
+	if r.Lazy != nil {
+		params["lazy"] = strconv.FormatBool(*r.Lazy)
 	}
 
 	if r.MasterTimeout != 0 {
@@ -232,6 +237,13 @@ func (f IndicesRollover) WithNewIndex(v string) func(*IndicesRolloverRequest) {
 func (f IndicesRollover) WithDryRun(v bool) func(*IndicesRolloverRequest) {
 	return func(r *IndicesRolloverRequest) {
 		r.DryRun = &v
+	}
+}
+
+// WithLazy - if set to true, the rollover action will only mark a data stream to signal that it needs to be rolled over at the next write. only allowed on data streams..
+func (f IndicesRollover) WithLazy(v bool) func(*IndicesRolloverRequest) {
+	return func(r *IndicesRolloverRequest) {
+		r.Lazy = &v
 	}
 }
 

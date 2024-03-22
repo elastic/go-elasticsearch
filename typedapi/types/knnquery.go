@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // KnnQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/_types/Knn.ts#L26-L43
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Knn.ts#L27-L49
 type KnnQuery struct {
 	// Boost Boost value to apply to kNN scores
 	Boost *float32 `json:"boost,omitempty"`
@@ -38,6 +39,8 @@ type KnnQuery struct {
 	Field string `json:"field"`
 	// Filter Filters for the kNN search query
 	Filter []Query `json:"filter,omitempty"`
+	// InnerHits If defined, each search hit will contain inner hits.
+	InnerHits *InnerHits `json:"inner_hits,omitempty"`
 	// K The final number of nearest neighbors to return as top hits
 	K int64 `json:"k"`
 	// NumCandidates The number of nearest neighbor candidates to consider per shard
@@ -73,7 +76,7 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -84,7 +87,7 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "filter":
@@ -93,14 +96,19 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := NewQuery()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Filter", err)
 				}
 
 				s.Filter = append(s.Filter, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Filter); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Filter", err)
 				}
+			}
+
+		case "inner_hits":
+			if err := dec.Decode(&s.InnerHits); err != nil {
+				return fmt.Errorf("%s | %w", "InnerHits", err)
 			}
 
 		case "k":
@@ -110,7 +118,7 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "K", err)
 				}
 				s.K = value
 			case float64:
@@ -125,7 +133,7 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumCandidates", err)
 				}
 				s.NumCandidates = value
 			case float64:
@@ -135,12 +143,12 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 
 		case "query_vector":
 			if err := dec.Decode(&s.QueryVector); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryVector", err)
 			}
 
 		case "query_vector_builder":
 			if err := dec.Decode(&s.QueryVectorBuilder); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryVectorBuilder", err)
 			}
 
 		case "similarity":
@@ -150,7 +158,7 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Similarity", err)
 				}
 				f := float32(value)
 				s.Similarity = &f

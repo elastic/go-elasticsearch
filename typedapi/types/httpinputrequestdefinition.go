@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/e16324dcde9297dd1149c1ef3d6d58afe272e646
+// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // HttpInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/e16324dcde9297dd1149c1ef3d6d58afe272e646/specification/watcher/_types/Input.ts#L72-L86
+// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/_types/Input.ts#L72-L86
 type HttpInputRequestDefinition struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
@@ -67,13 +68,13 @@ func (s *HttpInputRequestDefinition) UnmarshalJSON(data []byte) error {
 
 		case "auth":
 			if err := dec.Decode(&s.Auth); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Auth", err)
 			}
 
 		case "body":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Body", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -84,7 +85,7 @@ func (s *HttpInputRequestDefinition) UnmarshalJSON(data []byte) error {
 
 		case "connection_timeout":
 			if err := dec.Decode(&s.ConnectionTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ConnectionTimeout", err)
 			}
 
 		case "headers":
@@ -92,17 +93,17 @@ func (s *HttpInputRequestDefinition) UnmarshalJSON(data []byte) error {
 				s.Headers = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Headers); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Headers", err)
 			}
 
 		case "host":
 			if err := dec.Decode(&s.Host); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 
 		case "method":
 			if err := dec.Decode(&s.Method); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Method", err)
 			}
 
 		case "params":
@@ -110,13 +111,13 @@ func (s *HttpInputRequestDefinition) UnmarshalJSON(data []byte) error {
 				s.Params = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Params); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Params", err)
 			}
 
 		case "path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Path", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -127,28 +128,28 @@ func (s *HttpInputRequestDefinition) UnmarshalJSON(data []byte) error {
 
 		case "port":
 			if err := dec.Decode(&s.Port); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Port", err)
 			}
 
 		case "proxy":
 			if err := dec.Decode(&s.Proxy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Proxy", err)
 			}
 
 		case "read_timeout":
 			if err := dec.Decode(&s.ReadTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReadTimeout", err)
 			}
 
 		case "scheme":
 			if err := dec.Decode(&s.Scheme); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Scheme", err)
 			}
 
 		case "url":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Url", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

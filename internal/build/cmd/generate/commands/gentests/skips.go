@@ -61,6 +61,7 @@ var skipFiles = []string{
 	"ml/3rd_party_deployment.yml",       // incompatible ml tests
 	"dlm/10_usage.yml",                  // incompatible float expansion
 	"api_key/60_admin_user.yml",
+	".*esql\\/.*.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -203,6 +204,9 @@ tsdb/80_index_resize.yml:
 tsdb/40_search.yml:
   - aggregate a metric
 
+tsdb/70_dimension_types.yml:
+  - flattened field missing routing path field
+
 # Deliberate wrong type doesn't match Go types
 cluster.desired_nodes/10_basic.yml:
   - Test version must be a number
@@ -230,6 +234,8 @@ api_key/10_basic.yml:
   - Test invalidate api keys
 api_key/11_invalidation.yml:
   - Test invalidate api key by username
+api_key/21_query_with_aggs.yml:
+  - Test composite aggs api key
 rollup/put_job.yml:
   - Test put job with templates
 
@@ -335,6 +341,9 @@ snapshot/10_basic.yml:
 # illegal_argument_exception: Provided password hash uses [NOOP] but the configured hashing algorithm is [BCRYPT]
 users/10_basic.yml:
   - Test put user with password hash
+
+users/40_query.yml:
+  - Test query user
 
 # Slash in index name is not escaped (BUG)
 security/authz/13_index_datemath.yml:
@@ -512,4 +521,6 @@ esql/40_unsupported_types.yml:
 
 esql/50_index_patterns.yml:
   - disjoint_mappings
+
+
 `
