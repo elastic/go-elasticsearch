@@ -42,7 +42,7 @@ type GeoBoundingBoxQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost               *float32             `json:"boost,omitempty"`
-	GeoBoundingBoxQuery map[string]GeoBounds `json:"GeoBoundingBoxQuery,omitempty"`
+	GeoBoundingBoxQuery map[string]GeoBounds `json:"-"`
 	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
 	// this query.
 	// Set to `false` to throw an exception if the field is not mapped.
@@ -86,14 +86,6 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 				s.Boost = &f
 			}
 
-		case "GeoBoundingBoxQuery":
-			if s.GeoBoundingBoxQuery == nil {
-				s.GeoBoundingBoxQuery = make(map[string]GeoBounds, 0)
-			}
-			if err := dec.Decode(&s.GeoBoundingBoxQuery); err != nil {
-				return fmt.Errorf("%s | %w", "GeoBoundingBoxQuery", err)
-			}
-
 		case "ignore_unmapped":
 			var tmp interface{}
 			dec.Decode(&tmp)
@@ -131,6 +123,17 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoBoundingBoxQuery == nil {
+					s.GeoBoundingBoxQuery = make(map[string]GeoBounds, 0)
+				}
+				raw := new(GeoBounds)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoBoundingBoxQuery", err)
+				}
+				s.GeoBoundingBoxQuery[key] = *raw
+			}
 
 		}
 	}

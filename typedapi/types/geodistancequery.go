@@ -49,7 +49,7 @@ type GeoDistanceQuery struct {
 	// Set to `plane` for a faster calculation that's inaccurate on long distances
 	// and close to the poles.
 	DistanceType     *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	GeoDistanceQuery map[string]GeoLocation           `json:"GeoDistanceQuery,omitempty"`
+	GeoDistanceQuery map[string]GeoLocation           `json:"-"`
 	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
 	// this query.
 	// Set to `false` to throw an exception if the field is not mapped.
@@ -102,14 +102,6 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "DistanceType", err)
 			}
 
-		case "GeoDistanceQuery":
-			if s.GeoDistanceQuery == nil {
-				s.GeoDistanceQuery = make(map[string]GeoLocation, 0)
-			}
-			if err := dec.Decode(&s.GeoDistanceQuery); err != nil {
-				return fmt.Errorf("%s | %w", "GeoDistanceQuery", err)
-			}
-
 		case "ignore_unmapped":
 			var tmp interface{}
 			dec.Decode(&tmp)
@@ -142,6 +134,17 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoDistanceQuery == nil {
+					s.GeoDistanceQuery = make(map[string]GeoLocation, 0)
+				}
+				raw := new(GeoLocation)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoDistanceQuery", err)
+				}
+				s.GeoDistanceQuery[key] = *raw
+			}
 
 		}
 	}

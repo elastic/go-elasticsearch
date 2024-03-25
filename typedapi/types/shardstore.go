@@ -36,7 +36,7 @@ import (
 type ShardStore struct {
 	Allocation     shardstoreallocation.ShardStoreAllocation `json:"allocation"`
 	AllocationId   *string                                   `json:"allocation_id,omitempty"`
-	ShardStore     map[string]ShardStoreNode                 `json:"ShardStore,omitempty"`
+	ShardStore     map[string]ShardStoreNode                 `json:"-"`
 	StoreException *ShardStoreException                      `json:"store_exception,omitempty"`
 }
 
@@ -65,20 +65,23 @@ func (s *ShardStore) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "AllocationId", err)
 			}
 
-		case "ShardStore":
-			if s.ShardStore == nil {
-				s.ShardStore = make(map[string]ShardStoreNode, 0)
-			}
-			if err := dec.Decode(&s.ShardStore); err != nil {
-				return fmt.Errorf("%s | %w", "ShardStore", err)
-			}
-
 		case "store_exception":
 			if err := dec.Decode(&s.StoreException); err != nil {
 				return fmt.Errorf("%s | %w", "StoreException", err)
 			}
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.ShardStore == nil {
+					s.ShardStore = make(map[string]ShardStoreNode, 0)
+				}
+				raw := NewShardStoreNode()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "ShardStore", err)
+				}
+				s.ShardStore[key] = *raw
+			}
 
 		}
 	}

@@ -43,7 +43,7 @@ type ShapeQuery struct {
 	// documents.
 	IgnoreUnmapped *bool                      `json:"ignore_unmapped,omitempty"`
 	QueryName_     *string                    `json:"_name,omitempty"`
-	ShapeQuery     map[string]ShapeFieldQuery `json:"ShapeQuery,omitempty"`
+	ShapeQuery     map[string]ShapeFieldQuery `json:"-"`
 }
 
 func (s *ShapeQuery) UnmarshalJSON(data []byte) error {
@@ -103,15 +103,18 @@ func (s *ShapeQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		case "ShapeQuery":
-			if s.ShapeQuery == nil {
-				s.ShapeQuery = make(map[string]ShapeFieldQuery, 0)
-			}
-			if err := dec.Decode(&s.ShapeQuery); err != nil {
-				return fmt.Errorf("%s | %w", "ShapeQuery", err)
-			}
-
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.ShapeQuery == nil {
+					s.ShapeQuery = make(map[string]ShapeFieldQuery, 0)
+				}
+				raw := NewShapeFieldQuery()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "ShapeQuery", err)
+				}
+				s.ShapeQuery[key] = *raw
+			}
 
 		}
 	}

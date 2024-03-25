@@ -39,7 +39,7 @@ type GeoShapeQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost         *float32                      `json:"boost,omitempty"`
-	GeoShapeQuery map[string]GeoShapeFieldQuery `json:"GeoShapeQuery,omitempty"`
+	GeoShapeQuery map[string]GeoShapeFieldQuery `json:"-"`
 	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
 	// this query.
 	// Set to `false` to throw an exception if the field is not mapped.
@@ -78,14 +78,6 @@ func (s *GeoShapeQuery) UnmarshalJSON(data []byte) error {
 				s.Boost = &f
 			}
 
-		case "GeoShapeQuery":
-			if s.GeoShapeQuery == nil {
-				s.GeoShapeQuery = make(map[string]GeoShapeFieldQuery, 0)
-			}
-			if err := dec.Decode(&s.GeoShapeQuery); err != nil {
-				return fmt.Errorf("%s | %w", "GeoShapeQuery", err)
-			}
-
 		case "ignore_unmapped":
 			var tmp interface{}
 			dec.Decode(&tmp)
@@ -113,6 +105,17 @@ func (s *GeoShapeQuery) UnmarshalJSON(data []byte) error {
 			s.QueryName_ = &o
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoShapeQuery == nil {
+					s.GeoShapeQuery = make(map[string]GeoShapeFieldQuery, 0)
+				}
+				raw := NewGeoShapeFieldQuery()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoShapeQuery", err)
+				}
+				s.GeoShapeQuery[key] = *raw
+			}
 
 		}
 	}

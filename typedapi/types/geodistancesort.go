@@ -39,7 +39,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/sort.ts#L58-L66
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	GeoDistanceSort map[string][]GeoLocation         `json:"GeoDistanceSort,omitempty"`
+	GeoDistanceSort map[string][]GeoLocation         `json:"-"`
 	IgnoreUnmapped  *bool                            `json:"ignore_unmapped,omitempty"`
 	Mode            *sortmode.SortMode               `json:"mode,omitempty"`
 	Order           *sortorder.SortOrder             `json:"order,omitempty"`
@@ -64,31 +64,6 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 		case "distance_type":
 			if err := dec.Decode(&s.DistanceType); err != nil {
 				return fmt.Errorf("%s | %w", "DistanceType", err)
-			}
-
-		case "GeoDistanceSort":
-			if s.GeoDistanceSort == nil {
-				s.GeoDistanceSort = make(map[string][]GeoLocation, 0)
-			}
-			rawMsg := make(map[string]json.RawMessage, 0)
-			dec.Decode(&rawMsg)
-			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := new(GeoLocation)
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
-					}
-					s.GeoDistanceSort[key] = append(s.GeoDistanceSort[key], o)
-				default:
-					o := []GeoLocation{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
-					}
-					s.GeoDistanceSort[key] = o
-				}
 			}
 
 		case "ignore_unmapped":
@@ -121,6 +96,27 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 			}
 
 		default:
+
+			rawMsg := make(map[string]json.RawMessage, 0)
+			dec.Decode(&rawMsg)
+			for key, value := range rawMsg {
+				switch {
+				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
+					o := new(GeoLocation)
+					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
+					if err != nil {
+						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
+					}
+					s.GeoDistanceSort[key] = append(s.GeoDistanceSort[key], o)
+				default:
+					o := []GeoLocation{}
+					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
+					if err != nil {
+						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
+					}
+					s.GeoDistanceSort[key] = o
+				}
+			}
 
 		}
 	}
