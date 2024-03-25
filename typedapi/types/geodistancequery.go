@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/geo.ts#L57-L85
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/geo.ts#L57-L85
 type GeoDistanceQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -49,7 +49,7 @@ type GeoDistanceQuery struct {
 	// Set to `plane` for a faster calculation that's inaccurate on long distances
 	// and close to the poles.
 	DistanceType     *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	GeoDistanceQuery map[string]GeoLocation           `json:"GeoDistanceQuery,omitempty"`
+	GeoDistanceQuery map[string]GeoLocation           `json:"-"`
 	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
 	// this query.
 	// Set to `false` to throw an exception if the field is not mapped.
@@ -102,14 +102,6 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "DistanceType", err)
 			}
 
-		case "GeoDistanceQuery":
-			if s.GeoDistanceQuery == nil {
-				s.GeoDistanceQuery = make(map[string]GeoLocation, 0)
-			}
-			if err := dec.Decode(&s.GeoDistanceQuery); err != nil {
-				return fmt.Errorf("%s | %w", "GeoDistanceQuery", err)
-			}
-
 		case "ignore_unmapped":
 			var tmp interface{}
 			dec.Decode(&tmp)
@@ -142,6 +134,17 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoDistanceQuery == nil {
+					s.GeoDistanceQuery = make(map[string]GeoLocation, 0)
+				}
+				raw := new(GeoLocation)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoDistanceQuery", err)
+				}
+				s.GeoDistanceQuery[key] = *raw
+			}
 
 		}
 	}

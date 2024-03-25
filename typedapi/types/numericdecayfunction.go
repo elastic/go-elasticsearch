@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -29,12 +29,12 @@ import (
 
 // NumericDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/compound.ts#L182-L184
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/compound.ts#L182-L184
 type NumericDecayFunction struct {
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
 	// decay contains multiple values.
 	MultiValueMode       *multivaluemode.MultiValueMode        `json:"multi_value_mode,omitempty"`
-	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"NumericDecayFunction,omitempty"`
+	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"-"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

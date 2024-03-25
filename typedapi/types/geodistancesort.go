@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -36,10 +36,10 @@ import (
 
 // GeoDistanceSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/sort.ts#L58-L66
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/sort.ts#L58-L66
 type GeoDistanceSort struct {
 	DistanceType    *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	GeoDistanceSort map[string][]GeoLocation         `json:"GeoDistanceSort,omitempty"`
+	GeoDistanceSort map[string][]GeoLocation         `json:"-"`
 	IgnoreUnmapped  *bool                            `json:"ignore_unmapped,omitempty"`
 	Mode            *sortmode.SortMode               `json:"mode,omitempty"`
 	Order           *sortorder.SortOrder             `json:"order,omitempty"`
@@ -64,31 +64,6 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 		case "distance_type":
 			if err := dec.Decode(&s.DistanceType); err != nil {
 				return fmt.Errorf("%s | %w", "DistanceType", err)
-			}
-
-		case "GeoDistanceSort":
-			if s.GeoDistanceSort == nil {
-				s.GeoDistanceSort = make(map[string][]GeoLocation, 0)
-			}
-			rawMsg := make(map[string]json.RawMessage, 0)
-			dec.Decode(&rawMsg)
-			for key, value := range rawMsg {
-				switch {
-				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
-					o := new(GeoLocation)
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
-					}
-					s.GeoDistanceSort[key] = append(s.GeoDistanceSort[key], o)
-				default:
-					o := []GeoLocation{}
-					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
-					if err != nil {
-						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
-					}
-					s.GeoDistanceSort[key] = o
-				}
 			}
 
 		case "ignore_unmapped":
@@ -121,6 +96,27 @@ func (s *GeoDistanceSort) UnmarshalJSON(data []byte) error {
 			}
 
 		default:
+
+			rawMsg := make(map[string]json.RawMessage, 0)
+			dec.Decode(&rawMsg)
+			for key, value := range rawMsg {
+				switch {
+				case bytes.HasPrefix(value, []byte("\"")), bytes.HasPrefix(value, []byte("{")):
+					o := new(GeoLocation)
+					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
+					if err != nil {
+						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
+					}
+					s.GeoDistanceSort[key] = append(s.GeoDistanceSort[key], o)
+				default:
+					o := []GeoLocation{}
+					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
+					if err != nil {
+						return fmt.Errorf("%s | %w", "GeoDistanceSort", err)
+					}
+					s.GeoDistanceSort[key] = o
+				}
+			}
 
 		}
 	}
