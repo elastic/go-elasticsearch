@@ -40,7 +40,7 @@ type TermsQuery struct {
 	// A value greater than 1.0 increases the relevance score.
 	Boost      *float32                   `json:"boost,omitempty"`
 	QueryName_ *string                    `json:"_name,omitempty"`
-	TermsQuery map[string]TermsQueryField `json:"TermsQuery,omitempty"`
+	TermsQuery map[string]TermsQueryField `json:"-"`
 }
 
 func (s *TermsQuery) UnmarshalJSON(data []byte) error {
@@ -86,15 +86,18 @@ func (s *TermsQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		case "TermsQuery":
-			if s.TermsQuery == nil {
-				s.TermsQuery = make(map[string]TermsQueryField, 0)
-			}
-			if err := dec.Decode(&s.TermsQuery); err != nil {
-				return fmt.Errorf("%s | %w", "TermsQuery", err)
-			}
-
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.TermsQuery == nil {
+					s.TermsQuery = make(map[string]TermsQueryField, 0)
+				}
+				raw := new(TermsQueryField)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "TermsQuery", err)
+				}
+				s.TermsQuery[key] = *raw
+			}
 
 		}
 	}

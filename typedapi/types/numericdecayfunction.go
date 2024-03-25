@@ -34,7 +34,7 @@ type NumericDecayFunction struct {
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
 	// decay contains multiple values.
 	MultiValueMode       *multivaluemode.MultiValueMode        `json:"multi_value_mode,omitempty"`
-	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"NumericDecayFunction,omitempty"`
+	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"-"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

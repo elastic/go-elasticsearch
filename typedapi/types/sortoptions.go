@@ -33,7 +33,7 @@ type SortOptions struct {
 	GeoDistance_ *GeoDistanceSort     `json:"_geo_distance,omitempty"`
 	Score_       *ScoreSort           `json:"_score,omitempty"`
 	Script_      *ScriptSort          `json:"_script,omitempty"`
-	SortOptions  map[string]FieldSort `json:"SortOptions,omitempty"`
+	SortOptions  map[string]FieldSort `json:"-"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

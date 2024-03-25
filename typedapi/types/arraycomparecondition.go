@@ -35,7 +35,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/watcher/_types/Conditions.ts#L32-L36
 type ArrayCompareCondition struct {
-	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"ArrayCompareCondition,omitempty"`
+	ArrayCompareCondition map[conditionop.ConditionOp]ArrayCompareOpParams `json:"-"`
 	Path                  string                                           `json:"path"`
 }
 
@@ -54,14 +54,6 @@ func (s *ArrayCompareCondition) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "ArrayCompareCondition":
-			if s.ArrayCompareCondition == nil {
-				s.ArrayCompareCondition = make(map[conditionop.ConditionOp]ArrayCompareOpParams, 0)
-			}
-			if err := dec.Decode(&s.ArrayCompareCondition); err != nil {
-				return fmt.Errorf("%s | %w", "ArrayCompareCondition", err)
-			}
-
 		case "path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -75,6 +67,22 @@ func (s *ArrayCompareCondition) UnmarshalJSON(data []byte) error {
 			s.Path = o
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.ArrayCompareCondition == nil {
+					s.ArrayCompareCondition = make(map[conditionop.ConditionOp]ArrayCompareOpParams, 0)
+				}
+				raw := NewArrayCompareOpParams()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "ArrayCompareCondition", err)
+				}
+				enum := conditionop.ConditionOp{}
+				err := enum.UnmarshalText([]byte(key))
+				if err != nil {
+					return fmt.Errorf("cannot unmarshal enum conditionop.ConditionOp: %w", err)
+				}
+				s.ArrayCompareCondition[enum] = *raw
+			}
 
 		}
 	}

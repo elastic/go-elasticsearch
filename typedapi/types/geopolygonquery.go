@@ -41,7 +41,7 @@ type GeoPolygonQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost            *float32                                 `json:"boost,omitempty"`
-	GeoPolygonQuery  map[string]GeoPolygonPoints              `json:"GeoPolygonQuery,omitempty"`
+	GeoPolygonQuery  map[string]GeoPolygonPoints              `json:"-"`
 	IgnoreUnmapped   *bool                                    `json:"ignore_unmapped,omitempty"`
 	QueryName_       *string                                  `json:"_name,omitempty"`
 	ValidationMethod *geovalidationmethod.GeoValidationMethod `json:"validation_method,omitempty"`
@@ -78,14 +78,6 @@ func (s *GeoPolygonQuery) UnmarshalJSON(data []byte) error {
 				s.Boost = &f
 			}
 
-		case "GeoPolygonQuery":
-			if s.GeoPolygonQuery == nil {
-				s.GeoPolygonQuery = make(map[string]GeoPolygonPoints, 0)
-			}
-			if err := dec.Decode(&s.GeoPolygonQuery); err != nil {
-				return fmt.Errorf("%s | %w", "GeoPolygonQuery", err)
-			}
-
 		case "ignore_unmapped":
 			var tmp interface{}
 			dec.Decode(&tmp)
@@ -118,6 +110,17 @@ func (s *GeoPolygonQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoPolygonQuery == nil {
+					s.GeoPolygonQuery = make(map[string]GeoPolygonPoints, 0)
+				}
+				raw := NewGeoPolygonPoints()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoPolygonQuery", err)
+				}
+				s.GeoPolygonQuery[key] = *raw
+			}
 
 		}
 	}

@@ -31,7 +31,7 @@ import (
 //
 // https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/query_dsl/compound.ts#L186-L188
 type DateDecayFunction struct {
-	DateDecayFunction map[string]DecayPlacementDateMathDuration `json:"DateDecayFunction,omitempty"`
+	DateDecayFunction map[string]DecayPlacementDateMathDuration `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
 	// decay contains multiple values.
 	MultiValueMode *multivaluemode.MultiValueMode `json:"multi_value_mode,omitempty"`
