@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/term.ts#L233-L235
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/term.ts#L233-L235
 type TermsQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -40,7 +40,7 @@ type TermsQuery struct {
 	// A value greater than 1.0 increases the relevance score.
 	Boost      *float32                   `json:"boost,omitempty"`
 	QueryName_ *string                    `json:"_name,omitempty"`
-	TermsQuery map[string]TermsQueryField `json:"TermsQuery,omitempty"`
+	TermsQuery map[string]TermsQueryField `json:"-"`
 }
 
 func (s *TermsQuery) UnmarshalJSON(data []byte) error {
@@ -86,15 +86,18 @@ func (s *TermsQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		case "TermsQuery":
-			if s.TermsQuery == nil {
-				s.TermsQuery = make(map[string]TermsQueryField, 0)
-			}
-			if err := dec.Decode(&s.TermsQuery); err != nil {
-				return fmt.Errorf("%s | %w", "TermsQuery", err)
-			}
-
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.TermsQuery == nil {
+					s.TermsQuery = make(map[string]TermsQueryField, 0)
+				}
+				raw := new(TermsQueryField)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "TermsQuery", err)
+				}
+				s.TermsQuery[key] = *raw
+			}
 
 		}
 	}

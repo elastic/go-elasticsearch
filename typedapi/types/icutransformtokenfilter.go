@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IcuTransformTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/analysis/icu-plugin.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/icu-plugin.ts#L24-L28
 type IcuTransformTokenFilter struct {
 	Dir     *icutransformdirection.IcuTransformDirection `json:"dir,omitempty"`
 	Id      string                                       `json:"id"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoShapeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/geo.ts#L121-L131
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/geo.ts#L121-L131
 type GeoShapeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -39,7 +39,7 @@ type GeoShapeQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost         *float32                      `json:"boost,omitempty"`
-	GeoShapeQuery map[string]GeoShapeFieldQuery `json:"GeoShapeQuery,omitempty"`
+	GeoShapeQuery map[string]GeoShapeFieldQuery `json:"-"`
 	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
 	// this query.
 	// Set to `false` to throw an exception if the field is not mapped.
@@ -78,14 +78,6 @@ func (s *GeoShapeQuery) UnmarshalJSON(data []byte) error {
 				s.Boost = &f
 			}
 
-		case "GeoShapeQuery":
-			if s.GeoShapeQuery == nil {
-				s.GeoShapeQuery = make(map[string]GeoShapeFieldQuery, 0)
-			}
-			if err := dec.Decode(&s.GeoShapeQuery); err != nil {
-				return fmt.Errorf("%s | %w", "GeoShapeQuery", err)
-			}
-
 		case "ignore_unmapped":
 			var tmp interface{}
 			dec.Decode(&tmp)
@@ -113,6 +105,17 @@ func (s *GeoShapeQuery) UnmarshalJSON(data []byte) error {
 			s.QueryName_ = &o
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoShapeQuery == nil {
+					s.GeoShapeQuery = make(map[string]GeoShapeFieldQuery, 0)
+				}
+				raw := NewGeoShapeFieldQuery()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoShapeQuery", err)
+				}
+				s.GeoShapeQuery[key] = *raw
+			}
 
 		}
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShapeQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/accc26662ab4c58f4f6fb0fc1d9fc5249d0de339/specification/_types/query_dsl/specialized.ts#L344-L352
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/specialized.ts#L344-L352
 type ShapeQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -43,7 +43,7 @@ type ShapeQuery struct {
 	// documents.
 	IgnoreUnmapped *bool                      `json:"ignore_unmapped,omitempty"`
 	QueryName_     *string                    `json:"_name,omitempty"`
-	ShapeQuery     map[string]ShapeFieldQuery `json:"ShapeQuery,omitempty"`
+	ShapeQuery     map[string]ShapeFieldQuery `json:"-"`
 }
 
 func (s *ShapeQuery) UnmarshalJSON(data []byte) error {
@@ -103,15 +103,18 @@ func (s *ShapeQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		case "ShapeQuery":
-			if s.ShapeQuery == nil {
-				s.ShapeQuery = make(map[string]ShapeFieldQuery, 0)
-			}
-			if err := dec.Decode(&s.ShapeQuery); err != nil {
-				return fmt.Errorf("%s | %w", "ShapeQuery", err)
-			}
-
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.ShapeQuery == nil {
+					s.ShapeQuery = make(map[string]ShapeFieldQuery, 0)
+				}
+				raw := NewShapeFieldQuery()
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "ShapeQuery", err)
+				}
+				s.ShapeQuery[key] = *raw
+			}
 
 		}
 	}
