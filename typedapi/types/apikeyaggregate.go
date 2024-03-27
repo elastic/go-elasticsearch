@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package types
 
-// APIKeyAggregate holds the union for the following types:
+// ApiKeyAggregate holds the union for the following types:
 //
 //	CardinalityAggregate
 //	ValueCountAggregate
@@ -36,5 +36,5 @@ package types
 //	DateRangeAggregate
 //	CompositeAggregate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/query_api_keys/types.ts#L123-L140
-type APIKeyAggregate interface{}
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/security/query_api_keys/types.ts#L123-L140
+type ApiKeyAggregate interface{}

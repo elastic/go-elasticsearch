@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package queryapikeys
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/query_api_keys/QueryApiKeysRequest.ts#L26-L86
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/security/query_api_keys/QueryApiKeysRequest.ts#L26-L86
 type Request struct {
 
 	// Aggregations Any aggregations to run over the corpus of returned API keys.
@@ -44,7 +44,7 @@ type Request struct {
 	// `cardinality`, `value_count`, `composite`, `filter`, and `filters`.
 	// Additionally, aggregations only run over the same subset of fields that query
 	// works with.
-	Aggregations map[string]types.APIKeyAggregationContainer `json:"aggregations,omitempty"`
+	Aggregations map[string]types.ApiKeyAggregationContainer `json:"aggregations,omitempty"`
 	// From Starting document offset.
 	// By default, you cannot page through more than 10,000 hits using the from and
 	// size parameters.
@@ -59,7 +59,7 @@ type Request struct {
 	// `id`, `type`, `name`,
 	// `creation`, `expiration`, `invalidated`, `invalidation`, `username`, `realm`,
 	// and `metadata`.
-	Query *types.APIKeyQueryContainer `json:"query,omitempty"`
+	Query *types.ApiKeyQueryContainer `json:"query,omitempty"`
 	// SearchAfter Search after definition
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
 	// Size The number of hits to return.
@@ -76,7 +76,7 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{
-		Aggregations: make(map[string]types.APIKeyAggregationContainer, 0),
+		Aggregations: make(map[string]types.ApiKeyAggregationContainer, 0),
 	}
 	return r
 }
@@ -109,7 +109,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "aggregations", "aggs":
 			if s.Aggregations == nil {
-				s.Aggregations = make(map[string]types.APIKeyAggregationContainer, 0)
+				s.Aggregations = make(map[string]types.ApiKeyAggregationContainer, 0)
 			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
 				return fmt.Errorf("%s | %w", "Aggregations", err)

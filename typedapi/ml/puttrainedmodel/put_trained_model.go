@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 // Creates an inference trained model.
 package puttrainedmodel
@@ -316,11 +316,21 @@ func (r *PutTrainedModel) _modelid(modelid string) *PutTrainedModel {
 	return r
 }
 
-// DeferDefinitionDecompression If set to `true` and a `compressed_definition` is provided, the request
-// defers definition decompression and skips relevant validations.
+// DeferDefinitionDecompression If set to `true` and a `compressed_definition` is provided,
+// the request defers definition decompression and skips relevant
+// validations.
 // API name: defer_definition_decompression
 func (r *PutTrainedModel) DeferDefinitionDecompression(deferdefinitiondecompression bool) *PutTrainedModel {
 	r.values.Set("defer_definition_decompression", strconv.FormatBool(deferdefinitiondecompression))
+
+	return r
+}
+
+// WaitForCompletion Whether to wait for all child operations (e.g. model download)
+// to complete.
+// API name: wait_for_completion
+func (r *PutTrainedModel) WaitForCompletion(waitforcompletion bool) *PutTrainedModel {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }

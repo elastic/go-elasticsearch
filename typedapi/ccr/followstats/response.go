@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package followstats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package followstats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ccr/follow_stats/FollowIndexStatsResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/ccr/follow_stats/FollowIndexStatsResponse.ts#L22-L24
 type Response struct {
 	Indices []types.FollowIndexStats `json:"indices"`
 }

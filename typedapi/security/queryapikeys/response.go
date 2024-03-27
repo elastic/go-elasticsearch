@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package queryapikeys
 
@@ -34,11 +34,11 @@ import (
 
 // Response holds the response body struct for the package queryapikeys
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/query_api_keys/QueryApiKeysResponse.ts#L26-L45
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/security/query_api_keys/QueryApiKeysResponse.ts#L26-L45
 type Response struct {
 
 	// Aggregations The aggregations result, if requested.
-	Aggregations map[string]types.APIKeyAggregate `json:"aggregations,omitempty"`
+	Aggregations map[string]types.ApiKeyAggregate `json:"aggregations,omitempty"`
 	// ApiKeys A list of API key information.
 	ApiKeys []types.ApiKey `json:"api_keys"`
 	// Count The number of API keys returned in the response.
@@ -50,7 +50,7 @@ type Response struct {
 // NewResponse returns a Response
 func NewResponse() *Response {
 	r := &Response{
-		Aggregations: make(map[string]types.APIKeyAggregate, 0),
+		Aggregations: make(map[string]types.ApiKeyAggregate, 0),
 	}
 	return r
 }
@@ -71,7 +71,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 		case "aggregations":
 			if s.Aggregations == nil {
-				s.Aggregations = make(map[string]types.APIKeyAggregate, 0)
+				s.Aggregations = make(map[string]types.ApiKeyAggregate, 0)
 			}
 
 			for dec.More() {
@@ -87,7 +87,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 						elems := strings.Split(value, "#")
 						if len(elems) == 2 {
 							if s.Aggregations == nil {
-								s.Aggregations = make(map[string]types.APIKeyAggregate, 0)
+								s.Aggregations = make(map[string]types.ApiKeyAggregate, 0)
 							}
 							switch elems[0] {
 
