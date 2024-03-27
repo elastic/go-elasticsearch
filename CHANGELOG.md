@@ -1,3 +1,37 @@
+# 8.13.0
+
+# API 
+
+New APIS:
+
+* `ConnectorSecretGet`
+* `ConnectorSecretPost`
+* `ConnectorSecretPut`
+* `ConnectorSecretDelete`
+* `ConnectorUpdateIndexName`
+* `ConnectorUpdateNative`
+* `ConnectorUpdateStatus`
+* `ConnectorUpdateAPIKeyDocumentID`
+* `ConnectorUpdateServiceDocumentType`
+
+
+* `EsqlAsyncQuery` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html)
+* `EsqlAsyncQueryGet` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html)
+* `ProfilingFlamegraph` [Documentation](https://www.elastic.co/guide/en/observability/current/universal-profiling.html)
+* `ProfilingStacktraces` [Documentation](https://www.elastic.co/guide/en/observability/current/universal-profiling.html)
+* `TextStructureTestGrokPattern` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html)
+* `Indices.ResolveCluster` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html)
+* `Security.QueryUser` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html)
+
+# Typed API
+
+* `indices.ResolveCluster` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html)
+* `textstructure.TestGrokPattern` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html)
+
+Thanks to @pakio, transport now has an optional pool based compression option. [link](https://github.com/elastic/elastic-transport-go/pull/19)
+
+And to @tblyler for fixing a very subtle memory leak in the `BulkIndexer`. #797
+
 # 8.12.1
 
 * Fix: ticker memory leak in bulk indexer due to internal flush call resetting the ticker. #797
