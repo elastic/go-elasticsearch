@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 // Retrieves information for API keys using a subset of query DSL
 package queryapikeys
@@ -314,7 +314,7 @@ func (r *QueryApiKeys) WithLimitedBy(withlimitedby bool) *QueryApiKeys {
 // Additionally, aggregations only run over the same subset of fields that query
 // works with.
 // API name: aggregations
-func (r *QueryApiKeys) Aggregations(aggregations map[string]types.APIKeyAggregationContainer) *QueryApiKeys {
+func (r *QueryApiKeys) Aggregations(aggregations map[string]types.ApiKeyAggregationContainer) *QueryApiKeys {
 
 	r.req.Aggregations = aggregations
 
@@ -342,7 +342,7 @@ func (r *QueryApiKeys) From(from int) *QueryApiKeys {
 // `creation`, `expiration`, `invalidated`, `invalidation`, `username`, `realm`,
 // and `metadata`.
 // API name: query
-func (r *QueryApiKeys) Query(query *types.APIKeyQueryContainer) *QueryApiKeys {
+func (r *QueryApiKeys) Query(query *types.ApiKeyQueryContainer) *QueryApiKeys {
 
 	r.req.Query = query
 

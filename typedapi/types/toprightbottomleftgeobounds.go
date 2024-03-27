@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TopRightBottomLeftGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/Geo.ts#L166-L169
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/_types/Geo.ts#L166-L169
 type TopRightBottomLeftGeoBounds struct {
 	BottomLeft GeoLocation `json:"bottom_left"`
 	TopRight   GeoLocation `json:"top_right"`

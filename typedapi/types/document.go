@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Document type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/ingest/simulate/types.ts#L41-L55
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/ingest/simulate/types.ts#L41-L55
 type Document struct {
 	// Id_ Unique identifier for the document.
 	// This ID must be unique within the `_index`.

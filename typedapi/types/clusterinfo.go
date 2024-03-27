@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package types
 
 // ClusterInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/cluster/allocation_explain/types.ts#L48-L54
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/cluster/allocation_explain/types.ts#L48-L54
 type ClusterInfo struct {
 	Nodes             map[string]NodeDiskUsage `json:"nodes"`
 	ReservedSizes     []ReservedSize           `json:"reserved_sizes"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package poststarttrial
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package poststarttrial
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/license/post_start_trial/StartTrialLicenseResponse.ts#L22-L29
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/license/post_start_trial/StartTrialLicenseResponse.ts#L22-L29
 type Response struct {
 	Acknowledged    bool                     `json:"acknowledged"`
 	ErrorMessage    *string                  `json:"error_message,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ExploreControls type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/graph/_types/ExploreControls.ts#L24-L49
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/graph/_types/ExploreControls.ts#L24-L49
 type ExploreControls struct {
 	// SampleDiversity To avoid the top-matching documents sample being dominated by a single source
 	// of results, it is sometimes necessary to request diversity in the sample.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package getsynonymssets
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getsynonymssets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/synonyms/get_synonyms_sets/SynonymsSetsGetResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/synonyms/get_synonyms_sets/SynonymsSetsGetResponse.ts#L23-L28
 type Response struct {
 	Count   int                     `json:"count"`
 	Results []types.SynonymsSetItem `json:"results"`

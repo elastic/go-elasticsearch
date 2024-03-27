@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StemmerOverrideTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/_types/analysis/token_filters.ts#L314-L318
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/_types/analysis/token_filters.ts#L314-L318
 type StemmerOverrideTokenFilter struct {
 	Rules     []string `json:"rules,omitempty"`
 	RulesPath *string  `json:"rules_path,omitempty"`

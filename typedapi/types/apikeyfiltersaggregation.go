@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/00fd9ffbc085e011cce9deb05bab4feaaa6b4115
+// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
 
 package types
 
@@ -29,12 +29,12 @@ import (
 	"strconv"
 )
 
-// APIKeyFiltersAggregation type.
+// ApiKeyFiltersAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/00fd9ffbc085e011cce9deb05bab4feaaa6b4115/specification/security/query_api_keys/types.ts#L208-L228
-type APIKeyFiltersAggregation struct {
+// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/security/query_api_keys/types.ts#L208-L228
+type ApiKeyFiltersAggregation struct {
 	// Filters Collection of queries from which to build buckets.
-	Filters BucketsAPIKeyQueryContainer `json:"filters,omitempty"`
+	Filters BucketsApiKeyQueryContainer `json:"filters,omitempty"`
 	// Keyed By default, the named filters aggregation returns the buckets as an object.
 	// Set to `false` to return the buckets as an array of objects.
 	Keyed *bool    `json:"keyed,omitempty"`
@@ -47,7 +47,7 @@ type APIKeyFiltersAggregation struct {
 	OtherBucketKey *string `json:"other_bucket_key,omitempty"`
 }
 
-func (s *APIKeyFiltersAggregation) UnmarshalJSON(data []byte) error {
+func (s *ApiKeyFiltersAggregation) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -70,13 +70,13 @@ func (s *APIKeyFiltersAggregation) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
 			case '{':
-				o := make(map[string]APIKeyQueryContainer, 0)
+				o := make(map[string]ApiKeyQueryContainer, 0)
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Filters", err)
 				}
 				s.Filters = o
 			case '[':
-				o := []APIKeyQueryContainer{}
+				o := []ApiKeyQueryContainer{}
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Filters", err)
 				}
@@ -145,9 +145,9 @@ func (s *APIKeyFiltersAggregation) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewAPIKeyFiltersAggregation returns a APIKeyFiltersAggregation.
-func NewAPIKeyFiltersAggregation() *APIKeyFiltersAggregation {
-	r := &APIKeyFiltersAggregation{}
+// NewApiKeyFiltersAggregation returns a ApiKeyFiltersAggregation.
+func NewApiKeyFiltersAggregation() *ApiKeyFiltersAggregation {
+	r := &ApiKeyFiltersAggregation{}
 
 	return r
 }
