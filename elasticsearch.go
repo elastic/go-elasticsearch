@@ -91,6 +91,7 @@ type Config struct {
 
 	CompressRequestBody      bool // Default: false.
 	CompressRequestBodyLevel int  // Default: gzip.DefaultCompression.
+	PoolCompressor           bool // If true, a sync.Pool based gzip writer is used. Default: false.
 
 	DiscoverNodesOnStart  bool          // Discover nodes when initializing the client. Default: false.
 	DiscoverNodesInterval time.Duration // Discover nodes periodically. Default: disabled.
@@ -294,6 +295,7 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 
 		CompressRequestBody:      cfg.CompressRequestBody,
 		CompressRequestBodyLevel: cfg.CompressRequestBodyLevel,
+		PoolCompressor:           cfg.PoolCompressor,
 
 		EnableMetrics:     cfg.EnableMetrics,
 		EnableDebugLogger: cfg.EnableDebugLogger,
