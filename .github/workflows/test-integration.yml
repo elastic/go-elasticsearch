@@ -22,7 +22,7 @@ env:
   ELASTICSEARCH_VERSION: elasticsearch:8.3.0-SNAPSHOT
 
 jobs:
-  test:
+  test-integration:
     name: Tests
     runs-on: ubuntu-latest
     steps:
@@ -31,17 +31,6 @@ jobs:
       - uses: actions/setup-go@v2.1.3
         with: { go-version: '1.x' }
       - run: go version
-      - name: Increase system limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - name: Launch Elasticsearch
-        run: |
-          docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
-          docker pull --quiet appropriate/curl
-          make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
       - run: make test-integ race=true
       - uses: codecov/codecov-action@v1
         with:
@@ -57,17 +46,6 @@ jobs:
       - uses: actions/setup-go@v2.1.3
         with: { go-version: '1.x' }
       - run: go version
-      - name: Increase system limits
-        run: |
-          sudo swapoff -a
-          sudo sysctl -w vm.swappiness=1
-          sudo sysctl -w fs.file-max=262144
-          sudo sysctl -w vm.max_map_count=262144
-      - name: Launch Elasticsearch
-        run: |
-          docker pull --quiet docker.elastic.co/elasticsearch/${{ env.ELASTICSEARCH_VERSION }}
-          docker pull --quiet appropriate/curl
-          make cluster-clean cluster-update cluster detach=true version="${{ env.ELASTICSEARCH_VERSION }}"
       - name: Run setup
         run: |
           cd _examples/encoding && make setup

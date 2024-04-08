@@ -35,14 +35,14 @@ endif
 	$(eval testintegargs += "-cover" "-coverprofile=tmp/integration-client.cov" "-tags='$(testintegtags)'" "-timeout=1h")
 	@mkdir -p tmp
 	@if which gotestsum > /dev/null 2>&1 ; then \
-  		export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml --" $(testintegargs); \
 		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "."; \
-		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./esapi" "./esutil"; \
+		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./esapi"; \
+		gotestsum --format=short-verbose --junitfile=tmp/integration-report.xml -- $(testintegargs) "./esutil"; \
 	else \
-	  	export ELASTICSEARCH_URL='http://elastic:elastic@localhost:9200'; \
 		echo "go test -v" $(testintegargs) "."; \
-		go test -v $(testintegargs) "./esapi" "./esutil"; \
+		go test -v $(testintegargs) "./esapi"; \
+		go test -v $(testintegargs) "./esutil"; \
 	fi;
 
 test-api:  ## Run generated API integration tests
