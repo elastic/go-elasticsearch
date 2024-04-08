@@ -21,22 +21,44 @@
 package esutil_test
 
 import (
+	"context"
+	"os"
 	"strings"
 	"testing"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 func TestJSONReaderIntegration(t *testing.T) {
+	stackVersion := version.Client
+	if v := os.Getenv("STACK_VERSION"); v != "" {
+		stackVersion = v
+	}
+
+	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion)
+	if err != nil {
+		t.Fatalf("Error setting up Elasticsearch container: %s", err)
+	}
+	defer func() {
+		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
+			t.Fatalf("Error terminating Elasticsearch container: %s", err)
+		}
+	}()
+
+	tcCfg := elasticsearchSrv.ESConfig()
+
 	t.Run("Index and search", func(t *testing.T) {
 		var (
 			res *esapi.Response
 			err error
 		)
 
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.NewClient(tcCfg)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}

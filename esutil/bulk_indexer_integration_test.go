@@ -34,6 +34,9 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 func TestBulkIndexerIntegration(t *testing.T) {
@@ -65,6 +68,23 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		},
 	}
 
+	stackVersion := version.Client
+	if v := os.Getenv("STACK_VERSION"); v != "" {
+		stackVersion = v
+	}
+
+	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion)
+	if err != nil {
+		t.Fatalf("Error setting up Elasticsearch container: %s", err)
+	}
+	defer func() {
+		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
+			t.Fatalf("Error terminating Elasticsearch container: %s", err)
+		}
+	}()
+
+	tcCfg := elasticsearchSrv.ESConfig()
+
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Run("Default", func(t *testing.T) {
@@ -72,6 +92,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				indexName := "test-bulk-integration"
 
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+					Addresses:                tcCfg.Addresses,
+					Username:                 tcCfg.Username,
+					Password:                 tcCfg.Password,
+					CACert:                   tcCfg.CACert,
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
 					PoolCompressor:           tt.PoolCompressor,
@@ -139,6 +163,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 
 			t.Run("Multiple indices", func(t *testing.T) {
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+					Addresses:                tcCfg.Addresses,
+					Username:                 tcCfg.Username,
+					Password:                 tcCfg.Password,
+					CACert:                   tcCfg.CACert,
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
 					PoolCompressor:           tt.PoolCompressor,
@@ -209,6 +237,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				var index string = "test-index-a"
 
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+					Addresses:                tcCfg.Addresses,
+					Username:                 tcCfg.Username,
+					Password:                 tcCfg.Password,
+					CACert:                   tcCfg.CACert,
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
 					PoolCompressor:           tt.PoolCompressor,
@@ -272,6 +304,10 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				var alias string = "test-alias-a"
 
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
+					Addresses:                tcCfg.Addresses,
+					Username:                 tcCfg.Username,
+					Password:                 tcCfg.Password,
+					CACert:                   tcCfg.CACert,
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
 					PoolCompressor:           tt.PoolCompressor,
