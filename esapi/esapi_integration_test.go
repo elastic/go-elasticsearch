@@ -22,19 +22,41 @@ package esapi_test
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 func TestAPI(t *testing.T) {
+	stackVersion := version.Client
+	if v := os.Getenv("STACK_VERSION"); v != "" {
+		stackVersion = v
+	}
+
+	elasticsearchSrv, err := containertest.NewElasticsearchService(stackVersion)
+	if err != nil {
+		t.Fatalf("Error setting up Elasticsearch container: %s", err)
+	}
+	defer func() {
+		if err := elasticsearchSrv.Terminate(context.Background()); err != nil {
+			t.Fatalf("Error terminating Elasticsearch container: %s", err)
+		}
+	}()
+
+	tcCfg := elasticsearchSrv.ESConfig()
+
 	t.Run("Search", func(t *testing.T) {
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.NewClient(tcCfg)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
@@ -59,7 +81,7 @@ func TestAPI(t *testing.T) {
 	})
 
 	t.Run("Headers", func(t *testing.T) {
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.NewClient(tcCfg)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
@@ -89,7 +111,7 @@ func TestAPI(t *testing.T) {
 			requestID = "reindex-123"
 		)
 
-		es, err := elasticsearch.NewDefaultClient()
+		es, err := elasticsearch.NewClient(tcCfg)
 		if err != nil {
 			t.Fatalf("Error creating the client: %s\n", err)
 		}
