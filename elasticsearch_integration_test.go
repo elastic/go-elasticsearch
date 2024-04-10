@@ -29,6 +29,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/testcontainers/testcontainers-go"
+	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
 	"log"
 	"net"
 	"net/http"
@@ -51,38 +53,6 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
 )
-
-type CustomTransport struct {
-	client *http.Client
-}
-
-func (t *CustomTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	req.Header.Set("X-Foo", "bar")
-	log.Printf("> %s %s %s\n", req.Method, req.URL.String(), req.Header)
-	return t.client.Do(req)
-}
-
-type ReplacedTransport struct {
-	u       *url.URL
-	caCert  []byte
-	counter uint64
-}
-
-func (t *ReplacedTransport) Perform(req *http.Request) (*http.Response, error) {
-	req.URL = t.u
-
-	atomic.AddUint64(&t.counter, 1)
-
-	defaultTransport := http.DefaultTransport
-	defaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{RootCAs: x509.NewCertPool()}
-	defaultTransport.(*http.Transport).TLSClientConfig.RootCAs.AppendCertsFromPEM(t.caCert)
-
-	return defaultTransport.RoundTrip(req)
-}
-
-func (t *ReplacedTransport) Count() uint64 {
-	return atomic.LoadUint64(&t.counter)
-}
 
 func TestElasticsearchIntegration(t *testing.T) {
 	stackVersion := version.Client
@@ -494,29 +464,61 @@ func TestElasticsearchIntegration(t *testing.T) {
 			}
 		})
 	})
+}
+
+type CustomTransport struct {
+	client *http.Client
+}
+
+func (t *CustomTransport) RoundTrip(req *http.Request) (*http.Response, error) {
+	req.Header.Set("X-Foo", "bar")
+	log.Printf("> %s %s %s\n", req.Method, req.URL.String(), req.Header)
+	return t.client.Do(req)
+}
+
+type ReplacedTransport struct {
+	u       *url.URL
+	caCert  []byte
+	counter uint64
+}
+
+func (t *ReplacedTransport) Perform(req *http.Request) (*http.Response, error) {
+	req.URL = t.u
+
+	atomic.AddUint64(&t.counter, 1)
+
+	defaultTransport := http.DefaultTransport
+	defaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{RootCAs: x509.NewCertPool()}
+	defaultTransport.(*http.Transport).TLSClientConfig.RootCAs.AppendCertsFromPEM(t.caCert)
+
+	return defaultTransport.RoundTrip(req)
+}
+
+func (t *ReplacedTransport) Count() uint64 {
+	return atomic.LoadUint64(&t.counter)
+}
+
+func TestElasticsearchInsecureIntegration(t *testing.T) {
+	elasticsearchContainer, err := tces.RunContainer(
+		context.Background(),
+		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:"+version.Client),
+		testcontainers.WithEnv(map[string]string{
+			"xpack.security.enabled": "false",
+		}),
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Setenv("ELASTICSEARCH_URL", elasticsearchContainer.Settings.Address)
 
 	t.Run("CustomTransport", func(t *testing.T) {
-
 		t.Run("TestClientCustomTransport", func(t *testing.T) {
 			t.Run("Customized", func(t *testing.T) {
 				cfg := elasticsearch.Config{
-					Addresses: tcCfg.Addresses,
-					Username:  tcCfg.Username,
-					Password:  tcCfg.Password,
 					Transport: &CustomTransport{
-						client: &http.Client{
-							Transport: http.DefaultTransport,
-						},
+						client: http.DefaultClient,
 					},
-				}
-
-				if ctp, okCtp := cfg.Transport.(*CustomTransport); okCtp {
-					if tp, cok := ctp.client.Transport.(*http.Transport); cok {
-						tp.TLSClientConfig = &tls.Config{
-							RootCAs: x509.NewCertPool(),
-						}
-						tp.TLSClientConfig.RootCAs.AppendCertsFromPEM(tcCfg.CACert)
-					}
 				}
 
 				es, err := elasticsearch.NewClient(cfg)
@@ -534,20 +536,13 @@ func TestElasticsearchIntegration(t *testing.T) {
 			})
 
 			t.Run("Manual", func(t *testing.T) {
-				u, _ := url.Parse(tcCfg.Addresses[0])
-
-				defaultTransport := http.DefaultTransport
-				defaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{RootCAs: x509.NewCertPool()}
-				defaultTransport.(*http.Transport).TLSClientConfig.RootCAs.AppendCertsFromPEM(tcCfg.CACert)
+				u, _ := url.Parse(elasticsearchContainer.Settings.Address)
 
 				tp, _ := elastictransport.New(elastictransport.Config{
 					URLs: []*url.URL{
 						u,
 					},
-					Username:  tcCfg.Username,
-					Password:  tcCfg.Password,
-					CACert:    tcCfg.CACert,
-					Transport: defaultTransport,
+					Transport: http.DefaultTransport,
 				})
 
 				es := elasticsearch.Client{
@@ -570,11 +565,11 @@ func TestElasticsearchIntegration(t *testing.T) {
 
 	t.Run("TestClientReplaceTransport", func(t *testing.T) {
 		t.Run("Replaced", func(t *testing.T) {
-			u, err := url.Parse(tcCfg.Addresses[0])
+			u, err := url.Parse(elasticsearchContainer.Settings.Address)
 			if err != nil {
 				t.Fatalf("cannot parse Elasticsearch docker container url: %s", err)
 			}
-			tr := &ReplacedTransport{u: u, caCert: tcCfg.CACert}
+			tr := &ReplacedTransport{u: u}
 			es := elasticsearch.Client{
 				BaseClient: elasticsearch.BaseClient{
 					Transport: tr,
@@ -597,15 +592,8 @@ func TestElasticsearchIntegration(t *testing.T) {
 	})
 
 	t.Run("TestClientAPI", func(t *testing.T) {
-		t.Setenv("ELASTICSEARCH_URL", tcCfg.Addresses[0])
-
 		t.Run("Info", func(t *testing.T) {
-			es, err := elasticsearch.NewClient(elasticsearch.Config{
-				Addresses: tcCfg.Addresses,
-				CACert:    tcCfg.CACert,
-				Username:  tcCfg.Username,
-				Password:  tcCfg.Password,
-			})
+			es, err := elasticsearch.NewDefaultClient()
 			if err != nil {
 				t.Fatalf("Error creating the client: %s\n", err)
 			}
