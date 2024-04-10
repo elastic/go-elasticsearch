@@ -37,6 +37,7 @@ And to @tblyler for fixing a very subtle memory leak in the `BulkIndexer`. #797
 * Fix: ticker memory leak in bulk indexer due to internal flush call resetting the ticker. #797
 * Fix: Scroll now uses the body to pass the scroll_id. #785
 * Add: generated UnmarshalJSON for Requests to allow injecting payloads using aliases.
+* Fix: put_synonym_rule was not working due to type mismatching issue in the [Elasticsearch API Specification](https://github.com/elastic/elasticsearch-specification/pull/2407).
 
 # 8.12.0
 
