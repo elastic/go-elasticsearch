@@ -1,3 +1,23 @@
+# 8.13.1
+
+# Typed API
+
+Update APIs to latest [elasticsearch-specification 8.13](https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757)
+
+## Fixes
+
+This patch release brings a fix to the initialisation of the `Request` in endpoints which would prevent using the shortcuts for fields. 
+Canonical`.Request()` method was unaffected.
+
+* `Autoscaling.PutAutoscalingPolicy`
+* `Indices.Downsample`
+* `Indices.PutSettings`
+* `Indices.SimulateTemplate`
+* `Inference.PutModel`
+* `Logstash.PutPipeline`
+* `Ml.ValidateDetector`
+* `SearchApplication.Put`
+
 # 8.13.0
 
 # API 
