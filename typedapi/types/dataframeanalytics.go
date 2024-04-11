@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DataframeAnalytics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/ml/_types/DataframeAnalytics.ts#L324-L344
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/ml/_types/DataframeAnalytics.ts#L324-L344
 type DataframeAnalytics struct {
 	// AnalysisStats An object containing information about the analysis job.
 	AnalysisStats *DataframeAnalyticsStatsContainer `json:"analysis_stats,omitempty"`

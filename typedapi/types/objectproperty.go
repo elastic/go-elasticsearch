@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ObjectProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/_types/mapping/complex.ts#L46-L50
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/_types/mapping/complex.ts#L46-L50
 type ObjectProperty struct {
 	CopyTo      []string                       `json:"copy_to,omitempty"`
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
@@ -127,7 +127,7 @@ func (s *ObjectProperty) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Fields[key] = oo
-				case "{dynamic_property}":
+				case "{dynamic_type}":
 					oo := NewDynamicProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
@@ -458,7 +458,7 @@ func (s *ObjectProperty) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Properties[key] = oo
-				case "{dynamic_property}":
+				case "{dynamic_type}":
 					oo := NewDynamicProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err

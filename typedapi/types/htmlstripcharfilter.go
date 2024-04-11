@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -30,10 +30,11 @@ import (
 
 // HtmlStripCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/_types/analysis/char_filters.ts#L43-L45
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/_types/analysis/char_filters.ts#L43-L46
 type HtmlStripCharFilter struct {
-	Type    string  `json:"type,omitempty"`
-	Version *string `json:"version,omitempty"`
+	EscapedTags []string `json:"escaped_tags,omitempty"`
+	Type        string   `json:"type,omitempty"`
+	Version     *string  `json:"version,omitempty"`
 }
 
 func (s *HtmlStripCharFilter) UnmarshalJSON(data []byte) error {
@@ -50,6 +51,11 @@ func (s *HtmlStripCharFilter) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "escaped_tags":
+			if err := dec.Decode(&s.EscapedTags); err != nil {
+				return fmt.Errorf("%s | %w", "EscapedTags", err)
+			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
@@ -70,8 +76,9 @@ func (s *HtmlStripCharFilter) UnmarshalJSON(data []byte) error {
 func (s HtmlStripCharFilter) MarshalJSON() ([]byte, error) {
 	type innerHtmlStripCharFilter HtmlStripCharFilter
 	tmp := innerHtmlStripCharFilter{
-		Type:    s.Type,
-		Version: s.Version,
+		EscapedTags: s.EscapedTags,
+		Type:        s.Type,
+		Version:     s.Version,
 	}
 
 	tmp.Type = "html_strip"

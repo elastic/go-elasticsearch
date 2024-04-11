@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/_types/mapping/dynamic-template.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/_types/mapping/dynamic-template.ts#L22-L30
 type DynamicTemplate struct {
 	Mapping          Property             `json:"mapping,omitempty"`
 	Match            *string              `json:"match,omitempty"`
@@ -85,7 +85,7 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Mapping = *o
-			case "{dynamic_property}":
+			case "{dynamic_type}":
 				o := NewDynamicProperty()
 				if err := localDec.Decode(&o); err != nil {
 					return err

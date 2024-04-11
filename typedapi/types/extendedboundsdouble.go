@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // ExtendedBoundsdouble type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/_types/aggregations/bucket.ts#L489-L498
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/_types/aggregations/bucket.ts#L487-L496
 type ExtendedBoundsdouble struct {
 	// Max Maximum value for the bound.
-	Max Float64 `json:"max"`
+	Max *Float64 `json:"max,omitempty"`
 	// Min Minimum value for the bound.
-	Min Float64 `json:"min"`
+	Min *Float64 `json:"min,omitempty"`
 }
 
 func (s *ExtendedBoundsdouble) UnmarshalJSON(data []byte) error {
@@ -64,10 +64,10 @@ func (s *ExtendedBoundsdouble) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Max", err)
 				}
 				f := Float64(value)
-				s.Max = f
+				s.Max = &f
 			case float64:
 				f := Float64(v)
-				s.Max = f
+				s.Max = &f
 			}
 
 		case "min":
@@ -80,10 +80,10 @@ func (s *ExtendedBoundsdouble) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Min", err)
 				}
 				f := Float64(value)
-				s.Min = f
+				s.Min = &f
 			case float64:
 				f := Float64(v)
-				s.Min = f
+				s.Min = &f
 			}
 
 		}
