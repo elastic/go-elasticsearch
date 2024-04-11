@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 // Retrieves information for API keys using a subset of query DSL
 package queryapikeys
@@ -247,6 +247,8 @@ func (r QueryApiKeys) Do(providedCtx context.Context) (*Response, error) {
 
 	response := NewResponse()
 
+	r.TypedKeys(true)
+
 	res, err := r.Perform(ctx)
 	if err != nil {
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -301,6 +303,15 @@ func (r *QueryApiKeys) Header(key, value string) *QueryApiKeys {
 // API name: with_limited_by
 func (r *QueryApiKeys) WithLimitedBy(withlimitedby bool) *QueryApiKeys {
 	r.values.Set("with_limited_by", strconv.FormatBool(withlimitedby))
+
+	return r
+}
+
+// TypedKeys Determines whether aggregation names are prefixed by their respective types
+// in the response.
+// API name: typed_keys
+func (r *QueryApiKeys) TypedKeys(typedkeys bool) *QueryApiKeys {
+	r.values.Set("typed_keys", strconv.FormatBool(typedkeys))
 
 	return r
 }

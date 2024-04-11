@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AliasesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/cat/aliases/types.ts#L22-L53
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/cat/aliases/types.ts#L22-L53
 type AliasesRecord struct {
 	// Alias alias name
 	Alias *string `json:"alias,omitempty"`

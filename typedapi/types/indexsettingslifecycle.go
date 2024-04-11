@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexSettingsLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/indices/_types/IndexSettings.ts#L274-L307
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/indices/_types/IndexSettings.ts#L274-L307
 type IndexSettingsLifecycle struct {
 	// IndexingComplete Indicates whether or not the index has been rolled over. Automatically set to
 	// true when ILM completes the rollover action.
@@ -39,7 +39,7 @@ type IndexSettingsLifecycle struct {
 	IndexingComplete Stringifiedboolean `json:"indexing_complete,omitempty"`
 	// Name The name of the policy to use to manage the index. For information about how
 	// Elasticsearch applies policy changes, see Policy updates.
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// OriginationDate If specified, this is the timestamp used to calculate the index age for its
 	// phase transitions. Use this setting
 	// if you create a new index that contains old data and want to use the original

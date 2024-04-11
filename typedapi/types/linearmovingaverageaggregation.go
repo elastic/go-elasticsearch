@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/b2c13a00c152a97cb41193deda8ed9b37fd06796
+// https://github.com/elastic/elasticsearch-specification/tree/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // LinearMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/b2c13a00c152a97cb41193deda8ed9b37fd06796/specification/_types/aggregations/pipeline.ts#L242-L245
+// https://github.com/elastic/elasticsearch-specification/blob/5bf86339cd4bda77d07f6eaa6789b72f9c0279b1/specification/_types/aggregations/pipeline.ts#L242-L245
 type LinearMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
