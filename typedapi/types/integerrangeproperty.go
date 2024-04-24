@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // IntegerRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/range.ts#L42-L44
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/mapping/range.ts#L42-L44
 type IntegerRangeProperty struct {
 	Boost       *Float64                       `json:"boost,omitempty"`
 	Coerce      *bool                          `json:"coerce,omitempty"`
@@ -72,7 +73,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := Float64(value)
 				s.Boost = &f
@@ -88,7 +89,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Coerce", err)
 				}
 				s.Coerce = &value
 			case bool:
@@ -101,13 +102,13 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 
 				s.CopyTo = append(s.CopyTo, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.CopyTo); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CopyTo", err)
 				}
 			}
 
@@ -118,7 +119,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocValues", err)
 				}
 				s.DocValues = &value
 			case bool:
@@ -127,7 +128,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "fields":
@@ -445,7 +446,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -460,7 +461,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Index", err)
 				}
 				s.Index = &value
 			case bool:
@@ -472,7 +473,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "properties":
@@ -785,7 +786,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 		case "similarity":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -801,7 +802,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Store", err)
 				}
 				s.Store = &value
 			case bool:
@@ -810,7 +811,7 @@ func (s *IntegerRangeProperty) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

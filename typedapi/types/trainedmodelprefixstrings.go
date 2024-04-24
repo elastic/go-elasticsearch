@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,18 +24,19 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TrainedModelPrefixStrings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L428-L437
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L428-L437
 type TrainedModelPrefixStrings struct {
 	// Ingest String prepended to input at ingest
-	Ingest string `json:"ingest"`
+	Ingest *string `json:"ingest,omitempty"`
 	// Search String prepended to input at search
-	Search string `json:"search"`
+	Search *string `json:"search,omitempty"`
 }
 
 func (s *TrainedModelPrefixStrings) UnmarshalJSON(data []byte) error {
@@ -56,26 +57,26 @@ func (s *TrainedModelPrefixStrings) UnmarshalJSON(data []byte) error {
 		case "ingest":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ingest", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Ingest = o
+			s.Ingest = &o
 
 		case "search":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Search", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Search = o
+			s.Search = &o
 
 		}
 	}

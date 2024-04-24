@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package putprivileges
 
@@ -26,5 +26,5 @@ import (
 
 // Request holds the request body struct for the package putprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/put_privileges/SecurityPutPrivilegesRequest.ts#L25-L37
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/put_privileges/SecurityPutPrivilegesRequest.ts#L25-L37
 type Request = map[string]map[string]types.PrivilegesActions

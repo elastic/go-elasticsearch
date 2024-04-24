@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // ScriptScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/compound.ts#L120-L125
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/compound.ts#L120-L125
 type ScriptScoreFunction struct {
 	// Script A script that computes a score.
 	Script Script `json:"script"`
@@ -53,7 +54,7 @@ func (s *ScriptScoreFunction) UnmarshalJSON(data []byte) error {
 		case "script":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 			keyDec := json.NewDecoder(bytes.NewReader(message))
 			for {
@@ -62,7 +63,7 @@ func (s *ScriptScoreFunction) UnmarshalJSON(data []byte) error {
 					if errors.Is(err, io.EOF) {
 						break
 					}
-					return err
+					return fmt.Errorf("%s | %w", "Script", err)
 				}
 
 				switch t {
@@ -71,7 +72,7 @@ func (s *ScriptScoreFunction) UnmarshalJSON(data []byte) error {
 					o := NewInlineScript()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -79,7 +80,7 @@ func (s *ScriptScoreFunction) UnmarshalJSON(data []byte) error {
 					o := NewStoredScriptId()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 

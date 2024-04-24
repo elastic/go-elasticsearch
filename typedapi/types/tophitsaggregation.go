@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TopHitsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/metric.ts#L337-L392
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/metric.ts#L337-L392
 type TopHitsAggregation struct {
 	// DocvalueFields Fields for which to return doc values.
 	DocvalueFields []string `json:"docvalue_fields,omitempty"`
@@ -91,13 +92,13 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocvalueFields", err)
 				}
 
 				s.DocvalueFields = append(s.DocvalueFields, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.DocvalueFields); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocvalueFields", err)
 				}
 			}
 
@@ -108,7 +109,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Explain", err)
 				}
 				s.Explain = &value
 			case bool:
@@ -117,7 +118,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "from":
@@ -128,7 +129,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "From", err)
 				}
 				s.From = &value
 			case float64:
@@ -138,18 +139,18 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "highlight":
 			if err := dec.Decode(&s.Highlight); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Highlight", err)
 			}
 
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Missing", err)
 			}
 
 		case "script":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 			keyDec := json.NewDecoder(bytes.NewReader(message))
 			for {
@@ -158,7 +159,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 					if errors.Is(err, io.EOF) {
 						break
 					}
-					return err
+					return fmt.Errorf("%s | %w", "Script", err)
 				}
 
 				switch t {
@@ -167,7 +168,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 					o := NewInlineScript()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -175,7 +176,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 					o := NewStoredScriptId()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -187,7 +188,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 				s.ScriptFields = make(map[string]ScriptField, 0)
 			}
 			if err := dec.Decode(&s.ScriptFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptFields", err)
 			}
 
 		case "seq_no_primary_term":
@@ -197,7 +198,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SeqNoPrimaryTerm", err)
 				}
 				s.SeqNoPrimaryTerm = &value
 			case bool:
@@ -212,7 +213,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -226,19 +227,19 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(SortCombinations)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sort", err)
 				}
 
 				s.Sort = append(s.Sort, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Sort); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sort", err)
 				}
 			}
 
 		case "_source":
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
 
 		case "stored_fields":
@@ -247,13 +248,13 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoredFields", err)
 				}
 
 				s.StoredFields = append(s.StoredFields, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StoredFields); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoredFields", err)
 				}
 			}
 
@@ -264,7 +265,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TrackScores", err)
 				}
 				s.TrackScores = &value
 			case bool:
@@ -278,7 +279,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Version", err)
 				}
 				s.Version = &value
 			case bool:

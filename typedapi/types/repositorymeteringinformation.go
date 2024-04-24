@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RepositoryMeteringInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
 type RepositoryMeteringInformation struct {
 	// Archived A flag that tells whether or not this object has been archived. When a
 	// repository is closed or updated the
@@ -88,7 +89,7 @@ func (s *RepositoryMeteringInformation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Archived", err)
 				}
 				s.Archived = value
 			case bool:
@@ -97,38 +98,38 @@ func (s *RepositoryMeteringInformation) UnmarshalJSON(data []byte) error {
 
 		case "cluster_version":
 			if err := dec.Decode(&s.ClusterVersion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ClusterVersion", err)
 			}
 
 		case "repository_ephemeral_id":
 			if err := dec.Decode(&s.RepositoryEphemeralId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RepositoryEphemeralId", err)
 			}
 
 		case "repository_location":
 			if err := dec.Decode(&s.RepositoryLocation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RepositoryLocation", err)
 			}
 
 		case "repository_name":
 			if err := dec.Decode(&s.RepositoryName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RepositoryName", err)
 			}
 
 		case "repository_started_at":
 			if err := dec.Decode(&s.RepositoryStartedAt); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RepositoryStartedAt", err)
 			}
 
 		case "repository_stopped_at":
 			if err := dec.Decode(&s.RepositoryStoppedAt); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RepositoryStoppedAt", err)
 			}
 
 		case "repository_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RepositoryType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -139,7 +140,7 @@ func (s *RepositoryMeteringInformation) UnmarshalJSON(data []byte) error {
 
 		case "request_counts":
 			if err := dec.Decode(&s.RequestCounts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RequestCounts", err)
 			}
 
 		}

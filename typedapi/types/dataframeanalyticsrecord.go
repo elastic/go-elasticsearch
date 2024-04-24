@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataFrameAnalyticsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/ml_data_frame_analytics/types.ts#L22-L102
 type DataFrameAnalyticsRecord struct {
 	// AssignmentExplanation Messages related to the selection of a node.
 	AssignmentExplanation *string `json:"assignment_explanation,omitempty"`
@@ -85,7 +86,7 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 		case "assignment_explanation", "ae", "assignmentExplanation":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AssignmentExplanation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -97,7 +98,7 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 		case "create_time", "ct", "createTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreateTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -109,7 +110,7 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 		case "description", "d":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -120,13 +121,13 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 
 		case "dest_index", "di", "destIndex":
 			if err := dec.Decode(&s.DestIndex); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DestIndex", err)
 			}
 
 		case "failure_reason", "fr", "failureReason":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FailureReason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -137,13 +138,13 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "model_memory_limit", "mml", "modelMemoryLimit":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelMemoryLimit", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -155,7 +156,7 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 		case "node.address", "na", "nodeAddress":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeAddress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -166,23 +167,23 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 
 		case "node.ephemeral_id", "ne", "nodeEphemeralId":
 			if err := dec.Decode(&s.NodeEphemeralId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeEphemeralId", err)
 			}
 
 		case "node.id", "ni", "nodeId":
 			if err := dec.Decode(&s.NodeId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 
 		case "node.name", "nn", "nodeName":
 			if err := dec.Decode(&s.NodeName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeName", err)
 			}
 
 		case "progress", "p":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Progress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -193,13 +194,13 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 
 		case "source_index", "si", "sourceIndex":
 			if err := dec.Decode(&s.SourceIndex); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SourceIndex", err)
 			}
 
 		case "state", "s":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -211,7 +212,7 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 		case "type", "t":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -222,7 +223,7 @@ func (s *DataFrameAnalyticsRecord) UnmarshalJSON(data []byte) error {
 
 		case "version", "v":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

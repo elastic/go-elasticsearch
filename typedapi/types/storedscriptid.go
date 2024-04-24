@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // StoredScriptId type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/Scripting.ts#L81-L86
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Scripting.ts#L81-L86
 type StoredScriptId struct {
 	// Id The `id` for a stored script.
 	Id string `json:"id"`
@@ -55,7 +56,7 @@ func (s *StoredScriptId) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "params":
@@ -63,7 +64,7 @@ func (s *StoredScriptId) UnmarshalJSON(data []byte) error {
 				s.Params = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Params); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Params", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // ScheduleContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Schedule.ts#L80-L91
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Schedule.ts#L80-L91
 type ScheduleContainer struct {
 	Cron     *string         `json:"cron,omitempty"`
 	Daily    *DailySchedule  `json:"daily,omitempty"`
@@ -57,22 +58,22 @@ func (s *ScheduleContainer) UnmarshalJSON(data []byte) error {
 
 		case "cron":
 			if err := dec.Decode(&s.Cron); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cron", err)
 			}
 
 		case "daily":
 			if err := dec.Decode(&s.Daily); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Daily", err)
 			}
 
 		case "hourly":
 			if err := dec.Decode(&s.Hourly); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Hourly", err)
 			}
 
 		case "interval":
 			if err := dec.Decode(&s.Interval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Interval", err)
 			}
 
 		case "monthly":
@@ -81,13 +82,13 @@ func (s *ScheduleContainer) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := NewTimeOfMonth()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Monthly", err)
 				}
 
 				s.Monthly = append(s.Monthly, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Monthly); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Monthly", err)
 				}
 			}
 
@@ -97,13 +98,13 @@ func (s *ScheduleContainer) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := NewTimeOfWeek()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Weekly", err)
 				}
 
 				s.Weekly = append(s.Weekly, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Weekly); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Weekly", err)
 				}
 			}
 
@@ -113,13 +114,13 @@ func (s *ScheduleContainer) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := NewTimeOfYear()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Yearly", err)
 				}
 
 				s.Yearly = append(s.Yearly, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Yearly); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Yearly", err)
 				}
 			}
 

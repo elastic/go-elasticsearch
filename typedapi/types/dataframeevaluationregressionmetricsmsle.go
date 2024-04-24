@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataframeEvaluationRegressionMetricsMsle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeEvaluation.ts#L112-L115
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeEvaluation.ts#L112-L115
 type DataframeEvaluationRegressionMetricsMsle struct {
 	// Offset Defines the transition point at which you switch from minimizing quadratic
 	// error to minimizing quadratic log error. Defaults to 1.
@@ -59,7 +60,7 @@ func (s *DataframeEvaluationRegressionMetricsMsle) UnmarshalJSON(data []byte) er
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Offset", err)
 				}
 				f := Float64(value)
 				s.Offset = &f

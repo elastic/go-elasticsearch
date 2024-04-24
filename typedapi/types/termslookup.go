@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // TermsLookup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/term.ts#L242-L247
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/term.ts#L242-L247
 type TermsLookup struct {
 	Id      string  `json:"id"`
 	Index   string  `json:"index"`
@@ -54,22 +55,22 @@ func (s *TermsLookup) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "path":
 			if err := dec.Decode(&s.Path); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Path", err)
 			}
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		}

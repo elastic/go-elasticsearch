@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // KuromojiIterationMarkCharFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/kuromoji-plugin.ts#L31-L35
 type KuromojiIterationMarkCharFilter struct {
 	NormalizeKana  bool    `json:"normalize_kana"`
 	NormalizeKanji bool    `json:"normalize_kanji"`
@@ -60,7 +61,7 @@ func (s *KuromojiIterationMarkCharFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NormalizeKana", err)
 				}
 				s.NormalizeKana = value
 			case bool:
@@ -74,7 +75,7 @@ func (s *KuromojiIterationMarkCharFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NormalizeKanji", err)
 				}
 				s.NormalizeKanji = value
 			case bool:
@@ -83,12 +84,12 @@ func (s *KuromojiIterationMarkCharFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

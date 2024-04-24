@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DerivativeAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/Aggregate.ts#L227-L231
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L227-L231
 type DerivativeAggregate struct {
 	Meta                    Metadata `json:"meta,omitempty"`
 	NormalizedValue         *Float64 `json:"normalized_value,omitempty"`
@@ -59,7 +60,7 @@ func (s *DerivativeAggregate) UnmarshalJSON(data []byte) error {
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "normalized_value":
@@ -69,7 +70,7 @@ func (s *DerivativeAggregate) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NormalizedValue", err)
 				}
 				f := Float64(value)
 				s.NormalizedValue = &f
@@ -81,7 +82,7 @@ func (s *DerivativeAggregate) UnmarshalJSON(data []byte) error {
 		case "normalized_value_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NormalizedValueAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,13 +93,13 @@ func (s *DerivativeAggregate) UnmarshalJSON(data []byte) error {
 
 		case "value":
 			if err := dec.Decode(&s.Value); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Value", err)
 			}
 
 		case "value_as_string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ValueAsString", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

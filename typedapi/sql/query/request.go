@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package query
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/sql/query/QuerySqlRequest.ts#L28-L122
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/sql/query/QuerySqlRequest.ts#L28-L122
 type Request struct {
 
 	// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on
@@ -119,7 +119,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "catalog":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Catalog", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -135,7 +135,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Columnar", err)
 				}
 				s.Columnar = &value
 			case bool:
@@ -145,7 +145,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "cursor":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cursor", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -162,7 +162,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FetchSize", err)
 				}
 				s.FetchSize = &value
 			case float64:
@@ -177,7 +177,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FieldMultiValueLeniency", err)
 				}
 				s.FieldMultiValueLeniency = &value
 			case bool:
@@ -186,7 +186,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "index_using_frozen":
@@ -196,7 +196,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexUsingFrozen", err)
 				}
 				s.IndexUsingFrozen = &value
 			case bool:
@@ -205,7 +205,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "keep_alive":
 			if err := dec.Decode(&s.KeepAlive); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "KeepAlive", err)
 			}
 
 		case "keep_on_completion":
@@ -215,7 +215,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "KeepOnCompletion", err)
 				}
 				s.KeepOnCompletion = &value
 			case bool:
@@ -224,7 +224,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "page_timeout":
 			if err := dec.Decode(&s.PageTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PageTimeout", err)
 			}
 
 		case "params":
@@ -232,13 +232,13 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Params = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Params); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Params", err)
 			}
 
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -249,22 +249,22 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "request_timeout":
 			if err := dec.Decode(&s.RequestTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RequestTimeout", err)
 			}
 
 		case "runtime_mappings":
 			if err := dec.Decode(&s.RuntimeMappings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuntimeMappings", err)
 			}
 
 		case "time_zone":
 			if err := dec.Decode(&s.TimeZone); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
 		case "wait_for_completion_timeout":
 			if err := dec.Decode(&s.WaitForCompletionTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WaitForCompletionTimeout", err)
 			}
 
 		}

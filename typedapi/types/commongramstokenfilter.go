@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CommonGramsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/token_filters.ts#L173-L179
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/token_filters.ts#L173-L179
 type CommonGramsTokenFilter struct {
 	CommonWords     []string `json:"common_words,omitempty"`
 	CommonWordsPath *string  `json:"common_words_path,omitempty"`
@@ -57,13 +58,13 @@ func (s *CommonGramsTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "common_words":
 			if err := dec.Decode(&s.CommonWords); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CommonWords", err)
 			}
 
 		case "common_words_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CommonWordsPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -79,7 +80,7 @@ func (s *CommonGramsTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreCase", err)
 				}
 				s.IgnoreCase = &value
 			case bool:
@@ -93,7 +94,7 @@ func (s *CommonGramsTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "QueryMode", err)
 				}
 				s.QueryMode = &value
 			case bool:
@@ -102,12 +103,12 @@ func (s *CommonGramsTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

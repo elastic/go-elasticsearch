@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // VerifyIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/recovery/types.ts#L111-L116
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/recovery/types.ts#L111-L116
 type VerifyIndex struct {
 	CheckIndexTime         Duration `json:"check_index_time,omitempty"`
 	CheckIndexTimeInMillis int64    `json:"check_index_time_in_millis"`
@@ -54,22 +55,22 @@ func (s *VerifyIndex) UnmarshalJSON(data []byte) error {
 
 		case "check_index_time":
 			if err := dec.Decode(&s.CheckIndexTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CheckIndexTime", err)
 			}
 
 		case "check_index_time_in_millis":
 			if err := dec.Decode(&s.CheckIndexTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CheckIndexTimeInMillis", err)
 			}
 
 		case "total_time":
 			if err := dec.Decode(&s.TotalTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTime", err)
 			}
 
 		case "total_time_in_millis":
 			if err := dec.Decode(&s.TotalTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTimeInMillis", err)
 			}
 
 		}

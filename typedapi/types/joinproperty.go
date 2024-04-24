@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // JoinProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/core.ts#L83-L87
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/mapping/core.ts#L83-L87
 type JoinProperty struct {
 	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
@@ -62,7 +63,7 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "eager_global_ordinals":
@@ -72,7 +73,7 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EagerGlobalOrdinals", err)
 				}
 				s.EagerGlobalOrdinals = &value
 			case bool:
@@ -394,7 +395,7 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -407,7 +408,7 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "properties":
@@ -729,14 +730,14 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 					o := new(string)
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Relations", err)
 					}
 					s.Relations[key] = append(s.Relations[key], *o)
 				default:
 					o := []string{}
 					err := json.NewDecoder(bytes.NewReader(value)).Decode(&o)
 					if err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Relations", err)
 					}
 					s.Relations[key] = o
 				}
@@ -744,7 +745,7 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

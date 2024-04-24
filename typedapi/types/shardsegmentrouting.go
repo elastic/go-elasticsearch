@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardSegmentRouting type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/segments/types.ts#L40-L44
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/segments/types.ts#L40-L44
 type ShardSegmentRouting struct {
 	Node    string `json:"node"`
 	Primary bool   `json:"primary"`
@@ -55,7 +56,7 @@ func (s *ShardSegmentRouting) UnmarshalJSON(data []byte) error {
 		case "node":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -71,7 +72,7 @@ func (s *ShardSegmentRouting) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Primary", err)
 				}
 				s.Primary = value
 			case bool:
@@ -81,7 +82,7 @@ func (s *ShardSegmentRouting) UnmarshalJSON(data []byte) error {
 		case "state":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // RescoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/rescoring.ts#L28-L50
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/rescoring.ts#L28-L50
 type RescoreQuery struct {
 	// Query The query to use for rescoring.
 	// This query is only run on the Top-K results returned by the `query` and
@@ -63,7 +64,7 @@ func (s *RescoreQuery) UnmarshalJSON(data []byte) error {
 
 		case "rescore_query":
 			if err := dec.Decode(&s.Query); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 
 		case "query_weight":
@@ -73,7 +74,7 @@ func (s *RescoreQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "QueryWeight", err)
 				}
 				f := Float64(value)
 				s.QueryWeight = &f
@@ -89,7 +90,7 @@ func (s *RescoreQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RescoreQueryWeight", err)
 				}
 				f := Float64(value)
 				s.RescoreQueryWeight = &f
@@ -100,7 +101,7 @@ func (s *RescoreQuery) UnmarshalJSON(data []byte) error {
 
 		case "score_mode":
 			if err := dec.Decode(&s.ScoreMode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScoreMode", err)
 			}
 
 		}

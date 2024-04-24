@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package getinfluencers
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getinfluencers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/get_influencers/MlGetInfluencersResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/get_influencers/MlGetInfluencersResponse.ts#L23-L29
 type Response struct {
 	Count int64 `json:"count"`
 	// Influencers Array of influencer objects

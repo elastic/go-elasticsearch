@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // IlmPolicyStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L157-L160
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L157-L160
 type IlmPolicyStatistics struct {
 	IndicesManaged int    `json:"indices_managed"`
 	Phases         Phases `json:"phases"`
@@ -59,7 +60,7 @@ func (s *IlmPolicyStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndicesManaged", err)
 				}
 				s.IndicesManaged = value
 			case float64:
@@ -69,7 +70,7 @@ func (s *IlmPolicyStatistics) UnmarshalJSON(data []byte) error {
 
 		case "phases":
 			if err := dec.Decode(&s.Phases); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Phases", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AllField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/meta-fields.ts#L29-L40
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/mapping/meta-fields.ts#L29-L40
 type AllField struct {
 	Analyzer                 string `json:"analyzer"`
 	Enabled                  bool   `json:"enabled"`
@@ -62,7 +63,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -78,7 +79,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -92,7 +93,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OmitNorms", err)
 				}
 				s.OmitNorms = value
 			case bool:
@@ -102,7 +103,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 		case "search_analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchAnalyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -114,7 +115,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 		case "similarity":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Similarity", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -130,7 +131,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Store", err)
 				}
 				s.Store = value
 			case bool:
@@ -144,7 +145,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoreTermVectorOffsets", err)
 				}
 				s.StoreTermVectorOffsets = value
 			case bool:
@@ -158,7 +159,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoreTermVectorPayloads", err)
 				}
 				s.StoreTermVectorPayloads = value
 			case bool:
@@ -172,7 +173,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoreTermVectorPositions", err)
 				}
 				s.StoreTermVectorPositions = value
 			case bool:
@@ -186,7 +187,7 @@ func (s *AllField) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoreTermVectors", err)
 				}
 				s.StoreTermVectors = value
 			case bool:

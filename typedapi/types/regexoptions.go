@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RegexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/suggester.ts#L180-L191
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/suggester.ts#L180-L191
 type RegexOptions struct {
 	// Flags Optional operators for the regular expression.
 	Flags string `json:"flags,omitempty"`
@@ -56,7 +57,7 @@ func (s *RegexOptions) UnmarshalJSON(data []byte) error {
 		case "flags":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Flags", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -73,7 +74,7 @@ func (s *RegexOptions) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxDeterminizedStates", err)
 				}
 				s.MaxDeterminizedStates = &value
 			case float64:

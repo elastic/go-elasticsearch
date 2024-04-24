@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DiskIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L126-L132
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/health_report/types.ts#L126-L132
 type DiskIndicatorDetails struct {
 	IndicesWithReadonlyBlock     int64 `json:"indices_with_readonly_block"`
 	NodesOverFloodStageWatermark int64 `json:"nodes_over_flood_stage_watermark"`
@@ -61,7 +62,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndicesWithReadonlyBlock", err)
 				}
 				s.IndicesWithReadonlyBlock = value
 			case float64:
@@ -76,7 +77,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NodesOverFloodStageWatermark", err)
 				}
 				s.NodesOverFloodStageWatermark = value
 			case float64:
@@ -91,7 +92,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NodesOverHighWatermark", err)
 				}
 				s.NodesOverHighWatermark = value
 			case float64:
@@ -106,7 +107,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NodesWithEnoughDiskSpace", err)
 				}
 				s.NodesWithEnoughDiskSpace = value
 			case float64:
@@ -121,7 +122,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NodesWithUnknownDiskStatus", err)
 				}
 				s.NodesWithUnknownDiskStatus = value
 			case float64:

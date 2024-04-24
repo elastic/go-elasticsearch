@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RepositoryLocation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/RepositoryMeteringInformation.ts#L68-L74
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/RepositoryMeteringInformation.ts#L68-L74
 type RepositoryLocation struct {
 	BasePath string `json:"base_path"`
 	// Bucket Bucket name (GCP, S3)
@@ -57,7 +58,7 @@ func (s *RepositoryLocation) UnmarshalJSON(data []byte) error {
 		case "base_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BasePath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -69,7 +70,7 @@ func (s *RepositoryLocation) UnmarshalJSON(data []byte) error {
 		case "bucket":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Bucket", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -81,7 +82,7 @@ func (s *RepositoryLocation) UnmarshalJSON(data []byte) error {
 		case "container":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Container", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

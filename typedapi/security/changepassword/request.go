@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package changepassword
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package changepassword
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/change_password/SecurityChangePasswordRequest.ts#L23-L51
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/change_password/SecurityChangePasswordRequest.ts#L23-L51
 type Request struct {
 
 	// Password The new password value. Passwords must be at least 6 characters long.
@@ -78,13 +78,13 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "password":
 			if err := dec.Decode(&s.Password); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Password", err)
 			}
 
 		case "password_hash":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PasswordHash", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.12.0: DO NOT EDIT
+// Code generated from specification version 8.14.0: DO NOT EDIT
 
 package esapi
 
@@ -52,8 +52,12 @@ type ConnectorList func(o ...func(*ConnectorListRequest)) (*Response, error)
 
 // ConnectorListRequest configures the Connector List API request.
 type ConnectorListRequest struct {
-	From *int
-	Size *int
+	ConnectorName []string
+	From          *int
+	IndexName     []string
+	Query         string
+	ServiceType   []string
+	Size          *int
 
 	Pretty     bool
 	Human      bool
@@ -92,8 +96,24 @@ func (r ConnectorListRequest) Do(providedCtx context.Context, transport Transpor
 
 	params = make(map[string]string)
 
+	if len(r.ConnectorName) > 0 {
+		params["connector_name"] = strings.Join(r.ConnectorName, ",")
+	}
+
 	if r.From != nil {
 		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if len(r.IndexName) > 0 {
+		params["index_name"] = strings.Join(r.IndexName, ",")
+	}
+
+	if r.Query != "" {
+		params["query"] = r.Query
+	}
+
+	if len(r.ServiceType) > 0 {
+		params["service_type"] = strings.Join(r.ServiceType, ",")
 	}
 
 	if r.Size != nil {
@@ -178,10 +198,38 @@ func (f ConnectorList) WithContext(v context.Context) func(*ConnectorListRequest
 	}
 }
 
+// WithConnectorName - a list of connector names to fetch connector documents for.
+func (f ConnectorList) WithConnectorName(v ...string) func(*ConnectorListRequest) {
+	return func(r *ConnectorListRequest) {
+		r.ConnectorName = v
+	}
+}
+
 // WithFrom - starting offset (default: 0).
 func (f ConnectorList) WithFrom(v int) func(*ConnectorListRequest) {
 	return func(r *ConnectorListRequest) {
 		r.From = &v
+	}
+}
+
+// WithIndexName - a list of connector index names to fetch connector documents for.
+func (f ConnectorList) WithIndexName(v ...string) func(*ConnectorListRequest) {
+	return func(r *ConnectorListRequest) {
+		r.IndexName = v
+	}
+}
+
+// WithQuery - a search string for querying connectors, filtering results by matching against connector names, descriptions, and index names.
+func (f ConnectorList) WithQuery(v string) func(*ConnectorListRequest) {
+	return func(r *ConnectorListRequest) {
+		r.Query = v
+	}
+}
+
+// WithServiceType - a list of connector service types to fetch connector documents for.
+func (f ConnectorList) WithServiceType(v ...string) func(*ConnectorListRequest) {
+	return func(r *ConnectorListRequest) {
+		r.ServiceType = v
 	}
 }
 

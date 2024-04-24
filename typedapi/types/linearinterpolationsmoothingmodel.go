@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // LinearInterpolationSmoothingModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/suggester.ts#L434-L438
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/suggester.ts#L434-L438
 type LinearInterpolationSmoothingModel struct {
 	BigramLambda  Float64 `json:"bigram_lambda"`
 	TrigramLambda Float64 `json:"trigram_lambda"`
@@ -59,7 +60,7 @@ func (s *LinearInterpolationSmoothingModel) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BigramLambda", err)
 				}
 				f := Float64(value)
 				s.BigramLambda = f
@@ -75,7 +76,7 @@ func (s *LinearInterpolationSmoothingModel) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TrigramLambda", err)
 				}
 				f := Float64(value)
 				s.TrigramLambda = f
@@ -91,7 +92,7 @@ func (s *LinearInterpolationSmoothingModel) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UnigramLambda", err)
 				}
 				f := Float64(value)
 				s.UnigramLambda = f

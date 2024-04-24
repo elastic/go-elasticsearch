@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FrequentItemSetsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/bucket.ts#L1159-L1183
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L1159-L1183
 type FrequentItemSetsAggregation struct {
 	// Fields Fields to analyze.
 	Fields []FrequentItemSetsField `json:"fields"`
@@ -61,12 +62,12 @@ func (s *FrequentItemSetsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "fields":
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "minimum_set_size":
@@ -77,7 +78,7 @@ func (s *FrequentItemSetsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinimumSetSize", err)
 				}
 				s.MinimumSetSize = &value
 			case float64:
@@ -92,7 +93,7 @@ func (s *FrequentItemSetsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinimumSupport", err)
 				}
 				f := Float64(value)
 				s.MinimumSupport = &f
@@ -109,7 +110,7 @@ func (s *FrequentItemSetsAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:

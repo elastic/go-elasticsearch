@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataframeClassificationSummaryMulticlassConfusionMatrix type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/evaluate_data_frame/types.ts#L120-L123
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/evaluate_data_frame/types.ts#L120-L123
 type DataframeClassificationSummaryMulticlassConfusionMatrix struct {
 	ConfusionMatrix       []ConfusionMatrixItem `json:"confusion_matrix"`
 	OtherActualClassCount int                   `json:"other_actual_class_count"`
@@ -53,7 +54,7 @@ func (s *DataframeClassificationSummaryMulticlassConfusionMatrix) UnmarshalJSON(
 
 		case "confusion_matrix":
 			if err := dec.Decode(&s.ConfusionMatrix); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ConfusionMatrix", err)
 			}
 
 		case "other_actual_class_count":
@@ -64,7 +65,7 @@ func (s *DataframeClassificationSummaryMulticlassConfusionMatrix) UnmarshalJSON(
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OtherActualClassCount", err)
 				}
 				s.OtherActualClassCount = value
 			case float64:

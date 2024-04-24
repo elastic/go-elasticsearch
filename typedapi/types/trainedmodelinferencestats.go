@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TrainedModelInferenceStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L104-L124
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L104-L124
 type TrainedModelInferenceStats struct {
 	// CacheMissCount The number of times the model was loaded for inference and was not retrieved
 	// from the cache.
@@ -74,7 +75,7 @@ func (s *TrainedModelInferenceStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CacheMissCount", err)
 				}
 				s.CacheMissCount = value
 			case float64:
@@ -90,7 +91,7 @@ func (s *TrainedModelInferenceStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FailureCount", err)
 				}
 				s.FailureCount = value
 			case float64:
@@ -106,7 +107,7 @@ func (s *TrainedModelInferenceStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InferenceCount", err)
 				}
 				s.InferenceCount = value
 			case float64:
@@ -122,7 +123,7 @@ func (s *TrainedModelInferenceStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MissingAllFieldsCount", err)
 				}
 				s.MissingAllFieldsCount = value
 			case float64:
@@ -132,7 +133,7 @@ func (s *TrainedModelInferenceStats) UnmarshalJSON(data []byte) error {
 
 		case "timestamp":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		}

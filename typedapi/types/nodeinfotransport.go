@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoTransport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/info/types.ts#L350-L354
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/info/types.ts#L350-L354
 type NodeInfoTransport struct {
 	BoundAddress   []string          `json:"bound_address"`
 	Profiles       map[string]string `json:"profiles"`
@@ -54,7 +55,7 @@ func (s *NodeInfoTransport) UnmarshalJSON(data []byte) error {
 
 		case "bound_address":
 			if err := dec.Decode(&s.BoundAddress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BoundAddress", err)
 			}
 
 		case "profiles":
@@ -62,13 +63,13 @@ func (s *NodeInfoTransport) UnmarshalJSON(data []byte) error {
 				s.Profiles = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Profiles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Profiles", err)
 			}
 
 		case "publish_address":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PublishAddress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

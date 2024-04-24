@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeThreadPoolInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/info/types.ts#L294-L301
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/info/types.ts#L294-L301
 type NodeThreadPoolInfo struct {
 	Core      *int     `json:"core,omitempty"`
 	KeepAlive Duration `json:"keep_alive,omitempty"`
@@ -63,7 +64,7 @@ func (s *NodeThreadPoolInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Core", err)
 				}
 				s.Core = &value
 			case float64:
@@ -73,7 +74,7 @@ func (s *NodeThreadPoolInfo) UnmarshalJSON(data []byte) error {
 
 		case "keep_alive":
 			if err := dec.Decode(&s.KeepAlive); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "KeepAlive", err)
 			}
 
 		case "max":
@@ -84,7 +85,7 @@ func (s *NodeThreadPoolInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Max", err)
 				}
 				s.Max = &value
 			case float64:
@@ -100,7 +101,7 @@ func (s *NodeThreadPoolInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "QueueSize", err)
 				}
 				s.QueueSize = value
 			case float64:
@@ -116,7 +117,7 @@ func (s *NodeThreadPoolInfo) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -127,7 +128,7 @@ func (s *NodeThreadPoolInfo) UnmarshalJSON(data []byte) error {
 		case "type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

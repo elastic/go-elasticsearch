@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DecayPlacementGeoLocationDistance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/compound.ts#L153-L172
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/compound.ts#L153-L172
 type DecayPlacementGeoLocationDistance struct {
 	// Decay Defines how documents are scored at the distance given at scale.
 	Decay *Float64 `json:"decay,omitempty"`
@@ -67,7 +68,7 @@ func (s *DecayPlacementGeoLocationDistance) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Decay", err)
 				}
 				f := Float64(value)
 				s.Decay = &f
@@ -78,17 +79,17 @@ func (s *DecayPlacementGeoLocationDistance) UnmarshalJSON(data []byte) error {
 
 		case "offset":
 			if err := dec.Decode(&s.Offset); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Offset", err)
 			}
 
 		case "origin":
 			if err := dec.Decode(&s.Origin); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Origin", err)
 			}
 
 		case "scale":
 			if err := dec.Decode(&s.Scale); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Scale", err)
 			}
 
 		}

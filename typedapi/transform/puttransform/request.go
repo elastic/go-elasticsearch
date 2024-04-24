@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package puttransform
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package puttransform
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/transform/put_transform/PutTransformRequest.ts#L33-L122
 type Request struct {
 
 	// Description Free text description of the transform.
@@ -102,7 +102,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -113,47 +113,47 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "dest":
 			if err := dec.Decode(&s.Dest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dest", err)
 			}
 
 		case "frequency":
 			if err := dec.Decode(&s.Frequency); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Frequency", err)
 			}
 
 		case "latest":
 			if err := dec.Decode(&s.Latest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Latest", err)
 			}
 
 		case "_meta":
 			if err := dec.Decode(&s.Meta_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta_", err)
 			}
 
 		case "pivot":
 			if err := dec.Decode(&s.Pivot); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pivot", err)
 			}
 
 		case "retention_policy":
 			if err := dec.Decode(&s.RetentionPolicy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RetentionPolicy", err)
 			}
 
 		case "settings":
 			if err := dec.Decode(&s.Settings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Settings", err)
 			}
 
 		case "source":
 			if err := dec.Decode(&s.Source); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 
 		case "sync":
 			if err := dec.Decode(&s.Sync); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sync", err)
 			}
 
 		}

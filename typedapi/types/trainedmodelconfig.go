@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // TrainedModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L165-L200
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L165-L200
 type TrainedModelConfig struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -93,7 +94,7 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 		case "compressed_definition":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CompressedDefinition", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -104,13 +105,13 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 
 		case "create_time":
 			if err := dec.Decode(&s.CreateTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreateTime", err)
 			}
 
 		case "created_by":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreatedBy", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,13 +125,13 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 				s.DefaultFieldMap = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.DefaultFieldMap); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DefaultFieldMap", err)
 			}
 
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -147,7 +148,7 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EstimatedHeapMemoryUsageBytes", err)
 				}
 				s.EstimatedHeapMemoryUsageBytes = &value
 			case float64:
@@ -163,7 +164,7 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "EstimatedOperations", err)
 				}
 				s.EstimatedOperations = &value
 			case float64:
@@ -178,7 +179,7 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FullyDefined", err)
 				}
 				s.FullyDefined = &value
 			case bool:
@@ -187,18 +188,18 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 
 		case "inference_config":
 			if err := dec.Decode(&s.InferenceConfig); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InferenceConfig", err)
 			}
 
 		case "input":
 			if err := dec.Decode(&s.Input); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Input", err)
 			}
 
 		case "license_level":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LicenseLevel", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -209,42 +210,42 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 
 		case "location":
 			if err := dec.Decode(&s.Location); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Location", err)
 			}
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metadata", err)
 			}
 
 		case "model_id":
 			if err := dec.Decode(&s.ModelId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelId", err)
 			}
 
 		case "model_size_bytes":
 			if err := dec.Decode(&s.ModelSizeBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelSizeBytes", err)
 			}
 
 		case "model_type":
 			if err := dec.Decode(&s.ModelType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelType", err)
 			}
 
 		case "prefix_strings":
 			if err := dec.Decode(&s.PrefixStrings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PrefixStrings", err)
 			}
 
 		case "tags":
 			if err := dec.Decode(&s.Tags); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tags", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

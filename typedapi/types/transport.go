@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Transport type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/Stats.ts#L1047-L1090
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L1047-L1090
 type Transport struct {
 	// InboundHandlingTimeHistogram The distribution of the time spent handling each inbound message on a
 	// transport thread, represented as a histogram.
@@ -84,12 +85,12 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 
 		case "inbound_handling_time_histogram":
 			if err := dec.Decode(&s.InboundHandlingTimeHistogram); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InboundHandlingTimeHistogram", err)
 			}
 
 		case "outbound_handling_time_histogram":
 			if err := dec.Decode(&s.OutboundHandlingTimeHistogram); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OutboundHandlingTimeHistogram", err)
 			}
 
 		case "rx_count":
@@ -99,7 +100,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RxCount", err)
 				}
 				s.RxCount = &value
 			case float64:
@@ -110,7 +111,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 		case "rx_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RxSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -126,7 +127,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RxSizeInBytes", err)
 				}
 				s.RxSizeInBytes = &value
 			case float64:
@@ -142,7 +143,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ServerOpen", err)
 				}
 				s.ServerOpen = &value
 			case float64:
@@ -157,7 +158,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalOutboundConnections", err)
 				}
 				s.TotalOutboundConnections = &value
 			case float64:
@@ -172,7 +173,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TxCount", err)
 				}
 				s.TxCount = &value
 			case float64:
@@ -183,7 +184,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 		case "tx_size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TxSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -199,7 +200,7 @@ func (s *Transport) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TxSizeInBytes", err)
 				}
 				s.TxSizeInBytes = &value
 			case float64:

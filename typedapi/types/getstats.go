@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // GetStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/Stats.ts#L130-L141
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Stats.ts#L130-L141
 type GetStats struct {
 	Current             int64    `json:"current"`
 	ExistsTime          Duration `json:"exists_time,omitempty"`
@@ -66,7 +67,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Current", err)
 				}
 				s.Current = value
 			case float64:
@@ -76,12 +77,12 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 
 		case "exists_time":
 			if err := dec.Decode(&s.ExistsTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExistsTime", err)
 			}
 
 		case "exists_time_in_millis":
 			if err := dec.Decode(&s.ExistsTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExistsTimeInMillis", err)
 			}
 
 		case "exists_total":
@@ -91,7 +92,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExistsTotal", err)
 				}
 				s.ExistsTotal = value
 			case float64:
@@ -101,12 +102,12 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 
 		case "missing_time":
 			if err := dec.Decode(&s.MissingTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MissingTime", err)
 			}
 
 		case "missing_time_in_millis":
 			if err := dec.Decode(&s.MissingTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MissingTimeInMillis", err)
 			}
 
 		case "missing_total":
@@ -116,7 +117,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MissingTotal", err)
 				}
 				s.MissingTotal = value
 			case float64:
@@ -126,12 +127,12 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 
 		case "time":
 			if err := dec.Decode(&s.Time); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		case "time_in_millis":
 			if err := dec.Decode(&s.TimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeInMillis", err)
 			}
 
 		case "total":
@@ -141,7 +142,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:

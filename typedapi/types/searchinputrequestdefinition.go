@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // SearchInputRequestDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Input.ts#L118-L125
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Input.ts#L118-L125
 type SearchInputRequestDefinition struct {
 	Body               *SearchInputRequestBody    `json:"body,omitempty"`
 	Indices            []string                   `json:"indices,omitempty"`
@@ -59,17 +60,17 @@ func (s *SearchInputRequestDefinition) UnmarshalJSON(data []byte) error {
 
 		case "body":
 			if err := dec.Decode(&s.Body); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Body", err)
 			}
 
 		case "indices":
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "indices_options":
 			if err := dec.Decode(&s.IndicesOptions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndicesOptions", err)
 			}
 
 		case "rest_total_hits_as_int":
@@ -79,7 +80,7 @@ func (s *SearchInputRequestDefinition) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RestTotalHitsAsInt", err)
 				}
 				s.RestTotalHitsAsInt = &value
 			case bool:
@@ -88,12 +89,12 @@ func (s *SearchInputRequestDefinition) UnmarshalJSON(data []byte) error {
 
 		case "search_type":
 			if err := dec.Decode(&s.SearchType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchType", err)
 			}
 
 		case "template":
 			if err := dec.Decode(&s.Template); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Template", err)
 			}
 
 		}

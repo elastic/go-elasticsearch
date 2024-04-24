@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MachineLearning type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L372-L379
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L372-L379
 type MachineLearning struct {
 	Available              bool                     `json:"available"`
 	DataFrameAnalyticsJobs MlDataFrameAnalyticsJobs `json:"data_frame_analytics_jobs"`
@@ -65,7 +66,7 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Available", err)
 				}
 				s.Available = value
 			case bool:
@@ -74,7 +75,7 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 
 		case "data_frame_analytics_jobs":
 			if err := dec.Decode(&s.DataFrameAnalyticsJobs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataFrameAnalyticsJobs", err)
 			}
 
 		case "datafeeds":
@@ -82,7 +83,7 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 				s.Datafeeds = make(map[string]XpackDatafeed, 0)
 			}
 			if err := dec.Decode(&s.Datafeeds); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Datafeeds", err)
 			}
 
 		case "enabled":
@@ -92,7 +93,7 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -101,7 +102,7 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 
 		case "inference":
 			if err := dec.Decode(&s.Inference); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Inference", err)
 			}
 
 		case "jobs":
@@ -109,7 +110,7 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 				s.Jobs = make(map[string]JobUsage, 0)
 			}
 			if err := dec.Decode(&s.Jobs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Jobs", err)
 			}
 
 		case "node_count":
@@ -120,7 +121,7 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NodeCount", err)
 				}
 				s.NodeCount = value
 			case float64:

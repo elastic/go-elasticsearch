@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // EdgeNGramTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/tokenizers.ts#L31-L37
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/tokenizers.ts#L31-L37
 type EdgeNGramTokenizer struct {
 	CustomTokenChars *string               `json:"custom_token_chars,omitempty"`
 	MaxGram          int                   `json:"max_gram"`
@@ -60,7 +61,7 @@ func (s *EdgeNGramTokenizer) UnmarshalJSON(data []byte) error {
 		case "custom_token_chars":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CustomTokenChars", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -77,7 +78,7 @@ func (s *EdgeNGramTokenizer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxGram", err)
 				}
 				s.MaxGram = value
 			case float64:
@@ -93,7 +94,7 @@ func (s *EdgeNGramTokenizer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinGram", err)
 				}
 				s.MinGram = value
 			case float64:
@@ -103,17 +104,17 @@ func (s *EdgeNGramTokenizer) UnmarshalJSON(data []byte) error {
 
 		case "token_chars":
 			if err := dec.Decode(&s.TokenChars); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TokenChars", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

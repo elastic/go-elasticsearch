@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // AutoDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/bucket.ts#L65-L100
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L65-L100
 type AutoDateHistogramAggregation struct {
 	// Buckets The target number of buckets.
 	Buckets *int `json:"buckets,omitempty"`
@@ -82,7 +83,7 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Buckets", err)
 				}
 				s.Buckets = &value
 			case float64:
@@ -92,13 +93,13 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "format":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -109,23 +110,23 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "minimum_interval":
 			if err := dec.Decode(&s.MinimumInterval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumInterval", err)
 			}
 
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Missing", err)
 			}
 
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -137,7 +138,7 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 		case "offset":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Offset", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -151,13 +152,13 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 				s.Params = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Params); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Params", err)
 			}
 
 		case "script":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 			keyDec := json.NewDecoder(bytes.NewReader(message))
 			for {
@@ -166,7 +167,7 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 					if errors.Is(err, io.EOF) {
 						break
 					}
-					return err
+					return fmt.Errorf("%s | %w", "Script", err)
 				}
 
 				switch t {
@@ -175,7 +176,7 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 					o := NewInlineScript()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -183,7 +184,7 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 					o := NewStoredScriptId()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -192,7 +193,7 @@ func (s *AutoDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 
 		case "time_zone":
 			if err := dec.Decode(&s.TimeZone); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
 		}

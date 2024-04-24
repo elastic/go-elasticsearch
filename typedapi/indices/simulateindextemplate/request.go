@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package simulateindextemplate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package simulateindextemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateRequest.ts#L33-L115
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/simulate_index_template/IndicesSimulateIndexTemplateRequest.ts#L33-L115
 type Request struct {
 
 	// AllowAutoCreate This setting overrides the value of the `action.auto_create_index` cluster
@@ -115,7 +115,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowAutoCreate", err)
 				}
 				s.AllowAutoCreate = &value
 			case bool:
@@ -124,12 +124,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "composed_of":
 			if err := dec.Decode(&s.ComposedOf); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ComposedOf", err)
 			}
 
 		case "data_stream":
 			if err := dec.Decode(&s.DataStream); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataStream", err)
 			}
 
 		case "index_patterns":
@@ -138,19 +138,19 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexPatterns", err)
 				}
 
 				s.IndexPatterns = append(s.IndexPatterns, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IndexPatterns); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexPatterns", err)
 				}
 			}
 
 		case "_meta":
 			if err := dec.Decode(&s.Meta_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta_", err)
 			}
 
 		case "priority":
@@ -161,7 +161,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Priority", err)
 				}
 				s.Priority = &value
 			case float64:
@@ -171,12 +171,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "template":
 			if err := dec.Decode(&s.Template); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Template", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

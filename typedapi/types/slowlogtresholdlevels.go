@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // SlowlogTresholdLevels type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L487-L492
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/IndexSettings.ts#L491-L496
 type SlowlogTresholdLevels struct {
 	Debug Duration `json:"debug,omitempty"`
 	Info  Duration `json:"info,omitempty"`
@@ -54,22 +55,22 @@ func (s *SlowlogTresholdLevels) UnmarshalJSON(data []byte) error {
 
 		case "debug":
 			if err := dec.Decode(&s.Debug); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Debug", err)
 			}
 
 		case "info":
 			if err := dec.Decode(&s.Info); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Info", err)
 			}
 
 		case "trace":
 			if err := dec.Decode(&s.Trace); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Trace", err)
 			}
 
 		case "warn":
 			if err := dec.Decode(&s.Warn); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Warn", err)
 			}
 
 		}

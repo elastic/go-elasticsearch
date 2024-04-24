@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TrainedModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L126-L131
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L126-L131
 type TrainedModelSizeStats struct {
 	// ModelSizeBytes The size of the model in bytes.
 	ModelSizeBytes ByteSize `json:"model_size_bytes"`
@@ -55,7 +56,7 @@ func (s *TrainedModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "model_size_bytes":
 			if err := dec.Decode(&s.ModelSizeBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelSizeBytes", err)
 			}
 
 		case "required_native_memory_bytes":
@@ -66,7 +67,7 @@ func (s *TrainedModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequiredNativeMemoryBytes", err)
 				}
 				s.RequiredNativeMemoryBytes = value
 			case float64:

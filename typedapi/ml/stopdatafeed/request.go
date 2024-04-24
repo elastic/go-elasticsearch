@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package stopdatafeed
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package stopdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/stop_datafeed/MlStopDatafeedRequest.ts#L24-L78
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/stop_datafeed/MlStopDatafeedRequest.ts#L24-L78
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
@@ -83,7 +83,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowNoMatch", err)
 				}
 				s.AllowNoMatch = &value
 			case bool:
@@ -97,7 +97,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Force", err)
 				}
 				s.Force = &value
 			case bool:
@@ -106,7 +106,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "timeout":
 			if err := dec.Decode(&s.Timeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 
 		}

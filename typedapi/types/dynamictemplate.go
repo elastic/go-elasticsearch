@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/dynamic-template.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/mapping/dynamic-template.ts#L22-L30
 type DynamicTemplate struct {
 	Mapping          Property             `json:"mapping,omitempty"`
 	Match            *string              `json:"match,omitempty"`
@@ -363,7 +364,7 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 		case "match":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Match", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -375,7 +376,7 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 		case "match_mapping_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchMappingType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -386,13 +387,13 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 
 		case "match_pattern":
 			if err := dec.Decode(&s.MatchPattern); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatchPattern", err)
 			}
 
 		case "path_match":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PathMatch", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -404,7 +405,7 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 		case "path_unmatch":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PathUnmatch", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -416,7 +417,7 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 		case "unmatch":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Unmatch", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

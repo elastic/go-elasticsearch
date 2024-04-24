@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MlInferenceIngestProcessorCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L238-L242
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L238-L242
 type MlInferenceIngestProcessorCount struct {
 	Max int64 `json:"max"`
 	Min int64 `json:"min"`
@@ -59,7 +60,7 @@ func (s *MlInferenceIngestProcessorCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Max", err)
 				}
 				s.Max = value
 			case float64:
@@ -74,7 +75,7 @@ func (s *MlInferenceIngestProcessorCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Min", err)
 				}
 				s.Min = value
 			case float64:
@@ -89,7 +90,7 @@ func (s *MlInferenceIngestProcessorCount) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sum", err)
 				}
 				s.Sum = value
 			case float64:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TrainedModelStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L42-L60
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L42-L60
 type TrainedModelStats struct {
 	// DeploymentStats A collection of deployment stats, which is present when the models are
 	// deployed.
@@ -66,12 +67,12 @@ func (s *TrainedModelStats) UnmarshalJSON(data []byte) error {
 
 		case "deployment_stats":
 			if err := dec.Decode(&s.DeploymentStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DeploymentStats", err)
 			}
 
 		case "inference_stats":
 			if err := dec.Decode(&s.InferenceStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InferenceStats", err)
 			}
 
 		case "ingest":
@@ -79,17 +80,17 @@ func (s *TrainedModelStats) UnmarshalJSON(data []byte) error {
 				s.Ingest = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Ingest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ingest", err)
 			}
 
 		case "model_id":
 			if err := dec.Decode(&s.ModelId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelId", err)
 			}
 
 		case "model_size_stats":
 			if err := dec.Decode(&s.ModelSizeStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelSizeStats", err)
 			}
 
 		case "pipeline_count":
@@ -100,7 +101,7 @@ func (s *TrainedModelStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PipelineCount", err)
 				}
 				s.PipelineCount = value
 			case float64:

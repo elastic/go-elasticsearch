@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package inference
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package inference
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/inference/inference/InferenceRequest.ts#L25-L53
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/inference/InferenceRequest.ts#L25-L53
 type Request struct {
 
 	// Input Text input to the model.
@@ -78,19 +78,19 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Input", err)
 				}
 
 				s.Input = append(s.Input, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Input); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Input", err)
 				}
 			}
 
 		case "task_settings":
 			if err := dec.Decode(&s.TaskSettings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TaskSettings", err)
 			}
 
 		}

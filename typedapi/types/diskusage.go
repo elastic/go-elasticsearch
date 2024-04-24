@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DiskUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/allocation_explain/types.ts#L62-L69
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/allocation_explain/types.ts#L62-L69
 type DiskUsage struct {
 	FreeBytes       int64   `json:"free_bytes"`
 	FreeDiskPercent Float64 `json:"free_disk_percent"`
@@ -62,7 +63,7 @@ func (s *DiskUsage) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FreeBytes", err)
 				}
 				s.FreeBytes = value
 			case float64:
@@ -77,7 +78,7 @@ func (s *DiskUsage) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FreeDiskPercent", err)
 				}
 				f := Float64(value)
 				s.FreeDiskPercent = f
@@ -89,7 +90,7 @@ func (s *DiskUsage) UnmarshalJSON(data []byte) error {
 		case "path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Path", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -105,7 +106,7 @@ func (s *DiskUsage) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalBytes", err)
 				}
 				s.TotalBytes = value
 			case float64:
@@ -120,7 +121,7 @@ func (s *DiskUsage) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UsedBytes", err)
 				}
 				s.UsedBytes = value
 			case float64:
@@ -135,7 +136,7 @@ func (s *DiskUsage) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UsedDiskPercent", err)
 				}
 				f := Float64(value)
 				s.UsedDiskPercent = f

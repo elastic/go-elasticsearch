@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // IntervalsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/fulltext.ts#L235-L263
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/fulltext.ts#L235-L263
 type IntervalsQuery struct {
 	// AllOf Returns matches that span a combination of other rules.
 	AllOf *IntervalsAllOf `json:"all_of,omitempty"`
@@ -71,12 +72,12 @@ func (s *IntervalsQuery) UnmarshalJSON(data []byte) error {
 
 		case "all_of":
 			if err := dec.Decode(&s.AllOf); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AllOf", err)
 			}
 
 		case "any_of":
 			if err := dec.Decode(&s.AnyOf); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnyOf", err)
 			}
 
 		case "boost":
@@ -86,7 +87,7 @@ func (s *IntervalsQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -97,23 +98,23 @@ func (s *IntervalsQuery) UnmarshalJSON(data []byte) error {
 
 		case "fuzzy":
 			if err := dec.Decode(&s.Fuzzy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fuzzy", err)
 			}
 
 		case "match":
 			if err := dec.Decode(&s.Match); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Match", err)
 			}
 
 		case "prefix":
 			if err := dec.Decode(&s.Prefix); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Prefix", err)
 			}
 
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,7 +125,7 @@ func (s *IntervalsQuery) UnmarshalJSON(data []byte) error {
 
 		case "wildcard":
 			if err := dec.Decode(&s.Wildcard); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Wildcard", err)
 			}
 
 		}

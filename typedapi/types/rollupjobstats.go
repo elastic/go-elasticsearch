@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RollupJobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/rollup/get_jobs/types.ts#L45-L58
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/rollup/get_jobs/types.ts#L45-L58
 type RollupJobStats struct {
 	DocumentsProcessed int64 `json:"documents_processed"`
 	IndexFailures      int64 `json:"index_failures"`
@@ -68,7 +69,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocumentsProcessed", err)
 				}
 				s.DocumentsProcessed = value
 			case float64:
@@ -83,7 +84,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexFailures", err)
 				}
 				s.IndexFailures = value
 			case float64:
@@ -93,7 +94,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 
 		case "index_time_in_ms":
 			if err := dec.Decode(&s.IndexTimeInMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexTimeInMs", err)
 			}
 
 		case "index_total":
@@ -103,7 +104,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexTotal", err)
 				}
 				s.IndexTotal = value
 			case float64:
@@ -118,7 +119,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PagesProcessed", err)
 				}
 				s.PagesProcessed = value
 			case float64:
@@ -128,7 +129,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 
 		case "processing_time_in_ms":
 			if err := dec.Decode(&s.ProcessingTimeInMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProcessingTimeInMs", err)
 			}
 
 		case "processing_total":
@@ -138,7 +139,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ProcessingTotal", err)
 				}
 				s.ProcessingTotal = value
 			case float64:
@@ -153,7 +154,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RollupsIndexed", err)
 				}
 				s.RollupsIndexed = value
 			case float64:
@@ -168,7 +169,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SearchFailures", err)
 				}
 				s.SearchFailures = value
 			case float64:
@@ -178,7 +179,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 
 		case "search_time_in_ms":
 			if err := dec.Decode(&s.SearchTimeInMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchTimeInMs", err)
 			}
 
 		case "search_total":
@@ -188,7 +189,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SearchTotal", err)
 				}
 				s.SearchTotal = value
 			case float64:
@@ -203,7 +204,7 @@ func (s *RollupJobStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TriggerCount", err)
 				}
 				s.TriggerCount = value
 			case float64:

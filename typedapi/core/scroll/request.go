@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package scroll
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package scroll
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/scroll/ScrollRequest.ts#L24-L59
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/scroll/ScrollRequest.ts#L24-L59
 type Request struct {
 
 	// Scroll Period to retain the search context for scrolling.
@@ -75,12 +75,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "scroll":
 			if err := dec.Decode(&s.Scroll); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Scroll", err)
 			}
 
 		case "scroll_id":
 			if err := dec.Decode(&s.ScrollId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScrollId", err)
 			}
 
 		}

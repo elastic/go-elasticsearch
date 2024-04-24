@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CcrShardStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ccr/_types/FollowIndexStats.ts#L35-L69
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ccr/_types/FollowIndexStats.ts#L35-L69
 type CcrShardStats struct {
 	BytesRead                     int64           `json:"bytes_read"`
 	FailedReadRequests            int64           `json:"failed_read_requests"`
@@ -89,7 +90,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BytesRead", err)
 				}
 				s.BytesRead = value
 			case float64:
@@ -104,7 +105,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FailedReadRequests", err)
 				}
 				s.FailedReadRequests = value
 			case float64:
@@ -119,7 +120,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FailedWriteRequests", err)
 				}
 				s.FailedWriteRequests = value
 			case float64:
@@ -129,12 +130,12 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "fatal_exception":
 			if err := dec.Decode(&s.FatalException); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FatalException", err)
 			}
 
 		case "follower_aliases_version":
 			if err := dec.Decode(&s.FollowerAliasesVersion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerAliasesVersion", err)
 			}
 
 		case "follower_global_checkpoint":
@@ -144,7 +145,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FollowerGlobalCheckpoint", err)
 				}
 				s.FollowerGlobalCheckpoint = value
 			case float64:
@@ -155,7 +156,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 		case "follower_index":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerIndex", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -166,22 +167,22 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "follower_mapping_version":
 			if err := dec.Decode(&s.FollowerMappingVersion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerMappingVersion", err)
 			}
 
 		case "follower_max_seq_no":
 			if err := dec.Decode(&s.FollowerMaxSeqNo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerMaxSeqNo", err)
 			}
 
 		case "follower_settings_version":
 			if err := dec.Decode(&s.FollowerSettingsVersion); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowerSettingsVersion", err)
 			}
 
 		case "last_requested_seq_no":
 			if err := dec.Decode(&s.LastRequestedSeqNo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LastRequestedSeqNo", err)
 			}
 
 		case "leader_global_checkpoint":
@@ -191,7 +192,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LeaderGlobalCheckpoint", err)
 				}
 				s.LeaderGlobalCheckpoint = value
 			case float64:
@@ -202,7 +203,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 		case "leader_index":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LeaderIndex", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -213,7 +214,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "leader_max_seq_no":
 			if err := dec.Decode(&s.LeaderMaxSeqNo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LeaderMaxSeqNo", err)
 			}
 
 		case "operations_read":
@@ -223,7 +224,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OperationsRead", err)
 				}
 				s.OperationsRead = value
 			case float64:
@@ -238,7 +239,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OperationsWritten", err)
 				}
 				s.OperationsWritten = value
 			case float64:
@@ -254,7 +255,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OutstandingReadRequests", err)
 				}
 				s.OutstandingReadRequests = value
 			case float64:
@@ -270,7 +271,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OutstandingWriteRequests", err)
 				}
 				s.OutstandingWriteRequests = value
 			case float64:
@@ -280,13 +281,13 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "read_exceptions":
 			if err := dec.Decode(&s.ReadExceptions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReadExceptions", err)
 			}
 
 		case "remote_cluster":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -303,7 +304,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShardId", err)
 				}
 				s.ShardId = value
 			case float64:
@@ -318,7 +319,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SuccessfulReadRequests", err)
 				}
 				s.SuccessfulReadRequests = value
 			case float64:
@@ -333,7 +334,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SuccessfulWriteRequests", err)
 				}
 				s.SuccessfulWriteRequests = value
 			case float64:
@@ -343,42 +344,42 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "time_since_last_read":
 			if err := dec.Decode(&s.TimeSinceLastRead); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSinceLastRead", err)
 			}
 
 		case "time_since_last_read_millis":
 			if err := dec.Decode(&s.TimeSinceLastReadMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeSinceLastReadMillis", err)
 			}
 
 		case "total_read_remote_exec_time":
 			if err := dec.Decode(&s.TotalReadRemoteExecTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalReadRemoteExecTime", err)
 			}
 
 		case "total_read_remote_exec_time_millis":
 			if err := dec.Decode(&s.TotalReadRemoteExecTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalReadRemoteExecTimeMillis", err)
 			}
 
 		case "total_read_time":
 			if err := dec.Decode(&s.TotalReadTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalReadTime", err)
 			}
 
 		case "total_read_time_millis":
 			if err := dec.Decode(&s.TotalReadTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalReadTimeMillis", err)
 			}
 
 		case "total_write_time":
 			if err := dec.Decode(&s.TotalWriteTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalWriteTime", err)
 			}
 
 		case "total_write_time_millis":
 			if err := dec.Decode(&s.TotalWriteTimeMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalWriteTimeMillis", err)
 			}
 
 		case "write_buffer_operation_count":
@@ -388,7 +389,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "WriteBufferOperationCount", err)
 				}
 				s.WriteBufferOperationCount = value
 			case float64:
@@ -398,7 +399,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "write_buffer_size_in_bytes":
 			if err := dec.Decode(&s.WriteBufferSizeInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WriteBufferSizeInBytes", err)
 			}
 
 		}

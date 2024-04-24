@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // JvmMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/Stats.ts#L847-L876
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L847-L876
 type JvmMemoryStats struct {
 	// HeapCommittedInBytes Amount of memory, in bytes, available for use by the heap.
 	HeapCommittedInBytes *int64 `json:"heap_committed_in_bytes,omitempty"`
@@ -70,7 +71,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HeapCommittedInBytes", err)
 				}
 				s.HeapCommittedInBytes = &value
 			case float64:
@@ -85,7 +86,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HeapMaxInBytes", err)
 				}
 				s.HeapMaxInBytes = &value
 			case float64:
@@ -100,7 +101,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HeapUsedInBytes", err)
 				}
 				s.HeapUsedInBytes = &value
 			case float64:
@@ -115,7 +116,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HeapUsedPercent", err)
 				}
 				s.HeapUsedPercent = &value
 			case float64:
@@ -130,7 +131,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NonHeapCommittedInBytes", err)
 				}
 				s.NonHeapCommittedInBytes = &value
 			case float64:
@@ -145,7 +146,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NonHeapUsedInBytes", err)
 				}
 				s.NonHeapUsedInBytes = &value
 			case float64:
@@ -158,7 +159,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 				s.Pools = make(map[string]Pool, 0)
 			}
 			if err := dec.Decode(&s.Pools); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pools", err)
 			}
 
 		}

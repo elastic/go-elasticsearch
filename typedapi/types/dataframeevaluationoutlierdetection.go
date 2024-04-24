@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DataframeEvaluationOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeEvaluation.ts#L46-L53
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeEvaluation.ts#L46-L53
 type DataframeEvaluationOutlierDetection struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field can be boolean or integer. If the data type is integer, the value has
@@ -60,17 +61,17 @@ func (s *DataframeEvaluationOutlierDetection) UnmarshalJSON(data []byte) error {
 
 		case "actual_field":
 			if err := dec.Decode(&s.ActualField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActualField", err)
 			}
 
 		case "metrics":
 			if err := dec.Decode(&s.Metrics); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metrics", err)
 			}
 
 		case "predicted_probability_field":
 			if err := dec.Decode(&s.PredictedProbabilityField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PredictedProbabilityField", err)
 			}
 
 		}

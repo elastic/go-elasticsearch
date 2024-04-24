@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // HealthResponseBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/health/ClusterHealthResponse.ts#L39-L72
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/health/ClusterHealthResponse.ts#L39-L72
 type HealthResponseBody struct {
 	// ActivePrimaryShards The number of active primary shards.
 	ActivePrimaryShards int `json:"active_primary_shards"`
@@ -94,7 +95,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ActivePrimaryShards", err)
 				}
 				s.ActivePrimaryShards = value
 			case float64:
@@ -110,7 +111,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ActiveShards", err)
 				}
 				s.ActiveShards = value
 			case float64:
@@ -120,12 +121,12 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "active_shards_percent_as_number":
 			if err := dec.Decode(&s.ActiveShardsPercentAsNumber); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActiveShardsPercentAsNumber", err)
 			}
 
 		case "cluster_name":
 			if err := dec.Decode(&s.ClusterName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ClusterName", err)
 			}
 
 		case "delayed_unassigned_shards":
@@ -136,7 +137,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DelayedUnassignedShards", err)
 				}
 				s.DelayedUnassignedShards = value
 			case float64:
@@ -149,7 +150,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 				s.Indices = make(map[string]IndexHealthStats, 0)
 			}
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "initializing_shards":
@@ -160,7 +161,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InitializingShards", err)
 				}
 				s.InitializingShards = value
 			case float64:
@@ -176,7 +177,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfDataNodes", err)
 				}
 				s.NumberOfDataNodes = value
 			case float64:
@@ -192,7 +193,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfInFlightFetch", err)
 				}
 				s.NumberOfInFlightFetch = value
 			case float64:
@@ -208,7 +209,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfNodes", err)
 				}
 				s.NumberOfNodes = value
 			case float64:
@@ -224,7 +225,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfPendingTasks", err)
 				}
 				s.NumberOfPendingTasks = value
 			case float64:
@@ -240,7 +241,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RelocatingShards", err)
 				}
 				s.RelocatingShards = value
 			case float64:
@@ -250,17 +251,17 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "task_max_waiting_in_queue":
 			if err := dec.Decode(&s.TaskMaxWaitingInQueue); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TaskMaxWaitingInQueue", err)
 			}
 
 		case "task_max_waiting_in_queue_millis":
 			if err := dec.Decode(&s.TaskMaxWaitingInQueueMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TaskMaxWaitingInQueueMillis", err)
 			}
 
 		case "timed_out":
@@ -270,7 +271,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TimedOut", err)
 				}
 				s.TimedOut = value
 			case bool:
@@ -285,7 +286,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UnassignedShards", err)
 				}
 				s.UnassignedShards = value
 			case float64:

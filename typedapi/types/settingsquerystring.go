@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // SettingsQueryString type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L244-L246
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/IndexSettings.ts#L248-L250
 type SettingsQueryString struct {
 	Lenient Stringifiedboolean `json:"lenient"`
 }
@@ -51,7 +52,7 @@ func (s *SettingsQueryString) UnmarshalJSON(data []byte) error {
 
 		case "lenient":
 			if err := dec.Decode(&s.Lenient); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lenient", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FiltersAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/bucket.ts#L358-L378
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L358-L378
 type FiltersAggregation struct {
 	// Filters Collection of queries from which to build buckets.
 	Filters BucketsQuery `json:"filters,omitempty"`
@@ -71,13 +72,13 @@ func (s *FiltersAggregation) UnmarshalJSON(data []byte) error {
 			case '{':
 				o := make(map[string]Query, 0)
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Filters", err)
 				}
 				s.Filters = o
 			case '[':
 				o := []Query{}
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Filters", err)
 				}
 				s.Filters = o
 			}
@@ -89,7 +90,7 @@ func (s *FiltersAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Keyed", err)
 				}
 				s.Keyed = &value
 			case bool:
@@ -98,13 +99,13 @@ func (s *FiltersAggregation) UnmarshalJSON(data []byte) error {
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -120,7 +121,7 @@ func (s *FiltersAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "OtherBucket", err)
 				}
 				s.OtherBucket = &value
 			case bool:
@@ -130,7 +131,7 @@ func (s *FiltersAggregation) UnmarshalJSON(data []byte) error {
 		case "other_bucket_key":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OtherBucketKey", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

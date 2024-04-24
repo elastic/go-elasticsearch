@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package update
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package update
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/update/UpdateRequest.ts#L38-L151
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/update/UpdateRequest.ts#L38-L151
 type Request struct {
 
 	// DetectNoop Set to false to disable setting 'result' in the response
@@ -96,7 +96,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DetectNoop", err)
 				}
 				s.DetectNoop = &value
 			case bool:
@@ -105,7 +105,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "doc":
 			if err := dec.Decode(&s.Doc); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Doc", err)
 			}
 
 		case "doc_as_upsert":
@@ -115,7 +115,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocAsUpsert", err)
 				}
 				s.DocAsUpsert = &value
 			case bool:
@@ -125,7 +125,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "script":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 			keyDec := json.NewDecoder(bytes.NewReader(message))
 			for {
@@ -134,7 +134,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					if errors.Is(err, io.EOF) {
 						break
 					}
-					return err
+					return fmt.Errorf("%s | %w", "Script", err)
 				}
 
 				switch t {
@@ -143,7 +143,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					o := types.NewInlineScript()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -151,7 +151,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					o := types.NewStoredScriptId()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -165,7 +165,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ScriptedUpsert", err)
 				}
 				s.ScriptedUpsert = &value
 			case bool:
@@ -174,12 +174,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "_source":
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
 
 		case "upsert":
 			if err := dec.Decode(&s.Upsert); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Upsert", err)
 			}
 
 		}

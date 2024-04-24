@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package grantapikey
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L75
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L75
 type Request struct {
 
 	// AccessToken The user’s access token.
@@ -92,7 +92,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "access_token":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AccessToken", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -103,27 +103,27 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "api_key":
 			if err := dec.Decode(&s.ApiKey); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ApiKey", err)
 			}
 
 		case "grant_type":
 			if err := dec.Decode(&s.GrantType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GrantType", err)
 			}
 
 		case "password":
 			if err := dec.Decode(&s.Password); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Password", err)
 			}
 
 		case "run_as":
 			if err := dec.Decode(&s.RunAs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RunAs", err)
 			}
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // IpRangeAggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/bucket.ts#L559-L572
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L559-L572
 type IpRangeAggregationRange struct {
 	// From Start of the range.
 	From string `json:"from,omitempty"`
@@ -58,7 +59,7 @@ func (s *IpRangeAggregationRange) UnmarshalJSON(data []byte) error {
 		case "from":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "From", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -70,7 +71,7 @@ func (s *IpRangeAggregationRange) UnmarshalJSON(data []byte) error {
 		case "mask":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mask", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -82,7 +83,7 @@ func (s *IpRangeAggregationRange) UnmarshalJSON(data []byte) error {
 		case "to":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "To", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

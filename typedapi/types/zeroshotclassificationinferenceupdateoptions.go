@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ZeroShotClassificationInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/inference.ts#L374-L383
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/inference.ts#L374-L383
 type ZeroShotClassificationInferenceUpdateOptions struct {
 	// Labels The labels to predict.
 	Labels []string `json:"labels"`
@@ -61,7 +62,7 @@ func (s *ZeroShotClassificationInferenceUpdateOptions) UnmarshalJSON(data []byte
 
 		case "labels":
 			if err := dec.Decode(&s.Labels); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Labels", err)
 			}
 
 		case "multi_label":
@@ -71,7 +72,7 @@ func (s *ZeroShotClassificationInferenceUpdateOptions) UnmarshalJSON(data []byte
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MultiLabel", err)
 				}
 				s.MultiLabel = &value
 			case bool:
@@ -81,7 +82,7 @@ func (s *ZeroShotClassificationInferenceUpdateOptions) UnmarshalJSON(data []byte
 		case "results_field":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultsField", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,7 +93,7 @@ func (s *ZeroShotClassificationInferenceUpdateOptions) UnmarshalJSON(data []byte
 
 		case "tokenization":
 			if err := dec.Decode(&s.Tokenization); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tokenization", err)
 			}
 
 		}

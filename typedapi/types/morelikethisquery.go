@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/specialized.ts#L78-L163
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/specialized.ts#L78-L163
 type MoreLikeThisQuery struct {
 	// Analyzer The analyzer that is used to analyze the free form text.
 	// Defaults to the analyzer associated with the first field in fields.
@@ -111,7 +112,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -127,7 +128,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -143,7 +144,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BoostTerms", err)
 				}
 				f := Float64(value)
 				s.BoostTerms = &f
@@ -159,7 +160,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FailOnUnsupportedField", err)
 				}
 				s.FailOnUnsupportedField = &value
 			case bool:
@@ -168,7 +169,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "fields":
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "include":
@@ -178,7 +179,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Include", err)
 				}
 				s.Include = &value
 			case bool:
@@ -191,13 +192,13 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(Like)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Like", err)
 				}
 
 				s.Like = append(s.Like, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Like); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Like", err)
 				}
 			}
 
@@ -209,7 +210,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxDocFreq", err)
 				}
 				s.MaxDocFreq = &value
 			case float64:
@@ -225,7 +226,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxQueryTerms", err)
 				}
 				s.MaxQueryTerms = &value
 			case float64:
@@ -241,7 +242,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxWordLength", err)
 				}
 				s.MaxWordLength = &value
 			case float64:
@@ -257,7 +258,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinDocFreq", err)
 				}
 				s.MinDocFreq = &value
 			case float64:
@@ -273,7 +274,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinTermFreq", err)
 				}
 				s.MinTermFreq = &value
 			case float64:
@@ -289,7 +290,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinWordLength", err)
 				}
 				s.MinWordLength = &value
 			case float64:
@@ -299,7 +300,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "minimum_should_match":
 			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumShouldMatch", err)
 			}
 
 		case "per_field_analyzer":
@@ -307,13 +308,13 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 				s.PerFieldAnalyzer = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.PerFieldAnalyzer); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PerFieldAnalyzer", err)
 			}
 
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -324,7 +325,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		case "stop_words":
@@ -333,13 +334,13 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StopWords", err)
 				}
 
 				s.StopWords = append(s.StopWords, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StopWords); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StopWords", err)
 				}
 			}
 
@@ -349,24 +350,24 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(Like)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Unlike", err)
 				}
 
 				s.Unlike = append(s.Unlike, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Unlike); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Unlike", err)
 				}
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		case "version_type":
 			if err := dec.Decode(&s.VersionType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VersionType", err)
 			}
 
 		}

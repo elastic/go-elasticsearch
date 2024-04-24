@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataframeAnalyticsSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L306-L322
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeAnalytics.ts#L306-L322
 type DataframeAnalyticsSummary struct {
 	AllowLazyStart *bool                            `json:"allow_lazy_start,omitempty"`
 	Analysis       DataframeAnalysisContainer       `json:"analysis"`
@@ -71,7 +72,7 @@ func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowLazyStart", err)
 				}
 				s.AllowLazyStart = &value
 			case bool:
@@ -80,28 +81,28 @@ func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
 
 		case "analysis":
 			if err := dec.Decode(&s.Analysis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analysis", err)
 			}
 
 		case "analyzed_fields":
 			if err := dec.Decode(&s.AnalyzedFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AnalyzedFields", err)
 			}
 
 		case "authorization":
 			if err := dec.Decode(&s.Authorization); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Authorization", err)
 			}
 
 		case "create_time":
 			if err := dec.Decode(&s.CreateTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreateTime", err)
 			}
 
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -112,12 +113,12 @@ func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
 
 		case "dest":
 			if err := dec.Decode(&s.Dest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dest", err)
 			}
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "max_num_threads":
@@ -128,7 +129,7 @@ func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxNumThreads", err)
 				}
 				s.MaxNumThreads = &value
 			case float64:
@@ -139,7 +140,7 @@ func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
 		case "model_memory_limit":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelMemoryLimit", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -150,12 +151,12 @@ func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
 
 		case "source":
 			if err := dec.Decode(&s.Source); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package putjob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/rollup/put_job/CreateRollupJobRequest.ts#L27-L89
 type Request struct {
 
 	// Cron A cron string which defines the intervals when the rollup job should be
@@ -119,7 +119,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "cron":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cron", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -130,18 +130,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "groups":
 			if err := dec.Decode(&s.Groups); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Groups", err)
 			}
 
 		case "headers":
 			if err := dec.Decode(&s.Headers); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Headers", err)
 			}
 
 		case "index_pattern":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexPattern", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -152,7 +152,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "metrics":
 			if err := dec.Decode(&s.Metrics); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Metrics", err)
 			}
 
 		case "page_size":
@@ -163,7 +163,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PageSize", err)
 				}
 				s.PageSize = value
 			case float64:
@@ -173,12 +173,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "rollup_index":
 			if err := dec.Decode(&s.RollupIndex); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RollupIndex", err)
 			}
 
 		case "timeout":
 			if err := dec.Decode(&s.Timeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 
 		}

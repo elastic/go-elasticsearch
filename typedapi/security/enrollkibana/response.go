@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package enrollkibana
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package enrollkibana
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/enroll_kibana/Response.ts#L20-L25
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/enroll_kibana/Response.ts#L20-L25
 type Response struct {
 	HttpCa string            `json:"http_ca"`
 	Token  types.KibanaToken `json:"token"`

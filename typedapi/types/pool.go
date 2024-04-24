@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Pool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/_types/Stats.ts#L878-L895
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L878-L895
 type Pool struct {
 	// MaxInBytes Maximum amount of memory, in bytes, available for use by the heap.
 	MaxInBytes *int64 `json:"max_in_bytes,omitempty"`
@@ -64,7 +65,7 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxInBytes", err)
 				}
 				s.MaxInBytes = &value
 			case float64:
@@ -79,7 +80,7 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PeakMaxInBytes", err)
 				}
 				s.PeakMaxInBytes = &value
 			case float64:
@@ -94,7 +95,7 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PeakUsedInBytes", err)
 				}
 				s.PeakUsedInBytes = &value
 			case float64:
@@ -109,7 +110,7 @@ func (s *Pool) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UsedInBytes", err)
 				}
 				s.UsedInBytes = &value
 			case float64:

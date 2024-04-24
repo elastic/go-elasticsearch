@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RerouteProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/_types/Processors.ts#L971-L999
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ingest/_types/Processors.ts#L971-L999
 type RerouteProcessor struct {
 	// Dataset Field references or a static value for the dataset part of the data stream
 	// name.
@@ -98,20 +99,20 @@ func (s *RerouteProcessor) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Dataset", err)
 				}
 
 				s.Dataset = append(s.Dataset, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Dataset); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Dataset", err)
 				}
 			}
 
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -123,7 +124,7 @@ func (s *RerouteProcessor) UnmarshalJSON(data []byte) error {
 		case "destination":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Destination", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -135,7 +136,7 @@ func (s *RerouteProcessor) UnmarshalJSON(data []byte) error {
 		case "if":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "If", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -151,7 +152,7 @@ func (s *RerouteProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreFailure", err)
 				}
 				s.IgnoreFailure = &value
 			case bool:
@@ -164,25 +165,25 @@ func (s *RerouteProcessor) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Namespace", err)
 				}
 
 				s.Namespace = append(s.Namespace, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Namespace); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Namespace", err)
 				}
 			}
 
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OnFailure", err)
 			}
 
 		case "tag":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tag", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

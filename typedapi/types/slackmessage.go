@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SlackMessage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L130-L137
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Actions.ts#L130-L137
 type SlackMessage struct {
 	Attachments        []SlackAttachment       `json:"attachments"`
 	DynamicAttachments *SlackDynamicAttachment `json:"dynamic_attachments,omitempty"`
@@ -57,18 +58,18 @@ func (s *SlackMessage) UnmarshalJSON(data []byte) error {
 
 		case "attachments":
 			if err := dec.Decode(&s.Attachments); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attachments", err)
 			}
 
 		case "dynamic_attachments":
 			if err := dec.Decode(&s.DynamicAttachments); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DynamicAttachments", err)
 			}
 
 		case "from":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "From", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -80,7 +81,7 @@ func (s *SlackMessage) UnmarshalJSON(data []byte) error {
 		case "icon":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Icon", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,7 +93,7 @@ func (s *SlackMessage) UnmarshalJSON(data []byte) error {
 		case "text":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Text", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -103,7 +104,7 @@ func (s *SlackMessage) UnmarshalJSON(data []byte) error {
 
 		case "to":
 			if err := dec.Decode(&s.To); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "To", err)
 			}
 
 		}

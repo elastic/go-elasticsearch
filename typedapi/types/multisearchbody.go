@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MultisearchBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/msearch/types.ts#L71-L202
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/msearch/types.ts#L71-L202
 type MultisearchBody struct {
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	Collapse     *FieldCollapse          `json:"collapse,omitempty"`
@@ -140,17 +141,17 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 				s.Aggregations = make(map[string]Aggregations, 0)
 			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Aggregations", err)
 			}
 
 		case "collapse":
 			if err := dec.Decode(&s.Collapse); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Collapse", err)
 			}
 
 		case "docvalue_fields":
 			if err := dec.Decode(&s.DocvalueFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocvalueFields", err)
 			}
 
 		case "explain":
@@ -160,7 +161,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Explain", err)
 				}
 				s.Explain = &value
 			case bool:
@@ -172,12 +173,12 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 				s.Ext = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Ext); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ext", err)
 			}
 
 		case "fields":
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "from":
@@ -188,7 +189,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "From", err)
 				}
 				s.From = &value
 			case float64:
@@ -198,12 +199,12 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 
 		case "highlight":
 			if err := dec.Decode(&s.Highlight); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Highlight", err)
 			}
 
 		case "indices_boost":
 			if err := dec.Decode(&s.IndicesBoost); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndicesBoost", err)
 			}
 
 		case "knn":
@@ -212,13 +213,13 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := NewKnnQuery()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Knn", err)
 				}
 
 				s.Knn = append(s.Knn, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Knn); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Knn", err)
 				}
 			}
 
@@ -229,7 +230,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinScore", err)
 				}
 				f := Float64(value)
 				s.MinScore = &f
@@ -240,12 +241,12 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 
 		case "pit":
 			if err := dec.Decode(&s.Pit); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pit", err)
 			}
 
 		case "post_filter":
 			if err := dec.Decode(&s.PostFilter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PostFilter", err)
 			}
 
 		case "profile":
@@ -255,7 +256,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Profile", err)
 				}
 				s.Profile = &value
 			case bool:
@@ -264,7 +265,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 
 		case "query":
 			if err := dec.Decode(&s.Query); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 
 		case "rescore":
@@ -273,19 +274,19 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := NewRescore()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Rescore", err)
 				}
 
 				s.Rescore = append(s.Rescore, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Rescore); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Rescore", err)
 				}
 			}
 
 		case "runtime_mappings":
 			if err := dec.Decode(&s.RuntimeMappings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuntimeMappings", err)
 			}
 
 		case "script_fields":
@@ -293,12 +294,12 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 				s.ScriptFields = make(map[string]ScriptField, 0)
 			}
 			if err := dec.Decode(&s.ScriptFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptFields", err)
 			}
 
 		case "search_after":
 			if err := dec.Decode(&s.SearchAfter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchAfter", err)
 			}
 
 		case "seq_no_primary_term":
@@ -308,7 +309,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SeqNoPrimaryTerm", err)
 				}
 				s.SeqNoPrimaryTerm = &value
 			case bool:
@@ -323,7 +324,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -337,24 +338,24 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(SortCombinations)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sort", err)
 				}
 
 				s.Sort = append(s.Sort, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Sort); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Sort", err)
 				}
 			}
 
 		case "_source":
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
 
 		case "stats":
 			if err := dec.Decode(&s.Stats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Stats", err)
 			}
 
 		case "stored_fields":
@@ -363,19 +364,19 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoredFields", err)
 				}
 
 				s.StoredFields = append(s.StoredFields, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.StoredFields); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StoredFields", err)
 				}
 			}
 
 		case "suggest":
 			if err := dec.Decode(&s.Suggest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Suggest", err)
 			}
 
 		case "terminate_after":
@@ -385,7 +386,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TerminateAfter", err)
 				}
 				s.TerminateAfter = &value
 			case float64:
@@ -396,7 +397,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 		case "timeout":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -412,7 +413,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TrackScores", err)
 				}
 				s.TrackScores = &value
 			case bool:
@@ -421,7 +422,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 
 		case "track_total_hits":
 			if err := dec.Decode(&s.TrackTotalHits); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TrackTotalHits", err)
 			}
 
 		case "version":
@@ -431,7 +432,7 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Version", err)
 				}
 				s.Version = &value
 			case bool:

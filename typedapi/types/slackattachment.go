@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SlackAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L101-L117
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Actions.ts#L101-L117
 type SlackAttachment struct {
 	AuthorIcon *string                `json:"author_icon,omitempty"`
 	AuthorLink *string                `json:"author_link,omitempty"`
@@ -67,7 +68,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "author_icon":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AuthorIcon", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -79,7 +80,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "author_link":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AuthorLink", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -91,7 +92,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "author_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AuthorName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -103,7 +104,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "color":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Color", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -115,7 +116,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "fallback":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fallback", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -126,13 +127,13 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 
 		case "fields":
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "footer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Footer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -144,7 +145,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "footer_icon":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FooterIcon", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -156,7 +157,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "image_url":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ImageUrl", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -168,7 +169,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "pretext":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pretext", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -180,7 +181,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "text":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Text", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -192,7 +193,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "thumb_url":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThumbUrl", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -204,7 +205,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "title":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Title", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -216,7 +217,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 		case "title_link":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TitleLink", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -227,7 +228,7 @@ func (s *SlackAttachment) UnmarshalJSON(data []byte) error {
 
 		case "ts":
 			if err := dec.Decode(&s.Ts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ts", err)
 			}
 
 		}

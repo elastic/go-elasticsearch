@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DocumentSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/simulate/types.ts#L57-L85
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ingest/simulate/types.ts#L57-L85
 type DocumentSimulation struct {
 	DocumentSimulation map[string]string `json:"-"`
 	// Id_ Unique identifier for the document. This ID must be unique within the
@@ -67,23 +67,23 @@ func (s *DocumentSimulation) UnmarshalJSON(data []byte) error {
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
 		case "_ingest":
 			if err := dec.Decode(&s.Ingest_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ingest_", err)
 			}
 
 		case "_routing":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -97,17 +97,17 @@ func (s *DocumentSimulation) UnmarshalJSON(data []byte) error {
 				s.Source_ = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
 
 		case "_version_type":
 			if err := dec.Decode(&s.VersionType_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VersionType_", err)
 			}
 
 		case "_version":
 			if err := dec.Decode(&s.Version_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version_", err)
 			}
 
 		default:
@@ -118,7 +118,7 @@ func (s *DocumentSimulation) UnmarshalJSON(data []byte) error {
 				}
 				raw := new(string)
 				if err := dec.Decode(&raw); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocumentSimulation", err)
 				}
 				s.DocumentSimulation[key] = *raw
 			}

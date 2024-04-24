@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // Document type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/simulate/types.ts#L41-L55
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ingest/simulate/types.ts#L41-L55
 type Document struct {
 	// Id_ Unique identifier for the document.
 	// This ID must be unique within the `_index`.
@@ -57,17 +58,17 @@ func (s *Document) UnmarshalJSON(data []byte) error {
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
 		case "_source":
 			if err := dec.Decode(&s.Source_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source_", err)
 			}
 
 		}

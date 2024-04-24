@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package reindex
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package reindex
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/reindex/ReindexRequest.ts#L27-L101
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/reindex/ReindexRequest.ts#L27-L101
 type Request struct {
 
 	// Conflicts Set to proceed to continue reindexing even if there are conflicts.
@@ -84,12 +84,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "conflicts":
 			if err := dec.Decode(&s.Conflicts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Conflicts", err)
 			}
 
 		case "dest":
 			if err := dec.Decode(&s.Dest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dest", err)
 			}
 
 		case "max_docs":
@@ -99,7 +99,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxDocs", err)
 				}
 				s.MaxDocs = &value
 			case float64:
@@ -110,7 +110,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "script":
 			message := json.RawMessage{}
 			if err := dec.Decode(&message); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Script", err)
 			}
 			keyDec := json.NewDecoder(bytes.NewReader(message))
 			for {
@@ -119,7 +119,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					if errors.Is(err, io.EOF) {
 						break
 					}
-					return err
+					return fmt.Errorf("%s | %w", "Script", err)
 				}
 
 				switch t {
@@ -128,7 +128,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					o := types.NewInlineScript()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -136,7 +136,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					o := types.NewStoredScriptId()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "Script", err)
 					}
 					s.Script = o
 
@@ -150,7 +150,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -160,7 +160,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "source":
 			if err := dec.Decode(&s.Source); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 
 		}

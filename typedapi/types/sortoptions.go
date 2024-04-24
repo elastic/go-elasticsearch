@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -27,13 +27,13 @@ import (
 
 // SortOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/sort.ts#L82-L91
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/sort.ts#L82-L91
 type SortOptions struct {
 	Doc_         *ScoreSort           `json:"_doc,omitempty"`
 	GeoDistance_ *GeoDistanceSort     `json:"_geo_distance,omitempty"`
 	Score_       *ScoreSort           `json:"_score,omitempty"`
 	Script_      *ScriptSort          `json:"_script,omitempty"`
-	SortOptions  map[string]FieldSort `json:"SortOptions,omitempty"`
+	SortOptions  map[string]FieldSort `json:"-"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties

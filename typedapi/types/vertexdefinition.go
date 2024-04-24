@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // VertexDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/graph/_types/Vertex.ts#L30-L59
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/graph/_types/Vertex.ts#L30-L59
 type VertexDefinition struct {
 	// Exclude Prevents the specified terms from being included in the results.
 	Exclude []string `json:"exclude,omitempty"`
@@ -67,17 +68,17 @@ func (s *VertexDefinition) UnmarshalJSON(data []byte) error {
 
 		case "exclude":
 			if err := dec.Decode(&s.Exclude); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Exclude", err)
 			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "include":
 			if err := dec.Decode(&s.Include); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Include", err)
 			}
 
 		case "min_doc_count":
@@ -87,7 +88,7 @@ func (s *VertexDefinition) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinDocCount", err)
 				}
 				s.MinDocCount = &value
 			case float64:
@@ -102,7 +103,7 @@ func (s *VertexDefinition) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShardMinDocCount", err)
 				}
 				s.ShardMinDocCount = &value
 			case float64:
@@ -118,7 +119,7 @@ func (s *VertexDefinition) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:

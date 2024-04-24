@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,15 +33,16 @@ import (
 
 // RankFeaturesProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/core.ts#L189-L191
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/mapping/core.ts#L189-L192
 type RankFeaturesProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove *int                           `json:"ignore_above,omitempty"`
 	// Meta Metadata about the field.
-	Meta       map[string]string   `json:"meta,omitempty"`
-	Properties map[string]Property `json:"properties,omitempty"`
-	Type       string              `json:"type,omitempty"`
+	Meta                map[string]string   `json:"meta,omitempty"`
+	PositiveScoreImpact *bool               `json:"positive_score_impact,omitempty"`
+	Properties          map[string]Property `json:"properties,omitempty"`
+	Type                string              `json:"type,omitempty"`
 }
 
 func (s *RankFeaturesProperty) UnmarshalJSON(data []byte) error {
@@ -60,7 +62,7 @@ func (s *RankFeaturesProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "fields":
@@ -378,7 +380,7 @@ func (s *RankFeaturesProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -391,7 +393,21 @@ func (s *RankFeaturesProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
+			}
+
+		case "positive_score_impact":
+			var tmp interface{}
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "PositiveScoreImpact", err)
+				}
+				s.PositiveScoreImpact = &value
+			case bool:
+				s.PositiveScoreImpact = &v
 			}
 
 		case "properties":
@@ -703,7 +719,7 @@ func (s *RankFeaturesProperty) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}
@@ -715,12 +731,13 @@ func (s *RankFeaturesProperty) UnmarshalJSON(data []byte) error {
 func (s RankFeaturesProperty) MarshalJSON() ([]byte, error) {
 	type innerRankFeaturesProperty RankFeaturesProperty
 	tmp := innerRankFeaturesProperty{
-		Dynamic:     s.Dynamic,
-		Fields:      s.Fields,
-		IgnoreAbove: s.IgnoreAbove,
-		Meta:        s.Meta,
-		Properties:  s.Properties,
-		Type:        s.Type,
+		Dynamic:             s.Dynamic,
+		Fields:              s.Fields,
+		IgnoreAbove:         s.IgnoreAbove,
+		Meta:                s.Meta,
+		PositiveScoreImpact: s.PositiveScoreImpact,
+		Properties:          s.Properties,
+		Type:                s.Type,
 	}
 
 	tmp.Type = "rank_features"

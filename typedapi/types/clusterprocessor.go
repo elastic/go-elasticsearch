@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ClusterProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/stats/types.ts#L503-L509
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L503-L509
 type ClusterProcessor struct {
 	Count        int64    `json:"count"`
 	Current      int64    `json:"current"`
@@ -61,7 +62,7 @@ func (s *ClusterProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -76,7 +77,7 @@ func (s *ClusterProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Current", err)
 				}
 				s.Current = value
 			case float64:
@@ -91,7 +92,7 @@ func (s *ClusterProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Failed", err)
 				}
 				s.Failed = value
 			case float64:
@@ -101,12 +102,12 @@ func (s *ClusterProcessor) UnmarshalJSON(data []byte) error {
 
 		case "time":
 			if err := dec.Decode(&s.Time); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Time", err)
 			}
 
 		case "time_in_millis":
 			if err := dec.Decode(&s.TimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeInMillis", err)
 			}
 
 		}

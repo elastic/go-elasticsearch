@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package searchtemplate
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package searchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search_template/SearchTemplateRequest.ts#L32-L134
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search_template/SearchTemplateRequest.ts#L32-L134
 type Request struct {
 
 	// Explain If `true`, returns detailed information about score calculation as part of
@@ -93,7 +93,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Explain", err)
 				}
 				s.Explain = &value
 			case bool:
@@ -102,7 +102,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "params":
@@ -110,7 +110,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Params = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Params); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Params", err)
 			}
 
 		case "profile":
@@ -120,7 +120,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Profile", err)
 				}
 				s.Profile = &value
 			case bool:
@@ -130,7 +130,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "source":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // MultisearchHeader type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/msearch/types.ts#L53-L68
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/msearch/types.ts#L53-L68
 type MultisearchHeader struct {
 	AllowNoIndices            *bool                           `json:"allow_no_indices,omitempty"`
 	AllowPartialSearchResults *bool                           `json:"allow_partial_search_results,omitempty"`
@@ -70,7 +71,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowNoIndices", err)
 				}
 				s.AllowNoIndices = &value
 			case bool:
@@ -84,7 +85,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowPartialSearchResults", err)
 				}
 				s.AllowPartialSearchResults = &value
 			case bool:
@@ -98,7 +99,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CcsMinimizeRoundtrips", err)
 				}
 				s.CcsMinimizeRoundtrips = &value
 			case bool:
@@ -111,13 +112,13 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := &expandwildcard.ExpandWildcard{}
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExpandWildcards", err)
 				}
 
 				s.ExpandWildcards = append(s.ExpandWildcards, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.ExpandWildcards); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExpandWildcards", err)
 				}
 			}
 
@@ -128,7 +129,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreThrottled", err)
 				}
 				s.IgnoreThrottled = &value
 			case bool:
@@ -142,7 +143,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreUnavailable", err)
 				}
 				s.IgnoreUnavailable = &value
 			case bool:
@@ -155,20 +156,20 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Index", err)
 				}
 
 				s.Index = append(s.Index, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Index); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Index", err)
 				}
 			}
 
 		case "preference":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Preference", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -184,7 +185,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RequestCache", err)
 				}
 				s.RequestCache = &value
 			case bool:
@@ -193,12 +194,12 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		case "search_type":
 			if err := dec.Decode(&s.SearchType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchType", err)
 			}
 
 		}

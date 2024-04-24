@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // JobUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L364-L370
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L364-L370
 type JobUsage struct {
 	Count     int              `json:"count"`
 	CreatedBy map[string]int64 `json:"created_by"`
@@ -62,7 +63,7 @@ func (s *JobUsage) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -75,22 +76,22 @@ func (s *JobUsage) UnmarshalJSON(data []byte) error {
 				s.CreatedBy = make(map[string]int64, 0)
 			}
 			if err := dec.Decode(&s.CreatedBy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreatedBy", err)
 			}
 
 		case "detectors":
 			if err := dec.Decode(&s.Detectors); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Detectors", err)
 			}
 
 		case "forecasts":
 			if err := dec.Decode(&s.Forecasts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Forecasts", err)
 			}
 
 		case "model_size":
 			if err := dec.Decode(&s.ModelSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelSize", err)
 			}
 
 		}

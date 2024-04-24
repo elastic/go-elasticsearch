@@ -26,6 +26,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 
@@ -89,7 +90,6 @@ var gentestsCmd = &cobra.Command{
 }
 
 // Command represents the "gentests" command.
-//
 type Command struct {
 	Input          string
 	Output         string
@@ -100,7 +100,6 @@ type Command struct {
 }
 
 // Execute runs the command.
-//
 func (cmd *Command) Execute() error {
 	if len(apiRegistry) < 1 {
 		return fmt.Errorf("API registry in 'api_registry.gen.go' is empty: Did you run go generate?")
@@ -150,7 +149,8 @@ func (cmd *Command) Execute() error {
 		}
 
 		for _, skipFile := range skipFiles {
-			if strings.HasSuffix(fpath, skipFile) {
+			r, _ := regexp.Compile(skipFile)
+			if strings.HasSuffix(fpath, skipFile) || r.MatchString(fpath) {
 				if utils.IsTTY() {
 					fmt.Fprint(os.Stderr, "\x1b[2m")
 				}
@@ -163,6 +163,7 @@ func (cmd *Command) Execute() error {
 					fmt.Fprint(os.Stderr, "\x1b[0m")
 				}
 				skip = true
+				break
 			}
 		}
 

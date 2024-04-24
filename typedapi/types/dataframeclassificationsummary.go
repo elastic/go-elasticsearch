@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
 // DataframeClassificationSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/evaluate_data_frame/types.ts#L44-L66
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/evaluate_data_frame/types.ts#L44-L66
 type DataframeClassificationSummary struct {
 	// Accuracy Accuracy of predictions (per-class and overall).
 	Accuracy *DataframeClassificationSummaryAccuracy `json:"accuracy,omitempty"`

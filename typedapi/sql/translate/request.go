@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package translate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package translate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/sql/translate/TranslateSqlRequest.ts#L25-L54
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/sql/translate/TranslateSqlRequest.ts#L25-L54
 type Request struct {
 
 	// FetchSize The maximum number of rows (or entries) to return in one response.
@@ -86,7 +86,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FetchSize", err)
 				}
 				s.FetchSize = &value
 			case float64:
@@ -96,13 +96,13 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -113,7 +113,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "time_zone":
 			if err := dec.Decode(&s.TimeZone); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeZone", err)
 			}
 
 		}

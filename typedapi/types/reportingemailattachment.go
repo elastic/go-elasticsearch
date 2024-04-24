@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ReportingEmailAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L224-L232
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Actions.ts#L224-L232
 type ReportingEmailAttachment struct {
 	Inline   *bool                       `json:"inline,omitempty"`
 	Interval Duration                    `json:"interval,omitempty"`
@@ -61,7 +62,7 @@ func (s *ReportingEmailAttachment) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Inline", err)
 				}
 				s.Inline = &value
 			case bool:
@@ -70,12 +71,12 @@ func (s *ReportingEmailAttachment) UnmarshalJSON(data []byte) error {
 
 		case "interval":
 			if err := dec.Decode(&s.Interval); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Interval", err)
 			}
 
 		case "request":
 			if err := dec.Decode(&s.Request); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Request", err)
 			}
 
 		case "retries":
@@ -86,7 +87,7 @@ func (s *ReportingEmailAttachment) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Retries", err)
 				}
 				s.Retries = &value
 			case float64:
@@ -97,7 +98,7 @@ func (s *ReportingEmailAttachment) UnmarshalJSON(data []byte) error {
 		case "url":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Url", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

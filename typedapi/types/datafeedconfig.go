@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DatafeedConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Datafeed.ts#L60-L117
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Datafeed.ts#L60-L117
 type DatafeedConfig struct {
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 	// is limited and should be used only with low cardinality data.
@@ -120,42 +121,42 @@ func (s *DatafeedConfig) UnmarshalJSON(data []byte) error {
 				s.Aggregations = make(map[string]Aggregations, 0)
 			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Aggregations", err)
 			}
 
 		case "chunking_config":
 			if err := dec.Decode(&s.ChunkingConfig); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ChunkingConfig", err)
 			}
 
 		case "datafeed_id":
 			if err := dec.Decode(&s.DatafeedId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DatafeedId", err)
 			}
 
 		case "delayed_data_check_config":
 			if err := dec.Decode(&s.DelayedDataCheckConfig); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DelayedDataCheckConfig", err)
 			}
 
 		case "frequency":
 			if err := dec.Decode(&s.Frequency); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Frequency", err)
 			}
 
 		case "indices", "indexes":
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "indices_options":
 			if err := dec.Decode(&s.IndicesOptions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndicesOptions", err)
 			}
 
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "max_empty_searches":
@@ -166,7 +167,7 @@ func (s *DatafeedConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxEmptySearches", err)
 				}
 				s.MaxEmptySearches = &value
 			case float64:
@@ -176,17 +177,17 @@ func (s *DatafeedConfig) UnmarshalJSON(data []byte) error {
 
 		case "query":
 			if err := dec.Decode(&s.Query); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 
 		case "query_delay":
 			if err := dec.Decode(&s.QueryDelay); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryDelay", err)
 			}
 
 		case "runtime_mappings":
 			if err := dec.Decode(&s.RuntimeMappings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuntimeMappings", err)
 			}
 
 		case "script_fields":
@@ -194,7 +195,7 @@ func (s *DatafeedConfig) UnmarshalJSON(data []byte) error {
 				s.ScriptFields = make(map[string]ScriptField, 0)
 			}
 			if err := dec.Decode(&s.ScriptFields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptFields", err)
 			}
 
 		case "scroll_size":
@@ -205,7 +206,7 @@ func (s *DatafeedConfig) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ScrollSize", err)
 				}
 				s.ScrollSize = &value
 			case float64:

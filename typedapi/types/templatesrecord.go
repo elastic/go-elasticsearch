@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TemplatesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/templates/types.ts#L22-L48
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/templates/types.ts#L22-L48
 type TemplatesRecord struct {
 	// ComposedOf The component templates that comprise the index template.
 	ComposedOf *string `json:"composed_of,omitempty"`
@@ -62,7 +63,7 @@ func (s *TemplatesRecord) UnmarshalJSON(data []byte) error {
 		case "composed_of", "c":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ComposedOf", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -74,7 +75,7 @@ func (s *TemplatesRecord) UnmarshalJSON(data []byte) error {
 		case "index_patterns", "t":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexPatterns", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -85,13 +86,13 @@ func (s *TemplatesRecord) UnmarshalJSON(data []byte) error {
 
 		case "name", "n":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "order", "o", "p":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Order", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -102,7 +103,7 @@ func (s *TemplatesRecord) UnmarshalJSON(data []byte) error {
 
 		case "version", "v":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

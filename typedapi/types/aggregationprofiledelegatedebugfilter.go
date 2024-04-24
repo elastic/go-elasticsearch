@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AggregationProfileDelegateDebugFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/profile.ts#L70-L75
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/profile.ts#L70-L75
 type AggregationProfileDelegateDebugFilter struct {
 	Query                         *string `json:"query,omitempty"`
 	ResultsFromMetadata           *int    `json:"results_from_metadata,omitempty"`
@@ -56,7 +57,7 @@ func (s *AggregationProfileDelegateDebugFilter) UnmarshalJSON(data []byte) error
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -73,7 +74,7 @@ func (s *AggregationProfileDelegateDebugFilter) UnmarshalJSON(data []byte) error
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ResultsFromMetadata", err)
 				}
 				s.ResultsFromMetadata = &value
 			case float64:
@@ -89,7 +90,7 @@ func (s *AggregationProfileDelegateDebugFilter) UnmarshalJSON(data []byte) error
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SegmentsCountedInConstantTime", err)
 				}
 				s.SegmentsCountedInConstantTime = &value
 			case float64:
@@ -100,7 +101,7 @@ func (s *AggregationProfileDelegateDebugFilter) UnmarshalJSON(data []byte) error
 		case "specialized_for":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SpecializedFor", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

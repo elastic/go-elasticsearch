@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // MultiBucketAggregateBaseGeoTileGridBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/Aggregate.ts#L327-L329
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L327-L329
 type MultiBucketAggregateBaseGeoTileGridBucket struct {
 	Buckets BucketsGeoTileGridBucket `json:"buckets"`
 	Meta    Metadata                 `json:"meta,omitempty"`
@@ -60,20 +61,20 @@ func (s *MultiBucketAggregateBaseGeoTileGridBucket) UnmarshalJSON(data []byte) e
 			case '{':
 				o := make(map[string]GeoTileGridBucket, 0)
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Buckets", err)
 				}
 				s.Buckets = o
 			case '[':
 				o := []GeoTileGridBucket{}
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Buckets", err)
 				}
 				s.Buckets = o
 			}
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		}

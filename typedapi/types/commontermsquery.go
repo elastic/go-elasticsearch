@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // CommonTermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/fulltext.ts#L34-L44
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/fulltext.ts#L34-L44
 type CommonTermsQuery struct {
 	Analyzer *string `json:"analyzer,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
@@ -76,7 +77,7 @@ func (s *CommonTermsQuery) UnmarshalJSON(data []byte) error {
 		case "analyzer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Analyzer", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,7 +93,7 @@ func (s *CommonTermsQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -108,7 +109,7 @@ func (s *CommonTermsQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CutoffFrequency", err)
 				}
 				f := Float64(value)
 				s.CutoffFrequency = &f
@@ -119,23 +120,23 @@ func (s *CommonTermsQuery) UnmarshalJSON(data []byte) error {
 
 		case "high_freq_operator":
 			if err := dec.Decode(&s.HighFreqOperator); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HighFreqOperator", err)
 			}
 
 		case "low_freq_operator":
 			if err := dec.Decode(&s.LowFreqOperator); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LowFreqOperator", err)
 			}
 
 		case "minimum_should_match":
 			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinimumShouldMatch", err)
 			}
 
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -147,7 +148,7 @@ func (s *CommonTermsQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

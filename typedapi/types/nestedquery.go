@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // NestedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/joining.ts#L106-L130
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/joining.ts#L106-L130
 type NestedQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -77,7 +78,7 @@ func (s *NestedQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -93,7 +94,7 @@ func (s *NestedQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreUnmapped", err)
 				}
 				s.IgnoreUnmapped = &value
 			case bool:
@@ -102,23 +103,23 @@ func (s *NestedQuery) UnmarshalJSON(data []byte) error {
 
 		case "inner_hits":
 			if err := dec.Decode(&s.InnerHits); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InnerHits", err)
 			}
 
 		case "path":
 			if err := dec.Decode(&s.Path); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Path", err)
 			}
 
 		case "query":
 			if err := dec.Decode(&s.Query); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -129,7 +130,7 @@ func (s *NestedQuery) UnmarshalJSON(data []byte) error {
 
 		case "score_mode":
 			if err := dec.Decode(&s.ScoreMode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScoreMode", err)
 			}
 
 		}

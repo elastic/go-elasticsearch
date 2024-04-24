@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // XpackRealm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L417-L426
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L417-L426
 type XpackRealm struct {
 	Available                 bool         `json:"available"`
 	Cache                     []RealmCache `json:"cache,omitempty"`
@@ -66,7 +67,7 @@ func (s *XpackRealm) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Available", err)
 				}
 				s.Available = value
 			case bool:
@@ -75,7 +76,7 @@ func (s *XpackRealm) UnmarshalJSON(data []byte) error {
 
 		case "cache":
 			if err := dec.Decode(&s.Cache); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cache", err)
 			}
 
 		case "enabled":
@@ -85,7 +86,7 @@ func (s *XpackRealm) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Enabled", err)
 				}
 				s.Enabled = value
 			case bool:
@@ -94,37 +95,37 @@ func (s *XpackRealm) UnmarshalJSON(data []byte) error {
 
 		case "has_authorization_realms":
 			if err := dec.Decode(&s.HasAuthorizationRealms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HasAuthorizationRealms", err)
 			}
 
 		case "has_default_username_pattern":
 			if err := dec.Decode(&s.HasDefaultUsernamePattern); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HasDefaultUsernamePattern", err)
 			}
 
 		case "has_truststore":
 			if err := dec.Decode(&s.HasTruststore); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HasTruststore", err)
 			}
 
 		case "is_authentication_delegated":
 			if err := dec.Decode(&s.IsAuthenticationDelegated); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IsAuthenticationDelegated", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "order":
 			if err := dec.Decode(&s.Order); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Order", err)
 			}
 
 		case "size":
 			if err := dec.Decode(&s.Size); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 
 		}

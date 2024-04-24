@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package putautofollowpattern
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putautofollowpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L27-L112
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L27-L112
 type Request struct {
 
 	// FollowIndexPattern The name of follower index. The template {{leader_index}} can be used to
@@ -124,17 +124,17 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "follow_index_pattern":
 			if err := dec.Decode(&s.FollowIndexPattern); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FollowIndexPattern", err)
 			}
 
 		case "leader_index_exclusion_patterns":
 			if err := dec.Decode(&s.LeaderIndexExclusionPatterns); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LeaderIndexExclusionPatterns", err)
 			}
 
 		case "leader_index_patterns":
 			if err := dec.Decode(&s.LeaderIndexPatterns); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LeaderIndexPatterns", err)
 			}
 
 		case "max_outstanding_read_requests":
@@ -145,7 +145,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxOutstandingReadRequests", err)
 				}
 				s.MaxOutstandingReadRequests = &value
 			case float64:
@@ -161,7 +161,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxOutstandingWriteRequests", err)
 				}
 				s.MaxOutstandingWriteRequests = &value
 			case float64:
@@ -177,7 +177,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxReadRequestOperationCount", err)
 				}
 				s.MaxReadRequestOperationCount = &value
 			case float64:
@@ -187,12 +187,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_read_request_size":
 			if err := dec.Decode(&s.MaxReadRequestSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxReadRequestSize", err)
 			}
 
 		case "max_retry_delay":
 			if err := dec.Decode(&s.MaxRetryDelay); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxRetryDelay", err)
 			}
 
 		case "max_write_buffer_count":
@@ -203,7 +203,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxWriteBufferCount", err)
 				}
 				s.MaxWriteBufferCount = &value
 			case float64:
@@ -213,7 +213,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_write_buffer_size":
 			if err := dec.Decode(&s.MaxWriteBufferSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxWriteBufferSize", err)
 			}
 
 		case "max_write_request_operation_count":
@@ -224,7 +224,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxWriteRequestOperationCount", err)
 				}
 				s.MaxWriteRequestOperationCount = &value
 			case float64:
@@ -234,18 +234,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_write_request_size":
 			if err := dec.Decode(&s.MaxWriteRequestSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxWriteRequestSize", err)
 			}
 
 		case "read_poll_timeout":
 			if err := dec.Decode(&s.ReadPollTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReadPollTimeout", err)
 			}
 
 		case "remote_cluster":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -259,7 +259,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.Settings = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Settings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Settings", err)
 			}
 
 		}

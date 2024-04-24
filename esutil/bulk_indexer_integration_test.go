@@ -43,6 +43,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 		name                       string
 		CompressRequestBodyEnabled bool
 		CompressRequestBodyLevel   int
+		PoolCompressor             bool
 	}{
 		{
 			name:                       "Without body compression",
@@ -57,6 +58,11 @@ func TestBulkIndexerIntegration(t *testing.T) {
 			CompressRequestBodyEnabled: true,
 			CompressRequestBodyLevel:   gzip.BestSpeed,
 		},
+		{
+			name:                       "With body compression (sync.Pool)",
+			CompressRequestBodyEnabled: true,
+			PoolCompressor:             true,
+		},
 	}
 
 	for _, tt := range testCases {
@@ -68,6 +74,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
@@ -134,6 +141,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
@@ -203,6 +211,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout},
 				})
 
@@ -265,6 +274,7 @@ func TestBulkIndexerIntegration(t *testing.T) {
 				es, _ := elasticsearch.NewClient(elasticsearch.Config{
 					CompressRequestBody:      tt.CompressRequestBodyEnabled,
 					CompressRequestBodyLevel: tt.CompressRequestBodyLevel,
+					PoolCompressor:           tt.PoolCompressor,
 					Logger:                   &elastictransport.ColorLogger{Output: os.Stdout, EnableRequestBody: true, EnableResponseBody: true},
 				})
 

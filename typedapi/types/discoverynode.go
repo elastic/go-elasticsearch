@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DiscoveryNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DiscoveryNode.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DiscoveryNode.ts#L24-L30
 type DiscoveryNode struct {
 	Attributes       map[string]string `json:"attributes"`
 	EphemeralId      string            `json:"ephemeral_id"`
@@ -58,27 +59,27 @@ func (s *DiscoveryNode) UnmarshalJSON(data []byte) error {
 				s.Attributes = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Attributes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attributes", err)
 			}
 
 		case "ephemeral_id":
 			if err := dec.Decode(&s.EphemeralId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EphemeralId", err)
 			}
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "transport_address":
 			if err := dec.Decode(&s.TransportAddress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TransportAddress", err)
 			}
 
 		}

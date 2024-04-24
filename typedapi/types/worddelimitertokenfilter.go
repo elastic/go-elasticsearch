@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // WordDelimiterTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/token_filters.ts#L132-L147
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/token_filters.ts#L132-L147
 type WordDelimiterTokenFilter struct {
 	CatenateAll           *bool              `json:"catenate_all,omitempty"`
 	CatenateNumbers       *bool              `json:"catenate_numbers,omitempty"`
@@ -71,7 +72,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CatenateAll", err)
 				}
 				s.CatenateAll = &value
 			case bool:
@@ -85,7 +86,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CatenateNumbers", err)
 				}
 				s.CatenateNumbers = &value
 			case bool:
@@ -99,7 +100,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CatenateWords", err)
 				}
 				s.CatenateWords = &value
 			case bool:
@@ -113,7 +114,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "GenerateNumberParts", err)
 				}
 				s.GenerateNumberParts = &value
 			case bool:
@@ -127,7 +128,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "GenerateWordParts", err)
 				}
 				s.GenerateWordParts = &value
 			case bool:
@@ -136,18 +137,18 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "preserve_original":
 			if err := dec.Decode(&s.PreserveOriginal); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PreserveOriginal", err)
 			}
 
 		case "protected_words":
 			if err := dec.Decode(&s.ProtectedWords); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProtectedWords", err)
 			}
 
 		case "protected_words_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProtectedWordsPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -163,7 +164,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SplitOnCaseChange", err)
 				}
 				s.SplitOnCaseChange = &value
 			case bool:
@@ -177,7 +178,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SplitOnNumerics", err)
 				}
 				s.SplitOnNumerics = &value
 			case bool:
@@ -191,7 +192,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StemEnglishPossessive", err)
 				}
 				s.StemEnglishPossessive = &value
 			case bool:
@@ -200,18 +201,18 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "type_table":
 			if err := dec.Decode(&s.TypeTable); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TypeTable", err)
 			}
 
 		case "type_table_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TypeTablePath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -222,7 +223,7 @@ func (s *WordDelimiterTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

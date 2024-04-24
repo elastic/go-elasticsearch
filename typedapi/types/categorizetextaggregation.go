@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CategorizeTextAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/bucket.ts#L1037-L1101
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L1037-L1101
 type CategorizeTextAggregation struct {
 	// CategorizationAnalyzer The categorization analyzer specifies how the text is analyzed and tokenized
 	// before being categorized.
@@ -119,18 +120,18 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 
 			default:
 				if err := localDec.Decode(&s.CategorizationAnalyzer); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CategorizationAnalyzer", err)
 				}
 			}
 
 		case "categorization_filters":
 			if err := dec.Decode(&s.CategorizationFilters); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CategorizationFilters", err)
 			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "max_matched_tokens":
@@ -141,7 +142,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxMatchedTokens", err)
 				}
 				s.MaxMatchedTokens = &value
 			case float64:
@@ -157,7 +158,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxUniqueTokens", err)
 				}
 				s.MaxUniqueTokens = &value
 			case float64:
@@ -167,7 +168,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "min_doc_count":
@@ -178,7 +179,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinDocCount", err)
 				}
 				s.MinDocCount = &value
 			case float64:
@@ -189,7 +190,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -206,7 +207,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShardMinDocCount", err)
 				}
 				s.ShardMinDocCount = &value
 			case float64:
@@ -222,7 +223,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShardSize", err)
 				}
 				s.ShardSize = &value
 			case float64:
@@ -238,7 +239,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SimilarityThreshold", err)
 				}
 				s.SimilarityThreshold = &value
 			case float64:
@@ -254,7 +255,7 @@ func (s *CategorizeTextAggregation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:

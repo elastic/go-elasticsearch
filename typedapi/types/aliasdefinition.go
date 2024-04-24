@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AliasDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/AliasDefinition.ts#L22-L54
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/AliasDefinition.ts#L22-L54
 type AliasDefinition struct {
 	// Filter Query used to limit documents the alias can access.
 	Filter *Query `json:"filter,omitempty"`
@@ -66,13 +67,13 @@ func (s *AliasDefinition) UnmarshalJSON(data []byte) error {
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "index_routing":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexRouting", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -88,7 +89,7 @@ func (s *AliasDefinition) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsHidden", err)
 				}
 				s.IsHidden = &value
 			case bool:
@@ -102,7 +103,7 @@ func (s *AliasDefinition) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsWriteIndex", err)
 				}
 				s.IsWriteIndex = &value
 			case bool:
@@ -112,7 +113,7 @@ func (s *AliasDefinition) UnmarshalJSON(data []byte) error {
 		case "routing":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,7 +125,7 @@ func (s *AliasDefinition) UnmarshalJSON(data []byte) error {
 		case "search_routing":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchRouting", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

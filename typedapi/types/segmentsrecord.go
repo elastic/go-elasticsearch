@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SegmentsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/segments/types.ts#L22-L107
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/segments/types.ts#L22-L107
 type SegmentsRecord struct {
 	// Committed If `true`, the segment is synced to disk.
 	// Segments that are synced can survive a hard reboot.
@@ -105,7 +106,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "committed", "ic", "isCommitted":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Committed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -117,7 +118,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "compound", "ico", "isCompound":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Compound", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -129,7 +130,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "docs.count", "dc", "docsCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -141,7 +142,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "docs.deleted", "dd", "docsDeleted":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocsDeleted", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -153,7 +154,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "generation", "g", "gen":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Generation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -164,18 +165,18 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "index", "i", "idx":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "ip":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -187,7 +188,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "prirep", "p", "pr", "primaryOrReplica":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Prirep", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -199,7 +200,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "searchable", "is", "isSearchable":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Searchable", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -211,7 +212,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "segment", "seg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Segment", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -223,7 +224,7 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 		case "shard", "s", "sh":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shard", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -234,17 +235,17 @@ func (s *SegmentsRecord) UnmarshalJSON(data []byte) error {
 
 		case "size", "si":
 			if err := dec.Decode(&s.Size); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 
 		case "size.memory", "sm", "sizeMemory":
 			if err := dec.Decode(&s.SizeMemory); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SizeMemory", err)
 			}
 
 		case "version", "v":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

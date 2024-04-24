@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Influence type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Anomaly.ts#L140-L143
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Anomaly.ts#L140-L143
 type Influence struct {
 	InfluencerFieldName   string   `json:"influencer_field_name"`
 	InfluencerFieldValues []string `json:"influencer_field_values"`
@@ -54,7 +55,7 @@ func (s *Influence) UnmarshalJSON(data []byte) error {
 		case "influencer_field_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InfluencerFieldName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -65,7 +66,7 @@ func (s *Influence) UnmarshalJSON(data []byte) error {
 
 		case "influencer_field_values":
 			if err := dec.Decode(&s.InfluencerFieldValues); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InfluencerFieldValues", err)
 			}
 
 		}

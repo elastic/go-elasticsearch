@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // WatcherWatchTriggerSchedule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L466-L469
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L466-L469
 type WatcherWatchTriggerSchedule struct {
 	Active int64   `json:"active"`
 	All_   Counter `json:"_all"`
@@ -60,7 +61,7 @@ func (s *WatcherWatchTriggerSchedule) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Active", err)
 				}
 				s.Active = value
 			case float64:
@@ -70,12 +71,12 @@ func (s *WatcherWatchTriggerSchedule) UnmarshalJSON(data []byte) error {
 
 		case "_all":
 			if err := dec.Decode(&s.All_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "All_", err)
 			}
 
 		case "cron":
 			if err := dec.Decode(&s.Cron); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cron", err)
 			}
 
 		case "total":
@@ -85,7 +86,7 @@ func (s *WatcherWatchTriggerSchedule) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Total", err)
 				}
 				s.Total = value
 			case float64:

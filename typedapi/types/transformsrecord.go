@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TransformsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/transforms/types.ts#L22-L197
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/transforms/types.ts#L22-L197
 type TransformsRecord struct {
 	// ChangesLastDetectionTime The timestamp when changes were last detected in the source indices.
 	ChangesLastDetectionTime string `json:"changes_last_detection_time,omitempty"`
@@ -142,7 +143,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "changes_last_detection_time", "cldt":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ChangesLastDetectionTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -154,7 +155,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "checkpoint", "c":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Checkpoint", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -166,7 +167,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "checkpoint_duration_time_exp_avg", "cdtea", "checkpointTimeExpAvg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CheckpointDurationTimeExpAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -178,7 +179,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "checkpoint_progress", "cp", "checkpointProgress":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CheckpointProgress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -190,7 +191,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "create_time", "ct", "createTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CreateTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -202,7 +203,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "delete_time", "dtime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DeleteTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -214,7 +215,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "description", "d":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -226,7 +227,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "dest_index", "di", "destIndex":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DestIndex", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -238,7 +239,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "docs_per_second", "dps":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocsPerSecond", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -250,7 +251,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "documents_deleted", "docd":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocumentsDeleted", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -262,7 +263,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "documents_indexed", "doci":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocumentsIndexed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -274,7 +275,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "documents_processed", "docp", "documentsProcessed":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DocumentsProcessed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -286,7 +287,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "frequency", "f":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Frequency", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -297,13 +298,13 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "index_failure", "if":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexFailure", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -315,7 +316,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "index_time", "itime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -327,7 +328,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "index_total", "it":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -339,7 +340,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "indexed_documents_exp_avg", "idea":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexedDocumentsExpAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -351,7 +352,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "last_search_time", "lst", "lastSearchTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LastSearchTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -363,7 +364,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "max_page_search_size", "mpsz":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxPageSearchSize", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -375,7 +376,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "pages_processed", "pp":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PagesProcessed", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -387,7 +388,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "pipeline", "p":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pipeline", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -399,7 +400,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "processed_documents_exp_avg", "pdea":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProcessedDocumentsExpAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -411,7 +412,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "processing_time", "pt":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProcessingTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -423,7 +424,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "reason", "r":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -435,7 +436,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "search_failure", "sf":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchFailure", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -447,7 +448,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "search_time", "stime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -459,7 +460,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "search_total", "st":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -471,7 +472,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "source_index", "si", "sourceIndex":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SourceIndex", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -483,7 +484,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "state", "s":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -495,7 +496,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "transform_type", "tt":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TransformType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -507,7 +508,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 		case "trigger_count", "tc":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TriggerCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -518,7 +519,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 
 		case "version", "v":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

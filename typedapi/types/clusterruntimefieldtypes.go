@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ClusterRuntimeFieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/stats/types.ts#L169-L226
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L169-L226
 type ClusterRuntimeFieldTypes struct {
 	// CharsMax Maximum number of characters for a single runtime field script.
 	CharsMax int `json:"chars_max"`
@@ -90,7 +91,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CharsMax", err)
 				}
 				s.CharsMax = value
 			case float64:
@@ -106,7 +107,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CharsTotal", err)
 				}
 				s.CharsTotal = value
 			case float64:
@@ -122,7 +123,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -138,7 +139,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocMax", err)
 				}
 				s.DocMax = value
 			case float64:
@@ -154,7 +155,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocTotal", err)
 				}
 				s.DocTotal = value
 			case float64:
@@ -170,7 +171,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexCount", err)
 				}
 				s.IndexCount = value
 			case float64:
@@ -180,7 +181,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "lang":
 			if err := dec.Decode(&s.Lang); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lang", err)
 			}
 
 		case "lines_max":
@@ -191,7 +192,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LinesMax", err)
 				}
 				s.LinesMax = value
 			case float64:
@@ -207,7 +208,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "LinesTotal", err)
 				}
 				s.LinesTotal = value
 			case float64:
@@ -217,7 +218,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "scriptless_count":
@@ -228,7 +229,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ScriptlessCount", err)
 				}
 				s.ScriptlessCount = value
 			case float64:
@@ -244,7 +245,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ShadowedCount", err)
 				}
 				s.ShadowedCount = value
 			case float64:
@@ -260,7 +261,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SourceMax", err)
 				}
 				s.SourceMax = value
 			case float64:
@@ -276,7 +277,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SourceTotal", err)
 				}
 				s.SourceTotal = value
 			case float64:

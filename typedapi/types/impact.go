@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // Impact type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L65-L70
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/health_report/types.ts#L65-L70
 type Impact struct {
 	Description string                  `json:"description"`
 	Id          string                  `json:"id"`
@@ -58,7 +59,7 @@ func (s *Impact) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -70,7 +71,7 @@ func (s *Impact) UnmarshalJSON(data []byte) error {
 		case "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -81,7 +82,7 @@ func (s *Impact) UnmarshalJSON(data []byte) error {
 
 		case "impact_areas":
 			if err := dec.Decode(&s.ImpactAreas); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ImpactAreas", err)
 			}
 
 		case "severity":
@@ -92,7 +93,7 @@ func (s *Impact) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Severity", err)
 				}
 				s.Severity = value
 			case float64:

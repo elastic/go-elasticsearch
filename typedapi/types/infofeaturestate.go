@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // InfoFeatureState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/snapshot/_types/SnapshotInfoFeatureState.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/snapshot/_types/SnapshotInfoFeatureState.ts#L22-L25
 type InfoFeatureState struct {
 	FeatureName string   `json:"feature_name"`
 	Indices     []string `json:"indices"`
@@ -54,7 +55,7 @@ func (s *InfoFeatureState) UnmarshalJSON(data []byte) error {
 		case "feature_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FeatureName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -69,13 +70,13 @@ func (s *InfoFeatureState) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Indices", err)
 				}
 
 				s.Indices = append(s.Indices, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Indices); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Indices", err)
 				}
 			}
 

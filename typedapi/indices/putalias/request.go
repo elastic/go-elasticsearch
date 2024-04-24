@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package putalias
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putalias
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L91
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/put_alias/IndicesPutAliasRequest.ts#L25-L91
 type Request struct {
 
 	// Filter Query used to limit documents the alias can access.
@@ -93,12 +93,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "index_routing":
 			if err := dec.Decode(&s.IndexRouting); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexRouting", err)
 			}
 
 		case "is_write_index":
@@ -108,7 +108,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsWriteIndex", err)
 				}
 				s.IsWriteIndex = &value
 			case bool:
@@ -117,12 +117,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		case "search_routing":
 			if err := dec.Decode(&s.SearchRouting); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchRouting", err)
 			}
 
 		}

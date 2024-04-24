@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/AggregationContainer.ts#L106-L515
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/AggregationContainer.ts#L106-L515
 type Aggregations struct {
 	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix.
 	// The request provides a collection of named filter expressions, similar to the
@@ -303,7 +304,7 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 
 		case "adjacency_matrix":
 			if err := dec.Decode(&s.AdjacencyMatrix); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AdjacencyMatrix", err)
 			}
 
 		case "aggregations", "aggs":
@@ -311,232 +312,232 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				s.Aggregations = make(map[string]Aggregations, 0)
 			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Aggregations", err)
 			}
 
 		case "auto_date_histogram":
 			if err := dec.Decode(&s.AutoDateHistogram); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AutoDateHistogram", err)
 			}
 
 		case "avg":
 			if err := dec.Decode(&s.Avg); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Avg", err)
 			}
 
 		case "avg_bucket":
 			if err := dec.Decode(&s.AvgBucket); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AvgBucket", err)
 			}
 
 		case "boxplot":
 			if err := dec.Decode(&s.Boxplot); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Boxplot", err)
 			}
 
 		case "bucket_correlation":
 			if err := dec.Decode(&s.BucketCorrelation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketCorrelation", err)
 			}
 
 		case "bucket_count_ks_test":
 			if err := dec.Decode(&s.BucketCountKsTest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketCountKsTest", err)
 			}
 
 		case "bucket_script":
 			if err := dec.Decode(&s.BucketScript); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketScript", err)
 			}
 
 		case "bucket_selector":
 			if err := dec.Decode(&s.BucketSelector); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketSelector", err)
 			}
 
 		case "bucket_sort":
 			if err := dec.Decode(&s.BucketSort); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketSort", err)
 			}
 
 		case "cardinality":
 			if err := dec.Decode(&s.Cardinality); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cardinality", err)
 			}
 
 		case "categorize_text":
 			if err := dec.Decode(&s.CategorizeText); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CategorizeText", err)
 			}
 
 		case "children":
 			if err := dec.Decode(&s.Children); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Children", err)
 			}
 
 		case "composite":
 			if err := dec.Decode(&s.Composite); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Composite", err)
 			}
 
 		case "cumulative_cardinality":
 			if err := dec.Decode(&s.CumulativeCardinality); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CumulativeCardinality", err)
 			}
 
 		case "cumulative_sum":
 			if err := dec.Decode(&s.CumulativeSum); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CumulativeSum", err)
 			}
 
 		case "date_histogram":
 			if err := dec.Decode(&s.DateHistogram); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DateHistogram", err)
 			}
 
 		case "date_range":
 			if err := dec.Decode(&s.DateRange); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DateRange", err)
 			}
 
 		case "derivative":
 			if err := dec.Decode(&s.Derivative); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Derivative", err)
 			}
 
 		case "diversified_sampler":
 			if err := dec.Decode(&s.DiversifiedSampler); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DiversifiedSampler", err)
 			}
 
 		case "extended_stats":
 			if err := dec.Decode(&s.ExtendedStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExtendedStats", err)
 			}
 
 		case "extended_stats_bucket":
 			if err := dec.Decode(&s.ExtendedStatsBucket); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExtendedStatsBucket", err)
 			}
 
 		case "filter":
 			if err := dec.Decode(&s.Filter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filter", err)
 			}
 
 		case "filters":
 			if err := dec.Decode(&s.Filters); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Filters", err)
 			}
 
 		case "frequent_item_sets":
 			if err := dec.Decode(&s.FrequentItemSets); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FrequentItemSets", err)
 			}
 
 		case "geo_bounds":
 			if err := dec.Decode(&s.GeoBounds); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoBounds", err)
 			}
 
 		case "geo_centroid":
 			if err := dec.Decode(&s.GeoCentroid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoCentroid", err)
 			}
 
 		case "geo_distance":
 			if err := dec.Decode(&s.GeoDistance); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoDistance", err)
 			}
 
 		case "geo_line":
 			if err := dec.Decode(&s.GeoLine); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeoLine", err)
 			}
 
 		case "geohash_grid":
 			if err := dec.Decode(&s.GeohashGrid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeohashGrid", err)
 			}
 
 		case "geohex_grid":
 			if err := dec.Decode(&s.GeohexGrid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeohexGrid", err)
 			}
 
 		case "geotile_grid":
 			if err := dec.Decode(&s.GeotileGrid); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "GeotileGrid", err)
 			}
 
 		case "global":
 			if err := dec.Decode(&s.Global); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Global", err)
 			}
 
 		case "histogram":
 			if err := dec.Decode(&s.Histogram); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Histogram", err)
 			}
 
 		case "inference":
 			if err := dec.Decode(&s.Inference); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Inference", err)
 			}
 
 		case "ip_prefix":
 			if err := dec.Decode(&s.IpPrefix); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IpPrefix", err)
 			}
 
 		case "ip_range":
 			if err := dec.Decode(&s.IpRange); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IpRange", err)
 			}
 
 		case "line":
 			if err := dec.Decode(&s.Line); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Line", err)
 			}
 
 		case "matrix_stats":
 			if err := dec.Decode(&s.MatrixStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MatrixStats", err)
 			}
 
 		case "max":
 			if err := dec.Decode(&s.Max); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Max", err)
 			}
 
 		case "max_bucket":
 			if err := dec.Decode(&s.MaxBucket); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxBucket", err)
 			}
 
 		case "median_absolute_deviation":
 			if err := dec.Decode(&s.MedianAbsoluteDeviation); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MedianAbsoluteDeviation", err)
 			}
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "min":
 			if err := dec.Decode(&s.Min); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Min", err)
 			}
 
 		case "min_bucket":
 			if err := dec.Decode(&s.MinBucket); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MinBucket", err)
 			}
 
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Missing", err)
 			}
 
 		case "moving_avg":
@@ -589,152 +590,152 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 
 		case "moving_fn":
 			if err := dec.Decode(&s.MovingFn); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MovingFn", err)
 			}
 
 		case "moving_percentiles":
 			if err := dec.Decode(&s.MovingPercentiles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MovingPercentiles", err)
 			}
 
 		case "multi_terms":
 			if err := dec.Decode(&s.MultiTerms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MultiTerms", err)
 			}
 
 		case "nested":
 			if err := dec.Decode(&s.Nested); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nested", err)
 			}
 
 		case "normalize":
 			if err := dec.Decode(&s.Normalize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Normalize", err)
 			}
 
 		case "parent":
 			if err := dec.Decode(&s.Parent); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Parent", err)
 			}
 
 		case "percentile_ranks":
 			if err := dec.Decode(&s.PercentileRanks); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PercentileRanks", err)
 			}
 
 		case "percentiles":
 			if err := dec.Decode(&s.Percentiles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Percentiles", err)
 			}
 
 		case "percentiles_bucket":
 			if err := dec.Decode(&s.PercentilesBucket); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PercentilesBucket", err)
 			}
 
 		case "range":
 			if err := dec.Decode(&s.Range); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Range", err)
 			}
 
 		case "rare_terms":
 			if err := dec.Decode(&s.RareTerms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RareTerms", err)
 			}
 
 		case "rate":
 			if err := dec.Decode(&s.Rate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Rate", err)
 			}
 
 		case "reverse_nested":
 			if err := dec.Decode(&s.ReverseNested); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ReverseNested", err)
 			}
 
 		case "sampler":
 			if err := dec.Decode(&s.Sampler); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sampler", err)
 			}
 
 		case "scripted_metric":
 			if err := dec.Decode(&s.ScriptedMetric); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ScriptedMetric", err)
 			}
 
 		case "serial_diff":
 			if err := dec.Decode(&s.SerialDiff); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SerialDiff", err)
 			}
 
 		case "significant_terms":
 			if err := dec.Decode(&s.SignificantTerms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SignificantTerms", err)
 			}
 
 		case "significant_text":
 			if err := dec.Decode(&s.SignificantText); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SignificantText", err)
 			}
 
 		case "stats":
 			if err := dec.Decode(&s.Stats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Stats", err)
 			}
 
 		case "stats_bucket":
 			if err := dec.Decode(&s.StatsBucket); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StatsBucket", err)
 			}
 
 		case "string_stats":
 			if err := dec.Decode(&s.StringStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StringStats", err)
 			}
 
 		case "sum":
 			if err := dec.Decode(&s.Sum); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Sum", err)
 			}
 
 		case "sum_bucket":
 			if err := dec.Decode(&s.SumBucket); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SumBucket", err)
 			}
 
 		case "t_test":
 			if err := dec.Decode(&s.TTest); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TTest", err)
 			}
 
 		case "terms":
 			if err := dec.Decode(&s.Terms); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Terms", err)
 			}
 
 		case "top_hits":
 			if err := dec.Decode(&s.TopHits); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TopHits", err)
 			}
 
 		case "top_metrics":
 			if err := dec.Decode(&s.TopMetrics); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TopMetrics", err)
 			}
 
 		case "value_count":
 			if err := dec.Decode(&s.ValueCount); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ValueCount", err)
 			}
 
 		case "variable_width_histogram":
 			if err := dec.Decode(&s.VariableWidthHistogram); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VariableWidthHistogram", err)
 			}
 
 		case "weighted_avg":
 			if err := dec.Decode(&s.WeightedAvg); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WeightedAvg", err)
 			}
 
 		}

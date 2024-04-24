@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // StandardDeviationBoundsAsString type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/Aggregate.ts#L269-L276
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L269-L276
 type StandardDeviationBoundsAsString struct {
 	Lower           string `json:"lower"`
 	LowerPopulation string `json:"lower_population"`
@@ -58,7 +59,7 @@ func (s *StandardDeviationBoundsAsString) UnmarshalJSON(data []byte) error {
 		case "lower":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lower", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -70,7 +71,7 @@ func (s *StandardDeviationBoundsAsString) UnmarshalJSON(data []byte) error {
 		case "lower_population":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LowerPopulation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -82,7 +83,7 @@ func (s *StandardDeviationBoundsAsString) UnmarshalJSON(data []byte) error {
 		case "lower_sampling":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LowerSampling", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -94,7 +95,7 @@ func (s *StandardDeviationBoundsAsString) UnmarshalJSON(data []byte) error {
 		case "upper":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Upper", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -106,7 +107,7 @@ func (s *StandardDeviationBoundsAsString) UnmarshalJSON(data []byte) error {
 		case "upper_population":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UpperPopulation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -118,7 +119,7 @@ func (s *StandardDeviationBoundsAsString) UnmarshalJSON(data []byte) error {
 		case "upper_sampling":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UpperSampling", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

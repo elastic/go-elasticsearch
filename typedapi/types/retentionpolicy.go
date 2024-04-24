@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // RetentionPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/transform/_types/Transform.ts#L88-L96
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/transform/_types/Transform.ts#L88-L96
 type RetentionPolicy struct {
 	// Field The date field that is used to calculate the age of the document.
 	Field string `json:"field"`
@@ -56,12 +57,12 @@ func (s *RetentionPolicy) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "max_age":
 			if err := dec.Decode(&s.MaxAge); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxAge", err)
 			}
 
 		}

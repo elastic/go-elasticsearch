@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ShardsAvailabilityIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L109-L119
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/health_report/types.ts#L109-L119
 type ShardsAvailabilityIndicatorDetails struct {
 	CreatingPrimaries     int64 `json:"creating_primaries"`
 	InitializingPrimaries int64 `json:"initializing_primaries"`
@@ -65,7 +66,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CreatingPrimaries", err)
 				}
 				s.CreatingPrimaries = value
 			case float64:
@@ -80,7 +81,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InitializingPrimaries", err)
 				}
 				s.InitializingPrimaries = value
 			case float64:
@@ -95,7 +96,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InitializingReplicas", err)
 				}
 				s.InitializingReplicas = value
 			case float64:
@@ -110,7 +111,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RestartingPrimaries", err)
 				}
 				s.RestartingPrimaries = value
 			case float64:
@@ -125,7 +126,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RestartingReplicas", err)
 				}
 				s.RestartingReplicas = value
 			case float64:
@@ -140,7 +141,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StartedPrimaries", err)
 				}
 				s.StartedPrimaries = value
 			case float64:
@@ -155,7 +156,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StartedReplicas", err)
 				}
 				s.StartedReplicas = value
 			case float64:
@@ -170,7 +171,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UnassignedPrimaries", err)
 				}
 				s.UnassignedPrimaries = value
 			case float64:
@@ -185,7 +186,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UnassignedReplicas", err)
 				}
 				s.UnassignedReplicas = value
 			case float64:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // NodeAllocationExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/allocation_explain/types.ts#L97-L106
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/allocation_explain/types.ts#L97-L106
 type NodeAllocationExplanation struct {
 	Deciders         []AllocationDecision `json:"deciders"`
 	NodeAttributes   map[string]string    `json:"node_attributes"`
@@ -61,7 +62,7 @@ func (s *NodeAllocationExplanation) UnmarshalJSON(data []byte) error {
 
 		case "deciders":
 			if err := dec.Decode(&s.Deciders); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Deciders", err)
 			}
 
 		case "node_attributes":
@@ -69,32 +70,32 @@ func (s *NodeAllocationExplanation) UnmarshalJSON(data []byte) error {
 				s.NodeAttributes = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.NodeAttributes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeAttributes", err)
 			}
 
 		case "node_decision":
 			if err := dec.Decode(&s.NodeDecision); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeDecision", err)
 			}
 
 		case "node_id":
 			if err := dec.Decode(&s.NodeId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 
 		case "node_name":
 			if err := dec.Decode(&s.NodeName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeName", err)
 			}
 
 		case "store":
 			if err := dec.Decode(&s.Store); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Store", err)
 			}
 
 		case "transport_address":
 			if err := dec.Decode(&s.TransportAddress); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TransportAddress", err)
 			}
 
 		case "weight_ranking":
@@ -105,7 +106,7 @@ func (s *NodeAllocationExplanation) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "WeightRanking", err)
 				}
 				s.WeightRanking = value
 			case float64:

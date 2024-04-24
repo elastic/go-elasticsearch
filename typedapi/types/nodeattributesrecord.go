@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeAttributesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/nodeattrs/types.ts#L20-L55
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/nodeattrs/types.ts#L20-L55
 type NodeAttributesRecord struct {
 	// Attr The attribute name.
 	Attr *string `json:"attr,omitempty"`
@@ -68,7 +69,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "attr":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Attr", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -80,7 +81,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "host", "h":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,7 +93,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -104,7 +105,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "ip", "i":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -116,7 +117,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "node":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -128,7 +129,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "pid":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pid", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -140,7 +141,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "port":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Port", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -152,7 +153,7 @@ func (s *NodeAttributesRecord) UnmarshalJSON(data []byte) error {
 		case "value":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Value", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

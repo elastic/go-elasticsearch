@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SecurityRolesDlsBitSetCache type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L312-L316
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L312-L316
 type SecurityRolesDlsBitSetCache struct {
 	Count         int      `json:"count"`
 	Memory        ByteSize `json:"memory,omitempty"`
@@ -60,7 +61,7 @@ func (s *SecurityRolesDlsBitSetCache) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -70,12 +71,12 @@ func (s *SecurityRolesDlsBitSetCache) UnmarshalJSON(data []byte) error {
 
 		case "memory":
 			if err := dec.Decode(&s.Memory); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Memory", err)
 			}
 
 		case "memory_in_bytes":
 			if err := dec.Decode(&s.MemoryInBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MemoryInBytes", err)
 			}
 
 		}

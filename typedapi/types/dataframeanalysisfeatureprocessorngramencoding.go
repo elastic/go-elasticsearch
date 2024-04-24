@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // DataframeAnalysisFeatureProcessorNGramEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L274-L286
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeAnalytics.ts#L274-L286
 type DataframeAnalysisFeatureProcessorNGramEncoding struct {
 	Custom *bool `json:"custom,omitempty"`
 	// FeaturePrefix The feature name prefix. Defaults to ngram_<start>_<length>.
@@ -70,7 +71,7 @@ func (s *DataframeAnalysisFeatureProcessorNGramEncoding) UnmarshalJSON(data []by
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Custom", err)
 				}
 				s.Custom = &value
 			case bool:
@@ -80,7 +81,7 @@ func (s *DataframeAnalysisFeatureProcessorNGramEncoding) UnmarshalJSON(data []by
 		case "feature_prefix":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FeaturePrefix", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -91,7 +92,7 @@ func (s *DataframeAnalysisFeatureProcessorNGramEncoding) UnmarshalJSON(data []by
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "length":
@@ -102,7 +103,7 @@ func (s *DataframeAnalysisFeatureProcessorNGramEncoding) UnmarshalJSON(data []by
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Length", err)
 				}
 				s.Length = &value
 			case float64:
@@ -112,7 +113,7 @@ func (s *DataframeAnalysisFeatureProcessorNGramEncoding) UnmarshalJSON(data []by
 
 		case "n_grams":
 			if err := dec.Decode(&s.NGrams); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NGrams", err)
 			}
 
 		case "start":
@@ -123,7 +124,7 @@ func (s *DataframeAnalysisFeatureProcessorNGramEncoding) UnmarshalJSON(data []by
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Start", err)
 				}
 				s.Start = &value
 			case float64:

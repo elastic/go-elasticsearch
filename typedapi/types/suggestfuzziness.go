@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SuggestFuzziness type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/search/_types/suggester.ts#L193-L221
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/suggester.ts#L193-L221
 type SuggestFuzziness struct {
 	// Fuzziness The fuzziness factor.
 	Fuzziness Fuzziness `json:"fuzziness,omitempty"`
@@ -63,7 +64,7 @@ func (s *SuggestFuzziness) UnmarshalJSON(data []byte) error {
 
 		case "fuzziness":
 			if err := dec.Decode(&s.Fuzziness); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fuzziness", err)
 			}
 
 		case "min_length":
@@ -74,7 +75,7 @@ func (s *SuggestFuzziness) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MinLength", err)
 				}
 				s.MinLength = &value
 			case float64:
@@ -90,7 +91,7 @@ func (s *SuggestFuzziness) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PrefixLength", err)
 				}
 				s.PrefixLength = &value
 			case float64:
@@ -105,7 +106,7 @@ func (s *SuggestFuzziness) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Transpositions", err)
 				}
 				s.Transpositions = &value
 			case bool:
@@ -119,7 +120,7 @@ func (s *SuggestFuzziness) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UnicodeAware", err)
 				}
 				s.UnicodeAware = &value
 			case bool:

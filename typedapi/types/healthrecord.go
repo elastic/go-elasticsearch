@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // HealthRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/health/types.ts#L23-L94
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/health/types.ts#L23-L94
 type HealthRecord struct {
 	// ActiveShardsPercent active number of shards in percent
 	ActiveShardsPercent *string `json:"active_shards_percent,omitempty"`
@@ -80,7 +81,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "active_shards_percent", "asp", "activeShardsPercent":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActiveShardsPercent", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,7 +93,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "cluster", "cl":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Cluster", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -103,13 +104,13 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 
 		case "epoch", "time":
 			if err := dec.Decode(&s.Epoch); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Epoch", err)
 			}
 
 		case "init", "i", "shards.initializing", "shardsInitializing":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Init", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -121,7 +122,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "max_task_wait_time", "mtwt", "maxTaskWaitTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MaxTaskWaitTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -133,7 +134,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "node.data", "nd", "nodeData":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeData", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -145,7 +146,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "node.total", "nt", "nodeTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -157,7 +158,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "pending_tasks", "pt", "pendingTasks":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PendingTasks", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -169,7 +170,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "pri", "p", "shards.primary", "shardsPrimary":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pri", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -181,7 +182,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "relo", "r", "shards.relocating", "shardsRelocating":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Relo", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -193,7 +194,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "shards", "t", "sh", "shards.total", "shardsTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Shards", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -205,7 +206,7 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 		case "status", "st":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -216,13 +217,13 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 
 		case "timestamp", "ts", "hms", "hhmmss":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		case "unassign", "u", "shards.unassigned", "shardsUnassigned":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Unassign", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // ExecutionResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Execution.ts#L60-L66
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Execution.ts#L60-L66
 type ExecutionResult struct {
 	Actions           []ExecutionResultAction  `json:"actions"`
 	Condition         ExecutionResultCondition `json:"condition"`
@@ -55,27 +56,27 @@ func (s *ExecutionResult) UnmarshalJSON(data []byte) error {
 
 		case "actions":
 			if err := dec.Decode(&s.Actions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Actions", err)
 			}
 
 		case "condition":
 			if err := dec.Decode(&s.Condition); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Condition", err)
 			}
 
 		case "execution_duration":
 			if err := dec.Decode(&s.ExecutionDuration); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExecutionDuration", err)
 			}
 
 		case "execution_time":
 			if err := dec.Decode(&s.ExecutionTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExecutionTime", err)
 			}
 
 		case "input":
 			if err := dec.Decode(&s.Input); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Input", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AnalyticsStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L61-L71
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L61-L71
 type AnalyticsStatistics struct {
 	BoxplotUsage               int64  `json:"boxplot_usage"`
 	CumulativeCardinalityUsage int64  `json:"cumulative_cardinality_usage"`
@@ -65,7 +66,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BoxplotUsage", err)
 				}
 				s.BoxplotUsage = value
 			case float64:
@@ -80,7 +81,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CumulativeCardinalityUsage", err)
 				}
 				s.CumulativeCardinalityUsage = value
 			case float64:
@@ -95,7 +96,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MovingPercentilesUsage", err)
 				}
 				s.MovingPercentilesUsage = value
 			case float64:
@@ -110,7 +111,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MultiTermsUsage", err)
 				}
 				s.MultiTermsUsage = &value
 			case float64:
@@ -125,7 +126,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NormalizeUsage", err)
 				}
 				s.NormalizeUsage = value
 			case float64:
@@ -140,7 +141,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RateUsage", err)
 				}
 				s.RateUsage = value
 			case float64:
@@ -155,7 +156,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "StringStatsUsage", err)
 				}
 				s.StringStatsUsage = value
 			case float64:
@@ -170,7 +171,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TTestUsage", err)
 				}
 				s.TTestUsage = value
 			case float64:
@@ -185,7 +186,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TopMetricsUsage", err)
 				}
 				s.TopMetricsUsage = value
 			case float64:

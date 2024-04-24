@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoDistanceQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/geo.ts#L57-L85
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/geo.ts#L57-L85
 type GeoDistanceQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -49,7 +49,7 @@ type GeoDistanceQuery struct {
 	// Set to `plane` for a faster calculation that's inaccurate on long distances
 	// and close to the poles.
 	DistanceType     *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
-	GeoDistanceQuery map[string]GeoLocation           `json:"GeoDistanceQuery,omitempty"`
+	GeoDistanceQuery map[string]GeoLocation           `json:"-"`
 	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
 	// this query.
 	// Set to `false` to throw an exception if the field is not mapped.
@@ -83,7 +83,7 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
@@ -94,20 +94,12 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 
 		case "distance":
 			if err := dec.Decode(&s.Distance); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Distance", err)
 			}
 
 		case "distance_type":
 			if err := dec.Decode(&s.DistanceType); err != nil {
-				return err
-			}
-
-		case "GeoDistanceQuery":
-			if s.GeoDistanceQuery == nil {
-				s.GeoDistanceQuery = make(map[string]GeoLocation, 0)
-			}
-			if err := dec.Decode(&s.GeoDistanceQuery); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DistanceType", err)
 			}
 
 		case "ignore_unmapped":
@@ -117,7 +109,7 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreUnmapped", err)
 				}
 				s.IgnoreUnmapped = &value
 			case bool:
@@ -127,7 +119,7 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -138,10 +130,21 @@ func (s *GeoDistanceQuery) UnmarshalJSON(data []byte) error {
 
 		case "validation_method":
 			if err := dec.Decode(&s.ValidationMethod); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ValidationMethod", err)
 			}
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoDistanceQuery == nil {
+					s.GeoDistanceQuery = make(map[string]GeoLocation, 0)
+				}
+				raw := new(GeoLocation)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoDistanceQuery", err)
+				}
+				s.GeoDistanceQuery[key] = *raw
+			}
 
 		}
 	}

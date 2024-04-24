@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ElisionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/token_filters.ts#L187-L192
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/token_filters.ts#L187-L192
 type ElisionTokenFilter struct {
 	Articles     []string           `json:"articles,omitempty"`
 	ArticlesCase Stringifiedboolean `json:"articles_case,omitempty"`
@@ -56,18 +57,18 @@ func (s *ElisionTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "articles":
 			if err := dec.Decode(&s.Articles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Articles", err)
 			}
 
 		case "articles_case":
 			if err := dec.Decode(&s.ArticlesCase); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ArticlesCase", err)
 			}
 
 		case "articles_path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ArticlesPath", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -78,12 +79,12 @@ func (s *ElisionTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

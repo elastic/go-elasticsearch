@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -35,7 +36,7 @@ import (
 
 // FieldSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/sort.ts#L44-L53
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/sort.ts#L44-L53
 type FieldSort struct {
 	Format       *string                                    `json:"format,omitempty"`
 	Missing      Missing                                    `json:"missing,omitempty"`
@@ -69,7 +70,7 @@ func (s *FieldSort) UnmarshalJSON(data []byte) error {
 		case "format":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Format", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -80,32 +81,32 @@ func (s *FieldSort) UnmarshalJSON(data []byte) error {
 
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Missing", err)
 			}
 
 		case "mode":
 			if err := dec.Decode(&s.Mode); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Mode", err)
 			}
 
 		case "nested":
 			if err := dec.Decode(&s.Nested); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nested", err)
 			}
 
 		case "numeric_type":
 			if err := dec.Decode(&s.NumericType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NumericType", err)
 			}
 
 		case "order":
 			if err := dec.Decode(&s.Order); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Order", err)
 			}
 
 		case "unmapped_type":
 			if err := dec.Decode(&s.UnmappedType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "UnmappedType", err)
 			}
 
 		}

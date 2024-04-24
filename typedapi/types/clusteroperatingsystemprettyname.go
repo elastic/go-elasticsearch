@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // ClusterOperatingSystemPrettyName type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/stats/types.ts#L455-L464
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L455-L464
 type ClusterOperatingSystemPrettyName struct {
 	// Count Number of selected nodes using the operating system.
 	Count int `json:"count"`
@@ -62,7 +63,7 @@ func (s *ClusterOperatingSystemPrettyName) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Count", err)
 				}
 				s.Count = value
 			case float64:
@@ -72,7 +73,7 @@ func (s *ClusterOperatingSystemPrettyName) UnmarshalJSON(data []byte) error {
 
 		case "pretty_name":
 			if err := dec.Decode(&s.PrettyName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PrettyName", err)
 			}
 
 		}

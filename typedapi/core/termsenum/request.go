@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package termsenum
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L65
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/terms_enum/TermsEnumRequest.ts#L26-L65
 type Request struct {
 
 	// CaseInsensitive When true the provided search string is matched against index terms without
@@ -96,7 +96,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CaseInsensitive", err)
 				}
 				s.CaseInsensitive = &value
 			case bool:
@@ -105,18 +105,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
 		case "index_filter":
 			if err := dec.Decode(&s.IndexFilter); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexFilter", err)
 			}
 
 		case "search_after":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchAfter", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -133,7 +133,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Size", err)
 				}
 				s.Size = &value
 			case float64:
@@ -144,7 +144,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "string":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "String", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -155,7 +155,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "timeout":
 			if err := dec.Decode(&s.Timeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timeout", err)
 			}
 
 		}

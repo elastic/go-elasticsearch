@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/queryruletype"
@@ -31,7 +32,7 @@ import (
 
 // QueryRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/query_ruleset/_types/QueryRuleset.ts#L37-L42
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/query_ruleset/_types/QueryRuleset.ts#L37-L42
 type QueryRule struct {
 	Actions  QueryRuleActions            `json:"actions"`
 	Criteria []QueryRuleCriteria         `json:"criteria"`
@@ -56,22 +57,22 @@ func (s *QueryRule) UnmarshalJSON(data []byte) error {
 
 		case "actions":
 			if err := dec.Decode(&s.Actions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Actions", err)
 			}
 
 		case "criteria":
 			if err := dec.Decode(&s.Criteria); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Criteria", err)
 			}
 
 		case "rule_id":
 			if err := dec.Decode(&s.RuleId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuleId", err)
 			}
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

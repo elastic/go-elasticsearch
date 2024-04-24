@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FielddataRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/fielddata/types.ts#L20-L48
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/fielddata/types.ts#L20-L48
 type FielddataRecord struct {
 	// Field field name
 	Field *string `json:"field,omitempty"`
@@ -64,7 +65,7 @@ func (s *FielddataRecord) UnmarshalJSON(data []byte) error {
 		case "field", "f":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Field", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -76,7 +77,7 @@ func (s *FielddataRecord) UnmarshalJSON(data []byte) error {
 		case "host", "h":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -88,7 +89,7 @@ func (s *FielddataRecord) UnmarshalJSON(data []byte) error {
 		case "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -100,7 +101,7 @@ func (s *FielddataRecord) UnmarshalJSON(data []byte) error {
 		case "ip":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -112,7 +113,7 @@ func (s *FielddataRecord) UnmarshalJSON(data []byte) error {
 		case "node", "n":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -124,7 +125,7 @@ func (s *FielddataRecord) UnmarshalJSON(data []byte) error {
 		case "size":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

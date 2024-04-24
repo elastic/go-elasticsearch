@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // GeoIpDownloadStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/geo_ip_stats/types.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ingest/geo_ip_stats/types.ts#L24-L35
 type GeoIpDownloadStatistics struct {
 	// DatabaseCount Current number of databases available for use.
 	DatabaseCount int `json:"database_count"`
@@ -67,7 +68,7 @@ func (s *GeoIpDownloadStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DatabaseCount", err)
 				}
 				s.DatabaseCount = value
 			case float64:
@@ -83,7 +84,7 @@ func (s *GeoIpDownloadStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FailedDownloads", err)
 				}
 				s.FailedDownloads = value
 			case float64:
@@ -99,7 +100,7 @@ func (s *GeoIpDownloadStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SkippedUpdates", err)
 				}
 				s.SkippedUpdates = value
 			case float64:
@@ -115,7 +116,7 @@ func (s *GeoIpDownloadStatistics) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SuccessfulDownloads", err)
 				}
 				s.SuccessfulDownloads = value
 			case float64:
@@ -125,7 +126,7 @@ func (s *GeoIpDownloadStatistics) UnmarshalJSON(data []byte) error {
 
 		case "total_download_time":
 			if err := dec.Decode(&s.TotalDownloadTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalDownloadTime", err)
 			}
 
 		}

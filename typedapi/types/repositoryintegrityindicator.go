@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // RepositoryIntegrityIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/health_report/types.ts#L134-L138
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/health_report/types.ts#L134-L138
 type RepositoryIntegrityIndicator struct {
 	Details   *RepositoryIntegrityIndicatorDetails        `json:"details,omitempty"`
 	Diagnosis []Diagnosis                                 `json:"diagnosis,omitempty"`
@@ -58,28 +59,28 @@ func (s *RepositoryIntegrityIndicator) UnmarshalJSON(data []byte) error {
 
 		case "details":
 			if err := dec.Decode(&s.Details); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Details", err)
 			}
 
 		case "diagnosis":
 			if err := dec.Decode(&s.Diagnosis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Diagnosis", err)
 			}
 
 		case "impacts":
 			if err := dec.Decode(&s.Impacts); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Impacts", err)
 			}
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "symptom":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Symptom", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

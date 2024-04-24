@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MasterRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/master/types.ts#L20-L39
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/master/types.ts#L20-L39
 type MasterRecord struct {
 	// Host host name
 	Host *string `json:"host,omitempty"`
@@ -60,7 +61,7 @@ func (s *MasterRecord) UnmarshalJSON(data []byte) error {
 		case "host", "h":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Host", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -72,7 +73,7 @@ func (s *MasterRecord) UnmarshalJSON(data []byte) error {
 		case "id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -84,7 +85,7 @@ func (s *MasterRecord) UnmarshalJSON(data []byte) error {
 		case "ip":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ip", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -96,7 +97,7 @@ func (s *MasterRecord) UnmarshalJSON(data []byte) error {
 		case "node", "n":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Node", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

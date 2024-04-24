@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/DataStream.ts#L39-L112
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/DataStream.ts#L39-L112
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -111,7 +112,7 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AllowCustomRouting", err)
 				}
 				s.AllowCustomRouting = &value
 			case bool:
@@ -126,7 +127,7 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Generation", err)
 				}
 				s.Generation = value
 			case float64:
@@ -141,7 +142,7 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Hidden", err)
 				}
 				s.Hidden = value
 			case bool:
@@ -150,32 +151,32 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 
 		case "ilm_policy":
 			if err := dec.Decode(&s.IlmPolicy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IlmPolicy", err)
 			}
 
 		case "indices":
 			if err := dec.Decode(&s.Indices); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
 		case "lifecycle":
 			if err := dec.Decode(&s.Lifecycle); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Lifecycle", err)
 			}
 
 		case "_meta":
 			if err := dec.Decode(&s.Meta_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta_", err)
 			}
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "next_generation_managed_by":
 			if err := dec.Decode(&s.NextGenerationManagedBy); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NextGenerationManagedBy", err)
 			}
 
 		case "prefer_ilm":
@@ -185,7 +186,7 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PreferIlm", err)
 				}
 				s.PreferIlm = value
 			case bool:
@@ -199,7 +200,7 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Replicated", err)
 				}
 				s.Replicated = &value
 			case bool:
@@ -208,7 +209,7 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
 		case "system":
@@ -218,7 +219,7 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "System", err)
 				}
 				s.System = &value
 			case bool:
@@ -227,12 +228,12 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 
 		case "template":
 			if err := dec.Decode(&s.Template); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Template", err)
 			}
 
 		case "timestamp_field":
 			if err := dec.Decode(&s.TimestampField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimestampField", err)
 			}
 
 		}

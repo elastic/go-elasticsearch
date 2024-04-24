@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // RuleCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Rule.ts#L52-L65
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Rule.ts#L52-L65
 type RuleCondition struct {
 	// AppliesTo Specifies the result property to which the condition applies. If your
 	// detector uses `lat_long`, `metric`, `rare`, or `freq_rare` functions, you can
@@ -63,12 +64,12 @@ func (s *RuleCondition) UnmarshalJSON(data []byte) error {
 
 		case "applies_to":
 			if err := dec.Decode(&s.AppliesTo); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AppliesTo", err)
 			}
 
 		case "operator":
 			if err := dec.Decode(&s.Operator); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Operator", err)
 			}
 
 		case "value":
@@ -78,7 +79,7 @@ func (s *RuleCondition) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Value", err)
 				}
 				f := Float64(value)
 				s.Value = f

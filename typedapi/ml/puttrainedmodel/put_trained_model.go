@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 // Creates an inference trained model.
 package puttrainedmodel
@@ -433,6 +433,15 @@ func (r *PutTrainedModel) ModelType(modeltype trainedmodeltype.TrainedModelType)
 func (r *PutTrainedModel) PlatformArchitecture(platformarchitecture string) *PutTrainedModel {
 
 	r.req.PlatformArchitecture = &platformarchitecture
+
+	return r
+}
+
+// PrefixStrings Optional prefix strings applied at inference
+// API name: prefix_strings
+func (r *PutTrainedModel) PrefixStrings(prefixstrings *types.TrainedModelPrefixStrings) *PutTrainedModel {
+
+	r.req.PrefixStrings = prefixstrings
 
 	return r
 }

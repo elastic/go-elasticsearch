@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CommandMoveAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/reroute/types.ts#L60-L67
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/reroute/types.ts#L60-L67
 type CommandMoveAction struct {
 	// FromNode The node to move the shard from
 	FromNode string `json:"from_node"`
@@ -58,7 +59,7 @@ func (s *CommandMoveAction) UnmarshalJSON(data []byte) error {
 		case "from_node":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FromNode", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -69,7 +70,7 @@ func (s *CommandMoveAction) UnmarshalJSON(data []byte) error {
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "shard":
@@ -80,7 +81,7 @@ func (s *CommandMoveAction) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Shard", err)
 				}
 				s.Shard = value
 			case float64:
@@ -91,7 +92,7 @@ func (s *CommandMoveAction) UnmarshalJSON(data []byte) error {
 		case "to_node":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ToNode", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

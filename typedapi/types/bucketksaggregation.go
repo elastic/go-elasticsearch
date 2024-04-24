@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // BucketKsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/aggregations/pipeline.ts#L94-L127
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/pipeline.ts#L94-L127
 type BucketKsAggregation struct {
 	// Alternative A list of string values indicating which K-S test alternative to calculate.
 	// The valid values
@@ -80,28 +81,28 @@ func (s *BucketKsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "alternative":
 			if err := dec.Decode(&s.Alternative); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Alternative", err)
 			}
 
 		case "buckets_path":
 			if err := dec.Decode(&s.BucketsPath); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsPath", err)
 			}
 
 		case "fractions":
 			if err := dec.Decode(&s.Fractions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fractions", err)
 			}
 
 		case "meta":
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -113,7 +114,7 @@ func (s *BucketKsAggregation) UnmarshalJSON(data []byte) error {
 		case "sampling_method":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SamplingMethod", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -34,7 +35,7 @@ import (
 
 // JobsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/ml_jobs/types.ts#L24-L347
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/ml_jobs/types.ts#L24-L347
 type JobsRecord struct {
 	// AssignmentExplanation For open anomaly detection jobs only, contains messages relating to the
 	// selection of a node to run the job.
@@ -243,7 +244,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "assignment_explanation", "ae":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AssignmentExplanation", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -255,7 +256,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "buckets.count", "bc", "bucketsCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -267,7 +268,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "buckets.time.exp_avg", "btea", "bucketsTimeExpAvg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsTimeExpAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -279,7 +280,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "buckets.time.exp_avg_hour", "bteah", "bucketsTimeExpAvgHour":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsTimeExpAvgHour", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -291,7 +292,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "buckets.time.max", "btmax", "bucketsTimeMax":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsTimeMax", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -303,7 +304,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "buckets.time.min", "btmin", "bucketsTimeMin":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsTimeMin", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -315,7 +316,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "buckets.time.total", "btt", "bucketsTimeTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketsTimeTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -327,7 +328,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.buckets", "db", "dataBuckets":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataBuckets", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -339,7 +340,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.earliest_record", "der", "dataEarliestRecord":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataEarliestRecord", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -351,7 +352,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.empty_buckets", "deb", "dataEmptyBuckets":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataEmptyBuckets", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -362,13 +363,13 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 
 		case "data.input_bytes", "dib", "dataInputBytes":
 			if err := dec.Decode(&s.DataInputBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataInputBytes", err)
 			}
 
 		case "data.input_fields", "dif", "dataInputFields":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataInputFields", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -380,7 +381,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.input_records", "dir", "dataInputRecords":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataInputRecords", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -392,7 +393,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.invalid_dates", "did", "dataInvalidDates":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataInvalidDates", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -404,7 +405,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.last", "dl", "dataLast":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataLast", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -416,7 +417,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.last_empty_bucket", "dleb", "dataLastEmptyBucket":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataLastEmptyBucket", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -428,7 +429,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.last_sparse_bucket", "dlsb", "dataLastSparseBucket":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataLastSparseBucket", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -440,7 +441,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.latest_record", "dlr", "dataLatestRecord":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataLatestRecord", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -452,7 +453,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.missing_fields", "dmf", "dataMissingFields":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataMissingFields", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -464,7 +465,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.out_of_order_timestamps", "doot", "dataOutOfOrderTimestamps":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataOutOfOrderTimestamps", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -476,7 +477,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.processed_fields", "dpf", "dataProcessedFields":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataProcessedFields", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -488,7 +489,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.processed_records", "dpr", "dataProcessedRecords":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataProcessedRecords", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -500,7 +501,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "data.sparse_buckets", "dsb", "dataSparseBuckets":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DataSparseBuckets", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -512,7 +513,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.memory.avg", "fmavg", "forecastsMemoryAvg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsMemoryAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -524,7 +525,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.memory.max", "fmmax", "forecastsMemoryMax":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsMemoryMax", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -536,7 +537,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.memory.min", "fmmin", "forecastsMemoryMin":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsMemoryMin", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -548,7 +549,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.memory.total", "fmt", "forecastsMemoryTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsMemoryTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -560,7 +561,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.records.avg", "fravg", "forecastsRecordsAvg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsRecordsAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -572,7 +573,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.records.max", "frmax", "forecastsRecordsMax":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsRecordsMax", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -584,7 +585,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.records.min", "frmin", "forecastsRecordsMin":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsRecordsMin", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -596,7 +597,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.records.total", "frt", "forecastsRecordsTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsRecordsTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -608,7 +609,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.time.avg", "ftavg", "forecastsTimeAvg":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsTimeAvg", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -620,7 +621,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.time.max", "ftmax", "forecastsTimeMax":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsTimeMax", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -632,7 +633,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.time.min", "ftmin", "forecastsTimeMin":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsTimeMin", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -644,7 +645,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.time.total", "ftt", "forecastsTimeTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsTimeTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -656,7 +657,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "forecasts.total", "ft", "forecastsTotal":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ForecastsTotal", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -667,13 +668,13 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "model.bucket_allocation_failures", "mbaf", "modelBucketAllocationFailures":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelBucketAllocationFailures", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -685,7 +686,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.by_fields", "mbf", "modelByFields":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelByFields", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -696,23 +697,23 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 
 		case "model.bytes", "mb", "modelBytes":
 			if err := dec.Decode(&s.ModelBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelBytes", err)
 			}
 
 		case "model.bytes_exceeded", "mbe", "modelBytesExceeded":
 			if err := dec.Decode(&s.ModelBytesExceeded); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelBytesExceeded", err)
 			}
 
 		case "model.categorization_status", "mcs", "modelCategorizationStatus":
 			if err := dec.Decode(&s.ModelCategorizationStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelCategorizationStatus", err)
 			}
 
 		case "model.categorized_doc_count", "mcdc", "modelCategorizedDocCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelCategorizedDocCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -724,7 +725,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.dead_category_count", "mdcc", "modelDeadCategoryCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelDeadCategoryCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -736,7 +737,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.failed_category_count", "mfcc", "modelFailedCategoryCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelFailedCategoryCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -748,7 +749,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.frequent_category_count", "modelFrequentCategoryCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelFrequentCategoryCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -760,7 +761,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.log_time", "mlt", "modelLogTime":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelLogTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -772,7 +773,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.memory_limit", "mml", "modelMemoryLimit":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelMemoryLimit", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -783,13 +784,13 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 
 		case "model.memory_status", "mms", "modelMemoryStatus":
 			if err := dec.Decode(&s.ModelMemoryStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelMemoryStatus", err)
 			}
 
 		case "model.over_fields", "mof", "modelOverFields":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelOverFields", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -801,7 +802,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.partition_fields", "mpf", "modelPartitionFields":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelPartitionFields", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -813,7 +814,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.rare_category_count", "mrcc", "modelRareCategoryCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelRareCategoryCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -825,7 +826,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.timestamp", "mt", "modelTimestamp":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelTimestamp", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -837,7 +838,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "model.total_category_count", "mtcc", "modelTotalCategoryCount":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelTotalCategoryCount", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -849,7 +850,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "node.address", "na", "nodeAddress":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeAddress", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -860,18 +861,18 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 
 		case "node.ephemeral_id", "ne", "nodeEphemeralId":
 			if err := dec.Decode(&s.NodeEphemeralId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeEphemeralId", err)
 			}
 
 		case "node.id", "ni", "nodeId":
 			if err := dec.Decode(&s.NodeId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeId", err)
 			}
 
 		case "node.name", "nn", "nodeName":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NodeName", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -883,7 +884,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 		case "opened_time", "ot":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OpenedTime", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -894,7 +895,7 @@ func (s *JobsRecord) UnmarshalJSON(data []byte) error {
 
 		case "state", "s":
 			if err := dec.Decode(&s.State); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 
 		}

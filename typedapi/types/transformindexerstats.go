@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // TransformIndexerStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/transform/get_transform_stats/types.ts#L56-L74
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/transform/get_transform_stats/types.ts#L56-L74
 type TransformIndexerStats struct {
 	DeleteTimeInMs                     *int64  `json:"delete_time_in_ms,omitempty"`
 	DocumentsDeleted                   *int64  `json:"documents_deleted,omitempty"`
@@ -68,7 +69,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 
 		case "delete_time_in_ms":
 			if err := dec.Decode(&s.DeleteTimeInMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DeleteTimeInMs", err)
 			}
 
 		case "documents_deleted":
@@ -78,7 +79,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocumentsDeleted", err)
 				}
 				s.DocumentsDeleted = &value
 			case float64:
@@ -93,7 +94,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocumentsIndexed", err)
 				}
 				s.DocumentsIndexed = value
 			case float64:
@@ -108,7 +109,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DocumentsProcessed", err)
 				}
 				s.DocumentsProcessed = value
 			case float64:
@@ -118,7 +119,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 
 		case "exponential_avg_checkpoint_duration_ms":
 			if err := dec.Decode(&s.ExponentialAvgCheckpointDurationMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ExponentialAvgCheckpointDurationMs", err)
 			}
 
 		case "exponential_avg_documents_indexed":
@@ -128,7 +129,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExponentialAvgDocumentsIndexed", err)
 				}
 				f := Float64(value)
 				s.ExponentialAvgDocumentsIndexed = f
@@ -144,7 +145,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ExponentialAvgDocumentsProcessed", err)
 				}
 				f := Float64(value)
 				s.ExponentialAvgDocumentsProcessed = f
@@ -160,7 +161,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexFailures", err)
 				}
 				s.IndexFailures = value
 			case float64:
@@ -170,7 +171,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 
 		case "index_time_in_ms":
 			if err := dec.Decode(&s.IndexTimeInMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IndexTimeInMs", err)
 			}
 
 		case "index_total":
@@ -180,7 +181,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IndexTotal", err)
 				}
 				s.IndexTotal = value
 			case float64:
@@ -195,7 +196,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PagesProcessed", err)
 				}
 				s.PagesProcessed = value
 			case float64:
@@ -205,7 +206,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 
 		case "processing_time_in_ms":
 			if err := dec.Decode(&s.ProcessingTimeInMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ProcessingTimeInMs", err)
 			}
 
 		case "processing_total":
@@ -215,7 +216,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ProcessingTotal", err)
 				}
 				s.ProcessingTotal = value
 			case float64:
@@ -230,7 +231,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SearchFailures", err)
 				}
 				s.SearchFailures = value
 			case float64:
@@ -240,7 +241,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 
 		case "search_time_in_ms":
 			if err := dec.Decode(&s.SearchTimeInMs); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SearchTimeInMs", err)
 			}
 
 		case "search_total":
@@ -250,7 +251,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "SearchTotal", err)
 				}
 				s.SearchTotal = value
 			case float64:
@@ -265,7 +266,7 @@ func (s *TransformIndexerStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TriggerCount", err)
 				}
 				s.TriggerCount = value
 			case float64:

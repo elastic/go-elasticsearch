@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // TimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L563-L568
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeAnalytics.ts#L563-L568
 type TimingStats struct {
 	// ElapsedTime Runtime of the analysis in milliseconds.
 	ElapsedTime int64 `json:"elapsed_time"`
@@ -54,12 +55,12 @@ func (s *TimingStats) UnmarshalJSON(data []byte) error {
 
 		case "elapsed_time":
 			if err := dec.Decode(&s.ElapsedTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ElapsedTime", err)
 			}
 
 		case "iteration_time":
 			if err := dec.Decode(&s.IterationTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "IterationTime", err)
 			}
 
 		}

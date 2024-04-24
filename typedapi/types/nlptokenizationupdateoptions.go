@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // NlpTokenizationUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/inference.ts#L356-L361
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/inference.ts#L356-L361
 type NlpTokenizationUpdateOptions struct {
 	// Span Span options to apply
 	Span *int `json:"span,omitempty"`
@@ -63,7 +64,7 @@ func (s *NlpTokenizationUpdateOptions) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Span", err)
 				}
 				s.Span = &value
 			case float64:
@@ -73,7 +74,7 @@ func (s *NlpTokenizationUpdateOptions) UnmarshalJSON(data []byte) error {
 
 		case "truncate":
 			if err := dec.Decode(&s.Truncate); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Truncate", err)
 			}
 
 		}

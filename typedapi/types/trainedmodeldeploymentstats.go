@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/TrainedModel.ts#L62-L102
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L62-L102
 type TrainedModelDeploymentStats struct {
 	// AllocationStatus The detailed allocation status for the deployment.
 	AllocationStatus TrainedModelDeploymentAllocationStatus `json:"allocation_status"`
@@ -88,17 +89,17 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 
 		case "allocation_status":
 			if err := dec.Decode(&s.AllocationStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AllocationStatus", err)
 			}
 
 		case "cache_size":
 			if err := dec.Decode(&s.CacheSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CacheSize", err)
 			}
 
 		case "deployment_id":
 			if err := dec.Decode(&s.DeploymentId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DeploymentId", err)
 			}
 
 		case "error_count":
@@ -109,7 +110,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ErrorCount", err)
 				}
 				s.ErrorCount = value
 			case float64:
@@ -125,7 +126,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InferenceCount", err)
 				}
 				s.InferenceCount = value
 			case float64:
@@ -135,12 +136,12 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 
 		case "model_id":
 			if err := dec.Decode(&s.ModelId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelId", err)
 			}
 
 		case "nodes":
 			if err := dec.Decode(&s.Nodes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Nodes", err)
 			}
 
 		case "number_of_allocations":
@@ -151,7 +152,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NumberOfAllocations", err)
 				}
 				s.NumberOfAllocations = value
 			case float64:
@@ -167,7 +168,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "QueueCapacity", err)
 				}
 				s.QueueCapacity = value
 			case float64:
@@ -178,7 +179,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 		case "reason":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Reason", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -195,7 +196,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RejectedExecutionCount", err)
 				}
 				s.RejectedExecutionCount = value
 			case float64:
@@ -205,12 +206,12 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 
 		case "start_time":
 			if err := dec.Decode(&s.StartTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTime", err)
 			}
 
 		case "state":
 			if err := dec.Decode(&s.State); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "State", err)
 			}
 
 		case "threads_per_allocation":
@@ -221,7 +222,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ThreadsPerAllocation", err)
 				}
 				s.ThreadsPerAllocation = value
 			case float64:
@@ -237,7 +238,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TimeoutCount", err)
 				}
 				s.TimeoutCount = value
 			case float64:

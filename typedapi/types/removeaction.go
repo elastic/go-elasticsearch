@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // RemoveAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/update_aliases/types.ts#L97-L122
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/update_aliases/types.ts#L97-L122
 type RemoveAction struct {
 	// Alias Alias for the action.
 	// Index alias names support date math.
@@ -65,7 +66,7 @@ func (s *RemoveAction) UnmarshalJSON(data []byte) error {
 
 		case "alias":
 			if err := dec.Decode(&s.Alias); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Alias", err)
 			}
 
 		case "aliases":
@@ -74,19 +75,19 @@ func (s *RemoveAction) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Aliases", err)
 				}
 
 				s.Aliases = append(s.Aliases, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Aliases); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Aliases", err)
 				}
 			}
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "indices":
@@ -95,13 +96,13 @@ func (s *RemoveAction) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := new(string)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Indices", err)
 				}
 
 				s.Indices = append(s.Indices, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Indices); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Indices", err)
 				}
 			}
 
@@ -112,7 +113,7 @@ func (s *RemoveAction) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MustExist", err)
 				}
 				s.MustExist = &value
 			case bool:

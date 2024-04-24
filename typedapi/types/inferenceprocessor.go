@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // InferenceProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ingest/_types/Processors.ts#L725-L744
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ingest/_types/Processors.ts#L725-L744
 type InferenceProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -74,7 +75,7 @@ func (s *InferenceProcessor) UnmarshalJSON(data []byte) error {
 		case "description":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Description", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -88,13 +89,13 @@ func (s *InferenceProcessor) UnmarshalJSON(data []byte) error {
 				s.FieldMap = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.FieldMap); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FieldMap", err)
 			}
 
 		case "if":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "If", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -110,7 +111,7 @@ func (s *InferenceProcessor) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreFailure", err)
 				}
 				s.IgnoreFailure = &value
 			case bool:
@@ -119,23 +120,23 @@ func (s *InferenceProcessor) UnmarshalJSON(data []byte) error {
 
 		case "inference_config":
 			if err := dec.Decode(&s.InferenceConfig); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InferenceConfig", err)
 			}
 
 		case "model_id":
 			if err := dec.Decode(&s.ModelId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelId", err)
 			}
 
 		case "on_failure":
 			if err := dec.Decode(&s.OnFailure); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "OnFailure", err)
 			}
 
 		case "tag":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Tag", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -146,7 +147,7 @@ func (s *InferenceProcessor) UnmarshalJSON(data []byte) error {
 
 		case "target_field":
 			if err := dec.Decode(&s.TargetField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TargetField", err)
 			}
 
 		}

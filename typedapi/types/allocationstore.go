@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // AllocationStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/allocation_explain/types.ts#L39-L46
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/allocation_explain/types.ts#L39-L46
 type AllocationStore struct {
 	AllocationId        string `json:"allocation_id"`
 	Found               bool   `json:"found"`
@@ -58,7 +59,7 @@ func (s *AllocationStore) UnmarshalJSON(data []byte) error {
 		case "allocation_id":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AllocationId", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -74,7 +75,7 @@ func (s *AllocationStore) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Found", err)
 				}
 				s.Found = value
 			case bool:
@@ -88,7 +89,7 @@ func (s *AllocationStore) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InSync", err)
 				}
 				s.InSync = value
 			case bool:
@@ -102,7 +103,7 @@ func (s *AllocationStore) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MatchingSizeInBytes", err)
 				}
 				s.MatchingSizeInBytes = value
 			case float64:
@@ -117,7 +118,7 @@ func (s *AllocationStore) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MatchingSyncId", err)
 				}
 				s.MatchingSyncId = value
 			case bool:
@@ -127,7 +128,7 @@ func (s *AllocationStore) UnmarshalJSON(data []byte) error {
 		case "store_exception":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StoreException", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

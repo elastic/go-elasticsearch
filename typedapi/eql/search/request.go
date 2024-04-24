@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package search
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/eql/search/EqlSearchRequest.ts#L28-L118
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/eql/search/EqlSearchRequest.ts#L28-L118
 type Request struct {
 	CaseSensitive *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
@@ -102,7 +102,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CaseSensitive", err)
 				}
 				s.CaseSensitive = &value
 			case bool:
@@ -111,12 +111,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "event_category_field":
 			if err := dec.Decode(&s.EventCategoryField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EventCategoryField", err)
 			}
 
 		case "fetch_size":
 			if err := dec.Decode(&s.FetchSize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FetchSize", err)
 			}
 
 		case "fields":
@@ -125,13 +125,13 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := types.NewFieldAndFormat()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Fields", err)
 				}
 
 				s.Fields = append(s.Fields, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Fields); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Fields", err)
 				}
 			}
 
@@ -141,19 +141,19 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
 				o := types.NewQuery()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Filter", err)
 				}
 
 				s.Filter = append(s.Filter, *o)
 			} else {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Filter); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Filter", err)
 				}
 			}
 
 		case "keep_alive":
 			if err := dec.Decode(&s.KeepAlive); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "KeepAlive", err)
 			}
 
 		case "keep_on_completion":
@@ -163,7 +163,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "KeepOnCompletion", err)
 				}
 				s.KeepOnCompletion = &value
 			case bool:
@@ -173,7 +173,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "query":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Query", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -184,32 +184,32 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "result_position":
 			if err := dec.Decode(&s.ResultPosition); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultPosition", err)
 			}
 
 		case "runtime_mappings":
 			if err := dec.Decode(&s.RuntimeMappings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RuntimeMappings", err)
 			}
 
 		case "size":
 			if err := dec.Decode(&s.Size); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 
 		case "tiebreaker_field":
 			if err := dec.Decode(&s.TiebreakerField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TiebreakerField", err)
 			}
 
 		case "timestamp_field":
 			if err := dec.Decode(&s.TimestampField); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimestampField", err)
 			}
 
 		case "wait_for_completion_timeout":
 			if err := dec.Decode(&s.WaitForCompletionTimeout); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "WaitForCompletionTimeout", err)
 			}
 
 		}

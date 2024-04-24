@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // KuromojiReadingFormTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/analysis/kuromoji-plugin.ts#L42-L45
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/kuromoji-plugin.ts#L42-L45
 type KuromojiReadingFormTokenFilter struct {
 	Type      string  `json:"type,omitempty"`
 	UseRomaji bool    `json:"use_romaji"`
@@ -54,7 +55,7 @@ func (s *KuromojiReadingFormTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "use_romaji":
@@ -64,7 +65,7 @@ func (s *KuromojiReadingFormTokenFilter) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UseRomaji", err)
 				}
 				s.UseRomaji = value
 			case bool:
@@ -73,7 +74,7 @@ func (s *KuromojiReadingFormTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}

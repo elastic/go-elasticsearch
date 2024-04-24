@@ -1,8 +1,63 @@
+# 8.13.1
+
+# Typed API
+
+Update APIs to latest [elasticsearch-specification 8.13](https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757)
+
+## Fixes
+
+This patch release brings a fix to the initialisation of the `Request` in endpoints which would prevent using the shortcuts for fields. 
+Canonical`.Request()` method was unaffected.
+
+* `Autoscaling.PutAutoscalingPolicy`
+* `Indices.Downsample`
+* `Indices.PutSettings`
+* `Indices.SimulateTemplate`
+* `Inference.PutModel`
+* `Logstash.PutPipeline`
+* `Ml.ValidateDetector`
+* `SearchApplication.Put`
+
+# 8.13.0
+
+# API 
+
+New APIS:
+
+* `ConnectorSecretGet`
+* `ConnectorSecretPost`
+* `ConnectorSecretPut`
+* `ConnectorSecretDelete`
+* `ConnectorUpdateIndexName`
+* `ConnectorUpdateNative`
+* `ConnectorUpdateStatus`
+* `ConnectorUpdateAPIKeyDocumentID`
+* `ConnectorUpdateServiceDocumentType`
+
+
+* `EsqlAsyncQuery` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-api.html)
+* `EsqlAsyncQueryGet` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/esql-async-query-get-api.html)
+* `ProfilingFlamegraph` [Documentation](https://www.elastic.co/guide/en/observability/current/universal-profiling.html)
+* `ProfilingStacktraces` [Documentation](https://www.elastic.co/guide/en/observability/current/universal-profiling.html)
+* `TextStructureTestGrokPattern` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html)
+* `Indices.ResolveCluster` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html)
+* `Security.QueryUser` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html)
+
+# Typed API
+
+* `indices.ResolveCluster` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-resolve-cluster-api.html)
+* `textstructure.TestGrokPattern` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/test-grok-pattern.html)
+
+Thanks to @pakio, transport now has an optional pool based compression option. [link](https://github.com/elastic/elastic-transport-go/pull/19)
+
+And to @tblyler for fixing a very subtle memory leak in the `BulkIndexer`. #797
+
 # 8.12.1
 
 * Fix: ticker memory leak in bulk indexer due to internal flush call resetting the ticker. #797
 * Fix: Scroll now uses the body to pass the scroll_id. #785
 * Add: generated UnmarshalJSON for Requests to allow injecting payloads using aliases.
+* Fix: `put_synonym_rule` was not working due to a type issue in the [Elasticsearch API Specification](https://github.com/elastic/elasticsearch-specification/pull/2407).
 
 # 8.12.0
 

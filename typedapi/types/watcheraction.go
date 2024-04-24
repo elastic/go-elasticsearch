@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // WatcherAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Action.ts#L41-L60
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Action.ts#L41-L60
 type WatcherAction struct {
 	ActionType             *actiontype.ActionType `json:"action_type,omitempty"`
 	Condition              *WatcherCondition      `json:"condition,omitempty"`
@@ -67,23 +68,23 @@ func (s *WatcherAction) UnmarshalJSON(data []byte) error {
 
 		case "action_type":
 			if err := dec.Decode(&s.ActionType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ActionType", err)
 			}
 
 		case "condition":
 			if err := dec.Decode(&s.Condition); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Condition", err)
 			}
 
 		case "email":
 			if err := dec.Decode(&s.Email); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Email", err)
 			}
 
 		case "foreach":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Foreach", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -94,12 +95,12 @@ func (s *WatcherAction) UnmarshalJSON(data []byte) error {
 
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index", err)
 			}
 
 		case "logging":
 			if err := dec.Decode(&s.Logging); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Logging", err)
 			}
 
 		case "max_iterations":
@@ -110,7 +111,7 @@ func (s *WatcherAction) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MaxIterations", err)
 				}
 				s.MaxIterations = &value
 			case float64:
@@ -120,37 +121,37 @@ func (s *WatcherAction) UnmarshalJSON(data []byte) error {
 
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		case "pagerduty":
 			if err := dec.Decode(&s.Pagerduty); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Pagerduty", err)
 			}
 
 		case "slack":
 			if err := dec.Decode(&s.Slack); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Slack", err)
 			}
 
 		case "throttle_period":
 			if err := dec.Decode(&s.ThrottlePeriod); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottlePeriod", err)
 			}
 
 		case "throttle_period_in_millis":
 			if err := dec.Decode(&s.ThrottlePeriodInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ThrottlePeriodInMillis", err)
 			}
 
 		case "transform":
 			if err := dec.Decode(&s.Transform); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Transform", err)
 			}
 
 		case "webhook":
 			if err := dec.Decode(&s.Webhook); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Webhook", err)
 			}
 
 		}

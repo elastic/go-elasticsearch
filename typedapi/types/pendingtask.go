@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // PendingTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cluster/pending_tasks/types.ts#L23-L47
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/pending_tasks/types.ts#L23-L47
 type PendingTask struct {
 	// Executing Indicates whether the pending tasks are currently executing or not.
 	Executing bool `json:"executing"`
@@ -73,7 +74,7 @@ func (s *PendingTask) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Executing", err)
 				}
 				s.Executing = value
 			case bool:
@@ -88,7 +89,7 @@ func (s *PendingTask) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InsertOrder", err)
 				}
 				s.InsertOrder = value
 			case float64:
@@ -99,7 +100,7 @@ func (s *PendingTask) UnmarshalJSON(data []byte) error {
 		case "priority":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Priority", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -111,7 +112,7 @@ func (s *PendingTask) UnmarshalJSON(data []byte) error {
 		case "source":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -122,12 +123,12 @@ func (s *PendingTask) UnmarshalJSON(data []byte) error {
 
 		case "time_in_queue":
 			if err := dec.Decode(&s.TimeInQueue); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeInQueue", err)
 			}
 
 		case "time_in_queue_millis":
 			if err := dec.Decode(&s.TimeInQueueMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeInQueueMillis", err)
 			}
 
 		}

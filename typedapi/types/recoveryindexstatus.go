@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // RecoveryIndexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/recovery/types.ts#L64-L74
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/recovery/types.ts#L64-L74
 type RecoveryIndexStatus struct {
 	Bytes                      *RecoveryBytes `json:"bytes,omitempty"`
 	Files                      RecoveryFiles  `json:"files"`
@@ -59,47 +60,47 @@ func (s *RecoveryIndexStatus) UnmarshalJSON(data []byte) error {
 
 		case "bytes":
 			if err := dec.Decode(&s.Bytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Bytes", err)
 			}
 
 		case "files":
 			if err := dec.Decode(&s.Files); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Files", err)
 			}
 
 		case "size":
 			if err := dec.Decode(&s.Size); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Size", err)
 			}
 
 		case "source_throttle_time":
 			if err := dec.Decode(&s.SourceThrottleTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SourceThrottleTime", err)
 			}
 
 		case "source_throttle_time_in_millis":
 			if err := dec.Decode(&s.SourceThrottleTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "SourceThrottleTimeInMillis", err)
 			}
 
 		case "target_throttle_time":
 			if err := dec.Decode(&s.TargetThrottleTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TargetThrottleTime", err)
 			}
 
 		case "target_throttle_time_in_millis":
 			if err := dec.Decode(&s.TargetThrottleTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TargetThrottleTimeInMillis", err)
 			}
 
 		case "total_time":
 			if err := dec.Decode(&s.TotalTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTime", err)
 			}
 
 		case "total_time_in_millis":
 			if err := dec.Decode(&s.TotalTimeInMillis); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TotalTimeInMillis", err)
 			}
 
 		}

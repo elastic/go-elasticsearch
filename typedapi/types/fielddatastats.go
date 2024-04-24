@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // FielddataStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/Stats.ts#L111-L116
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Stats.ts#L111-L116
 type FielddataStats struct {
 	Evictions         *int64                      `json:"evictions,omitempty"`
 	Fields            map[string]FieldMemoryUsage `json:"fields,omitempty"`
@@ -60,7 +61,7 @@ func (s *FielddataStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Evictions", err)
 				}
 				s.Evictions = &value
 			case float64:
@@ -73,12 +74,12 @@ func (s *FielddataStats) UnmarshalJSON(data []byte) error {
 				s.Fields = make(map[string]FieldMemoryUsage, 0)
 			}
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "memory_size":
 			if err := dec.Decode(&s.MemorySize); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MemorySize", err)
 			}
 
 		case "memory_size_in_bytes":
@@ -88,7 +89,7 @@ func (s *FielddataStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "MemorySizeInBytes", err)
 				}
 				s.MemorySizeInBytes = value
 			case float64:

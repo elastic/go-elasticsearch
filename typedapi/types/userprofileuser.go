@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // UserProfileUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/security/_types/UserProfile.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/_types/UserProfile.ts#L33-L40
 type UserProfileUser struct {
 	Email       string   `json:"email,omitempty"`
 	FullName    string   `json:"full_name,omitempty"`
@@ -58,7 +59,7 @@ func (s *UserProfileUser) UnmarshalJSON(data []byte) error {
 		case "email":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Email", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -69,27 +70,27 @@ func (s *UserProfileUser) UnmarshalJSON(data []byte) error {
 
 		case "full_name":
 			if err := dec.Decode(&s.FullName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "FullName", err)
 			}
 
 		case "realm_domain":
 			if err := dec.Decode(&s.RealmDomain); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RealmDomain", err)
 			}
 
 		case "realm_name":
 			if err := dec.Decode(&s.RealmName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "RealmName", err)
 			}
 
 		case "roles":
 			if err := dec.Decode(&s.Roles); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "username":
 			if err := dec.Decode(&s.Username); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Username", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoBoundingBoxQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/geo.ts#L32-L50
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/geo.ts#L32-L50
 type GeoBoundingBoxQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -42,7 +42,7 @@ type GeoBoundingBoxQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost               *float32             `json:"boost,omitempty"`
-	GeoBoundingBoxQuery map[string]GeoBounds `json:"GeoBoundingBoxQuery,omitempty"`
+	GeoBoundingBoxQuery map[string]GeoBounds `json:"-"`
 	// IgnoreUnmapped Set to `true` to ignore an unmapped field and not match any documents for
 	// this query.
 	// Set to `false` to throw an exception if the field is not mapped.
@@ -77,21 +77,13 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 32)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := float32(value)
 				s.Boost = &f
 			case float64:
 				f := float32(v)
 				s.Boost = &f
-			}
-
-		case "GeoBoundingBoxQuery":
-			if s.GeoBoundingBoxQuery == nil {
-				s.GeoBoundingBoxQuery = make(map[string]GeoBounds, 0)
-			}
-			if err := dec.Decode(&s.GeoBoundingBoxQuery); err != nil {
-				return err
 			}
 
 		case "ignore_unmapped":
@@ -101,7 +93,7 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreUnmapped", err)
 				}
 				s.IgnoreUnmapped = &value
 			case bool:
@@ -111,7 +103,7 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 		case "_name":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "QueryName_", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -122,15 +114,26 @@ func (s *GeoBoundingBoxQuery) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		case "validation_method":
 			if err := dec.Decode(&s.ValidationMethod); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ValidationMethod", err)
 			}
 
 		default:
+
+			if key, ok := t.(string); ok {
+				if s.GeoBoundingBoxQuery == nil {
+					s.GeoBoundingBoxQuery = make(map[string]GeoBounds, 0)
+				}
+				raw := new(GeoBounds)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "GeoBoundingBoxQuery", err)
+				}
+				s.GeoBoundingBoxQuery[key] = *raw
+			}
 
 		}
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -33,7 +34,7 @@ import (
 
 // ModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Model.ts#L59-L81
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Model.ts#L59-L81
 type ModelSizeStats struct {
 	AssignmentMemoryBasis         *string                                   `json:"assignment_memory_basis,omitempty"`
 	BucketAllocationFailuresCount int64                                     `json:"bucket_allocation_failures_count"`
@@ -76,7 +77,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 		case "assignment_memory_basis":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "AssignmentMemoryBasis", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -92,7 +93,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "BucketAllocationFailuresCount", err)
 				}
 				s.BucketAllocationFailuresCount = value
 			case float64:
@@ -102,7 +103,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "categorization_status":
 			if err := dec.Decode(&s.CategorizationStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "CategorizationStatus", err)
 			}
 
 		case "categorized_doc_count":
@@ -113,7 +114,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "CategorizedDocCount", err)
 				}
 				s.CategorizedDocCount = value
 			case float64:
@@ -129,7 +130,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DeadCategoryCount", err)
 				}
 				s.DeadCategoryCount = value
 			case float64:
@@ -145,7 +146,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FailedCategoryCount", err)
 				}
 				s.FailedCategoryCount = value
 			case float64:
@@ -161,7 +162,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "FrequentCategoryCount", err)
 				}
 				s.FrequentCategoryCount = value
 			case float64:
@@ -171,37 +172,37 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "log_time":
 			if err := dec.Decode(&s.LogTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "LogTime", err)
 			}
 
 		case "memory_status":
 			if err := dec.Decode(&s.MemoryStatus); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "MemoryStatus", err)
 			}
 
 		case "model_bytes":
 			if err := dec.Decode(&s.ModelBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelBytes", err)
 			}
 
 		case "model_bytes_exceeded":
 			if err := dec.Decode(&s.ModelBytesExceeded); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelBytesExceeded", err)
 			}
 
 		case "model_bytes_memory_limit":
 			if err := dec.Decode(&s.ModelBytesMemoryLimit); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ModelBytesMemoryLimit", err)
 			}
 
 		case "peak_model_bytes":
 			if err := dec.Decode(&s.PeakModelBytes); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PeakModelBytes", err)
 			}
 
 		case "rare_category_count":
@@ -212,7 +213,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RareCategoryCount", err)
 				}
 				s.RareCategoryCount = value
 			case float64:
@@ -223,7 +224,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 		case "result_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -239,7 +240,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Timestamp", err)
 				}
 				s.Timestamp = &value
 			case float64:
@@ -254,7 +255,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalByFieldCount", err)
 				}
 				s.TotalByFieldCount = value
 			case float64:
@@ -270,7 +271,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalCategoryCount", err)
 				}
 				s.TotalCategoryCount = value
 			case float64:
@@ -285,7 +286,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalOverFieldCount", err)
 				}
 				s.TotalOverFieldCount = value
 			case float64:
@@ -300,7 +301,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "TotalPartitionFieldCount", err)
 				}
 				s.TotalPartitionFieldCount = value
 			case float64:

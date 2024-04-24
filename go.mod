@@ -3,7 +3,7 @@ module github.com/elastic/go-elasticsearch/v8
 go 1.21
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.4.0
+	github.com/elastic/elastic-transport-go/v8 v8.5.0
 	github.com/testcontainers/testcontainers-go v0.29.1
 	github.com/testcontainers/testcontainers-go/modules/elasticsearch v0.29.1
 	go.opentelemetry.io/otel/trace v1.21.0

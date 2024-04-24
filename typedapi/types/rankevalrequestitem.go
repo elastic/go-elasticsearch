@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // RankEvalRequestItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/rank_eval/types.ts#L98-L109
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/rank_eval/types.ts#L98-L109
 type RankEvalRequestItem struct {
 	// Id The search request’s ID, used to group result details later.
 	Id string `json:"id"`
@@ -60,7 +61,7 @@ func (s *RankEvalRequestItem) UnmarshalJSON(data []byte) error {
 
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
 		case "params":
@@ -68,22 +69,22 @@ func (s *RankEvalRequestItem) UnmarshalJSON(data []byte) error {
 				s.Params = make(map[string]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.Params); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Params", err)
 			}
 
 		case "ratings":
 			if err := dec.Decode(&s.Ratings); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Ratings", err)
 			}
 
 		case "request":
 			if err := dec.Decode(&s.Request); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Request", err)
 			}
 
 		case "template_id":
 			if err := dec.Decode(&s.TemplateId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TemplateId", err)
 			}
 
 		}

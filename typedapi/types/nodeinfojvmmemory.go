@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/info/types.ts#L310-L321
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/info/types.ts#L310-L321
 type NodeInfoJvmMemory struct {
 	DirectMax          ByteSize `json:"direct_max,omitempty"`
 	DirectMaxInBytes   int64    `json:"direct_max_in_bytes"`
@@ -61,7 +62,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 
 		case "direct_max":
 			if err := dec.Decode(&s.DirectMax); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "DirectMax", err)
 			}
 
 		case "direct_max_in_bytes":
@@ -71,7 +72,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "DirectMaxInBytes", err)
 				}
 				s.DirectMaxInBytes = value
 			case float64:
@@ -81,7 +82,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 
 		case "heap_init":
 			if err := dec.Decode(&s.HeapInit); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HeapInit", err)
 			}
 
 		case "heap_init_in_bytes":
@@ -91,7 +92,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HeapInitInBytes", err)
 				}
 				s.HeapInitInBytes = value
 			case float64:
@@ -101,7 +102,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 
 		case "heap_max":
 			if err := dec.Decode(&s.HeapMax); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "HeapMax", err)
 			}
 
 		case "heap_max_in_bytes":
@@ -111,7 +112,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "HeapMaxInBytes", err)
 				}
 				s.HeapMaxInBytes = value
 			case float64:
@@ -121,7 +122,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 
 		case "non_heap_init":
 			if err := dec.Decode(&s.NonHeapInit); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NonHeapInit", err)
 			}
 
 		case "non_heap_init_in_bytes":
@@ -131,7 +132,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NonHeapInitInBytes", err)
 				}
 				s.NonHeapInitInBytes = value
 			case float64:
@@ -141,7 +142,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 
 		case "non_heap_max":
 			if err := dec.Decode(&s.NonHeapMax); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "NonHeapMax", err)
 			}
 
 		case "non_heap_max_in_bytes":
@@ -151,7 +152,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "NonHeapMaxInBytes", err)
 				}
 				s.NonHeapMaxInBytes = value
 			case float64:

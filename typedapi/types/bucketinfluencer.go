@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // BucketInfluencer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/Bucket.ts#L80-L128
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Bucket.ts#L80-L128
 type BucketInfluencer struct {
 	// AnomalyScore A normalized score between 0-100, which is calculated for each bucket
 	// influencer. This score might be updated as
@@ -88,7 +89,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "AnomalyScore", err)
 				}
 				f := Float64(value)
 				s.AnomalyScore = f
@@ -99,12 +100,12 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 
 		case "bucket_span":
 			if err := dec.Decode(&s.BucketSpan); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "BucketSpan", err)
 			}
 
 		case "influencer_field_name":
 			if err := dec.Decode(&s.InfluencerFieldName); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InfluencerFieldName", err)
 			}
 
 		case "initial_anomaly_score":
@@ -114,7 +115,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "InitialAnomalyScore", err)
 				}
 				f := Float64(value)
 				s.InitialAnomalyScore = f
@@ -130,7 +131,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IsInterim", err)
 				}
 				s.IsInterim = value
 			case bool:
@@ -139,7 +140,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 
 		case "job_id":
 			if err := dec.Decode(&s.JobId); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "JobId", err)
 			}
 
 		case "probability":
@@ -149,7 +150,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Probability", err)
 				}
 				f := Float64(value)
 				s.Probability = f
@@ -165,7 +166,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RawAnomalyScore", err)
 				}
 				f := Float64(value)
 				s.RawAnomalyScore = f
@@ -177,7 +178,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 		case "result_type":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "ResultType", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -188,12 +189,12 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 
 		case "timestamp":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		case "timestamp_string":
 			if err := dec.Decode(&s.TimestampString); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimestampString", err)
 			}
 
 		}

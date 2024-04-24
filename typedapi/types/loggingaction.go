@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // LoggingAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Actions.ts#L281-L285
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Actions.ts#L281-L285
 type LoggingAction struct {
 	Category *string `json:"category,omitempty"`
 	Level    *string `json:"level,omitempty"`
@@ -55,7 +56,7 @@ func (s *LoggingAction) UnmarshalJSON(data []byte) error {
 		case "category":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Category", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -67,7 +68,7 @@ func (s *LoggingAction) UnmarshalJSON(data []byte) error {
 		case "level":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Level", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -79,7 +80,7 @@ func (s *LoggingAction) UnmarshalJSON(data []byte) error {
 		case "text":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Text", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

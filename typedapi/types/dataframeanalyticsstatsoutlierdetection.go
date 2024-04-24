@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // DataframeAnalyticsStatsOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/ml/_types/DataframeAnalytics.ts#L404-L417
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeAnalytics.ts#L404-L417
 type DataframeAnalyticsStatsOutlierDetection struct {
 	// Parameters The list of job parameters specified by the user or determined by algorithmic
 	// heuristics.
@@ -58,17 +59,17 @@ func (s *DataframeAnalyticsStatsOutlierDetection) UnmarshalJSON(data []byte) err
 
 		case "parameters":
 			if err := dec.Decode(&s.Parameters); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Parameters", err)
 			}
 
 		case "timestamp":
 			if err := dec.Decode(&s.Timestamp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Timestamp", err)
 			}
 
 		case "timing_stats":
 			if err := dec.Decode(&s.TimingStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimingStats", err)
 			}
 
 		}

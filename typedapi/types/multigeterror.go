@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // MultiGetError type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_global/mget/types.ts#L62-L66
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/mget/types.ts#L62-L66
 type MultiGetError struct {
 	Error  ErrorCause `json:"error"`
 	Id_    string     `json:"_id"`
@@ -53,17 +54,17 @@ func (s *MultiGetError) UnmarshalJSON(data []byte) error {
 
 		case "error":
 			if err := dec.Decode(&s.Error); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Error", err)
 			}
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
 		}

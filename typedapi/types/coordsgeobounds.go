@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // CoordsGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/Geo.ts#L154-L159
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Geo.ts#L154-L159
 type CoordsGeoBounds struct {
 	Bottom Float64 `json:"bottom"`
 	Left   Float64 `json:"left"`
@@ -60,7 +61,7 @@ func (s *CoordsGeoBounds) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Bottom", err)
 				}
 				f := Float64(value)
 				s.Bottom = f
@@ -76,7 +77,7 @@ func (s *CoordsGeoBounds) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Left", err)
 				}
 				f := Float64(value)
 				s.Left = f
@@ -92,7 +93,7 @@ func (s *CoordsGeoBounds) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Right", err)
 				}
 				f := Float64(value)
 				s.Right = f
@@ -108,7 +109,7 @@ func (s *CoordsGeoBounds) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseFloat(v, 64)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Top", err)
 				}
 				f := Float64(value)
 				s.Top = f

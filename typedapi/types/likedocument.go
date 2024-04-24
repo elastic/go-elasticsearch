@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/versiontype"
@@ -31,7 +32,7 @@ import (
 
 // LikeDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/query_dsl/specialized.ts#L165-L184
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/specialized.ts#L165-L184
 type LikeDocument struct {
 	// Doc A document not present in the index.
 	Doc    json.RawMessage `json:"doc,omitempty"`
@@ -63,22 +64,22 @@ func (s *LikeDocument) UnmarshalJSON(data []byte) error {
 
 		case "doc":
 			if err := dec.Decode(&s.Doc); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Doc", err)
 			}
 
 		case "fields":
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Id_", err)
 			}
 
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Index_", err)
 			}
 
 		case "per_field_analyzer":
@@ -86,22 +87,22 @@ func (s *LikeDocument) UnmarshalJSON(data []byte) error {
 				s.PerFieldAnalyzer = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.PerFieldAnalyzer); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PerFieldAnalyzer", err)
 			}
 
 		case "routing":
 			if err := dec.Decode(&s.Routing); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Routing", err)
 			}
 
 		case "version":
 			if err := dec.Decode(&s.Version); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		case "version_type":
 			if err := dec.Decode(&s.VersionType); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "VersionType", err)
 			}
 
 		}

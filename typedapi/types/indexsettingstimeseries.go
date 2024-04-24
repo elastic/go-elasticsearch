@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,12 +24,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 )
 
 // IndexSettingsTimeSeries type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/indices/_types/IndexSettings.ts#L321-L324
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/IndexSettings.ts#L325-L328
 type IndexSettingsTimeSeries struct {
 	EndTime   DateTime `json:"end_time,omitempty"`
 	StartTime DateTime `json:"start_time,omitempty"`
@@ -52,12 +53,12 @@ func (s *IndexSettingsTimeSeries) UnmarshalJSON(data []byte) error {
 
 		case "end_time":
 			if err := dec.Decode(&s.EndTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "EndTime", err)
 			}
 
 		case "start_time":
 			if err := dec.Decode(&s.StartTime); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "StartTime", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // Ilm type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/xpack/usage/types.ts#L162-L165
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L162-L165
 type Ilm struct {
 	PolicyCount int                   `json:"policy_count"`
 	PolicyStats []IlmPolicyStatistics `json:"policy_stats"`
@@ -59,7 +60,7 @@ func (s *Ilm) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PolicyCount", err)
 				}
 				s.PolicyCount = value
 			case float64:
@@ -69,7 +70,7 @@ func (s *Ilm) UnmarshalJSON(data []byte) error {
 
 		case "policy_stats":
 			if err := dec.Decode(&s.PolicyStats); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PolicyStats", err)
 			}
 
 		}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // MatchedText type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/text_structure/test_grok_pattern/types.ts#L29-L32
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/text_structure/test_grok_pattern/types.ts#L29-L32
 type MatchedText struct {
 	Fields  map[string][]MatchedField `json:"fields,omitempty"`
 	Matched bool                      `json:"matched"`
@@ -56,7 +57,7 @@ func (s *MatchedText) UnmarshalJSON(data []byte) error {
 				s.Fields = make(map[string][]MatchedField, 0)
 			}
 			if err := dec.Decode(&s.Fields); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "matched":
@@ -66,7 +67,7 @@ func (s *MatchedText) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "Matched", err)
 				}
 				s.Matched = value
 			case bool:

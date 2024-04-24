@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // PendingTasksRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/cat/pending_tasks/types.ts#L20-L41
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/pending_tasks/types.ts#L20-L41
 type PendingTasksRecord struct {
 	// InsertOrder The task insertion order.
 	InsertOrder *string `json:"insertOrder,omitempty"`
@@ -60,7 +61,7 @@ func (s *PendingTasksRecord) UnmarshalJSON(data []byte) error {
 		case "insertOrder", "o":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "InsertOrder", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -72,7 +73,7 @@ func (s *PendingTasksRecord) UnmarshalJSON(data []byte) error {
 		case "priority", "p":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Priority", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -84,7 +85,7 @@ func (s *PendingTasksRecord) UnmarshalJSON(data []byte) error {
 		case "source", "s":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Source", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
@@ -96,7 +97,7 @@ func (s *PendingTasksRecord) UnmarshalJSON(data []byte) error {
 		case "timeInQueue", "t":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "TimeInQueue", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)

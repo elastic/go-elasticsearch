@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,6 +24,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 
@@ -32,7 +33,7 @@ import (
 
 // RankFeatureProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/_types/mapping/core.ts#L184-L187
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/mapping/core.ts#L184-L187
 type RankFeatureProperty struct {
 	Dynamic     *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	Fields      map[string]Property            `json:"fields,omitempty"`
@@ -61,7 +62,7 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 
 		case "dynamic":
 			if err := dec.Decode(&s.Dynamic); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
 		case "fields":
@@ -379,7 +380,7 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "IgnoreAbove", err)
 				}
 				s.IgnoreAbove = &value
 			case float64:
@@ -392,7 +393,7 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 				s.Meta = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Meta); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
 		case "positive_score_impact":
@@ -402,7 +403,7 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "PositiveScoreImpact", err)
 				}
 				s.PositiveScoreImpact = &value
 			case bool:
@@ -718,7 +719,7 @@ func (s *RankFeatureProperty) UnmarshalJSON(data []byte) error {
 
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
 		}

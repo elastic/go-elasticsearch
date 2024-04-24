@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // SimulatedActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/watcher/_types/Action.ts#L96-L100
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Action.ts#L96-L100
 type SimulatedActions struct {
 	Actions []string          `json:"actions"`
 	All     *SimulatedActions `json:"all,omitempty"`
@@ -54,12 +55,12 @@ func (s *SimulatedActions) UnmarshalJSON(data []byte) error {
 
 		case "actions":
 			if err := dec.Decode(&s.Actions); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "Actions", err)
 			}
 
 		case "all":
 			if err := dec.Decode(&s.All); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "All", err)
 			}
 
 		case "use_all":
@@ -69,7 +70,7 @@ func (s *SimulatedActions) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.ParseBool(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "UseAll", err)
 				}
 				s.UseAll = value
 			case bool:

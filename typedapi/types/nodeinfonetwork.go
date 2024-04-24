@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/6e0fb6b929f337b62bf0676bdf503e061121fad2
+// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
 
 package types
 
@@ -24,13 +24,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"strconv"
 )
 
 // NodeInfoNetwork type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/6e0fb6b929f337b62bf0676bdf503e061121fad2/specification/nodes/info/types.ts#L328-L331
+// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/info/types.ts#L328-L331
 type NodeInfoNetwork struct {
 	PrimaryInterface NodeInfoNetworkInterface `json:"primary_interface"`
 	RefreshInterval  int                      `json:"refresh_interval"`
@@ -53,7 +54,7 @@ func (s *NodeInfoNetwork) UnmarshalJSON(data []byte) error {
 
 		case "primary_interface":
 			if err := dec.Decode(&s.PrimaryInterface); err != nil {
-				return err
+				return fmt.Errorf("%s | %w", "PrimaryInterface", err)
 			}
 
 		case "refresh_interval":
@@ -64,7 +65,7 @@ func (s *NodeInfoNetwork) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "RefreshInterval", err)
 				}
 				s.RefreshInterval = value
 			case float64:
