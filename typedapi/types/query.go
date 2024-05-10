@@ -91,7 +91,7 @@ type Query struct {
 	Knn *KnnQuery `json:"knn,omitempty"`
 	// Match Returns documents that match a provided text, number, date or boolean value.
 	// The provided text is analyzed before matching.
-	Match map[string]MatchQuery `json:"match,omitempty"`
+	Match map[string]string `json:"match,omitempty"`
 	// MatchAll Matches all documents, giving them all a `_score` of 1.0.
 	MatchAll *MatchAllQuery `json:"match_all,omitempty"`
 	// MatchBoolPrefix Analyzes its input and constructs a `bool` query from the terms.
@@ -330,7 +330,7 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 
 		case "match":
 			if s.Match == nil {
-				s.Match = make(map[string]MatchQuery, 0)
+				s.Match = make(map[string]string, 0)
 			}
 			if err := dec.Decode(&s.Match); err != nil {
 				return fmt.Errorf("%s | %w", "Match", err)
@@ -568,7 +568,7 @@ func NewQuery() *Query {
 		Common:            make(map[string]CommonTermsQuery, 0),
 		Fuzzy:             make(map[string]FuzzyQuery, 0),
 		Intervals:         make(map[string]IntervalsQuery, 0),
-		Match:             make(map[string]MatchQuery, 0),
+		Match:             make(map[string]string, 0),
 		MatchBoolPrefix:   make(map[string]MatchBoolPrefixQuery, 0),
 		MatchPhrase:       make(map[string]MatchPhraseQuery, 0),
 		MatchPhrasePrefix: make(map[string]MatchPhrasePrefixQuery, 0),
