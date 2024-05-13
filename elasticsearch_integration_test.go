@@ -28,9 +28,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/testcontainers/testcontainers-go"
-	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
 	"log"
 	"net"
 	"net/http"
@@ -44,6 +41,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
@@ -52,6 +50,9 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/refresh"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/result"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
+
+	"github.com/testcontainers/testcontainers-go"
+	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
 )
 
 func TestElasticsearchIntegration(t *testing.T) {
