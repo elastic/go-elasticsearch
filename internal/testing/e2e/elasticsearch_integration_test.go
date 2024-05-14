@@ -18,7 +18,7 @@
 //go:build integration && !multinode
 // +build integration,!multinode
 
-package elasticsearch_test
+package e2e_test
 
 import (
 	"bytes"
@@ -42,8 +42,6 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/core/search"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/some"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
@@ -53,10 +51,11 @@ import (
 
 	"github.com/testcontainers/testcontainers-go"
 	tces "github.com/testcontainers/testcontainers-go/modules/elasticsearch"
+	"testing/containertest"
 )
 
 func TestElasticsearchIntegration(t *testing.T) {
-	stackVersion := version.Client
+	stackVersion := elasticsearch.Version
 	if v := os.Getenv("STACK_VERSION"); v != "" {
 		stackVersion = v
 	}
@@ -502,7 +501,7 @@ func (t *ReplacedTransport) Count() uint64 {
 func TestElasticsearchInsecureIntegration(t *testing.T) {
 	elasticsearchContainer, err := tces.RunContainer(
 		context.Background(),
-		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:"+version.Client),
+		testcontainers.WithImage("docker.elastic.co/elasticsearch/elasticsearch:"+elasticsearch.Version),
 		testcontainers.WithEnv(map[string]string{
 			"xpack.security.enabled": "false",
 		}),

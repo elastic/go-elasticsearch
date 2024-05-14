@@ -18,7 +18,7 @@
 //go:build integration
 // +build integration
 
-package esapi_test
+package e2e_test
 
 import (
 	"bytes"
@@ -28,17 +28,15 @@ import (
 	"os"
 	"strings"
 	"testing"
+	"testing/containertest"
 	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-
-	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
 )
 
 func TestAPI(t *testing.T) {
-	stackVersion := version.Client
+	stackVersion := elasticsearch.Version
 	if v := os.Getenv("STACK_VERSION"); v != "" {
 		stackVersion = v
 	}

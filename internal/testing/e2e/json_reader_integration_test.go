@@ -18,24 +18,22 @@
 //go:build integration
 // +build integration
 
-package esutil_test
+package e2e_test
 
 import (
 	"context"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/esutil"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/esutil"
-
-	"github.com/elastic/go-elasticsearch/v8/internal/containertest"
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
+	"testing/containertest"
 )
 
 func TestJSONReaderIntegration(t *testing.T) {
-	stackVersion := version.Client
+	stackVersion := elasticsearch.Version
 	if v := os.Getenv("STACK_VERSION"); v != "" {
 		stackVersion = v
 	}
