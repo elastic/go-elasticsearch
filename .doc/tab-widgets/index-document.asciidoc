@@ -18,7 +18,7 @@ client.Index("my_index", bytes.NewReader(data))
 
 // tag::fully-typed[]
 
-This is a simple way of indexing a documen by using the fully-typed API:
+This is a simple way of indexing a document by using the fully-typed API:
 
 [source,go]
 ----
