@@ -62,6 +62,7 @@ var skipFiles = []string{
 	"dlm/10_usage.yml",                  // incompatible float expansion
 	"api_key/60_admin_user.yml",
 	".*esql\\/.*.yml",
+	"deprecation/10_basic.yml", // incompatible test generation
 }
 
 // TODO: Comments into descriptions for `Skip()`
