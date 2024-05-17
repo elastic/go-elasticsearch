@@ -94,6 +94,10 @@ update/61_refresh_with_types.yml:
 indices.data_stream/10_basic.yml:
   - Create data stream with invalid name
 
+# status cannot be green
+cluster.health/10_basic.yml:
+  - cluster health with closed index (pre 7.2.0)
+
 # Stash in value
 cluster.reroute/11_explain.yml:
 nodes.info/30_settings.yml:
@@ -237,6 +241,7 @@ api_key/10_basic.yml:
   - Test invalidate api keys
 api_key/11_invalidation.yml:
   - Test invalidate api key by username
+  - Test invalidate api key by realm name
 api_key/21_query_with_aggs.yml:
   - Test composite aggs api key
 rollup/put_job.yml:
