@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package fieldcaps
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package fieldcaps
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/field_caps/FieldCapabilitiesResponse.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/field_caps/FieldCapabilitiesResponse.ts#L24-L35
 type Response struct {
 	Fields  map[string]map[string]types.FieldCapability `json:"fields"`
 	Indices []string                                    `json:"indices"`

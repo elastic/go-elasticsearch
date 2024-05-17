@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // AutoscalingPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/autoscaling/_types/AutoscalingPolicy.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/autoscaling/_types/AutoscalingPolicy.ts#L23-L27
 type AutoscalingPolicy struct {
 	// Deciders Decider settings
 	Deciders map[string]json.RawMessage `json:"deciders"`

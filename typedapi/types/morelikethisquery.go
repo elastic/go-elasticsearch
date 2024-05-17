@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MoreLikeThisQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/specialized.ts#L78-L163
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/query_dsl/specialized.ts#L78-L160
 type MoreLikeThisQuery struct {
 	// Analyzer The analyzer that is used to analyze the free form text.
 	// Defaults to the analyzer associated with the first field in fields.
@@ -80,10 +80,8 @@ type MoreLikeThisQuery struct {
 	// MinimumShouldMatch After the disjunctive query has been formed, this parameter controls the
 	// number of terms that must match.
 	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
-	// PerFieldAnalyzer Overrides the default analyzer.
-	PerFieldAnalyzer map[string]string `json:"per_field_analyzer,omitempty"`
-	QueryName_       *string           `json:"_name,omitempty"`
-	Routing          *string           `json:"routing,omitempty"`
+	QueryName_         *string            `json:"_name,omitempty"`
+	Routing            *string            `json:"routing,omitempty"`
 	// StopWords An array of stop words.
 	// Any word in this set is ignored.
 	StopWords []string `json:"stop_words,omitempty"`
@@ -122,7 +120,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			s.Analyzer = &o
 
 		case "boost":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -138,7 +136,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "boost_terms":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -154,7 +152,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fail_on_unsupported_field":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -173,7 +171,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "include":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -204,7 +202,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "max_doc_freq":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -220,7 +218,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "max_query_terms":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -236,7 +234,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "max_word_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -252,7 +250,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "min_doc_freq":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -268,7 +266,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "min_term_freq":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -284,7 +282,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 		case "min_word_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -301,14 +299,6 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 		case "minimum_should_match":
 			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
 				return fmt.Errorf("%s | %w", "MinimumShouldMatch", err)
-			}
-
-		case "per_field_analyzer":
-			if s.PerFieldAnalyzer == nil {
-				s.PerFieldAnalyzer = make(map[string]string, 0)
-			}
-			if err := dec.Decode(&s.PerFieldAnalyzer); err != nil {
-				return fmt.Errorf("%s | %w", "PerFieldAnalyzer", err)
 			}
 
 		case "_name":
@@ -377,9 +367,7 @@ func (s *MoreLikeThisQuery) UnmarshalJSON(data []byte) error {
 
 // NewMoreLikeThisQuery returns a MoreLikeThisQuery.
 func NewMoreLikeThisQuery() *MoreLikeThisQuery {
-	r := &MoreLikeThisQuery{
-		PerFieldAnalyzer: make(map[string]string, 0),
-	}
+	r := &MoreLikeThisQuery{}
 
 	return r
 }

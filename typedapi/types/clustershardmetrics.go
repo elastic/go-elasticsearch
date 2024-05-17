@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterShardMetrics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L511-L524
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/stats/types.ts#L511-L524
 type ClusterShardMetrics struct {
 	// Avg Mean number of shards in an index, counting only shards assigned to selected
 	// nodes.
@@ -60,7 +60,7 @@ func (s *ClusterShardMetrics) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "avg":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -76,7 +76,7 @@ func (s *ClusterShardMetrics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -92,7 +92,7 @@ func (s *ClusterShardMetrics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

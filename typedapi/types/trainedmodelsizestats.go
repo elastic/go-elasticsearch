@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L126-L131
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/TrainedModel.ts#L126-L131
 type TrainedModelSizeStats struct {
 	// ModelSizeBytes The size of the model in bytes.
 	ModelSizeBytes ByteSize `json:"model_size_bytes"`
@@ -61,7 +61,7 @@ func (s *TrainedModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "required_native_memory_bytes":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

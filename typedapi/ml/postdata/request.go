@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package postdata
 
@@ -26,5 +26,12 @@ import (
 
 // Request holds the request body struct for the package postdata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/post_data/MlPostJobDataRequest.ts#L24-L68
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/post_data/MlPostJobDataRequest.ts#L24-L68
 type Request = []json.RawMessage
+
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := make([]json.RawMessage, 0)
+
+	return &r
+}

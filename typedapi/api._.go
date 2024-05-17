@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package typedapi
 
@@ -219,10 +219,10 @@ import (
 	indices_unfreeze "github.com/elastic/go-elasticsearch/v8/typedapi/indices/unfreeze"
 	indices_update_aliases "github.com/elastic/go-elasticsearch/v8/typedapi/indices/updatealiases"
 	indices_validate_query "github.com/elastic/go-elasticsearch/v8/typedapi/indices/validatequery"
-	inference_delete_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/deletemodel"
-	inference_get_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/getmodel"
+	inference_delete "github.com/elastic/go-elasticsearch/v8/typedapi/inference/delete"
+	inference_get "github.com/elastic/go-elasticsearch/v8/typedapi/inference/get"
 	inference_inference "github.com/elastic/go-elasticsearch/v8/typedapi/inference/inference"
-	inference_put_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putmodel"
+	inference_put "github.com/elastic/go-elasticsearch/v8/typedapi/inference/put"
 	ingest_delete_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/deletepipeline"
 	ingest_geo_ip_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/geoipstats"
 	ingest_get_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/getpipeline"
@@ -1181,18 +1181,18 @@ type Indices struct {
 }
 
 type Inference struct {
-	// Delete model in the Inference API
+	// Delete an inference endpoint
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-inference-api.html
-	DeleteModel inference_delete_model.NewDeleteModel
-	// Get a model in the Inference API
+	Delete inference_delete.NewDelete
+	// Get an inference endpoint
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html
-	GetModel inference_get_model.NewGetModel
-	// Perform inference on a model
+	Get inference_get.NewGet
+	// Perform inference
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/post-inference-api.html
 	Inference inference_inference.NewInference
-	// Configure a model for use in the Inference API
+	// Configure an inference endpoint for use in the Inference API
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html
-	PutModel inference_put_model.NewPutModel
+	Put inference_put.NewPut
 }
 
 type Ingest struct {
@@ -2505,10 +2505,10 @@ func New(tp elastictransport.Interface) *API {
 
 		// Inference
 		Inference: Inference{
-			DeleteModel: inference_delete_model.NewDeleteModelFunc(tp),
-			GetModel:    inference_get_model.NewGetModelFunc(tp),
-			Inference:   inference_inference.NewInferenceFunc(tp),
-			PutModel:    inference_put_model.NewPutModelFunc(tp),
+			Delete:    inference_delete.NewDeleteFunc(tp),
+			Get:       inference_get.NewGetFunc(tp),
+			Inference: inference_inference.NewInferenceFunc(tp),
+			Put:       inference_put.NewPutFunc(tp),
 		},
 
 		// Ingest

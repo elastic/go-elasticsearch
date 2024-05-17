@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StoreStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Stats.ts#L368-L395
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/Stats.ts#L368-L395
 type StoreStats struct {
 	// Reserved A prediction of how much larger the shard stores will eventually grow due to
 	// ongoing peer recoveries, restoring snapshots, and similar activities.
@@ -75,7 +75,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "reserved_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -95,7 +95,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "size_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -115,7 +115,7 @@ func (s *StoreStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_data_set_size_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

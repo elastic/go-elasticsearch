@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // S3RepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/snapshot/_types/SnapshotRepository.ts#L93-L102
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/snapshot/_types/SnapshotRepository.ts#L93-L102
 type S3RepositorySettings struct {
 	BasePath               *string  `json:"base_path,omitempty"`
 	Bucket                 string   `json:"bucket"`
@@ -121,7 +121,7 @@ func (s *S3RepositorySettings) UnmarshalJSON(data []byte) error {
 			s.Client = &o
 
 		case "compress":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -145,7 +145,7 @@ func (s *S3RepositorySettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "readonly":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -159,7 +159,7 @@ func (s *S3RepositorySettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "server_side_encryption":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

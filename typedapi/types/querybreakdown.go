@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // QueryBreakdown type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/profile.ts#L97-L116
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/search/_types/profile.ts#L97-L116
 type QueryBreakdown struct {
 	Advance                     int64 `json:"advance"`
 	AdvanceCount                int64 `json:"advance_count"`
@@ -69,7 +69,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "advance":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -84,7 +84,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "advance_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -99,7 +99,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "build_scorer":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -114,7 +114,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "build_scorer_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -129,7 +129,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "compute_max_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -144,7 +144,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "compute_max_score_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -159,7 +159,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "create_weight":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -174,7 +174,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "create_weight_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -189,7 +189,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "match":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -204,7 +204,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "match_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -219,7 +219,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "next_doc":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -234,7 +234,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "next_doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -249,7 +249,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -264,7 +264,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "score_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -279,7 +279,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "set_min_competitive_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -294,7 +294,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "set_min_competitive_score_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -309,7 +309,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "shallow_advance":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -324,7 +324,7 @@ func (s *QueryBreakdown) UnmarshalJSON(data []byte) error {
 			}
 
 		case "shallow_advance_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

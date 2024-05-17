@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ModelSnapshot type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Model.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/Model.ts#L25-L46
 type ModelSnapshot struct {
 	// Description An optional description of the job.
 	Description *string `json:"description,omitempty"`
@@ -92,7 +92,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 
 		case "latest_record_time_stamp":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -108,7 +108,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 
 		case "latest_result_time_stamp":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -133,7 +133,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			}
 
 		case "retain":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -147,7 +147,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			}
 
 		case "snapshot_doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -167,7 +167,7 @@ func (s *ModelSnapshot) UnmarshalJSON(data []byte) error {
 			}
 
 		case "timestamp":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

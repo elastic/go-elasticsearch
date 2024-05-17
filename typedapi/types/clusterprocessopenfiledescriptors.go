@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterProcessOpenFileDescriptors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L485-L501
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/stats/types.ts#L485-L501
 type ClusterProcessOpenFileDescriptors struct {
 	// Avg Average number of concurrently open file descriptors.
 	// Returns `-1` if not supported.
@@ -62,7 +62,7 @@ func (s *ClusterProcessOpenFileDescriptors) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "avg":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -77,7 +77,7 @@ func (s *ClusterProcessOpenFileDescriptors) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -92,7 +92,7 @@ func (s *ClusterProcessOpenFileDescriptors) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

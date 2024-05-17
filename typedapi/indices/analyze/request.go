@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package analyze
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package analyze
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L92
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L92
 type Request struct {
 
 	// Analyzer The name of the analyzer that should be applied to the provided `text`.
@@ -66,6 +66,7 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{}
+
 	return r
 }
 
@@ -160,7 +161,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 						}
 						s.CharFilter = append(s.CharFilter, *o)
 					default:
-						o := new(interface{})
+						o := new(any)
 						if err := localDec.Decode(&o); err != nil {
 							return err
 						}
@@ -168,7 +169,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					}
 				default:
 					source := bytes.NewReader(rawMsg)
-					o := new(interface{})
+					o := new(any)
 					if err := json.NewDecoder(source).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "CharFilter", err)
 					}
@@ -177,7 +178,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "explain":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -495,7 +496,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 						}
 						s.Filter = append(s.Filter, *o)
 					default:
-						o := new(interface{})
+						o := new(any)
 						if err := localDec.Decode(&o); err != nil {
 							return err
 						}
@@ -503,7 +504,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					}
 				default:
 					source := bytes.NewReader(rawMsg)
-					o := new(interface{})
+					o := new(any)
 					if err := json.NewDecoder(source).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "Filter", err)
 					}

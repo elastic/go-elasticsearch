@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 // Creates a new document in the index.
 //
@@ -33,6 +33,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -59,8 +60,8 @@ type Create struct {
 
 	raw io.Reader
 
-	req      interface{}
-	deferred []func(request interface{}) error
+	req      any
+	deferred []func(request any) error
 	buf      *gobytes.Buffer
 
 	paramSet int
@@ -103,6 +104,8 @@ func New(tp elastictransport.Interface) *Create {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -123,14 +126,14 @@ func (r *Create) Raw(raw io.Reader) *Create {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *Create) Request(req interface{}) *Create {
+func (r *Create) Request(req any) *Create {
 	r.req = req
 
 	return r
 }
 
 // Document allows to set the request property with the appropriate payload.
-func (r *Create) Document(document interface{}) *Create {
+func (r *Create) Document(document any) *Create {
 	r.req = document
 
 	return r
@@ -415,6 +418,50 @@ func (r *Create) VersionType(versiontype versiontype.VersionType) *Create {
 // API name: wait_for_active_shards
 func (r *Create) WaitForActiveShards(waitforactiveshards string) *Create {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Create) ErrorTrace(errortrace bool) *Create {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Create) FilterPath(filterpaths ...string) *Create {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Create) Human(human bool) *Create {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Create) Pretty(pretty bool) *Create {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

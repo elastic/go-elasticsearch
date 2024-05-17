@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // JvmMemoryStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L847-L876
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/nodes/_types/Stats.ts#L847-L876
 type JvmMemoryStats struct {
 	// HeapCommittedInBytes Amount of memory, in bytes, available for use by the heap.
 	HeapCommittedInBytes *int64 `json:"heap_committed_in_bytes,omitempty"`
@@ -65,7 +65,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "heap_committed_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -80,7 +80,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "heap_max_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -95,7 +95,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "heap_used_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -110,7 +110,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "heap_used_percent":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -125,7 +125,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "non_heap_committed_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -140,7 +140,7 @@ func (s *JvmMemoryStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "non_heap_used_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

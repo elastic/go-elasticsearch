@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SignificantStringTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L606-L608
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/Aggregate.ts#L606-L608
 type SignificantStringTermsBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	BgCount      int64                `json:"bg_count"`
@@ -57,7 +57,7 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bg_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -72,7 +72,7 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 			}
 
 		case "doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -99,7 +99,7 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 			s.Key = o
 
 		case "score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -609,7 +609,7 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 							s.Aggregations[elems[1]] = o
 
 						default:
-							o := make(map[string]interface{}, 0)
+							o := make(map[string]any, 0)
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)
 							}
@@ -619,7 +619,7 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 						return errors.New("cannot decode JSON for field Aggregations")
 					}
 				} else {
-					o := make(map[string]interface{}, 0)
+					o := make(map[string]any, 0)
 					if err := dec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "Aggregations", err)
 					}
@@ -636,7 +636,7 @@ func (s *SignificantStringTermsBucket) UnmarshalJSON(data []byte) error {
 func (s SignificantStringTermsBucket) MarshalJSON() ([]byte, error) {
 	type opt SignificantStringTermsBucket
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]interface{}, 0)
+	tmp := make(map[string]any, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,17 +33,15 @@ import (
 
 // DiversifiedSamplerAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L320-L341
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/bucket.ts#L322-L343
 type DiversifiedSamplerAggregation struct {
 	// ExecutionHint The type of value used for de-duplication.
 	ExecutionHint *sampleraggregationexecutionhint.SamplerAggregationExecutionHint `json:"execution_hint,omitempty"`
 	// Field The field used to provide values used for de-duplication.
 	Field *string `json:"field,omitempty"`
 	// MaxDocsPerValue Limits how many documents are permitted per choice of de-duplicating value.
-	MaxDocsPerValue *int     `json:"max_docs_per_value,omitempty"`
-	Meta            Metadata `json:"meta,omitempty"`
-	Name            *string  `json:"name,omitempty"`
-	Script          Script   `json:"script,omitempty"`
+	MaxDocsPerValue *int   `json:"max_docs_per_value,omitempty"`
+	Script          Script `json:"script,omitempty"`
 	// ShardSize Limits how many top-scoring documents are collected in the sample processed
 	// on each shard.
 	ShardSize *int `json:"shard_size,omitempty"`
@@ -76,7 +74,7 @@ func (s *DiversifiedSamplerAggregation) UnmarshalJSON(data []byte) error {
 
 		case "max_docs_per_value":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -89,23 +87,6 @@ func (s *DiversifiedSamplerAggregation) UnmarshalJSON(data []byte) error {
 				f := int(v)
 				s.MaxDocsPerValue = &f
 			}
-
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		case "script":
 			message := json.RawMessage{}
@@ -145,7 +126,7 @@ func (s *DiversifiedSamplerAggregation) UnmarshalJSON(data []byte) error {
 
 		case "shard_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

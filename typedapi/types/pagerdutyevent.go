@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // PagerDutyEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/_types/Actions.ts#L40-L52
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/watcher/_types/Actions.ts#L40-L52
 type PagerDutyEvent struct {
 	Account       *string                                `json:"account,omitempty"`
 	AttachPayload bool                                   `json:"attach_payload"`
@@ -74,7 +74,7 @@ func (s *PagerDutyEvent) UnmarshalJSON(data []byte) error {
 			s.Account = &o
 
 		case "attach_payload":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

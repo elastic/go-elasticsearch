@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,12 +33,10 @@ import (
 
 // WeightedAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/metric.ts#L432-L446
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/metric.ts#L437-L451
 type WeightedAverageAggregation struct {
 	// Format A numeric response formatter.
-	Format *string  `json:"format,omitempty"`
-	Meta   Metadata `json:"meta,omitempty"`
-	Name   *string  `json:"name,omitempty"`
+	Format *string `json:"format,omitempty"`
 	// Value Configuration for the field that provides the values.
 	Value     *WeightedAverageValue `json:"value,omitempty"`
 	ValueType *valuetype.ValueType  `json:"value_type,omitempty"`
@@ -72,23 +70,6 @@ func (s *WeightedAverageAggregation) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Format = &o
-
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		case "value":
 			if err := dec.Decode(&s.Value); err != nil {

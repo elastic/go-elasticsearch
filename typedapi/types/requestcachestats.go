@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RequestCacheStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Stats.ts#L244-L250
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/Stats.ts#L244-L250
 type RequestCacheStats struct {
 	Evictions         int64   `json:"evictions"`
 	HitCount          int64   `json:"hit_count"`
@@ -56,7 +56,7 @@ func (s *RequestCacheStats) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "evictions":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -71,7 +71,7 @@ func (s *RequestCacheStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "hit_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -98,7 +98,7 @@ func (s *RequestCacheStats) UnmarshalJSON(data []byte) error {
 			s.MemorySize = &o
 
 		case "memory_size_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -113,7 +113,7 @@ func (s *RequestCacheStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "miss_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

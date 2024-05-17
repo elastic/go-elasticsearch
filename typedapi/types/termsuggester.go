@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // TermSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/suggester.ts#L503-L565
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/search/_types/suggester.ts#L503-L565
 type TermSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with.
 	// Defaults to the search analyzer of the suggest field.
@@ -121,7 +121,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 			}
 
 		case "lowercase_terms":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -136,7 +136,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 
 		case "max_edits":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -152,7 +152,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 
 		case "max_inspections":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -167,7 +167,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_term_freq":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -183,7 +183,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min_doc_freq":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -200,7 +200,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 
 		case "min_word_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -216,7 +216,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 
 		case "prefix_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -232,7 +232,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 
 		case "shard_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -248,7 +248,7 @@ func (s *TermSuggester) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,15 +31,18 @@ import (
 
 // TopHitsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/metric.ts#L337-L392
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/metric.ts#L337-L397
 type TopHitsAggregation struct {
 	// DocvalueFields Fields for which to return doc values.
-	DocvalueFields []string `json:"docvalue_fields,omitempty"`
+	DocvalueFields []FieldAndFormat `json:"docvalue_fields,omitempty"`
 	// Explain If `true`, returns detailed information about score computation as part of a
 	// hit.
 	Explain *bool `json:"explain,omitempty"`
 	// Field The field on which to run the aggregation.
 	Field *string `json:"field,omitempty"`
+	// Fields Array of wildcard (*) patterns. The request returns values for field names
+	// matching these patterns in the hits.fields property of the response.
+	Fields []FieldAndFormat `json:"fields,omitempty"`
 	// From Starting document offset.
 	From *int `json:"from,omitempty"`
 	// Highlight Specifies the highlighter to use for retrieving highlighted snippets from one
@@ -87,23 +90,12 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "docvalue_fields":
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(string)
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
-					return fmt.Errorf("%s | %w", "DocvalueFields", err)
-				}
-
-				s.DocvalueFields = append(s.DocvalueFields, *o)
-			} else {
-				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.DocvalueFields); err != nil {
-					return fmt.Errorf("%s | %w", "DocvalueFields", err)
-				}
+			if err := dec.Decode(&s.DocvalueFields); err != nil {
+				return fmt.Errorf("%s | %w", "DocvalueFields", err)
 			}
 
 		case "explain":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -121,9 +113,14 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
+		case "fields":
+			if err := dec.Decode(&s.Fields); err != nil {
+				return fmt.Errorf("%s | %w", "Fields", err)
+			}
+
 		case "from":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -192,7 +189,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "seq_no_primary_term":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -207,7 +204,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -259,7 +256,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "track_scores":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -273,7 +270,7 @@ func (s *TopHitsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "version":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

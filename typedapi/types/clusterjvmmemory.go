@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L294-L303
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/stats/types.ts#L294-L303
 type ClusterJvmMemory struct {
 	// HeapMaxInBytes Maximum amount of memory, in bytes, available for use by the heap across all
 	// selected nodes.
@@ -56,7 +56,7 @@ func (s *ClusterJvmMemory) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "heap_max_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -71,7 +71,7 @@ func (s *ClusterJvmMemory) UnmarshalJSON(data []byte) error {
 			}
 
 		case "heap_used_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

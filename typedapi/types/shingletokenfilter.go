@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShingleTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/token_filters.ts#L87-L95
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/analysis/token_filters.ts#L87-L95
 type ShingleTokenFilter struct {
 	FillerToken                *string `json:"filler_token,omitempty"`
 	MaxShingleSize             string  `json:"max_shingle_size,omitempty"`
@@ -95,7 +95,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 			s.MinShingleSize = o
 
 		case "output_unigrams":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -109,7 +109,7 @@ func (s *ShingleTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "output_unigrams_if_no_shingles":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

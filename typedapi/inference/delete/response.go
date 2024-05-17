@@ -16,31 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
-package putmodel
+package delete
 
-import (
-	"encoding/json"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tasktype"
-)
-
-// Response holds the response body struct for the package putmodel
+// Response holds the response body struct for the package delete
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/put_model/PutModelResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/inference/delete/DeleteResponse.ts#L22-L24
 type Response struct {
 
-	// ModelId The model Id
-	ModelId string `json:"model_id"`
-	// Service The service type
-	Service string `json:"service"`
-	// ServiceSettings Settings specific to the service
-	ServiceSettings json.RawMessage `json:"service_settings"`
-	// TaskSettings Task settings specific to the service and model
-	TaskSettings json.RawMessage `json:"task_settings"`
-	// TaskType The model's task type
-	TaskType tasktype.TaskType `json:"task_type"`
+	// Acknowledged For a successful response, this value is always true. On failure, an
+	// exception is returned instead.
+	Acknowledged bool `json:"acknowledged"`
 }
 
 // NewResponse returns a Response

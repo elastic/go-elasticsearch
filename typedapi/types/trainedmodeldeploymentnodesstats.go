@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelDeploymentNodesStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/TrainedModel.ts#L133-L163
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/TrainedModel.ts#L133-L163
 type TrainedModelDeploymentNodesStats struct {
 	// AverageInferenceTimeMs The average time for each inference call to complete on this node.
 	AverageInferenceTimeMs Float64 `json:"average_inference_time_ms"`
@@ -83,7 +83,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 
 		case "error_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -99,7 +99,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 
 		case "inference_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -114,7 +114,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "last_access":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -135,7 +135,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 
 		case "number_of_allocations":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -151,7 +151,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 
 		case "number_of_pending_requests":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -167,7 +167,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 
 		case "rejection_execution_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -193,7 +193,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 
 		case "threads_per_allocation":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -209,7 +209,7 @@ func (s *TrainedModelDeploymentNodesStats) UnmarshalJSON(data []byte) error {
 
 		case "timeout_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

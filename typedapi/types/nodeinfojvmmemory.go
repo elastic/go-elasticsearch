@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoJvmMemory type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/info/types.ts#L310-L321
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/nodes/info/types.ts#L310-L321
 type NodeInfoJvmMemory struct {
 	DirectMax          ByteSize `json:"direct_max,omitempty"`
 	DirectMaxInBytes   int64    `json:"direct_max_in_bytes"`
@@ -66,7 +66,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			}
 
 		case "direct_max_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -86,7 +86,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			}
 
 		case "heap_init_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -106,7 +106,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			}
 
 		case "heap_max_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -126,7 +126,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			}
 
 		case "non_heap_init_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -146,7 +146,7 @@ func (s *NodeInfoJvmMemory) UnmarshalJSON(data []byte) error {
 			}
 
 		case "non_heap_max_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

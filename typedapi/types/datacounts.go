@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Job.ts#L352-L372
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/Job.ts#L352-L372
 type DataCounts struct {
 	BucketCount                 int64  `json:"bucket_count"`
 	EarliestRecordTimestamp     *int64 `json:"earliest_record_timestamp,omitempty"`
@@ -70,7 +70,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bucket_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -85,7 +85,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "earliest_record_timestamp":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -100,7 +100,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "empty_bucket_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -115,7 +115,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "input_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -130,7 +130,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "input_field_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -145,7 +145,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "input_record_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -160,7 +160,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "invalid_date_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -180,7 +180,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "last_data_time":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -195,7 +195,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "latest_bucket_timestamp":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -210,7 +210,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "latest_empty_bucket_timestamp":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -225,7 +225,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "latest_record_timestamp":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -240,7 +240,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "latest_sparse_bucket_timestamp":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -255,7 +255,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "log_time":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -270,7 +270,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "missing_field_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -285,7 +285,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "out_of_order_timestamp_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -300,7 +300,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "processed_field_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -315,7 +315,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "processed_record_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -330,7 +330,7 @@ func (s *DataCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "sparse_bucket_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

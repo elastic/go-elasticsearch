@@ -16,19 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
-package getmodel
+package put
 
 import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"encoding/json"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tasktype"
 )
 
-// Response holds the response body struct for the package getmodel
+// Response holds the response body struct for the package put
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/get_model/GetModelResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/inference/put/PutResponse.ts#L22-L24
 type Response struct {
-	Models []types.ModelConfigContainer `json:"models"`
+
+	// InferenceId The inference Id
+	InferenceId string `json:"inference_id"`
+	// Service The service type
+	Service string `json:"service"`
+	// ServiceSettings Settings specific to the service
+	ServiceSettings json.RawMessage `json:"service_settings"`
+	// TaskSettings Task settings specific to the service and task type
+	TaskSettings json.RawMessage `json:"task_settings"`
+	// TaskType The task type
+	TaskType tasktype.TaskType `json:"task_type"`
 }
 
 // NewResponse returns a Response

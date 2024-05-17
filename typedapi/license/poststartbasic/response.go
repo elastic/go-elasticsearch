@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package poststartbasic
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package poststartbasic
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
 type Response struct {
 	Acknowledge     map[string][]string      `json:"acknowledge,omitempty"`
 	Acknowledged    bool                     `json:"acknowledged"`
@@ -90,7 +90,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			}
 
 		case "acknowledged":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -104,7 +104,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			}
 
 		case "basic_was_started":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterNodeCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L348-L367
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/stats/types.ts#L348-L367
 type ClusterNodeCount struct {
 	CoordinatingOnly    int  `json:"coordinating_only"`
 	Data                int  `json:"data"`
@@ -66,7 +66,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "coordinating_only":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -82,7 +82,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "data":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -98,7 +98,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "data_cold":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -114,7 +114,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "data_content":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -130,7 +130,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "data_frozen":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -146,7 +146,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "data_hot":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -162,7 +162,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "data_warm":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -178,7 +178,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "ingest":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -194,7 +194,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "master":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -210,7 +210,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "ml":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -226,7 +226,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "remote_cluster_client":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -242,7 +242,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "total":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -258,7 +258,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "transform":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -274,7 +274,7 @@ func (s *ClusterNodeCount) UnmarshalJSON(data []byte) error {
 
 		case "voting_only":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

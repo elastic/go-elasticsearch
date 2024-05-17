@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CommonTermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/fulltext.ts#L34-L44
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/query_dsl/fulltext.ts#L34-L44
 type CommonTermsQuery struct {
 	Analyzer *string `json:"analyzer,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
@@ -87,7 +87,7 @@ func (s *CommonTermsQuery) UnmarshalJSON(data []byte) error {
 			s.Analyzer = &o
 
 		case "boost":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -103,7 +103,7 @@ func (s *CommonTermsQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "cutoff_frequency":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

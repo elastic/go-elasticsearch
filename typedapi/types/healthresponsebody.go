@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // HealthResponseBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/health/ClusterHealthResponse.ts#L39-L72
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/health/ClusterHealthResponse.ts#L39-L72
 type HealthResponseBody struct {
 	// ActivePrimaryShards The number of active primary shards.
 	ActivePrimaryShards int `json:"active_primary_shards"`
@@ -89,7 +89,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "active_primary_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -105,7 +105,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "active_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -131,7 +131,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "delayed_unassigned_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -155,7 +155,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "initializing_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -171,7 +171,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "number_of_data_nodes":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -187,7 +187,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "number_of_in_flight_fetch":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -203,7 +203,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "number_of_nodes":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -219,7 +219,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "number_of_pending_tasks":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -235,7 +235,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "relocating_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -265,7 +265,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 			}
 
 		case "timed_out":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -280,7 +280,7 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 
 		case "unassigned_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

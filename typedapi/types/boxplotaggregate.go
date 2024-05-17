@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // BoxPlotAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L706-L722
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/Aggregate.ts#L706-L722
 type BoxPlotAggregate struct {
 	Lower         Float64  `json:"lower"`
 	LowerAsString *string  `json:"lower_as_string,omitempty"`
@@ -66,7 +66,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "lower":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -94,7 +94,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			s.LowerAsString = &o
 
 		case "max":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -127,7 +127,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -155,7 +155,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			s.MinAsString = &o
 
 		case "q1":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -183,7 +183,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			s.Q1AsString = &o
 
 		case "q2":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -211,7 +211,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			s.Q2AsString = &o
 
 		case "q3":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -239,7 +239,7 @@ func (s *BoxPlotAggregate) UnmarshalJSON(data []byte) error {
 			s.Q3AsString = &o
 
 		case "upper":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

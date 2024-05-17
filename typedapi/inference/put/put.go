@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
-// Configure a model for use in the Inference API
-package putmodel
+// Configure an inference endpoint for use in the Inference API
+package put
 
 import (
 	gobytes "bytes"
@@ -30,6 +30,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -45,7 +46,7 @@ const (
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
-type PutModel struct {
+type Put struct {
 	transport elastictransport.Interface
 
 	headers http.Header
@@ -68,13 +69,13 @@ type PutModel struct {
 	instrument elastictransport.Instrumentation
 }
 
-// NewPutModel type alias for index.
-type NewPutModel func(inferenceid string) *PutModel
+// NewPut type alias for index.
+type NewPut func(inferenceid string) *Put
 
-// NewPutModelFunc returns a new instance of PutModel with the provided transport.
+// NewPutFunc returns a new instance of Put with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
-func NewPutModelFunc(tp elastictransport.Interface) NewPutModel {
-	return func(inferenceid string) *PutModel {
+func NewPutFunc(tp elastictransport.Interface) NewPut {
+	return func(inferenceid string) *Put {
 		n := New(tp)
 
 		n._inferenceid(inferenceid)
@@ -83,16 +84,18 @@ func NewPutModelFunc(tp elastictransport.Interface) NewPutModel {
 	}
 }
 
-// Configure a model for use in the Inference API
+// Configure an inference endpoint for use in the Inference API
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html
-func New(tp elastictransport.Interface) *PutModel {
-	r := &PutModel{
+func New(tp elastictransport.Interface) *Put {
+	r := &Put{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -106,14 +109,14 @@ func New(tp elastictransport.Interface) *PutModel {
 
 // Raw takes a json payload as input which is then passed to the http.Request
 // If specified Raw takes precedence on Request method.
-func (r *PutModel) Raw(raw io.Reader) *PutModel {
+func (r *Put) Raw(raw io.Reader) *Put {
 	r.raw = raw
 
 	return r
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *PutModel) Request(req *Request) *PutModel {
+func (r *Put) Request(req *Request) *Put {
 	r.req = req
 
 	return r
@@ -121,7 +124,7 @@ func (r *PutModel) Request(req *Request) *PutModel {
 
 // HttpRequest returns the http.Request object built from the
 // given parameters.
-func (r *PutModel) HttpRequest(ctx context.Context) (*http.Request, error) {
+func (r *Put) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var path strings.Builder
 	var method string
 	var req *http.Request
@@ -142,7 +145,7 @@ func (r *PutModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		data, err := json.Marshal(r.req)
 
 		if err != nil {
-			return nil, fmt.Errorf("could not serialise request for PutModel: %w", err)
+			return nil, fmt.Errorf("could not serialise request for Put: %w", err)
 		}
 
 		r.buf.Write(data)
@@ -219,11 +222,11 @@ func (r *PutModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 }
 
 // Perform runs the http.Request through the provided transport and returns an http.Response.
-func (r PutModel) Perform(providedCtx context.Context) (*http.Response, error) {
+func (r Put) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.put_model")
+			ctx := instrument.Start(providedCtx, "inference.put")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -240,17 +243,17 @@ func (r PutModel) Perform(providedCtx context.Context) (*http.Response, error) {
 	}
 
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.BeforeRequest(req, "inference.put_model")
-		if reader := instrument.RecordRequestBody(ctx, "inference.put_model", r.raw); reader != nil {
+		instrument.BeforeRequest(req, "inference.put")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put", r.raw); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := r.transport.Perform(req)
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "inference.put_model")
+		instrument.AfterRequest(req, "elasticsearch", "inference.put")
 	}
 	if err != nil {
-		localErr := fmt.Errorf("an error happened during the PutModel query execution: %w", err)
+		localErr := fmt.Errorf("an error happened during the Put query execution: %w", err)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, localErr)
 		}
@@ -260,12 +263,12 @@ func (r PutModel) Perform(providedCtx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
-// Do runs the request through the transport, handle the response and returns a putmodel.Response
-func (r PutModel) Do(providedCtx context.Context) (*Response, error) {
+// Do runs the request through the transport, handle the response and returns a put.Response
+func (r Put) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.put_model")
+		ctx = instrument.Start(providedCtx, "inference.put")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -314,8 +317,8 @@ func (r PutModel) Do(providedCtx context.Context) (*Response, error) {
 	return nil, errorResponse
 }
 
-// Header set a key, value pair in the PutModel headers map.
-func (r *PutModel) Header(key, value string) *PutModel {
+// Header set a key, value pair in the Put headers map.
+func (r *Put) Header(key, value string) *Put {
 	r.headers.Set(key, value)
 
 	return r
@@ -323,7 +326,7 @@ func (r *PutModel) Header(key, value string) *PutModel {
 
 // TaskType The task type
 // API Name: tasktype
-func (r *PutModel) TaskType(tasktype string) *PutModel {
+func (r *Put) TaskType(tasktype string) *Put {
 	r.paramSet |= tasktypeMask
 	r.tasktype = tasktype
 
@@ -332,16 +335,60 @@ func (r *PutModel) TaskType(tasktype string) *PutModel {
 
 // InferenceId The inference Id
 // API Name: inferenceid
-func (r *PutModel) _inferenceid(inferenceid string) *PutModel {
+func (r *Put) _inferenceid(inferenceid string) *Put {
 	r.paramSet |= inferenceidMask
 	r.inferenceid = inferenceid
 
 	return r
 }
 
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Put) ErrorTrace(errortrace bool) *Put {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Put) FilterPath(filterpaths ...string) *Put {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Put) Human(human bool) *Put {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Put) Pretty(pretty bool) *Put {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
 // Service The service type
 // API name: service
-func (r *PutModel) Service(service string) *PutModel {
+func (r *Put) Service(service string) *Put {
 
 	r.req.Service = service
 
@@ -350,15 +397,15 @@ func (r *PutModel) Service(service string) *PutModel {
 
 // ServiceSettings Settings specific to the service
 // API name: service_settings
-func (r *PutModel) ServiceSettings(servicesettings json.RawMessage) *PutModel {
+func (r *Put) ServiceSettings(servicesettings json.RawMessage) *Put {
 	r.req.ServiceSettings = servicesettings
 
 	return r
 }
 
-// TaskSettings Task settings specific to the service and model
+// TaskSettings Task settings specific to the service and task type
 // API name: task_settings
-func (r *PutModel) TaskSettings(tasksettings json.RawMessage) *PutModel {
+func (r *Put) TaskSettings(tasksettings json.RawMessage) *Put {
 	r.req.TaskSettings = tasksettings
 
 	return r

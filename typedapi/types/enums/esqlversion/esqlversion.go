@@ -16,22 +16,38 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
-package deletemodel
+// Package esqlversion
+package esqlversion
 
-// Response holds the response body struct for the package deletemodel
-//
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/delete_model/DeleteModelResponse.ts#L22-L24
-type Response struct {
+import "strings"
 
-	// Acknowledged For a successful response, this value is always true. On failure, an
-	// exception is returned instead.
-	Acknowledged bool `json:"acknowledged"`
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/esql/_types/EsqlVersion.ts#L20-L29
+type EsqlVersion struct {
+	Name string
 }
 
-// NewResponse returns a Response
-func NewResponse() *Response {
-	r := &Response{}
-	return r
+var (
+	V20240401 = EsqlVersion{"2024.04.01"}
+)
+
+func (e EsqlVersion) MarshalText() (text []byte, err error) {
+	return []byte(e.String()), nil
+}
+
+func (e *EsqlVersion) UnmarshalText(text []byte) error {
+	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
+
+	case "2024.04.01":
+		*e = V20240401
+	default:
+		*e = EsqlVersion{string(text)}
+	}
+
+	return nil
+}
+
+func (e EsqlVersion) String() string {
+	return e.Name
 }

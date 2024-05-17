@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -29,19 +29,16 @@ import (
 	"strconv"
 )
 
-// ModelConfig type.
+// RankedDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/_types/Services.ts#L23-L39
-type ModelConfig struct {
-	// Service The service type
-	Service string `json:"service"`
-	// ServiceSettings Settings specific to the service
-	ServiceSettings json.RawMessage `json:"service_settings"`
-	// TaskSettings Task settings specific to the service and model
-	TaskSettings json.RawMessage `json:"task_settings"`
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/inference/_types/Results.ts#L66-L76
+type RankedDocument struct {
+	Index int     `json:"index"`
+	Score float32 `json:"score"`
+	Text  *string `json:"text,omitempty"`
 }
 
-func (s *ModelConfig) UnmarshalJSON(data []byte) error {
+func (s *RankedDocument) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -56,36 +53,58 @@ func (s *ModelConfig) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "service":
+		case "index":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Index", err)
+				}
+				s.Index = value
+			case float64:
+				f := int(v)
+				s.Index = f
+			}
+
+		case "score":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Score", err)
+				}
+				f := float32(value)
+				s.Score = f
+			case float64:
+				f := float32(v)
+				s.Score = f
+			}
+
+		case "text":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Service", err)
+				return fmt.Errorf("%s | %w", "Text", err)
 			}
 			o := string(tmp[:])
 			o, err = strconv.Unquote(o)
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Service = o
-
-		case "service_settings":
-			if err := dec.Decode(&s.ServiceSettings); err != nil {
-				return fmt.Errorf("%s | %w", "ServiceSettings", err)
-			}
-
-		case "task_settings":
-			if err := dec.Decode(&s.TaskSettings); err != nil {
-				return fmt.Errorf("%s | %w", "TaskSettings", err)
-			}
+			s.Text = &o
 
 		}
 	}
 	return nil
 }
 
-// NewModelConfig returns a ModelConfig.
-func NewModelConfig() *ModelConfig {
-	r := &ModelConfig{}
+// NewRankedDocument returns a RankedDocument.
+func NewRankedDocument() *RankedDocument {
+	r := &RankedDocument{}
 
 	return r
 }

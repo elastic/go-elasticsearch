@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ParentTaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
 type ParentTaskInfo struct {
 	Action             string            `json:"action"`
 	Cancellable        bool              `json:"cancellable"`
@@ -78,7 +78,7 @@ func (s *ParentTaskInfo) UnmarshalJSON(data []byte) error {
 			s.Action = o
 
 		case "cancellable":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -92,7 +92,7 @@ func (s *ParentTaskInfo) UnmarshalJSON(data []byte) error {
 			}
 
 		case "cancelled":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -131,7 +131,7 @@ func (s *ParentTaskInfo) UnmarshalJSON(data []byte) error {
 			}
 
 		case "id":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

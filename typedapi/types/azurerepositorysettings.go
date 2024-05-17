@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/snapshot/_types/SnapshotRepository.ts#L77-L83
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/snapshot/_types/SnapshotRepository.ts#L77-L83
 type AzureRepositorySettings struct {
 	BasePath               *string  `json:"base_path,omitempty"`
 	ChunkSize              ByteSize `json:"chunk_size,omitempty"`
@@ -89,7 +89,7 @@ func (s *AzureRepositorySettings) UnmarshalJSON(data []byte) error {
 			s.Client = &o
 
 		case "compress":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -137,7 +137,7 @@ func (s *AzureRepositorySettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "readonly":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

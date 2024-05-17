@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package search
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/SearchRequest.ts#L53-L506
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/search/SearchRequest.ts#L54-L520
 type Request struct {
 
 	// Aggregations Defines the aggregations that are run as part of the search request.
@@ -65,7 +65,7 @@ type Request struct {
 	// IndicesBoost Boosts the _score of documents from specified indices.
 	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
 	// Knn Defines the approximate kNN search to run.
-	Knn []types.KnnQuery `json:"knn,omitempty"`
+	Knn []types.KnnSearch `json:"knn,omitempty"`
 	// MinScore Minimum `_score` for matching documents.
 	// Documents with a lower `_score` are not included in the search results.
 	MinScore *types.Float64 `json:"min_score,omitempty"`
@@ -88,6 +88,10 @@ type Request struct {
 	// Rescore Can be used to improve precision by reordering just the top (for example 100
 	// - 500) documents returned by the `query` and `post_filter` phases.
 	Rescore []types.Rescore `json:"rescore,omitempty"`
+	// Retriever A retriever is a specification to describe top documents returned from a
+	// search. A retriever replaces other elements of the search API that also
+	// return top documents such as query and knn.
+	Retriever *types.RetrieverContainer `json:"retriever,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request.
 	// These fields take precedence over mapped fields with the same name.
 	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
@@ -161,6 +165,7 @@ func NewRequest() *Request {
 		Ext:          make(map[string]json.RawMessage, 0),
 		ScriptFields: make(map[string]types.ScriptField, 0),
 	}
+
 	return r
 }
 
@@ -209,7 +214,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "explain":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -237,7 +242,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "from":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -265,7 +270,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := types.NewKnnQuery()
+				o := types.NewKnnSearch()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Knn", err)
 				}
@@ -278,7 +283,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -304,7 +309,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "profile":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -343,6 +348,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "retriever":
+			if err := dec.Decode(&s.Retriever); err != nil {
+				return fmt.Errorf("%s | %w", "Retriever", err)
+			}
+
 		case "runtime_mappings":
 			if err := dec.Decode(&s.RuntimeMappings); err != nil {
 				return fmt.Errorf("%s | %w", "RuntimeMappings", err)
@@ -362,7 +372,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "seq_no_primary_term":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -377,7 +387,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -444,7 +454,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "terminate_after":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -471,7 +481,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			s.Timeout = &o
 
 		case "track_scores":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -490,7 +500,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "version":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

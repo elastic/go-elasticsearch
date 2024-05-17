@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,13 +33,14 @@ import (
 
 // SynonymGraphTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/token_filters.ts#L110-L119
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/analysis/token_filters.ts#L110-L120
 type SynonymGraphTokenFilter struct {
 	Expand       *bool                        `json:"expand,omitempty"`
 	Format       *synonymformat.SynonymFormat `json:"format,omitempty"`
 	Lenient      *bool                        `json:"lenient,omitempty"`
 	Synonyms     []string                     `json:"synonyms,omitempty"`
 	SynonymsPath *string                      `json:"synonyms_path,omitempty"`
+	SynonymsSet  *string                      `json:"synonyms_set,omitempty"`
 	Tokenizer    *string                      `json:"tokenizer,omitempty"`
 	Type         string                       `json:"type,omitempty"`
 	Updateable   *bool                        `json:"updateable,omitempty"`
@@ -62,7 +63,7 @@ func (s *SynonymGraphTokenFilter) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "expand":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -81,7 +82,7 @@ func (s *SynonymGraphTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "lenient":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -111,6 +112,18 @@ func (s *SynonymGraphTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 			s.SynonymsPath = &o
 
+		case "synonyms_set":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "SynonymsSet", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.SynonymsSet = &o
+
 		case "tokenizer":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -129,7 +142,7 @@ func (s *SynonymGraphTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "updateable":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -161,6 +174,7 @@ func (s SynonymGraphTokenFilter) MarshalJSON() ([]byte, error) {
 		Lenient:      s.Lenient,
 		Synonyms:     s.Synonyms,
 		SynonymsPath: s.SynonymsPath,
+		SynonymsSet:  s.SynonymsSet,
 		Tokenizer:    s.Tokenizer,
 		Type:         s.Type,
 		Updateable:   s.Updateable,

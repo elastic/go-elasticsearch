@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SerialDifferencingAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/pipeline.ts#L361-L367
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/pipeline.ts#L361-L367
 type SerialDifferencingAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -45,9 +45,7 @@ type SerialDifferencingAggregation struct {
 	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
 	// Lag The historical bucket to subtract from the current value.
 	// Must be a positive, non-zero integer.
-	Lag  *int     `json:"lag,omitempty"`
-	Meta Metadata `json:"meta,omitempty"`
-	Name *string  `json:"name,omitempty"`
+	Lag *int `json:"lag,omitempty"`
 }
 
 func (s *SerialDifferencingAggregation) UnmarshalJSON(data []byte) error {
@@ -89,7 +87,7 @@ func (s *SerialDifferencingAggregation) UnmarshalJSON(data []byte) error {
 
 		case "lag":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -102,23 +100,6 @@ func (s *SerialDifferencingAggregation) UnmarshalJSON(data []byte) error {
 				f := int(v)
 				s.Lag = &f
 			}
-
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		}
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FileSystemTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L757-L786
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/nodes/_types/Stats.ts#L757-L786
 type FileSystemTotal struct {
 	// Available Total disk space available to this Java virtual machine on all file stores.
 	// Depending on OS or process level restrictions, this might appear less than
@@ -84,7 +84,7 @@ func (s *FileSystemTotal) UnmarshalJSON(data []byte) error {
 			s.Available = &o
 
 		case "available_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -111,7 +111,7 @@ func (s *FileSystemTotal) UnmarshalJSON(data []byte) error {
 			s.Free = &o
 
 		case "free_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -138,7 +138,7 @@ func (s *FileSystemTotal) UnmarshalJSON(data []byte) error {
 			s.Total = &o
 
 		case "total_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

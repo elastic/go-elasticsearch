@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // WriteOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/bulk/types.ts#L109-L128
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/bulk/types.ts#L109-L128
 type WriteOperation struct {
 	// DynamicTemplates A map from the full name of fields to the name of dynamic templates.
 	// Defaults to an empty map.
@@ -91,7 +91,7 @@ func (s *WriteOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "if_primary_term":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -128,7 +128,7 @@ func (s *WriteOperation) UnmarshalJSON(data []byte) error {
 			s.Pipeline = &o
 
 		case "require_alias":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

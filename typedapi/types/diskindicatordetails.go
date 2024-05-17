@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DiskIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/health_report/types.ts#L126-L132
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/health_report/types.ts#L126-L132
 type DiskIndicatorDetails struct {
 	IndicesWithReadonlyBlock     int64 `json:"indices_with_readonly_block"`
 	NodesOverFloodStageWatermark int64 `json:"nodes_over_flood_stage_watermark"`
@@ -56,7 +56,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "indices_with_readonly_block":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -71,7 +71,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "nodes_over_flood_stage_watermark":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -86,7 +86,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "nodes_over_high_watermark":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -101,7 +101,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "nodes_with_enough_disk_space":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -116,7 +116,7 @@ func (s *DiskIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "nodes_with_unknown_disk_status":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

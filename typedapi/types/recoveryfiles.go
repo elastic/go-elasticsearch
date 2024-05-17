@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RecoveryFiles type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/recovery/types.ts#L56-L62
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/recovery/types.ts#L56-L62
 type RecoveryFiles struct {
 	Details   []FileDetails `json:"details,omitempty"`
 	Percent   Percentage    `json:"percent"`
@@ -66,7 +66,7 @@ func (s *RecoveryFiles) UnmarshalJSON(data []byte) error {
 			}
 
 		case "recovered":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -81,7 +81,7 @@ func (s *RecoveryFiles) UnmarshalJSON(data []byte) error {
 			}
 
 		case "reused":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -96,7 +96,7 @@ func (s *RecoveryFiles) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

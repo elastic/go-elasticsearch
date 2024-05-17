@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeJvmInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/info/types.ts#L356-L370
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/nodes/info/types.ts#L356-L370
 type NodeJvmInfo struct {
 	GcCollectors                          []string          `json:"gc_collectors"`
 	InputArguments                        []string          `json:"input_arguments"`
@@ -84,7 +84,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 
 		case "pid":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -104,7 +104,7 @@ func (s *NodeJvmInfo) UnmarshalJSON(data []byte) error {
 			}
 
 		case "using_bundled_jdk", "bundled_jdk":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

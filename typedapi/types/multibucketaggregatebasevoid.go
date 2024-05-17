@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MultiBucketAggregateBaseVoid type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L327-L329
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/Aggregate.ts#L327-L329
 type MultiBucketAggregateBaseVoid struct {
 	Buckets BucketsVoid `json:"buckets"`
 	Meta    Metadata    `json:"meta,omitempty"`
@@ -59,13 +59,13 @@ func (s *MultiBucketAggregateBaseVoid) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
 			case '{':
-				o := make(map[string]interface{}, 0)
+				o := make(map[string]any, 0)
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Buckets", err)
 				}
 				s.Buckets = o
 			case '[':
-				o := []interface{}{}
+				o := []any{}
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Buckets", err)
 				}

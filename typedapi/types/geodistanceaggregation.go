@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -26,7 +26,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/distanceunit"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/geodistancetype"
@@ -34,14 +33,12 @@ import (
 
 // GeoDistanceAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L380-L403
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/bucket.ts#L382-L405
 type GeoDistanceAggregation struct {
 	// DistanceType The distance calculation type.
 	DistanceType *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
 	// Field A field of type `geo_point` used to evaluate the distance.
-	Field *string  `json:"field,omitempty"`
-	Meta  Metadata `json:"meta,omitempty"`
-	Name  *string  `json:"name,omitempty"`
+	Field *string `json:"field,omitempty"`
 	// Origin The origin  used to evaluate the distance.
 	Origin GeoLocation `json:"origin,omitempty"`
 	// Ranges An array of ranges used to bucket documents.
@@ -74,23 +71,6 @@ func (s *GeoDistanceAggregation) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Field); err != nil {
 				return fmt.Errorf("%s | %w", "Field", err)
 			}
-
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		case "origin":
 			if err := dec.Decode(&s.Origin); err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RollupJobConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/rollup/get_jobs/types.ts#L34-L43
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/rollup/get_jobs/types.ts#L34-L43
 type RollupJobConfiguration struct {
 	Cron         string        `json:"cron"`
 	Groups       Groupings     `json:"groups"`
@@ -98,7 +98,7 @@ func (s *RollupJobConfiguration) UnmarshalJSON(data []byte) error {
 			}
 
 		case "page_size":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

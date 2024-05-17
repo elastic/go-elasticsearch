@@ -16,15 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
-package putmodel
+package types
 
-import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
-
-// Request holds the request body struct for the package putmodel
+// RetrieverContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/put_model/PutModelRequest.ts#L25-L44
-type Request = types.ModelConfig
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/Retriever.ts#L26-L36
+type RetrieverContainer struct {
+	// Knn A retriever that replaces the functionality  of a knn search.
+	Knn *KnnRetriever `json:"knn,omitempty"`
+	// Rrf A retriever that produces top documents from reciprocal rank fusion (RRF).
+	Rrf *RRFRetriever `json:"rrf,omitempty"`
+	// Standard A retriever that replaces the functionality of a traditional query.
+	Standard *StandardRetriever `json:"standard,omitempty"`
+}
+
+// NewRetrieverContainer returns a RetrieverContainer.
+func NewRetrieverContainer() *RetrieverContainer {
+	r := &RetrieverContainer{}
+
+	return r
+}

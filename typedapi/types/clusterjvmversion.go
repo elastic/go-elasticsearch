@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterJvmVersion type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L305-L335
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/stats/types.ts#L305-L335
 type ClusterJvmVersion struct {
 	// BundledJdk Always `true`. All distributions come with a bundled Java Development Kit
 	// (JDK).
@@ -68,7 +68,7 @@ func (s *ClusterJvmVersion) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bundled_jdk":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -83,7 +83,7 @@ func (s *ClusterJvmVersion) UnmarshalJSON(data []byte) error {
 
 		case "count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -98,7 +98,7 @@ func (s *ClusterJvmVersion) UnmarshalJSON(data []byte) error {
 			}
 
 		case "using_bundled_jdk":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

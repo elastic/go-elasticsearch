@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 // Retrieves information for API keys using a subset of query DSL
 package queryapikeys
@@ -247,6 +247,8 @@ func (r QueryApiKeys) Do(providedCtx context.Context) (*Response, error) {
 
 	response := NewResponse()
 
+	r.TypedKeys(true)
+
 	res, err := r.Perform(ctx)
 	if err != nil {
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -305,6 +307,68 @@ func (r *QueryApiKeys) WithLimitedBy(withlimitedby bool) *QueryApiKeys {
 	return r
 }
 
+// WithProfileUid Determines whether to also retrieve the profile uid, for the API key owner
+// principal, if it exists.
+// API name: with_profile_uid
+func (r *QueryApiKeys) WithProfileUid(withprofileuid bool) *QueryApiKeys {
+	r.values.Set("with_profile_uid", strconv.FormatBool(withprofileuid))
+
+	return r
+}
+
+// TypedKeys Determines whether aggregation names are prefixed by their respective types
+// in the response.
+// API name: typed_keys
+func (r *QueryApiKeys) TypedKeys(typedkeys bool) *QueryApiKeys {
+	r.values.Set("typed_keys", strconv.FormatBool(typedkeys))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *QueryApiKeys) ErrorTrace(errortrace bool) *QueryApiKeys {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *QueryApiKeys) FilterPath(filterpaths ...string) *QueryApiKeys {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *QueryApiKeys) Human(human bool) *QueryApiKeys {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *QueryApiKeys) Pretty(pretty bool) *QueryApiKeys {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
 // Aggregations Any aggregations to run over the corpus of returned API keys.
 // Aggregations and queries work together. Aggregations are computed only on the
 // API keys that match the query.
@@ -314,7 +378,7 @@ func (r *QueryApiKeys) WithLimitedBy(withlimitedby bool) *QueryApiKeys {
 // Additionally, aggregations only run over the same subset of fields that query
 // works with.
 // API name: aggregations
-func (r *QueryApiKeys) Aggregations(aggregations map[string]types.APIKeyAggregationContainer) *QueryApiKeys {
+func (r *QueryApiKeys) Aggregations(aggregations map[string]types.ApiKeyAggregationContainer) *QueryApiKeys {
 
 	r.req.Aggregations = aggregations
 
@@ -342,7 +406,7 @@ func (r *QueryApiKeys) From(from int) *QueryApiKeys {
 // `creation`, `expiration`, `invalidated`, `invalidation`, `username`, `realm`,
 // and `metadata`.
 // API name: query
-func (r *QueryApiKeys) Query(query *types.APIKeyQueryContainer) *QueryApiKeys {
+func (r *QueryApiKeys) Query(query *types.ApiKeyQueryContainer) *QueryApiKeys {
 
 	r.req.Query = query
 

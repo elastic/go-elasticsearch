@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Statistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
 type Statistics struct {
 	Policy                        *string  `json:"policy,omitempty"`
 	RetentionDeletionTime         Duration `json:"retention_deletion_time,omitempty"`
@@ -76,7 +76,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "retention_failed":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -91,7 +91,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "retention_runs":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -106,7 +106,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "retention_timed_out":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -121,7 +121,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_snapshot_deletion_failures", "snapshot_deletion_failures":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -136,7 +136,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_snapshots_deleted", "snapshots_deleted":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -151,7 +151,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_snapshots_failed", "snapshots_failed":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -166,7 +166,7 @@ func (s *Statistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_snapshots_taken", "snapshots_taken":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

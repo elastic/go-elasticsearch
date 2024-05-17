@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RemoveProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ingest/_types/Processors.ts#L941-L951
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ingest/_types/Processors.ts#L941-L955
 type RemoveProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -45,6 +45,9 @@ type RemoveProcessor struct {
 	// IgnoreMissing If `true` and `field` does not exist or is `null`, the processor quietly
 	// exits without modifying the document.
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
+	// Keep Fields to be kept. When set, all fields other than those specified are
+	// removed.
+	Keep []string `json:"keep,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
 	// Tag Identifier for the processor.
@@ -108,7 +111,7 @@ func (s *RemoveProcessor) UnmarshalJSON(data []byte) error {
 			s.If = &o
 
 		case "ignore_failure":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -122,7 +125,7 @@ func (s *RemoveProcessor) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ignore_missing":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -133,6 +136,22 @@ func (s *RemoveProcessor) UnmarshalJSON(data []byte) error {
 				s.IgnoreMissing = &value
 			case bool:
 				s.IgnoreMissing = &v
+			}
+
+		case "keep":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Keep", err)
+				}
+
+				s.Keep = append(s.Keep, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Keep); err != nil {
+					return fmt.Errorf("%s | %w", "Keep", err)
+				}
 			}
 
 		case "on_failure":

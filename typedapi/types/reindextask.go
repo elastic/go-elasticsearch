@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ReindexTask type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/reindex_rethrottle/types.ts#L87-L98
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/reindex_rethrottle/types.ts#L87-L98
 type ReindexTask struct {
 	Action             string        `json:"action"`
 	Cancellable        bool          `json:"cancellable"`
@@ -73,7 +73,7 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 			s.Action = o
 
 		case "cancellable":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -104,7 +104,7 @@ func (s *ReindexTask) UnmarshalJSON(data []byte) error {
 			}
 
 		case "id":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

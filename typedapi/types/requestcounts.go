@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RequestCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/RepositoryMeteringInformation.ts#L76-L103
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/nodes/_types/RepositoryMeteringInformation.ts#L76-L103
 type RequestCounts struct {
 	// GetBlob Number of Get Blob requests (Azure)
 	GetBlob *int64 `json:"GetBlob,omitempty"`
@@ -78,7 +78,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "GetBlob":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -93,7 +93,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "GetBlobProperties":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -108,7 +108,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "GetObject":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -123,7 +123,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "InsertObject":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -138,7 +138,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ListBlobs":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -153,7 +153,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ListObjects":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -168,7 +168,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "PutBlob":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -183,7 +183,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "PutBlock":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -198,7 +198,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "PutBlockList":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -213,7 +213,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "PutMultipartObject":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -228,7 +228,7 @@ func (s *RequestCounts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "PutObject":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

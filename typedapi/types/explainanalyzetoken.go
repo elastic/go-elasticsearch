@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ExplainAnalyzeToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/analyze/types.ts#L52-L64
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/analyze/types.ts#L52-L64
 type ExplainAnalyzeToken struct {
 	Bytes               string                     `json:"bytes"`
 	EndOffset           int64                      `json:"end_offset"`
@@ -73,7 +73,7 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 			s.Bytes = o
 
 		case "end_offset":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -88,7 +88,7 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "keyword":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -102,7 +102,7 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "position":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -117,7 +117,7 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "positionLength":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -132,7 +132,7 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "start_offset":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -147,7 +147,7 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "termFrequency":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -207,7 +207,7 @@ func (s *ExplainAnalyzeToken) UnmarshalJSON(data []byte) error {
 func (s ExplainAnalyzeToken) MarshalJSON() ([]byte, error) {
 	type opt ExplainAnalyzeToken
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]interface{}, 0)
+	tmp := make(map[string]any, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

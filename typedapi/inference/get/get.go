@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
-// Delete model in the Inference API
-package deletemodel
+// Get an inference endpoint
+package get
 
 import (
 	"context"
@@ -27,9 +27,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -45,7 +45,7 @@ const (
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
-type DeleteModel struct {
+type Get struct {
 	transport elastictransport.Interface
 
 	headers http.Header
@@ -64,26 +64,24 @@ type DeleteModel struct {
 	instrument elastictransport.Instrumentation
 }
 
-// NewDeleteModel type alias for index.
-type NewDeleteModel func(inferenceid string) *DeleteModel
+// NewGet type alias for index.
+type NewGet func() *Get
 
-// NewDeleteModelFunc returns a new instance of DeleteModel with the provided transport.
+// NewGetFunc returns a new instance of Get with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
-func NewDeleteModelFunc(tp elastictransport.Interface) NewDeleteModel {
-	return func(inferenceid string) *DeleteModel {
+func NewGetFunc(tp elastictransport.Interface) NewGet {
+	return func() *Get {
 		n := New(tp)
-
-		n._inferenceid(inferenceid)
 
 		return n
 	}
 }
 
-// Delete model in the Inference API
+// Get an inference endpoint
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-inference-api.html
-func New(tp elastictransport.Interface) *DeleteModel {
-	r := &DeleteModel{
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html
+func New(tp elastictransport.Interface) *Get {
+	r := &Get{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
@@ -100,7 +98,7 @@ func New(tp elastictransport.Interface) *DeleteModel {
 
 // HttpRequest returns the http.Request object built from the
 // given parameters.
-func (r *DeleteModel) HttpRequest(ctx context.Context) (*http.Request, error) {
+func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var path strings.Builder
 	var method string
 	var req *http.Request
@@ -110,6 +108,11 @@ func (r *DeleteModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 	r.path.Scheme = "http"
 
 	switch {
+	case r.paramSet == 0:
+		path.WriteString("/")
+		path.WriteString("_inference")
+
+		method = http.MethodGet
 	case r.paramSet == inferenceidMask:
 		path.WriteString("/")
 		path.WriteString("_inference")
@@ -120,7 +123,7 @@ func (r *DeleteModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 		path.WriteString(r.inferenceid)
 
-		method = http.MethodDelete
+		method = http.MethodGet
 	case r.paramSet == tasktypeMask|inferenceidMask:
 		path.WriteString("/")
 		path.WriteString("_inference")
@@ -137,7 +140,7 @@ func (r *DeleteModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 		path.WriteString(r.inferenceid)
 
-		method = http.MethodDelete
+		method = http.MethodGet
 	}
 
 	r.path.Path = path.String()
@@ -167,11 +170,11 @@ func (r *DeleteModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 }
 
 // Perform runs the http.Request through the provided transport and returns an http.Response.
-func (r DeleteModel) Perform(providedCtx context.Context) (*http.Response, error) {
+func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.delete_model")
+			ctx := instrument.Start(providedCtx, "inference.get")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -188,17 +191,17 @@ func (r DeleteModel) Perform(providedCtx context.Context) (*http.Response, error
 	}
 
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.BeforeRequest(req, "inference.delete_model")
-		if reader := instrument.RecordRequestBody(ctx, "inference.delete_model", r.raw); reader != nil {
+		instrument.BeforeRequest(req, "inference.get")
+		if reader := instrument.RecordRequestBody(ctx, "inference.get", r.raw); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := r.transport.Perform(req)
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "inference.delete_model")
+		instrument.AfterRequest(req, "elasticsearch", "inference.get")
 	}
 	if err != nil {
-		localErr := fmt.Errorf("an error happened during the DeleteModel query execution: %w", err)
+		localErr := fmt.Errorf("an error happened during the Get query execution: %w", err)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, localErr)
 		}
@@ -208,12 +211,12 @@ func (r DeleteModel) Perform(providedCtx context.Context) (*http.Response, error
 	return res, nil
 }
 
-// Do runs the request through the transport, handle the response and returns a deletemodel.Response
-func (r DeleteModel) Do(providedCtx context.Context) (*Response, error) {
+// Do runs the request through the transport, handle the response and returns a get.Response
+func (r Get) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.delete_model")
+		ctx = instrument.Start(providedCtx, "inference.get")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -264,11 +267,11 @@ func (r DeleteModel) Do(providedCtx context.Context) (*Response, error) {
 
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
-func (r DeleteModel) IsSuccess(providedCtx context.Context) (bool, error) {
+func (r Get) IsSuccess(providedCtx context.Context) (bool, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.delete_model")
+		ctx = instrument.Start(providedCtx, "inference.get")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -280,7 +283,7 @@ func (r DeleteModel) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -291,7 +294,7 @@ func (r DeleteModel) IsSuccess(providedCtx context.Context) (bool, error) {
 	}
 
 	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the DeleteModel query execution, status code: %d", res.StatusCode)
+		err := fmt.Errorf("an error happened during the Get query execution, status code: %d", res.StatusCode)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
@@ -301,8 +304,8 @@ func (r DeleteModel) IsSuccess(providedCtx context.Context) (bool, error) {
 	return false, nil
 }
 
-// Header set a key, value pair in the DeleteModel headers map.
-func (r *DeleteModel) Header(key, value string) *DeleteModel {
+// Header set a key, value pair in the Get headers map.
+func (r *Get) Header(key, value string) *Get {
 	r.headers.Set(key, value)
 
 	return r
@@ -310,7 +313,7 @@ func (r *DeleteModel) Header(key, value string) *DeleteModel {
 
 // TaskType The task type
 // API Name: tasktype
-func (r *DeleteModel) TaskType(tasktype string) *DeleteModel {
+func (r *Get) TaskType(tasktype string) *Get {
 	r.paramSet |= tasktypeMask
 	r.tasktype = tasktype
 
@@ -319,9 +322,53 @@ func (r *DeleteModel) TaskType(tasktype string) *DeleteModel {
 
 // InferenceId The inference Id
 // API Name: inferenceid
-func (r *DeleteModel) _inferenceid(inferenceid string) *DeleteModel {
+func (r *Get) InferenceId(inferenceid string) *Get {
 	r.paramSet |= inferenceidMask
 	r.inferenceid = inferenceid
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Get) ErrorTrace(errortrace bool) *Get {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Get) FilterPath(filterpaths ...string) *Get {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Get) Human(human bool) *Get {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Get) Pretty(pretty bool) *Get {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }
