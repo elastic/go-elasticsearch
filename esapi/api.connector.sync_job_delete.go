@@ -22,13 +22,12 @@ package esapi
 import (
 	"context"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newConnectorSyncJobListFunc(t Transport) ConnectorSyncJobList {
-	return func(o ...func(*ConnectorSyncJobListRequest)) (*Response, error) {
-		var r = ConnectorSyncJobListRequest{}
+func newConnectorSyncJobDeleteFunc(t Transport) ConnectorSyncJobDelete {
+	return func(connector_sync_job_id string, o ...func(*ConnectorSyncJobDeleteRequest)) (*Response, error) {
+		var r = ConnectorSyncJobDeleteRequest{ConnectorSyncJobID: connector_sync_job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,20 +42,16 @@ func newConnectorSyncJobListFunc(t Transport) ConnectorSyncJobList {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobList lists all connector sync jobs.
+// ConnectorSyncJobDelete deletes a connector sync job.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-sync-jobs-api.html.
-type ConnectorSyncJobList func(o ...func(*ConnectorSyncJobListRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-sync-job-api.html.
+type ConnectorSyncJobDelete func(connector_sync_job_id string, o ...func(*ConnectorSyncJobDeleteRequest)) (*Response, error)
 
-// ConnectorSyncJobListRequest configures the Connector Sync Job List API request.
-type ConnectorSyncJobListRequest struct {
-	ConnectorID string
-	From        *int
-	JobType     []string
-	Size        *int
-	Status      string
+// ConnectorSyncJobDeleteRequest configures the Connector Sync Job Delete API request.
+type ConnectorSyncJobDeleteRequest struct {
+	ConnectorSyncJobID string
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +66,7 @@ type ConnectorSyncJobListRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSyncJobDeleteRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,40 +75,28 @@ func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport T
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.list")
+		ctx = instrument.Start(providedCtx, "connector.sync_job_delete")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(7 + len("/_connector/_sync_job"))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID))
 	path.WriteString("http://")
-	path.WriteString("/_connector/_sync_job")
+	path.WriteString("/")
+	path.WriteString("_connector")
+	path.WriteString("/")
+	path.WriteString("_sync_job")
+	path.WriteString("/")
+	path.WriteString(r.ConnectorSyncJobID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
+	}
 
 	params = make(map[string]string)
-
-	if r.ConnectorID != "" {
-		params["connector_id"] = r.ConnectorID
-	}
-
-	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
-	}
-
-	if len(r.JobType) > 0 {
-		params["job_type"] = strings.Join(r.JobType, ",")
-	}
-
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
-	}
-
-	if r.Status != "" {
-		params["status"] = r.Status
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -164,11 +147,11 @@ func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport T
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.list")
+		instrument.BeforeRequest(req, "connector.sync_job_delete")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.list")
+		instrument.AfterRequest(req, "elasticsearch", "connector.sync_job_delete")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -187,78 +170,43 @@ func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport T
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobList) WithContext(v context.Context) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f ConnectorSyncJobDelete) WithContext(v context.Context) func(*ConnectorSyncJobDeleteRequest) {
+	return func(r *ConnectorSyncJobDeleteRequest) {
 		r.ctx = v
 	}
 }
 
-// WithConnectorID - ID of the connector to fetch the sync jobs for.
-func (f ConnectorSyncJobList) WithConnectorID(v string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.ConnectorID = v
-	}
-}
-
-// WithFrom - starting offset (default: 0).
-func (f ConnectorSyncJobList) WithFrom(v int) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.From = &v
-	}
-}
-
-// WithJobType - a list of job types.
-func (f ConnectorSyncJobList) WithJobType(v ...string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.JobType = v
-	}
-}
-
-// WithSize - specifies a max number of results to get (default: 100).
-func (f ConnectorSyncJobList) WithSize(v int) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.Size = &v
-	}
-}
-
-// WithStatus - sync job status, which sync jobs are fetched for.
-func (f ConnectorSyncJobList) WithStatus(v string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.Status = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobList) WithPretty() func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f ConnectorSyncJobDelete) WithPretty() func(*ConnectorSyncJobDeleteRequest) {
+	return func(r *ConnectorSyncJobDeleteRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobList) WithHuman() func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f ConnectorSyncJobDelete) WithHuman() func(*ConnectorSyncJobDeleteRequest) {
+	return func(r *ConnectorSyncJobDeleteRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobList) WithErrorTrace() func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f ConnectorSyncJobDelete) WithErrorTrace() func(*ConnectorSyncJobDeleteRequest) {
+	return func(r *ConnectorSyncJobDeleteRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobList) WithFilterPath(v ...string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f ConnectorSyncJobDelete) WithFilterPath(v ...string) func(*ConnectorSyncJobDeleteRequest) {
+	return func(r *ConnectorSyncJobDeleteRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobList) WithHeader(h map[string]string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f ConnectorSyncJobDelete) WithHeader(h map[string]string) func(*ConnectorSyncJobDeleteRequest) {
+	return func(r *ConnectorSyncJobDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -269,8 +217,8 @@ func (f ConnectorSyncJobList) WithHeader(h map[string]string) func(*ConnectorSyn
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobList) WithOpaqueID(s string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f ConnectorSyncJobDelete) WithOpaqueID(s string) func(*ConnectorSyncJobDeleteRequest) {
+	return func(r *ConnectorSyncJobDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

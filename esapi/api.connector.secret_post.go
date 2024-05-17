@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newConnectorSecretDeleteFunc(t Transport) ConnectorSecretDelete {
-	return func(id string, o ...func(*ConnectorSecretDeleteRequest)) (*Response, error) {
-		var r = ConnectorSecretDeleteRequest{DocumentID: id}
+func newConnectorSecretPostFunc(t Transport) ConnectorSecretPost {
+	return func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error) {
+		var r = ConnectorSecretPostRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,14 +43,14 @@ func newConnectorSecretDeleteFunc(t Transport) ConnectorSecretDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretDelete deletes a connector secret.
+// ConnectorSecretPost creates a secret for a Connector.
 //
 // This API is experimental.
-type ConnectorSecretDelete func(id string, o ...func(*ConnectorSecretDeleteRequest)) (*Response, error)
+type ConnectorSecretPost func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error)
 
-// ConnectorSecretDeleteRequest configures the Connector Secret Delete API request.
-type ConnectorSecretDeleteRequest struct {
-	DocumentID string
+// ConnectorSecretPostRequest configures the Connector Secret Post API request.
+type ConnectorSecretPostRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -64,7 +65,7 @@ type ConnectorSecretDeleteRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSecretDeleteRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -73,26 +74,18 @@ func (r ConnectorSecretDeleteRequest) Do(providedCtx context.Context, transport 
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_secret.delete")
+		ctx = instrument.Start(providedCtx, "connector.secret_post")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "DELETE"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_secret") + 1 + len(r.DocumentID))
+	path.Grow(7 + len("/_connector/_secret"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_connector")
-	path.WriteString("/")
-	path.WriteString("_secret")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
-	}
+	path.WriteString("/_connector/_secret")
 
 	params = make(map[string]string)
 
@@ -112,7 +105,7 @@ func (r ConnectorSecretDeleteRequest) Do(providedCtx context.Context, transport 
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -140,16 +133,23 @@ func (r ConnectorSecretDeleteRequest) Do(providedCtx context.Context, transport 
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_secret.delete")
+		instrument.BeforeRequest(req, "connector.secret_post")
+		if reader := instrument.RecordRequestBody(ctx, "connector.secret_post", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_secret.delete")
+		instrument.AfterRequest(req, "elasticsearch", "connector.secret_post")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -168,43 +168,43 @@ func (r ConnectorSecretDeleteRequest) Do(providedCtx context.Context, transport 
 }
 
 // WithContext sets the request context.
-func (f ConnectorSecretDelete) WithContext(v context.Context) func(*ConnectorSecretDeleteRequest) {
-	return func(r *ConnectorSecretDeleteRequest) {
+func (f ConnectorSecretPost) WithContext(v context.Context) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSecretDelete) WithPretty() func(*ConnectorSecretDeleteRequest) {
-	return func(r *ConnectorSecretDeleteRequest) {
+func (f ConnectorSecretPost) WithPretty() func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSecretDelete) WithHuman() func(*ConnectorSecretDeleteRequest) {
-	return func(r *ConnectorSecretDeleteRequest) {
+func (f ConnectorSecretPost) WithHuman() func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSecretDelete) WithErrorTrace() func(*ConnectorSecretDeleteRequest) {
-	return func(r *ConnectorSecretDeleteRequest) {
+func (f ConnectorSecretPost) WithErrorTrace() func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSecretDelete) WithFilterPath(v ...string) func(*ConnectorSecretDeleteRequest) {
-	return func(r *ConnectorSecretDeleteRequest) {
+func (f ConnectorSecretPost) WithFilterPath(v ...string) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSecretDelete) WithHeader(h map[string]string) func(*ConnectorSecretDeleteRequest) {
-	return func(r *ConnectorSecretDeleteRequest) {
+func (f ConnectorSecretPost) WithHeader(h map[string]string) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -215,8 +215,8 @@ func (f ConnectorSecretDelete) WithHeader(h map[string]string) func(*ConnectorSe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSecretDelete) WithOpaqueID(s string) func(*ConnectorSecretDeleteRequest) {
-	return func(r *ConnectorSecretDeleteRequest) {
+func (f ConnectorSecretPost) WithOpaqueID(s string) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

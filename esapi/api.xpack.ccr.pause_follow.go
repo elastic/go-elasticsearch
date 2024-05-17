@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRPauseFollowFunc(t Transport) CCRPauseFollow {
@@ -50,6 +51,8 @@ type CCRPauseFollow func(index string, o ...func(*CCRPauseFollowRequest)) (*Resp
 // CCRPauseFollowRequest configures the CCR Pause Follow API request.
 type CCRPauseFollowRequest struct {
 	Index string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r CCRPauseFollowRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("pause_follow")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r CCRPauseFollowRequest) Do(providedCtx context.Context, transport Transpo
 func (f CCRPauseFollow) WithContext(v context.Context) func(*CCRPauseFollowRequest) {
 	return func(r *CCRPauseFollowRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRPauseFollow) WithMasterTimeout(v time.Duration) func(*CCRPauseFollowRequest) {
+	return func(r *CCRPauseFollowRequest) {
+		r.MasterTimeout = v
 	}
 }
 

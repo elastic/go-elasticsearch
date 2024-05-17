@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newConnectorSyncJobGetFunc(t Transport) ConnectorSyncJobGet {
-	return func(connector_sync_job_id string, o ...func(*ConnectorSyncJobGetRequest)) (*Response, error) {
-		var r = ConnectorSyncJobGetRequest{ConnectorSyncJobID: connector_sync_job_id}
+func newProfilingTopnFunctionsFunc(t Transport) ProfilingTopnFunctions {
+	return func(body io.Reader, o ...func(*ProfilingTopnFunctionsRequest)) (*Response, error) {
+		var r = ProfilingTopnFunctionsRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,16 +43,14 @@ func newConnectorSyncJobGetFunc(t Transport) ConnectorSyncJobGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobGet returns the details about a connector sync job.
+// ProfilingTopnFunctions extracts a list of topN functions from Universal Profiling.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-sync-job-api.html.
-type ConnectorSyncJobGet func(connector_sync_job_id string, o ...func(*ConnectorSyncJobGetRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/observability/current/universal-profiling.html.
+type ProfilingTopnFunctions func(body io.Reader, o ...func(*ProfilingTopnFunctionsRequest)) (*Response, error)
 
-// ConnectorSyncJobGetRequest configures the Connector Sync Job Get API request.
-type ConnectorSyncJobGetRequest struct {
-	ConnectorSyncJobID string
+// ProfilingTopnFunctionsRequest configures the Profiling Topn Functions API request.
+type ProfilingTopnFunctionsRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +65,7 @@ type ConnectorSyncJobGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobGetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ProfilingTopnFunctionsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,26 +74,18 @@ func (r ConnectorSyncJobGetRequest) Do(providedCtx context.Context, transport Tr
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.get")
+		ctx = instrument.Start(providedCtx, "profiling.topn_functions")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID))
+	path.Grow(7 + len("/_profiling/topn/functions"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_connector")
-	path.WriteString("/")
-	path.WriteString("_sync_job")
-	path.WriteString("/")
-	path.WriteString(r.ConnectorSyncJobID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
-	}
+	path.WriteString("/_profiling/topn/functions")
 
 	params = make(map[string]string)
 
@@ -114,7 +105,7 @@ func (r ConnectorSyncJobGetRequest) Do(providedCtx context.Context, transport Tr
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -142,16 +133,23 @@ func (r ConnectorSyncJobGetRequest) Do(providedCtx context.Context, transport Tr
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.get")
+		instrument.BeforeRequest(req, "profiling.topn_functions")
+		if reader := instrument.RecordRequestBody(ctx, "profiling.topn_functions", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.get")
+		instrument.AfterRequest(req, "elasticsearch", "profiling.topn_functions")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -170,43 +168,43 @@ func (r ConnectorSyncJobGetRequest) Do(providedCtx context.Context, transport Tr
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobGet) WithContext(v context.Context) func(*ConnectorSyncJobGetRequest) {
-	return func(r *ConnectorSyncJobGetRequest) {
+func (f ProfilingTopnFunctions) WithContext(v context.Context) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobGet) WithPretty() func(*ConnectorSyncJobGetRequest) {
-	return func(r *ConnectorSyncJobGetRequest) {
+func (f ProfilingTopnFunctions) WithPretty() func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobGet) WithHuman() func(*ConnectorSyncJobGetRequest) {
-	return func(r *ConnectorSyncJobGetRequest) {
+func (f ProfilingTopnFunctions) WithHuman() func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobGet) WithErrorTrace() func(*ConnectorSyncJobGetRequest) {
-	return func(r *ConnectorSyncJobGetRequest) {
+func (f ProfilingTopnFunctions) WithErrorTrace() func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobGet) WithFilterPath(v ...string) func(*ConnectorSyncJobGetRequest) {
-	return func(r *ConnectorSyncJobGetRequest) {
+func (f ProfilingTopnFunctions) WithFilterPath(v ...string) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobGet) WithHeader(h map[string]string) func(*ConnectorSyncJobGetRequest) {
-	return func(r *ConnectorSyncJobGetRequest) {
+func (f ProfilingTopnFunctions) WithHeader(h map[string]string) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -217,8 +215,8 @@ func (f ConnectorSyncJobGet) WithHeader(h map[string]string) func(*ConnectorSync
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobGet) WithOpaqueID(s string) func(*ConnectorSyncJobGetRequest) {
-	return func(r *ConnectorSyncJobGetRequest) {
+func (f ProfilingTopnFunctions) WithOpaqueID(s string) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

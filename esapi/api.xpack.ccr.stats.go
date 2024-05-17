@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRStatsFunc(t Transport) CCRStats {
@@ -49,6 +50,9 @@ type CCRStats func(o ...func(*CCRStatsRequest)) (*Response, error)
 
 // CCRStatsRequest configures the CCR Stats API request.
 type CCRStatsRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r CCRStatsRequest) Do(providedCtx context.Context, transport Transport) (*
 	path.WriteString("/_ccr/stats")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r CCRStatsRequest) Do(providedCtx context.Context, transport Transport) (*
 func (f CCRStats) WithContext(v context.Context) func(*CCRStatsRequest) {
 	return func(r *CCRStatsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRStats) WithMasterTimeout(v time.Duration) func(*CCRStatsRequest) {
+	return func(r *CCRStatsRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f CCRStats) WithTimeout(v time.Duration) func(*CCRStatsRequest) {
+	return func(r *CCRStatsRequest) {
+		r.Timeout = v
 	}
 }
 

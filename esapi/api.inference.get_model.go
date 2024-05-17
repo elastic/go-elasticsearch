@@ -26,8 +26,8 @@ import (
 )
 
 func newInferenceGetModelFunc(t Transport) InferenceGetModel {
-	return func(inference_id string, o ...func(*InferenceGetModelRequest)) (*Response, error) {
-		var r = InferenceGetModelRequest{InferenceID: inference_id}
+	return func(o ...func(*InferenceGetModelRequest)) (*Response, error) {
+		var r = InferenceGetModelRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,7 +47,7 @@ func newInferenceGetModelFunc(t Transport) InferenceGetModel {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html.
-type InferenceGetModel func(inference_id string, o ...func(*InferenceGetModelRequest)) (*Response, error)
+type InferenceGetModel func(o ...func(*InferenceGetModelRequest)) (*Response, error)
 
 // InferenceGetModelRequest configures the Inference Get Model API request.
 type InferenceGetModelRequest struct {
@@ -96,10 +96,12 @@ func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Tran
 			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
 		}
 	}
-	path.WriteString("/")
-	path.WriteString(r.InferenceID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
+	if r.InferenceID != "" {
+		path.WriteString("/")
+		path.WriteString(r.InferenceID)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
+		}
 	}
 
 	params = make(map[string]string)
@@ -179,6 +181,13 @@ func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Tran
 func (f InferenceGetModel) WithContext(v context.Context) func(*InferenceGetModelRequest) {
 	return func(r *InferenceGetModelRequest) {
 		r.ctx = v
+	}
+}
+
+// WithInferenceID - the inference ID.
+func (f InferenceGetModel) WithInferenceID(v string) func(*InferenceGetModelRequest) {
+	return func(r *InferenceGetModelRequest) {
+		r.InferenceID = v
 	}
 }
 

@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newConnectorSecretPostFunc(t Transport) ConnectorSecretPost {
-	return func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error) {
-		var r = ConnectorSecretPostRequest{Body: body}
+func newConnectorSyncJobUpdateStatsFunc(t Transport) ConnectorSyncJobUpdateStats {
+	return func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobUpdateStatsRequest)) (*Response, error) {
+		var r = ConnectorSyncJobUpdateStatsRequest{Body: body, ConnectorSyncJobID: connector_sync_job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,14 +43,18 @@ func newConnectorSecretPostFunc(t Transport) ConnectorSecretPost {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretPost creates a secret for a Connector.
+// ConnectorSyncJobUpdateStats updates the stats fields in the connector sync job document.
 //
 // This API is experimental.
-type ConnectorSecretPost func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error)
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-stats-api.html.
+type ConnectorSyncJobUpdateStats func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobUpdateStatsRequest)) (*Response, error)
 
-// ConnectorSecretPostRequest configures the Connector Secret Post API request.
-type ConnectorSecretPostRequest struct {
+// ConnectorSyncJobUpdateStatsRequest configures the Connector Sync Job Update Stats API request.
+type ConnectorSyncJobUpdateStatsRequest struct {
 	Body io.Reader
+
+	ConnectorSyncJobID string
 
 	Pretty     bool
 	Human      bool
@@ -65,7 +69,7 @@ type ConnectorSecretPostRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSyncJobUpdateStatsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -74,18 +78,28 @@ func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Tr
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_secret.post")
+		ctx = instrument.Start(providedCtx, "connector.sync_job_update_stats")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(7 + len("/_connector/_secret"))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID) + 1 + len("_stats"))
 	path.WriteString("http://")
-	path.WriteString("/_connector/_secret")
+	path.WriteString("/")
+	path.WriteString("_connector")
+	path.WriteString("/")
+	path.WriteString("_sync_job")
+	path.WriteString("/")
+	path.WriteString(r.ConnectorSyncJobID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
+	}
+	path.WriteString("/")
+	path.WriteString("_stats")
 
 	params = make(map[string]string)
 
@@ -142,14 +156,14 @@ func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_secret.post")
-		if reader := instrument.RecordRequestBody(ctx, "connector_secret.post", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "connector.sync_job_update_stats")
+		if reader := instrument.RecordRequestBody(ctx, "connector.sync_job_update_stats", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_secret.post")
+		instrument.AfterRequest(req, "elasticsearch", "connector.sync_job_update_stats")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -168,43 +182,43 @@ func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Tr
 }
 
 // WithContext sets the request context.
-func (f ConnectorSecretPost) WithContext(v context.Context) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f ConnectorSyncJobUpdateStats) WithContext(v context.Context) func(*ConnectorSyncJobUpdateStatsRequest) {
+	return func(r *ConnectorSyncJobUpdateStatsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSecretPost) WithPretty() func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f ConnectorSyncJobUpdateStats) WithPretty() func(*ConnectorSyncJobUpdateStatsRequest) {
+	return func(r *ConnectorSyncJobUpdateStatsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSecretPost) WithHuman() func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f ConnectorSyncJobUpdateStats) WithHuman() func(*ConnectorSyncJobUpdateStatsRequest) {
+	return func(r *ConnectorSyncJobUpdateStatsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSecretPost) WithErrorTrace() func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f ConnectorSyncJobUpdateStats) WithErrorTrace() func(*ConnectorSyncJobUpdateStatsRequest) {
+	return func(r *ConnectorSyncJobUpdateStatsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSecretPost) WithFilterPath(v ...string) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f ConnectorSyncJobUpdateStats) WithFilterPath(v ...string) func(*ConnectorSyncJobUpdateStatsRequest) {
+	return func(r *ConnectorSyncJobUpdateStatsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSecretPost) WithHeader(h map[string]string) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f ConnectorSyncJobUpdateStats) WithHeader(h map[string]string) func(*ConnectorSyncJobUpdateStatsRequest) {
+	return func(r *ConnectorSyncJobUpdateStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -215,8 +229,8 @@ func (f ConnectorSecretPost) WithHeader(h map[string]string) func(*ConnectorSecr
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSecretPost) WithOpaqueID(s string) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f ConnectorSyncJobUpdateStats) WithOpaqueID(s string) func(*ConnectorSyncJobUpdateStatsRequest) {
+	return func(r *ConnectorSyncJobUpdateStatsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newConnectorSyncJobCancelFunc(t Transport) ConnectorSyncJobCancel {
-	return func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCancelRequest)) (*Response, error) {
-		var r = ConnectorSyncJobCancelRequest{ConnectorSyncJobID: connector_sync_job_id}
+func newConnectorSecretDeleteFunc(t Transport) ConnectorSecretDelete {
+	return func(id string, o ...func(*ConnectorSecretDeleteRequest)) (*Response, error) {
+		var r = ConnectorSecretDeleteRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,16 +42,14 @@ func newConnectorSyncJobCancelFunc(t Transport) ConnectorSyncJobCancel {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobCancel cancels a connector sync job.
+// ConnectorSecretDelete deletes a connector secret.
 //
 // This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cancel-connector-sync-job-api.html.
-type ConnectorSyncJobCancel func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCancelRequest)) (*Response, error)
+type ConnectorSecretDelete func(id string, o ...func(*ConnectorSecretDeleteRequest)) (*Response, error)
 
-// ConnectorSyncJobCancelRequest configures the Connector Sync Job Cancel API request.
-type ConnectorSyncJobCancelRequest struct {
-	ConnectorSyncJobID string
+// ConnectorSecretDeleteRequest configures the Connector Secret Delete API request.
+type ConnectorSecretDeleteRequest struct {
+	DocumentID string
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +64,7 @@ type ConnectorSyncJobCancelRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSecretDeleteRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,28 +73,26 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.cancel")
+		ctx = instrument.Start(providedCtx, "connector.secret_delete")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID) + 1 + len("_cancel"))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_secret") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_connector")
 	path.WriteString("/")
-	path.WriteString("_sync_job")
+	path.WriteString("_secret")
 	path.WriteString("/")
-	path.WriteString(r.ConnectorSyncJobID)
+	path.WriteString(r.DocumentID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
+		instrument.RecordPathPart(ctx, "id", r.DocumentID)
 	}
-	path.WriteString("/")
-	path.WriteString("_cancel")
 
 	params = make(map[string]string)
 
@@ -149,11 +145,11 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.cancel")
+		instrument.BeforeRequest(req, "connector.secret_delete")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.cancel")
+		instrument.AfterRequest(req, "elasticsearch", "connector.secret_delete")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -172,43 +168,43 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobCancel) WithContext(v context.Context) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSecretDelete) WithContext(v context.Context) func(*ConnectorSecretDeleteRequest) {
+	return func(r *ConnectorSecretDeleteRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobCancel) WithPretty() func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSecretDelete) WithPretty() func(*ConnectorSecretDeleteRequest) {
+	return func(r *ConnectorSecretDeleteRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobCancel) WithHuman() func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSecretDelete) WithHuman() func(*ConnectorSecretDeleteRequest) {
+	return func(r *ConnectorSecretDeleteRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobCancel) WithErrorTrace() func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSecretDelete) WithErrorTrace() func(*ConnectorSecretDeleteRequest) {
+	return func(r *ConnectorSecretDeleteRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobCancel) WithFilterPath(v ...string) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSecretDelete) WithFilterPath(v ...string) func(*ConnectorSecretDeleteRequest) {
+	return func(r *ConnectorSecretDeleteRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobCancel) WithHeader(h map[string]string) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSecretDelete) WithHeader(h map[string]string) func(*ConnectorSecretDeleteRequest) {
+	return func(r *ConnectorSecretDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -219,8 +215,8 @@ func (f ConnectorSyncJobCancel) WithHeader(h map[string]string) func(*ConnectorS
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobCancel) WithOpaqueID(s string) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSecretDelete) WithOpaqueID(s string) func(*ConnectorSecretDeleteRequest) {
+	return func(r *ConnectorSecretDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

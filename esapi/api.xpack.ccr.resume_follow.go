@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRResumeFollowFunc(t Transport) CCRResumeFollow {
@@ -53,6 +54,8 @@ type CCRResumeFollowRequest struct {
 	Index string
 
 	Body io.Reader
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r CCRResumeFollowRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("resume_follow")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,6 +195,13 @@ func (f CCRResumeFollow) WithContext(v context.Context) func(*CCRResumeFollowReq
 func (f CCRResumeFollow) WithBody(v io.Reader) func(*CCRResumeFollowRequest) {
 	return func(r *CCRResumeFollowRequest) {
 		r.Body = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRResumeFollow) WithMasterTimeout(v time.Duration) func(*CCRResumeFollowRequest) {
+	return func(r *CCRResumeFollowRequest) {
+		r.MasterTimeout = v
 	}
 }
 

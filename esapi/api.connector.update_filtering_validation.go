@@ -21,13 +21,14 @@ package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newConnectorSecretGetFunc(t Transport) ConnectorSecretGet {
-	return func(id string, o ...func(*ConnectorSecretGetRequest)) (*Response, error) {
-		var r = ConnectorSecretGetRequest{DocumentID: id}
+func newConnectorUpdateFilteringValidationFunc(t Transport) ConnectorUpdateFilteringValidation {
+	return func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateFilteringValidationRequest)) (*Response, error) {
+		var r = ConnectorUpdateFilteringValidationRequest{Body: body, ConnectorID: connector_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,14 +43,18 @@ func newConnectorSecretGetFunc(t Transport) ConnectorSecretGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretGet retrieves a secret stored by Connectors.
+// ConnectorUpdateFilteringValidation updates the validation info of the draft filtering rules.
 //
 // This API is experimental.
-type ConnectorSecretGet func(id string, o ...func(*ConnectorSecretGetRequest)) (*Response, error)
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html.
+type ConnectorUpdateFilteringValidation func(body io.Reader, connector_id string, o ...func(*ConnectorUpdateFilteringValidationRequest)) (*Response, error)
 
-// ConnectorSecretGetRequest configures the Connector Secret Get API request.
-type ConnectorSecretGetRequest struct {
-	DocumentID string
+// ConnectorUpdateFilteringValidationRequest configures the Connector Update Filtering Validation API request.
+type ConnectorUpdateFilteringValidationRequest struct {
+	Body io.Reader
+
+	ConnectorID string
 
 	Pretty     bool
 	Human      bool
@@ -64,7 +69,7 @@ type ConnectorSecretGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSecretGetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorUpdateFilteringValidationRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -73,26 +78,28 @@ func (r ConnectorSecretGetRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_secret.get")
+		ctx = instrument.Start(providedCtx, "connector.update_filtering_validation")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_secret") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_connector") + 1 + len(r.ConnectorID) + 1 + len("_filtering") + 1 + len("_validation"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_connector")
 	path.WriteString("/")
-	path.WriteString("_secret")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.ConnectorID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+		instrument.RecordPathPart(ctx, "connector_id", r.ConnectorID)
 	}
+	path.WriteString("/")
+	path.WriteString("_filtering")
+	path.WriteString("/")
+	path.WriteString("_validation")
 
 	params = make(map[string]string)
 
@@ -112,7 +119,7 @@ func (r ConnectorSecretGetRequest) Do(providedCtx context.Context, transport Tra
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -140,16 +147,23 @@ func (r ConnectorSecretGetRequest) Do(providedCtx context.Context, transport Tra
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_secret.get")
+		instrument.BeforeRequest(req, "connector.update_filtering_validation")
+		if reader := instrument.RecordRequestBody(ctx, "connector.update_filtering_validation", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_secret.get")
+		instrument.AfterRequest(req, "elasticsearch", "connector.update_filtering_validation")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -168,43 +182,43 @@ func (r ConnectorSecretGetRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f ConnectorSecretGet) WithContext(v context.Context) func(*ConnectorSecretGetRequest) {
-	return func(r *ConnectorSecretGetRequest) {
+func (f ConnectorUpdateFilteringValidation) WithContext(v context.Context) func(*ConnectorUpdateFilteringValidationRequest) {
+	return func(r *ConnectorUpdateFilteringValidationRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSecretGet) WithPretty() func(*ConnectorSecretGetRequest) {
-	return func(r *ConnectorSecretGetRequest) {
+func (f ConnectorUpdateFilteringValidation) WithPretty() func(*ConnectorUpdateFilteringValidationRequest) {
+	return func(r *ConnectorUpdateFilteringValidationRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSecretGet) WithHuman() func(*ConnectorSecretGetRequest) {
-	return func(r *ConnectorSecretGetRequest) {
+func (f ConnectorUpdateFilteringValidation) WithHuman() func(*ConnectorUpdateFilteringValidationRequest) {
+	return func(r *ConnectorUpdateFilteringValidationRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSecretGet) WithErrorTrace() func(*ConnectorSecretGetRequest) {
-	return func(r *ConnectorSecretGetRequest) {
+func (f ConnectorUpdateFilteringValidation) WithErrorTrace() func(*ConnectorUpdateFilteringValidationRequest) {
+	return func(r *ConnectorUpdateFilteringValidationRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSecretGet) WithFilterPath(v ...string) func(*ConnectorSecretGetRequest) {
-	return func(r *ConnectorSecretGetRequest) {
+func (f ConnectorUpdateFilteringValidation) WithFilterPath(v ...string) func(*ConnectorUpdateFilteringValidationRequest) {
+	return func(r *ConnectorUpdateFilteringValidationRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSecretGet) WithHeader(h map[string]string) func(*ConnectorSecretGetRequest) {
-	return func(r *ConnectorSecretGetRequest) {
+func (f ConnectorUpdateFilteringValidation) WithHeader(h map[string]string) func(*ConnectorUpdateFilteringValidationRequest) {
+	return func(r *ConnectorUpdateFilteringValidationRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -215,8 +229,8 @@ func (f ConnectorSecretGet) WithHeader(h map[string]string) func(*ConnectorSecre
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSecretGet) WithOpaqueID(s string) func(*ConnectorSecretGetRequest) {
-	return func(r *ConnectorSecretGetRequest) {
+func (f ConnectorUpdateFilteringValidation) WithOpaqueID(s string) func(*ConnectorUpdateFilteringValidationRequest) {
+	return func(r *ConnectorUpdateFilteringValidationRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

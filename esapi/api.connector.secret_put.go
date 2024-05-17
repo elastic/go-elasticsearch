@@ -24,12 +24,11 @@ import (
 	"io"
 	"net/http"
 	"strings"
-	"time"
 )
 
-func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
-	return func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error) {
-		var r = CCRForgetFollowerRequest{Index: index, Body: body}
+func newConnectorSecretPutFunc(t Transport) ConnectorSecretPut {
+	return func(id string, body io.Reader, o ...func(*ConnectorSecretPutRequest)) (*Response, error) {
+		var r = ConnectorSecretPutRequest{DocumentID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,18 +43,16 @@ func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRForgetFollower - Removes the follower retention leases from the leader.
+// ConnectorSecretPut creates or updates a secret for a Connector.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html.
-type CCRForgetFollower func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error)
+// This API is experimental.
+type ConnectorSecretPut func(id string, body io.Reader, o ...func(*ConnectorSecretPutRequest)) (*Response, error)
 
-// CCRForgetFollowerRequest configures the CCR Forget Follower API request.
-type CCRForgetFollowerRequest struct {
-	Index string
+// ConnectorSecretPutRequest configures the Connector Secret Put API request.
+type ConnectorSecretPutRequest struct {
+	DocumentID string
 
 	Body io.Reader
-
-	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -70,7 +67,7 @@ type CCRForgetFollowerRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSecretPutRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -79,32 +76,28 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ccr.forget_follower")
+		ctx = instrument.Start(providedCtx, "connector.secret_put")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_ccr") + 1 + len("forget_follower"))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_secret") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString("_connector")
+	path.WriteString("/")
+	path.WriteString("_secret")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "id", r.DocumentID)
 	}
-	path.WriteString("/")
-	path.WriteString("_ccr")
-	path.WriteString("/")
-	path.WriteString("forget_follower")
 
 	params = make(map[string]string)
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -159,14 +152,14 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "ccr.forget_follower")
-		if reader := instrument.RecordRequestBody(ctx, "ccr.forget_follower", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "connector.secret_put")
+		if reader := instrument.RecordRequestBody(ctx, "connector.secret_put", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "ccr.forget_follower")
+		instrument.AfterRequest(req, "elasticsearch", "connector.secret_put")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -185,50 +178,43 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 }
 
 // WithContext sets the request context.
-func (f CCRForgetFollower) WithContext(v context.Context) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSecretPut) WithContext(v context.Context) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
-func (f CCRForgetFollower) WithTimeout(v time.Duration) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
-		r.Timeout = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f CCRForgetFollower) WithPretty() func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSecretPut) WithPretty() func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f CCRForgetFollower) WithHuman() func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSecretPut) WithHuman() func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f CCRForgetFollower) WithErrorTrace() func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSecretPut) WithErrorTrace() func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f CCRForgetFollower) WithFilterPath(v ...string) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSecretPut) WithFilterPath(v ...string) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f CCRForgetFollower) WithHeader(h map[string]string) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSecretPut) WithHeader(h map[string]string) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -239,8 +225,8 @@ func (f CCRForgetFollower) WithHeader(h map[string]string) func(*CCRForgetFollow
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f CCRForgetFollower) WithOpaqueID(s string) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSecretPut) WithOpaqueID(s string) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

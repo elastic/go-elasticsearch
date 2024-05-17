@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRPutAutoFollowPatternFunc(t Transport) CCRPutAutoFollowPattern {
@@ -53,6 +54,8 @@ type CCRPutAutoFollowPatternRequest struct {
 	Body io.Reader
 
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r CCRPutAutoFollowPatternRequest) Do(providedCtx context.Context, transpor
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +188,13 @@ func (r CCRPutAutoFollowPatternRequest) Do(providedCtx context.Context, transpor
 func (f CCRPutAutoFollowPattern) WithContext(v context.Context) func(*CCRPutAutoFollowPatternRequest) {
 	return func(r *CCRPutAutoFollowPatternRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRPutAutoFollowPattern) WithMasterTimeout(v time.Duration) func(*CCRPutAutoFollowPatternRequest) {
+	return func(r *CCRPutAutoFollowPatternRequest) {
+		r.MasterTimeout = v
 	}
 }
 

@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newConnectorSyncJobPostFunc(t Transport) ConnectorSyncJobPost {
-	return func(body io.Reader, o ...func(*ConnectorSyncJobPostRequest)) (*Response, error) {
-		var r = ConnectorSyncJobPostRequest{Body: body}
+func newConnectorSyncJobGetFunc(t Transport) ConnectorSyncJobGet {
+	return func(connector_sync_job_id string, o ...func(*ConnectorSyncJobGetRequest)) (*Response, error) {
+		var r = ConnectorSyncJobGetRequest{ConnectorSyncJobID: connector_sync_job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,16 +42,16 @@ func newConnectorSyncJobPostFunc(t Transport) ConnectorSyncJobPost {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobPost creates a connector sync job.
+// ConnectorSyncJobGet returns the details about a connector sync job.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-sync-job-api.html.
-type ConnectorSyncJobPost func(body io.Reader, o ...func(*ConnectorSyncJobPostRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-connector-sync-job-api.html.
+type ConnectorSyncJobGet func(connector_sync_job_id string, o ...func(*ConnectorSyncJobGetRequest)) (*Response, error)
 
-// ConnectorSyncJobPostRequest configures the Connector Sync Job Post API request.
-type ConnectorSyncJobPostRequest struct {
-	Body io.Reader
+// ConnectorSyncJobGetRequest configures the Connector Sync Job Get API request.
+type ConnectorSyncJobGetRequest struct {
+	ConnectorSyncJobID string
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +66,7 @@ type ConnectorSyncJobPostRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobPostRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSyncJobGetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,18 +75,26 @@ func (r ConnectorSyncJobPostRequest) Do(providedCtx context.Context, transport T
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.post")
+		ctx = instrument.Start(providedCtx, "connector.sync_job_get")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "GET"
 
-	path.Grow(7 + len("/_connector/_sync_job"))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID))
 	path.WriteString("http://")
-	path.WriteString("/_connector/_sync_job")
+	path.WriteString("/")
+	path.WriteString("_connector")
+	path.WriteString("/")
+	path.WriteString("_sync_job")
+	path.WriteString("/")
+	path.WriteString(r.ConnectorSyncJobID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
+	}
 
 	params = make(map[string]string)
 
@@ -107,7 +114,7 @@ func (r ConnectorSyncJobPostRequest) Do(providedCtx context.Context, transport T
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -135,23 +142,16 @@ func (r ConnectorSyncJobPostRequest) Do(providedCtx context.Context, transport T
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.post")
-		if reader := instrument.RecordRequestBody(ctx, "connector_sync_job.post", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "connector.sync_job_get")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.post")
+		instrument.AfterRequest(req, "elasticsearch", "connector.sync_job_get")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -170,43 +170,43 @@ func (r ConnectorSyncJobPostRequest) Do(providedCtx context.Context, transport T
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobPost) WithContext(v context.Context) func(*ConnectorSyncJobPostRequest) {
-	return func(r *ConnectorSyncJobPostRequest) {
+func (f ConnectorSyncJobGet) WithContext(v context.Context) func(*ConnectorSyncJobGetRequest) {
+	return func(r *ConnectorSyncJobGetRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobPost) WithPretty() func(*ConnectorSyncJobPostRequest) {
-	return func(r *ConnectorSyncJobPostRequest) {
+func (f ConnectorSyncJobGet) WithPretty() func(*ConnectorSyncJobGetRequest) {
+	return func(r *ConnectorSyncJobGetRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobPost) WithHuman() func(*ConnectorSyncJobPostRequest) {
-	return func(r *ConnectorSyncJobPostRequest) {
+func (f ConnectorSyncJobGet) WithHuman() func(*ConnectorSyncJobGetRequest) {
+	return func(r *ConnectorSyncJobGetRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobPost) WithErrorTrace() func(*ConnectorSyncJobPostRequest) {
-	return func(r *ConnectorSyncJobPostRequest) {
+func (f ConnectorSyncJobGet) WithErrorTrace() func(*ConnectorSyncJobGetRequest) {
+	return func(r *ConnectorSyncJobGetRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobPost) WithFilterPath(v ...string) func(*ConnectorSyncJobPostRequest) {
-	return func(r *ConnectorSyncJobPostRequest) {
+func (f ConnectorSyncJobGet) WithFilterPath(v ...string) func(*ConnectorSyncJobGetRequest) {
+	return func(r *ConnectorSyncJobGetRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobPost) WithHeader(h map[string]string) func(*ConnectorSyncJobPostRequest) {
-	return func(r *ConnectorSyncJobPostRequest) {
+func (f ConnectorSyncJobGet) WithHeader(h map[string]string) func(*ConnectorSyncJobGetRequest) {
+	return func(r *ConnectorSyncJobGetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -217,8 +217,8 @@ func (f ConnectorSyncJobPost) WithHeader(h map[string]string) func(*ConnectorSyn
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobPost) WithOpaqueID(s string) func(*ConnectorSyncJobPostRequest) {
-	return func(r *ConnectorSyncJobPostRequest) {
+func (f ConnectorSyncJobGet) WithOpaqueID(s string) func(*ConnectorSyncJobGetRequest) {
+	return func(r *ConnectorSyncJobGetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

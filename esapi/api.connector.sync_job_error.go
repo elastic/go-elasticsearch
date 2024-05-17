@@ -24,12 +24,11 @@ import (
 	"io"
 	"net/http"
 	"strings"
-	"time"
 )
 
-func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
-	return func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error) {
-		var r = CCRForgetFollowerRequest{Index: index, Body: body}
+func newConnectorSyncJobErrorFunc(t Transport) ConnectorSyncJobError {
+	return func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error) {
+		var r = ConnectorSyncJobErrorRequest{Body: body, ConnectorSyncJobID: connector_sync_job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -44,18 +43,18 @@ func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
 
 // ----- API Definition -------------------------------------------------------
 
-// CCRForgetFollower - Removes the follower retention leases from the leader.
+// ConnectorSyncJobError sets an error for a connector sync job.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html.
-type CCRForgetFollower func(index string, body io.Reader, o ...func(*CCRForgetFollowerRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html.
+type ConnectorSyncJobError func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error)
 
-// CCRForgetFollowerRequest configures the CCR Forget Follower API request.
-type CCRForgetFollowerRequest struct {
-	Index string
-
+// ConnectorSyncJobErrorRequest configures the Connector Sync Job Error API request.
+type ConnectorSyncJobErrorRequest struct {
 	Body io.Reader
 
-	Timeout time.Duration
+	ConnectorSyncJobID string
 
 	Pretty     bool
 	Human      bool
@@ -70,7 +69,7 @@ type CCRForgetFollowerRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSyncJobErrorRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -79,32 +78,30 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ccr.forget_follower")
+		ctx = instrument.Start(providedCtx, "connector.sync_job_error")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "POST"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len(r.Index) + 1 + len("_ccr") + 1 + len("forget_follower"))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID) + 1 + len("_error"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString(r.Index)
+	path.WriteString("_connector")
+	path.WriteString("/")
+	path.WriteString("_sync_job")
+	path.WriteString("/")
+	path.WriteString(r.ConnectorSyncJobID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "index", r.Index)
+		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
 	}
 	path.WriteString("/")
-	path.WriteString("_ccr")
-	path.WriteString("/")
-	path.WriteString("forget_follower")
+	path.WriteString("_error")
 
 	params = make(map[string]string)
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -159,14 +156,14 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "ccr.forget_follower")
-		if reader := instrument.RecordRequestBody(ctx, "ccr.forget_follower", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "connector.sync_job_error")
+		if reader := instrument.RecordRequestBody(ctx, "connector.sync_job_error", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "ccr.forget_follower")
+		instrument.AfterRequest(req, "elasticsearch", "connector.sync_job_error")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -185,50 +182,43 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 }
 
 // WithContext sets the request context.
-func (f CCRForgetFollower) WithContext(v context.Context) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSyncJobError) WithContext(v context.Context) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTimeout - explicit operation timeout.
-func (f CCRForgetFollower) WithTimeout(v time.Duration) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
-		r.Timeout = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f CCRForgetFollower) WithPretty() func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSyncJobError) WithPretty() func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f CCRForgetFollower) WithHuman() func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSyncJobError) WithHuman() func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f CCRForgetFollower) WithErrorTrace() func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSyncJobError) WithErrorTrace() func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f CCRForgetFollower) WithFilterPath(v ...string) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSyncJobError) WithFilterPath(v ...string) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f CCRForgetFollower) WithHeader(h map[string]string) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSyncJobError) WithHeader(h map[string]string) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -239,8 +229,8 @@ func (f CCRForgetFollower) WithHeader(h map[string]string) func(*CCRForgetFollow
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f CCRForgetFollower) WithOpaqueID(s string) func(*CCRForgetFollowerRequest) {
-	return func(r *CCRForgetFollowerRequest) {
+func (f ConnectorSyncJobError) WithOpaqueID(s string) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
