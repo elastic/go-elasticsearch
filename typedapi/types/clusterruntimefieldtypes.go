@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterRuntimeFieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/stats/types.ts#L169-L226
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/stats/types.ts#L169-L226
 type ClusterRuntimeFieldTypes struct {
 	// CharsMax Maximum number of characters for a single runtime field script.
 	CharsMax int `json:"chars_max"`
@@ -85,7 +85,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "chars_max":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -101,7 +101,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "chars_total":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -117,7 +117,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -133,7 +133,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "doc_max":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -149,7 +149,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "doc_total":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -165,7 +165,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "index_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -186,7 +186,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "lines_max":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -202,7 +202,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "lines_total":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -223,7 +223,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "scriptless_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -239,7 +239,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "shadowed_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -255,7 +255,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "source_max":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -271,7 +271,7 @@ func (s *ClusterRuntimeFieldTypes) UnmarshalJSON(data []byte) error {
 
 		case "source_total":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

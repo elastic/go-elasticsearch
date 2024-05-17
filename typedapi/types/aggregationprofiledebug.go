@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AggregationProfileDebug type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/profile.ts#L39-L68
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/search/_types/profile.ts#L39-L68
 type AggregationProfileDebug struct {
 	BuiltBuckets                      *int                                    `json:"built_buckets,omitempty"`
 	CharsFetched                      *int                                    `json:"chars_fetched,omitempty"`
@@ -80,7 +80,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "built_buckets":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -96,7 +96,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "chars_fetched":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -112,7 +112,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "collect_analyzed_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -128,7 +128,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "collect_analyzed_ns":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -178,7 +178,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "empty_collectors_used":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -194,7 +194,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "extract_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -210,7 +210,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "extract_ns":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -230,7 +230,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			}
 
 		case "has_filter":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -257,7 +257,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "numeric_collectors_used":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -273,7 +273,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "ordinals_collectors_overhead_too_high":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -289,7 +289,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "ordinals_collectors_used":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -317,7 +317,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "segments_collected":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -333,7 +333,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "segments_counted":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -349,7 +349,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "segments_with_deleted_docs":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -365,7 +365,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "segments_with_doc_count_field":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -381,7 +381,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "segments_with_multi_valued_ords":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -397,7 +397,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "segments_with_single_valued_ords":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -413,7 +413,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "string_hashing_collectors_used":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -429,7 +429,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "surviving_buckets":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -445,7 +445,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "total_buckets":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -461,7 +461,7 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 
 		case "values_fetched":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

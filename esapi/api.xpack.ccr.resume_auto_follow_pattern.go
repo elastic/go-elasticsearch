@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRResumeAutoFollowPatternFunc(t Transport) CCRResumeAutoFollowPattern {
@@ -50,6 +51,8 @@ type CCRResumeAutoFollowPattern func(name string, o ...func(*CCRResumeAutoFollow
 // CCRResumeAutoFollowPatternRequest configures the CCR Resume Auto Follow Pattern API request.
 type CCRResumeAutoFollowPatternRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -97,6 +100,10 @@ func (r CCRResumeAutoFollowPatternRequest) Do(providedCtx context.Context, trans
 	path.WriteString("resume")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -173,6 +180,13 @@ func (r CCRResumeAutoFollowPatternRequest) Do(providedCtx context.Context, trans
 func (f CCRResumeAutoFollowPattern) WithContext(v context.Context) func(*CCRResumeAutoFollowPatternRequest) {
 	return func(r *CCRResumeAutoFollowPatternRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRResumeAutoFollowPattern) WithMasterTimeout(v time.Duration) func(*CCRResumeAutoFollowPatternRequest) {
+	return func(r *CCRResumeAutoFollowPatternRequest) {
+		r.MasterTimeout = v
 	}
 }
 

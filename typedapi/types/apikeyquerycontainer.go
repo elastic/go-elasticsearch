@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
-// APIKeyQueryContainer type.
+// ApiKeyQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/query_api_keys/types.ts#L142-L206
-type APIKeyQueryContainer struct {
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/security/query_api_keys/types.ts#L142-L206
+type ApiKeyQueryContainer struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
 	// Exists Returns documents that contain an indexed value for a field.
@@ -55,9 +55,9 @@ type APIKeyQueryContainer struct {
 	Wildcard map[string]WildcardQuery `json:"wildcard,omitempty"`
 }
 
-// NewAPIKeyQueryContainer returns a APIKeyQueryContainer.
-func NewAPIKeyQueryContainer() *APIKeyQueryContainer {
-	r := &APIKeyQueryContainer{
+// NewApiKeyQueryContainer returns a ApiKeyQueryContainer.
+func NewApiKeyQueryContainer() *ApiKeyQueryContainer {
+	r := &ApiKeyQueryContainer{
 		Match:    make(map[string]MatchQuery, 0),
 		Prefix:   make(map[string]PrefixQuery, 0),
 		Range:    make(map[string]RangeQuery, 0),

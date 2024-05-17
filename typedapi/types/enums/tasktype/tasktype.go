@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 // Package tasktype
 package tasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/_types/TaskType.ts#L20-L26
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/inference/_types/TaskType.ts#L20-L28
 type TaskType struct {
 	Name string
 }
@@ -32,6 +32,10 @@ var (
 	Sparseembedding = TaskType{"sparse_embedding"}
 
 	Textembedding = TaskType{"text_embedding"}
+
+	Rerank = TaskType{"rerank"}
+
+	Completion = TaskType{"completion"}
 )
 
 func (t TaskType) MarshalText() (text []byte, err error) {
@@ -45,6 +49,10 @@ func (t *TaskType) UnmarshalText(text []byte) error {
 		*t = Sparseembedding
 	case "text_embedding":
 		*t = Textembedding
+	case "rerank":
+		*t = Rerank
+	case "completion":
+		*t = Completion
 	default:
 		*t = TaskType{string(text)}
 	}

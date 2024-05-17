@@ -62,6 +62,7 @@ var skipFiles = []string{
 	"dlm/10_usage.yml",                  // incompatible float expansion
 	"api_key/60_admin_user.yml",
 	".*esql\\/.*.yml",
+	"deprecation/10_basic.yml", // incompatible test generation
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -92,6 +93,10 @@ update/61_refresh_with_types.yml:
 # catch: bad_request, Expected [status] to not be nil
 indices.data_stream/10_basic.yml:
   - Create data stream with invalid name
+
+# status cannot be green
+cluster.health/10_basic.yml:
+  - cluster health with closed index (pre 7.2.0)
 
 # Stash in value
 cluster.reroute/11_explain.yml:
@@ -236,6 +241,7 @@ api_key/10_basic.yml:
   - Test invalidate api keys
 api_key/11_invalidation.yml:
   - Test invalidate api key by username
+  - Test invalidate api key by realm name
 api_key/21_query_with_aggs.yml:
   - Test composite aggs api key
 rollup/put_job.yml:

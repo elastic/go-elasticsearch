@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // ModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Model.ts#L59-L81
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/Model.ts#L59-L81
 type ModelSizeStats struct {
 	AssignmentMemoryBasis         *string                                   `json:"assignment_memory_basis,omitempty"`
 	BucketAllocationFailuresCount int64                                     `json:"bucket_allocation_failures_count"`
@@ -87,7 +87,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			s.AssignmentMemoryBasis = &o
 
 		case "bucket_allocation_failures_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -108,7 +108,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "categorized_doc_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -124,7 +124,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "dead_category_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -140,7 +140,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "failed_category_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -156,7 +156,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "frequent_category_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -207,7 +207,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "rare_category_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -234,7 +234,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			s.ResultType = o
 
 		case "timestamp":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -249,7 +249,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_by_field_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -265,7 +265,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 
 		case "total_category_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -280,7 +280,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_over_field_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -295,7 +295,7 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_partition_field_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

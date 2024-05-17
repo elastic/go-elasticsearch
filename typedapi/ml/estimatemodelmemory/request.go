@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package estimatemodelmemory
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package estimatemodelmemory
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L61
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/estimate_model_memory/MlEstimateModelMemoryRequest.ts#L26-L61
 type Request struct {
 
 	// AnalysisConfig For a list of the properties that you can specify in the
@@ -57,6 +57,7 @@ func NewRequest() *Request {
 		MaxBucketCardinality: make(map[string]int64, 0),
 		OverallCardinality:   make(map[string]int64, 0),
 	}
+
 	return r
 }
 

@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRUnfollowFunc(t Transport) CCRUnfollow {
@@ -50,6 +51,8 @@ type CCRUnfollow func(index string, o ...func(*CCRUnfollowRequest)) (*Response, 
 // CCRUnfollowRequest configures the CCR Unfollow API request.
 type CCRUnfollowRequest struct {
 	Index string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r CCRUnfollowRequest) Do(providedCtx context.Context, transport Transport)
 	path.WriteString("unfollow")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r CCRUnfollowRequest) Do(providedCtx context.Context, transport Transport)
 func (f CCRUnfollow) WithContext(v context.Context) func(*CCRUnfollowRequest) {
 	return func(r *CCRUnfollowRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRUnfollow) WithMasterTimeout(v time.Duration) func(*CCRUnfollowRequest) {
+	return func(r *CCRUnfollowRequest) {
+		r.MasterTimeout = v
 	}
 }
 

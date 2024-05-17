@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,15 +31,13 @@ import (
 
 // GeoTileGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L432-L458
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/bucket.ts#L434-L460
 type GeoTileGridAggregation struct {
 	// Bounds A bounding box to filter the geo-points or geo-shapes in each bucket.
 	Bounds GeoBounds `json:"bounds,omitempty"`
 	// Field Field containing indexed `geo_point` or `geo_shape` values.
 	// If the field contains an array, `geotile_grid` aggregates all array values.
-	Field *string  `json:"field,omitempty"`
-	Meta  Metadata `json:"meta,omitempty"`
-	Name  *string  `json:"name,omitempty"`
+	Field *string `json:"field,omitempty"`
 	// Precision Integer zoom of the key used to define cells/buckets in the results.
 	// Values outside of the range [0,29] will be rejected.
 	Precision *int `json:"precision,omitempty"`
@@ -77,23 +75,6 @@ func (s *GeoTileGridAggregation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
-
 		case "precision":
 			if err := dec.Decode(&s.Precision); err != nil {
 				return fmt.Errorf("%s | %w", "Precision", err)
@@ -101,7 +82,7 @@ func (s *GeoTileGridAggregation) UnmarshalJSON(data []byte) error {
 
 		case "shard_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -117,7 +98,7 @@ func (s *GeoTileGridAggregation) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

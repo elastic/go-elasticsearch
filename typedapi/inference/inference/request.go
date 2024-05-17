@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package inference
 
@@ -26,16 +26,20 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // Request holds the request body struct for the package inference
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/inference/InferenceRequest.ts#L25-L53
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/inference/inference/InferenceRequest.ts#L26-L66
 type Request struct {
 
-	// Input Text input to the model.
+	// Input Inference input.
 	// Either a string or an array of strings.
 	Input []string `json:"input"`
+	// Query Query input, required for rerank task.
+	// Not required for other tasks.
+	Query *string `json:"query,omitempty"`
 	// TaskSettings Optional task settings
 	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
@@ -43,6 +47,7 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{}
+
 	return r
 }
 
@@ -87,6 +92,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Input", err)
 				}
 			}
+
+		case "query":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Query", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Query = &o
 
 		case "task_settings":
 			if err := dec.Decode(&s.TaskSettings); err != nil {

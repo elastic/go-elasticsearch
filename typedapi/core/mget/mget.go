@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 // Allows to get multiple documents in one request.
 package mget
@@ -317,6 +317,18 @@ func (r *Mget) Index(index string) *Mget {
 	return r
 }
 
+// ForceSyntheticSource Should this request force synthetic _source?
+// Use this to test if the mapping supports synthetic _source and to get a sense
+// of the worst case performance.
+// Fetches with this enabled will be slower the enabling synthetic source
+// natively in the index.
+// API name: force_synthetic_source
+func (r *Mget) ForceSyntheticSource(forcesyntheticsource bool) *Mget {
+	r.values.Set("force_synthetic_source", strconv.FormatBool(forcesyntheticsource))
+
+	return r
+}
+
 // Preference Specifies the node or shard the operation should be performed on. Random by
 // default.
 // API name: preference
@@ -386,6 +398,50 @@ func (r *Mget) SourceIncludes_(fields ...string) *Mget {
 // API name: stored_fields
 func (r *Mget) StoredFields(fields ...string) *Mget {
 	r.values.Set("stored_fields", strings.Join(fields, ","))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Mget) ErrorTrace(errortrace bool) *Mget {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Mget) FilterPath(filterpaths ...string) *Mget {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Mget) Human(human bool) *Mget {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Mget) Pretty(pretty bool) *Mget {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

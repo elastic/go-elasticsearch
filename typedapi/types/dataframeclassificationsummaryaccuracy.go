@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeClassificationSummaryAccuracy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/evaluate_data_frame/types.ts#L111-L114
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/evaluate_data_frame/types.ts#L111-L114
 type DataframeClassificationSummaryAccuracy struct {
 	Classes         []DataframeEvaluationClass `json:"classes"`
 	OverallAccuracy Float64                    `json:"overall_accuracy"`
@@ -58,7 +58,7 @@ func (s *DataframeClassificationSummaryAccuracy) UnmarshalJSON(data []byte) erro
 			}
 
 		case "overall_accuracy":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

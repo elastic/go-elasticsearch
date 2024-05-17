@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // CategorizationAnalyzerDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Analysis.ts#L184-L197
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/Analysis.ts#L184-L197
 type CategorizationAnalyzerDefinition struct {
 	// CharFilter One or more character filters. In addition to the built-in character filters,
 	// other plugins can provide more character filters. If this property is not
@@ -123,7 +123,7 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 						}
 						s.CharFilter = append(s.CharFilter, *o)
 					default:
-						o := new(interface{})
+						o := new(any)
 						if err := localDec.Decode(&o); err != nil {
 							return err
 						}
@@ -131,7 +131,7 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					}
 				default:
 					source := bytes.NewReader(rawMsg)
-					o := new(interface{})
+					o := new(any)
 					if err := json.NewDecoder(source).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "CharFilter", err)
 					}
@@ -439,7 +439,7 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 						}
 						s.Filter = append(s.Filter, *o)
 					default:
-						o := new(interface{})
+						o := new(any)
 						if err := localDec.Decode(&o); err != nil {
 							return err
 						}
@@ -447,7 +447,7 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					}
 				default:
 					source := bytes.NewReader(rawMsg)
-					o := new(interface{})
+					o := new(any)
 					if err := json.NewDecoder(source).Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "Filter", err)
 					}

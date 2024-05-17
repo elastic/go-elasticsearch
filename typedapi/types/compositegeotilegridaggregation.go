@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // CompositeGeoTileGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L184-L187
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/bucket.ts#L186-L189
 type CompositeGeoTileGridAggregation struct {
 	Bounds GeoBounds `json:"bounds,omitempty"`
 	// Field Either `field` or `script` must be present
@@ -75,7 +75,7 @@ func (s *CompositeGeoTileGridAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "missing_bucket":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -100,7 +100,7 @@ func (s *CompositeGeoTileGridAggregation) UnmarshalJSON(data []byte) error {
 
 		case "precision":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

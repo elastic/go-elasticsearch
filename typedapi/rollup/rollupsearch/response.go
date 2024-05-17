@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package rollupsearch
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package rollupsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/rollup/rollup_search/RollupSearchResponse.ts#L27-L36
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/rollup/rollup_search/RollupSearchResponse.ts#L27-L36
 type Response struct {
 	Aggregations    map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Hits            types.HitsMetadata         `json:"hits"`
@@ -572,7 +572,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 								s.Aggregations[elems[1]] = o
 
 							default:
-								o := make(map[string]interface{}, 0)
+								o := make(map[string]any, 0)
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)
 								}
@@ -582,7 +582,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 							return errors.New("cannot decode JSON for field Aggregations")
 						}
 					} else {
-						o := make(map[string]interface{}, 0)
+						o := make(map[string]any, 0)
 						if err := dec.Decode(&o); err != nil {
 							return fmt.Errorf("%s | %w", "Aggregations", err)
 						}
@@ -602,7 +602,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			}
 
 		case "terminated_early":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -616,7 +616,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			}
 
 		case "timed_out":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -630,7 +630,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			}
 
 		case "took":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

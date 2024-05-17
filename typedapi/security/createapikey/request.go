@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package createapikey
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package createapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L58
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/security/create_api_key/SecurityCreateApiKeyRequest.ts#L26-L58
 type Request struct {
 
 	// Expiration Expiration time for the API key. By default, API keys never expire.
@@ -59,6 +59,7 @@ func NewRequest() *Request {
 	r := &Request{
 		RoleDescriptors: make(map[string]types.RoleDescriptor, 0),
 	}
+
 	return r
 }
 

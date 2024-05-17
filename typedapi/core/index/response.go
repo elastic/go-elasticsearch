@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package index
 
@@ -27,14 +27,14 @@ import (
 
 // Response holds the response body struct for the package index
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/index/IndexResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/index/IndexResponse.ts#L22-L24
 type Response struct {
 	ForcedRefresh *bool                 `json:"forced_refresh,omitempty"`
 	Id_           string                `json:"_id"`
 	Index_        string                `json:"_index"`
-	PrimaryTerm_  int64                 `json:"_primary_term"`
+	PrimaryTerm_  *int64                `json:"_primary_term,omitempty"`
 	Result        result.Result         `json:"result"`
-	SeqNo_        int64                 `json:"_seq_no"`
+	SeqNo_        *int64                `json:"_seq_no,omitempty"`
 	Shards_       types.ShardStatistics `json:"_shards"`
 	Version_      int64                 `json:"_version"`
 }

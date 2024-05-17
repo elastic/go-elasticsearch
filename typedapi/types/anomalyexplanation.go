@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnomalyExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Anomaly.ts#L156-L197
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/Anomaly.ts#L156-L197
 type AnomalyExplanation struct {
 	// AnomalyCharacteristicsImpact Impact from the duration and magnitude of the detected anomaly relative to
 	// the historical average.
@@ -76,7 +76,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 
 		case "anomaly_characteristics_impact":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -92,7 +92,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 
 		case "anomaly_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -119,7 +119,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			s.AnomalyType = &o
 
 		case "high_variance_penalty":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -133,7 +133,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "incomplete_bucket_penalty":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -147,7 +147,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "lower_confidence_bound":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -164,7 +164,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 
 		case "multi_bucket_impact":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -180,7 +180,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 
 		case "single_bucket_impact":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -195,7 +195,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "typical_value":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -211,7 +211,7 @@ func (s *AnomalyExplanation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "upper_confidence_bound":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

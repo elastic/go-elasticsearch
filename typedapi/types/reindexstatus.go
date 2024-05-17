@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ReindexStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/reindex_rethrottle/types.ts#L37-L85
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/reindex_rethrottle/types.ts#L37-L85
 type ReindexStatus struct {
 	// Batches The number of scroll responses pulled back by the reindex.
 	Batches int64 `json:"batches"`
@@ -81,7 +81,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "batches":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -96,7 +96,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			}
 
 		case "created":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -111,7 +111,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			}
 
 		case "deleted":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -126,7 +126,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			}
 
 		case "noops":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -141,7 +141,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			}
 
 		case "requests_per_second":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -182,7 +182,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -197,7 +197,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			}
 
 		case "updated":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -212,7 +212,7 @@ func (s *ReindexStatus) UnmarshalJSON(data []byte) error {
 			}
 
 		case "version_conflicts":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

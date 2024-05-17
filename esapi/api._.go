@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0 (999dcb8): DO NOT EDIT
+// Code generated from specification version 8.14.0 (de31e4f): DO NOT EDIT
 
 package esapi
 
@@ -70,9 +70,11 @@ type API struct {
 	ConnectorSyncJobPost                          ConnectorSyncJobPost
 	ConnectorSyncJobUpdateStats                   ConnectorSyncJobUpdateStats
 	ConnectorUpdateAPIKeyDocumentID               ConnectorUpdateAPIKeyDocumentID
+	ConnectorUpdateActiveFiltering                ConnectorUpdateActiveFiltering
 	ConnectorUpdateConfiguration                  ConnectorUpdateConfiguration
 	ConnectorUpdateError                          ConnectorUpdateError
 	ConnectorUpdateFiltering                      ConnectorUpdateFiltering
+	ConnectorUpdateFilteringValidation            ConnectorUpdateFilteringValidation
 	ConnectorUpdateIndexName                      ConnectorUpdateIndexName
 	ConnectorUpdateName                           ConnectorUpdateName
 	ConnectorUpdateNative                         ConnectorUpdateNative
@@ -139,6 +141,7 @@ type API struct {
 	ProfilingFlamegraph                           ProfilingFlamegraph
 	ProfilingStacktraces                          ProfilingStacktraces
 	ProfilingStatus                               ProfilingStatus
+	ProfilingTopnFunctions                        ProfilingTopnFunctions
 	PutScript                                     PutScript
 	QueryRulesetDelete                            QueryRulesetDelete
 	QueryRulesetGet                               QueryRulesetGet
@@ -655,9 +658,11 @@ func New(t Transport) *API {
 		ConnectorSyncJobPost:               newConnectorSyncJobPostFunc(t),
 		ConnectorSyncJobUpdateStats:        newConnectorSyncJobUpdateStatsFunc(t),
 		ConnectorUpdateAPIKeyDocumentID:    newConnectorUpdateAPIKeyDocumentIDFunc(t),
+		ConnectorUpdateActiveFiltering:     newConnectorUpdateActiveFilteringFunc(t),
 		ConnectorUpdateConfiguration:       newConnectorUpdateConfigurationFunc(t),
 		ConnectorUpdateError:               newConnectorUpdateErrorFunc(t),
 		ConnectorUpdateFiltering:           newConnectorUpdateFilteringFunc(t),
+		ConnectorUpdateFilteringValidation: newConnectorUpdateFilteringValidationFunc(t),
 		ConnectorUpdateIndexName:           newConnectorUpdateIndexNameFunc(t),
 		ConnectorUpdateName:                newConnectorUpdateNameFunc(t),
 		ConnectorUpdateNative:              newConnectorUpdateNativeFunc(t),
@@ -724,6 +729,7 @@ func New(t Transport) *API {
 		ProfilingFlamegraph:                newProfilingFlamegraphFunc(t),
 		ProfilingStacktraces:               newProfilingStacktracesFunc(t),
 		ProfilingStatus:                    newProfilingStatusFunc(t),
+		ProfilingTopnFunctions:             newProfilingTopnFunctionsFunc(t),
 		PutScript:                          newPutScriptFunc(t),
 		QueryRulesetDelete:                 newQueryRulesetDeleteFunc(t),
 		QueryRulesetGet:                    newQueryRulesetGetFunc(t),

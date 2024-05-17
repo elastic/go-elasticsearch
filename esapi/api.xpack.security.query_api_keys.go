@@ -53,7 +53,9 @@ type SecurityQueryAPIKeys func(o ...func(*SecurityQueryAPIKeysRequest)) (*Respon
 type SecurityQueryAPIKeysRequest struct {
 	Body io.Reader
 
-	WithLimitedBy *bool
+	TypedKeys      *bool
+	WithLimitedBy  *bool
+	WithProfileUID *bool
 
 	Pretty     bool
 	Human      bool
@@ -92,8 +94,16 @@ func (r SecurityQueryAPIKeysRequest) Do(providedCtx context.Context, transport T
 
 	params = make(map[string]string)
 
+	if r.TypedKeys != nil {
+		params["typed_keys"] = strconv.FormatBool(*r.TypedKeys)
+	}
+
 	if r.WithLimitedBy != nil {
 		params["with_limited_by"] = strconv.FormatBool(*r.WithLimitedBy)
+	}
+
+	if r.WithProfileUID != nil {
+		params["with_profile_uid"] = strconv.FormatBool(*r.WithProfileUID)
 	}
 
 	if r.Pretty {
@@ -188,10 +198,24 @@ func (f SecurityQueryAPIKeys) WithBody(v io.Reader) func(*SecurityQueryAPIKeysRe
 	}
 }
 
+// WithTypedKeys - flag to prefix aggregation names by their respective types in the response.
+func (f SecurityQueryAPIKeys) WithTypedKeys(v bool) func(*SecurityQueryAPIKeysRequest) {
+	return func(r *SecurityQueryAPIKeysRequest) {
+		r.TypedKeys = &v
+	}
+}
+
 // WithWithLimitedBy - flag to show the limited-by role descriptors of api keys.
 func (f SecurityQueryAPIKeys) WithWithLimitedBy(v bool) func(*SecurityQueryAPIKeysRequest) {
 	return func(r *SecurityQueryAPIKeysRequest) {
 		r.WithLimitedBy = &v
+	}
+}
+
+// WithWithProfileUID - flag to also retrieve the api key's owner profile uid, if it exists.
+func (f SecurityQueryAPIKeys) WithWithProfileUID(v bool) func(*SecurityQueryAPIKeysRequest) {
+	return func(r *SecurityQueryAPIKeysRequest) {
+		r.WithProfileUID = &v
 	}
 }
 

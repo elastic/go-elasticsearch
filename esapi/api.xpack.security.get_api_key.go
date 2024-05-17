@@ -50,13 +50,14 @@ type SecurityGetAPIKey func(o ...func(*SecurityGetAPIKeyRequest)) (*Response, er
 
 // SecurityGetAPIKeyRequest configures the Security GetAPI Key API request.
 type SecurityGetAPIKeyRequest struct {
-	ActiveOnly    *bool
-	ID            string
-	Name          string
-	Owner         *bool
-	RealmName     string
-	Username      string
-	WithLimitedBy *bool
+	ActiveOnly     *bool
+	ID             string
+	Name           string
+	Owner          *bool
+	RealmName      string
+	Username       string
+	WithLimitedBy  *bool
+	WithProfileUID *bool
 
 	Pretty     bool
 	Human      bool
@@ -121,6 +122,10 @@ func (r SecurityGetAPIKeyRequest) Do(providedCtx context.Context, transport Tran
 
 	if r.WithLimitedBy != nil {
 		params["with_limited_by"] = strconv.FormatBool(*r.WithLimitedBy)
+	}
+
+	if r.WithProfileUID != nil {
+		params["with_profile_uid"] = strconv.FormatBool(*r.WithProfileUID)
 	}
 
 	if r.Pretty {
@@ -247,6 +252,13 @@ func (f SecurityGetAPIKey) WithUsername(v string) func(*SecurityGetAPIKeyRequest
 func (f SecurityGetAPIKey) WithWithLimitedBy(v bool) func(*SecurityGetAPIKeyRequest) {
 	return func(r *SecurityGetAPIKeyRequest) {
 		r.WithLimitedBy = &v
+	}
+}
+
+// WithWithProfileUID - flag to also retrieve the api key's owner profile uid, if it exists.
+func (f SecurityGetAPIKey) WithWithProfileUID(v bool) func(*SecurityGetAPIKeyRequest) {
+	return func(r *SecurityGetAPIKeyRequest) {
+		r.WithProfileUID = &v
 	}
 }
 

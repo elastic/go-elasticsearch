@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package query
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/sql/query/QuerySqlRequest.ts#L28-L122
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/sql/query/QuerySqlRequest.ts#L28-L122
 type Request struct {
 
 	// Catalog Default catalog (cluster) for queries. If unspecified, the queries execute on
@@ -87,6 +87,7 @@ func NewRequest() *Request {
 	r := &Request{
 		Params: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 
@@ -129,7 +130,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			s.Catalog = &o
 
 		case "columnar":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -156,7 +157,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "fetch_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -171,7 +172,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "field_multi_value_leniency":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -190,7 +191,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "index_using_frozen":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -209,7 +210,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "keep_on_completion":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

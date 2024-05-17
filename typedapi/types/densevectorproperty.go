@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -33,10 +33,11 @@ import (
 
 // DenseVectorProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/mapping/complex.ts#L52-L58
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/mapping/complex.ts#L52-L59
 type DenseVectorProperty struct {
 	Dims         *int                           `json:"dims,omitempty"`
 	Dynamic      *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
+	ElementType  *string                        `json:"element_type,omitempty"`
 	Fields       map[string]Property            `json:"fields,omitempty"`
 	IgnoreAbove  *int                           `json:"ignore_above,omitempty"`
 	Index        *bool                          `json:"index,omitempty"`
@@ -65,7 +66,7 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 
 		case "dims":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -84,6 +85,18 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Dynamic", err)
 			}
 
+		case "element_type":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ElementType", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ElementType = &o
+
 		case "fields":
 			if s.Fields == nil {
 				s.Fields = make(map[string]Property, 0)
@@ -91,7 +104,7 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
-				kind := make(map[string]interface{})
+				kind := make(map[string]any)
 				buf := bytes.NewReader(message)
 				localDec := json.NewDecoder(buf)
 				localDec.Decode(&kind)
@@ -112,7 +125,7 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Fields[key] = oo
-				case "{dynamic_property}":
+				case "{dynamic_type}":
 					oo := NewDynamicProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
@@ -393,7 +406,7 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 
 		case "ignore_above":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -408,7 +421,7 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 			}
 
 		case "index":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -441,7 +454,7 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
-				kind := make(map[string]interface{})
+				kind := make(map[string]any)
 				buf := bytes.NewReader(message)
 				localDec := json.NewDecoder(buf)
 				localDec.Decode(&kind)
@@ -462,7 +475,7 @@ func (s *DenseVectorProperty) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Properties[key] = oo
-				case "{dynamic_property}":
+				case "{dynamic_type}":
 					oo := NewDynamicProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
@@ -769,6 +782,7 @@ func (s DenseVectorProperty) MarshalJSON() ([]byte, error) {
 	tmp := innerDenseVectorProperty{
 		Dims:         s.Dims,
 		Dynamic:      s.Dynamic,
+		ElementType:  s.ElementType,
 		Fields:       s.Fields,
 		IgnoreAbove:  s.IgnoreAbove,
 		Index:        s.Index,

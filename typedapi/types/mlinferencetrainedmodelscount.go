@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MlInferenceTrainedModelsCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L244-L253
+// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/xpack/usage/types.ts#L244-L253
 type MlInferenceTrainedModelsCount struct {
 	Classification *int64 `json:"classification,omitempty"`
 	Ner            *int64 `json:"ner,omitempty"`
@@ -59,7 +59,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "classification":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -74,7 +74,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ner":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -89,7 +89,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "other":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -104,7 +104,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "pass_through":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -119,7 +119,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "prepackaged":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -134,7 +134,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "regression":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -149,7 +149,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "text_embedding":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -164,7 +164,7 @@ func (s *MlInferenceTrainedModelsCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
