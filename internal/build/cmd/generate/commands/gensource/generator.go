@@ -526,6 +526,15 @@ func (r ` + g.Endpoint.MethodWithNamespace() + `Request) Do(providedCtx context.
 		method = "POST"
 	}`)
 		g.w("\n\n")
+	case "security.create_service_token":
+		g.w("\t")
+		g.w(`if r.Name != "" {
+		method = "POST"
+	} else {
+		method = "PUT"
+	}`)
+		g.w("\n\n")
+
 	default:
 		var httpMethod string
 		// If endpoint has both GET and POST available
