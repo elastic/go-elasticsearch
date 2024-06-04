@@ -7,7 +7,6 @@ ARG  VERSION=1-alpine
 FROM golang:${VERSION}
 
 RUN apk add --no-cache --quiet make curl git jq unzip tree && \
-    go install golang.org/x/lint/golint@latest && \
     go install gotest.tools/gotestsum@latest
 
 VOLUME ["/tmp"]
