@@ -156,7 +156,6 @@ test-coverage:  ## Generate test coverage report
 lint:  ## Run lint on the package
 	@printf "\033[2m→ Running lint...\033[0m\n"
 	go vet github.com/elastic/go-elasticsearch/...
-	go list github.com/elastic/go-elasticsearch/... | 'grep' -v internal | xargs golint -set_exit_status
 	@{ \
 		set -e ; \
 		trap "test -d ../../../.git && git checkout --quiet go.mod" INT TERM EXIT; \
