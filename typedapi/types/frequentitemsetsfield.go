@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // FrequentItemSetsField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/bucket.ts#L1148-L1160
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/aggregations/bucket.ts#L1148-L1160
 type FrequentItemSetsField struct {
 	// Exclude Values to exclude.
 	// Can be regular expression strings or arrays of strings of exact terms.

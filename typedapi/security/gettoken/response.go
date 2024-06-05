@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package gettoken
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package gettoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/security/get_token/GetUserAccessTokenResponse.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/security/get_token/GetUserAccessTokenResponse.ts#L23-L33
 type Response struct {
 	AccessToken                         string                  `json:"access_token"`
 	Authentication                      types.AuthenticatedUser `json:"authentication"`

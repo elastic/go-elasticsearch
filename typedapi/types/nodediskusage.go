@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // NodeDiskUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/allocation_explain/types.ts#L56-L60
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/cluster/allocation_explain/types.ts#L56-L60
 type NodeDiskUsage struct {
 	LeastAvailable DiskUsage `json:"least_available"`
 	MostAvailable  DiskUsage `json:"most_available"`

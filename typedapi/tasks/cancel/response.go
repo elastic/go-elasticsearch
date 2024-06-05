@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package cancel
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package cancel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/tasks/cancel/CancelTasksResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/tasks/cancel/CancelTasksResponse.ts#L22-L24
 type Response struct {
 	NodeFailures []types.ErrorCause `json:"node_failures,omitempty"`
 	// Nodes Task information grouped by node, if `group_by` was set to `node` (the

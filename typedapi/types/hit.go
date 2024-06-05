@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // Hit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/search/_types/hits.ts#L40-L64
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_global/search/_types/hits.ts#L40-L64
 type Hit struct {
 	Explanation_       *Explanation               `json:"_explanation,omitempty"`
 	Fields             map[string]json.RawMessage `json:"fields,omitempty"`
 	Highlight          map[string][]string        `json:"highlight,omitempty"`
-	Id_                string                     `json:"_id"`
+	Id_                *string                    `json:"_id,omitempty"`
 	IgnoredFieldValues map[string][]string        `json:"ignored_field_values,omitempty"`
 	Ignored_           []string                   `json:"_ignored,omitempty"`
 	Index_             string                     `json:"_index"`

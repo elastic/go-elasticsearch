@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package follow
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package follow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L51
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/ccr/follow/CreateFollowIndexRequest.ts#L25-L51
 type Request struct {
 	LeaderIndex                   *string        `json:"leader_index,omitempty"`
 	MaxOutstandingReadRequests    *int64         `json:"max_outstanding_read_requests,omitempty"`

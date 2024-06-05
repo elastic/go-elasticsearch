@@ -16,17 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
 // NodeInfoSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/nodes/info/types.ts#L69-L85
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/nodes/info/types.ts#L69-L85
 type NodeInfoSettings struct {
 	Action       *NodeInfoAction           `json:"action,omitempty"`
 	Bootstrap    *NodeInfoBootstrap        `json:"bootstrap,omitempty"`
-	Client       NodeInfoClient            `json:"client"`
+	Client       *NodeInfoClient           `json:"client,omitempty"`
 	Cluster      NodeInfoSettingsCluster   `json:"cluster"`
 	Discovery    *NodeInfoDiscover         `json:"discovery,omitempty"`
 	Http         NodeInfoSettingsHttp      `json:"http"`

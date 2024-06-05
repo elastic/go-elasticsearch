@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -26,22 +26,23 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/matchtype"
 )
 
 // DynamicTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/mapping/dynamic-template.ts#L22-L30
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/mapping/dynamic-template.ts#L22-L42
 type DynamicTemplate struct {
-	Mapping          Property             `json:"mapping,omitempty"`
-	Match            *string              `json:"match,omitempty"`
-	MatchMappingType *string              `json:"match_mapping_type,omitempty"`
-	MatchPattern     *matchtype.MatchType `json:"match_pattern,omitempty"`
-	PathMatch        *string              `json:"path_match,omitempty"`
-	PathUnmatch      *string              `json:"path_unmatch,omitempty"`
-	Unmatch          *string              `json:"unmatch,omitempty"`
+	Mapping            Property             `json:"mapping,omitempty"`
+	Match              []string             `json:"match,omitempty"`
+	MatchMappingType   []string             `json:"match_mapping_type,omitempty"`
+	MatchPattern       *matchtype.MatchType `json:"match_pattern,omitempty"`
+	PathMatch          []string             `json:"path_match,omitempty"`
+	PathUnmatch        []string             `json:"path_unmatch,omitempty"`
+	Runtime            Property             `json:"runtime,omitempty"`
+	Unmatch            []string             `json:"unmatch,omitempty"`
+	UnmatchMappingType []string             `json:"unmatch_mapping_type,omitempty"`
 }
 
 func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
@@ -355,6 +356,12 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Mapping = *o
+			case "icu_collation_keyword":
+				o := NewIcuCollationProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Mapping = *o
 			default:
 				if err := localDec.Decode(&s.Mapping); err != nil {
 					return err
@@ -362,28 +369,36 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 			}
 
 		case "match":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Match", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Match", err)
+				}
+
+				s.Match = append(s.Match, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Match); err != nil {
+					return fmt.Errorf("%s | %w", "Match", err)
+				}
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Match = &o
 
 		case "match_mapping_type":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "MatchMappingType", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "MatchMappingType", err)
+				}
+
+				s.MatchMappingType = append(s.MatchMappingType, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.MatchMappingType); err != nil {
+					return fmt.Errorf("%s | %w", "MatchMappingType", err)
+				}
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.MatchMappingType = &o
 
 		case "match_pattern":
 			if err := dec.Decode(&s.MatchPattern); err != nil {
@@ -391,40 +406,376 @@ func (s *DynamicTemplate) UnmarshalJSON(data []byte) error {
 			}
 
 		case "path_match":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "PathMatch", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "PathMatch", err)
+				}
+
+				s.PathMatch = append(s.PathMatch, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.PathMatch); err != nil {
+					return fmt.Errorf("%s | %w", "PathMatch", err)
+				}
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.PathMatch = &o
 
 		case "path_unmatch":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "PathUnmatch", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "PathUnmatch", err)
+				}
+
+				s.PathUnmatch = append(s.PathUnmatch, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.PathUnmatch); err != nil {
+					return fmt.Errorf("%s | %w", "PathUnmatch", err)
+				}
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+
+		case "runtime":
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			kind := make(map[string]string, 0)
+			localDec := json.NewDecoder(source)
+			localDec.Decode(&kind)
+			source.Seek(0, io.SeekStart)
+			if _, ok := kind["type"]; !ok {
+				kind["type"] = "object"
 			}
-			s.PathUnmatch = &o
+			switch kind["type"] {
+
+			case "binary":
+				o := NewBinaryProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "boolean":
+				o := NewBooleanProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "{dynamic_type}":
+				o := NewDynamicProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "join":
+				o := NewJoinProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "keyword":
+				o := NewKeywordProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "match_only_text":
+				o := NewMatchOnlyTextProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "percolator":
+				o := NewPercolatorProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "rank_feature":
+				o := NewRankFeatureProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "rank_features":
+				o := NewRankFeaturesProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "search_as_you_type":
+				o := NewSearchAsYouTypeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "text":
+				o := NewTextProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "version":
+				o := NewVersionProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "wildcard":
+				o := NewWildcardProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "date_nanos":
+				o := NewDateNanosProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "date":
+				o := NewDateProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "aggregate_metric_double":
+				o := NewAggregateMetricDoubleProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "dense_vector":
+				o := NewDenseVectorProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "sparse_vector":
+				o := NewSparseVectorProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "flattened":
+				o := NewFlattenedProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "nested":
+				o := NewNestedProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "object":
+				o := NewObjectProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "completion":
+				o := NewCompletionProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "constant_keyword":
+				o := NewConstantKeywordProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "alias":
+				o := NewFieldAliasProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "histogram":
+				o := NewHistogramProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "ip":
+				o := NewIpProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "murmur3":
+				o := NewMurmur3HashProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "token_count":
+				o := NewTokenCountProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "geo_point":
+				o := NewGeoPointProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "geo_shape":
+				o := NewGeoShapeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "point":
+				o := NewPointProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "shape":
+				o := NewShapeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "byte":
+				o := NewByteNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "double":
+				o := NewDoubleNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "float":
+				o := NewFloatNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "half_float":
+				o := NewHalfFloatNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "integer":
+				o := NewIntegerNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "long":
+				o := NewLongNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "scaled_float":
+				o := NewScaledFloatNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "short":
+				o := NewShortNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "unsigned_long":
+				o := NewUnsignedLongNumberProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "date_range":
+				o := NewDateRangeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "double_range":
+				o := NewDoubleRangeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "float_range":
+				o := NewFloatRangeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "integer_range":
+				o := NewIntegerRangeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "ip_range":
+				o := NewIpRangeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "long_range":
+				o := NewLongRangeProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			case "icu_collation_keyword":
+				o := NewIcuCollationProperty()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Runtime = *o
+			default:
+				if err := localDec.Decode(&s.Runtime); err != nil {
+					return err
+				}
+			}
 
 		case "unmatch":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Unmatch", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Unmatch", err)
+				}
+
+				s.Unmatch = append(s.Unmatch, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Unmatch); err != nil {
+					return fmt.Errorf("%s | %w", "Unmatch", err)
+				}
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+
+		case "unmatch_mapping_type":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "UnmatchMappingType", err)
+				}
+
+				s.UnmatchMappingType = append(s.UnmatchMappingType, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.UnmatchMappingType); err != nil {
+					return fmt.Errorf("%s | %w", "UnmatchMappingType", err)
+				}
 			}
-			s.Unmatch = &o
 
 		}
 	}

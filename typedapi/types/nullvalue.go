@@ -17,8 +17,13 @@
 
 package types
 
+// NullValue is a custom type used to represent the concept of a null or missing value.
+// It can be used as a placeholder for variables or fields that are not initialized,
+// or to indicate that a specific piece of data is intentionally absent.
 type NullValue struct{}
 
+// MarshalJSON converts the NullValue to JSON format.
+// It always returns a "null" value as per JSON standard for null values.
 func (n NullValue) MarshalJSON() ([]byte, error) {
 	return []byte("null"), nil
 }

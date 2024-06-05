@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // JobTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/_types/Job.ts#L332-L341
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/ml/_types/Job.ts#L332-L341
 type JobTimingStats struct {
 	AverageBucketProcessingTimeMs                   Float64 `json:"average_bucket_processing_time_ms,omitempty"`
 	BucketCount                                     int64   `json:"bucket_count"`

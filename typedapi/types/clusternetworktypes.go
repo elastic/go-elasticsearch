@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
 // ClusterNetworkTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/cluster/stats/types.ts#L337-L346
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/cluster/stats/types.ts#L337-L346
 type ClusterNetworkTypes struct {
 	// HttpTypes Contains statistics about the HTTP network types used by selected nodes.
 	HttpTypes map[string]int `json:"http_types"`

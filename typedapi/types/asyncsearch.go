@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/async_search/_types/AsyncSearch.ts#L30-L56
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/async_search/_types/AsyncSearch.ts#L30-L56
 type AsyncSearch struct {
 	// Aggregations Partial aggregations results, coming from the shards that have already
 	// completed the execution of the query.
@@ -530,7 +530,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 								}
 								s.Aggregations[elems[1]] = o
 
-							case "box_plot":
+							case "boxplot":
 								o := NewBoxPlotAggregate()
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)

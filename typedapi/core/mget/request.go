@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package mget
 
@@ -32,7 +32,7 @@ import (
 
 // Request holds the request body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/mget/MultiGetRequest.ts#L25-L98
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_global/mget/MultiGetRequest.ts#L25-L98
 type Request struct {
 
 	// Docs The documents you want to retrieve. Required if no index is specified in the

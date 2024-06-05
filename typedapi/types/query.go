@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/query_dsl/abstractions.ts#L100-L407
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/query_dsl/abstractions.ts#L100-L407
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -57,9 +57,6 @@ type Query struct {
 	DistanceFeature DistanceFeatureQuery `json:"distance_feature,omitempty"`
 	// Exists Returns documents that contain an indexed value for a field.
 	Exists *ExistsQuery `json:"exists,omitempty"`
-	// FieldMaskingSpan Wrapper to allow span queries to participate in composite single-field span
-	// queries by _lying_ about their search field.
-	FieldMaskingSpan *SpanFieldMaskingQuery `json:"field_masking_span,omitempty"`
 	// FunctionScore The `function_score` enables you to modify the score of documents that are
 	// retrieved by a query.
 	FunctionScore *FunctionScoreQuery `json:"function_score,omitempty"`
@@ -148,6 +145,9 @@ type Query struct {
 	SimpleQueryString *SimpleQueryStringQuery `json:"simple_query_string,omitempty"`
 	// SpanContaining Returns matches which enclose another span query.
 	SpanContaining *SpanContainingQuery `json:"span_containing,omitempty"`
+	// SpanFieldMasking Wrapper to allow span queries to participate in composite single-field span
+	// queries by _lying_ about their search field.
+	SpanFieldMasking *SpanFieldMaskingQuery `json:"span_field_masking,omitempty"`
 	// SpanFirst Matches spans near the beginning of a field.
 	SpanFirst *SpanFirstQuery `json:"span_first,omitempty"`
 	// SpanMulti Allows you to wrap a multi term query (one of `wildcard`, `fuzzy`, `prefix`,
@@ -260,11 +260,6 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "exists":
 			if err := dec.Decode(&s.Exists); err != nil {
 				return fmt.Errorf("%s | %w", "Exists", err)
-			}
-
-		case "field_masking_span":
-			if err := dec.Decode(&s.FieldMaskingSpan); err != nil {
-				return fmt.Errorf("%s | %w", "FieldMaskingSpan", err)
 			}
 
 		case "function_score":
@@ -462,6 +457,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "span_containing":
 			if err := dec.Decode(&s.SpanContaining); err != nil {
 				return fmt.Errorf("%s | %w", "SpanContaining", err)
+			}
+
+		case "span_field_masking":
+			if err := dec.Decode(&s.SpanFieldMasking); err != nil {
+				return fmt.Errorf("%s | %w", "SpanFieldMasking", err)
 			}
 
 		case "span_first":

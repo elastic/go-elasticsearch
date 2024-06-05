@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package post
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package post
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/license/post/PostLicenseRequest.ts#L23-L43
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/license/post/PostLicenseRequest.ts#L23-L43
 type Request struct {
 	License *types.License `json:"license,omitempty"`
 	// Licenses A sequence of one or more JSON documents containing the license information.

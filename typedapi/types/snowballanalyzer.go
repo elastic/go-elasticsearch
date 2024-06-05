@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SnowballAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/analysis/analyzers.ts#L88-L93
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/analysis/analyzers.ts#L88-L93
 type SnowballAnalyzer struct {
 	Language  snowballlanguage.SnowballLanguage `json:"language"`
 	Stopwords []string                          `json:"stopwords,omitempty"`

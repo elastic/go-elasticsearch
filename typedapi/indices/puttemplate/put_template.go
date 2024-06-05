@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 // Creates or updates an index template.
 package puttemplate
@@ -422,7 +422,7 @@ func (r *PutTemplate) Order(order int) *PutTemplate {
 
 // Settings Configuration options for the index.
 // API name: settings
-func (r *PutTemplate) Settings(settings map[string]json.RawMessage) *PutTemplate {
+func (r *PutTemplate) Settings(settings *types.IndexSettings) *PutTemplate {
 
 	r.req.Settings = settings
 

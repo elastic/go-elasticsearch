@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
-// Perform inference
+// Perform inference on a model
 package inference
 
 import (
@@ -84,7 +84,7 @@ func NewInferenceFunc(tp elastictransport.Interface) NewInference {
 	}
 }
 
-// Perform inference
+// Perform inference on a model
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/post-inference-api.html
 func New(tp elastictransport.Interface) *Inference {
@@ -394,7 +394,7 @@ func (r *Inference) Pretty(pretty bool) *Inference {
 	return r
 }
 
-// Input Inference input.
+// Input Text input to the model.
 // Either a string or an array of strings.
 // API name: input
 func (r *Inference) Input(inputs ...string) *Inference {

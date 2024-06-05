@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package explaindataframeanalytics
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package explaindataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/explain_data_frame_analytics/MlExplainDataFrameAnalyticsResponse.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/ml/explain_data_frame_analytics/MlExplainDataFrameAnalyticsResponse.ts#L25-L32
 type Response struct {
 
 	// FieldSelection An array of objects that explain selection for each field, sorted by the

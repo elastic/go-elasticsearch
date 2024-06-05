@@ -16,38 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
-// Package esqlversion
-package esqlversion
+package putmodel
 
-import "strings"
-
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/esql/_types/EsqlVersion.ts#L20-L29
-type EsqlVersion struct {
-	Name string
-}
-
-var (
-	V20240401 = EsqlVersion{"2024.04.01"}
+import (
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
-func (e EsqlVersion) MarshalText() (text []byte, err error) {
-	return []byte(e.String()), nil
-}
+// Request holds the request body struct for the package putmodel
+//
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/inference/put_model/PutModelRequest.ts#L25-L44
+type Request = types.ModelConfig
 
-func (e *EsqlVersion) UnmarshalText(text []byte) error {
-	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
+// NewRequest returns a Request
+func NewRequest() *Request {
+	r := types.NewModelConfig()
 
-	case "2024.04.01":
-		*e = V20240401
-	default:
-		*e = EsqlVersion{string(text)}
-	}
-
-	return nil
-}
-
-func (e EsqlVersion) String() string {
-	return e.Name
+	return r
 }

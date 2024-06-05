@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
 // MasterIsStableIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/health_report/types.ts#L84-L89
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_global/health_report/types.ts#L84-L89
 type MasterIsStableIndicatorDetails struct {
 	ClusterFormation         []MasterIsStableIndicatorClusterFormationNode    `json:"cluster_formation,omitempty"`
 	CurrentMaster            IndicatorNode                                    `json:"current_master"`

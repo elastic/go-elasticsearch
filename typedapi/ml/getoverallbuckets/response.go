@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package getoverallbuckets
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/ml/get_overall_buckets/MlGetOverallBucketsResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/ml/get_overall_buckets/MlGetOverallBucketsResponse.ts#L23-L29
 type Response struct {
 	Count int64 `json:"count"`
 	// OverallBuckets Array of overall bucket objects

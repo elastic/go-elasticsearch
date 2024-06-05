@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package putmapping
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putmapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L42-L149
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/indices/put_mapping/IndicesPutMappingRequest.ts#L42-L149
 type Request struct {
 
 	// DateDetection Controls whether dynamic date detection is enabled.
@@ -467,6 +467,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "long_range":
 					oo := types.NewLongRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Properties[key] = oo
+				case "icu_collation_keyword":
+					oo := types.NewIcuCollationProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}

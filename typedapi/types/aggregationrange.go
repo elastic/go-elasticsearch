@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,14 +31,14 @@ import (
 
 // AggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/bucket.ts#L674-L687
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/aggregations/bucket.ts#L674-L687
 type AggregationRange struct {
 	// From Start of the range (inclusive).
-	From string `json:"from,omitempty"`
+	From *Float64 `json:"from,omitempty"`
 	// Key Custom key to return the range with.
 	Key *string `json:"key,omitempty"`
 	// To End of the range (exclusive).
-	To string `json:"to,omitempty"`
+	To *Float64 `json:"to,omitempty"`
 }
 
 func (s *AggregationRange) UnmarshalJSON(data []byte) error {
@@ -57,16 +57,20 @@ func (s *AggregationRange) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "from":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "From", err)
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "From", err)
+				}
+				f := Float64(value)
+				s.From = &f
+			case float64:
+				f := Float64(v)
+				s.From = &f
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.From = o
 
 		case "key":
 			var tmp json.RawMessage
@@ -81,16 +85,20 @@ func (s *AggregationRange) UnmarshalJSON(data []byte) error {
 			s.Key = &o
 
 		case "to":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "To", err)
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "To", err)
+				}
+				f := Float64(value)
+				s.To = &f
+			case float64:
+				f := Float64(v)
+				s.To = &f
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.To = o
 
 		}
 	}

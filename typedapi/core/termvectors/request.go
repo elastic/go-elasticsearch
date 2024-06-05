@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package termvectors
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package termvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_global/termvectors/TermVectorsRequest.ts#L33-L118
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_global/termvectors/TermVectorsRequest.ts#L33-L118
 type Request struct {
 
 	// Doc An artificial document (a document not present in the index) for which you

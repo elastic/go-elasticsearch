@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package query
 
@@ -25,12 +25,11 @@ import (
 	"fmt"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/esqlversion"
 )
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/esql/query/QueryRequest.ts#L25-L70
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/esql/query/QueryRequest.ts#L24-L64
 type Request struct {
 
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
@@ -49,15 +48,11 @@ type Request struct {
 	// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
 	// runs it, and returns the results.
 	Query string `json:"query"`
-	// Version The version of the ES|QL language in which the "query" field was written.
-	Version esqlversion.EsqlVersion `json:"version"`
 }
 
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{}
-
-	r.Version = esqlversion.EsqlVersion{"2024.04.01"}
 
 	return r
 }

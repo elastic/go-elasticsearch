@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package split
 
 // Response holds the response body struct for the package split
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/split/IndicesSplitResponse.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/indices/split/IndicesSplitResponse.ts#L22-L28
 type Response struct {
 	Acknowledged       bool   `json:"acknowledged"`
 	Index              string `json:"index"`

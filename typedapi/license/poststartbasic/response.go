@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package poststartbasic
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package poststartbasic
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/license/post_start_basic/StartBasicLicenseResponse.ts#L23-L31
 type Response struct {
 	Acknowledge     map[string][]string      `json:"acknowledge,omitempty"`
 	Acknowledged    bool                     `json:"acknowledged"`

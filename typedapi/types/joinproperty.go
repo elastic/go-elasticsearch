@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // JoinProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/mapping/core.ts#L83-L87
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/mapping/core.ts#L83-L87
 type JoinProperty struct {
 	Dynamic             *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
 	EagerGlobalOrdinals *bool                          `json:"eager_global_ordinals,omitempty"`
@@ -378,6 +378,12 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Fields[key] = oo
+				case "icu_collation_keyword":
+					oo := NewIcuCollationProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Fields[key] = oo
 				default:
 					oo := new(Property)
 					if err := localDec.Decode(&oo); err != nil {
@@ -705,6 +711,12 @@ func (s *JoinProperty) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "long_range":
 					oo := NewLongRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Properties[key] = oo
+				case "icu_collation_keyword":
+					oo := NewIcuCollationProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}

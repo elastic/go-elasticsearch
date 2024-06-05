@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -27,27 +27,21 @@ import (
 	"fmt"
 	"io"
 	"strconv"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tasktype"
 )
 
-// InferenceEndpointInfo type.
+// ModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/inference/_types/Services.ts#L41-L53
-type InferenceEndpointInfo struct {
-	// InferenceId The inference Id
-	InferenceId string `json:"inference_id"`
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/inference/_types/Services.ts#L23-L39
+type ModelConfig struct {
 	// Service The service type
 	Service string `json:"service"`
 	// ServiceSettings Settings specific to the service
 	ServiceSettings json.RawMessage `json:"service_settings"`
-	// TaskSettings Task settings specific to the service and task type
+	// TaskSettings Task settings specific to the service and model
 	TaskSettings json.RawMessage `json:"task_settings"`
-	// TaskType The task type
-	TaskType tasktype.TaskType `json:"task_type"`
 }
 
-func (s *InferenceEndpointInfo) UnmarshalJSON(data []byte) error {
+func (s *ModelConfig) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -61,18 +55,6 @@ func (s *InferenceEndpointInfo) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
-
-		case "inference_id":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "InferenceId", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.InferenceId = o
 
 		case "service":
 			var tmp json.RawMessage
@@ -96,19 +78,14 @@ func (s *InferenceEndpointInfo) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "TaskSettings", err)
 			}
 
-		case "task_type":
-			if err := dec.Decode(&s.TaskType); err != nil {
-				return fmt.Errorf("%s | %w", "TaskType", err)
-			}
-
 		}
 	}
 	return nil
 }
 
-// NewInferenceEndpointInfo returns a InferenceEndpointInfo.
-func NewInferenceEndpointInfo() *InferenceEndpointInfo {
-	r := &InferenceEndpointInfo{}
+// NewModelConfig returns a ModelConfig.
+func NewModelConfig() *ModelConfig {
+	r := &ModelConfig{}
 
 	return r
 }

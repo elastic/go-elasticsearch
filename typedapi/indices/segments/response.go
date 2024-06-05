@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package segments
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package segments
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/segments/IndicesSegmentsResponse.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/indices/segments/IndicesSegmentsResponse.ts#L24-L29
 type Response struct {
 	Indices map[string]types.IndexSegment `json:"indices"`
 	Shards_ types.ShardStatistics         `json:"_shards"`

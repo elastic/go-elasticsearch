@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexTemplateDataStreamConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/_types/IndexTemplate.ts#L72-L83
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/indices/_types/IndexTemplate.ts#L72-L83
 type IndexTemplateDataStreamConfiguration struct {
 	// AllowCustomRouting If true, the data stream supports custom routing.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package samlprepareauthentication
 
 // Response holds the response body struct for the package samlprepareauthentication
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/security/saml_prepare_authentication/Response.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/security/saml_prepare_authentication/Response.ts#L22-L28
 type Response struct {
 	Id       string `json:"id"`
 	Realm    string `json:"realm"`

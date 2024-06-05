@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package post
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package post
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/license/post/PostLicenseResponse.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/license/post/PostLicenseResponse.ts#L23-L29
 type Response struct {
 	Acknowledge   *types.Acknowledgement      `json:"acknowledge,omitempty"`
 	Acknowledged  bool                        `json:"acknowledged"`

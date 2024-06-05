@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RollupJobStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/rollup/get_jobs/types.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/rollup/get_jobs/types.ts#L60-L64
 type RollupJobStatus struct {
 	CurrentPosition map[string]json.RawMessage        `json:"current_position,omitempty"`
 	JobState        indexingjobstate.IndexingJobState `json:"job_state"`

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package deletepolicy
 
 // Response holds the response body struct for the package deletepolicy
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/enrich/delete_policy/DeleteEnrichPolicyResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/enrich/delete_policy/DeleteEnrichPolicyResponse.ts#L22-L24
 type Response struct {
 
 	// Acknowledged For a successful response, this value is always true. On failure, an

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package cachestats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package cachestats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/searchable_snapshots/cache_stats/Response.ts#L24-L28
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/searchable_snapshots/cache_stats/Response.ts#L24-L28
 type Response struct {
 	Nodes map[string]types.Node `json:"nodes"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CleanupRepositoryResults type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/snapshot/cleanup_repository/SnapshotCleanupRepositoryResponse.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/snapshot/cleanup_repository/SnapshotCleanupRepositoryResponse.ts#L29-L34
 type CleanupRepositoryResults struct {
 	// DeletedBlobs Number of binary large objects (blobs) removed during cleanup.
 	DeletedBlobs int64 `json:"deleted_blobs"`
