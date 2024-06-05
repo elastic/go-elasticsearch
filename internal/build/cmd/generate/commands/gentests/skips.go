@@ -444,6 +444,10 @@ unsigned_long/60_collapse.yml:
 search/330_fetch_fields.yml:
   - Test nested field inside object structure
 
+search/520_fetch_fields.yml:
+  - fetch _ignored via stored_fields
+  - fetch _ignored via fields
+
 search/350_point_in_time.yml:
   - msearch
 
