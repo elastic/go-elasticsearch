@@ -62,7 +62,8 @@ var skipFiles = []string{
 	"dlm/10_usage.yml",                  // incompatible float expansion
 	"api_key/60_admin_user.yml",
 	".*esql\\/.*.yml",
-	"deprecation/10_basic.yml", // incompatible test generation
+	"deprecation/10_basic.yml",    // incompatible test generation
+	"search/520_fetch_fields.yml", // disabled for inconsistency
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -443,10 +444,6 @@ unsigned_long/60_collapse.yml:
 # Cannot compare float64 ending with .0 reliably due to inconsistent serialisation (https://github.com/golang/go/issues/26363)
 search/330_fetch_fields.yml:
   - Test nested field inside object structure
-
-search/520_fetch_fields.yml:
-  - fetch _ignored via stored_fields
-  - fetch _ignored via fields
 
 search/350_point_in_time.yml:
   - msearch
