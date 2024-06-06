@@ -1,3 +1,23 @@
+# 8.14.0
+
+# API
+
+New APIs:
+
+ * ConnectorUpdateActiveFiltering [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html)
+ * ConnectorUpdateFilteringValidation [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html)
+ * TextStructureFindFieldStructure [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/find-field-structure.html)
+ * TextStructureFindMessageStructure [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/find-message-structure.html)
+
+# Typed API
+
+New APIs:
+
+ * UpdateTrainedModelDeployment [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html)
+
+# Transport
+ * Fixed a deadlock in the connection pool https://github.com/elastic/elastic-transport-go/issues/20
+
 # 8.13.1
 
 # Typed API
