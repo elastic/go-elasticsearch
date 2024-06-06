@@ -45,7 +45,7 @@ at https://github.com/elastic/go-elasticsearch/tree/master/_examples.
 === Resources
 
 * https://github.com/elastic/go-elasticsearch[Source Code]
-* https://godoc.org/github.com/elastic/go-elasticsearch[API Documentation]
+* https://pkg.go.dev/github.com/elastic/go-elasticsearch[API Documentation]
 * https://github.com/elastic/go-elasticsearch/tree/master/_examples[Examples and Recipes]
 
 

@@ -19,7 +19,7 @@ and client helper methods for a more efficient encoding and decoding of the requ
 
 ## Fast HTTP
 
-The [**`fasthttp`**](./fasthttp) directory contains a demonstration of replacing the default client transport with an HTTP client from the [`github.com/valyala/fasthttp`](https://godoc.org/github.com/valyala/fasthttp) package.
+The [**`fasthttp`**](./fasthttp) directory contains a demonstration of replacing the default client transport with an HTTP client from the [`github.com/valyala/fasthttp`](https://pkg.go.dev/github.com/valyala/fasthttp) package.
 
 ## Instrumentation
 
