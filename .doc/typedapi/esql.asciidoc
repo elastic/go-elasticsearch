@@ -15,9 +15,7 @@ results in their raw form. You can choose the precise format of results,
 such as JSON, CSV, or text.
 * Use ES|QL mapping helpers: These mappers take care of parsing the raw
 response into something readily usable by the application. Several mappers are
-available for different use cases, such as object mapping, cursor
-traversal of results, and dataframes. You can also define your own mapper for specific
-use cases.
+available for different use cases, such as object mapping and iterative.
 
 
 
@@ -31,11 +29,29 @@ results should be returned. You can choose a
 JSON, then fine-tune it with parameters like column separators
 and locale.
 
-// Add any Go-specific usage notes
-
 The following example gets ES|QL results as CSV and parses them:
 
-// Code example to be written
+[source,go]
+------------------------------------
+queryAuthor := `from library
+    | where author == "Isaac Asimov"
+    | sort release_date desc
+    | limit 10`
+
+response, err := client.Esql.Query().
+    Query(queryAuthor).
+    Format("csv").
+    Do(context.Background())
+if err != nil {
+    log.Fatal(err)
+}
+
+reader := csv.NewReader(bytes.NewReader(response))
+rows, err := reader.ReadAll()
+for _, row := range rows {
+    fmt.Println(row)
+}
+------------------------------------
 
 
 [discrete]
@@ -46,34 +62,78 @@ The previous example showed that although the raw ES|QL API offers maximum
 flexibility, additional work is required in order to make use of the
 result data.
 
-To simplify things, try working with these three main representations of ES|QL
+To simplify things, try working with these two main representations of ES|QL
 results (each with its own mapping helper):
 
 * **Objects**, where each row in the results is mapped to an object from your
 application domain. This is similar to what ORMs (object relational mappers)
 commonly do.
-* **Cursors**, where you scan the results row by row and access the data using
-column names. This is similar to database access libraries.
-* **Dataframes**, where results are organized in a column-oriented structure that
-allows efficient processing of column data.
 
-// Code examples to be written for each of them, depending on availability in the language
+[source,go]
+------------------------------------
+package main
 
+import (
+	"context"
+	"fmt"
+	"log"
 
-[discrete]
-[[esql-custom-mapping]]
-==== Define your own mapping
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/esql/query"
+)
 
-Although the mappers provided by the Go client cover many use cases, your
-application might require a custom mapping.
-You can write your own mapper and use it in a similar way as the
-built-in ones.
+type Book struct {
+	Name        string `json:"name"`
+	Author      string `json:"author"`
+	ReleaseDate string `json:"release_date"`
+	PageCount   int    `json:"page_count"`
+}
 
-Note that mappers are meant to provide a more usable representation of ES|QL
-results—not to process the result data. Data processing should be based on
-the output of a result mapper.
+func main() {
+	client, err := elasticsearch.NewTypedClient(elasticsearch.Config{Addresses: []string{"ELASTICSEARCH_URL"}})
+	if err != nil {
+		log.Fatal(err)
+	}
 
-Here's an example mapper that returns a simple column-oriented
-representation of the data:
+	queryAuthor := `from library
+        | where author == "Isaac Asimov"
+        | sort release_date desc
+        | limit 10`
 
-// Code example to be written
+	qry := client.Esql.Query().Query(queryAuthor)
+	books, err := query.Helper[Book](context.Background(), qry)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, book := range books {
+		fmt.Println(book)
+	}
+}
+
+------------------------------------
+
+* **Iterative Objects**, where each row in the results is mapped to an object from your
+application domain, one at a time.
+
+[source,go]
+------------------------------------
+queryAuthor := `from library
+    | where author == "Isaac Asimov"
+    | sort release_date desc
+    | limit 10`
+
+qry := client.Esql.Query().Query(queryAuthor)
+books, err := query.NewIteratorHelper[Book](context.Background(), qry)
+if err != nil {
+    log.Fatal(err)
+}
+
+for books.More() {
+    book, err := books.Next()
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(book)
+}
+------------------------------------
