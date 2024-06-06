@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -32,13 +32,13 @@ import (
 
 // LongTermsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/aggregations/Aggregate.ts#L406-L409
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/aggregations/Aggregate.ts#L406-L409
 type LongTermsBucket struct {
-	Aggregations  map[string]Aggregate `json:"-"`
-	DocCount      int64                `json:"doc_count"`
-	DocCountError *int64               `json:"doc_count_error,omitempty"`
-	Key           int64                `json:"key"`
-	KeyAsString   *string              `json:"key_as_string,omitempty"`
+	Aggregations            map[string]Aggregate `json:"-"`
+	DocCount                int64                `json:"doc_count"`
+	DocCountErrorUpperBound *int64               `json:"doc_count_error_upper_bound,omitempty"`
+	Key                     int64                `json:"key"`
+	KeyAsString             *string              `json:"key_as_string,omitempty"`
 }
 
 func (s *LongTermsBucket) UnmarshalJSON(data []byte) error {
@@ -71,19 +71,19 @@ func (s *LongTermsBucket) UnmarshalJSON(data []byte) error {
 				s.DocCount = f
 			}
 
-		case "doc_count_error":
+		case "doc_count_error_upper_bound":
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
 				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
-					return fmt.Errorf("%s | %w", "DocCountError", err)
+					return fmt.Errorf("%s | %w", "DocCountErrorUpperBound", err)
 				}
-				s.DocCountError = &value
+				s.DocCountErrorUpperBound = &value
 			case float64:
 				f := int64(v)
-				s.DocCountError = &f
+				s.DocCountErrorUpperBound = &f
 			}
 
 		case "key":
@@ -558,7 +558,7 @@ func (s *LongTermsBucket) UnmarshalJSON(data []byte) error {
 							}
 							s.Aggregations[elems[1]] = o
 
-						case "box_plot":
+						case "boxplot":
 							o := NewBoxPlotAggregate()
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)

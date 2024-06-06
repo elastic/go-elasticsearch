@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 // Executes an ESQL request
 package query
@@ -35,7 +35,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/esqlversion"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -397,14 +396,6 @@ func (r *Query) Params(params ...types.ScalarValue) *Query {
 func (r *Query) Query(query string) *Query {
 
 	r.req.Query = query
-
-	return r
-}
-
-// Version The version of the ES|QL language in which the "query" field was written.
-// API name: version
-func (r *Query) Version(version esqlversion.EsqlVersion) *Query {
-	r.req.Version = version
 
 	return r
 }

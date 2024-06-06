@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // MinimalLicenseInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/xpack/info/types.ts#L34-L40
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/xpack/info/types.ts#L34-L40
 type MinimalLicenseInformation struct {
 	ExpiryDateInMillis int64                       `json:"expiry_date_in_millis"`
 	Mode               licensetype.LicenseType     `json:"mode"`

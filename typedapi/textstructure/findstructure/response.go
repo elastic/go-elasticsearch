@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package findstructure
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package findstructure
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/text_structure/find_structure/FindStructureResponse.ts#L27-L52
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/text_structure/find_structure/FindStructureResponse.ts#L27-L52
 type Response struct {
 	Charset               string                     `json:"charset"`
 	ColumnNames           []string                   `json:"column_names,omitempty"`

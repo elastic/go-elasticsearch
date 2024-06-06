@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,13 +31,13 @@ import (
 
 // MappingLimitSettingsDepth type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/indices/_types/IndexSettings.ts#L434-L441
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/indices/_types/IndexSettings.ts#L434-L441
 type MappingLimitSettingsDepth struct {
 	// Limit The maximum depth for a field, which is measured as the number of inner
 	// objects. For instance, if all fields are defined
 	// at the root object level, then the depth is 1. If there is one object
 	// mapping, then the depth is 2, etc.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (s *MappingLimitSettingsDepth) UnmarshalJSON(data []byte) error {
@@ -56,18 +56,17 @@ func (s *MappingLimitSettingsDepth) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "limit":
-
 			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.Atoi(v)
+				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Limit", err)
 				}
 				s.Limit = &value
 			case float64:
-				f := int(v)
+				f := int64(v)
 				s.Limit = &f
 			}
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,18 +31,18 @@ import (
 
 // RRFRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/Retriever.ts#L73-L80
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/Retriever.ts#L73-L80
 type RRFRetriever struct {
 	// Filter Query to filter the documents that can match.
 	Filter []Query `json:"filter,omitempty"`
 	// RankConstant This value determines how much influence documents in individual result sets
 	// per query have over the final ranked result set.
 	RankConstant *int `json:"rank_constant,omitempty"`
-	// RankWindowSize This value determines the size of the individual result sets per query.
-	RankWindowSize *int `json:"rank_window_size,omitempty"`
 	// Retrievers A list of child retrievers to specify which sets of returned top documents
 	// will have the RRF formula applied to them.
 	Retrievers []RetrieverContainer `json:"retrievers"`
+	// WindowSize This value determines the size of the individual result sets per query.
+	WindowSize *int `json:"window_size,omitempty"`
 }
 
 func (s *RRFRetriever) UnmarshalJSON(data []byte) error {
@@ -92,7 +92,12 @@ func (s *RRFRetriever) UnmarshalJSON(data []byte) error {
 				s.RankConstant = &f
 			}
 
-		case "rank_window_size":
+		case "retrievers":
+			if err := dec.Decode(&s.Retrievers); err != nil {
+				return fmt.Errorf("%s | %w", "Retrievers", err)
+			}
+
+		case "window_size":
 
 			var tmp any
 			dec.Decode(&tmp)
@@ -100,17 +105,12 @@ func (s *RRFRetriever) UnmarshalJSON(data []byte) error {
 			case string:
 				value, err := strconv.Atoi(v)
 				if err != nil {
-					return fmt.Errorf("%s | %w", "RankWindowSize", err)
+					return fmt.Errorf("%s | %w", "WindowSize", err)
 				}
-				s.RankWindowSize = &value
+				s.WindowSize = &value
 			case float64:
 				f := int(v)
-				s.RankWindowSize = &f
-			}
-
-		case "retrievers":
-			if err := dec.Decode(&s.Retrievers); err != nil {
-				return fmt.Errorf("%s | %w", "Retrievers", err)
+				s.WindowSize = &f
 			}
 
 		}

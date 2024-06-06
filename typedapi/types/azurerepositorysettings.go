@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AzureRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/snapshot/_types/SnapshotRepository.ts#L77-L83
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/snapshot/_types/SnapshotRepository.ts#L77-L83
 type AzureRepositorySettings struct {
 	BasePath               *string  `json:"base_path,omitempty"`
 	ChunkSize              ByteSize `json:"chunk_size,omitempty"`

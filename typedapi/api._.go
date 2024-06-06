@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package typedapi
 
@@ -219,10 +219,10 @@ import (
 	indices_unfreeze "github.com/elastic/go-elasticsearch/v8/typedapi/indices/unfreeze"
 	indices_update_aliases "github.com/elastic/go-elasticsearch/v8/typedapi/indices/updatealiases"
 	indices_validate_query "github.com/elastic/go-elasticsearch/v8/typedapi/indices/validatequery"
-	inference_delete "github.com/elastic/go-elasticsearch/v8/typedapi/inference/delete"
-	inference_get "github.com/elastic/go-elasticsearch/v8/typedapi/inference/get"
+	inference_delete_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/deletemodel"
+	inference_get_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/getmodel"
 	inference_inference "github.com/elastic/go-elasticsearch/v8/typedapi/inference/inference"
-	inference_put "github.com/elastic/go-elasticsearch/v8/typedapi/inference/put"
+	inference_put_model "github.com/elastic/go-elasticsearch/v8/typedapi/inference/putmodel"
 	ingest_delete_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/deletepipeline"
 	ingest_geo_ip_stats "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/geoipstats"
 	ingest_get_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/ingest/getpipeline"
@@ -311,6 +311,7 @@ import (
 	ml_update_filter "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatefilter"
 	ml_update_job "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatejob"
 	ml_update_model_snapshot "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatemodelsnapshot"
+	ml_update_trained_model_deployment "github.com/elastic/go-elasticsearch/v8/typedapi/ml/updatetrainedmodeldeployment"
 	ml_upgrade_job_snapshot "github.com/elastic/go-elasticsearch/v8/typedapi/ml/upgradejobsnapshot"
 	ml_validate "github.com/elastic/go-elasticsearch/v8/typedapi/ml/validate"
 	ml_validate_detector "github.com/elastic/go-elasticsearch/v8/typedapi/ml/validatedetector"
@@ -1181,18 +1182,18 @@ type Indices struct {
 }
 
 type Inference struct {
-	// Delete an inference endpoint
+	// Delete model in the Inference API
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-inference-api.html
-	Delete inference_delete.NewDelete
-	// Get an inference endpoint
+	DeleteModel inference_delete_model.NewDeleteModel
+	// Get a model in the Inference API
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html
-	Get inference_get.NewGet
-	// Perform inference
+	GetModel inference_get_model.NewGetModel
+	// Perform inference on a model
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/post-inference-api.html
 	Inference inference_inference.NewInference
-	// Configure an inference endpoint for use in the Inference API
+	// Configure a model for use in the Inference API
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html
-	Put inference_put.NewPut
+	PutModel inference_put_model.NewPutModel
 }
 
 type Ingest struct {
@@ -1481,6 +1482,9 @@ type Ml struct {
 	// Updates certain properties of a snapshot.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html
 	UpdateModelSnapshot ml_update_model_snapshot.NewUpdateModelSnapshot
+	// Updates certain properties of trained model deployment.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html
+	UpdateTrainedModelDeployment ml_update_trained_model_deployment.NewUpdateTrainedModelDeployment
 	// Upgrades a given job snapshot to the current major version.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-upgrade-job-model-snapshot.html
 	UpgradeJobSnapshot ml_upgrade_job_snapshot.NewUpgradeJobSnapshot
@@ -2505,10 +2509,10 @@ func New(tp elastictransport.Interface) *API {
 
 		// Inference
 		Inference: Inference{
-			Delete:    inference_delete.NewDeleteFunc(tp),
-			Get:       inference_get.NewGetFunc(tp),
-			Inference: inference_inference.NewInferenceFunc(tp),
-			Put:       inference_put.NewPutFunc(tp),
+			DeleteModel: inference_delete_model.NewDeleteModelFunc(tp),
+			GetModel:    inference_get_model.NewGetModelFunc(tp),
+			Inference:   inference_inference.NewInferenceFunc(tp),
+			PutModel:    inference_put_model.NewPutModelFunc(tp),
 		},
 
 		// Ingest
@@ -2617,6 +2621,7 @@ func New(tp elastictransport.Interface) *API {
 			UpdateFilter:                     ml_update_filter.NewUpdateFilterFunc(tp),
 			UpdateJob:                        ml_update_job.NewUpdateJobFunc(tp),
 			UpdateModelSnapshot:              ml_update_model_snapshot.NewUpdateModelSnapshotFunc(tp),
+			UpdateTrainedModelDeployment:     ml_update_trained_model_deployment.NewUpdateTrainedModelDeploymentFunc(tp),
 			UpgradeJobSnapshot:               ml_upgrade_job_snapshot.NewUpgradeJobSnapshotFunc(tp),
 			Validate:                         ml_validate.NewValidateFunc(tp),
 			ValidateDetector:                 ml_validate_detector.NewValidateDetectorFunc(tp),

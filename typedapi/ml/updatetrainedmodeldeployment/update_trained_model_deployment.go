@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
-// Get an inference endpoint
-package get
+// Updates certain properties of trained model deployment.
+package updatetrainedmodeldeployment
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -37,15 +38,13 @@ import (
 )
 
 const (
-	tasktypeMask = iota + 1
-
-	inferenceidMask
+	modelidMask = iota + 1
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
-type Get struct {
+type UpdateTrainedModelDeployment struct {
 	transport elastictransport.Interface
 
 	headers http.Header
@@ -54,37 +53,46 @@ type Get struct {
 
 	raw io.Reader
 
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
+
 	paramSet int
 
-	tasktype    string
-	inferenceid string
+	modelid string
 
 	spanStarted bool
 
 	instrument elastictransport.Instrumentation
 }
 
-// NewGet type alias for index.
-type NewGet func() *Get
+// NewUpdateTrainedModelDeployment type alias for index.
+type NewUpdateTrainedModelDeployment func(modelid string) *UpdateTrainedModelDeployment
 
-// NewGetFunc returns a new instance of Get with the provided transport.
+// NewUpdateTrainedModelDeploymentFunc returns a new instance of UpdateTrainedModelDeployment with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
-func NewGetFunc(tp elastictransport.Interface) NewGet {
-	return func() *Get {
+func NewUpdateTrainedModelDeploymentFunc(tp elastictransport.Interface) NewUpdateTrainedModelDeployment {
+	return func(modelid string) *UpdateTrainedModelDeployment {
 		n := New(tp)
+
+		n._modelid(modelid)
 
 		return n
 	}
 }
 
-// Get an inference endpoint
+// Updates certain properties of trained model deployment.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html
-func New(tp elastictransport.Interface) *Get {
-	r := &Get{
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html
+func New(tp elastictransport.Interface) *UpdateTrainedModelDeployment {
+	r := &UpdateTrainedModelDeployment{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -96,51 +104,75 @@ func New(tp elastictransport.Interface) *Get {
 	return r
 }
 
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *UpdateTrainedModelDeployment) Raw(raw io.Reader) *UpdateTrainedModelDeployment {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *UpdateTrainedModelDeployment) Request(req *Request) *UpdateTrainedModelDeployment {
+	r.req = req
+
+	return r
+}
+
 // HttpRequest returns the http.Request object built from the
 // given parameters.
-func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
+func (r *UpdateTrainedModelDeployment) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var path strings.Builder
 	var method string
 	var req *http.Request
 
 	var err error
 
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for UpdateTrainedModelDeployment: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
+
 	r.path.Scheme = "http"
 
 	switch {
-	case r.paramSet == 0:
+	case r.paramSet == modelidMask:
 		path.WriteString("/")
-		path.WriteString("_inference")
-
-		method = http.MethodGet
-	case r.paramSet == inferenceidMask:
+		path.WriteString("_ml")
 		path.WriteString("/")
-		path.WriteString("_inference")
+		path.WriteString("trained_models")
 		path.WriteString("/")
 
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
+			instrument.RecordPathPart(ctx, "modelid", r.modelid)
 		}
-		path.WriteString(r.inferenceid)
-
-		method = http.MethodGet
-	case r.paramSet == tasktypeMask|inferenceidMask:
+		path.WriteString(r.modelid)
 		path.WriteString("/")
-		path.WriteString("_inference")
+		path.WriteString("deployment")
 		path.WriteString("/")
+		path.WriteString("_update")
 
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "tasktype", r.tasktype)
-		}
-		path.WriteString(r.tasktype)
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "inferenceid", r.inferenceid)
-		}
-		path.WriteString(r.inferenceid)
-
-		method = http.MethodGet
+		method = http.MethodPost
 	}
 
 	r.path.Path = path.String()
@@ -158,6 +190,12 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 
 	req.Header = r.headers.Clone()
 
+	if req.Header.Get("Content-Type") == "" {
+		if r.raw != nil {
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+		}
+	}
+
 	if req.Header.Get("Accept") == "" {
 		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
 	}
@@ -170,11 +208,11 @@ func (r *Get) HttpRequest(ctx context.Context) (*http.Request, error) {
 }
 
 // Perform runs the http.Request through the provided transport and returns an http.Response.
-func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
+func (r UpdateTrainedModelDeployment) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.get")
+			ctx := instrument.Start(providedCtx, "ml.update_trained_model_deployment")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -191,17 +229,17 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	}
 
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.BeforeRequest(req, "inference.get")
-		if reader := instrument.RecordRequestBody(ctx, "inference.get", r.raw); reader != nil {
+		instrument.BeforeRequest(req, "ml.update_trained_model_deployment")
+		if reader := instrument.RecordRequestBody(ctx, "ml.update_trained_model_deployment", r.raw); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := r.transport.Perform(req)
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "inference.get")
+		instrument.AfterRequest(req, "elasticsearch", "ml.update_trained_model_deployment")
 	}
 	if err != nil {
-		localErr := fmt.Errorf("an error happened during the Get query execution: %w", err)
+		localErr := fmt.Errorf("an error happened during the UpdateTrainedModelDeployment query execution: %w", err)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, localErr)
 		}
@@ -211,12 +249,12 @@ func (r Get) Perform(providedCtx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
-// Do runs the request through the transport, handle the response and returns a get.Response
-func (r Get) Do(providedCtx context.Context) (*Response, error) {
+// Do runs the request through the transport, handle the response and returns a updatetrainedmodeldeployment.Response
+func (r UpdateTrainedModelDeployment) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.get")
+		ctx = instrument.Start(providedCtx, "ml.update_trained_model_deployment")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -265,66 +303,19 @@ func (r Get) Do(providedCtx context.Context) (*Response, error) {
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r Get) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.get")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the Get query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
-// Header set a key, value pair in the Get headers map.
-func (r *Get) Header(key, value string) *Get {
+// Header set a key, value pair in the UpdateTrainedModelDeployment headers map.
+func (r *UpdateTrainedModelDeployment) Header(key, value string) *UpdateTrainedModelDeployment {
 	r.headers.Set(key, value)
 
 	return r
 }
 
-// TaskType The task type
-// API Name: tasktype
-func (r *Get) TaskType(tasktype string) *Get {
-	r.paramSet |= tasktypeMask
-	r.tasktype = tasktype
-
-	return r
-}
-
-// InferenceId The inference Id
-// API Name: inferenceid
-func (r *Get) InferenceId(inferenceid string) *Get {
-	r.paramSet |= inferenceidMask
-	r.inferenceid = inferenceid
+// ModelId The unique identifier of the trained model. Currently, only PyTorch models
+// are supported.
+// API Name: modelid
+func (r *UpdateTrainedModelDeployment) _modelid(modelid string) *UpdateTrainedModelDeployment {
+	r.paramSet |= modelidMask
+	r.modelid = modelid
 
 	return r
 }
@@ -332,7 +323,7 @@ func (r *Get) InferenceId(inferenceid string) *Get {
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
-func (r *Get) ErrorTrace(errortrace bool) *Get {
+func (r *UpdateTrainedModelDeployment) ErrorTrace(errortrace bool) *UpdateTrainedModelDeployment {
 	r.values.Set("error_trace", strconv.FormatBool(errortrace))
 
 	return r
@@ -341,7 +332,7 @@ func (r *Get) ErrorTrace(errortrace bool) *Get {
 // FilterPath Comma-separated list of filters in dot notation which reduce the response
 // returned by Elasticsearch.
 // API name: filter_path
-func (r *Get) FilterPath(filterpaths ...string) *Get {
+func (r *UpdateTrainedModelDeployment) FilterPath(filterpaths ...string) *UpdateTrainedModelDeployment {
 	tmp := []string{}
 	for _, item := range filterpaths {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
@@ -358,7 +349,7 @@ func (r *Get) FilterPath(filterpaths ...string) *Get {
 // consumed
 // only by machines.
 // API name: human
-func (r *Get) Human(human bool) *Get {
+func (r *UpdateTrainedModelDeployment) Human(human bool) *UpdateTrainedModelDeployment {
 	r.values.Set("human", strconv.FormatBool(human))
 
 	return r
@@ -367,8 +358,22 @@ func (r *Get) Human(human bool) *Get {
 // Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
 // this option for debugging only.
 // API name: pretty
-func (r *Get) Pretty(pretty bool) *Get {
+func (r *UpdateTrainedModelDeployment) Pretty(pretty bool) *UpdateTrainedModelDeployment {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// NumberOfAllocations The number of model allocations on each node where the model is deployed.
+// All allocations on a node share the same copy of the model in memory but use
+// a separate set of threads to evaluate the model.
+// Increasing this value generally increases the throughput.
+// If this setting is greater than the number of hardware threads
+// it will automatically be changed to a value less than the number of hardware
+// threads.
+// API name: number_of_allocations
+func (r *UpdateTrainedModelDeployment) NumberOfAllocations(numberofallocations int) *UpdateTrainedModelDeployment {
+	r.req.NumberOfAllocations = &numberofallocations
 
 	return r
 }

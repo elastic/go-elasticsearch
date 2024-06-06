@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // SearchAsYouTypeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/mapping/core.ts#L198-L208
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/mapping/core.ts#L200-L210
 type SearchAsYouTypeProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	CopyTo         []string                       `json:"copy_to,omitempty"`
@@ -399,6 +399,12 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 					s.Fields[key] = oo
 				case "long_range":
 					oo := NewLongRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Fields[key] = oo
+				case "icu_collation_keyword":
+					oo := NewIcuCollationProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
@@ -779,6 +785,12 @@ func (s *SearchAsYouTypeProperty) UnmarshalJSON(data []byte) error {
 					s.Properties[key] = oo
 				case "long_range":
 					oo := NewLongRangeProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Properties[key] = oo
+				case "icu_collation_keyword":
+					oo := NewIcuCollationProperty()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}

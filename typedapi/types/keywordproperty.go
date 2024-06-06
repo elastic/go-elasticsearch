@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -30,11 +30,12 @@ import (
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/dynamicmapping"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexoptions"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/onscripterror"
 )
 
 // KeywordProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/mapping/core.ts#L89-L105
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/mapping/core.ts#L89-L107
 type KeywordProperty struct {
 	Boost               *Float64                       `json:"boost,omitempty"`
 	CopyTo              []string                       `json:"copy_to,omitempty"`
@@ -46,14 +47,16 @@ type KeywordProperty struct {
 	Index               *bool                          `json:"index,omitempty"`
 	IndexOptions        *indexoptions.IndexOptions     `json:"index_options,omitempty"`
 	// Meta Metadata about the field.
-	Meta                     map[string]string   `json:"meta,omitempty"`
-	Normalizer               *string             `json:"normalizer,omitempty"`
-	Norms                    *bool               `json:"norms,omitempty"`
-	NullValue                *string             `json:"null_value,omitempty"`
-	Properties               map[string]Property `json:"properties,omitempty"`
-	Similarity               *string             `json:"similarity,omitempty"`
-	SplitQueriesOnWhitespace *bool               `json:"split_queries_on_whitespace,omitempty"`
-	Store                    *bool               `json:"store,omitempty"`
+	Meta                     map[string]string            `json:"meta,omitempty"`
+	Normalizer               *string                      `json:"normalizer,omitempty"`
+	Norms                    *bool                        `json:"norms,omitempty"`
+	NullValue                *string                      `json:"null_value,omitempty"`
+	OnScriptError            *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
+	Properties               map[string]Property          `json:"properties,omitempty"`
+	Script                   Script                       `json:"script,omitempty"`
+	Similarity               *string                      `json:"similarity,omitempty"`
+	SplitQueriesOnWhitespace *bool                        `json:"split_queries_on_whitespace,omitempty"`
+	Store                    *bool                        `json:"store,omitempty"`
 	// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
 	// Defaults to false.
 	TimeSeriesDimension *bool  `json:"time_series_dimension,omitempty"`
@@ -438,6 +441,12 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Fields[key] = oo
+				case "icu_collation_keyword":
+					oo := NewIcuCollationProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Fields[key] = oo
 				default:
 					oo := new(Property)
 					if err := localDec.Decode(&oo); err != nil {
@@ -527,6 +536,11 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.NullValue = &o
+
+		case "on_script_error":
+			if err := dec.Decode(&s.OnScriptError); err != nil {
+				return fmt.Errorf("%s | %w", "OnScriptError", err)
+			}
 
 		case "properties":
 			if s.Properties == nil {
@@ -826,12 +840,54 @@ func (s *KeywordProperty) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Properties[key] = oo
+				case "icu_collation_keyword":
+					oo := NewIcuCollationProperty()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Properties[key] = oo
 				default:
 					oo := new(Property)
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
 					s.Properties[key] = oo
+				}
+			}
+
+		case "script":
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
+				return fmt.Errorf("%s | %w", "Script", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Script", err)
+				}
+
+				switch t {
+
+				case "lang", "options", "source":
+					o := NewInlineScript()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Script", err)
+					}
+					s.Script = o
+
+				case "id":
+					o := NewStoredScriptId()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Script", err)
+					}
+					s.Script = o
+
 				}
 			}
 
@@ -916,7 +972,9 @@ func (s KeywordProperty) MarshalJSON() ([]byte, error) {
 		Normalizer:               s.Normalizer,
 		Norms:                    s.Norms,
 		NullValue:                s.NullValue,
+		OnScriptError:            s.OnScriptError,
 		Properties:               s.Properties,
+		Script:                   s.Script,
 		Similarity:               s.Similarity,
 		SplitQueriesOnWhitespace: s.SplitQueriesOnWhitespace,
 		Store:                    s.Store,

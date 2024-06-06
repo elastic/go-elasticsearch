@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package rollupsearch
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package rollupsearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/rollup/rollup_search/RollupSearchResponse.ts#L27-L36
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/rollup/rollup_search/RollupSearchResponse.ts#L27-L36
 type Response struct {
 	Aggregations    map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Hits            types.HitsMetadata         `json:"hits"`
@@ -522,7 +522,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 								}
 								s.Aggregations[elems[1]] = o
 
-							case "box_plot":
+							case "boxplot":
 								o := types.NewBoxPlotAggregate()
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)

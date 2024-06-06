@@ -16,22 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
-package put
+package getmodel
 
 import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
-// Request holds the request body struct for the package put
+// Response holds the response body struct for the package getmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/inference/put/PutRequest.ts#L25-L44
-type Request = types.InferenceEndpoint
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/inference/get_model/GetModelResponse.ts#L22-L26
+type Response struct {
+	Models []types.ModelConfigContainer `json:"models"`
+}
 
-// NewRequest returns a Request
-func NewRequest() *Request {
-	r := types.NewInferenceEndpoint()
-
+// NewResponse returns a Response
+func NewResponse() *Response {
+	r := &Response{}
 	return r
 }

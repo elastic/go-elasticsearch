@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // PhoneticTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/_types/analysis/phonetic-plugin.ts#L64-L72
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/_types/analysis/phonetic-plugin.ts#L64-L72
 type PhoneticTokenFilter struct {
 	Encoder     phoneticencoder.PhoneticEncoder     `json:"encoder"`
 	Languageset []phoneticlanguage.PhoneticLanguage `json:"languageset"`
@@ -69,8 +69,19 @@ func (s *PhoneticTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "languageset":
-			if err := dec.Decode(&s.Languageset); err != nil {
-				return fmt.Errorf("%s | %w", "Languageset", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := &phoneticlanguage.PhoneticLanguage{}
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Languageset", err)
+				}
+
+				s.Languageset = append(s.Languageset, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Languageset); err != nil {
+					return fmt.Errorf("%s | %w", "Languageset", err)
+				}
 			}
 
 		case "max_code_len":

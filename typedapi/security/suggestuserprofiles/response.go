@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 package suggestuserprofiles
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package suggestuserprofiles
 //
-// https://github.com/elastic/elasticsearch-specification/blob/9a0362eb2579c6604966a8fb307caee92de04270/specification/security/suggest_user_profiles/Response.ts#L29-L35
+// https://github.com/elastic/elasticsearch-specification/blob/07bf82537a186562d8699685e3704ea338b268ef/specification/security/suggest_user_profiles/Response.ts#L29-L35
 type Response struct {
 	Profiles []types.UserProfile     `json:"profiles"`
 	Took     int64                   `json:"took"`

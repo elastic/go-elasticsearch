@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
 // Perform a search against a search application
 package search
@@ -261,6 +261,8 @@ func (r Search) Do(providedCtx context.Context) (*Response, error) {
 
 	response := NewResponse()
 
+	r.TypedKeys(true)
+
 	res, err := r.Perform(ctx)
 	if err != nil {
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -313,6 +315,15 @@ func (r *Search) Header(key, value string) *Search {
 func (r *Search) _name(name string) *Search {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// TypedKeys Determines whether aggregation names are prefixed by their respective types
+// in the response.
+// API name: typed_keys
+func (r *Search) TypedKeys(typedkeys bool) *Search {
+	r.values.Set("typed_keys", strconv.FormatBool(typedkeys))
 
 	return r
 }

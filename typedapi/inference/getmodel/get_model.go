@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/9a0362eb2579c6604966a8fb307caee92de04270
+// https://github.com/elastic/elasticsearch-specification/tree/07bf82537a186562d8699685e3704ea338b268ef
 
-// Delete an inference endpoint
-package delete
+// Get a model in the Inference API
+package getmodel
 
 import (
 	"context"
@@ -45,7 +45,7 @@ const (
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
 var ErrBuildPath = errors.New("cannot build path, check for missing path parameters")
 
-type Delete struct {
+type GetModel struct {
 	transport elastictransport.Interface
 
 	headers http.Header
@@ -64,13 +64,13 @@ type Delete struct {
 	instrument elastictransport.Instrumentation
 }
 
-// NewDelete type alias for index.
-type NewDelete func(inferenceid string) *Delete
+// NewGetModel type alias for index.
+type NewGetModel func(inferenceid string) *GetModel
 
-// NewDeleteFunc returns a new instance of Delete with the provided transport.
+// NewGetModelFunc returns a new instance of GetModel with the provided transport.
 // Used in the index of the library this allows to retrieve every apis in once place.
-func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
-	return func(inferenceid string) *Delete {
+func NewGetModelFunc(tp elastictransport.Interface) NewGetModel {
+	return func(inferenceid string) *GetModel {
 		n := New(tp)
 
 		n._inferenceid(inferenceid)
@@ -79,11 +79,11 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	}
 }
 
-// Delete an inference endpoint
+// Get a model in the Inference API
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-inference-api.html
-func New(tp elastictransport.Interface) *Delete {
-	r := &Delete{
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-inference-api.html
+func New(tp elastictransport.Interface) *GetModel {
+	r := &GetModel{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
@@ -100,7 +100,7 @@ func New(tp elastictransport.Interface) *Delete {
 
 // HttpRequest returns the http.Request object built from the
 // given parameters.
-func (r *Delete) HttpRequest(ctx context.Context) (*http.Request, error) {
+func (r *GetModel) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var path strings.Builder
 	var method string
 	var req *http.Request
@@ -120,7 +120,7 @@ func (r *Delete) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 		path.WriteString(r.inferenceid)
 
-		method = http.MethodDelete
+		method = http.MethodGet
 	case r.paramSet == tasktypeMask|inferenceidMask:
 		path.WriteString("/")
 		path.WriteString("_inference")
@@ -137,7 +137,7 @@ func (r *Delete) HttpRequest(ctx context.Context) (*http.Request, error) {
 		}
 		path.WriteString(r.inferenceid)
 
-		method = http.MethodDelete
+		method = http.MethodGet
 	}
 
 	r.path.Path = path.String()
@@ -167,11 +167,11 @@ func (r *Delete) HttpRequest(ctx context.Context) (*http.Request, error) {
 }
 
 // Perform runs the http.Request through the provided transport and returns an http.Response.
-func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
+func (r GetModel) Perform(providedCtx context.Context) (*http.Response, error) {
 	var ctx context.Context
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 		if r.spanStarted == false {
-			ctx := instrument.Start(providedCtx, "inference.delete")
+			ctx := instrument.Start(providedCtx, "inference.get_model")
 			defer instrument.Close(ctx)
 		}
 	}
@@ -188,17 +188,17 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	}
 
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.BeforeRequest(req, "inference.delete")
-		if reader := instrument.RecordRequestBody(ctx, "inference.delete", r.raw); reader != nil {
+		instrument.BeforeRequest(req, "inference.get_model")
+		if reader := instrument.RecordRequestBody(ctx, "inference.get_model", r.raw); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := r.transport.Perform(req)
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "inference.delete")
+		instrument.AfterRequest(req, "elasticsearch", "inference.get_model")
 	}
 	if err != nil {
-		localErr := fmt.Errorf("an error happened during the Delete query execution: %w", err)
+		localErr := fmt.Errorf("an error happened during the GetModel query execution: %w", err)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, localErr)
 		}
@@ -208,12 +208,12 @@ func (r Delete) Perform(providedCtx context.Context) (*http.Response, error) {
 	return res, nil
 }
 
-// Do runs the request through the transport, handle the response and returns a delete.Response
-func (r Delete) Do(providedCtx context.Context) (*Response, error) {
+// Do runs the request through the transport, handle the response and returns a getmodel.Response
+func (r GetModel) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.delete")
+		ctx = instrument.Start(providedCtx, "inference.get_model")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -264,11 +264,11 @@ func (r Delete) Do(providedCtx context.Context) (*Response, error) {
 
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
 // This only exists for endpoints without a request payload and allows for quick control flow.
-func (r Delete) IsSuccess(providedCtx context.Context) (bool, error) {
+func (r GetModel) IsSuccess(providedCtx context.Context) (bool, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.delete")
+		ctx = instrument.Start(providedCtx, "inference.get_model")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -291,7 +291,7 @@ func (r Delete) IsSuccess(providedCtx context.Context) (bool, error) {
 	}
 
 	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the Delete query execution, status code: %d", res.StatusCode)
+		err := fmt.Errorf("an error happened during the GetModel query execution, status code: %d", res.StatusCode)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
@@ -301,8 +301,8 @@ func (r Delete) IsSuccess(providedCtx context.Context) (bool, error) {
 	return false, nil
 }
 
-// Header set a key, value pair in the Delete headers map.
-func (r *Delete) Header(key, value string) *Delete {
+// Header set a key, value pair in the GetModel headers map.
+func (r *GetModel) Header(key, value string) *GetModel {
 	r.headers.Set(key, value)
 
 	return r
@@ -310,7 +310,7 @@ func (r *Delete) Header(key, value string) *Delete {
 
 // TaskType The task type
 // API Name: tasktype
-func (r *Delete) TaskType(tasktype string) *Delete {
+func (r *GetModel) TaskType(tasktype string) *GetModel {
 	r.paramSet |= tasktypeMask
 	r.tasktype = tasktype
 
@@ -319,7 +319,7 @@ func (r *Delete) TaskType(tasktype string) *Delete {
 
 // InferenceId The inference Id
 // API Name: inferenceid
-func (r *Delete) _inferenceid(inferenceid string) *Delete {
+func (r *GetModel) _inferenceid(inferenceid string) *GetModel {
 	r.paramSet |= inferenceidMask
 	r.inferenceid = inferenceid
 
@@ -329,7 +329,7 @@ func (r *Delete) _inferenceid(inferenceid string) *Delete {
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
-func (r *Delete) ErrorTrace(errortrace bool) *Delete {
+func (r *GetModel) ErrorTrace(errortrace bool) *GetModel {
 	r.values.Set("error_trace", strconv.FormatBool(errortrace))
 
 	return r
@@ -338,7 +338,7 @@ func (r *Delete) ErrorTrace(errortrace bool) *Delete {
 // FilterPath Comma-separated list of filters in dot notation which reduce the response
 // returned by Elasticsearch.
 // API name: filter_path
-func (r *Delete) FilterPath(filterpaths ...string) *Delete {
+func (r *GetModel) FilterPath(filterpaths ...string) *GetModel {
 	tmp := []string{}
 	for _, item := range filterpaths {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
@@ -355,7 +355,7 @@ func (r *Delete) FilterPath(filterpaths ...string) *Delete {
 // consumed
 // only by machines.
 // API name: human
-func (r *Delete) Human(human bool) *Delete {
+func (r *GetModel) Human(human bool) *GetModel {
 	r.values.Set("human", strconv.FormatBool(human))
 
 	return r
@@ -364,7 +364,7 @@ func (r *Delete) Human(human bool) *Delete {
 // Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
 // this option for debugging only.
 // API name: pretty
-func (r *Delete) Pretty(pretty bool) *Delete {
+func (r *GetModel) Pretty(pretty bool) *GetModel {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
