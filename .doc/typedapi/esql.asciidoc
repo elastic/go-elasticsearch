@@ -14,8 +14,8 @@ is the most flexible approach, but it's also the most complex because you must h
 results in their raw form. You can choose the precise format of results,
 such as JSON, CSV, or text.
 * Use ES|QL mapping helpers: These mappers take care of parsing the raw
-response into something readily usable by the application. Several mappers are
-available for different use cases, such as object mapping and iterative.
+response into something readily usable by the application. Helpers are
+available for object mapping and iterative objects.
 
 
 
