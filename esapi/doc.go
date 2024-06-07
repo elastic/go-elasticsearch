@@ -73,7 +73,7 @@ It has a minor overhead compared to using a struct directly;
 refer to the esapi_benchmark_test.go suite for concrete numbers.
 
 See the documentation for each API function or struct at
-https://godoc.org/github.com/elastic/go-elasticsearch,
+https://pkg.go.dev/github.com/elastic/go-elasticsearch,
 or locally by:
 
 	go doc github.com/elastic/go-elasticsearch/v8/esapi Index
