@@ -25,7 +25,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"strings"
 	"testing"
 
@@ -71,7 +70,7 @@ func BenchmarkJSONReader(b *testing.B) {
 		b.ResetTimer()
 
 		for i := 0; i < b.N; i++ {
-			out, _ := ioutil.ReadAll(esutil.NewJSONReader(map[string]string{"foo": "bar"}))
+			out, _ := io.ReadAll(esutil.NewJSONReader(map[string]string{"foo": "bar"}))
 			if string(out) != `{"foo":"bar"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", out)
 			}
@@ -95,7 +94,7 @@ func BenchmarkJSONReader(b *testing.B) {
 		b.ResetTimer()
 
 		for i := 0; i < b.N; i++ {
-			out, _ := ioutil.ReadAll(esutil.NewJSONReader(Foo{Bar: "baz"}))
+			out, _ := io.ReadAll(esutil.NewJSONReader(Foo{Bar: "baz"}))
 			if string(out) != `{"bar":"BAZ"}`+"\n" {
 				b.Fatalf("Unexpected output: %q", out)
 			}

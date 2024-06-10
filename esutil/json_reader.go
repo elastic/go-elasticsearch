@@ -67,9 +67,7 @@ func (r *JSONReader) WriteTo(w io.Writer) (int64, error) {
 	return int64(cw.n), err
 }
 
-func (r *JSONReader) encode(w io.Writer) error {
-	var err error
-
+func (r *JSONReader) encode(w io.Writer) (err error) {
 	if e, ok := r.val.(JSONEncoder); ok {
 		err = e.EncodeJSON(w)
 		if err != nil {
