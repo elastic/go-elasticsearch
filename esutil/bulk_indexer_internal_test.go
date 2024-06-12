@@ -26,7 +26,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -46,7 +45,7 @@ import (
 )
 
 var defaultRoundTripFunc = func(*http.Request) (*http.Response, error) {
-	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(`{}`))}, nil
+	return &http.Response{Body: io.NopCloser(strings.NewReader(`{}`))}, nil
 }
 
 type mockTransport struct {
@@ -81,9 +80,9 @@ func TestBulkIndexer(t *testing.T) {
 				case 3:
 					testfile = "testdata/bulk_response_1c.json"
 				}
-				bodyContent, _ := ioutil.ReadFile(testfile)
+				bodyContent, _ := os.ReadFile(testfile)
 				return &http.Response{
-					Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+					Body:   io.NopCloser(bytes.NewBuffer(bodyContent)),
 					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
@@ -261,13 +260,13 @@ func TestBulkIndexer(t *testing.T) {
 
 			numItems       = 4
 			numFailed      = 2
-			bodyContent, _ = ioutil.ReadFile("testdata/bulk_response_2.json")
+			bodyContent, _ = os.ReadFile("testdata/bulk_response_2.json")
 		)
 
 		es, _ := elasticsearch.NewClient(elasticsearch.Config{Transport: &mockTransport{
 			RoundTripFunc: func(*http.Request) (*http.Response, error) {
 				return &http.Response{
-					Body:   ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+					Body:   io.NopCloser(bytes.NewBuffer(bodyContent)),
 					Header: http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
@@ -283,7 +282,7 @@ func TestBulkIndexer(t *testing.T) {
 		successFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem) {
 			atomic.AddUint64(&countSuccessful, 1)
 
-			buf, err := ioutil.ReadAll(item.Body)
+			buf, err := io.ReadAll(item.Body)
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
 			}
@@ -293,7 +292,7 @@ func TestBulkIndexer(t *testing.T) {
 			atomic.AddUint64(&countFailed, 1)
 			failedIDs = append(failedIDs, item.DocumentID)
 
-			buf, err := ioutil.ReadAll(item.Body)
+			buf, err := io.ReadAll(item.Body)
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
 			}
@@ -436,7 +435,7 @@ func TestBulkIndexer(t *testing.T) {
 				return &http.Response{
 					StatusCode: http.StatusOK,
 					Status:     "200 OK",
-					Body:       ioutil.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
+					Body:       io.NopCloser(strings.NewReader(`{"items":[{"index": {}}]}`)),
 					Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 				}, nil
 			},
@@ -499,14 +498,14 @@ func TestBulkIndexer(t *testing.T) {
 						return &http.Response{
 							StatusCode: http.StatusTooManyRequests,
 							Status:     "429 TooManyRequests",
-							Body:       ioutil.NopCloser(strings.NewReader(`{"took":1}`)),
+							Body:       io.NopCloser(strings.NewReader(`{"took":1}`)),
 						}, nil
 					}
-					bodyContent, _ := ioutil.ReadFile("testdata/bulk_response_1c.json")
+					bodyContent, _ := os.ReadFile("testdata/bulk_response_1c.json")
 					return &http.Response{
 						StatusCode: http.StatusOK,
 						Status:     "200 OK",
-						Body:       ioutil.NopCloser(bytes.NewBuffer(bodyContent)),
+						Body:       io.NopCloser(bytes.NewBuffer(bodyContent)),
 						Header:     http.Header{"X-Elastic-Product": []string{"Elasticsearch"}},
 					}, nil
 				},
