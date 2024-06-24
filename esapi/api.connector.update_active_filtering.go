@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newQueryRulesetGetFunc(t Transport) QueryRulesetGet {
-	return func(ruleset_id string, o ...func(*QueryRulesetGetRequest)) (*Response, error) {
-		var r = QueryRulesetGetRequest{RulesetID: ruleset_id}
+func newConnectorUpdateActiveFilteringFunc(t Transport) ConnectorUpdateActiveFiltering {
+	return func(connector_id string, o ...func(*ConnectorUpdateActiveFilteringRequest)) (*Response, error) {
+		var r = ConnectorUpdateActiveFilteringRequest{ConnectorID: connector_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,16 +42,16 @@ func newQueryRulesetGetFunc(t Transport) QueryRulesetGet {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesetGet returns the details about a query ruleset.
+// ConnectorUpdateActiveFiltering activates the draft filtering rules if they are in a validated state.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html.
-type QueryRulesetGet func(ruleset_id string, o ...func(*QueryRulesetGetRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/update-connector-filtering-api.html.
+type ConnectorUpdateActiveFiltering func(connector_id string, o ...func(*ConnectorUpdateActiveFilteringRequest)) (*Response, error)
 
-// QueryRulesetGetRequest configures the Query Ruleset Get API request.
-type QueryRulesetGetRequest struct {
-	RulesetID string
+// ConnectorUpdateActiveFilteringRequest configures the Connector Update Active Filtering API request.
+type ConnectorUpdateActiveFilteringRequest struct {
+	ConnectorID string
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +66,7 @@ type QueryRulesetGetRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r QueryRulesetGetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorUpdateActiveFilteringRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,24 +75,28 @@ func (r QueryRulesetGetRequest) Do(providedCtx context.Context, transport Transp
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "query_ruleset.get")
+		ctx = instrument.Start(providedCtx, "connector.update_active_filtering")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID))
+	path.Grow(7 + 1 + len("_connector") + 1 + len(r.ConnectorID) + 1 + len("_filtering") + 1 + len("_activate"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_query_rules")
+	path.WriteString("_connector")
 	path.WriteString("/")
-	path.WriteString(r.RulesetID)
+	path.WriteString(r.ConnectorID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
+		instrument.RecordPathPart(ctx, "connector_id", r.ConnectorID)
 	}
+	path.WriteString("/")
+	path.WriteString("_filtering")
+	path.WriteString("/")
+	path.WriteString("_activate")
 
 	params = make(map[string]string)
 
@@ -145,11 +149,11 @@ func (r QueryRulesetGetRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "query_ruleset.get")
+		instrument.BeforeRequest(req, "connector.update_active_filtering")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "query_ruleset.get")
+		instrument.AfterRequest(req, "elasticsearch", "connector.update_active_filtering")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -168,43 +172,43 @@ func (r QueryRulesetGetRequest) Do(providedCtx context.Context, transport Transp
 }
 
 // WithContext sets the request context.
-func (f QueryRulesetGet) WithContext(v context.Context) func(*QueryRulesetGetRequest) {
-	return func(r *QueryRulesetGetRequest) {
+func (f ConnectorUpdateActiveFiltering) WithContext(v context.Context) func(*ConnectorUpdateActiveFilteringRequest) {
+	return func(r *ConnectorUpdateActiveFilteringRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f QueryRulesetGet) WithPretty() func(*QueryRulesetGetRequest) {
-	return func(r *QueryRulesetGetRequest) {
+func (f ConnectorUpdateActiveFiltering) WithPretty() func(*ConnectorUpdateActiveFilteringRequest) {
+	return func(r *ConnectorUpdateActiveFilteringRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f QueryRulesetGet) WithHuman() func(*QueryRulesetGetRequest) {
-	return func(r *QueryRulesetGetRequest) {
+func (f ConnectorUpdateActiveFiltering) WithHuman() func(*ConnectorUpdateActiveFilteringRequest) {
+	return func(r *ConnectorUpdateActiveFilteringRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f QueryRulesetGet) WithErrorTrace() func(*QueryRulesetGetRequest) {
-	return func(r *QueryRulesetGetRequest) {
+func (f ConnectorUpdateActiveFiltering) WithErrorTrace() func(*ConnectorUpdateActiveFilteringRequest) {
+	return func(r *ConnectorUpdateActiveFilteringRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f QueryRulesetGet) WithFilterPath(v ...string) func(*QueryRulesetGetRequest) {
-	return func(r *QueryRulesetGetRequest) {
+func (f ConnectorUpdateActiveFiltering) WithFilterPath(v ...string) func(*ConnectorUpdateActiveFilteringRequest) {
+	return func(r *ConnectorUpdateActiveFilteringRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f QueryRulesetGet) WithHeader(h map[string]string) func(*QueryRulesetGetRequest) {
-	return func(r *QueryRulesetGetRequest) {
+func (f ConnectorUpdateActiveFiltering) WithHeader(h map[string]string) func(*ConnectorUpdateActiveFilteringRequest) {
+	return func(r *ConnectorUpdateActiveFilteringRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -215,8 +219,8 @@ func (f QueryRulesetGet) WithHeader(h map[string]string) func(*QueryRulesetGetRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f QueryRulesetGet) WithOpaqueID(s string) func(*QueryRulesetGetRequest) {
-	return func(r *QueryRulesetGetRequest) {
+func (f ConnectorUpdateActiveFiltering) WithOpaqueID(s string) func(*ConnectorUpdateActiveFilteringRequest) {
+	return func(r *ConnectorUpdateActiveFilteringRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

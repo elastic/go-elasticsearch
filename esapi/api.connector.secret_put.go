@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newQueryRulesetDeleteFunc(t Transport) QueryRulesetDelete {
-	return func(ruleset_id string, o ...func(*QueryRulesetDeleteRequest)) (*Response, error) {
-		var r = QueryRulesetDeleteRequest{RulesetID: ruleset_id}
+func newConnectorSecretPutFunc(t Transport) ConnectorSecretPut {
+	return func(id string, body io.Reader, o ...func(*ConnectorSecretPutRequest)) (*Response, error) {
+		var r = ConnectorSecretPutRequest{DocumentID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,16 +43,16 @@ func newQueryRulesetDeleteFunc(t Transport) QueryRulesetDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesetDelete deletes a query ruleset.
+// ConnectorSecretPut creates or updates a secret for a Connector.
 //
 // This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html.
-type QueryRulesetDelete func(ruleset_id string, o ...func(*QueryRulesetDeleteRequest)) (*Response, error)
+type ConnectorSecretPut func(id string, body io.Reader, o ...func(*ConnectorSecretPutRequest)) (*Response, error)
 
-// QueryRulesetDeleteRequest configures the Query Ruleset Delete API request.
-type QueryRulesetDeleteRequest struct {
-	RulesetID string
+// ConnectorSecretPutRequest configures the Connector Secret Put API request.
+type ConnectorSecretPutRequest struct {
+	DocumentID string
+
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +67,7 @@ type QueryRulesetDeleteRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r QueryRulesetDeleteRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSecretPutRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,23 +76,25 @@ func (r QueryRulesetDeleteRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "query_ruleset.delete")
+		ctx = instrument.Start(providedCtx, "connector.secret_put")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "DELETE"
+	method = "PUT"
 
-	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_secret") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_query_rules")
+	path.WriteString("_connector")
 	path.WriteString("/")
-	path.WriteString(r.RulesetID)
+	path.WriteString("_secret")
+	path.WriteString("/")
+	path.WriteString(r.DocumentID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
+		instrument.RecordPathPart(ctx, "id", r.DocumentID)
 	}
 
 	params = make(map[string]string)
@@ -112,7 +115,7 @@ func (r QueryRulesetDeleteRequest) Do(providedCtx context.Context, transport Tra
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -140,16 +143,23 @@ func (r QueryRulesetDeleteRequest) Do(providedCtx context.Context, transport Tra
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "query_ruleset.delete")
+		instrument.BeforeRequest(req, "connector.secret_put")
+		if reader := instrument.RecordRequestBody(ctx, "connector.secret_put", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "query_ruleset.delete")
+		instrument.AfterRequest(req, "elasticsearch", "connector.secret_put")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -168,43 +178,43 @@ func (r QueryRulesetDeleteRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f QueryRulesetDelete) WithContext(v context.Context) func(*QueryRulesetDeleteRequest) {
-	return func(r *QueryRulesetDeleteRequest) {
+func (f ConnectorSecretPut) WithContext(v context.Context) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f QueryRulesetDelete) WithPretty() func(*QueryRulesetDeleteRequest) {
-	return func(r *QueryRulesetDeleteRequest) {
+func (f ConnectorSecretPut) WithPretty() func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f QueryRulesetDelete) WithHuman() func(*QueryRulesetDeleteRequest) {
-	return func(r *QueryRulesetDeleteRequest) {
+func (f ConnectorSecretPut) WithHuman() func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f QueryRulesetDelete) WithErrorTrace() func(*QueryRulesetDeleteRequest) {
-	return func(r *QueryRulesetDeleteRequest) {
+func (f ConnectorSecretPut) WithErrorTrace() func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f QueryRulesetDelete) WithFilterPath(v ...string) func(*QueryRulesetDeleteRequest) {
-	return func(r *QueryRulesetDeleteRequest) {
+func (f ConnectorSecretPut) WithFilterPath(v ...string) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f QueryRulesetDelete) WithHeader(h map[string]string) func(*QueryRulesetDeleteRequest) {
-	return func(r *QueryRulesetDeleteRequest) {
+func (f ConnectorSecretPut) WithHeader(h map[string]string) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -215,8 +225,8 @@ func (f QueryRulesetDelete) WithHeader(h map[string]string) func(*QueryRulesetDe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f QueryRulesetDelete) WithOpaqueID(s string) func(*QueryRulesetDeleteRequest) {
-	return func(r *QueryRulesetDeleteRequest) {
+func (f ConnectorSecretPut) WithOpaqueID(s string) func(*ConnectorSecretPutRequest) {
+	return func(r *ConnectorSecretPutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

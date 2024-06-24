@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newSecurityUpdateSettingsFunc(t Transport) SecurityUpdateSettings {
@@ -51,6 +52,9 @@ type SecurityUpdateSettings func(body io.Reader, o ...func(*SecurityUpdateSettin
 // SecurityUpdateSettingsRequest configures the Security Update Settings API request.
 type SecurityUpdateSettingsRequest struct {
 	Body io.Reader
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -88,6 +92,14 @@ func (r SecurityUpdateSettingsRequest) Do(providedCtx context.Context, transport
 	path.WriteString("/_security/settings")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +183,20 @@ func (r SecurityUpdateSettingsRequest) Do(providedCtx context.Context, transport
 func (f SecurityUpdateSettings) WithContext(v context.Context) func(*SecurityUpdateSettingsRequest) {
 	return func(r *SecurityUpdateSettingsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for connection to master.
+func (f SecurityUpdateSettings) WithMasterTimeout(v time.Duration) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgements from all nodes.
+func (f SecurityUpdateSettings) WithTimeout(v time.Duration) func(*SecurityUpdateSettingsRequest) {
+	return func(r *SecurityUpdateSettingsRequest) {
+		r.Timeout = v
 	}
 }
 

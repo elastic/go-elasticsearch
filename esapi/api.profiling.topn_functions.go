@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newQueryRulesetPutFunc(t Transport) QueryRulesetPut {
-	return func(body io.Reader, ruleset_id string, o ...func(*QueryRulesetPutRequest)) (*Response, error) {
-		var r = QueryRulesetPutRequest{Body: body, RulesetID: ruleset_id}
+func newProfilingTopnFunctionsFunc(t Transport) ProfilingTopnFunctions {
+	return func(body io.Reader, o ...func(*ProfilingTopnFunctionsRequest)) (*Response, error) {
+		var r = ProfilingTopnFunctionsRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,18 +43,14 @@ func newQueryRulesetPutFunc(t Transport) QueryRulesetPut {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesetPut creates or updates a query ruleset.
+// ProfilingTopnFunctions extracts a list of topN functions from Universal Profiling.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-ruleset.html.
-type QueryRulesetPut func(body io.Reader, ruleset_id string, o ...func(*QueryRulesetPutRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/observability/current/universal-profiling.html.
+type ProfilingTopnFunctions func(body io.Reader, o ...func(*ProfilingTopnFunctionsRequest)) (*Response, error)
 
-// QueryRulesetPutRequest configures the Query Ruleset Put API request.
-type QueryRulesetPutRequest struct {
+// ProfilingTopnFunctionsRequest configures the Profiling Topn Functions API request.
+type ProfilingTopnFunctionsRequest struct {
 	Body io.Reader
-
-	RulesetID string
 
 	Pretty     bool
 	Human      bool
@@ -69,7 +65,7 @@ type QueryRulesetPutRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r QueryRulesetPutRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ProfilingTopnFunctionsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -78,24 +74,18 @@ func (r QueryRulesetPutRequest) Do(providedCtx context.Context, transport Transp
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "query_ruleset.put")
+		ctx = instrument.Start(providedCtx, "profiling.topn_functions")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID))
+	path.Grow(7 + len("/_profiling/topn/functions"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_query_rules")
-	path.WriteString("/")
-	path.WriteString(r.RulesetID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
-	}
+	path.WriteString("/_profiling/topn/functions")
 
 	params = make(map[string]string)
 
@@ -152,14 +142,14 @@ func (r QueryRulesetPutRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "query_ruleset.put")
-		if reader := instrument.RecordRequestBody(ctx, "query_ruleset.put", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "profiling.topn_functions")
+		if reader := instrument.RecordRequestBody(ctx, "profiling.topn_functions", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "query_ruleset.put")
+		instrument.AfterRequest(req, "elasticsearch", "profiling.topn_functions")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -178,43 +168,43 @@ func (r QueryRulesetPutRequest) Do(providedCtx context.Context, transport Transp
 }
 
 // WithContext sets the request context.
-func (f QueryRulesetPut) WithContext(v context.Context) func(*QueryRulesetPutRequest) {
-	return func(r *QueryRulesetPutRequest) {
+func (f ProfilingTopnFunctions) WithContext(v context.Context) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f QueryRulesetPut) WithPretty() func(*QueryRulesetPutRequest) {
-	return func(r *QueryRulesetPutRequest) {
+func (f ProfilingTopnFunctions) WithPretty() func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f QueryRulesetPut) WithHuman() func(*QueryRulesetPutRequest) {
-	return func(r *QueryRulesetPutRequest) {
+func (f ProfilingTopnFunctions) WithHuman() func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f QueryRulesetPut) WithErrorTrace() func(*QueryRulesetPutRequest) {
-	return func(r *QueryRulesetPutRequest) {
+func (f ProfilingTopnFunctions) WithErrorTrace() func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f QueryRulesetPut) WithFilterPath(v ...string) func(*QueryRulesetPutRequest) {
-	return func(r *QueryRulesetPutRequest) {
+func (f ProfilingTopnFunctions) WithFilterPath(v ...string) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f QueryRulesetPut) WithHeader(h map[string]string) func(*QueryRulesetPutRequest) {
-	return func(r *QueryRulesetPutRequest) {
+func (f ProfilingTopnFunctions) WithHeader(h map[string]string) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -225,8 +215,8 @@ func (f QueryRulesetPut) WithHeader(h map[string]string) func(*QueryRulesetPutRe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f QueryRulesetPut) WithOpaqueID(s string) func(*QueryRulesetPutRequest) {
-	return func(r *QueryRulesetPutRequest) {
+func (f ProfilingTopnFunctions) WithOpaqueID(s string) func(*ProfilingTopnFunctionsRequest) {
+	return func(r *ProfilingTopnFunctionsRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

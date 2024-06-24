@@ -15,20 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
-func newQueryRulesetListFunc(t Transport) QueryRulesetList {
-	return func(o ...func(*QueryRulesetListRequest)) (*Response, error) {
-		var r = QueryRulesetListRequest{}
+func newConnectorSecretPostFunc(t Transport) ConnectorSecretPost {
+	return func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error) {
+		var r = ConnectorSecretPostRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,17 +43,14 @@ func newQueryRulesetListFunc(t Transport) QueryRulesetList {
 
 // ----- API Definition -------------------------------------------------------
 
-// QueryRulesetList lists query rulesets.
+// ConnectorSecretPost creates a secret for a Connector.
 //
 // This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-query-rulesets.html.
-type QueryRulesetList func(o ...func(*QueryRulesetListRequest)) (*Response, error)
+type ConnectorSecretPost func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error)
 
-// QueryRulesetListRequest configures the Query Ruleset List API request.
-type QueryRulesetListRequest struct {
-	From *int
-	Size *int
+// ConnectorSecretPostRequest configures the Connector Secret Post API request.
+type ConnectorSecretPostRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -68,7 +65,7 @@ type QueryRulesetListRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r QueryRulesetListRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -77,28 +74,20 @@ func (r QueryRulesetListRequest) Do(providedCtx context.Context, transport Trans
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "query_ruleset.list")
+		ctx = instrument.Start(providedCtx, "connector.secret_post")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "POST"
 
-	path.Grow(7 + len("/_query_rules"))
+	path.Grow(7 + len("/_connector/_secret"))
 	path.WriteString("http://")
-	path.WriteString("/_query_rules")
+	path.WriteString("/_connector/_secret")
 
 	params = make(map[string]string)
-
-	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
-	}
-
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -116,7 +105,7 @@ func (r QueryRulesetListRequest) Do(providedCtx context.Context, transport Trans
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -144,16 +133,23 @@ func (r QueryRulesetListRequest) Do(providedCtx context.Context, transport Trans
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "query_ruleset.list")
+		instrument.BeforeRequest(req, "connector.secret_post")
+		if reader := instrument.RecordRequestBody(ctx, "connector.secret_post", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "query_ruleset.list")
+		instrument.AfterRequest(req, "elasticsearch", "connector.secret_post")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -172,57 +168,43 @@ func (r QueryRulesetListRequest) Do(providedCtx context.Context, transport Trans
 }
 
 // WithContext sets the request context.
-func (f QueryRulesetList) WithContext(v context.Context) func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
+func (f ConnectorSecretPost) WithContext(v context.Context) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.ctx = v
 	}
 }
 
-// WithFrom - starting offset (default: 0).
-func (f QueryRulesetList) WithFrom(v int) func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
-		r.From = &v
-	}
-}
-
-// WithSize - specifies a max number of results to get (default: 100).
-func (f QueryRulesetList) WithSize(v int) func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
-		r.Size = &v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f QueryRulesetList) WithPretty() func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
+func (f ConnectorSecretPost) WithPretty() func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f QueryRulesetList) WithHuman() func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
+func (f ConnectorSecretPost) WithHuman() func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f QueryRulesetList) WithErrorTrace() func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
+func (f ConnectorSecretPost) WithErrorTrace() func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f QueryRulesetList) WithFilterPath(v ...string) func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
+func (f ConnectorSecretPost) WithFilterPath(v ...string) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f QueryRulesetList) WithHeader(h map[string]string) func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
+func (f ConnectorSecretPost) WithHeader(h map[string]string) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -233,8 +215,8 @@ func (f QueryRulesetList) WithHeader(h map[string]string) func(*QueryRulesetList
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f QueryRulesetList) WithOpaqueID(s string) func(*QueryRulesetListRequest) {
-	return func(r *QueryRulesetListRequest) {
+func (f ConnectorSecretPost) WithOpaqueID(s string) func(*ConnectorSecretPostRequest) {
+	return func(r *ConnectorSecretPostRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

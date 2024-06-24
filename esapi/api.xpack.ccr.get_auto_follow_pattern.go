@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRGetAutoFollowPatternFunc(t Transport) CCRGetAutoFollowPattern {
@@ -50,6 +51,8 @@ type CCRGetAutoFollowPattern func(o ...func(*CCRGetAutoFollowPatternRequest)) (*
 // CCRGetAutoFollowPatternRequest configures the CCR Get Auto Follow Pattern API request.
 type CCRGetAutoFollowPatternRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -97,6 +100,10 @@ func (r CCRGetAutoFollowPatternRequest) Do(providedCtx context.Context, transpor
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -180,6 +187,13 @@ func (f CCRGetAutoFollowPattern) WithContext(v context.Context) func(*CCRGetAuto
 func (f CCRGetAutoFollowPattern) WithName(v string) func(*CCRGetAutoFollowPatternRequest) {
 	return func(r *CCRGetAutoFollowPatternRequest) {
 		r.Name = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRGetAutoFollowPattern) WithMasterTimeout(v time.Duration) func(*CCRGetAutoFollowPatternRequest) {
+	return func(r *CCRGetAutoFollowPatternRequest) {
+		r.MasterTimeout = v
 	}
 }
 

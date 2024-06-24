@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newWatcherUpdateSettingsFunc(t Transport) WatcherUpdateSettings {
@@ -51,6 +52,9 @@ type WatcherUpdateSettings func(body io.Reader, o ...func(*WatcherUpdateSettings
 // WatcherUpdateSettingsRequest configures the Watcher Update Settings API request.
 type WatcherUpdateSettingsRequest struct {
 	Body io.Reader
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -88,6 +92,14 @@ func (r WatcherUpdateSettingsRequest) Do(providedCtx context.Context, transport 
 	path.WriteString("/_watcher/settings")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +183,20 @@ func (r WatcherUpdateSettingsRequest) Do(providedCtx context.Context, transport 
 func (f WatcherUpdateSettings) WithContext(v context.Context) func(*WatcherUpdateSettingsRequest) {
 	return func(r *WatcherUpdateSettingsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f WatcherUpdateSettings) WithMasterTimeout(v time.Duration) func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - specify timeout for waiting for acknowledgement from all nodes.
+func (f WatcherUpdateSettings) WithTimeout(v time.Duration) func(*WatcherUpdateSettingsRequest) {
+	return func(r *WatcherUpdateSettingsRequest) {
+		r.Timeout = v
 	}
 }
 

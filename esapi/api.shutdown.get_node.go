@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newShutdownGetNodeFunc(t Transport) ShutdownGetNode {
@@ -50,6 +51,8 @@ type ShutdownGetNode func(o ...func(*ShutdownGetNodeRequest)) (*Response, error)
 // ShutdownGetNodeRequest configures the Shutdown Get Node API request.
 type ShutdownGetNodeRequest struct {
 	NodeID string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -97,6 +100,10 @@ func (r ShutdownGetNodeRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("shutdown")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -180,6 +187,13 @@ func (f ShutdownGetNode) WithContext(v context.Context) func(*ShutdownGetNodeReq
 func (f ShutdownGetNode) WithNodeID(v string) func(*ShutdownGetNodeRequest) {
 	return func(r *ShutdownGetNodeRequest) {
 		r.NodeID = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f ShutdownGetNode) WithMasterTimeout(v time.Duration) func(*ShutdownGetNodeRequest) {
+	return func(r *ShutdownGetNodeRequest) {
+		r.MasterTimeout = v
 	}
 }
 

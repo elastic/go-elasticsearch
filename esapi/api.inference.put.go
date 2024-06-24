@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newConnectorSecretPutFunc(t Transport) ConnectorSecretPut {
-	return func(id string, body io.Reader, o ...func(*ConnectorSecretPutRequest)) (*Response, error) {
-		var r = ConnectorSecretPutRequest{DocumentID: id, Body: body}
+func newInferencePutFunc(t Transport) InferencePut {
+	return func(inference_id string, o ...func(*InferencePutRequest)) (*Response, error) {
+		var r = InferencePutRequest{InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,16 +43,19 @@ func newConnectorSecretPutFunc(t Transport) ConnectorSecretPut {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretPut creates or updates a secret for a Connector.
+// InferencePut configure an inference endpoint for use in the Inference API
 //
 // This API is experimental.
-type ConnectorSecretPut func(id string, body io.Reader, o ...func(*ConnectorSecretPutRequest)) (*Response, error)
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html.
+type InferencePut func(inference_id string, o ...func(*InferencePutRequest)) (*Response, error)
 
-// ConnectorSecretPutRequest configures the Connector Secret Put API request.
-type ConnectorSecretPutRequest struct {
-	DocumentID string
-
+// InferencePutRequest configures the Inference Put API request.
+type InferencePutRequest struct {
 	Body io.Reader
+
+	InferenceID string
+	TaskType    string
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +70,7 @@ type ConnectorSecretPutRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSecretPutRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferencePutRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,7 +79,7 @@ func (r ConnectorSecretPutRequest) Do(providedCtx context.Context, transport Tra
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_secret.put")
+		ctx = instrument.Start(providedCtx, "inference.put")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -85,16 +88,21 @@ func (r ConnectorSecretPutRequest) Do(providedCtx context.Context, transport Tra
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_secret") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_connector")
+	path.WriteString("_inference")
+	if r.TaskType != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskType)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+		}
+	}
 	path.WriteString("/")
-	path.WriteString("_secret")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
+	path.WriteString(r.InferenceID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
 	}
 
 	params = make(map[string]string)
@@ -152,14 +160,14 @@ func (r ConnectorSecretPutRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_secret.put")
-		if reader := instrument.RecordRequestBody(ctx, "connector_secret.put", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "inference.put")
+		if reader := instrument.RecordRequestBody(ctx, "inference.put", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_secret.put")
+		instrument.AfterRequest(req, "elasticsearch", "inference.put")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -178,43 +186,57 @@ func (r ConnectorSecretPutRequest) Do(providedCtx context.Context, transport Tra
 }
 
 // WithContext sets the request context.
-func (f ConnectorSecretPut) WithContext(v context.Context) func(*ConnectorSecretPutRequest) {
-	return func(r *ConnectorSecretPutRequest) {
+func (f InferencePut) WithContext(v context.Context) func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
 		r.ctx = v
 	}
 }
 
+// WithBody - The inference endpoint's task and service settings.
+func (f InferencePut) WithBody(v io.Reader) func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
+		r.Body = v
+	}
+}
+
+// WithTaskType - the task type.
+func (f InferencePut) WithTaskType(v string) func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
+		r.TaskType = v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSecretPut) WithPretty() func(*ConnectorSecretPutRequest) {
-	return func(r *ConnectorSecretPutRequest) {
+func (f InferencePut) WithPretty() func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSecretPut) WithHuman() func(*ConnectorSecretPutRequest) {
-	return func(r *ConnectorSecretPutRequest) {
+func (f InferencePut) WithHuman() func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSecretPut) WithErrorTrace() func(*ConnectorSecretPutRequest) {
-	return func(r *ConnectorSecretPutRequest) {
+func (f InferencePut) WithErrorTrace() func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSecretPut) WithFilterPath(v ...string) func(*ConnectorSecretPutRequest) {
-	return func(r *ConnectorSecretPutRequest) {
+func (f InferencePut) WithFilterPath(v ...string) func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSecretPut) WithHeader(h map[string]string) func(*ConnectorSecretPutRequest) {
-	return func(r *ConnectorSecretPutRequest) {
+func (f InferencePut) WithHeader(h map[string]string) func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -225,8 +247,8 @@ func (f ConnectorSecretPut) WithHeader(h map[string]string) func(*ConnectorSecre
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSecretPut) WithOpaqueID(s string) func(*ConnectorSecretPutRequest) {
-	return func(r *ConnectorSecretPutRequest) {
+func (f InferencePut) WithOpaqueID(s string) func(*InferencePutRequest) {
+	return func(r *InferencePutRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

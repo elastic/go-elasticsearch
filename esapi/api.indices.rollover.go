@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -61,6 +61,7 @@ type IndicesRolloverRequest struct {
 	DryRun              *bool
 	Lazy                *bool
 	MasterTimeout       time.Duration
+	TargetFailureStore  *bool
 	Timeout             time.Duration
 	WaitForActiveShards string
 
@@ -124,6 +125,10 @@ func (r IndicesRolloverRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.TargetFailureStore != nil {
+		params["target_failure_store"] = strconv.FormatBool(*r.TargetFailureStore)
 	}
 
 	if r.Timeout != 0 {
@@ -251,6 +256,13 @@ func (f IndicesRollover) WithLazy(v bool) func(*IndicesRolloverRequest) {
 func (f IndicesRollover) WithMasterTimeout(v time.Duration) func(*IndicesRolloverRequest) {
 	return func(r *IndicesRolloverRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithTargetFailureStore - if set to true, the rollover action will be applied on the failure store of the data stream..
+func (f IndicesRollover) WithTargetFailureStore(v bool) func(*IndicesRolloverRequest) {
+	return func(r *IndicesRolloverRequest) {
+		r.TargetFailureStore = &v
 	}
 }
 

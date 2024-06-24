@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRFollowFunc(t Transport) CCRFollow {
@@ -54,6 +55,7 @@ type CCRFollowRequest struct {
 
 	Body io.Reader
 
+	MasterTimeout       time.Duration
 	WaitForActiveShards string
 
 	Pretty     bool
@@ -100,6 +102,10 @@ func (r CCRFollowRequest) Do(providedCtx context.Context, transport Transport) (
 	path.WriteString("follow")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.WaitForActiveShards != "" {
 		params["wait_for_active_shards"] = r.WaitForActiveShards
@@ -187,6 +193,13 @@ func (r CCRFollowRequest) Do(providedCtx context.Context, transport Transport) (
 func (f CCRFollow) WithContext(v context.Context) func(*CCRFollowRequest) {
 	return func(r *CCRFollowRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRFollow) WithMasterTimeout(v time.Duration) func(*CCRFollowRequest) {
+	return func(r *CCRFollowRequest) {
+		r.MasterTimeout = v
 	}
 }
 

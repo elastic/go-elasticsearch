@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -43,7 +43,7 @@ func newInferenceInferenceFunc(t Transport) InferenceInference {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceInference perform inference on a model
+// InferenceInference perform inference
 //
 // This API is experimental.
 //

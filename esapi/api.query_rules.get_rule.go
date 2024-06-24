@@ -15,20 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newConnectorSyncJobErrorFunc(t Transport) ConnectorSyncJobError {
-	return func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error) {
-		var r = ConnectorSyncJobErrorRequest{Body: body, ConnectorSyncJobID: connector_sync_job_id}
+func newQueryRulesGetRuleFunc(t Transport) QueryRulesGetRule {
+	return func(rule_id string, ruleset_id string, o ...func(*QueryRulesGetRuleRequest)) (*Response, error) {
+		var r = QueryRulesGetRuleRequest{RuleID: rule_id, RulesetID: ruleset_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,18 +42,15 @@ func newConnectorSyncJobErrorFunc(t Transport) ConnectorSyncJobError {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobError sets an error for a connector sync job.
+// QueryRulesGetRule returns the details about an individual query rule within a ruleset.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html.
-type ConnectorSyncJobError func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-rule.html.
+type QueryRulesGetRule func(rule_id string, ruleset_id string, o ...func(*QueryRulesGetRuleRequest)) (*Response, error)
 
-// ConnectorSyncJobErrorRequest configures the Connector Sync Job Error API request.
-type ConnectorSyncJobErrorRequest struct {
-	Body io.Reader
-
-	ConnectorSyncJobID string
+// QueryRulesGetRuleRequest configures the Query Rules Get Rule API request.
+type QueryRulesGetRuleRequest struct {
+	RuleID    string
+	RulesetID string
 
 	Pretty     bool
 	Human      bool
@@ -69,7 +65,7 @@ type ConnectorSyncJobErrorRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobErrorRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r QueryRulesGetRuleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -78,28 +74,31 @@ func (r ConnectorSyncJobErrorRequest) Do(providedCtx context.Context, transport 
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.error")
+		ctx = instrument.Start(providedCtx, "query_rules.get_rule")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID) + 1 + len("_error"))
+	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID) + 1 + len("_rule") + 1 + len(r.RuleID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_connector")
+	path.WriteString("_query_rules")
 	path.WriteString("/")
-	path.WriteString("_sync_job")
-	path.WriteString("/")
-	path.WriteString(r.ConnectorSyncJobID)
+	path.WriteString(r.RulesetID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
+		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
 	}
 	path.WriteString("/")
-	path.WriteString("_error")
+	path.WriteString("_rule")
+	path.WriteString("/")
+	path.WriteString(r.RuleID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "rule_id", r.RuleID)
+	}
 
 	params = make(map[string]string)
 
@@ -119,7 +118,7 @@ func (r ConnectorSyncJobErrorRequest) Do(providedCtx context.Context, transport 
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -147,23 +146,16 @@ func (r ConnectorSyncJobErrorRequest) Do(providedCtx context.Context, transport 
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.error")
-		if reader := instrument.RecordRequestBody(ctx, "connector_sync_job.error", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "query_rules.get_rule")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.error")
+		instrument.AfterRequest(req, "elasticsearch", "query_rules.get_rule")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -182,43 +174,43 @@ func (r ConnectorSyncJobErrorRequest) Do(providedCtx context.Context, transport 
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobError) WithContext(v context.Context) func(*ConnectorSyncJobErrorRequest) {
-	return func(r *ConnectorSyncJobErrorRequest) {
+func (f QueryRulesGetRule) WithContext(v context.Context) func(*QueryRulesGetRuleRequest) {
+	return func(r *QueryRulesGetRuleRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobError) WithPretty() func(*ConnectorSyncJobErrorRequest) {
-	return func(r *ConnectorSyncJobErrorRequest) {
+func (f QueryRulesGetRule) WithPretty() func(*QueryRulesGetRuleRequest) {
+	return func(r *QueryRulesGetRuleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobError) WithHuman() func(*ConnectorSyncJobErrorRequest) {
-	return func(r *ConnectorSyncJobErrorRequest) {
+func (f QueryRulesGetRule) WithHuman() func(*QueryRulesGetRuleRequest) {
+	return func(r *QueryRulesGetRuleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobError) WithErrorTrace() func(*ConnectorSyncJobErrorRequest) {
-	return func(r *ConnectorSyncJobErrorRequest) {
+func (f QueryRulesGetRule) WithErrorTrace() func(*QueryRulesGetRuleRequest) {
+	return func(r *QueryRulesGetRuleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobError) WithFilterPath(v ...string) func(*ConnectorSyncJobErrorRequest) {
-	return func(r *ConnectorSyncJobErrorRequest) {
+func (f QueryRulesGetRule) WithFilterPath(v ...string) func(*QueryRulesGetRuleRequest) {
+	return func(r *QueryRulesGetRuleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobError) WithHeader(h map[string]string) func(*ConnectorSyncJobErrorRequest) {
-	return func(r *ConnectorSyncJobErrorRequest) {
+func (f QueryRulesGetRule) WithHeader(h map[string]string) func(*QueryRulesGetRuleRequest) {
+	return func(r *QueryRulesGetRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -229,8 +221,8 @@ func (f ConnectorSyncJobError) WithHeader(h map[string]string) func(*ConnectorSy
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobError) WithOpaqueID(s string) func(*ConnectorSyncJobErrorRequest) {
-	return func(r *ConnectorSyncJobErrorRequest) {
+func (f QueryRulesGetRule) WithOpaqueID(s string) func(*QueryRulesGetRuleRequest) {
+	return func(r *QueryRulesGetRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

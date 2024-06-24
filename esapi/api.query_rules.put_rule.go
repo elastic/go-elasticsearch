@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newInferencePutModelFunc(t Transport) InferencePutModel {
-	return func(inference_id string, o ...func(*InferencePutModelRequest)) (*Response, error) {
-		var r = InferencePutModelRequest{InferenceID: inference_id}
+func newQueryRulesPutRuleFunc(t Transport) QueryRulesPutRule {
+	return func(body io.Reader, rule_id string, ruleset_id string, o ...func(*QueryRulesPutRuleRequest)) (*Response, error) {
+		var r = QueryRulesPutRuleRequest{Body: body, RuleID: rule_id, RulesetID: ruleset_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,19 +43,17 @@ func newInferencePutModelFunc(t Transport) InferencePutModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferencePutModel configure a model for use in the Inference API
+// QueryRulesPutRule creates or updates a query rule within a ruleset.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html.
-type InferencePutModel func(inference_id string, o ...func(*InferencePutModelRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-query-rule.html.
+type QueryRulesPutRule func(body io.Reader, rule_id string, ruleset_id string, o ...func(*QueryRulesPutRuleRequest)) (*Response, error)
 
-// InferencePutModelRequest configures the Inference Put Model API request.
-type InferencePutModelRequest struct {
+// QueryRulesPutRuleRequest configures the Query Rules Put Rule API request.
+type QueryRulesPutRuleRequest struct {
 	Body io.Reader
 
-	InferenceID string
-	TaskType    string
+	RuleID    string
+	RulesetID string
 
 	Pretty     bool
 	Human      bool
@@ -70,7 +68,7 @@ type InferencePutModelRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r InferencePutModelRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r QueryRulesPutRuleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -79,7 +77,7 @@ func (r InferencePutModelRequest) Do(providedCtx context.Context, transport Tran
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.put_model")
+		ctx = instrument.Start(providedCtx, "query_rules.put_rule")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -88,21 +86,21 @@ func (r InferencePutModelRequest) Do(providedCtx context.Context, transport Tran
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
+	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID) + 1 + len("_rule") + 1 + len(r.RuleID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_inference")
-	if r.TaskType != "" {
-		path.WriteString("/")
-		path.WriteString(r.TaskType)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
-		}
+	path.WriteString("_query_rules")
+	path.WriteString("/")
+	path.WriteString(r.RulesetID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
 	}
 	path.WriteString("/")
-	path.WriteString(r.InferenceID)
+	path.WriteString("_rule")
+	path.WriteString("/")
+	path.WriteString(r.RuleID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
+		instrument.RecordPathPart(ctx, "rule_id", r.RuleID)
 	}
 
 	params = make(map[string]string)
@@ -160,14 +158,14 @@ func (r InferencePutModelRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "inference.put_model")
-		if reader := instrument.RecordRequestBody(ctx, "inference.put_model", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "query_rules.put_rule")
+		if reader := instrument.RecordRequestBody(ctx, "query_rules.put_rule", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "inference.put_model")
+		instrument.AfterRequest(req, "elasticsearch", "query_rules.put_rule")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -186,57 +184,43 @@ func (r InferencePutModelRequest) Do(providedCtx context.Context, transport Tran
 }
 
 // WithContext sets the request context.
-func (f InferencePutModel) WithContext(v context.Context) func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
+func (f QueryRulesPutRule) WithContext(v context.Context) func(*QueryRulesPutRuleRequest) {
+	return func(r *QueryRulesPutRuleRequest) {
 		r.ctx = v
 	}
 }
 
-// WithBody - The model's task and service settings.
-func (f InferencePutModel) WithBody(v io.Reader) func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
-		r.Body = v
-	}
-}
-
-// WithTaskType - the task type.
-func (f InferencePutModel) WithTaskType(v string) func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
-		r.TaskType = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f InferencePutModel) WithPretty() func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
+func (f QueryRulesPutRule) WithPretty() func(*QueryRulesPutRuleRequest) {
+	return func(r *QueryRulesPutRuleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f InferencePutModel) WithHuman() func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
+func (f QueryRulesPutRule) WithHuman() func(*QueryRulesPutRuleRequest) {
+	return func(r *QueryRulesPutRuleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f InferencePutModel) WithErrorTrace() func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
+func (f QueryRulesPutRule) WithErrorTrace() func(*QueryRulesPutRuleRequest) {
+	return func(r *QueryRulesPutRuleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f InferencePutModel) WithFilterPath(v ...string) func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
+func (f QueryRulesPutRule) WithFilterPath(v ...string) func(*QueryRulesPutRuleRequest) {
+	return func(r *QueryRulesPutRuleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f InferencePutModel) WithHeader(h map[string]string) func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
+func (f QueryRulesPutRule) WithHeader(h map[string]string) func(*QueryRulesPutRuleRequest) {
+	return func(r *QueryRulesPutRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -247,8 +231,8 @@ func (f InferencePutModel) WithHeader(h map[string]string) func(*InferencePutMod
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f InferencePutModel) WithOpaqueID(s string) func(*InferencePutModelRequest) {
-	return func(r *InferencePutModelRequest) {
+func (f QueryRulesPutRule) WithOpaqueID(s string) func(*QueryRulesPutRuleRequest) {
+	return func(r *QueryRulesPutRuleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

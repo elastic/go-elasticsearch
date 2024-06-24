@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newSecurityGetSettingsFunc(t Transport) SecurityGetSettings {
@@ -49,6 +50,8 @@ type SecurityGetSettings func(o ...func(*SecurityGetSettingsRequest)) (*Response
 
 // SecurityGetSettingsRequest configures the Security Get Settings API request.
 type SecurityGetSettingsRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +88,10 @@ func (r SecurityGetSettingsRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("/_security/settings")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +168,13 @@ func (r SecurityGetSettingsRequest) Do(providedCtx context.Context, transport Tr
 func (f SecurityGetSettings) WithContext(v context.Context) func(*SecurityGetSettingsRequest) {
 	return func(r *SecurityGetSettingsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for connection to master.
+func (f SecurityGetSettings) WithMasterTimeout(v time.Duration) func(*SecurityGetSettingsRequest) {
+	return func(r *SecurityGetSettingsRequest) {
+		r.MasterTimeout = v
 	}
 }
 

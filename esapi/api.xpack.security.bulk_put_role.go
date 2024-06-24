@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newConnectorSyncJobUpdateStatsFunc(t Transport) ConnectorSyncJobUpdateStats {
-	return func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobUpdateStatsRequest)) (*Response, error) {
-		var r = ConnectorSyncJobUpdateStatsRequest{Body: body, ConnectorSyncJobID: connector_sync_job_id}
+func newSecurityBulkPutRoleFunc(t Transport) SecurityBulkPutRole {
+	return func(body io.Reader, o ...func(*SecurityBulkPutRoleRequest)) (*Response, error) {
+		var r = SecurityBulkPutRoleRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,18 +43,16 @@ func newConnectorSyncJobUpdateStatsFunc(t Transport) ConnectorSyncJobUpdateStats
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobUpdateStats updates the stats fields in the connector sync job document.
+// SecurityBulkPutRole - Bulk adds and updates roles in the native realm.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-stats-api.html.
-type ConnectorSyncJobUpdateStats func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobUpdateStatsRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-put-role.html.
+type SecurityBulkPutRole func(body io.Reader, o ...func(*SecurityBulkPutRoleRequest)) (*Response, error)
 
-// ConnectorSyncJobUpdateStatsRequest configures the Connector Sync Job Update Stats API request.
-type ConnectorSyncJobUpdateStatsRequest struct {
+// SecurityBulkPutRoleRequest configures the Security Bulk Put Role API request.
+type SecurityBulkPutRoleRequest struct {
 	Body io.Reader
 
-	ConnectorSyncJobID string
+	Refresh string
 
 	Pretty     bool
 	Human      bool
@@ -69,7 +67,7 @@ type ConnectorSyncJobUpdateStatsRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobUpdateStatsRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r SecurityBulkPutRoleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -78,30 +76,24 @@ func (r ConnectorSyncJobUpdateStatsRequest) Do(providedCtx context.Context, tran
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.update_stats")
+		ctx = instrument.Start(providedCtx, "security.bulk_put_role")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID) + 1 + len("_stats"))
+	path.Grow(7 + len("/_security/role"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_connector")
-	path.WriteString("/")
-	path.WriteString("_sync_job")
-	path.WriteString("/")
-	path.WriteString(r.ConnectorSyncJobID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
-	}
-	path.WriteString("/")
-	path.WriteString("_stats")
+	path.WriteString("/_security/role")
 
 	params = make(map[string]string)
+
+	if r.Refresh != "" {
+		params["refresh"] = r.Refresh
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -156,14 +148,14 @@ func (r ConnectorSyncJobUpdateStatsRequest) Do(providedCtx context.Context, tran
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.update_stats")
-		if reader := instrument.RecordRequestBody(ctx, "connector_sync_job.update_stats", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "security.bulk_put_role")
+		if reader := instrument.RecordRequestBody(ctx, "security.bulk_put_role", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.update_stats")
+		instrument.AfterRequest(req, "elasticsearch", "security.bulk_put_role")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -182,43 +174,50 @@ func (r ConnectorSyncJobUpdateStatsRequest) Do(providedCtx context.Context, tran
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobUpdateStats) WithContext(v context.Context) func(*ConnectorSyncJobUpdateStatsRequest) {
-	return func(r *ConnectorSyncJobUpdateStatsRequest) {
+func (f SecurityBulkPutRole) WithContext(v context.Context) func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
 		r.ctx = v
 	}
 }
 
+// WithRefresh - if `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes..
+func (f SecurityBulkPutRole) WithRefresh(v string) func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
+		r.Refresh = v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobUpdateStats) WithPretty() func(*ConnectorSyncJobUpdateStatsRequest) {
-	return func(r *ConnectorSyncJobUpdateStatsRequest) {
+func (f SecurityBulkPutRole) WithPretty() func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobUpdateStats) WithHuman() func(*ConnectorSyncJobUpdateStatsRequest) {
-	return func(r *ConnectorSyncJobUpdateStatsRequest) {
+func (f SecurityBulkPutRole) WithHuman() func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobUpdateStats) WithErrorTrace() func(*ConnectorSyncJobUpdateStatsRequest) {
-	return func(r *ConnectorSyncJobUpdateStatsRequest) {
+func (f SecurityBulkPutRole) WithErrorTrace() func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobUpdateStats) WithFilterPath(v ...string) func(*ConnectorSyncJobUpdateStatsRequest) {
-	return func(r *ConnectorSyncJobUpdateStatsRequest) {
+func (f SecurityBulkPutRole) WithFilterPath(v ...string) func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobUpdateStats) WithHeader(h map[string]string) func(*ConnectorSyncJobUpdateStatsRequest) {
-	return func(r *ConnectorSyncJobUpdateStatsRequest) {
+func (f SecurityBulkPutRole) WithHeader(h map[string]string) func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -229,8 +228,8 @@ func (f ConnectorSyncJobUpdateStats) WithHeader(h map[string]string) func(*Conne
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobUpdateStats) WithOpaqueID(s string) func(*ConnectorSyncJobUpdateStatsRequest) {
-	return func(r *ConnectorSyncJobUpdateStatsRequest) {
+func (f SecurityBulkPutRole) WithOpaqueID(s string) func(*SecurityBulkPutRoleRequest) {
+	return func(r *SecurityBulkPutRoleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

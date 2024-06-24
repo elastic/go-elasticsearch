@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -54,7 +55,8 @@ type SnapshotDeleteRequest struct {
 	Repository string
 	Snapshot   []string
 
-	MasterTimeout time.Duration
+	MasterTimeout     time.Duration
+	WaitForCompletion *bool
 
 	Pretty     bool
 	Human      bool
@@ -110,6 +112,10 @@ func (r SnapshotDeleteRequest) Do(providedCtx context.Context, transport Transpo
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.WaitForCompletion != nil {
+		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
 	}
 
 	if r.Pretty {
@@ -194,6 +200,13 @@ func (f SnapshotDelete) WithContext(v context.Context) func(*SnapshotDeleteReque
 func (f SnapshotDelete) WithMasterTimeout(v time.Duration) func(*SnapshotDeleteRequest) {
 	return func(r *SnapshotDeleteRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithWaitForCompletion - should this request wait until the operation has completed before returning.
+func (f SnapshotDelete) WithWaitForCompletion(v bool) func(*SnapshotDeleteRequest) {
+	return func(r *SnapshotDeleteRequest) {
+		r.WaitForCompletion = &v
 	}
 }
 

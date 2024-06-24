@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newConnectorSyncJobDeleteFunc(t Transport) ConnectorSyncJobDelete {
-	return func(connector_sync_job_id string, o ...func(*ConnectorSyncJobDeleteRequest)) (*Response, error) {
-		var r = ConnectorSyncJobDeleteRequest{ConnectorSyncJobID: connector_sync_job_id}
+func newQueryRulesGetRulesetFunc(t Transport) QueryRulesGetRuleset {
+	return func(ruleset_id string, o ...func(*QueryRulesGetRulesetRequest)) (*Response, error) {
+		var r = QueryRulesGetRulesetRequest{RulesetID: ruleset_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,16 +42,14 @@ func newConnectorSyncJobDeleteFunc(t Transport) ConnectorSyncJobDelete {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobDelete deletes a connector sync job.
+// QueryRulesGetRuleset returns the details about a query ruleset.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-connector-sync-job-api.html.
-type ConnectorSyncJobDelete func(connector_sync_job_id string, o ...func(*ConnectorSyncJobDeleteRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-query-ruleset.html.
+type QueryRulesGetRuleset func(ruleset_id string, o ...func(*QueryRulesGetRulesetRequest)) (*Response, error)
 
-// ConnectorSyncJobDeleteRequest configures the Connector Sync Job Delete API request.
-type ConnectorSyncJobDeleteRequest struct {
-	ConnectorSyncJobID string
+// QueryRulesGetRulesetRequest configures the Query Rules Get Ruleset API request.
+type QueryRulesGetRulesetRequest struct {
+	RulesetID string
 
 	Pretty     bool
 	Human      bool
@@ -66,7 +64,7 @@ type ConnectorSyncJobDeleteRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobDeleteRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r QueryRulesGetRulesetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,25 +73,23 @@ func (r ConnectorSyncJobDeleteRequest) Do(providedCtx context.Context, transport
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.delete")
+		ctx = instrument.Start(providedCtx, "query_rules.get_ruleset")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "DELETE"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID))
+	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_connector")
+	path.WriteString("_query_rules")
 	path.WriteString("/")
-	path.WriteString("_sync_job")
-	path.WriteString("/")
-	path.WriteString(r.ConnectorSyncJobID)
+	path.WriteString(r.RulesetID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
+		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
 	}
 
 	params = make(map[string]string)
@@ -147,11 +143,11 @@ func (r ConnectorSyncJobDeleteRequest) Do(providedCtx context.Context, transport
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.delete")
+		instrument.BeforeRequest(req, "query_rules.get_ruleset")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.delete")
+		instrument.AfterRequest(req, "elasticsearch", "query_rules.get_ruleset")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -170,43 +166,43 @@ func (r ConnectorSyncJobDeleteRequest) Do(providedCtx context.Context, transport
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobDelete) WithContext(v context.Context) func(*ConnectorSyncJobDeleteRequest) {
-	return func(r *ConnectorSyncJobDeleteRequest) {
+func (f QueryRulesGetRuleset) WithContext(v context.Context) func(*QueryRulesGetRulesetRequest) {
+	return func(r *QueryRulesGetRulesetRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobDelete) WithPretty() func(*ConnectorSyncJobDeleteRequest) {
-	return func(r *ConnectorSyncJobDeleteRequest) {
+func (f QueryRulesGetRuleset) WithPretty() func(*QueryRulesGetRulesetRequest) {
+	return func(r *QueryRulesGetRulesetRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobDelete) WithHuman() func(*ConnectorSyncJobDeleteRequest) {
-	return func(r *ConnectorSyncJobDeleteRequest) {
+func (f QueryRulesGetRuleset) WithHuman() func(*QueryRulesGetRulesetRequest) {
+	return func(r *QueryRulesGetRulesetRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobDelete) WithErrorTrace() func(*ConnectorSyncJobDeleteRequest) {
-	return func(r *ConnectorSyncJobDeleteRequest) {
+func (f QueryRulesGetRuleset) WithErrorTrace() func(*QueryRulesGetRulesetRequest) {
+	return func(r *QueryRulesGetRulesetRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobDelete) WithFilterPath(v ...string) func(*ConnectorSyncJobDeleteRequest) {
-	return func(r *ConnectorSyncJobDeleteRequest) {
+func (f QueryRulesGetRuleset) WithFilterPath(v ...string) func(*QueryRulesGetRulesetRequest) {
+	return func(r *QueryRulesGetRulesetRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobDelete) WithHeader(h map[string]string) func(*ConnectorSyncJobDeleteRequest) {
-	return func(r *ConnectorSyncJobDeleteRequest) {
+func (f QueryRulesGetRuleset) WithHeader(h map[string]string) func(*QueryRulesGetRulesetRequest) {
+	return func(r *QueryRulesGetRulesetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -217,8 +213,8 @@ func (f ConnectorSyncJobDelete) WithHeader(h map[string]string) func(*ConnectorS
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobDelete) WithOpaqueID(s string) func(*ConnectorSyncJobDeleteRequest) {
-	return func(r *ConnectorSyncJobDeleteRequest) {
+func (f QueryRulesGetRuleset) WithOpaqueID(s string) func(*QueryRulesGetRulesetRequest) {
+	return func(r *QueryRulesGetRulesetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

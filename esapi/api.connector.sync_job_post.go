@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newInferenceDeleteModelFunc(t Transport) InferenceDeleteModel {
-	return func(inference_id string, o ...func(*InferenceDeleteModelRequest)) (*Response, error) {
-		var r = InferenceDeleteModelRequest{InferenceID: inference_id}
+func newConnectorSyncJobPostFunc(t Transport) ConnectorSyncJobPost {
+	return func(body io.Reader, o ...func(*ConnectorSyncJobPostRequest)) (*Response, error) {
+		var r = ConnectorSyncJobPostRequest{Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,17 +43,16 @@ func newInferenceDeleteModelFunc(t Transport) InferenceDeleteModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceDeleteModel delete model in the Inference API
+// ConnectorSyncJobPost creates a connector sync job.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html.
-type InferenceDeleteModel func(inference_id string, o ...func(*InferenceDeleteModelRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-sync-job-api.html.
+type ConnectorSyncJobPost func(body io.Reader, o ...func(*ConnectorSyncJobPostRequest)) (*Response, error)
 
-// InferenceDeleteModelRequest configures the Inference Delete Model API request.
-type InferenceDeleteModelRequest struct {
-	InferenceID string
-	TaskType    string
+// ConnectorSyncJobPostRequest configures the Connector Sync Job Post API request.
+type ConnectorSyncJobPostRequest struct {
+	Body io.Reader
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +67,7 @@ type InferenceDeleteModelRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r InferenceDeleteModelRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSyncJobPostRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,31 +76,18 @@ func (r InferenceDeleteModelRequest) Do(providedCtx context.Context, transport T
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.delete_model")
+		ctx = instrument.Start(providedCtx, "connector.sync_job_post")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "DELETE"
+	method = "POST"
 
-	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
+	path.Grow(7 + len("/_connector/_sync_job"))
 	path.WriteString("http://")
-	path.WriteString("/")
-	path.WriteString("_inference")
-	if r.TaskType != "" {
-		path.WriteString("/")
-		path.WriteString(r.TaskType)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
-		}
-	}
-	path.WriteString("/")
-	path.WriteString(r.InferenceID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
-	}
+	path.WriteString("/_connector/_sync_job")
 
 	params = make(map[string]string)
 
@@ -120,7 +107,7 @@ func (r InferenceDeleteModelRequest) Do(providedCtx context.Context, transport T
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -148,16 +135,23 @@ func (r InferenceDeleteModelRequest) Do(providedCtx context.Context, transport T
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "inference.delete_model")
+		instrument.BeforeRequest(req, "connector.sync_job_post")
+		if reader := instrument.RecordRequestBody(ctx, "connector.sync_job_post", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "inference.delete_model")
+		instrument.AfterRequest(req, "elasticsearch", "connector.sync_job_post")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -176,50 +170,43 @@ func (r InferenceDeleteModelRequest) Do(providedCtx context.Context, transport T
 }
 
 // WithContext sets the request context.
-func (f InferenceDeleteModel) WithContext(v context.Context) func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
+func (f ConnectorSyncJobPost) WithContext(v context.Context) func(*ConnectorSyncJobPostRequest) {
+	return func(r *ConnectorSyncJobPostRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTaskType - the task type.
-func (f InferenceDeleteModel) WithTaskType(v string) func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
-		r.TaskType = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f InferenceDeleteModel) WithPretty() func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
+func (f ConnectorSyncJobPost) WithPretty() func(*ConnectorSyncJobPostRequest) {
+	return func(r *ConnectorSyncJobPostRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f InferenceDeleteModel) WithHuman() func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
+func (f ConnectorSyncJobPost) WithHuman() func(*ConnectorSyncJobPostRequest) {
+	return func(r *ConnectorSyncJobPostRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f InferenceDeleteModel) WithErrorTrace() func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
+func (f ConnectorSyncJobPost) WithErrorTrace() func(*ConnectorSyncJobPostRequest) {
+	return func(r *ConnectorSyncJobPostRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f InferenceDeleteModel) WithFilterPath(v ...string) func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
+func (f ConnectorSyncJobPost) WithFilterPath(v ...string) func(*ConnectorSyncJobPostRequest) {
+	return func(r *ConnectorSyncJobPostRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f InferenceDeleteModel) WithHeader(h map[string]string) func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
+func (f ConnectorSyncJobPost) WithHeader(h map[string]string) func(*ConnectorSyncJobPostRequest) {
+	return func(r *ConnectorSyncJobPostRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -230,8 +217,8 @@ func (f InferenceDeleteModel) WithHeader(h map[string]string) func(*InferenceDel
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f InferenceDeleteModel) WithOpaqueID(s string) func(*InferenceDeleteModelRequest) {
-	return func(r *InferenceDeleteModelRequest) {
+func (f ConnectorSyncJobPost) WithOpaqueID(s string) func(*ConnectorSyncJobPostRequest) {
+	return func(r *ConnectorSyncJobPostRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

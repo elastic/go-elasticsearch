@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newConnectorSecretPostFunc(t Transport) ConnectorSecretPost {
-	return func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error) {
-		var r = ConnectorSecretPostRequest{Body: body}
+func newSecurityQueryRoleFunc(t Transport) SecurityQueryRole {
+	return func(o ...func(*SecurityQueryRoleRequest)) (*Response, error) {
+		var r = SecurityQueryRoleRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,13 +43,13 @@ func newConnectorSecretPostFunc(t Transport) ConnectorSecretPost {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSecretPost creates a secret for a Connector.
+// SecurityQueryRole - Retrieves information for Roles using a subset of query DSL
 //
-// This API is experimental.
-type ConnectorSecretPost func(body io.Reader, o ...func(*ConnectorSecretPostRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-role.html.
+type SecurityQueryRole func(o ...func(*SecurityQueryRoleRequest)) (*Response, error)
 
-// ConnectorSecretPostRequest configures the Connector Secret Post API request.
-type ConnectorSecretPostRequest struct {
+// SecurityQueryRoleRequest configures the Security Query Role API request.
+type SecurityQueryRoleRequest struct {
 	Body io.Reader
 
 	Pretty     bool
@@ -65,7 +65,7 @@ type ConnectorSecretPostRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r SecurityQueryRoleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -74,7 +74,7 @@ func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Tr
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_secret.post")
+		ctx = instrument.Start(providedCtx, "security.query_role")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -83,9 +83,9 @@ func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Tr
 
 	method = "POST"
 
-	path.Grow(7 + len("/_connector/_secret"))
+	path.Grow(7 + len("/_security/_query/role"))
 	path.WriteString("http://")
-	path.WriteString("/_connector/_secret")
+	path.WriteString("/_security/_query/role")
 
 	params = make(map[string]string)
 
@@ -142,14 +142,14 @@ func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Tr
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_secret.post")
-		if reader := instrument.RecordRequestBody(ctx, "connector_secret.post", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "security.query_role")
+		if reader := instrument.RecordRequestBody(ctx, "security.query_role", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_secret.post")
+		instrument.AfterRequest(req, "elasticsearch", "security.query_role")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -168,43 +168,50 @@ func (r ConnectorSecretPostRequest) Do(providedCtx context.Context, transport Tr
 }
 
 // WithContext sets the request context.
-func (f ConnectorSecretPost) WithContext(v context.Context) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f SecurityQueryRole) WithContext(v context.Context) func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
 		r.ctx = v
 	}
 }
 
+// WithBody - From, size, query, sort and search_after.
+func (f SecurityQueryRole) WithBody(v io.Reader) func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
+		r.Body = v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSecretPost) WithPretty() func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f SecurityQueryRole) WithPretty() func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSecretPost) WithHuman() func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f SecurityQueryRole) WithHuman() func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSecretPost) WithErrorTrace() func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f SecurityQueryRole) WithErrorTrace() func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSecretPost) WithFilterPath(v ...string) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f SecurityQueryRole) WithFilterPath(v ...string) func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSecretPost) WithHeader(h map[string]string) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f SecurityQueryRole) WithHeader(h map[string]string) func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -215,8 +222,8 @@ func (f ConnectorSecretPost) WithHeader(h map[string]string) func(*ConnectorSecr
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSecretPost) WithOpaqueID(s string) func(*ConnectorSecretPostRequest) {
-	return func(r *ConnectorSecretPostRequest) {
+func (f SecurityQueryRole) WithOpaqueID(s string) func(*SecurityQueryRoleRequest) {
+	return func(r *SecurityQueryRoleRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

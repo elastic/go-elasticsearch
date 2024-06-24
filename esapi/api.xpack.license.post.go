@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newLicensePostFunc(t Transport) LicensePost {
@@ -53,7 +54,9 @@ type LicensePost func(o ...func(*LicensePostRequest)) (*Response, error)
 type LicensePostRequest struct {
 	Body io.Reader
 
-	Acknowledge *bool
+	Acknowledge   *bool
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -94,6 +97,14 @@ func (r LicensePostRequest) Do(providedCtx context.Context, transport Transport)
 
 	if r.Acknowledge != nil {
 		params["acknowledge"] = strconv.FormatBool(*r.Acknowledge)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -192,6 +203,20 @@ func (f LicensePost) WithBody(v io.Reader) func(*LicensePostRequest) {
 func (f LicensePost) WithAcknowledge(v bool) func(*LicensePostRequest) {
 	return func(r *LicensePostRequest) {
 		r.Acknowledge = &v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f LicensePost) WithMasterTimeout(v time.Duration) func(*LicensePostRequest) {
+	return func(r *LicensePostRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
+func (f LicensePost) WithTimeout(v time.Duration) func(*LicensePostRequest) {
+	return func(r *LicensePostRequest) {
+		r.Timeout = v
 	}
 }
 

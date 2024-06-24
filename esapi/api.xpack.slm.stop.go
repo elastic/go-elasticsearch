@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newSlmStopFunc(t Transport) SlmStop {
@@ -49,6 +50,9 @@ type SlmStop func(o ...func(*SlmStopRequest)) (*Response, error)
 
 // SlmStopRequest configures the Slm Stop API request.
 type SlmStopRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r SlmStopRequest) Do(providedCtx context.Context, transport Transport) (*R
 	path.WriteString("/_slm/stop")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r SlmStopRequest) Do(providedCtx context.Context, transport Transport) (*R
 func (f SlmStop) WithContext(v context.Context) func(*SlmStopRequest) {
 	return func(r *SlmStopRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f SlmStop) WithMasterTimeout(v time.Duration) func(*SlmStopRequest) {
+	return func(r *SlmStopRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
+func (f SlmStop) WithTimeout(v time.Duration) func(*SlmStopRequest) {
+	return func(r *SlmStopRequest) {
+		r.Timeout = v
 	}
 }
 

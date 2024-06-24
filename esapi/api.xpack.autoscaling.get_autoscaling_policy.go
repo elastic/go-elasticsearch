@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newAutoscalingGetAutoscalingPolicyFunc(t Transport) AutoscalingGetAutoscalingPolicy {
@@ -50,6 +51,8 @@ type AutoscalingGetAutoscalingPolicy func(name string, o ...func(*AutoscalingGet
 // AutoscalingGetAutoscalingPolicyRequest configures the Autoscaling Get Autoscaling Policy API request.
 type AutoscalingGetAutoscalingPolicyRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r AutoscalingGetAutoscalingPolicyRequest) Do(providedCtx context.Context, 
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r AutoscalingGetAutoscalingPolicyRequest) Do(providedCtx context.Context, 
 func (f AutoscalingGetAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingGetAutoscalingPolicyRequest) {
 	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f AutoscalingGetAutoscalingPolicy) WithMasterTimeout(v time.Duration) func(*AutoscalingGetAutoscalingPolicyRequest) {
+	return func(r *AutoscalingGetAutoscalingPolicyRequest) {
+		r.MasterTimeout = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -25,9 +25,9 @@ import (
 	"strings"
 )
 
-func newInferenceGetModelFunc(t Transport) InferenceGetModel {
-	return func(inference_id string, o ...func(*InferenceGetModelRequest)) (*Response, error) {
-		var r = InferenceGetModelRequest{InferenceID: inference_id}
+func newQueryRulesDeleteRulesetFunc(t Transport) QueryRulesDeleteRuleset {
+	return func(ruleset_id string, o ...func(*QueryRulesDeleteRulesetRequest)) (*Response, error) {
+		var r = QueryRulesDeleteRulesetRequest{RulesetID: ruleset_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,17 +42,14 @@ func newInferenceGetModelFunc(t Transport) InferenceGetModel {
 
 // ----- API Definition -------------------------------------------------------
 
-// InferenceGetModel get a model in the Inference API
+// QueryRulesDeleteRuleset deletes a query ruleset.
 //
-// This API is experimental.
-//
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-inference-api.html.
-type InferenceGetModel func(inference_id string, o ...func(*InferenceGetModelRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-query-ruleset.html.
+type QueryRulesDeleteRuleset func(ruleset_id string, o ...func(*QueryRulesDeleteRulesetRequest)) (*Response, error)
 
-// InferenceGetModelRequest configures the Inference Get Model API request.
-type InferenceGetModelRequest struct {
-	InferenceID string
-	TaskType    string
+// QueryRulesDeleteRulesetRequest configures the Query Rules Delete Ruleset API request.
+type QueryRulesDeleteRulesetRequest struct {
+	RulesetID string
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +64,7 @@ type InferenceGetModelRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r QueryRulesDeleteRulesetRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,30 +73,23 @@ func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Tran
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "inference.get_model")
+		ctx = instrument.Start(providedCtx, "query_rules.delete_ruleset")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
+	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_inference")
-	if r.TaskType != "" {
-		path.WriteString("/")
-		path.WriteString(r.TaskType)
-		if instrument, ok := r.instrument.(Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
-		}
-	}
+	path.WriteString("_query_rules")
 	path.WriteString("/")
-	path.WriteString(r.InferenceID)
+	path.WriteString(r.RulesetID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
+		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
 	}
 
 	params = make(map[string]string)
@@ -153,11 +143,11 @@ func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Tran
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "inference.get_model")
+		instrument.BeforeRequest(req, "query_rules.delete_ruleset")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "inference.get_model")
+		instrument.AfterRequest(req, "elasticsearch", "query_rules.delete_ruleset")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -176,50 +166,43 @@ func (r InferenceGetModelRequest) Do(providedCtx context.Context, transport Tran
 }
 
 // WithContext sets the request context.
-func (f InferenceGetModel) WithContext(v context.Context) func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
+func (f QueryRulesDeleteRuleset) WithContext(v context.Context) func(*QueryRulesDeleteRulesetRequest) {
+	return func(r *QueryRulesDeleteRulesetRequest) {
 		r.ctx = v
 	}
 }
 
-// WithTaskType - the task type.
-func (f InferenceGetModel) WithTaskType(v string) func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
-		r.TaskType = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f InferenceGetModel) WithPretty() func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
+func (f QueryRulesDeleteRuleset) WithPretty() func(*QueryRulesDeleteRulesetRequest) {
+	return func(r *QueryRulesDeleteRulesetRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f InferenceGetModel) WithHuman() func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
+func (f QueryRulesDeleteRuleset) WithHuman() func(*QueryRulesDeleteRulesetRequest) {
+	return func(r *QueryRulesDeleteRulesetRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f InferenceGetModel) WithErrorTrace() func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
+func (f QueryRulesDeleteRuleset) WithErrorTrace() func(*QueryRulesDeleteRulesetRequest) {
+	return func(r *QueryRulesDeleteRulesetRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f InferenceGetModel) WithFilterPath(v ...string) func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
+func (f QueryRulesDeleteRuleset) WithFilterPath(v ...string) func(*QueryRulesDeleteRulesetRequest) {
+	return func(r *QueryRulesDeleteRulesetRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f InferenceGetModel) WithHeader(h map[string]string) func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
+func (f QueryRulesDeleteRuleset) WithHeader(h map[string]string) func(*QueryRulesDeleteRulesetRequest) {
+	return func(r *QueryRulesDeleteRulesetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -230,8 +213,8 @@ func (f InferenceGetModel) WithHeader(h map[string]string) func(*InferenceGetMod
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f InferenceGetModel) WithOpaqueID(s string) func(*InferenceGetModelRequest) {
-	return func(r *InferenceGetModelRequest) {
+func (f QueryRulesDeleteRuleset) WithOpaqueID(s string) func(*QueryRulesDeleteRulesetRequest) {
+	return func(r *QueryRulesDeleteRulesetRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

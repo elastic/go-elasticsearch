@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRDeleteAutoFollowPatternFunc(t Transport) CCRDeleteAutoFollowPattern {
@@ -50,6 +51,8 @@ type CCRDeleteAutoFollowPattern func(name string, o ...func(*CCRDeleteAutoFollow
 // CCRDeleteAutoFollowPatternRequest configures the CCR Delete Auto Follow Pattern API request.
 type CCRDeleteAutoFollowPatternRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r CCRDeleteAutoFollowPatternRequest) Do(providedCtx context.Context, trans
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r CCRDeleteAutoFollowPatternRequest) Do(providedCtx context.Context, trans
 func (f CCRDeleteAutoFollowPattern) WithContext(v context.Context) func(*CCRDeleteAutoFollowPatternRequest) {
 	return func(r *CCRDeleteAutoFollowPatternRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRDeleteAutoFollowPattern) WithMasterTimeout(v time.Duration) func(*CCRDeleteAutoFollowPatternRequest) {
+	return func(r *CCRDeleteAutoFollowPatternRequest) {
+		r.MasterTimeout = v
 	}
 }
 

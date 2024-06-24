@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newEnrichStatsFunc(t Transport) EnrichStats {
@@ -49,6 +50,8 @@ type EnrichStats func(o ...func(*EnrichStatsRequest)) (*Response, error)
 
 // EnrichStatsRequest configures the Enrich Stats API request.
 type EnrichStatsRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +88,10 @@ func (r EnrichStatsRequest) Do(providedCtx context.Context, transport Transport)
 	path.WriteString("/_enrich/_stats")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +168,13 @@ func (r EnrichStatsRequest) Do(providedCtx context.Context, transport Transport)
 func (f EnrichStats) WithContext(v context.Context) func(*EnrichStatsRequest) {
 	return func(r *EnrichStatsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f EnrichStats) WithMasterTimeout(v time.Duration) func(*EnrichStatsRequest) {
+	return func(r *EnrichStatsRequest) {
+		r.MasterTimeout = v
 	}
 }
 

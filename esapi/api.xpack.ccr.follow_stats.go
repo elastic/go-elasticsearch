@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRFollowStatsFunc(t Transport) CCRFollowStats {
@@ -51,6 +52,8 @@ type CCRFollowStats func(index []string, o ...func(*CCRFollowStatsRequest)) (*Re
 // CCRFollowStatsRequest configures the CCR Follow Stats API request.
 type CCRFollowStatsRequest struct {
 	Index []string
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r CCRFollowStatsRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("stats")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -176,6 +183,13 @@ func (r CCRFollowStatsRequest) Do(providedCtx context.Context, transport Transpo
 func (f CCRFollowStats) WithContext(v context.Context) func(*CCRFollowStatsRequest) {
 	return func(r *CCRFollowStatsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f CCRFollowStats) WithTimeout(v time.Duration) func(*CCRFollowStatsRequest) {
+	return func(r *CCRFollowStatsRequest) {
+		r.Timeout = v
 	}
 }
 

@@ -15,19 +15,20 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func newConnectorSyncJobCancelFunc(t Transport) ConnectorSyncJobCancel {
-	return func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCancelRequest)) (*Response, error) {
-		var r = ConnectorSyncJobCancelRequest{ConnectorSyncJobID: connector_sync_job_id}
+func newConnectorSyncJobErrorFunc(t Transport) ConnectorSyncJobError {
+	return func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error) {
+		var r = ConnectorSyncJobErrorRequest{Body: body, ConnectorSyncJobID: connector_sync_job_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -42,15 +43,17 @@ func newConnectorSyncJobCancelFunc(t Transport) ConnectorSyncJobCancel {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobCancel cancels a connector sync job.
+// ConnectorSyncJobError sets an error for a connector sync job.
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/cancel-connector-sync-job-api.html.
-type ConnectorSyncJobCancel func(connector_sync_job_id string, o ...func(*ConnectorSyncJobCancelRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/set-connector-sync-job-error-api.html.
+type ConnectorSyncJobError func(body io.Reader, connector_sync_job_id string, o ...func(*ConnectorSyncJobErrorRequest)) (*Response, error)
 
-// ConnectorSyncJobCancelRequest configures the Connector Sync Job Cancel API request.
-type ConnectorSyncJobCancelRequest struct {
+// ConnectorSyncJobErrorRequest configures the Connector Sync Job Error API request.
+type ConnectorSyncJobErrorRequest struct {
+	Body io.Reader
+
 	ConnectorSyncJobID string
 
 	Pretty     bool
@@ -66,7 +69,7 @@ type ConnectorSyncJobCancelRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r ConnectorSyncJobErrorRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -75,7 +78,7 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.cancel")
+		ctx = instrument.Start(providedCtx, "connector.sync_job_error")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -84,7 +87,7 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID) + 1 + len("_cancel"))
+	path.Grow(7 + 1 + len("_connector") + 1 + len("_sync_job") + 1 + len(r.ConnectorSyncJobID) + 1 + len("_error"))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_connector")
@@ -96,7 +99,7 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 		instrument.RecordPathPart(ctx, "connector_sync_job_id", r.ConnectorSyncJobID)
 	}
 	path.WriteString("/")
-	path.WriteString("_cancel")
+	path.WriteString("_error")
 
 	params = make(map[string]string)
 
@@ -116,7 +119,7 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -144,16 +147,23 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.cancel")
+		instrument.BeforeRequest(req, "connector.sync_job_error")
+		if reader := instrument.RecordRequestBody(ctx, "connector.sync_job_error", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.cancel")
+		instrument.AfterRequest(req, "elasticsearch", "connector.sync_job_error")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -172,43 +182,43 @@ func (r ConnectorSyncJobCancelRequest) Do(providedCtx context.Context, transport
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobCancel) WithContext(v context.Context) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSyncJobError) WithContext(v context.Context) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobCancel) WithPretty() func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSyncJobError) WithPretty() func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobCancel) WithHuman() func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSyncJobError) WithHuman() func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobCancel) WithErrorTrace() func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSyncJobError) WithErrorTrace() func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobCancel) WithFilterPath(v ...string) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSyncJobError) WithFilterPath(v ...string) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobCancel) WithHeader(h map[string]string) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSyncJobError) WithHeader(h map[string]string) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -219,8 +229,8 @@ func (f ConnectorSyncJobCancel) WithHeader(h map[string]string) func(*ConnectorS
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobCancel) WithOpaqueID(s string) func(*ConnectorSyncJobCancelRequest) {
-	return func(r *ConnectorSyncJobCancelRequest) {
+func (f ConnectorSyncJobError) WithOpaqueID(s string) func(*ConnectorSyncJobErrorRequest) {
+	return func(r *ConnectorSyncJobErrorRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

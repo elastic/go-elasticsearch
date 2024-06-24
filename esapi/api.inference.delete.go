@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newConnectorSyncJobListFunc(t Transport) ConnectorSyncJobList {
-	return func(o ...func(*ConnectorSyncJobListRequest)) (*Response, error) {
-		var r = ConnectorSyncJobListRequest{}
+func newInferenceDeleteFunc(t Transport) InferenceDelete {
+	return func(inference_id string, o ...func(*InferenceDeleteRequest)) (*Response, error) {
+		var r = InferenceDeleteRequest{InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,20 +43,20 @@ func newConnectorSyncJobListFunc(t Transport) ConnectorSyncJobList {
 
 // ----- API Definition -------------------------------------------------------
 
-// ConnectorSyncJobList lists all connector sync jobs.
+// InferenceDelete delete an inference endpoint
 //
 // This API is experimental.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/list-connector-sync-jobs-api.html.
-type ConnectorSyncJobList func(o ...func(*ConnectorSyncJobListRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html.
+type InferenceDelete func(inference_id string, o ...func(*InferenceDeleteRequest)) (*Response, error)
 
-// ConnectorSyncJobListRequest configures the Connector Sync Job List API request.
-type ConnectorSyncJobListRequest struct {
-	ConnectorID string
-	From        *int
-	JobType     []string
-	Size        *int
-	Status      string
+// InferenceDeleteRequest configures the Inference Delete API request.
+type InferenceDeleteRequest struct {
+	InferenceID string
+	TaskType    string
+
+	DryRun *bool
+	Force  *bool
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +71,7 @@ type ConnectorSyncJobListRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferenceDeleteRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,39 +80,40 @@ func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport T
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "connector_sync_job.list")
+		ctx = instrument.Start(providedCtx, "inference.delete")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "DELETE"
 
-	path.Grow(7 + len("/_connector/_sync_job"))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID))
 	path.WriteString("http://")
-	path.WriteString("/_connector/_sync_job")
+	path.WriteString("/")
+	path.WriteString("_inference")
+	if r.TaskType != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskType)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+		}
+	}
+	path.WriteString("/")
+	path.WriteString(r.InferenceID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
+	}
 
 	params = make(map[string]string)
 
-	if r.ConnectorID != "" {
-		params["connector_id"] = r.ConnectorID
+	if r.DryRun != nil {
+		params["dry_run"] = strconv.FormatBool(*r.DryRun)
 	}
 
-	if r.From != nil {
-		params["from"] = strconv.FormatInt(int64(*r.From), 10)
-	}
-
-	if len(r.JobType) > 0 {
-		params["job_type"] = strings.Join(r.JobType, ",")
-	}
-
-	if r.Size != nil {
-		params["size"] = strconv.FormatInt(int64(*r.Size), 10)
-	}
-
-	if r.Status != "" {
-		params["status"] = r.Status
+	if r.Force != nil {
+		params["force"] = strconv.FormatBool(*r.Force)
 	}
 
 	if r.Pretty {
@@ -164,11 +165,11 @@ func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport T
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "connector_sync_job.list")
+		instrument.BeforeRequest(req, "inference.delete")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "connector_sync_job.list")
+		instrument.AfterRequest(req, "elasticsearch", "inference.delete")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -187,78 +188,64 @@ func (r ConnectorSyncJobListRequest) Do(providedCtx context.Context, transport T
 }
 
 // WithContext sets the request context.
-func (f ConnectorSyncJobList) WithContext(v context.Context) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f InferenceDelete) WithContext(v context.Context) func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
 		r.ctx = v
 	}
 }
 
-// WithConnectorID - ID of the connector to fetch the sync jobs for.
-func (f ConnectorSyncJobList) WithConnectorID(v string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.ConnectorID = v
+// WithTaskType - the task type.
+func (f InferenceDelete) WithTaskType(v string) func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
+		r.TaskType = v
 	}
 }
 
-// WithFrom - starting offset (default: 0).
-func (f ConnectorSyncJobList) WithFrom(v int) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.From = &v
+// WithDryRun - if true the endpoint will not be deleted and a list of ingest processors which reference this endpoint will be returned..
+func (f InferenceDelete) WithDryRun(v bool) func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
+		r.DryRun = &v
 	}
 }
 
-// WithJobType - a list of job types.
-func (f ConnectorSyncJobList) WithJobType(v ...string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.JobType = v
-	}
-}
-
-// WithSize - specifies a max number of results to get (default: 100).
-func (f ConnectorSyncJobList) WithSize(v int) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.Size = &v
-	}
-}
-
-// WithStatus - sync job status, which sync jobs are fetched for.
-func (f ConnectorSyncJobList) WithStatus(v string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
-		r.Status = v
+// WithForce - if true the endpoint will be forcefully stopped (regardless of whether or not it is referenced by any ingest processors or semantic text fields)..
+func (f InferenceDelete) WithForce(v bool) func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
+		r.Force = &v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f ConnectorSyncJobList) WithPretty() func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f InferenceDelete) WithPretty() func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f ConnectorSyncJobList) WithHuman() func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f InferenceDelete) WithHuman() func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f ConnectorSyncJobList) WithErrorTrace() func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f InferenceDelete) WithErrorTrace() func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f ConnectorSyncJobList) WithFilterPath(v ...string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f InferenceDelete) WithFilterPath(v ...string) func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f ConnectorSyncJobList) WithHeader(h map[string]string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f InferenceDelete) WithHeader(h map[string]string) func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -269,8 +256,8 @@ func (f ConnectorSyncJobList) WithHeader(h map[string]string) func(*ConnectorSyn
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f ConnectorSyncJobList) WithOpaqueID(s string) func(*ConnectorSyncJobListRequest) {
-	return func(r *ConnectorSyncJobListRequest) {
+func (f InferenceDelete) WithOpaqueID(s string) func(*InferenceDeleteRequest) {
+	return func(r *InferenceDeleteRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

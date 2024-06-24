@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -29,7 +29,7 @@ import (
 
 func newTextStructureFindFieldStructureFunc(t Transport) TextStructureFindFieldStructure {
 	return func(field string, index string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error) {
-		var r = TextStructureFindFieldStructureRequest{Field: field, Index: index}
+		var r = TextStructureFindFieldStructureRequest{Index: index, Field: field}
 		for _, f := range o {
 			f(&r)
 		}
@@ -47,7 +47,7 @@ func newTextStructureFindFieldStructureFunc(t Transport) TextStructureFindFieldS
 // TextStructureFindFieldStructure - Finds the structure of a text field in an index.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/find-field-structure.html.
-type TextStructureFindFieldStructure func(field string, index string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error)
+type TextStructureFindFieldStructure func(index string, field string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error)
 
 // TextStructureFindFieldStructureRequest configures the Text Structure Find Field Structure API request.
 type TextStructureFindFieldStructureRequest struct {

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newWatcherGetSettingsFunc(t Transport) WatcherGetSettings {
@@ -49,6 +50,8 @@ type WatcherGetSettings func(o ...func(*WatcherGetSettingsRequest)) (*Response, 
 
 // WatcherGetSettingsRequest configures the Watcher Get Settings API request.
 type WatcherGetSettingsRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +88,10 @@ func (r WatcherGetSettingsRequest) Do(providedCtx context.Context, transport Tra
 	path.WriteString("/_watcher/settings")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +168,13 @@ func (r WatcherGetSettingsRequest) Do(providedCtx context.Context, transport Tra
 func (f WatcherGetSettings) WithContext(v context.Context) func(*WatcherGetSettingsRequest) {
 	return func(r *WatcherGetSettingsRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f WatcherGetSettings) WithMasterTimeout(v time.Duration) func(*WatcherGetSettingsRequest) {
+	return func(r *WatcherGetSettingsRequest) {
+		r.MasterTimeout = v
 	}
 }
 

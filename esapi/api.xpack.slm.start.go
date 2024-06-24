@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newSlmStartFunc(t Transport) SlmStart {
@@ -49,6 +50,9 @@ type SlmStart func(o ...func(*SlmStartRequest)) (*Response, error)
 
 // SlmStartRequest configures the Slm Start API request.
 type SlmStartRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r SlmStartRequest) Do(providedCtx context.Context, transport Transport) (*
 	path.WriteString("/_slm/start")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r SlmStartRequest) Do(providedCtx context.Context, transport Transport) (*
 func (f SlmStart) WithContext(v context.Context) func(*SlmStartRequest) {
 	return func(r *SlmStartRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f SlmStart) WithMasterTimeout(v time.Duration) func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
+func (f SlmStart) WithTimeout(v time.Duration) func(*SlmStartRequest) {
+	return func(r *SlmStartRequest) {
+		r.Timeout = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newWatcherStopFunc(t Transport) WatcherStop {
@@ -49,6 +50,8 @@ type WatcherStop func(o ...func(*WatcherStopRequest)) (*Response, error)
 
 // WatcherStopRequest configures the Watcher Stop API request.
 type WatcherStopRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +88,10 @@ func (r WatcherStopRequest) Do(providedCtx context.Context, transport Transport)
 	path.WriteString("/_watcher/_stop")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +168,13 @@ func (r WatcherStopRequest) Do(providedCtx context.Context, transport Transport)
 func (f WatcherStop) WithContext(v context.Context) func(*WatcherStopRequest) {
 	return func(r *WatcherStopRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f WatcherStop) WithMasterTimeout(v time.Duration) func(*WatcherStopRequest) {
+	return func(r *WatcherStopRequest) {
+		r.MasterTimeout = v
 	}
 }
 

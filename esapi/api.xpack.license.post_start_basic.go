@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newLicensePostStartBasicFunc(t Transport) LicensePostStartBasic {
@@ -50,7 +51,9 @@ type LicensePostStartBasic func(o ...func(*LicensePostStartBasicRequest)) (*Resp
 
 // LicensePostStartBasicRequest configures the License Post Start Basic API request.
 type LicensePostStartBasicRequest struct {
-	Acknowledge *bool
+	Acknowledge   *bool
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -91,6 +94,14 @@ func (r LicensePostStartBasicRequest) Do(providedCtx context.Context, transport 
 
 	if r.Acknowledge != nil {
 		params["acknowledge"] = strconv.FormatBool(*r.Acknowledge)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.Pretty {
@@ -175,6 +186,20 @@ func (f LicensePostStartBasic) WithContext(v context.Context) func(*LicensePostS
 func (f LicensePostStartBasic) WithAcknowledge(v bool) func(*LicensePostStartBasicRequest) {
 	return func(r *LicensePostStartBasicRequest) {
 		r.Acknowledge = &v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f LicensePostStartBasic) WithMasterTimeout(v time.Duration) func(*LicensePostStartBasicRequest) {
+	return func(r *LicensePostStartBasicRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
+func (f LicensePostStartBasic) WithTimeout(v time.Duration) func(*LicensePostStartBasicRequest) {
+	return func(r *LicensePostStartBasicRequest) {
+		r.Timeout = v
 	}
 }
 
