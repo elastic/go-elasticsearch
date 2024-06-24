@@ -384,8 +384,8 @@ func TestElasticsearchIntegration(t *testing.T) {
 				if name == "total_prices" {
 					switch aggregation := agg.(type) {
 					case *types.SumAggregate:
-						if aggregation.Value != 26. {
-							t.Fatalf("error in aggregation, should be 26, got: %f", aggregation.Value)
+						if *aggregation.Value != 26. {
+							t.Fatalf("error in aggregation, should be 26, got: %f", *aggregation.Value)
 						}
 					default:
 						fmt.Printf("unexpected aggregation: %#v\n", agg)
