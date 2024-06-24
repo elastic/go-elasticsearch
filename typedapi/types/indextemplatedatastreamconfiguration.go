@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexTemplateDataStreamConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/IndexTemplate.ts#L72-L83
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/_types/IndexTemplate.ts#L72-L83
 type IndexTemplateDataStreamConfiguration struct {
 	// AllowCustomRouting If true, the data stream supports custom routing.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -55,7 +55,7 @@ func (s *IndexTemplateDataStreamConfiguration) UnmarshalJSON(data []byte) error 
 		switch t {
 
 		case "allow_custom_routing":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -69,7 +69,7 @@ func (s *IndexTemplateDataStreamConfiguration) UnmarshalJSON(data []byte) error 
 			}
 
 		case "hidden":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

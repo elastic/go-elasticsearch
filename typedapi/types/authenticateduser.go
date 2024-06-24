@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,14 +31,14 @@ import (
 
 // AuthenticatedUser type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/get_token/types.ts#L40-L45
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/get_token/types.ts#L40-L45
 type AuthenticatedUser struct {
 	AuthenticationProvider *AuthenticationProvider `json:"authentication_provider,omitempty"`
 	AuthenticationRealm    UserRealm               `json:"authentication_realm"`
 	AuthenticationType     string                  `json:"authentication_type"`
-	Email                  string                  `json:"email,omitempty"`
+	Email                  *string                 `json:"email,omitempty"`
 	Enabled                bool                    `json:"enabled"`
-	FullName               string                  `json:"full_name,omitempty"`
+	FullName               *string                 `json:"full_name,omitempty"`
 	LookupRealm            UserRealm               `json:"lookup_realm"`
 	Metadata               Metadata                `json:"metadata"`
 	ProfileUid             *string                 `json:"profile_uid,omitempty"`
@@ -93,10 +93,10 @@ func (s *AuthenticatedUser) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Email = o
+			s.Email = &o
 
 		case "enabled":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

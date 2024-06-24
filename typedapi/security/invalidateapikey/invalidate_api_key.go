@@ -16,9 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Invalidates one or more API keys.
+// The `manage_api_key` privilege allows deleting any API keys.
+// The `manage_own_api_key` only allows deleting API keys that are owned by the
+// user.
+// In addition, with the `manage_own_api_key` privilege, an invalidation request
+// must be issued in one of the three formats:
+// - Set the parameter `owner=true`.
+// - Or, set both `username` and `realm_name` to match the user’s identity.
+// - Or, if the request is issued by an API key, i.e. an API key invalidates
+// itself, specify its ID in the `ids` field.
 package invalidateapikey
 
 import (
@@ -30,6 +39,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -73,6 +83,15 @@ func NewInvalidateApiKeyFunc(tp elastictransport.Interface) NewInvalidateApiKey 
 }
 
 // Invalidates one or more API keys.
+// The `manage_api_key` privilege allows deleting any API keys.
+// The `manage_own_api_key` only allows deleting API keys that are owned by the
+// user.
+// In addition, with the `manage_own_api_key` privilege, an invalidation request
+// must be issued in one of the three formats:
+// - Set the parameter `owner=true`.
+// - Or, set both `username` and `realm_name` to match the user’s identity.
+// - Or, if the request is issued by an API key, i.e. an API key invalidates
+// itself, specify its ID in the `ids` field.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-api-key.html
 func New(tp elastictransport.Interface) *InvalidateApiKey {
@@ -287,6 +306,50 @@ func (r InvalidateApiKey) Do(providedCtx context.Context) (*Response, error) {
 // Header set a key, value pair in the InvalidateApiKey headers map.
 func (r *InvalidateApiKey) Header(key, value string) *InvalidateApiKey {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *InvalidateApiKey) ErrorTrace(errortrace bool) *InvalidateApiKey {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *InvalidateApiKey) FilterPath(filterpaths ...string) *InvalidateApiKey {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *InvalidateApiKey) Human(human bool) *InvalidateApiKey {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *InvalidateApiKey) Pretty(pretty bool) *InvalidateApiKey {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

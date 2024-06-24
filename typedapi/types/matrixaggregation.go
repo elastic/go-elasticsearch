@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -26,20 +26,17 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 )
 
 // MatrixAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/matrix.ts#L26-L36
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/matrix.ts#L26-L36
 type MatrixAggregation struct {
 	// Fields An array of fields for computing the statistics.
 	Fields []string `json:"fields,omitempty"`
-	Meta   Metadata `json:"meta,omitempty"`
 	// Missing The value to apply to documents that do not have a value.
 	// By default, documents without a value are ignored.
 	Missing map[string]Float64 `json:"missing,omitempty"`
-	Name    *string            `json:"name,omitempty"`
 }
 
 func (s *MatrixAggregation) UnmarshalJSON(data []byte) error {
@@ -73,11 +70,6 @@ func (s *MatrixAggregation) UnmarshalJSON(data []byte) error {
 				}
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "missing":
 			if s.Missing == nil {
 				s.Missing = make(map[string]Float64, 0)
@@ -85,18 +77,6 @@ func (s *MatrixAggregation) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Missing); err != nil {
 				return fmt.Errorf("%s | %w", "Missing", err)
 			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		}
 	}

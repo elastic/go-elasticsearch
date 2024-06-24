@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Explicitly clears the search context for a scroll.
+// Clears the search context and results for a scrolling search.
 package clearscroll
 
 import (
@@ -28,9 +28,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -75,7 +75,7 @@ func NewClearScrollFunc(tp elastictransport.Interface) NewClearScroll {
 	}
 }
 
-// Explicitly clears the search context for a scroll.
+// Clears the search context and results for a scrolling search.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html
 func New(tp elastictransport.Interface) *ClearScroll {
@@ -269,7 +269,7 @@ func (r ClearScroll) Do(providedCtx context.Context) (*Response, error) {
 	}
 
 	if res.StatusCode == 404 {
-		data, err := ioutil.ReadAll(res.Body)
+		data, err := io.ReadAll(res.Body)
 		if err != nil {
 			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 				instrument.RecordError(ctx, err)
@@ -326,6 +326,50 @@ func (r ClearScroll) Do(providedCtx context.Context) (*Response, error) {
 // Header set a key, value pair in the ClearScroll headers map.
 func (r *ClearScroll) Header(key, value string) *ClearScroll {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *ClearScroll) ErrorTrace(errortrace bool) *ClearScroll {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *ClearScroll) FilterPath(filterpaths ...string) *ClearScroll {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *ClearScroll) Human(human bool) *ClearScroll {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *ClearScroll) Pretty(pretty bool) *ClearScroll {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Shows information about currently configured aliases to indices including
-// filter and routing infos.
+// Retrieves the cluster’s index aliases, including filter and routing
+// information.
+// The API does not return data stream aliases.
+// IMPORTANT: cat APIs are only intended for human consumption using the command
+// line or the Kibana console. They are not intended for use by applications.
+// For application consumption, use the aliases API.
 package aliases
 
 import (
@@ -28,9 +32,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -76,8 +80,12 @@ func NewAliasesFunc(tp elastictransport.Interface) NewAliases {
 	}
 }
 
-// Shows information about currently configured aliases to indices including
-// filter and routing infos.
+// Retrieves the cluster’s index aliases, including filter and routing
+// information.
+// The API does not return data stream aliases.
+// IMPORTANT: cat APIs are only intended for human consumption using the command
+// line or the Kibana console. They are not intended for use by applications.
+// For application consumption, use the aliases API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-alias.html
 func New(tp elastictransport.Interface) *Aliases {
@@ -270,7 +278,7 @@ func (r Aliases) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -317,6 +325,113 @@ func (r *Aliases) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildca
 		tmp = append(tmp, item.String())
 	}
 	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Aliases) Format(format string) *Aliases {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// H List of columns to appear in the response. Supports simple wildcards.
+// API name: h
+func (r *Aliases) H(names ...string) *Aliases {
+	r.values.Set("h", strings.Join(names, ","))
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Aliases) Help(help bool) *Aliases {
+	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Local If `true`, the request computes the list of selected nodes from the
+// local cluster state. If `false` the list of selected nodes are computed
+// from the cluster state of the master node. In both cases the coordinating
+// node will send requests for further information to each selected node.
+// API name: local
+func (r *Aliases) Local(local bool) *Aliases {
+	r.values.Set("local", strconv.FormatBool(local))
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *Aliases) MasterTimeout(duration string) *Aliases {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Aliases) S(names ...string) *Aliases {
+	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// V When set to `true` will enable verbose output.
+// API name: v
+func (r *Aliases) V(v bool) *Aliases {
+	r.values.Set("v", strconv.FormatBool(v))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Aliases) ErrorTrace(errortrace bool) *Aliases {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Aliases) FilterPath(filterpaths ...string) *Aliases {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Aliases) Human(human bool) *Aliases {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Aliases) Pretty(pretty bool) *Aliases {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

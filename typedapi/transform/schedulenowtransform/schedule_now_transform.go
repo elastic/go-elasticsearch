@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Schedules now a transform.
+//
+// If you _schedule_now a transform, it will process the new data instantly,
+// without waiting for the configured frequency interval. After _schedule_now
+// API is called,
+// the transform will be processed again at now + frequency unless _schedule_now
+// API
+// is called again in the meantime.
 package schedulenowtransform
 
 import (
@@ -27,9 +34,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -77,6 +84,13 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 }
 
 // Schedules now a transform.
+//
+// If you _schedule_now a transform, it will process the new data instantly,
+// without waiting for the configured frequency interval. After _schedule_now
+// API is called,
+// the transform will be processed again at now + frequency unless _schedule_now
+// API
+// is called again in the meantime.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html
 func New(tp elastictransport.Interface) *ScheduleNowTransform {
@@ -268,7 +282,7 @@ func (r ScheduleNowTransform) IsSuccess(providedCtx context.Context) (bool, erro
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -309,6 +323,50 @@ func (r *ScheduleNowTransform) _transformid(transformid string) *ScheduleNowTran
 // API name: timeout
 func (r *ScheduleNowTransform) Timeout(duration string) *ScheduleNowTransform {
 	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *ScheduleNowTransform) ErrorTrace(errortrace bool) *ScheduleNowTransform {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *ScheduleNowTransform) FilterPath(filterpaths ...string) *ScheduleNowTransform {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *ScheduleNowTransform) Human(human bool) *ScheduleNowTransform {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *ScheduleNowTransform) Pretty(pretty bool) *ScheduleNowTransform {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

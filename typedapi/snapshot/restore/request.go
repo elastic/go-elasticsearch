@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package restore
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package restore
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L51
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/snapshot/restore/SnapshotRestoreRequest.ts#L25-L51
 type Request struct {
 	FeatureStates       []string             `json:"feature_states,omitempty"`
 	IgnoreIndexSettings []string             `json:"ignore_index_settings,omitempty"`
@@ -50,6 +50,7 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{}
+
 	return r
 }
 
@@ -90,7 +91,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ignore_unavailable":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -104,7 +105,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "include_aliases":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -118,7 +119,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "include_global_state":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -153,7 +154,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "partial":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

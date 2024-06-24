@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SourceOnlyRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/snapshot/_types/SnapshotRepository.ts#L117-L124
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/snapshot/_types/SnapshotRepository.ts#L117-L124
 type SourceOnlyRepositorySettings struct {
 	ChunkSize              ByteSize `json:"chunk_size,omitempty"`
 	Compress               *bool    `json:"compress,omitempty"`
@@ -63,7 +63,7 @@ func (s *SourceOnlyRepositorySettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "compress":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -90,7 +90,7 @@ func (s *SourceOnlyRepositorySettings) UnmarshalJSON(data []byte) error {
 
 		case "max_number_of_snapshots":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -115,7 +115,7 @@ func (s *SourceOnlyRepositorySettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "read_only", "readonly":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

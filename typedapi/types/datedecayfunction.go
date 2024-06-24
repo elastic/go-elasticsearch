@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -29,9 +29,9 @@ import (
 
 // DateDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/compound.ts#L186-L188
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/compound.ts#L193-L193
 type DateDecayFunction struct {
-	DateDecayFunction map[string]DecayPlacementDateMathDuration `json:"-"`
+	DecayFunctionBaseDateMathDuration map[string]DecayPlacementDateMathDuration `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
 	// decay contains multiple values.
 	MultiValueMode *multivaluemode.MultiValueMode `json:"multi_value_mode,omitempty"`
@@ -41,7 +41,7 @@ type DateDecayFunction struct {
 func (s DateDecayFunction) MarshalJSON() ([]byte, error) {
 	type opt DateDecayFunction
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]interface{}, 0)
+	tmp := make(map[string]any, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -53,10 +53,10 @@ func (s DateDecayFunction) MarshalJSON() ([]byte, error) {
 	}
 
 	// We inline the additional fields from the underlying map
-	for key, value := range s.DateDecayFunction {
+	for key, value := range s.DecayFunctionBaseDateMathDuration {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
-	delete(tmp, "DateDecayFunction")
+	delete(tmp, "DecayFunctionBaseDateMathDuration")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {
@@ -69,7 +69,7 @@ func (s DateDecayFunction) MarshalJSON() ([]byte, error) {
 // NewDateDecayFunction returns a DateDecayFunction.
 func NewDateDecayFunction() *DateDecayFunction {
 	r := &DateDecayFunction{
-		DateDecayFunction: make(map[string]DecayPlacementDateMathDuration, 0),
+		DecayFunctionBaseDateMathDuration: make(map[string]DecayPlacementDateMathDuration, 0),
 	}
 
 	return r

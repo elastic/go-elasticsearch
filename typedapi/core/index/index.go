@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Creates or updates a document in an index.
+// Adds a JSON document to the specified data stream or index and makes it
+// searchable.
+// If the target is an index and the document already exists, the request
+// updates the document and increments its version.
 package index
 
 import (
@@ -58,8 +61,8 @@ type Index struct {
 
 	raw io.Reader
 
-	req      interface{}
-	deferred []func(request interface{}) error
+	req      any
+	deferred []func(request any) error
 	buf      *gobytes.Buffer
 
 	paramSet int
@@ -87,7 +90,10 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 	}
 }
 
-// Creates or updates a document in an index.
+// Adds a JSON document to the specified data stream or index and makes it
+// searchable.
+// If the target is an index and the document already exists, the request
+// updates the document and increments its version.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-index_.html
 func New(tp elastictransport.Interface) *Index {
@@ -97,6 +103,8 @@ func New(tp elastictransport.Interface) *Index {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -117,14 +125,14 @@ func (r *Index) Raw(raw io.Reader) *Index {
 }
 
 // Request allows to set the request property with the appropriate payload.
-func (r *Index) Request(req interface{}) *Index {
+func (r *Index) Request(req any) *Index {
 	r.req = req
 
 	return r
 }
 
 // Document allows to set the request property with the appropriate payload.
-func (r *Index) Document(document interface{}) *Index {
+func (r *Index) Document(document any) *Index {
 	r.req = document
 
 	return r
@@ -454,6 +462,50 @@ func (r *Index) WaitForActiveShards(waitforactiveshards string) *Index {
 // API name: require_alias
 func (r *Index) RequireAlias(requirealias bool) *Index {
 	r.values.Set("require_alias", strconv.FormatBool(requirealias))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Index) ErrorTrace(errortrace bool) *Index {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Index) FilterPath(filterpaths ...string) *Index {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Index) Human(human bool) *Index {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Index) Pretty(pretty bool) *Index {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -30,12 +30,12 @@ import (
 
 // ExtendedBoundsFieldDateMath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L489-L498
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L491-L500
 type ExtendedBoundsFieldDateMath struct {
 	// Max Maximum value for the bound.
-	Max FieldDateMath `json:"max"`
+	Max FieldDateMath `json:"max,omitempty"`
 	// Min Minimum value for the bound.
-	Min FieldDateMath `json:"min"`
+	Min FieldDateMath `json:"min,omitempty"`
 }
 
 func (s *ExtendedBoundsFieldDateMath) UnmarshalJSON(data []byte) error {

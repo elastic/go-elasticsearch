@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // LikeDocument type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/specialized.ts#L165-L184
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/specialized.ts#L171-L193
 type LikeDocument struct {
 	// Doc A document not present in the index.
 	Doc    json.RawMessage `json:"doc,omitempty"`
@@ -40,7 +40,8 @@ type LikeDocument struct {
 	// Id_ ID of a document.
 	Id_ *string `json:"_id,omitempty"`
 	// Index_ Index of a document.
-	Index_           *string                  `json:"_index,omitempty"`
+	Index_ *string `json:"_index,omitempty"`
+	// PerFieldAnalyzer Overrides the default analyzer.
 	PerFieldAnalyzer map[string]string        `json:"per_field_analyzer,omitempty"`
 	Routing          *string                  `json:"routing,omitempty"`
 	Version          *int64                   `json:"version,omitempty"`

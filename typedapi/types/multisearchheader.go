@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // MultisearchHeader type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/msearch/types.ts#L53-L68
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/msearch/types.ts#L52-L67
 type MultisearchHeader struct {
 	AllowNoIndices            *bool                           `json:"allow_no_indices,omitempty"`
 	AllowPartialSearchResults *bool                           `json:"allow_partial_search_results,omitempty"`
@@ -65,7 +65,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "allow_no_indices":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -79,7 +79,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			}
 
 		case "allow_partial_search_results":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -93,7 +93,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ccs_minimize_roundtrips":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -123,7 +123,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ignore_throttled":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -137,7 +137,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			}
 
 		case "ignore_unavailable":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -179,7 +179,7 @@ func (s *MultisearchHeader) UnmarshalJSON(data []byte) error {
 			s.Preference = &o
 
 		case "request_cache":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

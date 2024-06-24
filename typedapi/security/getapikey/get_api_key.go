@@ -16,9 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Retrieves information for one or more API keys.
+// NOTE: If you have only the `manage_own_api_key` privilege, this API returns
+// only the API keys that you own.
+// If you have `read_security`, `manage_api_key` or greater privileges
+// (including `manage_security`), this API returns all API keys regardless of
+// ownership.
 package getapikey
 
 import (
@@ -27,7 +32,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -70,6 +74,11 @@ func NewGetApiKeyFunc(tp elastictransport.Interface) NewGetApiKey {
 }
 
 // Retrieves information for one or more API keys.
+// NOTE: If you have only the `manage_own_api_key` privilege, this API returns
+// only the API keys that you own.
+// If you have `read_security`, `manage_api_key` or greater privileges
+// (including `manage_security`), this API returns all API keys regardless of
+// ownership.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-api-key.html
 func New(tp elastictransport.Interface) *GetApiKey {
@@ -249,7 +258,7 @@ func (r GetApiKey) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -347,6 +356,59 @@ func (r *GetApiKey) WithLimitedBy(withlimitedby bool) *GetApiKey {
 // API name: active_only
 func (r *GetApiKey) ActiveOnly(activeonly bool) *GetApiKey {
 	r.values.Set("active_only", strconv.FormatBool(activeonly))
+
+	return r
+}
+
+// WithProfileUid Determines whether to also retrieve the profile uid, for the API key owner
+// principal, if it exists.
+// API name: with_profile_uid
+func (r *GetApiKey) WithProfileUid(withprofileuid bool) *GetApiKey {
+	r.values.Set("with_profile_uid", strconv.FormatBool(withprofileuid))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetApiKey) ErrorTrace(errortrace bool) *GetApiKey {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetApiKey) FilterPath(filterpaths ...string) *GetApiKey {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *GetApiKey) Human(human bool) *GetApiKey {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GetApiKey) Pretty(pretty bool) *GetApiKey {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

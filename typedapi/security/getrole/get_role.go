@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Retrieves roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The get roles API cannot retrieve roles that are defined in roles files.
 package getrole
 
 import (
@@ -27,9 +29,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -74,7 +76,9 @@ func NewGetRoleFunc(tp elastictransport.Interface) NewGetRole {
 	}
 }
 
-// Retrieves roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The get roles API cannot retrieve roles that are defined in roles files.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role.html
 func New(tp elastictransport.Interface) *GetRole {
@@ -267,7 +271,7 @@ func (r GetRole) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -302,6 +306,50 @@ func (r *GetRole) Header(key, value string) *GetRole {
 func (r *GetRole) Name(name string) *GetRole {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetRole) ErrorTrace(errortrace bool) *GetRole {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetRole) FilterPath(filterpaths ...string) *GetRole {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *GetRole) Human(human bool) *GetRole {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GetRole) Pretty(pretty bool) *GetRole {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

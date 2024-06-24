@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Returns information on how ML is using memory.
+// Get information about how machine learning jobs and trained models are using
+// memory,
+// on each node, both within the JVM heap, and natively, outside of the JVM.
 package getmemorystats
 
 import (
@@ -27,7 +29,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -75,7 +76,9 @@ func NewGetMemoryStatsFunc(tp elastictransport.Interface) NewGetMemoryStats {
 	}
 }
 
-// Returns information on how ML is using memory.
+// Get information about how machine learning jobs and trained models are using
+// memory,
+// on each node, both within the JVM heap, and natively, outside of the JVM.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ml-memory.html
 func New(tp elastictransport.Interface) *GetMemoryStats {
@@ -272,7 +275,7 @@ func (r GetMemoryStats) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -337,6 +340,37 @@ func (r *GetMemoryStats) MasterTimeout(duration string) *GetMemoryStats {
 // API name: timeout
 func (r *GetMemoryStats) Timeout(duration string) *GetMemoryStats {
 	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetMemoryStats) ErrorTrace(errortrace bool) *GetMemoryStats {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetMemoryStats) FilterPath(filterpaths ...string) *GetMemoryStats {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GetMemoryStats) Pretty(pretty bool) *GetMemoryStats {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalyticsStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L61-L71
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/xpack/usage/types.ts#L61-L71
 type AnalyticsStatistics struct {
 	BoxplotUsage               int64  `json:"boxplot_usage"`
 	CumulativeCardinalityUsage int64  `json:"cumulative_cardinality_usage"`
@@ -60,7 +60,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "boxplot_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -75,7 +75,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "cumulative_cardinality_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -90,7 +90,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "moving_percentiles_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -105,7 +105,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "multi_terms_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -120,7 +120,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "normalize_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -135,7 +135,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "rate_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -150,7 +150,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "string_stats_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -165,7 +165,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "t_test_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -180,7 +180,7 @@ func (s *AnalyticsStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "top_metrics_usage":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

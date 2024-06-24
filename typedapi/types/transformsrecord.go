@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,17 +31,17 @@ import (
 
 // TransformsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/transforms/types.ts#L22-L197
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cat/transforms/types.ts#L22-L197
 type TransformsRecord struct {
 	// ChangesLastDetectionTime The timestamp when changes were last detected in the source indices.
-	ChangesLastDetectionTime string `json:"changes_last_detection_time,omitempty"`
+	ChangesLastDetectionTime *string `json:"changes_last_detection_time,omitempty"`
 	// Checkpoint The sequence number for the checkpoint.
 	Checkpoint *string `json:"checkpoint,omitempty"`
 	// CheckpointDurationTimeExpAvg The exponential moving average of the duration of the checkpoint, in
 	// milliseconds.
 	CheckpointDurationTimeExpAvg *string `json:"checkpoint_duration_time_exp_avg,omitempty"`
 	// CheckpointProgress The progress of the next checkpoint that is currently in progress.
-	CheckpointProgress string `json:"checkpoint_progress,omitempty"`
+	CheckpointProgress *string `json:"checkpoint_progress,omitempty"`
 	// CreateTime The time the transform was created.
 	CreateTime *string `json:"create_time,omitempty"`
 	// DeleteTime The total time spent deleting documents, in milliseconds.
@@ -77,7 +77,7 @@ type TransformsRecord struct {
 	IndexedDocumentsExpAvg *string `json:"indexed_documents_exp_avg,omitempty"`
 	// LastSearchTime The timestamp of the last search in the source indices.
 	// This field is shown only if the transform is running.
-	LastSearchTime string `json:"last_search_time,omitempty"`
+	LastSearchTime *string `json:"last_search_time,omitempty"`
 	// MaxPageSearchSize The initial page size that is used for the composite aggregation for each
 	// checkpoint.
 	MaxPageSearchSize *string `json:"max_page_search_size,omitempty"`
@@ -150,7 +150,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ChangesLastDetectionTime = o
+			s.ChangesLastDetectionTime = &o
 
 		case "checkpoint", "c":
 			var tmp json.RawMessage
@@ -186,7 +186,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.CheckpointProgress = o
+			s.CheckpointProgress = &o
 
 		case "create_time", "ct", "createTime":
 			var tmp json.RawMessage
@@ -359,7 +359,7 @@ func (s *TransformsRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.LastSearchTime = o
+			s.LastSearchTime = &o
 
 		case "max_page_search_size", "mpsz":
 			var tmp json.RawMessage

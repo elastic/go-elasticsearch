@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package resumefollow
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package resumefollow
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ccr/resume_follow/ResumeFollowIndexRequest.ts#L25-L46
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ccr/resume_follow/ResumeFollowIndexRequest.ts#L25-L46
 type Request struct {
 	MaxOutstandingReadRequests    *int64         `json:"max_outstanding_read_requests,omitempty"`
 	MaxOutstandingWriteRequests   *int64         `json:"max_outstanding_write_requests,omitempty"`
@@ -50,6 +50,7 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{}
+
 	return r
 }
 
@@ -80,7 +81,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "max_outstanding_read_requests":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -95,7 +96,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_outstanding_write_requests":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -110,7 +111,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_read_request_operation_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -142,7 +143,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_write_buffer_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -169,7 +170,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			s.MaxWriteBufferSize = &o
 
 		case "max_write_request_operation_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalyzeToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/analyze/types.ts#L37-L44
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/analyze/types.ts#L37-L44
 type AnalyzeToken struct {
 	EndOffset      int64  `json:"end_offset"`
 	Position       int64  `json:"position"`
@@ -57,7 +57,7 @@ func (s *AnalyzeToken) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "end_offset":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -72,7 +72,7 @@ func (s *AnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "position":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -87,7 +87,7 @@ func (s *AnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "positionLength":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -102,7 +102,7 @@ func (s *AnalyzeToken) UnmarshalJSON(data []byte) error {
 			}
 
 		case "start_offset":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

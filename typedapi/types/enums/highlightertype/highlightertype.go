@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Package highlightertype
 package highlightertype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/highlighting.ts#L176-L191
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/highlighting.ts#L176-L191
 type HighlighterType struct {
 	Name string
 }
@@ -31,7 +31,7 @@ type HighlighterType struct {
 var (
 	Plain = HighlighterType{"plain"}
 
-	Fvh = HighlighterType{"fvh"}
+	Fastvector = HighlighterType{"fvh"}
 
 	Unified = HighlighterType{"unified"}
 )
@@ -46,7 +46,7 @@ func (h *HighlighterType) UnmarshalText(text []byte) error {
 	case "plain":
 		*h = Plain
 	case "fvh":
-		*h = Fvh
+		*h = Fastvector
 	case "unified":
 		*h = Unified
 	default:

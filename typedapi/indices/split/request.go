@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package split
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package split
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/split/IndicesSplitRequest.ts#L27-L74
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/split/IndicesSplitRequest.ts#L27-L74
 type Request struct {
 
 	// Aliases Aliases for the resulting index.
@@ -44,6 +44,7 @@ func NewRequest() *Request {
 		Aliases:  make(map[string]types.Alias, 0),
 		Settings: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 

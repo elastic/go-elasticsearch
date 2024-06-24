@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldStat type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/text_structure/find_structure/types.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/text_structure/find_structure/types.ts#L23-L33
 type FieldStat struct {
 	Cardinality int      `json:"cardinality"`
 	Count       int      `json:"count"`
@@ -61,7 +61,7 @@ func (s *FieldStat) UnmarshalJSON(data []byte) error {
 
 		case "cardinality":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -77,7 +77,7 @@ func (s *FieldStat) UnmarshalJSON(data []byte) error {
 
 		case "count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -117,7 +117,7 @@ func (s *FieldStat) UnmarshalJSON(data []byte) error {
 
 		case "max_value":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -133,7 +133,7 @@ func (s *FieldStat) UnmarshalJSON(data []byte) error {
 
 		case "mean_value":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -149,7 +149,7 @@ func (s *FieldStat) UnmarshalJSON(data []byte) error {
 
 		case "median_value":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -165,7 +165,7 @@ func (s *FieldStat) UnmarshalJSON(data []byte) error {
 
 		case "min_value":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

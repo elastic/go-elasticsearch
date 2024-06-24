@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Migrates the indices and ILM policies away from custom node attribute
-// allocation routing to data tiers routing
+// Switches the indices, ILM policies, and legacy, composable and component
+// templates from using custom node attributes and
+// attribute-based allocation filters to using data tiers, and optionally
+// deletes one legacy index template.+
+// Using node roles enables ILM to automatically move the indices between data
+// tiers.
 package migratetodatatiers
 
 import (
@@ -74,8 +78,12 @@ func NewMigrateToDataTiersFunc(tp elastictransport.Interface) NewMigrateToDataTi
 	}
 }
 
-// Migrates the indices and ILM policies away from custom node attribute
-// allocation routing to data tiers routing
+// Switches the indices, ILM policies, and legacy, composable and component
+// templates from using custom node attributes and
+// attribute-based allocation filters to using data tiers, and optionally
+// deletes one legacy index template.+
+// Using node roles enables ILM to automatically move the indices between data
+// tiers.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html
 func New(tp elastictransport.Interface) *MigrateToDataTiers {
@@ -301,6 +309,50 @@ func (r *MigrateToDataTiers) Header(key, value string) *MigrateToDataTiers {
 // API name: dry_run
 func (r *MigrateToDataTiers) DryRun(dryrun bool) *MigrateToDataTiers {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *MigrateToDataTiers) ErrorTrace(errortrace bool) *MigrateToDataTiers {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *MigrateToDataTiers) FilterPath(filterpaths ...string) *MigrateToDataTiers {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *MigrateToDataTiers) Human(human bool) *MigrateToDataTiers {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *MigrateToDataTiers) Pretty(pretty bool) *MigrateToDataTiers {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

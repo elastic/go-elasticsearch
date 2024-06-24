@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // EwmaMovingAverageAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/pipeline.ts#L252-L255
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/pipeline.ts#L252-L255
 type EwmaMovingAverageAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -43,10 +43,8 @@ type EwmaMovingAverageAggregation struct {
 	Format *string `json:"format,omitempty"`
 	// GapPolicy Policy to apply when gaps are found in the data.
 	GapPolicy *gappolicy.GapPolicy `json:"gap_policy,omitempty"`
-	Meta      Metadata             `json:"meta,omitempty"`
 	Minimize  *bool                `json:"minimize,omitempty"`
 	Model     string               `json:"model,omitempty"`
-	Name      *string              `json:"name,omitempty"`
 	Predict   *int                 `json:"predict,omitempty"`
 	Settings  EwmaModelSettings    `json:"settings"`
 	Window    *int                 `json:"window,omitempty"`
@@ -89,13 +87,8 @@ func (s *EwmaMovingAverageAggregation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "GapPolicy", err)
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "minimize":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -113,21 +106,9 @@ func (s *EwmaMovingAverageAggregation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Model", err)
 			}
 
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
-
 		case "predict":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -148,7 +129,7 @@ func (s *EwmaMovingAverageAggregation) UnmarshalJSON(data []byte) error {
 
 		case "window":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -174,10 +155,8 @@ func (s EwmaMovingAverageAggregation) MarshalJSON() ([]byte, error) {
 		BucketsPath: s.BucketsPath,
 		Format:      s.Format,
 		GapPolicy:   s.GapPolicy,
-		Meta:        s.Meta,
 		Minimize:    s.Minimize,
 		Model:       s.Model,
-		Name:        s.Name,
 		Predict:     s.Predict,
 		Settings:    s.Settings,
 		Window:      s.Window,

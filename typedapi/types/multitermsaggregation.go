@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -34,14 +34,12 @@ import (
 
 // MultiTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L582-L622
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L584-L624
 type MultiTermsAggregation struct {
 	// CollectMode Specifies the strategy for data collection.
 	CollectMode *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
-	Meta        Metadata                                                 `json:"meta,omitempty"`
 	// MinDocCount The minimum number of documents in a bucket for it to be returned.
-	MinDocCount *int64  `json:"min_doc_count,omitempty"`
-	Name        *string `json:"name,omitempty"`
+	MinDocCount *int64 `json:"min_doc_count,omitempty"`
 	// Order Specifies the sort order of the buckets.
 	// Defaults to sorting by descending document count.
 	Order AggregateOrder `json:"order,omitempty"`
@@ -80,13 +78,8 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "CollectMode", err)
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "min_doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -99,18 +92,6 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 				f := int64(v)
 				s.MinDocCount = &f
 			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		case "order":
 
@@ -134,7 +115,7 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "shard_min_doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -150,7 +131,7 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "shard_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -165,7 +146,7 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "show_term_doc_count_error":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -180,7 +161,7 @@ func (s *MultiTermsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

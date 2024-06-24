@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package putrole
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/put_role/SecurityPutRoleRequest.ts#L30-L79
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/put_role/SecurityPutRoleRequest.ts#L30-L80
 type Request struct {
 
 	// Applications A list of application privilege entries.
@@ -50,7 +50,9 @@ type Request struct {
 	// Metadata Optional metadata. Within the metadata object, keys that begin with an
 	// underscore (`_`) are reserved for system use.
 	Metadata types.Metadata `json:"metadata,omitempty"`
-	// RunAs A list of users that the owners of this role can impersonate.
+	// RunAs A list of users that the owners of this role can impersonate. *Note*: in
+	// Serverless, the run-as feature is disabled. For API compatibility, you can
+	// still specify an empty `run_as` field, but a non-empty list will be rejected.
 	RunAs []string `json:"run_as,omitempty"`
 	// TransientMetadata Indicates roles that might be incompatible with the current cluster license,
 	// specifically roles with document and field level security. When the cluster
@@ -67,6 +69,7 @@ func NewRequest() *Request {
 		Global:            make(map[string]json.RawMessage, 0),
 		TransientMetadata: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 

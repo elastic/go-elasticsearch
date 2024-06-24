@@ -16,9 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Creates an API key on behalf of another user.
+// This API is similar to Create API keys, however it creates the API key for a
+// user that is different than the user that runs the API.
+// The caller must have authentication credentials (either an access token, or a
+// username and password) for the user on whose behalf the API key will be
+// created.
+// It is not possible to use this API to create an API key without that user’s
+// credentials.
+// The user, for whom the authentication credentials is provided, can optionally
+// "run as" (impersonate) another user.
+// In this case, the API key will be created on behalf of the impersonated user.
+//
+// This API is intended be used by applications that need to create and manage
+// API keys for end users, but cannot guarantee that those users have permission
+// to create API keys on their own behalf.
+//
+// A successful grant API key API call returns a JSON structure that contains
+// the API key, its unique id, and its name.
+// If applicable, it also returns expiration information for the API key in
+// milliseconds.
+//
+// By default, API keys never expire. You can specify expiration information
+// when you create the API keys.
 package grantapikey
 
 import (
@@ -30,6 +52,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -74,6 +97,28 @@ func NewGrantApiKeyFunc(tp elastictransport.Interface) NewGrantApiKey {
 }
 
 // Creates an API key on behalf of another user.
+// This API is similar to Create API keys, however it creates the API key for a
+// user that is different than the user that runs the API.
+// The caller must have authentication credentials (either an access token, or a
+// username and password) for the user on whose behalf the API key will be
+// created.
+// It is not possible to use this API to create an API key without that user’s
+// credentials.
+// The user, for whom the authentication credentials is provided, can optionally
+// "run as" (impersonate) another user.
+// In this case, the API key will be created on behalf of the impersonated user.
+//
+// This API is intended be used by applications that need to create and manage
+// API keys for end users, but cannot guarantee that those users have permission
+// to create API keys on their own behalf.
+//
+// A successful grant API key API call returns a JSON structure that contains
+// the API key, its unique id, and its name.
+// If applicable, it also returns expiration information for the API key in
+// milliseconds.
+//
+// By default, API keys never expire. You can specify expiration information
+// when you create the API keys.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-grant-api-key.html
 func New(tp elastictransport.Interface) *GrantApiKey {
@@ -290,6 +335,50 @@ func (r GrantApiKey) Do(providedCtx context.Context) (*Response, error) {
 // Header set a key, value pair in the GrantApiKey headers map.
 func (r *GrantApiKey) Header(key, value string) *GrantApiKey {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GrantApiKey) ErrorTrace(errortrace bool) *GrantApiKey {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GrantApiKey) FilterPath(filterpaths ...string) *GrantApiKey {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *GrantApiKey) Human(human bool) *GrantApiKey {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GrantApiKey) Pretty(pretty bool) *GrantApiKey {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

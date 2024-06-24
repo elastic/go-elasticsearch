@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CcrShardStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ccr/_types/FollowIndexStats.ts#L35-L69
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ccr/_types/FollowIndexStats.ts#L35-L69
 type CcrShardStats struct {
 	BytesRead                     int64           `json:"bytes_read"`
 	FailedReadRequests            int64           `json:"failed_read_requests"`
@@ -84,7 +84,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bytes_read":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -99,7 +99,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "failed_read_requests":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -114,7 +114,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "failed_write_requests":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -139,7 +139,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "follower_global_checkpoint":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -186,7 +186,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "leader_global_checkpoint":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -218,7 +218,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "operations_read":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -233,7 +233,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "operations_written":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -249,7 +249,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "outstanding_read_requests":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -265,7 +265,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "outstanding_write_requests":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -298,7 +298,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 
 		case "shard_id":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -313,7 +313,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "successful_read_requests":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -328,7 +328,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "successful_write_requests":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -383,7 +383,7 @@ func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "write_buffer_operation_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

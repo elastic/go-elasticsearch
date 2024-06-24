@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PercentileRanksAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/metric.ts#L174-L193
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/metric.ts#L174-L193
 type PercentileRanksAggregation struct {
 	// Field The field on which to run the aggregation.
 	Field  *string `json:"field,omitempty"`
@@ -51,7 +51,7 @@ type PercentileRanksAggregation struct {
 	// percentile ranks.
 	Tdigest *TDigest `json:"tdigest,omitempty"`
 	// Values An array of values for which to calculate the percentile ranks.
-	Values []Float64 `json:"values,omitempty"`
+	Values *[]Float64 `json:"values,omitempty"`
 }
 
 func (s *PercentileRanksAggregation) UnmarshalJSON(data []byte) error {
@@ -92,7 +92,7 @@ func (s *PercentileRanksAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "keyed":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

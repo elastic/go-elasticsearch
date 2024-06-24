@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package putuser
 
@@ -33,11 +33,11 @@ import (
 
 // Request holds the request body struct for the package putuser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/put_user/SecurityPutUserRequest.ts#L23-L44
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/put_user/SecurityPutUserRequest.ts#L23-L44
 type Request struct {
-	Email        string         `json:"email,omitempty"`
+	Email        *string        `json:"email,omitempty"`
 	Enabled      *bool          `json:"enabled,omitempty"`
-	FullName     string         `json:"full_name,omitempty"`
+	FullName     *string        `json:"full_name,omitempty"`
 	Metadata     types.Metadata `json:"metadata,omitempty"`
 	Password     *string        `json:"password,omitempty"`
 	PasswordHash *string        `json:"password_hash,omitempty"`
@@ -48,6 +48,7 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{}
+
 	return r
 }
 
@@ -87,10 +88,10 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Email = o
+			s.Email = &o
 
 		case "enabled":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -113,7 +114,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.FullName = o
+			s.FullName = &o
 
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {

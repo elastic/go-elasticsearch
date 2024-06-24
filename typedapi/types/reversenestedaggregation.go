@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -26,15 +26,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 )
 
 // ReverseNestedAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L719-L725
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L721-L727
 type ReverseNestedAggregation struct {
-	Meta Metadata `json:"meta,omitempty"`
-	Name *string  `json:"name,omitempty"`
 	// Path Defines the nested object field that should be joined back to.
 	// The default is empty, which means that it joins back to the root/main
 	// document level.
@@ -55,23 +52,6 @@ func (s *ReverseNestedAggregation) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
-
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		case "path":
 			if err := dec.Decode(&s.Path); err != nil {

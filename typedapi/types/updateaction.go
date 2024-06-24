@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UpdateAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/bulk/types.ts#L169-L205
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/bulk/types.ts#L169-L205
 type UpdateAction struct {
 	// DetectNoop Set to false to disable setting 'result' in the response
 	// to 'noop' if no change to the document occurred.
@@ -70,7 +70,7 @@ func (s *UpdateAction) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "detect_noop":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -89,7 +89,7 @@ func (s *UpdateAction) UnmarshalJSON(data []byte) error {
 			}
 
 		case "doc_as_upsert":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -139,7 +139,7 @@ func (s *UpdateAction) UnmarshalJSON(data []byte) error {
 			}
 
 		case "scripted_upsert":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

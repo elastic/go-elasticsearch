@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,15 +31,26 @@ import (
 
 // MappingLimitSettingsTotalFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/IndexSettings.ts#L424-L432
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/_types/IndexSettings.ts#L426-L443
 type MappingLimitSettingsTotalFields struct {
+	// IgnoreDynamicBeyondLimit This setting determines what happens when a dynamically mapped field would
+	// exceed the total fields limit. When set
+	// to false (the default), the index request of the document that tries to add a
+	// dynamic field to the mapping will fail
+	// with the message Limit of total fields [X] has been exceeded. When set to
+	// true, the index request will not fail.
+	// Instead, fields that would exceed the limit are not added to the mapping,
+	// similar to dynamic: false.
+	// The fields that were not added to the mapping will be added to the _ignored
+	// field.
+	IgnoreDynamicBeyondLimit *bool `json:"ignore_dynamic_beyond_limit,omitempty"`
 	// Limit The maximum number of fields in an index. Field and object mappings, as well
 	// as field aliases count towards this limit.
 	// The limit is in place to prevent mappings and searches from becoming too
 	// large. Higher values can lead to performance
 	// degradations and memory issues, especially in clusters with a high load or
 	// few resources.
-	Limit *int `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 }
 
 func (s *MappingLimitSettingsTotalFields) UnmarshalJSON(data []byte) error {
@@ -57,19 +68,32 @@ func (s *MappingLimitSettingsTotalFields) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "limit":
-
-			var tmp interface{}
+		case "ignore_dynamic_beyond_limit":
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
-				value, err := strconv.Atoi(v)
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IgnoreDynamicBeyondLimit", err)
+				}
+				s.IgnoreDynamicBeyondLimit = &value
+			case bool:
+				s.IgnoreDynamicBeyondLimit = &v
+			}
+
+		case "limit":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Limit", err)
 				}
 				s.Limit = &value
 			case float64:
-				f := int(v)
+				f := int64(v)
 				s.Limit = &f
 			}
 

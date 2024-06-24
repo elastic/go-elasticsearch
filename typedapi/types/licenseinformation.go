@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // LicenseInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/license/get/types.ts#L25-L38
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/license/get/types.ts#L25-L38
 type LicenseInformation struct {
 	ExpiryDate         DateTime                    `json:"expiry_date,omitempty"`
 	ExpiryDateInMillis *int64                      `json:"expiry_date_in_millis,omitempty"`
@@ -42,8 +42,8 @@ type LicenseInformation struct {
 	IssueDateInMillis  int64                       `json:"issue_date_in_millis"`
 	IssuedTo           string                      `json:"issued_to"`
 	Issuer             string                      `json:"issuer"`
-	MaxNodes           int64                       `json:"max_nodes,omitempty"`
-	MaxResourceUnits   int                         `json:"max_resource_units,omitempty"`
+	MaxNodes           *int64                      `json:"max_nodes,omitempty"`
+	MaxResourceUnits   *int                        `json:"max_resource_units,omitempty"`
 	StartDateInMillis  int64                       `json:"start_date_in_millis"`
 	Status             licensestatus.LicenseStatus `json:"status"`
 	Type               licensetype.LicenseType     `json:"type"`

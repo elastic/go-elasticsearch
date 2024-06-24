@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelTreeNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/put_trained_model/types.ts#L81-L91
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/put_trained_model/types.ts#L81-L91
 type TrainedModelTreeNode struct {
 	DecisionType *string  `json:"decision_type,omitempty"`
 	DefaultLeft  *bool    `json:"default_left,omitempty"`
@@ -72,7 +72,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 			s.DecisionType = &o
 
 		case "default_left":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -86,7 +86,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 			}
 
 		case "leaf_value":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -103,7 +103,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 
 		case "left_child":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -119,7 +119,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 
 		case "node_index":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -135,7 +135,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 
 		case "right_child":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -151,7 +151,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 
 		case "split_feature":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -167,7 +167,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 
 		case "split_gain":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -182,7 +182,7 @@ func (s *TrainedModelTreeNode) UnmarshalJSON(data []byte) error {
 			}
 
 		case "threshold":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

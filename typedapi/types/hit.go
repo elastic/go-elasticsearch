@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // Hit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/hits.ts#L40-L64
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/hits.ts#L40-L64
 type Hit struct {
 	Explanation_       *Explanation               `json:"_explanation,omitempty"`
 	Fields             map[string]json.RawMessage `json:"fields,omitempty"`
 	Highlight          map[string][]string        `json:"highlight,omitempty"`
-	Id_                string                     `json:"_id"`
+	Id_                *string                    `json:"_id,omitempty"`
 	IgnoredFieldValues map[string][]string        `json:"ignored_field_values,omitempty"`
 	Ignored_           []string                   `json:"_ignored,omitempty"`
 	Index_             string                     `json:"_index"`
@@ -46,7 +46,7 @@ type Hit struct {
 	Node_              *string                    `json:"_node,omitempty"`
 	PrimaryTerm_       *int64                     `json:"_primary_term,omitempty"`
 	Routing_           *string                    `json:"_routing,omitempty"`
-	Score_             Float64                    `json:"_score,omitempty"`
+	Score_             *Float64                   `json:"_score,omitempty"`
 	SeqNo_             *int64                     `json:"_seq_no,omitempty"`
 	Shard_             *string                    `json:"_shard,omitempty"`
 	Sort               []FieldValue               `json:"sort,omitempty"`
@@ -144,7 +144,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 			s.Node_ = &o
 
 		case "_primary_term":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

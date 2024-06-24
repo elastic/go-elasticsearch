@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Adds and updates roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The create or update roles API cannot update roles that are defined in roles
+// files.
 package putrole
 
 import (
@@ -30,6 +33,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -82,7 +86,10 @@ func NewPutRoleFunc(tp elastictransport.Interface) NewPutRole {
 	}
 }
 
-// Adds and updates roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The create or update roles API cannot update roles that are defined in roles
+// files.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role.html
 func New(tp elastictransport.Interface) *PutRole {
@@ -326,6 +333,50 @@ func (r *PutRole) Refresh(refresh refresh.Refresh) *PutRole {
 	return r
 }
 
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *PutRole) ErrorTrace(errortrace bool) *PutRole {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *PutRole) FilterPath(filterpaths ...string) *PutRole {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *PutRole) Human(human bool) *PutRole {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *PutRole) Pretty(pretty bool) *PutRole {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
 // Applications A list of application privilege entries.
 // API name: applications
 func (r *PutRole) Applications(applications ...types.ApplicationPrivileges) *PutRole {
@@ -371,7 +422,9 @@ func (r *PutRole) Metadata(metadata types.Metadata) *PutRole {
 	return r
 }
 
-// RunAs A list of users that the owners of this role can impersonate.
+// RunAs A list of users that the owners of this role can impersonate. *Note*: in
+// Serverless, the run-as feature is disabled. For API compatibility, you can
+// still specify an empty `run_as` field, but a non-empty list will be rejected.
 // API name: run_as
 func (r *PutRole) RunAs(runas ...string) *PutRole {
 	r.req.RunAs = runas

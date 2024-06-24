@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package searchtemplate
 
@@ -31,7 +31,7 @@ import (
 
 // Request holds the request body struct for the package searchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search_template/SearchTemplateRequest.ts#L32-L134
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search_template/SearchTemplateRequest.ts#L32-L134
 type Request struct {
 
 	// Explain If `true`, returns detailed information about score calculation as part of
@@ -57,6 +57,7 @@ func NewRequest() *Request {
 	r := &Request{
 		Params: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 
@@ -87,7 +88,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "explain":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -114,7 +115,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "profile":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

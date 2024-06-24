@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -29,19 +29,19 @@ import (
 
 // NumericDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/compound.ts#L182-L184
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/compound.ts#L192-L192
 type NumericDecayFunction struct {
+	DecayFunctionBasedoubledouble map[string]DecayPlacementdoubledouble `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
 	// decay contains multiple values.
-	MultiValueMode       *multivaluemode.MultiValueMode        `json:"multi_value_mode,omitempty"`
-	NumericDecayFunction map[string]DecayPlacementdoubledouble `json:"-"`
+	MultiValueMode *multivaluemode.MultiValueMode `json:"multi_value_mode,omitempty"`
 }
 
 // MarhsalJSON overrides marshalling for types with additional properties
 func (s NumericDecayFunction) MarshalJSON() ([]byte, error) {
 	type opt NumericDecayFunction
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]interface{}, 0)
+	tmp := make(map[string]any, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {
@@ -53,10 +53,10 @@ func (s NumericDecayFunction) MarshalJSON() ([]byte, error) {
 	}
 
 	// We inline the additional fields from the underlying map
-	for key, value := range s.NumericDecayFunction {
+	for key, value := range s.DecayFunctionBasedoubledouble {
 		tmp[fmt.Sprintf("%s", key)] = value
 	}
-	delete(tmp, "NumericDecayFunction")
+	delete(tmp, "DecayFunctionBasedoubledouble")
 
 	data, err = json.Marshal(tmp)
 	if err != nil {
@@ -69,7 +69,7 @@ func (s NumericDecayFunction) MarshalJSON() ([]byte, error) {
 // NewNumericDecayFunction returns a NumericDecayFunction.
 func NewNumericDecayFunction() *NumericDecayFunction {
 	r := &NumericDecayFunction{
-		NumericDecayFunction: make(map[string]DecayPlacementdoubledouble, 0),
+		DecayFunctionBasedoubledouble: make(map[string]DecayPlacementdoubledouble, 0),
 	}
 
 	return r

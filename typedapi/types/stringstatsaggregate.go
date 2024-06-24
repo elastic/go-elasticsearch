@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,18 +31,18 @@ import (
 
 // StringStatsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L693-L704
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/Aggregate.ts#L700-L711
 type StringStatsAggregate struct {
-	AvgLength         Float64            `json:"avg_length,omitempty"`
-	AvgLengthAsString *string            `json:"avg_length_as_string,omitempty"`
-	Count             int64              `json:"count"`
-	Distribution      map[string]Float64 `json:"distribution,omitempty"`
-	Entropy           Float64            `json:"entropy,omitempty"`
-	MaxLength         int                `json:"max_length,omitempty"`
-	MaxLengthAsString *string            `json:"max_length_as_string,omitempty"`
-	Meta              Metadata           `json:"meta,omitempty"`
-	MinLength         int                `json:"min_length,omitempty"`
-	MinLengthAsString *string            `json:"min_length_as_string,omitempty"`
+	AvgLength         *Float64            `json:"avg_length,omitempty"`
+	AvgLengthAsString *string             `json:"avg_length_as_string,omitempty"`
+	Count             int64               `json:"count"`
+	Distribution      *map[string]Float64 `json:"distribution,omitempty"`
+	Entropy           *Float64            `json:"entropy,omitempty"`
+	MaxLength         *int                `json:"max_length,omitempty"`
+	MaxLengthAsString *string             `json:"max_length_as_string,omitempty"`
+	Meta              Metadata            `json:"meta,omitempty"`
+	MinLength         *int                `json:"min_length,omitempty"`
+	MinLengthAsString *string             `json:"min_length_as_string,omitempty"`
 }
 
 func (s *StringStatsAggregate) UnmarshalJSON(data []byte) error {
@@ -78,7 +78,7 @@ func (s *StringStatsAggregate) UnmarshalJSON(data []byte) error {
 			s.AvgLengthAsString = &o
 
 		case "count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

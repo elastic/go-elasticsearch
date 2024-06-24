@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/shards/types.ts#L20-L421
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cat/shards/types.ts#L20-L421
 type ShardsRecord struct {
 	// BulkAvgSizeInBytes The average size in bytes of shard bulk operations.
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
@@ -46,7 +46,7 @@ type ShardsRecord struct {
 	// CompletionSize The size of completion.
 	CompletionSize *string `json:"completion.size,omitempty"`
 	// Docs The number of documents in the shard.
-	Docs string `json:"docs,omitempty"`
+	Docs *string `json:"docs,omitempty"`
 	// FielddataEvictions The fielddata cache evictions.
 	FielddataEvictions *string `json:"fielddata.evictions,omitempty"`
 	// FielddataMemorySize The used fielddata cache memory.
@@ -88,7 +88,7 @@ type ShardsRecord struct {
 	// IndexingIndexTotal The number of indexing operations.
 	IndexingIndexTotal *string `json:"indexing.index_total,omitempty"`
 	// Ip The IP address of the node.
-	Ip string `json:"ip,omitempty"`
+	Ip *string `json:"ip,omitempty"`
 	// MergesCurrent The number of current merge operations.
 	MergesCurrent *string `json:"merges.current,omitempty"`
 	// MergesCurrentDocs The number of current merging documents.
@@ -104,7 +104,7 @@ type ShardsRecord struct {
 	// MergesTotalTime The time spent merging documents.
 	MergesTotalTime *string `json:"merges.total_time,omitempty"`
 	// Node The name of node.
-	Node string `json:"node,omitempty"`
+	Node *string `json:"node,omitempty"`
 	// PathData The shard data path.
 	PathData *string `json:"path.data,omitempty"`
 	// PathState The shard state path.
@@ -174,7 +174,7 @@ type ShardsRecord struct {
 	// `UNASSIGNED`: The shard is not assigned to any node.
 	State *string `json:"state,omitempty"`
 	// Store The disk space used by the shard.
-	Store string `json:"store,omitempty"`
+	Store *string `json:"store,omitempty"`
 	// SyncId The sync identifier.
 	SyncId *string `json:"sync_id,omitempty"`
 	// UnassignedAt The time at which the shard became unassigned in Coordinated Universal Time
@@ -324,7 +324,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Docs = o
+			s.Docs = &o
 
 		case "fielddata.evictions", "fe", "fielddataEvictions":
 			var tmp json.RawMessage
@@ -576,7 +576,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Ip = o
+			s.Ip = &o
 
 		case "merges.current", "mc", "mergesCurrent":
 			var tmp json.RawMessage
@@ -672,7 +672,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Node = o
+			s.Node = &o
 
 		case "path.data", "pd", "dataPath":
 			var tmp json.RawMessage
@@ -1056,7 +1056,7 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Store = o
+			s.Store = &o
 
 		case "sync_id":
 			var tmp json.RawMessage

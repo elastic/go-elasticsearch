@@ -16,10 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Closes one or more anomaly detection jobs. A job can be opened and closed
-// multiple times throughout its lifecycle.
+// Close anomaly detection jobs
+// A job can be opened and closed multiple times throughout its lifecycle. A
+// closed job cannot receive data or perform analysis operations, but you can
+// still explore and navigate results.
+// When you close a job, it runs housekeeping tasks such as pruning the model
+// history, flushing buffers, calculating final results and persisting the model
+// snapshots. Depending upon the size of the job, it could take several minutes
+// to close and the equivalent time to re-open. After it is closed, the job has
+// a minimal overhead on the cluster except for maintaining its meta data.
+// Therefore it is a best practice to close jobs that are no longer required to
+// process data.
+// If you close an anomaly detection job whose datafeed is running, the request
+// first tries to stop the datafeed. This behavior is equivalent to calling stop
+// datafeed API with the same timeout and force parameters as the close job
+// request.
+// When a datafeed that has a specified end date stops, it automatically closes
+// its associated job.
 package closejob
 
 import (
@@ -31,6 +46,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -81,8 +97,23 @@ func NewCloseJobFunc(tp elastictransport.Interface) NewCloseJob {
 	}
 }
 
-// Closes one or more anomaly detection jobs. A job can be opened and closed
-// multiple times throughout its lifecycle.
+// Close anomaly detection jobs
+// A job can be opened and closed multiple times throughout its lifecycle. A
+// closed job cannot receive data or perform analysis operations, but you can
+// still explore and navigate results.
+// When you close a job, it runs housekeeping tasks such as pruning the model
+// history, flushing buffers, calculating final results and persisting the model
+// snapshots. Depending upon the size of the job, it could take several minutes
+// to close and the equivalent time to re-open. After it is closed, the job has
+// a minimal overhead on the cluster except for maintaining its meta data.
+// Therefore it is a best practice to close jobs that are no longer required to
+// process data.
+// If you close an anomaly detection job whose datafeed is running, the request
+// first tries to stop the datafeed. This behavior is equivalent to calling stop
+// datafeed API with the same timeout and force parameters as the close job
+// request.
+// When a datafeed that has a specified end date stops, it automatically closes
+// its associated job.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-close-job.html
 func New(tp elastictransport.Interface) *CloseJob {
@@ -318,6 +349,50 @@ func (r *CloseJob) Header(key, value string) *CloseJob {
 func (r *CloseJob) _jobid(jobid string) *CloseJob {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *CloseJob) ErrorTrace(errortrace bool) *CloseJob {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *CloseJob) FilterPath(filterpaths ...string) *CloseJob {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *CloseJob) Human(human bool) *CloseJob {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *CloseJob) Pretty(pretty bool) *CloseJob {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -26,18 +26,15 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 )
 
 // MissingAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L574-L580
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L576-L582
 type MissingAggregation struct {
 	// Field The name of the field.
-	Field   *string  `json:"field,omitempty"`
-	Meta    Metadata `json:"meta,omitempty"`
-	Missing Missing  `json:"missing,omitempty"`
-	Name    *string  `json:"name,omitempty"`
+	Field   *string `json:"field,omitempty"`
+	Missing Missing `json:"missing,omitempty"`
 }
 
 func (s *MissingAggregation) UnmarshalJSON(data []byte) error {
@@ -60,27 +57,10 @@ func (s *MissingAggregation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Field", err)
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
 				return fmt.Errorf("%s | %w", "Missing", err)
 			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		}
 	}

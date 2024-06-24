@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package updatejob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L138
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L138
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
@@ -103,6 +103,7 @@ func NewRequest() *Request {
 	r := &Request{
 		CustomSettings: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 
@@ -133,7 +134,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "allow_lazy_open":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -170,7 +171,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "daily_model_snapshot_retention_after_days":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -217,7 +218,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "model_snapshot_retention_days":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -237,7 +238,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "renormalization_window_days":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -252,7 +253,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "results_retention_days":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

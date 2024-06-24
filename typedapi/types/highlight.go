@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -38,7 +38,7 @@ import (
 
 // Highlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/highlighting.ts#L153-L156
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/highlighting.ts#L153-L156
 type Highlight struct {
 	// BoundaryChars A string that contains each boundary character.
 	BoundaryChars *string `json:"boundary_chars,omitempty"`
@@ -145,7 +145,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 
 		case "boundary_max_scan":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -190,7 +190,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 			}
 
 		case "force_source":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -205,7 +205,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 
 		case "fragment_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -225,7 +225,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 			}
 
 		case "highlight_filter":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -245,7 +245,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 
 		case "max_analyzed_offset":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -261,7 +261,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 
 		case "max_fragment_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -277,7 +277,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 
 		case "no_match_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -293,7 +293,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 
 		case "number_of_fragments":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -322,7 +322,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 
 		case "phrase_limit":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -347,7 +347,7 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 			}
 
 		case "require_field_match":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

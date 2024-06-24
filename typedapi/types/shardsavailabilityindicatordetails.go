@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardsAvailabilityIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/health_report/types.ts#L109-L119
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/health_report/types.ts#L109-L119
 type ShardsAvailabilityIndicatorDetails struct {
 	CreatingPrimaries     int64 `json:"creating_primaries"`
 	InitializingPrimaries int64 `json:"initializing_primaries"`
@@ -60,7 +60,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "creating_primaries":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -75,7 +75,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "initializing_primaries":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -90,7 +90,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "initializing_replicas":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -105,7 +105,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "restarting_primaries":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -120,7 +120,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "restarting_replicas":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -135,7 +135,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "started_primaries":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -150,7 +150,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "started_replicas":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -165,7 +165,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "unassigned_primaries":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -180,7 +180,7 @@ func (s *ShardsAvailabilityIndicatorDetails) UnmarshalJSON(data []byte) error {
 			}
 
 		case "unassigned_replicas":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

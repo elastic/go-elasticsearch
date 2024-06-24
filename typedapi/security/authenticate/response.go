@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package authenticate
 
@@ -26,14 +26,14 @@ import (
 
 // Response holds the response body struct for the package authenticate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/authenticate/SecurityAuthenticateResponse.ts#L25-L43
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/authenticate/SecurityAuthenticateResponse.ts#L25-L43
 type Response struct {
 	ApiKey              *types.ApiKey            `json:"api_key,omitempty"`
 	AuthenticationRealm types.RealmInfo          `json:"authentication_realm"`
 	AuthenticationType  string                   `json:"authentication_type"`
-	Email               string                   `json:"email,omitempty"`
+	Email               *string                  `json:"email,omitempty"`
 	Enabled             bool                     `json:"enabled"`
-	FullName            string                   `json:"full_name,omitempty"`
+	FullName            *string                  `json:"full_name,omitempty"`
 	LookupRealm         types.RealmInfo          `json:"lookup_realm"`
 	Metadata            types.Metadata           `json:"metadata"`
 	Roles               []string                 `json:"roles"`

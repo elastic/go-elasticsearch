@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataTierPhaseStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L86-L97
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/xpack/usage/types.ts#L86-L97
 type DataTierPhaseStatistics struct {
 	DocCount                    int64 `json:"doc_count"`
 	IndexCount                  int64 `json:"index_count"`
@@ -61,7 +61,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -76,7 +76,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "index_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -91,7 +91,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "node_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -106,7 +106,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "primary_shard_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -121,7 +121,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "primary_shard_size_avg_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -136,7 +136,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "primary_shard_size_mad_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -151,7 +151,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "primary_shard_size_median_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -166,7 +166,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "primary_size_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -181,7 +181,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_shard_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -196,7 +196,7 @@ func (s *DataTierPhaseStatistics) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total_size_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

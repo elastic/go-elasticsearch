@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Deletes an existing anomaly detection job.
+// Deletes an anomaly detection job.
+//
+// All job configuration, model state and results are deleted.
+// It is not currently possible to delete multiple jobs using wildcards or a
+// comma separated list. If you delete a job that has a datafeed, the request
+// first tries to delete the datafeed. This behavior is equivalent to calling
+// the delete datafeed API with the same timeout and force parameters as the
+// delete job request.
 package deletejob
 
 import (
@@ -27,7 +34,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -77,7 +83,14 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 	}
 }
 
-// Deletes an existing anomaly detection job.
+// Deletes an anomaly detection job.
+//
+// All job configuration, model state and results are deleted.
+// It is not currently possible to delete multiple jobs using wildcards or a
+// comma separated list. If you delete a job that has a datafeed, the request
+// first tries to delete the datafeed. This behavior is equivalent to calling
+// the delete datafeed API with the same timeout and force parameters as the
+// delete job request.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html
 func New(tp elastictransport.Interface) *DeleteJob {
@@ -263,7 +276,7 @@ func (r DeleteJob) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -325,6 +338,50 @@ func (r *DeleteJob) DeleteUserAnnotations(deleteuserannotations bool) *DeleteJob
 // API name: wait_for_completion
 func (r *DeleteJob) WaitForCompletion(waitforcompletion bool) *DeleteJob {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *DeleteJob) ErrorTrace(errortrace bool) *DeleteJob {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *DeleteJob) FilterPath(filterpaths ...string) *DeleteJob {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *DeleteJob) Human(human bool) *DeleteJob {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *DeleteJob) Pretty(pretty bool) *DeleteJob {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

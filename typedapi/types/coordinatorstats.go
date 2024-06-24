@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CoordinatorStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/enrich/stats/types.ts#L29-L35
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/enrich/stats/types.ts#L29-L35
 type CoordinatorStats struct {
 	ExecutedSearchesTotal int64  `json:"executed_searches_total"`
 	NodeId                string `json:"node_id"`
@@ -56,7 +56,7 @@ func (s *CoordinatorStats) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "executed_searches_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -77,7 +77,7 @@ func (s *CoordinatorStats) UnmarshalJSON(data []byte) error {
 
 		case "queue_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -93,7 +93,7 @@ func (s *CoordinatorStats) UnmarshalJSON(data []byte) error {
 
 		case "remote_requests_current":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -108,7 +108,7 @@ func (s *CoordinatorStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "remote_requests_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

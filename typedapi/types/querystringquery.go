@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // QueryStringQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/fulltext.ts#L580-L700
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/fulltext.ts#L580-L700
 type QueryStringQuery struct {
 	// AllowLeadingWildcard If `true`, the wildcard characters `*` and `?` are allowed as the first
 	// character of the query string.
@@ -124,7 +124,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "allow_leading_wildcard":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -138,7 +138,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "analyze_wildcard":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -164,7 +164,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			s.Analyzer = &o
 
 		case "auto_generate_synonyms_phrase_query":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -178,7 +178,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "boost":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -204,7 +204,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "enable_position_increments":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -218,7 +218,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "escape":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -243,7 +243,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "fuzzy_max_expansions":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -259,7 +259,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "fuzzy_prefix_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -279,7 +279,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fuzzy_transpositions":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -293,7 +293,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "lenient":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -308,7 +308,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 
 		case "max_determinized_states":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -328,7 +328,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "phrase_slop":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -397,7 +397,7 @@ func (s *QueryStringQuery) UnmarshalJSON(data []byte) error {
 			}
 
 		case "tie_breaker":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Returns information about installed plugins across nodes node.
+// Returns a list of plugins running on each node of a cluster.
+// IMPORTANT: cat APIs are only intended for human consumption using the command
+// line or Kibana console. They are not intended for use by applications. For
+// application consumption, use the nodes info API.
 package plugins
 
 import (
@@ -27,9 +30,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -68,7 +71,10 @@ func NewPluginsFunc(tp elastictransport.Interface) NewPlugins {
 	}
 }
 
-// Returns information about installed plugins across nodes node.
+// Returns a list of plugins running on each node of a cluster.
+// IMPORTANT: cat APIs are only intended for human consumption using the command
+// line or Kibana console. They are not intended for use by applications. For
+// application consumption, use the nodes info API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-plugins.html
 func New(tp elastictransport.Interface) *Plugins {
@@ -248,7 +254,7 @@ func (r Plugins) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -272,6 +278,113 @@ func (r Plugins) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the Plugins headers map.
 func (r *Plugins) Header(key, value string) *Plugins {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Plugins) Format(format string) *Plugins {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// H List of columns to appear in the response. Supports simple wildcards.
+// API name: h
+func (r *Plugins) H(names ...string) *Plugins {
+	r.values.Set("h", strings.Join(names, ","))
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Plugins) Help(help bool) *Plugins {
+	r.values.Set("help", strconv.FormatBool(help))
+
+	return r
+}
+
+// Local If `true`, the request computes the list of selected nodes from the
+// local cluster state. If `false` the list of selected nodes are computed
+// from the cluster state of the master node. In both cases the coordinating
+// node will send requests for further information to each selected node.
+// API name: local
+func (r *Plugins) Local(local bool) *Plugins {
+	r.values.Set("local", strconv.FormatBool(local))
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *Plugins) MasterTimeout(duration string) *Plugins {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Plugins) S(names ...string) *Plugins {
+	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// V When set to `true` will enable verbose output.
+// API name: v
+func (r *Plugins) V(v bool) *Plugins {
+	r.values.Set("v", strconv.FormatBool(v))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Plugins) ErrorTrace(errortrace bool) *Plugins {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Plugins) FilterPath(filterpaths ...string) *Plugins {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Plugins) Human(human bool) *Plugins {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Plugins) Pretty(pretty bool) *Plugins {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

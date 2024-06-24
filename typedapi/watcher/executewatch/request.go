@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package executewatch
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package executewatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L79
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L79
 type Request struct {
 
 	// ActionModes Determines how to handle the watch actions as part of the watch execution.
@@ -61,6 +61,7 @@ func NewRequest() *Request {
 		ActionModes:      make(map[string]actionexecutionmode.ActionExecutionMode, 0),
 		AlternativeInput: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 

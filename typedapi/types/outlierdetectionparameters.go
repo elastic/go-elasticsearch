@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OutlierDetectionParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeAnalytics.ts#L527-L561
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/DataframeAnalytics.ts#L527-L561
 type OutlierDetectionParameters struct {
 	// ComputeFeatureInfluence Specifies whether the feature influence calculation is enabled.
 	ComputeFeatureInfluence *bool `json:"compute_feature_influence,omitempty"`
@@ -80,7 +80,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "compute_feature_influence":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -94,7 +94,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			}
 
 		case "feature_influence_threshold":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -123,7 +123,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 
 		case "n_neighbors":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -138,7 +138,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			}
 
 		case "outlier_fraction":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -154,7 +154,7 @@ func (s *OutlierDetectionParameters) UnmarshalJSON(data []byte) error {
 			}
 
 		case "standardization_enabled":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

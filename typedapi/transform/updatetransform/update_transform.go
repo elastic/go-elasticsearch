@@ -16,9 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Updates certain properties of a transform.
+//
+// All updated properties except `description` do not take effect until after
+// the transform starts the next checkpoint,
+// thus there is data consistency in each checkpoint. To use this API, you must
+// have `read` and `view_index_metadata`
+// privileges for the source indices. You must also have `index` and `read`
+// privileges for the destination index. When
+// Elasticsearch security features are enabled, the transform remembers which
+// roles the user who updated it had at the
+// time of update and runs with those privileges.
 package updatetransform
 
 import (
@@ -82,6 +92,16 @@ func NewUpdateTransformFunc(tp elastictransport.Interface) NewUpdateTransform {
 }
 
 // Updates certain properties of a transform.
+//
+// All updated properties except `description` do not take effect until after
+// the transform starts the next checkpoint,
+// thus there is data consistency in each checkpoint. To use this API, you must
+// have `read` and `view_index_metadata`
+// privileges for the source indices. You must also have `index` and `read`
+// privileges for the destination index. When
+// Elasticsearch security features are enabled, the transform remembers which
+// roles the user who updated it had at the
+// time of update and runs with those privileges.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-transform.html
 func New(tp elastictransport.Interface) *UpdateTransform {
@@ -334,6 +354,50 @@ func (r *UpdateTransform) Timeout(duration string) *UpdateTransform {
 	return r
 }
 
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *UpdateTransform) ErrorTrace(errortrace bool) *UpdateTransform {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *UpdateTransform) FilterPath(filterpaths ...string) *UpdateTransform {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *UpdateTransform) Human(human bool) *UpdateTransform {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *UpdateTransform) Pretty(pretty bool) *UpdateTransform {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
 // Description Free text description of the transform.
 // API name: description
 func (r *UpdateTransform) Description(description string) *UpdateTransform {
@@ -375,7 +439,7 @@ func (r *UpdateTransform) Meta_(metadata types.Metadata) *UpdateTransform {
 // criteria is deleted from the destination index.
 // API name: retention_policy
 func (r *UpdateTransform) RetentionPolicy(retentionpolicy types.RetentionPolicyContainer) *UpdateTransform {
-	r.req.RetentionPolicy = retentionpolicy
+	r.req.RetentionPolicy = &retentionpolicy
 
 	return r
 }

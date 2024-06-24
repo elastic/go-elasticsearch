@@ -16,9 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Deletes forecasts from a machine learning job.
+// By default, forecasts are retained for 14 days. You can specify a
+// different retention period with the `expires_in` parameter in the forecast
+// jobs API. The delete forecast API enables you to delete one or more
+// forecasts before they expire.
 package deleteforecast
 
 import (
@@ -27,7 +31,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -81,6 +84,10 @@ func NewDeleteForecastFunc(tp elastictransport.Interface) NewDeleteForecast {
 }
 
 // Deletes forecasts from a machine learning job.
+// By default, forecasts are retained for 14 days. You can specify a
+// different retention period with the `expires_in` parameter in the forecast
+// jobs API. The delete forecast API enables you to delete one or more
+// forecasts before they expire.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-forecast.html
 func New(tp elastictransport.Interface) *DeleteForecast {
@@ -289,7 +296,7 @@ func (r DeleteForecast) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -354,6 +361,50 @@ func (r *DeleteForecast) AllowNoForecasts(allownoforecasts bool) *DeleteForecast
 // API name: timeout
 func (r *DeleteForecast) Timeout(duration string) *DeleteForecast {
 	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *DeleteForecast) ErrorTrace(errortrace bool) *DeleteForecast {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *DeleteForecast) FilterPath(filterpaths ...string) *DeleteForecast {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *DeleteForecast) Human(human bool) *DeleteForecast {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *DeleteForecast) Pretty(pretty bool) *DeleteForecast {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }
