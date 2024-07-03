@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newLicenseDeleteFunc(t Transport) LicenseDelete {
@@ -49,6 +50,9 @@ type LicenseDelete func(o ...func(*LicenseDeleteRequest)) (*Response, error)
 
 // LicenseDeleteRequest configures the License Delete API request.
 type LicenseDeleteRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r LicenseDeleteRequest) Do(providedCtx context.Context, transport Transpor
 	path.WriteString("/_license")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r LicenseDeleteRequest) Do(providedCtx context.Context, transport Transpor
 func (f LicenseDelete) WithContext(v context.Context) func(*LicenseDeleteRequest) {
 	return func(r *LicenseDeleteRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f LicenseDelete) WithMasterTimeout(v time.Duration) func(*LicenseDeleteRequest) {
+	return func(r *LicenseDeleteRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
+func (f LicenseDelete) WithTimeout(v time.Duration) func(*LicenseDeleteRequest) {
+	return func(r *LicenseDeleteRequest) {
+		r.Timeout = v
 	}
 }
 

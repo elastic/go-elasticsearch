@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CommandCancelAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/reroute/types.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cluster/reroute/types.ts#L45-L50
 type CommandCancelAction struct {
 	AllowPrimary *bool  `json:"allow_primary,omitempty"`
 	Index        string `json:"index"`
@@ -55,7 +55,7 @@ func (s *CommandCancelAction) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "allow_primary":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -87,7 +87,7 @@ func (s *CommandCancelAction) UnmarshalJSON(data []byte) error {
 
 		case "shard":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

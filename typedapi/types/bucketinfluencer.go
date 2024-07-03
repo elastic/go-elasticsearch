@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // BucketInfluencer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/Bucket.ts#L80-L128
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/Bucket.ts#L80-L128
 type BucketInfluencer struct {
 	// AnomalyScore A normalized score between 0-100, which is calculated for each bucket
 	// influencer. This score might be updated as
@@ -83,7 +83,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "anomaly_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -109,7 +109,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "initial_anomaly_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -125,7 +125,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "is_interim":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -144,7 +144,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "probability":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -160,7 +160,7 @@ func (s *BucketInfluencer) UnmarshalJSON(data []byte) error {
 			}
 
 		case "raw_anomaly_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

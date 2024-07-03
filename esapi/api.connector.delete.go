@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -52,6 +53,8 @@ type ConnectorDelete func(connector_id string, o ...func(*ConnectorDeleteRequest
 // ConnectorDeleteRequest configures the Connector Delete API request.
 type ConnectorDeleteRequest struct {
 	ConnectorID string
+
+	DeleteSyncJobs *bool
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r ConnectorDeleteRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	params = make(map[string]string)
+
+	if r.DeleteSyncJobs != nil {
+		params["delete_sync_jobs"] = strconv.FormatBool(*r.DeleteSyncJobs)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r ConnectorDeleteRequest) Do(providedCtx context.Context, transport Transp
 func (f ConnectorDelete) WithContext(v context.Context) func(*ConnectorDeleteRequest) {
 	return func(r *ConnectorDeleteRequest) {
 		r.ctx = v
+	}
+}
+
+// WithDeleteSyncJobs - determines whether associated sync jobs are also deleted..
+func (f ConnectorDelete) WithDeleteSyncJobs(v bool) func(*ConnectorDeleteRequest) {
+	return func(r *ConnectorDeleteRequest) {
+		r.DeleteSyncJobs = &v
 	}
 }
 

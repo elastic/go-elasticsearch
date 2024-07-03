@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TermsPartition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L1004-L1013
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L1011-L1020
 type TermsPartition struct {
 	// NumPartitions The number of partitions.
 	NumPartitions int64 `json:"num_partitions"`
@@ -55,7 +55,7 @@ func (s *TermsPartition) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "num_partitions":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -70,7 +70,7 @@ func (s *TermsPartition) UnmarshalJSON(data []byte) error {
 			}
 
 		case "partition":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

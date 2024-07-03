@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeBufferPool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L788-L809
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/nodes/_types/Stats.ts#L788-L809
 type NodeBufferPool struct {
 	// Count Number of buffer pools.
 	Count *int64 `json:"count,omitempty"`
@@ -61,7 +61,7 @@ func (s *NodeBufferPool) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -88,7 +88,7 @@ func (s *NodeBufferPool) UnmarshalJSON(data []byte) error {
 			s.TotalCapacity = &o
 
 		case "total_capacity_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -115,7 +115,7 @@ func (s *NodeBufferPool) UnmarshalJSON(data []byte) error {
 			s.Used = &o
 
 		case "used_in_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

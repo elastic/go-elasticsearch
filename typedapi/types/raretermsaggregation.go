@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RareTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L687-L717
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L689-L719
 type RareTermsAggregation struct {
 	// Exclude Terms that should be excluded from the aggregation.
 	Exclude []string `json:"exclude,omitempty"`
@@ -40,12 +40,10 @@ type RareTermsAggregation struct {
 	// Include Terms that should be included in the aggregation.
 	Include TermsInclude `json:"include,omitempty"`
 	// MaxDocCount The maximum number of documents a term should appear in.
-	MaxDocCount *int64   `json:"max_doc_count,omitempty"`
-	Meta        Metadata `json:"meta,omitempty"`
+	MaxDocCount *int64 `json:"max_doc_count,omitempty"`
 	// Missing The value to apply to documents that do not have a value.
 	// By default, documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
-	Name    *string `json:"name,omitempty"`
 	// Precision The precision of the internal CuckooFilters.
 	// Smaller precision leads to better approximation, but higher memory usage.
 	Precision *Float64 `json:"precision,omitempty"`
@@ -94,7 +92,7 @@ func (s *RareTermsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -108,30 +106,13 @@ func (s *RareTermsAggregation) UnmarshalJSON(data []byte) error {
 				s.MaxDocCount = &f
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "missing":
 			if err := dec.Decode(&s.Missing); err != nil {
 				return fmt.Errorf("%s | %w", "Missing", err)
 			}
 
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
-
 		case "precision":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

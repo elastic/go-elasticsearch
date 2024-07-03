@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // ShardHealthStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/health/types.ts#L36-L43
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cluster/health/types.ts#L36-L43
 type ShardHealthStats struct {
 	ActiveShards       int                       `json:"active_shards"`
 	InitializingShards int                       `json:"initializing_shards"`
@@ -60,7 +60,7 @@ func (s *ShardHealthStats) UnmarshalJSON(data []byte) error {
 
 		case "active_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -76,7 +76,7 @@ func (s *ShardHealthStats) UnmarshalJSON(data []byte) error {
 
 		case "initializing_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -91,7 +91,7 @@ func (s *ShardHealthStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "primary_active":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -106,7 +106,7 @@ func (s *ShardHealthStats) UnmarshalJSON(data []byte) error {
 
 		case "relocating_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -127,7 +127,7 @@ func (s *ShardHealthStats) UnmarshalJSON(data []byte) error {
 
 		case "unassigned_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

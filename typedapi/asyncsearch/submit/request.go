@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package submit
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package submit
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L55-L286
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/async_search/submit/AsyncSearchSubmitRequest.ts#L55-L286
 type Request struct {
 	Aggregations map[string]types.Aggregations `json:"aggregations,omitempty"`
 	Collapse     *types.FieldCollapse          `json:"collapse,omitempty"`
@@ -57,7 +57,7 @@ type Request struct {
 	// IndicesBoost Boosts the _score of documents from specified indices.
 	IndicesBoost []map[string]types.Float64 `json:"indices_boost,omitempty"`
 	// Knn Defines the approximate kNN search to run.
-	Knn []types.KnnQuery `json:"knn,omitempty"`
+	Knn []types.KnnSearch `json:"knn,omitempty"`
 	// MinScore Minimum _score for matching documents. Documents with a lower _score are
 	// not included in the search results.
 	MinScore *types.Float64 `json:"min_score,omitempty"`
@@ -131,6 +131,7 @@ func NewRequest() *Request {
 		Ext:          make(map[string]json.RawMessage, 0),
 		ScriptFields: make(map[string]types.ScriptField, 0),
 	}
+
 	return r
 }
 
@@ -179,7 +180,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "explain":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -207,7 +208,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "from":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -235,7 +236,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := types.NewKnnQuery()
+				o := types.NewKnnSearch()
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Knn", err)
 				}
@@ -248,7 +249,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -274,7 +275,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "profile":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -327,7 +328,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "seq_no_primary_term":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -342,7 +343,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -409,7 +410,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "terminate_after":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -436,7 +437,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			s.Timeout = &o
 
 		case "track_scores":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -455,7 +456,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			}
 
 		case "version":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

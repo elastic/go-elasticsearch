@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package putsettings
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package putsettings
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cluster/put_settings/ClusterPutSettingsRequest.ts#L25-L43
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cluster/put_settings/ClusterPutSettingsRequest.ts#L25-L43
 type Request struct {
 	Persistent map[string]json.RawMessage `json:"persistent,omitempty"`
 	Transient  map[string]json.RawMessage `json:"transient,omitempty"`
@@ -39,6 +39,7 @@ func NewRequest() *Request {
 		Persistent: make(map[string]json.RawMessage, 0),
 		Transient:  make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 

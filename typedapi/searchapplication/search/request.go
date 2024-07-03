@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package search
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/search_application/search/SearchApplicationsSearchRequest.ts#L24-L43
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/search_application/search/SearchApplicationsSearchRequest.ts#L24-L52
 type Request struct {
 
 	// Params Query parameters specific to this request, which will override any defaults
@@ -40,6 +40,7 @@ func NewRequest() *Request {
 	r := &Request{
 		Params: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Package normalizemethod
 package normalizemethod
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/pipeline.ts#L326-L352
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/pipeline.ts#L326-L352
 type NormalizeMethod struct {
 	Name string
 }
@@ -37,7 +37,7 @@ var (
 
 	Mean = NormalizeMethod{"mean"}
 
-	ZScore = NormalizeMethod{"z-score"}
+	Zscore = NormalizeMethod{"z-score"}
 
 	Softmax = NormalizeMethod{"softmax"}
 )
@@ -58,7 +58,7 @@ func (n *NormalizeMethod) UnmarshalText(text []byte) error {
 	case "mean":
 		*n = Mean
 	case "z-score":
-		*n = ZScore
+		*n = Zscore
 	case "softmax":
 		*n = Softmax
 	default:

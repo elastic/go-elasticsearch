@@ -16,9 +16,36 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Starts one or more transforms.
+// Starts a transform.
+//
+// When you start a transform, it creates the destination index if it does not
+// already exist. The `number_of_shards` is
+// set to `1` and the `auto_expand_replicas` is set to `0-1`. If it is a pivot
+// transform, it deduces the mapping
+// definitions for the destination index from the source indices and the
+// transform aggregations. If fields in the
+// destination index are derived from scripts (as in the case of
+// `scripted_metric` or `bucket_script` aggregations),
+// the transform uses dynamic mappings unless an index template exists. If it is
+// a latest transform, it does not deduce
+// mapping definitions; it uses dynamic mappings. To use explicit mappings,
+// create the destination index before you
+// start the transform. Alternatively, you can create an index template, though
+// it does not affect the deduced mappings
+// in a pivot transform.
+//
+// When the transform starts, a series of validations occur to ensure its
+// success. If you deferred validation when you
+// created the transform, they occur when you start the transform—​with the
+// exception of privilege checks. When
+// Elasticsearch security features are enabled, the transform remembers which
+// roles the user that created it had at the
+// time of creation and uses those same roles. If those roles do not have the
+// required privileges on the source and
+// destination indices, the transform fails when it attempts unauthorized
+// operations.
 package starttransform
 
 import (
@@ -27,9 +54,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -76,7 +103,34 @@ func NewStartTransformFunc(tp elastictransport.Interface) NewStartTransform {
 	}
 }
 
-// Starts one or more transforms.
+// Starts a transform.
+//
+// When you start a transform, it creates the destination index if it does not
+// already exist. The `number_of_shards` is
+// set to `1` and the `auto_expand_replicas` is set to `0-1`. If it is a pivot
+// transform, it deduces the mapping
+// definitions for the destination index from the source indices and the
+// transform aggregations. If fields in the
+// destination index are derived from scripts (as in the case of
+// `scripted_metric` or `bucket_script` aggregations),
+// the transform uses dynamic mappings unless an index template exists. If it is
+// a latest transform, it does not deduce
+// mapping definitions; it uses dynamic mappings. To use explicit mappings,
+// create the destination index before you
+// start the transform. Alternatively, you can create an index template, though
+// it does not affect the deduced mappings
+// in a pivot transform.
+//
+// When the transform starts, a series of validations occur to ensure its
+// success. If you deferred validation when you
+// created the transform, they occur when you start the transform—​with the
+// exception of privilege checks. When
+// Elasticsearch security features are enabled, the transform remembers which
+// roles the user that created it had at the
+// time of creation and uses those same roles. If those roles do not have the
+// required privileges on the source and
+// destination indices, the transform fails when it attempts unauthorized
+// operations.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html
 func New(tp elastictransport.Interface) *StartTransform {
@@ -262,7 +316,7 @@ func (r StartTransform) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -314,6 +368,50 @@ func (r *StartTransform) Timeout(duration string) *StartTransform {
 // API name: from
 func (r *StartTransform) From(from string) *StartTransform {
 	r.values.Set("from", from)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *StartTransform) ErrorTrace(errortrace bool) *StartTransform {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *StartTransform) FilterPath(filterpaths ...string) *StartTransform {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *StartTransform) Human(human bool) *StartTransform {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *StartTransform) Pretty(pretty bool) *StartTransform {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

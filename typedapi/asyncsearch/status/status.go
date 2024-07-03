@@ -16,10 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
+// Get async search status
 // Retrieves the status of a previously submitted async search request given its
-// ID.
+// identifier, without retrieving search results.
+// If the Elasticsearch security features are enabled, use of this API is
+// restricted to the `monitoring_user` role.
 package status
 
 import (
@@ -28,9 +31,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -77,8 +80,11 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 	}
 }
 
+// Get async search status
 // Retrieves the status of a previously submitted async search request given its
-// ID.
+// identifier, without retrieving search results.
+// If the Elasticsearch security features are enabled, use of this API is
+// restricted to the `monitoring_user` role.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
 func New(tp elastictransport.Interface) *Status {
@@ -264,7 +270,7 @@ func (r Status) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -297,6 +303,50 @@ func (r *Status) Header(key, value string) *Status {
 func (r *Status) _id(id string) *Status {
 	r.paramSet |= idMask
 	r.id = id
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Status) ErrorTrace(errortrace bool) *Status {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Status) FilterPath(filterpaths ...string) *Status {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Status) Human(human bool) *Status {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Status) Pretty(pretty bool) *Status {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

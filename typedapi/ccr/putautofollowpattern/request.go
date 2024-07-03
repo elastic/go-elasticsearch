@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package putautofollowpattern
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putautofollowpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L27-L112
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ccr/put_auto_follow_pattern/PutAutoFollowPatternRequest.ts#L27-L112
 type Request struct {
 
 	// FollowIndexPattern The name of follower index. The template {{leader_index}} can be used to
@@ -93,6 +93,7 @@ func NewRequest() *Request {
 	r := &Request{
 		Settings: make(map[string]json.RawMessage, 0),
 	}
+
 	return r
 }
 
@@ -139,7 +140,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_outstanding_read_requests":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -155,7 +156,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_outstanding_write_requests":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -171,7 +172,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_read_request_operation_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -197,7 +198,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_write_buffer_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -218,7 +219,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		case "max_write_request_operation_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

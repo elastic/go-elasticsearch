@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newClusterAllocationExplainFunc(t Transport) ClusterAllocationExplain {
@@ -55,6 +56,7 @@ type ClusterAllocationExplainRequest struct {
 
 	IncludeDiskInfo     *bool
 	IncludeYesDecisions *bool
+	MasterTimeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -99,6 +101,10 @@ func (r ClusterAllocationExplainRequest) Do(providedCtx context.Context, transpo
 
 	if r.IncludeYesDecisions != nil {
 		params["include_yes_decisions"] = strconv.FormatBool(*r.IncludeYesDecisions)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -204,6 +210,13 @@ func (f ClusterAllocationExplain) WithIncludeDiskInfo(v bool) func(*ClusterAlloc
 func (f ClusterAllocationExplain) WithIncludeYesDecisions(v bool) func(*ClusterAllocationExplainRequest) {
 	return func(r *ClusterAllocationExplainRequest) {
 		r.IncludeYesDecisions = &v
+	}
+}
+
+// WithMasterTimeout - timeout for connection to master node.
+func (f ClusterAllocationExplain) WithMasterTimeout(v time.Duration) func(*ClusterAllocationExplainRequest) {
+	return func(r *ClusterAllocationExplainRequest) {
+		r.MasterTimeout = v
 	}
 }
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newAutoscalingDeleteAutoscalingPolicyFunc(t Transport) AutoscalingDeleteAutoscalingPolicy {
@@ -50,6 +51,9 @@ type AutoscalingDeleteAutoscalingPolicy func(name string, o ...func(*Autoscaling
 // AutoscalingDeleteAutoscalingPolicyRequest configures the Autoscaling Delete Autoscaling Policy API request.
 type AutoscalingDeleteAutoscalingPolicyRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +99,14 @@ func (r AutoscalingDeleteAutoscalingPolicyRequest) Do(providedCtx context.Contex
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +183,20 @@ func (r AutoscalingDeleteAutoscalingPolicyRequest) Do(providedCtx context.Contex
 func (f AutoscalingDeleteAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
 	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f AutoscalingDeleteAutoscalingPolicy) WithMasterTimeout(v time.Duration) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
+func (f AutoscalingDeleteAutoscalingPolicy) WithTimeout(v time.Duration) func(*AutoscalingDeleteAutoscalingPolicyRequest) {
+	return func(r *AutoscalingDeleteAutoscalingPolicyRequest) {
+		r.Timeout = v
 	}
 }
 

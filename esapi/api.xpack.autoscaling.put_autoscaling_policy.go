@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newAutoscalingPutAutoscalingPolicyFunc(t Transport) AutoscalingPutAutoscalingPolicy {
@@ -53,6 +54,9 @@ type AutoscalingPutAutoscalingPolicyRequest struct {
 	Body io.Reader
 
 	Name string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +102,14 @@ func (r AutoscalingPutAutoscalingPolicyRequest) Do(providedCtx context.Context, 
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +193,20 @@ func (r AutoscalingPutAutoscalingPolicyRequest) Do(providedCtx context.Context, 
 func (f AutoscalingPutAutoscalingPolicy) WithContext(v context.Context) func(*AutoscalingPutAutoscalingPolicyRequest) {
 	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f AutoscalingPutAutoscalingPolicy) WithMasterTimeout(v time.Duration) func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
+func (f AutoscalingPutAutoscalingPolicy) WithTimeout(v time.Duration) func(*AutoscalingPutAutoscalingPolicyRequest) {
+	return func(r *AutoscalingPutAutoscalingPolicyRequest) {
+		r.Timeout = v
 	}
 }
 

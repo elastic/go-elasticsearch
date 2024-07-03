@@ -16,14 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Updates documents that match the specified query. If no query is specified,
-//
-//	performs an update on every document in the index without changing the
-//
-// source,
-// for example to pick up a mapping change.
+// Updates documents that match the specified query.
+// If no query is specified, performs an update on every document in the data
+// stream or index without modifying the source, which is useful for picking up
+// mapping changes.
 package updatebyquery
 
 import (
@@ -90,12 +88,10 @@ func NewUpdateByQueryFunc(tp elastictransport.Interface) NewUpdateByQuery {
 	}
 }
 
-// Updates documents that match the specified query. If no query is specified,
-//
-//	performs an update on every document in the index without changing the
-//
-// source,
-// for example to pick up a mapping change.
+// Updates documents that match the specified query.
+// If no query is specified, performs an update on every document in the data
+// stream or index without modifying the source, which is useful for picking up
+// mapping changes.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
 func New(tp elastictransport.Interface) *UpdateByQuery {
@@ -591,6 +587,50 @@ func (r *UpdateByQuery) WaitForActiveShards(waitforactiveshards string) *UpdateB
 // API name: wait_for_completion
 func (r *UpdateByQuery) WaitForCompletion(waitforcompletion bool) *UpdateByQuery {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *UpdateByQuery) ErrorTrace(errortrace bool) *UpdateByQuery {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *UpdateByQuery) FilterPath(filterpaths ...string) *UpdateByQuery {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *UpdateByQuery) Human(human bool) *UpdateByQuery {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *UpdateByQuery) Pretty(pretty bool) *UpdateByQuery {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

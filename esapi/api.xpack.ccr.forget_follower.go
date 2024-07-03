@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRForgetFollowerFunc(t Transport) CCRForgetFollower {
@@ -53,6 +54,8 @@ type CCRForgetFollowerRequest struct {
 	Index string
 
 	Body io.Reader
+
+	Timeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 	path.WriteString("forget_follower")
 
 	params = make(map[string]string)
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +188,13 @@ func (r CCRForgetFollowerRequest) Do(providedCtx context.Context, transport Tran
 func (f CCRForgetFollower) WithContext(v context.Context) func(*CCRForgetFollowerRequest) {
 	return func(r *CCRForgetFollowerRequest) {
 		r.ctx = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f CCRForgetFollower) WithTimeout(v time.Duration) func(*CCRForgetFollowerRequest) {
+	return func(r *CCRForgetFollowerRequest) {
+		r.Timeout = v
 	}
 }
 

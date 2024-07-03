@@ -16,9 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Clear the cached results from a trained model deployment
+// Clears a trained model deployment cache on all nodes where the trained model
+// is assigned.
+// A trained model deployment may have an inference cache enabled.
+// As requests are handled by each allocated node, their responses may be cached
+// on that individual node.
+// Calling this API clears the caches without restarting the deployment.
 package cleartrainedmodeldeploymentcache
 
 import (
@@ -27,9 +32,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -76,7 +81,12 @@ func NewClearTrainedModelDeploymentCacheFunc(tp elastictransport.Interface) NewC
 	}
 }
 
-// Clear the cached results from a trained model deployment
+// Clears a trained model deployment cache on all nodes where the trained model
+// is assigned.
+// A trained model deployment may have an inference cache enabled.
+// As requests are handled by each allocated node, their responses may be cached
+// on that individual node.
+// Calling this API clears the caches without restarting the deployment.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-trained-model-deployment-cache.html
 func New(tp elastictransport.Interface) *ClearTrainedModelDeploymentCache {
@@ -274,7 +284,7 @@ func (r ClearTrainedModelDeploymentCache) IsSuccess(providedCtx context.Context)
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -307,6 +317,50 @@ func (r *ClearTrainedModelDeploymentCache) Header(key, value string) *ClearTrain
 func (r *ClearTrainedModelDeploymentCache) _modelid(modelid string) *ClearTrainedModelDeploymentCache {
 	r.paramSet |= modelidMask
 	r.modelid = modelid
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *ClearTrainedModelDeploymentCache) ErrorTrace(errortrace bool) *ClearTrainedModelDeploymentCache {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *ClearTrainedModelDeploymentCache) FilterPath(filterpaths ...string) *ClearTrainedModelDeploymentCache {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *ClearTrainedModelDeploymentCache) Human(human bool) *ClearTrainedModelDeploymentCache {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *ClearTrainedModelDeploymentCache) Pretty(pretty bool) *ClearTrainedModelDeploymentCache {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

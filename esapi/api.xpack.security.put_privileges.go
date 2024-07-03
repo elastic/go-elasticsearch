@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -85,9 +85,9 @@ func (r SecurityPutPrivilegesRequest) Do(providedCtx context.Context, transport 
 
 	method = "PUT"
 
-	path.Grow(7 + len("/_security/privilege/"))
+	path.Grow(7 + len("/_security/privilege"))
 	path.WriteString("http://")
-	path.WriteString("/_security/privilege/")
+	path.WriteString("/_security/privilege")
 
 	params = make(map[string]string)
 

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newEnrichGetPolicyFunc(t Transport) EnrichGetPolicy {
@@ -50,6 +51,8 @@ type EnrichGetPolicy func(o ...func(*EnrichGetPolicyRequest)) (*Response, error)
 // EnrichGetPolicyRequest configures the Enrich Get Policy API request.
 type EnrichGetPolicyRequest struct {
 	Name []string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -97,6 +100,10 @@ func (r EnrichGetPolicyRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -180,6 +187,13 @@ func (f EnrichGetPolicy) WithContext(v context.Context) func(*EnrichGetPolicyReq
 func (f EnrichGetPolicy) WithName(v ...string) func(*EnrichGetPolicyRequest) {
 	return func(r *EnrichGetPolicyRequest) {
 		r.Name = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f EnrichGetPolicy) WithMasterTimeout(v time.Duration) func(*EnrichGetPolicyRequest) {
+	return func(r *EnrichGetPolicyRequest) {
+		r.MasterTimeout = v
 	}
 }
 

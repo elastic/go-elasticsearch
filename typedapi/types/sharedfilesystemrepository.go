@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SharedFileSystemRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/snapshot/_types/SnapshotRepository.ts#L55-L58
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/snapshot/_types/SnapshotRepository.ts#L55-L58
 type SharedFileSystemRepository struct {
 	Settings SharedFileSystemRepositorySettings `json:"settings"`
 	Type     string                             `json:"type,omitempty"`

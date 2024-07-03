@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/abstractions.ts#L100-L407
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/abstractions.ts#L102-L427
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -57,9 +57,6 @@ type Query struct {
 	DistanceFeature DistanceFeatureQuery `json:"distance_feature,omitempty"`
 	// Exists Returns documents that contain an indexed value for a field.
 	Exists *ExistsQuery `json:"exists,omitempty"`
-	// FieldMaskingSpan Wrapper to allow span queries to participate in composite single-field span
-	// queries by _lying_ about their search field.
-	FieldMaskingSpan *SpanFieldMaskingQuery `json:"field_masking_span,omitempty"`
 	// FunctionScore The `function_score` enables you to modify the score of documents that are
 	// retrieved by a query.
 	FunctionScore *FunctionScoreQuery `json:"function_score,omitempty"`
@@ -134,13 +131,15 @@ type Query struct {
 	// `rank_feature` or `rank_features` field.
 	RankFeature *RankFeatureQuery `json:"rank_feature,omitempty"`
 	// Regexp Returns documents that contain terms matching a regular expression.
-	Regexp    map[string]RegexpQuery `json:"regexp,omitempty"`
-	RuleQuery *RuleQuery             `json:"rule_query,omitempty"`
+	Regexp map[string]RegexpQuery `json:"regexp,omitempty"`
+	Rule   *RuleQuery             `json:"rule,omitempty"`
 	// Script Filters documents based on a provided script.
 	// The script query is typically used in a filter context.
 	Script *ScriptQuery `json:"script,omitempty"`
 	// ScriptScore Uses a script to provide a custom score for returned documents.
 	ScriptScore *ScriptScoreQuery `json:"script_score,omitempty"`
+	// Semantic A semantic query to semantic_text field types
+	Semantic *SemanticQuery `json:"semantic,omitempty"`
 	// Shape Queries documents that contain fields indexed using the `shape` type.
 	Shape *ShapeQuery `json:"shape,omitempty"`
 	// SimpleQueryString Returns documents based on a provided query string, using a parser with a
@@ -148,6 +147,9 @@ type Query struct {
 	SimpleQueryString *SimpleQueryStringQuery `json:"simple_query_string,omitempty"`
 	// SpanContaining Returns matches which enclose another span query.
 	SpanContaining *SpanContainingQuery `json:"span_containing,omitempty"`
+	// SpanFieldMasking Wrapper to allow span queries to participate in composite single-field span
+	// queries by _lying_ about their search field.
+	SpanFieldMasking *SpanFieldMaskingQuery `json:"span_field_masking,omitempty"`
 	// SpanFirst Matches spans near the beginning of a field.
 	SpanFirst *SpanFirstQuery `json:"span_first,omitempty"`
 	// SpanMulti Allows you to wrap a multi term query (one of `wildcard`, `fuzzy`, `prefix`,
@@ -167,6 +169,10 @@ type Query struct {
 	SpanTerm map[string]SpanTermQuery `json:"span_term,omitempty"`
 	// SpanWithin Returns matches which are enclosed inside another span query.
 	SpanWithin *SpanWithinQuery `json:"span_within,omitempty"`
+	// SparseVector Using input query vectors or a natural language processing model to convert a
+	// query into a list of token-weight pairs, queries against a sparse vector
+	// field.
+	SparseVector *SparseVectorQuery `json:"sparse_vector,omitempty"`
 	// Term Returns documents that contain an exact term in a provided field.
 	// To return a document, the query term must exactly match the queried field's
 	// value, including whitespace and capitalization.
@@ -243,28 +249,13 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 			}
 
 		case "distance_feature":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.DistanceFeature); err != nil {
 				return fmt.Errorf("%s | %w", "DistanceFeature", err)
-			}
-			o := NewGeoDistanceFeatureQuery()
-			err := json.Unmarshal(message, &o)
-			if err != nil {
-				o := NewDateDistanceFeatureQuery()
-				err := json.Unmarshal(message, &o)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "DistanceFeature", err)
-				}
 			}
 
 		case "exists":
 			if err := dec.Decode(&s.Exists); err != nil {
 				return fmt.Errorf("%s | %w", "Exists", err)
-			}
-
-		case "field_masking_span":
-			if err := dec.Decode(&s.FieldMaskingSpan); err != nil {
-				return fmt.Errorf("%s | %w", "FieldMaskingSpan", err)
 			}
 
 		case "function_score":
@@ -434,9 +425,9 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Regexp", err)
 			}
 
-		case "rule_query":
-			if err := dec.Decode(&s.RuleQuery); err != nil {
-				return fmt.Errorf("%s | %w", "RuleQuery", err)
+		case "rule":
+			if err := dec.Decode(&s.Rule); err != nil {
+				return fmt.Errorf("%s | %w", "Rule", err)
 			}
 
 		case "script":
@@ -447,6 +438,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "script_score":
 			if err := dec.Decode(&s.ScriptScore); err != nil {
 				return fmt.Errorf("%s | %w", "ScriptScore", err)
+			}
+
+		case "semantic":
+			if err := dec.Decode(&s.Semantic); err != nil {
+				return fmt.Errorf("%s | %w", "Semantic", err)
 			}
 
 		case "shape":
@@ -462,6 +458,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "span_containing":
 			if err := dec.Decode(&s.SpanContaining); err != nil {
 				return fmt.Errorf("%s | %w", "SpanContaining", err)
+			}
+
+		case "span_field_masking":
+			if err := dec.Decode(&s.SpanFieldMasking); err != nil {
+				return fmt.Errorf("%s | %w", "SpanFieldMasking", err)
 			}
 
 		case "span_first":
@@ -500,6 +501,11 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "span_within":
 			if err := dec.Decode(&s.SpanWithin); err != nil {
 				return fmt.Errorf("%s | %w", "SpanWithin", err)
+			}
+
+		case "sparse_vector":
+			if err := dec.Decode(&s.SparseVector); err != nil {
+				return fmt.Errorf("%s | %w", "SparseVector", err)
 			}
 
 		case "term":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SignificantLongTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L588-L590
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/Aggregate.ts#L592-L594
 type SignificantLongTermsAggregate struct {
 	BgCount  *int64                            `json:"bg_count,omitempty"`
 	Buckets  BucketsSignificantLongTermsBucket `json:"buckets"`
@@ -55,7 +55,7 @@ func (s *SignificantLongTermsAggregate) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bg_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -91,7 +91,7 @@ func (s *SignificantLongTermsAggregate) UnmarshalJSON(data []byte) error {
 			}
 
 		case "doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

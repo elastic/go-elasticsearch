@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newCCRFollowInfoFunc(t Transport) CCRFollowInfo {
@@ -51,6 +52,8 @@ type CCRFollowInfo func(index []string, o ...func(*CCRFollowInfoRequest)) (*Resp
 // CCRFollowInfoRequest configures the CCR Follow Info API request.
 type CCRFollowInfoRequest struct {
 	Index []string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -100,6 +103,10 @@ func (r CCRFollowInfoRequest) Do(providedCtx context.Context, transport Transpor
 	path.WriteString("info")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -176,6 +183,13 @@ func (r CCRFollowInfoRequest) Do(providedCtx context.Context, transport Transpor
 func (f CCRFollowInfo) WithContext(v context.Context) func(*CCRFollowInfoRequest) {
 	return func(r *CCRFollowInfoRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f CCRFollowInfo) WithMasterTimeout(v time.Duration) func(*CCRFollowInfoRequest) {
+	return func(r *CCRFollowInfoRequest) {
+		r.MasterTimeout = v
 	}
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ShardsStatsSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/snapshot/_types/SnapshotShardsStatus.ts#L29-L35
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/snapshot/_types/SnapshotShardsStatus.ts#L29-L35
 type ShardsStatsSummary struct {
 	Incremental       ShardsStatsSummaryItem `json:"incremental"`
 	StartTimeInMillis int64                  `json:"start_time_in_millis"`

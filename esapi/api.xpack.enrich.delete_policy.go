@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newEnrichDeletePolicyFunc(t Transport) EnrichDeletePolicy {
@@ -50,6 +51,8 @@ type EnrichDeletePolicy func(name string, o ...func(*EnrichDeletePolicyRequest))
 // EnrichDeletePolicyRequest configures the Enrich Delete Policy API request.
 type EnrichDeletePolicyRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r EnrichDeletePolicyRequest) Do(providedCtx context.Context, transport Tra
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r EnrichDeletePolicyRequest) Do(providedCtx context.Context, transport Tra
 func (f EnrichDeletePolicy) WithContext(v context.Context) func(*EnrichDeletePolicyRequest) {
 	return func(r *EnrichDeletePolicyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f EnrichDeletePolicy) WithMasterTimeout(v time.Duration) func(*EnrichDeletePolicyRequest) {
+	return func(r *EnrichDeletePolicyRequest) {
+		r.MasterTimeout = v
 	}
 }
 

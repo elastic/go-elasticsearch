@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newWatcherStartFunc(t Transport) WatcherStart {
@@ -49,6 +50,8 @@ type WatcherStart func(o ...func(*WatcherStartRequest)) (*Response, error)
 
 // WatcherStartRequest configures the Watcher Start API request.
 type WatcherStartRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +88,10 @@ func (r WatcherStartRequest) Do(providedCtx context.Context, transport Transport
 	path.WriteString("/_watcher/_start")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +168,13 @@ func (r WatcherStartRequest) Do(providedCtx context.Context, transport Transport
 func (f WatcherStart) WithContext(v context.Context) func(*WatcherStartRequest) {
 	return func(r *WatcherStartRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f WatcherStart) WithMasterTimeout(v time.Duration) func(*WatcherStartRequest) {
+	return func(r *WatcherStartRequest) {
+		r.MasterTimeout = v
 	}
 }
 

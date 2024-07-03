@@ -39,6 +39,7 @@ var skipFiles = []string{
 	"ml/jobs_get_result_buckets.yml",    // Passes string value to int variable
 	"ml/jobs_get_result_categories.yml", // --||--
 	"ml/set_upgrade_mode.yml",           // --||--
+	"ml/sparse_vector_search.yml",
 
 	"ml/evaluate_data_frame.yml", // Floats as map keys
 
@@ -48,20 +49,24 @@ var skipFiles = []string{
 
 	"search.highlight/20_fvh.yml", // bad backslash
 
-	"indices.stats/50_disk_usage.yml",  // Needs a replacement mechanism implementation
-	"indices.stats/60_field_usage.yml", // Needs a replacement mechanism implementation
+	"indices.stats/50_disk_usage.yml",   // Needs a replacement mechanism implementation
+	"indices.stats/60_field_usage.yml",  // Needs a replacement mechanism implementation
+	"indices.stats/100_search_idle.yml", // incompatible maps of array
 	"eql/10_basic.yml",
 	"field_caps/50_fieldtype_filter.yml", // Incompatible test, need handling for double escaping keys with dots
 	"aggregations/variable_width_histogram.yml",
-	"cluster.desired_nodes/10_basic.yml",  // incompatible $ stash replacement
-	"api_key/12_grant.yml",                // incompatible $ stash replacement, need bearer token integration
 	"aggregations/percentiles_bucket.yml", // incompatible maps
+	"aggregations/scripted_metric.yml",    // incompatible maps
+	"cluster.desired_nodes/10_basic.yml",  // incompatible $ stash replacement
+	"cluster.put_settings/10_basic.yml",   // incompatible with testing stack
+	"api_key/12_grant.yml",                // incompatible $ stash replacement, need bearer token integration
 	"user_profile/10_basic.yml",
-	"indices.stats/100_search_idle.yml", // incompatible maps of array
-	"ml/3rd_party_deployment.yml",       // incompatible ml tests
-	"dlm/10_usage.yml",                  // incompatible float expansion
+	"ml/3rd_party_deployment.yml", // incompatible ml tests
+	"dlm/10_usage.yml",            // incompatible float expansion
 	"api_key/60_admin_user.yml",
 	".*esql\\/.*.yml",
+	"deprecation/10_basic.yml",    // incompatible test generation
+	"search/520_fetch_fields.yml", // disabled for inconsistency
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -88,6 +93,10 @@ update/60_refresh.yml:
   - When refresh url parameter is an empty string that means "refresh immediately"
 update/61_refresh_with_types.yml:
   - When refresh url parameter is an empty string that means "refresh immediately"
+
+# expected [status] to be green
+cluster.health/10_basic.yml:
+  - cluster health with closed index (pre 7.2.0)
 
 # catch: bad_request, Expected [status] to not be nil
 indices.data_stream/10_basic.yml:
@@ -133,6 +142,12 @@ cat.aliases/20_headers.yml:
 aggregations/range.yml:
   - Date range
   - Min and max long range bounds
+  - Float range
+  - Double range
+
+range/20_synthetic_source.yml:
+  - Float range
+  - Double range
 
 # Mismatch in number parsing, 8623000 != 8.623e+06
 aggregations/geo_distance.yml:
@@ -236,6 +251,7 @@ api_key/10_basic.yml:
   - Test invalidate api keys
 api_key/11_invalidation.yml:
   - Test invalidate api key by username
+  - Test invalidate api key by realm name
 api_key/21_query_with_aggs.yml:
   - Test composite aggs api key
 rollup/put_job.yml:
@@ -411,6 +427,8 @@ data_stream/80_resolve_index_data_streams.yml:
 # Zero matchers like '...shards.0.stores.0.allocation:primary' expect array, not map
 data_stream/40_supported_apis.yml:
   - Verify shard stores api
+aggregations/empty_field_metric.yml:
+  - Basic test
 
 # Failing with error 'Index [.security] is not on the current version. Security features relying on the index will not be available until the upgrade API is run on the index'
 data_stream/40_supported_apis.yml:
@@ -485,12 +503,20 @@ user_profile/40_has_privileges.yml:
 # Bad type matching
 aggregate-metrics/100_synthetic_source.yml:
   - constant_keyword
+  - aggregate_metric_double
+  - aggregate_metric_double with ignore_malformed
+
 analytics/histogram.yml:
   - histogram with synthetic source
+  - histogram with synthetic source and ignore_malformed
 
 # incompatible storage
 searchable_snapshots/20_synthetic_source.yml:
   - Tests searchable snapshots usage stats
+
+ml/learning_to_rank_rescorer.yml:
+  - Test rescore with stored model and smaller window_size
+  - Test rescore with stored model and chained rescorers
 
 # incompatible float format
 aggregations/max_metric.yml:
@@ -500,6 +526,8 @@ aggregations/max_metric.yml:
 get/100_synthetic_source.yml:
   - indexed dense vectors
   - non-indexed dense vectors
+  - fields with ignore_malformed
+  - flattened field with ignore_above
 
 indices.stats/70_write_load.yml:
   - Write load average is tracked at shard level
@@ -527,5 +555,17 @@ esql/40_unsupported_types.yml:
 esql/50_index_patterns.yml:
   - disjoint_mappings
 
+# incompatible dot notation
+logsdb/10_settings.yml:
+  - override sort order settings
+  - override sort missing settings
+  - override sort mode settings
 
+# expects map, got nil
+search/520_fetch_fields.yml:
+  - fetch _ignored via stored_fields
+  - fetch _seq_no via stored_fields
+
+spatial/140_synthetic_source.yml:
+  - point
 `

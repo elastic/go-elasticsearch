@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,14 +31,14 @@ import (
 
 // ThreadPoolRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/thread_pool/types.ts#L22-L124
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cat/thread_pool/types.ts#L22-L124
 type ThreadPoolRecord struct {
 	// Active The number of active threads in the current thread pool.
 	Active *string `json:"active,omitempty"`
 	// Completed The number of completed tasks.
 	Completed *string `json:"completed,omitempty"`
 	// Core The core number of active threads allowed in a scaling thread pool.
-	Core string `json:"core,omitempty"`
+	Core *string `json:"core,omitempty"`
 	// EphemeralNodeId The ephemeral node identifier.
 	EphemeralNodeId *string `json:"ephemeral_node_id,omitempty"`
 	// Host The host name for the current node.
@@ -46,11 +46,11 @@ type ThreadPoolRecord struct {
 	// Ip The IP address for the current node.
 	Ip *string `json:"ip,omitempty"`
 	// KeepAlive The thread keep alive time.
-	KeepAlive string `json:"keep_alive,omitempty"`
+	KeepAlive *string `json:"keep_alive,omitempty"`
 	// Largest The highest number of active threads in the current thread pool.
 	Largest *string `json:"largest,omitempty"`
 	// Max The maximum number of active threads allowed in a scaling thread pool.
-	Max string `json:"max,omitempty"`
+	Max *string `json:"max,omitempty"`
 	// Name The thread pool name.
 	Name *string `json:"name,omitempty"`
 	// NodeId The persistent node identifier.
@@ -70,7 +70,7 @@ type ThreadPoolRecord struct {
 	// Rejected The number of rejected tasks.
 	Rejected *string `json:"rejected,omitempty"`
 	// Size The number of active threads allowed in a fixed thread pool.
-	Size string `json:"size,omitempty"`
+	Size *string `json:"size,omitempty"`
 	// Type The thread pool type.
 	// Returned values include `fixed`, `fixed_auto_queue_size`, `direct`, and
 	// `scaling`.
@@ -126,7 +126,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Core = o
+			s.Core = &o
 
 		case "ephemeral_node_id", "eid":
 			var tmp json.RawMessage
@@ -174,7 +174,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.KeepAlive = o
+			s.KeepAlive = &o
 
 		case "largest", "l":
 			var tmp json.RawMessage
@@ -198,7 +198,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Max = o
+			s.Max = &o
 
 		case "name", "n":
 			var tmp json.RawMessage
@@ -311,7 +311,7 @@ func (s *ThreadPoolRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Size = o
+			s.Size = &o
 
 		case "type", "t":
 			var tmp json.RawMessage

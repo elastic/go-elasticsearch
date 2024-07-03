@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MlJobForecasts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L172-L175
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/xpack/usage/types.ts#L172-L175
 type MlJobForecasts struct {
 	ForecastedJobs int64 `json:"forecasted_jobs"`
 	Total          int64 `json:"total"`
@@ -53,7 +53,7 @@ func (s *MlJobForecasts) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "forecasted_jobs":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -68,7 +68,7 @@ func (s *MlJobForecasts) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

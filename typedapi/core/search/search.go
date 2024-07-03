@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Returns results matching a query.
+// Returns search hits that match the query defined in the request.
+// You can provide search queries using the `q` query string parameter or the
+// request body.
+// If both are specified, only the query parameter is used.
 package search
 
 import (
@@ -83,7 +86,10 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Returns results matching a query.
+// Returns search hits that match the query defined in the request.
+// You can provide search queries using the `q` query string parameter or the
+// request body.
+// If both are specified, only the query parameter is used.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html
 func New(tp elastictransport.Interface) *Search {
@@ -639,6 +645,62 @@ func (r *Search) Q(q string) *Search {
 	return r
 }
 
+// ForceSyntheticSource Should this request force synthetic _source?
+// Use this to test if the mapping supports synthetic _source and to get a sense
+// of the worst case performance.
+// Fetches with this enabled will be slower the enabling synthetic source
+// natively in the index.
+// API name: force_synthetic_source
+func (r *Search) ForceSyntheticSource(forcesyntheticsource bool) *Search {
+	r.values.Set("force_synthetic_source", strconv.FormatBool(forcesyntheticsource))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *Search) ErrorTrace(errortrace bool) *Search {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *Search) FilterPath(filterpaths ...string) *Search {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *Search) Human(human bool) *Search {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *Search) Pretty(pretty bool) *Search {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
 // Aggregations Defines the aggregations that are run as part of the search request.
 // API name: aggregations
 func (r *Search) Aggregations(aggregations map[string]types.Aggregations) *Search {
@@ -727,7 +789,7 @@ func (r *Search) IndicesBoost(indicesboosts ...map[string]types.Float64) *Search
 
 // Knn Defines the approximate kNN search to run.
 // API name: knn
-func (r *Search) Knn(knns ...types.KnnQuery) *Search {
+func (r *Search) Knn(knns ...types.KnnSearch) *Search {
 	r.req.Knn = knns
 
 	return r
@@ -798,6 +860,17 @@ func (r *Search) Rank(rank *types.RankContainer) *Search {
 // API name: rescore
 func (r *Search) Rescore(rescores ...types.Rescore) *Search {
 	r.req.Rescore = rescores
+
+	return r
+}
+
+// Retriever A retriever is a specification to describe top documents returned from a
+// search. A retriever replaces other elements of the search API that also
+// return top documents such as query and knn.
+// API name: retriever
+func (r *Search) Retriever(retriever *types.RetrieverContainer) *Search {
+
+	r.req.Retriever = retriever
 
 	return r
 }

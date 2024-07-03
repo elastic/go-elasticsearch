@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,19 +31,17 @@ import (
 
 // RangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L650-L670
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L652-L672
 type RangeAggregation struct {
 	// Field The date field whose values are use to build ranges.
 	Field  *string `json:"field,omitempty"`
 	Format *string `json:"format,omitempty"`
 	// Keyed Set to `true` to associate a unique string key with each bucket and return
 	// the ranges as a hash rather than an array.
-	Keyed *bool    `json:"keyed,omitempty"`
-	Meta  Metadata `json:"meta,omitempty"`
+	Keyed *bool `json:"keyed,omitempty"`
 	// Missing The value to apply to documents that do not have a value.
 	// By default, documents without a value are ignored.
-	Missing *int    `json:"missing,omitempty"`
-	Name    *string `json:"name,omitempty"`
+	Missing *int `json:"missing,omitempty"`
 	// Ranges An array of ranges used to bucket documents.
 	Ranges []AggregationRange `json:"ranges,omitempty"`
 	Script Script             `json:"script,omitempty"`
@@ -82,7 +80,7 @@ func (s *RangeAggregation) UnmarshalJSON(data []byte) error {
 			s.Format = &o
 
 		case "keyed":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -95,14 +93,9 @@ func (s *RangeAggregation) UnmarshalJSON(data []byte) error {
 				s.Keyed = &v
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "missing":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -115,18 +108,6 @@ func (s *RangeAggregation) UnmarshalJSON(data []byte) error {
 				f := int(v)
 				s.Missing = &f
 			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		case "ranges":
 			if err := dec.Decode(&s.Ranges); err != nil {

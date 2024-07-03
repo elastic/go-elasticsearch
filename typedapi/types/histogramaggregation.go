@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // HistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L500-L546
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L502-L548
 type HistogramAggregation struct {
 	// ExtendedBounds Enables extending the bounds of the histogram beyond the data itself.
 	ExtendedBounds *ExtendedBoundsdouble `json:"extended_bounds,omitempty"`
@@ -49,15 +49,13 @@ type HistogramAggregation struct {
 	Interval *Float64 `json:"interval,omitempty"`
 	// Keyed If `true`, returns buckets as a hash instead of an array, keyed by the bucket
 	// keys.
-	Keyed *bool    `json:"keyed,omitempty"`
-	Meta  Metadata `json:"meta,omitempty"`
+	Keyed *bool `json:"keyed,omitempty"`
 	// MinDocCount Only returns buckets that have `min_doc_count` number of documents.
 	// By default, the response will fill gaps in the histogram with empty buckets.
 	MinDocCount *int `json:"min_doc_count,omitempty"`
 	// Missing The value to apply to documents that do not have a value.
 	// By default, documents without a value are ignored.
 	Missing *Float64 `json:"missing,omitempty"`
-	Name    *string  `json:"name,omitempty"`
 	// Offset By default, the bucket keys start with 0 and then continue in even spaced
 	// steps of `interval`.
 	// The bucket boundaries can be shifted by using the `offset` option.
@@ -111,7 +109,7 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "interval":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -127,7 +125,7 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "keyed":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -140,14 +138,9 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 				s.Keyed = &v
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "min_doc_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -162,7 +155,7 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "missing":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -177,20 +170,8 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 				s.Missing = &f
 			}
 
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
-
 		case "offset":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

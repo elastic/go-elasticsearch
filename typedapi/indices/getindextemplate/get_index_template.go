@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Returns an index template.
+// Get index templates.
+// Returns information about one or more index templates.
 package getindextemplate
 
 import (
@@ -27,7 +28,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -75,7 +75,8 @@ func NewGetIndexTemplateFunc(tp elastictransport.Interface) NewGetIndexTemplate 
 	}
 }
 
-// Returns an index template.
+// Get index templates.
+// Returns information about one or more index templates.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-template.html
 func New(tp elastictransport.Interface) *GetIndexTemplate {
@@ -264,7 +265,7 @@ func (r GetIndexTemplate) IsSuccess(providedCtx context.Context) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	io.Copy(ioutil.Discard, res.Body)
+	io.Copy(io.Discard, res.Body)
 	err = res.Body.Close()
 	if err != nil {
 		return false, err
@@ -332,6 +333,50 @@ func (r *GetIndexTemplate) MasterTimeout(duration string) *GetIndexTemplate {
 // API name: include_defaults
 func (r *GetIndexTemplate) IncludeDefaults(includedefaults bool) *GetIndexTemplate {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetIndexTemplate) ErrorTrace(errortrace bool) *GetIndexTemplate {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetIndexTemplate) FilterPath(filterpaths ...string) *GetIndexTemplate {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *GetIndexTemplate) Human(human bool) *GetIndexTemplate {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GetIndexTemplate) Pretty(pretty bool) *GetIndexTemplate {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

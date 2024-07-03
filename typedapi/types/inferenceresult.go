@@ -16,14 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
 // InferenceResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/inference/_types/Results.ts#L59-L67
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/inference/_types/Results.ts#L79-L89
 type InferenceResult struct {
+	Completion         []CompletionResult        `json:"completion,omitempty"`
+	Rerank             []RankedDocument          `json:"rerank,omitempty"`
 	SparseEmbedding    []SparseEmbeddingResult   `json:"sparse_embedding,omitempty"`
 	TextEmbedding      []TextEmbeddingResult     `json:"text_embedding,omitempty"`
 	TextEmbeddingBytes []TextEmbeddingByteResult `json:"text_embedding_bytes,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Stats.ts#L252-L271
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/Stats.ts#L252-L271
 type SearchStats struct {
 	FetchCurrent        int64                  `json:"fetch_current"`
 	FetchTime           Duration               `json:"fetch_time,omitempty"`
@@ -69,7 +69,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "fetch_current":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -94,7 +94,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fetch_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -117,7 +117,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "open_contexts":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -132,7 +132,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "query_current":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -157,7 +157,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "query_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -172,7 +172,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "scroll_current":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -197,7 +197,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "scroll_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -212,7 +212,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "suggest_current":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -237,7 +237,7 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "suggest_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

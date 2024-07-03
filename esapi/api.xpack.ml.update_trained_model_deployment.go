@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,12 +23,13 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
 func newMLUpdateTrainedModelDeploymentFunc(t Transport) MLUpdateTrainedModelDeployment {
-	return func(body io.Reader, model_id string, o ...func(*MLUpdateTrainedModelDeploymentRequest)) (*Response, error) {
-		var r = MLUpdateTrainedModelDeploymentRequest{Body: body, ModelID: model_id}
+	return func(model_id string, o ...func(*MLUpdateTrainedModelDeploymentRequest)) (*Response, error) {
+		var r = MLUpdateTrainedModelDeploymentRequest{ModelID: model_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,16 +46,16 @@ func newMLUpdateTrainedModelDeploymentFunc(t Transport) MLUpdateTrainedModelDepl
 
 // MLUpdateTrainedModelDeployment - Updates certain properties of trained model deployment.
 //
-// This API is beta.
-//
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/update-trained-model-deployment.html.
-type MLUpdateTrainedModelDeployment func(body io.Reader, model_id string, o ...func(*MLUpdateTrainedModelDeploymentRequest)) (*Response, error)
+type MLUpdateTrainedModelDeployment func(model_id string, o ...func(*MLUpdateTrainedModelDeploymentRequest)) (*Response, error)
 
 // MLUpdateTrainedModelDeploymentRequest configures the ML Update Trained Model Deployment API request.
 type MLUpdateTrainedModelDeploymentRequest struct {
 	Body io.Reader
 
 	ModelID string
+
+	NumberOfAllocations *int
 
 	Pretty     bool
 	Human      bool
@@ -104,6 +105,10 @@ func (r MLUpdateTrainedModelDeploymentRequest) Do(providedCtx context.Context, t
 	path.WriteString("_update")
 
 	params = make(map[string]string)
+
+	if r.NumberOfAllocations != nil {
+		params["number_of_allocations"] = strconv.FormatInt(int64(*r.NumberOfAllocations), 10)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -187,6 +192,20 @@ func (r MLUpdateTrainedModelDeploymentRequest) Do(providedCtx context.Context, t
 func (f MLUpdateTrainedModelDeployment) WithContext(v context.Context) func(*MLUpdateTrainedModelDeploymentRequest) {
 	return func(r *MLUpdateTrainedModelDeploymentRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The updated trained model deployment settings.
+func (f MLUpdateTrainedModelDeployment) WithBody(v io.Reader) func(*MLUpdateTrainedModelDeploymentRequest) {
+	return func(r *MLUpdateTrainedModelDeploymentRequest) {
+		r.Body = v
+	}
+}
+
+// WithNumberOfAllocations - update the model deployment to this number of allocations..
+func (f MLUpdateTrainedModelDeployment) WithNumberOfAllocations(v int) func(*MLUpdateTrainedModelDeploymentRequest) {
+	return func(r *MLUpdateTrainedModelDeploymentRequest) {
+		r.NumberOfAllocations = &v
 	}
 }
 

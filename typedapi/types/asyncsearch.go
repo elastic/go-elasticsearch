@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/async_search/_types/AsyncSearch.ts#L30-L56
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/async_search/_types/AsyncSearch.ts#L30-L56
 type AsyncSearch struct {
 	// Aggregations Partial aggregations results, coming from the shards that have already
 	// completed the execution of the query.
@@ -530,7 +530,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 								}
 								s.Aggregations[elems[1]] = o
 
-							case "box_plot":
+							case "boxplot":
 								o := NewBoxPlotAggregate()
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)
@@ -580,7 +580,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 								s.Aggregations[elems[1]] = o
 
 							default:
-								o := make(map[string]interface{}, 0)
+								o := make(map[string]any, 0)
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)
 								}
@@ -590,7 +590,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 							return errors.New("cannot decode JSON for field Aggregations")
 						}
 					} else {
-						o := make(map[string]interface{}, 0)
+						o := make(map[string]any, 0)
 						if err := dec.Decode(&o); err != nil {
 							return fmt.Errorf("%s | %w", "Aggregations", err)
 						}
@@ -618,7 +618,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_score":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -634,7 +634,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 			}
 
 		case "num_reduce_phases":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -712,7 +712,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 								s.Suggest[elems[1]] = append(s.Suggest[elems[1]], o)
 
 							default:
-								o := make(map[string]interface{}, 0)
+								o := make(map[string]any, 0)
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Suggest", err)
 								}
@@ -722,7 +722,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 							return errors.New("cannot decode JSON for field Suggest")
 						}
 					} else {
-						o := make(map[string]interface{}, 0)
+						o := make(map[string]any, 0)
 						if err := dec.Decode(&o); err != nil {
 							return fmt.Errorf("%s | %w", "Suggest", err)
 						}
@@ -732,7 +732,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 			}
 
 		case "terminated_early":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -746,7 +746,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 			}
 
 		case "timed_out":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -760,7 +760,7 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 			}
 
 		case "took":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

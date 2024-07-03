@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // TermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/bucket.ts#L910-L970
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L912-L977
 type TermsAggregation struct {
 	// CollectMode Determines how child aggregations should be calculated: breadth-first or
 	// depth-first.
@@ -53,7 +53,6 @@ type TermsAggregation struct {
 	// Include Values to include.
 	// Accepts regular expressions and partitions.
 	Include TermsInclude `json:"include,omitempty"`
-	Meta    Metadata     `json:"meta,omitempty"`
 	// MinDocCount Only return values that are found in more than `min_doc_count` hits.
 	MinDocCount *int `json:"min_doc_count,omitempty"`
 	// Missing The value to apply to documents that do not have a value.
@@ -61,11 +60,15 @@ type TermsAggregation struct {
 	Missing       Missing                    `json:"missing,omitempty"`
 	MissingBucket *bool                      `json:"missing_bucket,omitempty"`
 	MissingOrder  *missingorder.MissingOrder `json:"missing_order,omitempty"`
-	Name          *string                    `json:"name,omitempty"`
 	// Order Specifies the sort order of the buckets.
 	// Defaults to sorting by descending document count.
 	Order  AggregateOrder `json:"order,omitempty"`
 	Script Script         `json:"script,omitempty"`
+	// ShardMinDocCount Regulates the certainty a shard has if the term should actually be added to
+	// the candidate list or not with respect to the `min_doc_count`.
+	// Terms will only be considered if their local shard frequency within the set
+	// is higher than the `shard_min_doc_count`.
+	ShardMinDocCount *int64 `json:"shard_min_doc_count,omitempty"`
 	// ShardSize The number of candidate terms produced by each shard.
 	// By default, `shard_size` will be automatically estimated based on the number
 	// of shards and the `size` parameter.
@@ -142,14 +145,9 @@ func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Include", err)
 			}
 
-		case "meta":
-			if err := dec.Decode(&s.Meta); err != nil {
-				return fmt.Errorf("%s | %w", "Meta", err)
-			}
-
 		case "min_doc_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -169,7 +167,7 @@ func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "missing_bucket":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -186,18 +184,6 @@ func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.MissingOrder); err != nil {
 				return fmt.Errorf("%s | %w", "MissingOrder", err)
 			}
-
-		case "name":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Name = &o
 
 		case "order":
 
@@ -256,9 +242,24 @@ func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "shard_min_doc_count":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ShardMinDocCount", err)
+				}
+				s.ShardMinDocCount = &value
+			case float64:
+				f := int64(v)
+				s.ShardMinDocCount = &f
+			}
+
 		case "shard_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -273,7 +274,7 @@ func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "show_term_doc_count_error":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -288,7 +289,7 @@ func (s *TermsAggregation) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

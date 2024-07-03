@@ -16,9 +16,42 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Instantiates a transform.
+// Creates a transform.
+//
+// A transform copies data from source indices, transforms it, and persists it
+// into an entity-centric destination index. You can also think of the
+// destination index as a two-dimensional tabular data structure (known as
+// a data frame). The ID for each document in the data frame is generated from a
+// hash of the entity, so there is a
+// unique row per entity.
+//
+// You must choose either the latest or pivot method for your transform; you
+// cannot use both in a single transform. If
+// you choose to use the pivot method for your transform, the entities are
+// defined by the set of `group_by` fields in
+// the pivot object. If you choose to use the latest method, the entities are
+// defined by the `unique_key` field values
+// in the latest object.
+//
+// You must have `create_index`, `index`, and `read` privileges on the
+// destination index and `read` and
+// `view_index_metadata` privileges on the source indices. When Elasticsearch
+// security features are enabled, the
+// transform remembers which roles the user that created it had at the time of
+// creation and uses those same roles. If
+// those roles do not have the required privileges on the source and destination
+// indices, the transform fails when it
+// attempts unauthorized operations.
+//
+// NOTE: You must use Kibana or this API to create a transform. Do not add a
+// transform directly into any
+// `.transform-internal*` indices using the Elasticsearch index API. If
+// Elasticsearch security features are enabled, do
+// not give users any privileges on `.transform-internal*` indices. If you used
+// transforms prior to 7.5, also do not
+// give users any privileges on `.data-frame-internal*` indices.
 package puttransform
 
 import (
@@ -81,7 +114,40 @@ func NewPutTransformFunc(tp elastictransport.Interface) NewPutTransform {
 	}
 }
 
-// Instantiates a transform.
+// Creates a transform.
+//
+// A transform copies data from source indices, transforms it, and persists it
+// into an entity-centric destination index. You can also think of the
+// destination index as a two-dimensional tabular data structure (known as
+// a data frame). The ID for each document in the data frame is generated from a
+// hash of the entity, so there is a
+// unique row per entity.
+//
+// You must choose either the latest or pivot method for your transform; you
+// cannot use both in a single transform. If
+// you choose to use the pivot method for your transform, the entities are
+// defined by the set of `group_by` fields in
+// the pivot object. If you choose to use the latest method, the entities are
+// defined by the `unique_key` field values
+// in the latest object.
+//
+// You must have `create_index`, `index`, and `read` privileges on the
+// destination index and `read` and
+// `view_index_metadata` privileges on the source indices. When Elasticsearch
+// security features are enabled, the
+// transform remembers which roles the user that created it had at the time of
+// creation and uses those same roles. If
+// those roles do not have the required privileges on the source and destination
+// indices, the transform fails when it
+// attempts unauthorized operations.
+//
+// NOTE: You must use Kibana or this API to create a transform. Do not add a
+// transform directly into any
+// `.transform-internal*` indices using the Elasticsearch index API. If
+// Elasticsearch security features are enabled, do
+// not give users any privileges on `.transform-internal*` indices. If you used
+// transforms prior to 7.5, also do not
+// give users any privileges on `.data-frame-internal*` indices.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-transform.html
 func New(tp elastictransport.Interface) *PutTransform {
@@ -337,6 +403,50 @@ func (r *PutTransform) DeferValidation(defervalidation bool) *PutTransform {
 // API name: timeout
 func (r *PutTransform) Timeout(duration string) *PutTransform {
 	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *PutTransform) ErrorTrace(errortrace bool) *PutTransform {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *PutTransform) FilterPath(filterpaths ...string) *PutTransform {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *PutTransform) Human(human bool) *PutTransform {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *PutTransform) Pretty(pretty bool) *PutTransform {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

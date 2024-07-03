@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0 (999dcb8): DO NOT EDIT
+// Code generated from specification version 8.15.0 (8abc885): DO NOT EDIT
 
 package esapi
 
@@ -48,6 +48,7 @@ type API struct {
 	AutoscalingGetAutoscalingPolicy               AutoscalingGetAutoscalingPolicy
 	AutoscalingPutAutoscalingPolicy               AutoscalingPutAutoscalingPolicy
 	Bulk                                          Bulk
+	Capabilities                                  Capabilities
 	ClearScroll                                   ClearScroll
 	ClosePointInTime                              ClosePointInTime
 	ConnectorCheckIn                              ConnectorCheckIn
@@ -63,6 +64,7 @@ type API struct {
 	ConnectorSecretPut                            ConnectorSecretPut
 	ConnectorSyncJobCancel                        ConnectorSyncJobCancel
 	ConnectorSyncJobCheckIn                       ConnectorSyncJobCheckIn
+	ConnectorSyncJobClaim                         ConnectorSyncJobClaim
 	ConnectorSyncJobDelete                        ConnectorSyncJobDelete
 	ConnectorSyncJobError                         ConnectorSyncJobError
 	ConnectorSyncJobGet                           ConnectorSyncJobGet
@@ -70,9 +72,12 @@ type API struct {
 	ConnectorSyncJobPost                          ConnectorSyncJobPost
 	ConnectorSyncJobUpdateStats                   ConnectorSyncJobUpdateStats
 	ConnectorUpdateAPIKeyDocumentID               ConnectorUpdateAPIKeyDocumentID
+	ConnectorUpdateActiveFiltering                ConnectorUpdateActiveFiltering
 	ConnectorUpdateConfiguration                  ConnectorUpdateConfiguration
 	ConnectorUpdateError                          ConnectorUpdateError
+	ConnectorUpdateFeatures                       ConnectorUpdateFeatures
 	ConnectorUpdateFiltering                      ConnectorUpdateFiltering
+	ConnectorUpdateFilteringValidation            ConnectorUpdateFilteringValidation
 	ConnectorUpdateIndexName                      ConnectorUpdateIndexName
 	ConnectorUpdateName                           ConnectorUpdateName
 	ConnectorUpdateNative                         ConnectorUpdateNative
@@ -121,10 +126,10 @@ type API struct {
 	GraphExplore                                  GraphExplore
 	HealthReport                                  HealthReport
 	Index                                         Index
-	InferenceDeleteModel                          InferenceDeleteModel
-	InferenceGetModel                             InferenceGetModel
+	InferenceDelete                               InferenceDelete
+	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
-	InferencePutModel                             InferencePutModel
+	InferencePut                                  InferencePut
 	Info                                          Info
 	KnnSearch                                     KnnSearch
 	LogstashDeletePipeline                        LogstashDeletePipeline
@@ -139,11 +144,15 @@ type API struct {
 	ProfilingFlamegraph                           ProfilingFlamegraph
 	ProfilingStacktraces                          ProfilingStacktraces
 	ProfilingStatus                               ProfilingStatus
+	ProfilingTopnFunctions                        ProfilingTopnFunctions
 	PutScript                                     PutScript
-	QueryRulesetDelete                            QueryRulesetDelete
-	QueryRulesetGet                               QueryRulesetGet
-	QueryRulesetList                              QueryRulesetList
-	QueryRulesetPut                               QueryRulesetPut
+	QueryRulesDeleteRule                          QueryRulesDeleteRule
+	QueryRulesDeleteRuleset                       QueryRulesDeleteRuleset
+	QueryRulesGetRule                             QueryRulesGetRule
+	QueryRulesGetRuleset                          QueryRulesGetRuleset
+	QueryRulesListRulesets                        QueryRulesListRulesets
+	QueryRulesPutRule                             QueryRulesPutRule
+	QueryRulesPutRuleset                          QueryRulesPutRuleset
 	RankEval                                      RankEval
 	Reindex                                       Reindex
 	ReindexRethrottle                             ReindexRethrottle
@@ -195,6 +204,7 @@ type API struct {
 	TextStructureFindStructure                    TextStructureFindStructure
 	TextStructureTestGrokPattern                  TextStructureTestGrokPattern
 	TransformDeleteTransform                      TransformDeleteTransform
+	TransformGetNodeStats                         TransformGetNodeStats
 	TransformGetTransform                         TransformGetTransform
 	TransformGetTransformStats                    TransformGetTransformStats
 	TransformPreviewTransform                     TransformPreviewTransform
@@ -527,6 +537,7 @@ type Rollup struct {
 type Security struct {
 	ActivateUserProfile         SecurityActivateUserProfile
 	Authenticate                SecurityAuthenticate
+	BulkPutRole                 SecurityBulkPutRole
 	BulkUpdateAPIKeys           SecurityBulkUpdateAPIKeys
 	ChangePassword              SecurityChangePassword
 	ClearAPIKeyCache            SecurityClearAPIKeyCache
@@ -573,6 +584,7 @@ type Security struct {
 	PutRole                     SecurityPutRole
 	PutUser                     SecurityPutUser
 	QueryAPIKeys                SecurityQueryAPIKeys
+	QueryRole                   SecurityQueryRole
 	QueryUser                   SecurityQueryUser
 	SamlAuthenticate            SecuritySamlAuthenticate
 	SamlCompleteLogout          SecuritySamlCompleteLogout
@@ -633,6 +645,7 @@ func New(t Transport) *API {
 		AutoscalingGetAutoscalingPolicy:    newAutoscalingGetAutoscalingPolicyFunc(t),
 		AutoscalingPutAutoscalingPolicy:    newAutoscalingPutAutoscalingPolicyFunc(t),
 		Bulk:                               newBulkFunc(t),
+		Capabilities:                       newCapabilitiesFunc(t),
 		ClearScroll:                        newClearScrollFunc(t),
 		ClosePointInTime:                   newClosePointInTimeFunc(t),
 		ConnectorCheckIn:                   newConnectorCheckInFunc(t),
@@ -648,6 +661,7 @@ func New(t Transport) *API {
 		ConnectorSecretPut:                 newConnectorSecretPutFunc(t),
 		ConnectorSyncJobCancel:             newConnectorSyncJobCancelFunc(t),
 		ConnectorSyncJobCheckIn:            newConnectorSyncJobCheckInFunc(t),
+		ConnectorSyncJobClaim:              newConnectorSyncJobClaimFunc(t),
 		ConnectorSyncJobDelete:             newConnectorSyncJobDeleteFunc(t),
 		ConnectorSyncJobError:              newConnectorSyncJobErrorFunc(t),
 		ConnectorSyncJobGet:                newConnectorSyncJobGetFunc(t),
@@ -655,9 +669,12 @@ func New(t Transport) *API {
 		ConnectorSyncJobPost:               newConnectorSyncJobPostFunc(t),
 		ConnectorSyncJobUpdateStats:        newConnectorSyncJobUpdateStatsFunc(t),
 		ConnectorUpdateAPIKeyDocumentID:    newConnectorUpdateAPIKeyDocumentIDFunc(t),
+		ConnectorUpdateActiveFiltering:     newConnectorUpdateActiveFilteringFunc(t),
 		ConnectorUpdateConfiguration:       newConnectorUpdateConfigurationFunc(t),
 		ConnectorUpdateError:               newConnectorUpdateErrorFunc(t),
+		ConnectorUpdateFeatures:            newConnectorUpdateFeaturesFunc(t),
 		ConnectorUpdateFiltering:           newConnectorUpdateFilteringFunc(t),
+		ConnectorUpdateFilteringValidation: newConnectorUpdateFilteringValidationFunc(t),
 		ConnectorUpdateIndexName:           newConnectorUpdateIndexNameFunc(t),
 		ConnectorUpdateName:                newConnectorUpdateNameFunc(t),
 		ConnectorUpdateNative:              newConnectorUpdateNativeFunc(t),
@@ -706,10 +723,10 @@ func New(t Transport) *API {
 		GraphExplore:                       newGraphExploreFunc(t),
 		HealthReport:                       newHealthReportFunc(t),
 		Index:                              newIndexFunc(t),
-		InferenceDeleteModel:               newInferenceDeleteModelFunc(t),
-		InferenceGetModel:                  newInferenceGetModelFunc(t),
+		InferenceDelete:                    newInferenceDeleteFunc(t),
+		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
-		InferencePutModel:                  newInferencePutModelFunc(t),
+		InferencePut:                       newInferencePutFunc(t),
 		Info:                               newInfoFunc(t),
 		KnnSearch:                          newKnnSearchFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
@@ -724,11 +741,15 @@ func New(t Transport) *API {
 		ProfilingFlamegraph:                newProfilingFlamegraphFunc(t),
 		ProfilingStacktraces:               newProfilingStacktracesFunc(t),
 		ProfilingStatus:                    newProfilingStatusFunc(t),
+		ProfilingTopnFunctions:             newProfilingTopnFunctionsFunc(t),
 		PutScript:                          newPutScriptFunc(t),
-		QueryRulesetDelete:                 newQueryRulesetDeleteFunc(t),
-		QueryRulesetGet:                    newQueryRulesetGetFunc(t),
-		QueryRulesetList:                   newQueryRulesetListFunc(t),
-		QueryRulesetPut:                    newQueryRulesetPutFunc(t),
+		QueryRulesDeleteRule:               newQueryRulesDeleteRuleFunc(t),
+		QueryRulesDeleteRuleset:            newQueryRulesDeleteRulesetFunc(t),
+		QueryRulesGetRule:                  newQueryRulesGetRuleFunc(t),
+		QueryRulesGetRuleset:               newQueryRulesGetRulesetFunc(t),
+		QueryRulesListRulesets:             newQueryRulesListRulesetsFunc(t),
+		QueryRulesPutRule:                  newQueryRulesPutRuleFunc(t),
+		QueryRulesPutRuleset:               newQueryRulesPutRulesetFunc(t),
 		RankEval:                           newRankEvalFunc(t),
 		Reindex:                            newReindexFunc(t),
 		ReindexRethrottle:                  newReindexRethrottleFunc(t),
@@ -780,6 +801,7 @@ func New(t Transport) *API {
 		TextStructureFindStructure:                    newTextStructureFindStructureFunc(t),
 		TextStructureTestGrokPattern:                  newTextStructureTestGrokPatternFunc(t),
 		TransformDeleteTransform:                      newTransformDeleteTransformFunc(t),
+		TransformGetNodeStats:                         newTransformGetNodeStatsFunc(t),
 		TransformGetTransform:                         newTransformGetTransformFunc(t),
 		TransformGetTransformStats:                    newTransformGetTransformStatsFunc(t),
 		TransformPreviewTransform:                     newTransformPreviewTransformFunc(t),
@@ -1076,6 +1098,7 @@ func New(t Transport) *API {
 		Security: &Security{
 			ActivateUserProfile:         newSecurityActivateUserProfileFunc(t),
 			Authenticate:                newSecurityAuthenticateFunc(t),
+			BulkPutRole:                 newSecurityBulkPutRoleFunc(t),
 			BulkUpdateAPIKeys:           newSecurityBulkUpdateAPIKeysFunc(t),
 			ChangePassword:              newSecurityChangePasswordFunc(t),
 			ClearAPIKeyCache:            newSecurityClearAPIKeyCacheFunc(t),
@@ -1122,6 +1145,7 @@ func New(t Transport) *API {
 			PutRole:                     newSecurityPutRoleFunc(t),
 			PutUser:                     newSecurityPutUserFunc(t),
 			QueryAPIKeys:                newSecurityQueryAPIKeysFunc(t),
+			QueryRole:                   newSecurityQueryRoleFunc(t),
 			QueryUser:                   newSecurityQueryUserFunc(t),
 			SamlAuthenticate:            newSecuritySamlAuthenticateFunc(t),
 			SamlCompleteLogout:          newSecuritySamlCompleteLogoutFunc(t),

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -84,7 +84,11 @@ func (r SecurityCreateServiceTokenRequest) Do(providedCtx context.Context, trans
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	if r.Name != "" {
+		method = "POST"
+	} else {
+		method = "PUT"
+	}
 
 	path.Grow(7 + 1 + len("_security") + 1 + len("service") + 1 + len(r.Namespace) + 1 + len(r.Service) + 1 + len("credential") + 1 + len("token") + 1 + len(r.Name))
 	path.WriteString("http://")

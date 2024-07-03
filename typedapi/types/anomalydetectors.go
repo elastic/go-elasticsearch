@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnomalyDetectors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/info/types.ts#L44-L50
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/info/types.ts#L44-L50
 type AnomalyDetectors struct {
 	CategorizationAnalyzer               CategorizationAnalyzer `json:"categorization_analyzer"`
 	CategorizationExamplesLimit          int                    `json:"categorization_examples_limit"`
@@ -77,7 +77,7 @@ func (s *AnomalyDetectors) UnmarshalJSON(data []byte) error {
 
 		case "categorization_examples_limit":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -93,7 +93,7 @@ func (s *AnomalyDetectors) UnmarshalJSON(data []byte) error {
 
 		case "daily_model_snapshot_retention_after_days":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -121,7 +121,7 @@ func (s *AnomalyDetectors) UnmarshalJSON(data []byte) error {
 
 		case "model_snapshot_retention_days":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Simulate resolving the given template name or body
+// Simulate an index template.
+// Returns the index configuration that would be applied by a particular index
+// template.
 package simulatetemplate
 
 import (
@@ -79,7 +81,9 @@ func NewSimulateTemplateFunc(tp elastictransport.Interface) NewSimulateTemplate 
 	}
 }
 
-// Simulate resolving the given template name or body
+// Simulate an index template.
+// Returns the index configuration that would be applied by a particular index
+// template.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-simulate-template.html
 func New(tp elastictransport.Interface) *SimulateTemplate {
@@ -89,6 +93,8 @@ func New(tp elastictransport.Interface) *SimulateTemplate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -348,6 +354,57 @@ func (r *SimulateTemplate) IncludeDefaults(includedefaults bool) *SimulateTempla
 	return r
 }
 
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *SimulateTemplate) ErrorTrace(errortrace bool) *SimulateTemplate {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *SimulateTemplate) FilterPath(filterpaths ...string) *SimulateTemplate {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *SimulateTemplate) Human(human bool) *SimulateTemplate {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *SimulateTemplate) Pretty(pretty bool) *SimulateTemplate {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// AllowAutoCreate This setting overrides the value of the `action.auto_create_index` cluster
+// setting.
+// If set to `true` in a template, then indices can be automatically created
+// using that template even if auto-creation of indices is disabled via
+// `actions.auto_create_index`.
+// If set to `false`, then indices or data streams matching the template must
+// always be explicitly created, and may never be automatically created.
 // API name: allow_auto_create
 func (r *SimulateTemplate) AllowAutoCreate(allowautocreate bool) *SimulateTemplate {
 	r.req.AllowAutoCreate = &allowautocreate
@@ -370,22 +427,45 @@ func (r *SimulateTemplate) ComposedOf(composedofs ...string) *SimulateTemplate {
 // Supports an empty object.
 // Data streams require a matching index template with a `data_stream` object.
 // API name: data_stream
-func (r *SimulateTemplate) DataStream(datastream *types.IndexTemplateDataStreamConfiguration) *SimulateTemplate {
+func (r *SimulateTemplate) DataStream(datastream *types.DataStreamVisibility) *SimulateTemplate {
 
 	r.req.DataStream = datastream
 
 	return r
 }
 
-// IndexPatterns Name of the index template.
-// API name: index_patterns
-func (r *SimulateTemplate) IndexPatterns(names ...string) *SimulateTemplate {
-	r.req.IndexPatterns = names
+// Deprecated Marks this index template as deprecated. When creating or updating a
+// non-deprecated index template
+// that uses deprecated components, Elasticsearch will emit a deprecation
+// warning.
+// API name: deprecated
+func (r *SimulateTemplate) Deprecated(deprecated bool) *SimulateTemplate {
+	r.req.Deprecated = &deprecated
 
 	return r
 }
 
-// Meta_ Optional user metadata about the index template. May have any contents.
+// IgnoreMissingComponentTemplates The configuration option ignore_missing_component_templates can be used when
+// an index template
+// references a component template that might not exist
+// API name: ignore_missing_component_templates
+func (r *SimulateTemplate) IgnoreMissingComponentTemplates(ignoremissingcomponenttemplates ...string) *SimulateTemplate {
+	r.req.IgnoreMissingComponentTemplates = ignoremissingcomponenttemplates
+
+	return r
+}
+
+// IndexPatterns Array of wildcard (`*`) expressions used to match the names of data streams
+// and indices during creation.
+// API name: index_patterns
+func (r *SimulateTemplate) IndexPatterns(indices ...string) *SimulateTemplate {
+	r.req.IndexPatterns = indices
+
+	return r
+}
+
+// Meta_ Optional user metadata about the index template.
+// May have any contents.
 // This map is not automatically generated by Elasticsearch.
 // API name: _meta
 func (r *SimulateTemplate) Meta_(metadata types.Metadata) *SimulateTemplate {
@@ -412,7 +492,7 @@ func (r *SimulateTemplate) Priority(priority int64) *SimulateTemplate {
 // It may optionally include an `aliases`, `mappings`, or `settings`
 // configuration.
 // API name: template
-func (r *SimulateTemplate) Template(template *types.IndexTemplateSummary) *SimulateTemplate {
+func (r *SimulateTemplate) Template(template *types.IndexTemplateMapping) *SimulateTemplate {
 
 	r.req.Template = template
 

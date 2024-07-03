@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newEnrichPutPolicyFunc(t Transport) EnrichPutPolicy {
@@ -53,6 +54,8 @@ type EnrichPutPolicyRequest struct {
 	Body io.Reader
 
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +101,10 @@ func (r EnrichPutPolicyRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +188,13 @@ func (r EnrichPutPolicyRequest) Do(providedCtx context.Context, transport Transp
 func (f EnrichPutPolicy) WithContext(v context.Context) func(*EnrichPutPolicyRequest) {
 	return func(r *EnrichPutPolicyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f EnrichPutPolicy) WithMasterTimeout(v time.Duration) func(*EnrichPutPolicyRequest) {
+	return func(r *EnrichPutPolicyRequest) {
+		r.MasterTimeout = v
 	}
 }
 

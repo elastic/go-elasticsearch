@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // FrequentItemSetsBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/aggregations/Aggregate.ts#L642-L645
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/Aggregate.ts#L646-L649
 type FrequentItemSetsBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	DocCount     int64                `json:"doc_count"`
@@ -56,7 +56,7 @@ func (s *FrequentItemSetsBucket) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "doc_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -79,7 +79,7 @@ func (s *FrequentItemSetsBucket) UnmarshalJSON(data []byte) error {
 			}
 
 		case "support":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -539,7 +539,7 @@ func (s *FrequentItemSetsBucket) UnmarshalJSON(data []byte) error {
 							}
 							s.Aggregations[elems[1]] = o
 
-						case "box_plot":
+						case "boxplot":
 							o := NewBoxPlotAggregate()
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)
@@ -589,7 +589,7 @@ func (s *FrequentItemSetsBucket) UnmarshalJSON(data []byte) error {
 							s.Aggregations[elems[1]] = o
 
 						default:
-							o := make(map[string]interface{}, 0)
+							o := make(map[string]any, 0)
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)
 							}
@@ -599,7 +599,7 @@ func (s *FrequentItemSetsBucket) UnmarshalJSON(data []byte) error {
 						return errors.New("cannot decode JSON for field Aggregations")
 					}
 				} else {
-					o := make(map[string]interface{}, 0)
+					o := make(map[string]any, 0)
 					if err := dec.Decode(&o); err != nil {
 						return fmt.Errorf("%s | %w", "Aggregations", err)
 					}
@@ -616,7 +616,7 @@ func (s *FrequentItemSetsBucket) UnmarshalJSON(data []byte) error {
 func (s FrequentItemSetsBucket) MarshalJSON() ([]byte, error) {
 	type opt FrequentItemSetsBucket
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]interface{}, 0)
+	tmp := make(map[string]any, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

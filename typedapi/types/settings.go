@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Settings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/transform/_types/Transform.ts#L98-L144
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/transform/_types/Transform.ts#L98-L144
 type Settings struct {
 	// AlignCheckpoints Specifies whether the transform checkpoint ranges should be optimized for
 	// performance. Such optimization can align
@@ -84,7 +84,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "align_checkpoints":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -98,7 +98,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "dates_as_epoch_millis":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -112,7 +112,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "deduce_mappings":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -126,7 +126,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "docs_per_second":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -143,7 +143,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 
 		case "max_page_search_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -158,7 +158,7 @@ func (s *Settings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "unattended":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

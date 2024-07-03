@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MlInferenceIngestProcessorCount type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L238-L242
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/xpack/usage/types.ts#L238-L242
 type MlInferenceIngestProcessorCount struct {
 	Max int64 `json:"max"`
 	Min int64 `json:"min"`
@@ -54,7 +54,7 @@ func (s *MlInferenceIngestProcessorCount) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "max":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -69,7 +69,7 @@ func (s *MlInferenceIngestProcessorCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "min":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -84,7 +84,7 @@ func (s *MlInferenceIngestProcessorCount) UnmarshalJSON(data []byte) error {
 			}
 
 		case "sum":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

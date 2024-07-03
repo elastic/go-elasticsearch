@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PhraseSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/search/_types/suggester.ts#L356-L414
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/suggester.ts#L359-L417
 type PhraseSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with.
 	// Defaults to the search analyzer of the suggest field.
@@ -119,7 +119,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			}
 
 		case "confidence":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -145,7 +145,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			}
 
 		case "force_unigrams":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -160,7 +160,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "gram_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -180,7 +180,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			}
 
 		case "max_errors":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -196,7 +196,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 			}
 
 		case "real_word_error_likelihood":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -225,7 +225,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "shard_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -241,7 +241,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -274,7 +274,7 @@ func (s *PhraseSuggester) UnmarshalJSON(data []byte) error {
 
 		case "token_limit":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

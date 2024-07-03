@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newConnectorPutFunc(t Transport) ConnectorPut {
-	return func(body io.Reader, connector_id string, o ...func(*ConnectorPutRequest)) (*Response, error) {
-		var r = ConnectorPutRequest{Body: body, ConnectorID: connector_id}
+	return func(o ...func(*ConnectorPutRequest)) (*Response, error) {
+		var r = ConnectorPutRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -48,7 +48,7 @@ func newConnectorPutFunc(t Transport) ConnectorPut {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html.
-type ConnectorPut func(body io.Reader, connector_id string, o ...func(*ConnectorPutRequest)) (*Response, error)
+type ConnectorPut func(o ...func(*ConnectorPutRequest)) (*Response, error)
 
 // ConnectorPutRequest configures the Connector Put API request.
 type ConnectorPutRequest struct {
@@ -91,10 +91,12 @@ func (r ConnectorPutRequest) Do(providedCtx context.Context, transport Transport
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_connector")
-	path.WriteString("/")
-	path.WriteString(r.ConnectorID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "connector_id", r.ConnectorID)
+	if r.ConnectorID != "" {
+		path.WriteString("/")
+		path.WriteString(r.ConnectorID)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "connector_id", r.ConnectorID)
+		}
 	}
 
 	params = make(map[string]string)
@@ -181,6 +183,20 @@ func (r ConnectorPutRequest) Do(providedCtx context.Context, transport Transport
 func (f ConnectorPut) WithContext(v context.Context) func(*ConnectorPutRequest) {
 	return func(r *ConnectorPutRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The connector configuration..
+func (f ConnectorPut) WithBody(v io.Reader) func(*ConnectorPutRequest) {
+	return func(r *ConnectorPutRequest) {
+		r.Body = v
+	}
+}
+
+// WithConnectorID - the unique identifier of the connector to be created or updated..
+func (f ConnectorPut) WithConnectorID(v string) func(*ConnectorPutRequest) {
+	return func(r *ConnectorPutRequest) {
+		r.ConnectorID = v
 	}
 }
 

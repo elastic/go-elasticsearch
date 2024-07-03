@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
-// Creates an inference trained model.
+// Enables you to supply a trained model that is not created by data frame
+// analytics.
 package puttrainedmodel
 
 import (
@@ -82,7 +83,8 @@ func NewPutTrainedModelFunc(tp elastictransport.Interface) NewPutTrainedModel {
 	}
 }
 
-// Creates an inference trained model.
+// Enables you to supply a trained model that is not created by data frame
+// analytics.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models.html
 func New(tp elastictransport.Interface) *PutTrainedModel {
@@ -316,11 +318,65 @@ func (r *PutTrainedModel) _modelid(modelid string) *PutTrainedModel {
 	return r
 }
 
-// DeferDefinitionDecompression If set to `true` and a `compressed_definition` is provided, the request
-// defers definition decompression and skips relevant validations.
+// DeferDefinitionDecompression If set to `true` and a `compressed_definition` is provided,
+// the request defers definition decompression and skips relevant
+// validations.
 // API name: defer_definition_decompression
 func (r *PutTrainedModel) DeferDefinitionDecompression(deferdefinitiondecompression bool) *PutTrainedModel {
 	r.values.Set("defer_definition_decompression", strconv.FormatBool(deferdefinitiondecompression))
+
+	return r
+}
+
+// WaitForCompletion Whether to wait for all child operations (e.g. model download)
+// to complete.
+// API name: wait_for_completion
+func (r *PutTrainedModel) WaitForCompletion(waitforcompletion bool) *PutTrainedModel {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *PutTrainedModel) ErrorTrace(errortrace bool) *PutTrainedModel {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *PutTrainedModel) FilterPath(filterpaths ...string) *PutTrainedModel {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *PutTrainedModel) Human(human bool) *PutTrainedModel {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *PutTrainedModel) Pretty(pretty bool) *PutTrainedModel {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }
@@ -382,7 +438,7 @@ func (r *PutTrainedModel) Input(input *types.Input) *PutTrainedModel {
 // metadata should be a json.RawMessage or a structure
 // if a structure is provided, the client will defer a json serialization
 // prior to sending the payload to Elasticsearch.
-func (r *PutTrainedModel) Metadata(metadata interface{}) *PutTrainedModel {
+func (r *PutTrainedModel) Metadata(metadata any) *PutTrainedModel {
 	switch casted := metadata.(type) {
 	case json.RawMessage:
 		r.req.Metadata = casted

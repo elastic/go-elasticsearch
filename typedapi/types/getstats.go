@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GetStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Stats.ts#L130-L141
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/Stats.ts#L130-L141
 type GetStats struct {
 	Current             int64    `json:"current"`
 	ExistsTime          Duration `json:"exists_time,omitempty"`
@@ -61,7 +61,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "current":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -86,7 +86,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "exists_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -111,7 +111,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "missing_total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -136,7 +136,7 @@ func (s *GetStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "total":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

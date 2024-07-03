@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -45,8 +45,6 @@ func newEsqlQueryFunc(t Transport) EsqlQuery {
 // ----- API Definition -------------------------------------------------------
 
 // EsqlQuery - Executes an ESQL request
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-query-api.html.
 type EsqlQuery func(body io.Reader, o ...func(*EsqlQueryRequest)) (*Response, error)

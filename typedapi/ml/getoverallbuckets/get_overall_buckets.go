@@ -16,10 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Retrieves overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
+//
+// The `overall_score` is calculated by combining the scores of all the
+// buckets within the overall bucket span. First, the maximum
+// `anomaly_score` per anomaly detection job in the overall bucket is
+// calculated. Then the `top_n` of those scores are averaged to result in
+// the `overall_score`. This means that you can fine-tune the
+// `overall_score` so that it is more or less sensitive to the number of
+// jobs that detect an anomaly at the same time. For example, if you set
+// `top_n` to `1`, the `overall_score` is the maximum bucket score in the
+// overall bucket. Alternatively, if you set `top_n` to the number of jobs,
+// the `overall_score` is high only when all jobs detect anomalies in that
+// overall bucket. If you set the `bucket_span` parameter (to a value
+// greater than its default), the `overall_score` is the maximum
+// `overall_score` of the overall buckets that have a span equal to the
+// jobs' largest bucket span.
 package getoverallbuckets
 
 import (
@@ -31,6 +46,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -83,6 +99,21 @@ func NewGetOverallBucketsFunc(tp elastictransport.Interface) NewGetOverallBucket
 
 // Retrieves overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
+//
+// The `overall_score` is calculated by combining the scores of all the
+// buckets within the overall bucket span. First, the maximum
+// `anomaly_score` per anomaly detection job in the overall bucket is
+// calculated. Then the `top_n` of those scores are averaged to result in
+// the `overall_score`. This means that you can fine-tune the
+// `overall_score` so that it is more or less sensitive to the number of
+// jobs that detect an anomaly at the same time. For example, if you set
+// `top_n` to `1`, the `overall_score` is the maximum bucket score in the
+// overall bucket. Alternatively, if you set `top_n` to the number of jobs,
+// the `overall_score` is high only when all jobs detect anomalies in that
+// overall bucket. If you set the `bucket_span` parameter (to a value
+// greater than its default), the `overall_score` is the maximum
+// `overall_score` of the overall buckets that have a span equal to the
+// jobs' largest bucket span.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-overall-buckets.html
 func New(tp elastictransport.Interface) *GetOverallBuckets {
@@ -321,6 +352,50 @@ func (r *GetOverallBuckets) Header(key, value string) *GetOverallBuckets {
 func (r *GetOverallBuckets) _jobid(jobid string) *GetOverallBuckets {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetOverallBuckets) ErrorTrace(errortrace bool) *GetOverallBuckets {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetOverallBuckets) FilterPath(filterpaths ...string) *GetOverallBuckets {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *GetOverallBuckets) Human(human bool) *GetOverallBuckets {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GetOverallBuckets) Pretty(pretty bool) *GetOverallBuckets {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

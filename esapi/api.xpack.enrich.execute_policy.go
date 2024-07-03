@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newEnrichExecutePolicyFunc(t Transport) EnrichExecutePolicy {
@@ -52,6 +53,7 @@ type EnrichExecutePolicy func(name string, o ...func(*EnrichExecutePolicyRequest
 type EnrichExecutePolicyRequest struct {
 	Name string
 
+	MasterTimeout     time.Duration
 	WaitForCompletion *bool
 
 	Pretty     bool
@@ -100,6 +102,10 @@ func (r EnrichExecutePolicyRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("_execute")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.WaitForCompletion != nil {
 		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
@@ -180,6 +186,13 @@ func (r EnrichExecutePolicyRequest) Do(providedCtx context.Context, transport Tr
 func (f EnrichExecutePolicy) WithContext(v context.Context) func(*EnrichExecutePolicyRequest) {
 	return func(r *EnrichExecutePolicyRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - timeout for processing on master node.
+func (f EnrichExecutePolicy) WithMasterTimeout(v time.Duration) func(*EnrichExecutePolicyRequest) {
+	return func(r *EnrichExecutePolicyRequest) {
+		r.MasterTimeout = v
 	}
 }
 

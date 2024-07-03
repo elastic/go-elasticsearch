@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ml/_types/DataframeAnalytics.ts#L134-L213
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/DataframeAnalytics.ts#L134-L213
 type DataframeAnalysis struct {
 	// Alpha Advanced configuration option. Machine learning uses loss guided tree
 	// growing, which means that the decision trees grow where the regularized loss
@@ -164,7 +164,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "alpha":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -192,7 +192,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			s.DependentVariable = o
 
 		case "downsample_factor":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -208,7 +208,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "early_stopping_enabled":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -222,7 +222,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "eta":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -238,7 +238,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "eta_growth_rate_per_tree":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -254,7 +254,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "feature_bag_fraction":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -275,7 +275,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "gamma":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -291,7 +291,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "lambda":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -308,7 +308,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 
 		case "max_optimization_rounds_per_hyperparameter":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -324,7 +324,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 
 		case "max_trees", "maximum_number_trees":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -340,7 +340,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 
 		case "num_top_feature_importance_values":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -360,7 +360,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "randomize_seed":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -377,7 +377,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 
 		case "soft_tree_depth_limit":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -392,7 +392,7 @@ func (s *DataframeAnalysis) UnmarshalJSON(data []byte) error {
 			}
 
 		case "soft_tree_depth_tolerance":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

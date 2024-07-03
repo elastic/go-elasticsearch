@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/IndexSettings.ts#L69-L167
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/_types/IndexSettings.ts#L69-L169
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
@@ -236,7 +236,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "load_fixed_bitset_filters_eagerly":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -256,7 +256,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_docvalue_fields_search":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -272,7 +272,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_inner_result_window":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -288,7 +288,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_ngram_diff":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -304,7 +304,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_refresh_listeners":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -320,7 +320,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_regex_length":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -336,7 +336,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_rescore_window":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -352,7 +352,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_result_window":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -368,7 +368,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_script_fields":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -384,7 +384,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_shingle_diff":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -400,7 +400,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_slices_per_scroll":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -416,7 +416,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "max_terms_count":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -461,7 +461,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "number_of_routing_shards":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -562,7 +562,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			refs := make(map[string]json.RawMessage, 0)
 			dec.Decode(&refs)
 			for key, message := range refs {
-				kind := make(map[string]interface{})
+				kind := make(map[string]any)
 				buf := bytes.NewReader(message)
 				localDec := json.NewDecoder(buf)
 				localDec.Decode(&kind)
@@ -648,7 +648,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 
 		case "top_metrics_max_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -711,7 +711,7 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 func (s IndexSettings) MarshalJSON() ([]byte, error) {
 	type opt IndexSettings
 	// We transform the struct to a map without the embedded additional properties map
-	tmp := make(map[string]interface{}, 0)
+	tmp := make(map[string]any, 0)
 
 	data, err := json.Marshal(opt(s))
 	if err != nil {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // MTermVectorsOperation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_global/mtermvectors/types.ts#L35-L94
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/mtermvectors/types.ts#L35-L94
 type MTermVectorsOperation struct {
 	// Doc An artificial document (a document not present in the index) for which you
 	// want to retrieve term vectors.
@@ -49,7 +49,7 @@ type MTermVectorsOperation struct {
 	// Filter Filter terms based on their tf-idf scores.
 	Filter *TermVectorsFilter `json:"filter,omitempty"`
 	// Id_ The ID of the document.
-	Id_ string `json:"_id"`
+	Id_ *string `json:"_id,omitempty"`
 	// Index_ The index of the document.
 	Index_ *string `json:"_index,omitempty"`
 	// Offsets If `true`, the response includes term offsets.
@@ -89,7 +89,7 @@ func (s *MTermVectorsOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "field_statistics":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -134,7 +134,7 @@ func (s *MTermVectorsOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "offsets":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -148,7 +148,7 @@ func (s *MTermVectorsOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "payloads":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -162,7 +162,7 @@ func (s *MTermVectorsOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "positions":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -181,7 +181,7 @@ func (s *MTermVectorsOperation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "term_statistics":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

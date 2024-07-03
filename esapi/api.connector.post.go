@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -27,8 +27,8 @@ import (
 )
 
 func newConnectorPostFunc(t Transport) ConnectorPost {
-	return func(body io.Reader, o ...func(*ConnectorPostRequest)) (*Response, error) {
-		var r = ConnectorPostRequest{Body: body}
+	return func(o ...func(*ConnectorPostRequest)) (*Response, error) {
+		var r = ConnectorPostRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -48,7 +48,7 @@ func newConnectorPostFunc(t Transport) ConnectorPost {
 // This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/create-connector-api.html.
-type ConnectorPost func(body io.Reader, o ...func(*ConnectorPostRequest)) (*Response, error)
+type ConnectorPost func(o ...func(*ConnectorPostRequest)) (*Response, error)
 
 // ConnectorPostRequest configures the Connector Post API request.
 type ConnectorPostRequest struct {
@@ -173,6 +173,13 @@ func (r ConnectorPostRequest) Do(providedCtx context.Context, transport Transpor
 func (f ConnectorPost) WithContext(v context.Context) func(*ConnectorPostRequest) {
 	return func(r *ConnectorPostRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The connector configuration..
+func (f ConnectorPost) WithBody(v io.Reader) func(*ConnectorPostRequest) {
+	return func(r *ConnectorPostRequest) {
+		r.Body = v
 	}
 }
 

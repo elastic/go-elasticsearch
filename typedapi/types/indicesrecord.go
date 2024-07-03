@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndicesRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/cat/indices/types.ts#L20-L801
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cat/indices/types.ts#L20-L801
 type IndicesRecord struct {
 	// BulkAvgSizeInBytes average size in bytes of shard bulk
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
@@ -50,9 +50,9 @@ type IndicesRecord struct {
 	// CreationDateString index creation date (as string)
 	CreationDateString *string `json:"creation.date.string,omitempty"`
 	// DocsCount available docs
-	DocsCount string `json:"docs.count,omitempty"`
+	DocsCount *string `json:"docs.count,omitempty"`
 	// DocsDeleted deleted docs
-	DocsDeleted string `json:"docs.deleted,omitempty"`
+	DocsDeleted *string `json:"docs.deleted,omitempty"`
 	// FielddataEvictions fielddata evictions
 	FielddataEvictions *string `json:"fielddata.evictions,omitempty"`
 	// FielddataMemorySize used fielddata cache
@@ -229,7 +229,7 @@ type IndicesRecord struct {
 	// PriSegmentsVersionMapMemory memory used by version map
 	PriSegmentsVersionMapMemory *string `json:"pri.segments.version_map_memory,omitempty"`
 	// PriStoreSize store size of primaries
-	PriStoreSize string `json:"pri.store.size,omitempty"`
+	PriStoreSize *string `json:"pri.store.size,omitempty"`
 	// PriSuggestCurrent number of current suggest ops
 	PriSuggestCurrent *string `json:"pri.suggest.current,omitempty"`
 	// PriSuggestTime time spend in suggest
@@ -302,7 +302,7 @@ type IndicesRecord struct {
 	// Status open/close status
 	Status *string `json:"status,omitempty"`
 	// StoreSize store size of primaries & replicas
-	StoreSize string `json:"store.size,omitempty"`
+	StoreSize *string `json:"store.size,omitempty"`
 	// SuggestCurrent number of current suggest ops
 	SuggestCurrent *string `json:"suggest.current,omitempty"`
 	// SuggestTime time spend in suggest
@@ -440,7 +440,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.DocsCount = o
+			s.DocsCount = &o
 
 		case "docs.deleted", "dd", "docsDeleted":
 			var tmp json.RawMessage
@@ -452,7 +452,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.DocsDeleted = o
+			s.DocsDeleted = &o
 
 		case "fielddata.evictions", "fe", "fielddataEvictions":
 			var tmp json.RawMessage
@@ -1508,7 +1508,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.PriStoreSize = o
+			s.PriStoreSize = &o
 
 		case "pri.suggest.current":
 			var tmp json.RawMessage
@@ -1940,7 +1940,7 @@ func (s *IndicesRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.StoreSize = o
+			s.StoreSize = &o
 
 		case "suggest.current", "suc", "suggestCurrent":
 			var tmp json.RawMessage

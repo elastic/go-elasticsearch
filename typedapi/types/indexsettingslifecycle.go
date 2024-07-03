@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexSettingsLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/indices/_types/IndexSettings.ts#L274-L307
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/_types/IndexSettings.ts#L276-L309
 type IndexSettingsLifecycle struct {
 	// IndexingComplete Indicates whether or not the index has been rolled over. Automatically set to
 	// true when ILM completes the rollover action.
@@ -39,7 +39,7 @@ type IndexSettingsLifecycle struct {
 	IndexingComplete Stringifiedboolean `json:"indexing_complete,omitempty"`
 	// Name The name of the policy to use to manage the index. For information about how
 	// Elasticsearch applies policy changes, see Policy updates.
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// OriginationDate If specified, this is the timestamp used to calculate the index age for its
 	// phase transitions. Use this setting
 	// if you create a new index that contains old data and want to use the original
@@ -90,7 +90,7 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 			}
 
 		case "origination_date":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -105,7 +105,7 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 			}
 
 		case "parse_origination_date":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

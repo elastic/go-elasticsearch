@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -28,13 +28,13 @@ import (
 	"io"
 )
 
-// APIKeyAggregationContainer type.
+// ApiKeyAggregationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/security/query_api_keys/types.ts#L64-L121
-type APIKeyAggregationContainer struct {
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/query_api_keys/types.ts#L64-L121
+type ApiKeyAggregationContainer struct {
 	// Aggregations Sub-aggregations for this aggregation.
 	// Only applies to bucket aggregations.
-	Aggregations map[string]APIKeyAggregationContainer `json:"aggregations,omitempty"`
+	Aggregations map[string]ApiKeyAggregationContainer `json:"aggregations,omitempty"`
 	// Cardinality A single-value metrics aggregation that calculates an approximate count of
 	// distinct values.
 	Cardinality *CardinalityAggregation `json:"cardinality,omitempty"`
@@ -49,10 +49,10 @@ type APIKeyAggregationContainer struct {
 	DateRange *DateRangeAggregation `json:"date_range,omitempty"`
 	// Filter A single bucket aggregation that narrows the set of documents to those that
 	// match a query.
-	Filter *APIKeyQueryContainer `json:"filter,omitempty"`
+	Filter *ApiKeyQueryContainer `json:"filter,omitempty"`
 	// Filters A multi-bucket aggregation where each bucket contains the documents that
 	// match a query.
-	Filters *APIKeyFiltersAggregation `json:"filters,omitempty"`
+	Filters *ApiKeyFiltersAggregation `json:"filters,omitempty"`
 	Meta    Metadata                  `json:"meta,omitempty"`
 	Missing *MissingAggregation       `json:"missing,omitempty"`
 	// Range A multi-bucket value source based aggregation that enables the user to define
@@ -66,7 +66,7 @@ type APIKeyAggregationContainer struct {
 	ValueCount *ValueCountAggregation `json:"value_count,omitempty"`
 }
 
-func (s *APIKeyAggregationContainer) UnmarshalJSON(data []byte) error {
+func (s *ApiKeyAggregationContainer) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -83,7 +83,7 @@ func (s *APIKeyAggregationContainer) UnmarshalJSON(data []byte) error {
 
 		case "aggregations", "aggs":
 			if s.Aggregations == nil {
-				s.Aggregations = make(map[string]APIKeyAggregationContainer, 0)
+				s.Aggregations = make(map[string]ApiKeyAggregationContainer, 0)
 			}
 			if err := dec.Decode(&s.Aggregations); err != nil {
 				return fmt.Errorf("%s | %w", "Aggregations", err)
@@ -144,10 +144,10 @@ func (s *APIKeyAggregationContainer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewAPIKeyAggregationContainer returns a APIKeyAggregationContainer.
-func NewAPIKeyAggregationContainer() *APIKeyAggregationContainer {
-	r := &APIKeyAggregationContainer{
-		Aggregations: make(map[string]APIKeyAggregationContainer, 0),
+// NewApiKeyAggregationContainer returns a ApiKeyAggregationContainer.
+func NewApiKeyAggregationContainer() *ApiKeyAggregationContainer {
+	r := &ApiKeyAggregationContainer{
+		Aggregations: make(map[string]ApiKeyAggregationContainer, 0),
 	}
 
 	return r

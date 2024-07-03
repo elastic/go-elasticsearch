@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -26,17 +26,21 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // HitsEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/eql/_types/EqlHits.ts#L41-L49
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/eql/_types/EqlHits.ts#L41-L54
 type HitsEvent struct {
 	Fields map[string][]json.RawMessage `json:"fields,omitempty"`
 	// Id_ Unique identifier for the event. This ID is only unique within the index.
 	Id_ string `json:"_id"`
 	// Index_ Name of the index containing the event.
 	Index_ string `json:"_index"`
+	// Missing Set to `true` for events in a timespan-constrained sequence that do not meet
+	// a given condition.
+	Missing *bool `json:"missing,omitempty"`
 	// Source_ Original JSON body passed for the event at index time.
 	Source_ json.RawMessage `json:"_source,omitempty"`
 }
@@ -72,6 +76,20 @@ func (s *HitsEvent) UnmarshalJSON(data []byte) error {
 		case "_index":
 			if err := dec.Decode(&s.Index_); err != nil {
 				return fmt.Errorf("%s | %w", "Index_", err)
+			}
+
+		case "missing":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Missing", err)
+				}
+				s.Missing = &value
+			case bool:
+				s.Missing = &v
 			}
 
 		case "_source":

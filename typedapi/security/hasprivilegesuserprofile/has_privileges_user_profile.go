@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Determines whether the users associated with the specified profile IDs have
 // all the requested privileges.
@@ -31,6 +31,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
@@ -291,6 +292,50 @@ func (r HasPrivilegesUserProfile) Do(providedCtx context.Context) (*Response, er
 // Header set a key, value pair in the HasPrivilegesUserProfile headers map.
 func (r *HasPrivilegesUserProfile) Header(key, value string) *HasPrivilegesUserProfile {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *HasPrivilegesUserProfile) ErrorTrace(errortrace bool) *HasPrivilegesUserProfile {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *HasPrivilegesUserProfile) FilterPath(filterpaths ...string) *HasPrivilegesUserProfile {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *HasPrivilegesUserProfile) Human(human bool) *HasPrivilegesUserProfile {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *HasPrivilegesUserProfile) Pretty(pretty bool) *HasPrivilegesUserProfile {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

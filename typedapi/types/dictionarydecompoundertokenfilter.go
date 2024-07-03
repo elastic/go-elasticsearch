@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DictionaryDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/analysis/token_filters.ts#L54-L56
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/analysis/token_filters.ts#L54-L56
 type DictionaryDecompounderTokenFilter struct {
 	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
 	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
@@ -73,7 +73,7 @@ func (s *DictionaryDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "max_subword_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -89,7 +89,7 @@ func (s *DictionaryDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "min_subword_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -105,7 +105,7 @@ func (s *DictionaryDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 
 		case "min_word_size":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -120,7 +120,7 @@ func (s *DictionaryDecompounderTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "only_longest_match":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

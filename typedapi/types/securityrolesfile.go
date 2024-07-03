@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SecurityRolesFile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/xpack/usage/types.ts#L318-L322
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/xpack/usage/types.ts#L318-L322
 type SecurityRolesFile struct {
 	Dls  bool  `json:"dls"`
 	Fls  bool  `json:"fls"`
@@ -54,7 +54,7 @@ func (s *SecurityRolesFile) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "dls":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -68,7 +68,7 @@ func (s *SecurityRolesFile) UnmarshalJSON(data []byte) error {
 			}
 
 		case "fls":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -82,7 +82,7 @@ func (s *SecurityRolesFile) UnmarshalJSON(data []byte) error {
 			}
 
 		case "size":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

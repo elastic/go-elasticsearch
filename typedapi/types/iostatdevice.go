@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IoStatDevice type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L730-L755
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/nodes/_types/Stats.ts#L730-L755
 type IoStatDevice struct {
 	// DeviceName The Linux device name.
 	DeviceName *string `json:"device_name,omitempty"`
@@ -80,7 +80,7 @@ func (s *IoStatDevice) UnmarshalJSON(data []byte) error {
 			s.DeviceName = &o
 
 		case "operations":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -95,7 +95,7 @@ func (s *IoStatDevice) UnmarshalJSON(data []byte) error {
 			}
 
 		case "read_kilobytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -110,7 +110,7 @@ func (s *IoStatDevice) UnmarshalJSON(data []byte) error {
 			}
 
 		case "read_operations":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -125,7 +125,7 @@ func (s *IoStatDevice) UnmarshalJSON(data []byte) error {
 			}
 
 		case "write_kilobytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -140,7 +140,7 @@ func (s *IoStatDevice) UnmarshalJSON(data []byte) error {
 			}
 
 		case "write_operations":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

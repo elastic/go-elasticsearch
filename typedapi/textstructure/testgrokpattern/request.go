@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package testgrokpattern
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package testgrokpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/text_structure/test_grok_pattern/TestGrokPatternRequest.ts#L22-L43
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/text_structure/test_grok_pattern/TestGrokPatternRequest.ts#L22-L43
 type Request struct {
 
 	// GrokPattern Grok pattern to run on the text.
@@ -39,6 +39,7 @@ type Request struct {
 // NewRequest returns a Request
 func NewRequest() *Request {
 	r := &Request{}
+
 	return r
 }
 

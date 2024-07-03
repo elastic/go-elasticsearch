@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,9 +31,9 @@ import (
 
 // CertificateInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/ssl/certificates/types.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ssl/certificates/types.ts#L22-L31
 type CertificateInformation struct {
-	Alias         string   `json:"alias,omitempty"`
+	Alias         *string  `json:"alias,omitempty"`
 	Expiry        DateTime `json:"expiry"`
 	Format        string   `json:"format"`
 	HasPrivateKey bool     `json:"has_private_key"`
@@ -68,7 +68,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Alias = o
+			s.Alias = &o
 
 		case "expiry":
 			if err := dec.Decode(&s.Expiry); err != nil {
@@ -88,7 +88,7 @@ func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
 			s.Format = o
 
 		case "has_private_key":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

@@ -16,9 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 // Instantiates a datafeed.
+// Datafeeds retrieve data from Elasticsearch for analysis by an anomaly
+// detection job.
+// You can associate only one datafeed with each anomaly detection job.
+// The datafeed contains a query that runs at a defined interval (`frequency`).
+// If you are concerned about delayed data, you can add a delay (`query_delay')
+// at each interval.
+// When Elasticsearch security features are enabled, your datafeed remembers
+// which roles the user who created it had
+// at the time of creation and runs the query using those same roles. If you
+// provide secondary authorization headers,
+// those credentials are used instead.
+// You must use Kibana, this API, or the create anomaly detection jobs API to
+// create a datafeed. Do not add a datafeed
+// directly to the `.ml-config` index. Do not give users `write` privileges on
+// the `.ml-config` index.
 package putdatafeed
 
 import (
@@ -83,6 +98,21 @@ func NewPutDatafeedFunc(tp elastictransport.Interface) NewPutDatafeed {
 }
 
 // Instantiates a datafeed.
+// Datafeeds retrieve data from Elasticsearch for analysis by an anomaly
+// detection job.
+// You can associate only one datafeed with each anomaly detection job.
+// The datafeed contains a query that runs at a defined interval (`frequency`).
+// If you are concerned about delayed data, you can add a delay (`query_delay')
+// at each interval.
+// When Elasticsearch security features are enabled, your datafeed remembers
+// which roles the user who created it had
+// at the time of creation and runs the query using those same roles. If you
+// provide secondary authorization headers,
+// those credentials are used instead.
+// You must use Kibana, this API, or the create anomaly detection jobs API to
+// create a datafeed. Do not add a datafeed
+// directly to the `.ml-config` index. Do not give users `write` privileges on
+// the `.ml-config` index.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-datafeed.html
 func New(tp elastictransport.Interface) *PutDatafeed {
@@ -356,6 +386,50 @@ func (r *PutDatafeed) IgnoreThrottled(ignorethrottled bool) *PutDatafeed {
 // API name: ignore_unavailable
 func (r *PutDatafeed) IgnoreUnavailable(ignoreunavailable bool) *PutDatafeed {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *PutDatafeed) ErrorTrace(errortrace bool) *PutDatafeed {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *PutDatafeed) FilterPath(filterpaths ...string) *PutDatafeed {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *PutDatafeed) Human(human bool) *PutDatafeed {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *PutDatafeed) Pretty(pretty bool) *PutDatafeed {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newFeaturesResetFeaturesFunc(t Transport) FeaturesResetFeatures {
@@ -51,6 +52,8 @@ type FeaturesResetFeatures func(o ...func(*FeaturesResetFeaturesRequest)) (*Resp
 
 // FeaturesResetFeaturesRequest configures the Features Reset Features API request.
 type FeaturesResetFeaturesRequest struct {
+	MasterTimeout time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -87,6 +90,10 @@ func (r FeaturesResetFeaturesRequest) Do(providedCtx context.Context, transport 
 	path.WriteString("/_features/_reset")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -163,6 +170,13 @@ func (r FeaturesResetFeaturesRequest) Do(providedCtx context.Context, transport 
 func (f FeaturesResetFeatures) WithContext(v context.Context) func(*FeaturesResetFeaturesRequest) {
 	return func(r *FeaturesResetFeaturesRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f FeaturesResetFeatures) WithMasterTimeout(v time.Duration) func(*FeaturesResetFeaturesRequest) {
+	return func(r *FeaturesResetFeaturesRequest) {
+		r.MasterTimeout = v
 	}
 }
 

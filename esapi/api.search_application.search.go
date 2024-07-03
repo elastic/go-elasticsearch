@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.14.0: DO NOT EDIT
+// Code generated from specification version 8.15.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -55,6 +56,8 @@ type SearchApplicationSearchRequest struct {
 	Body io.Reader
 
 	Name string
+
+	TypedKeys *bool
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +105,10 @@ func (r SearchApplicationSearchRequest) Do(providedCtx context.Context, transpor
 	path.WriteString("_search")
 
 	params = make(map[string]string)
+
+	if r.TypedKeys != nil {
+		params["typed_keys"] = strconv.FormatBool(*r.TypedKeys)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -192,6 +199,13 @@ func (f SearchApplicationSearch) WithContext(v context.Context) func(*SearchAppl
 func (f SearchApplicationSearch) WithBody(v io.Reader) func(*SearchApplicationSearchRequest) {
 	return func(r *SearchApplicationSearchRequest) {
 		r.Body = v
+	}
+}
+
+// WithTypedKeys - specify whether aggregation and suggester names should be prefixed by their respective types in the response.
+func (f SearchApplicationSearch) WithTypedKeys(v bool) func(*SearchApplicationSearchRequest) {
+	return func(r *SearchApplicationSearchRequest) {
+		r.TypedKeys = &v
 	}
 }
 

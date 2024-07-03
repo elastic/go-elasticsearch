@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -33,14 +33,14 @@ import (
 
 // NodeShard type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/Node.ts#L60-L71
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/Node.ts#L60-L71
 type NodeShard struct {
 	AllocationId          map[string]string                   `json:"allocation_id,omitempty"`
 	Index                 string                              `json:"index"`
 	Node                  *string                             `json:"node,omitempty"`
 	Primary               bool                                `json:"primary"`
 	RecoverySource        map[string]string                   `json:"recovery_source,omitempty"`
-	RelocatingNode        string                              `json:"relocating_node,omitempty"`
+	RelocatingNode        *string                             `json:"relocating_node,omitempty"`
 	RelocationFailureInfo *RelocationFailureInfo              `json:"relocation_failure_info,omitempty"`
 	Shard                 int                                 `json:"shard"`
 	State                 shardroutingstate.ShardRoutingState `json:"state"`
@@ -81,7 +81,7 @@ func (s *NodeShard) UnmarshalJSON(data []byte) error {
 			}
 
 		case "primary":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -114,7 +114,7 @@ func (s *NodeShard) UnmarshalJSON(data []byte) error {
 
 		case "shard":
 
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:

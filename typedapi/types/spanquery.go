@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -30,13 +30,13 @@ import (
 
 // SpanQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/_types/query_dsl/span.ts#L131-L170
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/span.ts#L131-L173
 type SpanQuery struct {
-	// FieldMaskingSpan Allows queries like `span_near` or `span_or` across different fields.
-	FieldMaskingSpan *SpanFieldMaskingQuery `json:"field_masking_span,omitempty"`
 	// SpanContaining Accepts a list of span queries, but only returns those spans which also match
 	// a second span query.
 	SpanContaining *SpanContainingQuery `json:"span_containing,omitempty"`
+	// SpanFieldMasking Allows queries like `span_near` or `span_or` across different fields.
+	SpanFieldMasking *SpanFieldMaskingQuery `json:"span_field_masking,omitempty"`
 	// SpanFirst Accepts another span query whose matches must appear within the first N
 	// positions of the field.
 	SpanFirst *SpanFirstQuery `json:"span_first,omitempty"`
@@ -73,14 +73,14 @@ func (s *SpanQuery) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "field_masking_span":
-			if err := dec.Decode(&s.FieldMaskingSpan); err != nil {
-				return fmt.Errorf("%s | %w", "FieldMaskingSpan", err)
-			}
-
 		case "span_containing":
 			if err := dec.Decode(&s.SpanContaining); err != nil {
 				return fmt.Errorf("%s | %w", "SpanContaining", err)
+			}
+
+		case "span_field_masking":
+			if err := dec.Decode(&s.SpanFieldMasking); err != nil {
+				return fmt.Errorf("%s | %w", "SpanFieldMasking", err)
 			}
 
 		case "span_first":

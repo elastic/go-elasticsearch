@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757
+// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Client type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/5fb8f1ce9c4605abcaa44aa0f17dbfc60497a757/specification/nodes/_types/Stats.ts#L649-L696
+// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/nodes/_types/Stats.ts#L649-L696
 type Client struct {
 	// Agent Reported agent for the HTTP client.
 	// If unavailable, this property is not included in the response.
@@ -87,7 +87,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			s.Agent = &o
 
 		case "closed_time_millis":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -102,7 +102,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			}
 
 		case "id":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -117,7 +117,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			}
 
 		case "last_request_time_millis":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -156,7 +156,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			s.LocalAddress = &o
 
 		case "opened_time_millis":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -183,7 +183,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			s.RemoteAddress = &o
 
 		case "request_count":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
@@ -198,7 +198,7 @@ func (s *Client) UnmarshalJSON(data []byte) error {
 			}
 
 		case "request_size_bytes":
-			var tmp interface{}
+			var tmp any
 			dec.Decode(&tmp)
 			switch v := tmp.(type) {
 			case string:
