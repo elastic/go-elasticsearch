@@ -1,6 +1,6 @@
 module github.com/elastic/go-elasticsearch/v8
 
-go 1.21
+go 1.21.0
 
 require (
 	github.com/elastic/elastic-transport-go/v8 v8.6.0
