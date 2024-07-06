@@ -105,9 +105,9 @@ func main() {
 		indexers  []esutil.BulkIndexer
 	)
 
-	done := make(chan os.Signal)
+	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt)
-	go func() { <-done; log.Println("\n"); os.Exit(0) }()
+	go func() { <-done; log.Println(""); os.Exit(0) }()
 
 	// Set up producers
 	//
