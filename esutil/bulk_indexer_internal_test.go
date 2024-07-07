@@ -283,17 +283,17 @@ func TestBulkIndexer(t *testing.T) {
 		successFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem) {
 			atomic.AddUint64(&countSuccessful, 1)
 
-			buf, err := ioutil.ReadAll(item.Body)
+			buf, err := io.ReadAll(item.Body)
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
 			}
 			successfulItemBodies = append(successfulItemBodies, string(buf))
 		}
-		failureFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem, err error) {
+		failureFunc := func(ctx context.Context, item BulkIndexerItem, res BulkIndexerResponseItem, _ error) {
 			atomic.AddUint64(&countFailed, 1)
 			failedIDs = append(failedIDs, item.DocumentID)
 
-			buf, err := ioutil.ReadAll(item.Body)
+			buf, err := io.ReadAll(item.Body)
 			if err != nil {
 				t.Fatalf("Unexpected error: %s", err)
 			}

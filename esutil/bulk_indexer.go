@@ -176,7 +176,7 @@ func (item *BulkIndexerItem) marshallMeta() {
 		}
 		item.meta.WriteString(`"require_alias":`)
 		item.meta.Write(strconv.AppendBool(aux, item.RequireAlias))
-		aux = aux[:0]
+		_ = aux[:0]
 	}
 
 	if item.DocumentID != "" && item.IfSeqNo != nil && item.IfPrimaryTerm != nil {

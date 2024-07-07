@@ -24,7 +24,6 @@ import (
 	"bytes"
 	"errors"
 	"io"
-	"io/ioutil"
 	"strings"
 	"testing"
 )
@@ -49,14 +48,14 @@ func (f Foo) EncodeJSON(w io.Writer) error {
 
 func TestJSONReader(t *testing.T) {
 	t.Run("Default", func(t *testing.T) {
-		out, _ := ioutil.ReadAll(NewJSONReader(map[string]string{"foo": "bar"}))
+		out, _ := io.ReadAll(NewJSONReader(map[string]string{"foo": "bar"}))
 		if string(out) != `{"foo":"bar"}`+"\n" {
 			t.Fatalf("Unexpected output: %s", out)
 		}
 	})
 
 	t.Run("Custom", func(t *testing.T) {
-		out, _ := ioutil.ReadAll(NewJSONReader(Foo{Bar: "baz"}))
+		out, _ := io.ReadAll(NewJSONReader(Foo{Bar: "baz"}))
 		if string(out) != `{"bar":"BAZ"}`+"\n" {
 			t.Fatalf("Unexpected output: %s", out)
 		}
