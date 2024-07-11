@@ -23,7 +23,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -327,7 +326,7 @@ func (cmd *DocCommand) Execute() error {
 		}
 	}
 
-	files, err := ioutil.ReadDir(cmd.Input)
+	files, err := os.ReadDir(cmd.Input)
 	if err != nil {
 		return fmt.Errorf("failed to read input: %s", err)
 	}

@@ -379,7 +379,7 @@ var ConsoleToGo = []TranslateRule{
 			case "_update":
 				apiName = "Update"
 			default:
-				return "", fmt.Errorf("Unknown API [%s]", matches[3])
+				return "", fmt.Errorf("unknown API [%s]", matches[3])
 			}
 
 			src.WriteString("\tres, err := es." + apiName + "(\n")
@@ -1622,7 +1622,7 @@ func paramsToArguments(api string, params url.Values) (string, error) {
 			}
 			value = fmt.Sprintf("time.Duration(%d)", time.Duration(dur))
 		case "from", "size", "terminate_after", "version", "requests_per_second", "scroll_size", "max_num_segments": // numeric
-			value = fmt.Sprintf("%s", value)
+			value = fmt.Sprint(value)
 		case "pretty", "error_trace":
 			value = "" // Helper methods don't take any value
 		case "refresh":

@@ -17,7 +17,12 @@
 
 package utils
 
-import "strings"
+import (
+	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+)
 
 var (
 	// Options: boolean, enum, list, number, string, time
@@ -115,13 +120,14 @@ func NameToGo(s string, api ...string) string {
 
 	ep := strings.Split(s, "_")
 	ns := make([]string, len(ep))
+	caser := cases.Title(language.Und)
 	for _, v := range ep {
 		if value, ok := acronyms[v]; ok {
 			v = value
 		} else if v == "uuid" {
 			v = "UUID"
 		}
-		ns = append(ns, strings.Title(v))
+		ns = append(ns, caser.String(v))
 	}
 	return strings.Join(ns, "")
 }

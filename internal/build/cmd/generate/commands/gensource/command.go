@@ -102,12 +102,12 @@ func (cmd *Command) Execute() (err error) {
 	} else {
 		inputFiles, err = filepath.Glob(cmd.Input)
 		if err != nil {
-			return fmt.Errorf("Failed to glob input %q: %s", cmd.Input, err)
+			return fmt.Errorf("failed to glob input %q: %s", cmd.Input, err)
 		}
 	}
 
 	if len(inputFiles) < 1 {
-		return fmt.Errorf("No files matching input %q", cmd.Input)
+		return fmt.Errorf("no files matching input %q", cmd.Input)
 	}
 
 	EsVersion, err = utils.EsVersion(filepath.Dir(inputFiles[0]))
@@ -158,7 +158,7 @@ func (cmd *Command) Execute() (err error) {
 		}
 
 		if err := cmd.processFile(f); err != nil {
-			return fmt.Errorf("Processing file %q: %s", fname, err)
+			return fmt.Errorf("processing file %q: %s", fname, err)
 		}
 
 		f.Seek(0, 0)
