@@ -107,11 +107,11 @@ func (cmd *Command) Execute() error {
 
 	inputFiles, err := filepath.Glob(cmd.Input)
 	if err != nil {
-		return fmt.Errorf("Failed to glob input %q: %s", cmd.Input, err)
+		return fmt.Errorf("failed to glob input %q: %s", cmd.Input, err)
 	}
 
 	if len(inputFiles) < 1 {
-		return fmt.Errorf("No files matching input %q", cmd.Input)
+		return fmt.Errorf("no files matching input %q", cmd.Input)
 	}
 
 	EsVersion, err = utils.EsVersion(filepath.Dir(inputFiles[0]))
@@ -119,7 +119,7 @@ func (cmd *Command) Execute() error {
 		return err
 	}
 	if EsVersion == "" {
-		return errors.New("Elasticsearch version is empty")
+		return errors.New("elasticsearch version is empty")
 	}
 
 	if utils.IsTTY() {
@@ -132,7 +132,7 @@ func (cmd *Command) Execute() error {
 
 	GitCommit, err = utils.GitCommit(filepath.Dir(inputFiles[0]))
 	if err != nil {
-		return fmt.Errorf("Failed to get Git commit: %s", err)
+		return fmt.Errorf("failed to get Git commit: %s", err)
 	}
 	GitTag, _ = utils.GitTag(filepath.Dir(inputFiles[0]))
 
@@ -172,7 +172,7 @@ func (cmd *Command) Execute() error {
 		}
 
 		if err := cmd.processFile(fpath); err != nil {
-			return fmt.Errorf("Processing file %q: %s", fpath, err)
+			return fmt.Errorf("processing file %q: %s", fpath, err)
 		}
 		stats.n++
 	}

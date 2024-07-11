@@ -22,14 +22,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 
 	"github.com/spf13/cobra"
 	"golang.org/x/tools/imports"
@@ -330,7 +330,7 @@ func (cmd *DocCommand) Execute() error {
 		}
 	}
 
-	files, err := ioutil.ReadDir(cmd.Input)
+	files, err := os.ReadDir(cmd.Input)
 	if err != nil {
 		return fmt.Errorf("failed to read input: %s", err)
 	}

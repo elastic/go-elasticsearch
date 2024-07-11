@@ -18,7 +18,7 @@
 package gensource_test
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -45,7 +45,7 @@ func TestGenerator(t *testing.T) {
 			t.Fatalf("Error generating output for %q: %s", f.Name(), err)
 		}
 
-		s, err := ioutil.ReadAll(out)
+		s, err := io.ReadAll(out)
 		if err != nil {
 			t.Fatalf("Error reading output for %q: %s", f.Name(), err)
 		}

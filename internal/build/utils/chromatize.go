@@ -20,7 +20,6 @@ package utils
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
 
 	"github.com/alecthomas/chroma/formatters"
 	"github.com/alecthomas/chroma/lexers"
@@ -33,7 +32,7 @@ func Chromatize(r io.Reader) (io.Reader, error) {
 	var b bytes.Buffer
 	lexer := lexers.Get("go")
 
-	contents, err := ioutil.ReadAll(r)
+	contents, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}

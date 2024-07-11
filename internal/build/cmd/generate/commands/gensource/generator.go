@@ -334,12 +334,8 @@ func (f ` + g.Endpoint.MethodWithNamespace() + `) WithContext(v context.Context)
 		)
 
 		// Adjust descriptions
-		if strings.Contains(pDesc, "a comma-separated list") {
-			pDesc = strings.Replace(pDesc, "a comma-separated list", "a list", -1)
-		}
-		if strings.Contains(pDesc, "use `_all` or empty string") {
-			pDesc = strings.Replace(pDesc, "use `_all` or empty string", "use _all", -1)
-		}
+		pDesc = strings.Replace(pDesc, "a comma-separated list", "a list", -1)
+		pDesc = strings.Replace(pDesc, "use `_all` or empty string", "use _all", -1)
 
 		// Generate annotation
 		b.WriteString("\n// With" + pFieldName)

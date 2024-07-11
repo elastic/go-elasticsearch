@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"os"
 
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 )
 
 var (
@@ -30,8 +30,8 @@ var (
 )
 
 func init() {
-	isTTY = terminal.IsTerminal(int(os.Stderr.Fd()))
-	tWidth, _, _ = terminal.GetSize(int(os.Stdout.Fd()))
+	isTTY = term.IsTerminal(int(os.Stderr.Fd()))
+	tWidth, _, _ = term.GetSize(int(os.Stdout.Fd()))
 }
 
 // PrintErr prints an error to STDERR.

@@ -20,12 +20,13 @@ package gensource
 import (
 	"bytes"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
 
 	"github.com/spf13/cobra"
 
@@ -103,12 +104,12 @@ func (cmd *Command) Execute() (err error) {
 	} else {
 		inputFiles, err = filepath.Glob(cmd.Input)
 		if err != nil {
-			return fmt.Errorf("Failed to glob input %q: %s", cmd.Input, err)
+			return fmt.Errorf("failed to glob input %q: %s", cmd.Input, err)
 		}
 	}
 
 	if len(inputFiles) < 1 {
-		return fmt.Errorf("No files matching input %q", cmd.Input)
+		return fmt.Errorf("no files matching input %q", cmd.Input)
 	}
 
 	EsVersion, err = utils.EsVersion(filepath.Dir(inputFiles[0]))
@@ -157,7 +158,7 @@ func (cmd *Command) Execute() (err error) {
 		}
 
 		if err := cmd.processFile(f); err != nil {
-			return fmt.Errorf("Processing file %q: %s", fname, err)
+			return fmt.Errorf("processing file %q: %s", fname, err)
 		}
 
 		f.Seek(0, 0)
@@ -220,7 +221,7 @@ func (cmd *Command) processFile(f *os.File) (err error) {
 		if utils.IsTTY() {
 			fmt.Fprint(os.Stderr, "\x1b[2m")
 		}
-		fmt.Fprintf(os.Stderr, gen.Endpoint.DebugInfo())
+		fmt.Fprint(os.Stderr, gen.Endpoint.DebugInfo())
 		if utils.IsTTY() {
 			fmt.Fprint(os.Stderr, "\x1b[0m")
 		}

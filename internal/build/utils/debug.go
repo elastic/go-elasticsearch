@@ -78,7 +78,7 @@ func PrintSourceWithErr(out io.Reader, err error) {
 				if IsTTY() {
 					fmt.Fprint(os.Stderr, "\x1b[31m")
 				}
-				fmt.Fprintf(os.Stderr, strings.Repeat(" ", 4))
+				fmt.Fprint(os.Stderr, strings.Repeat(" ", 4))
 				for i := 0; i < e.Pos.Column; i++ {
 					fmt.Fprintf(os.Stderr, "-")
 				}
