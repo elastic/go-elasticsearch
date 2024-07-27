@@ -1059,11 +1059,8 @@ var ConsoleToGo = []TranslateRule{
 			}
 
 			var hasPretty bool
-			for k := range params {
-				if k == "pretty" {
-					hasPretty = true
-					break
-				}
+			if _, ok := params["pretty"]; ok {
+				hasPretty = true
 			}
 
 			if !hasPretty {
@@ -1113,11 +1110,8 @@ var ConsoleToGo = []TranslateRule{
 			}
 
 			var hasPretty bool
-			for k := range params {
-				if k == "pretty" {
-					hasPretty = true
-					break
-				}
+			if _, ok := params["pretty"]; ok {
+				hasPretty = true
 			}
 
 			if !hasPretty {
@@ -1167,11 +1161,8 @@ var ConsoleToGo = []TranslateRule{
 			}
 
 			var hasPretty bool
-			for k := range params {
-				if k == "pretty" {
-					hasPretty = true
-					break
-				}
+			if _, ok := params["pretty"]; ok {
+				hasPretty = true
 			}
 
 			if !hasPretty {
