@@ -29,18 +29,15 @@ import (
 var resVersion = regexp.MustCompile(`(\d+\.(x|\d+.\d+)).*`)
 
 // EsVersion returns the Elasticsearch from environment variable, Java property file, or an error.
-//
 func EsVersion(fpath string) (string, error) {
 	if envEsVersion := os.Getenv("ELASTICSEARCH_BUILD_VERSION"); envEsVersion != "" {
 		splitVersion := resVersion.FindStringSubmatch(envEsVersion)
 		return splitVersion[1], nil
-	} else {
-		return "", fmt.Errorf("ELASTICSEARCH_BUILD_VERSION is empty")
 	}
+	return "", fmt.Errorf("ELASTICSEARCH_BUILD_VERSION is empty")
 }
 
 // GitCommit returns the Git commit from environment variable or parsing information from fpath, or an error.
-//
 func GitCommit(fpath string) (string, error) {
 	if esBuildHash := os.Getenv("ELASTICSEARCH_BUILD_HASH"); esBuildHash != "" {
 		return esBuildHash[:7], nil
@@ -49,7 +46,6 @@ func GitCommit(fpath string) (string, error) {
 }
 
 // GitTag returns the Git tag for fpath if available, or an error.
-//
 func GitTag(fpath string) (string, error) {
 	basePath, err := basePathFromFilepath(fpath)
 	if err != nil {
