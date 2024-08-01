@@ -576,85 +576,86 @@ default:
 		match = re.Match(body)` + "\n")
 				b.WriteString(`		if !match` + " {\n")
 				return b.String()
-			} else {
+			}
 
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				// 1b. Is the expected value a literal value
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				// TODO: Match on literal value
-				// output = fmt.Sprintf("if true { // TODO, MatchBodyLiteral: %s => %v\n", a.operation, a.payload)
-				output = `if strings.HasPrefix(string(body), "[") {
+			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			// 1b. Is the expected value a literal value?
+			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			// TODO: Match on literal value
+			// output = fmt.Sprintf("if true { // TODO, MatchBodyLiteral: %s => %v\n", a.operation, a.payload)
+			output = `if strings.HasPrefix(string(body), "[") {
 					match = !reflect.DeepEqual(fmt.Sprintf("%#v", slic), ` + fmt.Sprintf("%#v", val) + `)
 				} else {
 					match = !reflect.DeepEqual(fmt.Sprintf("%#v", mapi), ` + fmt.Sprintf("%#v", val) + `)
 				}
 				if !match {` + "\n"
-				return output
-			}
+			return output
 
 			// panic(fmt.Sprintf("MatchUnknown: %q => %v\n", a.operation, a.payload))
+		}
 
-			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			// 2. Match on JSON/YAML field or numbered item
-			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		} else {
-			subject = expand(key)
-			expected = strings.TrimSpace(fmt.Sprintf("%v", val))
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// 2. Match on JSON/YAML field or numbered item
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			// 2a. Is the expected value a regex pattern?
-			// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			if strings.HasPrefix(expected, "/") {
-				var pattern string
-				pattern = expected
-				pattern = strings.Replace(pattern, "/", "", -1)
-				pattern = strings.Replace(pattern, "\n", "", -1)
-				pattern = strings.Replace(pattern, " ", `\s*`, -1)
+		subject = expand(key)
+		expected = strings.TrimSpace(fmt.Sprintf("%v", val))
 
-				b.WriteString(`re, err = regexp.Compile("(?m)" + ` + "`" + pattern + "`" + `)
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// 2a. Is the expected value a regex pattern?
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		if strings.HasPrefix(expected, "/") {
+			var pattern string
+			pattern = expected
+			pattern = strings.Replace(pattern, "/", "", -1)
+			pattern = strings.Replace(pattern, "\n", "", -1)
+			pattern = strings.Replace(pattern, " ", `\s*`, -1)
+
+			b.WriteString(`re, err = regexp.Compile("(?m)" + ` + "`" + pattern + "`" + `)
 		if err != nil {
 			t.Fatalf("Regex compile error: %s", err)
 		}
 
 		match = re.MatchString(fmt.Sprintf("%v", ` + escape(subject) + `))` + "\n")
-				b.WriteString(`		if !match` + " {\n")
-				return b.String()
+			b.WriteString(`		if !match` + " {\n")
+			return b.String()
+		}
 
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				// 2b. Is the value a regular value?
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			} else {
-				// fmt.Printf("subject: %s, val: %T, %v \n", subject, val, val)
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		// 2b. Is the value a regular value?
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-				nilGuard := catchnil(subject)
-				switch val.(type) {
+		// fmt.Printf("subject: %s, val: %T, %v \n", subject, val, val)
 
-				// --------------------------------------------------------------------------------
-				case nil:
-					output += `		if ` + escape(subject) + ` != nil` + " {\n"
+		nilGuard := catchnil(subject)
+		switch val.(type) {
 
-				// --------------------------------------------------------------------------------
-				case bool:
-					output += `		if ` +
-						nilGuard +
-						" || \n" +
-						`fmt.Sprintf("%v", ` + escape(subject) + `) != ` +
-						`fmt.Sprintf("%v", ` + expected + `)` +
-						" {\n"
-				case int, float64:
-					// Date range special case
-					// From & to are set in yaml tests as integer
-					// but ES returns a scientific notation float
-					var specialCase string
-					if strings.HasSuffix(key, "from") || strings.HasSuffix(key, "to") {
-						specialCase = `else if floatValue, err := actual.(encjson.Number).Float64(); err == nil {
+		// --------------------------------------------------------------------------------
+		case nil:
+			output += `		if ` + escape(subject) + ` != nil` + " {\n"
+
+		// --------------------------------------------------------------------------------
+		case bool:
+			output += `		if ` +
+				nilGuard +
+				" || \n" +
+				`fmt.Sprintf("%v", ` + escape(subject) + `) != ` +
+				`fmt.Sprintf("%v", ` + expected + `)` +
+				" {\n"
+		case int, float64:
+			// Date range special case
+			// From & to are set in yaml tests as integer
+			// but ES returns a scientific notation float
+			var specialCase string
+			if strings.HasSuffix(key, "from") || strings.HasSuffix(key, "to") {
+				specialCase = `else if floatValue, err := actual.(encjson.Number).Float64(); err == nil {
 							actual = strconv.FormatFloat(floatValue, 'f', -1, 64)
 						} `
-					}
+			}
 
-					r := strings.NewReplacer(`"`, "", `\`, "")
-					rkey := r.Replace(key)
-					output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
+			r := strings.NewReplacer(`"`, "", `\`, "")
+			rkey := r.Replace(key)
+			output += `		if ` + nilGuard + ` { t.Error("Expected [` + rkey + `] to not be nil") }
 						actual = ` + escape(subject) + `
 						if intValue, ok := actual.(int); ok {
 							actual = fmt.Sprint(intValue)
@@ -675,52 +676,50 @@ default:
 					if !assertion {
 						t.Logf("%v != %v", actual, expected)` + "\n"
 
-				// --------------------------------------------------------------------------------
-				case string:
-					output += `		if ` +
-						nilGuard +
-						" || \n" +
-						`strings.TrimSpace(fmt.Sprintf("%s", ` + escape(subject) + `)) != `
-					if strings.HasPrefix(expected, "$") {
-						// Remove brackets if we compare to a stashed value replaced in the body.
-						expected = strings.NewReplacer("{", "", "}", "").Replace(expected)
-						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `))`
-					} else {
-						output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
-					}
-					output += " {\n"
+		// --------------------------------------------------------------------------------
+		case string:
+			output += `		if ` +
+				nilGuard +
+				" || \n" +
+				`strings.TrimSpace(fmt.Sprintf("%s", ` + escape(subject) + `)) != `
+			if strings.HasPrefix(expected, "$") {
+				// Remove brackets if we compare to a stashed value replaced in the body.
+				expected = strings.NewReplacer("{", "", "}", "").Replace(expected)
+				output += `strings.TrimSpace(fmt.Sprintf("%s", ` + `stash["` + expected + `"]` + `))`
+			} else {
+				output += `strings.TrimSpace(fmt.Sprintf("%s", ` + strconv.Quote(expected) + `))`
+			}
+			output += " {\n"
 
-				// --------------------------------------------------------------------------------
-				case map[interface{}]interface{}, map[string]interface{}:
-					// We cannot reliably serialize to json and compare the json outputs: YAML responses are parsed as
-					// a map[interface{}]interface{} that encoding/json fails to marshall
-					// See https://play.golang.org/p/jhcXwg5dIrn
-					expectedOutput := flattenPayload(val)
-					expectedPayload := fmt.Sprintf("%#v", expectedOutput)
+		// --------------------------------------------------------------------------------
+		case map[interface{}]interface{}, map[string]interface{}:
+			// We cannot reliably serialize to json and compare the json outputs: YAML responses are parsed as
+			// a map[interface{}]interface{} that encoding/json fails to marshall
+			// See https://play.golang.org/p/jhcXwg5dIrn
+			expectedOutput := flattenPayload(val)
+			expectedPayload := fmt.Sprintf("%#v", expectedOutput)
 
-					expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
-					output = `		actual = fmt.Sprintf("%v",` + escape(subject) + `)
+			expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
+			output = `		actual = fmt.Sprintf("%v",` + escape(subject) + `)
 				expected = fmt.Sprintf("%v",` + expectedPayload + `)
 				if actual != expected {` + "\n"
 
-				// --------------------------------------------------------------------------------
-				case []interface{}:
-					expectedPayload := fmt.Sprintf("%#v", val)
-					expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
-					output = `		actual, _ = encjson.Marshal(` + escape(subject) + `)
+		// --------------------------------------------------------------------------------
+		case []interface{}:
+			expectedPayload := fmt.Sprintf("%#v", val)
+			expectedPayload = strings.ReplaceAll(expectedPayload, "map[interface {}]interface {}", "map[string]interface {}")
+			output = `		actual, _ = encjson.Marshal(` + escape(subject) + `)
 				expected, _ = encjson.Marshal(` + expectedPayload + `)
 				if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", expected) {` + "\n"
 
-				// --------------------------------------------------------------------------------
-				default:
-					output += `		if true { // TODO, MatchMissingType: ` + fmt.Sprintf("<%[1]T>%[1]v", val) + "\n"
-					output += `		// Subject: ` + subject + "\n"
-					output += `		// Value:   ` + fmt.Sprintf("%#v", val) + "\n"
-				}
-
-				return output
-			}
+		// --------------------------------------------------------------------------------
+		default:
+			output += `		if true { // TODO, MatchMissingType: ` + fmt.Sprintf("<%[1]T>%[1]v", val) + "\n"
+			output += `		// Subject: ` + subject + "\n"
+			output += `		// Value:   ` + fmt.Sprintf("%#v", val) + "\n"
 		}
+
+		return output
 
 	// ================================================================================
 	default:
@@ -768,9 +767,8 @@ func (a Assertion) Error() string {
 
 			if strings.HasPrefix(expected, "/") {
 				return `t.Errorf("Expected [$body] to match pattern: %s", re)`
-			} else {
-				output = `Expected [$body] to match value: ` + escape(expected)
 			}
+			output = `Expected [$body] to match value: ` + escape(expected)
 
 		} else { // 2. Match on JSON/YAML field or numbered item
 			if key == "" {
@@ -782,9 +780,10 @@ func (a Assertion) Error() string {
 				expected = strings.Replace(expected, `/`, `|`, -1)
 
 				return `t.Errorf("Expected [` + strings.Trim(strconv.Quote(escape(key)), `"`) + `] to match pattern: %s", re)`
-			} else { // 2b. Is the value to match a regular value?
-				output = `Expected [` + strings.Trim(strconv.Quote(escape(key)), `"`) + `] to match '` + escape(expected) + `'`
 			}
+
+			// 2b. Is the value to match a regular value?
+			output = `Expected [` + strings.Trim(strconv.Quote(escape(key)), `"`) + `] to match '` + escape(expected) + `'`
 		}
 	}
 
