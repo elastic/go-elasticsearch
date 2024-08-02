@@ -905,16 +905,16 @@ func (g *Generator) genSteps(t Test) {
 	g.genVarSection(t, skipBody)
 
 	for _, step := range t.Steps {
-		switch step.(type) {
+		switch step := step.(type) {
 		case Action:
 			// Generate debug info
 			var dbg strings.Builder
-			dbg.WriteString("\t\t// => " + step.(Action).Method() + "(")
+			dbg.WriteString("\t\t// => " + step.Method() + "(")
 			var j int
-			for k, v := range step.(Action).Params() {
+			for k, v := range step.Params() {
 				j++
 				dbg.WriteString(k + ": " + strings.Replace(fmt.Sprintf("%v", v), "\n", "|", -1))
-				if j < len(step.(Action).Params()) {
+				if j < len(step.Params()) {
 					dbg.WriteString(", ")
 				}
 			}
@@ -926,20 +926,20 @@ func (g *Generator) genSteps(t Test) {
 			g.w(dbg.String() + strings.Repeat("-", pad) + "\n\t\t//\n")
 
 			// Generate the action
-			g.genAction(step.(Action), skipBody)
+			g.genAction(step, skipBody)
 			g.w("\t\t// " + strings.Repeat("-", 96) + "\n\n")
 		case Assertion:
 			// Generate debug info
 			g.w("\t\t// ~> ")
-			g.w(fmt.Sprintf("%q: ", step.(Assertion).operation))
-			g.w(strings.Replace(fmt.Sprintf("%s", step.(Assertion).payload), "\n", "|", -1))
+			g.w(fmt.Sprintf("%q: ", step.operation))
+			g.w(strings.Replace(fmt.Sprintf("%s", step.payload), "\n", "|", -1))
 			g.w("\n")
 			// Generate the assertion
-			g.genAssertion(step.(Assertion))
+			g.genAssertion(step)
 			g.w("\n")
 		case Stash:
 			// Generate setting the stash
-			g.genStashSet(step.(Stash))
+			g.genStashSet(step)
 			g.w("\n")
 		default:
 			panic(fmt.Sprintf("Unknown step %T", step))
@@ -955,7 +955,7 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 
 	g.w("\t\t\tstash = make(map[string]interface{}, 0)\n\n")
 
-	if (len(skipBody) < 1 || (len(skipBody) > 0 && skipBody[0] == false)) &&
+	if (len(skipBody) < 1 || (len(skipBody) > 0 && !skipBody[0])) &&
 		(t.Steps.ContainsAssertion() || t.Steps.ContainsCatch() || true) {
 		g.w("\t\t\tbody []byte\n")
 		g.w("\t\t\tmapi map[string]interface{}\n")
@@ -980,7 +980,7 @@ func (g *Generator) genVarSection(t Test, skipBody ...bool) {
 
 	g.w("\t\t)\n\n")
 
-	if (len(skipBody) < 1 || (len(skipBody) > 0 && skipBody[0] == false)) &&
+	if (len(skipBody) < 1 || (len(skipBody) > 0 && !skipBody[0])) &&
 		(t.Steps.ContainsAssertion() || t.Steps.ContainsCatch() || true) {
 		g.w("\t\t_ = mapi\n")
 		g.w("\t\t_ = slic\n")
@@ -1073,7 +1073,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			v = `stash[` + strconv.Quote(strings.ReplaceAll(strings.ReplaceAll(fmt.Sprintf("%s", v), "{", ""), "}", "")) + `]`
 		}
 
-		switch v.(type) {
+		switch vv := v.(type) {
 		case bool:
 			g.w("\t\t\t" + k + ": ")
 
@@ -1084,23 +1084,23 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 
 			switch typ {
 			case "bool":
-				g.w(strconv.FormatBool(v.(bool)))
+				g.w(strconv.FormatBool(vv))
 			case "*bool":
-				g.w(`esapi.BoolPtr(` + strconv.FormatBool(v.(bool)) + `)`)
+				g.w(`esapi.BoolPtr(` + strconv.FormatBool(vv) + `)`)
 			case "string":
-				g.w(`"` + strconv.FormatBool(v.(bool)) + `"`)
+				g.w(`"` + strconv.FormatBool(vv) + `"`)
 			case "[]string":
 				// TODO: Listify
-				g.w(`[]string{"` + strconv.FormatBool(v.(bool)) + `"}`)
+				g.w(`[]string{"` + strconv.FormatBool(vv) + `"}`)
 			default:
-				g.w(strconv.FormatBool(v.(bool)))
+				g.w(strconv.FormatBool(vv))
 			}
 			g.w(",\n")
 
 		case string:
 			if k == "Body" {
 				g.w("\t\t\t" + k + ": ")
-				body := v.(string)
+				body := vv
 
 				if varDetection.MatchString(body) {
 					g.w("strings.NewReader(strings.NewReplacer(")
@@ -1230,13 +1230,11 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				re := regexp.MustCompile("^(\\d+).*")
 				value = re.ReplaceAllString(fmt.Sprintf("%d", v), "$1")
 			case "*int":
-				switch v.(type) {
+				switch vv := v.(type) {
 				case int:
 					g.w(`esapi.IntPtr(` + fmt.Sprintf("%d", v) + `)`)
 				case float64:
-					if vv, ok := v.(float64); ok {
 						g.w(`esapi.IntPtr(` + fmt.Sprintf("%d", int(vv)) + `)`)
-					}
 				default:
 					panic(fmt.Sprintf("Unexpected type [%T] for [%s]", v, k))
 				}
@@ -1256,12 +1254,12 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 
 			switch typ {
 			case "string":
-				switch v.(type) {
+				switch v := v.(type) {
 				case string:
-					g.w("`" + v.(string) + "`")
+					g.w("`" + v + "`")
 				case []interface{}:
 					vvv := make([]string, 0)
-					for _, vv := range v.([]interface{}) {
+					for _, vv := range v {
 						vvv = append(vvv, fmt.Sprintf("%s", vv))
 					}
 					g.w("`" + strings.Join(vvv, ",") + "`")
@@ -1280,9 +1278,9 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				if k == "Body" {
 					var b strings.Builder
 					for _, vv := range v.([]interface{}) {
-						switch vv.(type) {
+						switch vv := vv.(type) {
 						case string:
-							b.WriteString(vv.(string))
+							b.WriteString(vv)
 						default:
 							j, err := json.Marshal(convert(vv))
 							if err != nil {
@@ -1300,13 +1298,13 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 					if err != nil {
 						panic(fmt.Sprintf("%s{}.%s: %s (%s)", a.Request(), k, err, v))
 					}
-					g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
+					g.w("\t\tstrings.NewReader(`" + string(j) + "`)")
 				}
 			case "*bool":
-				switch v.(type) {
+				switch v := v.(type) {
 				case []interface{}:
 					var vvv string
-					for _, vv := range v.([]interface{}) {
+					for _, vv := range v {
 						vvv = fmt.Sprintf("%v", vv)
 					}
 					g.w(fmt.Sprintf("&[]bool{%s}[0]", vvv))
@@ -1328,7 +1326,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 				reStash := regexp.MustCompile(`("\$[^"]+")`)
 				j = reStash.ReplaceAll(j, []byte("` + strconv.Quote(fmt.Sprintf(\"%v\", stash[$1])) + `"))
 
-				g.w("\t\tstrings.NewReader(`" + fmt.Sprintf("%s", j) + "`)")
+				g.w("\t\tstrings.NewReader(`" + string(j) + "`)")
 				g.w(",\n")
 			}
 
@@ -1388,7 +1386,7 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 		// TODO: Test catch
 	}
 
-	if len(skipBody) < 1 || (len(skipBody) > 0 && skipBody[0] == false) {
+	if len(skipBody) < 1 || (len(skipBody) > 0 && !skipBody[0]) {
 		// Read and parse the body
 		g.w(`		handleResponseBody(t, res)` + "\n")
 	}
@@ -1446,9 +1444,9 @@ func convert(i interface{}) interface{} {
 		m2 := map[string]interface{}{}
 		for k, v := range x {
 			var ks string
-			switch k.(type) {
+			switch k := k.(type) {
 			case string:
-				ks = k.(string)
+				ks = k
 			case int:
 				ks = fmt.Sprintf("%d", k)
 			default:

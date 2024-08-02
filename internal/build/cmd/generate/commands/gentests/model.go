@@ -396,15 +396,15 @@ func (a Action) Params() map[string]interface{} {
 		default:
 			kk = utils.NameToGo(k.(string), utils.APIToGo(a.method))
 		}
-		switch v.(type) {
+		switch v := v.(type) {
 		case bool:
-			out[kk] = v.(bool)
+			out[kk] = v
 		case string:
-			out[kk] = v.(string)
+			out[kk] = v
 		case int:
-			out[kk] = v.(int)
+			out[kk] = v
 		case float64:
-			out[kk] = v.(float64)
+			out[kk] = v
 		default:
 			out[kk] = v
 		}
@@ -738,7 +738,7 @@ func (a Assertion) Error() string {
 		expected string
 	)
 
-	output = `Unexpected value; <` + a.operation + `> : ` + fmt.Sprintf("%s", escape(a.payload))
+	output = `Unexpected value; <` + a.operation + `> : ` + escape(a.payload)
 
 	switch a.operation {
 	case "is_true":

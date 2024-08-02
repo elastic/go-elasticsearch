@@ -83,9 +83,8 @@ func (tg TestSuite) DebugInfo() string {
 			fmt.Fprint(&out, a.Method()+"()\n")
 		}
 		for _, a := range t.Steps {
-			switch a.(type) {
+			switch aa := a.(type) {
 			case Action:
-				aa := a.(Action)
 				fmt.Fprintf(&out, "  ==> ")
 				fmt.Fprint(&out, aa.Method()+"(")
 				var i int
@@ -98,7 +97,6 @@ func (tg TestSuite) DebugInfo() string {
 				}
 				fmt.Fprint(&out, ")\n")
 			case Assertion:
-				aa := a.(Assertion)
 				fmt.Fprintf(&out, "  ~~> ")
 				fmt.Fprintf(&out, "%q: %s", aa.operation, aa.payload)
 				fmt.Fprint(&out, "\n")

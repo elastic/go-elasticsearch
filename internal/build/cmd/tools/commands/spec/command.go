@@ -22,11 +22,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
-	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
-	"github.com/spf13/cobra"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -34,6 +30,11 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/elastic/go-elasticsearch/v8/internal/build/cmd"
+	"github.com/elastic/go-elasticsearch/v8/internal/build/utils"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -139,7 +140,7 @@ func (c Command) Execute() (err error) {
 
 func (c Command) writeFileToDest(filename string, data []byte) error {
 	path := filepath.Join(c.Output, filename)
-	if err := ioutil.WriteFile(path, data, 0644); err != nil {
+	if err := os.WriteFile(path, data, 0644); err != nil {
 		return fmt.Errorf("cannot write file: %s", err)
 	}
 	if c.Debug {
@@ -238,7 +239,7 @@ func (c Command) extractZipToDest(data []byte) error {
 			path := filepath.Join(c.Output, file.Name)
 			_ = os.MkdirAll(path, 0744)
 		} else {
-			data, err := ioutil.ReadAll(f)
+			data, err := io.ReadAll(f)
 			if err != nil {
 				return err
 			}
@@ -277,7 +278,7 @@ func (c Command) downloadZip(b Build) ([]byte, error) {
 	}
 	defer res.Body.Close()
 
-	data, _ := ioutil.ReadAll(res.Body)
+	data, _ := io.ReadAll(res.Body)
 	return data, err
 }
 
