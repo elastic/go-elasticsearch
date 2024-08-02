@@ -111,9 +111,9 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 	}
 
 	for _, payload := range payloads {
-		sec_keys := utils.MapKeys(payload.Payload)
+		secKeys := utils.MapKeys(payload.Payload)
 		switch {
-		case len(sec_keys) > 0 && strings.Contains(strings.Join(sec_keys, ","), "setup") || strings.Contains(strings.Join(sec_keys, ","), "teardown"):
+		case len(secKeys) > 0 && strings.Contains(strings.Join(secKeys, ","), "setup") || strings.Contains(strings.Join(secKeys, ","), "teardown"):
 			for k, v := range payload.Payload.(map[interface{}]interface{}) {
 				switch k {
 				case "setup":
@@ -144,25 +144,25 @@ func NewTestSuite(fpath string, payloads []TestPayload) TestSuite {
 					case "skip":
 						var (
 							ok     bool
-							skip_v string
-							skip_r string
+							skipV string
+							skipR string
 						)
 
 						skip := vv.(map[interface{}]interface{})["skip"]
 
-						if skip_v, ok = skip.(map[interface{}]interface{})["version"].(string); ok {
-							if skip_rr, ok := skip.(map[interface{}]interface{})["reason"].(string); ok {
-								skip_r = skip_rr
+						if skipV, ok = skip.(map[interface{}]interface{})["version"].(string); ok {
+							if skipRR, ok := skip.(map[interface{}]interface{})["reason"].(string); ok {
+								skipR = skipRR
 							}
-							if skip_v == "all" {
+							if skipV == "all" {
 								t.Skip = true
 								t.SkipInfo = "Skipping all versions"
 								break
 							}
-							if ts.SkipEsVersion(skip_v) {
-								// fmt.Printf("Skip: %q, EsVersion: %s, Skip: %v, Reason: %s\n", skip_v, EsVersion, ts.SkipEsVersion(skip_v), skip_r)
+							if ts.SkipEsVersion(skipV) {
+								// fmt.Printf("Skip: %q, EsVersion: %s, Skip: %v, Reason: %s\n", skipV, EsVersion, ts.SkipEsVersion(skipV), skipR)
 								t.Skip = true
-								t.SkipInfo = skip_r
+								t.SkipInfo = skipR
 							}
 						}
 					case "setup":

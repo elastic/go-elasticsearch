@@ -1058,13 +1058,7 @@ var ConsoleToGo = []TranslateRule{
 				fmt.Fprint(&src, args)
 			}
 
-			var hasPretty bool
-			for k, _ := range params {
-				if k == "pretty" {
-					hasPretty = true
-				}
-			}
-
+			_, hasPretty := params["pretty"]
 			if !hasPretty {
 				src.WriteString("\tes.Scroll.WithPretty(),\n")
 			}
@@ -1111,13 +1105,7 @@ var ConsoleToGo = []TranslateRule{
 				fmt.Fprint(&src, args)
 			}
 
-			var hasPretty bool
-			for k, _ := range params {
-				if k == "pretty" {
-					hasPretty = true
-				}
-			}
-
+			_, hasPretty := params["pretty"]
 			if !hasPretty {
 				src.WriteString("\tes.Search.WithPretty(),\n")
 			}
@@ -1164,13 +1152,7 @@ var ConsoleToGo = []TranslateRule{
 				fmt.Fprint(&src, args)
 			}
 
-			var hasPretty bool
-			for k, _ := range params {
-				if k == "pretty" {
-					hasPretty = true
-				}
-			}
-
+			_, hasPretty := params["pretty"]
 			if !hasPretty {
 				src.WriteString("\tes.Count.WithPretty(),\n")
 			}

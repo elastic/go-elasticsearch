@@ -1350,15 +1350,15 @@ func (g *Generator) genAction(a Action, skipBody ...bool) {
 			}
 
 			if name == "Authorization" {
-				auth_fields := strings.Split(value, " ")
-				auth_name := auth_fields[0]
-				auth_value := auth_fields[1]
-				if strings.HasPrefix(auth_value, "$") {
-					auth_value = `fmt.Sprintf("%s", stash["` + strings.ReplaceAll(strings.ReplaceAll(auth_value, "{", ""), "}", "") + `"])`
+				authFields := strings.Split(value, " ")
+				authName := authFields[0]
+				authValue := authFields[1]
+				if strings.HasPrefix(authValue, "$") {
+					authValue = `fmt.Sprintf("%s", stash["` + strings.ReplaceAll(strings.ReplaceAll(authValue, "{", ""), "}", "") + `"])`
 				} else {
-					auth_value = `"` + auth_value + `"`
+					authValue = `"` + authValue + `"`
 				}
-				g.w("\t\t\t" + `"Authorization": []string{"` + auth_name + ` " + ` + auth_value + `},` + "\n")
+				g.w("\t\t\t" + `"Authorization": []string{"` + authName + ` " + ` + authValue + `},` + "\n")
 
 			} else {
 				g.w("\t\t\t\"" + name + "\": []string{\"" + value + "\"},\n")
