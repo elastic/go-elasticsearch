@@ -370,6 +370,7 @@ func (bi *bulkIndexer) init() {
 	bi.queue = make(chan BulkIndexerItem, bi.config.NumWorkers)
 
 	for i := 1; i <= bi.config.NumWorkers; i++ {
+		bi.wg.Add(1)
 		w := worker{
 			id:     i,
 			ch:     bi.queue,
@@ -380,7 +381,6 @@ func (bi *bulkIndexer) init() {
 		w.run()
 		bi.workers = append(bi.workers, &w)
 	}
-	bi.wg.Add(bi.config.NumWorkers)
 }
 
 // worker represents an indexer worker.
