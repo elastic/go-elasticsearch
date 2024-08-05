@@ -29,7 +29,6 @@ package main
 import (
 	"flag"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -139,7 +138,7 @@ func main() {
 		log.Fatalf("Error creating runner: %s", err)
 	}
 
-	done := make(chan os.Signal)
+	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt)
 
 	go func() { <-done; log.Println("\r" + strings.Repeat("▁", 110)); runner.Report(); os.Exit(0) }()
@@ -247,7 +246,7 @@ func (t *fasthttpTransport) copyResponse(dst *http.Response, src *fasthttp.Respo
 		dst.Header.Set(string(k), string(v))
 	})
 
-	dst.Body = ioutil.NopCloser(strings.NewReader(string(src.Body())))
+	dst.Body = io.NopCloser(strings.NewReader(string(src.Body())))
 
 	return dst
 }
