@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.15.0: DO NOT EDIT
+// Code generated from specification version 8.16.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newIndicesCreateDataStreamFunc(t Transport) IndicesCreateDataStream {
@@ -50,6 +51,9 @@ type IndicesCreateDataStream func(name string, o ...func(*IndicesCreateDataStrea
 // IndicesCreateDataStreamRequest configures the Indices Create Data Stream API request.
 type IndicesCreateDataStreamRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -93,6 +97,14 @@ func (r IndicesCreateDataStreamRequest) Do(providedCtx context.Context, transpor
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -169,6 +181,20 @@ func (r IndicesCreateDataStreamRequest) Do(providedCtx context.Context, transpor
 func (f IndicesCreateDataStream) WithContext(v context.Context) func(*IndicesCreateDataStreamRequest) {
 	return func(r *IndicesCreateDataStreamRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesCreateDataStream) WithMasterTimeout(v time.Duration) func(*IndicesCreateDataStreamRequest) {
+	return func(r *IndicesCreateDataStreamRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - specify timeout for acknowledging the cluster state update.
+func (f IndicesCreateDataStream) WithTimeout(v time.Duration) func(*IndicesCreateDataStreamRequest) {
+	return func(r *IndicesCreateDataStreamRequest) {
+		r.Timeout = v
 	}
 }
 

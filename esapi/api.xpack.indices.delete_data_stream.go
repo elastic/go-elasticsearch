@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.15.0: DO NOT EDIT
+// Code generated from specification version 8.16.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newIndicesDeleteDataStreamFunc(t Transport) IndicesDeleteDataStream {
@@ -53,6 +54,7 @@ type IndicesDeleteDataStreamRequest struct {
 	Name []string
 
 	ExpandWildcards string
+	MasterTimeout   time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -103,6 +105,10 @@ func (r IndicesDeleteDataStreamRequest) Do(providedCtx context.Context, transpor
 
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -187,6 +193,13 @@ func (f IndicesDeleteDataStream) WithContext(v context.Context) func(*IndicesDel
 func (f IndicesDeleteDataStream) WithExpandWildcards(v string) func(*IndicesDeleteDataStreamRequest) {
 	return func(r *IndicesDeleteDataStreamRequest) {
 		r.ExpandWildcards = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesDeleteDataStream) WithMasterTimeout(v time.Duration) func(*IndicesDeleteDataStreamRequest) {
+	return func(r *IndicesDeleteDataStreamRequest) {
+		r.MasterTimeout = v
 	}
 }
 

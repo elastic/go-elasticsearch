@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.15.0: DO NOT EDIT
+// Code generated from specification version 8.16.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newIndicesPromoteDataStreamFunc(t Transport) IndicesPromoteDataStream {
@@ -50,6 +51,8 @@ type IndicesPromoteDataStream func(name string, o ...func(*IndicesPromoteDataStr
 // IndicesPromoteDataStreamRequest configures the Indices Promote Data Stream API request.
 type IndicesPromoteDataStreamRequest struct {
 	Name string
+
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r IndicesPromoteDataStreamRequest) Do(providedCtx context.Context, transpo
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r IndicesPromoteDataStreamRequest) Do(providedCtx context.Context, transpo
 func (f IndicesPromoteDataStream) WithContext(v context.Context) func(*IndicesPromoteDataStreamRequest) {
 	return func(r *IndicesPromoteDataStreamRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesPromoteDataStream) WithMasterTimeout(v time.Duration) func(*IndicesPromoteDataStreamRequest) {
+	return func(r *IndicesPromoteDataStreamRequest) {
+		r.MasterTimeout = v
 	}
 }
 
