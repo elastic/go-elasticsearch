@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -26,16 +26,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/queryruletype"
 )
 
 // QueryRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/query_rules/_types/QueryRuleset.ts#L37-L42
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/query_rules/_types/QueryRuleset.ts#L36-L42
 type QueryRule struct {
 	Actions  QueryRuleActions            `json:"actions"`
 	Criteria []QueryRuleCriteria         `json:"criteria"`
+	Priority *int                        `json:"priority,omitempty"`
 	RuleId   string                      `json:"rule_id"`
 	Type     queryruletype.QueryRuleType `json:"type"`
 }
@@ -61,8 +63,35 @@ func (s *QueryRule) UnmarshalJSON(data []byte) error {
 			}
 
 		case "criteria":
-			if err := dec.Decode(&s.Criteria); err != nil {
-				return fmt.Errorf("%s | %w", "Criteria", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := NewQueryRuleCriteria()
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Criteria", err)
+				}
+
+				s.Criteria = append(s.Criteria, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Criteria); err != nil {
+					return fmt.Errorf("%s | %w", "Criteria", err)
+				}
+			}
+
+		case "priority":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Priority", err)
+				}
+				s.Priority = &value
+			case float64:
+				f := int(v)
+				s.Priority = &f
 			}
 
 		case "rule_id":

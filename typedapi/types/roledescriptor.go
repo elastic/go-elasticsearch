@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -26,17 +26,22 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
 )
 
 // RoleDescriptor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/_types/RoleDescriptor.ts#L28-L56
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/security/_types/RoleDescriptor.ts#L28-L61
 type RoleDescriptor struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`
 	// Cluster A list of cluster privileges. These privileges define the cluster level
 	// actions that API keys are able to execute.
-	Cluster []string `json:"cluster,omitempty"`
+	Cluster []clusterprivilege.ClusterPrivilege `json:"cluster,omitempty"`
+	// Description Optional description of the role descriptor
+	Description *string `json:"description,omitempty"`
 	// Global An object defining global privileges. A global privilege is a form of cluster
 	// privilege that is request-aware. Support for global privileges is currently
 	// limited to the management of application privileges.
@@ -46,7 +51,9 @@ type RoleDescriptor struct {
 	// Metadata Optional meta-data. Within the metadata object, keys that begin with `_` are
 	// reserved for system usage.
 	Metadata Metadata `json:"metadata,omitempty"`
-	// RunAs A list of users that the API keys can impersonate.
+	// RunAs A list of users that the API keys can impersonate. *Note*: in Serverless, the
+	// run-as feature is disabled. For API compatibility, you can still specify an
+	// empty `run_as` field, but a non-empty list will be rejected.
 	RunAs             []string                   `json:"run_as,omitempty"`
 	TransientMetadata map[string]json.RawMessage `json:"transient_metadata,omitempty"`
 }
@@ -75,6 +82,18 @@ func (s *RoleDescriptor) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Cluster); err != nil {
 				return fmt.Errorf("%s | %w", "Cluster", err)
 			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Description", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
 
 		case "global":
 			rawMsg := json.RawMessage{}

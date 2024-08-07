@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -30,11 +30,10 @@ import (
 
 // Phase type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ilm/_types/Phase.ts#L25-L36
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/ilm/_types/Phase.ts#L26-L32
 type Phase struct {
-	Actions        json.RawMessage `json:"actions,omitempty"`
-	Configurations *Configurations `json:"configurations,omitempty"`
-	MinAge         *Duration       `json:"min_age,omitempty"`
+	Actions *IlmActions `json:"actions,omitempty"`
+	MinAge  *Duration   `json:"min_age,omitempty"`
 }
 
 func (s *Phase) UnmarshalJSON(data []byte) error {
@@ -55,11 +54,6 @@ func (s *Phase) UnmarshalJSON(data []byte) error {
 		case "actions":
 			if err := dec.Decode(&s.Actions); err != nil {
 				return fmt.Errorf("%s | %w", "Actions", err)
-			}
-
-		case "configurations":
-			if err := dec.Decode(&s.Configurations); err != nil {
-				return fmt.Errorf("%s | %w", "Configurations", err)
 			}
 
 		case "min_age":

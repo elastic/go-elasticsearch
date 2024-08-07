@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 // The cluster health API returns a simple status on the health of the cluster.
 // You can also use the API to get the health status of only specified data
@@ -355,8 +355,9 @@ func (r *Health) Header(key, value string) *Health {
 }
 
 // Index Comma-separated list of data streams, indices, and index aliases used to
-// limit the request. Wildcard expressions (*) are supported. To target all data
-// streams and indices in a cluster, omit this parameter or use _all or *.
+// limit the request. Wildcard expressions (`*`) are supported. To target all
+// data streams and indices in a cluster, omit this parameter or use _all or
+// `*`.
 // API Name: index
 func (r *Health) Index(index string) *Health {
 	r.paramSet |= indexMask

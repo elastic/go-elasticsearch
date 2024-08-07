@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 // Updates a document with a script or partial document.
 package update
@@ -519,7 +519,8 @@ func (r *Update) DocAsUpsert(docasupsert bool) *Update {
 
 // Script Script to execute to update the document.
 // API name: script
-func (r *Update) Script(script types.Script) *Update {
+func (r *Update) Script(script *types.Script) *Update {
+
 	r.req.Script = script
 
 	return r

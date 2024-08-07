@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoHashGridAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L407-L432
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/aggregations/bucket.ts#L407-L432
 type GeoHashGridAggregation struct {
 	// Bounds The bounding box to filter the points in each bucket.
 	Bounds GeoBounds `json:"bounds,omitempty"`
@@ -66,8 +66,66 @@ func (s *GeoHashGridAggregation) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bounds":
-			if err := dec.Decode(&s.Bounds); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Bounds", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		bounds_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Bounds", err)
+				}
+
+				switch t {
+
+				case "bottom", "left", "right", "top":
+					o := NewCoordsGeoBounds()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Bounds", err)
+					}
+					s.Bounds = o
+					break bounds_field
+
+				case "bottom_right", "top_left":
+					o := NewTopLeftBottomRightGeoBounds()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Bounds", err)
+					}
+					s.Bounds = o
+					break bounds_field
+
+				case "bottom_left", "top_right":
+					o := NewTopRightBottomLeftGeoBounds()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Bounds", err)
+					}
+					s.Bounds = o
+					break bounds_field
+
+				case "wkt":
+					o := NewWktGeoBounds()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Bounds", err)
+					}
+					s.Bounds = o
+					break bounds_field
+
+				}
+			}
+			if s.Bounds == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Bounds); err != nil {
+					return fmt.Errorf("%s | %w", "Bounds", err)
+				}
 			}
 
 		case "field":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AllocationRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cat/allocation/types.ts#L24-L75
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/cat/allocation/types.ts#L24-L98
 type AllocationRecord struct {
 	// DiskAvail Free disk space available to Elasticsearch.
 	// Elasticsearch retrieves this metric from the node’s operating system.
@@ -43,6 +43,8 @@ type AllocationRecord struct {
 	// IMPORTANT: This metric double-counts disk space for hard-linked files, such
 	// as those created when shrinking, splitting, or cloning an index.
 	DiskIndices *ByteSize `json:"disk.indices,omitempty"`
+	// DiskIndicesForecast Sum of shard size forecasts
+	DiskIndicesForecast *ByteSize `json:"disk.indices.forecast,omitempty"`
 	// DiskPercent Total percentage of disk space in use. Calculated as `disk.used /
 	// disk.total`.
 	DiskPercent *Percentage `json:"disk.percent,omitempty"`
@@ -61,9 +63,16 @@ type AllocationRecord struct {
 	// Ip IP address and port for the node.
 	Ip *string `json:"ip,omitempty"`
 	// Node Name for the node. Set using the `node.name` setting.
-	Node *string `json:"node,omitempty"`
+	Node string `json:"node"`
+	// NodeRole Node roles
+	NodeRole *string `json:"node.role,omitempty"`
 	// Shards Number of primary and replica shards assigned to the node.
-	Shards *string `json:"shards,omitempty"`
+	Shards string `json:"shards"`
+	// ShardsUndesired Amount of shards that are scheduled to be moved elsewhere in the cluster or
+	// -1 other than desired balance allocator is used
+	ShardsUndesired *string `json:"shards.undesired,omitempty"`
+	// WriteLoadForecast Sum of index write load forecasts
+	WriteLoadForecast *Float64 `json:"write_load.forecast,omitempty"`
 }
 
 func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
@@ -89,6 +98,11 @@ func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
 		case "disk.indices", "di", "diskIndices":
 			if err := dec.Decode(&s.DiskIndices); err != nil {
 				return fmt.Errorf("%s | %w", "DiskIndices", err)
+			}
+
+		case "disk.indices.forecast", "dif", "diskIndicesForecast":
+			if err := dec.Decode(&s.DiskIndicesForecast); err != nil {
+				return fmt.Errorf("%s | %w", "DiskIndicesForecast", err)
 			}
 
 		case "disk.percent", "dp", "diskPercent":
@@ -126,7 +140,19 @@ func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Node = &o
+			s.Node = o
+
+		case "node.role", "r", "role", "nodeRole":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "NodeRole", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.NodeRole = &o
 
 		case "shards", "s":
 			var tmp json.RawMessage
@@ -138,7 +164,24 @@ func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Shards = &o
+			s.Shards = o
+
+		case "shards.undesired":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ShardsUndesired", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ShardsUndesired = &o
+
+		case "write_load.forecast", "wlf", "writeLoadForecast":
+			if err := dec.Decode(&s.WriteLoadForecast); err != nil {
+				return fmt.Errorf("%s | %w", "WriteLoadForecast", err)
+			}
 
 		}
 	}

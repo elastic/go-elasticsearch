@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // JobsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/cat/ml_jobs/types.ts#L24-L347
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/cat/ml_jobs/types.ts#L24-L347
 type JobsRecord struct {
 	// AssignmentExplanation For open anomaly detection jobs only, contains messages relating to the
 	// selection of a node to run the job.

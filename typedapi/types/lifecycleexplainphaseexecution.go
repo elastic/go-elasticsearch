@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // LifecycleExplainPhaseExecution type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ilm/explain_lifecycle/types.ts#L64-L68
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/ilm/explain_lifecycle/types.ts#L64-L68
 type LifecycleExplainPhaseExecution struct {
 	ModifiedDateInMillis int64  `json:"modified_date_in_millis"`
 	Policy               string `json:"policy"`

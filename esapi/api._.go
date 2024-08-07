@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.15.0 (8abc885): DO NOT EDIT
+// Code generated from specification version 8.15.0 (4a6bcd8): DO NOT EDIT
 
 package esapi
 
@@ -335,12 +335,15 @@ type Indices struct {
 
 // Ingest contains the Ingest APIs
 type Ingest struct {
-	DeletePipeline IngestDeletePipeline
-	GeoIPStats     IngestGeoIPStats
-	GetPipeline    IngestGetPipeline
-	ProcessorGrok  IngestProcessorGrok
-	PutPipeline    IngestPutPipeline
-	Simulate       IngestSimulate
+	DeleteGeoipDatabase IngestDeleteGeoipDatabase
+	DeletePipeline      IngestDeletePipeline
+	GeoIPStats          IngestGeoIPStats
+	GetGeoipDatabase    IngestGetGeoipDatabase
+	GetPipeline         IngestGetPipeline
+	ProcessorGrok       IngestProcessorGrok
+	PutGeoipDatabase    IngestPutGeoipDatabase
+	PutPipeline         IngestPutPipeline
+	Simulate            IngestSimulate
 }
 
 // Nodes contains the Nodes APIs
@@ -537,6 +540,7 @@ type Rollup struct {
 type Security struct {
 	ActivateUserProfile         SecurityActivateUserProfile
 	Authenticate                SecurityAuthenticate
+	BulkDeleteRole              SecurityBulkDeleteRole
 	BulkPutRole                 SecurityBulkPutRole
 	BulkUpdateAPIKeys           SecurityBulkUpdateAPIKeys
 	ChangePassword              SecurityChangePassword
@@ -923,12 +927,15 @@ func New(t Transport) *API {
 			ValidateQuery:         newIndicesValidateQueryFunc(t),
 		},
 		Ingest: &Ingest{
-			DeletePipeline: newIngestDeletePipelineFunc(t),
-			GeoIPStats:     newIngestGeoIPStatsFunc(t),
-			GetPipeline:    newIngestGetPipelineFunc(t),
-			ProcessorGrok:  newIngestProcessorGrokFunc(t),
-			PutPipeline:    newIngestPutPipelineFunc(t),
-			Simulate:       newIngestSimulateFunc(t),
+			DeleteGeoipDatabase: newIngestDeleteGeoipDatabaseFunc(t),
+			DeletePipeline:      newIngestDeletePipelineFunc(t),
+			GeoIPStats:          newIngestGeoIPStatsFunc(t),
+			GetGeoipDatabase:    newIngestGetGeoipDatabaseFunc(t),
+			GetPipeline:         newIngestGetPipelineFunc(t),
+			ProcessorGrok:       newIngestProcessorGrokFunc(t),
+			PutGeoipDatabase:    newIngestPutGeoipDatabaseFunc(t),
+			PutPipeline:         newIngestPutPipelineFunc(t),
+			Simulate:            newIngestSimulateFunc(t),
 		},
 		Nodes: &Nodes{
 			ClearRepositoriesMeteringArchive: newNodesClearRepositoriesMeteringArchiveFunc(t),
@@ -1098,6 +1105,7 @@ func New(t Transport) *API {
 		Security: &Security{
 			ActivateUserProfile:         newSecurityActivateUserProfileFunc(t),
 			Authenticate:                newSecurityAuthenticateFunc(t),
+			BulkDeleteRole:              newSecurityBulkDeleteRoleFunc(t),
 			BulkPutRole:                 newSecurityBulkPutRoleFunc(t),
 			BulkUpdateAPIKeys:           newSecurityBulkUpdateAPIKeysFunc(t),
 			ChangePassword:              newSecurityChangePasswordFunc(t),

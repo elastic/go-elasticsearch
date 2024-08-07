@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TopLeftBottomRightGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/Geo.ts#L161-L164
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/Geo.ts#L161-L164
 type TopLeftBottomRightGeoBounds struct {
 	BottomRight GeoLocation `json:"bottom_right"`
 	TopLeft     GeoLocation `json:"top_left"`
@@ -52,13 +52,93 @@ func (s *TopLeftBottomRightGeoBounds) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "bottom_right":
-			if err := dec.Decode(&s.BottomRight); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "BottomRight", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		bottomright_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "BottomRight", err)
+				}
+
+				switch t {
+
+				case "lat", "lon":
+					o := NewLatLonGeoLocation()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "BottomRight", err)
+					}
+					s.BottomRight = o
+					break bottomright_field
+
+				case "geohash":
+					o := NewGeoHashLocation()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "BottomRight", err)
+					}
+					s.BottomRight = o
+					break bottomright_field
+
+				}
+			}
+			if s.BottomRight == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.BottomRight); err != nil {
+					return fmt.Errorf("%s | %w", "BottomRight", err)
+				}
 			}
 
 		case "top_left":
-			if err := dec.Decode(&s.TopLeft); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "TopLeft", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		topleft_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "TopLeft", err)
+				}
+
+				switch t {
+
+				case "lat", "lon":
+					o := NewLatLonGeoLocation()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "TopLeft", err)
+					}
+					s.TopLeft = o
+					break topleft_field
+
+				case "geohash":
+					o := NewGeoHashLocation()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "TopLeft", err)
+					}
+					s.TopLeft = o
+					break topleft_field
+
+				}
+			}
+			if s.TopLeft == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.TopLeft); err != nil {
+					return fmt.Errorf("%s | %w", "TopLeft", err)
+				}
 			}
 
 		}

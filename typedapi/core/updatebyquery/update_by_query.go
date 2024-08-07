@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 // Updates documents that match the specified query.
 // If no query is specified, performs an update on every document in the data
@@ -663,7 +663,8 @@ func (r *UpdateByQuery) Query(query *types.Query) *UpdateByQuery {
 
 // Script The script to run to update the document source or metadata when updating.
 // API name: script
-func (r *UpdateByQuery) Script(script types.Script) *UpdateByQuery {
+func (r *UpdateByQuery) Script(script *types.Script) *UpdateByQuery {
+
 	r.req.Script = script
 
 	return r

@@ -16,21 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io"
-)
-
 // IntervalsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/fulltext.ts#L112-L152
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/query_dsl/fulltext.ts#L112-L152
 type IntervalsFilter struct {
 	// After Query used to return intervals that follow an interval from the `filter`
 	// rule.
@@ -58,103 +50,7 @@ type IntervalsFilter struct {
 	Overlapping *Intervals `json:"overlapping,omitempty"`
 	// Script Script used to return matching documents.
 	// This script must return a boolean value: `true` or `false`.
-	Script Script `json:"script,omitempty"`
-}
-
-func (s *IntervalsFilter) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "after":
-			if err := dec.Decode(&s.After); err != nil {
-				return fmt.Errorf("%s | %w", "After", err)
-			}
-
-		case "before":
-			if err := dec.Decode(&s.Before); err != nil {
-				return fmt.Errorf("%s | %w", "Before", err)
-			}
-
-		case "contained_by":
-			if err := dec.Decode(&s.ContainedBy); err != nil {
-				return fmt.Errorf("%s | %w", "ContainedBy", err)
-			}
-
-		case "containing":
-			if err := dec.Decode(&s.Containing); err != nil {
-				return fmt.Errorf("%s | %w", "Containing", err)
-			}
-
-		case "not_contained_by":
-			if err := dec.Decode(&s.NotContainedBy); err != nil {
-				return fmt.Errorf("%s | %w", "NotContainedBy", err)
-			}
-
-		case "not_containing":
-			if err := dec.Decode(&s.NotContaining); err != nil {
-				return fmt.Errorf("%s | %w", "NotContaining", err)
-			}
-
-		case "not_overlapping":
-			if err := dec.Decode(&s.NotOverlapping); err != nil {
-				return fmt.Errorf("%s | %w", "NotOverlapping", err)
-			}
-
-		case "overlapping":
-			if err := dec.Decode(&s.Overlapping); err != nil {
-				return fmt.Errorf("%s | %w", "Overlapping", err)
-			}
-
-		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
-				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
-			}
-
-		}
-	}
-	return nil
+	Script *Script `json:"script,omitempty"`
 }
 
 // NewIntervalsFilter returns a IntervalsFilter.

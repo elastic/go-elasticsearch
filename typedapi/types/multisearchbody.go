@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MultisearchBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/msearch/types.ts#L70-L201
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_global/msearch/types.ts#L70-L201
 type MultisearchBody struct {
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	Collapse     *FieldCollapse          `json:"collapse,omitempty"`
@@ -349,8 +349,39 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 			}
 
 		case "_source":
-			if err := dec.Decode(&s.Source_); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Source_", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		source__field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Source_", err)
+				}
+
+				switch t {
+
+				case "excludes", "includes":
+					o := NewSourceFilter()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Source_", err)
+					}
+					s.Source_ = o
+					break source__field
+
+				}
+			}
+			if s.Source_ == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Source_); err != nil {
+					return fmt.Errorf("%s | %w", "Source_", err)
+				}
 			}
 
 		case "stats":

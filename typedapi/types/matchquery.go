@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // MatchQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/fulltext.ts#L282-L347
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/query_dsl/fulltext.ts#L282-L347
 type MatchQuery struct {
 	// Analyzer Analyzer used to convert the text in the query value into tokens.
 	Analyzer *string `json:"analyzer,omitempty"`
@@ -82,7 +82,10 @@ func (s *MatchQuery) UnmarshalJSON(data []byte) error {
 			data = append(data, []byte{'"'}...)
 		}
 		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Query)
-		return err
+		if err != nil {
+			return err
+		}
+		return nil
 	}
 
 	dec := json.NewDecoder(bytes.NewReader(data))

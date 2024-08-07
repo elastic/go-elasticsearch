@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SourceFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/SourceFilter.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_global/search/_types/SourceFilter.ts#L23-L31
 type SourceFilter struct {
 	Excludes []string `json:"excludes,omitempty"`
 	Includes []string `json:"includes,omitempty"`
@@ -39,8 +39,13 @@ type SourceFilter struct {
 func (s *SourceFilter) UnmarshalJSON(data []byte) error {
 
 	if !bytes.HasPrefix(data, []byte(`{`)) {
-		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Includes)
-		return err
+		var item string
+		err := json.NewDecoder(bytes.NewReader(data)).Decode(&item)
+		if err != nil {
+			return err
+		}
+		s.Includes = append(s.Includes, item)
+		return nil
 	}
 
 	dec := json.NewDecoder(bytes.NewReader(data))

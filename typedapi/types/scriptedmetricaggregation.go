@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -30,20 +30,20 @@ import (
 
 // ScriptedMetricAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/metric.ts#L254-L280
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/aggregations/metric.ts#L254-L280
 type ScriptedMetricAggregation struct {
 	// CombineScript Runs once on each shard after document collection is complete.
 	// Allows the aggregation to consolidate the state returned from each shard.
-	CombineScript Script `json:"combine_script,omitempty"`
+	CombineScript *Script `json:"combine_script,omitempty"`
 	// Field The field on which to run the aggregation.
 	Field *string `json:"field,omitempty"`
 	// InitScript Runs prior to any collection of documents.
 	// Allows the aggregation to set up any initial state.
-	InitScript Script `json:"init_script,omitempty"`
+	InitScript *Script `json:"init_script,omitempty"`
 	// MapScript Run once per document collected.
 	// If no `combine_script` is specified, the resulting state needs to be stored
 	// in the `state` object.
-	MapScript Script `json:"map_script,omitempty"`
+	MapScript *Script `json:"map_script,omitempty"`
 	// Missing The value to apply to documents that do not have a value.
 	// By default, documents without a value are ignored.
 	Missing Missing `json:"missing,omitempty"`
@@ -55,8 +55,8 @@ type ScriptedMetricAggregation struct {
 	// results.
 	// The script is provided with access to a variable `states`, which is an array
 	// of the result of the `combine_script` on each shard.
-	ReduceScript Script `json:"reduce_script,omitempty"`
-	Script       Script `json:"script,omitempty"`
+	ReduceScript *Script `json:"reduce_script,omitempty"`
+	Script       *Script `json:"script,omitempty"`
 }
 
 func (s *ScriptedMetricAggregation) UnmarshalJSON(data []byte) error {
@@ -75,39 +75,8 @@ func (s *ScriptedMetricAggregation) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "combine_script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.CombineScript); err != nil {
 				return fmt.Errorf("%s | %w", "CombineScript", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "CombineScript", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "CombineScript", err)
-					}
-					s.CombineScript = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "CombineScript", err)
-					}
-					s.CombineScript = o
-
-				}
 			}
 
 		case "field":
@@ -116,75 +85,13 @@ func (s *ScriptedMetricAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "init_script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.InitScript); err != nil {
 				return fmt.Errorf("%s | %w", "InitScript", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "InitScript", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "InitScript", err)
-					}
-					s.InitScript = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "InitScript", err)
-					}
-					s.InitScript = o
-
-				}
 			}
 
 		case "map_script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.MapScript); err != nil {
 				return fmt.Errorf("%s | %w", "MapScript", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "MapScript", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "MapScript", err)
-					}
-					s.MapScript = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "MapScript", err)
-					}
-					s.MapScript = o
-
-				}
 			}
 
 		case "missing":
@@ -201,75 +108,13 @@ func (s *ScriptedMetricAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "reduce_script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.ReduceScript); err != nil {
 				return fmt.Errorf("%s | %w", "ReduceScript", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "ReduceScript", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "ReduceScript", err)
-					}
-					s.ReduceScript = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "ReduceScript", err)
-					}
-					s.ReduceScript = o
-
-				}
 			}
 
 		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.Script); err != nil {
 				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
 			}
 
 		}
