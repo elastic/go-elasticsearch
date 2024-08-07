@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Removes the data lifecycle from a data stream rendering it not managed by the
-// data stream lifecycle
+// Delete data stream lifecycles.
+// Removes the data stream lifecycle from a data stream, rendering it not
+// managed by the data stream lifecycle.
 package deletedatalifecycle
 
 import (
@@ -78,8 +79,9 @@ func NewDeleteDataLifecycleFunc(tp elastictransport.Interface) NewDeleteDataLife
 	}
 }
 
-// Removes the data lifecycle from a data stream rendering it not managed by the
-// data stream lifecycle
+// Delete data stream lifecycles.
+// Removes the data stream lifecycle from a data stream, rendering it not
+// managed by the data stream lifecycle.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-delete-lifecycle.html
 func New(tp elastictransport.Interface) *DeleteDataLifecycle {

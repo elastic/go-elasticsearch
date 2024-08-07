@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package forcemerge
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package forcemerge
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/forcemerge/IndicesForceMergeResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/forcemerge/IndicesForceMergeResponse.ts#L22-L24
 type Response struct {
 	Shards_ types.ShardStatistics `json:"_shards"`
 	// Task task contains a task id returned when wait_for_completion=false,

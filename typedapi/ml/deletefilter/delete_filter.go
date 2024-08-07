@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Deletes a filter.
+// Delete a filter.
 // If an anomaly detection job references the filter, you cannot delete the
 // filter. You must update or delete the job before you can delete the filter.
 package deletefilter
@@ -78,7 +78,7 @@ func NewDeleteFilterFunc(tp elastictransport.Interface) NewDeleteFilter {
 	}
 }
 
-// Deletes a filter.
+// Delete a filter.
 // If an anomaly detection job references the filter, you cannot delete the
 // filter. You must update or delete the job before you can delete the filter.
 //

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -24,13 +24,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 )
 
 // CategorizationAnalyzerDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/Analysis.ts#L184-L197
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Analysis.ts#L184-L197
 type CategorizationAnalyzerDefinition struct {
 	// CharFilter One or more character filters. In addition to the built-in character filters,
 	// other plugins can provide more character filters. If this property is not
@@ -81,59 +80,48 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 			dec.Decode(&buf)
 			for _, rawMsg := range buf {
 
-				switch rawMsg[0] {
-				case '{':
+				source := bytes.NewReader(rawMsg)
+				localDec := json.NewDecoder(source)
+				kind := make(map[string]string, 0)
+				localDec.Decode(&kind)
+				source.Seek(0, io.SeekStart)
 
-					source := bytes.NewReader(rawMsg)
-					localDec := json.NewDecoder(source)
-					kind := make(map[string]string, 0)
-					localDec.Decode(&kind)
-					source.Seek(0, io.SeekStart)
+				switch kind["type"] {
 
-					switch kind["type"] {
-
-					case "html_strip":
-						o := NewHtmlStripCharFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.CharFilter = append(s.CharFilter, *o)
-					case "mapping":
-						o := NewMappingCharFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.CharFilter = append(s.CharFilter, *o)
-					case "pattern_replace":
-						o := NewPatternReplaceCharFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.CharFilter = append(s.CharFilter, *o)
-					case "icu_normalizer":
-						o := NewIcuNormalizationCharFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.CharFilter = append(s.CharFilter, *o)
-					case "kuromoji_iteration_mark":
-						o := NewKuromojiIterationMarkCharFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.CharFilter = append(s.CharFilter, *o)
-					default:
-						o := new(any)
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.CharFilter = append(s.CharFilter, *o)
+				case "html_strip":
+					o := NewHtmlStripCharFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
 					}
+					s.CharFilter = append(s.CharFilter, *o)
+				case "mapping":
+					o := NewMappingCharFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.CharFilter = append(s.CharFilter, *o)
+				case "pattern_replace":
+					o := NewPatternReplaceCharFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.CharFilter = append(s.CharFilter, *o)
+				case "icu_normalizer":
+					o := NewIcuNormalizationCharFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.CharFilter = append(s.CharFilter, *o)
+				case "kuromoji_iteration_mark":
+					o := NewKuromojiIterationMarkCharFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.CharFilter = append(s.CharFilter, *o)
 				default:
-					source := bytes.NewReader(rawMsg)
 					o := new(any)
-					if err := json.NewDecoder(source).Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "CharFilter", err)
+					if err := localDec.Decode(&o); err != nil {
+						return err
 					}
 					s.CharFilter = append(s.CharFilter, *o)
 				}
@@ -145,311 +133,300 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 			dec.Decode(&buf)
 			for _, rawMsg := range buf {
 
-				switch rawMsg[0] {
-				case '{':
+				source := bytes.NewReader(rawMsg)
+				localDec := json.NewDecoder(source)
+				kind := make(map[string]string, 0)
+				localDec.Decode(&kind)
+				source.Seek(0, io.SeekStart)
 
-					source := bytes.NewReader(rawMsg)
-					localDec := json.NewDecoder(source)
-					kind := make(map[string]string, 0)
-					localDec.Decode(&kind)
-					source.Seek(0, io.SeekStart)
+				switch kind["type"] {
 
-					switch kind["type"] {
-
-					case "asciifolding":
-						o := NewAsciiFoldingTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "common_grams":
-						o := NewCommonGramsTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "condition":
-						o := NewConditionTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "delimited_payload":
-						o := NewDelimitedPayloadTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "edge_ngram":
-						o := NewEdgeNGramTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "elision":
-						o := NewElisionTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "fingerprint":
-						o := NewFingerprintTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "hunspell":
-						o := NewHunspellTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "hyphenation_decompounder":
-						o := NewHyphenationDecompounderTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "keep_types":
-						o := NewKeepTypesTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "keep":
-						o := NewKeepWordsTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "keyword_marker":
-						o := NewKeywordMarkerTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "kstem":
-						o := NewKStemTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "length":
-						o := NewLengthTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "limit":
-						o := NewLimitTokenCountTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "lowercase":
-						o := NewLowercaseTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "multiplexer":
-						o := NewMultiplexerTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "ngram":
-						o := NewNGramTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "nori_part_of_speech":
-						o := NewNoriPartOfSpeechTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "pattern_capture":
-						o := NewPatternCaptureTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "pattern_replace":
-						o := NewPatternReplaceTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "porter_stem":
-						o := NewPorterStemTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "predicate_token_filter":
-						o := NewPredicateTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "remove_duplicates":
-						o := NewRemoveDuplicatesTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "reverse":
-						o := NewReverseTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "shingle":
-						o := NewShingleTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "snowball":
-						o := NewSnowballTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "stemmer_override":
-						o := NewStemmerOverrideTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "stemmer":
-						o := NewStemmerTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "stop":
-						o := NewStopTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "synonym_graph":
-						o := NewSynonymGraphTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "synonym":
-						o := NewSynonymTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "trim":
-						o := NewTrimTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "truncate":
-						o := NewTruncateTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "unique":
-						o := NewUniqueTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "uppercase":
-						o := NewUppercaseTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "word_delimiter_graph":
-						o := NewWordDelimiterGraphTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "word_delimiter":
-						o := NewWordDelimiterTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "kuromoji_stemmer":
-						o := NewKuromojiStemmerTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "kuromoji_readingform":
-						o := NewKuromojiReadingFormTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "kuromoji_part_of_speech":
-						o := NewKuromojiPartOfSpeechTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "icu_collation":
-						o := NewIcuCollationTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "icu_folding":
-						o := NewIcuFoldingTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "icu_normalizer":
-						o := NewIcuNormalizationTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "icu_transform":
-						o := NewIcuTransformTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "phonetic":
-						o := NewPhoneticTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					case "dictionary_decompounder":
-						o := NewDictionaryDecompounderTokenFilter()
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
-					default:
-						o := new(any)
-						if err := localDec.Decode(&o); err != nil {
-							return err
-						}
-						s.Filter = append(s.Filter, *o)
+				case "asciifolding":
+					o := NewAsciiFoldingTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
 					}
+					s.Filter = append(s.Filter, *o)
+				case "common_grams":
+					o := NewCommonGramsTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "condition":
+					o := NewConditionTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "delimited_payload":
+					o := NewDelimitedPayloadTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "edge_ngram":
+					o := NewEdgeNGramTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "elision":
+					o := NewElisionTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "fingerprint":
+					o := NewFingerprintTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "hunspell":
+					o := NewHunspellTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "hyphenation_decompounder":
+					o := NewHyphenationDecompounderTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "keep_types":
+					o := NewKeepTypesTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "keep":
+					o := NewKeepWordsTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "keyword_marker":
+					o := NewKeywordMarkerTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "kstem":
+					o := NewKStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "length":
+					o := NewLengthTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "limit":
+					o := NewLimitTokenCountTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "lowercase":
+					o := NewLowercaseTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "multiplexer":
+					o := NewMultiplexerTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "ngram":
+					o := NewNGramTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "nori_part_of_speech":
+					o := NewNoriPartOfSpeechTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "pattern_capture":
+					o := NewPatternCaptureTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "pattern_replace":
+					o := NewPatternReplaceTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "porter_stem":
+					o := NewPorterStemTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "predicate_token_filter":
+					o := NewPredicateTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "remove_duplicates":
+					o := NewRemoveDuplicatesTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "reverse":
+					o := NewReverseTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "shingle":
+					o := NewShingleTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "snowball":
+					o := NewSnowballTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "stemmer_override":
+					o := NewStemmerOverrideTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "stemmer":
+					o := NewStemmerTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "stop":
+					o := NewStopTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "synonym_graph":
+					o := NewSynonymGraphTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "synonym":
+					o := NewSynonymTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "trim":
+					o := NewTrimTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "truncate":
+					o := NewTruncateTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "unique":
+					o := NewUniqueTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "uppercase":
+					o := NewUppercaseTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "word_delimiter_graph":
+					o := NewWordDelimiterGraphTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "word_delimiter":
+					o := NewWordDelimiterTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "kuromoji_stemmer":
+					o := NewKuromojiStemmerTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "kuromoji_readingform":
+					o := NewKuromojiReadingFormTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "kuromoji_part_of_speech":
+					o := NewKuromojiPartOfSpeechTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "icu_collation":
+					o := NewIcuCollationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "icu_folding":
+					o := NewIcuFoldingTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "icu_normalizer":
+					o := NewIcuNormalizationTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "icu_transform":
+					o := NewIcuTransformTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "phonetic":
+					o := NewPhoneticTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
+				case "dictionary_decompounder":
+					o := NewDictionaryDecompounderTokenFilter()
+					if err := localDec.Decode(&o); err != nil {
+						return err
+					}
+					s.Filter = append(s.Filter, *o)
 				default:
-					source := bytes.NewReader(rawMsg)
 					o := new(any)
-					if err := json.NewDecoder(source).Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Filter", err)
+					if err := localDec.Decode(&o); err != nil {
+						return err
 					}
 					s.Filter = append(s.Filter, *o)
 				}
@@ -460,108 +437,100 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			source := bytes.NewReader(rawMsg)
+			kind := make(map[string]string, 0)
 			localDec := json.NewDecoder(source)
-			switch rawMsg[0] {
-			case '{':
+			localDec.Decode(&kind)
+			source.Seek(0, io.SeekStart)
 
-				kind := make(map[string]string, 0)
-				localDec.Decode(&kind)
-				source.Seek(0, io.SeekStart)
+			switch kind["type"] {
 
-				switch kind["type"] {
-
-				case "char_group":
-					o := NewCharGroupTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "edge_ngram":
-					o := NewEdgeNGramTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "keyword":
-					o := NewKeywordTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "letter":
-					o := NewLetterTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "lowercase":
-					o := NewLowercaseTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "ngram":
-					o := NewNGramTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "nori_tokenizer":
-					o := NewNoriTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "path_hierarchy":
-					o := NewPathHierarchyTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "standard":
-					o := NewStandardTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "uax_url_email":
-					o := NewUaxEmailUrlTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "whitespace":
-					o := NewWhitespaceTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "kuromoji_tokenizer":
-					o := NewKuromojiTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "pattern":
-					o := NewPatternTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				case "icu_tokenizer":
-					o := NewIcuTokenizer()
-					if err := localDec.Decode(&o); err != nil {
-						return err
-					}
-					s.Tokenizer = *o
-				default:
-					if err := localDec.Decode(&s.Tokenizer); err != nil {
-						return err
-					}
+			case "char_group":
+				o := NewCharGroupTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
 				}
+				s.Tokenizer = *o
+			case "edge_ngram":
+				o := NewEdgeNGramTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "keyword":
+				o := NewKeywordTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "letter":
+				o := NewLetterTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "lowercase":
+				o := NewLowercaseTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "ngram":
+				o := NewNGramTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "nori_tokenizer":
+				o := NewNoriTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "path_hierarchy":
+				o := NewPathHierarchyTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "standard":
+				o := NewStandardTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "uax_url_email":
+				o := NewUaxEmailUrlTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "whitespace":
+				o := NewWhitespaceTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "kuromoji_tokenizer":
+				o := NewKuromojiTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "pattern":
+				o := NewPatternTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "icu_tokenizer":
+				o := NewIcuTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
 			default:
 				if err := localDec.Decode(&s.Tokenizer); err != nil {
-					return fmt.Errorf("%s | %w", "Tokenizer", err)
+					return err
 				}
 			}
 

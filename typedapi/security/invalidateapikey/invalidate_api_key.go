@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Invalidate API keys.
 // Invalidates one or more API keys.
 // The `manage_api_key` privilege allows deleting any API keys.
 // The `manage_own_api_key` only allows deleting API keys that are owned by the
@@ -82,6 +83,7 @@ func NewInvalidateApiKeyFunc(tp elastictransport.Interface) NewInvalidateApiKey 
 	}
 }
 
+// Invalidate API keys.
 // Invalidates one or more API keys.
 // The `manage_api_key` privilege allows deleting any API keys.
 // The `manage_own_api_key` only allows deleting API keys that are owned by the

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.15.0: DO NOT EDIT
+// Code generated from specification version 8.16.0: DO NOT EDIT
 
 package esapi
 
@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
@@ -57,6 +58,7 @@ type IndicesGetDataLifecycleRequest struct {
 
 	ExpandWildcards string
 	IncludeDefaults *bool
+	MasterTimeout   time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -113,6 +115,10 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 
 	if r.IncludeDefaults != nil {
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -204,6 +210,13 @@ func (f IndicesGetDataLifecycle) WithExpandWildcards(v string) func(*IndicesGetD
 func (f IndicesGetDataLifecycle) WithIncludeDefaults(v bool) func(*IndicesGetDataLifecycleRequest) {
 	return func(r *IndicesGetDataLifecycleRequest) {
 		r.IncludeDefaults = &v
+	}
+}
+
+// WithMasterTimeout - specify timeout for connection to master.
+func (f IndicesGetDataLifecycle) WithMasterTimeout(v time.Duration) func(*IndicesGetDataLifecycleRequest) {
+	return func(r *IndicesGetDataLifecycleRequest) {
+		r.MasterTimeout = v
 	}
 }
 

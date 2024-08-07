@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Get data frame analytics jobs.
 // Returns configuration and usage information about data frame analytics jobs.
 //
-// IMPORTANT: cat APIs are only intended for human consumption using the Kibana
+// CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get data frame analytics jobs statistics
 // API.
@@ -81,9 +82,10 @@ func NewMlDataFrameAnalyticsFunc(tp elastictransport.Interface) NewMlDataFrameAn
 	}
 }
 
+// Get data frame analytics jobs.
 // Returns configuration and usage information about data frame analytics jobs.
 //
-// IMPORTANT: cat APIs are only intended for human consumption using the Kibana
+// CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get data frame analytics jobs statistics
 // API.

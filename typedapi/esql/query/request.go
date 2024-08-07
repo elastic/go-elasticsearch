@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package query
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package query
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/esql/query/QueryRequest.ts#L24-L65
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/esql/query/QueryRequest.ts#L26-L89
 type Request struct {
 
 	// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
@@ -44,15 +44,27 @@ type Request struct {
 	// Params To avoid any attempts of hacking or code injection, extract the values in a
 	// separate list of parameters. Use question mark placeholders (?) in the query
 	// string for each of the parameters.
-	Params []types.ScalarValue `json:"params,omitempty"`
+	Params []types.FieldValue `json:"params,omitempty"`
+	// Profile If provided and `true` the response will include an extra `profile` object
+	// with information on how the query was executed. This information is for human
+	// debugging
+	// and its format can change at any time but it can give some insight into the
+	// performance
+	// of each part of the query.
+	Profile *bool `json:"profile,omitempty"`
 	// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
 	// runs it, and returns the results.
 	Query string `json:"query"`
+	// Tables Tables to use with the LOOKUP operation. The top level key is the table
+	// name and the next level key is the column name.
+	Tables map[string]map[string]types.TableValuesContainer `json:"tables,omitempty"`
 }
 
 // NewRequest returns a Request
 func NewRequest() *Request {
-	r := &Request{}
+	r := &Request{
+		Tables: make(map[string]map[string]types.TableValuesContainer, 0),
+	}
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // CompositeDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L176-L184
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L176-L184
 type CompositeDateHistogramAggregation struct {
 	// CalendarInterval Either `calendar_interval` or `fixed_interval` must be present
 	CalendarInterval *string `json:"calendar_interval,omitempty"`
@@ -49,7 +49,7 @@ type CompositeDateHistogramAggregation struct {
 	Offset        Duration                   `json:"offset,omitempty"`
 	Order         *sortorder.SortOrder       `json:"order,omitempty"`
 	// Script Either `field` or `script` must be present
-	Script    Script               `json:"script,omitempty"`
+	Script    *Script              `json:"script,omitempty"`
 	TimeZone  *string              `json:"time_zone,omitempty"`
 	ValueType *valuetype.ValueType `json:"value_type,omitempty"`
 }
@@ -126,39 +126,8 @@ func (s *CompositeDateHistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.Script); err != nil {
 				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
 			}
 
 		case "time_zone":

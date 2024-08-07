@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // VerifyIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/indices/recovery/types.ts#L111-L116
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/recovery/types.ts#L111-L116
 type VerifyIndex struct {
 	CheckIndexTime         Duration `json:"check_index_time,omitempty"`
 	CheckIndexTimeInMillis int64    `json:"check_index_time_in_millis"`

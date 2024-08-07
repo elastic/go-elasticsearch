@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanTermQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/span.ts#L113-L116
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/span.ts#L113-L116
 type SpanTermQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -51,7 +51,10 @@ func (s *SpanTermQuery) UnmarshalJSON(data []byte) error {
 			data = append(data, []byte{'"'}...)
 		}
 		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Value)
-		return err
+		if err != nil {
+			return err
+		}
+		return nil
 	}
 
 	dec := json.NewDecoder(bytes.NewReader(data))

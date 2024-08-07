@@ -16,22 +16,30 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Get index information.
 // Returns high-level information about indices in a cluster, including backing
 // indices for data streams.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use the get index API.
-// Use the cat indices API to get the following information for each index in a
-// cluster: shard count; document count; deleted document count; primary store
-// size; total store size of all shards, including shard replicas.
+//
+// Use this request to get the following information for each index in a
+// cluster:
+// - shard count
+// - document count
+// - deleted document count
+// - primary store size
+// - total store size of all shards, including shard replicas
+//
 // These metrics are retrieved directly from Lucene, which Elasticsearch uses
 // internally to power indexing and search. As a result, all document counts
 // include hidden nested documents.
 // To get an accurate count of Elasticsearch documents, use the cat count or
 // count APIs.
+//
+// CAT APIs are only intended for human consumption using the command line or
+// Kibana console.
+// They are not intended for use by applications. For application consumption,
+// use an index endpoint.
 package indices
 
 import (
@@ -91,20 +99,28 @@ func NewIndicesFunc(tp elastictransport.Interface) NewIndices {
 	}
 }
 
+// Get index information.
 // Returns high-level information about indices in a cluster, including backing
 // indices for data streams.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
-// line or Kibana console.
-// They are not intended for use by applications. For application consumption,
-// use the get index API.
-// Use the cat indices API to get the following information for each index in a
-// cluster: shard count; document count; deleted document count; primary store
-// size; total store size of all shards, including shard replicas.
+//
+// Use this request to get the following information for each index in a
+// cluster:
+// - shard count
+// - document count
+// - deleted document count
+// - primary store size
+// - total store size of all shards, including shard replicas
+//
 // These metrics are retrieved directly from Lucene, which Elasticsearch uses
 // internally to power indexing and search. As a result, all document counts
 // include hidden nested documents.
 // To get an accurate count of Elasticsearch documents, use the cat count or
 // count APIs.
+//
+// CAT APIs are only intended for human consumption using the command line or
+// Kibana console.
+// They are not intended for use by applications. For application consumption,
+// use an index endpoint.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-indices.html
 func New(tp elastictransport.Interface) *Indices {

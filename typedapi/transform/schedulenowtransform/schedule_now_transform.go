@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Schedules now a transform.
+// Schedule a transform to start now.
+// Instantly runs a transform to process data.
 //
 // If you _schedule_now a transform, it will process the new data instantly,
 // without waiting for the configured frequency interval. After _schedule_now
@@ -83,7 +84,8 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 	}
 }
 
-// Schedules now a transform.
+// Schedule a transform to start now.
+// Instantly runs a transform to process data.
 //
 // If you _schedule_now a transform, it will process the new data instantly,
 // without waiting for the configured frequency interval. After _schedule_now

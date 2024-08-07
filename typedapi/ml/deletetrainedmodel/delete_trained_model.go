@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Deletes an existing trained inference model that is currently not referenced
-// by an ingest pipeline.
+// Delete an unreferenced trained model.
+// The request deletes a trained inference model that is not referenced by an
+// ingest pipeline.
 package deletetrainedmodel
 
 import (
@@ -77,8 +78,9 @@ func NewDeleteTrainedModelFunc(tp elastictransport.Interface) NewDeleteTrainedMo
 	}
 }
 
-// Deletes an existing trained inference model that is currently not referenced
-// by an ingest pipeline.
+// Delete an unreferenced trained model.
+// The request deletes a trained inference model that is not referenced by an
+// ingest pipeline.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models.html
 func New(tp elastictransport.Interface) *DeleteTrainedModel {

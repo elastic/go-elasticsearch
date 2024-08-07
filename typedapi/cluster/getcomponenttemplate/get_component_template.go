@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Get component templates.
 // Retrieves information about component templates.
 package getcomponenttemplate
 
@@ -74,6 +75,7 @@ func NewGetComponentTemplateFunc(tp elastictransport.Interface) NewGetComponentT
 	}
 }
 
+// Get component templates.
 // Retrieves information about component templates.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-component-template.html

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Checks if a data stream, index, or alias exists.
+// Check indices.
+// Checks if one or more indices, index aliases, or data streams exist.
 package exists
 
 import (
@@ -75,7 +76,8 @@ func NewExistsFunc(tp elastictransport.Interface) NewExists {
 	}
 }
 
-// Checks if a data stream, index, or alias exists.
+// Check indices.
+// Checks if one or more indices, index aliases, or data streams exist.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-exists.html
 func New(tp elastictransport.Interface) *Exists {

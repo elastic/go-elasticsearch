@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Hit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/hits.ts#L40-L64
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/hits.ts#L40-L65
 type Hit struct {
 	Explanation_       *Explanation               `json:"_explanation,omitempty"`
 	Fields             map[string]json.RawMessage `json:"fields,omitempty"`
@@ -41,10 +41,11 @@ type Hit struct {
 	Ignored_           []string                   `json:"_ignored,omitempty"`
 	Index_             string                     `json:"_index"`
 	InnerHits          map[string]InnerHitsResult `json:"inner_hits,omitempty"`
-	MatchedQueries     []string                   `json:"matched_queries,omitempty"`
+	MatchedQueries     any                        `json:"matched_queries,omitempty"`
 	Nested_            *NestedIdentity            `json:"_nested,omitempty"`
 	Node_              *string                    `json:"_node,omitempty"`
 	PrimaryTerm_       *int64                     `json:"_primary_term,omitempty"`
+	Rank_              *int                       `json:"_rank,omitempty"`
 	Routing_           *string                    `json:"_routing,omitempty"`
 	Score_             *Float64                   `json:"_score,omitempty"`
 	SeqNo_             *int64                     `json:"_seq_no,omitempty"`
@@ -122,8 +123,24 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 			}
 
 		case "matched_queries":
-			if err := dec.Decode(&s.MatchedQueries); err != nil {
-				return fmt.Errorf("%s | %w", "MatchedQueries", err)
+
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			source := bytes.NewReader(rawMsg)
+			localDec := json.NewDecoder(source)
+			switch rawMsg[0] {
+			case '{':
+				o := make(map[string][]Float64, 0)
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "MatchedQueries", err)
+				}
+				s.MatchedQueries = o
+			case '[':
+				o := []string{}
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "MatchedQueries", err)
+				}
+				s.MatchedQueries = o
 			}
 
 		case "_nested":
@@ -156,6 +173,22 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.PrimaryTerm_ = &f
+			}
+
+		case "_rank":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Rank_", err)
+				}
+				s.Rank_ = &value
+			case float64:
+				f := int(v)
+				s.Rank_ = &f
 			}
 
 		case "_routing":

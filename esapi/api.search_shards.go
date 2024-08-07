@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.15.0: DO NOT EDIT
+// Code generated from specification version 8.16.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newSearchShardsFunc(t Transport) SearchShards {
@@ -56,6 +57,7 @@ type SearchShardsRequest struct {
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
 	Local             *bool
+	MasterTimeout     time.Duration
 	Preference        string
 	Routing           string
 
@@ -118,6 +120,10 @@ func (r SearchShardsRequest) Do(providedCtx context.Context, transport Transport
 
 	if r.Local != nil {
 		params["local"] = strconv.FormatBool(*r.Local)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Preference != "" {
@@ -238,6 +244,13 @@ func (f SearchShards) WithIgnoreUnavailable(v bool) func(*SearchShardsRequest) {
 func (f SearchShards) WithLocal(v bool) func(*SearchShardsRequest) {
 	return func(r *SearchShardsRequest) {
 		r.Local = &v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f SearchShards) WithMasterTimeout(v time.Duration) func(*SearchShardsRequest) {
+	return func(r *SearchShardsRequest) {
+		r.MasterTimeout = v
 	}
 }
 

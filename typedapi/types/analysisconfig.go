@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalysisConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/Analysis.ts#L29-L77
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Analysis.ts#L29-L77
 type AnalysisConfig struct {
 	// BucketSpan The size of the interval that the analysis is aggregated into, typically
 	// between `5m` and `1h`. This value should be either a whole number of days or
@@ -134,20 +134,36 @@ func (s *AnalysisConfig) UnmarshalJSON(data []byte) error {
 			}
 
 		case "categorization_analyzer":
-
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			source := bytes.NewReader(rawMsg)
-			localDec := json.NewDecoder(source)
-			switch rawMsg[0] {
-			case '{':
-				o := NewCategorizationAnalyzerDefinition()
-				if err := localDec.Decode(&o); err != nil {
-					return err
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
+				return fmt.Errorf("%s | %w", "CategorizationAnalyzer", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		categorizationanalyzer_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "CategorizationAnalyzer", err)
 				}
-				s.CategorizationAnalyzer = *o
 
-			default:
+				switch t {
+
+				case "char_filter", "filter", "tokenizer":
+					o := NewCategorizationAnalyzerDefinition()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "CategorizationAnalyzer", err)
+					}
+					s.CategorizationAnalyzer = o
+					break categorizationanalyzer_field
+
+				}
+			}
+			if s.CategorizationAnalyzer == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
 				if err := localDec.Decode(&s.CategorizationAnalyzer); err != nil {
 					return fmt.Errorf("%s | %w", "CategorizationAnalyzer", err)
 				}

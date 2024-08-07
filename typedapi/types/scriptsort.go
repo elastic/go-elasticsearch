@@ -16,17 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
 import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io"
-
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/scriptsorttype"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortmode"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sortorder"
@@ -34,89 +28,13 @@ import (
 
 // ScriptSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/sort.ts#L72-L78
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/sort.ts#L73-L79
 type ScriptSort struct {
 	Mode   *sortmode.SortMode             `json:"mode,omitempty"`
 	Nested *NestedSortValue               `json:"nested,omitempty"`
 	Order  *sortorder.SortOrder           `json:"order,omitempty"`
 	Script Script                         `json:"script"`
 	Type   *scriptsorttype.ScriptSortType `json:"type,omitempty"`
-}
-
-func (s *ScriptSort) UnmarshalJSON(data []byte) error {
-
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "mode":
-			if err := dec.Decode(&s.Mode); err != nil {
-				return fmt.Errorf("%s | %w", "Mode", err)
-			}
-
-		case "nested":
-			if err := dec.Decode(&s.Nested); err != nil {
-				return fmt.Errorf("%s | %w", "Nested", err)
-			}
-
-		case "order":
-			if err := dec.Decode(&s.Order); err != nil {
-				return fmt.Errorf("%s | %w", "Order", err)
-			}
-
-		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
-				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
-			}
-
-		case "type":
-			if err := dec.Decode(&s.Type); err != nil {
-				return fmt.Errorf("%s | %w", "Type", err)
-			}
-
-		}
-	}
-	return nil
 }
 
 // NewScriptSort returns a ScriptSort.

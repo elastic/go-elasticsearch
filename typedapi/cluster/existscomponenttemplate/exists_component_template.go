@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Returns information about whether a particular component template exist
+// Check component templates.
+// Returns information about whether a particular component template exists.
 package existscomponenttemplate
 
 import (
@@ -74,7 +75,8 @@ func NewExistsComponentTemplateFunc(tp elastictransport.Interface) NewExistsComp
 	}
 }
 
-// Returns information about whether a particular component template exist
+// Check component templates.
+// Returns information about whether a particular component template exists.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-component-template.html
 func New(tp elastictransport.Interface) *ExistsComponentTemplate {

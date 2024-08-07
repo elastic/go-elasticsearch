@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package putrole
 
@@ -26,6 +26,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
@@ -33,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/put_role/SecurityPutRoleRequest.ts#L30-L80
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/put_role/SecurityPutRoleRequest.ts#L30-L84
 type Request struct {
 
 	// Applications A list of application privilege entries.
@@ -41,6 +42,8 @@ type Request struct {
 	// Cluster A list of cluster privileges. These privileges define the cluster-level
 	// actions for users with this role.
 	Cluster []clusterprivilege.ClusterPrivilege `json:"cluster,omitempty"`
+	// Description Optional description of the role descriptor
+	Description *string `json:"description,omitempty"`
 	// Global An object defining global privileges. A global privilege is a form of cluster
 	// privilege that is request-aware. Support for global privileges is currently
 	// limited to the management of application privileges.
@@ -108,6 +111,18 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.Cluster); err != nil {
 				return fmt.Errorf("%s | %w", "Cluster", err)
 			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Description", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
 
 		case "global":
 			if s.Global == nil {

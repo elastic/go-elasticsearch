@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package getnode
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getnode
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/shutdown/get_node/ShutdownGetNodeResponse.ts#L23-L27
 type Response struct {
 	Nodes []types.NodeShutdownStatus `json:"nodes"`
 }

@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Run a script.
 // Runs a script and returns a result.
 package scriptspainlessexecute
 
@@ -73,6 +74,7 @@ func NewScriptsPainlessExecuteFunc(tp elastictransport.Interface) NewScriptsPain
 	}
 }
 
+// Run a script.
 // Runs a script and returns a result.
 //
 // https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-execute-api.html
@@ -358,7 +360,7 @@ func (r *ScriptsPainlessExecute) ContextSetup(contextsetup *types.PainlessContex
 
 // Script The Painless script to execute.
 // API name: script
-func (r *ScriptsPainlessExecute) Script(script *types.InlineScript) *ScriptsPainlessExecute {
+func (r *ScriptsPainlessExecute) Script(script *types.Script) *ScriptsPainlessExecute {
 
 	r.req.Script = script
 
