@@ -16,13 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Allows to copy documents from one index to another, optionally filtering the
-// source
-// documents by a query, changing the destination index settings, or fetching
-// the
-// documents from a remote cluster.
+// Reindex documents.
+// Copies documents from a source to a destination. The source can be any
+// existing index, alias, or data stream. The destination must differ from the
+// source. For example, you cannot reindex a data stream into itself.
 package reindex
 
 import (
@@ -78,11 +77,10 @@ func NewReindexFunc(tp elastictransport.Interface) NewReindex {
 	}
 }
 
-// Allows to copy documents from one index to another, optionally filtering the
-// source
-// documents by a query, changing the destination index settings, or fetching
-// the
-// documents from a remote cluster.
+// Reindex documents.
+// Copies documents from a source to a destination. The source can be any
+// existing index, alias, or data stream. The destination must differ from the
+// source. For example, you cannot reindex a data stream into itself.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html
 func New(tp elastictransport.Interface) *Reindex {
@@ -443,7 +441,8 @@ func (r *Reindex) MaxDocs(maxdocs int64) *Reindex {
 
 // Script The script to run to update the document source or metadata when reindexing.
 // API name: script
-func (r *Reindex) Script(script types.Script) *Reindex {
+func (r *Reindex) Script(script *types.Script) *Reindex {
+
 	r.req.Script = script
 
 	return r

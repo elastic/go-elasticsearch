@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/abstractions.ts#L102-L427
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/abstractions.ts#L102-L427
 type Query struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -249,9 +249,18 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 			}
 
 		case "distance_feature":
-			if err := dec.Decode(&s.DistanceFeature); err != nil {
+			var message json.RawMessage
+			err := dec.Decode(&message)
+			if err != nil {
+				return fmt.Errorf("%s | %w", "Range", err)
+			}
+
+			untyped := NewUntypedDistanceFeatureQuery()
+			err = json.Unmarshal(message, &untyped)
+			if err != nil {
 				return fmt.Errorf("%s | %w", "DistanceFeature", err)
 			}
+			s.DistanceFeature = untyped
 
 		case "exists":
 			if err := dec.Decode(&s.Exists); err != nil {
@@ -408,8 +417,19 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 			if s.Range == nil {
 				s.Range = make(map[string]RangeQuery, 0)
 			}
-			if err := dec.Decode(&s.Range); err != nil {
+			messages := make(map[string]json.RawMessage)
+			err := dec.Decode(&messages)
+			if err != nil {
 				return fmt.Errorf("%s | %w", "Range", err)
+			}
+
+			untyped := NewUntypedRangeQuery()
+			for key, message := range messages {
+				err := json.Unmarshal(message, &untyped)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Range", err)
+				}
+				s.Range[key] = untyped
 			}
 
 		case "rank_feature":

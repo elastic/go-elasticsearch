@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package msearch
 
@@ -33,7 +33,7 @@ import (
 
 // Response holds the response body struct for the package msearch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/msearch/MultiSearchResponse.ts#L25-L27
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/msearch/MultiSearchResponse.ts#L25-L27
 type Response struct {
 	Responses []types.MsearchResponseItem `json:"responses"`
 	Took      int64                       `json:"took"`
@@ -64,7 +64,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&messageArray); err != nil {
 				return fmt.Errorf("%s | %w", "Responses", err)
 			}
-		responses:
+		responses_field:
 			for _, message := range messageArray {
 				keyDec := json.NewDecoder(bytes.NewReader(message))
 				for {
@@ -85,7 +85,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 							return fmt.Errorf("%s | %w", "Responses", err)
 						}
 						s.Responses = append(s.Responses, o)
-						continue responses
+						continue responses_field
 
 					case "error":
 						o := types.NewErrorResponseBase()
@@ -94,10 +94,17 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 							return fmt.Errorf("%s | %w", "Responses", err)
 						}
 						s.Responses = append(s.Responses, o)
-						continue responses
+						continue responses_field
 
 					}
 				}
+
+				var o any
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Responses", err)
+				}
+				s.Responses = append(s.Responses, o)
 			}
 
 		case "took":

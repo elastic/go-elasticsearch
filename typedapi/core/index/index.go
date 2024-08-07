@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Index a document.
 // Adds a JSON document to the specified data stream or index and makes it
 // searchable.
 // If the target is an index and the document already exists, the request
@@ -90,6 +91,7 @@ func NewIndexFunc(tp elastictransport.Interface) NewIndex {
 	}
 }
 
+// Index a document.
 // Adds a JSON document to the specified data stream or index and makes it
 // searchable.
 // If the target is an index and the document already exists, the request

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 // Checks if the specified combination of method, API, parameters, and arbitrary
 // capabilities are supported
@@ -69,7 +69,7 @@ func NewCapabilitiesFunc(tp elastictransport.Interface) NewCapabilities {
 // Checks if the specified combination of method, API, parameters, and arbitrary
 // capabilities are supported
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/capabilities.html
+// https://github.com/elastic/elasticsearch/blob/main/rest-api-spec/src/yamlRestTest/resources/rest-api-spec/test/README.asciidoc#require-or-skip-api-capabilities
 func New(tp elastictransport.Interface) *Capabilities {
 	r := &Capabilities{
 		transport: tp,

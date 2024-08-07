@@ -16,17 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package get
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/async_search/get/AsyncSearchGetResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/async_search/get/AsyncSearchGetResponse.ts#L22-L24
 type Response struct {
 
 	// CompletionTime Indicates when the async search completed. Only present
@@ -55,4 +62,91 @@ type Response struct {
 func NewResponse() *Response {
 	r := &Response{}
 	return r
+}
+
+func (s *Response) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "completion_time":
+			if err := dec.Decode(&s.CompletionTime); err != nil {
+				return fmt.Errorf("%s | %w", "CompletionTime", err)
+			}
+
+		case "completion_time_in_millis":
+			if err := dec.Decode(&s.CompletionTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "CompletionTimeInMillis", err)
+			}
+
+		case "expiration_time":
+			if err := dec.Decode(&s.ExpirationTime); err != nil {
+				return fmt.Errorf("%s | %w", "ExpirationTime", err)
+			}
+
+		case "expiration_time_in_millis":
+			if err := dec.Decode(&s.ExpirationTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "ExpirationTimeInMillis", err)
+			}
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return fmt.Errorf("%s | %w", "Id", err)
+			}
+
+		case "is_partial":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IsPartial", err)
+				}
+				s.IsPartial = value
+			case bool:
+				s.IsPartial = v
+			}
+
+		case "is_running":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IsRunning", err)
+				}
+				s.IsRunning = value
+			case bool:
+				s.IsRunning = v
+			}
+
+		case "response":
+			if err := dec.Decode(&s.Response); err != nil {
+				return fmt.Errorf("%s | %w", "Response", err)
+			}
+
+		case "start_time":
+			if err := dec.Decode(&s.StartTime); err != nil {
+				return fmt.Errorf("%s | %w", "StartTime", err)
+			}
+
+		case "start_time_in_millis":
+			if err := dec.Decode(&s.StartTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "StartTimeInMillis", err)
+			}
+
+		}
+	}
+	return nil
 }

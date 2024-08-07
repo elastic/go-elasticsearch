@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Retrieves information for API keys in a paginated manner. You can optionally
-// filter the results with a query.
+// Query API keys.
+// Retrieves a paginated list of API keys and their information. You can
+// optionally filter the results with a query.
 package queryapikeys
 
 import (
@@ -74,8 +75,9 @@ func NewQueryApiKeysFunc(tp elastictransport.Interface) NewQueryApiKeys {
 	}
 }
 
-// Retrieves information for API keys in a paginated manner. You can optionally
-// filter the results with a query.
+// Query API keys.
+// Retrieves a paginated list of API keys and their information. You can
+// optionally filter the results with a query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html
 func New(tp elastictransport.Interface) *QueryApiKeys {

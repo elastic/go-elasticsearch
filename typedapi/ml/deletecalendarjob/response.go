@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package deletecalendarjob
 
@@ -31,7 +31,7 @@ import (
 
 // Response holds the response body struct for the package deletecalendarjob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/delete_calendar_job/MlDeleteCalendarJobResponse.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/delete_calendar_job/MlDeleteCalendarJobResponse.ts#L22-L31
 type Response struct {
 
 	// CalendarId A string that uniquely identifies a calendar.

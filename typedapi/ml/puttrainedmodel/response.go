@@ -16,18 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package puttrainedmodel
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/trainedmodeltype"
 )
 
 // Response holds the response body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
 type Response struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -76,4 +83,180 @@ func NewResponse() *Response {
 		DefaultFieldMap: make(map[string]string, 0),
 	}
 	return r
+}
+
+func (s *Response) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "compressed_definition":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "CompressedDefinition", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.CompressedDefinition = &o
+
+		case "create_time":
+			if err := dec.Decode(&s.CreateTime); err != nil {
+				return fmt.Errorf("%s | %w", "CreateTime", err)
+			}
+
+		case "created_by":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "CreatedBy", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.CreatedBy = &o
+
+		case "default_field_map":
+			if s.DefaultFieldMap == nil {
+				s.DefaultFieldMap = make(map[string]string, 0)
+			}
+			if err := dec.Decode(&s.DefaultFieldMap); err != nil {
+				return fmt.Errorf("%s | %w", "DefaultFieldMap", err)
+			}
+
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Description", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
+
+		case "estimated_heap_memory_usage_bytes":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "EstimatedHeapMemoryUsageBytes", err)
+				}
+				s.EstimatedHeapMemoryUsageBytes = &value
+			case float64:
+				f := int(v)
+				s.EstimatedHeapMemoryUsageBytes = &f
+			}
+
+		case "estimated_operations":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "EstimatedOperations", err)
+				}
+				s.EstimatedOperations = &value
+			case float64:
+				f := int(v)
+				s.EstimatedOperations = &f
+			}
+
+		case "fully_defined":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "FullyDefined", err)
+				}
+				s.FullyDefined = &value
+			case bool:
+				s.FullyDefined = &v
+			}
+
+		case "inference_config":
+			if err := dec.Decode(&s.InferenceConfig); err != nil {
+				return fmt.Errorf("%s | %w", "InferenceConfig", err)
+			}
+
+		case "input":
+			if err := dec.Decode(&s.Input); err != nil {
+				return fmt.Errorf("%s | %w", "Input", err)
+			}
+
+		case "license_level":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "LicenseLevel", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.LicenseLevel = &o
+
+		case "location":
+			if err := dec.Decode(&s.Location); err != nil {
+				return fmt.Errorf("%s | %w", "Location", err)
+			}
+
+		case "metadata":
+			if err := dec.Decode(&s.Metadata); err != nil {
+				return fmt.Errorf("%s | %w", "Metadata", err)
+			}
+
+		case "model_id":
+			if err := dec.Decode(&s.ModelId); err != nil {
+				return fmt.Errorf("%s | %w", "ModelId", err)
+			}
+
+		case "model_size_bytes":
+			if err := dec.Decode(&s.ModelSizeBytes); err != nil {
+				return fmt.Errorf("%s | %w", "ModelSizeBytes", err)
+			}
+
+		case "model_type":
+			if err := dec.Decode(&s.ModelType); err != nil {
+				return fmt.Errorf("%s | %w", "ModelType", err)
+			}
+
+		case "prefix_strings":
+			if err := dec.Decode(&s.PrefixStrings); err != nil {
+				return fmt.Errorf("%s | %w", "PrefixStrings", err)
+			}
+
+		case "tags":
+			if err := dec.Decode(&s.Tags); err != nil {
+				return fmt.Errorf("%s | %w", "Tags", err)
+			}
+
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return fmt.Errorf("%s | %w", "Version", err)
+			}
+
+		}
+	}
+	return nil
 }

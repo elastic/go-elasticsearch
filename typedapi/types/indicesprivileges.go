@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndicesPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/_types/Privileges.ts#L200-L224
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/_types/Privileges.ts#L197-L221
 type IndicesPrivileges struct {
 	// AllowRestrictedIndices Set to `true` if using wildcard or regular expressions for patterns that
 	// cover restricted indices. Implicitly, restricted indices have limited
@@ -112,8 +112,48 @@ func (s *IndicesPrivileges) UnmarshalJSON(data []byte) error {
 			}
 
 		case "query":
-			if err := dec.Decode(&s.Query); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Query", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		query_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Query", err)
+				}
+
+				switch t {
+
+				case "bool", "boosting", "combined_fields", "common", "constant_score", "dis_max", "distance_feature", "exists", "function_score", "fuzzy", "geo_bounding_box", "geo_distance", "geo_polygon", "geo_shape", "has_child", "has_parent", "ids", "intervals", "knn", "match", "match_all", "match_bool_prefix", "match_none", "match_phrase", "match_phrase_prefix", "more_like_this", "multi_match", "nested", "parent_id", "percolate", "pinned", "prefix", "query_string", "range", "rank_feature", "regexp", "rule", "script", "script_score", "semantic", "shape", "simple_query_string", "span_containing", "span_field_masking", "span_first", "span_multi", "span_near", "span_not", "span_or", "span_term", "span_within", "sparse_vector", "term", "terms", "terms_set", "text_expansion", "type", "weighted_tokens", "wildcard", "wrapper":
+					o := NewQuery()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Query", err)
+					}
+					s.Query = o
+					break query_field
+
+				case "template":
+					o := NewRoleTemplateQuery()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Query", err)
+					}
+					s.Query = o
+					break query_field
+
+				}
+			}
+			if s.Query == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Query); err != nil {
+					return fmt.Errorf("%s | %w", "Query", err)
+				}
 			}
 
 		}

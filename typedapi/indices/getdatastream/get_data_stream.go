@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Get data streams.
 // Retrieves information about one or more data streams.
 package getdatastream
 
@@ -75,6 +76,7 @@ func NewGetDataStreamFunc(tp elastictransport.Interface) NewGetDataStream {
 	}
 }
 
+// Get data streams.
 // Retrieves information about one or more data streams.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 // The role management APIs are generally the preferred way to manage roles,
 // rather than using file-based role management.
@@ -390,6 +390,15 @@ func (r *PutRole) Applications(applications ...types.ApplicationPrivileges) *Put
 // API name: cluster
 func (r *PutRole) Cluster(clusters ...clusterprivilege.ClusterPrivilege) *PutRole {
 	r.req.Cluster = clusters
+
+	return r
+}
+
+// Description Optional description of the role descriptor
+// API name: description
+func (r *PutRole) Description(description string) *PutRole {
+
+	r.req.Description = &description
 
 	return r
 }

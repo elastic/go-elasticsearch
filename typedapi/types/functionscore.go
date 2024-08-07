@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FunctionScore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/query_dsl/compound.ts#L210-L250
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/compound.ts#L213-L253
 type FunctionScore struct {
 	// Exp Function that scores a document with a exponential decay, depending on the
 	// distance of a numeric field value of the document from an origin.
@@ -75,9 +75,18 @@ func (s *FunctionScore) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "exp":
-			if err := dec.Decode(&s.Exp); err != nil {
+			var message json.RawMessage
+			err := dec.Decode(&message)
+			if err != nil {
+				return fmt.Errorf("%s | %w", "Range", err)
+			}
+
+			untyped := NewUntypedDecayFunction()
+			err = json.Unmarshal(message, &untyped)
+			if err != nil {
 				return fmt.Errorf("%s | %w", "Exp", err)
 			}
+			s.Exp = untyped
 
 		case "field_value_factor":
 			if err := dec.Decode(&s.FieldValueFactor); err != nil {
@@ -90,14 +99,32 @@ func (s *FunctionScore) UnmarshalJSON(data []byte) error {
 			}
 
 		case "gauss":
-			if err := dec.Decode(&s.Gauss); err != nil {
-				return fmt.Errorf("%s | %w", "Gauss", err)
+			var message json.RawMessage
+			err := dec.Decode(&message)
+			if err != nil {
+				return fmt.Errorf("%s | %w", "Range", err)
 			}
 
+			untyped := NewUntypedDecayFunction()
+			err = json.Unmarshal(message, &untyped)
+			if err != nil {
+				return fmt.Errorf("%s | %w", "Gauss", err)
+			}
+			s.Gauss = untyped
+
 		case "linear":
-			if err := dec.Decode(&s.Linear); err != nil {
+			var message json.RawMessage
+			err := dec.Decode(&message)
+			if err != nil {
+				return fmt.Errorf("%s | %w", "Range", err)
+			}
+
+			untyped := NewUntypedDecayFunction()
+			err = json.Unmarshal(message, &untyped)
+			if err != nil {
 				return fmt.Errorf("%s | %w", "Linear", err)
 			}
+			s.Linear = untyped
 
 		case "random_score":
 			if err := dec.Decode(&s.RandomScore); err != nil {

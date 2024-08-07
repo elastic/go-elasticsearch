@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -33,10 +33,11 @@ import (
 
 // IlmIndicatorDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/health_report/types.ts#L150-L153
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/health_report/types.ts#L151-L155
 type IlmIndicatorDetails struct {
-	IlmStatus lifecycleoperationmode.LifecycleOperationMode `json:"ilm_status"`
-	Policies  int64                                         `json:"policies"`
+	IlmStatus         lifecycleoperationmode.LifecycleOperationMode `json:"ilm_status"`
+	Policies          int64                                         `json:"policies"`
+	StagnatingIndices int                                           `json:"stagnating_indices"`
 }
 
 func (s *IlmIndicatorDetails) UnmarshalJSON(data []byte) error {
@@ -72,6 +73,22 @@ func (s *IlmIndicatorDetails) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.Policies = f
+			}
+
+		case "stagnating_indices":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "StagnatingIndices", err)
+				}
+				s.StagnatingIndices = value
+			case float64:
+				f := int(v)
+				s.StagnatingIndices = f
 			}
 
 		}

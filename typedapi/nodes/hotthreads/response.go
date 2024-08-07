@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package hotthreads
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package hotthreads
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/nodes/hot_threads/NodesHotThreadsResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/hot_threads/NodesHotThreadsResponse.ts#L22-L24
 type Response struct {
 	HotThreads []types.HotThread `json:"hot_threads"`
 }

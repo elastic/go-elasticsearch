@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package getrollupindexcaps
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getrollupindexcaps
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/rollup/get_rollup_index_caps/GetRollupIndexCapabilitiesResponse.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/rollup/get_rollup_index_caps/GetRollupIndexCapabilitiesResponse.ts#L24-L27
 
 type Response map[string]types.IndexCapabilities
 

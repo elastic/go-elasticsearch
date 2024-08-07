@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/TrainedModel.ts#L62-L102
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L62-L102
 type TrainedModelDeploymentStats struct {
 	// AllocationStatus The detailed allocation status for the deployment.
 	AllocationStatus TrainedModelDeploymentAllocationStatus `json:"allocation_status"`
@@ -48,7 +48,7 @@ type TrainedModelDeploymentStats struct {
 	ModelId string `json:"model_id"`
 	// Nodes The deployment stats for each node that currently has the model allocated.
 	// In serverless, stats are reported for a single unnamed virtual node.
-	Nodes TrainedModelDeploymentNodesStats `json:"nodes"`
+	Nodes []TrainedModelDeploymentNodesStats `json:"nodes"`
 	// NumberOfAllocations The number of allocations requested.
 	NumberOfAllocations int `json:"number_of_allocations"`
 	// QueueCapacity The number of inference requests that can be queued before new requests are

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Evaluates the data frame analytics for an annotated index.
+// Evaluate data frame analytics.
 // The API packages together commonly used evaluation metrics for various types
 // of machine learning features. This has been designed for use on indexes
 // created by data frame analytics. Evaluation requires both a ground truth
@@ -77,7 +77,7 @@ func NewEvaluateDataFrameFunc(tp elastictransport.Interface) NewEvaluateDataFram
 	}
 }
 
-// Evaluates the data frame analytics for an annotated index.
+// Evaluate data frame analytics.
 // The API packages together commonly used evaluation metrics for various types
 // of machine learning features. This has been designed for use on indexes
 // created by data frame analytics. Evaluation requires both a ground truth

@@ -16,21 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Retrieves information for Users using a subset of query DSL
+// Retrieves information for Users in a paginated manner. You can optionally
+// filter the results with a query.
 package queryuser
 
 import (
+	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -44,6 +49,10 @@ type QueryUser struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -65,7 +74,8 @@ func NewQueryUserFunc(tp elastictransport.Interface) NewQueryUser {
 	}
 }
 
-// Retrieves information for Users using a subset of query DSL
+// Retrieves information for Users in a paginated manner. You can optionally
+// filter the results with a query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
 func New(tp elastictransport.Interface) *QueryUser {
@@ -73,6 +83,10 @@ func New(tp elastictransport.Interface) *QueryUser {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -80,6 +94,21 @@ func New(tp elastictransport.Interface) *QueryUser {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *QueryUser) Raw(raw io.Reader) *QueryUser {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *QueryUser) Request(req *Request) *QueryUser {
+	r.req = req
 
 	return r
 }
@@ -92,6 +121,31 @@ func (r *QueryUser) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for QueryUser: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -182,13 +236,7 @@ func (r QueryUser) Perform(providedCtx context.Context) (*http.Response, error) 
 }
 
 // Do runs the request through the transport, handle the response and returns a queryuser.Response
-func (r QueryUser) Do(ctx context.Context) (bool, error) {
-	return r.IsSuccess(ctx)
-}
-
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r QueryUser) IsSuccess(providedCtx context.Context) (bool, error) {
+func (r QueryUser) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -199,35 +247,159 @@ func (r QueryUser) IsSuccess(providedCtx context.Context) (bool, error) {
 		ctx = providedCtx
 	}
 
+	response := NewResponse()
+
 	res, err := r.Perform(ctx)
-
 	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the QueryUser query execution, status code: %d", res.StatusCode)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
-		return false, err
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
 	}
 
-	return false, nil
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the QueryUser headers map.
 func (r *QueryUser) Header(key, value string) *QueryUser {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// WithProfileUid If true will return the User Profile ID for the users in the query result, if
+// any.
+// API name: with_profile_uid
+func (r *QueryUser) WithProfileUid(withprofileuid bool) *QueryUser {
+	r.values.Set("with_profile_uid", strconv.FormatBool(withprofileuid))
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *QueryUser) ErrorTrace(errortrace bool) *QueryUser {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *QueryUser) FilterPath(filterpaths ...string) *QueryUser {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *QueryUser) Human(human bool) *QueryUser {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *QueryUser) Pretty(pretty bool) *QueryUser {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// From Starting document offset.
+// By default, you cannot page through more than 10,000 hits using the from and
+// size parameters.
+// To page through more hits, use the `search_after` parameter.
+// API name: from
+func (r *QueryUser) From(from int) *QueryUser {
+	r.req.From = &from
+
+	return r
+}
+
+// Query A query to filter which users to return.
+// If the query parameter is missing, it is equivalent to a `match_all` query.
+// The query supports a subset of query types, including `match_all`, `bool`,
+// `term`, `terms`, `match`,
+// `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
+// You can query the following information associated with user: `username`,
+// `roles`, `enabled`
+// API name: query
+func (r *QueryUser) Query(query *types.UserQueryContainer) *QueryUser {
+
+	r.req.Query = query
+
+	return r
+}
+
+// SearchAfter Search after definition
+// API name: search_after
+func (r *QueryUser) SearchAfter(sortresults ...types.FieldValue) *QueryUser {
+	r.req.SearchAfter = sortresults
+
+	return r
+}
+
+// Size The number of hits to return.
+// By default, you cannot page through more than 10,000 hits using the `from`
+// and `size` parameters.
+// To page through more hits, use the `search_after` parameter.
+// API name: size
+func (r *QueryUser) Size(size int) *QueryUser {
+	r.req.Size = &size
+
+	return r
+}
+
+// Sort Fields eligible for sorting are: username, roles, enabled
+// In addition, sort can also be applied to the `_doc` field to sort by index
+// order.
+// API name: sort
+func (r *QueryUser) Sort(sorts ...types.SortCombinations) *QueryUser {
+	r.req.Sort = sorts
 
 	return r
 }

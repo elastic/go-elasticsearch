@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Updates a document with a script or partial document.
+// Update a document.
+// Updates a document by running a script or passing a partial document.
 package update
 
 import (
@@ -87,7 +88,8 @@ func NewUpdateFunc(tp elastictransport.Interface) NewUpdate {
 	}
 }
 
-// Updates a document with a script or partial document.
+// Update a document.
+// Updates a document by running a script or passing a partial document.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update.html
 func New(tp elastictransport.Interface) *Update {
@@ -519,7 +521,8 @@ func (r *Update) DocAsUpsert(docasupsert bool) *Update {
 
 // Script Script to execute to update the document.
 // API name: script
-func (r *Update) Script(script types.Script) *Update {
+func (r *Update) Script(script *types.Script) *Update {
+
 	r.req.Script = script
 
 	return r

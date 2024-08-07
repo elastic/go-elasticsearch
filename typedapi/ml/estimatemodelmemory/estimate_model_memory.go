@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Estimate job model memory usage.
 // Makes an estimation of the memory usage for an anomaly detection job model.
 // It is based on analysis configuration details for the job and cardinality
 // estimates for the fields it references.
@@ -75,6 +76,7 @@ func NewEstimateModelMemoryFunc(tp elastictransport.Interface) NewEstimateModelM
 	}
 }
 
+// Estimate job model memory usage.
 // Makes an estimation of the memory usage for an anomaly detection job model.
 // It is based on analysis configuration details for the job and cardinality
 // estimates for the fields it references.

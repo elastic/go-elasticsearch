@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -26,17 +26,16 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
 )
 
 // TrainedModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/TrainedModel.ts#L126-L131
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L126-L131
 type TrainedModelSizeStats struct {
 	// ModelSizeBytes The size of the model in bytes.
 	ModelSizeBytes ByteSize `json:"model_size_bytes"`
 	// RequiredNativeMemoryBytes The amount of memory required to load the model in bytes.
-	RequiredNativeMemoryBytes int `json:"required_native_memory_bytes"`
+	RequiredNativeMemoryBytes ByteSize `json:"required_native_memory_bytes"`
 }
 
 func (s *TrainedModelSizeStats) UnmarshalJSON(data []byte) error {
@@ -60,19 +59,8 @@ func (s *TrainedModelSizeStats) UnmarshalJSON(data []byte) error {
 			}
 
 		case "required_native_memory_bytes":
-
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "RequiredNativeMemoryBytes", err)
-				}
-				s.RequiredNativeMemoryBytes = value
-			case float64:
-				f := int(v)
-				s.RequiredNativeMemoryBytes = f
+			if err := dec.Decode(&s.RequiredNativeMemoryBytes); err != nil {
+				return fmt.Errorf("%s | %w", "RequiredNativeMemoryBytes", err)
 			}
 
 		}

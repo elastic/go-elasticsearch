@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package mget
 
@@ -32,7 +32,7 @@ import (
 
 // Response holds the response body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/mget/MultiGetResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/mget/MultiGetResponse.ts#L22-L26
 type Response struct {
 	Docs []types.MgetResponseItem `json:"docs"`
 }
@@ -62,7 +62,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&messageArray); err != nil {
 				return fmt.Errorf("%s | %w", "Docs", err)
 			}
-		docs:
+		docs_field:
 			for _, message := range messageArray {
 				keyDec := json.NewDecoder(bytes.NewReader(message))
 				for {
@@ -83,7 +83,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 							return fmt.Errorf("%s | %w", "Docs", err)
 						}
 						s.Docs = append(s.Docs, o)
-						continue docs
+						continue docs_field
 
 					case "error":
 						o := types.NewMultiGetError()
@@ -92,10 +92,17 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 							return fmt.Errorf("%s | %w", "Docs", err)
 						}
 						s.Docs = append(s.Docs, o)
-						continue docs
+						continue docs_field
 
 					}
 				}
+
+				var o any
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Docs", err)
+				}
+				s.Docs = append(s.Docs, o)
 			}
 
 		}

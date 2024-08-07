@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
-// Changes a dynamic index setting in real time. For data streams, index setting
+// Update index settings.
+// Changes dynamic index settings in real time. For data streams, index setting
 // changes are applied to all backing indices by default.
 package putsettings
 
@@ -82,7 +83,8 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 	}
 }
 
-// Changes a dynamic index setting in real time. For data streams, index setting
+// Update index settings.
+// Changes dynamic index settings in real time. For data streams, index setting
 // changes are applied to all backing indices by default.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html

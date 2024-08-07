@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
 package types
 
@@ -32,11 +32,11 @@ import (
 
 // SnowballTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/analysis/token_filters.ts#L311-L314
+// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L311-L314
 type SnowballTokenFilter struct {
-	Language snowballlanguage.SnowballLanguage `json:"language"`
-	Type     string                            `json:"type,omitempty"`
-	Version  *string                           `json:"version,omitempty"`
+	Language *snowballlanguage.SnowballLanguage `json:"language,omitempty"`
+	Type     string                             `json:"type,omitempty"`
+	Version  *string                            `json:"version,omitempty"`
 }
 
 func (s *SnowballTokenFilter) UnmarshalJSON(data []byte) error {

@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
 
+// Check for a document source.
 // Checks if a document's `_source` is stored.
 package existssource
 
@@ -80,6 +81,7 @@ func NewExistsSourceFunc(tp elastictransport.Interface) NewExistsSource {
 	}
 }
 
+// Check for a document source.
 // Checks if a document's `_source` is stored.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
