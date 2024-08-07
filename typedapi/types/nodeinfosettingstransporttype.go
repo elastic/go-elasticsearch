@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoSettingsTransportType type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/nodes/info/types.ts#L214-L217
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/nodes/info/types.ts#L214-L217
 type NodeInfoSettingsTransportType struct {
 	Default string `json:"default"`
 }
@@ -44,7 +44,10 @@ func (s *NodeInfoSettingsTransportType) UnmarshalJSON(data []byte) error {
 			data = append(data, []byte{'"'}...)
 		}
 		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Default)
-		return err
+		if err != nil {
+			return err
+		}
+		return nil
 	}
 
 	dec := json.NewDecoder(bytes.NewReader(data))

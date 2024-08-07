@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GeoDistanceAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L382-L405
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/aggregations/bucket.ts#L382-L405
 type GeoDistanceAggregation struct {
 	// DistanceType The distance calculation type.
 	DistanceType *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
@@ -73,8 +73,48 @@ func (s *GeoDistanceAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "origin":
-			if err := dec.Decode(&s.Origin); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Origin", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		origin_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Origin", err)
+				}
+
+				switch t {
+
+				case "lat", "lon":
+					o := NewLatLonGeoLocation()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Origin", err)
+					}
+					s.Origin = o
+					break origin_field
+
+				case "geohash":
+					o := NewGeoHashLocation()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Origin", err)
+					}
+					s.Origin = o
+					break origin_field
+
+				}
+			}
+			if s.Origin == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Origin); err != nil {
+					return fmt.Errorf("%s | %w", "Origin", err)
+				}
 			}
 
 		case "ranges":

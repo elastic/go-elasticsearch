@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // HistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L502-L548
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/aggregations/bucket.ts#L502-L548
 type HistogramAggregation struct {
 	// ExtendedBounds Enables extending the bounds of the histogram beyond the data itself.
 	ExtendedBounds *ExtendedBoundsdouble `json:"extended_bounds,omitempty"`
@@ -63,7 +63,7 @@ type HistogramAggregation struct {
 	// Order The sort order of the returned buckets.
 	// By default, the returned buckets are sorted by their key ascending.
 	Order  AggregateOrder `json:"order,omitempty"`
-	Script Script         `json:"script,omitempty"`
+	Script *Script        `json:"script,omitempty"`
 }
 
 func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
@@ -208,39 +208,8 @@ func (s *HistogramAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.Script); err != nil {
 				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
 			}
 
 		}

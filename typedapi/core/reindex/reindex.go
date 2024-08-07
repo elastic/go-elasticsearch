@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 // Allows to copy documents from one index to another, optionally filtering the
 // source
@@ -443,7 +443,8 @@ func (r *Reindex) MaxDocs(maxdocs int64) *Reindex {
 
 // Script The script to run to update the document source or metadata when reindexing.
 // API name: script
-func (r *Reindex) Script(script types.Script) *Reindex {
+func (r *Reindex) Script(script *types.Script) *Reindex {
+
 	r.req.Script = script
 
 	return r

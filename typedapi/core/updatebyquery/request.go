@@ -16,17 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package updatebyquery
 
 import (
-	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"io"
-	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conflicts"
@@ -34,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L221
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L221
 type Request struct {
 
 	// Conflicts What to do if update by query hits version conflicts: `abort` or `proceed`.
@@ -44,7 +40,7 @@ type Request struct {
 	// Query Specifies the documents to update using the Query DSL.
 	Query *types.Query `json:"query,omitempty"`
 	// Script The script to run to update the document source or metadata when updating.
-	Script types.Script `json:"script,omitempty"`
+	Script *types.Script `json:"script,omitempty"`
 	// Slice Slice the request manually using the provided slice ID and total number of
 	// slices.
 	Slice *types.SlicedScroll `json:"slice,omitempty"`
@@ -67,89 +63,4 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
-}
-
-func (s *Request) UnmarshalJSON(data []byte) error {
-	dec := json.NewDecoder(bytes.NewReader(data))
-
-	for {
-		t, err := dec.Token()
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return err
-		}
-
-		switch t {
-
-		case "conflicts":
-			if err := dec.Decode(&s.Conflicts); err != nil {
-				return fmt.Errorf("%s | %w", "Conflicts", err)
-			}
-
-		case "max_docs":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseInt(v, 10, 64)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "MaxDocs", err)
-				}
-				s.MaxDocs = &value
-			case float64:
-				f := int64(v)
-				s.MaxDocs = &f
-			}
-
-		case "query":
-			if err := dec.Decode(&s.Query); err != nil {
-				return fmt.Errorf("%s | %w", "Query", err)
-			}
-
-		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
-				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := types.NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := types.NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
-			}
-
-		case "slice":
-			if err := dec.Decode(&s.Slice); err != nil {
-				return fmt.Errorf("%s | %w", "Slice", err)
-			}
-
-		}
-	}
-	return nil
 }

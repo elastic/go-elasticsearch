@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 // Creates or updates a query rule within a query ruleset.
 package putrule
@@ -393,6 +393,13 @@ func (r *PutRule) Actions(actions *types.QueryRuleActions) *PutRule {
 // API name: criteria
 func (r *PutRule) Criteria(criteria ...types.QueryRuleCriteria) *PutRule {
 	r.req.Criteria = criteria
+
+	return r
+}
+
+// API name: priority
+func (r *PutRule) Priority(priority int) *PutRule {
+	r.req.Priority = &priority
 
 	return r
 }

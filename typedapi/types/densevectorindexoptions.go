@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,11 +31,12 @@ import (
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/mapping/DenseVectorIndexOptions.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/mapping/DenseVectorIndexOptions.ts#L22-L27
 type DenseVectorIndexOptions struct {
-	EfConstruction int    `json:"ef_construction"`
-	M              int    `json:"m"`
-	Type           string `json:"type"`
+	ConfidenceInterval *float32 `json:"confidence_interval,omitempty"`
+	EfConstruction     *int     `json:"ef_construction,omitempty"`
+	M                  *int     `json:"m,omitempty"`
+	Type               string   `json:"type"`
 }
 
 func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
@@ -53,6 +54,22 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "confidence_interval":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ConfidenceInterval", err)
+				}
+				f := float32(value)
+				s.ConfidenceInterval = &f
+			case float64:
+				f := float32(v)
+				s.ConfidenceInterval = &f
+			}
+
 		case "ef_construction":
 
 			var tmp any
@@ -63,10 +80,10 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "EfConstruction", err)
 				}
-				s.EfConstruction = value
+				s.EfConstruction = &value
 			case float64:
 				f := int(v)
-				s.EfConstruction = f
+				s.EfConstruction = &f
 			}
 
 		case "m":
@@ -79,10 +96,10 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "M", err)
 				}
-				s.M = value
+				s.M = &value
 			case float64:
 				f := int(v)
-				s.M = f
+				s.M = &f
 			}
 
 		case "type":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 // Returns search hits that match the query defined in the request.
 // You can provide search queries using the `q` query string parameter or the
@@ -441,6 +441,21 @@ func (r *Search) IgnoreThrottled(ignorethrottled bool) *Search {
 // API name: ignore_unavailable
 func (r *Search) IgnoreUnavailable(ignoreunavailable bool) *Search {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// IncludeNamedQueriesScore Indicates whether hit.matched_queries should be rendered as a map that
+// includes
+// the name of the matched query associated with its score (true)
+// or as an array containing the name of the matched queries (false)
+// This functionality reruns each named query on every hit in a search response.
+// Typically, this adds a small overhead to a request.
+// However, using computationally expensive named queries on a large number of
+// hits may add significant overhead.
+// API name: include_named_queries_score
+func (r *Search) IncludeNamedQueriesScore(includenamedqueriesscore bool) *Search {
+	r.values.Set("include_named_queries_score", strconv.FormatBool(includenamedqueriesscore))
 
 	return r
 }

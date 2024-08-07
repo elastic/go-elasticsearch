@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,10 +31,10 @@ import (
 
 // QueryRulesetListItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/query_rules/list_rulesets/types.ts#L23-L37
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/query_rules/list_rulesets/types.ts#L23-L37
 type QueryRulesetListItem struct {
 	// RuleCriteriaTypesCounts A map of criteria type to the number of rules of that type
-	RuleCriteriaTypesCounts map[string]string `json:"rule_criteria_types_counts"`
+	RuleCriteriaTypesCounts map[string]int `json:"rule_criteria_types_counts"`
 	// RuleTotalCount The number of rules associated with this ruleset
 	RuleTotalCount int `json:"rule_total_count"`
 	// RulesetId Ruleset unique identifier
@@ -58,7 +58,7 @@ func (s *QueryRulesetListItem) UnmarshalJSON(data []byte) error {
 
 		case "rule_criteria_types_counts":
 			if s.RuleCriteriaTypesCounts == nil {
-				s.RuleCriteriaTypesCounts = make(map[string]string, 0)
+				s.RuleCriteriaTypesCounts = make(map[string]int, 0)
 			}
 			if err := dec.Decode(&s.RuleCriteriaTypesCounts); err != nil {
 				return fmt.Errorf("%s | %w", "RuleCriteriaTypesCounts", err)
@@ -93,7 +93,7 @@ func (s *QueryRulesetListItem) UnmarshalJSON(data []byte) error {
 // NewQueryRulesetListItem returns a QueryRulesetListItem.
 func NewQueryRulesetListItem() *QueryRulesetListItem {
 	r := &QueryRulesetListItem{
-		RuleCriteriaTypesCounts: make(map[string]string, 0),
+		RuleCriteriaTypesCounts: make(map[string]int, 0),
 	}
 
 	return r

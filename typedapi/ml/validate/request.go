@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package validate
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package validate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/validate/MlValidateJobRequest.ts#L27-L44
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/ml/validate/MlValidateJobRequest.ts#L27-L44
 type Request struct {
 	AnalysisConfig             *types.AnalysisConfig  `json:"analysis_config,omitempty"`
 	AnalysisLimits             *types.AnalysisLimits  `json:"analysis_limits,omitempty"`

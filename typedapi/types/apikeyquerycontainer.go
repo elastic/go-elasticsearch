@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ApiKeyQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/security/query_api_keys/types.ts#L142-L206
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/security/query_api_keys/types.ts#L142-L206
 type ApiKeyQueryContainer struct {
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
@@ -118,8 +118,19 @@ func (s *ApiKeyQueryContainer) UnmarshalJSON(data []byte) error {
 			if s.Range == nil {
 				s.Range = make(map[string]RangeQuery, 0)
 			}
-			if err := dec.Decode(&s.Range); err != nil {
+			messages := make(map[string]json.RawMessage)
+			err := dec.Decode(&messages)
+			if err != nil {
 				return fmt.Errorf("%s | %w", "Range", err)
+			}
+
+			untyped := NewUntypedRangeQuery()
+			for key, message := range messages {
+				err := json.Unmarshal(message, &untyped)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Range", err)
+				}
+				s.Range[key] = untyped
 			}
 
 		case "simple_query_string":

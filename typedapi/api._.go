@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package typedapi
 
@@ -86,6 +86,32 @@ import (
 	cluster_reroute "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/reroute"
 	cluster_state "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/state"
 	cluster_stats "github.com/elastic/go-elasticsearch/v8/typedapi/cluster/stats"
+	connector_check_in "github.com/elastic/go-elasticsearch/v8/typedapi/connector/checkin"
+	connector_delete "github.com/elastic/go-elasticsearch/v8/typedapi/connector/delete"
+	connector_get "github.com/elastic/go-elasticsearch/v8/typedapi/connector/get"
+	connector_last_sync "github.com/elastic/go-elasticsearch/v8/typedapi/connector/lastsync"
+	connector_list "github.com/elastic/go-elasticsearch/v8/typedapi/connector/list"
+	connector_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/post"
+	connector_put "github.com/elastic/go-elasticsearch/v8/typedapi/connector/put"
+	connector_secret_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/secretpost"
+	connector_sync_job_cancel "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobcancel"
+	connector_sync_job_delete "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobdelete"
+	connector_sync_job_get "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobget"
+	connector_sync_job_list "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjoblist"
+	connector_sync_job_post "github.com/elastic/go-elasticsearch/v8/typedapi/connector/syncjobpost"
+	connector_update_active_filtering "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateactivefiltering"
+	connector_update_api_key_id "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateapikeyid"
+	connector_update_configuration "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateconfiguration"
+	connector_update_error "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateerror"
+	connector_update_filtering "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatefiltering"
+	connector_update_filtering_validation "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatefilteringvalidation"
+	connector_update_index_name "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateindexname"
+	connector_update_name "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatename"
+	connector_update_native "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatenative"
+	connector_update_pipeline "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatepipeline"
+	connector_update_scheduling "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatescheduling"
+	connector_update_service_type "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updateservicetype"
+	connector_update_status "github.com/elastic/go-elasticsearch/v8/typedapi/connector/updatestatus"
 	core_bulk "github.com/elastic/go-elasticsearch/v8/typedapi/core/bulk"
 	core_clear_scroll "github.com/elastic/go-elasticsearch/v8/typedapi/core/clearscroll"
 	core_close_point_in_time "github.com/elastic/go-elasticsearch/v8/typedapi/core/closepointintime"
@@ -358,6 +384,8 @@ import (
 	search_application_search "github.com/elastic/go-elasticsearch/v8/typedapi/searchapplication/search"
 	security_activate_user_profile "github.com/elastic/go-elasticsearch/v8/typedapi/security/activateuserprofile"
 	security_authenticate "github.com/elastic/go-elasticsearch/v8/typedapi/security/authenticate"
+	security_bulk_delete_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/bulkdeleterole"
+	security_bulk_put_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/bulkputrole"
 	security_bulk_update_api_keys "github.com/elastic/go-elasticsearch/v8/typedapi/security/bulkupdateapikeys"
 	security_change_password "github.com/elastic/go-elasticsearch/v8/typedapi/security/changepassword"
 	security_clear_api_key_cache "github.com/elastic/go-elasticsearch/v8/typedapi/security/clearapikeycache"
@@ -404,6 +432,7 @@ import (
 	security_put_role_mapping "github.com/elastic/go-elasticsearch/v8/typedapi/security/putrolemapping"
 	security_put_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/putuser"
 	security_query_api_keys "github.com/elastic/go-elasticsearch/v8/typedapi/security/queryapikeys"
+	security_query_role "github.com/elastic/go-elasticsearch/v8/typedapi/security/queryrole"
 	security_query_user "github.com/elastic/go-elasticsearch/v8/typedapi/security/queryuser"
 	security_saml_authenticate "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlauthenticate"
 	security_saml_complete_logout "github.com/elastic/go-elasticsearch/v8/typedapi/security/samlcompletelogout"
@@ -915,6 +944,88 @@ type Cluster struct {
 	// jvm versions, memory usage, cpu and installed plugins).
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-stats.html
 	Stats cluster_stats.NewStats
+}
+
+type Connector struct {
+	// Updates the last_seen field in the connector, and sets it to current
+	// timestamp
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/check-in-connector-api.html
+	CheckIn connector_check_in.NewCheckIn
+	// Deletes a connector.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-connector-api.html
+	Delete connector_delete.NewDelete
+	// Retrieves a connector.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-connector-api.html
+	Get connector_get.NewGet
+	// Updates last sync stats in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-last-sync-api.html
+	LastSync connector_last_sync.NewLastSync
+	// Returns existing connectors.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/list-connector-api.html
+	List connector_list.NewList
+	// Creates a connector.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/create-connector-api.html
+	Post connector_post.NewPost
+	// Creates or updates a connector.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/create-connector-api.html
+	Put connector_put.NewPut
+	// Creates a secret for a Connector.
+	//
+	SecretPost connector_secret_post.NewSecretPost
+	// Cancels a connector sync job.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/cancel-connector-sync-job-api.html
+	SyncJobCancel connector_sync_job_cancel.NewSyncJobCancel
+	// Deletes a connector sync job.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-connector-sync-job-api.html
+	SyncJobDelete connector_sync_job_delete.NewSyncJobDelete
+	// Retrieves a connector sync job.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-connector-sync-job-api.html
+	SyncJobGet connector_sync_job_get.NewSyncJobGet
+	// Lists connector sync jobs.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/list-connector-sync-jobs-api.html
+	SyncJobList connector_sync_job_list.NewSyncJobList
+	// Creates a connector sync job.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/create-connector-sync-job-api.html
+	SyncJobPost connector_sync_job_post.NewSyncJobPost
+	// Activates the valid draft filtering for a connector.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-api.html
+	UpdateActiveFiltering connector_update_active_filtering.NewUpdateActiveFiltering
+	// Updates the API key id in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-api-key-id-api.html
+	UpdateApiKeyId connector_update_api_key_id.NewUpdateApiKeyId
+	// Updates the configuration field in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-configuration-api.html
+	UpdateConfiguration connector_update_configuration.NewUpdateConfiguration
+	// Updates the filtering field in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-error-api.html
+	UpdateError connector_update_error.NewUpdateError
+	// Updates the filtering field in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-api.html
+	UpdateFiltering connector_update_filtering.NewUpdateFiltering
+	// Updates the draft filtering validation info for a connector.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-validation-api.html
+	UpdateFilteringValidation connector_update_filtering_validation.NewUpdateFilteringValidation
+	// Updates the index_name in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-index-name-api.html
+	UpdateIndexName connector_update_index_name.NewUpdateIndexName
+	// Updates the name and description fields in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-name-description-api.html
+	UpdateName connector_update_name.NewUpdateName
+	// Updates the is_native flag in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-native-api.html
+	UpdateNative connector_update_native.NewUpdateNative
+	// Updates the pipeline field in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-pipeline-api.html
+	UpdatePipeline connector_update_pipeline.NewUpdatePipeline
+	// Updates the scheduling field in the connector document
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-scheduling-api.html
+	UpdateScheduling connector_update_scheduling.NewUpdateScheduling
+	// Updates the service type of the connector
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-service-type-api.html
+	UpdateServiceType connector_update_service_type.NewUpdateServiceType
+	// Updates the status of the connector
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-status-api.html
+	UpdateStatus connector_update_status.NewUpdateStatus
 }
 
 type Core struct {
@@ -2250,6 +2361,18 @@ type Security struct {
 	// If the user cannot be authenticated, this API returns a 401 status code.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-authenticate.html
 	Authenticate security_authenticate.NewAuthenticate
+	// The role management APIs are generally the preferred way to manage roles,
+	// rather than using file-based role management.
+	// The bulk delete roles API cannot delete roles that are defined in roles
+	// files.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-delete-role.html
+	BulkDeleteRole security_bulk_delete_role.NewBulkDeleteRole
+	// The role management APIs are generally the preferred way to manage roles,
+	// rather than using file-based role management.
+	// The bulk create or update roles API cannot update roles that are defined in
+	// roles files.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-put-role.html
+	BulkPutRole security_bulk_put_role.NewBulkPutRole
 	// Updates the attributes of multiple existing API keys.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-bulk-update-api-keys.html
 	BulkUpdateApiKeys security_bulk_update_api_keys.NewBulkUpdateApiKeys
@@ -2447,7 +2570,12 @@ type Security struct {
 	// filter the results with a query.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-api-key.html
 	QueryApiKeys security_query_api_keys.NewQueryApiKeys
-	// Retrieves information for Users using a subset of query DSL
+	// Retrieves roles in a paginated manner. You can optionally filter the results
+	// with a query.
+	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-role.html
+	QueryRole security_query_role.NewQueryRole
+	// Retrieves information for Users in a paginated manner. You can optionally
+	// filter the results with a query.
 	// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
 	QueryUser security_query_user.NewQueryUser
 	// Submits a SAML Response message to Elasticsearch for consumption.
@@ -2880,6 +3008,7 @@ type API struct {
 	Cat                 Cat
 	Ccr                 Ccr
 	Cluster             Cluster
+	Connector           Connector
 	Core                Core
 	DanglingIndices     DanglingIndices
 	Enrich              Enrich
@@ -3179,6 +3308,36 @@ func New(tp elastictransport.Interface) *API {
 			Reroute:                      cluster_reroute.NewRerouteFunc(tp),
 			State:                        cluster_state.NewStateFunc(tp),
 			Stats:                        cluster_stats.NewStatsFunc(tp),
+		},
+
+		// Connector
+		Connector: Connector{
+			CheckIn:                   connector_check_in.NewCheckInFunc(tp),
+			Delete:                    connector_delete.NewDeleteFunc(tp),
+			Get:                       connector_get.NewGetFunc(tp),
+			LastSync:                  connector_last_sync.NewLastSyncFunc(tp),
+			List:                      connector_list.NewListFunc(tp),
+			Post:                      connector_post.NewPostFunc(tp),
+			Put:                       connector_put.NewPutFunc(tp),
+			SecretPost:                connector_secret_post.NewSecretPostFunc(tp),
+			SyncJobCancel:             connector_sync_job_cancel.NewSyncJobCancelFunc(tp),
+			SyncJobDelete:             connector_sync_job_delete.NewSyncJobDeleteFunc(tp),
+			SyncJobGet:                connector_sync_job_get.NewSyncJobGetFunc(tp),
+			SyncJobList:               connector_sync_job_list.NewSyncJobListFunc(tp),
+			SyncJobPost:               connector_sync_job_post.NewSyncJobPostFunc(tp),
+			UpdateActiveFiltering:     connector_update_active_filtering.NewUpdateActiveFilteringFunc(tp),
+			UpdateApiKeyId:            connector_update_api_key_id.NewUpdateApiKeyIdFunc(tp),
+			UpdateConfiguration:       connector_update_configuration.NewUpdateConfigurationFunc(tp),
+			UpdateError:               connector_update_error.NewUpdateErrorFunc(tp),
+			UpdateFiltering:           connector_update_filtering.NewUpdateFilteringFunc(tp),
+			UpdateFilteringValidation: connector_update_filtering_validation.NewUpdateFilteringValidationFunc(tp),
+			UpdateIndexName:           connector_update_index_name.NewUpdateIndexNameFunc(tp),
+			UpdateName:                connector_update_name.NewUpdateNameFunc(tp),
+			UpdateNative:              connector_update_native.NewUpdateNativeFunc(tp),
+			UpdatePipeline:            connector_update_pipeline.NewUpdatePipelineFunc(tp),
+			UpdateScheduling:          connector_update_scheduling.NewUpdateSchedulingFunc(tp),
+			UpdateServiceType:         connector_update_service_type.NewUpdateServiceTypeFunc(tp),
+			UpdateStatus:              connector_update_status.NewUpdateStatusFunc(tp),
 		},
 
 		// Core
@@ -3547,6 +3706,8 @@ func New(tp elastictransport.Interface) *API {
 		Security: Security{
 			ActivateUserProfile:         security_activate_user_profile.NewActivateUserProfileFunc(tp),
 			Authenticate:                security_authenticate.NewAuthenticateFunc(tp),
+			BulkDeleteRole:              security_bulk_delete_role.NewBulkDeleteRoleFunc(tp),
+			BulkPutRole:                 security_bulk_put_role.NewBulkPutRoleFunc(tp),
 			BulkUpdateApiKeys:           security_bulk_update_api_keys.NewBulkUpdateApiKeysFunc(tp),
 			ChangePassword:              security_change_password.NewChangePasswordFunc(tp),
 			ClearApiKeyCache:            security_clear_api_key_cache.NewClearApiKeyCacheFunc(tp),
@@ -3593,6 +3754,7 @@ func New(tp elastictransport.Interface) *API {
 			PutRoleMapping:              security_put_role_mapping.NewPutRoleMappingFunc(tp),
 			PutUser:                     security_put_user.NewPutUserFunc(tp),
 			QueryApiKeys:                security_query_api_keys.NewQueryApiKeysFunc(tp),
+			QueryRole:                   security_query_role.NewQueryRoleFunc(tp),
 			QueryUser:                   security_query_user.NewQueryUserFunc(tp),
 			SamlAuthenticate:            security_saml_authenticate.NewSamlAuthenticateFunc(tp),
 			SamlCompleteLogout:          security_saml_complete_logout.NewSamlCompleteLogoutFunc(tp),

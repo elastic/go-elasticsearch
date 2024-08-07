@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package executeretention
 
 // Response holds the response body struct for the package executeretention
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/slm/execute_retention/ExecuteRetentionResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/slm/execute_retention/ExecuteRetentionResponse.ts#L22-L24
 type Response struct {
 
 	// Acknowledged For a successful response, this value is always true. On failure, an

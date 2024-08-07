@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -33,15 +33,15 @@ import (
 
 // DiversifiedSamplerAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L322-L343
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/aggregations/bucket.ts#L322-L343
 type DiversifiedSamplerAggregation struct {
 	// ExecutionHint The type of value used for de-duplication.
 	ExecutionHint *sampleraggregationexecutionhint.SamplerAggregationExecutionHint `json:"execution_hint,omitempty"`
 	// Field The field used to provide values used for de-duplication.
 	Field *string `json:"field,omitempty"`
 	// MaxDocsPerValue Limits how many documents are permitted per choice of de-duplicating value.
-	MaxDocsPerValue *int   `json:"max_docs_per_value,omitempty"`
-	Script          Script `json:"script,omitempty"`
+	MaxDocsPerValue *int    `json:"max_docs_per_value,omitempty"`
+	Script          *Script `json:"script,omitempty"`
 	// ShardSize Limits how many top-scoring documents are collected in the sample processed
 	// on each shard.
 	ShardSize *int `json:"shard_size,omitempty"`
@@ -89,39 +89,8 @@ func (s *DiversifiedSamplerAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.Script); err != nil {
 				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
 			}
 
 		case "shard_size":

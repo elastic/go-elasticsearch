@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CompletionContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/suggester.ts#L235-L264
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_global/search/_types/suggester.ts#L235-L264
 type CompletionContext struct {
 	// Boost The factor by which the score of the suggestion should be boosted.
 	// The score is computed by multiplying the boost with the suggestion weight.
@@ -90,23 +90,8 @@ func (s *CompletionContext) UnmarshalJSON(data []byte) error {
 			}
 
 		case "context":
-
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			source := bytes.NewReader(rawMsg)
-			localDec := json.NewDecoder(source)
-			switch rawMsg[0] {
-			case '{':
-				o := new(GeoLocation)
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Context = *o
-
-			default:
-				if err := localDec.Decode(&s.Context); err != nil {
-					return fmt.Errorf("%s | %w", "Context", err)
-				}
+			if err := dec.Decode(&s.Context); err != nil {
+				return fmt.Errorf("%s | %w", "Context", err)
 			}
 
 		case "neighbours":

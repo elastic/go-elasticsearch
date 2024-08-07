@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package putsynonym
 
@@ -29,7 +29,7 @@ import (
 
 // Request holds the request body struct for the package putsynonym
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/synonyms/put_synonym/SynonymsPutRequest.ts#L23-L42
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/synonyms/put_synonym/SynonymsPutRequest.ts#L23-L42
 type Request struct {
 
 	// SynonymsSet The synonym set information to update

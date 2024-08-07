@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalyticsMemoryEstimation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/ml/_types/DataframeAnalytics.ts#L70-L75
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/ml/_types/DataframeAnalytics.ts#L70-L75
 type DataframeAnalyticsMemoryEstimation struct {
 	// ExpectedMemoryWithDisk Estimated memory usage under the assumption that overflowing to disk is
 	// allowed during data frame analytics. expected_memory_with_disk is usually

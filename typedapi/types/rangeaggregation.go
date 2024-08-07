@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RangeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L652-L672
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/aggregations/bucket.ts#L652-L672
 type RangeAggregation struct {
 	// Field The date field whose values are use to build ranges.
 	Field  *string `json:"field,omitempty"`
@@ -44,7 +44,7 @@ type RangeAggregation struct {
 	Missing *int `json:"missing,omitempty"`
 	// Ranges An array of ranges used to bucket documents.
 	Ranges []AggregationRange `json:"ranges,omitempty"`
-	Script Script             `json:"script,omitempty"`
+	Script *Script            `json:"script,omitempty"`
 }
 
 func (s *RangeAggregation) UnmarshalJSON(data []byte) error {
@@ -115,39 +115,8 @@ func (s *RangeAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "script":
-			message := json.RawMessage{}
-			if err := dec.Decode(&message); err != nil {
+			if err := dec.Decode(&s.Script); err != nil {
 				return fmt.Errorf("%s | %w", "Script", err)
-			}
-			keyDec := json.NewDecoder(bytes.NewReader(message))
-			for {
-				t, err := keyDec.Token()
-				if err != nil {
-					if errors.Is(err, io.EOF) {
-						break
-					}
-					return fmt.Errorf("%s | %w", "Script", err)
-				}
-
-				switch t {
-
-				case "lang", "options", "source":
-					o := NewInlineScript()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				case "id":
-					o := NewStoredScriptId()
-					localDec := json.NewDecoder(bytes.NewReader(message))
-					if err := localDec.Decode(&o); err != nil {
-						return fmt.Errorf("%s | %w", "Script", err)
-					}
-					s.Script = o
-
-				}
 			}
 
 		}

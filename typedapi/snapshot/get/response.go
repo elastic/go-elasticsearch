@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package get
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/snapshot/get/SnapshotGetResponse.ts#L25-L42
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/snapshot/get/SnapshotGetResponse.ts#L25-L42
 type Response struct {
 
 	// Remaining The number of remaining snapshots that were not returned due to size limits

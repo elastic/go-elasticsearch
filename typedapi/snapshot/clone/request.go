@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package clone
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package clone
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/snapshot/clone/SnapshotCloneRequest.ts#L24-L42
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/snapshot/clone/SnapshotCloneRequest.ts#L24-L42
 type Request struct {
 	Indices string `json:"indices"`
 }

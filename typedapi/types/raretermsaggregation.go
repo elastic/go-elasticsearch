@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RareTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_types/aggregations/bucket.ts#L689-L719
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_types/aggregations/bucket.ts#L689-L719
 type RareTermsAggregation struct {
 	// Exclude Terms that should be excluded from the aggregation.
 	Exclude []string `json:"exclude,omitempty"`
@@ -87,8 +87,39 @@ func (s *RareTermsAggregation) UnmarshalJSON(data []byte) error {
 			}
 
 		case "include":
-			if err := dec.Decode(&s.Include); err != nil {
+			message := json.RawMessage{}
+			if err := dec.Decode(&message); err != nil {
 				return fmt.Errorf("%s | %w", "Include", err)
+			}
+			keyDec := json.NewDecoder(bytes.NewReader(message))
+		include_field:
+			for {
+				t, err := keyDec.Token()
+				if err != nil {
+					if errors.Is(err, io.EOF) {
+						break
+					}
+					return fmt.Errorf("%s | %w", "Include", err)
+				}
+
+				switch t {
+
+				case "num_partitions", "partition":
+					o := NewTermsPartition()
+					localDec := json.NewDecoder(bytes.NewReader(message))
+					if err := localDec.Decode(&o); err != nil {
+						return fmt.Errorf("%s | %w", "Include", err)
+					}
+					s.Include = o
+					break include_field
+
+				}
+			}
+			if s.Include == nil {
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&s.Include); err != nil {
+					return fmt.Errorf("%s | %w", "Include", err)
+				}
 			}
 
 		case "max_doc_count":

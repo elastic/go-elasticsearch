@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MultiSearchResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/msearch/types.ts#L203-L206
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_global/msearch/types.ts#L203-L206
 type MultiSearchResult struct {
 	Responses []MsearchResponseItem `json:"responses"`
 	Took      int64                 `json:"took"`
@@ -57,7 +57,7 @@ func (s *MultiSearchResult) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&messageArray); err != nil {
 				return fmt.Errorf("%s | %w", "Responses", err)
 			}
-		responses:
+		responses_field:
 			for _, message := range messageArray {
 				keyDec := json.NewDecoder(bytes.NewReader(message))
 				for {
@@ -78,7 +78,7 @@ func (s *MultiSearchResult) UnmarshalJSON(data []byte) error {
 							return fmt.Errorf("%s | %w", "Responses", err)
 						}
 						s.Responses = append(s.Responses, o)
-						continue responses
+						continue responses_field
 
 					case "error":
 						o := NewErrorResponseBase()
@@ -87,10 +87,17 @@ func (s *MultiSearchResult) UnmarshalJSON(data []byte) error {
 							return fmt.Errorf("%s | %w", "Responses", err)
 						}
 						s.Responses = append(s.Responses, o)
-						continue responses
+						continue responses_field
 
 					}
 				}
+
+				var o any
+				localDec := json.NewDecoder(bytes.NewReader(message))
+				if err := localDec.Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Responses", err)
+				}
+				s.Responses = append(s.Responses, o)
 			}
 
 		case "took":

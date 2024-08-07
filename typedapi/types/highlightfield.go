@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/cdb84fa39f1401846dab6e1c76781fb3090527ed
+// https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10
 
 package types
 
@@ -37,7 +37,7 @@ import (
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/cdb84fa39f1401846dab6e1c76781fb3090527ed/specification/_global/search/_types/highlighting.ts#L193-L197
+// https://github.com/elastic/elasticsearch-specification/blob/19027dbdd366978ccae41842a040a636730e7c10/specification/_global/search/_types/highlighting.ts#L193-L197
 type HighlightField struct {
 	Analyzer Analyzer `json:"analyzer,omitempty"`
 	// BoundaryChars A string that contains each boundary character.
