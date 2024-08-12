@@ -1,6 +1,7 @@
 module github.com/elastic/go-elasticsearch/v8/_examples/bulk/kafka
 
 go 1.21
+
 toolchain go1.21.0
 
 replace github.com/elastic/go-elasticsearch/v8 => ../../..
@@ -8,11 +9,12 @@ replace github.com/elastic/go-elasticsearch/v8 => ../../..
 require (
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210817150010-57d659deaca7
 	github.com/segmentio/kafka-go v0.4.25
-	go.elastic.co/apm v1.14.0
+	go.elastic.co/apm v1.15.0
 )
 
 require (
 	github.com/armon/go-radix v1.0.0 // indirect
+	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/elastic/elastic-transport-go/v8 v8.6.0 // indirect
 	github.com/elastic/go-licenser v0.3.1 // indirect
 	github.com/elastic/go-sysinfo v1.1.1 // indirect
@@ -27,6 +29,8 @@ require (
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/prometheus/procfs v0.0.3 // indirect
 	github.com/santhosh-tekuri/jsonschema v1.2.4 // indirect
+	go.elastic.co/apm/module/apmelasticsearch v1.15.0 // indirect
+	go.elastic.co/apm/module/apmhttp v1.15.0 // indirect
 	go.elastic.co/fastjson v1.1.0 // indirect
 	go.opentelemetry.io/otel v1.28.0 // indirect
 	go.opentelemetry.io/otel/metric v1.28.0 // indirect
