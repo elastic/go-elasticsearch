@@ -263,7 +263,10 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 	}
 
 	if len(urls) == 0 {
-		u, _ := url.Parse(defaultURL) // errcheck exclude
+		u, err := url.Parse(defaultURL)
+		if err != nil {
+			return nil, fmt.Errorf("cannot parse default URL: %v", err)
+		}
 		urls = append(urls, u)
 	}
 
@@ -434,7 +437,7 @@ func addrsToURLs(addrs []string) ([]*url.URL, error) {
 	for _, addr := range addrs {
 		u, err := url.Parse(strings.TrimRight(addr, "/"))
 		if err != nil {
-			return nil, fmt.Errorf("cannot parse url: %v", err)
+			return nil, fmt.Errorf("cannot parse URL: %v", err)
 		}
 
 		urls = append(urls, u)
