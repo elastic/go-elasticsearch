@@ -138,7 +138,7 @@ type BaseClient struct {
 	compatibilityHeader bool
 
 	disableMetaHeader   bool
-	productCheckMu      sync.RWMutex
+	productCheckMu      *sync.RWMutex
 	productCheckSuccess bool
 }
 
@@ -190,6 +190,7 @@ func NewClient(cfg Config) (*Client, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          initMetaHeader(tp),
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+			productCheckMu:      new(sync.RWMutex),
 		},
 	}
 	client.API = esapi.New(client)
@@ -223,6 +224,7 @@ func NewTypedClient(cfg Config) (*TypedClient, error) {
 			disableMetaHeader:   cfg.DisableMetaHeader,
 			metaHeader:          metaHeader,
 			compatibilityHeader: cfg.EnableCompatibilityMode || compatibilityHeader,
+			productCheckMu:      new(sync.RWMutex),
 		},
 	}
 	client.API = typedapi.New(client)
