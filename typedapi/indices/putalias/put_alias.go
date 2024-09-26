@@ -180,23 +180,6 @@ func (r *PutAlias) HttpRequest(ctx context.Context) (*http.Request, error) {
 		path.WriteString(r.name)
 
 		method = http.MethodPut
-	case r.paramSet == indexMask|nameMask:
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "index", r.index)
-		}
-		path.WriteString(r.index)
-		path.WriteString("/")
-		path.WriteString("_aliases")
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "name", r.name)
-		}
-		path.WriteString(r.name)
-
-		method = http.MethodPut
 	}
 
 	r.path.Path = path.String()

@@ -171,23 +171,6 @@ func (r *InferTrainedModel) HttpRequest(ctx context.Context) (*http.Request, err
 		path.WriteString("_infer")
 
 		method = http.MethodPost
-	case r.paramSet == modelidMask:
-		path.WriteString("/")
-		path.WriteString("_ml")
-		path.WriteString("/")
-		path.WriteString("trained_models")
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "modelid", r.modelid)
-		}
-		path.WriteString(r.modelid)
-		path.WriteString("/")
-		path.WriteString("deployment")
-		path.WriteString("/")
-		path.WriteString("_infer")
-
-		method = http.MethodPost
 	}
 
 	r.path.Path = path.String()
