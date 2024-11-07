@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package getmodelsnapshots
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package getmodelsnapshots
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L96
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ml/get_model_snapshots/MlGetModelSnapshotsRequest.ts#L26-L97
 type Request struct {
 
 	// Desc Refer to the description for the `desc` query parameter.

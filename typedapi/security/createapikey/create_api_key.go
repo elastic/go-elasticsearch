@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 // Create an API key.
-// Creates an API key for access without requiring basic authentication.
+//
+// Create an API key for access without requiring basic authentication.
 // A successful request returns a JSON structure that contains the API key, its
 // unique id, and its name.
 // If applicable, it also returns expiration information for the API key in
@@ -82,7 +83,8 @@ func NewCreateApiKeyFunc(tp elastictransport.Interface) NewCreateApiKey {
 }
 
 // Create an API key.
-// Creates an API key for access without requiring basic authentication.
+//
+// Create an API key for access without requiring basic authentication.
 // A successful request returns a JSON structure that contains the API key, its
 // unique id, and its name.
 // If applicable, it also returns expiration information for the API key in

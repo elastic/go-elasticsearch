@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KeywordMarkerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L233-L239
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/_types/analysis/token_filters.ts#L232-L238
 type KeywordMarkerTokenFilter struct {
 	IgnoreCase      *bool    `json:"ignore_case,omitempty"`
 	Keywords        []string `json:"keywords,omitempty"`
@@ -71,8 +71,19 @@ func (s *KeywordMarkerTokenFilter) UnmarshalJSON(data []byte) error {
 			}
 
 		case "keywords":
-			if err := dec.Decode(&s.Keywords); err != nil {
-				return fmt.Errorf("%s | %w", "Keywords", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Keywords", err)
+				}
+
+				s.Keywords = append(s.Keywords, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Keywords); err != nil {
+					return fmt.Errorf("%s | %w", "Keywords", err)
+				}
 			}
 
 		case "keywords_path":

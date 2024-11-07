@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CommonCatQueryParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_spec_utils/behaviors.ts#L86-L132
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/_spec_utils/behaviors.ts#L86-L132
 type CommonCatQueryParameters struct {
 	// Format Specifies the format to return the columnar data in, can be set to
 	// `text`, `json`, `cbor`, `yaml`, or `smile`.

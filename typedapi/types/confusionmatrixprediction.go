@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ConfusionMatrixPrediction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/evaluate_data_frame/types.ts#L132-L135
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ml/evaluate_data_frame/types.ts#L132-L135
 type ConfusionMatrixPrediction struct {
 	Count          int    `json:"count"`
 	PredictedClass string `json:"predicted_class"`

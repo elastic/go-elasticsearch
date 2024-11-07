@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Retrieves anomaly detection job results for one or more influencers.
+// Get anomaly detection job results for influencers.
 // Influencers are the entities that have contributed to, or are to blame for,
 // the anomalies. Influencer results are available only if an
 // `influencer_field_name` is specified in the job configuration.
@@ -84,7 +84,7 @@ func NewGetInfluencersFunc(tp elastictransport.Interface) NewGetInfluencers {
 	}
 }
 
-// Retrieves anomaly detection job results for one or more influencers.
+// Get anomaly detection job results for influencers.
 // Influencers are the entities that have contributed to, or are to blame for,
 // the anomalies. Influencer results are available only if an
 // `influencer_field_name` is specified in the job configuration.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceConfigRegression type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L760-L771
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ingest/_types/Processors.ts#L1022-L1033
 type InferenceConfigRegression struct {
 	// NumTopFeatureImportanceValues Specifies the maximum number of feature importance values per document.
 	NumTopFeatureImportanceValues *int `json:"num_top_feature_importance_values,omitempty"`

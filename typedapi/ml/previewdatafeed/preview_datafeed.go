@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Previews a datafeed.
+// Preview a datafeed.
 // This API returns the first "page" of search results from a datafeed.
 // You can preview an existing datafeed or provide configuration details for a
 // datafeed
@@ -92,7 +92,7 @@ func NewPreviewDatafeedFunc(tp elastictransport.Interface) NewPreviewDatafeed {
 	}
 }
 
-// Previews a datafeed.
+// Preview a datafeed.
 // This API returns the first "page" of search results from a datafeed.
 // You can preview an existing datafeed or provide configuration details for a
 // datafeed

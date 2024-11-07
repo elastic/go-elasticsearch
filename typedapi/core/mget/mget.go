@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Allows to get multiple documents in one request.
+// Get multiple documents.
+//
+// Get multiple JSON documents by ID from one or more indices.
+// If you specify an index in the request URI, you only need to specify the
+// document IDs in the request body.
+// To ensure fast responses, this multi get (mget) API responds with partial
+// results if one or more shards fail.
 package mget
 
 import (
@@ -79,7 +85,13 @@ func NewMgetFunc(tp elastictransport.Interface) NewMget {
 	}
 }
 
-// Allows to get multiple documents in one request.
+// Get multiple documents.
+//
+// Get multiple JSON documents by ID from one or more indices.
+// If you specify an index in the request URI, you only need to specify the
+// document IDs in the request body.
+// To ensure fast responses, this multi get (mget) API responds with partial
+// results if one or more shards fail.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-multi-get.html
 func New(tp elastictransport.Interface) *Mget {

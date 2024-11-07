@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package getmapping
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getmapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/get_mapping/IndicesGetMappingResponse.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/indices/get_mapping/IndicesGetMappingResponse.ts#L24-L27
 
 type Response map[string]types.IndexMappingRecord
 

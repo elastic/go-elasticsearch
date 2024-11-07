@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalysisFeatureProcessorNGramEncoding type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeAnalytics.ts#L274-L286
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ml/_types/DataframeAnalytics.ts#L273-L285
 type DataframeAnalysisFeatureProcessorNGramEncoding struct {
 	Custom *bool `json:"custom,omitempty"`
 	// FeaturePrefix The feature name prefix. Defaults to ngram_<start>_<length>.

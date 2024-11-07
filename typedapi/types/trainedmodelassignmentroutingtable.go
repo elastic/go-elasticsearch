@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // TrainedModelAssignmentRoutingTable type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L374-L392
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ml/_types/TrainedModel.ts#L370-L388
 type TrainedModelAssignmentRoutingTable struct {
 	// CurrentAllocations Current number of allocations.
 	CurrentAllocations int `json:"current_allocations"`

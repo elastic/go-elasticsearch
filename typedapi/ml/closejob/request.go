@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package closejob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package closejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/close_job/MlCloseJobRequest.ts#L24-L77
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ml/close_job/MlCloseJobRequest.ts#L24-L78
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.

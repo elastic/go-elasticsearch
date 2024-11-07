@@ -16,46 +16,62 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Package deploymentstate
-package deploymentstate
+// Package sqlformat
+package sqlformat
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L274-L287
-type DeploymentState struct {
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/sql/query/QuerySqlRequest.ts#L124-L132
+type SqlFormat struct {
 	Name string
 }
 
 var (
-	Started = DeploymentState{"started"}
+	Csv = SqlFormat{"csv"}
 
-	Starting = DeploymentState{"starting"}
+	Json = SqlFormat{"json"}
 
-	Stopping = DeploymentState{"stopping"}
+	Tsv = SqlFormat{"tsv"}
+
+	Txt = SqlFormat{"txt"}
+
+	Yaml = SqlFormat{"yaml"}
+
+	Cbor = SqlFormat{"cbor"}
+
+	Smile = SqlFormat{"smile"}
 )
 
-func (d DeploymentState) MarshalText() (text []byte, err error) {
-	return []byte(d.String()), nil
+func (s SqlFormat) MarshalText() (text []byte, err error) {
+	return []byte(s.String()), nil
 }
 
-func (d *DeploymentState) UnmarshalText(text []byte) error {
+func (s *SqlFormat) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "started":
-		*d = Started
-	case "starting":
-		*d = Starting
-	case "stopping":
-		*d = Stopping
+	case "csv":
+		*s = Csv
+	case "json":
+		*s = Json
+	case "tsv":
+		*s = Tsv
+	case "txt":
+		*s = Txt
+	case "yaml":
+		*s = Yaml
+	case "cbor":
+		*s = Cbor
+	case "smile":
+		*s = Smile
 	default:
-		*d = DeploymentState{string(text)}
+		*s = SqlFormat{string(text)}
 	}
 
 	return nil
 }
 
-func (d DeploymentState) String() string {
-	return d.Name
+func (s SqlFormat) String() string {
+	return s.Name
 }

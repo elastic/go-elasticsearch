@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Deletes a service account token.
+// Delete service account tokens.
+//
+// Delete service account tokens for a service in a specified namespace.
 package deleteservicetoken
 
 import (
@@ -87,7 +89,9 @@ func NewDeleteServiceTokenFunc(tp elastictransport.Interface) NewDeleteServiceTo
 	}
 }
 
-// Deletes a service account token.
+// Delete service account tokens.
+//
+// Delete service account tokens for a service in a specified namespace.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-service-token.html
 func New(tp elastictransport.Interface) *DeleteServiceToken {

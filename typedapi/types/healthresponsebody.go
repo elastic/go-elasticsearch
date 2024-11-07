@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // HealthResponseBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/health/ClusterHealthResponse.ts#L39-L72
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/cluster/health/ClusterHealthResponse.ts#L39-L74
 type HealthResponseBody struct {
 	// ActivePrimaryShards The number of active primary shards.
 	ActivePrimaryShards int `json:"active_primary_shards"`
@@ -68,6 +68,8 @@ type HealthResponseBody struct {
 	// TimedOut If false the response returned within the period of time that is specified by
 	// the timeout parameter (30s by default)
 	TimedOut bool `json:"timed_out"`
+	// UnassignedPrimaryShards The number of primary shards that are not allocated.
+	UnassignedPrimaryShards int `json:"unassigned_primary_shards"`
 	// UnassignedShards The number of shards that are not allocated.
 	UnassignedShards int `json:"unassigned_shards"`
 }
@@ -276,6 +278,22 @@ func (s *HealthResponseBody) UnmarshalJSON(data []byte) error {
 				s.TimedOut = value
 			case bool:
 				s.TimedOut = v
+			}
+
+		case "unassigned_primary_shards":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "UnassignedPrimaryShards", err)
+				}
+				s.UnassignedPrimaryShards = value
+			case float64:
+				f := int(v)
+				s.UnassignedPrimaryShards = f
 			}
 
 		case "unassigned_shards":

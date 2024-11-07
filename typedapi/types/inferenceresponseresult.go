@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceResponseResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/inference.ts#L459-L506
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ml/_types/inference.ts#L459-L507
 type InferenceResponseResult struct {
 	// Entities If the model is trained for named entity recognition (NER) tasks, the
 	// response contains the recognized entities.
@@ -55,7 +55,7 @@ type InferenceResponseResult struct {
 	// For regression models, its a numerical value
 	// For classification models, it may be an integer, double, boolean or string
 	// depending on prediction type
-	PredictedValue []PredictedValue `json:"predicted_value,omitempty"`
+	PredictedValue [][]ScalarValue `json:"predicted_value,omitempty"`
 	// PredictedValueSequence For fill mask tasks, the response contains the input text sequence with the
 	// mask token replaced by the predicted
 	// value.
@@ -116,7 +116,7 @@ func (s *InferenceResponseResult) UnmarshalJSON(data []byte) error {
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
 			if !bytes.HasPrefix(rawMsg, []byte("[")) {
-				o := new(PredictedValue)
+				o := new([]ScalarValue)
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "PredictedValue", err)
 				}

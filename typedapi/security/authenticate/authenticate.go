@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 // Authenticate a user.
+//
 // Authenticates a user and returns information about the authenticated user.
 // Include the user information in a [basic auth
 // header](https://en.wikipedia.org/wiki/Basic_access_authentication).
@@ -77,6 +78,7 @@ func NewAuthenticateFunc(tp elastictransport.Interface) NewAuthenticate {
 }
 
 // Authenticate a user.
+//
 // Authenticates a user and returns information about the authenticated user.
 // Include the user information in a [basic auth
 // header](https://en.wikipedia.org/wiki/Basic_access_authentication).

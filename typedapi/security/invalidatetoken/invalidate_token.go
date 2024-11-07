@@ -16,9 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Invalidates one or more access tokens or refresh tokens.
+// Invalidate a token.
+//
+// The access tokens returned by the get token API have a finite period of time
+// for which they are valid.
+// After that time period, they can no longer be used.
+// The time period is defined by the `xpack.security.authc.token.timeout`
+// setting.
+//
+// The refresh tokens returned by the get token API are only valid for 24 hours.
+// They can also be used exactly once.
+// If you want to invalidate one or more access or refresh tokens immediately,
+// use this invalidate token API.
 package invalidatetoken
 
 import (
@@ -73,7 +84,18 @@ func NewInvalidateTokenFunc(tp elastictransport.Interface) NewInvalidateToken {
 	}
 }
 
-// Invalidates one or more access tokens or refresh tokens.
+// Invalidate a token.
+//
+// The access tokens returned by the get token API have a finite period of time
+// for which they are valid.
+// After that time period, they can no longer be used.
+// The time period is defined by the `xpack.security.authc.token.timeout`
+// setting.
+//
+// The refresh tokens returned by the get token API are only valid for 24 hours.
+// They can also be used exactly once.
+// If you want to invalidate one or more access or refresh tokens immediately,
+// use this invalidate token API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html
 func New(tp elastictransport.Interface) *InvalidateToken {

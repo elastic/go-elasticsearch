@@ -16,9 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Returns all dangling indices.
+// Get the dangling indices.
+//
+// If Elasticsearch encounters index data that is absent from the current
+// cluster state, those indices are considered to be dangling.
+// For example, this can happen if you delete more than
+// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
+// offline.
+//
+// Use this API to list dangling indices, which you can then import or delete.
 package listdanglingindices
 
 import (
@@ -68,7 +76,15 @@ func NewListDanglingIndicesFunc(tp elastictransport.Interface) NewListDanglingIn
 	}
 }
 
-// Returns all dangling indices.
+// Get the dangling indices.
+//
+// If Elasticsearch encounters index data that is absent from the current
+// cluster state, those indices are considered to be dangling.
+// For example, this can happen if you delete more than
+// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
+// offline.
+//
+// Use this API to list dangling indices, which you can then import or delete.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway-dangling-indices.html
 func New(tp elastictransport.Interface) *ListDanglingIndices {

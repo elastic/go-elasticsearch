@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Updates the properties of a datafeed.
+// Update a datafeed.
 // You must stop and start the datafeed for the changes to be applied.
 // When Elasticsearch security features are enabled, your datafeed remembers
 // which roles the user who updated it had at
@@ -88,7 +88,7 @@ func NewUpdateDatafeedFunc(tp elastictransport.Interface) NewUpdateDatafeed {
 	}
 }
 
-// Updates the properties of a datafeed.
+// Update a datafeed.
 // You must stop and start the datafeed for the changes to be applied.
 // When Elasticsearch security features are enabled, your datafeed remembers
 // which roles the user who updated it had at
