@@ -21,16 +21,14 @@ package esapi
 
 import (
 	"context"
-	"errors"
+	"io"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
-	return func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error) {
-		var r = IndicesGetDataLifecycleRequest{Name: name}
+func newQueryRulesTestFunc(t Transport) QueryRulesTest {
+	return func(body io.Reader, ruleset_id string, o ...func(*QueryRulesTestRequest)) (*Response, error) {
+		var r = QueryRulesTestRequest{Body: body, RulesetID: ruleset_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,18 +43,18 @@ func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataLifecycle returns the data stream lifecycle of the selected data streams.
+// QueryRulesTest tests a query ruleset to identify the rules that would match input criteria
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html.
-type IndicesGetDataLifecycle func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/test-query-ruleset.html.
+type QueryRulesTest func(body io.Reader, ruleset_id string, o ...func(*QueryRulesTestRequest)) (*Response, error)
 
-// IndicesGetDataLifecycleRequest configures the Indices Get Data Lifecycle API request.
-type IndicesGetDataLifecycleRequest struct {
-	Name []string
+// QueryRulesTestRequest configures the Query Rules Test API request.
+type QueryRulesTestRequest struct {
+	Body io.Reader
 
-	ExpandWildcards string
-	IncludeDefaults *bool
-	MasterTimeout   time.Duration
+	RulesetID string
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +69,7 @@ type IndicesGetDataLifecycleRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r QueryRulesTestRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,44 +78,28 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.get_data_lifecycle")
+		ctx = instrument.Start(providedCtx, "query_rules.test")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "POST"
 
-	if len(r.Name) == 0 {
-		return nil, errors.New("name is required and cannot be nil or empty")
-	}
-
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_lifecycle"))
+	path.Grow(7 + 1 + len("_query_rules") + 1 + len(r.RulesetID) + 1 + len("_test"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_data_stream")
+	path.WriteString("_query_rules")
 	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
+	path.WriteString(r.RulesetID)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+		instrument.RecordPathPart(ctx, "ruleset_id", r.RulesetID)
 	}
 	path.WriteString("/")
-	path.WriteString("_lifecycle")
+	path.WriteString("_test")
 
 	params = make(map[string]string)
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.IncludeDefaults != nil {
-		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -135,7 +117,7 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -163,16 +145,23 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "indices.get_data_lifecycle")
+		instrument.BeforeRequest(req, "query_rules.test")
+		if reader := instrument.RecordRequestBody(ctx, "query_rules.test", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "indices.get_data_lifecycle")
+		instrument.AfterRequest(req, "elasticsearch", "query_rules.test")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -191,64 +180,43 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 }
 
 // WithContext sets the request context.
-func (f IndicesGetDataLifecycle) WithContext(v context.Context) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f QueryRulesTest) WithContext(v context.Context) func(*QueryRulesTestRequest) {
+	return func(r *QueryRulesTestRequest) {
 		r.ctx = v
 	}
 }
 
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesGetDataLifecycle) WithExpandWildcards(v string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.ExpandWildcards = v
-	}
-}
-
-// WithIncludeDefaults - return all relevant default configurations for the data stream (default: false).
-func (f IndicesGetDataLifecycle) WithIncludeDefaults(v bool) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.IncludeDefaults = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-func (f IndicesGetDataLifecycle) WithMasterTimeout(v time.Duration) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.MasterTimeout = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f IndicesGetDataLifecycle) WithPretty() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f QueryRulesTest) WithPretty() func(*QueryRulesTestRequest) {
+	return func(r *QueryRulesTestRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IndicesGetDataLifecycle) WithHuman() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f QueryRulesTest) WithHuman() func(*QueryRulesTestRequest) {
+	return func(r *QueryRulesTestRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IndicesGetDataLifecycle) WithErrorTrace() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f QueryRulesTest) WithErrorTrace() func(*QueryRulesTestRequest) {
+	return func(r *QueryRulesTestRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IndicesGetDataLifecycle) WithFilterPath(v ...string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f QueryRulesTest) WithFilterPath(v ...string) func(*QueryRulesTestRequest) {
+	return func(r *QueryRulesTestRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IndicesGetDataLifecycle) WithHeader(h map[string]string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f QueryRulesTest) WithHeader(h map[string]string) func(*QueryRulesTestRequest) {
+	return func(r *QueryRulesTestRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -259,8 +227,8 @@ func (f IndicesGetDataLifecycle) WithHeader(h map[string]string) func(*IndicesGe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IndicesGetDataLifecycle) WithOpaqueID(s string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f QueryRulesTest) WithOpaqueID(s string) func(*QueryRulesTestRequest) {
+	return func(r *QueryRulesTestRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

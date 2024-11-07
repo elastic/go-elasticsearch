@@ -44,7 +44,7 @@ func newIngestGetGeoipDatabaseFunc(t Transport) IngestGetGeoipDatabase {
 
 // IngestGetGeoipDatabase returns geoip database configuration.
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-geoip-database-api.html.
 type IngestGetGeoipDatabase func(o ...func(*IngestGetGeoipDatabaseRequest)) (*Response, error)
 
 // IngestGetGeoipDatabaseRequest configures the Ingest Get Geoip Database API request.

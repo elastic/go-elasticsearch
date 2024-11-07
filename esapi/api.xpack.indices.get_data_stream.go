@@ -56,6 +56,7 @@ type IndicesGetDataStreamRequest struct {
 	ExpandWildcards string
 	IncludeDefaults *bool
 	MasterTimeout   time.Duration
+	Verbose         *bool
 
 	Pretty     bool
 	Human      bool
@@ -112,6 +113,10 @@ func (r IndicesGetDataStreamRequest) Do(providedCtx context.Context, transport T
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Verbose != nil {
+		params["verbose"] = strconv.FormatBool(*r.Verbose)
 	}
 
 	if r.Pretty {
@@ -217,6 +222,13 @@ func (f IndicesGetDataStream) WithIncludeDefaults(v bool) func(*IndicesGetDataSt
 func (f IndicesGetDataStream) WithMasterTimeout(v time.Duration) func(*IndicesGetDataStreamRequest) {
 	return func(r *IndicesGetDataStreamRequest) {
 		r.MasterTimeout = v
+	}
+}
+
+// WithVerbose - whether the maximum timestamp for each data stream should be calculated and returned (default: false).
+func (f IndicesGetDataStream) WithVerbose(v bool) func(*IndicesGetDataStreamRequest) {
+	return func(r *IndicesGetDataStreamRequest) {
+		r.Verbose = &v
 	}
 }
 

@@ -21,16 +21,14 @@ package esapi
 
 import (
 	"context"
-	"errors"
+	"io"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
-	return func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error) {
-		var r = IndicesGetDataLifecycleRequest{Name: name}
+func newInferenceStreamInferenceFunc(t Transport) InferenceStreamInference {
+	return func(inference_id string, o ...func(*InferenceStreamInferenceRequest)) (*Response, error) {
+		var r = InferenceStreamInferenceRequest{InferenceID: inference_id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,18 +43,19 @@ func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataLifecycle returns the data stream lifecycle of the selected data streams.
+// InferenceStreamInference perform streaming inference
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html.
-type IndicesGetDataLifecycle func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error)
+// This API is experimental.
+//
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/post-stream-inference-api.html.
+type InferenceStreamInference func(inference_id string, o ...func(*InferenceStreamInferenceRequest)) (*Response, error)
 
-// IndicesGetDataLifecycleRequest configures the Indices Get Data Lifecycle API request.
-type IndicesGetDataLifecycleRequest struct {
-	Name []string
+// InferenceStreamInferenceRequest configures the Inference Stream Inference API request.
+type InferenceStreamInferenceRequest struct {
+	Body io.Reader
 
-	ExpandWildcards string
-	IncludeDefaults *bool
-	MasterTimeout   time.Duration
+	InferenceID string
+	TaskType    string
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +70,7 @@ type IndicesGetDataLifecycleRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r InferenceStreamInferenceRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,44 +79,35 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.get_data_lifecycle")
+		ctx = instrument.Start(providedCtx, "inference.stream_inference")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "POST"
 
-	if len(r.Name) == 0 {
-		return nil, errors.New("name is required and cannot be nil or empty")
-	}
-
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_lifecycle"))
+	path.Grow(7 + 1 + len("_inference") + 1 + len(r.TaskType) + 1 + len(r.InferenceID) + 1 + len("_stream"))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_data_stream")
-	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+	path.WriteString("_inference")
+	if r.TaskType != "" {
+		path.WriteString("/")
+		path.WriteString(r.TaskType)
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "task_type", r.TaskType)
+		}
 	}
 	path.WriteString("/")
-	path.WriteString("_lifecycle")
+	path.WriteString(r.InferenceID)
+	if instrument, ok := r.instrument.(Instrumentation); ok {
+		instrument.RecordPathPart(ctx, "inference_id", r.InferenceID)
+	}
+	path.WriteString("/")
+	path.WriteString("_stream")
 
 	params = make(map[string]string)
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.IncludeDefaults != nil {
-		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -135,7 +125,7 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -163,16 +153,23 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "indices.get_data_lifecycle")
+		instrument.BeforeRequest(req, "inference.stream_inference")
+		if reader := instrument.RecordRequestBody(ctx, "inference.stream_inference", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "indices.get_data_lifecycle")
+		instrument.AfterRequest(req, "elasticsearch", "inference.stream_inference")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -191,64 +188,57 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 }
 
 // WithContext sets the request context.
-func (f IndicesGetDataLifecycle) WithContext(v context.Context) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f InferenceStreamInference) WithContext(v context.Context) func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
 		r.ctx = v
 	}
 }
 
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesGetDataLifecycle) WithExpandWildcards(v string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.ExpandWildcards = v
+// WithBody - The inference payload.
+func (f InferenceStreamInference) WithBody(v io.Reader) func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
+		r.Body = v
 	}
 }
 
-// WithIncludeDefaults - return all relevant default configurations for the data stream (default: false).
-func (f IndicesGetDataLifecycle) WithIncludeDefaults(v bool) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.IncludeDefaults = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-func (f IndicesGetDataLifecycle) WithMasterTimeout(v time.Duration) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.MasterTimeout = v
+// WithTaskType - the task type.
+func (f InferenceStreamInference) WithTaskType(v string) func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
+		r.TaskType = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f IndicesGetDataLifecycle) WithPretty() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f InferenceStreamInference) WithPretty() func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IndicesGetDataLifecycle) WithHuman() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f InferenceStreamInference) WithHuman() func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IndicesGetDataLifecycle) WithErrorTrace() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f InferenceStreamInference) WithErrorTrace() func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IndicesGetDataLifecycle) WithFilterPath(v ...string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f InferenceStreamInference) WithFilterPath(v ...string) func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IndicesGetDataLifecycle) WithHeader(h map[string]string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f InferenceStreamInference) WithHeader(h map[string]string) func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -259,8 +249,8 @@ func (f IndicesGetDataLifecycle) WithHeader(h map[string]string) func(*IndicesGe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IndicesGetDataLifecycle) WithOpaqueID(s string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f InferenceStreamInference) WithOpaqueID(s string) func(*InferenceStreamInferenceRequest) {
+	return func(r *InferenceStreamInferenceRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
