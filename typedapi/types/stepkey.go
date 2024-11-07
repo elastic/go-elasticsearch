@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,11 +31,11 @@ import (
 
 // StepKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/move_to_step/types.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ilm/move_to_step/types.ts#L20-L25
 type StepKey struct {
-	Action string `json:"action"`
-	Name   string `json:"name"`
-	Phase  string `json:"phase"`
+	Action *string `json:"action,omitempty"`
+	Name   *string `json:"name,omitempty"`
+	Phase  string  `json:"phase"`
 }
 
 func (s *StepKey) UnmarshalJSON(data []byte) error {
@@ -63,7 +63,7 @@ func (s *StepKey) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Action = o
+			s.Action = &o
 
 		case "name":
 			var tmp json.RawMessage
@@ -75,7 +75,7 @@ func (s *StepKey) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Name = o
+			s.Name = &o
 
 		case "phase":
 			var tmp json.RawMessage

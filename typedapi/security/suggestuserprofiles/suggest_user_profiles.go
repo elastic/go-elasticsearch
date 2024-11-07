@@ -16,8 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
+// Suggest a user profile.
+//
 // Get suggestions for user profiles that match specified search criteria.
 package suggestuserprofiles
 
@@ -73,6 +75,8 @@ func NewSuggestUserProfilesFunc(tp elastictransport.Interface) NewSuggestUserPro
 	}
 }
 
+// Suggest a user profile.
+//
 // Get suggestions for user profiles that match specified search criteria.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-suggest-user-profile.html

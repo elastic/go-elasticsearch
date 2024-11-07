@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 // Promotes a data stream from a replicated data stream managed by CCR to a
 // regular data stream
@@ -297,6 +297,15 @@ func (r *PromoteDataStream) Header(key, value string) *PromoteDataStream {
 func (r *PromoteDataStream) _name(name string) *PromoteDataStream {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
+// API name: master_timeout
+func (r *PromoteDataStream) MasterTimeout(duration string) *PromoteDataStream {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

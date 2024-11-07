@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -30,9 +30,9 @@ import (
 
 // NodeInfoSettingsNetwork type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/info/types.ts#L223-L225
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/nodes/info/types.ts#L223-L225
 type NodeInfoSettingsNetwork struct {
-	Host *string `json:"host,omitempty"`
+	Host []string `json:"host,omitempty"`
 }
 
 func (s *NodeInfoSettingsNetwork) UnmarshalJSON(data []byte) error {
@@ -51,8 +51,19 @@ func (s *NodeInfoSettingsNetwork) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "host":
-			if err := dec.Decode(&s.Host); err != nil {
-				return fmt.Errorf("%s | %w", "Host", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Host", err)
+				}
+
+				s.Host = append(s.Host, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Host); err != nil {
+					return fmt.Errorf("%s | %w", "Host", err)
+				}
 			}
 
 		}

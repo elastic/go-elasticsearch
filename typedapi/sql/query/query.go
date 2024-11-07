@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 // Executes a SQL request
 package query
@@ -35,6 +35,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/sqlformat"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -292,8 +293,8 @@ func (r *Query) Header(key, value string) *Query {
 
 // Format Format for the response.
 // API name: format
-func (r *Query) Format(format string) *Query {
-	r.values.Set("format", format)
+func (r *Query) Format(format sqlformat.SqlFormat) *Query {
+	r.values.Set("format", format.String())
 
 	return r
 }

@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Retrieves roles in a paginated manner. You can optionally filter the results
-// with a query.
+// Find roles with a query.
+//
+// Get roles in a paginated manner. You can optionally filter the results with a
+// query.
 package queryrole
 
 import (
@@ -74,8 +76,10 @@ func NewQueryRoleFunc(tp elastictransport.Interface) NewQueryRole {
 	}
 }
 
-// Retrieves roles in a paginated manner. You can optionally filter the results
-// with a query.
+// Find roles with a query.
+//
+// Get roles in a paginated manner. You can optionally filter the results with a
+// query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-role.html
 func New(tp elastictransport.Interface) *QueryRole {

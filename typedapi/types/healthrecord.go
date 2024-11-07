@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HealthRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cat/health/types.ts#L23-L94
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/cat/health/types.ts#L23-L99
 type HealthRecord struct {
 	// ActiveShardsPercent active number of shards in percent
 	ActiveShardsPercent *string `json:"active_shards_percent,omitempty"`
@@ -61,6 +61,8 @@ type HealthRecord struct {
 	Timestamp *string `json:"timestamp,omitempty"`
 	// Unassign number of unassigned shards
 	Unassign *string `json:"unassign,omitempty"`
+	// UnassignPri number of unassigned primary shards
+	UnassignPri *string `json:"unassign.pri,omitempty"`
 }
 
 func (s *HealthRecord) UnmarshalJSON(data []byte) error {
@@ -231,6 +233,18 @@ func (s *HealthRecord) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Unassign = &o
+
+		case "unassign.pri", "up", "shards.unassigned.primary", "shardsUnassignedPrimary":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "UnassignPri", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.UnassignPri = &o
 
 		}
 	}

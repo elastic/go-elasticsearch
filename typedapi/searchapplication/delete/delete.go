@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Deletes a search application.
+// Delete a search application.
+// Remove a search application and its associated alias. Indices attached to the
+// search application are not removed.
 package delete
 
 import (
@@ -76,7 +78,9 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	}
 }
 
-// Deletes a search application.
+// Delete a search application.
+// Remove a search application and its associated alias. Indices attached to the
+// search application are not removed.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-search-application.html
 func New(tp elastictransport.Interface) *Delete {

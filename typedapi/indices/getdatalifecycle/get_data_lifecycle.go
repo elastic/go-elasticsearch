@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 // Get data stream lifecycles.
 // Retrieves the data stream lifecycle configuration of one or more data
@@ -324,6 +324,15 @@ func (r *GetDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.Exp
 // API name: include_defaults
 func (r *GetDataLifecycle) IncludeDefaults(includedefaults bool) *GetDataLifecycle {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
+// API name: master_timeout
+func (r *GetDataLifecycle) MasterTimeout(duration string) *GetDataLifecycle {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

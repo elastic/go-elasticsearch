@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Removes role mappings.
+// Delete role mappings.
 package deleterolemapping
 
 import (
@@ -77,7 +77,7 @@ func NewDeleteRoleMappingFunc(tp elastictransport.Interface) NewDeleteRoleMappin
 	}
 }
 
-// Removes role mappings.
+// Delete role mappings.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role-mapping.html
 func New(tp elastictransport.Interface) *DeleteRoleMapping {

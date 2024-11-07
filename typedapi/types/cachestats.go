@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -31,13 +31,16 @@ import (
 
 // CacheStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/enrich/stats/types.ts#L37-L43
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/enrich/stats/types.ts#L38-L50
 type CacheStats struct {
-	Count     int    `json:"count"`
-	Evictions int    `json:"evictions"`
-	Hits      int    `json:"hits"`
-	Misses    int    `json:"misses"`
-	NodeId    string `json:"node_id"`
+	Count              int    `json:"count"`
+	Evictions          int    `json:"evictions"`
+	Hits               int    `json:"hits"`
+	HitsTimeInMillis   int64  `json:"hits_time_in_millis"`
+	Misses             int    `json:"misses"`
+	MissesTimeInMillis int64  `json:"misses_time_in_millis"`
+	NodeId             string `json:"node_id"`
+	SizeInBytes        int64  `json:"size_in_bytes"`
 }
 
 func (s *CacheStats) UnmarshalJSON(data []byte) error {
@@ -103,6 +106,11 @@ func (s *CacheStats) UnmarshalJSON(data []byte) error {
 				s.Hits = f
 			}
 
+		case "hits_time_in_millis":
+			if err := dec.Decode(&s.HitsTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "HitsTimeInMillis", err)
+			}
+
 		case "misses":
 
 			var tmp any
@@ -119,9 +127,29 @@ func (s *CacheStats) UnmarshalJSON(data []byte) error {
 				s.Misses = f
 			}
 
+		case "misses_time_in_millis":
+			if err := dec.Decode(&s.MissesTimeInMillis); err != nil {
+				return fmt.Errorf("%s | %w", "MissesTimeInMillis", err)
+			}
+
 		case "node_id":
 			if err := dec.Decode(&s.NodeId); err != nil {
 				return fmt.Errorf("%s | %w", "NodeId", err)
+			}
+
+		case "size_in_bytes":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "SizeInBytes", err)
+				}
+				s.SizeInBytes = value
+			case float64:
+				f := int64(v)
+				s.SizeInBytes = f
 			}
 
 		}

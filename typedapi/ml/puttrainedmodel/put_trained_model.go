@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Enables you to supply a trained model that is not created by data frame
+// Create a trained model.
+// Enable you to supply a trained model that is not created by data frame
 // analytics.
 package puttrainedmodel
 
@@ -83,7 +84,8 @@ func NewPutTrainedModelFunc(tp elastictransport.Interface) NewPutTrainedModel {
 	}
 }
 
-// Enables you to supply a trained model that is not created by data frame
+// Create a trained model.
+// Enable you to supply a trained model that is not created by data frame
 // analytics.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-models.html

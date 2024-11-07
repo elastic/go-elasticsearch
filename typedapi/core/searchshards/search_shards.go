@@ -16,10 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Returns information about the indices and shards that a search request would
-// be executed against.
+// Get the search shards.
+//
+// Get the indices and shards that a search request would be run against.
+// This information can be useful for working out issues or planning
+// optimizations with routing and shard preferences.
+// When filtered aliases are used, the filter is returned as part of the indices
+// section.
 package searchshards
 
 import (
@@ -76,8 +81,13 @@ func NewSearchShardsFunc(tp elastictransport.Interface) NewSearchShards {
 	}
 }
 
-// Returns information about the indices and shards that a search request would
-// be executed against.
+// Get the search shards.
+//
+// Get the indices and shards that a search request would be run against.
+// This information can be useful for working out issues or planning
+// optimizations with routing and shard preferences.
+// When filtered aliases are used, the filter is returned as part of the indices
+// section.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-shards.html
 func New(tp elastictransport.Interface) *SearchShards {

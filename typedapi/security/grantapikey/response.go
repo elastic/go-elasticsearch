@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package grantapikey
 
 // Response holds the response body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/grant_api_key/SecurityGrantApiKeyResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/security/grant_api_key/SecurityGrantApiKeyResponse.ts#L23-L31
 type Response struct {
 	ApiKey     string `json:"api_key"`
 	Encoded    string `json:"encoded"`

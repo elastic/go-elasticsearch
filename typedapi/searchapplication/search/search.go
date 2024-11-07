@@ -16,9 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Perform a search against a search application.
+// Run a search application search.
+// Generate and run an Elasticsearch query that uses the specified query
+// parameteter and the search template associated with the search application or
+// default template.
+// Unspecified template parameters are assigned their default values if
+// applicable.
 package search
 
 import (
@@ -81,7 +86,12 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Perform a search against a search application.
+// Run a search application search.
+// Generate and run an Elasticsearch query that uses the specified query
+// parameteter and the search template associated with the search application or
+// default template.
+// Unspecified template parameters are assigned their default values if
+// applicable.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-application-search.html
 func New(tp elastictransport.Interface) *Search {

@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Retrieves role mappings.
+// Get role mappings.
+//
+// Role mappings define which roles are assigned to each user.
+// The role mapping APIs are generally the preferred way to manage role mappings
+// rather than using role mapping files.
+// The get role mappings API cannot retrieve role mappings that are defined in
+// role mapping files.
 package getrolemapping
 
 import (
@@ -74,7 +80,13 @@ func NewGetRoleMappingFunc(tp elastictransport.Interface) NewGetRoleMapping {
 	}
 }
 
-// Retrieves role mappings.
+// Get role mappings.
+//
+// Role mappings define which roles are assigned to each user.
+// The role mapping APIs are generally the preferred way to manage role mappings
+// rather than using role mapping files.
+// The get role mappings API cannot retrieve role mappings that are defined in
+// role mapping files.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role-mapping.html
 func New(tp elastictransport.Interface) *GetRoleMapping {

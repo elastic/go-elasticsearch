@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -26,14 +26,17 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // DutchAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/analyzers.ts#L61-L64
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/_types/analysis/analyzers.ts#L134-L139
 type DutchAnalyzer struct {
-	Stopwords []string `json:"stopwords,omitempty"`
-	Type      string   `json:"type,omitempty"`
+	StemExclusion []string `json:"stem_exclusion,omitempty"`
+	Stopwords     []string `json:"stopwords,omitempty"`
+	StopwordsPath *string  `json:"stopwords_path,omitempty"`
+	Type          string   `json:"type,omitempty"`
 }
 
 func (s *DutchAnalyzer) UnmarshalJSON(data []byte) error {
@@ -51,6 +54,11 @@ func (s *DutchAnalyzer) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "stem_exclusion":
+			if err := dec.Decode(&s.StemExclusion); err != nil {
+				return fmt.Errorf("%s | %w", "StemExclusion", err)
+			}
+
 		case "stopwords":
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
@@ -67,6 +75,18 @@ func (s *DutchAnalyzer) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "stopwords_path":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "StopwordsPath", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.StopwordsPath = &o
+
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
@@ -81,8 +101,10 @@ func (s *DutchAnalyzer) UnmarshalJSON(data []byte) error {
 func (s DutchAnalyzer) MarshalJSON() ([]byte, error) {
 	type innerDutchAnalyzer DutchAnalyzer
 	tmp := innerDutchAnalyzer{
-		Stopwords: s.Stopwords,
-		Type:      s.Type,
+		StemExclusion: s.StemExclusion,
+		Stopwords:     s.Stopwords,
+		StopwordsPath: s.StopwordsPath,
+		Type:          s.Type,
 	}
 
 	tmp.Type = "dutch"

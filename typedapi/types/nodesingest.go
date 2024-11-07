@@ -16,16 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
 // NodesIngest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L345-L354
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/nodes/_types/Stats.ts#L345-L354
 type NodesIngest struct {
 	// Pipelines Contains statistics about ingest pipelines for the node.
-	Pipelines map[string]IngestTotal `json:"pipelines,omitempty"`
+	Pipelines map[string]IngestStats `json:"pipelines,omitempty"`
 	// Total Contains statistics about ingest operations for the node.
 	Total *IngestTotal `json:"total,omitempty"`
 }
@@ -33,7 +33,7 @@ type NodesIngest struct {
 // NewNodesIngest returns a NodesIngest.
 func NewNodesIngest() *NodesIngest {
 	r := &NodesIngest{
-		Pipelines: make(map[string]IngestTotal, 0),
+		Pipelines: make(map[string]IngestStats, 0),
 	}
 
 	return r

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package putrolemapping
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package putrolemapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/put_role_mapping/SecurityPutRoleMappingResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/security/put_role_mapping/SecurityPutRoleMappingResponse.ts#L22-L24
 type Response struct {
 	Created     *bool               `json:"created,omitempty"`
 	RoleMapping types.CreatedStatus `json:"role_mapping"`

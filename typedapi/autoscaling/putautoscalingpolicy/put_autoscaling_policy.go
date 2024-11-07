@@ -16,10 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
-// Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
-// ECK. Direct use is not supported.
+// Create or update an autoscaling policy.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
 package putautoscalingpolicy
 
 import (
@@ -82,8 +85,11 @@ func NewPutAutoscalingPolicyFunc(tp elastictransport.Interface) NewPutAutoscalin
 	}
 }
 
-// Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
-// ECK. Direct use is not supported.
+// Create or update an autoscaling policy.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html
 func New(tp elastictransport.Interface) *PutAutoscalingPolicy {
@@ -361,7 +367,7 @@ func (r *PutAutoscalingPolicy) Pretty(pretty bool) *PutAutoscalingPolicy {
 	return r
 }
 
-// Deciders Decider settings
+// Deciders Decider settings.
 // API name: deciders
 func (r *PutAutoscalingPolicy) Deciders(deciders map[string]json.RawMessage) *PutAutoscalingPolicy {
 

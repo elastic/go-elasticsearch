@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package updatetrainedmodeldeployment
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package updatetrainedmodeldeployment
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/update_trained_model_deployment/MlUpdateTrainedModelDeploymentRequest.ts#L24-L62
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/ml/update_trained_model_deployment/MlUpdateTrainedModelDeploymentRequest.ts#L24-L63
 type Request struct {
 
 	// NumberOfAllocations The number of model allocations on each node where the model is deployed.

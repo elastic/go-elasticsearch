@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3
 
 package types
 
@@ -28,17 +28,15 @@ import (
 	"io"
 )
 
-// HotThread type.
+// ThaiTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/hot_threads/types.ts#L23-L28
-type HotThread struct {
-	Hosts    []string `json:"hosts"`
-	NodeId   string   `json:"node_id"`
-	NodeName string   `json:"node_name"`
-	Threads  []string `json:"threads"`
+// https://github.com/elastic/elasticsearch-specification/blob/4fcf747dfafc951e1dcf3077327e3dcee9107db3/specification/_types/analysis/tokenizers.ts#L126-L128
+type ThaiTokenizer struct {
+	Type    string  `json:"type,omitempty"`
+	Version *string `json:"version,omitempty"`
 }
 
-func (s *HotThread) UnmarshalJSON(data []byte) error {
+func (s *ThaiTokenizer) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,24 +51,14 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "hosts":
-			if err := dec.Decode(&s.Hosts); err != nil {
-				return fmt.Errorf("%s | %w", "Hosts", err)
+		case "type":
+			if err := dec.Decode(&s.Type); err != nil {
+				return fmt.Errorf("%s | %w", "Type", err)
 			}
 
-		case "node_id":
-			if err := dec.Decode(&s.NodeId); err != nil {
-				return fmt.Errorf("%s | %w", "NodeId", err)
-			}
-
-		case "node_name":
-			if err := dec.Decode(&s.NodeName); err != nil {
-				return fmt.Errorf("%s | %w", "NodeName", err)
-			}
-
-		case "threads":
-			if err := dec.Decode(&s.Threads); err != nil {
-				return fmt.Errorf("%s | %w", "Threads", err)
+		case "version":
+			if err := dec.Decode(&s.Version); err != nil {
+				return fmt.Errorf("%s | %w", "Version", err)
 			}
 
 		}
@@ -78,9 +66,22 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewHotThread returns a HotThread.
-func NewHotThread() *HotThread {
-	r := &HotThread{}
+// MarshalJSON override marshalling to include literal value
+func (s ThaiTokenizer) MarshalJSON() ([]byte, error) {
+	type innerThaiTokenizer ThaiTokenizer
+	tmp := innerThaiTokenizer{
+		Type:    s.Type,
+		Version: s.Version,
+	}
+
+	tmp.Type = "thai"
+
+	return json.Marshal(tmp)
+}
+
+// NewThaiTokenizer returns a ThaiTokenizer.
+func NewThaiTokenizer() *ThaiTokenizer {
+	r := &ThaiTokenizer{}
 
 	return r
 }
