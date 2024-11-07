@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package search
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/eql/search/EqlSearchRequest.ts#L28-L118
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/eql/search/EqlSearchRequest.ts#L28-L125
 type Request struct {
 	CaseSensitive *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
@@ -49,6 +49,12 @@ type Request struct {
 	Filter           []types.Query  `json:"filter,omitempty"`
 	KeepAlive        types.Duration `json:"keep_alive,omitempty"`
 	KeepOnCompletion *bool          `json:"keep_on_completion,omitempty"`
+	// MaxSamplesPerKey By default, the response of a sample query contains up to `10` samples, with
+	// one sample per unique set of join keys. Use the `size`
+	// parameter to get a smaller or larger set of samples. To retrieve more than
+	// one sample per set of join keys, use the
+	// `max_samples_per_key` parameter. Pipes are not supported for sample queries.
+	MaxSamplesPerKey *int `json:"max_samples_per_key,omitempty"`
 	// Query EQL query you wish to run.
 	Query           string                         `json:"query"`
 	ResultPosition  *resultposition.ResultPosition `json:"result_position,omitempty"`
@@ -169,6 +175,22 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 				s.KeepOnCompletion = &value
 			case bool:
 				s.KeepOnCompletion = &v
+			}
+
+		case "max_samples_per_key":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxSamplesPerKey", err)
+				}
+				s.MaxSamplesPerKey = &value
+			case float64:
+				f := int(v)
+				s.MaxSamplesPerKey = &f
 			}
 
 		case "query":

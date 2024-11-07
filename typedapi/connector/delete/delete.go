@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Deletes a connector.
+// Delete a connector.
+//
+// Removes a connector and associated sync jobs.
+// This is a destructive action that is not recoverable.
+// NOTE: This action doesn’t delete any API keys, ingest pipelines, or data
+// indices associated with the connector.
+// These need to be removed manually.
 package delete
 
 import (
@@ -76,7 +82,13 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	}
 }
 
-// Deletes a connector.
+// Delete a connector.
+//
+// Removes a connector and associated sync jobs.
+// This is a destructive action that is not recoverable.
+// NOTE: This action doesn’t delete any API keys, ingest pipelines, or data
+// indices associated with the connector.
+// These need to be removed manually.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-connector-api.html
 func New(tp elastictransport.Interface) *Delete {

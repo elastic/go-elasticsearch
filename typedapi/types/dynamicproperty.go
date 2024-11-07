@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -37,7 +37,7 @@ import (
 
 // DynamicProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/core.ts#L300-L331
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/mapping/core.ts#L302-L333
 type DynamicProperty struct {
 	Analyzer            *string                        `json:"analyzer,omitempty"`
 	Boost               *Float64                       `json:"boost,omitempty"`
@@ -67,7 +67,6 @@ type DynamicProperty struct {
 	Script               *Script                                    `json:"script,omitempty"`
 	SearchAnalyzer       *string                                    `json:"search_analyzer,omitempty"`
 	SearchQuoteAnalyzer  *string                                    `json:"search_quote_analyzer,omitempty"`
-	Similarity           *string                                    `json:"similarity,omitempty"`
 	Store                *bool                                      `json:"store,omitempty"`
 	TermVector           *termvectoroption.TermVectorOption         `json:"term_vector,omitempty"`
 	TimeSeriesMetric     *timeseriesmetrictype.TimeSeriesMetricType `json:"time_series_metric,omitempty"`
@@ -1017,18 +1016,6 @@ func (s *DynamicProperty) UnmarshalJSON(data []byte) error {
 			}
 			s.SearchQuoteAnalyzer = &o
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -1094,7 +1081,6 @@ func (s DynamicProperty) MarshalJSON() ([]byte, error) {
 		Script:               s.Script,
 		SearchAnalyzer:       s.SearchAnalyzer,
 		SearchQuoteAnalyzer:  s.SearchQuoteAnalyzer,
-		Similarity:           s.Similarity,
 		Store:                s.Store,
 		TermVector:           s.TermVector,
 		TimeSeriesMetric:     s.TimeSeriesMetric,

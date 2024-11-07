@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package migratetodatatiers
 
@@ -31,7 +31,7 @@ import (
 
 // Response holds the response body struct for the package migratetodatatiers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L32
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L32
 type Response struct {
 	DryRun                      bool     `json:"dry_run"`
 	MigratedComponentTemplates  []string `json:"migrated_component_templates"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -33,13 +33,15 @@ import (
 
 // PipelineSimulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/simulate/types.ts#L33-L39
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/simulate/types.ts#L52-L60
 type PipelineSimulation struct {
-	Doc              *DocumentSimulation                      `json:"doc,omitempty"`
-	ProcessorResults []PipelineSimulation                     `json:"processor_results,omitempty"`
-	ProcessorType    *string                                  `json:"processor_type,omitempty"`
-	Status           *actionstatusoptions.ActionStatusOptions `json:"status,omitempty"`
-	Tag              *string                                  `json:"tag,omitempty"`
+	Description   *string                                  `json:"description,omitempty"`
+	Doc           *DocumentSimulation                      `json:"doc,omitempty"`
+	Error         *ErrorCause                              `json:"error,omitempty"`
+	IgnoredError  *ErrorCause                              `json:"ignored_error,omitempty"`
+	ProcessorType *string                                  `json:"processor_type,omitempty"`
+	Status        *actionstatusoptions.ActionStatusOptions `json:"status,omitempty"`
+	Tag           *string                                  `json:"tag,omitempty"`
 }
 
 func (s *PipelineSimulation) UnmarshalJSON(data []byte) error {
@@ -57,14 +59,31 @@ func (s *PipelineSimulation) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "description":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Description", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Description = &o
+
 		case "doc":
 			if err := dec.Decode(&s.Doc); err != nil {
 				return fmt.Errorf("%s | %w", "Doc", err)
 			}
 
-		case "processor_results":
-			if err := dec.Decode(&s.ProcessorResults); err != nil {
-				return fmt.Errorf("%s | %w", "ProcessorResults", err)
+		case "error":
+			if err := dec.Decode(&s.Error); err != nil {
+				return fmt.Errorf("%s | %w", "Error", err)
+			}
+
+		case "ignored_error":
+			if err := dec.Decode(&s.IgnoredError); err != nil {
+				return fmt.Errorf("%s | %w", "IgnoredError", err)
 			}
 
 		case "processor_type":

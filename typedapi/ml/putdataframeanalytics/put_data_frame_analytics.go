@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Instantiates a data frame analytics job.
+// Create a data frame analytics job.
 // This API creates a data frame analytics job that performs an analysis on the
 // source indices and stores the outcome in a destination index.
 package putdataframeanalytics
@@ -83,7 +83,7 @@ func NewPutDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPutDataFrame
 	}
 }
 
-// Instantiates a data frame analytics job.
+// Create a data frame analytics job.
 // This API creates a data frame analytics job that performs an analysis on the
 // source indices and stores the outcome in a destination index.
 //

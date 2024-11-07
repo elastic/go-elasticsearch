@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -37,9 +37,8 @@ import (
 
 // HighlightField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/highlighting.ts#L193-L197
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/highlighting.ts#L192-L195
 type HighlightField struct {
-	Analyzer Analyzer `json:"analyzer,omitempty"`
 	// BoundaryChars A string that contains each boundary character.
 	BoundaryChars *string `json:"boundary_chars,omitempty"`
 	// BoundaryMaxScan How far to scan for boundary characters.
@@ -130,110 +129,6 @@ func (s *HighlightField) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
-
-		case "analyzer":
-
-			rawMsg := json.RawMessage{}
-			dec.Decode(&rawMsg)
-			source := bytes.NewReader(rawMsg)
-			kind := make(map[string]string, 0)
-			localDec := json.NewDecoder(source)
-			localDec.Decode(&kind)
-			source.Seek(0, io.SeekStart)
-			if _, ok := kind["type"]; !ok {
-				kind["type"] = "custom"
-			}
-			switch kind["type"] {
-
-			case "custom":
-				o := NewCustomAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "fingerprint":
-				o := NewFingerprintAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "keyword":
-				o := NewKeywordAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "language":
-				o := NewLanguageAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "nori":
-				o := NewNoriAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "pattern":
-				o := NewPatternAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "simple":
-				o := NewSimpleAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "standard":
-				o := NewStandardAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "stop":
-				o := NewStopAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "whitespace":
-				o := NewWhitespaceAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "icu_analyzer":
-				o := NewIcuAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "kuromoji":
-				o := NewKuromojiAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "snowball":
-				o := NewSnowballAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			case "dutch":
-				o := NewDutchAnalyzer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Analyzer = *o
-			default:
-				if err := localDec.Decode(&s.Analyzer); err != nil {
-					return err
-				}
-			}
 
 		case "boundary_chars":
 			var tmp json.RawMessage

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Creates a new follower index configured to follow the referenced leader
 // index.
@@ -308,7 +308,7 @@ func (r *Follow) Header(key, value string) *Follow {
 	return r
 }
 
-// Index The name of the follower index
+// Index The name of the follower index.
 // API Name: index
 func (r *Follow) _index(index string) *Follow {
 	r.paramSet |= indexMask
@@ -317,10 +317,12 @@ func (r *Follow) _index(index string) *Follow {
 	return r
 }
 
-// WaitForActiveShards Sets the number of shard copies that must be active before returning.
-// Defaults to 0. Set to `all` for all shard copies, otherwise set to any
-// non-negative value less than or equal to the total number of copies for the
-// shard (number of replicas + 1)
+// WaitForActiveShards Specifies the number of shards to wait on being active before responding.
+// This defaults to waiting on none of the shards to be
+// active.
+// A shard must be restored from the leader index before being active. Restoring
+// a follower shard requires transferring all the
+// remote Lucene segment files to the follower index.
 // API name: wait_for_active_shards
 func (r *Follow) WaitForActiveShards(waitforactiveshards string) *Follow {
 	r.values.Set("wait_for_active_shards", waitforactiveshards)
@@ -372,13 +374,25 @@ func (r *Follow) Pretty(pretty bool) *Follow {
 	return r
 }
 
-// API name: leader_index
-func (r *Follow) LeaderIndex(indexname string) *Follow {
-	r.req.LeaderIndex = &indexname
+// DataStreamName If the leader index is part of a data stream, the name to which the local
+// data stream for the followed index should be renamed.
+// API name: data_stream_name
+func (r *Follow) DataStreamName(datastreamname string) *Follow {
+
+	r.req.DataStreamName = &datastreamname
 
 	return r
 }
 
+// LeaderIndex The name of the index in the leader cluster to follow.
+// API name: leader_index
+func (r *Follow) LeaderIndex(indexname string) *Follow {
+	r.req.LeaderIndex = indexname
+
+	return r
+}
+
+// MaxOutstandingReadRequests The maximum number of outstanding reads requests from the remote cluster.
 // API name: max_outstanding_read_requests
 func (r *Follow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *Follow {
 
@@ -387,30 +401,34 @@ func (r *Follow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *F
 	return r
 }
 
+// MaxOutstandingWriteRequests The maximum number of outstanding write requests on the follower.
 // API name: max_outstanding_write_requests
-func (r *Follow) MaxOutstandingWriteRequests(maxoutstandingwriterequests int64) *Follow {
-
+func (r *Follow) MaxOutstandingWriteRequests(maxoutstandingwriterequests int) *Follow {
 	r.req.MaxOutstandingWriteRequests = &maxoutstandingwriterequests
 
 	return r
 }
 
+// MaxReadRequestOperationCount The maximum number of operations to pull per read from the remote cluster.
 // API name: max_read_request_operation_count
-func (r *Follow) MaxReadRequestOperationCount(maxreadrequestoperationcount int64) *Follow {
-
+func (r *Follow) MaxReadRequestOperationCount(maxreadrequestoperationcount int) *Follow {
 	r.req.MaxReadRequestOperationCount = &maxreadrequestoperationcount
 
 	return r
 }
 
+// MaxReadRequestSize The maximum size in bytes of per read of a batch of operations pulled from
+// the remote cluster.
 // API name: max_read_request_size
-func (r *Follow) MaxReadRequestSize(maxreadrequestsize string) *Follow {
-
-	r.req.MaxReadRequestSize = &maxreadrequestsize
+func (r *Follow) MaxReadRequestSize(bytesize types.ByteSize) *Follow {
+	r.req.MaxReadRequestSize = bytesize
 
 	return r
 }
 
+// MaxRetryDelay The maximum time to wait before retrying an operation that failed
+// exceptionally. An exponential backoff strategy is employed when
+// retrying.
 // API name: max_retry_delay
 func (r *Follow) MaxRetryDelay(duration types.Duration) *Follow {
 	r.req.MaxRetryDelay = duration
@@ -418,38 +436,49 @@ func (r *Follow) MaxRetryDelay(duration types.Duration) *Follow {
 	return r
 }
 
+// MaxWriteBufferCount The maximum number of operations that can be queued for writing. When this
+// limit is reached, reads from the remote cluster will be
+// deferred until the number of queued operations goes below the limit.
 // API name: max_write_buffer_count
-func (r *Follow) MaxWriteBufferCount(maxwritebuffercount int64) *Follow {
-
+func (r *Follow) MaxWriteBufferCount(maxwritebuffercount int) *Follow {
 	r.req.MaxWriteBufferCount = &maxwritebuffercount
 
 	return r
 }
 
+// MaxWriteBufferSize The maximum total bytes of operations that can be queued for writing. When
+// this limit is reached, reads from the remote cluster will
+// be deferred until the total bytes of queued operations goes below the limit.
 // API name: max_write_buffer_size
-func (r *Follow) MaxWriteBufferSize(maxwritebuffersize string) *Follow {
-
-	r.req.MaxWriteBufferSize = &maxwritebuffersize
+func (r *Follow) MaxWriteBufferSize(bytesize types.ByteSize) *Follow {
+	r.req.MaxWriteBufferSize = bytesize
 
 	return r
 }
 
+// MaxWriteRequestOperationCount The maximum number of operations per bulk write request executed on the
+// follower.
 // API name: max_write_request_operation_count
-func (r *Follow) MaxWriteRequestOperationCount(maxwriterequestoperationcount int64) *Follow {
-
+func (r *Follow) MaxWriteRequestOperationCount(maxwriterequestoperationcount int) *Follow {
 	r.req.MaxWriteRequestOperationCount = &maxwriterequestoperationcount
 
 	return r
 }
 
+// MaxWriteRequestSize The maximum total bytes of operations per bulk write request executed on the
+// follower.
 // API name: max_write_request_size
-func (r *Follow) MaxWriteRequestSize(maxwriterequestsize string) *Follow {
-
-	r.req.MaxWriteRequestSize = &maxwriterequestsize
+func (r *Follow) MaxWriteRequestSize(bytesize types.ByteSize) *Follow {
+	r.req.MaxWriteRequestSize = bytesize
 
 	return r
 }
 
+// ReadPollTimeout The maximum time to wait for new operations on the remote cluster when the
+// follower index is synchronized with the leader index.
+// When the timeout has elapsed, the poll for operations will return to the
+// follower so that it can update some statistics.
+// Then the follower will immediately attempt to read from the leader again.
 // API name: read_poll_timeout
 func (r *Follow) ReadPollTimeout(duration types.Duration) *Follow {
 	r.req.ReadPollTimeout = duration
@@ -457,10 +486,20 @@ func (r *Follow) ReadPollTimeout(duration types.Duration) *Follow {
 	return r
 }
 
+// RemoteCluster The remote cluster containing the leader index.
 // API name: remote_cluster
 func (r *Follow) RemoteCluster(remotecluster string) *Follow {
 
-	r.req.RemoteCluster = &remotecluster
+	r.req.RemoteCluster = remotecluster
+
+	return r
+}
+
+// Settings Settings to override from the leader index.
+// API name: settings
+func (r *Follow) Settings(settings *types.IndexSettings) *Follow {
+
+	r.req.Settings = settings
 
 	return r
 }

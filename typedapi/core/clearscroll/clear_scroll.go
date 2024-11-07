@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Clears the search context and results for a scrolling search.
+// Clear a scrolling search.
+//
+// Clear the search context and results for a scrolling search.
 package clearscroll
 
 import (
@@ -75,7 +77,9 @@ func NewClearScrollFunc(tp elastictransport.Interface) NewClearScroll {
 	}
 }
 
-// Clears the search context and results for a scrolling search.
+// Clear a scrolling search.
+//
+// Clear the search context and results for a scrolling search.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/clear-scroll-api.html
 func New(tp elastictransport.Interface) *ClearScroll {

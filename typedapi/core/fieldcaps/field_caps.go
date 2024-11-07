@@ -16,14 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// The field capabilities API returns the information about the capabilities of
-// fields among multiple indices.
-// The field capabilities API returns runtime fields like any other field. For
-// example, a runtime field with a type
-// of keyword is returned as any other field that belongs to the `keyword`
-// family.
+// Get the field capabilities.
+//
+// Get information about the capabilities of fields among multiple indices.
+//
+// For data streams, the API returns field capabilities among the stream’s
+// backing indices.
+// It returns runtime fields like any other field.
+// For example, a runtime field with a type of keyword is returned the same as
+// any other field that belongs to the `keyword` family.
 package fieldcaps
 
 import (
@@ -85,12 +88,15 @@ func NewFieldCapsFunc(tp elastictransport.Interface) NewFieldCaps {
 	}
 }
 
-// The field capabilities API returns the information about the capabilities of
-// fields among multiple indices.
-// The field capabilities API returns runtime fields like any other field. For
-// example, a runtime field with a type
-// of keyword is returned as any other field that belongs to the `keyword`
-// family.
+// Get the field capabilities.
+//
+// Get information about the capabilities of fields among multiple indices.
+//
+// For data streams, the API returns field capabilities among the stream’s
+// backing indices.
+// It returns runtime fields like any other field.
+// For example, a runtime field with a type of keyword is returned the same as
+// any other field that belongs to the `keyword` family.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-field-caps.html
 func New(tp elastictransport.Interface) *FieldCaps {

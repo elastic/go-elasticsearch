@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -28,12 +28,12 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentstate"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentassignmentstate"
 )
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L62-L102
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/TrainedModel.ts#L61-L101
 type TrainedModelDeploymentStats struct {
 	// AllocationStatus The detailed allocation status for the deployment.
 	AllocationStatus TrainedModelDeploymentAllocationStatus `json:"allocation_status"`
@@ -65,7 +65,7 @@ type TrainedModelDeploymentStats struct {
 	// StartTime The epoch timestamp when the deployment started.
 	StartTime int64 `json:"start_time"`
 	// State The overall state of the deployment.
-	State deploymentstate.DeploymentState `json:"state"`
+	State deploymentassignmentstate.DeploymentAssignmentState `json:"state"`
 	// ThreadsPerAllocation The number of threads used be each allocation during inference.
 	ThreadsPerAllocation int `json:"threads_per_allocation"`
 	// TimeoutCount The sum of `timeout_count` for all nodes in the deployment.

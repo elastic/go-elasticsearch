@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Provides general information about the installed X-Pack features.
 package info
@@ -34,6 +34,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/xpackcategory"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -277,7 +278,7 @@ func (r *Info) Header(key, value string) *Info {
 // Categories A comma-separated list of the information categories to include in the
 // response. For example, `build,license,features`.
 // API name: categories
-func (r *Info) Categories(categories ...string) *Info {
+func (r *Info) Categories(categories ...xpackcategory.XPackCategory) *Info {
 	tmp := []string{}
 	for _, item := range categories {
 		tmp = append(tmp, fmt.Sprintf("%v", item))

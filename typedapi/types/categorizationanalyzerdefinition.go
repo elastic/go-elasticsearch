@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // CategorizationAnalyzerDefinition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Analysis.ts#L184-L197
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Analysis.ts#L184-L198
 type CategorizationAnalyzerDefinition struct {
 	// CharFilter One or more character filters. In addition to the built-in character filters,
 	// other plugins can provide more character filters. If this property is not
@@ -450,6 +450,12 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Tokenizer = *o
+			case "classic":
+				o := NewClassicTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
 			case "edge_ngram":
 				o := NewEdgeNGramTokenizer()
 				if err := localDec.Decode(&o); err != nil {
@@ -480,20 +486,38 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Tokenizer = *o
-			case "nori_tokenizer":
-				o := NewNoriTokenizer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Tokenizer = *o
 			case "path_hierarchy":
 				o := NewPathHierarchyTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Tokenizer = *o
+			case "pattern":
+				o := NewPatternTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "simple_pattern":
+				o := NewSimplePatternTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "simple_pattern_split":
+				o := NewSimplePatternSplitTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
 			case "standard":
 				o := NewStandardTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "thai":
+				o := NewThaiTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
@@ -510,20 +534,20 @@ func (s *CategorizationAnalyzerDefinition) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Tokenizer = *o
+			case "icu_tokenizer":
+				o := NewIcuTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
 			case "kuromoji_tokenizer":
 				o := NewKuromojiTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Tokenizer = *o
-			case "pattern":
-				o := NewPatternTokenizer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Tokenizer = *o
-			case "icu_tokenizer":
-				o := NewIcuTokenizer()
+			case "nori_tokenizer":
+				o := NewNoriTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}

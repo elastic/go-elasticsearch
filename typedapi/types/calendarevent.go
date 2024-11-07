@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CalendarEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/CalendarEvent.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/CalendarEvent.ts#L24-L44
 type CalendarEvent struct {
 	// CalendarId A string that uniquely identifies a calendar.
 	CalendarId *string `json:"calendar_id,omitempty"`
@@ -41,6 +41,13 @@ type CalendarEvent struct {
 	// epoch or ISO 8601 format.
 	EndTime DateTime `json:"end_time"`
 	EventId *string  `json:"event_id,omitempty"`
+	// ForceTimeShift Shift time by this many seconds. For example adjust time for daylight savings
+	// changes
+	ForceTimeShift *int `json:"force_time_shift,omitempty"`
+	// SkipModelUpdate When true the model will not be updated for this calendar period.
+	SkipModelUpdate *bool `json:"skip_model_update,omitempty"`
+	// SkipResult When true the model will not create results for this calendar period.
+	SkipResult *bool `json:"skip_result,omitempty"`
 	// StartTime The timestamp for the beginning of the scheduled event in milliseconds since
 	// the epoch or ISO 8601 format.
 	StartTime DateTime `json:"start_time"`
@@ -86,6 +93,50 @@ func (s *CalendarEvent) UnmarshalJSON(data []byte) error {
 		case "event_id":
 			if err := dec.Decode(&s.EventId); err != nil {
 				return fmt.Errorf("%s | %w", "EventId", err)
+			}
+
+		case "force_time_shift":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ForceTimeShift", err)
+				}
+				s.ForceTimeShift = &value
+			case float64:
+				f := int(v)
+				s.ForceTimeShift = &f
+			}
+
+		case "skip_model_update":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "SkipModelUpdate", err)
+				}
+				s.SkipModelUpdate = &value
+			case bool:
+				s.SkipModelUpdate = &v
+			}
+
+		case "skip_result":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "SkipResult", err)
+				}
+				s.SkipResult = &value
+			case bool:
+				s.SkipResult = &v
 			}
 
 		case "start_time":

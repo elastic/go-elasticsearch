@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Create a data stream.
 // Creates a data stream.
@@ -304,6 +304,24 @@ func (r *CreateDataStream) Header(key, value string) *CreateDataStream {
 func (r *CreateDataStream) _name(name string) *CreateDataStream {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
+// API name: master_timeout
+func (r *CreateDataStream) MasterTimeout(duration string) *CreateDataStream {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *CreateDataStream) Timeout(duration string) *CreateDataStream {
+	r.values.Set("timeout", duration)
 
 	return r
 }

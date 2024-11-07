@@ -16,11 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// The terms enum API  can be used to discover terms in the index that begin
-// with the provided string. It is designed for low-latency look-ups used in
+// Get terms in an index.
+//
+// Discover terms that match a partial string in an index.
+// This "terms enum" API is designed for low-latency look-ups used in
 // auto-complete scenarios.
+//
+// If the `complete` property in the response is false, the returned terms set
+// may be incomplete and should be treated as approximate.
+// This can occur due to a few reasons, such as a request timeout or a node
+// error.
+//
+// NOTE: The terms enum API may return terms from deleted documents. Deleted
+// documents are initially only marked as deleted. It is not until their
+// segments are merged that documents are actually deleted. Until that happens,
+// the terms enum API will return terms from these documents.
 package termsenum
 
 import (
@@ -83,9 +95,21 @@ func NewTermsEnumFunc(tp elastictransport.Interface) NewTermsEnum {
 	}
 }
 
-// The terms enum API  can be used to discover terms in the index that begin
-// with the provided string. It is designed for low-latency look-ups used in
+// Get terms in an index.
+//
+// Discover terms that match a partial string in an index.
+// This "terms enum" API is designed for low-latency look-ups used in
 // auto-complete scenarios.
+//
+// If the `complete` property in the response is false, the returned terms set
+// may be incomplete and should be treated as approximate.
+// This can occur due to a few reasons, such as a request timeout or a node
+// error.
+//
+// NOTE: The terms enum API may return terms from deleted documents. Deleted
+// documents are initially only marked as deleted. It is not until their
+// segments are merged that documents are actually deleted. Until that happens,
+// the terms enum API will return terms from these documents.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html
 func New(tp elastictransport.Interface) *TermsEnum {

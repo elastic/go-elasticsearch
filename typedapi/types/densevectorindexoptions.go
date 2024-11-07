@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -27,16 +27,43 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/densevectorindexoptionstype"
 )
 
 // DenseVectorIndexOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/DenseVectorIndexOptions.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/mapping/DenseVectorProperty.ts#L129-L162
 type DenseVectorIndexOptions struct {
+	// ConfidenceInterval The confidence interval to use when quantizing the vectors. Can be any value
+	// between and including `0.90` and
+	// `1.0` or exactly `0`. When the value is `0`, this indicates that dynamic
+	// quantiles should be calculated for
+	// optimized quantization. When between `0.90` and `1.0`, this value restricts
+	// the values used when calculating
+	// the quantization thresholds.
+	//
+	// For example, a value of `0.95` will only use the middle `95%` of the values
+	// when calculating the quantization
+	// thresholds (e.g. the highest and lowest `2.5%` of values will be ignored).
+	//
+	// Defaults to `1/(dims + 1)` for `int8` quantized vectors and `0` for `int4`
+	// for dynamic quantile calculation.
+	//
+	// Only applicable to `int8_hnsw`, `int4_hnsw`, `int8_flat`, and `int4_flat`
+	// index types.
 	ConfidenceInterval *float32 `json:"confidence_interval,omitempty"`
-	EfConstruction     *int     `json:"ef_construction,omitempty"`
-	M                  *int     `json:"m,omitempty"`
-	Type               string   `json:"type"`
+	// EfConstruction The number of candidates to track while assembling the list of nearest
+	// neighbors for each new node.
+	//
+	// Only applicable to `hnsw`, `int8_hnsw`, and `int4_hnsw` index types.
+	EfConstruction *int `json:"ef_construction,omitempty"`
+	// M The number of neighbors each node will be connected to in the HNSW graph.
+	//
+	// Only applicable to `hnsw`, `int8_hnsw`, and `int4_hnsw` index types.
+	M *int `json:"m,omitempty"`
+	// Type The type of kNN algorithm to use.
+	Type densevectorindexoptionstype.DenseVectorIndexOptionsType `json:"type"`
 }
 
 func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
@@ -103,16 +130,9 @@ func (s *DenseVectorIndexOptions) UnmarshalJSON(data []byte) error {
 			}
 
 		case "type":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Type = o
 
 		}
 	}

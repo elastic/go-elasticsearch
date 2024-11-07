@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -33,11 +33,13 @@ import (
 
 // UserAgentProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L370-L390
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Processors.ts#L474-L505
 type UserAgentProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
 	Description *string `json:"description,omitempty"`
+	// ExtractDeviceType Extracts device type from the user agent string on a best-effort basis.
+	ExtractDeviceType *bool `json:"extract_device_type,omitempty"`
 	// Field The field containing the user agent string.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
@@ -48,8 +50,9 @@ type UserAgentProcessor struct {
 	// modifying the document.
 	IgnoreMissing *bool `json:"ignore_missing,omitempty"`
 	// OnFailure Handle failures for the processor.
-	OnFailure []ProcessorContainer                  `json:"on_failure,omitempty"`
-	Options   []useragentproperty.UserAgentProperty `json:"options,omitempty"`
+	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Properties Controls what properties are added to `target_field`.
+	Properties []useragentproperty.UserAgentProperty `json:"properties,omitempty"`
 	// RegexFile The name of the file in the `config/ingest-user-agent` directory containing
 	// the regular expressions for parsing the user agent string. Both the directory
 	// and the file have to be created before starting Elasticsearch. If not
@@ -89,6 +92,20 @@ func (s *UserAgentProcessor) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Description = &o
+
+		case "extract_device_type":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "ExtractDeviceType", err)
+				}
+				s.ExtractDeviceType = &value
+			case bool:
+				s.ExtractDeviceType = &v
+			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {
@@ -140,9 +157,9 @@ func (s *UserAgentProcessor) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "OnFailure", err)
 			}
 
-		case "options":
-			if err := dec.Decode(&s.Options); err != nil {
-				return fmt.Errorf("%s | %w", "Options", err)
+		case "properties":
+			if err := dec.Decode(&s.Properties); err != nil {
+				return fmt.Errorf("%s | %w", "Properties", err)
 			}
 
 		case "regex_file":

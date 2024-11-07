@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -30,11 +30,11 @@ import (
 
 // FilteringAdvancedSnippet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L192-L196
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/connector/_types/Connector.ts#L192-L196
 type FilteringAdvancedSnippet struct {
-	CreatedAt DateTime                   `json:"created_at,omitempty"`
-	UpdatedAt DateTime                   `json:"updated_at,omitempty"`
-	Value     map[string]json.RawMessage `json:"value"`
+	CreatedAt DateTime        `json:"created_at,omitempty"`
+	UpdatedAt DateTime        `json:"updated_at,omitempty"`
+	Value     json.RawMessage `json:"value,omitempty"`
 }
 
 func (s *FilteringAdvancedSnippet) UnmarshalJSON(data []byte) error {
@@ -63,9 +63,6 @@ func (s *FilteringAdvancedSnippet) UnmarshalJSON(data []byte) error {
 			}
 
 		case "value":
-			if s.Value == nil {
-				s.Value = make(map[string]json.RawMessage, 0)
-			}
 			if err := dec.Decode(&s.Value); err != nil {
 				return fmt.Errorf("%s | %w", "Value", err)
 			}
@@ -77,9 +74,7 @@ func (s *FilteringAdvancedSnippet) UnmarshalJSON(data []byte) error {
 
 // NewFilteringAdvancedSnippet returns a FilteringAdvancedSnippet.
 func NewFilteringAdvancedSnippet() *FilteringAdvancedSnippet {
-	r := &FilteringAdvancedSnippet{
-		Value: make(map[string]json.RawMessage, 0),
-	}
+	r := &FilteringAdvancedSnippet{}
 
 	return r
 }

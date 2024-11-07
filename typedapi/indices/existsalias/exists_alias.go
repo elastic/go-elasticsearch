@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Check aliases.
 // Checks if one or more data stream or index aliases exist.
@@ -312,14 +312,6 @@ func (r *ExistsAlias) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWi
 // API name: ignore_unavailable
 func (r *ExistsAlias) IgnoreUnavailable(ignoreunavailable bool) *ExistsAlias {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
-
-	return r
-}
-
-// Local If `true`, the request retrieves information from the local node only.
-// API name: local
-func (r *ExistsAlias) Local(local bool) *ExistsAlias {
-	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }

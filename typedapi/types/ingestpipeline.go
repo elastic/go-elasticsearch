@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -31,8 +31,13 @@ import (
 
 // IngestPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Pipeline.ts#L23-L45
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Pipeline.ts#L23-L51
 type IngestPipeline struct {
+	// Deprecated Marks this ingest pipeline as deprecated.
+	// When a deprecated ingest pipeline is referenced as the default or final
+	// pipeline when creating or updating a non-deprecated index template,
+	// Elasticsearch will emit a deprecation warning.
+	Deprecated *bool `json:"deprecated,omitempty"`
 	// Description Description of the ingest pipeline.
 	Description *string `json:"description,omitempty"`
 	// Meta_ Arbitrary metadata about the ingest pipeline. This map is not automatically
@@ -61,6 +66,20 @@ func (s *IngestPipeline) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "deprecated":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Deprecated", err)
+				}
+				s.Deprecated = &value
+			case bool:
+				s.Deprecated = &v
+			}
 
 		case "description":
 			var tmp json.RawMessage

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Creates or updates a search application.
+// Create or update a search application.
 package put
 
 import (
@@ -81,7 +81,7 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 	}
 }
 
-// Creates or updates a search application.
+// Create or update a search application.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-search-application.html
 func New(tp elastictransport.Interface) *Put {
@@ -384,27 +384,11 @@ func (r *Put) Indices(indices ...string) *Put {
 	return r
 }
 
-// Name Search Application name.
-// API name: name
-func (r *Put) Name(name string) *Put {
-	r.req.Name = name
-
-	return r
-}
-
 // Template Search template to use on search operations.
 // API name: template
 func (r *Put) Template(template *types.SearchApplicationTemplate) *Put {
 
 	r.req.Template = template
-
-	return r
-}
-
-// UpdatedAtMillis Last time the Search Application was updated.
-// API name: updated_at_millis
-func (r *Put) UpdatedAtMillis(epochtimeunitmillis int64) *Put {
-	r.req.UpdatedAtMillis = epochtimeunitmillis
 
 	return r
 }

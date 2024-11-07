@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AllocationRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cat/allocation/types.ts#L24-L98
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cat/allocation/types.ts#L25-L99
 type AllocationRecord struct {
 	// DiskAvail Free disk space available to Elasticsearch.
 	// Elasticsearch retrieves this metric from the node’s operating system.
@@ -63,16 +63,16 @@ type AllocationRecord struct {
 	// Ip IP address and port for the node.
 	Ip *string `json:"ip,omitempty"`
 	// Node Name for the node. Set using the `node.name` setting.
-	Node string `json:"node"`
+	Node *string `json:"node,omitempty"`
 	// NodeRole Node roles
 	NodeRole *string `json:"node.role,omitempty"`
 	// Shards Number of primary and replica shards assigned to the node.
-	Shards string `json:"shards"`
+	Shards *string `json:"shards,omitempty"`
 	// ShardsUndesired Amount of shards that are scheduled to be moved elsewhere in the cluster or
 	// -1 other than desired balance allocator is used
 	ShardsUndesired *string `json:"shards.undesired,omitempty"`
 	// WriteLoadForecast Sum of index write load forecasts
-	WriteLoadForecast *Float64 `json:"write_load.forecast,omitempty"`
+	WriteLoadForecast *Stringifieddouble `json:"write_load.forecast,omitempty"`
 }
 
 func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
@@ -140,7 +140,7 @@ func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Node = o
+			s.Node = &o
 
 		case "node.role", "r", "role", "nodeRole":
 			var tmp json.RawMessage
@@ -164,7 +164,7 @@ func (s *AllocationRecord) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Shards = o
+			s.Shards = &o
 
 		case "shards.undesired":
 			var tmp json.RawMessage

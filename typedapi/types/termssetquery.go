@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TermsSetQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/term.ts#L254-L267
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/term.ts#L277-L299
 type TermsSetQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -39,6 +39,9 @@ type TermsSetQuery struct {
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
 	Boost *float32 `json:"boost,omitempty"`
+	// MinimumShouldMatch Specification describing number of matching terms required to return a
+	// document.
+	MinimumShouldMatch MinimumShouldMatch `json:"minimum_should_match,omitempty"`
 	// MinimumShouldMatchField Numeric field containing the number of matching terms required to return a
 	// document.
 	MinimumShouldMatchField *string `json:"minimum_should_match_field,omitempty"`
@@ -47,7 +50,7 @@ type TermsSetQuery struct {
 	MinimumShouldMatchScript *Script `json:"minimum_should_match_script,omitempty"`
 	QueryName_               *string `json:"_name,omitempty"`
 	// Terms Array of terms you wish to find in the provided field.
-	Terms []string `json:"terms"`
+	Terms []FieldValue `json:"terms"`
 }
 
 func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
@@ -79,6 +82,11 @@ func (s *TermsSetQuery) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := float32(v)
 				s.Boost = &f
+			}
+
+		case "minimum_should_match":
+			if err := dec.Decode(&s.MinimumShouldMatch); err != nil {
+				return fmt.Errorf("%s | %w", "MinimumShouldMatch", err)
 			}
 
 		case "minimum_should_match_field":
