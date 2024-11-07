@@ -23,14 +23,12 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"strconv"
 	"strings"
-	"time"
 )
 
-func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
-	return func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error) {
-		var r = IndicesGetDataLifecycleRequest{Name: name}
+func newIngestDeleteIPLocationDatabaseFunc(t Transport) IngestDeleteIPLocationDatabase {
+	return func(id []string, o ...func(*IngestDeleteIPLocationDatabaseRequest)) (*Response, error) {
+		var r = IngestDeleteIPLocationDatabaseRequest{DocumentID: id}
 		for _, f := range o {
 			f(&r)
 		}
@@ -45,18 +43,14 @@ func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
 
 // ----- API Definition -------------------------------------------------------
 
-// IndicesGetDataLifecycle returns the data stream lifecycle of the selected data streams.
+// IngestDeleteIPLocationDatabase deletes an ip location database configuration
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html.
-type IndicesGetDataLifecycle func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-ip-location-database-api.html.
+type IngestDeleteIPLocationDatabase func(id []string, o ...func(*IngestDeleteIPLocationDatabaseRequest)) (*Response, error)
 
-// IndicesGetDataLifecycleRequest configures the Indices Get Data Lifecycle API request.
-type IndicesGetDataLifecycleRequest struct {
-	Name []string
-
-	ExpandWildcards string
-	IncludeDefaults *bool
-	MasterTimeout   time.Duration
+// IngestDeleteIPLocationDatabaseRequest configures the Ingest DeleteIP Location Database API request.
+type IngestDeleteIPLocationDatabaseRequest struct {
+	DocumentID []string
 
 	Pretty     bool
 	Human      bool
@@ -71,7 +65,7 @@ type IndicesGetDataLifecycleRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IngestDeleteIPLocationDatabaseRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -80,44 +74,34 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "indices.get_data_lifecycle")
+		ctx = instrument.Start(providedCtx, "ingest.delete_ip_location_database")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "GET"
+	method = "DELETE"
 
-	if len(r.Name) == 0 {
-		return nil, errors.New("name is required and cannot be nil or empty")
+	if len(r.DocumentID) == 0 {
+		return nil, errors.New("id is required and cannot be nil or empty")
 	}
 
-	path.Grow(7 + 1 + len("_data_stream") + 1 + len(strings.Join(r.Name, ",")) + 1 + len("_lifecycle"))
+	path.Grow(7 + 1 + len("_ingest") + 1 + len("ip_location") + 1 + len("database") + 1 + len(strings.Join(r.DocumentID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
-	path.WriteString("_data_stream")
+	path.WriteString("_ingest")
 	path.WriteString("/")
-	path.WriteString(strings.Join(r.Name, ","))
+	path.WriteString("ip_location")
+	path.WriteString("/")
+	path.WriteString("database")
+	path.WriteString("/")
+	path.WriteString(strings.Join(r.DocumentID, ","))
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "name", strings.Join(r.Name, ","))
+		instrument.RecordPathPart(ctx, "id", strings.Join(r.DocumentID, ","))
 	}
-	path.WriteString("/")
-	path.WriteString("_lifecycle")
 
 	params = make(map[string]string)
-
-	if r.ExpandWildcards != "" {
-		params["expand_wildcards"] = r.ExpandWildcards
-	}
-
-	if r.IncludeDefaults != nil {
-		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
-	}
-
-	if r.MasterTimeout != 0 {
-		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -168,11 +152,11 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "indices.get_data_lifecycle")
+		instrument.BeforeRequest(req, "ingest.delete_ip_location_database")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "indices.get_data_lifecycle")
+		instrument.AfterRequest(req, "elasticsearch", "ingest.delete_ip_location_database")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -191,64 +175,43 @@ func (r IndicesGetDataLifecycleRequest) Do(providedCtx context.Context, transpor
 }
 
 // WithContext sets the request context.
-func (f IndicesGetDataLifecycle) WithContext(v context.Context) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f IngestDeleteIPLocationDatabase) WithContext(v context.Context) func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		r.ctx = v
 	}
 }
 
-// WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
-func (f IndicesGetDataLifecycle) WithExpandWildcards(v string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.ExpandWildcards = v
-	}
-}
-
-// WithIncludeDefaults - return all relevant default configurations for the data stream (default: false).
-func (f IndicesGetDataLifecycle) WithIncludeDefaults(v bool) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.IncludeDefaults = &v
-	}
-}
-
-// WithMasterTimeout - specify timeout for connection to master.
-func (f IndicesGetDataLifecycle) WithMasterTimeout(v time.Duration) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
-		r.MasterTimeout = v
-	}
-}
-
 // WithPretty makes the response body pretty-printed.
-func (f IndicesGetDataLifecycle) WithPretty() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f IngestDeleteIPLocationDatabase) WithPretty() func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IndicesGetDataLifecycle) WithHuman() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f IngestDeleteIPLocationDatabase) WithHuman() func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IndicesGetDataLifecycle) WithErrorTrace() func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f IngestDeleteIPLocationDatabase) WithErrorTrace() func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IndicesGetDataLifecycle) WithFilterPath(v ...string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f IngestDeleteIPLocationDatabase) WithFilterPath(v ...string) func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IndicesGetDataLifecycle) WithHeader(h map[string]string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f IngestDeleteIPLocationDatabase) WithHeader(h map[string]string) func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -259,8 +222,8 @@ func (f IndicesGetDataLifecycle) WithHeader(h map[string]string) func(*IndicesGe
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IndicesGetDataLifecycle) WithOpaqueID(s string) func(*IndicesGetDataLifecycleRequest) {
-	return func(r *IndicesGetDataLifecycleRequest) {
+func (f IngestDeleteIPLocationDatabase) WithOpaqueID(s string) func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

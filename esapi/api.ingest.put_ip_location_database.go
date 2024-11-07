@@ -26,9 +26,9 @@ import (
 	"strings"
 )
 
-func newIngestPutGeoipDatabaseFunc(t Transport) IngestPutGeoipDatabase {
-	return func(id string, body io.Reader, o ...func(*IngestPutGeoipDatabaseRequest)) (*Response, error) {
-		var r = IngestPutGeoipDatabaseRequest{DocumentID: id, Body: body}
+func newIngestPutIPLocationDatabaseFunc(t Transport) IngestPutIPLocationDatabase {
+	return func(id string, body io.Reader, o ...func(*IngestPutIPLocationDatabaseRequest)) (*Response, error) {
+		var r = IngestPutIPLocationDatabaseRequest{DocumentID: id, Body: body}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,13 +43,13 @@ func newIngestPutGeoipDatabaseFunc(t Transport) IngestPutGeoipDatabase {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestPutGeoipDatabase puts the configuration for a geoip database to be downloaded
+// IngestPutIPLocationDatabase puts the configuration for a ip location database to be downloaded
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-geoip-database-api.html.
-type IngestPutGeoipDatabase func(id string, body io.Reader, o ...func(*IngestPutGeoipDatabaseRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-ip-location-database-api.html.
+type IngestPutIPLocationDatabase func(id string, body io.Reader, o ...func(*IngestPutIPLocationDatabaseRequest)) (*Response, error)
 
-// IngestPutGeoipDatabaseRequest configures the Ingest Put Geoip Database API request.
-type IngestPutGeoipDatabaseRequest struct {
+// IngestPutIPLocationDatabaseRequest configures the Ingest PutIP Location Database API request.
+type IngestPutIPLocationDatabaseRequest struct {
 	DocumentID string
 
 	Body io.Reader
@@ -67,7 +67,7 @@ type IngestPutGeoipDatabaseRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IngestPutIPLocationDatabaseRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,7 +76,7 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ingest.put_geoip_database")
+		ctx = instrument.Start(providedCtx, "ingest.put_ip_location_database")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
@@ -85,12 +85,12 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 
 	method = "PUT"
 
-	path.Grow(7 + 1 + len("_ingest") + 1 + len("geoip") + 1 + len("database") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_ingest") + 1 + len("ip_location") + 1 + len("database") + 1 + len(r.DocumentID))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ingest")
 	path.WriteString("/")
-	path.WriteString("geoip")
+	path.WriteString("ip_location")
 	path.WriteString("/")
 	path.WriteString("database")
 	path.WriteString("/")
@@ -154,14 +154,14 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "ingest.put_geoip_database")
-		if reader := instrument.RecordRequestBody(ctx, "ingest.put_geoip_database", r.Body); reader != nil {
+		instrument.BeforeRequest(req, "ingest.put_ip_location_database")
+		if reader := instrument.RecordRequestBody(ctx, "ingest.put_ip_location_database", r.Body); reader != nil {
 			req.Body = reader
 		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "ingest.put_geoip_database")
+		instrument.AfterRequest(req, "elasticsearch", "ingest.put_ip_location_database")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -180,43 +180,43 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 }
 
 // WithContext sets the request context.
-func (f IngestPutGeoipDatabase) WithContext(v context.Context) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestPutIPLocationDatabase) WithContext(v context.Context) func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
 		r.ctx = v
 	}
 }
 
 // WithPretty makes the response body pretty-printed.
-func (f IngestPutGeoipDatabase) WithPretty() func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestPutIPLocationDatabase) WithPretty() func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IngestPutGeoipDatabase) WithHuman() func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestPutIPLocationDatabase) WithHuman() func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IngestPutGeoipDatabase) WithErrorTrace() func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestPutIPLocationDatabase) WithErrorTrace() func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IngestPutGeoipDatabase) WithFilterPath(v ...string) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestPutIPLocationDatabase) WithFilterPath(v ...string) func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IngestPutGeoipDatabase) WithHeader(h map[string]string) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestPutIPLocationDatabase) WithHeader(h map[string]string) func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -227,8 +227,8 @@ func (f IngestPutGeoipDatabase) WithHeader(h map[string]string) func(*IngestPutG
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IngestPutGeoipDatabase) WithOpaqueID(s string) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestPutIPLocationDatabase) WithOpaqueID(s string) func(*IngestPutIPLocationDatabaseRequest) {
+	return func(r *IngestPutIPLocationDatabaseRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}

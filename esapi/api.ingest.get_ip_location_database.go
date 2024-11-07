@@ -21,14 +21,13 @@ package esapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"strings"
 )
 
-func newIngestPutGeoipDatabaseFunc(t Transport) IngestPutGeoipDatabase {
-	return func(id string, body io.Reader, o ...func(*IngestPutGeoipDatabaseRequest)) (*Response, error) {
-		var r = IngestPutGeoipDatabaseRequest{DocumentID: id, Body: body}
+func newIngestGetIPLocationDatabaseFunc(t Transport) IngestGetIPLocationDatabase {
+	return func(o ...func(*IngestGetIPLocationDatabaseRequest)) (*Response, error) {
+		var r = IngestGetIPLocationDatabaseRequest{}
 		for _, f := range o {
 			f(&r)
 		}
@@ -43,16 +42,14 @@ func newIngestPutGeoipDatabaseFunc(t Transport) IngestPutGeoipDatabase {
 
 // ----- API Definition -------------------------------------------------------
 
-// IngestPutGeoipDatabase puts the configuration for a geoip database to be downloaded
+// IngestGetIPLocationDatabase returns the specified ip location database configuration
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-geoip-database-api.html.
-type IngestPutGeoipDatabase func(id string, body io.Reader, o ...func(*IngestPutGeoipDatabaseRequest)) (*Response, error)
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/get-ip-location-database-api.html.
+type IngestGetIPLocationDatabase func(o ...func(*IngestGetIPLocationDatabaseRequest)) (*Response, error)
 
-// IngestPutGeoipDatabaseRequest configures the Ingest Put Geoip Database API request.
-type IngestPutGeoipDatabaseRequest struct {
-	DocumentID string
-
-	Body io.Reader
+// IngestGetIPLocationDatabaseRequest configures the Ingest GetIP Location Database API request.
+type IngestGetIPLocationDatabaseRequest struct {
+	DocumentID []string
 
 	Pretty     bool
 	Human      bool
@@ -67,7 +64,7 @@ type IngestPutGeoipDatabaseRequest struct {
 }
 
 // Do executes the request and returns response or error.
-func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
+func (r IngestGetIPLocationDatabaseRequest) Do(providedCtx context.Context, transport Transport) (*Response, error) {
 	var (
 		method string
 		path   strings.Builder
@@ -76,27 +73,29 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 	)
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ingest.put_geoip_database")
+		ctx = instrument.Start(providedCtx, "ingest.get_ip_location_database")
 		defer instrument.Close(ctx)
 	}
 	if ctx == nil {
 		ctx = providedCtx
 	}
 
-	method = "PUT"
+	method = "GET"
 
-	path.Grow(7 + 1 + len("_ingest") + 1 + len("geoip") + 1 + len("database") + 1 + len(r.DocumentID))
+	path.Grow(7 + 1 + len("_ingest") + 1 + len("ip_location") + 1 + len("database") + 1 + len(strings.Join(r.DocumentID, ",")))
 	path.WriteString("http://")
 	path.WriteString("/")
 	path.WriteString("_ingest")
 	path.WriteString("/")
-	path.WriteString("geoip")
+	path.WriteString("ip_location")
 	path.WriteString("/")
 	path.WriteString("database")
-	path.WriteString("/")
-	path.WriteString(r.DocumentID)
-	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.RecordPathPart(ctx, "id", r.DocumentID)
+	if len(r.DocumentID) > 0 {
+		path.WriteString("/")
+		path.WriteString(strings.Join(r.DocumentID, ","))
+		if instrument, ok := r.instrument.(Instrumentation); ok {
+			instrument.RecordPathPart(ctx, "id", strings.Join(r.DocumentID, ","))
+		}
 	}
 
 	params = make(map[string]string)
@@ -117,7 +116,7 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), r.Body)
+	req, err := newRequest(method, path.String(), nil)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -145,23 +144,16 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 		}
 	}
 
-	if r.Body != nil && req.Header.Get(headerContentType) == "" {
-		req.Header[headerContentType] = headerContentTypeJSON
-	}
-
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.BeforeRequest(req, "ingest.put_geoip_database")
-		if reader := instrument.RecordRequestBody(ctx, "ingest.put_geoip_database", r.Body); reader != nil {
-			req.Body = reader
-		}
+		instrument.BeforeRequest(req, "ingest.get_ip_location_database")
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
-		instrument.AfterRequest(req, "elasticsearch", "ingest.put_geoip_database")
+		instrument.AfterRequest(req, "elasticsearch", "ingest.get_ip_location_database")
 	}
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -180,43 +172,50 @@ func (r IngestPutGeoipDatabaseRequest) Do(providedCtx context.Context, transport
 }
 
 // WithContext sets the request context.
-func (f IngestPutGeoipDatabase) WithContext(v context.Context) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestGetIPLocationDatabase) WithContext(v context.Context) func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
 		r.ctx = v
 	}
 }
 
+// WithDocumentID - a list of ip location database configurations to get; use `*` to get all ip location database configurations.
+func (f IngestGetIPLocationDatabase) WithDocumentID(v ...string) func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
+		r.DocumentID = v
+	}
+}
+
 // WithPretty makes the response body pretty-printed.
-func (f IngestPutGeoipDatabase) WithPretty() func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestGetIPLocationDatabase) WithPretty() func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
 		r.Pretty = true
 	}
 }
 
 // WithHuman makes statistical values human-readable.
-func (f IngestPutGeoipDatabase) WithHuman() func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestGetIPLocationDatabase) WithHuman() func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
 		r.Human = true
 	}
 }
 
 // WithErrorTrace includes the stack trace for errors in the response body.
-func (f IngestPutGeoipDatabase) WithErrorTrace() func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestGetIPLocationDatabase) WithErrorTrace() func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
 		r.ErrorTrace = true
 	}
 }
 
 // WithFilterPath filters the properties of the response body.
-func (f IngestPutGeoipDatabase) WithFilterPath(v ...string) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestGetIPLocationDatabase) WithFilterPath(v ...string) func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
 		r.FilterPath = v
 	}
 }
 
 // WithHeader adds the headers to the HTTP request.
-func (f IngestPutGeoipDatabase) WithHeader(h map[string]string) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestGetIPLocationDatabase) WithHeader(h map[string]string) func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
@@ -227,8 +226,8 @@ func (f IngestPutGeoipDatabase) WithHeader(h map[string]string) func(*IngestPutG
 }
 
 // WithOpaqueID adds the X-Opaque-Id header to the HTTP request.
-func (f IngestPutGeoipDatabase) WithOpaqueID(s string) func(*IngestPutGeoipDatabaseRequest) {
-	return func(r *IngestPutGeoipDatabaseRequest) {
+func (f IngestGetIPLocationDatabase) WithOpaqueID(s string) func(*IngestGetIPLocationDatabaseRequest) {
+	return func(r *IngestGetIPLocationDatabaseRequest) {
 		if r.Header == nil {
 			r.Header = make(http.Header)
 		}
