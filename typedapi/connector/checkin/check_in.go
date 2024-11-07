@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Updates the last_seen field in the connector, and sets it to current
-// timestamp
+// Check in a connector.
+//
+// Update the `last_seen` field in the connector and set it to the current
+// timestamp.
 package checkin
 
 import (
@@ -77,8 +79,10 @@ func NewCheckInFunc(tp elastictransport.Interface) NewCheckIn {
 	}
 }
 
-// Updates the last_seen field in the connector, and sets it to current
-// timestamp
+// Check in a connector.
+//
+// Update the `last_seen` field in the connector and set it to the current
+// timestamp.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/check-in-connector-api.html
 func New(tp elastictransport.Interface) *CheckIn {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Returns low-level information about the Lucene segments in index shards.
 // For data streams, the API returns information about the stream’s backing
@@ -340,14 +340,6 @@ func (r *Segments) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildc
 // API name: ignore_unavailable
 func (r *Segments) IgnoreUnavailable(ignoreunavailable bool) *Segments {
 	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
-
-	return r
-}
-
-// Verbose If `true`, the request returns a verbose response.
-// API name: verbose
-func (r *Segments) Verbose(verbose bool) *Segments {
-	r.values.Set("verbose", strconv.FormatBool(verbose))
 
 	return r
 }

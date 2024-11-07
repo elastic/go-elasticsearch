@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -28,21 +28,19 @@ import (
 	"io"
 )
 
-// SearchApplicationListItem type.
+// SearchApplicationParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/search_application/list/SearchApplicationsListResponse.ts#L31-L48
-type SearchApplicationListItem struct {
-	// AnalyticsCollectionName Analytics collection associated to the Search Application
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/search_application/_types/SearchApplicationParameters.ts#L23-L36
+type SearchApplicationParameters struct {
+	// AnalyticsCollectionName Analytics collection associated to the Search Application.
 	AnalyticsCollectionName *string `json:"analytics_collection_name,omitempty"`
-	// Indices Indices that are part of the Search Application
+	// Indices Indices that are part of the Search Application.
 	Indices []string `json:"indices"`
-	// Name Search Application name
-	Name string `json:"name"`
-	// UpdatedAtMillis Last time the Search Application was updated
-	UpdatedAtMillis int64 `json:"updated_at_millis"`
+	// Template Search template to use on search operations.
+	Template *SearchApplicationTemplate `json:"template,omitempty"`
 }
 
-func (s *SearchApplicationListItem) UnmarshalJSON(data []byte) error {
+func (s *SearchApplicationParameters) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -67,14 +65,9 @@ func (s *SearchApplicationListItem) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Indices", err)
 			}
 
-		case "name":
-			if err := dec.Decode(&s.Name); err != nil {
-				return fmt.Errorf("%s | %w", "Name", err)
-			}
-
-		case "updated_at_millis":
-			if err := dec.Decode(&s.UpdatedAtMillis); err != nil {
-				return fmt.Errorf("%s | %w", "UpdatedAtMillis", err)
+		case "template":
+			if err := dec.Decode(&s.Template); err != nil {
+				return fmt.Errorf("%s | %w", "Template", err)
 			}
 
 		}
@@ -82,9 +75,9 @@ func (s *SearchApplicationListItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewSearchApplicationListItem returns a SearchApplicationListItem.
-func NewSearchApplicationListItem() *SearchApplicationListItem {
-	r := &SearchApplicationListItem{}
+// NewSearchApplicationParameters returns a SearchApplicationParameters.
+func NewSearchApplicationParameters() *SearchApplicationParameters {
+	r := &SearchApplicationParameters{}
 
 	return r
 }

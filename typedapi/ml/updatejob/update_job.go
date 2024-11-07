@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
+// Update an anomaly detection job.
 // Updates certain properties of an anomaly detection job.
 package updatejob
 
@@ -81,6 +82,7 @@ func NewUpdateJobFunc(tp elastictransport.Interface) NewUpdateJob {
 	}
 }
 
+// Update an anomaly detection job.
 // Updates certain properties of an anomaly detection job.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-job.html

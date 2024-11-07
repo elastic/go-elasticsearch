@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -26,11 +26,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // DataStreamLifecycleWithRollover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/DataStreamLifecycle.ts#L33-L55
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/DataStreamLifecycle.ts#L47-L58
 type DataStreamLifecycleWithRollover struct {
 	// DataRetention If defined, every document added to this data stream will be stored at least
 	// for this time frame.
@@ -40,6 +41,10 @@ type DataStreamLifecycleWithRollover struct {
 	// Downsampling The downsampling configuration to execute for the managed backing index after
 	// rollover.
 	Downsampling *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+	// data stream. A data stream lifecycle
+	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	Enabled *bool `json:"enabled,omitempty"`
 	// Rollover The conditions which will trigger the rollover of a backing index as
 	// configured by the cluster setting `cluster.lifecycle.default.rollover`.
 	// This property is an implementation detail and it will only be retrieved when
@@ -71,6 +76,20 @@ func (s *DataStreamLifecycleWithRollover) UnmarshalJSON(data []byte) error {
 		case "downsampling":
 			if err := dec.Decode(&s.Downsampling); err != nil {
 				return fmt.Errorf("%s | %w", "Downsampling", err)
+			}
+
+		case "enabled":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Enabled", err)
+				}
+				s.Enabled = &value
+			case bool:
+				s.Enabled = &v
 			}
 
 		case "rollover":

@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Retrieves information for Users in a paginated manner. You can optionally
-// filter the results with a query.
+// Find users with a query.
+//
+// Get information for users in a paginated manner.
+// You can optionally filter the results with a query.
 package queryuser
 
 import (
@@ -74,8 +76,10 @@ func NewQueryUserFunc(tp elastictransport.Interface) NewQueryUser {
 	}
 }
 
-// Retrieves information for Users in a paginated manner. You can optionally
-// filter the results with a query.
+// Find users with a query.
+//
+// Get information for users in a paginated manner.
+// You can optionally filter the results with a query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
 func New(tp elastictransport.Interface) *QueryUser {

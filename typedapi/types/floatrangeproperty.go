@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // FloatRangeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/range.ts#L38-L40
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/mapping/range.ts#L38-L40
 type FloatRangeProperty struct {
 	Boost       *Float64                       `json:"boost,omitempty"`
 	Coerce      *bool                          `json:"coerce,omitempty"`
@@ -46,7 +46,6 @@ type FloatRangeProperty struct {
 	// Meta Metadata about the field.
 	Meta       map[string]string   `json:"meta,omitempty"`
 	Properties map[string]Property `json:"properties,omitempty"`
-	Similarity *string             `json:"similarity,omitempty"`
 	Store      *bool               `json:"store,omitempty"`
 	Type       string              `json:"type,omitempty"`
 }
@@ -807,18 +806,6 @@ func (s *FloatRangeProperty) UnmarshalJSON(data []byte) error {
 				}
 			}
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -857,7 +844,6 @@ func (s FloatRangeProperty) MarshalJSON() ([]byte, error) {
 		Index:       s.Index,
 		Meta:        s.Meta,
 		Properties:  s.Properties,
-		Similarity:  s.Similarity,
 		Store:       s.Store,
 		Type:        s.Type,
 	}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Tests a Grok pattern on some text.
 package testgrokpattern
@@ -348,7 +348,6 @@ func (r *TestGrokPattern) Pretty(pretty bool) *TestGrokPattern {
 // GrokPattern Grok pattern to run on the text.
 // API name: grok_pattern
 func (r *TestGrokPattern) GrokPattern(grokpattern string) *TestGrokPattern {
-
 	r.req.GrokPattern = grokpattern
 
 	return r

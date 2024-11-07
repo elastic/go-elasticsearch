@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Update data stream lifecycles.
 // Update the data stream lifecycle of the specified data streams.
@@ -403,13 +403,22 @@ func (r *PutDataLifecycle) DataRetention(duration types.Duration) *PutDataLifecy
 	return r
 }
 
-// Downsampling If defined, every backing index will execute the configured downsampling
-// configuration after the backing
-// index is not the data stream write index anymore.
+// Downsampling The downsampling configuration to execute for the managed backing index after
+// rollover.
 // API name: downsampling
 func (r *PutDataLifecycle) Downsampling(downsampling *types.DataStreamLifecycleDownsampling) *PutDataLifecycle {
 
 	r.req.Downsampling = downsampling
+
+	return r
+}
+
+// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+// data stream. A data stream lifecycle
+// that's disabled (enabled: `false`) will have no effect on the data stream.
+// API name: enabled
+func (r *PutDataLifecycle) Enabled(enabled bool) *PutDataLifecycle {
+	r.req.Enabled = &enabled
 
 	return r
 }

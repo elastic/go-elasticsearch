@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -26,19 +26,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
-// HotThread type.
+// Redact type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/hot_threads/types.ts#L23-L28
-type HotThread struct {
-	Hosts    []string `json:"hosts"`
-	NodeId   string   `json:"node_id"`
-	NodeName string   `json:"node_name"`
-	Threads  []string `json:"threads"`
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/simulate/types.ts#L39-L44
+type Redact struct {
+	// IsRedacted_ indicates if document has been redacted
+	IsRedacted_ bool `json:"_is_redacted"`
 }
 
-func (s *HotThread) UnmarshalJSON(data []byte) error {
+func (s *Redact) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,24 +52,18 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "hosts":
-			if err := dec.Decode(&s.Hosts); err != nil {
-				return fmt.Errorf("%s | %w", "Hosts", err)
-			}
-
-		case "node_id":
-			if err := dec.Decode(&s.NodeId); err != nil {
-				return fmt.Errorf("%s | %w", "NodeId", err)
-			}
-
-		case "node_name":
-			if err := dec.Decode(&s.NodeName); err != nil {
-				return fmt.Errorf("%s | %w", "NodeName", err)
-			}
-
-		case "threads":
-			if err := dec.Decode(&s.Threads); err != nil {
-				return fmt.Errorf("%s | %w", "Threads", err)
+		case "_is_redacted":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "IsRedacted_", err)
+				}
+				s.IsRedacted_ = value
+			case bool:
+				s.IsRedacted_ = v
 			}
 
 		}
@@ -78,9 +71,9 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewHotThread returns a HotThread.
-func NewHotThread() *HotThread {
-	r := &HotThread{}
+// NewRedact returns a Redact.
+func NewRedact() *Redact {
+	r := &Redact{}
 
 	return r
 }

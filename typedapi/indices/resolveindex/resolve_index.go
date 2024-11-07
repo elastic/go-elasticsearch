@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Resolves the specified name(s) and/or index patterns for indices, aliases,
 // and data streams.
@@ -319,6 +319,27 @@ func (r *ResolveIndex) ExpandWildcards(expandwildcards ...expandwildcard.ExpandW
 		tmp = append(tmp, item.String())
 	}
 	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// IgnoreUnavailable If `false`, the request returns an error if it targets a missing or closed
+// index.
+// API name: ignore_unavailable
+func (r *ResolveIndex) IgnoreUnavailable(ignoreunavailable bool) *ResolveIndex {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
+
+	return r
+}
+
+// AllowNoIndices If `false`, the request returns an error if any wildcard expression, index
+// alias, or `_all` value targets only missing or closed indices.
+// This behavior applies even if the request targets other open indices.
+// For example, a request targeting `foo*,bar*` returns an error if an index
+// starts with `foo` but no index starts with `bar`.
+// API name: allow_no_indices
+func (r *ResolveIndex) AllowNoIndices(allownoindices bool) *ResolveIndex {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
 
 	return r
 }

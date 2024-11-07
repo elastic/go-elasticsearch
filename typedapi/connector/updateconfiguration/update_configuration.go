@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Updates the configuration field in the connector document
+// Update the connector configuration.
+//
+// Update the configuration field in the connector document.
 package updateconfiguration
 
 import (
@@ -81,7 +83,9 @@ func NewUpdateConfigurationFunc(tp elastictransport.Interface) NewUpdateConfigur
 	}
 }
 
-// Updates the configuration field in the connector document
+// Update the connector configuration.
+//
+// Update the configuration field in the connector document.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-configuration-api.html
 func New(tp elastictransport.Interface) *UpdateConfiguration {

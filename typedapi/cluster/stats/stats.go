@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 // Returns cluster statistics.
 // It returns basic index metrics (shard numbers, store size, memory usage) and
@@ -313,10 +313,10 @@ func (r *Stats) NodeId(nodeid string) *Stats {
 	return r
 }
 
-// FlatSettings If `true`, returns settings in flat format.
-// API name: flat_settings
-func (r *Stats) FlatSettings(flatsettings bool) *Stats {
-	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
+// IncludeRemotes Include remote cluster data into the response
+// API name: include_remotes
+func (r *Stats) IncludeRemotes(includeremotes bool) *Stats {
+	r.values.Set("include_remotes", strconv.FormatBool(includeremotes))
 
 	return r
 }

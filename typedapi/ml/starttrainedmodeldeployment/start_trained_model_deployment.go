@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
-// Starts a trained model deployment, which allocates the model to every machine
-// learning node.
+// Start a trained model deployment.
+// It allocates the model to every machine learning node.
 package starttrainedmodeldeployment
 
 import (
@@ -79,8 +79,8 @@ func NewStartTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStartT
 	}
 }
 
-// Starts a trained model deployment, which allocates the model to every machine
-// learning node.
+// Start a trained model deployment.
+// It allocates the model to every machine learning node.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/start-trained-model-deployment.html
 func New(tp elastictransport.Interface) *StartTrainedModelDeployment {

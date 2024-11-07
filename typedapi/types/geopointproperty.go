@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoPointProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/geo.ts#L24-L32
+// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/mapping/geo.ts#L24-L32
 type GeoPointProperty struct {
 	CopyTo          []string                       `json:"copy_to,omitempty"`
 	DocValues       *bool                          `json:"doc_values,omitempty"`
@@ -50,7 +50,6 @@ type GeoPointProperty struct {
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
 	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
-	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
 	Type          string                       `json:"type,omitempty"`
 }
@@ -864,18 +863,6 @@ func (s *GeoPointProperty) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Script", err)
 			}
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -917,7 +904,6 @@ func (s GeoPointProperty) MarshalJSON() ([]byte, error) {
 		OnScriptError:   s.OnScriptError,
 		Properties:      s.Properties,
 		Script:          s.Script,
-		Similarity:      s.Similarity,
 		Store:           s.Store,
 		Type:            s.Type,
 	}
