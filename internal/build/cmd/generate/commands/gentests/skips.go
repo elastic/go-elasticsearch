@@ -67,6 +67,7 @@ var skipFiles = []string{
 	".*esql\\/.*.yml",
 	"deprecation/10_basic.yml",    // incompatible test generation
 	"search/520_fetch_fields.yml", // disabled for inconsistency
+	"ingest_geoip/20_geoip_processor.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -355,9 +356,9 @@ ml/search_knn_query_vector_builder.yml:
 ml/text_embedding_search.yml:
 ml/text_expansion_search_rank_features.yml:
 
-# TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
   - Create a source only snapshot and then restore it
+  - Failed to snapshot indices with synthetic source
 
 # illegal_argument_exception: Provided password hash uses [NOOP] but the configured hashing algorithm is [BCRYPT]
 users/10_basic.yml:
@@ -464,6 +465,7 @@ nodes.stats/11_indices_metrics.yml:
   - Metric - blank for indices shards
   - Metric - _all for indices shards
   - indices shards total count test
+  - Lucene segment level fields stats
 
 data_stream/10_data_stream_resolvability.yml:
   - Verify data stream resolvability in ILM remove policy API
@@ -568,4 +570,30 @@ search/520_fetch_fields.yml:
 
 spatial/140_synthetic_source.yml:
   - point
+
+search.suggest/20_phrase.yml:
+  - breaks ties by sorting terms
+
+search/600_flattened_ignore_above.yml:
+  - flattened ignore_above single-value field
+
+ingest_geoip/50_ip_lookup_processor.yml:
+  - Test ip_location processor with defaults
+
+ingest_geoip/60_ip_location_databases.yml:
+  - Test adding, getting, and removing ip location databases
+
+ingest_geoip/30_geoip_stats.yml:
+  - Test geoip stats
+
+ingest_geoip/40_geoip_databases.yml:
+  - Test adding, getting, and removing geoip databases
+
+indices.create/20_synthetic_source.yml:
+  - synthetic_source with disabled doc_values
+  - synthetic_source with copy_to
+  - disabled object contains array
+
+cluster.stats/30_ccs_stats.yml:
+  - cross-cluster search stats search
 `
