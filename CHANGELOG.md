@@ -1,3 +1,27 @@
+# 8.16.0
+
+# API
+
+* `InferenceStreamInference` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/stream-inference-api.html)
+* `QueryRulesTest` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/test-query-ruleset.html)
+* `Ingest.DeleteIPLocationDatabase` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-ip-location-database-api.html)
+* `Ingest.GetIPLocationDatabase` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ip-location-database-api.html)
+* `Ingest.PutIPLocationDatabase` [Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/put-ip-location-database-api.html)
+
+# Typed API
+
+Update APIs to latest [elasticsearch-specification 8.16](https://github.com/elastic/elasticsearch-specification/tree/4fcf747dfafc951e1dcf3077327e3dcee9107db3)
+
+# 8.15.0
+
+# API
+
+* API is generated from the Elasticsearch 8.15.0 specification. 
+
+# Typed API
+
+Update APIs to latest [elasticsearch-specification 8.15](https://github.com/elastic/elasticsearch-specification/tree/19027dbdd366978ccae41842a040a636730e7c10)
+
 # 8.14.0
 
 # API
