@@ -21,7 +21,6 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"go.opentelemetry.io/otel/trace"
 	"net/http"
 	"net/url"
 	"os"
@@ -32,13 +31,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi"
-
-	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"github.com/elastic/go-elasticsearch/v8/internal/version"
-
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/elastic/go-elasticsearch/v8/internal/version"
+	"github.com/elastic/go-elasticsearch/v8/typedapi"
+	"go.opentelemetry.io/otel/trace"
 )
 
 const (
@@ -341,9 +339,12 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 
 	// Retrieve the original request.
 	res, err := c.Transport.Perform(req)
+	if err != nil {
+		return nil, err
+	}
 
 	// ResponseCheck, we run the header check on the first answer from ES.
-	if err == nil && (res.StatusCode >= 200 && res.StatusCode < 300) {
+	if res.StatusCode >= 200 && res.StatusCode < 300 {
 		checkHeader := func() error { return genuineCheckHeader(res.Header) }
 		if err := c.doProductCheck(checkHeader); err != nil {
 			res.Body.Close()
@@ -351,7 +352,7 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 		}
 	}
 
-	return res, err
+	return res, nil
 }
 
 // InstrumentationEnabled propagates back to the client the Instrumentation provided by the transport.
