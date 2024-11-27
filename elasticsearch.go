@@ -341,9 +341,12 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 
 	// Retrieve the original request.
 	res, err := c.Transport.Perform(req)
+	if err != nil {
+		return nil, err
+	}
 
 	// ResponseCheck, we run the header check on the first answer from ES.
-	if err == nil && (res.StatusCode >= 200 && res.StatusCode < 300) {
+	if res.StatusCode >= 200 && res.StatusCode < 300 {
 		checkHeader := func() error { return genuineCheckHeader(res.Header) }
 		if err := c.doProductCheck(checkHeader); err != nil {
 			res.Body.Close()
@@ -351,7 +354,7 @@ func (c *BaseClient) Perform(req *http.Request) (*http.Response, error) {
 		}
 	}
 
-	return res, err
+	return res, nil
 }
 
 // InstrumentationEnabled propagates back to the client the Instrumentation provided by the transport.
