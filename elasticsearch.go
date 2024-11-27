@@ -21,6 +21,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"go.opentelemetry.io/otel/trace"
 	"net/http"
 	"net/url"
 	"os"
@@ -31,12 +32,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
+	"github.com/elastic/go-elasticsearch/v8/typedapi"
+
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
-	"github.com/elastic/go-elasticsearch/v8/typedapi"
-	"go.opentelemetry.io/otel/trace"
+
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
 )
 
 const (
