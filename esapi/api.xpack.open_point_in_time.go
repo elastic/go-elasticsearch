@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.17.0: DO NOT EDIT
 
 package esapi
 
@@ -56,11 +56,12 @@ type OpenPointInTimeRequest struct {
 
 	Body io.Reader
 
-	ExpandWildcards   string
-	IgnoreUnavailable *bool
-	KeepAlive         string
-	Preference        string
-	Routing           string
+	AllowPartialSearchResults *bool
+	ExpandWildcards           string
+	IgnoreUnavailable         *bool
+	KeepAlive                 string
+	Preference                string
+	Routing                   string
 
 	Pretty     bool
 	Human      bool
@@ -108,6 +109,10 @@ func (r OpenPointInTimeRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("_pit")
 
 	params = make(map[string]string)
+
+	if r.AllowPartialSearchResults != nil {
+		params["allow_partial_search_results"] = strconv.FormatBool(*r.AllowPartialSearchResults)
+	}
 
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
@@ -218,6 +223,13 @@ func (f OpenPointInTime) WithContext(v context.Context) func(*OpenPointInTimeReq
 func (f OpenPointInTime) WithBody(v io.Reader) func(*OpenPointInTimeRequest) {
 	return func(r *OpenPointInTimeRequest) {
 		r.Body = v
+	}
+}
+
+// WithAllowPartialSearchResults - specify whether to tolerate shards missing when creating the point-in-time, or otherwise throw an exception. (default: false).
+func (f OpenPointInTime) WithAllowPartialSearchResults(v bool) func(*OpenPointInTimeRequest) {
+	return func(r *OpenPointInTimeRequest) {
+		r.AllowPartialSearchResults = &v
 	}
 }
 

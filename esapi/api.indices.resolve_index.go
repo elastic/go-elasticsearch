@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.17.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -52,7 +53,9 @@ type IndicesResolveIndex func(name []string, o ...func(*IndicesResolveIndexReque
 type IndicesResolveIndexRequest struct {
 	Name []string
 
-	ExpandWildcards string
+	AllowNoIndices    *bool
+	ExpandWildcards   string
+	IgnoreUnavailable *bool
 
 	Pretty     bool
 	Human      bool
@@ -103,8 +106,16 @@ func (r IndicesResolveIndexRequest) Do(providedCtx context.Context, transport Tr
 
 	params = make(map[string]string)
 
+	if r.AllowNoIndices != nil {
+		params["allow_no_indices"] = strconv.FormatBool(*r.AllowNoIndices)
+	}
+
 	if r.ExpandWildcards != "" {
 		params["expand_wildcards"] = r.ExpandWildcards
+	}
+
+	if r.IgnoreUnavailable != nil {
+		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
 	if r.Pretty {
@@ -185,10 +196,24 @@ func (f IndicesResolveIndex) WithContext(v context.Context) func(*IndicesResolve
 	}
 }
 
+// WithAllowNoIndices - whether to ignore if a wildcard indices expression resolves into no concrete indices. (this includes `_all` string or when no indices have been specified).
+func (f IndicesResolveIndex) WithAllowNoIndices(v bool) func(*IndicesResolveIndexRequest) {
+	return func(r *IndicesResolveIndexRequest) {
+		r.AllowNoIndices = &v
+	}
+}
+
 // WithExpandWildcards - whether wildcard expressions should get expanded to open or closed indices (default: open).
 func (f IndicesResolveIndex) WithExpandWildcards(v string) func(*IndicesResolveIndexRequest) {
 	return func(r *IndicesResolveIndexRequest) {
 		r.ExpandWildcards = v
+	}
+}
+
+// WithIgnoreUnavailable - whether specified concrete indices should be ignored when unavailable (missing or closed).
+func (f IndicesResolveIndex) WithIgnoreUnavailable(v bool) func(*IndicesResolveIndexRequest) {
+	return func(r *IndicesResolveIndexRequest) {
+		r.IgnoreUnavailable = &v
 	}
 }
 
