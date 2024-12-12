@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Returns cluster nodes information.
+// Get node information.
+// By default, the API returns all attributes and core settings for cluster
+// nodes.
 package info
 
 import (
@@ -77,7 +79,9 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Returns cluster nodes information.
+// Get node information.
+// By default, the API returns all attributes and core settings for cluster
+// nodes.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
 func New(tp elastictransport.Interface) *Info {

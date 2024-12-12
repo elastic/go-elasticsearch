@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 // The task management API returns information about tasks currently executing
 // on one or more nodes in the cluster.
@@ -306,14 +306,10 @@ func (r *List) GroupBy(groupby groupby.GroupBy) *List {
 	return r
 }
 
-// NodeId Comma-separated list of node IDs or names used to limit returned information.
-// API name: node_id
-func (r *List) NodeId(nodeids ...string) *List {
-	tmp := []string{}
-	for _, item := range nodeids {
-		tmp = append(tmp, fmt.Sprintf("%v", item))
-	}
-	r.values.Set("node_id", strings.Join(tmp, ","))
+// Nodes Comma-separated list of node IDs or names used to limit returned information.
+// API name: nodes
+func (r *List) Nodes(nodeids ...string) *List {
+	r.values.Set("nodes", strings.Join(nodeids, ","))
 
 	return r
 }

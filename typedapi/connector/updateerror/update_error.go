@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Updates the filtering field in the connector document
+// Update the connector error field.
+//
+// Set the error field for the connector.
+// If the error provided in the request body is non-null, the connector’s status
+// is updated to error.
+// Otherwise, if the error is reset to null, the connector status is updated to
+// connected.
 package updateerror
 
 import (
@@ -81,7 +87,13 @@ func NewUpdateErrorFunc(tp elastictransport.Interface) NewUpdateError {
 	}
 }
 
-// Updates the filtering field in the connector document
+// Update the connector error field.
+//
+// Set the error field for the connector.
+// If the error provided in the request body is non-null, the connector’s status
+// is updated to error.
+// Otherwise, if the error is reset to null, the connector status is updated to
+// connected.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-error-api.html
 func New(tp elastictransport.Interface) *UpdateError {

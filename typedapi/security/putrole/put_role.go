@@ -16,12 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// The role management APIs are generally the preferred way to manage roles,
-// rather than using file-based role management.
+// Create or update roles.
+//
+// The role management APIs are generally the preferred way to manage roles in
+// the native realm, rather than using file-based role management.
 // The create or update roles API cannot update roles that are defined in roles
 // files.
+// File-based role management is not available in Elastic Serverless.
 package putrole
 
 import (
@@ -86,10 +89,13 @@ func NewPutRoleFunc(tp elastictransport.Interface) NewPutRole {
 	}
 }
 
-// The role management APIs are generally the preferred way to manage roles,
-// rather than using file-based role management.
+// Create or update roles.
+//
+// The role management APIs are generally the preferred way to manage roles in
+// the native realm, rather than using file-based role management.
 // The create or update roles API cannot update roles that are defined in roles
 // files.
+// File-based role management is not available in Elastic Serverless.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role.html
 func New(tp elastictransport.Interface) *PutRole {
@@ -427,6 +433,22 @@ func (r *PutRole) Indices(indices ...types.IndicesPrivileges) *PutRole {
 // API name: metadata
 func (r *PutRole) Metadata(metadata types.Metadata) *PutRole {
 	r.req.Metadata = metadata
+
+	return r
+}
+
+// RemoteCluster A list of remote cluster permissions entries.
+// API name: remote_cluster
+func (r *PutRole) RemoteCluster(remoteclusters ...types.RemoteClusterPrivileges) *PutRole {
+	r.req.RemoteCluster = remoteclusters
+
+	return r
+}
+
+// RemoteIndices A list of remote indices permissions entries.
+// API name: remote_indices
+func (r *PutRole) RemoteIndices(remoteindices ...types.RemoteIndicesPrivileges) *PutRole {
+	r.req.RemoteIndices = remoteindices
 
 	return r
 }

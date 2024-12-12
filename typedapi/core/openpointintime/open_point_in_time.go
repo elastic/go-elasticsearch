@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// A search request by default executes against the most recent visible data of
-// the target indices,
+// Open a point in time.
+//
+// A search request by default runs against the most recent visible data of the
+// target indices,
 // which is called point in time. Elasticsearch pit (point in time) is a
 // lightweight view into the
 // state of the data as it existed when initiated. In some cases, it’s preferred
@@ -29,9 +31,14 @@
 // `search_after` requests, then the results of those requests might not be
 // consistent as changes happening
 // between searches are only visible to the more recent point in time.
+//
+// A point in time must be opened explicitly before being used in search
+// requests.
+// The `keep_alive` parameter tells Elasticsearch how long it should persist.
 package openpointintime
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -63,6 +70,10 @@ type OpenPointInTime struct {
 
 	raw io.Reader
 
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
+
 	paramSet int
 
 	index string
@@ -87,8 +98,10 @@ func NewOpenPointInTimeFunc(tp elastictransport.Interface) NewOpenPointInTime {
 	}
 }
 
-// A search request by default executes against the most recent visible data of
-// the target indices,
+// Open a point in time.
+//
+// A search request by default runs against the most recent visible data of the
+// target indices,
 // which is called point in time. Elasticsearch pit (point in time) is a
 // lightweight view into the
 // state of the data as it existed when initiated. In some cases, it’s preferred
@@ -99,12 +112,20 @@ func NewOpenPointInTimeFunc(tp elastictransport.Interface) NewOpenPointInTime {
 // consistent as changes happening
 // between searches are only visible to the more recent point in time.
 //
+// A point in time must be opened explicitly before being used in search
+// requests.
+// The `keep_alive` parameter tells Elasticsearch how long it should persist.
+//
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
 func New(tp elastictransport.Interface) *OpenPointInTime {
 	r := &OpenPointInTime{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
+
+		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -112,6 +133,21 @@ func New(tp elastictransport.Interface) *OpenPointInTime {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *OpenPointInTime) Raw(raw io.Reader) *OpenPointInTime {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *OpenPointInTime) Request(req *Request) *OpenPointInTime {
+	r.req = req
 
 	return r
 }
@@ -124,6 +160,31 @@ func (r *OpenPointInTime) HttpRequest(ctx context.Context) (*http.Request, error
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for OpenPointInTime: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -269,45 +330,6 @@ func (r OpenPointInTime) Do(providedCtx context.Context) (*Response, error) {
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r OpenPointInTime) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "open_point_in_time")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the OpenPointInTime query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
 // Header set a key, value pair in the OpenPointInTime headers map.
 func (r *OpenPointInTime) Header(key, value string) *OpenPointInTime {
 	r.headers.Set(key, value)
@@ -375,6 +397,17 @@ func (r *OpenPointInTime) ExpandWildcards(expandwildcards ...expandwildcard.Expa
 	return r
 }
 
+// AllowPartialSearchResults If `false`, creating a point in time request when a shard is missing or
+// unavailable will throw an exception.
+// If `true`, the point in time will contain all the shards that are available
+// at the time of the request.
+// API name: allow_partial_search_results
+func (r *OpenPointInTime) AllowPartialSearchResults(allowpartialsearchresults bool) *OpenPointInTime {
+	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -415,6 +448,16 @@ func (r *OpenPointInTime) Human(human bool) *OpenPointInTime {
 // API name: pretty
 func (r *OpenPointInTime) Pretty(pretty bool) *OpenPointInTime {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// IndexFilter Allows to filter indices if the provided query rewrites to `match_none` on
+// every shard.
+// API name: index_filter
+func (r *OpenPointInTime) IndexFilter(indexfilter *types.Query) *OpenPointInTime {
+
+	r.req.IndexFilter = indexfilter
 
 	return r
 }

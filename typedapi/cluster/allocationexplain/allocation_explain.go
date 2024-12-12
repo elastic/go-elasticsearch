@@ -16,9 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Provides explanations for shard allocations in the cluster.
+// Explain the shard allocations.
+// Get explanations for shard allocations in the cluster.
+// For unassigned shards, it provides an explanation for why the shard is
+// unassigned.
+// For assigned shards, it provides an explanation for why the shard is
+// remaining on its current node and has not moved or rebalanced to another
+// node.
+// This API can be very useful when attempting to diagnose why a shard is
+// unassigned or why a shard continues to remain on its current node when you
+// might expect otherwise.
 package allocationexplain
 
 import (
@@ -73,7 +82,16 @@ func NewAllocationExplainFunc(tp elastictransport.Interface) NewAllocationExplai
 	}
 }
 
-// Provides explanations for shard allocations in the cluster.
+// Explain the shard allocations.
+// Get explanations for shard allocations in the cluster.
+// For unassigned shards, it provides an explanation for why the shard is
+// unassigned.
+// For assigned shards, it provides an explanation for why the shard is
+// remaining on its current node and has not moved or rebalanced to another
+// node.
+// This API can be very useful when attempting to diagnose why a shard is
+// unassigned or why a shard continues to remain on its current node when you
+// might expect otherwise.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-allocation-explain.html
 func New(tp elastictransport.Interface) *AllocationExplain {

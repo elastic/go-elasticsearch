@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // PointInTimeReference type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/PointInTimeReference.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/_global/search/_types/PointInTimeReference.ts#L23-L26
 type PointInTimeReference struct {
 	Id        string   `json:"id"`
 	KeepAlive Duration `json:"keep_alive,omitempty"`

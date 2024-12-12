@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
+// Get machine learning memory usage info.
 // Get information about how machine learning jobs and trained models are using
 // memory,
 // on each node, both within the JVM heap, and natively, outside of the JVM.
@@ -76,6 +77,7 @@ func NewGetMemoryStatsFunc(tp elastictransport.Interface) NewGetMemoryStats {
 	}
 }
 
+// Get machine learning memory usage info.
 // Get information about how machine learning jobs and trained models are using
 // memory,
 // on each node, both within the JVM heap, and natively, outside of the JVM.

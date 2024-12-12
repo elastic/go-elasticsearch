@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Enables a user profile so it's visible in user profile searches.
+// Enable a user profile.
+//
+// Enable user profiles to make them visible in user profile searches.
 package enableuserprofile
 
 import (
@@ -77,7 +79,9 @@ func NewEnableUserProfileFunc(tp elastictransport.Interface) NewEnableUserProfil
 	}
 }
 
-// Enables a user profile so it's visible in user profile searches.
+// Enable a user profile.
+//
+// Enable user profiles to make them visible in user profile searches.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user-profile.html
 func New(tp elastictransport.Interface) *EnableUserProfile {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -27,17 +27,20 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
 )
 
 // CurrentNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/allocation_explain/types.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/cluster/allocation_explain/types.ts#L79-L90
 type CurrentNode struct {
-	Attributes       map[string]string `json:"attributes"`
-	Id               string            `json:"id"`
-	Name             string            `json:"name"`
-	TransportAddress string            `json:"transport_address"`
-	WeightRanking    int               `json:"weight_ranking"`
+	Attributes       map[string]string   `json:"attributes"`
+	Id               string              `json:"id"`
+	Name             string              `json:"name"`
+	Roles            []noderole.NodeRole `json:"roles"`
+	TransportAddress string              `json:"transport_address"`
+	WeightRanking    int                 `json:"weight_ranking"`
 }
 
 func (s *CurrentNode) UnmarshalJSON(data []byte) error {
@@ -71,6 +74,11 @@ func (s *CurrentNode) UnmarshalJSON(data []byte) error {
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
 				return fmt.Errorf("%s | %w", "Name", err)
+			}
+
+		case "roles":
+			if err := dec.Decode(&s.Roles); err != nil {
+				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "transport_address":

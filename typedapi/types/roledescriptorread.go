@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RoleDescriptorRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/_types/RoleDescriptor.ts#L63-L95
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/security/_types/RoleDescriptor.ts#L82-L128
 type RoleDescriptorRead struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`
@@ -51,6 +51,13 @@ type RoleDescriptorRead struct {
 	// Metadata Optional meta-data. Within the metadata object, keys that begin with `_` are
 	// reserved for system usage.
 	Metadata Metadata `json:"metadata,omitempty"`
+	// RemoteCluster A list of cluster permissions for remote clusters. Note - this is limited a
+	// subset of the cluster permissions.
+	RemoteCluster []RemoteClusterPrivileges `json:"remote_cluster,omitempty"`
+	// RemoteIndices A list of indices permissions for remote clusters.
+	RemoteIndices []RemoteIndicesPrivileges `json:"remote_indices,omitempty"`
+	// Restriction Restriction for when the role descriptor is allowed to be effective.
+	Restriction *Restriction `json:"restriction,omitempty"`
 	// RunAs A list of users that the API keys can impersonate.
 	RunAs             []string                   `json:"run_as,omitempty"`
 	TransientMetadata map[string]json.RawMessage `json:"transient_metadata,omitempty"`
@@ -117,6 +124,21 @@ func (s *RoleDescriptorRead) UnmarshalJSON(data []byte) error {
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
 				return fmt.Errorf("%s | %w", "Metadata", err)
+			}
+
+		case "remote_cluster":
+			if err := dec.Decode(&s.RemoteCluster); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
+			}
+
+		case "remote_indices":
+			if err := dec.Decode(&s.RemoteIndices); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteIndices", err)
+			}
+
+		case "restriction":
+			if err := dec.Decode(&s.Restriction); err != nil {
+				return fmt.Errorf("%s | %w", "Restriction", err)
 			}
 
 		case "run_as":

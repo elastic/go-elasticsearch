@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalysisOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeAnalytics.ts#L103-L132
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/DataframeAnalytics.ts#L102-L131
 type DataframeAnalysisOutlierDetection struct {
 	// ComputeFeatureInfluence Specifies whether the feature influence calculation is enabled.
 	ComputeFeatureInfluence *bool `json:"compute_feature_influence,omitempty"`

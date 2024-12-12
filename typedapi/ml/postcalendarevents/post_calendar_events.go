@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Adds scheduled events to a calendar.
+// Add scheduled events to the calendar.
 package postcalendarevents
 
 import (
@@ -81,7 +81,7 @@ func NewPostCalendarEventsFunc(tp elastictransport.Interface) NewPostCalendarEve
 	}
 }
 
-// Adds scheduled events to a calendar.
+// Add scheduled events to the calendar.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-post-calendar-event.html
 func New(tp elastictransport.Interface) *PostCalendarEvents {

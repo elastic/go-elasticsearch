@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Retrieves configuration information for a trained model.
+// Get trained model configuration info.
 package gettrainedmodels
 
 import (
@@ -75,7 +75,7 @@ func NewGetTrainedModelsFunc(tp elastictransport.Interface) NewGetTrainedModels 
 	}
 }
 
-// Retrieves configuration information for a trained model.
+// Get trained model configuration info.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-trained-models.html
 func New(tp elastictransport.Interface) *GetTrainedModels {

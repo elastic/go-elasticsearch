@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Retrieves anomaly detection job results for one or more buckets.
+// Get anomaly detection job results for buckets.
 // The API presents a chronological view of the records, grouped by bucket.
 package getbuckets
 
@@ -85,7 +85,7 @@ func NewGetBucketsFunc(tp elastictransport.Interface) NewGetBuckets {
 	}
 }
 
-// Retrieves anomaly detection job results for one or more buckets.
+// Get anomaly detection job results for buckets.
 // The API presents a chronological view of the records, grouped by bucket.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-bucket.html

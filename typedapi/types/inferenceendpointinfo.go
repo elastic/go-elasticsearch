@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // InferenceEndpointInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/inference/_types/Services.ts#L41-L53
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/inference/_types/Services.ts#L41-L53
 type InferenceEndpointInfo struct {
 	// InferenceId The inference Id
 	InferenceId string `json:"inference_id"`
@@ -42,7 +42,7 @@ type InferenceEndpointInfo struct {
 	// ServiceSettings Settings specific to the service
 	ServiceSettings json.RawMessage `json:"service_settings"`
 	// TaskSettings Task settings specific to the service and task type
-	TaskSettings json.RawMessage `json:"task_settings"`
+	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 	// TaskType The task type
 	TaskType tasktype.TaskType `json:"task_type"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // IpPrefixBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L636-L641
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/_types/aggregations/Aggregate.ts#L715-L720
 type IpPrefixBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	DocCount     int64                `json:"doc_count"`
@@ -538,6 +538,13 @@ func (s *IpPrefixBucket) UnmarshalJSON(data []byte) error {
 
 						case "frequent_item_sets":
 							o := NewFrequentItemSetsAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
+						case "time_series":
+							o := NewTimeSeriesAggregate()
 							if err := dec.Decode(&o); err != nil {
 								return fmt.Errorf("%s | %w", "Aggregations", err)
 							}

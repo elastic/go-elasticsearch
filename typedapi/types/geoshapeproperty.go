@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // GeoShapeProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/geo.ts#L41-L54
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/_types/mapping/geo.ts#L41-L54
 type GeoShapeProperty struct {
 	Coerce          *bool                          `json:"coerce,omitempty"`
 	CopyTo          []string                       `json:"copy_to,omitempty"`
@@ -49,7 +49,6 @@ type GeoShapeProperty struct {
 	Meta        map[string]string              `json:"meta,omitempty"`
 	Orientation *geoorientation.GeoOrientation `json:"orientation,omitempty"`
 	Properties  map[string]Property            `json:"properties,omitempty"`
-	Similarity  *string                        `json:"similarity,omitempty"`
 	Store       *bool                          `json:"store,omitempty"`
 	Strategy    *geostrategy.GeoStrategy       `json:"strategy,omitempty"`
 	Type        string                         `json:"type,omitempty"`
@@ -814,18 +813,6 @@ func (s *GeoShapeProperty) UnmarshalJSON(data []byte) error {
 				}
 			}
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -870,7 +857,6 @@ func (s GeoShapeProperty) MarshalJSON() ([]byte, error) {
 		Meta:            s.Meta,
 		Orientation:     s.Orientation,
 		Properties:      s.Properties,
-		Similarity:      s.Similarity,
 		Store:           s.Store,
 		Strategy:        s.Strategy,
 		Type:            s.Type,

@@ -16,9 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Evicts application privileges from the native application privileges cache.
+// Clear the privileges cache.
+//
+// Evict privileges from the native application privilege cache.
+// The cache is also automatically cleared for applications that have their
+// privileges updated.
 package clearcachedprivileges
 
 import (
@@ -76,7 +80,11 @@ func NewClearCachedPrivilegesFunc(tp elastictransport.Interface) NewClearCachedP
 	}
 }
 
-// Evicts application privileges from the native application privileges cache.
+// Clear the privileges cache.
+//
+// Evict privileges from the native application privilege cache.
+// The cache is also automatically cleared for applications that have their
+// privileges updated.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html
 func New(tp elastictransport.Interface) *ClearCachedPrivileges {

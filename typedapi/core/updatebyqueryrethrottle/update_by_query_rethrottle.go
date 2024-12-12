@@ -16,10 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Changes the number of requests per second for a particular Update By Query
+// Throttle an update by query operation.
+//
+// Change the number of requests per second for a particular update by query
 // operation.
+// Rethrottling that speeds up the query takes effect immediately but
+// rethrotting that slows down the query takes effect after completing the
+// current batch to prevent scroll timeouts.
 package updatebyqueryrethrottle
 
 import (
@@ -77,8 +82,13 @@ func NewUpdateByQueryRethrottleFunc(tp elastictransport.Interface) NewUpdateByQu
 	}
 }
 
-// Changes the number of requests per second for a particular Update By Query
+// Throttle an update by query operation.
+//
+// Change the number of requests per second for a particular update by query
 // operation.
+// Rethrottling that speeds up the query takes effect immediately but
+// rethrotting that slows down the query takes effect after completing the
+// current batch to prevent scroll timeouts.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
 func New(tp elastictransport.Interface) *UpdateByQueryRethrottle {

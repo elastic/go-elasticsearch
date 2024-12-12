@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CustomAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/analyzers.ts#L28-L35
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/_types/analysis/analyzers.ts#L28-L35
 type CustomAnalyzer struct {
 	CharFilter           []string `json:"char_filter,omitempty"`
 	Filter               []string `json:"filter,omitempty"`
@@ -57,13 +57,35 @@ func (s *CustomAnalyzer) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "char_filter":
-			if err := dec.Decode(&s.CharFilter); err != nil {
-				return fmt.Errorf("%s | %w", "CharFilter", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "CharFilter", err)
+				}
+
+				s.CharFilter = append(s.CharFilter, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.CharFilter); err != nil {
+					return fmt.Errorf("%s | %w", "CharFilter", err)
+				}
 			}
 
 		case "filter":
-			if err := dec.Decode(&s.Filter); err != nil {
-				return fmt.Errorf("%s | %w", "Filter", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Filter", err)
+				}
+
+				s.Filter = append(s.Filter, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Filter); err != nil {
+					return fmt.Errorf("%s | %w", "Filter", err)
+				}
 			}
 
 		case "position_increment_gap":

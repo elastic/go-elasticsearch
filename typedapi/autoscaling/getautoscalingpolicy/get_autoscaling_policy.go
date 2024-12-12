@@ -16,10 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Retrieves an autoscaling policy. Designed for indirect use by ECE/ESS and
-// ECK. Direct use is not supported.
+// Get an autoscaling policy.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
 package getautoscalingpolicy
 
 import (
@@ -77,8 +80,11 @@ func NewGetAutoscalingPolicyFunc(tp elastictransport.Interface) NewGetAutoscalin
 	}
 }
 
-// Retrieves an autoscaling policy. Designed for indirect use by ECE/ESS and
-// ECK. Direct use is not supported.
+// Get an autoscaling policy.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html
 func New(tp elastictransport.Interface) *GetAutoscalingPolicy {
@@ -297,6 +303,16 @@ func (r *GetAutoscalingPolicy) Header(key, value string) *GetAutoscalingPolicy {
 func (r *GetAutoscalingPolicy) _name(name string) *GetAutoscalingPolicy {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *GetAutoscalingPolicy) MasterTimeout(duration string) *GetAutoscalingPolicy {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

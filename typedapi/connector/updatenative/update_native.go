@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Updates the is_native flag in the connector document
+// Update the connector is_native flag.
 package updatenative
 
 import (
@@ -81,7 +81,7 @@ func NewUpdateNativeFunc(tp elastictransport.Interface) NewUpdateNative {
 	}
 }
 
-// Updates the is_native flag in the connector document
+// Update the connector is_native flag.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-native-api.html
 func New(tp elastictransport.Interface) *UpdateNative {

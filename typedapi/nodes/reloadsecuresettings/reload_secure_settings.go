@@ -16,9 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Reloads the keystore on nodes in the cluster.
+// Reload the keystore on nodes in the cluster.
+//
+// Secure settings are stored in an on-disk keystore. Certain of these settings
+// are reloadable.
+// That is, you can change them on disk and reload them without restarting any
+// nodes in the cluster.
+// When you have updated reloadable secure settings in your keystore, you can
+// use this API to reload those settings on each node.
+//
+// When the Elasticsearch keystore is password protected and not simply
+// obfuscated, you must provide the password for the keystore when you reload
+// the secure settings.
+// Reloading the settings for the whole cluster assumes that the keystores for
+// all nodes are protected with the same password; this method is allowed only
+// when inter-node communications are encrypted.
+// Alternatively, you can reload the secure settings on each node by locally
+// accessing the API and passing the node-specific Elasticsearch keystore
+// password.
 package reloadsecuresettings
 
 import (
@@ -79,7 +96,24 @@ func NewReloadSecureSettingsFunc(tp elastictransport.Interface) NewReloadSecureS
 	}
 }
 
-// Reloads the keystore on nodes in the cluster.
+// Reload the keystore on nodes in the cluster.
+//
+// Secure settings are stored in an on-disk keystore. Certain of these settings
+// are reloadable.
+// That is, you can change them on disk and reload them without restarting any
+// nodes in the cluster.
+// When you have updated reloadable secure settings in your keystore, you can
+// use this API to reload those settings on each node.
+//
+// When the Elasticsearch keystore is password protected and not simply
+// obfuscated, you must provide the password for the keystore when you reload
+// the secure settings.
+// Reloading the settings for the whole cluster assumes that the keystores for
+// all nodes are protected with the same password; this method is allowed only
+// when inter-node communications are encrypted.
+// Alternatively, you can reload the secure settings on each node by locally
+// accessing the API and passing the node-specific Elasticsearch keystore
+// password.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/secure-settings.html#reloadable-secure-settings
 func New(tp elastictransport.Interface) *ReloadSecureSettings {

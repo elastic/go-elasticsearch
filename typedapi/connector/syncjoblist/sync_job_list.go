@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Lists connector sync jobs.
+// Get all connector sync jobs.
+//
+// Get information about all stored connector sync jobs listed by their creation
+// date in ascending order.
 package syncjoblist
 
 import (
@@ -70,7 +73,10 @@ func NewSyncJobListFunc(tp elastictransport.Interface) NewSyncJobList {
 	}
 }
 
-// Lists connector sync jobs.
+// Get all connector sync jobs.
+//
+// Get information about all stored connector sync jobs listed by their creation
+// date in ascending order.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/list-connector-sync-jobs-api.html
 func New(tp elastictransport.Interface) *SyncJobList {

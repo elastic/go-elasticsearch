@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -31,13 +31,14 @@ import (
 
 // SnapshotShardFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/snapshot/_types/SnapshotShardFailure.ts#L22-L29
 type SnapshotShardFailure struct {
-	Index   string  `json:"index"`
-	NodeId  *string `json:"node_id,omitempty"`
-	Reason  string  `json:"reason"`
-	ShardId string  `json:"shard_id"`
-	Status  string  `json:"status"`
+	Index     string  `json:"index"`
+	IndexUuid string  `json:"index_uuid"`
+	NodeId    *string `json:"node_id,omitempty"`
+	Reason    string  `json:"reason"`
+	ShardId   string  `json:"shard_id"`
+	Status    string  `json:"status"`
 }
 
 func (s *SnapshotShardFailure) UnmarshalJSON(data []byte) error {
@@ -58,6 +59,11 @@ func (s *SnapshotShardFailure) UnmarshalJSON(data []byte) error {
 		case "index":
 			if err := dec.Decode(&s.Index); err != nil {
 				return fmt.Errorf("%s | %w", "Index", err)
+			}
+
+		case "index_uuid":
+			if err := dec.Decode(&s.IndexUuid); err != nil {
+				return fmt.Errorf("%s | %w", "IndexUuid", err)
 			}
 
 		case "node_id":

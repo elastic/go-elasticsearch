@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Creates a bearer token for access without requiring basic authentication.
+// Get a token.
+//
+// Create a bearer token for access without requiring basic authentication.
 package gettoken
 
 import (
@@ -74,7 +76,9 @@ func NewGetTokenFunc(tp elastictransport.Interface) NewGetToken {
 	}
 }
 
-// Creates a bearer token for access without requiring basic authentication.
+// Get a token.
+//
+// Create a bearer token for access without requiring basic authentication.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html
 func New(tp elastictransport.Interface) *GetToken {

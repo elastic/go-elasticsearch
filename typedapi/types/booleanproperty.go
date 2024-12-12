@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // BooleanProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/core.ts#L59-L65
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/_types/mapping/core.ts#L58-L64
 type BooleanProperty struct {
 	Boost       *Float64                       `json:"boost,omitempty"`
 	CopyTo      []string                       `json:"copy_to,omitempty"`
@@ -47,7 +47,6 @@ type BooleanProperty struct {
 	Meta       map[string]string   `json:"meta,omitempty"`
 	NullValue  *bool               `json:"null_value,omitempty"`
 	Properties map[string]Property `json:"properties,omitempty"`
-	Similarity *string             `json:"similarity,omitempty"`
 	Store      *bool               `json:"store,omitempty"`
 	Type       string              `json:"type,omitempty"`
 }
@@ -813,18 +812,6 @@ func (s *BooleanProperty) UnmarshalJSON(data []byte) error {
 				}
 			}
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -864,7 +851,6 @@ func (s BooleanProperty) MarshalJSON() ([]byte, error) {
 		Meta:        s.Meta,
 		NullValue:   s.NullValue,
 		Properties:  s.Properties,
-		Similarity:  s.Similarity,
 		Store:       s.Store,
 		Type:        s.Type,
 	}

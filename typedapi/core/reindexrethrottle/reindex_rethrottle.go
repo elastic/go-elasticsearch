@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Copies documents from a source to a destination.
+// Throttle a reindex operation.
+//
+// Change the number of requests per second for a particular reindex operation.
 package reindexrethrottle
 
 import (
@@ -76,7 +78,9 @@ func NewReindexRethrottleFunc(tp elastictransport.Interface) NewReindexRethrottl
 	}
 }
 
-// Copies documents from a source to a destination.
+// Throttle a reindex operation.
+//
+// Change the number of requests per second for a particular reindex operation.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html
 func New(tp elastictransport.Interface) *ReindexRethrottle {

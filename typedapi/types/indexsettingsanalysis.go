@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // IndexSettingsAnalysis type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L319-L325
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/indices/_types/IndexSettings.ts#L319-L325
 type IndexSettingsAnalysis struct {
 	Analyzer   map[string]Analyzer    `json:"analyzer,omitempty"`
 	CharFilter map[string]CharFilter  `json:"char_filter,omitempty"`
@@ -147,8 +147,224 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Analyzer[key] = oo
+				case "arabic":
+					oo := NewArabicAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "armenian":
+					oo := NewArmenianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "basque":
+					oo := NewBasqueAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "bengali":
+					oo := NewBengaliAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "brazilian":
+					oo := NewBrazilianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "bulgarian":
+					oo := NewBulgarianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "catalan":
+					oo := NewCatalanAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "chinese":
+					oo := NewChineseAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "cjk":
+					oo := NewCjkAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "czech":
+					oo := NewCzechAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "danish":
+					oo := NewDanishAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
 				case "dutch":
 					oo := NewDutchAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "english":
+					oo := NewEnglishAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "estonian":
+					oo := NewEstonianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "finnish":
+					oo := NewFinnishAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "french":
+					oo := NewFrenchAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "galician":
+					oo := NewGalicianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "german":
+					oo := NewGermanAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "greek":
+					oo := NewGreekAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "hindi":
+					oo := NewHindiAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "hungarian":
+					oo := NewHungarianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "indonesian":
+					oo := NewIndonesianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "irish":
+					oo := NewIrishAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "italian":
+					oo := NewItalianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "latvian":
+					oo := NewLatvianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "lithuanian":
+					oo := NewLithuanianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "norwegian":
+					oo := NewNorwegianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "persian":
+					oo := NewPersianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "portuguese":
+					oo := NewPortugueseAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "romanian":
+					oo := NewRomanianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "russian":
+					oo := NewRussianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "serbian":
+					oo := NewSerbianAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "sorani":
+					oo := NewSoraniAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "spanish":
+					oo := NewSpanishAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "swedish":
+					oo := NewSwedishAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "turkish":
+					oo := NewTurkishAnalyzer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Analyzer[key] = oo
+				case "thai":
+					oo := NewThaiAnalyzer()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
@@ -577,6 +793,12 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Tokenizer[key] = oo
+				case "classic":
+					oo := NewClassicTokenizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Tokenizer[key] = oo
 				case "edge_ngram":
 					oo := NewEdgeNGramTokenizer()
 					if err := localDec.Decode(&oo); err != nil {
@@ -607,20 +829,38 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Tokenizer[key] = oo
-				case "nori_tokenizer":
-					oo := NewNoriTokenizer()
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Tokenizer[key] = oo
 				case "path_hierarchy":
 					oo := NewPathHierarchyTokenizer()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
 					s.Tokenizer[key] = oo
+				case "pattern":
+					oo := NewPatternTokenizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Tokenizer[key] = oo
+				case "simple_pattern":
+					oo := NewSimplePatternTokenizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Tokenizer[key] = oo
+				case "simple_pattern_split":
+					oo := NewSimplePatternSplitTokenizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Tokenizer[key] = oo
 				case "standard":
 					oo := NewStandardTokenizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Tokenizer[key] = oo
+				case "thai":
+					oo := NewThaiTokenizer()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
@@ -637,20 +877,20 @@ func (s *IndexSettingsAnalysis) UnmarshalJSON(data []byte) error {
 						return err
 					}
 					s.Tokenizer[key] = oo
+				case "icu_tokenizer":
+					oo := NewIcuTokenizer()
+					if err := localDec.Decode(&oo); err != nil {
+						return err
+					}
+					s.Tokenizer[key] = oo
 				case "kuromoji_tokenizer":
 					oo := NewKuromojiTokenizer()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}
 					s.Tokenizer[key] = oo
-				case "pattern":
-					oo := NewPatternTokenizer()
-					if err := localDec.Decode(&oo); err != nil {
-						return err
-					}
-					s.Tokenizer[key] = oo
-				case "icu_tokenizer":
-					oo := NewIcuTokenizer()
+				case "nori_tokenizer":
+					oo := NewNoriTokenizer()
 					if err := localDec.Decode(&oo); err != nil {
 						return err
 					}

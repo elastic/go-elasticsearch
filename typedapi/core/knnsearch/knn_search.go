@@ -16,9 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Performs a kNN search.
+// Run a knn search.
+//
+// NOTE: The kNN search API has been replaced by the `knn` option in the search
+// API.
+//
+// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
+// the matching documents.
+// Given a query vector, the API finds the k closest vectors and returns those
+// documents as search hits.
+//
+// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
+// Like most kNN algorithms, HNSW is an approximate method that sacrifices
+// result accuracy for improved search speed.
+// This means the results returned are not always the true k closest neighbors.
+//
+// The kNN search API supports restricting the search using a filter.
+// The search will return the top k documents that also match the filter query.
 package knnsearch
 
 import (
@@ -81,7 +97,23 @@ func NewKnnSearchFunc(tp elastictransport.Interface) NewKnnSearch {
 	}
 }
 
-// Performs a kNN search.
+// Run a knn search.
+//
+// NOTE: The kNN search API has been replaced by the `knn` option in the search
+// API.
+//
+// Perform a k-nearest neighbor (kNN) search on a dense_vector field and return
+// the matching documents.
+// Given a query vector, the API finds the k closest vectors and returns those
+// documents as search hits.
+//
+// Elasticsearch uses the HNSW algorithm to support efficient kNN search.
+// Like most kNN algorithms, HNSW is an approximate method that sacrifices
+// result accuracy for improved search speed.
+// This means the results returned are not always the true k closest neighbors.
+//
+// The kNN search API supports restricting the search using a filter.
+// The search will return the top k documents that also match the filter query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html
 func New(tp elastictransport.Interface) *KnnSearch {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package search
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/search_application/search/SearchApplicationsSearchResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/search_application/search/SearchApplicationsSearchResponse.ts#L22-L24
 type Response struct {
 	Aggregations    map[string]types.Aggregate `json:"aggregations,omitempty"`
 	Clusters_       *types.ClusterStatistics   `json:"_clusters,omitempty"`
@@ -499,6 +499,13 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 							case "frequent_item_sets":
 								o := types.NewFrequentItemSetsAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
+							case "time_series":
+								o := types.NewTimeSeriesAggregate()
 								if err := dec.Decode(&o); err != nil {
 									return fmt.Errorf("%s | %w", "Aggregations", err)
 								}

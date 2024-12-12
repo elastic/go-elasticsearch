@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 // Get API key information.
+//
 // Retrieves information for one or more API keys.
 // NOTE: If you have only the `manage_own_api_key` privilege, this API returns
 // only the API keys that you own.
@@ -75,6 +76,7 @@ func NewGetApiKeyFunc(tp elastictransport.Interface) NewGetApiKey {
 }
 
 // Get API key information.
+//
 // Retrieves information for one or more API keys.
 // NOTE: If you have only the `manage_own_api_key` privilege, this API returns
 // only the API keys that you own.

@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Retrieves overall bucket results that summarize the bucket results of
+// Get overall bucket results.
+//
+// Retrievs overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
 //
 // The `overall_score` is calculated by combining the scores of all the
@@ -97,7 +99,9 @@ func NewGetOverallBucketsFunc(tp elastictransport.Interface) NewGetOverallBucket
 	}
 }
 
-// Retrieves overall bucket results that summarize the bucket results of
+// Get overall bucket results.
+//
+// Retrievs overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
 //
 // The `overall_score` is calculated by combining the scores of all the

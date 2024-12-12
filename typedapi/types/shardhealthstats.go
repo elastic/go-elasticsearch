@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -33,14 +33,15 @@ import (
 
 // ShardHealthStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/health/types.ts#L36-L43
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/cluster/health/types.ts#L37-L45
 type ShardHealthStats struct {
-	ActiveShards       int                       `json:"active_shards"`
-	InitializingShards int                       `json:"initializing_shards"`
-	PrimaryActive      bool                      `json:"primary_active"`
-	RelocatingShards   int                       `json:"relocating_shards"`
-	Status             healthstatus.HealthStatus `json:"status"`
-	UnassignedShards   int                       `json:"unassigned_shards"`
+	ActiveShards            int                       `json:"active_shards"`
+	InitializingShards      int                       `json:"initializing_shards"`
+	PrimaryActive           bool                      `json:"primary_active"`
+	RelocatingShards        int                       `json:"relocating_shards"`
+	Status                  healthstatus.HealthStatus `json:"status"`
+	UnassignedPrimaryShards int                       `json:"unassigned_primary_shards"`
+	UnassignedShards        int                       `json:"unassigned_shards"`
 }
 
 func (s *ShardHealthStats) UnmarshalJSON(data []byte) error {
@@ -123,6 +124,22 @@ func (s *ShardHealthStats) UnmarshalJSON(data []byte) error {
 		case "status":
 			if err := dec.Decode(&s.Status); err != nil {
 				return fmt.Errorf("%s | %w", "Status", err)
+			}
+
+		case "unassigned_primary_shards":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "UnassignedPrimaryShards", err)
+				}
+				s.UnassignedPrimaryShards = value
+			case float64:
+				f := int(v)
+				s.UnassignedPrimaryShards = f
 			}
 
 		case "unassigned_shards":

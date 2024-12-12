@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -26,17 +26,21 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
 )
 
 // Role type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/get_role/types.ts#L29-L42
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/security/get_role/types.ts#L32-L53
 type Role struct {
 	Applications      []ApplicationPrivileges                   `json:"applications"`
-	Cluster           []string                                  `json:"cluster"`
+	Cluster           []clusterprivilege.ClusterPrivilege       `json:"cluster"`
 	Global            map[string]map[string]map[string][]string `json:"global,omitempty"`
 	Indices           []IndicesPrivileges                       `json:"indices"`
 	Metadata          Metadata                                  `json:"metadata"`
+	RemoteCluster     []RemoteClusterPrivileges                 `json:"remote_cluster,omitempty"`
+	RemoteIndices     []RemoteIndicesPrivileges                 `json:"remote_indices,omitempty"`
 	RoleTemplates     []RoleTemplate                            `json:"role_templates,omitempty"`
 	RunAs             []string                                  `json:"run_as"`
 	TransientMetadata map[string]json.RawMessage                `json:"transient_metadata,omitempty"`
@@ -83,6 +87,16 @@ func (s *Role) UnmarshalJSON(data []byte) error {
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
 				return fmt.Errorf("%s | %w", "Metadata", err)
+			}
+
+		case "remote_cluster":
+			if err := dec.Decode(&s.RemoteCluster); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
+			}
+
+		case "remote_indices":
+			if err := dec.Decode(&s.RemoteIndices); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteIndices", err)
 			}
 
 		case "role_templates":

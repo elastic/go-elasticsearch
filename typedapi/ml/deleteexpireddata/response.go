@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package deleteexpireddata
 
 // Response holds the response body struct for the package deleteexpireddata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/delete_expired_data/MlDeleteExpiredDataResponse.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/delete_expired_data/MlDeleteExpiredDataResponse.ts#L20-L22
 type Response struct {
 	Deleted bool `json:"deleted"`
 }

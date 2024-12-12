@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Updates the filtering field in the connector document
+// Update the connector filtering.
+//
+// Update the draft filtering configuration of a connector and marks the draft
+// validation state as edited.
+// The filtering draft is activated once validated by the running Elastic
+// connector service.
+// The filtering property is used to configure sync rules (both basic and
+// advanced) for a connector.
 package updatefiltering
 
 import (
@@ -81,7 +88,14 @@ func NewUpdateFilteringFunc(tp elastictransport.Interface) NewUpdateFiltering {
 	}
 }
 
-// Updates the filtering field in the connector document
+// Update the connector filtering.
+//
+// Update the draft filtering configuration of a connector and marks the draft
+// validation state as edited.
+// The filtering draft is activated once validated by the running Elastic
+// connector service.
+// The filtering property is used to configure sync rules (both basic and
+// advanced) for a connector.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-api.html
 func New(tp elastictransport.Interface) *UpdateFiltering {

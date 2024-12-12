@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package getbuiltinprivileges
 
@@ -26,14 +26,18 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/clusterprivilege"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/remoteclusterprivilege"
 )
 
 // Response holds the response body struct for the package getbuiltinprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/get_builtin_privileges/SecurityGetBuiltinPrivilegesResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/security/get_builtin_privileges/SecurityGetBuiltinPrivilegesResponse.ts#L26-L32
 type Response struct {
-	Cluster []string `json:"cluster"`
-	Index   []string `json:"index"`
+	Cluster       []clusterprivilege.ClusterPrivilege             `json:"cluster"`
+	Index         []string                                        `json:"index"`
+	RemoteCluster []remoteclusterprivilege.RemoteClusterPrivilege `json:"remote_cluster"`
 }
 
 // NewResponse returns a Response
@@ -75,6 +79,11 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Index); err != nil {
 					return fmt.Errorf("%s | %w", "Index", err)
 				}
+			}
+
+		case "remote_cluster":
+			if err := dec.Decode(&s.RemoteCluster); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
 			}
 
 		}

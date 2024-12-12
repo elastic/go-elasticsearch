@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Instantiates a filter.
+// Create a filter.
 // A filter contains a list of strings. It can be used by one or more anomaly
 // detection jobs.
 // Specifically, filters are referenced in the `custom_rules` property of
@@ -85,7 +85,7 @@ func NewPutFilterFunc(tp elastictransport.Interface) NewPutFilter {
 	}
 }
 
-// Instantiates a filter.
+// Create a filter.
 // A filter contains a list of strings. It can be used by one or more anomaly
 // detection jobs.
 // Specifically, filters are referenced in the `custom_rules` property of

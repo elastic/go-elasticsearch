@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -28,17 +28,15 @@ import (
 	"io"
 )
 
-// HotThread type.
+// AuthenticateApiKey type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/hot_threads/types.ts#L23-L28
-type HotThread struct {
-	Hosts    []string `json:"hosts"`
-	NodeId   string   `json:"node_id"`
-	NodeName string   `json:"node_name"`
-	Threads  []string `json:"threads"`
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/security/authenticate/SecurityAuthenticateResponse.ts#L44-L47
+type AuthenticateApiKey struct {
+	Id   string  `json:"id"`
+	Name *string `json:"name,omitempty"`
 }
 
-func (s *HotThread) UnmarshalJSON(data []byte) error {
+func (s *AuthenticateApiKey) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,24 +51,14 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "hosts":
-			if err := dec.Decode(&s.Hosts); err != nil {
-				return fmt.Errorf("%s | %w", "Hosts", err)
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return fmt.Errorf("%s | %w", "Id", err)
 			}
 
-		case "node_id":
-			if err := dec.Decode(&s.NodeId); err != nil {
-				return fmt.Errorf("%s | %w", "NodeId", err)
-			}
-
-		case "node_name":
-			if err := dec.Decode(&s.NodeName); err != nil {
-				return fmt.Errorf("%s | %w", "NodeName", err)
-			}
-
-		case "threads":
-			if err := dec.Decode(&s.Threads); err != nil {
-				return fmt.Errorf("%s | %w", "Threads", err)
+		case "name":
+			if err := dec.Decode(&s.Name); err != nil {
+				return fmt.Errorf("%s | %w", "Name", err)
 			}
 
 		}
@@ -78,9 +66,9 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewHotThread returns a HotThread.
-func NewHotThread() *HotThread {
-	r := &HotThread{}
+// NewAuthenticateApiKey returns a AuthenticateApiKey.
+func NewAuthenticateApiKey() *AuthenticateApiKey {
+	r := &AuthenticateApiKey{}
 
 	return r
 }

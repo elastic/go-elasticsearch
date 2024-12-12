@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -31,11 +31,14 @@ import (
 
 // GrokProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L672-L697
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ingest/_types/Processors.ts#L950-L981
 type GrokProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
 	Description *string `json:"description,omitempty"`
+	// EcsCompatibility Must be disabled or v1. If v1, the processor uses patterns with Elastic
+	// Common Schema (ECS) field names.
+	EcsCompatibility *string `json:"ecs_compatibility,omitempty"`
 	// Field The field to use for grok expression parsing.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
@@ -89,6 +92,18 @@ func (s *GrokProcessor) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Description = &o
+
+		case "ecs_compatibility":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "EcsCompatibility", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.EcsCompatibility = &o
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {

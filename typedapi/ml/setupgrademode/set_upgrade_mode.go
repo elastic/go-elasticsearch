@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
+// Set upgrade_mode for ML indices.
 // Sets a cluster wide upgrade_mode setting that prepares machine learning
 // indices for an upgrade.
 // When upgrading your cluster, in some circumstances you must restart your
@@ -79,6 +80,7 @@ func NewSetUpgradeModeFunc(tp elastictransport.Interface) NewSetUpgradeMode {
 	}
 }
 
+// Set upgrade_mode for ML indices.
 // Sets a cluster wide upgrade_mode setting that prepares machine learning
 // indices for an upgrade.
 // When upgrading your cluster, in some circumstances you must restart your

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 // Update data stream lifecycles.
 // Update the data stream lifecycle of the specified data streams.
@@ -188,6 +188,12 @@ func (r *PutDataLifecycle) HttpRequest(ctx context.Context) (*http.Request, erro
 	}
 
 	req.Header = r.headers.Clone()
+
+	if req.Header.Get("Content-Type") == "" {
+		if r.raw != nil {
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+		}
+	}
 
 	if req.Header.Get("Accept") == "" {
 		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")

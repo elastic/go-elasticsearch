@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package forcemerge
 
@@ -26,9 +26,9 @@ import (
 
 // Response holds the response body struct for the package forcemerge
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/forcemerge/IndicesForceMergeResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/indices/forcemerge/IndicesForceMergeResponse.ts#L22-L24
 type Response struct {
-	Shards_ types.ShardStatistics `json:"_shards"`
+	Shards_ *types.ShardStatistics `json:"_shards,omitempty"`
 	// Task task contains a task id returned when wait_for_completion=false,
 	// you can use the task_id to get the status of the task at _tasks/<task_id>
 	Task *string `json:"task,omitempty"`

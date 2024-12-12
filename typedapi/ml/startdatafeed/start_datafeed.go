@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Starts one or more datafeeds.
+// Start datafeeds.
 //
 // A datafeed must be started in order to retrieve data from Elasticsearch. A
 // datafeed can be started and stopped
@@ -100,7 +100,7 @@ func NewStartDatafeedFunc(tp elastictransport.Interface) NewStartDatafeed {
 	}
 }
 
-// Starts one or more datafeeds.
+// Start datafeeds.
 //
 // A datafeed must be started in order to retrieve data from Elasticsearch. A
 // datafeed can be started and stopped

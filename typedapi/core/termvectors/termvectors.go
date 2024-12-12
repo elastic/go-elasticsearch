@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 // Get term vector information.
-// Returns information and statistics about terms in the fields of a particular
+//
+// Get information and statistics about terms in the fields of a particular
 // document.
 package termvectors
 
@@ -88,7 +89,8 @@ func NewTermvectorsFunc(tp elastictransport.Interface) NewTermvectors {
 }
 
 // Get term vector information.
-// Returns information and statistics about terms in the fields of a particular
+//
+// Get information and statistics about terms in the fields of a particular
 // document.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-termvectors.html

@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Enables a Kibana instance to configure itself for communication with a
-// secured Elasticsearch cluster.
+// Enroll Kibana.
+//
+// Enable a Kibana instance to configure itself for communication with a secured
+// Elasticsearch cluster.
 package enrollkibana
 
 import (
@@ -69,8 +71,10 @@ func NewEnrollKibanaFunc(tp elastictransport.Interface) NewEnrollKibana {
 	}
 }
 
-// Enables a Kibana instance to configure itself for communication with a
-// secured Elasticsearch cluster.
+// Enroll Kibana.
+//
+// Enable a Kibana instance to configure itself for communication with a secured
+// Elasticsearch cluster.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-kibana-enrollment.html
 func New(tp elastictransport.Interface) *EnrollKibana {

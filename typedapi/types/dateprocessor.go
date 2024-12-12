@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DateProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L542-L569
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ingest/_types/Processors.ts#L769-L802
 type DateProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -52,6 +52,9 @@ type DateProcessor struct {
 	Locale *string `json:"locale,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// OutputFormat The format to use when writing the date to target_field. Must be a valid
+	// java time pattern.
+	OutputFormat *string `json:"output_format,omitempty"`
 	// Tag Identifier for the processor.
 	// Useful for debugging and metrics.
 	Tag *string `json:"tag,omitempty"`
@@ -141,6 +144,18 @@ func (s *DateProcessor) UnmarshalJSON(data []byte) error {
 			if err := dec.Decode(&s.OnFailure); err != nil {
 				return fmt.Errorf("%s | %w", "OnFailure", err)
 			}
+
+		case "output_format":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "OutputFormat", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.OutputFormat = &o
 
 		case "tag":
 			var tmp json.RawMessage

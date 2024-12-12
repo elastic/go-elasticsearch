@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
+// Update a snapshot.
 // Updates certain properties of a snapshot.
 package updatemodelsnapshot
 
@@ -86,6 +87,7 @@ func NewUpdateModelSnapshotFunc(tp elastictransport.Interface) NewUpdateModelSna
 	}
 }
 
+// Update a snapshot.
 // Updates certain properties of a snapshot.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html

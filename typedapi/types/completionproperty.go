@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CompletionProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/specialized.ts#L33-L41
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/_types/mapping/specialized.ts#L33-L41
 type CompletionProperty struct {
 	Analyzer       *string                        `json:"analyzer,omitempty"`
 	Contexts       []SuggestContext               `json:"contexts,omitempty"`
@@ -49,7 +49,6 @@ type CompletionProperty struct {
 	PreserveSeparators         *bool               `json:"preserve_separators,omitempty"`
 	Properties                 map[string]Property `json:"properties,omitempty"`
 	SearchAnalyzer             *string             `json:"search_analyzer,omitempty"`
-	Similarity                 *string             `json:"similarity,omitempty"`
 	Store                      *bool               `json:"store,omitempty"`
 	Type                       string              `json:"type,omitempty"`
 }
@@ -839,18 +838,6 @@ func (s *CompletionProperty) UnmarshalJSON(data []byte) error {
 			}
 			s.SearchAnalyzer = &o
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -892,7 +879,6 @@ func (s CompletionProperty) MarshalJSON() ([]byte, error) {
 		PreserveSeparators:         s.PreserveSeparators,
 		Properties:                 s.Properties,
 		SearchAnalyzer:             s.SearchAnalyzer,
-		Similarity:                 s.Similarity,
 		Store:                      s.Store,
 		Type:                       s.Type,
 	}

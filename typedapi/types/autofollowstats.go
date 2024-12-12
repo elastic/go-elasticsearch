@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AutoFollowStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ccr/stats/types.ts.ts#L33-L39
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ccr/stats/types.ts.ts#L32-L38
 type AutoFollowStats struct {
 	AutoFollowedClusters                     []AutoFollowedCluster `json:"auto_followed_clusters"`
 	NumberOfFailedFollowIndices              int64                 `json:"number_of_failed_follow_indices"`

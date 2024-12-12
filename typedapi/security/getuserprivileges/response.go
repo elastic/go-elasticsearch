@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package getuserprivileges
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package getuserprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/get_user_privileges/SecurityGetUserPrivilegesResponse.ts#L27-L35
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/security/get_user_privileges/SecurityGetUserPrivilegesResponse.ts#L26-L34
 type Response struct {
 	Applications []types.ApplicationPrivileges `json:"applications"`
 	Cluster      []string                      `json:"cluster"`

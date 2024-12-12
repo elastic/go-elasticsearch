@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Http type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L633-L647
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/nodes/_types/Stats.ts#L669-L688
 type Http struct {
 	// Clients Information on current and recently-closed HTTP client connections.
 	// Clients that have been closed longer than the
@@ -40,6 +40,8 @@ type Http struct {
 	Clients []Client `json:"clients,omitempty"`
 	// CurrentOpen Current number of open HTTP connections for the node.
 	CurrentOpen *int `json:"current_open,omitempty"`
+	// Routes Detailed HTTP stats broken down by route
+	Routes map[string]HttpRoute `json:"routes"`
 	// TotalOpened Total number of HTTP connections opened for the node.
 	TotalOpened *int64 `json:"total_opened,omitempty"`
 }
@@ -80,6 +82,14 @@ func (s *Http) UnmarshalJSON(data []byte) error {
 				s.CurrentOpen = &f
 			}
 
+		case "routes":
+			if s.Routes == nil {
+				s.Routes = make(map[string]HttpRoute, 0)
+			}
+			if err := dec.Decode(&s.Routes); err != nil {
+				return fmt.Errorf("%s | %w", "Routes", err)
+			}
+
 		case "total_opened":
 			var tmp any
 			dec.Decode(&tmp)
@@ -102,7 +112,9 @@ func (s *Http) UnmarshalJSON(data []byte) error {
 
 // NewHttp returns a Http.
 func NewHttp() *Http {
-	r := &Http{}
+	r := &Http{
+		Routes: make(map[string]HttpRoute, 0),
+	}
 
 	return r
 }

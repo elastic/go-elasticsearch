@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Creates the enrich index for an existing enrich policy.
+// Run an enrich policy.
+// Create the enrich index for an existing enrich policy.
 package executepolicy
 
 import (
@@ -76,7 +77,8 @@ func NewExecutePolicyFunc(tp elastictransport.Interface) NewExecutePolicy {
 	}
 }
 
-// Creates the enrich index for an existing enrich policy.
+// Run an enrich policy.
+// Create the enrich index for an existing enrich policy.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html
 func New(tp elastictransport.Interface) *ExecutePolicy {

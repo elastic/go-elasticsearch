@@ -16,46 +16,66 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
 
-// Package deploymentstate
-package deploymentstate
+// Package esqlformat
+package esqlformat
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L274-L287
-type DeploymentState struct {
+// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/esql/query/QueryRequest.ts#L93-L102
+type EsqlFormat struct {
 	Name string
 }
 
 var (
-	Started = DeploymentState{"started"}
+	Csv = EsqlFormat{"csv"}
 
-	Starting = DeploymentState{"starting"}
+	Json = EsqlFormat{"json"}
 
-	Stopping = DeploymentState{"stopping"}
+	Tsv = EsqlFormat{"tsv"}
+
+	Txt = EsqlFormat{"txt"}
+
+	Yaml = EsqlFormat{"yaml"}
+
+	Cbor = EsqlFormat{"cbor"}
+
+	Smile = EsqlFormat{"smile"}
+
+	Arrow = EsqlFormat{"arrow"}
 )
 
-func (d DeploymentState) MarshalText() (text []byte, err error) {
-	return []byte(d.String()), nil
+func (e EsqlFormat) MarshalText() (text []byte, err error) {
+	return []byte(e.String()), nil
 }
 
-func (d *DeploymentState) UnmarshalText(text []byte) error {
+func (e *EsqlFormat) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "started":
-		*d = Started
-	case "starting":
-		*d = Starting
-	case "stopping":
-		*d = Stopping
+	case "csv":
+		*e = Csv
+	case "json":
+		*e = Json
+	case "tsv":
+		*e = Tsv
+	case "txt":
+		*e = Txt
+	case "yaml":
+		*e = Yaml
+	case "cbor":
+		*e = Cbor
+	case "smile":
+		*e = Smile
+	case "arrow":
+		*e = Arrow
 	default:
-		*d = DeploymentState{string(text)}
+		*e = EsqlFormat{string(text)}
 	}
 
 	return nil
 }
 
-func (d DeploymentState) String() string {
-	return d.Name
+func (e EsqlFormat) String() string {
+	return e.Name
 }
