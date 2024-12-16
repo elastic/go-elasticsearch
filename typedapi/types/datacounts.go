@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataCounts type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/Job.ts#L352-L372
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/Job.ts#L352-L372
 type DataCounts struct {
 	BucketCount                 int64  `json:"bucket_count"`
 	EarliestRecordTimestamp     *int64 `json:"earliest_record_timestamp,omitempty"`

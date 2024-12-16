@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // FollowerIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ccr/follow_info/types.ts#L24-L30
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ccr/follow_info/types.ts#L24-L30
 type FollowerIndex struct {
 	FollowerIndex string                                  `json:"follower_index"`
 	LeaderIndex   string                                  `json:"leader_index"`

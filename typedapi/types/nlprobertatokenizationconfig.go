@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -33,10 +33,12 @@ import (
 
 // NlpRobertaTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/inference.ts#L160-L187
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/inference.ts#L164-L171
 type NlpRobertaTokenizationConfig struct {
 	// AddPrefixSpace Should the tokenizer prefix input with a space character
 	AddPrefixSpace *bool `json:"add_prefix_space,omitempty"`
+	// DoLowerCase Should the tokenizer lower case the text
+	DoLowerCase *bool `json:"do_lower_case,omitempty"`
 	// MaxSequenceLength Maximum input sequence length for the model
 	MaxSequenceLength *int `json:"max_sequence_length,omitempty"`
 	// Span Tokenization spanning options. Special value of -1 indicates no spanning
@@ -76,6 +78,20 @@ func (s *NlpRobertaTokenizationConfig) UnmarshalJSON(data []byte) error {
 				s.AddPrefixSpace = &value
 			case bool:
 				s.AddPrefixSpace = &v
+			}
+
+		case "do_lower_case":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "DoLowerCase", err)
+				}
+				s.DoLowerCase = &value
+			case bool:
+				s.DoLowerCase = &v
 			}
 
 		case "max_sequence_length":

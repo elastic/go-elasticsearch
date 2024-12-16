@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FillMaskInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/inference.ts#L266-L280
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/inference.ts#L253-L268
 type FillMaskInferenceOptions struct {
 	// MaskToken The string/token which will be removed from incoming documents and replaced
 	// with the inference prediction(s).
@@ -50,6 +50,7 @@ type FillMaskInferenceOptions struct {
 	ResultsField *string `json:"results_field,omitempty"`
 	// Tokenization The tokenization options to update when inferring
 	Tokenization *TokenizationConfigContainer `json:"tokenization,omitempty"`
+	Vocabulary   Vocabulary                   `json:"vocabulary"`
 }
 
 func (s *FillMaskInferenceOptions) UnmarshalJSON(data []byte) error {
@@ -110,6 +111,11 @@ func (s *FillMaskInferenceOptions) UnmarshalJSON(data []byte) error {
 		case "tokenization":
 			if err := dec.Decode(&s.Tokenization); err != nil {
 				return fmt.Errorf("%s | %w", "Tokenization", err)
+			}
+
+		case "vocabulary":
+			if err := dec.Decode(&s.Vocabulary); err != nil {
+				return fmt.Errorf("%s | %w", "Vocabulary", err)
 			}
 
 		}

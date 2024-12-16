@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package clearcachedservicetokens
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package clearcachedservicetokens
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/security/clear_cached_service_tokens/ClearCachedServiceTokensResponse.ts#L25-L32
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/security/clear_cached_service_tokens/ClearCachedServiceTokensResponse.ts#L25-L32
 type Response struct {
 	ClusterName string                       `json:"cluster_name"`
 	NodeStats   types.NodeStatistics         `json:"_nodes"`

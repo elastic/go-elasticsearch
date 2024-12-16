@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,12 +31,13 @@ import (
 
 // DatafeedTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/Datafeed.ts#L173-L198
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/Datafeed.ts#L174-L202
 type DatafeedTimingStats struct {
 	// AverageSearchTimePerBucketMs The average search time per bucket, in milliseconds.
 	AverageSearchTimePerBucketMs Float64 `json:"average_search_time_per_bucket_ms,omitempty"`
 	// BucketCount The number of buckets processed.
-	BucketCount int64 `json:"bucket_count"`
+	BucketCount                          int64                                 `json:"bucket_count"`
+	ExponentialAverageCalculationContext *ExponentialAverageCalculationContext `json:"exponential_average_calculation_context,omitempty"`
 	// ExponentialAverageSearchTimePerHourMs The exponential average search time per hour, in milliseconds.
 	ExponentialAverageSearchTimePerHourMs Float64 `json:"exponential_average_search_time_per_hour_ms"`
 	// JobId Identifier for the anomaly detection job.
@@ -80,6 +81,11 @@ func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int64(v)
 				s.BucketCount = f
+			}
+
+		case "exponential_average_calculation_context":
+			if err := dec.Decode(&s.ExponentialAverageCalculationContext); err != nil {
+				return fmt.Errorf("%s | %w", "ExponentialAverageCalculationContext", err)
 			}
 
 		case "exponential_average_search_time_per_hour_ms":

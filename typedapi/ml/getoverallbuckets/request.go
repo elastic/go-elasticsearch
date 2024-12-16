@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package getoverallbuckets
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package getoverallbuckets
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L146
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/get_overall_buckets/MlGetOverallBucketsRequest.ts#L25-L146
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.

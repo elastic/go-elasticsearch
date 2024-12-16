@@ -16,11 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Aggregates a time series (TSDS) index and stores pre-computed statistical
+// Downsample an index.
+// Aggregate a time series (TSDS) index and store pre-computed statistical
 // summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
 // field grouped by a configured time interval.
+// For example, a TSDS index that contains metrics sampled every 10 seconds can
+// be downsampled to an hourly index.
+// All documents within an hour interval are summarized and stored as a single
+// document in the downsample index.
+//
+// NOTE: Only indices in a time series data stream are supported.
+// Neither field nor document level security can be defined on the source index.
+// The source index must be read only (`index.blocks.write: true`).
 package downsample
 
 import (
@@ -88,9 +97,18 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 	}
 }
 
-// Aggregates a time series (TSDS) index and stores pre-computed statistical
+// Downsample an index.
+// Aggregate a time series (TSDS) index and store pre-computed statistical
 // summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
 // field grouped by a configured time interval.
+// For example, a TSDS index that contains metrics sampled every 10 seconds can
+// be downsampled to an hourly index.
+// All documents within an hour interval are summarized and stored as a single
+// document in the downsample index.
+//
+// NOTE: Only indices in a time series data stream are supported.
+// Neither field nor document level security can be defined on the source index.
+// The source index must be read only (`index.blocks.write: true`).
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-downsample-data-stream.html
 func New(tp elastictransport.Interface) *Downsample {

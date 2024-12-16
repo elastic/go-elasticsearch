@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -33,11 +33,13 @@ import (
 
 // TrainedModelAssignment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/TrainedModel.ts#L399-L414
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/TrainedModel.ts#L447-L464
 type TrainedModelAssignment struct {
+	AdaptiveAllocations *AdaptiveAllocationsSettings `json:"adaptive_allocations,omitempty"`
 	// AssignmentState The overall assignment state.
 	AssignmentState        deploymentassignmentstate.DeploymentAssignmentState `json:"assignment_state"`
 	MaxAssignedAllocations *int                                                `json:"max_assigned_allocations,omitempty"`
+	Reason                 *string                                             `json:"reason,omitempty"`
 	// RoutingTable The allocation state for each node.
 	RoutingTable map[string]TrainedModelAssignmentRoutingTable `json:"routing_table"`
 	// StartTime The timestamp when the deployment started.
@@ -60,6 +62,11 @@ func (s *TrainedModelAssignment) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "adaptive_allocations":
+			if err := dec.Decode(&s.AdaptiveAllocations); err != nil {
+				return fmt.Errorf("%s | %w", "AdaptiveAllocations", err)
+			}
+
 		case "assignment_state":
 			if err := dec.Decode(&s.AssignmentState); err != nil {
 				return fmt.Errorf("%s | %w", "AssignmentState", err)
@@ -80,6 +87,18 @@ func (s *TrainedModelAssignment) UnmarshalJSON(data []byte) error {
 				f := int(v)
 				s.MaxAssignedAllocations = &f
 			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Reason", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Reason = &o
 
 		case "routing_table":
 			if s.RoutingTable == nil {

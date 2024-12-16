@@ -16,10 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Stops the following task associated with a follower index and removes index
-// metadata and settings associated with cross-cluster replication.
+// Unfollow an index.
+// Convert a cross-cluster replication follower index to a regular index.
+// The API stops the following task associated with a follower index and removes
+// index metadata and settings associated with cross-cluster replication.
+// The follower index must be paused and closed before you call the unfollow
+// API.
+//
+// NOTE: Currently cross-cluster replication does not support converting an
+// existing regular index to a follower index. Converting a follower index to a
+// regular index is an irreversible operation.
 package unfollow
 
 import (
@@ -77,8 +85,16 @@ func NewUnfollowFunc(tp elastictransport.Interface) NewUnfollow {
 	}
 }
 
-// Stops the following task associated with a follower index and removes index
-// metadata and settings associated with cross-cluster replication.
+// Unfollow an index.
+// Convert a cross-cluster replication follower index to a regular index.
+// The API stops the following task associated with a follower index and removes
+// index metadata and settings associated with cross-cluster replication.
+// The follower index must be paused and closed before you call the unfollow
+// API.
+//
+// NOTE: Currently cross-cluster replication does not support converting an
+// existing regular index to a follower index. Converting a follower index to a
+// regular index is an irreversible operation.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html
 func New(tp elastictransport.Interface) *Unfollow {

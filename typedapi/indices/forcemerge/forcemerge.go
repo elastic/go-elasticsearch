@@ -16,9 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Performs the force merge operation on one or more indices.
+// Force a merge.
+// Perform the force merge operation on the shards of one or more indices.
+// For data streams, the API forces a merge on the shards of the stream's
+// backing indices.
+//
+// Merging reduces the number of segments in each shard by merging some of them
+// together and also frees up the space used by deleted documents.
+// Merging normally happens automatically, but sometimes it is useful to trigger
+// a merge manually.
+//
+// WARNING: We recommend force merging only a read-only index (meaning the index
+// is no longer receiving writes).
+// When documents are updated or deleted, the old version is not immediately
+// removed but instead soft-deleted and marked with a "tombstone".
+// These soft-deleted documents are automatically cleaned up during regular
+// segment merges.
+// But force merge can cause very large (greater than 5 GB) segments to be
+// produced, which are not eligible for regular merges.
+// So the number of soft-deleted documents can then grow rapidly, resulting in
+// higher disk usage and worse search performance.
+// If you regularly force merge an index receiving writes, this can also make
+// snapshots more expensive, since the new documents can't be backed up
+// incrementally.
 package forcemerge
 
 import (
@@ -75,7 +97,29 @@ func NewForcemergeFunc(tp elastictransport.Interface) NewForcemerge {
 	}
 }
 
-// Performs the force merge operation on one or more indices.
+// Force a merge.
+// Perform the force merge operation on the shards of one or more indices.
+// For data streams, the API forces a merge on the shards of the stream's
+// backing indices.
+//
+// Merging reduces the number of segments in each shard by merging some of them
+// together and also frees up the space used by deleted documents.
+// Merging normally happens automatically, but sometimes it is useful to trigger
+// a merge manually.
+//
+// WARNING: We recommend force merging only a read-only index (meaning the index
+// is no longer receiving writes).
+// When documents are updated or deleted, the old version is not immediately
+// removed but instead soft-deleted and marked with a "tombstone".
+// These soft-deleted documents are automatically cleaned up during regular
+// segment merges.
+// But force merge can cause very large (greater than 5 GB) segments to be
+// produced, which are not eligible for regular merges.
+// So the number of soft-deleted documents can then grow rapidly, resulting in
+// higher disk usage and worse search performance.
+// If you regularly force merge an index receiving writes, this can also make
+// snapshots more expensive, since the new documents can't be backed up
+// incrementally.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-forcemerge.html
 func New(tp elastictransport.Interface) *Forcemerge {

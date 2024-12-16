@@ -16,9 +16,45 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Clones an existing index.
+// Clone an index.
+// Clone an existing index into a new index.
+// Each original primary shard is cloned into a new primary shard in the new
+// index.
+//
+// IMPORTANT: Elasticsearch does not apply index templates to the resulting
+// index.
+// The API also does not copy index metadata from the original index.
+// Index metadata includes aliases, index lifecycle management phase
+// definitions, and cross-cluster replication (CCR) follower information.
+// For example, if you clone a CCR follower index, the resulting clone will not
+// be a follower index.
+//
+// The clone API copies most index settings from the source index to the
+// resulting index, with the exception of `index.number_of_replicas` and
+// `index.auto_expand_replicas`.
+// To set the number of replicas in the resulting index, configure these
+// settings in the clone request.
+//
+// Cloning works as follows:
+//
+// * First, it creates a new target index with the same definition as the source
+// index.
+// * Then it hard-links segments from the source index into the target index. If
+// the file system does not support hard-linking, all segments are copied into
+// the new index, which is a much more time consuming process.
+// * Finally, it recovers the target index as though it were a closed index
+// which had just been re-opened.
+//
+// IMPORTANT: Indices can only be cloned if they meet the following
+// requirements:
+//
+// * The target index must not exist.
+// * The source index must have the same number of primary shards as the target
+// index.
+// * The node handling the clone process must have sufficient free disk space to
+// accommodate a second copy of the existing index.
 package clone
 
 import (
@@ -86,7 +122,43 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 	}
 }
 
-// Clones an existing index.
+// Clone an index.
+// Clone an existing index into a new index.
+// Each original primary shard is cloned into a new primary shard in the new
+// index.
+//
+// IMPORTANT: Elasticsearch does not apply index templates to the resulting
+// index.
+// The API also does not copy index metadata from the original index.
+// Index metadata includes aliases, index lifecycle management phase
+// definitions, and cross-cluster replication (CCR) follower information.
+// For example, if you clone a CCR follower index, the resulting clone will not
+// be a follower index.
+//
+// The clone API copies most index settings from the source index to the
+// resulting index, with the exception of `index.number_of_replicas` and
+// `index.auto_expand_replicas`.
+// To set the number of replicas in the resulting index, configure these
+// settings in the clone request.
+//
+// Cloning works as follows:
+//
+// * First, it creates a new target index with the same definition as the source
+// index.
+// * Then it hard-links segments from the source index into the target index. If
+// the file system does not support hard-linking, all segments are copied into
+// the new index, which is a much more time consuming process.
+// * Finally, it recovers the target index as though it were a closed index
+// which had just been re-opened.
+//
+// IMPORTANT: Indices can only be cloned if they meet the following
+// requirements:
+//
+// * The target index must not exist.
+// * The source index must have the same number of primary shards as the target
+// index.
+// * The node handling the clone process must have sufficient free disk space to
+// accommodate a second copy of the existing index.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-clone-index.html
 func New(tp elastictransport.Interface) *Clone {

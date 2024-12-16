@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Retrieves information about the status of the basic license.
+// Get the basic license status.
 package getbasicstatus
 
 import (
@@ -68,7 +68,7 @@ func NewGetBasicStatusFunc(tp elastictransport.Interface) NewGetBasicStatus {
 	}
 }
 
-// Retrieves information about the status of the basic license.
+// Get the basic license status.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-basic-status.html
 func New(tp elastictransport.Interface) *GetBasicStatus {

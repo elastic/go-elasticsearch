@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamLifecycleDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/_global/health_report/types.ts#L152-L156
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_global/health_report/types.ts#L152-L156
 type DataStreamLifecycleDetails struct {
 	StagnatingBackingIndices      []StagnatingBackingIndices `json:"stagnating_backing_indices,omitempty"`
 	StagnatingBackingIndicesCount int                        `json:"stagnating_backing_indices_count"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package updatejob
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/update_job/MlUpdateJobResponse.ts#L29-L53
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/update_job/MlUpdateJobResponse.ts#L29-L53
 type Response struct {
 	AllowLazyOpen                        bool                     `json:"allow_lazy_open"`
 	AnalysisConfig                       types.AnalysisConfigRead `json:"analysis_config"`

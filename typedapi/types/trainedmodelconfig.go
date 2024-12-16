@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // TrainedModelConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/TrainedModel.ts#L164-L199
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/TrainedModel.ts#L191-L227
 type TrainedModelConfig struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -64,8 +64,9 @@ type TrainedModelConfig struct {
 	// created by data frame analytics contain analysis_config and input objects.
 	Metadata *TrainedModelConfigMetadata `json:"metadata,omitempty"`
 	// ModelId Identifier for the trained model.
-	ModelId        string   `json:"model_id"`
-	ModelSizeBytes ByteSize `json:"model_size_bytes,omitempty"`
+	ModelId        string              `json:"model_id"`
+	ModelPackage   *ModelPackageConfig `json:"model_package,omitempty"`
+	ModelSizeBytes ByteSize            `json:"model_size_bytes,omitempty"`
 	// ModelType The model type
 	ModelType     *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
 	PrefixStrings *TrainedModelPrefixStrings         `json:"prefix_strings,omitempty"`
@@ -221,6 +222,11 @@ func (s *TrainedModelConfig) UnmarshalJSON(data []byte) error {
 		case "model_id":
 			if err := dec.Decode(&s.ModelId); err != nil {
 				return fmt.Errorf("%s | %w", "ModelId", err)
+			}
+
+		case "model_package":
+			if err := dec.Decode(&s.ModelPackage); err != nil {
+				return fmt.Errorf("%s | %w", "ModelPackage", err)
 			}
 
 		case "model_size_bytes":

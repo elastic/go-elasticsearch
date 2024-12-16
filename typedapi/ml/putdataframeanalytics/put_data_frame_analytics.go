@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 // Create a data frame analytics job.
 // This API creates a data frame analytics job that performs an analysis on the
@@ -461,6 +461,13 @@ func (r *PutDataFrameAnalytics) Headers(httpheaders types.HttpHeaders) *PutDataF
 // API name: max_num_threads
 func (r *PutDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *PutDataFrameAnalytics {
 	r.req.MaxNumThreads = &maxnumthreads
+
+	return r
+}
+
+// API name: _meta
+func (r *PutDataFrameAnalytics) Meta_(metadata types.Metadata) *PutDataFrameAnalytics {
+	r.req.Meta_ = metadata
 
 	return r
 }

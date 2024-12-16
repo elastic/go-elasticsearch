@@ -16,11 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Returns statistics for one or more indices.
-// For data streams, the API retrieves statistics for the stream’s backing
+// Get index statistics.
+// For data streams, the API retrieves statistics for the stream's backing
 // indices.
+//
+// By default, the returned statistics are index-level with `primaries` and
+// `total` aggregations.
+// `primaries` are the values for only the primary shards.
+// `total` are the accumulated values for both primary and replica shards.
+//
+// To get shard-level statistics, set the `level` parameter to `shards`.
+//
+// NOTE: When moving to another node, the shard-level statistics for a shard are
+// cleared.
+// Although the shard is no longer part of the node, that node retains any
+// node-level statistics to which the shard contributed.
 package stats
 
 import (
@@ -81,9 +93,21 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 	}
 }
 
-// Returns statistics for one or more indices.
-// For data streams, the API retrieves statistics for the stream’s backing
+// Get index statistics.
+// For data streams, the API retrieves statistics for the stream's backing
 // indices.
+//
+// By default, the returned statistics are index-level with `primaries` and
+// `total` aggregations.
+// `primaries` are the values for only the primary shards.
+// `total` are the accumulated values for both primary and replica shards.
+//
+// To get shard-level statistics, set the `level` parameter to `shards`.
+//
+// NOTE: When moving to another node, the shard-level statistics for a shard are
+// cleared.
+// Although the shard is no longer part of the node, that node retains any
+// node-level statistics to which the shard contributed.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html
 func New(tp elastictransport.Interface) *Stats {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalysisLimits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/ml/_types/Analysis.ts#L161-L172
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/Analysis.ts#L161-L172
 type AnalysisLimits struct {
 	// CategorizationExamplesLimit The maximum number of examples stored per category in memory and in the
 	// results data store. If you increase this value, more examples are available,
@@ -55,7 +55,7 @@ type AnalysisLimits struct {
 	// `xpack.ml.max_model_memory_limit` setting, an error occurs when you try to
 	// create jobs that have `model_memory_limit` values greater than that setting
 	// value.
-	ModelMemoryLimit *string `json:"model_memory_limit,omitempty"`
+	ModelMemoryLimit ByteSize `json:"model_memory_limit,omitempty"`
 }
 
 func (s *AnalysisLimits) UnmarshalJSON(data []byte) error {
@@ -89,16 +89,9 @@ func (s *AnalysisLimits) UnmarshalJSON(data []byte) error {
 			}
 
 		case "model_memory_limit":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.ModelMemoryLimit); err != nil {
 				return fmt.Errorf("%s | %w", "ModelMemoryLimit", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.ModelMemoryLimit = &o
 
 		}
 	}

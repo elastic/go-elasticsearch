@@ -16,10 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Pauses a follower index. The follower index will not fetch any additional
-// operations from the leader index.
+// Pause a follower.
+// Pause a cross-cluster replication follower index.
+// The follower index will not fetch any additional operations from the leader
+// index.
+// You can resume following with the resume follower API.
+// You can pause and resume a follower index to change the configuration of the
+// following task.
 package pausefollow
 
 import (
@@ -77,8 +82,13 @@ func NewPauseFollowFunc(tp elastictransport.Interface) NewPauseFollow {
 	}
 }
 
-// Pauses a follower index. The follower index will not fetch any additional
-// operations from the leader index.
+// Pause a follower.
+// Pause a cross-cluster replication follower index.
+// The follower index will not fetch any additional operations from the leader
+// index.
+// You can resume following with the resume follower API.
+// You can pause and resume a follower index to change the configuration of the
+// following task.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-pause-follow.html
 func New(tp elastictransport.Interface) *PauseFollow {

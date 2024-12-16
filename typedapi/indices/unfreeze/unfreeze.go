@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Unfreezes an index.
+// Unfreeze an index.
+// When a frozen index is unfrozen, the index goes through the normal recovery
+// process and becomes writeable again.
 package unfreeze
 
 import (
@@ -77,7 +79,9 @@ func NewUnfreezeFunc(tp elastictransport.Interface) NewUnfreeze {
 	}
 }
 
-// Unfreezes an index.
+// Unfreeze an index.
+// When a frozen index is unfrozen, the index goes through the normal recovery
+// process and becomes writeable again.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/unfreeze-index-api.html
 func New(tp elastictransport.Interface) *Unfreeze {

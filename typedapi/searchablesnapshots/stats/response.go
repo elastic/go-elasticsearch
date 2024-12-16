@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/1ed5f4795fc7c4d9875601f883b8d5fb9023c526
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package stats
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package stats
 //
-// https://github.com/elastic/elasticsearch-specification/blob/1ed5f4795fc7c4d9875601f883b8d5fb9023c526/specification/searchable_snapshots/stats/SearchableSnapshotsStatsResponse.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/searchable_snapshots/stats/SearchableSnapshotsStatsResponse.ts#L22-L27
 type Response struct {
 	Stats json.RawMessage `json:"stats,omitempty"`
 	Total json.RawMessage `json:"total,omitempty"`
