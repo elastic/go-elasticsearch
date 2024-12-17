@@ -1,3 +1,15 @@
+# 8.17.0
+
+* Expose BulkIndexer total flushed bytes metric [#914](https://github.com/elastic/go-elasticsearch/pull/914) thanks to @aureleoules
+
+# API
+
+Updated APIs to 8.17.0
+
+# Typed API
+
+Update APIs to latest [elasticsearch-specification 8.17](https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64)
+
 # 8.16.0
 
 # API
