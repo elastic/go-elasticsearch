@@ -65,8 +65,15 @@ var skipFiles = []string{
 	"dlm/10_usage.yml",            // incompatible float expansion
 	"api_key/60_admin_user.yml",
 	".*esql\\/.*.yml",
+	"ingest_geoip/.*.yml",
 	"deprecation/10_basic.yml",    // incompatible test generation
 	"search/520_fetch_fields.yml", // disabled for inconsistency
+	"ingest_geoip/20_geoip_processor.yml",
+	"cluster.stats/.*.yml",         // incompatible cluster test
+	"get/100_synthetic_source.yml", // unsupported file upload
+	"indices.create/20_synthetic_source.yml",
+	"indices.create/21_synthetic_source_stored.yml",
+	"range/20_synthetic_source.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -224,6 +231,9 @@ tsdb/40_search.yml:
 tsdb/70_dimension_types.yml:
   - flattened field missing routing path field
 
+tsdb/20_mapping.yml:
+  - disabled source is not supported
+
 # Deliberate wrong type doesn't match Go types
 cluster.desired_nodes/10_basic.yml:
   - Test version must be a number
@@ -358,6 +368,7 @@ ml/text_expansion_search_rank_features.yml:
 # TEMPORARY: Missing 'body: { indices: "test_index" }' payload, TODO: PR
 snapshot/10_basic.yml:
   - Create a source only snapshot and then restore it
+  - Failed to snapshot indices with synthetic source
 
 # illegal_argument_exception: Provided password hash uses [NOOP] but the configured hashing algorithm is [BCRYPT]
 users/10_basic.yml:
@@ -464,6 +475,8 @@ nodes.stats/11_indices_metrics.yml:
   - Metric - blank for indices shards
   - Metric - _all for indices shards
   - indices shards total count test
+  - Lucene segment level fields stats
+
 
 data_stream/10_data_stream_resolvability.yml:
   - Verify data stream resolvability in ILM remove policy API
@@ -522,18 +535,13 @@ ml/learning_to_rank_rescorer.yml:
 aggregations/max_metric.yml:
   - Merging results with unmapped fields
 
-# unsupported file upload
-get/100_synthetic_source.yml:
-  - indexed dense vectors
-  - non-indexed dense vectors
-  - fields with ignore_malformed
-  - flattened field with ignore_above
-
 indices.stats/70_write_load.yml:
   - Write load average is tracked at shard level
 
 search/400_synthetic_source.yml:
   - stored keyword without sibling fields
+  - doc values keyword with ignore_above
+  - stored keyword with ignore_above
 
 health/10_usage.yml:
   - Usage stats on the health API
@@ -568,4 +576,28 @@ search/520_fetch_fields.yml:
 
 spatial/140_synthetic_source.yml:
   - point
+
+index/92_metrics_auto_subobjects.yml:
+  - Metrics object indexing with synthetic source
+
+index/91_metrics_no_subobjects.yml:
+  - Metrics object indexing with synthetic source
+
+logsdb/20_source_mapping.yml:
+  - synthetic _source is default
+  - disabled _source is not supported
+
+search/600_flattened_ignore_above.yml:
+  - flattened ignore_above single-value field
+
+search/540_ignore_above_synthetic_source.yml:
+  - ignore_above mapping level setting on arrays
+  - ignore_above mapping overrides setting on arrays
+
+search.suggest/20_phrase.yml:
+  - breaks ties by sorting terms
+
+update/100_synthetic_source.yml:
+  - keyword
+  - stored text
 `
