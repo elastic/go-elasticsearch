@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Retrieves information about all follower indices, including parameters and
-// status for each follower index
+// Get follower information.
+// Get information about all cross-cluster replication follower indices.
+// For example, the results include follower index names, leader index names,
+// replication options, and whether the follower indices are active or paused.
 package followinfo
 
 import (
@@ -77,8 +79,10 @@ func NewFollowInfoFunc(tp elastictransport.Interface) NewFollowInfo {
 	}
 }
 
-// Retrieves information about all follower indices, including parameters and
-// status for each follower index
+// Get follower information.
+// Get information about all cross-cluster replication follower indices.
+// For example, the results include follower index names, leader index names,
+// replication options, and whether the follower indices are active or paused.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html
 func New(tp elastictransport.Interface) *FollowInfo {

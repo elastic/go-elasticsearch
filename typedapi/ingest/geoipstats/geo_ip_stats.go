@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Gets download statistics for GeoIP2 databases used with the geoip processor.
+// Get GeoIP statistics.
+// Get download statistics for GeoIP2 databases that are used with the GeoIP
+// processor.
 package geoipstats
 
 import (
@@ -68,7 +70,9 @@ func NewGeoIpStatsFunc(tp elastictransport.Interface) NewGeoIpStats {
 	}
 }
 
-// Gets download statistics for GeoIP2 databases used with the geoip processor.
+// Get GeoIP statistics.
+// Get download statistics for GeoIP2 databases that are used with the GeoIP
+// processor.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html
 func New(tp elastictransport.Interface) *GeoIpStats {

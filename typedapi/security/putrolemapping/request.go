@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package putrolemapping
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putrolemapping
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L25-L47
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/security/put_role_mapping/SecurityPutRoleMappingRequest.ts#L25-L56
 type Request struct {
 	Enabled       *bool                  `json:"enabled,omitempty"`
 	Metadata      types.Metadata         `json:"metadata,omitempty"`

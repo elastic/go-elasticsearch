@@ -16,11 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 // Create or update an index template.
 // Index templates define settings, mappings, and aliases that can be applied
 // automatically to new indices.
+// Elasticsearch applies templates to new indices based on an index pattern that
+// matches the index name.
+//
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
+//
+// Composable templates always take precedence over legacy templates.
+// If no composable template matches a new index, matching legacy templates are
+// applied according to their order.
+//
+// Index templates are only applied during index creation.
+// Changes to index templates do not affect existing indices.
+// Settings and mappings specified in create index API requests override any
+// settings or mappings specified in an index template.
 package puttemplate
 
 import (
@@ -86,6 +101,21 @@ func NewPutTemplateFunc(tp elastictransport.Interface) NewPutTemplate {
 // Create or update an index template.
 // Index templates define settings, mappings, and aliases that can be applied
 // automatically to new indices.
+// Elasticsearch applies templates to new indices based on an index pattern that
+// matches the index name.
+//
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
+//
+// Composable templates always take precedence over legacy templates.
+// If no composable template matches a new index, matching legacy templates are
+// applied according to their order.
+//
+// Index templates are only applied during index creation.
+// Changes to index templates do not affect existing indices.
+// Settings and mappings specified in create index API requests override any
+// settings or mappings specified in an index template.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates-v1.html
 func New(tp elastictransport.Interface) *PutTemplate {

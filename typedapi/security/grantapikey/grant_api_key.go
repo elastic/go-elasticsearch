@@ -16,11 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Creates an API key on behalf of another user.
-// This API is similar to Create API keys, however it creates the API key for a
-// user that is different than the user that runs the API.
+// Grant an API key.
+//
+// Create an API key on behalf of another user.
+// This API is similar to the create API keys API, however it creates the API
+// key for a user that is different than the user that runs the API.
 // The caller must have authentication credentials (either an access token, or a
 // username and password) for the user on whose behalf the API key will be
 // created.
@@ -96,9 +98,11 @@ func NewGrantApiKeyFunc(tp elastictransport.Interface) NewGrantApiKey {
 	}
 }
 
-// Creates an API key on behalf of another user.
-// This API is similar to Create API keys, however it creates the API key for a
-// user that is different than the user that runs the API.
+// Grant an API key.
+//
+// Create an API key on behalf of another user.
+// This API is similar to the create API keys API, however it creates the API
+// key for a user that is different than the user that runs the API.
 // The caller must have authentication credentials (either an access token, or a
 // username and password) for the user on whose behalf the API key will be
 // created.

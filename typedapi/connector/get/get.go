@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Retrieves a connector.
+// Get a connector.
+//
+// Get the details about a connector.
 package get
 
 import (
@@ -76,7 +78,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Retrieves a connector.
+// Get a connector.
+//
+// Get the details about a connector.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-connector-api.html
 func New(tp elastictransport.Interface) *Get {

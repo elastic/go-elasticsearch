@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cat/shards/types.ts#L20-L421
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/cat/shards/types.ts#L20-L427
 type ShardsRecord struct {
 	// BulkAvgSizeInBytes The average size in bytes of shard bulk operations.
 	BulkAvgSizeInBytes *string `json:"bulk.avg_size_in_bytes,omitempty"`
@@ -45,6 +45,8 @@ type ShardsRecord struct {
 	BulkTotalTime *string `json:"bulk.total_time,omitempty"`
 	// CompletionSize The size of completion.
 	CompletionSize *string `json:"completion.size,omitempty"`
+	// Dataset total size of dataset (including the cache for partially mounted indices)
+	Dataset *string `json:"dataset,omitempty"`
 	// Docs The number of documents in the shard.
 	Docs *string `json:"docs,omitempty"`
 	// FielddataEvictions The fielddata cache evictions.
@@ -313,6 +315,18 @@ func (s *ShardsRecord) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.CompletionSize = &o
+
+		case "dataset":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Dataset", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Dataset = &o
 
 		case "docs", "d", "dc":
 			var tmp json.RawMessage

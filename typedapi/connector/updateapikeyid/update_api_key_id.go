@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Updates the API key id in the connector document
+// Update the connector API key ID.
+//
+// Update the `api_key_id` and `api_key_secret_id` fields of a connector.
+// You can specify the ID of the API key used for authorization and the ID of
+// the connector secret where the API key is stored.
+// The connector secret ID is required only for Elastic managed (native)
+// connectors.
+// Self-managed connectors (connector clients) do not use this field.
 package updateapikeyid
 
 import (
@@ -81,7 +88,14 @@ func NewUpdateApiKeyIdFunc(tp elastictransport.Interface) NewUpdateApiKeyId {
 	}
 }
 
-// Updates the API key id in the connector document
+// Update the connector API key ID.
+//
+// Update the `api_key_id` and `api_key_secret_id` fields of a connector.
+// You can specify the ID of the API key used for authorization and the ID of
+// the connector secret where the API key is stored.
+// The connector secret ID is required only for Elastic managed (native)
+// connectors.
+// Self-managed connectors (connector clients) do not use this field.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-api-key-id-api.html
 func New(tp elastictransport.Interface) *UpdateApiKeyId {

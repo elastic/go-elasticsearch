@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Returns results matching a query expressed in Event Query Language (EQL)
+// Get EQL search results.
+// Returns search results for an Event Query Language (EQL) query.
+// EQL assumes each document in a data stream or index corresponds to an event.
 package search
 
 import (
@@ -83,7 +85,9 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Returns results matching a query expressed in Event Query Language (EQL)
+// Get EQL search results.
+// Returns search results for an Event Query Language (EQL) query.
+// EQL assumes each document in a data stream or index corresponds to an event.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/eql-search-api.html
 func New(tp elastictransport.Interface) *Search {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,19 +31,17 @@ import (
 
 // IngestTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L356-L377
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/nodes/_types/Stats.ts#L396-L413
 type IngestTotal struct {
 	// Count Total number of documents ingested during the lifetime of this node.
-	Count *int64 `json:"count,omitempty"`
+	Count int64 `json:"count"`
 	// Current Total number of documents currently being ingested.
-	Current *int64 `json:"current,omitempty"`
+	Current int64 `json:"current"`
 	// Failed Total number of failed ingest operations during the lifetime of this node.
-	Failed *int64 `json:"failed,omitempty"`
-	// Processors Total number of ingest processors.
-	Processors []map[string]KeyedProcessor `json:"processors,omitempty"`
+	Failed int64 `json:"failed"`
 	// TimeInMillis Total time, in milliseconds, spent preprocessing ingest documents during the
 	// lifetime of this node.
-	TimeInMillis *int64 `json:"time_in_millis,omitempty"`
+	TimeInMillis int64 `json:"time_in_millis"`
 }
 
 func (s *IngestTotal) UnmarshalJSON(data []byte) error {
@@ -70,10 +68,10 @@ func (s *IngestTotal) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Count", err)
 				}
-				s.Count = &value
+				s.Count = value
 			case float64:
 				f := int64(v)
-				s.Count = &f
+				s.Count = f
 			}
 
 		case "current":
@@ -85,10 +83,10 @@ func (s *IngestTotal) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Current", err)
 				}
-				s.Current = &value
+				s.Current = value
 			case float64:
 				f := int64(v)
-				s.Current = &f
+				s.Current = f
 			}
 
 		case "failed":
@@ -100,15 +98,10 @@ func (s *IngestTotal) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "Failed", err)
 				}
-				s.Failed = &value
+				s.Failed = value
 			case float64:
 				f := int64(v)
-				s.Failed = &f
-			}
-
-		case "processors":
-			if err := dec.Decode(&s.Processors); err != nil {
-				return fmt.Errorf("%s | %w", "Processors", err)
+				s.Failed = f
 			}
 
 		case "time_in_millis":

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // JobStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Job.ts#L284-L330
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ml/_types/Job.ts#L284-L330
 type JobStats struct {
 	// AssignmentExplanation For open anomaly detection jobs only, contains messages relating to the
 	// selection of a node to run the job.
@@ -57,7 +57,7 @@ type JobStats struct {
 	ModelSizeStats ModelSizeStats `json:"model_size_stats"`
 	// Node Contains properties for the node that runs the job.
 	// This information is available only for open jobs.
-	Node *DiscoveryNode `json:"node,omitempty"`
+	Node *DiscoveryNodeCompact `json:"node,omitempty"`
 	// OpenTime For open jobs only, the elapsed time for which the job has been open.
 	OpenTime DateTime `json:"open_time,omitempty"`
 	// State The status of the anomaly detection job, which can be one of the following

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoIpProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L339-L368
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ingest/_types/Processors.ts#L442-L476
 type GeoIpProcessor struct {
 	// DatabaseFile The database filename referring to a database the module ships with
 	// (GeoLite2-City.mmdb, GeoLite2-Country.mmdb, or GeoLite2-ASN.mmdb) or a custom
@@ -40,6 +40,11 @@ type GeoIpProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
 	Description *string `json:"description,omitempty"`
+	// DownloadDatabaseOnPipelineCreation If `true` (and if `ingest.geoip.downloader.eager.download` is `false`), the
+	// missing database is downloaded when the pipeline is created.
+	// Else, the download is triggered by when the pipeline is used as the
+	// `default_pipeline` or `final_pipeline` in an index.
+	DownloadDatabaseOnPipelineCreation *bool `json:"download_database_on_pipeline_creation,omitempty"`
 	// Field The field to get the ip address from for the geographical lookup.
 	Field string `json:"field"`
 	// FirstOnly If `true`, only the first found geoip data will be returned, even if the
@@ -103,6 +108,20 @@ func (s *GeoIpProcessor) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.Description = &o
+
+		case "download_database_on_pipeline_creation":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "DownloadDatabaseOnPipelineCreation", err)
+				}
+				s.DownloadDatabaseOnPipelineCreation = &value
+			case bool:
+				s.DownloadDatabaseOnPipelineCreation = &v
+			}
 
 		case "field":
 			if err := dec.Decode(&s.Field); err != nil {

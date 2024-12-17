@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -35,7 +35,43 @@ package types
 //	IcuAnalyzer
 //	KuromojiAnalyzer
 //	SnowballAnalyzer
+//	ArabicAnalyzer
+//	ArmenianAnalyzer
+//	BasqueAnalyzer
+//	BengaliAnalyzer
+//	BrazilianAnalyzer
+//	BulgarianAnalyzer
+//	CatalanAnalyzer
+//	ChineseAnalyzer
+//	CjkAnalyzer
+//	CzechAnalyzer
+//	DanishAnalyzer
 //	DutchAnalyzer
+//	EnglishAnalyzer
+//	EstonianAnalyzer
+//	FinnishAnalyzer
+//	FrenchAnalyzer
+//	GalicianAnalyzer
+//	GermanAnalyzer
+//	GreekAnalyzer
+//	HindiAnalyzer
+//	HungarianAnalyzer
+//	IndonesianAnalyzer
+//	IrishAnalyzer
+//	ItalianAnalyzer
+//	LatvianAnalyzer
+//	LithuanianAnalyzer
+//	NorwegianAnalyzer
+//	PersianAnalyzer
+//	PortugueseAnalyzer
+//	RomanianAnalyzer
+//	RussianAnalyzer
+//	SerbianAnalyzer
+//	SoraniAnalyzer
+//	SpanishAnalyzer
+//	SwedishAnalyzer
+//	TurkishAnalyzer
+//	ThaiAnalyzer
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/analyzers.ts#L113-L131
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_types/analysis/analyzers.ts#L359-L413
 type Analyzer any

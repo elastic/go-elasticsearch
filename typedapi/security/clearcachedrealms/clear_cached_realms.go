@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Evicts users from the user cache. Can completely clear the cache or evict
+// Clear the user cache.
+//
+// Evict users from the user cache. You can completely clear the cache or evict
 // specific users.
 package clearcachedrealms
 
@@ -77,7 +79,9 @@ func NewClearCachedRealmsFunc(tp elastictransport.Interface) NewClearCachedRealm
 	}
 }
 
-// Evicts users from the user cache. Can completely clear the cache or evict
+// Clear the user cache.
+//
+// Evict users from the user cache. You can completely clear the cache or evict
 // specific users.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-cache.html

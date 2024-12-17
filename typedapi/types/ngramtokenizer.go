@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -33,12 +33,12 @@ import (
 
 // NGramTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/tokenizers.ts#L39-L45
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_types/analysis/tokenizers.ts#L84-L93
 type NGramTokenizer struct {
 	CustomTokenChars *string               `json:"custom_token_chars,omitempty"`
-	MaxGram          int                   `json:"max_gram"`
-	MinGram          int                   `json:"min_gram"`
-	TokenChars       []tokenchar.TokenChar `json:"token_chars"`
+	MaxGram          *int                  `json:"max_gram,omitempty"`
+	MinGram          *int                  `json:"min_gram,omitempty"`
+	TokenChars       []tokenchar.TokenChar `json:"token_chars,omitempty"`
 	Type             string                `json:"type,omitempty"`
 	Version          *string               `json:"version,omitempty"`
 }
@@ -80,10 +80,10 @@ func (s *NGramTokenizer) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "MaxGram", err)
 				}
-				s.MaxGram = value
+				s.MaxGram = &value
 			case float64:
 				f := int(v)
-				s.MaxGram = f
+				s.MaxGram = &f
 			}
 
 		case "min_gram":
@@ -96,10 +96,10 @@ func (s *NGramTokenizer) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "MinGram", err)
 				}
-				s.MinGram = value
+				s.MinGram = &value
 			case float64:
 				f := int(v)
-				s.MinGram = f
+				s.MinGram = &f
 			}
 
 		case "token_chars":

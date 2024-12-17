@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Get async search status
-// Retrieves the status of a previously submitted async search request given its
+// Get the async search status.
+//
+// Get the status of a previously submitted async search request given its
 // identifier, without retrieving search results.
 // If the Elasticsearch security features are enabled, use of this API is
 // restricted to the `monitoring_user` role.
@@ -80,8 +81,9 @@ func NewStatusFunc(tp elastictransport.Interface) NewStatus {
 	}
 }
 
-// Get async search status
-// Retrieves the status of a previously submitted async search request given its
+// Get the async search status.
+//
+// Get the status of a previously submitted async search request given its
 // identifier, without retrieving search results.
 // If the Elasticsearch security features are enabled, use of this API is
 // restricted to the `monitoring_user` role.
@@ -303,6 +305,16 @@ func (r *Status) Header(key, value string) *Status {
 func (r *Status) _id(id string) *Status {
 	r.paramSet |= idMask
 	r.id = id
+
+	return r
+}
+
+// KeepAlive Specifies how long the async search needs to be available.
+// Ongoing async searches and any saved search results are deleted after this
+// period.
+// API name: keep_alive
+func (r *Status) KeepAlive(duration string) *Status {
+	r.values.Set("keep_alive", duration)
 
 	return r
 }

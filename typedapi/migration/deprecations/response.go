@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package deprecations
 
@@ -26,9 +26,10 @@ import (
 
 // Response holds the response body struct for the package deprecations
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/migration/deprecations/DeprecationInfoResponse.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/migration/deprecations/DeprecationInfoResponse.ts#L23-L31
 type Response struct {
 	ClusterSettings []types.Deprecation            `json:"cluster_settings"`
+	DataStreams     map[string][]types.Deprecation `json:"data_streams"`
 	IndexSettings   map[string][]types.Deprecation `json:"index_settings"`
 	MlSettings      []types.Deprecation            `json:"ml_settings"`
 	NodeSettings    []types.Deprecation            `json:"node_settings"`
@@ -37,6 +38,7 @@ type Response struct {
 // NewResponse returns a Response
 func NewResponse() *Response {
 	r := &Response{
+		DataStreams:   make(map[string][]types.Deprecation, 0),
 		IndexSettings: make(map[string][]types.Deprecation, 0),
 	}
 	return r

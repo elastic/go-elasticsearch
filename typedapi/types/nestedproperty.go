@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NestedProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/complex.ts#L39-L44
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_types/mapping/complex.ts#L39-L44
 type NestedProperty struct {
 	CopyTo          []string                       `json:"copy_to,omitempty"`
 	Dynamic         *dynamicmapping.DynamicMapping `json:"dynamic,omitempty"`
@@ -45,7 +45,6 @@ type NestedProperty struct {
 	// Meta Metadata about the field.
 	Meta       map[string]string   `json:"meta,omitempty"`
 	Properties map[string]Property `json:"properties,omitempty"`
-	Similarity *string             `json:"similarity,omitempty"`
 	Store      *bool               `json:"store,omitempty"`
 	Type       string              `json:"type,omitempty"`
 }
@@ -790,18 +789,6 @@ func (s *NestedProperty) UnmarshalJSON(data []byte) error {
 				}
 			}
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -839,7 +826,6 @@ func (s NestedProperty) MarshalJSON() ([]byte, error) {
 		IncludeInRoot:   s.IncludeInRoot,
 		Meta:            s.Meta,
 		Properties:      s.Properties,
-		Similarity:      s.Similarity,
 		Store:           s.Store,
 		Type:            s.Type,
 	}

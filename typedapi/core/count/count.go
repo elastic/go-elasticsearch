@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Returns number of documents matching a query.
+// Count search results.
+// Get the number of documents matching a query.
 package count
 
 import (
@@ -81,7 +82,8 @@ func NewCountFunc(tp elastictransport.Interface) NewCount {
 	}
 }
 
-// Returns number of documents matching a query.
+// Count search results.
+// Get the number of documents matching a query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-count.html
 func New(tp elastictransport.Interface) *Count {

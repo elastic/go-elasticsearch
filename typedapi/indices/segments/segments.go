@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Returns low-level information about the Lucene segments in index shards.
-// For data streams, the API returns information about the stream’s backing
+// Get index segments.
+// Get low-level information about the Lucene segments in index shards.
+// For data streams, the API returns information about the stream's backing
 // indices.
 package segments
 
@@ -77,8 +78,9 @@ func NewSegmentsFunc(tp elastictransport.Interface) NewSegments {
 	}
 }
 
-// Returns low-level information about the Lucene segments in index shards.
-// For data streams, the API returns information about the stream’s backing
+// Get index segments.
+// Get low-level information about the Lucene segments in index shards.
+// For data streams, the API returns information about the stream's backing
 // indices.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-segments.html

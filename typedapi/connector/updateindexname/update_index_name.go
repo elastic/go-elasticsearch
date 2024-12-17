@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Updates the index_name in the connector document
+// Update the connector index name.
+//
+// Update the `index_name` field of a connector, specifying the index where the
+// data ingested by the connector is stored.
 package updateindexname
 
 import (
@@ -81,7 +84,10 @@ func NewUpdateIndexNameFunc(tp elastictransport.Interface) NewUpdateIndexName {
 	}
 }
 
-// Updates the index_name in the connector document
+// Update the connector index name.
+//
+// Update the `index_name` field of a connector, specifying the index where the
+// data ingested by the connector is stored.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-index-name-api.html
 func New(tp elastictransport.Interface) *UpdateIndexName {

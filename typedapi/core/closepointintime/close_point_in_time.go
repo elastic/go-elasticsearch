@@ -16,9 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Closes a point-in-time.
+// Close a point in time.
+//
+// A point in time must be opened explicitly before being used in search
+// requests.
+// The `keep_alive` parameter tells Elasticsearch how long it should persist.
+// A point in time is automatically closed when the `keep_alive` period has
+// elapsed.
+// However, keeping points in time has a cost; close them as soon as they are no
+// longer required for search requests.
 package closepointintime
 
 import (
@@ -73,7 +81,15 @@ func NewClosePointInTimeFunc(tp elastictransport.Interface) NewClosePointInTime 
 	}
 }
 
-// Closes a point-in-time.
+// Close a point in time.
+//
+// A point in time must be opened explicitly before being used in search
+// requests.
+// The `keep_alive` parameter tells Elasticsearch how long it should persist.
+// A point in time is automatically closed when the `keep_alive` period has
+// elapsed.
+// However, keeping points in time has a cost; close them as soon as they are no
+// longer required for search requests.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
 func New(tp elastictransport.Interface) *ClosePointInTime {

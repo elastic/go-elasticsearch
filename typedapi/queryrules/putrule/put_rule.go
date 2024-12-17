@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Creates or updates a query rule within a query ruleset.
+// Create or update a query rule.
+// Create or update a query rule within a query ruleset.
 package putrule
 
 import (
@@ -87,7 +88,8 @@ func NewPutRuleFunc(tp elastictransport.Interface) NewPutRule {
 	}
 }
 
-// Creates or updates a query rule within a query ruleset.
+// Create or update a query rule.
+// Create or update a query rule within a query ruleset.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-query-rule.html
 func New(tp elastictransport.Interface) *PutRule {

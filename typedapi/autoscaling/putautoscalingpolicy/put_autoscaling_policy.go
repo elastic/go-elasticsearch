@@ -16,10 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
-// ECK. Direct use is not supported.
+// Create or update an autoscaling policy.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
 package putautoscalingpolicy
 
 import (
@@ -82,8 +85,11 @@ func NewPutAutoscalingPolicyFunc(tp elastictransport.Interface) NewPutAutoscalin
 	}
 }
 
-// Creates a new autoscaling policy. Designed for indirect use by ECE/ESS and
-// ECK. Direct use is not supported.
+// Create or update an autoscaling policy.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-put-autoscaling-policy.html
 func New(tp elastictransport.Interface) *PutAutoscalingPolicy {
@@ -317,6 +323,25 @@ func (r *PutAutoscalingPolicy) _name(name string) *PutAutoscalingPolicy {
 	return r
 }
 
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *PutAutoscalingPolicy) MasterTimeout(duration string) *PutAutoscalingPolicy {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *PutAutoscalingPolicy) Timeout(duration string) *PutAutoscalingPolicy {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -361,7 +386,7 @@ func (r *PutAutoscalingPolicy) Pretty(pretty bool) *PutAutoscalingPolicy {
 	return r
 }
 
-// Deciders Decider settings
+// Deciders Decider settings.
 // API name: deciders
 func (r *PutAutoscalingPolicy) Deciders(deciders map[string]json.RawMessage) *PutAutoscalingPolicy {
 

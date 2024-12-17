@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Creates a lifecycle policy. If the specified policy exists, the policy is
-// replaced and the policy version is incremented.
+// Create or update a lifecycle policy.
+// If the specified policy exists, it is replaced and the policy version is
+// incremented.
+//
+// NOTE: Only the latest version of the policy is stored, you cannot revert to
+// previous versions.
 package putlifecycle
 
 import (
@@ -82,8 +86,12 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 	}
 }
 
-// Creates a lifecycle policy. If the specified policy exists, the policy is
-// replaced and the policy version is incremented.
+// Create or update a lifecycle policy.
+// If the specified policy exists, it is replaced and the policy version is
+// incremented.
+//
+// NOTE: Only the latest version of the policy is stored, you cannot revert to
+// previous versions.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html
 func New(tp elastictransport.Interface) *PutLifecycle {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AggregationRange type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L674-L687
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_types/aggregations/bucket.ts#L691-L704
 type AggregationRange struct {
 	// From Start of the range (inclusive).
 	From *Float64 `json:"from,omitempty"`
@@ -57,19 +57,8 @@ func (s *AggregationRange) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "from":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseFloat(v, 64)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "From", err)
-				}
-				f := Float64(value)
-				s.From = &f
-			case float64:
-				f := Float64(v)
-				s.From = &f
+			if err := dec.Decode(&s.From); err != nil {
+				return fmt.Errorf("%s | %w", "From", err)
 			}
 
 		case "key":
@@ -85,19 +74,8 @@ func (s *AggregationRange) UnmarshalJSON(data []byte) error {
 			s.Key = &o
 
 		case "to":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseFloat(v, 64)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "To", err)
-				}
-				f := Float64(value)
-				s.To = &f
-			case float64:
-				f := Float64(v)
-				s.To = &f
+			if err := dec.Decode(&s.To); err != nil {
+				return fmt.Errorf("%s | %w", "To", err)
 			}
 
 		}

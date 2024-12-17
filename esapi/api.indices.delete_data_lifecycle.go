@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.17.0: DO NOT EDIT
 
 package esapi
 
@@ -45,8 +45,6 @@ func newIndicesDeleteDataLifecycleFunc(t Transport) IndicesDeleteDataLifecycle {
 // ----- API Definition -------------------------------------------------------
 
 // IndicesDeleteDataLifecycle deletes the data stream lifecycle of the selected data streams.
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-delete-lifecycle.html.
 type IndicesDeleteDataLifecycle func(name []string, o ...func(*IndicesDeleteDataLifecycleRequest)) (*Response, error)

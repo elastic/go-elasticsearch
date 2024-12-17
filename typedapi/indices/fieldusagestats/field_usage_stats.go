@@ -16,9 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Returns field usage information for each shard and field of an index.
+// Get field usage stats.
+// Get field usage information for each shard and field of an index.
+// Field usage statistics are automatically captured when queries are running on
+// a cluster.
+// A shard-level search request that accesses a given field, even if multiple
+// times during that request, is counted as a single use.
 package fieldusagestats
 
 import (
@@ -77,7 +82,12 @@ func NewFieldUsageStatsFunc(tp elastictransport.Interface) NewFieldUsageStats {
 	}
 }
 
-// Returns field usage information for each shard and field of an index.
+// Get field usage stats.
+// Get field usage information for each shard and field of an index.
+// Field usage statistics are automatically captured when queries are running on
+// a cluster.
+// A shard-level search request that accesses a given field, even if multiple
+// times during that request, is counted as a single use.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/field-usage-stats.html
 func New(tp elastictransport.Interface) *FieldUsageStats {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,9 +31,10 @@ import (
 
 // DataStreamVisibility type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/DataStream.ts#L144-L146
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/indices/_types/DataStream.ts#L159-L162
 type DataStreamVisibility struct {
-	Hidden *bool `json:"hidden,omitempty"`
+	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
+	Hidden             *bool `json:"hidden,omitempty"`
 }
 
 func (s *DataStreamVisibility) UnmarshalJSON(data []byte) error {
@@ -50,6 +51,20 @@ func (s *DataStreamVisibility) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "allow_custom_routing":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AllowCustomRouting", err)
+				}
+				s.AllowCustomRouting = &value
+			case bool:
+				s.AllowCustomRouting = &v
+			}
 
 		case "hidden":
 			var tmp any

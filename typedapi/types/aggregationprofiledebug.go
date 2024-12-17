@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,8 +31,9 @@ import (
 
 // AggregationProfileDebug type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/profile.ts#L39-L68
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_global/search/_types/profile.ts#L42-L76
 type AggregationProfileDebug struct {
+	BruteForceUsed                    *int                                    `json:"brute_force_used,omitempty"`
 	BuiltBuckets                      *int                                    `json:"built_buckets,omitempty"`
 	CharsFetched                      *int                                    `json:"chars_fetched,omitempty"`
 	CollectAnalyzedCount              *int                                    `json:"collect_analyzed_count,omitempty"`
@@ -41,6 +42,8 @@ type AggregationProfileDebug struct {
 	DeferredAggregators               []string                                `json:"deferred_aggregators,omitempty"`
 	Delegate                          *string                                 `json:"delegate,omitempty"`
 	DelegateDebug                     *AggregationProfileDebug                `json:"delegate_debug,omitempty"`
+	DynamicPruningAttempted           *int                                    `json:"dynamic_pruning_attempted,omitempty"`
+	DynamicPruningUsed                *int                                    `json:"dynamic_pruning_used,omitempty"`
 	EmptyCollectorsUsed               *int                                    `json:"empty_collectors_used,omitempty"`
 	ExtractCount                      *int                                    `json:"extract_count,omitempty"`
 	ExtractNs                         *int                                    `json:"extract_ns,omitempty"`
@@ -57,6 +60,7 @@ type AggregationProfileDebug struct {
 	SegmentsWithDocCountField         *int                                    `json:"segments_with_doc_count_field,omitempty"`
 	SegmentsWithMultiValuedOrds       *int                                    `json:"segments_with_multi_valued_ords,omitempty"`
 	SegmentsWithSingleValuedOrds      *int                                    `json:"segments_with_single_valued_ords,omitempty"`
+	SkippedDueToNoData                *int                                    `json:"skipped_due_to_no_data,omitempty"`
 	StringHashingCollectorsUsed       *int                                    `json:"string_hashing_collectors_used,omitempty"`
 	SurvivingBuckets                  *int                                    `json:"surviving_buckets,omitempty"`
 	TotalBuckets                      *int                                    `json:"total_buckets,omitempty"`
@@ -77,6 +81,22 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "brute_force_used":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "BruteForceUsed", err)
+				}
+				s.BruteForceUsed = &value
+			case float64:
+				f := int(v)
+				s.BruteForceUsed = &f
+			}
 
 		case "built_buckets":
 
@@ -174,6 +194,38 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 		case "delegate_debug":
 			if err := dec.Decode(&s.DelegateDebug); err != nil {
 				return fmt.Errorf("%s | %w", "DelegateDebug", err)
+			}
+
+		case "dynamic_pruning_attempted":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "DynamicPruningAttempted", err)
+				}
+				s.DynamicPruningAttempted = &value
+			case float64:
+				f := int(v)
+				s.DynamicPruningAttempted = &f
+			}
+
+		case "dynamic_pruning_used":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "DynamicPruningUsed", err)
+				}
+				s.DynamicPruningUsed = &value
+			case float64:
+				f := int(v)
+				s.DynamicPruningUsed = &f
 			}
 
 		case "empty_collectors_used":
@@ -409,6 +461,22 @@ func (s *AggregationProfileDebug) UnmarshalJSON(data []byte) error {
 			case float64:
 				f := int(v)
 				s.SegmentsWithSingleValuedOrds = &f
+			}
+
+		case "skipped_due_to_no_data":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "SkippedDueToNoData", err)
+				}
+				s.SkippedDueToNoData = &value
+			case float64:
+				f := int(v)
+				s.SkippedDueToNoData = &f
 			}
 
 		case "string_hashing_collectors_used":

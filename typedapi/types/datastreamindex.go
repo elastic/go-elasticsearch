@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DataStreamIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/DataStream.ts#L121-L142
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/indices/_types/DataStream.ts#L136-L157
 type DataStreamIndex struct {
 	// IlmPolicy Name of the current ILM lifecycle policy configured for this backing index.
 	IlmPolicy *string `json:"ilm_policy,omitempty"`
@@ -42,10 +42,10 @@ type DataStreamIndex struct {
 	// IndexUuid Universally unique identifier (UUID) for the index.
 	IndexUuid string `json:"index_uuid"`
 	// ManagedBy Name of the lifecycle system that's currently managing this backing index.
-	ManagedBy managedby.ManagedBy `json:"managed_by"`
+	ManagedBy *managedby.ManagedBy `json:"managed_by,omitempty"`
 	// PreferIlm Indicates if ILM should take precedence over DSL in case both are configured
 	// to manage this index.
-	PreferIlm bool `json:"prefer_ilm"`
+	PreferIlm *bool `json:"prefer_ilm,omitempty"`
 }
 
 func (s *DataStreamIndex) UnmarshalJSON(data []byte) error {
@@ -92,9 +92,9 @@ func (s *DataStreamIndex) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "PreferIlm", err)
 				}
-				s.PreferIlm = value
+				s.PreferIlm = &value
 			case bool:
-				s.PreferIlm = v
+				s.PreferIlm = &v
 			}
 
 		}

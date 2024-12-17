@@ -16,9 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Creates and updates role mappings.
+// Create or update role mappings.
+//
+// Role mappings define which roles are assigned to each user.
+// Each mapping has rules that identify users and a list of roles that are
+// granted to those users.
+// The role mapping APIs are generally the preferred way to manage role mappings
+// rather than using role mapping files. The create or update role mappings API
+// cannot update role mappings that are defined in role mapping files.
+//
+// This API does not create roles. Rather, it maps users to existing roles.
+// Roles can be created by using the create or update roles API or roles files.
 package putrolemapping
 
 import (
@@ -82,7 +92,17 @@ func NewPutRoleMappingFunc(tp elastictransport.Interface) NewPutRoleMapping {
 	}
 }
 
-// Creates and updates role mappings.
+// Create or update role mappings.
+//
+// Role mappings define which roles are assigned to each user.
+// Each mapping has rules that identify users and a list of roles that are
+// granted to those users.
+// The role mapping APIs are generally the preferred way to manage role mappings
+// rather than using role mapping files. The create or update role mappings API
+// cannot update role mappings that are defined in role mapping files.
+//
+// This API does not create roles. Rather, it maps users to existing roles.
+// Roles can be created by using the create or update roles API or roles files.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role-mapping.html
 func New(tp elastictransport.Interface) *PutRoleMapping {

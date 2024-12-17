@@ -16,8 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
+// Update an anomaly detection job.
 // Updates certain properties of an anomaly detection job.
 package updatejob
 
@@ -81,6 +82,7 @@ func NewUpdateJobFunc(tp elastictransport.Interface) NewUpdateJob {
 	}
 }
 
+// Update an anomaly detection job.
 // Updates certain properties of an anomaly detection job.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-job.html
@@ -446,7 +448,7 @@ func (r *UpdateJob) Description(description string) *UpdateJob {
 
 // Detectors An array of detector update objects.
 // API name: detectors
-func (r *UpdateJob) Detectors(detectors ...types.Detector) *UpdateJob {
+func (r *UpdateJob) Detectors(detectors ...types.DetectorUpdate) *UpdateJob {
 	r.req.Detectors = detectors
 
 	return r

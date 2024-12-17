@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // LongNumberProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/core.ts#L162-L165
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_types/mapping/core.ts#L162-L165
 type LongNumberProperty struct {
 	Boost           *Float64                       `json:"boost,omitempty"`
 	Coerce          *bool                          `json:"coerce,omitempty"`
@@ -52,7 +52,6 @@ type LongNumberProperty struct {
 	OnScriptError *onscripterror.OnScriptError `json:"on_script_error,omitempty"`
 	Properties    map[string]Property          `json:"properties,omitempty"`
 	Script        *Script                      `json:"script,omitempty"`
-	Similarity    *string                      `json:"similarity,omitempty"`
 	Store         *bool                        `json:"store,omitempty"`
 	// TimeSeriesDimension For internal use by Elastic only. Marks the field as a time series dimension.
 	// Defaults to false.
@@ -858,18 +857,6 @@ func (s *LongNumberProperty) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Script", err)
 			}
 
-		case "similarity":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Similarity", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Similarity = &o
-
 		case "store":
 			var tmp any
 			dec.Decode(&tmp)
@@ -931,7 +918,6 @@ func (s LongNumberProperty) MarshalJSON() ([]byte, error) {
 		OnScriptError:       s.OnScriptError,
 		Properties:          s.Properties,
 		Script:              s.Script,
-		Similarity:          s.Similarity,
 		Store:               s.Store,
 		TimeSeriesDimension: s.TimeSeriesDimension,
 		TimeSeriesMetric:    s.TimeSeriesMetric,

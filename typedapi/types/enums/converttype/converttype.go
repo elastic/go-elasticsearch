@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 // Package converttype
 package converttype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L435-L443
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/ingest/_types/Processors.ts#L661-L670
 type ConvertType struct {
 	Name string
 }
@@ -33,13 +33,15 @@ var (
 
 	Long = ConvertType{"long"}
 
-	Float = ConvertType{"float"}
-
 	Double = ConvertType{"double"}
 
-	String = ConvertType{"string"}
+	Float = ConvertType{"float"}
 
 	Boolean = ConvertType{"boolean"}
+
+	Ip = ConvertType{"ip"}
+
+	String = ConvertType{"string"}
 
 	Auto = ConvertType{"auto"}
 )
@@ -55,14 +57,16 @@ func (c *ConvertType) UnmarshalText(text []byte) error {
 		*c = Integer
 	case "long":
 		*c = Long
-	case "float":
-		*c = Float
 	case "double":
 		*c = Double
-	case "string":
-		*c = String
+	case "float":
+		*c = Float
 	case "boolean":
 		*c = Boolean
+	case "ip":
+		*c = Ip
+	case "string":
+		*c = String
 	case "auto":
 		*c = Auto
 	default:

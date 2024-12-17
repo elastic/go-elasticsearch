@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Retrieves the results of a previously submitted async search request given
-// its identifier.
+// Get async search results.
+//
+// Retrieve the results of a previously submitted asynchronous search request.
 // If the Elasticsearch security features are enabled, access to the results of
 // a specific async search is restricted to the user or API key that submitted
 // it.
@@ -80,8 +81,9 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Retrieves the results of a previously submitted async search request given
-// its identifier.
+// Get async search results.
+//
+// Retrieve the results of a previously submitted asynchronous search request.
 // If the Elasticsearch security features are enabled, access to the results of
 // a specific async search is restricted to the user or API key that submitted
 // it.

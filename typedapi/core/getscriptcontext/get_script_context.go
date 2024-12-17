@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Returns all script contexts.
+// Get script contexts.
+//
+// Get a list of supported script contexts and their methods.
 package getscriptcontext
 
 import (
@@ -68,7 +70,9 @@ func NewGetScriptContextFunc(tp elastictransport.Interface) NewGetScriptContext 
 	}
 }
 
-// Returns all script contexts.
+// Get script contexts.
+//
+// Get a list of supported script contexts and their methods.
 //
 // https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-contexts.html
 func New(tp elastictransport.Interface) *GetScriptContext {

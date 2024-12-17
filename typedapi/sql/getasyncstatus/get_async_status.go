@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Returns the current status of an async SQL search or a stored synchronous SQL
-// search
+// Get the async SQL search status.
+// Get the current status of an async SQL search or a stored synchronous SQL
+// search.
 package getasyncstatus
 
 import (
@@ -77,8 +78,9 @@ func NewGetAsyncStatusFunc(tp elastictransport.Interface) NewGetAsyncStatus {
 	}
 }
 
-// Returns the current status of an async SQL search or a stored synchronous SQL
-// search
+// Get the async SQL search status.
+// Get the current status of an async SQL search or a stored synchronous SQL
+// search.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-sql-search-status-api.html
 func New(tp elastictransport.Interface) *GetAsyncStatus {

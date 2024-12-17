@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package analyze
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package analyze
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L92
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/indices/analyze/IndicesAnalyzeRequest.ts#L27-L93
 type Request struct {
 
 	// Analyzer The name of the analyzer that should be applied to the provided `text`.
@@ -536,6 +536,12 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Tokenizer = *o
+			case "classic":
+				o := types.NewClassicTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
 			case "edge_ngram":
 				o := types.NewEdgeNGramTokenizer()
 				if err := localDec.Decode(&o); err != nil {
@@ -566,20 +572,38 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Tokenizer = *o
-			case "nori_tokenizer":
-				o := types.NewNoriTokenizer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Tokenizer = *o
 			case "path_hierarchy":
 				o := types.NewPathHierarchyTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Tokenizer = *o
+			case "pattern":
+				o := types.NewPatternTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "simple_pattern":
+				o := types.NewSimplePatternTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "simple_pattern_split":
+				o := types.NewSimplePatternSplitTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
 			case "standard":
 				o := types.NewStandardTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
+			case "thai":
+				o := types.NewThaiTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
@@ -596,20 +620,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 					return err
 				}
 				s.Tokenizer = *o
+			case "icu_tokenizer":
+				o := types.NewIcuTokenizer()
+				if err := localDec.Decode(&o); err != nil {
+					return err
+				}
+				s.Tokenizer = *o
 			case "kuromoji_tokenizer":
 				o := types.NewKuromojiTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}
 				s.Tokenizer = *o
-			case "pattern":
-				o := types.NewPatternTokenizer()
-				if err := localDec.Decode(&o); err != nil {
-					return err
-				}
-				s.Tokenizer = *o
-			case "icu_tokenizer":
-				o := types.NewIcuTokenizer()
+			case "nori_tokenizer":
+				o := types.NewNoriTokenizer()
 				if err := localDec.Decode(&o); err != nil {
 					return err
 				}

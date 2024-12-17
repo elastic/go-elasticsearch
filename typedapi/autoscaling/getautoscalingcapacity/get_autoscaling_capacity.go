@@ -16,11 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Gets the current autoscaling capacity based on the configured autoscaling
-// policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not
+// Get the autoscaling capacity.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 // supported.
+//
+// This API gets the current autoscaling capacity based on the configured
+// autoscaling policy.
+// It will return information to size the cluster appropriately to the current
+// workload.
+//
+// The `required_capacity` is calculated as the maximum of the
+// `required_capacity` result of all individual deciders that are enabled for
+// the policy.
+//
+// The operator should verify that the `current_nodes` match the operator’s
+// knowledge of the cluster to avoid making autoscaling decisions based on stale
+// or incomplete information.
+//
+// The response contains decider-specific information you can use to diagnose
+// how and why autoscaling determined a certain capacity was required.
+// This information is provided for diagnosis only.
+// Do not use this information to make autoscaling decisions.
 package getautoscalingcapacity
 
 import (
@@ -70,9 +90,29 @@ func NewGetAutoscalingCapacityFunc(tp elastictransport.Interface) NewGetAutoscal
 	}
 }
 
-// Gets the current autoscaling capacity based on the configured autoscaling
-// policy. Designed for indirect use by ECE/ESS and ECK. Direct use is not
+// Get the autoscaling capacity.
+//
+// NOTE: This feature is designed for indirect use by Elasticsearch Service,
+// Elastic Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
 // supported.
+//
+// This API gets the current autoscaling capacity based on the configured
+// autoscaling policy.
+// It will return information to size the cluster appropriately to the current
+// workload.
+//
+// The `required_capacity` is calculated as the maximum of the
+// `required_capacity` result of all individual deciders that are enabled for
+// the policy.
+//
+// The operator should verify that the `current_nodes` match the operator’s
+// knowledge of the cluster to avoid making autoscaling decisions based on stale
+// or incomplete information.
+//
+// The response contains decider-specific information you can use to diagnose
+// how and why autoscaling determined a certain capacity was required.
+// This information is provided for diagnosis only.
+// Do not use this information to make autoscaling decisions.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/autoscaling-get-autoscaling-capacity.html
 func New(tp elastictransport.Interface) *GetAutoscalingCapacity {
@@ -276,6 +316,16 @@ func (r GetAutoscalingCapacity) IsSuccess(providedCtx context.Context) (bool, er
 // Header set a key, value pair in the GetAutoscalingCapacity headers map.
 func (r *GetAutoscalingCapacity) Header(key, value string) *GetAutoscalingCapacity {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *GetAutoscalingCapacity) MasterTimeout(duration string) *GetAutoscalingCapacity {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

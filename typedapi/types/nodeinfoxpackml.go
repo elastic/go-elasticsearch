@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -26,19 +26,17 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
-// HotThread type.
+// NodeInfoXpackMl type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/hot_threads/types.ts#L23-L28
-type HotThread struct {
-	Hosts    []string `json:"hosts"`
-	NodeId   string   `json:"node_id"`
-	NodeName string   `json:"node_name"`
-	Threads  []string `json:"threads"`
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/nodes/info/types.ts#L253-L255
+type NodeInfoXpackMl struct {
+	UseAutoMachineMemoryPercent *bool `json:"use_auto_machine_memory_percent,omitempty"`
 }
 
-func (s *HotThread) UnmarshalJSON(data []byte) error {
+func (s *NodeInfoXpackMl) UnmarshalJSON(data []byte) error {
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -53,24 +51,18 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "hosts":
-			if err := dec.Decode(&s.Hosts); err != nil {
-				return fmt.Errorf("%s | %w", "Hosts", err)
-			}
-
-		case "node_id":
-			if err := dec.Decode(&s.NodeId); err != nil {
-				return fmt.Errorf("%s | %w", "NodeId", err)
-			}
-
-		case "node_name":
-			if err := dec.Decode(&s.NodeName); err != nil {
-				return fmt.Errorf("%s | %w", "NodeName", err)
-			}
-
-		case "threads":
-			if err := dec.Decode(&s.Threads); err != nil {
-				return fmt.Errorf("%s | %w", "Threads", err)
+		case "use_auto_machine_memory_percent":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "UseAutoMachineMemoryPercent", err)
+				}
+				s.UseAutoMachineMemoryPercent = &value
+			case bool:
+				s.UseAutoMachineMemoryPercent = &v
 			}
 
 		}
@@ -78,9 +70,9 @@ func (s *HotThread) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// NewHotThread returns a HotThread.
-func NewHotThread() *HotThread {
-	r := &HotThread{}
+// NewNodeInfoXpackMl returns a NodeInfoXpackMl.
+func NewNodeInfoXpackMl() *NodeInfoXpackMl {
+	r := &NodeInfoXpackMl{}
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 // Create an anomaly detection job.
 // If you include a `datafeed_config`, you must have read index privileges on
@@ -37,6 +37,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/expandwildcard"
 )
 
 const (
@@ -317,6 +318,56 @@ func (r *PutJob) Header(key, value string) *PutJob {
 func (r *PutJob) _jobid(jobid string) *PutJob {
 	r.paramSet |= jobidMask
 	r.jobid = jobid
+
+	return r
+}
+
+// AllowNoIndices If `true`, wildcard indices expressions that resolve into no concrete indices
+// are ignored. This includes the
+// `_all` string or when no indices are specified.
+// API name: allow_no_indices
+func (r *PutJob) AllowNoIndices(allownoindices bool) *PutJob {
+	r.values.Set("allow_no_indices", strconv.FormatBool(allownoindices))
+
+	return r
+}
+
+// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// data streams, this argument determines
+// whether wildcard expressions match hidden data streams. Supports
+// comma-separated values. Valid values are:
+//
+// * `all`: Match any data stream or index, including hidden ones.
+// * `closed`: Match closed, non-hidden indices. Also matches any non-hidden
+// data stream. Data streams cannot be closed.
+// * `hidden`: Match hidden data streams and hidden indices. Must be combined
+// with `open`, `closed`, or both.
+// * `none`: Wildcard patterns are not accepted.
+// * `open`: Match open, non-hidden indices. Also matches any non-hidden data
+// stream.
+// API name: expand_wildcards
+func (r *PutJob) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *PutJob {
+	tmp := []string{}
+	for _, item := range expandwildcards {
+		tmp = append(tmp, item.String())
+	}
+	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// IgnoreThrottled If `true`, concrete, expanded or aliased indices are ignored when frozen.
+// API name: ignore_throttled
+func (r *PutJob) IgnoreThrottled(ignorethrottled bool) *PutJob {
+	r.values.Set("ignore_throttled", strconv.FormatBool(ignorethrottled))
+
+	return r
+}
+
+// IgnoreUnavailable If `true`, unavailable indices (missing or closed) are ignored.
+// API name: ignore_unavailable
+func (r *PutJob) IgnoreUnavailable(ignoreunavailable bool) *PutJob {
+	r.values.Set("ignore_unavailable", strconv.FormatBool(ignoreunavailable))
 
 	return r
 }

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Deletes auto-follow patterns.
+// Delete auto-follow patterns.
+// Delete a collection of cross-cluster replication auto-follow patterns.
 package deleteautofollowpattern
 
 import (
@@ -76,7 +77,8 @@ func NewDeleteAutoFollowPatternFunc(tp elastictransport.Interface) NewDeleteAuto
 	}
 }
 
-// Deletes auto-follow patterns.
+// Delete auto-follow patterns.
+// Delete a collection of cross-cluster replication auto-follow patterns.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-delete-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *DeleteAutoFollowPattern {

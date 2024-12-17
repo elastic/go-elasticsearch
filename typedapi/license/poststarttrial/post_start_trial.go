@@ -16,10 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// The start trial API enables you to start a 30-day trial, which gives access
-// to all subscription features.
+// Start a trial.
+// Start a 30-day trial, which gives access to all subscription features.
+//
+// NOTE: You are allowed to start a trial only if your cluster has not already
+// activated a trial for the current major product version.
+// For example, if you have already activated a trial for v8.0, you cannot start
+// a new trial until v9.0. You can, however, request an extended trial at
+// https://www.elastic.co/trialextension.
+//
+// To check the status of your trial, use the get trial status API.
 package poststarttrial
 
 import (
@@ -69,8 +77,16 @@ func NewPostStartTrialFunc(tp elastictransport.Interface) NewPostStartTrial {
 	}
 }
 
-// The start trial API enables you to start a 30-day trial, which gives access
-// to all subscription features.
+// Start a trial.
+// Start a 30-day trial, which gives access to all subscription features.
+//
+// NOTE: You are allowed to start a trial only if your cluster has not already
+// activated a trial for the current major product version.
+// For example, if you have already activated a trial for v8.0, you cannot start
+// a new trial until v9.0. You can, however, request an extended trial at
+// https://www.elastic.co/trialextension.
+//
+// To check the status of your trial, use the get trial status API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/start-trial.html
 func New(tp elastictransport.Interface) *PostStartTrial {

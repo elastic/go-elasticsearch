@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Creates or updates an ingest pipeline.
+// Create or update a pipeline.
 // Changes made using this API take effect immediately.
 package putpipeline
 
@@ -82,7 +82,7 @@ func NewPutPipelineFunc(tp elastictransport.Interface) NewPutPipeline {
 	}
 }
 
-// Creates or updates an ingest pipeline.
+// Create or update a pipeline.
 // Changes made using this API take effect immediately.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ingest.html
@@ -383,6 +383,17 @@ func (r *PutPipeline) Human(human bool) *PutPipeline {
 // API name: pretty
 func (r *PutPipeline) Pretty(pretty bool) *PutPipeline {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// Deprecated Marks this ingest pipeline as deprecated.
+// When a deprecated ingest pipeline is referenced as the default or final
+// pipeline when creating or updating a non-deprecated index template,
+// Elasticsearch will emit a deprecation warning.
+// API name: deprecated
+func (r *PutPipeline) Deprecated(deprecated bool) *PutPipeline {
+	r.req.Deprecated = &deprecated
 
 	return r
 }

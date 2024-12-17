@@ -16,9 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Analyzes the disk usage of each field of an index or data stream.
+// Analyze the index disk usage.
+// Analyze the disk usage of each field of an index or data stream.
+// This API might not support indices created in previous Elasticsearch
+// versions.
+// The result of a small index can be inaccurate as some parts of an index might
+// not be analyzed by the API.
 package diskusage
 
 import (
@@ -77,7 +82,12 @@ func NewDiskUsageFunc(tp elastictransport.Interface) NewDiskUsage {
 	}
 }
 
-// Analyzes the disk usage of each field of an index or data stream.
+// Analyze the index disk usage.
+// Analyze the disk usage of each field of an index or data stream.
+// This API might not support indices created in previous Elasticsearch
+// versions.
+// The result of a small index can be inaccurate as some parts of an index might
+// not be analyzed by the API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-disk-usage.html
 func New(tp elastictransport.Interface) *DiskUsage {

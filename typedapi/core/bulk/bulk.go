@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 // Bulk index or delete documents.
 // Performs multiple indexing or delete operations in a single API call.
@@ -324,6 +324,15 @@ func (r *Bulk) Index(index string) *Bulk {
 	return r
 }
 
+// ListExecutedPipelines If `true`, the response will include the ingest pipelines that were executed
+// for each index or create.
+// API name: list_executed_pipelines
+func (r *Bulk) ListExecutedPipelines(listexecutedpipelines bool) *Bulk {
+	r.values.Set("list_executed_pipelines", strconv.FormatBool(listexecutedpipelines))
+
+	return r
+}
+
 // Pipeline ID of the pipeline to use to preprocess incoming documents.
 // If the index has a default ingest pipeline specified, then setting the value
 // to `_none` disables the default ingest pipeline for this request.
@@ -404,6 +413,15 @@ func (r *Bulk) WaitForActiveShards(waitforactiveshards string) *Bulk {
 // API name: require_alias
 func (r *Bulk) RequireAlias(requirealias bool) *Bulk {
 	r.values.Set("require_alias", strconv.FormatBool(requirealias))
+
+	return r
+}
+
+// RequireDataStream If `true`, the request's actions must target a data stream (existing or
+// to-be-created).
+// API name: require_data_stream
+func (r *Bulk) RequireDataStream(requiredatastream bool) *Bulk {
+	r.values.Set("require_data_stream", strconv.FormatBool(requiredatastream))
 
 	return r
 }

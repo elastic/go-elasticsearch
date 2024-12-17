@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Instantiates a datafeed.
+// Create a datafeed.
 // Datafeeds retrieve data from Elasticsearch for analysis by an anomaly
 // detection job.
 // You can associate only one datafeed with each anomaly detection job.
@@ -97,7 +97,7 @@ func NewPutDatafeedFunc(tp elastictransport.Interface) NewPutDatafeed {
 	}
 }
 
-// Instantiates a datafeed.
+// Create a datafeed.
 // Datafeeds retrieve data from Elasticsearch for analysis by an anomaly
 // detection job.
 // You can associate only one datafeed with each anomaly detection job.

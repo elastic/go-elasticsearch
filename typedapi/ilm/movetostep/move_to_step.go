@@ -16,9 +16,32 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Manually moves an index into the specified step and executes that step.
+// Move to a lifecycle step.
+// Manually move an index into a specific step in the lifecycle policy and run
+// that step.
+//
+// WARNING: This operation can result in the loss of data. Manually moving an
+// index into a specific step runs that step even if it has already been
+// performed. This is a potentially destructive action and this should be
+// considered an expert level API.
+//
+// You must specify both the current step and the step to be executed in the
+// body of the request.
+// The request will fail if the current step does not match the step currently
+// running for the index
+// This is to prevent the index from being moved from an unexpected step into
+// the next step.
+//
+// When specifying the target (`next_step`) to which the index will be moved,
+// either the name or both the action and name fields are optional.
+// If only the phase is specified, the index will move to the first step of the
+// first action in the target phase.
+// If the phase and action are specified, the index will move to the first step
+// of the specified action in the specified phase.
+// Only actions specified in the ILM policy are considered valid.
+// An index cannot move to a step that is not part of its policy.
 package movetostep
 
 import (
@@ -81,7 +104,30 @@ func NewMoveToStepFunc(tp elastictransport.Interface) NewMoveToStep {
 	}
 }
 
-// Manually moves an index into the specified step and executes that step.
+// Move to a lifecycle step.
+// Manually move an index into a specific step in the lifecycle policy and run
+// that step.
+//
+// WARNING: This operation can result in the loss of data. Manually moving an
+// index into a specific step runs that step even if it has already been
+// performed. This is a potentially destructive action and this should be
+// considered an expert level API.
+//
+// You must specify both the current step and the step to be executed in the
+// body of the request.
+// The request will fail if the current step does not match the step currently
+// running for the index
+// This is to prevent the index from being moved from an unexpected step into
+// the next step.
+//
+// When specifying the target (`next_step`) to which the index will be moved,
+// either the name or both the action and name fields are optional.
+// If only the phase is specified, the index will move to the first step of the
+// first action in the target phase.
+// If the phase and action are specified, the index will move to the first step
+// of the specified action in the specified phase.
+// Only actions specified in the ILM policy are considered valid.
+// An index cannot move to a step that is not part of its policy.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-move-to-step.html
 func New(tp elastictransport.Interface) *MoveToStep {
@@ -362,7 +408,7 @@ func (r *MoveToStep) Pretty(pretty bool) *MoveToStep {
 // API name: current_step
 func (r *MoveToStep) CurrentStep(currentstep *types.StepKey) *MoveToStep {
 
-	r.req.CurrentStep = currentstep
+	r.req.CurrentStep = *currentstep
 
 	return r
 }
@@ -370,7 +416,7 @@ func (r *MoveToStep) CurrentStep(currentstep *types.StepKey) *MoveToStep {
 // API name: next_step
 func (r *MoveToStep) NextStep(nextstep *types.StepKey) *MoveToStep {
 
-	r.req.NextStep = nextstep
+	r.req.NextStep = *nextstep
 
 	return r
 }

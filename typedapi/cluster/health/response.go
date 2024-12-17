@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package health
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package health
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/health/ClusterHealthResponse.ts#L26-L37
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/cluster/health/ClusterHealthResponse.ts#L26-L37
 type Response struct {
 
 	// ActivePrimaryShards The number of active primary shards.
@@ -63,6 +63,8 @@ type Response struct {
 	// TimedOut If false the response returned within the period of time that is specified by
 	// the timeout parameter (30s by default)
 	TimedOut bool `json:"timed_out"`
+	// UnassignedPrimaryShards The number of primary shards that are not allocated.
+	UnassignedPrimaryShards int `json:"unassigned_primary_shards"`
 	// UnassignedShards The number of shards that are not allocated.
 	UnassignedShards int `json:"unassigned_shards"`
 }

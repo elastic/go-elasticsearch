@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Updates the name and description fields in the connector document
+// Update the connector name and description.
 package updatename
 
 import (
@@ -81,7 +81,7 @@ func NewUpdateNameFunc(tp elastictransport.Interface) NewUpdateName {
 	}
 }
 
-// Updates the name and description fields in the connector document
+// Update the connector name and description.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-name-description-api.html
 func New(tp elastictransport.Interface) *UpdateName {

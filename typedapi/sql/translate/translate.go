@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Translates SQL into Elasticsearch queries
+// Translate SQL into Elasticsearch queries.
+// Translate an SQL search into a search API request containing Query DSL.
 package translate
 
 import (
@@ -73,7 +74,8 @@ func NewTranslateFunc(tp elastictransport.Interface) NewTranslate {
 	}
 }
 
-// Translates SQL into Elasticsearch queries
+// Translate SQL into Elasticsearch queries.
+// Translate an SQL search into a search API request containing Query DSL.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/sql-translate-api.html
 func New(tp elastictransport.Interface) *Translate {

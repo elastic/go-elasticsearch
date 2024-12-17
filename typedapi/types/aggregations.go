@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/AggregationContainer.ts#L105-L514
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_types/aggregations/AggregationContainer.ts#L107-L533
 type Aggregations struct {
 	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix.
 	// The request provides a collection of named filter expressions, similar to the
@@ -223,6 +223,10 @@ type Aggregations struct {
 	// PercentilesBucket A sibling pipeline aggregation which calculates percentiles across all bucket
 	// of a specified metric in a sibling aggregation.
 	PercentilesBucket *PercentilesBucketAggregation `json:"percentiles_bucket,omitempty"`
+	// RandomSampler A single bucket aggregation that randomly includes documents in the
+	// aggregated results.
+	// Sampling provides significant speed improvement at the cost of accuracy.
+	RandomSampler *RandomSamplerAggregation `json:"random_sampler,omitempty"`
 	// Range A multi-bucket value source based aggregation that enables the user to define
 	// a set of ranges - each representing a bucket.
 	Range *RangeAggregation `json:"range,omitempty"`
@@ -270,6 +274,10 @@ type Aggregations struct {
 	// Terms A multi-bucket value source based aggregation where buckets are dynamically
 	// built - one per unique value.
 	Terms *TermsAggregation `json:"terms,omitempty"`
+	// TimeSeries The time series aggregation queries data created using a time series index.
+	// This is typically data such as metrics or other data streams with a time
+	// component, and requires creating an index using the time series mode.
+	TimeSeries *TimeSeriesAggregation `json:"time_series,omitempty"`
 	// TopHits A metric aggregation that returns the top matching documents per bucket.
 	TopHits *TopHitsAggregation `json:"top_hits,omitempty"`
 	// TopMetrics A metric aggregation that selects metrics from the document with the largest
@@ -633,6 +641,11 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "PercentilesBucket", err)
 			}
 
+		case "random_sampler":
+			if err := dec.Decode(&s.RandomSampler); err != nil {
+				return fmt.Errorf("%s | %w", "RandomSampler", err)
+			}
+
 		case "range":
 			if err := dec.Decode(&s.Range); err != nil {
 				return fmt.Errorf("%s | %w", "Range", err)
@@ -711,6 +724,11 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 		case "terms":
 			if err := dec.Decode(&s.Terms); err != nil {
 				return fmt.Errorf("%s | %w", "Terms", err)
+			}
+
+		case "time_series":
+			if err := dec.Decode(&s.TimeSeries); err != nil {
+				return fmt.Errorf("%s | %w", "TimeSeries", err)
 			}
 
 		case "top_hits":

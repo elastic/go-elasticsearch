@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Executes an ES|QL request
+// Run an ES|QL query.
+// Get search results for an ES|QL (Elasticsearch query language) query.
 package query
 
 import (
@@ -35,6 +36,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/esqlformat"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -73,7 +75,8 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 	}
 }
 
-// Executes an ES|QL request
+// Run an ES|QL query.
+// Get search results for an ES|QL (Elasticsearch query language) query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html
 func New(tp elastictransport.Interface) *Query {
@@ -292,8 +295,8 @@ func (r *Query) Header(key, value string) *Query {
 
 // Format A short version of the Accept header, e.g. json, yaml.
 // API name: format
-func (r *Query) Format(format string) *Query {
-	r.values.Set("format", format)
+func (r *Query) Format(format esqlformat.EsqlFormat) *Query {
+	r.values.Set("format", format.String())
 
 	return r
 }

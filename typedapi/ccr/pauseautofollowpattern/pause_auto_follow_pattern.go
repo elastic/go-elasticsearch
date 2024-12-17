@@ -16,9 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Pauses an auto-follow pattern
+// Pause an auto-follow pattern.
+// Pause a cross-cluster replication auto-follow pattern.
+// When the API returns, the auto-follow pattern is inactive.
+// New indices that are created on the remote cluster and match the auto-follow
+// patterns are ignored.
+//
+// You can resume auto-following with the resume auto-follow pattern API.
+// When it resumes, the auto-follow pattern is active again and automatically
+// configures follower indices for newly created indices on the remote cluster
+// that match its patterns.
+// Remote indices that were created while the pattern was paused will also be
+// followed, unless they have been deleted or closed in the interim.
 package pauseautofollowpattern
 
 import (
@@ -76,7 +87,18 @@ func NewPauseAutoFollowPatternFunc(tp elastictransport.Interface) NewPauseAutoFo
 	}
 }
 
-// Pauses an auto-follow pattern
+// Pause an auto-follow pattern.
+// Pause a cross-cluster replication auto-follow pattern.
+// When the API returns, the auto-follow pattern is inactive.
+// New indices that are created on the remote cluster and match the auto-follow
+// patterns are ignored.
+//
+// You can resume auto-following with the resume auto-follow pattern API.
+// When it resumes, the auto-follow pattern is active again and automatically
+// configures follower indices for newly created indices on the remote cluster
+// that match its patterns.
+// Remote indices that were created while the pattern was paused will also be
+// followed, unless they have been deleted or closed in the interim.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *PauseAutoFollowPattern {

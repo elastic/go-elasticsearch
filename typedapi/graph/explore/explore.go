@@ -16,10 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Extracts and summarizes information about the documents and terms in an
+// Explore graph analytics.
+// Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
+// The easiest way to understand the behavior of this API is to use the Graph UI
+// to explore connections.
+// An initial request to the `_explore` API contains a seed query that
+// identifies the documents of interest and specifies the fields that define the
+// vertices and connections you want to include in the graph.
+// Subsequent requests enable you to spider out from one more vertices of
+// interest.
+// You can exclude vertices that have already been returned.
 package explore
 
 import (
@@ -82,8 +91,17 @@ func NewExploreFunc(tp elastictransport.Interface) NewExplore {
 	}
 }
 
-// Extracts and summarizes information about the documents and terms in an
+// Explore graph analytics.
+// Extract and summarize information about the documents and terms in an
 // Elasticsearch data stream or index.
+// The easiest way to understand the behavior of this API is to use the Graph UI
+// to explore connections.
+// An initial request to the `_explore` API contains a seed query that
+// identifies the documents of interest and specifies the fields that define the
+// vertices and connections you want to include in the graph.
+// Subsequent requests enable you to spider out from one more vertices of
+// interest.
+// You can exclude vertices that have already been returned.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/graph-explore-api.html
 func New(tp elastictransport.Interface) *Explore {

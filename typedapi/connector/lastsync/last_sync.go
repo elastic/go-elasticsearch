@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Updates last sync stats in the connector document
+// Update the connector last sync stats.
+//
+// Update the fields related to the last sync of a connector.
+// This action is used for analytics and monitoring.
 package lastsync
 
 import (
@@ -82,7 +85,10 @@ func NewLastSyncFunc(tp elastictransport.Interface) NewLastSync {
 	}
 }
 
-// Updates last sync stats in the connector document
+// Update the connector last sync stats.
+//
+// Update the fields related to the last sync of a connector.
+// This action is used for analytics and monitoring.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-last-sync-api.html
 func New(tp elastictransport.Interface) *LastSync {

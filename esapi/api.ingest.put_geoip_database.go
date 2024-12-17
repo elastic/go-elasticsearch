@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.17.0: DO NOT EDIT
 
 package esapi
 
@@ -45,7 +45,7 @@ func newIngestPutGeoipDatabaseFunc(t Transport) IngestPutGeoipDatabase {
 
 // IngestPutGeoipDatabase puts the configuration for a geoip database to be downloaded
 //
-// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/TODO.html.
+// See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-geoip-database-api.html.
 type IngestPutGeoipDatabase func(id string, body io.Reader, o ...func(*IngestPutGeoipDatabaseRequest)) (*Response, error)
 
 // IngestPutGeoipDatabaseRequest configures the Ingest Put Geoip Database API request.

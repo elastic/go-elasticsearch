@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Resumes a follower index that has been paused
+// Resume a follower.
+// Resume a cross-cluster replication follower index that was paused.
+// The follower index could have been paused with the pause follower API.
+// Alternatively it could be paused due to replication that cannot be retried
+// due to failures during following tasks.
+// When this API returns, the follower index will resume fetching operations
+// from the leader index.
 package resumefollow
 
 import (
@@ -81,7 +87,13 @@ func NewResumeFollowFunc(tp elastictransport.Interface) NewResumeFollow {
 	}
 }
 
-// Resumes a follower index that has been paused
+// Resume a follower.
+// Resume a cross-cluster replication follower index that was paused.
+// The follower index could have been paused with the pause follower API.
+// Alternatively it could be paused due to replication that cannot be retried
+// due to failures during following tasks.
+// When this API returns, the follower index will resume fetching operations
+// from the leader index.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html
 func New(tp elastictransport.Interface) *ResumeFollow {

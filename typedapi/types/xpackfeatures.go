@@ -16,28 +16,28 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
 // XpackFeatures type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/xpack/info/types.ts#L42-L75
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/xpack/info/types.ts#L42-L83
 type XpackFeatures struct {
 	AggregateMetric     XpackFeature  `json:"aggregate_metric"`
 	Analytics           XpackFeature  `json:"analytics"`
 	Archive             XpackFeature  `json:"archive"`
 	Ccr                 XpackFeature  `json:"ccr"`
-	DataFrame           *XpackFeature `json:"data_frame,omitempty"`
-	DataScience         *XpackFeature `json:"data_science,omitempty"`
 	DataStreams         XpackFeature  `json:"data_streams"`
 	DataTiers           XpackFeature  `json:"data_tiers"`
 	Enrich              XpackFeature  `json:"enrich"`
+	EnterpriseSearch    XpackFeature  `json:"enterprise_search"`
 	Eql                 XpackFeature  `json:"eql"`
-	Flattened           *XpackFeature `json:"flattened,omitempty"`
+	Esql                XpackFeature  `json:"esql"`
 	FrozenIndices       XpackFeature  `json:"frozen_indices"`
 	Graph               XpackFeature  `json:"graph"`
 	Ilm                 XpackFeature  `json:"ilm"`
+	Logsdb              XpackFeature  `json:"logsdb"`
 	Logstash            XpackFeature  `json:"logstash"`
 	Ml                  XpackFeature  `json:"ml"`
 	Monitoring          XpackFeature  `json:"monitoring"`
@@ -49,7 +49,7 @@ type XpackFeatures struct {
 	Spatial             XpackFeature  `json:"spatial"`
 	Sql                 XpackFeature  `json:"sql"`
 	Transform           XpackFeature  `json:"transform"`
-	Vectors             *XpackFeature `json:"vectors,omitempty"`
+	UniversalProfiling  XpackFeature  `json:"universal_profiling"`
 	VotingOnly          XpackFeature  `json:"voting_only"`
 	Watcher             XpackFeature  `json:"watcher"`
 }

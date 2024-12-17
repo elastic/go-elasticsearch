@@ -16,9 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
-// Deletes licensing information for the cluster
+// Delete the license.
+// When the license expires, your subscription level reverts to Basic.
+//
+// If the operator privileges feature is enabled, only operator users can use
+// this API.
 package delete
 
 import (
@@ -68,7 +72,11 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 	}
 }
 
-// Deletes licensing information for the cluster
+// Delete the license.
+// When the license expires, your subscription level reverts to Basic.
+//
+// If the operator privileges feature is enabled, only operator users can use
+// this API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-license.html
 func New(tp elastictransport.Interface) *Delete {

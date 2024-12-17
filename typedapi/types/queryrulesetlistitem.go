@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,12 +31,14 @@ import (
 
 // QueryRulesetListItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/query_rules/list_rulesets/types.ts#L23-L37
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/query_rules/list_rulesets/types.ts#L23-L42
 type QueryRulesetListItem struct {
-	// RuleCriteriaTypesCounts A map of criteria type to the number of rules of that type
+	// RuleCriteriaTypesCounts A map of criteria type (e.g. exact) to the number of rules of that type
 	RuleCriteriaTypesCounts map[string]int `json:"rule_criteria_types_counts"`
 	// RuleTotalCount The number of rules associated with this ruleset
 	RuleTotalCount int `json:"rule_total_count"`
+	// RuleTypeCounts A map of rule type (e.g. pinned) to the number of rules of that type
+	RuleTypeCounts map[string]int `json:"rule_type_counts"`
 	// RulesetId Ruleset unique identifier
 	RulesetId string `json:"ruleset_id"`
 }
@@ -80,6 +82,14 @@ func (s *QueryRulesetListItem) UnmarshalJSON(data []byte) error {
 				s.RuleTotalCount = f
 			}
 
+		case "rule_type_counts":
+			if s.RuleTypeCounts == nil {
+				s.RuleTypeCounts = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.RuleTypeCounts); err != nil {
+				return fmt.Errorf("%s | %w", "RuleTypeCounts", err)
+			}
+
 		case "ruleset_id":
 			if err := dec.Decode(&s.RulesetId); err != nil {
 				return fmt.Errorf("%s | %w", "RulesetId", err)
@@ -94,6 +104,7 @@ func (s *QueryRulesetListItem) UnmarshalJSON(data []byte) error {
 func NewQueryRulesetListItem() *QueryRulesetListItem {
 	r := &QueryRulesetListItem{
 		RuleCriteriaTypesCounts: make(map[string]int, 0),
+		RuleTypeCounts:          make(map[string]int, 0),
 	}
 
 	return r

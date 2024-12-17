@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 package types
 
@@ -31,13 +31,13 @@ import (
 
 // Hit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/hits.ts#L40-L65
+// https://github.com/elastic/elasticsearch-specification/blob/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64/specification/_global/search/_types/hits.ts#L41-L66
 type Hit struct {
 	Explanation_       *Explanation               `json:"_explanation,omitempty"`
 	Fields             map[string]json.RawMessage `json:"fields,omitempty"`
 	Highlight          map[string][]string        `json:"highlight,omitempty"`
 	Id_                *string                    `json:"_id,omitempty"`
-	IgnoredFieldValues map[string][]string        `json:"ignored_field_values,omitempty"`
+	IgnoredFieldValues map[string][]FieldValue    `json:"ignored_field_values,omitempty"`
 	Ignored_           []string                   `json:"_ignored,omitempty"`
 	Index_             string                     `json:"_index"`
 	InnerHits          map[string]InnerHitsResult `json:"inner_hits,omitempty"`
@@ -98,7 +98,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 
 		case "ignored_field_values":
 			if s.IgnoredFieldValues == nil {
-				s.IgnoredFieldValues = make(map[string][]string, 0)
+				s.IgnoredFieldValues = make(map[string][]FieldValue, 0)
 			}
 			if err := dec.Decode(&s.IgnoredFieldValues); err != nil {
 				return fmt.Errorf("%s | %w", "IgnoredFieldValues", err)
@@ -130,7 +130,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
 			case '{':
-				o := make(map[string][]Float64, 0)
+				o := make(map[string]Float64, 0)
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "MatchedQueries", err)
 				}
@@ -250,7 +250,7 @@ func NewHit() *Hit {
 	r := &Hit{
 		Fields:             make(map[string]json.RawMessage, 0),
 		Highlight:          make(map[string][]string, 0),
-		IgnoredFieldValues: make(map[string][]string, 0),
+		IgnoredFieldValues: make(map[string][]FieldValue, 0),
 		InnerHits:          make(map[string]InnerHitsResult, 0),
 	}
 

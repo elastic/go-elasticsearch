@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/2f823ff6fcaa7f3f0f9b990dc90512d8901e5d64
 
 // Update an API key.
+//
 // Updates attributes of an existing API key.
 // Users can only update API keys that they created or that were granted to
 // them.
@@ -106,6 +107,7 @@ func NewUpdateApiKeyFunc(tp elastictransport.Interface) NewUpdateApiKey {
 }
 
 // Update an API key.
+//
 // Updates attributes of an existing API key.
 // Users can only update API keys that they created or that were granted to
 // them.

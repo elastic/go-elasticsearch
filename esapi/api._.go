@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0 (cda8773): DO NOT EDIT
+// Code generated from specification version 8.17.0 (2fb99c8): DO NOT EDIT
 
 package esapi
 
@@ -130,6 +130,7 @@ type API struct {
 	InferenceGet                                  InferenceGet
 	InferenceInference                            InferenceInference
 	InferencePut                                  InferencePut
+	InferenceStreamInference                      InferenceStreamInference
 	Info                                          Info
 	KnnSearch                                     KnnSearch
 	LogstashDeletePipeline                        LogstashDeletePipeline
@@ -153,6 +154,7 @@ type API struct {
 	QueryRulesListRulesets                        QueryRulesListRulesets
 	QueryRulesPutRule                             QueryRulesPutRule
 	QueryRulesPutRuleset                          QueryRulesPutRuleset
+	QueryRulesTest                                QueryRulesTest
 	RankEval                                      RankEval
 	Reindex                                       Reindex
 	ReindexRethrottle                             ReindexRethrottle
@@ -335,15 +337,18 @@ type Indices struct {
 
 // Ingest contains the Ingest APIs
 type Ingest struct {
-	DeleteGeoipDatabase IngestDeleteGeoipDatabase
-	DeletePipeline      IngestDeletePipeline
-	GeoIPStats          IngestGeoIPStats
-	GetGeoipDatabase    IngestGetGeoipDatabase
-	GetPipeline         IngestGetPipeline
-	ProcessorGrok       IngestProcessorGrok
-	PutGeoipDatabase    IngestPutGeoipDatabase
-	PutPipeline         IngestPutPipeline
-	Simulate            IngestSimulate
+	DeleteGeoipDatabase      IngestDeleteGeoipDatabase
+	DeleteIPLocationDatabase IngestDeleteIPLocationDatabase
+	DeletePipeline           IngestDeletePipeline
+	GeoIPStats               IngestGeoIPStats
+	GetGeoipDatabase         IngestGetGeoipDatabase
+	GetIPLocationDatabase    IngestGetIPLocationDatabase
+	GetPipeline              IngestGetPipeline
+	ProcessorGrok            IngestProcessorGrok
+	PutGeoipDatabase         IngestPutGeoipDatabase
+	PutIPLocationDatabase    IngestPutIPLocationDatabase
+	PutPipeline              IngestPutPipeline
+	Simulate                 IngestSimulate
 }
 
 // Nodes contains the Nodes APIs
@@ -363,18 +368,19 @@ type Remote struct {
 
 // Snapshot contains the Snapshot APIs
 type Snapshot struct {
-	CleanupRepository SnapshotCleanupRepository
-	Clone             SnapshotClone
-	CreateRepository  SnapshotCreateRepository
-	Create            SnapshotCreate
-	DeleteRepository  SnapshotDeleteRepository
-	Delete            SnapshotDelete
-	GetRepository     SnapshotGetRepository
-	Get               SnapshotGet
-	RepositoryAnalyze SnapshotRepositoryAnalyze
-	Restore           SnapshotRestore
-	Status            SnapshotStatus
-	VerifyRepository  SnapshotVerifyRepository
+	CleanupRepository         SnapshotCleanupRepository
+	Clone                     SnapshotClone
+	CreateRepository          SnapshotCreateRepository
+	Create                    SnapshotCreate
+	DeleteRepository          SnapshotDeleteRepository
+	Delete                    SnapshotDelete
+	GetRepository             SnapshotGetRepository
+	Get                       SnapshotGet
+	RepositoryAnalyze         SnapshotRepositoryAnalyze
+	RepositoryVerifyIntegrity SnapshotRepositoryVerifyIntegrity
+	Restore                   SnapshotRestore
+	Status                    SnapshotStatus
+	VerifyRepository          SnapshotVerifyRepository
 }
 
 // Tasks contains the Tasks APIs
@@ -731,6 +737,7 @@ func New(t Transport) *API {
 		InferenceGet:                       newInferenceGetFunc(t),
 		InferenceInference:                 newInferenceInferenceFunc(t),
 		InferencePut:                       newInferencePutFunc(t),
+		InferenceStreamInference:           newInferenceStreamInferenceFunc(t),
 		Info:                               newInfoFunc(t),
 		KnnSearch:                          newKnnSearchFunc(t),
 		LogstashDeletePipeline:             newLogstashDeletePipelineFunc(t),
@@ -754,6 +761,7 @@ func New(t Transport) *API {
 		QueryRulesListRulesets:             newQueryRulesListRulesetsFunc(t),
 		QueryRulesPutRule:                  newQueryRulesPutRuleFunc(t),
 		QueryRulesPutRuleset:               newQueryRulesPutRulesetFunc(t),
+		QueryRulesTest:                     newQueryRulesTestFunc(t),
 		RankEval:                           newRankEvalFunc(t),
 		Reindex:                            newReindexFunc(t),
 		ReindexRethrottle:                  newReindexRethrottleFunc(t),
@@ -927,15 +935,18 @@ func New(t Transport) *API {
 			ValidateQuery:         newIndicesValidateQueryFunc(t),
 		},
 		Ingest: &Ingest{
-			DeleteGeoipDatabase: newIngestDeleteGeoipDatabaseFunc(t),
-			DeletePipeline:      newIngestDeletePipelineFunc(t),
-			GeoIPStats:          newIngestGeoIPStatsFunc(t),
-			GetGeoipDatabase:    newIngestGetGeoipDatabaseFunc(t),
-			GetPipeline:         newIngestGetPipelineFunc(t),
-			ProcessorGrok:       newIngestProcessorGrokFunc(t),
-			PutGeoipDatabase:    newIngestPutGeoipDatabaseFunc(t),
-			PutPipeline:         newIngestPutPipelineFunc(t),
-			Simulate:            newIngestSimulateFunc(t),
+			DeleteGeoipDatabase:      newIngestDeleteGeoipDatabaseFunc(t),
+			DeleteIPLocationDatabase: newIngestDeleteIPLocationDatabaseFunc(t),
+			DeletePipeline:           newIngestDeletePipelineFunc(t),
+			GeoIPStats:               newIngestGeoIPStatsFunc(t),
+			GetGeoipDatabase:         newIngestGetGeoipDatabaseFunc(t),
+			GetIPLocationDatabase:    newIngestGetIPLocationDatabaseFunc(t),
+			GetPipeline:              newIngestGetPipelineFunc(t),
+			ProcessorGrok:            newIngestProcessorGrokFunc(t),
+			PutGeoipDatabase:         newIngestPutGeoipDatabaseFunc(t),
+			PutIPLocationDatabase:    newIngestPutIPLocationDatabaseFunc(t),
+			PutPipeline:              newIngestPutPipelineFunc(t),
+			Simulate:                 newIngestSimulateFunc(t),
 		},
 		Nodes: &Nodes{
 			ClearRepositoriesMeteringArchive: newNodesClearRepositoriesMeteringArchiveFunc(t),
@@ -948,18 +959,19 @@ func New(t Transport) *API {
 		},
 		Remote: &Remote{},
 		Snapshot: &Snapshot{
-			CleanupRepository: newSnapshotCleanupRepositoryFunc(t),
-			Clone:             newSnapshotCloneFunc(t),
-			CreateRepository:  newSnapshotCreateRepositoryFunc(t),
-			Create:            newSnapshotCreateFunc(t),
-			DeleteRepository:  newSnapshotDeleteRepositoryFunc(t),
-			Delete:            newSnapshotDeleteFunc(t),
-			GetRepository:     newSnapshotGetRepositoryFunc(t),
-			Get:               newSnapshotGetFunc(t),
-			RepositoryAnalyze: newSnapshotRepositoryAnalyzeFunc(t),
-			Restore:           newSnapshotRestoreFunc(t),
-			Status:            newSnapshotStatusFunc(t),
-			VerifyRepository:  newSnapshotVerifyRepositoryFunc(t),
+			CleanupRepository:         newSnapshotCleanupRepositoryFunc(t),
+			Clone:                     newSnapshotCloneFunc(t),
+			CreateRepository:          newSnapshotCreateRepositoryFunc(t),
+			Create:                    newSnapshotCreateFunc(t),
+			DeleteRepository:          newSnapshotDeleteRepositoryFunc(t),
+			Delete:                    newSnapshotDeleteFunc(t),
+			GetRepository:             newSnapshotGetRepositoryFunc(t),
+			Get:                       newSnapshotGetFunc(t),
+			RepositoryAnalyze:         newSnapshotRepositoryAnalyzeFunc(t),
+			RepositoryVerifyIntegrity: newSnapshotRepositoryVerifyIntegrityFunc(t),
+			Restore:                   newSnapshotRestoreFunc(t),
+			Status:                    newSnapshotStatusFunc(t),
+			VerifyRepository:          newSnapshotVerifyRepositoryFunc(t),
 		},
 		Tasks: &Tasks{
 			Cancel: newTasksCancelFunc(t),
