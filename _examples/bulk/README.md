@@ -24,7 +24,7 @@ go run default.go -count=100000 -batch=25000
 # → Generated 100,000 articles
 # → Sending batch [1/4] [2/4] [3/4] [4/4]
 # ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-# Sucessfuly indexed [100,000] documents in 3.423s (29,214 docs/sec)
+# Successfully indexed [100,000] documents in 3.423s (29,214 docs/sec)
 ```
 
 ## `indexer.go`
@@ -39,7 +39,7 @@ go run indexer.go -count=100000 -flush=1000000
 # ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 # → Generated 100,000 articles
 # ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
-# Sucessfuly indexed [100,000] documents in 1.909s (52,383 docs/sec)
+# Successfully indexed [100,000] documents in 1.909s (52,383 docs/sec)
 ```
 
 The helper allows you to `Add()` bulk indexer items, and flushes each batch based on the configured threshold.

@@ -906,7 +906,7 @@ func TestContentTypeOverride(t *testing.T) {
 
 		_, _ = c.Search(c.Search.WithBody(strings.NewReader("")))
 	})
-	t.Run("overriden CBOR Content-Type functional options style", func(t *testing.T) {
+	t.Run("overridden CBOR Content-Type functional options style", func(t *testing.T) {
 		contentType := "application/cbor"
 
 		tp, _ := elastictransport.New(elastictransport.Config{
@@ -938,7 +938,7 @@ func TestContentTypeOverride(t *testing.T) {
 			c.Search.WithBody(strings.NewReader("")),
 		)
 	})
-	t.Run("overriden CBOR Content-Type direct call style", func(t *testing.T) {
+	t.Run("overridden CBOR Content-Type direct call style", func(t *testing.T) {
 		contentType := "application/cbor"
 
 		tp, _ := elastictransport.New(elastictransport.Config{

@@ -288,11 +288,11 @@ func (r *GetUserPrivileges) Application(name string) *GetUserPrivileges {
 	return r
 }
 
-// Priviledge The name of the privilege. If you do not specify this parameter, the API
+// Privilege The name of the privilege. If you do not specify this parameter, the API
 // returns information about all privileges for the requested application.
-// API name: priviledge
-func (r *GetUserPrivileges) Priviledge(name string) *GetUserPrivileges {
-	r.values.Set("priviledge", name)
+// API name: privilege
+func (r *GetUserPrivileges) Privilege(name string) *GetUserPrivileges {
+	r.values.Set("privilege", name)
 
 	return r
 }

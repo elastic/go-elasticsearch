@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Version 1.1
-# - Moved to .ci folder and seperated out `run-repository.sh`
+# - Moved to .ci folder and separated out `run-repository.sh`
 # - Add `$RUNSCRIPTS` env var for running Elasticsearch dependent products
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh

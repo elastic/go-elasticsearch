@@ -47,7 +47,7 @@ type Request struct {
 	Conditions *types.RolloverConditions `json:"conditions,omitempty"`
 	// Mappings Mapping for fields in the index.
 	// If specified, this mapping can include field names, field data types, and
-	// mapping paramaters.
+	// mapping parameters.
 	Mappings *types.TypeMapping `json:"mappings,omitempty"`
 	// Settings Configuration options for the index.
 	// Data streams do not support this parameter.

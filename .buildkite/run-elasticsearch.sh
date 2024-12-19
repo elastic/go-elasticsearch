@@ -26,7 +26,7 @@ script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
 set -euo pipefail
 
-echo -e "\033[34;1mINFO:\033[0m Take down node if called twice with the same arguments (DETACH=true) or on seperate terminals \033[0m"
+echo -e "\033[34;1mINFO:\033[0m Take down node if called twice with the same arguments (DETACH=true) or on separate terminals \033[0m"
 cleanup_node $es_node_name
 
 master_node_name=${es_node_name}
