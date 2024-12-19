@@ -271,7 +271,6 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 
 # 8.7.0
 
-
 ## API
 
 * `ML.DeleteJob`: Added `WithDeleteUserAnnotations`. Should annotations added by the user be deleted.
