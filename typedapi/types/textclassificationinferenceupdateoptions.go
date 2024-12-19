@@ -34,7 +34,7 @@ import (
 // https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/inference.ts#L363-L372
 type TextClassificationInferenceUpdateOptions struct {
 	// ClassificationLabels Classification labels to apply other than the stored labels. Must have the
-	// same deminsions as the default configured labels
+	// same dimensions as the default configured labels
 	ClassificationLabels []string `json:"classification_labels,omitempty"`
 	// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`

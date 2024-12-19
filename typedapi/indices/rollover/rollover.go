@@ -459,7 +459,7 @@ func (r *Rollover) Conditions(conditions *types.RolloverConditions) *Rollover {
 
 // Mappings Mapping for fields in the index.
 // If specified, this mapping can include field names, field data types, and
-// mapping paramaters.
+// mapping parameters.
 // API name: mappings
 func (r *Rollover) Mappings(mappings *types.TypeMapping) *Rollover {
 

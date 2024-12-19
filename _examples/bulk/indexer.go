@@ -255,7 +255,7 @@ func main() {
 		)
 	} else {
 		log.Printf(
-			"Sucessfuly indexed [%s] documents in %s (%s docs/sec)",
+			"Successfully indexed [%s] documents in %s (%s docs/sec)",
 			humanize.Comma(int64(biStats.NumFlushed)),
 			dur.Truncate(time.Millisecond),
 			humanize.Comma(int64(1000.0/float64(dur/time.Millisecond)*float64(biStats.NumFlushed))),
