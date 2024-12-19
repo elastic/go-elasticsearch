@@ -108,7 +108,10 @@ func (d iterator[T]) Next() (*T, error) {
 	var tmp []any
 
 	if d.skipComma {
-		d.decoder.Token()
+		_, err := d.decoder.Token()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	err := d.decoder.Decode(&tmp)
