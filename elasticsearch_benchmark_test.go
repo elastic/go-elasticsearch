@@ -51,7 +51,7 @@ func (t *FakeTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	return t.FakeResponse, nil
 }
 
-func newFakeTransport(b *testing.B) *FakeTransport {
+func newFakeTransport() *FakeTransport {
 	return &FakeTransport{FakeResponse: &defaultResponse}
 }
 
@@ -76,7 +76,7 @@ func BenchmarkClientAPI(b *testing.B) {
 
 	client, err := elasticsearch.NewClient(elasticsearch.Config{
 		Addresses: []string{"http://localhost:9200"},
-		Transport: newFakeTransport(b),
+		Transport: newFakeTransport(),
 	})
 	if err != nil {
 		b.Fatalf("ERROR: %s", err)
