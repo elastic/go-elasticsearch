@@ -223,13 +223,14 @@ type BulkIndexerResponse struct {
 
 // BulkIndexerResponseItem represents the Elasticsearch response item.
 type BulkIndexerResponseItem struct {
-	Index      string `json:"_index"`
-	DocumentID string `json:"_id"`
-	Version    int64  `json:"_version"`
-	Result     string `json:"result"`
-	Status     int    `json:"status"`
-	SeqNo      int64  `json:"_seq_no"`
-	PrimTerm   int64  `json:"_primary_term"`
+	Index        string `json:"_index"`
+	DocumentID   string `json:"_id"`
+	Version      int64  `json:"_version"`
+	Result       string `json:"result"`
+	Status       int    `json:"status"`
+	SeqNo        int64  `json:"_seq_no"`
+	PrimTerm     int64  `json:"_primary_term"`
+	FailureStore string `json:"failure_store,omitempty"`
 
 	Shards struct {
 		Total      int `json:"total"`
