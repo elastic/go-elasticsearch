@@ -1,3 +1,9 @@
+# 8.17.1
+
+* Update elastictransport to 8.6.1
+
+Thanks to @AkisAya and @jmfrees for their contributions!
+
 # 8.17.0
 
 * Expose BulkIndexer total flushed bytes metric [#914](https://github.com/elastic/go-elasticsearch/pull/914) thanks to @aureleoules
