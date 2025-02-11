@@ -41,7 +41,7 @@ type Settings struct {
 	// will be performed thus improving
 	// overall performance.
 	AlignCheckpoints *bool `json:"align_checkpoints,omitempty"`
-	// DatesAsEpochMillis Defines if dates in the ouput should be written as ISO formatted string or as
+	// DatesAsEpochMillis Defines if dates in the output should be written as ISO formatted string or as
 	// millis since epoch. epoch_millis was
 	// the default for transforms created before version 7.11. For compatible output
 	// set this value to `true`.

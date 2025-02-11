@@ -220,7 +220,7 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 * `FleetGetSecret`
 * `FleetPostSecret`
 
-**Exprimental APIs**
+**Experimental APIs**
 
 `QueryRulesetList`
 
@@ -230,7 +230,7 @@ Update APIs to latest [elasticsearch-specification 8.10](https://github.com/elas
 `Security.UpdateSettings`
 
 ## Typed API
-**Exprimental APIs**
+**Experimental APIs**
 
 `QueryRuleset.List`
 

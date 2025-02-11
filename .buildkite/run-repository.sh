@@ -6,7 +6,7 @@
 #
 # Its recommended to call `imports.sh` as defined here so that you get access to all variables defined there
 #
-# Any parameters that test-matrix.yml defines should be declared here with appropiate defaults
+# Any parameters that test-matrix.yml defines should be declared here with appropriate defaults
 
 script_path=$(dirname $(realpath -s $0))
 source $script_path/functions/imports.sh
