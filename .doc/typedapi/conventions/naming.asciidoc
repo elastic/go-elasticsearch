@@ -1,7 +1,0 @@
-[[naming]]
-==== Naming
-
-Whenever appropriate, names may be suffixed with an underscore:
-
-* To avoid collision with protected keywords (`range`, `if`, `type`, and so on).
-* To reflect the presence of a leading underscore in the API like `\_index` vs `Index_` or `\_source` vs `Source_`.
