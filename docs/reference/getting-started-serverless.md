@@ -1,7 +1,7 @@
 ---
 mapped_pages:
   - https://www.elastic.co/guide/en/serverless/current/elasticsearch-go-client-getting-started.html
-navigation_title: Getting started in {{serverless}}
+navigation_title: Getting started in {{serverless-short}}
 ---
 
 # Getting started with {{es}} Go in {{serverless-full}}[elasticsearch-go-client-getting-started]
