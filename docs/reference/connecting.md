@@ -116,7 +116,7 @@ Running {{es}} without security enabled is not recommended.
 ::::
 
 
-If your cluster is configured with [security explicitly disabled](elasticsearch://docs/reference/elasticsearch/configuration-reference/security-settings.md) then you can connect via HTTP:
+If your cluster is configured with [security explicitly disabled](elasticsearch://reference/elasticsearch/configuration-reference/security-settings.md) then you can connect via HTTP:
 
 ```go
 cfg := elasticsearch.Config{
