@@ -23,7 +23,7 @@ package esutil_test
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -55,7 +55,7 @@ var mockResponseBody = `{
 type mockTransp struct{}
 
 func (t *mockTransp) RoundTrip(req *http.Request) (*http.Response, error) {
-	return &http.Response{Body: ioutil.NopCloser(strings.NewReader(mockResponseBody))}, nil // 1x alloc
+	return &http.Response{Body: io.NopCloser(strings.NewReader(mockResponseBody))}, nil // 1x alloc
 }
 
 func BenchmarkBulkIndexer(b *testing.B) {
