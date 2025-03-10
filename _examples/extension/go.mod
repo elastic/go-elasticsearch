@@ -7,7 +7,7 @@ toolchain go1.22.0
 replace github.com/elastic/go-elasticsearch/v8 => ../..
 
 require (
-	github.com/elastic/elastic-transport-go/v8 v8.6.0
+	github.com/elastic/elastic-transport-go/v8 v8.6.1
 	github.com/elastic/go-elasticsearch/v8 v8.13.1
 )
 

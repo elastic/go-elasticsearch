@@ -18,10 +18,10 @@
 package elasticsearch
 
 import (
+	"context"
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"go.opentelemetry.io/otel/trace"
 	"net/http"
 	"net/url"
 	"os"
@@ -32,13 +32,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/v8/typedapi"
+	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/elastic/go-elasticsearch/v8/internal/version"
-
-	"github.com/elastic/elastic-transport-go/v8/elastictransport"
-	tpversion "github.com/elastic/elastic-transport-go/v8/elastictransport/version"
+	"github.com/elastic/go-elasticsearch/v8/typedapi"
 )
 
 const (
@@ -69,13 +69,16 @@ func init() {
 // Config represents the client configuration.
 type Config struct {
 	Addresses []string // A list of Elasticsearch nodes to use.
-	Username  string   // Username for HTTP Basic Authentication.
-	Password  string   // Password for HTTP Basic Authentication.
 
-	CloudID                string // Endpoint for the Elastic Service (https://elastic.co/cloud).
-	APIKey                 string // Base64-encoded token for authorization; if set, overrides username/password and service token.
-	ServiceToken           string // Service token for authorization; if set, overrides username/password.
-	CertificateFingerprint string // SHA256 hex fingerprint given by Elasticsearch on first launch.
+	CloudID                string                                        // Endpoint for the Elastic Service (https://elastic.co/cloud).
+	APIKeyProvider         func(context.Context) (string, error)         // If set, the Client shall call this func to obtain an API Key, overriding APIKey.
+	APIKey                 string                                        // Base64-encoded token for authorization; if set, overrides username/password and service token.
+	ServiceTokenProvider   func(context.Context) (string, error)         // If set, the Client shall call this func to obtain a service token, overriding ServiceToken.
+	ServiceToken           string                                        // Service token for authorization; if set, overrides username/password.
+	BasicAuthProvider      func(context.Context) (string, string, error) // If set, the Client shall call this func to obtain a username and password, overriding Username and Password.
+	Username               string                                        // Username for HTTP Basic Authentication.
+	Password               string                                        // Password for HTTP Basic Authentication.
+	CertificateFingerprint string                                        // SHA256 hex fingerprint given by Elasticsearch on first launch.
 
 	Header http.Header // Global HTTP request header.
 
@@ -278,10 +281,13 @@ func newTransport(cfg Config) (*elastictransport.Client, error) {
 		UserAgent: userAgent,
 
 		URLs:                   urls,
+		APIKeyProvider:         cfg.APIKeyProvider,
+		APIKey:                 cfg.APIKey,
+		ServiceTokenProvider:   cfg.ServiceTokenProvider,
+		ServiceToken:           cfg.ServiceToken,
+		BasicAuthProvider:      cfg.BasicAuthProvider,
 		Username:               cfg.Username,
 		Password:               cfg.Password,
-		APIKey:                 cfg.APIKey,
-		ServiceToken:           cfg.ServiceToken,
 		CertificateFingerprint: cfg.CertificateFingerprint,
 
 		Header: cfg.Header,
