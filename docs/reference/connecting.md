@@ -291,5 +291,5 @@ func main() {
 Resources used to assess these recommendations:
 
 * [GCP Cloud Functions: Tips & Tricks](https://cloud.google.com/functions/docs/bestpractices/tips#use_global_variables_to_reuse_objects_in_future_invocations)
-* [Best practices for working with AWS Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.md)
-* [AWS Lambda: Comparing the effect of global scope](https://docs.aws.amazon.com/lambda/latest/operatorguide/global-scope.md)
+* [Best practices for working with AWS Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+* [AWS Lambda: Comparing the effect of global scope](https://docs.aws.amazon.com/lambda/latest/operatorguide/global-scope.html)
