@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,41 +31,79 @@ import (
 
 // CcrShardStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ccr/_types/FollowIndexStats.ts#L35-L69
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ccr/_types/FollowIndexStats.ts#L37-L109
 type CcrShardStats struct {
-	BytesRead                     int64           `json:"bytes_read"`
-	FailedReadRequests            int64           `json:"failed_read_requests"`
-	FailedWriteRequests           int64           `json:"failed_write_requests"`
-	FatalException                *ErrorCause     `json:"fatal_exception,omitempty"`
-	FollowerAliasesVersion        int64           `json:"follower_aliases_version"`
-	FollowerGlobalCheckpoint      int64           `json:"follower_global_checkpoint"`
-	FollowerIndex                 string          `json:"follower_index"`
-	FollowerMappingVersion        int64           `json:"follower_mapping_version"`
-	FollowerMaxSeqNo              int64           `json:"follower_max_seq_no"`
-	FollowerSettingsVersion       int64           `json:"follower_settings_version"`
-	LastRequestedSeqNo            int64           `json:"last_requested_seq_no"`
-	LeaderGlobalCheckpoint        int64           `json:"leader_global_checkpoint"`
-	LeaderIndex                   string          `json:"leader_index"`
-	LeaderMaxSeqNo                int64           `json:"leader_max_seq_no"`
-	OperationsRead                int64           `json:"operations_read"`
-	OperationsWritten             int64           `json:"operations_written"`
-	OutstandingReadRequests       int             `json:"outstanding_read_requests"`
-	OutstandingWriteRequests      int             `json:"outstanding_write_requests"`
-	ReadExceptions                []ReadException `json:"read_exceptions"`
-	RemoteCluster                 string          `json:"remote_cluster"`
-	ShardId                       int             `json:"shard_id"`
-	SuccessfulReadRequests        int64           `json:"successful_read_requests"`
-	SuccessfulWriteRequests       int64           `json:"successful_write_requests"`
-	TimeSinceLastRead             Duration        `json:"time_since_last_read,omitempty"`
-	TimeSinceLastReadMillis       int64           `json:"time_since_last_read_millis"`
-	TotalReadRemoteExecTime       Duration        `json:"total_read_remote_exec_time,omitempty"`
-	TotalReadRemoteExecTimeMillis int64           `json:"total_read_remote_exec_time_millis"`
-	TotalReadTime                 Duration        `json:"total_read_time,omitempty"`
-	TotalReadTimeMillis           int64           `json:"total_read_time_millis"`
-	TotalWriteTime                Duration        `json:"total_write_time,omitempty"`
-	TotalWriteTimeMillis          int64           `json:"total_write_time_millis"`
-	WriteBufferOperationCount     int64           `json:"write_buffer_operation_count"`
-	WriteBufferSizeInBytes        ByteSize        `json:"write_buffer_size_in_bytes"`
+	// BytesRead The total of transferred bytes read from the leader.
+	// This is only an estimate and does not account for compression if enabled.
+	BytesRead int64 `json:"bytes_read"`
+	// FailedReadRequests The number of failed reads.
+	FailedReadRequests int64 `json:"failed_read_requests"`
+	// FailedWriteRequests The number of failed bulk write requests on the follower.
+	FailedWriteRequests int64       `json:"failed_write_requests"`
+	FatalException      *ErrorCause `json:"fatal_exception,omitempty"`
+	// FollowerAliasesVersion The index aliases version the follower is synced up to.
+	FollowerAliasesVersion int64 `json:"follower_aliases_version"`
+	// FollowerGlobalCheckpoint The current global checkpoint on the follower.
+	// The difference between the `leader_global_checkpoint` and the
+	// `follower_global_checkpoint` is an indication of how much the follower is
+	// lagging the leader.
+	FollowerGlobalCheckpoint int64 `json:"follower_global_checkpoint"`
+	// FollowerIndex The name of the follower index.
+	FollowerIndex string `json:"follower_index"`
+	// FollowerMappingVersion The mapping version the follower is synced up to.
+	FollowerMappingVersion int64 `json:"follower_mapping_version"`
+	// FollowerMaxSeqNo The current maximum sequence number on the follower.
+	FollowerMaxSeqNo int64 `json:"follower_max_seq_no"`
+	// FollowerSettingsVersion The index settings version the follower is synced up to.
+	FollowerSettingsVersion int64 `json:"follower_settings_version"`
+	// LastRequestedSeqNo The starting sequence number of the last batch of operations requested from
+	// the leader.
+	LastRequestedSeqNo int64 `json:"last_requested_seq_no"`
+	// LeaderGlobalCheckpoint The current global checkpoint on the leader known to the follower task.
+	LeaderGlobalCheckpoint int64 `json:"leader_global_checkpoint"`
+	// LeaderIndex The name of the index in the leader cluster being followed.
+	LeaderIndex string `json:"leader_index"`
+	// LeaderMaxSeqNo The current maximum sequence number on the leader known to the follower task.
+	LeaderMaxSeqNo int64 `json:"leader_max_seq_no"`
+	// OperationsRead The total number of operations read from the leader.
+	OperationsRead int64 `json:"operations_read"`
+	// OperationsWritten The number of operations written on the follower.
+	OperationsWritten int64 `json:"operations_written"`
+	// OutstandingReadRequests The number of active read requests from the follower.
+	OutstandingReadRequests int `json:"outstanding_read_requests"`
+	// OutstandingWriteRequests The number of active bulk write requests on the follower.
+	OutstandingWriteRequests int `json:"outstanding_write_requests"`
+	// ReadExceptions An array of objects representing failed reads.
+	ReadExceptions []ReadException `json:"read_exceptions"`
+	// RemoteCluster The remote cluster containing the leader index.
+	RemoteCluster string `json:"remote_cluster"`
+	// ShardId The numerical shard ID, with values from 0 to one less than the number of
+	// replicas.
+	ShardId int `json:"shard_id"`
+	// SuccessfulReadRequests The number of successful fetches.
+	SuccessfulReadRequests int64 `json:"successful_read_requests"`
+	// SuccessfulWriteRequests The number of bulk write requests run on the follower.
+	SuccessfulWriteRequests int64    `json:"successful_write_requests"`
+	TimeSinceLastRead       Duration `json:"time_since_last_read,omitempty"`
+	// TimeSinceLastReadMillis The number of milliseconds since a read request was sent to the leader.
+	// When the follower is caught up to the leader, this number will increase up to
+	// the configured `read_poll_timeout` at which point another read request will
+	// be sent to the leader.
+	TimeSinceLastReadMillis int64    `json:"time_since_last_read_millis"`
+	TotalReadRemoteExecTime Duration `json:"total_read_remote_exec_time,omitempty"`
+	// TotalReadRemoteExecTimeMillis The total time reads spent running on the remote cluster.
+	TotalReadRemoteExecTimeMillis int64    `json:"total_read_remote_exec_time_millis"`
+	TotalReadTime                 Duration `json:"total_read_time,omitempty"`
+	// TotalReadTimeMillis The total time reads were outstanding, measured from the time a read was sent
+	// to the leader to the time a reply was returned to the follower.
+	TotalReadTimeMillis int64    `json:"total_read_time_millis"`
+	TotalWriteTime      Duration `json:"total_write_time,omitempty"`
+	// TotalWriteTimeMillis The total time spent writing on the follower.
+	TotalWriteTimeMillis int64 `json:"total_write_time_millis"`
+	// WriteBufferOperationCount The number of write operations queued on the follower.
+	WriteBufferOperationCount int64 `json:"write_buffer_operation_count"`
+	// WriteBufferSizeInBytes The total number of bytes of operations currently queued for writing.
+	WriteBufferSizeInBytes ByteSize `json:"write_buffer_size_in_bytes"`
 }
 
 func (s *CcrShardStats) UnmarshalJSON(data []byte) error {
@@ -413,3 +451,5 @@ func NewCcrShardStats() *CcrShardStats {
 
 	return r
 }
+
+// false

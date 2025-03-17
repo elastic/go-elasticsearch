@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanMultiTermQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/span.ts#L58-L63
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/span.ts#L67-L75
 type SpanMultiTermQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -41,7 +41,7 @@ type SpanMultiTermQuery struct {
 	Boost *float32 `json:"boost,omitempty"`
 	// Match Should be a multi term query (one of `wildcard`, `fuzzy`, `prefix`, `range`,
 	// or `regexp` query).
-	Match      *Query  `json:"match,omitempty"`
+	Match      Query   `json:"match"`
 	QueryName_ *string `json:"_name,omitempty"`
 }
 
@@ -103,4 +103,14 @@ func NewSpanMultiTermQuery() *SpanMultiTermQuery {
 	r := &SpanMultiTermQuery{}
 
 	return r
+}
+
+// true
+
+type SpanMultiTermQueryVariant interface {
+	SpanMultiTermQueryCaster() *SpanMultiTermQuery
+}
+
+func (s *SpanMultiTermQuery) SpanMultiTermQueryCaster() *SpanMultiTermQuery {
+	return s
 }

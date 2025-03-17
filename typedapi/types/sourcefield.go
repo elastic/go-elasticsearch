@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SourceField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/meta-fields.ts#L58-L65
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/mapping/meta-fields.ts#L58-L65
 type SourceField struct {
 	Compress          *bool                            `json:"compress,omitempty"`
 	CompressThreshold *string                          `json:"compress_threshold,omitempty"`
@@ -123,4 +123,14 @@ func NewSourceField() *SourceField {
 	r := &SourceField{}
 
 	return r
+}
+
+// true
+
+type SourceFieldVariant interface {
+	SourceFieldCaster() *SourceField
+}
+
+func (s *SourceField) SourceFieldCaster() *SourceField {
+	return s
 }

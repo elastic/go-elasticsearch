@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Retrieves a synonym rule from a synonym set
+// Get a synonym rule.
+// Get a synonym rule from a synonym set.
 package getsynonymrule
 
 import (
@@ -81,7 +82,8 @@ func NewGetSynonymRuleFunc(tp elastictransport.Interface) NewGetSynonymRule {
 	}
 }
 
-// Retrieves a synonym rule from a synonym set
+// Get a synonym rule.
+// Get a synonym rule from a synonym set.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-synonym-rule.html
 func New(tp elastictransport.Interface) *GetSynonymRule {
@@ -305,7 +307,7 @@ func (r *GetSynonymRule) Header(key, value string) *GetSynonymRule {
 	return r
 }
 
-// SetId The id of the synonym set to retrieve the synonym rule from
+// SetId The ID of the synonym set to retrieve the synonym rule from.
 // API Name: setid
 func (r *GetSynonymRule) _setid(setid string) *GetSynonymRule {
 	r.paramSet |= setidMask
@@ -314,7 +316,7 @@ func (r *GetSynonymRule) _setid(setid string) *GetSynonymRule {
 	return r
 }
 
-// RuleId The id of the synonym rule to retrieve
+// RuleId The ID of the synonym rule to retrieve.
 // API Name: ruleid
 func (r *GetSynonymRule) _ruleid(ruleid string) *GetSynonymRule {
 	r.paramSet |= ruleidMask

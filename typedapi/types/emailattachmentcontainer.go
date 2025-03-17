@@ -16,22 +16,69 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // EmailAttachmentContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Actions.ts#L211-L216
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Actions.ts#L211-L216
 type EmailAttachmentContainer struct {
-	Data      *DataEmailAttachment      `json:"data,omitempty"`
-	Http      *HttpEmailAttachment      `json:"http,omitempty"`
-	Reporting *ReportingEmailAttachment `json:"reporting,omitempty"`
+	AdditionalEmailAttachmentContainerProperty map[string]json.RawMessage `json:"-"`
+	Data                                       *DataEmailAttachment       `json:"data,omitempty"`
+	Http                                       *HttpEmailAttachment       `json:"http,omitempty"`
+	Reporting                                  *ReportingEmailAttachment  `json:"reporting,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s EmailAttachmentContainer) MarshalJSON() ([]byte, error) {
+	type opt EmailAttachmentContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalEmailAttachmentContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalEmailAttachmentContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewEmailAttachmentContainer returns a EmailAttachmentContainer.
 func NewEmailAttachmentContainer() *EmailAttachmentContainer {
-	r := &EmailAttachmentContainer{}
+	r := &EmailAttachmentContainer{
+		AdditionalEmailAttachmentContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type EmailAttachmentContainerVariant interface {
+	EmailAttachmentContainerCaster() *EmailAttachmentContainer
+}
+
+func (s *EmailAttachmentContainer) EmailAttachmentContainerCaster() *EmailAttachmentContainer {
+	return s
 }

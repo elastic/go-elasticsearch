@@ -16,8 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
+// Activate the connector draft filter.
+//
 // Activates the valid draft filtering for a connector.
 package updateactivefiltering
 
@@ -76,6 +78,8 @@ func NewUpdateActiveFilteringFunc(tp elastictransport.Interface) NewUpdateActive
 	}
 }
 
+// Activate the connector draft filter.
+//
 // Activates the valid draft filtering for a connector.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-api.html

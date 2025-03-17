@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // FieldValueFactorScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/compound.ts#L136-L155
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/compound.ts#L149-L168
 type FieldValueFactorScoreFunction struct {
 	// Factor Optional factor to multiply the field value with.
 	Factor *Float64 `json:"factor,omitempty"`
@@ -114,4 +114,14 @@ func NewFieldValueFactorScoreFunction() *FieldValueFactorScoreFunction {
 	r := &FieldValueFactorScoreFunction{}
 
 	return r
+}
+
+// true
+
+type FieldValueFactorScoreFunctionVariant interface {
+	FieldValueFactorScoreFunctionCaster() *FieldValueFactorScoreFunction
+}
+
+func (s *FieldValueFactorScoreFunction) FieldValueFactorScoreFunctionCaster() *FieldValueFactorScoreFunction {
+	return s
 }

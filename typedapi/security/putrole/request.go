@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package putrole
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/put_role/SecurityPutRoleRequest.ts#L30-L84
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/put_role/SecurityPutRoleRequest.ts#L32-L111
 type Request struct {
 
 	// Applications A list of application privilege entries.
@@ -53,6 +53,15 @@ type Request struct {
 	// Metadata Optional metadata. Within the metadata object, keys that begin with an
 	// underscore (`_`) are reserved for system use.
 	Metadata types.Metadata `json:"metadata,omitempty"`
+	// RemoteCluster A list of remote cluster permissions entries.
+	RemoteCluster []types.RemoteClusterPrivileges `json:"remote_cluster,omitempty"`
+	// RemoteIndices A list of remote indices permissions entries.
+	//
+	// NOTE: Remote indices are effective for remote clusters configured with the
+	// API key based model.
+	// They have no effect for remote clusters configured with the certificate based
+	// model.
+	RemoteIndices []types.RemoteIndicesPrivileges `json:"remote_indices,omitempty"`
 	// RunAs A list of users that the owners of this role can impersonate. *Note*: in
 	// Serverless, the run-as feature is disabled. For API compatibility, you can
 	// still specify an empty `run_as` field, but a non-empty list will be rejected.
@@ -140,6 +149,16 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
 				return fmt.Errorf("%s | %w", "Metadata", err)
+			}
+
+		case "remote_cluster":
+			if err := dec.Decode(&s.RemoteCluster); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
+			}
+
+		case "remote_indices":
+			if err := dec.Decode(&s.RemoteIndices); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteIndices", err)
 			}
 
 		case "run_as":

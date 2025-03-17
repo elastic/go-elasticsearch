@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // ApplicationGlobalUserPrivileges type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/_types/Privileges.ts#L340-L342
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/_types/Privileges.ts#L434-L436
 type ApplicationGlobalUserPrivileges struct {
 	Manage ManageUserPrivileges `json:"manage"`
 }
@@ -32,4 +32,14 @@ func NewApplicationGlobalUserPrivileges() *ApplicationGlobalUserPrivileges {
 	r := &ApplicationGlobalUserPrivileges{}
 
 	return r
+}
+
+// true
+
+type ApplicationGlobalUserPrivilegesVariant interface {
+	ApplicationGlobalUserPrivilegesCaster() *ApplicationGlobalUserPrivileges
+}
+
+func (s *ApplicationGlobalUserPrivileges) ApplicationGlobalUserPrivilegesCaster() *ApplicationGlobalUserPrivileges {
+	return s
 }

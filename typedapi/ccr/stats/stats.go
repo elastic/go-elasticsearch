@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Gets all stats related to cross-cluster replication.
+// Get cross-cluster replication stats.
+//
+// This API returns stats about auto-following and the same shard-level stats as
+// the get follower stats API.
 package stats
 
 import (
@@ -68,7 +71,10 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 	}
 }
 
-// Gets all stats related to cross-cluster replication.
+// Get cross-cluster replication stats.
+//
+// This API returns stats about auto-following and the same shard-level stats as
+// the get follower stats API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-stats.html
 func New(tp elastictransport.Interface) *Stats {
@@ -272,6 +278,26 @@ func (r Stats) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the Stats headers map.
 func (r *Stats) Header(key, value string) *Stats {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
+// API name: master_timeout
+func (r *Stats) MasterTimeout(duration string) *Stats {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response. If no response is received before the
+// timeout expires, the request fails and returns an error.
+// API name: timeout
+func (r *Stats) Timeout(duration string) *Stats {
+	r.values.Set("timeout", duration)
 
 	return r
 }

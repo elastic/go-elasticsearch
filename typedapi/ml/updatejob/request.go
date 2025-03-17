@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package updatejob
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package updatejob
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L138
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/update_job/MlUpdateJobRequest.ts#L33-L147
 type Request struct {
 
 	// AllowLazyOpen Advanced configuration option. Specifies whether this job can open when
@@ -74,7 +74,7 @@ type Request struct {
 	// Description A description of the job.
 	Description *string `json:"description,omitempty"`
 	// Detectors An array of detector update objects.
-	Detectors []types.Detector `json:"detectors,omitempty"`
+	Detectors []types.DetectorUpdate `json:"detectors,omitempty"`
 	// Groups A list of job groups. A job can belong to no groups or many.
 	Groups           []string               `json:"groups,omitempty"`
 	ModelPlotConfig  *types.ModelPlotConfig `json:"model_plot_config,omitempty"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SettingsSimilarityDfr type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L200-L205
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/IndexSettings.ts#L208-L213
 type SettingsSimilarityDfr struct {
 	AfterEffect   dfraftereffect.DFRAfterEffect `json:"after_effect"`
 	BasicModel    dfrbasicmodel.DFRBasicModel   `json:"basic_model"`
@@ -58,4 +58,14 @@ func NewSettingsSimilarityDfr() *SettingsSimilarityDfr {
 	r := &SettingsSimilarityDfr{}
 
 	return r
+}
+
+// true
+
+type SettingsSimilarityDfrVariant interface {
+	SettingsSimilarityDfrCaster() *SettingsSimilarityDfr
+}
+
+func (s *SettingsSimilarityDfr) SettingsSimilarityDfrCaster() *SettingsSimilarityDfr {
+	return s
 }

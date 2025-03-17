@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,17 +31,32 @@ import (
 
 // GetResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/get/types.ts#L25-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/get/types.ts#L25-L67
 type GetResult struct {
-	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
-	Found        bool                       `json:"found"`
-	Id_          string                     `json:"_id"`
-	Index_       string                     `json:"_index"`
-	PrimaryTerm_ *int64                     `json:"_primary_term,omitempty"`
-	Routing_     *string                    `json:"_routing,omitempty"`
-	SeqNo_       *int64                     `json:"_seq_no,omitempty"`
-	Source_      json.RawMessage            `json:"_source,omitempty"`
-	Version_     *int64                     `json:"_version,omitempty"`
+	// Fields If the `stored_fields` parameter is set to `true` and `found` is `true`, it
+	// contains the document fields stored in the index.
+	Fields map[string]json.RawMessage `json:"fields,omitempty"`
+	// Found Indicates whether the document exists.
+	Found bool `json:"found"`
+	// Id_ The unique identifier for the document.
+	Id_      string   `json:"_id"`
+	Ignored_ []string `json:"_ignored,omitempty"`
+	// Index_ The name of the index the document belongs to.
+	Index_ string `json:"_index"`
+	// PrimaryTerm_ The primary term assigned to the document for the indexing operation.
+	PrimaryTerm_ *int64 `json:"_primary_term,omitempty"`
+	// Routing_ The explicit routing, if set.
+	Routing_ *string `json:"_routing,omitempty"`
+	// SeqNo_ The sequence number assigned to the document for the indexing operation.
+	// Sequence numbers are used to ensure an older version of a document doesn't
+	// overwrite a newer version.
+	SeqNo_ *int64 `json:"_seq_no,omitempty"`
+	// Source_ If `found` is `true`, it contains the document data formatted in JSON.
+	// If the `_source` parameter is set to `false` or the `stored_fields` parameter
+	// is set to `true`, it is excluded.
+	Source_ json.RawMessage `json:"_source,omitempty"`
+	// Version_ The document version, which is ncremented each time the document is updated.
+	Version_ *int64 `json:"_version,omitempty"`
 }
 
 func (s *GetResult) UnmarshalJSON(data []byte) error {
@@ -84,6 +99,11 @@ func (s *GetResult) UnmarshalJSON(data []byte) error {
 		case "_id":
 			if err := dec.Decode(&s.Id_); err != nil {
 				return fmt.Errorf("%s | %w", "Id_", err)
+			}
+
+		case "_ignored":
+			if err := dec.Decode(&s.Ignored_); err != nil {
+				return fmt.Errorf("%s | %w", "Ignored_", err)
 			}
 
 		case "_index":
@@ -141,8 +161,10 @@ func (s *GetResult) UnmarshalJSON(data []byte) error {
 // NewGetResult returns a GetResult.
 func NewGetResult() *GetResult {
 	r := &GetResult{
-		Fields: make(map[string]json.RawMessage, 0),
+		Fields: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

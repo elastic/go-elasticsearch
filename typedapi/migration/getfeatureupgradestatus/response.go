@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package getfeatureupgradestatus
 
@@ -27,7 +27,7 @@ import (
 
 // Response holds the response body struct for the package getfeatureupgradestatus
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L23-L28
 type Response struct {
 	Features        []types.GetMigrationFeature     `json:"features"`
 	MigrationStatus migrationstatus.MigrationStatus `json:"migration_status"`

@@ -16,10 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Run a script.
+//
 // Runs a script and returns a result.
+// Use this API to build and test scripts, such as when defining a script for a
+// runtime field.
+// This API requires very few dependencies and is especially useful if you don't
+// have permissions to write documents on a cluster.
+//
+// The API uses several _contexts_, which control how scripts are run, what
+// variables are available at runtime, and what the return type is.
+//
+// Each context requires a script, but additional parameters depend on the
+// context you're using for that script.
 package scriptspainlessexecute
 
 import (
@@ -36,6 +47,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/painlesscontext"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -75,7 +87,18 @@ func NewScriptsPainlessExecuteFunc(tp elastictransport.Interface) NewScriptsPain
 }
 
 // Run a script.
+//
 // Runs a script and returns a result.
+// Use this API to build and test scripts, such as when defining a script for a
+// runtime field.
+// This API requires very few dependencies and is especially useful if you don't
+// have permissions to write documents on a cluster.
+//
+// The API uses several _contexts_, which control how scripts are run, what
+// variables are available at runtime, and what the return type is.
+//
+// Each context requires a script, but additional parameters depend on the
+// context you're using for that script.
 //
 // https://www.elastic.co/guide/en/elasticsearch/painless/current/painless-execute-api.html
 func New(tp elastictransport.Interface) *ScriptsPainlessExecute {
@@ -85,8 +108,6 @@ func New(tp elastictransport.Interface) *ScriptsPainlessExecute {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -340,29 +361,42 @@ func (r *ScriptsPainlessExecute) Pretty(pretty bool) *ScriptsPainlessExecute {
 	return r
 }
 
-// Context The context that the script should run in.
+// The context that the script should run in.
+// NOTE: Result ordering in the field contexts is not guaranteed.
 // API name: context
-func (r *ScriptsPainlessExecute) Context(context string) *ScriptsPainlessExecute {
-
+func (r *ScriptsPainlessExecute) Context(context painlesscontext.PainlessContext) *ScriptsPainlessExecute {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Context = &context
-
 	return r
 }
 
-// ContextSetup Additional parameters for the `context`.
+// Additional parameters for the `context`.
+// NOTE: This parameter is required for all contexts except `painless_test`,
+// which is the default if no value is provided for `context`.
 // API name: context_setup
-func (r *ScriptsPainlessExecute) ContextSetup(contextsetup *types.PainlessContextSetup) *ScriptsPainlessExecute {
+func (r *ScriptsPainlessExecute) ContextSetup(contextsetup types.PainlessContextSetupVariant) *ScriptsPainlessExecute {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.ContextSetup = contextsetup
+	r.req.ContextSetup = contextsetup.PainlessContextSetupCaster()
 
 	return r
 }
 
-// Script The Painless script to execute.
+// The Painless script to run.
 // API name: script
-func (r *ScriptsPainlessExecute) Script(script *types.Script) *ScriptsPainlessExecute {
+func (r *ScriptsPainlessExecute) Script(script types.ScriptVariant) *ScriptsPainlessExecute {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Script = script
+	r.req.Script = script.ScriptCaster()
 
 	return r
 }

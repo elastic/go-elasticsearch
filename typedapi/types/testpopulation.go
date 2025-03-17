@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TestPopulation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/metric.ts#L310-L320
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/metric.ts#L319-L329
 type TestPopulation struct {
 	// Field The field to aggregate.
 	Field string `json:"field"`
@@ -79,4 +79,14 @@ func NewTestPopulation() *TestPopulation {
 	r := &TestPopulation{}
 
 	return r
+}
+
+// true
+
+type TestPopulationVariant interface {
+	TestPopulationCaster() *TestPopulation
+}
+
+func (s *TestPopulation) TestPopulationCaster() *TestPopulation {
+	return s
 }

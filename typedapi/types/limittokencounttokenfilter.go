@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LimitTokenCountTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L251-L255
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/token_filters.ts#L250-L254
 type LimitTokenCountTokenFilter struct {
 	ConsumeAllTokens *bool              `json:"consume_all_tokens,omitempty"`
 	MaxTokenCount    Stringifiedinteger `json:"max_token_count,omitempty"`
@@ -108,4 +108,14 @@ func NewLimitTokenCountTokenFilter() *LimitTokenCountTokenFilter {
 	r := &LimitTokenCountTokenFilter{}
 
 	return r
+}
+
+// true
+
+type LimitTokenCountTokenFilterVariant interface {
+	LimitTokenCountTokenFilterCaster() *LimitTokenCountTokenFilter
+}
+
+func (s *LimitTokenCountTokenFilter) LimitTokenCountTokenFilterCaster() *LimitTokenCountTokenFilter {
+	return s
 }

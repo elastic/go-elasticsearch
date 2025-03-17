@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DotExpanderProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L592-L603
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ingest/_types/Processors.ts#L825-L843
 type DotExpanderProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -45,6 +45,13 @@ type DotExpanderProcessor struct {
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// OnFailure Handle failures for the processor.
 	OnFailure []ProcessorContainer `json:"on_failure,omitempty"`
+	// Override Controls the behavior when there is already an existing nested object that
+	// conflicts with the expanded field.
+	// When `false`, the processor will merge conflicts by combining the old and the
+	// new values into an array.
+	// When `true`, the value from the expanded field will overwrite the existing
+	// value.
+	Override *bool `json:"override,omitempty"`
 	// Path The field that contains the field to expand.
 	// Only required if the field to expand is part another object field, because
 	// the `field` option can only understand leaf fields.
@@ -117,6 +124,20 @@ func (s *DotExpanderProcessor) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "OnFailure", err)
 			}
 
+		case "override":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Override", err)
+				}
+				s.Override = &value
+			case bool:
+				s.Override = &v
+			}
+
 		case "path":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -151,4 +172,14 @@ func NewDotExpanderProcessor() *DotExpanderProcessor {
 	r := &DotExpanderProcessor{}
 
 	return r
+}
+
+// true
+
+type DotExpanderProcessorVariant interface {
+	DotExpanderProcessorCaster() *DotExpanderProcessor
+}
+
+func (s *DotExpanderProcessor) DotExpanderProcessorCaster() *DotExpanderProcessor {
+	return s
 }

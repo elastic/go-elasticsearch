@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Delete a script or search template.
 // Deletes a stored script or search template.
@@ -80,7 +80,7 @@ func NewDeleteScriptFunc(tp elastictransport.Interface) NewDeleteScript {
 // Delete a script or search template.
 // Deletes a stored script or search template.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-stored-script-api.html
 func New(tp elastictransport.Interface) *DeleteScript {
 	r := &DeleteScript{
 		transport: tp,
@@ -290,7 +290,7 @@ func (r *DeleteScript) Header(key, value string) *DeleteScript {
 	return r
 }
 
-// Id Identifier for the stored script or search template.
+// Id The identifier for the stored script or search template.
 // API Name: id
 func (r *DeleteScript) _id(id string) *DeleteScript {
 	r.paramSet |= idMask
@@ -299,9 +299,10 @@ func (r *DeleteScript) _id(id string) *DeleteScript {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
 // API name: master_timeout
 func (r *DeleteScript) MasterTimeout(duration string) *DeleteScript {
 	r.values.Set("master_timeout", duration)
@@ -309,9 +310,10 @@ func (r *DeleteScript) MasterTimeout(duration string) *DeleteScript {
 	return r
 }
 
-// Timeout Period to wait for a response.
+// Timeout The period to wait for a response.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
 // API name: timeout
 func (r *DeleteScript) Timeout(duration string) *DeleteScript {
 	r.values.Set("timeout", duration)

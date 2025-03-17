@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SlicedScroll type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/SlicedScroll.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/SlicedScroll.ts#L23-L27
 type SlicedScroll struct {
 	Field *string `json:"field,omitempty"`
 	Id    string  `json:"id"`
@@ -89,4 +89,14 @@ func NewSlicedScroll() *SlicedScroll {
 	r := &SlicedScroll{}
 
 	return r
+}
+
+// true
+
+type SlicedScrollVariant interface {
+	SlicedScrollCaster() *SlicedScroll
+}
+
+func (s *SlicedScroll) SlicedScrollCaster() *SlicedScroll {
+	return s
 }

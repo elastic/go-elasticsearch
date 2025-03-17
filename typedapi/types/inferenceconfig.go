@@ -16,23 +16,70 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // InferenceConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L746-L758
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ingest/_types/Processors.ts#L1048-L1060
 type InferenceConfig struct {
+	AdditionalInferenceConfigProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification configuration for inference.
 	Classification *InferenceConfigClassification `json:"classification,omitempty"`
 	// Regression Regression configuration for inference.
 	Regression *InferenceConfigRegression `json:"regression,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s InferenceConfig) MarshalJSON() ([]byte, error) {
+	type opt InferenceConfig
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalInferenceConfigProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalInferenceConfigProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewInferenceConfig returns a InferenceConfig.
 func NewInferenceConfig() *InferenceConfig {
-	r := &InferenceConfig{}
+	r := &InferenceConfig{
+		AdditionalInferenceConfigProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type InferenceConfigVariant interface {
+	InferenceConfigCaster() *InferenceConfig
+}
+
+func (s *InferenceConfig) InferenceConfigCaster() *InferenceConfig {
+	return s
 }

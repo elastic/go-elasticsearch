@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package fieldcaps
 
@@ -32,16 +32,24 @@ import (
 
 // Request holds the request body struct for the package fieldcaps
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L106
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/field_caps/FieldCapabilitiesRequest.ts#L25-L130
 type Request struct {
 
-	// Fields List of fields to retrieve capabilities for. Wildcard (`*`) expressions are
+	// Fields A list of fields to retrieve capabilities for. Wildcard (`*`) expressions are
 	// supported.
 	Fields []string `json:"fields,omitempty"`
-	// IndexFilter Allows to filter indices if the provided query rewrites to match_none on
-	// every shard.
+	// IndexFilter Filter indices if the provided query rewrites to `match_none` on every shard.
+	//
+	// IMPORTANT: The filtering is done on a best-effort basis, it uses index
+	// statistics and mappings to rewrite queries to `match_none` instead of fully
+	// running the request.
+	// For instance a range query over a date field can rewrite to `match_none` if
+	// all documents within a shard (including deleted documents) are outside of the
+	// provided range.
+	// However, not all queries can rewrite to `match_none` so this API may return
+	// an index even if the provided filter matches no document.
 	IndexFilter *types.Query `json:"index_filter,omitempty"`
-	// RuntimeMappings Defines ad-hoc runtime fields in the request similar to the way it is done in
+	// RuntimeMappings Define ad-hoc runtime fields in the request similar to the way it is done in
 	// search requests.
 	// These fields exist only as part of the query and take precedence over fields
 	// defined with the same name in the index mappings.

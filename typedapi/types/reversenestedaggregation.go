@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ReverseNestedAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L721-L727
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/bucket.ts#L741-L747
 type ReverseNestedAggregation struct {
 	// Path Defines the nested object field that should be joined back to.
 	// The default is empty, which means that it joins back to the root/main
@@ -68,4 +68,14 @@ func NewReverseNestedAggregation() *ReverseNestedAggregation {
 	r := &ReverseNestedAggregation{}
 
 	return r
+}
+
+// true
+
+type ReverseNestedAggregationVariant interface {
+	ReverseNestedAggregationCaster() *ReverseNestedAggregation
+}
+
+func (s *ReverseNestedAggregation) ReverseNestedAggregationCaster() *ReverseNestedAggregation {
+	return s
 }

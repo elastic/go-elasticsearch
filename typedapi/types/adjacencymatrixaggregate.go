@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AdjacencyMatrixAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L577-L579
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L647-L652
 type AdjacencyMatrixAggregate struct {
 	Buckets BucketsAdjacencyMatrixBucket `json:"buckets"`
 	Meta    Metadata                     `json:"meta,omitempty"`
@@ -88,3 +88,5 @@ func NewAdjacencyMatrixAggregate() *AdjacencyMatrixAggregate {
 
 	return r
 }
+
+// false

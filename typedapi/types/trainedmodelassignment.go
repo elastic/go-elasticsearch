@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,11 +33,13 @@ import (
 
 // TrainedModelAssignment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L403-L418
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/TrainedModel.ts#L459-L476
 type TrainedModelAssignment struct {
+	AdaptiveAllocations *AdaptiveAllocationsSettings `json:"adaptive_allocations,omitempty"`
 	// AssignmentState The overall assignment state.
 	AssignmentState        deploymentassignmentstate.DeploymentAssignmentState `json:"assignment_state"`
 	MaxAssignedAllocations *int                                                `json:"max_assigned_allocations,omitempty"`
+	Reason                 *string                                             `json:"reason,omitempty"`
 	// RoutingTable The allocation state for each node.
 	RoutingTable map[string]TrainedModelAssignmentRoutingTable `json:"routing_table"`
 	// StartTime The timestamp when the deployment started.
@@ -60,6 +62,11 @@ func (s *TrainedModelAssignment) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
+		case "adaptive_allocations":
+			if err := dec.Decode(&s.AdaptiveAllocations); err != nil {
+				return fmt.Errorf("%s | %w", "AdaptiveAllocations", err)
+			}
+
 		case "assignment_state":
 			if err := dec.Decode(&s.AssignmentState); err != nil {
 				return fmt.Errorf("%s | %w", "AssignmentState", err)
@@ -80,6 +87,18 @@ func (s *TrainedModelAssignment) UnmarshalJSON(data []byte) error {
 				f := int(v)
 				s.MaxAssignedAllocations = &f
 			}
+
+		case "reason":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Reason", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Reason = &o
 
 		case "routing_table":
 			if s.RoutingTable == nil {
@@ -107,8 +126,10 @@ func (s *TrainedModelAssignment) UnmarshalJSON(data []byte) error {
 // NewTrainedModelAssignment returns a TrainedModelAssignment.
 func NewTrainedModelAssignment() *TrainedModelAssignment {
 	r := &TrainedModelAssignment{
-		RoutingTable: make(map[string]TrainedModelAssignmentRoutingTable, 0),
+		RoutingTable: make(map[string]TrainedModelAssignmentRoutingTable),
 	}
 
 	return r
 }
+
+// false

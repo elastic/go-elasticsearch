@@ -16,12 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns cluster-level changes (such as create index, update mapping, allocate
-// or fail shard) that have not yet been executed.
+// Get the pending cluster tasks.
+// Get information about cluster-level changes (such as create index, update
+// mapping, allocate or fail shard) that have not yet taken effect.
+//
 // NOTE: This API returns a list of any pending updates to the cluster state.
-// These are distinct from the tasks reported by the Task Management API which
+// These are distinct from the tasks reported by the task management API which
 // include periodic tasks and tasks initiated by the user, such as node stats,
 // search queries, or create index requests.
 // However, if a user-initiated task such as a create index command causes a
@@ -76,10 +78,12 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 	}
 }
 
-// Returns cluster-level changes (such as create index, update mapping, allocate
-// or fail shard) that have not yet been executed.
+// Get the pending cluster tasks.
+// Get information about cluster-level changes (such as create index, update
+// mapping, allocate or fail shard) that have not yet taken effect.
+//
 // NOTE: This API returns a list of any pending updates to the cluster state.
-// These are distinct from the tasks reported by the Task Management API which
+// These are distinct from the tasks reported by the task management API which
 // include periodic tasks and tasks initiated by the user, such as node stats,
 // search queries, or create index requests.
 // However, if a user-initiated task such as a create index command causes a

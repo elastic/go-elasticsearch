@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Deletes an existing snapshot lifecycle policy.
+// Delete a policy.
+// Delete a snapshot lifecycle policy definition.
+// This operation prevents any future snapshots from being taken but does not
+// cancel in-progress snapshots or remove previously-taken snapshots.
 package deletelifecycle
 
 import (
@@ -76,7 +79,10 @@ func NewDeleteLifecycleFunc(tp elastictransport.Interface) NewDeleteLifecycle {
 	}
 }
 
-// Deletes an existing snapshot lifecycle policy.
+// Delete a policy.
+// Delete a snapshot lifecycle policy definition.
+// This operation prevents any future snapshots from being taken but does not
+// cancel in-progress snapshots or remove previously-taken snapshots.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-delete-policy.html
 func New(tp elastictransport.Interface) *DeleteLifecycle {
@@ -295,6 +301,26 @@ func (r *DeleteLifecycle) Header(key, value string) *DeleteLifecycle {
 func (r *DeleteLifecycle) _policyid(policyid string) *DeleteLifecycle {
 	r.paramSet |= policyidMask
 	r.policyid = policyid
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *DeleteLifecycle) MasterTimeout(duration string) *DeleteLifecycle {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: timeout
+func (r *DeleteLifecycle) Timeout(duration string) *DeleteLifecycle {
+	r.values.Set("timeout", duration)
 
 	return r
 }

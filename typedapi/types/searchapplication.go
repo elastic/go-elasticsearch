@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,13 +30,13 @@ import (
 
 // SearchApplication type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/search_application/_types/SearchApplication.ts#L24-L45
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/search_application/_types/SearchApplication.ts#L24-L33
 type SearchApplication struct {
 	// AnalyticsCollectionName Analytics collection associated to the Search Application.
 	AnalyticsCollectionName *string `json:"analytics_collection_name,omitempty"`
 	// Indices Indices that are part of the Search Application.
 	Indices []string `json:"indices"`
-	// Name Search Application name.
+	// Name Search Application name
 	Name string `json:"name"`
 	// Template Search template to use on search operations.
 	Template *SearchApplicationTemplate `json:"template,omitempty"`
@@ -95,3 +95,5 @@ func NewSearchApplication() *SearchApplication {
 
 	return r
 }
+
+// false

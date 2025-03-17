@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DisMaxQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/compound.ts#L79-L91
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/compound.ts#L88-L103
 type DisMaxQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -124,4 +124,14 @@ func NewDisMaxQuery() *DisMaxQuery {
 	r := &DisMaxQuery{}
 
 	return r
+}
+
+// true
+
+type DisMaxQueryVariant interface {
+	DisMaxQueryCaster() *DisMaxQuery
+}
+
+func (s *DisMaxQuery) DisMaxQueryCaster() *DisMaxQuery {
+	return s
 }

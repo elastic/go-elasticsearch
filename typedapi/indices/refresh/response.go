@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package refresh
 
@@ -26,9 +26,9 @@ import (
 
 // Response holds the response body struct for the package refresh
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/refresh/IndicesRefreshResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/refresh/IndicesRefreshResponse.ts#L22-L24
 type Response struct {
-	Shards_ types.ShardStatistics `json:"_shards"`
+	Shards_ *types.ShardStatistics `json:"_shards,omitempty"`
 }
 
 // NewResponse returns a Response

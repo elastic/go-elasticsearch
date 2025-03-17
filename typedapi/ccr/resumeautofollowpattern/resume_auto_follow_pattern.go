@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Resumes an auto-follow pattern that has been paused
+// Resume an auto-follow pattern.
+//
+// Resume a cross-cluster replication auto-follow pattern that was paused.
+// The auto-follow pattern will resume configuring following indices for newly
+// created indices that match its patterns on the remote cluster.
+// Remote indices created while the pattern was paused will also be followed
+// unless they have been deleted or closed in the interim.
 package resumeautofollowpattern
 
 import (
@@ -76,7 +82,13 @@ func NewResumeAutoFollowPatternFunc(tp elastictransport.Interface) NewResumeAuto
 	}
 }
 
-// Resumes an auto-follow pattern that has been paused
+// Resume an auto-follow pattern.
+//
+// Resume a cross-cluster replication auto-follow pattern that was paused.
+// The auto-follow pattern will resume configuring following indices for newly
+// created indices that match its patterns on the remote cluster.
+// Remote indices created while the pattern was paused will also be followed
+// unless they have been deleted or closed in the interim.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-resume-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *ResumeAutoFollowPattern {
@@ -292,12 +304,22 @@ func (r *ResumeAutoFollowPattern) Header(key, value string) *ResumeAutoFollowPat
 	return r
 }
 
-// Name The name of the auto follow pattern to resume discovering new indices to
-// follow.
+// Name The name of the auto-follow pattern to resume.
 // API Name: name
 func (r *ResumeAutoFollowPattern) _name(name string) *ResumeAutoFollowPattern {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
+// API name: master_timeout
+func (r *ResumeAutoFollowPattern) MasterTimeout(duration string) *ResumeAutoFollowPattern {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

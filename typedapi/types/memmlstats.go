@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MemMlStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/get_memory_stats/types.ts#L90-L111
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/get_memory_stats/types.ts#L90-L111
 type MemMlStats struct {
 	// AnomalyDetectors Amount of native memory set aside for anomaly detection jobs.
 	AnomalyDetectors ByteSize `json:"anomaly_detectors,omitempty"`
@@ -192,3 +192,5 @@ func NewMemMlStats() *MemMlStats {
 
 	return r
 }
+
+// false

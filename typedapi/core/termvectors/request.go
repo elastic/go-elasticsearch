@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package termvectors
 
@@ -29,15 +29,23 @@ import (
 
 // Request holds the request body struct for the package termvectors
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/termvectors/TermVectorsRequest.ts#L33-L120
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/termvectors/TermVectorsRequest.ts#L33-L187
 type Request struct {
 
 	// Doc An artificial document (a document not present in the index) for which you
 	// want to retrieve term vectors.
 	Doc json.RawMessage `json:"doc,omitempty"`
 	// Filter Filter terms based on their tf-idf scores.
+	// This could be useful in order find out a good characteristic vector of a
+	// document.
+	// This feature works in a similar manner to the second phase of the More Like
+	// This Query.
 	Filter *types.TermVectorsFilter `json:"filter,omitempty"`
-	// PerFieldAnalyzer Overrides the default per-field analyzer.
+	// PerFieldAnalyzer Override the default per-field analyzer.
+	// This is useful in order to generate term vectors in any fashion, especially
+	// when using artificial documents.
+	// When providing an analyzer for a field that already stores term vectors, the
+	// term vectors will be regenerated.
 	PerFieldAnalyzer map[string]string `json:"per_field_analyzer,omitempty"`
 }
 

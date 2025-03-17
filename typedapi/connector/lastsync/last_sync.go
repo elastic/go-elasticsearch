@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Updates last sync stats in the connector document
+// Update the connector last sync stats.
+//
+// Update the fields related to the last sync of a connector.
+// This action is used for analytics and monitoring.
 package lastsync
 
 import (
@@ -82,7 +85,10 @@ func NewLastSyncFunc(tp elastictransport.Interface) NewLastSync {
 	}
 }
 
-// Updates last sync stats in the connector document
+// Update the connector last sync stats.
+//
+// Update the fields related to the last sync of a connector.
+// This action is used for analytics and monitoring.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-last-sync-api.html
 func New(tp elastictransport.Interface) *LastSync {
@@ -92,8 +98,6 @@ func New(tp elastictransport.Interface) *LastSync {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -362,6 +366,10 @@ func (r *LastSync) Pretty(pretty bool) *LastSync {
 
 // API name: last_access_control_sync_error
 func (r *LastSync) LastAccessControlSyncError(lastaccesscontrolsyncerror string) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.LastAccessControlSyncError = &lastaccesscontrolsyncerror
 
@@ -369,21 +377,33 @@ func (r *LastSync) LastAccessControlSyncError(lastaccesscontrolsyncerror string)
 }
 
 // API name: last_access_control_sync_scheduled_at
-func (r *LastSync) LastAccessControlSyncScheduledAt(datetime types.DateTime) *LastSync {
-	r.req.LastAccessControlSyncScheduledAt = datetime
+func (r *LastSync) LastAccessControlSyncScheduledAt(datetime types.DateTimeVariant) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.LastAccessControlSyncScheduledAt = *datetime.DateTimeCaster()
 
 	return r
 }
 
 // API name: last_access_control_sync_status
 func (r *LastSync) LastAccessControlSyncStatus(lastaccesscontrolsyncstatus syncstatus.SyncStatus) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.LastAccessControlSyncStatus = &lastaccesscontrolsyncstatus
-
 	return r
 }
 
 // API name: last_deleted_document_count
 func (r *LastSync) LastDeletedDocumentCount(lastdeleteddocumentcount int64) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.LastDeletedDocumentCount = &lastdeleteddocumentcount
 
@@ -391,14 +411,23 @@ func (r *LastSync) LastDeletedDocumentCount(lastdeleteddocumentcount int64) *Las
 }
 
 // API name: last_incremental_sync_scheduled_at
-func (r *LastSync) LastIncrementalSyncScheduledAt(datetime types.DateTime) *LastSync {
-	r.req.LastIncrementalSyncScheduledAt = datetime
+func (r *LastSync) LastIncrementalSyncScheduledAt(datetime types.DateTimeVariant) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.LastIncrementalSyncScheduledAt = *datetime.DateTimeCaster()
 
 	return r
 }
 
 // API name: last_indexed_document_count
 func (r *LastSync) LastIndexedDocumentCount(lastindexeddocumentcount int64) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.LastIndexedDocumentCount = &lastindexeddocumentcount
 
@@ -406,14 +435,23 @@ func (r *LastSync) LastIndexedDocumentCount(lastindexeddocumentcount int64) *Las
 }
 
 // API name: last_seen
-func (r *LastSync) LastSeen(datetime types.DateTime) *LastSync {
-	r.req.LastSeen = datetime
+func (r *LastSync) LastSeen(datetime types.DateTimeVariant) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.LastSeen = *datetime.DateTimeCaster()
 
 	return r
 }
 
 // API name: last_sync_error
 func (r *LastSync) LastSyncError(lastsyncerror string) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.LastSyncError = &lastsyncerror
 
@@ -421,32 +459,45 @@ func (r *LastSync) LastSyncError(lastsyncerror string) *LastSync {
 }
 
 // API name: last_sync_scheduled_at
-func (r *LastSync) LastSyncScheduledAt(datetime types.DateTime) *LastSync {
-	r.req.LastSyncScheduledAt = datetime
+func (r *LastSync) LastSyncScheduledAt(datetime types.DateTimeVariant) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.LastSyncScheduledAt = *datetime.DateTimeCaster()
 
 	return r
 }
 
 // API name: last_sync_status
 func (r *LastSync) LastSyncStatus(lastsyncstatus syncstatus.SyncStatus) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.LastSyncStatus = &lastsyncstatus
-
 	return r
 }
 
 // API name: last_synced
-func (r *LastSync) LastSynced(datetime types.DateTime) *LastSync {
-	r.req.LastSynced = datetime
+func (r *LastSync) LastSynced(datetime types.DateTimeVariant) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.LastSynced = *datetime.DateTimeCaster()
 
 	return r
 }
 
 // API name: sync_cursor
-//
-// synccursor should be a json.RawMessage or a structure
-// if a structure is provided, the client will defer a json serialization
-// prior to sending the payload to Elasticsearch.
 func (r *LastSync) SyncCursor(synccursor any) *LastSync {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	switch casted := synccursor.(type) {
 	case json.RawMessage:
 		r.req.SyncCursor = casted
@@ -460,6 +511,5 @@ func (r *LastSync) SyncCursor(synccursor any) *LastSync {
 			return nil
 		})
 	}
-
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // ShardStore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/shard_stores/types.ts#L30-L37
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/shard_stores/types.ts#L29-L36
 type ShardStore struct {
 	Allocation     shardstoreallocation.ShardStoreAllocation `json:"allocation"`
 	AllocationId   *string                                   `json:"allocation_id,omitempty"`
@@ -120,8 +120,10 @@ func (s ShardStore) MarshalJSON() ([]byte, error) {
 // NewShardStore returns a ShardStore.
 func NewShardStore() *ShardStore {
 	r := &ShardStore{
-		ShardStore: make(map[string]ShardStoreNode, 0),
+		ShardStore: make(map[string]ShardStoreNode),
 	}
 
 	return r
 }
+
+// false

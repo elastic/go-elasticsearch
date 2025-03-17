@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // HttpInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Input.ts#L44-L48
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Input.ts#L44-L48
 type HttpInput struct {
 	Extract             []string                                 `json:"extract,omitempty"`
 	Request             *HttpInputRequestDefinition              `json:"request,omitempty"`
@@ -38,4 +38,14 @@ func NewHttpInput() *HttpInput {
 	r := &HttpInput{}
 
 	return r
+}
+
+// true
+
+type HttpInputVariant interface {
+	HttpInputCaster() *HttpInput
+}
+
+func (s *HttpInput) HttpInputCaster() *HttpInput {
+	return s
 }

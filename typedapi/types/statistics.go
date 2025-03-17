@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Statistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/slm/_types/SnapshotLifecycle.ts#L51-L74
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/slm/_types/SnapshotLifecycle.ts#L61-L84
 type Statistics struct {
 	Policy                        *string  `json:"policy,omitempty"`
 	RetentionDeletionTime         Duration `json:"retention_deletion_time,omitempty"`
@@ -191,3 +191,5 @@ func NewStatistics() *Statistics {
 
 	return r
 }
+
+// false

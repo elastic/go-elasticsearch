@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ExecutingPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/enrich/stats/types.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/enrich/stats/types.ts#L25-L28
 type ExecutingPolicy struct {
 	Name string   `json:"name"`
 	Task TaskInfo `json:"task"`
@@ -72,3 +72,5 @@ func NewExecutingPolicy() *ExecutingPolicy {
 
 	return r
 }
+
+// false

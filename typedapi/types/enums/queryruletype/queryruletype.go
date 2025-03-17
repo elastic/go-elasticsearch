@@ -16,20 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Package queryruletype
 package queryruletype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/query_rules/_types/QueryRuleset.ts#L44-L46
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/query_rules/_types/QueryRuleset.ts#L60-L63
 type QueryRuleType struct {
 	Name string
 }
 
 var (
 	Pinned = QueryRuleType{"pinned"}
+
+	Exclude = QueryRuleType{"exclude"}
 )
 
 func (q QueryRuleType) MarshalText() (text []byte, err error) {
@@ -41,6 +43,8 @@ func (q *QueryRuleType) UnmarshalText(text []byte) error {
 
 	case "pinned":
 		*q = Pinned
+	case "exclude":
+		*q = Exclude
 	default:
 		*q = QueryRuleType{string(text)}
 	}

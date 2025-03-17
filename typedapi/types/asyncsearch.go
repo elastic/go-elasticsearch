@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -32,10 +32,10 @@ import (
 
 // AsyncSearch type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/async_search/_types/AsyncSearch.ts#L30-L56
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/async_search/_types/AsyncSearch.ts#L30-L56
 type AsyncSearch struct {
 	// Aggregations Partial aggregations results, coming from the shards that have already
-	// completed the execution of the query.
+	// completed running the query.
 	Aggregations map[string]Aggregate       `json:"aggregations,omitempty"`
 	Clusters_    *ClusterStatistics         `json:"_clusters,omitempty"`
 	Fields       map[string]json.RawMessage `json:"fields,omitempty"`
@@ -502,6 +502,13 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 								}
 								s.Aggregations[elems[1]] = o
 
+							case "time_series":
+								o := NewTimeSeriesAggregate()
+								if err := dec.Decode(&o); err != nil {
+									return fmt.Errorf("%s | %w", "Aggregations", err)
+								}
+								s.Aggregations[elems[1]] = o
+
 							case "scripted_metric":
 								o := NewScriptedMetricAggregate()
 								if err := dec.Decode(&o); err != nil {
@@ -782,10 +789,12 @@ func (s *AsyncSearch) UnmarshalJSON(data []byte) error {
 // NewAsyncSearch returns a AsyncSearch.
 func NewAsyncSearch() *AsyncSearch {
 	r := &AsyncSearch{
-		Aggregations: make(map[string]Aggregate, 0),
-		Fields:       make(map[string]json.RawMessage, 0),
-		Suggest:      make(map[string][]Suggest, 0),
+		Aggregations: make(map[string]Aggregate),
+		Fields:       make(map[string]json.RawMessage),
+		Suggest:      make(map[string][]Suggest),
 	}
 
 	return r
 }
+
+// false

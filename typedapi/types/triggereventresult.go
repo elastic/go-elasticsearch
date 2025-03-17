@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TriggerEventResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Trigger.ts#L39-L43
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Trigger.ts#L39-L43
 type TriggerEventResult struct {
 	Manual        TriggerEventContainer `json:"manual"`
 	TriggeredTime DateTime              `json:"triggered_time"`
@@ -86,3 +86,5 @@ func NewTriggerEventResult() *TriggerEventResult {
 
 	return r
 }
+
+// false

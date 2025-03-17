@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,13 +31,20 @@ import (
 
 // QueryRulesetListItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/query_rules/list_rulesets/types.ts#L23-L37
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/query_rules/list_rulesets/types.ts#L23-L44
 type QueryRulesetListItem struct {
-	// RuleCriteriaTypesCounts A map of criteria type to the number of rules of that type
+	// RuleCriteriaTypesCounts A map of criteria type (for example, `exact`) to the number of rules of that
+	// type.
+	//
+	// NOTE: The counts in `rule_criteria_types_counts` may be larger than the value
+	// of `rule_total_count` because a rule may have multiple criteria.
 	RuleCriteriaTypesCounts map[string]int `json:"rule_criteria_types_counts"`
-	// RuleTotalCount The number of rules associated with this ruleset
+	// RuleTotalCount The number of rules associated with the ruleset.
 	RuleTotalCount int `json:"rule_total_count"`
-	// RulesetId Ruleset unique identifier
+	// RuleTypeCounts A map of rule type (for example, `pinned`) to the number of rules of that
+	// type.
+	RuleTypeCounts map[string]int `json:"rule_type_counts"`
+	// RulesetId A unique identifier for the ruleset.
 	RulesetId string `json:"ruleset_id"`
 }
 
@@ -80,6 +87,14 @@ func (s *QueryRulesetListItem) UnmarshalJSON(data []byte) error {
 				s.RuleTotalCount = f
 			}
 
+		case "rule_type_counts":
+			if s.RuleTypeCounts == nil {
+				s.RuleTypeCounts = make(map[string]int, 0)
+			}
+			if err := dec.Decode(&s.RuleTypeCounts); err != nil {
+				return fmt.Errorf("%s | %w", "RuleTypeCounts", err)
+			}
+
 		case "ruleset_id":
 			if err := dec.Decode(&s.RulesetId); err != nil {
 				return fmt.Errorf("%s | %w", "RulesetId", err)
@@ -93,8 +108,11 @@ func (s *QueryRulesetListItem) UnmarshalJSON(data []byte) error {
 // NewQueryRulesetListItem returns a QueryRulesetListItem.
 func NewQueryRulesetListItem() *QueryRulesetListItem {
 	r := &QueryRulesetListItem{
-		RuleCriteriaTypesCounts: make(map[string]int, 0),
+		RuleCriteriaTypesCounts: make(map[string]int),
+		RuleTypeCounts:          make(map[string]int),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexState.ts#L27-L40
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/IndexState.ts#L27-L40
 type IndexState struct {
 	Aliases    map[string]Alias `json:"aliases,omitempty"`
 	DataStream *string          `json:"data_stream,omitempty"`
@@ -98,8 +98,18 @@ func (s *IndexState) UnmarshalJSON(data []byte) error {
 // NewIndexState returns a IndexState.
 func NewIndexState() *IndexState {
 	r := &IndexState{
-		Aliases: make(map[string]Alias, 0),
+		Aliases: make(map[string]Alias),
 	}
 
 	return r
+}
+
+// true
+
+type IndexStateVariant interface {
+	IndexStateCaster() *IndexState
+}
+
+func (s *IndexState) IndexStateCaster() *IndexState {
+	return s
 }

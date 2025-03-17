@@ -16,12 +16,44 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns information about ongoing and completed shard recoveries for one or
-// more indices.
-// For data streams, the API returns information for the stream’s backing
+// Get index recovery information.
+// Get information about ongoing and completed shard recoveries for one or more
 // indices.
+// For data streams, the API returns information for the stream's backing
+// indices.
+//
+// All recoveries, whether ongoing or complete, are kept in the cluster state
+// and may be reported on at any time.
+//
+// Shard recovery is the process of initializing a shard copy, such as restoring
+// a primary shard from a snapshot or creating a replica shard from a primary
+// shard.
+// When a shard recovery completes, the recovered shard is available for search
+// and indexing.
+//
+// Recovery automatically occurs during the following processes:
+//
+// * When creating an index for the first time.
+// * When a node rejoins the cluster and starts up any missing primary shard
+// copies using the data that it holds in its data path.
+// * Creation of new replica shard copies from the primary.
+// * Relocation of a shard copy to a different node in the same cluster.
+// * A snapshot restore operation.
+// * A clone, shrink, or split operation.
+//
+// You can determine the cause of a shard recovery using the recovery or cat
+// recovery APIs.
+//
+// The index recovery API reports information about completed recoveries only
+// for shard copies that currently exist in the cluster.
+// It only reports the last recovery for each shard copy and does not report
+// historical information about earlier recoveries, nor does it report
+// information about the recoveries of shard copies that no longer exist.
+// This means that if a shard copy completes a recovery and then Elasticsearch
+// relocates it onto a different node then the information about the original
+// recovery will not be shown in the recovery API.
 package recovery
 
 import (
@@ -77,10 +109,42 @@ func NewRecoveryFunc(tp elastictransport.Interface) NewRecovery {
 	}
 }
 
-// Returns information about ongoing and completed shard recoveries for one or
-// more indices.
-// For data streams, the API returns information for the stream’s backing
+// Get index recovery information.
+// Get information about ongoing and completed shard recoveries for one or more
 // indices.
+// For data streams, the API returns information for the stream's backing
+// indices.
+//
+// All recoveries, whether ongoing or complete, are kept in the cluster state
+// and may be reported on at any time.
+//
+// Shard recovery is the process of initializing a shard copy, such as restoring
+// a primary shard from a snapshot or creating a replica shard from a primary
+// shard.
+// When a shard recovery completes, the recovered shard is available for search
+// and indexing.
+//
+// Recovery automatically occurs during the following processes:
+//
+// * When creating an index for the first time.
+// * When a node rejoins the cluster and starts up any missing primary shard
+// copies using the data that it holds in its data path.
+// * Creation of new replica shard copies from the primary.
+// * Relocation of a shard copy to a different node in the same cluster.
+// * A snapshot restore operation.
+// * A clone, shrink, or split operation.
+//
+// You can determine the cause of a shard recovery using the recovery or cat
+// recovery APIs.
+//
+// The index recovery API reports information about completed recoveries only
+// for shard copies that currently exist in the cluster.
+// It only reports the last recovery for each shard copy and does not report
+// historical information about earlier recoveries, nor does it report
+// information about the recoveries of shard copies that no longer exist.
+// This means that if a shard copy completes a recovery and then Elasticsearch
+// relocates it onto a different node then the information about the original
+// recovery will not be shown in the recovery API.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-recovery.html
 func New(tp elastictransport.Interface) *Recovery {

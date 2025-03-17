@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // HttpInputRequestResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Actions.ts#L300-L300
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Actions.ts#L300-L300
 type HttpInputRequestResult struct {
 	Auth              *HttpInputAuthentication           `json:"auth,omitempty"`
 	Body              *string                            `json:"body,omitempty"`
@@ -166,9 +166,11 @@ func (s *HttpInputRequestResult) UnmarshalJSON(data []byte) error {
 // NewHttpInputRequestResult returns a HttpInputRequestResult.
 func NewHttpInputRequestResult() *HttpInputRequestResult {
 	r := &HttpInputRequestResult{
-		Headers: make(map[string]string, 0),
-		Params:  make(map[string]string, 0),
+		Headers: make(map[string]string),
+		Params:  make(map[string]string),
 	}
 
 	return r
 }
+
+// false

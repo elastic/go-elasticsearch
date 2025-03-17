@@ -16,10 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Gets a list of features which can be included in snapshots using the
-// feature_states field when creating a snapshot
+// Get the features.
+// Get a list of features that can be included in snapshots using the
+// `feature_states` field when creating a snapshot.
+// You can use this API to determine which feature states to include when taking
+// a snapshot.
+// By default, all feature states are included in a snapshot if that snapshot
+// includes the global state, or none if it does not.
+//
+// A feature state includes one or more system indices necessary for a given
+// feature to function.
+// In order to ensure data integrity, all system indices that comprise a feature
+// state are snapshotted and restored together.
+//
+// The features listed by this API are a combination of built-in features and
+// features defined by plugins.
+// In order for a feature state to be listed in this API and recognized as a
+// valid feature state by the create snapshot API, the plugin that defines that
+// feature must be installed on the master node.
 package getfeatures
 
 import (
@@ -69,8 +85,24 @@ func NewGetFeaturesFunc(tp elastictransport.Interface) NewGetFeatures {
 	}
 }
 
-// Gets a list of features which can be included in snapshots using the
-// feature_states field when creating a snapshot
+// Get the features.
+// Get a list of features that can be included in snapshots using the
+// `feature_states` field when creating a snapshot.
+// You can use this API to determine which feature states to include when taking
+// a snapshot.
+// By default, all feature states are included in a snapshot if that snapshot
+// includes the global state, or none if it does not.
+//
+// A feature state includes one or more system indices necessary for a given
+// feature to function.
+// In order to ensure data integrity, all system indices that comprise a feature
+// state are snapshotted and restored together.
+//
+// The features listed by this API are a combination of built-in features and
+// features defined by plugins.
+// In order for a feature state to be listed in this API and recognized as a
+// valid feature state by the create snapshot API, the plugin that defines that
+// feature must be installed on the master node.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-features-api.html
 func New(tp elastictransport.Interface) *GetFeatures {
@@ -272,6 +304,14 @@ func (r GetFeatures) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the GetFeatures headers map.
 func (r *GetFeatures) Header(key, value string) *GetFeatures {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *GetFeatures) MasterTimeout(duration string) *GetFeatures {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

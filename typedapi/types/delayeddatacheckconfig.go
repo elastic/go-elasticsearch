@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DelayedDataCheckConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Datafeed.ts#L118-L129
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/Datafeed.ts#L122-L133
 type DelayedDataCheckConfig struct {
 	// CheckWindow The window of time that is searched for late data. This window of time ends
 	// with the latest finalized bucket.
@@ -88,4 +88,14 @@ func NewDelayedDataCheckConfig() *DelayedDataCheckConfig {
 	r := &DelayedDataCheckConfig{}
 
 	return r
+}
+
+// true
+
+type DelayedDataCheckConfigVariant interface {
+	DelayedDataCheckConfigCaster() *DelayedDataCheckConfig
+}
+
+func (s *DelayedDataCheckConfig) DelayedDataCheckConfigCaster() *DelayedDataCheckConfig {
+	return s
 }

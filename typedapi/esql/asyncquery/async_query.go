@@ -16,21 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Executes an ESQL request asynchronously
+// Run an async ES|QL query.
+// Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
+// progress, and retrieve results when they become available.
+//
+// The API accepts the same parameters and request body as the synchronous query
+// API, along with additional async related properties.
 package asyncquery
 
 import (
+	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/esqlformat"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -44,6 +54,10 @@ type AsyncQuery struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -65,7 +79,12 @@ func NewAsyncQueryFunc(tp elastictransport.Interface) NewAsyncQuery {
 	}
 }
 
-// Executes an ESQL request asynchronously
+// Run an async ES|QL query.
+// Asynchronously run an ES|QL (Elasticsearch query language) query, monitor its
+// progress, and retrieve results when they become available.
+//
+// The API accepts the same parameters and request body as the synchronous query
+// API, along with additional async related properties.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-async-query-api.html
 func New(tp elastictransport.Interface) *AsyncQuery {
@@ -73,6 +92,8 @@ func New(tp elastictransport.Interface) *AsyncQuery {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -80,6 +101,21 @@ func New(tp elastictransport.Interface) *AsyncQuery {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *AsyncQuery) Raw(raw io.Reader) *AsyncQuery {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *AsyncQuery) Request(req *Request) *AsyncQuery {
+	r.req = req
 
 	return r
 }
@@ -92,6 +128,31 @@ func (r *AsyncQuery) HttpRequest(ctx context.Context) (*http.Request, error) {
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for AsyncQuery: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -180,13 +241,7 @@ func (r AsyncQuery) Perform(providedCtx context.Context) (*http.Response, error)
 }
 
 // Do runs the request through the transport, handle the response and returns a asyncquery.Response
-func (r AsyncQuery) Do(ctx context.Context) (bool, error) {
-	return r.IsSuccess(ctx)
-}
-
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r AsyncQuery) IsSuccess(providedCtx context.Context) (bool, error) {
+func (r AsyncQuery) Do(providedCtx context.Context) (Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -197,35 +252,280 @@ func (r AsyncQuery) IsSuccess(providedCtx context.Context) (bool, error) {
 		ctx = providedCtx
 	}
 
+	response := NewResponse()
+
 	res, err := r.Perform(ctx)
-
 	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the AsyncQuery query execution, status code: %d", res.StatusCode)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
-		return false, err
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		response, err = io.ReadAll(res.Body)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
 	}
 
-	return false, nil
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the AsyncQuery headers map.
 func (r *AsyncQuery) Header(key, value string) *AsyncQuery {
 	r.headers.Set(key, value)
 
+	return r
+}
+
+// Delimiter The character to use between values within a CSV row.
+// It is valid only for the CSV format.
+// API name: delimiter
+func (r *AsyncQuery) Delimiter(delimiter string) *AsyncQuery {
+	r.values.Set("delimiter", delimiter)
+
+	return r
+}
+
+// DropNullColumns Indicates whether columns that are entirely `null` will be removed from the
+// `columns` and `values` portion of the results.
+// If `true`, the response will include an extra section under the name
+// `all_columns` which has the name of all the columns.
+// API name: drop_null_columns
+func (r *AsyncQuery) DropNullColumns(dropnullcolumns bool) *AsyncQuery {
+	r.values.Set("drop_null_columns", strconv.FormatBool(dropnullcolumns))
+
+	return r
+}
+
+// Format A short version of the Accept header, for example `json` or `yaml`.
+// API name: format
+func (r *AsyncQuery) Format(format esqlformat.EsqlFormat) *AsyncQuery {
+	r.values.Set("format", format.String())
+
+	return r
+}
+
+// KeepAlive The period for which the query and its results are stored in the cluster.
+// The default period is five days.
+// When this period expires, the query and its results are deleted, even if the
+// query is still ongoing.
+// If the `keep_on_completion` parameter is false, Elasticsearch only stores
+// async queries that do not complete within the period set by the
+// `wait_for_completion_timeout` parameter, regardless of this value.
+// API name: keep_alive
+func (r *AsyncQuery) KeepAlive(duration string) *AsyncQuery {
+	r.values.Set("keep_alive", duration)
+
+	return r
+}
+
+// KeepOnCompletion Indicates whether the query and its results are stored in the cluster.
+// If false, the query and its results are stored in the cluster only if the
+// request does not complete during the period set by the
+// `wait_for_completion_timeout` parameter.
+// API name: keep_on_completion
+func (r *AsyncQuery) KeepOnCompletion(keeponcompletion bool) *AsyncQuery {
+	r.values.Set("keep_on_completion", strconv.FormatBool(keeponcompletion))
+
+	return r
+}
+
+// WaitForCompletionTimeout The period to wait for the request to finish.
+// By default, the request waits for 1 second for the query results.
+// If the query completes during this period, results are returned
+// Otherwise, a query ID is returned that can later be used to retrieve the
+// results.
+// API name: wait_for_completion_timeout
+func (r *AsyncQuery) WaitForCompletionTimeout(duration string) *AsyncQuery {
+	r.values.Set("wait_for_completion_timeout", duration)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *AsyncQuery) ErrorTrace(errortrace bool) *AsyncQuery {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *AsyncQuery) FilterPath(filterpaths ...string) *AsyncQuery {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *AsyncQuery) Human(human bool) *AsyncQuery {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *AsyncQuery) Pretty(pretty bool) *AsyncQuery {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// By default, ES|QL returns results as rows. For example, FROM returns each
+// individual document as one row. For the JSON, YAML, CBOR and smile formats,
+// ES|QL can return the results in a columnar fashion where one row represents
+// all the values of a certain column in the results.
+// API name: columnar
+func (r *AsyncQuery) Columnar(columnar bool) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Columnar = &columnar
+
+	return r
+}
+
+// Specify a Query DSL query in the filter parameter to filter the set of
+// documents that an ES|QL query runs on.
+// API name: filter
+func (r *AsyncQuery) Filter(filter types.QueryVariant) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Filter = filter.QueryCaster()
+
+	return r
+}
+
+// When set to `true` and performing a cross-cluster query, the response will
+// include an extra `_clusters`
+// object with information about the clusters that participated in the search
+// along with info such as shards
+// count.
+// API name: include_ccs_metadata
+func (r *AsyncQuery) IncludeCcsMetadata(includeccsmetadata bool) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IncludeCcsMetadata = &includeccsmetadata
+
+	return r
+}
+
+// API name: locale
+func (r *AsyncQuery) Locale(locale string) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Locale = &locale
+
+	return r
+}
+
+// To avoid any attempts of hacking or code injection, extract the values in a
+// separate list of parameters. Use question mark placeholders (?) in the query
+// string for each of the parameters.
+// API name: params
+func (r *AsyncQuery) Params(params ...types.FieldValueVariant) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range params {
+
+		r.req.Params = append(r.req.Params, *v.FieldValueCaster())
+
+	}
+	return r
+}
+
+// If provided and `true` the response will include an extra `profile` object
+// with information on how the query was executed. This information is for human
+// debugging
+// and its format can change at any time but it can give some insight into the
+// performance
+// of each part of the query.
+// API name: profile
+func (r *AsyncQuery) Profile(profile bool) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Profile = &profile
+
+	return r
+}
+
+// The ES|QL query API accepts an ES|QL query string in the query parameter,
+// runs it, and returns the results.
+// API name: query
+func (r *AsyncQuery) Query(query string) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Query = query
+
+	return r
+}
+
+// Tables to use with the LOOKUP operation. The top level key is the table
+// name and the next level key is the column name.
+// API name: tables
+func (r *AsyncQuery) Tables(tables map[string]map[string]types.TableValuesContainer) *AsyncQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Tables = tables
 	return r
 }

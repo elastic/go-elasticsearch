@@ -16,9 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Invalidates one or more access tokens or refresh tokens.
+// Invalidate a token.
+//
+// The access tokens returned by the get token API have a finite period of time
+// for which they are valid.
+// After that time period, they can no longer be used.
+// The time period is defined by the `xpack.security.authc.token.timeout`
+// setting.
+//
+// The refresh tokens returned by the get token API are only valid for 24 hours.
+// They can also be used exactly once.
+// If you want to invalidate one or more access or refresh tokens immediately,
+// use this invalidate token API.
+//
+// NOTE: While all parameters are optional, at least one of them is required.
+// More specifically, either one of `token` or `refresh_token` parameters is
+// required.
+// If none of these two are specified, then `realm_name` and/or `username` need
+// to be specified.
 package invalidatetoken
 
 import (
@@ -73,7 +90,24 @@ func NewInvalidateTokenFunc(tp elastictransport.Interface) NewInvalidateToken {
 	}
 }
 
-// Invalidates one or more access tokens or refresh tokens.
+// Invalidate a token.
+//
+// The access tokens returned by the get token API have a finite period of time
+// for which they are valid.
+// After that time period, they can no longer be used.
+// The time period is defined by the `xpack.security.authc.token.timeout`
+// setting.
+//
+// The refresh tokens returned by the get token API are only valid for 24 hours.
+// They can also be used exactly once.
+// If you want to invalidate one or more access or refresh tokens immediately,
+// use this invalidate token API.
+//
+// NOTE: While all parameters are optional, at least one of them is required.
+// More specifically, either one of `token` or `refresh_token` parameters is
+// required.
+// If none of these two are specified, then `realm_name` and/or `username` need
+// to be specified.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html
 func New(tp elastictransport.Interface) *InvalidateToken {
@@ -83,8 +117,6 @@ func New(tp elastictransport.Interface) *InvalidateToken {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -338,31 +370,59 @@ func (r *InvalidateToken) Pretty(pretty bool) *InvalidateToken {
 	return r
 }
 
+// The name of an authentication realm.
+// This parameter cannot be used with either `refresh_token` or `token`.
 // API name: realm_name
 func (r *InvalidateToken) RealmName(name string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.RealmName = &name
 
 	return r
 }
 
+// A refresh token.
+// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
+// `username` are used.
 // API name: refresh_token
 func (r *InvalidateToken) RefreshToken(refreshtoken string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.RefreshToken = &refreshtoken
 
 	return r
 }
 
+// An access token.
+// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
+// `username` are used.
 // API name: token
 func (r *InvalidateToken) Token(token string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Token = &token
 
 	return r
 }
 
+// The username of a user.
+// This parameter cannot be used with either `refresh_token` or `token`.
 // API name: username
 func (r *InvalidateToken) Username(username string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Username = &username
 
 	return r

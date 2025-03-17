@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // Aggregations type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/AggregationContainer.ts#L105-L514
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/AggregationContainer.ts#L107-L533
 type Aggregations struct {
+	AdditionalAggregationsProperty map[string]json.RawMessage `json:"-"`
 	// AdjacencyMatrix A bucket aggregation returning a form of adjacency matrix.
 	// The request provides a collection of named filter expressions, similar to the
 	// `filters` aggregation.
@@ -223,6 +224,10 @@ type Aggregations struct {
 	// PercentilesBucket A sibling pipeline aggregation which calculates percentiles across all bucket
 	// of a specified metric in a sibling aggregation.
 	PercentilesBucket *PercentilesBucketAggregation `json:"percentiles_bucket,omitempty"`
+	// RandomSampler A single bucket aggregation that randomly includes documents in the
+	// aggregated results.
+	// Sampling provides significant speed improvement at the cost of accuracy.
+	RandomSampler *RandomSamplerAggregation `json:"random_sampler,omitempty"`
 	// Range A multi-bucket value source based aggregation that enables the user to define
 	// a set of ranges - each representing a bucket.
 	Range *RangeAggregation `json:"range,omitempty"`
@@ -270,6 +275,10 @@ type Aggregations struct {
 	// Terms A multi-bucket value source based aggregation where buckets are dynamically
 	// built - one per unique value.
 	Terms *TermsAggregation `json:"terms,omitempty"`
+	// TimeSeries The time series aggregation queries data created using a time series index.
+	// This is typically data such as metrics or other data streams with a time
+	// component, and requires creating an index using the time series mode.
+	TimeSeries *TimeSeriesAggregation `json:"time_series,omitempty"`
 	// TopHits A metric aggregation that returns the top matching documents per bucket.
 	TopHits *TopHitsAggregation `json:"top_hits,omitempty"`
 	// TopMetrics A metric aggregation that selects metrics from the document with the largest
@@ -555,36 +564,36 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 			case "linear":
 				o := NewLinearMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "linear", err)
 				}
 				s.MovingAvg = *o
 			case "simple":
 				o := NewSimpleMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "simple", err)
 				}
 				s.MovingAvg = *o
 			case "ewma":
 				o := NewEwmaMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "ewma", err)
 				}
 				s.MovingAvg = *o
 			case "holt":
 				o := NewHoltMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "holt", err)
 				}
 				s.MovingAvg = *o
 			case "holt_winters":
 				o := NewHoltWintersMovingAverageAggregation()
 				if err := localDec.Decode(&o); err != nil {
-					return err
+					return fmt.Errorf("%s | %w", "holt_winters", err)
 				}
 				s.MovingAvg = *o
 			default:
 				if err := localDec.Decode(&s.MovingAvg); err != nil {
-					return err
+					return fmt.Errorf("MovingAvg | %w", err)
 				}
 			}
 
@@ -631,6 +640,11 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 		case "percentiles_bucket":
 			if err := dec.Decode(&s.PercentilesBucket); err != nil {
 				return fmt.Errorf("%s | %w", "PercentilesBucket", err)
+			}
+
+		case "random_sampler":
+			if err := dec.Decode(&s.RandomSampler); err != nil {
+				return fmt.Errorf("%s | %w", "RandomSampler", err)
 			}
 
 		case "range":
@@ -713,6 +727,11 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Terms", err)
 			}
 
+		case "time_series":
+			if err := dec.Decode(&s.TimeSeries); err != nil {
+				return fmt.Errorf("%s | %w", "TimeSeries", err)
+			}
+
 		case "top_hits":
 			if err := dec.Decode(&s.TopHits); err != nil {
 				return fmt.Errorf("%s | %w", "TopHits", err)
@@ -738,16 +757,69 @@ func (s *Aggregations) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "WeightedAvg", err)
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalAggregationsProperty == nil {
+					s.AdditionalAggregationsProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalAggregationsProperty", err)
+				}
+				s.AdditionalAggregationsProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s Aggregations) MarshalJSON() ([]byte, error) {
+	type opt Aggregations
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalAggregationsProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalAggregationsProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewAggregations returns a Aggregations.
 func NewAggregations() *Aggregations {
 	r := &Aggregations{
-		Aggregations: make(map[string]Aggregations, 0),
+		AdditionalAggregationsProperty: make(map[string]json.RawMessage),
+		Aggregations:                   make(map[string]Aggregations),
 	}
 
 	return r
+}
+
+// true
+
+type AggregationsVariant interface {
+	AggregationsCaster() *Aggregations
+}
+
+func (s *Aggregations) AggregationsCaster() *Aggregations {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CommandAllocatePrimaryAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/reroute/types.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/cluster/reroute/types.ts#L78-L84
 type CommandAllocatePrimaryAction struct {
 	// AcceptDataLoss If a node which has a copy of the data rejoins the cluster later on, that
 	// data will be deleted. To ensure that these implications are well-understood,
@@ -114,4 +114,14 @@ func NewCommandAllocatePrimaryAction() *CommandAllocatePrimaryAction {
 	r := &CommandAllocatePrimaryAction{}
 
 	return r
+}
+
+// true
+
+type CommandAllocatePrimaryActionVariant interface {
+	CommandAllocatePrimaryActionCaster() *CommandAllocatePrimaryAction
+}
+
+func (s *CommandAllocatePrimaryAction) CommandAllocatePrimaryActionCaster() *CommandAllocatePrimaryAction {
+	return s
 }

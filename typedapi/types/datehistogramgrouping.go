@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DateHistogramGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/rollup/_types/Groupings.ts#L42-L73
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/rollup/_types/Groupings.ts#L42-L73
 type DateHistogramGrouping struct {
 	// CalendarInterval The interval of time buckets to be generated when rolling up.
 	CalendarInterval Duration `json:"calendar_interval,omitempty"`
@@ -123,4 +123,14 @@ func NewDateHistogramGrouping() *DateHistogramGrouping {
 	r := &DateHistogramGrouping{}
 
 	return r
+}
+
+// true
+
+type DateHistogramGroupingVariant interface {
+	DateHistogramGroupingCaster() *DateHistogramGrouping
+}
+
+func (s *DateHistogramGrouping) DateHistogramGroupingCaster() *DateHistogramGrouping {
+	return s
 }

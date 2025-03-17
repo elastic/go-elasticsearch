@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SlackAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Actions.ts#L101-L117
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Actions.ts#L101-L117
 type SlackAttachment struct {
 	AuthorIcon *string                `json:"author_icon,omitempty"`
 	AuthorLink *string                `json:"author_link,omitempty"`
@@ -241,4 +241,14 @@ func NewSlackAttachment() *SlackAttachment {
 	r := &SlackAttachment{}
 
 	return r
+}
+
+// true
+
+type SlackAttachmentVariant interface {
+	SlackAttachmentCaster() *SlackAttachment
+}
+
+func (s *SlackAttachment) SlackAttachmentCaster() *SlackAttachment {
+	return s
 }

@@ -16,10 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns information about the master node, including the ID, bound IP
-// address, and name.
+// Get master node information.
+//
+// Get information about the master node, including the ID, bound IP address,
+// and name.
+//
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the nodes info API.
@@ -72,8 +75,11 @@ func NewMasterFunc(tp elastictransport.Interface) NewMaster {
 	}
 }
 
-// Returns information about the master node, including the ID, bound IP
-// address, and name.
+// Get master node information.
+//
+// Get information about the master node, including the ID, bound IP address,
+// and name.
+//
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the nodes info API.
@@ -284,15 +290,6 @@ func (r *Master) Header(key, value string) *Master {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Master) Format(format string) *Master {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Master) H(names ...string) *Master {
@@ -301,11 +298,12 @@ func (r *Master) H(names ...string) *Master {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Master) Help(help bool) *Master {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Master) S(names ...string) *Master {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -329,12 +327,20 @@ func (r *Master) MasterTimeout(duration string) *Master {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Master) S(names ...string) *Master {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Master) Format(format string) *Master {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Master) Help(help bool) *Master {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

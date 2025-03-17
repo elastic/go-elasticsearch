@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,11 +33,40 @@ import (
 
 // QueryRuleCriteria type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/query_rules/_types/QueryRuleset.ts#L48-L52
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/query_rules/_types/QueryRuleset.ts#L65-L93
 type QueryRuleCriteria struct {
-	Metadata *string                                     `json:"metadata,omitempty"`
-	Type     queryrulecriteriatype.QueryRuleCriteriaType `json:"type"`
-	Values   []json.RawMessage                           `json:"values,omitempty"`
+	// Metadata The metadata field to match against.
+	// This metadata will be used to match against `match_criteria` sent in the
+	// rule.
+	// It is required for all criteria types except `always`.
+	Metadata *string `json:"metadata,omitempty"`
+	// Type The type of criteria. The following criteria types are supported:
+	//
+	// * `always`: Matches all queries, regardless of input.
+	// * `contains`: Matches that contain this value anywhere in the field meet the
+	// criteria defined by the rule. Only applicable for string values.
+	// * `exact`: Only exact matches meet the criteria defined by the rule.
+	// Applicable for string or numerical values.
+	// * `fuzzy`: Exact matches or matches within the allowed Levenshtein Edit
+	// Distance meet the criteria defined by the rule. Only applicable for string
+	// values.
+	// * `gt`: Matches with a value greater than this value meet the criteria
+	// defined by the rule. Only applicable for numerical values.
+	// * `gte`: Matches with a value greater than or equal to this value meet the
+	// criteria defined by the rule. Only applicable for numerical values.
+	// * `lt`: Matches with a value less than this value meet the criteria defined
+	// by the rule. Only applicable for numerical values.
+	// * `lte`: Matches with a value less than or equal to this value meet the
+	// criteria defined by the rule. Only applicable for numerical values.
+	// * `prefix`: Matches that start with this value meet the criteria defined by
+	// the rule. Only applicable for string values.
+	// * `suffix`: Matches that end with this value meet the criteria defined by the
+	// rule. Only applicable for string values.
+	Type queryrulecriteriatype.QueryRuleCriteriaType `json:"type"`
+	// Values The values to match against the `metadata` field.
+	// Only one value must match for the criteria to be met.
+	// It is required for all criteria types except `always`.
+	Values []json.RawMessage `json:"values,omitempty"`
 }
 
 func (s *QueryRuleCriteria) UnmarshalJSON(data []byte) error {
@@ -87,4 +116,14 @@ func NewQueryRuleCriteria() *QueryRuleCriteria {
 	r := &QueryRuleCriteria{}
 
 	return r
+}
+
+// true
+
+type QueryRuleCriteriaVariant interface {
+	QueryRuleCriteriaCaster() *QueryRuleCriteria
+}
+
+func (s *QueryRuleCriteria) QueryRuleCriteriaCaster() *QueryRuleCriteria {
+	return s
 }

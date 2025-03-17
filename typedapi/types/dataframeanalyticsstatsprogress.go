@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalyticsStatsProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeAnalytics.ts#L346-L351
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/DataframeAnalytics.ts#L347-L352
 type DataframeAnalyticsStatsProgress struct {
 	// Phase Defines the phase of the data frame analytics job.
 	Phase string `json:"phase"`
@@ -94,3 +94,5 @@ func NewDataframeAnalyticsStatsProgress() *DataframeAnalyticsStatsProgress {
 
 	return r
 }
+
+// false

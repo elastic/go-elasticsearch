@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,13 +33,23 @@ import (
 
 // QueryRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/query_rules/_types/QueryRuleset.ts#L36-L42
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/query_rules/_types/QueryRuleset.ts#L36-L58
 type QueryRule struct {
-	Actions  QueryRuleActions            `json:"actions"`
-	Criteria []QueryRuleCriteria         `json:"criteria"`
-	Priority *int                        `json:"priority,omitempty"`
-	RuleId   string                      `json:"rule_id"`
-	Type     queryruletype.QueryRuleType `json:"type"`
+	// Actions The actions to take when the rule is matched.
+	// The format of this action depends on the rule type.
+	Actions QueryRuleActions `json:"actions"`
+	// Criteria The criteria that must be met for the rule to be applied.
+	// If multiple criteria are specified for a rule, all criteria must be met for
+	// the rule to be applied.
+	Criteria []QueryRuleCriteria `json:"criteria"`
+	Priority *int                `json:"priority,omitempty"`
+	// RuleId A unique identifier for the rule.
+	RuleId string `json:"rule_id"`
+	// Type The type of rule.
+	// `pinned` will identify and pin specific documents to the top of search
+	// results.
+	// `exclude` will exclude specific documents from search results.
+	Type queryruletype.QueryRuleType `json:"type"`
 }
 
 func (s *QueryRule) UnmarshalJSON(data []byte) error {
@@ -114,4 +124,14 @@ func NewQueryRule() *QueryRule {
 	r := &QueryRule{}
 
 	return r
+}
+
+// true
+
+type QueryRuleVariant interface {
+	QueryRuleCaster() *QueryRule
+}
+
+func (s *QueryRule) QueryRuleCaster() *QueryRule {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package putdatafeed
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package putdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L172
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/put_datafeed/MlPutDatafeedRequest.ts#L37-L184
 type Request struct {
 
 	// Aggregations If set, the datafeed performs aggregation searches.
@@ -151,7 +151,7 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 
 		switch t {
 
-		case "aggregations":
+		case "aggregations", "aggs":
 			if s.Aggregations == nil {
 				s.Aggregations = make(map[string]types.Aggregations, 0)
 			}

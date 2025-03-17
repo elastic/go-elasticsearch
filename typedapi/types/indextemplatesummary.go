@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // IndexTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexTemplate.ts#L85-L107
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/IndexTemplate.ts#L96-L118
 type IndexTemplateSummary struct {
 	// Aliases Aliases to add.
 	// If the index template includes a `data_stream` object, these are data stream
@@ -43,8 +43,18 @@ type IndexTemplateSummary struct {
 // NewIndexTemplateSummary returns a IndexTemplateSummary.
 func NewIndexTemplateSummary() *IndexTemplateSummary {
 	r := &IndexTemplateSummary{
-		Aliases: make(map[string]Alias, 0),
+		Aliases: make(map[string]Alias),
 	}
 
 	return r
+}
+
+// true
+
+type IndexTemplateSummaryVariant interface {
+	IndexTemplateSummaryCaster() *IndexTemplateSummary
+}
+
+func (s *IndexTemplateSummary) IndexTemplateSummaryCaster() *IndexTemplateSummary {
+	return s
 }

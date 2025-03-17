@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // KuromojiPartOfSpeechTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/kuromoji-plugin.ts#L37-L40
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/kuromoji-plugin.ts#L37-L40
 type KuromojiPartOfSpeechTokenFilter struct {
 	Stoptags []string `json:"stoptags"`
 	Type     string   `json:"type,omitempty"`
@@ -91,4 +91,14 @@ func NewKuromojiPartOfSpeechTokenFilter() *KuromojiPartOfSpeechTokenFilter {
 	r := &KuromojiPartOfSpeechTokenFilter{}
 
 	return r
+}
+
+// true
+
+type KuromojiPartOfSpeechTokenFilterVariant interface {
+	KuromojiPartOfSpeechTokenFilterCaster() *KuromojiPartOfSpeechTokenFilter
+}
+
+func (s *KuromojiPartOfSpeechTokenFilter) KuromojiPartOfSpeechTokenFilterCaster() *KuromojiPartOfSpeechTokenFilter {
+	return s
 }

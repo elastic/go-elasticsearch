@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package explaindatalifecycle
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package explaindatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L25-L29
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/explain_data_lifecycle/IndicesExplainDataLifecycleResponse.ts#L25-L29
 type Response struct {
 	Indices map[string]types.DataStreamLifecycleExplain `json:"indices"`
 }

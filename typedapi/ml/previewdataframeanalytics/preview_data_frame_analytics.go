@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Previews the extracted features used by a data frame analytics config.
+// Preview features used by data frame analytics.
+// Preview the extracted features used by a data frame analytics config.
 package previewdataframeanalytics
 
 import (
@@ -79,9 +80,10 @@ func NewPreviewDataFrameAnalyticsFunc(tp elastictransport.Interface) NewPreviewD
 	}
 }
 
-// Previews the extracted features used by a data frame analytics config.
+// Preview features used by data frame analytics.
+// Preview the extracted features used by a data frame analytics config.
 //
-// http://www.elastic.co/guide/en/elasticsearch/reference/current/preview-dfanalytics.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/preview-dfanalytics.html
 func New(tp elastictransport.Interface) *PreviewDataFrameAnalytics {
 	r := &PreviewDataFrameAnalytics{
 		transport: tp,
@@ -89,8 +91,6 @@ func New(tp elastictransport.Interface) *PreviewDataFrameAnalytics {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -372,13 +372,17 @@ func (r *PreviewDataFrameAnalytics) Pretty(pretty bool) *PreviewDataFrameAnalyti
 	return r
 }
 
-// Config A data frame analytics config as described in create data frame analytics
+// A data frame analytics config as described in create data frame analytics
 // jobs. Note that `id` and `dest` don’t need to be provided in the context of
 // this API.
 // API name: config
-func (r *PreviewDataFrameAnalytics) Config(config *types.DataframePreviewConfig) *PreviewDataFrameAnalytics {
+func (r *PreviewDataFrameAnalytics) Config(config types.DataframePreviewConfigVariant) *PreviewDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Config = config
+	r.req.Config = config.DataframePreviewConfigCaster()
 
 	return r
 }

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Updates the name and description fields in the connector document
+// Update the connector name and description.
 package updatename
 
 import (
@@ -81,7 +81,7 @@ func NewUpdateNameFunc(tp elastictransport.Interface) NewUpdateName {
 	}
 }
 
-// Updates the name and description fields in the connector document
+// Update the connector name and description.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-name-description-api.html
 func New(tp elastictransport.Interface) *UpdateName {
@@ -91,8 +91,6 @@ func New(tp elastictransport.Interface) *UpdateName {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -361,6 +359,10 @@ func (r *UpdateName) Pretty(pretty bool) *UpdateName {
 
 // API name: description
 func (r *UpdateName) Description(description string) *UpdateName {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
@@ -369,6 +371,10 @@ func (r *UpdateName) Description(description string) *UpdateName {
 
 // API name: name
 func (r *UpdateName) Name(name string) *UpdateName {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Name = &name
 

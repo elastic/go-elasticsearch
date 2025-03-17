@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LaplaceSmoothingModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/suggester.ts#L430-L435
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/suggester.ts#L430-L435
 type LaplaceSmoothingModel struct {
 	// Alpha A constant that is added to all counts to balance weights.
 	Alpha Float64 `json:"alpha"`
@@ -78,4 +78,14 @@ func NewLaplaceSmoothingModel() *LaplaceSmoothingModel {
 	r := &LaplaceSmoothingModel{}
 
 	return r
+}
+
+// true
+
+type LaplaceSmoothingModelVariant interface {
+	LaplaceSmoothingModelCaster() *LaplaceSmoothingModel
+}
+
+func (s *LaplaceSmoothingModel) LaplaceSmoothingModelCaster() *LaplaceSmoothingModel {
+	return s
 }

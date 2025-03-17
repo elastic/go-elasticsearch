@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -42,10 +42,12 @@ package types
 //	FlattenedProperty
 //	NestedProperty
 //	ObjectProperty
+//	PassthroughObjectProperty
 //	SemanticTextProperty
 //	SparseVectorProperty
 //	CompletionProperty
 //	ConstantKeywordProperty
+//	CountedKeywordProperty
 //	FieldAliasProperty
 //	HistogramProperty
 //	IpProperty
@@ -72,5 +74,9 @@ package types
 //	LongRangeProperty
 //	IcuCollationProperty
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/Property.ts#L96-L164
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/mapping/Property.ts#L119-L189
 type Property any
+
+type PropertyVariant interface {
+	PropertyCaster() *Property
+}

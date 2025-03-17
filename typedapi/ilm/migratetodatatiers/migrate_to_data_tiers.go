@@ -16,14 +16,28 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Switches the indices, ILM policies, and legacy, composable and component
-// templates from using custom node attributes and
-// attribute-based allocation filters to using data tiers, and optionally
-// deletes one legacy index template.+
+// Migrate to data tiers routing.
+// Switch the indices, ILM policies, and legacy, composable, and component
+// templates from using custom node attributes and attribute-based allocation
+// filters to using data tiers.
+// Optionally, delete one legacy index template.
 // Using node roles enables ILM to automatically move the indices between data
 // tiers.
+//
+// Migrating away from custom node attributes routing can be manually performed.
+// This API provides an automated way of performing three out of the four manual
+// steps listed in the migration guide:
+//
+// 1. Stop setting the custom hot attribute on new indices.
+// 1. Remove custom allocation settings from existing ILM policies.
+// 1. Replace custom allocation settings from existing indices with the
+// corresponding tier preference.
+//
+// ILM must be stopped before performing the migration.
+// Use the stop ILM and get ILM status APIs to wait until the reported operation
+// mode is `STOPPED`.
 package migratetodatatiers
 
 import (
@@ -78,12 +92,26 @@ func NewMigrateToDataTiersFunc(tp elastictransport.Interface) NewMigrateToDataTi
 	}
 }
 
-// Switches the indices, ILM policies, and legacy, composable and component
-// templates from using custom node attributes and
-// attribute-based allocation filters to using data tiers, and optionally
-// deletes one legacy index template.+
+// Migrate to data tiers routing.
+// Switch the indices, ILM policies, and legacy, composable, and component
+// templates from using custom node attributes and attribute-based allocation
+// filters to using data tiers.
+// Optionally, delete one legacy index template.
 // Using node roles enables ILM to automatically move the indices between data
 // tiers.
+//
+// Migrating away from custom node attributes routing can be manually performed.
+// This API provides an automated way of performing three out of the four manual
+// steps listed in the migration guide:
+//
+// 1. Stop setting the custom hot attribute on new indices.
+// 1. Remove custom allocation settings from existing ILM policies.
+// 1. Replace custom allocation settings from existing indices with the
+// corresponding tier preference.
+//
+// ILM must be stopped before performing the migration.
+// Use the stop ILM and get ILM status APIs to wait until the reported operation
+// mode is `STOPPED`.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-migrate-to-data-tiers.html
 func New(tp elastictransport.Interface) *MigrateToDataTiers {
@@ -93,8 +121,6 @@ func New(tp elastictransport.Interface) *MigrateToDataTiers {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -359,6 +385,10 @@ func (r *MigrateToDataTiers) Pretty(pretty bool) *MigrateToDataTiers {
 
 // API name: legacy_template_to_delete
 func (r *MigrateToDataTiers) LegacyTemplateToDelete(legacytemplatetodelete string) *MigrateToDataTiers {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.LegacyTemplateToDelete = &legacytemplatetodelete
 
@@ -367,6 +397,10 @@ func (r *MigrateToDataTiers) LegacyTemplateToDelete(legacytemplatetodelete strin
 
 // API name: node_attribute
 func (r *MigrateToDataTiers) NodeAttribute(nodeattribute string) *MigrateToDataTiers {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.NodeAttribute = &nodeattribute
 

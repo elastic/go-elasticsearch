@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,13 +33,13 @@ import (
 
 // TrainedModelAssignmentRoutingTable type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L374-L392
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/TrainedModel.ts#L430-L448
 type TrainedModelAssignmentRoutingTable struct {
 	// CurrentAllocations Current number of allocations.
 	CurrentAllocations int `json:"current_allocations"`
 	// Reason The reason for the current state. It is usually populated only when the
 	// `routing_state` is `failed`.
-	Reason string `json:"reason"`
+	Reason *string `json:"reason,omitempty"`
 	// RoutingState The current routing state.
 	RoutingState routingstate.RoutingState `json:"routing_state"`
 	// TargetAllocations Target number of allocations.
@@ -87,7 +87,7 @@ func (s *TrainedModelAssignmentRoutingTable) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Reason = o
+			s.Reason = &o
 
 		case "routing_state":
 			if err := dec.Decode(&s.RoutingState); err != nil {
@@ -121,3 +121,5 @@ func NewTrainedModelAssignmentRoutingTable() *TrainedModelAssignmentRoutingTable
 
 	return r
 }
+
+// false

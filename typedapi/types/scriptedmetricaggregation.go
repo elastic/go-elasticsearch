@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ScriptedMetricAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/metric.ts#L254-L280
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/metric.ts#L263-L289
 type ScriptedMetricAggregation struct {
 	// CombineScript Runs once on each shard after document collection is complete.
 	// Allows the aggregation to consolidate the state returned from each shard.
@@ -125,8 +125,18 @@ func (s *ScriptedMetricAggregation) UnmarshalJSON(data []byte) error {
 // NewScriptedMetricAggregation returns a ScriptedMetricAggregation.
 func NewScriptedMetricAggregation() *ScriptedMetricAggregation {
 	r := &ScriptedMetricAggregation{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type ScriptedMetricAggregationVariant interface {
+	ScriptedMetricAggregationCaster() *ScriptedMetricAggregation
+}
+
+func (s *ScriptedMetricAggregation) ScriptedMetricAggregationCaster() *ScriptedMetricAggregation {
+	return s
 }

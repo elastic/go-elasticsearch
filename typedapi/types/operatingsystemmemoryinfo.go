@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OperatingSystemMemoryInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/stats/types.ts#L541-L568
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/cluster/stats/types.ts#L541-L568
 type OperatingSystemMemoryInfo struct {
 	// AdjustedTotalInBytes Total amount, in bytes, of memory across all selected nodes, but using the
 	// value specified using the `es.total_memory_bytes` system property instead of
@@ -167,3 +167,5 @@ func NewOperatingSystemMemoryInfo() *OperatingSystemMemoryInfo {
 
 	return r
 }
+
+// false

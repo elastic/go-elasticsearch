@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TermSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/suggester.ts#L93-L99
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/suggester.ts#L93-L99
 type TermSuggestOption struct {
 	CollateMatch *bool   `json:"collate_match,omitempty"`
 	Freq         int64   `json:"freq"`
@@ -135,3 +135,5 @@ func NewTermSuggestOption() *TermSuggestOption {
 
 	return r
 }
+
+// false

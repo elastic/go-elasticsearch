@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // MlInferenceTrainedModels type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/xpack/usage/types.ts#L215-L225
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/xpack/usage/types.ts#L225-L235
 type MlInferenceTrainedModels struct {
 	All_                          MlCounter                      `json:"_all"`
 	Count                         *MlInferenceTrainedModelsCount `json:"count,omitempty"`
@@ -37,3 +37,5 @@ func NewMlInferenceTrainedModels() *MlInferenceTrainedModels {
 
 	return r
 }
+
+// false

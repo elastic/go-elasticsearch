@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Evaluates a trained model.
+// Evaluate a trained model.
 package infertrainedmodel
 
 import (
@@ -81,7 +81,7 @@ func NewInferTrainedModelFunc(tp elastictransport.Interface) NewInferTrainedMode
 	}
 }
 
-// Evaluates a trained model.
+// Evaluate a trained model.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/infer-trained-model.html
 func New(tp elastictransport.Interface) *InferTrainedModel {
@@ -91,8 +91,6 @@ func New(tp elastictransport.Interface) *InferTrainedModel {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -386,23 +384,32 @@ func (r *InferTrainedModel) Pretty(pretty bool) *InferTrainedModel {
 	return r
 }
 
-// Docs An array of objects to pass to the model for inference. The objects should
+// An array of objects to pass to the model for inference. The objects should
 // contain a fields matching your
 // configured trained model input. Typically, for NLP models, the field name is
 // `text_field`.
 // Currently, for NLP models, only a single value is allowed.
 // API name: docs
-func (r *InferTrainedModel) Docs(docs ...map[string]json.RawMessage) *InferTrainedModel {
+func (r *InferTrainedModel) Docs(docs []map[string]json.RawMessage) *InferTrainedModel {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Docs = docs
 
 	return r
 }
 
-// InferenceConfig The inference configuration updates to apply on the API call
+// The inference configuration updates to apply on the API call
 // API name: inference_config
-func (r *InferTrainedModel) InferenceConfig(inferenceconfig *types.InferenceConfigUpdateContainer) *InferTrainedModel {
+func (r *InferTrainedModel) InferenceConfig(inferenceconfig types.InferenceConfigUpdateContainerVariant) *InferTrainedModel {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.InferenceConfig = inferenceconfig
+	r.req.InferenceConfig = inferenceconfig.InferenceConfigUpdateContainerCaster()
 
 	return r
 }

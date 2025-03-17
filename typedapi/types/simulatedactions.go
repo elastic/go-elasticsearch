@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SimulatedActions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Action.ts#L96-L100
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Action.ts#L90-L94
 type SimulatedActions struct {
 	Actions []string          `json:"actions"`
 	All     *SimulatedActions `json:"all,omitempty"`
@@ -87,4 +87,14 @@ func NewSimulatedActions() *SimulatedActions {
 	r := &SimulatedActions{}
 
 	return r
+}
+
+// true
+
+type SimulatedActionsVariant interface {
+	SimulatedActionsCaster() *SimulatedActions
+}
+
+func (s *SimulatedActions) SimulatedActionsCaster() *SimulatedActions {
+	return s
 }

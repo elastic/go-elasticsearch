@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // NodesCredentials type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/get_service_credentials/types.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/get_service_credentials/types.ts#L23-L28
 type NodesCredentials struct {
 	// FileTokens File-backed tokens collected from all nodes
 	FileTokens map[string]NodesCredentialsFileToken `json:"file_tokens"`
@@ -33,8 +33,10 @@ type NodesCredentials struct {
 // NewNodesCredentials returns a NodesCredentials.
 func NewNodesCredentials() *NodesCredentials {
 	r := &NodesCredentials{
-		FileTokens: make(map[string]NodesCredentialsFileToken, 0),
+		FileTokens: make(map[string]NodesCredentialsFileToken),
 	}
 
 	return r
 }
+
+// false

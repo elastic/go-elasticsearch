@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // MultiTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L584-L624
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/bucket.ts#L601-L641
 type MultiTermsAggregation struct {
 	// CollectMode Specifies the strategy for data collection.
 	CollectMode *termsaggregationcollectmode.TermsAggregationCollectMode `json:"collect_mode,omitempty"`
@@ -190,4 +190,14 @@ func NewMultiTermsAggregation() *MultiTermsAggregation {
 	r := &MultiTermsAggregation{}
 
 	return r
+}
+
+// true
+
+type MultiTermsAggregationVariant interface {
+	MultiTermsAggregationCaster() *MultiTermsAggregation
+}
+
+func (s *MultiTermsAggregation) MultiTermsAggregationCaster() *MultiTermsAggregation {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // SnowballTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L311-L314
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/token_filters.ts#L310-L313
 type SnowballTokenFilter struct {
 	Language *snowballlanguage.SnowballLanguage `json:"language,omitempty"`
 	Type     string                             `json:"type,omitempty"`
@@ -93,4 +93,14 @@ func NewSnowballTokenFilter() *SnowballTokenFilter {
 	r := &SnowballTokenFilter{}
 
 	return r
+}
+
+// true
+
+type SnowballTokenFilterVariant interface {
+	SnowballTokenFilterCaster() *SnowballTokenFilter
+}
+
+func (s *SnowballTokenFilter) SnowballTokenFilterCaster() *SnowballTokenFilter {
+	return s
 }

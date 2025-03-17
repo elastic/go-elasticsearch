@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Updates the filtering field in the connector document
+// Update the connector filtering.
+//
+// Update the draft filtering configuration of a connector and marks the draft
+// validation state as edited.
+// The filtering draft is activated once validated by the running Elastic
+// connector service.
+// The filtering property is used to configure sync rules (both basic and
+// advanced) for a connector.
 package updatefiltering
 
 import (
@@ -81,7 +88,14 @@ func NewUpdateFilteringFunc(tp elastictransport.Interface) NewUpdateFiltering {
 	}
 }
 
-// Updates the filtering field in the connector document
+// Update the connector filtering.
+//
+// Update the draft filtering configuration of a connector and marks the draft
+// validation state as edited.
+// The filtering draft is activated once validated by the running Elastic
+// connector service.
+// The filtering property is used to configure sync rules (both basic and
+// advanced) for a connector.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-api.html
 func New(tp elastictransport.Interface) *UpdateFiltering {
@@ -91,8 +105,6 @@ func New(tp elastictransport.Interface) *UpdateFiltering {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -360,23 +372,41 @@ func (r *UpdateFiltering) Pretty(pretty bool) *UpdateFiltering {
 }
 
 // API name: advanced_snippet
-func (r *UpdateFiltering) AdvancedSnippet(advancedsnippet *types.FilteringAdvancedSnippet) *UpdateFiltering {
+func (r *UpdateFiltering) AdvancedSnippet(advancedsnippet types.FilteringAdvancedSnippetVariant) *UpdateFiltering {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.AdvancedSnippet = advancedsnippet
+	r.req.AdvancedSnippet = advancedsnippet.FilteringAdvancedSnippetCaster()
 
 	return r
 }
 
 // API name: filtering
-func (r *UpdateFiltering) Filtering(filterings ...types.FilteringConfig) *UpdateFiltering {
-	r.req.Filtering = filterings
+func (r *UpdateFiltering) Filtering(filterings ...types.FilteringConfigVariant) *UpdateFiltering {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range filterings {
 
+		r.req.Filtering = append(r.req.Filtering, *v.FilteringConfigCaster())
+
+	}
 	return r
 }
 
 // API name: rules
-func (r *UpdateFiltering) Rules(rules ...types.FilteringRule) *UpdateFiltering {
-	r.req.Rules = rules
+func (r *UpdateFiltering) Rules(rules ...types.FilteringRuleVariant) *UpdateFiltering {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range rules {
 
+		r.req.Rules = append(r.req.Rules, *v.FilteringRuleCaster())
+
+	}
 	return r
 }

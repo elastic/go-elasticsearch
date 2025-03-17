@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,10 +33,12 @@ import (
 
 // RuntimeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/RuntimeFields.ts#L26-L48
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/mapping/RuntimeFields.ts#L26-L50
 type RuntimeField struct {
 	// FetchFields For type `lookup`
 	FetchFields []RuntimeFieldFetchFields `json:"fetch_fields,omitempty"`
+	// Fields For type `composite`
+	Fields map[string]CompositeSubField `json:"fields,omitempty"`
 	// Format A custom format for `date` type runtime fields.
 	Format *string `json:"format,omitempty"`
 	// InputField For type `lookup`
@@ -70,6 +72,14 @@ func (s *RuntimeField) UnmarshalJSON(data []byte) error {
 		case "fetch_fields":
 			if err := dec.Decode(&s.FetchFields); err != nil {
 				return fmt.Errorf("%s | %w", "FetchFields", err)
+			}
+
+		case "fields":
+			if s.Fields == nil {
+				s.Fields = make(map[string]CompositeSubField, 0)
+			}
+			if err := dec.Decode(&s.Fields); err != nil {
+				return fmt.Errorf("%s | %w", "Fields", err)
 			}
 
 		case "format":
@@ -116,7 +126,19 @@ func (s *RuntimeField) UnmarshalJSON(data []byte) error {
 
 // NewRuntimeField returns a RuntimeField.
 func NewRuntimeField() *RuntimeField {
-	r := &RuntimeField{}
+	r := &RuntimeField{
+		Fields: make(map[string]CompositeSubField),
+	}
 
 	return r
+}
+
+// true
+
+type RuntimeFieldVariant interface {
+	RuntimeFieldCaster() *RuntimeField
+}
+
+func (s *RuntimeField) RuntimeFieldCaster() *RuntimeField {
+	return s
 }

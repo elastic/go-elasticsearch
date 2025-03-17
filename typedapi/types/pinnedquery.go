@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,8 +31,9 @@ import (
 
 // PinnedQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/specialized.ts#L241-L260
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/specialized.ts#L247-L267
 type PinnedQuery struct {
+	AdditionalPinnedQueryProperty map[string]json.RawMessage `json:"-"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
 	// Boost values are relative to the default value of 1.0.
@@ -47,7 +48,7 @@ type PinnedQuery struct {
 	Ids []string `json:"ids,omitempty"`
 	// Organic Any choice of query used to rank documents which will be ranked below the
 	// "pinned" documents.
-	Organic    *Query  `json:"organic,omitempty"`
+	Organic    Query   `json:"organic"`
 	QueryName_ *string `json:"_name,omitempty"`
 }
 
@@ -109,14 +110,68 @@ func (s *PinnedQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalPinnedQueryProperty == nil {
+					s.AdditionalPinnedQueryProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalPinnedQueryProperty", err)
+				}
+				s.AdditionalPinnedQueryProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s PinnedQuery) MarshalJSON() ([]byte, error) {
+	type opt PinnedQuery
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalPinnedQueryProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalPinnedQueryProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewPinnedQuery returns a PinnedQuery.
 func NewPinnedQuery() *PinnedQuery {
-	r := &PinnedQuery{}
+	r := &PinnedQuery{
+		AdditionalPinnedQueryProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type PinnedQueryVariant interface {
+	PinnedQueryCaster() *PinnedQuery
+}
+
+func (s *PinnedQuery) PinnedQueryCaster() *PinnedQuery {
+	return s
 }

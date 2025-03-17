@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Delete an enrich policy.
 // Deletes an existing enrich policy and its enrich index.
@@ -297,6 +297,14 @@ func (r *DeletePolicy) Header(key, value string) *DeletePolicy {
 func (r *DeletePolicy) _name(name string) *DeletePolicy {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *DeletePolicy) MasterTimeout(duration string) *DeletePolicy {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

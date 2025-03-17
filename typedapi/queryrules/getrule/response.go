@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package getrule
 
@@ -27,13 +27,24 @@ import (
 
 // Response holds the response body struct for the package getrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/query_rules/get_rule/QueryRuleGetResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/query_rules/get_rule/QueryRuleGetResponse.ts#L22-L24
 type Response struct {
-	Actions  types.QueryRuleActions      `json:"actions"`
-	Criteria []types.QueryRuleCriteria   `json:"criteria"`
-	Priority *int                        `json:"priority,omitempty"`
-	RuleId   string                      `json:"rule_id"`
-	Type     queryruletype.QueryRuleType `json:"type"`
+
+	// Actions The actions to take when the rule is matched.
+	// The format of this action depends on the rule type.
+	Actions types.QueryRuleActions `json:"actions"`
+	// Criteria The criteria that must be met for the rule to be applied.
+	// If multiple criteria are specified for a rule, all criteria must be met for
+	// the rule to be applied.
+	Criteria []types.QueryRuleCriteria `json:"criteria"`
+	Priority *int                      `json:"priority,omitempty"`
+	// RuleId A unique identifier for the rule.
+	RuleId string `json:"rule_id"`
+	// Type The type of rule.
+	// `pinned` will identify and pin specific documents to the top of search
+	// results.
+	// `exclude` will exclude specific documents from search results.
+	Type queryruletype.QueryRuleType `json:"type"`
 }
 
 // NewResponse returns a Response

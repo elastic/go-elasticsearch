@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // ApiKeyAggregationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/query_api_keys/types.ts#L64-L121
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/query_api_keys/types.ts#L63-L120
 type ApiKeyAggregationContainer struct {
+	AdditionalApiKeyAggregationContainerProperty map[string]json.RawMessage `json:"-"`
 	// Aggregations Sub-aggregations for this aggregation.
 	// Only applies to bucket aggregations.
 	Aggregations map[string]ApiKeyAggregationContainer `json:"aggregations,omitempty"`
@@ -139,16 +140,69 @@ func (s *ApiKeyAggregationContainer) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "ValueCount", err)
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalApiKeyAggregationContainerProperty == nil {
+					s.AdditionalApiKeyAggregationContainerProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalApiKeyAggregationContainerProperty", err)
+				}
+				s.AdditionalApiKeyAggregationContainerProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ApiKeyAggregationContainer) MarshalJSON() ([]byte, error) {
+	type opt ApiKeyAggregationContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalApiKeyAggregationContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalApiKeyAggregationContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewApiKeyAggregationContainer returns a ApiKeyAggregationContainer.
 func NewApiKeyAggregationContainer() *ApiKeyAggregationContainer {
 	r := &ApiKeyAggregationContainer{
-		Aggregations: make(map[string]ApiKeyAggregationContainer, 0),
+		AdditionalApiKeyAggregationContainerProperty: make(map[string]json.RawMessage),
+		Aggregations: make(map[string]ApiKeyAggregationContainer),
 	}
 
 	return r
+}
+
+// true
+
+type ApiKeyAggregationContainerVariant interface {
+	ApiKeyAggregationContainerCaster() *ApiKeyAggregationContainer
+}
+
+func (s *ApiKeyAggregationContainer) ApiKeyAggregationContainerCaster() *ApiKeyAggregationContainer {
+	return s
 }

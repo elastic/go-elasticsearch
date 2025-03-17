@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns a list of plugins running on each node of a cluster.
+// Get plugin information.
+//
+// Get a list of plugins running on each node of a cluster.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the nodes info API.
@@ -71,7 +73,9 @@ func NewPluginsFunc(tp elastictransport.Interface) NewPlugins {
 	}
 }
 
-// Returns a list of plugins running on each node of a cluster.
+// Get plugin information.
+//
+// Get a list of plugins running on each node of a cluster.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the nodes info API.
@@ -282,15 +286,6 @@ func (r *Plugins) Header(key, value string) *Plugins {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Plugins) Format(format string) *Plugins {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Plugins) H(names ...string) *Plugins {
@@ -299,11 +294,20 @@ func (r *Plugins) H(names ...string) *Plugins {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Plugins) Help(help bool) *Plugins {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Plugins) S(names ...string) *Plugins {
+	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// IncludeBootstrap Include bootstrap plugins in the response
+// API name: include_bootstrap
+func (r *Plugins) IncludeBootstrap(includebootstrap bool) *Plugins {
+	r.values.Set("include_bootstrap", strconv.FormatBool(includebootstrap))
 
 	return r
 }
@@ -327,12 +331,20 @@ func (r *Plugins) MasterTimeout(duration string) *Plugins {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Plugins) S(names ...string) *Plugins {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Plugins) Format(format string) *Plugins {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Plugins) Help(help bool) *Plugins {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceTopClassEntry type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L679-L683
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L772-L776
 type InferenceTopClassEntry struct {
 	ClassName        FieldValue `json:"class_name"`
 	ClassProbability Float64    `json:"class_probability"`
@@ -101,3 +101,5 @@ func NewInferenceTopClassEntry() *InferenceTopClassEntry {
 
 	return r
 }
+
+// false

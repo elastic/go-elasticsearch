@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // BucketScriptAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/pipeline.ts#L80-L85
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/pipeline.ts#L83-L91
 type BucketScriptAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -99,4 +99,14 @@ func NewBucketScriptAggregation() *BucketScriptAggregation {
 	r := &BucketScriptAggregation{}
 
 	return r
+}
+
+// true
+
+type BucketScriptAggregationVariant interface {
+	BucketScriptAggregationCaster() *BucketScriptAggregation
+}
+
+func (s *BucketScriptAggregation) BucketScriptAggregationCaster() *BucketScriptAggregation {
+	return s
 }

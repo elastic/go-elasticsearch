@@ -16,14 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // SmoothingModelContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/suggester.ts#L445-L461
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/suggester.ts#L445-L461
 type SmoothingModelContainer struct {
+	AdditionalSmoothingModelContainerProperty map[string]json.RawMessage `json:"-"`
 	// Laplace A smoothing model that uses an additive smoothing where a constant (typically
 	// `1.0` or smaller) is added to all counts to balance weights.
 	Laplace *LaplaceSmoothingModel `json:"laplace,omitempty"`
@@ -36,9 +42,50 @@ type SmoothingModelContainer struct {
 	StupidBackoff *StupidBackoffSmoothingModel `json:"stupid_backoff,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s SmoothingModelContainer) MarshalJSON() ([]byte, error) {
+	type opt SmoothingModelContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalSmoothingModelContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalSmoothingModelContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewSmoothingModelContainer returns a SmoothingModelContainer.
 func NewSmoothingModelContainer() *SmoothingModelContainer {
-	r := &SmoothingModelContainer{}
+	r := &SmoothingModelContainer{
+		AdditionalSmoothingModelContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type SmoothingModelContainerVariant interface {
+	SmoothingModelContainerCaster() *SmoothingModelContainer
+}
+
+func (s *SmoothingModelContainer) SmoothingModelContainerCaster() *SmoothingModelContainer {
+	return s
 }

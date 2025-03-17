@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TextEmbeddingResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/inference/_types/Results.ts#L53-L58
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/inference/_types/Results.ts#L60-L65
 type TextEmbeddingResult struct {
 	Embedding []float32 `json:"embedding"`
 }
@@ -66,3 +66,5 @@ func NewTextEmbeddingResult() *TextEmbeddingResult {
 
 	return r
 }
+
+// false

@@ -16,22 +16,35 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Exchanges an OpenID Connection authentication response message for an
-// Elasticsearch access token and refresh token pair
+// Authenticate OpenID Connect.
+//
+// Exchange an OpenID Connect authentication response message for an
+// Elasticsearch internal access token and refresh token that can be
+// subsequently used for authentication.
+//
+// Elasticsearch exposes all the necessary OpenID Connect related functionality
+// with the OpenID Connect APIs.
+// These APIs are used internally by Kibana in order to provide OpenID Connect
+// based authentication, but can also be used by other, custom web applications
+// or other clients.
 package oidcauthenticate
 
 import (
+	gobytes "bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -45,6 +58,10 @@ type OidcAuthenticate struct {
 	path    url.URL
 
 	raw io.Reader
+
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
 
 	paramSet int
 
@@ -66,8 +83,17 @@ func NewOidcAuthenticateFunc(tp elastictransport.Interface) NewOidcAuthenticate 
 	}
 }
 
-// Exchanges an OpenID Connection authentication response message for an
-// Elasticsearch access token and refresh token pair
+// Authenticate OpenID Connect.
+//
+// Exchange an OpenID Connect authentication response message for an
+// Elasticsearch internal access token and refresh token that can be
+// subsequently used for authentication.
+//
+// Elasticsearch exposes all the necessary OpenID Connect related functionality
+// with the OpenID Connect APIs.
+// These APIs are used internally by Kibana in order to provide OpenID Connect
+// based authentication, but can also be used by other, custom web applications
+// or other clients.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-oidc-authenticate.html
 func New(tp elastictransport.Interface) *OidcAuthenticate {
@@ -75,6 +101,8 @@ func New(tp elastictransport.Interface) *OidcAuthenticate {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -82,6 +110,21 @@ func New(tp elastictransport.Interface) *OidcAuthenticate {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *OidcAuthenticate) Raw(raw io.Reader) *OidcAuthenticate {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *OidcAuthenticate) Request(req *Request) *OidcAuthenticate {
+	r.req = req
 
 	return r
 }
@@ -94,6 +137,31 @@ func (r *OidcAuthenticate) HttpRequest(ctx context.Context) (*http.Request, erro
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for OidcAuthenticate: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -184,13 +252,7 @@ func (r OidcAuthenticate) Perform(providedCtx context.Context) (*http.Response, 
 }
 
 // Do runs the request through the transport, handle the response and returns a oidcauthenticate.Response
-func (r OidcAuthenticate) Do(ctx context.Context) (bool, error) {
-	return r.IsSuccess(ctx)
-}
-
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r OidcAuthenticate) IsSuccess(providedCtx context.Context) (bool, error) {
+func (r OidcAuthenticate) Do(providedCtx context.Context) (*Response, error) {
 	var ctx context.Context
 	r.spanStarted = true
 	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
@@ -201,35 +263,158 @@ func (r OidcAuthenticate) IsSuccess(providedCtx context.Context) (bool, error) {
 		ctx = providedCtx
 	}
 
+	response := NewResponse()
+
 	res, err := r.Perform(ctx)
-
 	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the OidcAuthenticate query execution, status code: %d", res.StatusCode)
 		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
 			instrument.RecordError(ctx, err)
 		}
-		return false, err
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
 	}
 
-	return false, nil
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
 }
 
 // Header set a key, value pair in the OidcAuthenticate headers map.
 func (r *OidcAuthenticate) Header(key, value string) *OidcAuthenticate {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *OidcAuthenticate) ErrorTrace(errortrace bool) *OidcAuthenticate {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *OidcAuthenticate) FilterPath(filterpaths ...string) *OidcAuthenticate {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *OidcAuthenticate) Human(human bool) *OidcAuthenticate {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *OidcAuthenticate) Pretty(pretty bool) *OidcAuthenticate {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// Associate a client session with an ID token and mitigate replay attacks.
+// This value needs to be the same as the one that was provided to the
+// `/_security/oidc/prepare` API or the one that was generated by Elasticsearch
+// and included in the response to that call.
+// API name: nonce
+func (r *OidcAuthenticate) Nonce(nonce string) *OidcAuthenticate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Nonce = nonce
+
+	return r
+}
+
+// The name of the OpenID Connect realm.
+// This property is useful in cases where multiple realms are defined.
+// API name: realm
+func (r *OidcAuthenticate) Realm(realm string) *OidcAuthenticate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Realm = &realm
+
+	return r
+}
+
+// The URL to which the OpenID Connect Provider redirected the User Agent in
+// response to an authentication request after a successful authentication.
+// This URL must be provided as-is (URL encoded), taken from the body of the
+// response or as the value of a location header in the response from the OpenID
+// Connect Provider.
+// API name: redirect_uri
+func (r *OidcAuthenticate) RedirectUri(redirecturi string) *OidcAuthenticate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.RedirectUri = redirecturi
+
+	return r
+}
+
+// Maintain state between the authentication request and the response.
+// This value needs to be the same as the one that was provided to the
+// `/_security/oidc/prepare` API or the one that was generated by Elasticsearch
+// and included in the response to that call.
+// API name: state
+func (r *OidcAuthenticate) State(state string) *OidcAuthenticate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.State = state
 
 	return r
 }

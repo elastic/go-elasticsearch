@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SignificantStringTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L606-L608
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L682-L684
 type SignificantStringTermsAggregate struct {
 	BgCount  *int64                              `json:"bg_count,omitempty"`
 	Buckets  BucketsSignificantStringTermsBucket `json:"buckets"`
@@ -121,3 +121,5 @@ func NewSignificantStringTermsAggregate() *SignificantStringTermsAggregate {
 
 	return r
 }
+
+// false

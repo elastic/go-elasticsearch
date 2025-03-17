@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Hyperparameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeAnalytics.ts#L419-L525
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/DataframeAnalytics.ts#L420-L526
 type Hyperparameters struct {
 	// Alpha Advanced configuration option.
 	// Machine learning uses loss guided tree growing, which means that the decision
@@ -382,3 +382,5 @@ func NewHyperparameters() *Hyperparameters {
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // IndexAndDataStreamAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/modify_data_stream/types.ts#L39-L44
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/modify_data_stream/types.ts#L39-L44
 type IndexAndDataStreamAction struct {
 	// DataStream Data stream targeted by the action.
 	DataStream string `json:"data_stream"`
@@ -73,4 +73,14 @@ func NewIndexAndDataStreamAction() *IndexAndDataStreamAction {
 	r := &IndexAndDataStreamAction{}
 
 	return r
+}
+
+// true
+
+type IndexAndDataStreamActionVariant interface {
+	IndexAndDataStreamActionCaster() *IndexAndDataStreamAction
+}
+
+func (s *IndexAndDataStreamAction) IndexAndDataStreamActionCaster() *IndexAndDataStreamAction {
+	return s
 }

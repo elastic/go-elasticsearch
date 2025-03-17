@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // CharFilterTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/stats/types.ts#L228-L261
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/cluster/stats/types.ts#L228-L261
 type CharFilterTypes struct {
 	// AnalyzerTypes Contains statistics about analyzer types used in selected nodes.
 	AnalyzerTypes []FieldTypes `json:"analyzer_types"`
@@ -48,3 +48,5 @@ func NewCharFilterTypes() *CharFilterTypes {
 
 	return r
 }
+
+// false

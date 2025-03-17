@@ -16,11 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// The cluster remote info API allows you to retrieve all of the configured
-// remote cluster information. It returns connection and endpoint information
-// keyed by the configured remote cluster alias.
+// Get remote cluster information.
+//
+// Get information about configured remote clusters.
+// The API returns connection and endpoint information keyed by the configured
+// remote cluster alias.
+//
+// > info
+// > This API returns information that reflects current state on the local
+// cluster.
+// > The `connected` field does not necessarily reflect whether a remote cluster
+// is down or unavailable, only whether there is currently an open connection to
+// it.
+// > Elasticsearch does not spontaneously try to reconnect to a disconnected
+// remote cluster.
+// > To trigger a reconnection, attempt a cross-cluster search, ES|QL
+// cross-cluster search, or try the [resolve cluster
+// endpoint](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster).
 package remoteinfo
 
 import (
@@ -70,9 +84,23 @@ func NewRemoteInfoFunc(tp elastictransport.Interface) NewRemoteInfo {
 	}
 }
 
-// The cluster remote info API allows you to retrieve all of the configured
-// remote cluster information. It returns connection and endpoint information
-// keyed by the configured remote cluster alias.
+// Get remote cluster information.
+//
+// Get information about configured remote clusters.
+// The API returns connection and endpoint information keyed by the configured
+// remote cluster alias.
+//
+// > info
+// > This API returns information that reflects current state on the local
+// cluster.
+// > The `connected` field does not necessarily reflect whether a remote cluster
+// is down or unavailable, only whether there is currently an open connection to
+// it.
+// > Elasticsearch does not spontaneously try to reconnect to a disconnected
+// remote cluster.
+// > To trigger a reconnection, attempt a cross-cluster search, ES|QL
+// cross-cluster search, or try the [resolve cluster
+// endpoint](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-resolve-cluster).
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-remote-info.html
 func New(tp elastictransport.Interface) *RemoteInfo {

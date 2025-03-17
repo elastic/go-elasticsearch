@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TermsGrouping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/rollup/_types/Groupings.ts#L75-L82
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/rollup/_types/Groupings.ts#L75-L82
 type TermsGrouping struct {
 	// Fields The set of fields that you wish to collect terms for.
 	// This array can contain fields that are both keyword and numerics.
@@ -79,4 +79,14 @@ func NewTermsGrouping() *TermsGrouping {
 	r := &TermsGrouping{}
 
 	return r
+}
+
+// true
+
+type TermsGroupingVariant interface {
+	TermsGroupingCaster() *TermsGrouping
+}
+
+func (s *TermsGrouping) TermsGroupingCaster() *TermsGrouping {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // S3RepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/snapshot/_types/SnapshotRepository.ts#L93-L102
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/snapshot/_types/SnapshotRepository.ts#L93-L102
 type S3RepositorySettings struct {
 	BasePath               *string  `json:"base_path,omitempty"`
 	Bucket                 string   `json:"bucket"`
@@ -194,4 +194,14 @@ func NewS3RepositorySettings() *S3RepositorySettings {
 	r := &S3RepositorySettings{}
 
 	return r
+}
+
+// true
+
+type S3RepositorySettingsVariant interface {
+	S3RepositorySettingsCaster() *S3RepositorySettings
+}
+
+func (s *S3RepositorySettings) S3RepositorySettingsCaster() *S3RepositorySettings {
+	return s
 }

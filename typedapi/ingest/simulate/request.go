@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package simulate
 
@@ -29,13 +29,13 @@ import (
 
 // Request holds the request body struct for the package simulate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/simulate/SimulatePipelineRequest.ts#L25-L57
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ingest/simulate/SimulatePipelineRequest.ts#L25-L72
 type Request struct {
 
 	// Docs Sample documents to test in the pipeline.
-	Docs []types.Document `json:"docs,omitempty"`
-	// Pipeline Pipeline to test.
-	// If you don’t specify the `pipeline` request path parameter, this parameter is
+	Docs []types.Document `json:"docs"`
+	// Pipeline The pipeline to test.
+	// If you don't specify the `pipeline` request path parameter, this parameter is
 	// required.
 	// If you specify both this and the request path parameter, the API only uses
 	// the request path parameter.

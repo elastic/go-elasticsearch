@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SettingsQueryString type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L250-L252
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/IndexSettings.ts#L258-L260
 type SettingsQueryString struct {
 	Lenient Stringifiedboolean `json:"lenient"`
 }
@@ -65,4 +65,14 @@ func NewSettingsQueryString() *SettingsQueryString {
 	r := &SettingsQueryString{}
 
 	return r
+}
+
+// true
+
+type SettingsQueryStringVariant interface {
+	SettingsQueryStringCaster() *SettingsQueryString
+}
+
+func (s *SettingsQueryString) SettingsQueryStringCaster() *SettingsQueryString {
+	return s
 }

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Package enrichpolicyphase
 package enrichpolicyphase
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/enrich/execute_policy/types.ts#L24-L29
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/enrich/execute_policy/types.ts#L24-L29
 type EnrichPolicyPhase struct {
 	Name string
 }
@@ -45,13 +45,13 @@ func (e EnrichPolicyPhase) MarshalText() (text []byte, err error) {
 func (e *EnrichPolicyPhase) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "SCHEDULED":
+	case "scheduled":
 		*e = SCHEDULED
-	case "RUNNING":
+	case "running":
 		*e = RUNNING
-	case "COMPLETE":
+	case "complete":
 		*e = COMPLETE
-	case "FAILED":
+	case "failed":
 		*e = FAILED
 	default:
 		*e = EnrichPolicyPhase{string(text)}

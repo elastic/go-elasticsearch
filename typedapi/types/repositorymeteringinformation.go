@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RepositoryMeteringInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/nodes/_types/RepositoryMeteringInformation.ts#L24-L66
 type RepositoryMeteringInformation struct {
 	// Archived A flag that tells whether or not this object has been archived. When a
 	// repository is closed or updated the
@@ -154,3 +154,5 @@ func NewRepositoryMeteringInformation() *RepositoryMeteringInformation {
 
 	return r
 }
+
+// false

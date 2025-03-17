@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // RankFeatureFunctionLinear type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/specialized.ts#L275-L275
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/specialized.ts#L282-L282
 type RankFeatureFunctionLinear struct {
 }
 
@@ -31,4 +31,14 @@ func NewRankFeatureFunctionLinear() *RankFeatureFunctionLinear {
 	r := &RankFeatureFunctionLinear{}
 
 	return r
+}
+
+// true
+
+type RankFeatureFunctionLinearVariant interface {
+	RankFeatureFunctionLinearCaster() *RankFeatureFunctionLinear
+}
+
+func (s *RankFeatureFunctionLinear) RankFeatureFunctionLinearCaster() *RankFeatureFunctionLinear {
+	return s
 }

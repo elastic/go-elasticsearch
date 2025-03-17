@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,22 +31,23 @@ import (
 
 // AnomalyCause type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Anomaly.ts#L123-L138
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/Anomaly.ts#L123-L139
 type AnomalyCause struct {
-	Actual                 []Float64   `json:"actual"`
-	ByFieldName            string      `json:"by_field_name"`
-	ByFieldValue           string      `json:"by_field_value"`
-	CorrelatedByFieldValue string      `json:"correlated_by_field_value"`
-	FieldName              string      `json:"field_name"`
-	Function               string      `json:"function"`
-	FunctionDescription    string      `json:"function_description"`
-	Influencers            []Influence `json:"influencers"`
-	OverFieldName          string      `json:"over_field_name"`
-	OverFieldValue         string      `json:"over_field_value"`
-	PartitionFieldName     string      `json:"partition_field_name"`
-	PartitionFieldValue    string      `json:"partition_field_value"`
+	Actual                 []Float64   `json:"actual,omitempty"`
+	ByFieldName            *string     `json:"by_field_name,omitempty"`
+	ByFieldValue           *string     `json:"by_field_value,omitempty"`
+	CorrelatedByFieldValue *string     `json:"correlated_by_field_value,omitempty"`
+	FieldName              *string     `json:"field_name,omitempty"`
+	Function               *string     `json:"function,omitempty"`
+	FunctionDescription    *string     `json:"function_description,omitempty"`
+	GeoResults             *GeoResults `json:"geo_results,omitempty"`
+	Influencers            []Influence `json:"influencers,omitempty"`
+	OverFieldName          *string     `json:"over_field_name,omitempty"`
+	OverFieldValue         *string     `json:"over_field_value,omitempty"`
+	PartitionFieldName     *string     `json:"partition_field_name,omitempty"`
+	PartitionFieldValue    *string     `json:"partition_field_value,omitempty"`
 	Probability            Float64     `json:"probability"`
-	Typical                []Float64   `json:"typical"`
+	Typical                []Float64   `json:"typical,omitempty"`
 }
 
 func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
@@ -84,7 +85,7 @@ func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.ByFieldValue = o
+			s.ByFieldValue = &o
 
 		case "correlated_by_field_value":
 			var tmp json.RawMessage
@@ -96,7 +97,7 @@ func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.CorrelatedByFieldValue = o
+			s.CorrelatedByFieldValue = &o
 
 		case "field_name":
 			if err := dec.Decode(&s.FieldName); err != nil {
@@ -113,7 +114,7 @@ func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Function = o
+			s.Function = &o
 
 		case "function_description":
 			var tmp json.RawMessage
@@ -125,7 +126,12 @@ func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.FunctionDescription = o
+			s.FunctionDescription = &o
+
+		case "geo_results":
+			if err := dec.Decode(&s.GeoResults); err != nil {
+				return fmt.Errorf("%s | %w", "GeoResults", err)
+			}
 
 		case "influencers":
 			if err := dec.Decode(&s.Influencers); err != nil {
@@ -147,7 +153,7 @@ func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.OverFieldValue = o
+			s.OverFieldValue = &o
 
 		case "partition_field_name":
 			var tmp json.RawMessage
@@ -159,7 +165,7 @@ func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.PartitionFieldName = o
+			s.PartitionFieldName = &o
 
 		case "partition_field_value":
 			var tmp json.RawMessage
@@ -171,7 +177,7 @@ func (s *AnomalyCause) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.PartitionFieldValue = o
+			s.PartitionFieldValue = &o
 
 		case "probability":
 			var tmp any
@@ -205,3 +211,5 @@ func NewAnomalyCause() *AnomalyCause {
 
 	return r
 }
+
+// false

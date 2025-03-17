@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SLMPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/slm/_types/SnapshotLifecycle.ts#L76-L82
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/slm/_types/SnapshotLifecycle.ts#L86-L92
 type SLMPolicy struct {
 	Config     *Configuration `json:"config,omitempty"`
 	Name       string         `json:"name"`
@@ -98,3 +98,5 @@ func NewSLMPolicy() *SLMPolicy {
 
 	return r
 }
+
+// false

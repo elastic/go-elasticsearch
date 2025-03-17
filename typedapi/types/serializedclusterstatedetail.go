@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SerializedClusterStateDetail type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L240-L246
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/nodes/_types/Stats.ts#L240-L246
 type SerializedClusterStateDetail struct {
 	CompressedSize          *string `json:"compressed_size,omitempty"`
 	CompressedSizeInBytes   *int64  `json:"compressed_size_in_bytes,omitempty"`
@@ -135,3 +135,5 @@ func NewSerializedClusterStateDetail() *SerializedClusterStateDetail {
 
 	return r
 }
+
+// false

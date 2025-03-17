@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClassificationInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/inference.ts#L93-L108
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/inference.ts#L93-L108
 type ClassificationInferenceOptions struct {
 	// NumTopClasses Specifies the number of top class predictions to return. Defaults to 0.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`
@@ -142,4 +142,14 @@ func NewClassificationInferenceOptions() *ClassificationInferenceOptions {
 	r := &ClassificationInferenceOptions{}
 
 	return r
+}
+
+// true
+
+type ClassificationInferenceOptionsVariant interface {
+	ClassificationInferenceOptionsCaster() *ClassificationInferenceOptions
+}
+
+func (s *ClassificationInferenceOptions) ClassificationInferenceOptionsCaster() *ClassificationInferenceOptions {
+	return s
 }

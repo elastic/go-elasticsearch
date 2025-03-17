@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package mget
 
@@ -32,8 +32,15 @@ import (
 
 // Response holds the response body struct for the package mget
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/mget/MultiGetResponse.ts#L22-L26
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/mget/MultiGetResponse.ts#L22-L31
 type Response struct {
+
+	// Docs The response includes a docs array that contains the documents in the order
+	// specified in the request.
+	// The structure of the returned documents is similar to that returned by the
+	// get API.
+	// If there is a failure getting a particular document, the error is included in
+	// place of the document.
 	Docs []types.MgetResponseItem `json:"docs"`
 }
 
@@ -76,7 +83,7 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 
 					switch t {
 
-					case "fields", "found", "_primary_term", "_routing", "_seq_no", "_source", "_version":
+					case "fields", "found", "_ignored", "_primary_term", "_routing", "_seq_no", "_source", "_version":
 						o := types.NewGetResult()
 						localDec := json.NewDecoder(bytes.NewReader(message))
 						if err := localDec.Decode(&o); err != nil {

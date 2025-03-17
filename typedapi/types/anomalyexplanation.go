@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnomalyExplanation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Anomaly.ts#L156-L197
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/Anomaly.ts#L157-L198
 type AnomalyExplanation struct {
 	// AnomalyCharacteristicsImpact Impact from the duration and magnitude of the detected anomaly relative to
 	// the historical average.
@@ -237,3 +237,5 @@ func NewAnomalyExplanation() *AnomalyExplanation {
 
 	return r
 }
+
+// false

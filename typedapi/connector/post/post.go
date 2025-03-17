@@ -16,9 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Creates a connector.
+// Create a connector.
+//
+// Connectors are Elasticsearch integrations that bring content from third-party
+// data sources, which can be deployed on Elastic Cloud or hosted on your own
+// infrastructure.
+// Elastic managed connectors (Native connectors) are a managed service on
+// Elastic Cloud.
+// Self-managed connectors (Connector clients) are self-managed on your
+// infrastructure.
 package post
 
 import (
@@ -73,7 +81,15 @@ func NewPostFunc(tp elastictransport.Interface) NewPost {
 	}
 }
 
-// Creates a connector.
+// Create a connector.
+//
+// Connectors are Elasticsearch integrations that bring content from third-party
+// data sources, which can be deployed on Elastic Cloud or hosted on your own
+// infrastructure.
+// Elastic managed connectors (Native connectors) are a managed service on
+// Elastic Cloud.
+// Self-managed connectors (Connector clients) are self-managed on your
+// infrastructure.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/create-connector-api.html
 func New(tp elastictransport.Interface) *Post {
@@ -83,8 +99,6 @@ func New(tp elastictransport.Interface) *Post {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -336,6 +350,10 @@ func (r *Post) Pretty(pretty bool) *Post {
 
 // API name: description
 func (r *Post) Description(description string) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
@@ -344,6 +362,11 @@ func (r *Post) Description(description string) *Post {
 
 // API name: index_name
 func (r *Post) IndexName(indexname string) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.IndexName = &indexname
 
 	return r
@@ -351,6 +374,11 @@ func (r *Post) IndexName(indexname string) *Post {
 
 // API name: is_native
 func (r *Post) IsNative(isnative bool) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.IsNative = &isnative
 
 	return r
@@ -358,6 +386,10 @@ func (r *Post) IsNative(isnative bool) *Post {
 
 // API name: language
 func (r *Post) Language(language string) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Language = &language
 
@@ -366,6 +398,10 @@ func (r *Post) Language(language string) *Post {
 
 // API name: name
 func (r *Post) Name(name string) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Name = &name
 
@@ -374,6 +410,10 @@ func (r *Post) Name(name string) *Post {
 
 // API name: service_type
 func (r *Post) ServiceType(servicetype string) *Post {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.ServiceType = &servicetype
 

@@ -16,9 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Copies documents from a source to a destination.
+// Throttle a reindex operation.
+//
+// Change the number of requests per second for a particular reindex operation.
+// For example:
+//
+// ```
+// POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
+// ```
+//
+// Rethrottling that speeds up the query takes effect immediately.
+// Rethrottling that slows down the query will take effect after completing the
+// current batch.
+// This behavior prevents scroll timeouts.
 package reindexrethrottle
 
 import (
@@ -76,7 +88,19 @@ func NewReindexRethrottleFunc(tp elastictransport.Interface) NewReindexRethrottl
 	}
 }
 
-// Copies documents from a source to a destination.
+// Throttle a reindex operation.
+//
+// Change the number of requests per second for a particular reindex operation.
+// For example:
+//
+// ```
+// POST _reindex/r1A2WoRbTwKZ516z6NEs5A:36619/_rethrottle?requests_per_second=-1
+// ```
+//
+// Rethrottling that speeds up the query takes effect immediately.
+// Rethrottling that slows down the query will take effect after completing the
+// current batch.
+// This behavior prevents scroll timeouts.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-reindex.html
 func New(tp elastictransport.Interface) *ReindexRethrottle {
@@ -290,7 +314,7 @@ func (r *ReindexRethrottle) Header(key, value string) *ReindexRethrottle {
 	return r
 }
 
-// TaskId Identifier for the task.
+// TaskId The task identifier, which can be found by using the tasks API.
 // API Name: taskid
 func (r *ReindexRethrottle) _taskid(taskid string) *ReindexRethrottle {
 	r.paramSet |= taskidMask
@@ -300,6 +324,8 @@ func (r *ReindexRethrottle) _taskid(taskid string) *ReindexRethrottle {
 }
 
 // RequestsPerSecond The throttle for this request in sub-requests per second.
+// It can be either `-1` to turn off throttling or any decimal number like `1.7`
+// or `12` to throttle to that level.
 // API name: requests_per_second
 func (r *ReindexRethrottle) RequestsPerSecond(requestspersecond string) *ReindexRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)

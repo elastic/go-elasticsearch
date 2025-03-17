@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Closes a point-in-time.
+// Close a point in time.
+// A point in time must be opened explicitly before being used in search
+// requests.
+// The `keep_alive` parameter tells Elasticsearch how long it should persist.
+// A point in time is automatically closed when the `keep_alive` period has
+// elapsed.
+// However, keeping points in time has a cost; close them as soon as they are no
+// longer required for search requests.
 package closepointintime
 
 import (
@@ -73,7 +80,14 @@ func NewClosePointInTimeFunc(tp elastictransport.Interface) NewClosePointInTime 
 	}
 }
 
-// Closes a point-in-time.
+// Close a point in time.
+// A point in time must be opened explicitly before being used in search
+// requests.
+// The `keep_alive` parameter tells Elasticsearch how long it should persist.
+// A point in time is automatically closed when the `keep_alive` period has
+// elapsed.
+// However, keeping points in time has a cost; close them as soon as they are no
+// longer required for search requests.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
 func New(tp elastictransport.Interface) *ClosePointInTime {
@@ -83,8 +97,6 @@ func New(tp elastictransport.Interface) *ClosePointInTime {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -370,9 +382,14 @@ func (r *ClosePointInTime) Pretty(pretty bool) *ClosePointInTime {
 	return r
 }
 
-// Id The ID of the point-in-time.
+// The ID of the point-in-time.
 // API name: id
 func (r *ClosePointInTime) Id(id string) *ClosePointInTime {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Id = id
 
 	return r

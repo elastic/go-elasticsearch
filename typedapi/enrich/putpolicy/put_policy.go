@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Create an enrich policy.
 // Creates an enrich policy.
@@ -93,8 +93,6 @@ func New(tp elastictransport.Interface) *PutPolicy {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -317,6 +315,14 @@ func (r *PutPolicy) _name(name string) *PutPolicy {
 	return r
 }
 
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *PutPolicy) MasterTimeout(duration string) *PutPolicy {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -361,30 +367,42 @@ func (r *PutPolicy) Pretty(pretty bool) *PutPolicy {
 	return r
 }
 
-// GeoMatch Matches enrich data to incoming documents based on a `geo_shape` query.
+// Matches enrich data to incoming documents based on a `geo_shape` query.
 // API name: geo_match
-func (r *PutPolicy) GeoMatch(geomatch *types.EnrichPolicy) *PutPolicy {
+func (r *PutPolicy) GeoMatch(geomatch types.EnrichPolicyVariant) *PutPolicy {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.GeoMatch = geomatch
+	r.req.GeoMatch = geomatch.EnrichPolicyCaster()
 
 	return r
 }
 
-// Match Matches enrich data to incoming documents based on a `term` query.
+// Matches enrich data to incoming documents based on a `term` query.
 // API name: match
-func (r *PutPolicy) Match(match *types.EnrichPolicy) *PutPolicy {
+func (r *PutPolicy) Match(match types.EnrichPolicyVariant) *PutPolicy {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Match = match
+	r.req.Match = match.EnrichPolicyCaster()
 
 	return r
 }
 
-// Range Matches a number, date, or IP address in incoming documents to a range in the
+// Matches a number, date, or IP address in incoming documents to a range in the
 // enrich index based on a `term` query.
 // API name: range
-func (r *PutPolicy) Range(range_ *types.EnrichPolicy) *PutPolicy {
+func (r *PutPolicy) Range(range_ types.EnrichPolicyVariant) *PutPolicy {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Range = range_
+	r.req.Range = range_.EnrichPolicyCaster()
 
 	return r
 }

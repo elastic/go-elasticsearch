@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterIngest type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/stats/types.ts#L270-L273
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/cluster/stats/types.ts#L270-L273
 type ClusterIngest struct {
 	NumberOfPipelines int                         `json:"number_of_pipelines"`
 	ProcessorStats    map[string]ClusterProcessor `json:"processor_stats"`
@@ -84,8 +84,10 @@ func (s *ClusterIngest) UnmarshalJSON(data []byte) error {
 // NewClusterIngest returns a ClusterIngest.
 func NewClusterIngest() *ClusterIngest {
 	r := &ClusterIngest{
-		ProcessorStats: make(map[string]ClusterProcessor, 0),
+		ProcessorStats: make(map[string]ClusterProcessor),
 	}
 
 	return r
 }
+
+// false

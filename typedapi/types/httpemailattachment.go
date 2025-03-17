@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HttpEmailAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Actions.ts#L218-L222
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Actions.ts#L218-L222
 type HttpEmailAttachment struct {
 	ContentType *string                     `json:"content_type,omitempty"`
 	Inline      *bool                       `json:"inline,omitempty"`
@@ -94,4 +94,14 @@ func NewHttpEmailAttachment() *HttpEmailAttachment {
 	r := &HttpEmailAttachment{}
 
 	return r
+}
+
+// true
+
+type HttpEmailAttachmentVariant interface {
+	HttpEmailAttachmentCaster() *HttpEmailAttachment
+}
+
+func (s *HttpEmailAttachment) HttpEmailAttachmentCaster() *HttpEmailAttachment {
+	return s
 }

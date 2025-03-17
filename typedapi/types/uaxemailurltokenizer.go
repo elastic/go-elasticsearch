@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UaxEmailUrlTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/tokenizers.ts#L110-L113
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/tokenizers.ts#L130-L133
 type UaxEmailUrlTokenizer struct {
 	MaxTokenLength *int    `json:"max_token_length,omitempty"`
 	Type           string  `json:"type,omitempty"`
@@ -103,4 +103,14 @@ func NewUaxEmailUrlTokenizer() *UaxEmailUrlTokenizer {
 	r := &UaxEmailUrlTokenizer{}
 
 	return r
+}
+
+// true
+
+type UaxEmailUrlTokenizerVariant interface {
+	UaxEmailUrlTokenizerCaster() *UaxEmailUrlTokenizer
+}
+
+func (s *UaxEmailUrlTokenizer) UaxEmailUrlTokenizerCaster() *UaxEmailUrlTokenizer {
+	return s
 }

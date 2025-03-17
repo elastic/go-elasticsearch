@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PathHierarchyTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/tokenizers.ts#L89-L96
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/tokenizers.ts#L95-L102
 type PathHierarchyTokenizer struct {
 	BufferSize  Stringifiedinteger `json:"buffer_size,omitempty"`
 	Delimiter   *string            `json:"delimiter,omitempty"`
@@ -134,4 +134,14 @@ func NewPathHierarchyTokenizer() *PathHierarchyTokenizer {
 	r := &PathHierarchyTokenizer{}
 
 	return r
+}
+
+// true
+
+type PathHierarchyTokenizerVariant interface {
+	PathHierarchyTokenizerCaster() *PathHierarchyTokenizer
+}
+
+func (s *PathHierarchyTokenizer) PathHierarchyTokenizerCaster() *PathHierarchyTokenizer {
+	return s
 }

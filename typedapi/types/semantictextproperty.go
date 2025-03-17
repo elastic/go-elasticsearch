@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,11 +30,22 @@ import (
 
 // SemanticTextProperty type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/core.ts#L206-L210
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/mapping/core.ts#L210-L226
 type SemanticTextProperty struct {
-	InferenceId string            `json:"inference_id"`
+	// InferenceId Inference endpoint that will be used to generate embeddings for the field.
+	// This parameter cannot be updated. Use the Create inference API to create the
+	// endpoint.
+	// If `search_inference_id` is specified, the inference endpoint will only be
+	// used at index time.
+	InferenceId *string           `json:"inference_id,omitempty"`
 	Meta        map[string]string `json:"meta,omitempty"`
-	Type        string            `json:"type,omitempty"`
+	// SearchInferenceId Inference endpoint that will be used to generate embeddings at query time.
+	// You can update this parameter by using the Update mapping API. Use the Create
+	// inference API to create the endpoint.
+	// If not specified, the inference endpoint defined by inference_id will be used
+	// at both index and query time.
+	SearchInferenceId *string `json:"search_inference_id,omitempty"`
+	Type              string  `json:"type,omitempty"`
 }
 
 func (s *SemanticTextProperty) UnmarshalJSON(data []byte) error {
@@ -65,6 +76,11 @@ func (s *SemanticTextProperty) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Meta", err)
 			}
 
+		case "search_inference_id":
+			if err := dec.Decode(&s.SearchInferenceId); err != nil {
+				return fmt.Errorf("%s | %w", "SearchInferenceId", err)
+			}
+
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
@@ -79,9 +95,10 @@ func (s *SemanticTextProperty) UnmarshalJSON(data []byte) error {
 func (s SemanticTextProperty) MarshalJSON() ([]byte, error) {
 	type innerSemanticTextProperty SemanticTextProperty
 	tmp := innerSemanticTextProperty{
-		InferenceId: s.InferenceId,
-		Meta:        s.Meta,
-		Type:        s.Type,
+		InferenceId:       s.InferenceId,
+		Meta:              s.Meta,
+		SearchInferenceId: s.SearchInferenceId,
+		Type:              s.Type,
 	}
 
 	tmp.Type = "semantic_text"
@@ -92,8 +109,18 @@ func (s SemanticTextProperty) MarshalJSON() ([]byte, error) {
 // NewSemanticTextProperty returns a SemanticTextProperty.
 func NewSemanticTextProperty() *SemanticTextProperty {
 	r := &SemanticTextProperty{
-		Meta: make(map[string]string, 0),
+		Meta: make(map[string]string),
 	}
 
 	return r
+}
+
+// true
+
+type SemanticTextPropertyVariant interface {
+	SemanticTextPropertyCaster() *SemanticTextProperty
+}
+
+func (s *SemanticTextProperty) SemanticTextPropertyCaster() *SemanticTextProperty {
+	return s
 }

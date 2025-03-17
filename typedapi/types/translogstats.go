@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TranslogStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Stats.ts#L397-L405
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/Stats.ts#L400-L408
 type TranslogStats struct {
 	EarliestLastModifiedAge int64   `json:"earliest_last_modified_age"`
 	Operations              int64   `json:"operations"`
@@ -168,3 +168,5 @@ func NewTranslogStats() *TranslogStats {
 
 	return r
 }
+
+// false

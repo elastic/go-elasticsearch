@@ -16,9 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Turns off snapshot lifecycle management (SLM).
+// Stop snapshot lifecycle management.
+// Stop all snapshot lifecycle management (SLM) operations and the SLM plugin.
+// This API is useful when you are performing maintenance on a cluster and need
+// to prevent SLM from performing any actions on your data streams or indices.
+// Stopping SLM does not stop any snapshots that are in progress.
+// You can manually trigger snapshots with the run snapshot lifecycle policy API
+// even if SLM is stopped.
+//
+// The API returns a response as soon as the request is acknowledged, but the
+// plugin might continue to run until in-progress operations complete and it can
+// be safely stopped.
+// Use the get snapshot lifecycle management status API to see if SLM is
+// running.
 package stop
 
 import (
@@ -68,7 +80,19 @@ func NewStopFunc(tp elastictransport.Interface) NewStop {
 	}
 }
 
-// Turns off snapshot lifecycle management (SLM).
+// Stop snapshot lifecycle management.
+// Stop all snapshot lifecycle management (SLM) operations and the SLM plugin.
+// This API is useful when you are performing maintenance on a cluster and need
+// to prevent SLM from performing any actions on your data streams or indices.
+// Stopping SLM does not stop any snapshots that are in progress.
+// You can manually trigger snapshots with the run snapshot lifecycle policy API
+// even if SLM is stopped.
+//
+// The API returns a response as soon as the request is acknowledged, but the
+// plugin might continue to run until in-progress operations complete and it can
+// be safely stopped.
+// Use the get snapshot lifecycle management status API to see if SLM is
+// running.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-stop.html
 func New(tp elastictransport.Interface) *Stop {
@@ -272,6 +296,28 @@ func (r Stop) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the Stop headers map.
 func (r *Stop) Header(key, value string) *Stop {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
+// API name: master_timeout
+func (r *Stop) MasterTimeout(duration string) *Stop {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
+// API name: timeout
+func (r *Stop) Timeout(duration string) *Stop {
+	r.values.Set("timeout", duration)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SuggestContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/mapping/specialized.ts#L43-L48
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/mapping/specialized.ts#L43-L48
 type SuggestContext struct {
 	Name      string  `json:"name"`
 	Path      *string `json:"path,omitempty"`
@@ -98,4 +98,14 @@ func NewSuggestContext() *SuggestContext {
 	r := &SuggestContext{}
 
 	return r
+}
+
+// true
+
+type SuggestContextVariant interface {
+	SuggestContextCaster() *SuggestContext
+}
+
+func (s *SuggestContext) SuggestContextCaster() *SuggestContext {
+	return s
 }

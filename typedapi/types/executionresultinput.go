@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // ExecutionResultInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Execution.ts#L88-L92
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Execution.ts#L88-L92
 type ExecutionResultInput struct {
 	Payload map[string]json.RawMessage              `json:"payload"`
 	Status  actionstatusoptions.ActionStatusOptions `json:"status"`
@@ -39,8 +39,10 @@ type ExecutionResultInput struct {
 // NewExecutionResultInput returns a ExecutionResultInput.
 func NewExecutionResultInput() *ExecutionResultInput {
 	r := &ExecutionResultInput{
-		Payload: make(map[string]json.RawMessage, 0),
+		Payload: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

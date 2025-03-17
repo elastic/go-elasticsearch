@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoCentroidAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L308-L312
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L335-L342
 type GeoCentroidAggregate struct {
 	Count    int64       `json:"count"`
 	Location GeoLocation `json:"location,omitempty"`
@@ -129,3 +129,5 @@ func NewGeoCentroidAggregate() *GeoCentroidAggregate {
 
 	return r
 }
+
+// false

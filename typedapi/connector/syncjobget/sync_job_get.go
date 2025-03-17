@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Retrieves a connector sync job.
+// Get a connector sync job.
 package syncjobget
 
 import (
@@ -76,7 +76,7 @@ func NewSyncJobGetFunc(tp elastictransport.Interface) NewSyncJobGet {
 	}
 }
 
-// Retrieves a connector sync job.
+// Get a connector sync job.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-connector-sync-job-api.html
 func New(tp elastictransport.Interface) *SyncJobGet {

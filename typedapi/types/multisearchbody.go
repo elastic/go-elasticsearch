@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MultisearchBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/msearch/types.ts#L70-L201
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/msearch/types.ts#L70-L204
 type MultisearchBody struct {
 	Aggregations map[string]Aggregations `json:"aggregations,omitempty"`
 	Collapse     *FieldCollapse          `json:"collapse,omitempty"`
@@ -478,10 +478,20 @@ func (s *MultisearchBody) UnmarshalJSON(data []byte) error {
 // NewMultisearchBody returns a MultisearchBody.
 func NewMultisearchBody() *MultisearchBody {
 	r := &MultisearchBody{
-		Aggregations: make(map[string]Aggregations, 0),
-		Ext:          make(map[string]json.RawMessage, 0),
-		ScriptFields: make(map[string]ScriptField, 0),
+		Aggregations: make(map[string]Aggregations),
+		Ext:          make(map[string]json.RawMessage),
+		ScriptFields: make(map[string]ScriptField),
 	}
 
 	return r
+}
+
+// true
+
+type MultisearchBodyVariant interface {
+	MultisearchBodyCaster() *MultisearchBody
+}
+
+func (s *MultisearchBody) MultisearchBodyCaster() *MultisearchBody {
+	return s
 }

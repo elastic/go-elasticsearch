@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InnerHits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/hits.ts#L107-L141
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/hits.ts#L108-L142
 type InnerHits struct {
 	Collapse       *FieldCollapse   `json:"collapse,omitempty"`
 	DocvalueFields []FieldAndFormat `json:"docvalue_fields,omitempty"`
@@ -294,8 +294,18 @@ func (s *InnerHits) UnmarshalJSON(data []byte) error {
 // NewInnerHits returns a InnerHits.
 func NewInnerHits() *InnerHits {
 	r := &InnerHits{
-		ScriptFields: make(map[string]ScriptField, 0),
+		ScriptFields: make(map[string]ScriptField),
 	}
 
 	return r
+}
+
+// true
+
+type InnerHitsVariant interface {
+	InnerHitsCaster() *InnerHits
+}
+
+func (s *InnerHits) InnerHitsCaster() *InnerHits {
+	return s
 }

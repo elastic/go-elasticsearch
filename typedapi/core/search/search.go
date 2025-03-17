@@ -16,12 +16,40 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns search hits that match the query defined in the request.
+// Run a search.
+//
+// Get search hits that match the query defined in the request.
 // You can provide search queries using the `q` query string parameter or the
 // request body.
 // If both are specified, only the query parameter is used.
+//
+// If the Elasticsearch security features are enabled, you must have the read
+// index privilege for the target data stream, index, or alias. For
+// cross-cluster search, refer to the documentation about configuring CCS
+// privileges.
+// To search a point in time (PIT) for an alias, you must have the `read` index
+// privilege for the alias's data streams or indices.
+//
+// **Search slicing**
+//
+// When paging through a large number of documents, it can be helpful to split
+// the search into multiple slices to consume them independently with the
+// `slice` and `pit` properties.
+// By default the splitting is done first on the shards, then locally on each
+// shard.
+// The local splitting partitions the shard into contiguous ranges based on
+// Lucene document IDs.
+//
+// For instance if the number of shards is equal to 2 and you request 4 slices,
+// the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
+// assigned to the second shard.
+//
+// IMPORTANT: The same point-in-time ID should be used for all slices.
+// If different PIT IDs are used, slices can overlap and miss documents.
+// This situation can occur because the splitting criterion is based on Lucene
+// document IDs, which are not stable across changes to the index.
 package search
 
 import (
@@ -86,10 +114,38 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Returns search hits that match the query defined in the request.
+// Run a search.
+//
+// Get search hits that match the query defined in the request.
 // You can provide search queries using the `q` query string parameter or the
 // request body.
 // If both are specified, only the query parameter is used.
+//
+// If the Elasticsearch security features are enabled, you must have the read
+// index privilege for the target data stream, index, or alias. For
+// cross-cluster search, refer to the documentation about configuring CCS
+// privileges.
+// To search a point in time (PIT) for an alias, you must have the `read` index
+// privilege for the alias's data streams or indices.
+//
+// **Search slicing**
+//
+// When paging through a large number of documents, it can be helpful to split
+// the search into multiple slices to consume them independently with the
+// `slice` and `pit` properties.
+// By default the splitting is done first on the shards, then locally on each
+// shard.
+// The local splitting partitions the shard into contiguous ranges based on
+// Lucene document IDs.
+//
+// For instance if the number of shards is equal to 2 and you request 4 slices,
+// the slices 0 and 2 are assigned to the first shard and the slices 1 and 3 are
+// assigned to the second shard.
+//
+// IMPORTANT: The same point-in-time ID should be used for all slices.
+// If different PIT IDs are used, slices can overlap and miss documents.
+// This situation can occur because the splitting criterion is based on Lucene
+// document IDs, which are not stable across changes to the index.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html
 func New(tp elastictransport.Interface) *Search {
@@ -99,8 +155,6 @@ func New(tp elastictransport.Interface) *Search {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -319,8 +373,8 @@ func (r *Search) Header(key, value string) *Search {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases to search.
-// Supports wildcards (`*`).
+// Index A comma-separated list of data streams, indices, and aliases to search.
+// It supports wildcards (`*`).
 // To search all data streams and indices, omit this parameter or use `*` or
 // `_all`.
 // API Name: index
@@ -343,8 +397,12 @@ func (r *Search) AllowNoIndices(allownoindices bool) *Search {
 	return r
 }
 
-// AllowPartialSearchResults If true, returns partial results if there are shard request timeouts or shard
-// failures. If false, returns an error with no partial results.
+// AllowPartialSearchResults If `true` and there are shard request timeouts or shard failures, the request
+// returns partial results.
+// If `false`, it returns an error with no partial results.
+//
+// To override the default behavior, you can set the
+// `search.default_allow_partial_results` cluster setting to `false`.
 // API name: allow_partial_search_results
 func (r *Search) AllowPartialSearchResults(allowpartialsearchresults bool) *Search {
 	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))
@@ -352,8 +410,8 @@ func (r *Search) AllowPartialSearchResults(allowpartialsearchresults bool) *Sear
 	return r
 }
 
-// Analyzer Analyzer to use for the query string.
-// This parameter can only be used when the q query string parameter is
+// Analyzer The analyzer to use for the query string.
+// This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: analyzer
 func (r *Search) Analyzer(analyzer string) *Search {
@@ -362,8 +420,8 @@ func (r *Search) Analyzer(analyzer string) *Search {
 	return r
 }
 
-// AnalyzeWildcard If true, wildcard and prefix queries are analyzed.
-// This parameter can only be used when the q query string parameter is
+// AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed.
+// This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: analyze_wildcard
 func (r *Search) AnalyzeWildcard(analyzewildcard bool) *Search {
@@ -374,9 +432,9 @@ func (r *Search) AnalyzeWildcard(analyzewildcard bool) *Search {
 
 // BatchedReduceSize The number of shard results that should be reduced at once on the
 // coordinating node.
-// This value should be used as a protection mechanism to reduce the memory
-// overhead per search request if the potential number of shards in the request
-// can be large.
+// If the potential number of shards in the request can be large, this value
+// should be used as a protection mechanism to reduce the memory overhead per
+// search request.
 // API name: batched_reduce_size
 func (r *Search) BatchedReduceSize(batchedreducesize string) *Search {
 	r.values.Set("batched_reduce_size", batchedreducesize)
@@ -384,8 +442,8 @@ func (r *Search) BatchedReduceSize(batchedreducesize string) *Search {
 	return r
 }
 
-// CcsMinimizeRoundtrips If true, network round-trips between the coordinating node and the remote
-// clusters are minimized when executing cross-cluster search (CCS) requests.
+// CcsMinimizeRoundtrips If `true`, network round-trips between the coordinating node and the remote
+// clusters are minimized when running cross-cluster search (CCS) requests.
 // API name: ccs_minimize_roundtrips
 func (r *Search) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Search {
 	r.values.Set("ccs_minimize_roundtrips", strconv.FormatBool(ccsminimizeroundtrips))
@@ -393,8 +451,8 @@ func (r *Search) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Search {
 	return r
 }
 
-// DefaultOperator The default operator for query string query: AND or OR.
-// This parameter can only be used when the `q` query string parameter is
+// DefaultOperator The default operator for the query string query: `AND` or `OR`.
+// This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: default_operator
 func (r *Search) DefaultOperator(defaultoperator operator.Operator) *Search {
@@ -403,8 +461,9 @@ func (r *Search) DefaultOperator(defaultoperator operator.Operator) *Search {
 	return r
 }
 
-// Df Field to use as default where no field prefix is given in the query string.
-// This parameter can only be used when the q query string parameter is
+// Df The field to use as a default when no field prefix is given in the query
+// string.
+// This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: df
 func (r *Search) Df(df string) *Search {
@@ -413,10 +472,10 @@ func (r *Search) Df(df string) *Search {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
+// ExpandWildcards The type of index that wildcard patterns can match.
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`.
+// It supports comma-separated values such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Search) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Search {
 	tmp := []string{}
@@ -445,10 +504,9 @@ func (r *Search) IgnoreUnavailable(ignoreunavailable bool) *Search {
 	return r
 }
 
-// IncludeNamedQueriesScore Indicates whether hit.matched_queries should be rendered as a map that
-// includes
-// the name of the matched query associated with its score (true)
-// or as an array containing the name of the matched queries (false)
+// IncludeNamedQueriesScore If `true`, the response includes the score contribution from any named
+// queries.
+//
 // This functionality reruns each named query on every hit in a search response.
 // Typically, this adds a small overhead to a request.
 // However, using computationally expensive named queries on a large number of
@@ -462,7 +520,7 @@ func (r *Search) IncludeNamedQueriesScore(includenamedqueriesscore bool) *Search
 
 // Lenient If `true`, format-based query failures (such as providing text to a numeric
 // field) in the query string will be ignored.
-// This parameter can only be used when the `q` query string parameter is
+// This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: lenient
 func (r *Search) Lenient(lenient bool) *Search {
@@ -471,7 +529,7 @@ func (r *Search) Lenient(lenient bool) *Search {
 	return r
 }
 
-// MaxConcurrentShardRequests Defines the number of concurrent shard requests per node this search executes
+// MaxConcurrentShardRequests The number of concurrent shard requests per node that the search runs
 // concurrently.
 // This value should be used to limit the impact of the search on the cluster in
 // order to limit the number of concurrent shard requests.
@@ -491,23 +549,25 @@ func (r *Search) MinCompatibleShardNode(versionstring string) *Search {
 	return r
 }
 
-// Preference Nodes and shards used for the search.
+// Preference The nodes and shards used for the search.
 // By default, Elasticsearch selects from eligible nodes and shards using
-// adaptive replica selection, accounting for allocation awareness. Valid values
-// are:
-// `_only_local` to run the search only on shards on the local node;
-// `_local` to, if possible, run the search on shards on the local node, or if
+// adaptive replica selection, accounting for allocation awareness.
+// Valid values are:
+//
+// * `_only_local` to run the search only on shards on the local node;
+// * `_local` to, if possible, run the search on shards on the local node, or if
 // not, select shards using the default method;
-// `_only_nodes:<node-id>,<node-id>` to run the search on only the specified
+// * `_only_nodes:<node-id>,<node-id>` to run the search on only the specified
 // nodes IDs, where, if suitable shards exist on more than one selected node,
 // use shards on those nodes using the default method, or if none of the
 // specified nodes are available, select shards from any available node using
 // the default method;
-// `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the
+// * `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the
 // specified nodes IDs, or if not, select shards using the default method;
-// `_shards:<shard>,<shard>` to run the search only on the specified shards;
-// `<custom-string>` (any string that does not start with `_`) to route searches
-// with the same `<custom-string>` to the same shards in the same order.
+// * `_shards:<shard>,<shard>` to run the search only on the specified shards;
+// * `<custom-string>` (any string that does not start with `_`) to route
+// searches with the same `<custom-string>` to the same shards in the same
+// order.
 // API name: preference
 func (r *Search) Preference(preference string) *Search {
 	r.values.Set("preference", preference)
@@ -515,18 +575,19 @@ func (r *Search) Preference(preference string) *Search {
 	return r
 }
 
-// PreFilterShardSize Defines a threshold that enforces a pre-filter roundtrip to prefilter search
-// shards based on query rewriting if the number of shards the search request
-// expands to exceeds the threshold.
+// PreFilterShardSize A threshold that enforces a pre-filter roundtrip to prefilter search shards
+// based on query rewriting if the number of shards the search request expands
+// to exceeds the threshold.
 // This filter roundtrip can limit the number of shards significantly if for
 // instance a shard can not match any documents based on its rewrite method (if
 // date filters are mandatory to match but the shard bounds and the query are
 // disjoint).
 // When unspecified, the pre-filter phase is executed if any of these conditions
 // is met:
-// the request targets more than 128 shards;
-// the request targets one or more read-only index;
-// the primary sort of the query targets an indexed field.
+//
+// * The request targets more than 128 shards.
+// * The request targets one or more read-only index.
+// * The primary sort of the query targets an indexed field.
 // API name: pre_filter_shard_size
 func (r *Search) PreFilterShardSize(prefiltershardsize string) *Search {
 	r.values.Set("pre_filter_shard_size", prefiltershardsize)
@@ -536,7 +597,7 @@ func (r *Search) PreFilterShardSize(prefiltershardsize string) *Search {
 
 // RequestCache If `true`, the caching of search results is enabled for requests where `size`
 // is `0`.
-// Defaults to index level settings.
+// It defaults to index level settings.
 // API name: request_cache
 func (r *Search) RequestCache(requestcache bool) *Search {
 	r.values.Set("request_cache", strconv.FormatBool(requestcache))
@@ -544,7 +605,7 @@ func (r *Search) RequestCache(requestcache bool) *Search {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
 func (r *Search) Routing(routing string) *Search {
 	r.values.Set("routing", routing)
@@ -552,9 +613,9 @@ func (r *Search) Routing(routing string) *Search {
 	return r
 }
 
-// Scroll Period to retain the search context for scrolling. See Scroll search results.
+// Scroll The period to retain the search context for scrolling.
 // By default, this value cannot exceed `1d` (24 hours).
-// You can change this limit using the `search.max_keep_alive` cluster-level
+// You can change this limit by using the `search.max_keep_alive` cluster-level
 // setting.
 // API name: scroll
 func (r *Search) Scroll(duration string) *Search {
@@ -563,7 +624,8 @@ func (r *Search) Scroll(duration string) *Search {
 	return r
 }
 
-// SearchType How distributed term frequencies are calculated for relevance scoring.
+// SearchType Indicates how distributed term frequencies are calculated for relevance
+// scoring.
 // API name: search_type
 func (r *Search) SearchType(searchtype searchtype.SearchType) *Search {
 	r.values.Set("search_type", searchtype.String())
@@ -571,7 +633,7 @@ func (r *Search) SearchType(searchtype searchtype.SearchType) *Search {
 	return r
 }
 
-// SuggestField Specifies which field to use for suggestions.
+// SuggestField The field to use for suggestions.
 // API name: suggest_field
 func (r *Search) SuggestField(field string) *Search {
 	r.values.Set("suggest_field", field)
@@ -579,8 +641,8 @@ func (r *Search) SuggestField(field string) *Search {
 	return r
 }
 
-// SuggestMode Specifies the suggest mode.
-// This parameter can only be used when the `suggest_field` and `suggest_text`
+// SuggestMode The suggest mode.
+// This parameter can be used only when the `suggest_field` and `suggest_text`
 // query string parameters are specified.
 // API name: suggest_mode
 func (r *Search) SuggestMode(suggestmode suggestmode.SuggestMode) *Search {
@@ -589,8 +651,8 @@ func (r *Search) SuggestMode(suggestmode suggestmode.SuggestMode) *Search {
 	return r
 }
 
-// SuggestSize Number of suggestions to return.
-// This parameter can only be used when the `suggest_field` and `suggest_text`
+// SuggestSize The number of suggestions to return.
+// This parameter can be used only when the `suggest_field` and `suggest_text`
 // query string parameters are specified.
 // API name: suggest_size
 func (r *Search) SuggestSize(suggestsize string) *Search {
@@ -600,7 +662,7 @@ func (r *Search) SuggestSize(suggestsize string) *Search {
 }
 
 // SuggestText The source text for which the suggestions should be returned.
-// This parameter can only be used when the `suggest_field` and `suggest_text`
+// This parameter can be used only when the `suggest_field` and `suggest_text`
 // query string parameters are specified.
 // API name: suggest_text
 func (r *Search) SuggestText(suggesttext string) *Search {
@@ -650,9 +712,13 @@ func (r *Search) SourceIncludes_(fields ...string) *Search {
 	return r
 }
 
-// Q Query in the Lucene query string syntax using query parameter search.
+// Q A query in the Lucene query string syntax.
 // Query parameter searches do not support the full Elasticsearch Query DSL but
 // are handy for testing.
+//
+// IMPORTANT: This parameter overrides the query parameter in the request body.
+// If both parameters are specified, documents matching the query request body
+// parameter are not returned.
 // API name: q
 func (r *Search) Q(q string) *Search {
 	r.values.Set("q", q)
@@ -716,340 +782,568 @@ func (r *Search) Pretty(pretty bool) *Search {
 	return r
 }
 
-// Aggregations Defines the aggregations that are run as part of the search request.
+// Defines the aggregations that are run as part of the search request.
 // API name: aggregations
 func (r *Search) Aggregations(aggregations map[string]types.Aggregations) *Search {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Aggregations = aggregations
-
 	return r
 }
 
-// Collapse Collapses search results the values of the specified field.
+func (r *Search) AddAggregation(key string, value types.AggregationsVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]types.Aggregations
+	if r.req.Aggregations == nil {
+		r.req.Aggregations = make(map[string]types.Aggregations)
+	} else {
+		tmp = r.req.Aggregations
+	}
+
+	tmp[key] = *value.AggregationsCaster()
+
+	r.req.Aggregations = tmp
+	return r
+}
+
+// Collapses search results the values of the specified field.
 // API name: collapse
-func (r *Search) Collapse(collapse *types.FieldCollapse) *Search {
+func (r *Search) Collapse(collapse types.FieldCollapseVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Collapse = collapse
+	r.req.Collapse = collapse.FieldCollapseCaster()
 
 	return r
 }
 
-// DocvalueFields Array of wildcard (`*`) patterns.
+// An array of wildcard (`*`) field patterns.
 // The request returns doc values for field names matching these patterns in the
 // `hits.fields` property of the response.
 // API name: docvalue_fields
-func (r *Search) DocvalueFields(docvaluefields ...types.FieldAndFormat) *Search {
-	r.req.DocvalueFields = docvaluefields
+func (r *Search) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range docvaluefields {
 
+		r.req.DocvalueFields = append(r.req.DocvalueFields, *v.FieldAndFormatCaster())
+
+	}
 	return r
 }
 
-// Explain If true, returns detailed information about score computation as part of a
-// hit.
+// If `true`, the request returns detailed information about score computation
+// as part of a hit.
 // API name: explain
 func (r *Search) Explain(explain bool) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Explain = &explain
 
 	return r
 }
 
-// Ext Configuration of search extensions defined by Elasticsearch plugins.
+// Configuration of search extensions defined by Elasticsearch plugins.
 // API name: ext
 func (r *Search) Ext(ext map[string]json.RawMessage) *Search {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Ext = ext
-
 	return r
 }
 
-// Fields Array of wildcard (`*`) patterns.
+func (r *Search) AddExt(key string, value json.RawMessage) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Ext == nil {
+		r.req.Ext = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Ext
+	}
+
+	tmp[key] = value
+
+	r.req.Ext = tmp
+	return r
+}
+
+// An array of wildcard (`*`) field patterns.
 // The request returns values for field names matching these patterns in the
 // `hits.fields` property of the response.
 // API name: fields
-func (r *Search) Fields(fields ...types.FieldAndFormat) *Search {
-	r.req.Fields = fields
+func (r *Search) Fields(fields ...types.FieldAndFormatVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range fields {
 
+		r.req.Fields = append(r.req.Fields, *v.FieldAndFormatCaster())
+
+	}
 	return r
 }
 
-// From Starting document offset.
-// Needs to be non-negative.
+// The starting document offset, which must be non-negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: from
 func (r *Search) From(from int) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.From = &from
 
 	return r
 }
 
-// Highlight Specifies the highlighter to use for retrieving highlighted snippets from one
+// Specifies the highlighter to use for retrieving highlighted snippets from one
 // or more fields in your search results.
 // API name: highlight
-func (r *Search) Highlight(highlight *types.Highlight) *Search {
+func (r *Search) Highlight(highlight types.HighlightVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Highlight = highlight
+	r.req.Highlight = highlight.HighlightCaster()
 
 	return r
 }
 
-// IndicesBoost Boosts the _score of documents from specified indices.
+// Boost the `_score` of documents from specified indices.
+// The boost value is the factor by which scores are multiplied.
+// A boost value greater than `1.0` increases the score.
+// A boost value between `0` and `1.0` decreases the score.
 // API name: indices_boost
-func (r *Search) IndicesBoost(indicesboosts ...map[string]types.Float64) *Search {
-	r.req.IndicesBoost = indicesboosts
+func (r *Search) IndicesBoost(indicesboost []map[string]types.Float64) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IndicesBoost = indicesboost
 
 	return r
 }
 
-// Knn Defines the approximate kNN search to run.
+// The approximate kNN search to run.
 // API name: knn
-func (r *Search) Knn(knns ...types.KnnSearch) *Search {
-	r.req.Knn = knns
+func (r *Search) Knn(knns ...types.KnnSearchVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Knn = make([]types.KnnSearch, len(knns))
+	for i, v := range knns {
+		r.req.Knn[i] = *v.KnnSearchCaster()
+	}
 
 	return r
 }
 
-// MinScore Minimum `_score` for matching documents.
+// The minimum `_score` for matching documents.
 // Documents with a lower `_score` are not included in the search results.
 // API name: min_score
 func (r *Search) MinScore(minscore types.Float64) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MinScore = &minscore
 
 	return r
 }
 
-// Pit Limits the search to a point in time (PIT).
+// Limit the search to a point in time (PIT).
 // If you provide a PIT, you cannot specify an `<index>` in the request path.
 // API name: pit
-func (r *Search) Pit(pit *types.PointInTimeReference) *Search {
+func (r *Search) Pit(pit types.PointInTimeReferenceVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Pit = pit
+	r.req.Pit = pit.PointInTimeReferenceCaster()
 
 	return r
 }
 
-// PostFilter Use the `post_filter` parameter to filter search results.
+// Use the `post_filter` parameter to filter search results.
 // The search hits are filtered after the aggregations are calculated.
 // A post filter has no impact on the aggregation results.
 // API name: post_filter
-func (r *Search) PostFilter(postfilter *types.Query) *Search {
+func (r *Search) PostFilter(postfilter types.QueryVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.PostFilter = postfilter
+	r.req.PostFilter = postfilter.QueryCaster()
 
 	return r
 }
 
-// Profile Set to `true` to return detailed timing information about the execution of
+// Set to `true` to return detailed timing information about the execution of
 // individual components in a search request.
 // NOTE: This is a debugging tool and adds significant overhead to search
 // execution.
 // API name: profile
 func (r *Search) Profile(profile bool) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Profile = &profile
 
 	return r
 }
 
-// Query Defines the search definition using the Query DSL.
+// The search definition using the Query DSL.
 // API name: query
-func (r *Search) Query(query *types.Query) *Search {
+func (r *Search) Query(query types.QueryVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Query = query
+	r.req.Query = query.QueryCaster()
 
 	return r
 }
 
-// Rank Defines the Reciprocal Rank Fusion (RRF) to use.
+// The Reciprocal Rank Fusion (RRF) to use.
 // API name: rank
-func (r *Search) Rank(rank *types.RankContainer) *Search {
+func (r *Search) Rank(rank types.RankContainerVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Rank = rank
+	r.req.Rank = rank.RankContainerCaster()
 
 	return r
 }
 
-// Rescore Can be used to improve precision by reordering just the top (for example 100
+// Can be used to improve precision by reordering just the top (for example 100
 // - 500) documents returned by the `query` and `post_filter` phases.
 // API name: rescore
-func (r *Search) Rescore(rescores ...types.Rescore) *Search {
-	r.req.Rescore = rescores
+func (r *Search) Rescore(rescores ...types.RescoreVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Rescore = make([]types.Rescore, len(rescores))
+	for i, v := range rescores {
+		r.req.Rescore[i] = *v.RescoreCaster()
+	}
 
 	return r
 }
 
-// Retriever A retriever is a specification to describe top documents returned from a
-// search. A retriever replaces other elements of the search API that also
-// return top documents such as query and knn.
+// A retriever is a specification to describe top documents returned from a
+// search.
+// A retriever replaces other elements of the search API that also return top
+// documents such as `query` and `knn`.
 // API name: retriever
-func (r *Search) Retriever(retriever *types.RetrieverContainer) *Search {
+func (r *Search) Retriever(retriever types.RetrieverContainerVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Retriever = retriever
+	r.req.Retriever = retriever.RetrieverContainerCaster()
 
 	return r
 }
 
-// RuntimeMappings Defines one or more runtime fields in the search request.
+// One or more runtime fields in the search request.
 // These fields take precedence over mapped fields with the same name.
 // API name: runtime_mappings
-func (r *Search) RuntimeMappings(runtimefields types.RuntimeFields) *Search {
-	r.req.RuntimeMappings = runtimefields
+func (r *Search) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
 
 	return r
 }
 
-// ScriptFields Retrieve a script evaluation (based on different fields) for each hit.
+// Retrieve a script evaluation (based on different fields) for each hit.
 // API name: script_fields
 func (r *Search) ScriptFields(scriptfields map[string]types.ScriptField) *Search {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.ScriptFields = scriptfields
-
 	return r
 }
 
-// SearchAfter Used to retrieve the next page of hits using a set of sort values from the
+func (r *Search) AddScriptField(key string, value types.ScriptFieldVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]types.ScriptField
+	if r.req.ScriptFields == nil {
+		r.req.ScriptFields = make(map[string]types.ScriptField)
+	} else {
+		tmp = r.req.ScriptFields
+	}
+
+	tmp[key] = *value.ScriptFieldCaster()
+
+	r.req.ScriptFields = tmp
+	return r
+}
+
+// Used to retrieve the next page of hits using a set of sort values from the
 // previous page.
 // API name: search_after
-func (r *Search) SearchAfter(sortresults ...types.FieldValue) *Search {
-	r.req.SearchAfter = sortresults
+func (r *Search) SearchAfter(sortresults ...types.FieldValueVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	for _, v := range sortresults {
+		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+	}
 
 	return r
 }
 
-// SeqNoPrimaryTerm If `true`, returns sequence number and primary term of the last modification
-// of each hit.
+// If `true`, the request returns sequence number and primary term of the last
+// modification of each hit.
 // API name: seq_no_primary_term
 func (r *Search) SeqNoPrimaryTerm(seqnoprimaryterm bool) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.SeqNoPrimaryTerm = &seqnoprimaryterm
 
 	return r
 }
 
-// Size The number of hits to return.
+// The number of hits to return, which must not be negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
-// To page through more hits, use the `search_after` parameter.
+// To page through more hits, use the `search_after` property.
 // API name: size
 func (r *Search) Size(size int) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Size = &size
 
 	return r
 }
 
-// Slice Can be used to split a scrolled search into multiple slices that can be
-// consumed independently.
+// Split a scrolled search into multiple slices that can be consumed
+// independently.
 // API name: slice
-func (r *Search) Slice(slice *types.SlicedScroll) *Search {
+func (r *Search) Slice(slice types.SlicedScrollVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Slice = slice
+	r.req.Slice = slice.SlicedScrollCaster()
 
 	return r
 }
 
-// Sort A comma-separated list of <field>:<direction> pairs.
+// A comma-separated list of <field>:<direction> pairs.
 // API name: sort
-func (r *Search) Sort(sorts ...types.SortCombinations) *Search {
-	r.req.Sort = sorts
+func (r *Search) Sort(sorts ...types.SortCombinationsVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	for _, v := range sorts {
+		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+	}
 
 	return r
 }
 
-// Source_ Indicates which source fields are returned for matching documents.
-// These fields are returned in the hits._source property of the search
+// The source fields that are returned for matching documents.
+// These fields are returned in the `hits._source` property of the search
 // response.
+// If the `stored_fields` property is specified, the `_source` property defaults
+// to `false`.
+// Otherwise, it defaults to `true`.
 // API name: _source
-func (r *Search) Source_(sourceconfig types.SourceConfig) *Search {
-	r.req.Source_ = sourceconfig
+func (r *Search) Source_(sourceconfig types.SourceConfigVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Source_ = *sourceconfig.SourceConfigCaster()
 
 	return r
 }
 
-// Stats Stats groups to associate with the search.
+// The stats groups to associate with the search.
 // Each group maintains a statistics aggregation for its associated searches.
 // You can retrieve these stats using the indices stats API.
 // API name: stats
 func (r *Search) Stats(stats ...string) *Search {
-	r.req.Stats = stats
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range stats {
 
+		r.req.Stats = append(r.req.Stats, v)
+
+	}
 	return r
 }
 
-// StoredFields List of stored fields to return as part of a hit.
+// A comma-separated list of stored fields to return as part of a hit.
 // If no fields are specified, no stored fields are included in the response.
-// If this field is specified, the `_source` parameter defaults to `false`.
+// If this field is specified, the `_source` property defaults to `false`.
 // You can pass `_source: true` to return both source fields and stored fields
 // in the search response.
 // API name: stored_fields
 func (r *Search) StoredFields(fields ...string) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.StoredFields = fields
 
 	return r
 }
 
-// Suggest Defines a suggester that provides similar looking terms based on a provided
+// Defines a suggester that provides similar looking terms based on a provided
 // text.
 // API name: suggest
-func (r *Search) Suggest(suggest *types.Suggester) *Search {
+func (r *Search) Suggest(suggest types.SuggesterVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Suggest = suggest
+	r.req.Suggest = suggest.SuggesterCaster()
 
 	return r
 }
 
-// TerminateAfter Maximum number of documents to collect for each shard.
+// The maximum number of documents to collect for each shard.
 // If a query reaches this limit, Elasticsearch terminates the query early.
 // Elasticsearch collects documents before sorting.
-// Use with caution.
-// Elasticsearch applies this parameter to each shard handling the request.
+//
+// IMPORTANT: Use with caution.
+// Elasticsearch applies this property to each shard handling the request.
 // When possible, let Elasticsearch perform early termination automatically.
-// Avoid specifying this parameter for requests that target data streams with
+// Avoid specifying this property for requests that target data streams with
 // backing indices across multiple data tiers.
+//
 // If set to `0` (default), the query does not terminate early.
 // API name: terminate_after
 func (r *Search) TerminateAfter(terminateafter int64) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.TerminateAfter = &terminateafter
 
 	return r
 }
 
-// Timeout Specifies the period of time to wait for a response from each shard.
+// The period of time to wait for a response from each shard.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
 // Defaults to no timeout.
 // API name: timeout
 func (r *Search) Timeout(timeout string) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Timeout = &timeout
 
 	return r
 }
 
-// TrackScores If true, calculate and return document scores, even if the scores are not
+// If `true`, calculate and return document scores, even if the scores are not
 // used for sorting.
 // API name: track_scores
 func (r *Search) TrackScores(trackscores bool) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.TrackScores = &trackscores
 
 	return r
 }
 
-// TrackTotalHits Number of hits matching the query to count accurately.
+// Number of hits matching the query to count accurately.
 // If `true`, the exact number of hits is returned at the cost of some
 // performance.
 // If `false`, the  response does not include the total number of hits matching
 // the query.
 // API name: track_total_hits
-func (r *Search) TrackTotalHits(trackhits types.TrackHits) *Search {
-	r.req.TrackTotalHits = trackhits
+func (r *Search) TrackTotalHits(trackhits types.TrackHitsVariant) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.TrackTotalHits = *trackhits.TrackHitsCaster()
 
 	return r
 }
 
-// Version If true, returns document version as part of a hit.
+// If `true`, the request returns the document version as part of a hit.
 // API name: version
 func (r *Search) Version(version bool) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Version = &version
 
 	return r

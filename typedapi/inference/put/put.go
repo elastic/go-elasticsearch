@@ -16,9 +16,28 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Create an inference endpoint
+// Create an inference endpoint.
+// When you create an inference endpoint, the associated machine learning model
+// is automatically deployed if it is not already running.
+// After creating the endpoint, wait for the model deployment to complete before
+// using it.
+// To verify the deployment status, use the get trained model statistics API.
+// Look for `"state": "fully_allocated"` in the response and ensure that the
+// `"allocation_count"` matches the `"target_allocation_count"`.
+// Avoid creating multiple endpoints for the same model unless required, as each
+// endpoint consumes significant resources.
+//
+// IMPORTANT: The inference APIs enable you to use certain services, such as
+// built-in machine learning models (ELSER, E5), models uploaded through Eland,
+// Cohere, OpenAI, Mistral, Azure OpenAI, Google AI Studio, Google Vertex AI,
+// Anthropic, Watsonx.ai, or Hugging Face.
+// For built-in models and models uploaded through Eland, the inference APIs
+// offer an alternative way to use and manage trained models.
+// However, if you do not plan to use the inference APIs to use these models or
+// if you want to use non-NLP models, use the machine learning trained model
+// APIs.
 package put
 
 import (
@@ -84,7 +103,26 @@ func NewPutFunc(tp elastictransport.Interface) NewPut {
 	}
 }
 
-// Create an inference endpoint
+// Create an inference endpoint.
+// When you create an inference endpoint, the associated machine learning model
+// is automatically deployed if it is not already running.
+// After creating the endpoint, wait for the model deployment to complete before
+// using it.
+// To verify the deployment status, use the get trained model statistics API.
+// Look for `"state": "fully_allocated"` in the response and ensure that the
+// `"allocation_count"` matches the `"target_allocation_count"`.
+// Avoid creating multiple endpoints for the same model unless required, as each
+// endpoint consumes significant resources.
+//
+// IMPORTANT: The inference APIs enable you to use certain services, such as
+// built-in machine learning models (ELSER, E5), models uploaded through Eland,
+// Cohere, OpenAI, Mistral, Azure OpenAI, Google AI Studio, Google Vertex AI,
+// Anthropic, Watsonx.ai, or Hugging Face.
+// For built-in models and models uploaded through Eland, the inference APIs
+// offer an alternative way to use and manage trained models.
+// However, if you do not plan to use the inference APIs to use these models or
+// if you want to use non-NLP models, use the machine learning trained model
+// APIs.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-inference-api.html
 func New(tp elastictransport.Interface) *Put {
@@ -94,8 +132,6 @@ func New(tp elastictransport.Interface) *Put {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -386,26 +422,53 @@ func (r *Put) Pretty(pretty bool) *Put {
 	return r
 }
 
-// Service The service type
+// Chunking configuration object
+// API name: chunking_settings
+func (r *Put) ChunkingSettings(chunkingsettings types.InferenceChunkingSettingsVariant) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ChunkingSettings = chunkingsettings.InferenceChunkingSettingsCaster()
+
+	return r
+}
+
+// The service type
 // API name: service
 func (r *Put) Service(service string) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Service = service
 
 	return r
 }
 
-// ServiceSettings Settings specific to the service
+// Settings specific to the service
 // API name: service_settings
 func (r *Put) ServiceSettings(servicesettings json.RawMessage) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ServiceSettings = servicesettings
 
 	return r
 }
 
-// TaskSettings Task settings specific to the service and task type
+// Task settings specific to the service and task type
 // API name: task_settings
 func (r *Put) TaskSettings(tasksettings json.RawMessage) *Put {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.TaskSettings = tasksettings
 
 	return r

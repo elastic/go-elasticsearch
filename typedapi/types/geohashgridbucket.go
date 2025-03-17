@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // GeoHashGridBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L514-L516
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L570-L572
 type GeoHashGridBucket struct {
 	Aggregations map[string]Aggregate `json:"-"`
 	DocCount     int64                `json:"doc_count"`
@@ -491,6 +491,13 @@ func (s *GeoHashGridBucket) UnmarshalJSON(data []byte) error {
 							}
 							s.Aggregations[elems[1]] = o
 
+						case "time_series":
+							o := NewTimeSeriesAggregate()
+							if err := dec.Decode(&o); err != nil {
+								return fmt.Errorf("%s | %w", "Aggregations", err)
+							}
+							s.Aggregations[elems[1]] = o
+
 						case "scripted_metric":
 							o := NewScriptedMetricAggregate()
 							if err := dec.Decode(&o); err != nil {
@@ -624,8 +631,10 @@ func (s GeoHashGridBucket) MarshalJSON() ([]byte, error) {
 // NewGeoHashGridBucket returns a GeoHashGridBucket.
 func NewGeoHashGridBucket() *GeoHashGridBucket {
 	r := &GeoHashGridBucket{
-		Aggregations: make(map[string]Aggregate, 0),
+		Aggregations: make(map[string]Aggregate),
 	}
 
 	return r
 }
+
+// false

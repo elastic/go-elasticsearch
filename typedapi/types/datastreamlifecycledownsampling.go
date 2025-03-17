@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // DataStreamLifecycleDownsampling type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/DataStreamLifecycleDownsampling.ts#L22-L27
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/DataStreamLifecycleDownsampling.ts#L22-L27
 type DataStreamLifecycleDownsampling struct {
 	// Rounds The list of downsampling rounds to execute as part of this downsampling
 	// configuration
@@ -34,4 +34,14 @@ func NewDataStreamLifecycleDownsampling() *DataStreamLifecycleDownsampling {
 	r := &DataStreamLifecycleDownsampling{}
 
 	return r
+}
+
+// true
+
+type DataStreamLifecycleDownsamplingVariant interface {
+	DataStreamLifecycleDownsamplingCaster() *DataStreamLifecycleDownsampling
+}
+
+func (s *DataStreamLifecycleDownsampling) DataStreamLifecycleDownsamplingCaster() *DataStreamLifecycleDownsampling {
+	return s
 }

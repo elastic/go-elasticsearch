@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Delete an unreferenced trained model.
+//
 // The request deletes a trained inference model that is not referenced by an
 // ingest pipeline.
 package deletetrainedmodel
@@ -79,6 +80,7 @@ func NewDeleteTrainedModelFunc(tp elastictransport.Interface) NewDeleteTrainedMo
 }
 
 // Delete an unreferenced trained model.
+//
 // The request deletes a trained inference model that is not referenced by an
 // ingest pipeline.
 //
@@ -308,6 +310,15 @@ func (r *DeleteTrainedModel) _modelid(modelid string) *DeleteTrainedModel {
 // API name: force
 func (r *DeleteTrainedModel) Force(force bool) *DeleteTrainedModel {
 	r.values.Set("force", strconv.FormatBool(force))
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *DeleteTrainedModel) Timeout(duration string) *DeleteTrainedModel {
+	r.values.Set("timeout", duration)
 
 	return r
 }

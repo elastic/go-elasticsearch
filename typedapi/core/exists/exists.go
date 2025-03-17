@@ -16,10 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Check a document.
-// Checks if a specified document exists.
+//
+// Verify that a document exists.
+// For example, check to see if a document with the `_id` 0 exists:
+//
+// ```
+// HEAD my-index-000001/_doc/0
+// ```
+//
+// If the document exists, the API returns a status code of `200 - OK`.
+// If the document doesn’t exist, the API returns `404 - Not Found`.
+//
+// **Versioning support**
+//
+// You can use the `version` parameter to check the document only if its current
+// version is equal to the specified one.
+//
+// Internally, Elasticsearch has marked the old document as deleted and added an
+// entirely new document.
+// The old version of the document doesn't disappear immediately, although you
+// won't be able to access it.
+// Elasticsearch cleans up deleted documents in the background as you continue
+// to index more data.
 package exists
 
 import (
@@ -82,7 +103,28 @@ func NewExistsFunc(tp elastictransport.Interface) NewExists {
 }
 
 // Check a document.
-// Checks if a specified document exists.
+//
+// Verify that a document exists.
+// For example, check to see if a document with the `_id` 0 exists:
+//
+// ```
+// HEAD my-index-000001/_doc/0
+// ```
+//
+// If the document exists, the API returns a status code of `200 - OK`.
+// If the document doesn’t exist, the API returns `404 - Not Found`.
+//
+// **Versioning support**
+//
+// You can use the `version` parameter to check the document only if its current
+// version is equal to the specified one.
+//
+// Internally, Elasticsearch has marked the old document as deleted and added an
+// entirely new document.
+// The old version of the document doesn't disappear immediately, although you
+// won't be able to access it.
+// Elasticsearch cleans up deleted documents in the background as you continue
+// to index more data.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
 func New(tp elastictransport.Interface) *Exists {
@@ -251,7 +293,7 @@ func (r *Exists) Header(key, value string) *Exists {
 	return r
 }
 
-// Id Identifier of the document.
+// Id A unique document identifier.
 // API Name: id
 func (r *Exists) _id(id string) *Exists {
 	r.paramSet |= idMask
@@ -260,8 +302,8 @@ func (r *Exists) _id(id string) *Exists {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases.
-// Supports wildcards (`*`).
+// Index A comma-separated list of data streams, indices, and aliases.
+// It supports wildcards (`*`).
 // API Name: index
 func (r *Exists) _index(index string) *Exists {
 	r.paramSet |= indexMask
@@ -270,8 +312,16 @@ func (r *Exists) _index(index string) *Exists {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference The node or shard the operation should be performed on.
+// By default, the operation is randomized between the shard replicas.
+//
+// If it is set to `_local`, the operation will prefer to be run on a local
+// allocated shard when possible.
+// If it is set to a custom value, the value is used to guarantee that the same
+// shards will be used for the same custom value.
+// This can help with "jumping values" when hitting different shards in
+// different refresh states.
+// A sample value can be something like the web session ID or the user name.
 // API name: preference
 func (r *Exists) Preference(preference string) *Exists {
 	r.values.Set("preference", preference)
@@ -287,8 +337,10 @@ func (r *Exists) Realtime(realtime bool) *Exists {
 	return r
 }
 
-// Refresh If `true`, Elasticsearch refreshes all shards involved in the delete by query
-// after the request completes.
+// Refresh If `true`, the request refreshes the relevant shards before retrieving the
+// document.
+// Setting it to `true` should be done after careful thought and verification
+// that this does not cause a heavy load on the system (and slow down indexing).
 // API name: refresh
 func (r *Exists) Refresh(refresh bool) *Exists {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -296,7 +348,7 @@ func (r *Exists) Refresh(refresh bool) *Exists {
 	return r
 }
 
-// Routing Target the specified primary shard.
+// Routing A custom value used to route operations to a specific shard.
 // API name: routing
 func (r *Exists) Routing(routing string) *Exists {
 	r.values.Set("routing", routing)
@@ -304,8 +356,8 @@ func (r *Exists) Routing(routing string) *Exists {
 	return r
 }
 
-// Source_ `true` or `false` to return the `_source` field or not, or a list of fields
-// to return.
+// Source_ Indicates whether to return the `_source` field (`true` or `false`) or lists
+// the fields to return.
 // API name: _source
 func (r *Exists) Source_(sourceconfigparam string) *Exists {
 	r.values.Set("_source", sourceconfigparam)
@@ -313,7 +365,10 @@ func (r *Exists) Source_(sourceconfigparam string) *Exists {
 	return r
 }
 
-// SourceExcludes_ A comma-separated list of source fields to exclude in the response.
+// SourceExcludes_ A comma-separated list of source fields to exclude from the response.
+// You can also use this parameter to exclude fields from the subset specified
+// in `_source_includes` query parameter.
+// If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_excludes
 func (r *Exists) SourceExcludes_(fields ...string) *Exists {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
@@ -322,6 +377,10 @@ func (r *Exists) SourceExcludes_(fields ...string) *Exists {
 }
 
 // SourceIncludes_ A comma-separated list of source fields to include in the response.
+// If this parameter is specified, only these source fields are returned.
+// You can exclude fields from this subset using the `_source_excludes` query
+// parameter.
+// If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_includes
 func (r *Exists) SourceIncludes_(fields ...string) *Exists {
 	r.values.Set("_source_includes", strings.Join(fields, ","))
@@ -329,9 +388,9 @@ func (r *Exists) SourceIncludes_(fields ...string) *Exists {
 	return r
 }
 
-// StoredFields List of stored fields to return as part of a hit.
+// StoredFields A comma-separated list of stored fields to return as part of a hit.
 // If no fields are specified, no stored fields are included in the response.
-// If this field is specified, the `_source` parameter defaults to false.
+// If this field is specified, the `_source` parameter defaults to `false`.
 // API name: stored_fields
 func (r *Exists) StoredFields(fields ...string) *Exists {
 	r.values.Set("stored_fields", strings.Join(fields, ","))
@@ -349,7 +408,7 @@ func (r *Exists) Version(versionnumber string) *Exists {
 	return r
 }
 
-// VersionType Specific version type: `external`, `external_gte`.
+// VersionType The version type.
 // API name: version_type
 func (r *Exists) VersionType(versiontype versiontype.VersionType) *Exists {
 	r.values.Set("version_type", versiontype.String())

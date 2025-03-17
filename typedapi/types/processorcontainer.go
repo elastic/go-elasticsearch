@@ -16,14 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L27-L239
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ingest/_types/Processors.ts#L27-L301
 type ProcessorContainer struct {
+	AdditionalProcessorContainerProperty map[string]json.RawMessage `json:"-"`
 	// Append Appends one or more values to an existing array if the field already exists
 	// and it is an array.
 	// Converts a scalar to an array and appends one or more values to it if the
@@ -47,6 +53,10 @@ type ProcessorContainer struct {
 	// Circle Converts circle definitions of shapes to regular polygons which approximate
 	// them.
 	Circle *CircleProcessor `json:"circle,omitempty"`
+	// CommunityId Computes the Community ID for network flow data as defined in the
+	// Community ID Specification. You can use a community ID to correlate network
+	// events related to a single flow.
+	CommunityId *CommunityIDProcessor `json:"community_id,omitempty"`
 	// Convert Converts a field in the currently ingested document to a different type, such
 	// as converting a string to an integer.
 	// If the field value is an array, all members will be converted.
@@ -79,8 +89,16 @@ type ProcessorContainer struct {
 	// This is useful for when you expect a pipeline to fail and want to relay a
 	// specific message to the requester.
 	Fail *FailProcessor `json:"fail,omitempty"`
+	// Fingerprint Computes a hash of the document’s content. You can use this hash for
+	// content fingerprinting.
+	Fingerprint *FingerprintProcessor `json:"fingerprint,omitempty"`
 	// Foreach Runs an ingest processor on each element of an array or object.
 	Foreach *ForeachProcessor `json:"foreach,omitempty"`
+	// GeoGrid Converts geo-grid definitions of grid tiles or cells to regular bounding
+	// boxes or polygons which describe their shape.
+	// This is useful if there is a need to interact with the tile shapes as
+	// spatially indexable fields.
+	GeoGrid *GeoGridProcessor `json:"geo_grid,omitempty"`
 	// Geoip The `geoip` processor adds information about the geographical location of an
 	// IPv4 or IPv6 address.
 	Geoip *GeoIpProcessor `json:"geoip,omitempty"`
@@ -96,10 +114,16 @@ type ProcessorContainer struct {
 	// If any non-string values are encountered, the processor will throw an
 	// exception.
 	Gsub *GsubProcessor `json:"gsub,omitempty"`
+	// HtmlStrip Removes HTML tags from the field.
+	// If the field is an array of strings, HTML tags will be removed from all
+	// members of the array.
+	HtmlStrip *HtmlStripProcessor `json:"html_strip,omitempty"`
 	// Inference Uses a pre-trained data frame analytics model or a model deployed for natural
 	// language processing tasks to infer against the data that is being ingested in
 	// the pipeline.
 	Inference *InferenceProcessor `json:"inference,omitempty"`
+	// IpLocation Currently an undocumented alias for GeoIP Processor.
+	IpLocation *IpLocationProcessor `json:"ip_location,omitempty"`
 	// Join Joins each element of an array into a single string using a separator
 	// character between each element.
 	// Throws an error when the field is not an array.
@@ -113,8 +137,24 @@ type ProcessorContainer struct {
 	// If the field is an array of strings, all members of the array will be
 	// converted.
 	Lowercase *LowercaseProcessor `json:"lowercase,omitempty"`
+	// NetworkDirection Calculates the network direction given a source IP address, destination IP
+	// address, and a list of internal networks.
+	NetworkDirection *NetworkDirectionProcessor `json:"network_direction,omitempty"`
 	// Pipeline Executes another pipeline.
 	Pipeline *PipelineProcessor `json:"pipeline,omitempty"`
+	// Redact The Redact processor uses the Grok rules engine to obscure text in the input
+	// document matching the given Grok patterns.
+	// The processor can be used to obscure Personal Identifying Information (PII)
+	// by configuring it to detect known patterns such as email or IP addresses.
+	// Text that matches a Grok pattern is replaced with a configurable string such
+	// as `<EMAIL>` where an email address is matched or simply replace all matches
+	// with the text `<REDACTED>` if preferred.
+	Redact *RedactProcessor `json:"redact,omitempty"`
+	// RegisteredDomain Extracts the registered domain (also known as the effective top-level
+	// domain or eTLD), sub-domain, and top-level domain from a fully qualified
+	// domain name (FQDN). Uses the registered domains defined in the Mozilla
+	// Public Suffix List.
+	RegisteredDomain *RegisteredDomainProcessor `json:"registered_domain,omitempty"`
 	// Remove Removes existing fields.
 	// If one field doesn’t exist, an exception will be thrown.
 	Remove *RemoveProcessor `json:"remove,omitempty"`
@@ -149,6 +189,10 @@ type ProcessorContainer struct {
 	// Split Splits a field into an array using a separator character.
 	// Only works on string fields.
 	Split *SplitProcessor `json:"split,omitempty"`
+	// Terminate Terminates the current ingest pipeline, causing no further processors to be
+	// run.
+	// This will normally be executed conditionally, using the `if` option.
+	Terminate *TerminateProcessor `json:"terminate,omitempty"`
 	// Trim Trims whitespace from a field.
 	// If the field is an array of strings, all members of the array will be
 	// trimmed.
@@ -158,6 +202,11 @@ type ProcessorContainer struct {
 	// If the field is an array of strings, all members of the array will be
 	// converted.
 	Uppercase *UppercaseProcessor `json:"uppercase,omitempty"`
+	// UriParts Parses a Uniform Resource Identifier (URI) string and extracts its components
+	// as an object.
+	// This URI object includes properties for the URI’s domain, path, fragment,
+	// port, query, scheme, user info, username, and password.
+	UriParts *UriPartsProcessor `json:"uri_parts,omitempty"`
 	// Urldecode URL-decodes a string.
 	// If the field is an array of strings, all members of the array will be
 	// decoded.
@@ -168,9 +217,50 @@ type ProcessorContainer struct {
 	UserAgent *UserAgentProcessor `json:"user_agent,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ProcessorContainer) MarshalJSON() ([]byte, error) {
+	type opt ProcessorContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalProcessorContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalProcessorContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewProcessorContainer returns a ProcessorContainer.
 func NewProcessorContainer() *ProcessorContainer {
-	r := &ProcessorContainer{}
+	r := &ProcessorContainer{
+		AdditionalProcessorContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type ProcessorContainerVariant interface {
+	ProcessorContainerCaster() *ProcessorContainer
+}
+
+func (s *ProcessorContainer) ProcessorContainerCaster() *ProcessorContainer {
+	return s
 }

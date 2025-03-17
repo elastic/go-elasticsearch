@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // GeoLineSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/metric.ts#L148-L153
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/metric.ts#L151-L156
 type GeoLineSort struct {
 	// Field The name of the numeric field to use as the sort key for ordering the points.
 	Field string `json:"field"`
@@ -66,4 +66,14 @@ func NewGeoLineSort() *GeoLineSort {
 	r := &GeoLineSort{}
 
 	return r
+}
+
+// true
+
+type GeoLineSortVariant interface {
+	GeoLineSortCaster() *GeoLineSort
+}
+
+func (s *GeoLineSort) GeoLineSortCaster() *GeoLineSort {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/stats/types.ts#L140-L144
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/stats/types.ts#L140-L144
 type ShardPath struct {
 	DataPath         string `json:"data_path"`
 	IsCustomDataPath bool   `json:"is_custom_data_path"`
@@ -102,3 +102,5 @@ func NewShardPath() *ShardPath {
 
 	return r
 }
+
+// false

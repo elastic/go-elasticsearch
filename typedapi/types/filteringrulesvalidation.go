@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // FilteringRulesValidation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L198-L201
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/connector/_types/Connector.ts#L198-L201
 type FilteringRulesValidation struct {
 	Errors []FilteringValidation                             `json:"errors"`
 	State  filteringvalidationstate.FilteringValidationState `json:"state"`
@@ -37,4 +37,14 @@ func NewFilteringRulesValidation() *FilteringRulesValidation {
 	r := &FilteringRulesValidation{}
 
 	return r
+}
+
+// true
+
+type FilteringRulesValidationVariant interface {
+	FilteringRulesValidationCaster() *FilteringRulesValidation
+}
+
+func (s *FilteringRulesValidation) FilteringRulesValidationCaster() *FilteringRulesValidation {
+	return s
 }

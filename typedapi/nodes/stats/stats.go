@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns cluster nodes statistics.
+// Get node statistics.
+// Get statistics for nodes in a cluster.
+// By default, all stats are returned. You can limit the returned information by
+// using metrics.
 package stats
 
 import (
@@ -81,7 +84,10 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 	}
 }
 
-// Returns cluster nodes statistics.
+// Get node statistics.
+// Get statistics for nodes in a cluster.
+// By default, all stats are returned. You can limit the returned information by
+// using metrics.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html
 func New(tp elastictransport.Interface) *Stats {
@@ -455,15 +461,6 @@ func (r *Stats) IncludeSegmentFileSizes(includesegmentfilesizes bool) *Stats {
 // API name: level
 func (r *Stats) Level(level level.Level) *Stats {
 	r.values.Set("level", level.String())
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
-// API name: master_timeout
-func (r *Stats) MasterTimeout(duration string) *Stats {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

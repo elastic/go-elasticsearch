@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // Node type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/searchable_snapshots/cache_stats/Response.ts#L30-L32
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/searchable_snapshots/cache_stats/Response.ts#L30-L32
 type Node struct {
 	SharedCache Shared `json:"shared_cache"`
 }
@@ -33,3 +33,5 @@ func NewNode() *Node {
 
 	return r
 }
+
+// false

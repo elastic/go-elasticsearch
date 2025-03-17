@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchTemplateRequestBody type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Input.ts#L128-L145
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Input.ts#L128-L145
 type SearchTemplateRequestBody struct {
 	Explain *bool `json:"explain,omitempty"`
 	// Id ID of the search template to use. If no source is specified,
@@ -121,8 +121,18 @@ func (s *SearchTemplateRequestBody) UnmarshalJSON(data []byte) error {
 // NewSearchTemplateRequestBody returns a SearchTemplateRequestBody.
 func NewSearchTemplateRequestBody() *SearchTemplateRequestBody {
 	r := &SearchTemplateRequestBody{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type SearchTemplateRequestBodyVariant interface {
+	SearchTemplateRequestBodyCaster() *SearchTemplateRequestBody
+}
+
+func (s *SearchTemplateRequestBody) SearchTemplateRequestBodyCaster() *SearchTemplateRequestBody {
+	return s
 }

@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Creates or updates a trained model alias. A trained model alias is a logical
-// name used to reference a single trained model.
+// Create or update a trained model alias.
+// A trained model alias is a logical name used to reference a single trained
+// model.
 // You can use aliases instead of trained model identifiers to make it easier to
 // reference your models. For example, you can use aliases in inference
 // aggregations and processors.
@@ -96,8 +97,9 @@ func NewPutTrainedModelAliasFunc(tp elastictransport.Interface) NewPutTrainedMod
 	}
 }
 
-// Creates or updates a trained model alias. A trained model alias is a logical
-// name used to reference a single trained model.
+// Create or update a trained model alias.
+// A trained model alias is a logical name used to reference a single trained
+// model.
 // You can use aliases instead of trained model identifiers to make it easier to
 // reference your models. For example, you can use aliases in inference
 // aggregations and processors.

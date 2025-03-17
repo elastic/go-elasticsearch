@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RankEvalMetricMeanReciprocalRank type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/rank_eval/types.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/rank_eval/types.ts#L60-L64
 type RankEvalMetricMeanReciprocalRank struct {
 	// K Sets the maximum number of documents retrieved per query. This value will act
 	// in place of the usual size parameter in the query.
@@ -98,4 +98,14 @@ func NewRankEvalMetricMeanReciprocalRank() *RankEvalMetricMeanReciprocalRank {
 	r := &RankEvalMetricMeanReciprocalRank{}
 
 	return r
+}
+
+// true
+
+type RankEvalMetricMeanReciprocalRankVariant interface {
+	RankEvalMetricMeanReciprocalRankCaster() *RankEvalMetricMeanReciprocalRank
+}
+
+func (s *RankEvalMetricMeanReciprocalRank) RankEvalMetricMeanReciprocalRankCaster() *RankEvalMetricMeanReciprocalRank {
+	return s
 }
