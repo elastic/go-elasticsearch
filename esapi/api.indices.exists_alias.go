@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newIndicesExistsAliasFunc(t Transport) IndicesExistsAlias {
@@ -58,7 +59,7 @@ type IndicesExistsAliasRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
-	Local             *bool
+	MasterTimeout     time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -126,8 +127,8 @@ func (r IndicesExistsAliasRequest) Do(providedCtx context.Context, transport Tra
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
 	}
 
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -236,10 +237,10 @@ func (f IndicesExistsAlias) WithIgnoreUnavailable(v bool) func(*IndicesExistsAli
 	}
 }
 
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-func (f IndicesExistsAlias) WithLocal(v bool) func(*IndicesExistsAliasRequest) {
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
+func (f IndicesExistsAlias) WithMasterTimeout(v time.Duration) func(*IndicesExistsAliasRequest) {
 	return func(r *IndicesExistsAliasRequest) {
-		r.Local = &v
+		r.MasterTimeout = v
 	}
 }
 

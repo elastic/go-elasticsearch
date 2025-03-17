@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -56,6 +56,7 @@ type BulkRequest struct {
 
 	Body io.Reader
 
+	IncludeSourceOnError  *bool
 	ListExecutedPipelines *bool
 	Pipeline              string
 	Refresh               string
@@ -66,7 +67,6 @@ type BulkRequest struct {
 	SourceExcludes        []string
 	SourceIncludes        []string
 	Timeout               time.Duration
-	DocumentType          string
 	WaitForActiveShards   string
 
 	Pretty     bool
@@ -114,6 +114,10 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 
 	params = make(map[string]string)
 
+	if r.IncludeSourceOnError != nil {
+		params["include_source_on_error"] = strconv.FormatBool(*r.IncludeSourceOnError)
+	}
+
 	if r.ListExecutedPipelines != nil {
 		params["list_executed_pipelines"] = strconv.FormatBool(*r.ListExecutedPipelines)
 	}
@@ -152,10 +156,6 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 
 	if r.Timeout != 0 {
 		params["timeout"] = formatDuration(r.Timeout)
-	}
-
-	if r.DocumentType != "" {
-		params["type"] = r.DocumentType
 	}
 
 	if r.WaitForActiveShards != "" {
@@ -254,6 +254,13 @@ func (f Bulk) WithIndex(v string) func(*BulkRequest) {
 	}
 }
 
+// WithIncludeSourceOnError - true or false if to include the document source in the error message in case of parsing errors. defaults to true..
+func (f Bulk) WithIncludeSourceOnError(v bool) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.IncludeSourceOnError = &v
+	}
+}
+
 // WithListExecutedPipelines - sets list_executed_pipelines for all incoming documents. defaults to unset (false).
 func (f Bulk) WithListExecutedPipelines(v bool) func(*BulkRequest) {
 	return func(r *BulkRequest) {
@@ -275,14 +282,14 @@ func (f Bulk) WithRefresh(v string) func(*BulkRequest) {
 	}
 }
 
-// WithRequireAlias - sets require_alias for all incoming documents. defaults to unset (false).
+// WithRequireAlias - if true, the request’s actions must target an index alias. defaults to false..
 func (f Bulk) WithRequireAlias(v bool) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.RequireAlias = &v
 	}
 }
 
-// WithRequireDataStream - when true, requires the destination to be a data stream (existing or to-be-created). default is false.
+// WithRequireDataStream - if true, the request's actions must target a data stream (existing or to-be-created). default to false.
 func (f Bulk) WithRequireDataStream(v bool) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.RequireDataStream = &v
@@ -321,13 +328,6 @@ func (f Bulk) WithSourceIncludes(v ...string) func(*BulkRequest) {
 func (f Bulk) WithTimeout(v time.Duration) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Timeout = v
-	}
-}
-
-// WithDocumentType - default document type for items which don't provide one.
-func (f Bulk) WithDocumentType(v string) func(*BulkRequest) {
-	return func(r *BulkRequest) {
-		r.DocumentType = v
 	}
 }
 

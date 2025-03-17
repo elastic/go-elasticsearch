@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -44,8 +44,6 @@ func newInferencePutFunc(t Transport) InferencePut {
 // ----- API Definition -------------------------------------------------------
 
 // InferencePut configure an inference endpoint for use in the Inference API
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/put-inference-api.html.
 type InferencePut func(inference_id string, o ...func(*InferencePutRequest)) (*Response, error)

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -75,7 +75,6 @@ type SearchRequest struct {
 	IncludeNamedQueriesScore   *bool
 	Lenient                    *bool
 	MaxConcurrentShardRequests *int
-	MinCompatibleShardNode     string
 	Preference                 string
 	PreFilterShardSize         *int
 	Query                      string
@@ -218,10 +217,6 @@ func (r SearchRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	if r.MaxConcurrentShardRequests != nil {
 		params["max_concurrent_shard_requests"] = strconv.FormatInt(int64(*r.MaxConcurrentShardRequests), 10)
-	}
-
-	if r.MinCompatibleShardNode != "" {
-		params["min_compatible_shard_node"] = r.MinCompatibleShardNode
 	}
 
 	if r.Preference != "" {
@@ -550,13 +545,6 @@ func (f Search) WithLenient(v bool) func(*SearchRequest) {
 func (f Search) WithMaxConcurrentShardRequests(v int) func(*SearchRequest) {
 	return func(r *SearchRequest) {
 		r.MaxConcurrentShardRequests = &v
-	}
-}
-
-// WithMinCompatibleShardNode - the minimum compatible version that all shards involved in search should have for this request to be successful.
-func (f Search) WithMinCompatibleShardNode(v string) func(*SearchRequest) {
-	return func(r *SearchRequest) {
-		r.MinCompatibleShardNode = v
 	}
 }
 

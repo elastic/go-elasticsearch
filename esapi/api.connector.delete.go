@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -55,6 +55,7 @@ type ConnectorDeleteRequest struct {
 	ConnectorID string
 
 	DeleteSyncJobs *bool
+	Hard           *bool
 
 	Pretty     bool
 	Human      bool
@@ -101,6 +102,10 @@ func (r ConnectorDeleteRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.DeleteSyncJobs != nil {
 		params["delete_sync_jobs"] = strconv.FormatBool(*r.DeleteSyncJobs)
+	}
+
+	if r.Hard != nil {
+		params["hard"] = strconv.FormatBool(*r.Hard)
 	}
 
 	if r.Pretty {
@@ -185,6 +190,13 @@ func (f ConnectorDelete) WithContext(v context.Context) func(*ConnectorDeleteReq
 func (f ConnectorDelete) WithDeleteSyncJobs(v bool) func(*ConnectorDeleteRequest) {
 	return func(r *ConnectorDeleteRequest) {
 		r.DeleteSyncJobs = &v
+	}
+}
+
+// WithHard - if true, the connector doc is deleted. if false, connector doc is marked as deleted (soft-deleted)..
+func (f ConnectorDelete) WithHard(v bool) func(*ConnectorDeleteRequest) {
+	return func(r *ConnectorDeleteRequest) {
+		r.Hard = &v
 	}
 }
 

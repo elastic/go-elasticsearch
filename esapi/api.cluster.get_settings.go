@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -201,7 +201,7 @@ func (f ClusterGetSettings) WithIncludeDefaults(v bool) func(*ClusterGetSettings
 	}
 }
 
-// WithMasterTimeout - explicit operation timeout for connection to master node.
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
 func (f ClusterGetSettings) WithMasterTimeout(v time.Duration) func(*ClusterGetSettingsRequest) {
 	return func(r *ClusterGetSettingsRequest) {
 		r.MasterTimeout = v
