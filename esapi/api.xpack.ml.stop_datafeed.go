@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -56,10 +56,9 @@ type MLStopDatafeedRequest struct {
 
 	DatafeedID string
 
-	AllowNoDatafeeds *bool
-	AllowNoMatch     *bool
-	Force            *bool
-	Timeout          time.Duration
+	AllowNoMatch *bool
+	Force        *bool
+	Timeout      time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -107,10 +106,6 @@ func (r MLStopDatafeedRequest) Do(providedCtx context.Context, transport Transpo
 	path.WriteString("_stop")
 
 	params = make(map[string]string)
-
-	if r.AllowNoDatafeeds != nil {
-		params["allow_no_datafeeds"] = strconv.FormatBool(*r.AllowNoDatafeeds)
-	}
 
 	if r.AllowNoMatch != nil {
 		params["allow_no_match"] = strconv.FormatBool(*r.AllowNoMatch)
@@ -213,13 +208,6 @@ func (f MLStopDatafeed) WithContext(v context.Context) func(*MLStopDatafeedReque
 func (f MLStopDatafeed) WithBody(v io.Reader) func(*MLStopDatafeedRequest) {
 	return func(r *MLStopDatafeedRequest) {
 		r.Body = v
-	}
-}
-
-// WithAllowNoDatafeeds - whether to ignore if a wildcard expression matches no datafeeds. (this includes `_all` string or when no datafeeds have been specified).
-func (f MLStopDatafeed) WithAllowNoDatafeeds(v bool) func(*MLStopDatafeedRequest) {
-	return func(r *MLStopDatafeedRequest) {
-		r.AllowNoDatafeeds = &v
 	}
 }
 

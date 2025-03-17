@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -53,7 +53,6 @@ type LicensePostStartTrial func(o ...func(*LicensePostStartTrialRequest)) (*Resp
 type LicensePostStartTrialRequest struct {
 	Acknowledge   *bool
 	MasterTimeout time.Duration
-	Timeout       time.Duration
 	DocumentType  string
 
 	Pretty     bool
@@ -99,10 +98,6 @@ func (r LicensePostStartTrialRequest) Do(providedCtx context.Context, transport 
 
 	if r.MasterTimeout != 0 {
 		params["master_timeout"] = formatDuration(r.MasterTimeout)
-	}
-
-	if r.Timeout != 0 {
-		params["timeout"] = formatDuration(r.Timeout)
 	}
 
 	if r.DocumentType != "" {
@@ -198,13 +193,6 @@ func (f LicensePostStartTrial) WithAcknowledge(v bool) func(*LicensePostStartTri
 func (f LicensePostStartTrial) WithMasterTimeout(v time.Duration) func(*LicensePostStartTrialRequest) {
 	return func(r *LicensePostStartTrialRequest) {
 		r.MasterTimeout = v
-	}
-}
-
-// WithTimeout - timeout for acknowledgement of update from all nodes in cluster.
-func (f LicensePostStartTrial) WithTimeout(v time.Duration) func(*LicensePostStartTrialRequest) {
-	return func(r *LicensePostStartTrialRequest) {
-		r.Timeout = v
 	}
 }
 

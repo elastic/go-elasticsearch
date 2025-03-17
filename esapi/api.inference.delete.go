@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -44,8 +44,6 @@ func newInferenceDeleteFunc(t Transport) InferenceDelete {
 // ----- API Definition -------------------------------------------------------
 
 // InferenceDelete delete an inference endpoint
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-inference-api.html.
 type InferenceDelete func(inference_id string, o ...func(*InferenceDeleteRequest)) (*Response, error)

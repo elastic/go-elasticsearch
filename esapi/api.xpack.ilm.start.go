@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newILMStartFunc(t Transport) ILMStart {
@@ -49,6 +50,9 @@ type ILMStart func(o ...func(*ILMStartRequest)) (*Response, error)
 
 // ILMStartRequest configures the ILM Start API request.
 type ILMStartRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r ILMStartRequest) Do(providedCtx context.Context, transport Transport) (*
 	path.WriteString("/_ilm/start")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r ILMStartRequest) Do(providedCtx context.Context, transport Transport) (*
 func (f ILMStart) WithContext(v context.Context) func(*ILMStartRequest) {
 	return func(r *ILMStartRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ILMStart) WithMasterTimeout(v time.Duration) func(*ILMStartRequest) {
+	return func(r *ILMStartRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f ILMStart) WithTimeout(v time.Duration) func(*ILMStartRequest) {
+	return func(r *ILMStartRequest) {
+		r.Timeout = v
 	}
 }
 

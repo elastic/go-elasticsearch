@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newIngestDeleteIPLocationDatabaseFunc(t Transport) IngestDeleteIPLocationDatabase {
@@ -51,6 +52,9 @@ type IngestDeleteIPLocationDatabase func(id []string, o ...func(*IngestDeleteIPL
 // IngestDeleteIPLocationDatabaseRequest configures the Ingest DeleteIP Location Database API request.
 type IngestDeleteIPLocationDatabaseRequest struct {
 	DocumentID []string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +106,14 @@ func (r IngestDeleteIPLocationDatabaseRequest) Do(providedCtx context.Context, t
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -178,6 +190,20 @@ func (r IngestDeleteIPLocationDatabaseRequest) Do(providedCtx context.Context, t
 func (f IngestDeleteIPLocationDatabase) WithContext(v context.Context) func(*IngestDeleteIPLocationDatabaseRequest) {
 	return func(r *IngestDeleteIPLocationDatabaseRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f IngestDeleteIPLocationDatabase) WithMasterTimeout(v time.Duration) func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f IngestDeleteIPLocationDatabase) WithTimeout(v time.Duration) func(*IngestDeleteIPLocationDatabaseRequest) {
+	return func(r *IngestDeleteIPLocationDatabaseRequest) {
+		r.Timeout = v
 	}
 }
 

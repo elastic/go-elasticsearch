@@ -15,12 +15,13 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -51,6 +52,8 @@ type MLStartTrainedModelDeployment func(model_id string, o ...func(*MLStartTrain
 
 // MLStartTrainedModelDeploymentRequest configures the ML Start Trained Model Deployment API request.
 type MLStartTrainedModelDeploymentRequest struct {
+	Body io.Reader
+
 	ModelID string
 
 	CacheSize            string
@@ -159,7 +162,7 @@ func (r MLStartTrainedModelDeploymentRequest) Do(providedCtx context.Context, tr
 		params["filter_path"] = strings.Join(r.FilterPath, ",")
 	}
 
-	req, err := newRequest(method, path.String(), nil)
+	req, err := newRequest(method, path.String(), r.Body)
 	if err != nil {
 		if instrument, ok := r.instrument.(Instrumentation); ok {
 			instrument.RecordError(ctx, err)
@@ -187,12 +190,19 @@ func (r MLStartTrainedModelDeploymentRequest) Do(providedCtx context.Context, tr
 		}
 	}
 
+	if r.Body != nil && req.Header.Get(headerContentType) == "" {
+		req.Header[headerContentType] = headerContentTypeJSON
+	}
+
 	if ctx != nil {
 		req = req.WithContext(ctx)
 	}
 
 	if instrument, ok := r.instrument.(Instrumentation); ok {
 		instrument.BeforeRequest(req, "ml.start_trained_model_deployment")
+		if reader := instrument.RecordRequestBody(ctx, "ml.start_trained_model_deployment", r.Body); reader != nil {
+			req.Body = reader
+		}
 	}
 	res, err := transport.Perform(req)
 	if instrument, ok := r.instrument.(Instrumentation); ok {
@@ -218,6 +228,13 @@ func (r MLStartTrainedModelDeploymentRequest) Do(providedCtx context.Context, tr
 func (f MLStartTrainedModelDeployment) WithContext(v context.Context) func(*MLStartTrainedModelDeploymentRequest) {
 	return func(r *MLStartTrainedModelDeploymentRequest) {
 		r.ctx = v
+	}
+}
+
+// WithBody - The settings for the trained model deployment.
+func (f MLStartTrainedModelDeployment) WithBody(v io.Reader) func(*MLStartTrainedModelDeploymentRequest) {
+	return func(r *MLStartTrainedModelDeploymentRequest) {
+		r.Body = v
 	}
 }
 

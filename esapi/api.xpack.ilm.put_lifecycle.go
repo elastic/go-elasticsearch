@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.0.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newILMPutLifecycleFunc(t Transport) ILMPutLifecycle {
@@ -53,6 +54,9 @@ type ILMPutLifecycleRequest struct {
 	Body io.Reader
 
 	Policy string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +102,14 @@ func (r ILMPutLifecycleRequest) Do(providedCtx context.Context, transport Transp
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -188,6 +200,20 @@ func (f ILMPutLifecycle) WithContext(v context.Context) func(*ILMPutLifecycleReq
 func (f ILMPutLifecycle) WithBody(v io.Reader) func(*ILMPutLifecycleRequest) {
 	return func(r *ILMPutLifecycleRequest) {
 		r.Body = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ILMPutLifecycle) WithMasterTimeout(v time.Duration) func(*ILMPutLifecycleRequest) {
+	return func(r *ILMPutLifecycleRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f ILMPutLifecycle) WithTimeout(v time.Duration) func(*ILMPutLifecycleRequest) {
+	return func(r *ILMPutLifecycleRequest) {
+		r.Timeout = v
 	}
 }
 
