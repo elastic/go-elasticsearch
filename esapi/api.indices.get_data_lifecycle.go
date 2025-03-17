@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.19.0: DO NOT EDIT
 
 package esapi
 
@@ -46,8 +46,6 @@ func newIndicesGetDataLifecycleFunc(t Transport) IndicesGetDataLifecycle {
 // ----- API Definition -------------------------------------------------------
 
 // IndicesGetDataLifecycle returns the data stream lifecycle of the selected data streams.
-//
-// This API is experimental.
 //
 // See full documentation at https://www.elastic.co/guide/en/elasticsearch/reference/master/data-streams-get-lifecycle.html.
 type IndicesGetDataLifecycle func(name []string, o ...func(*IndicesGetDataLifecycleRequest)) (*Response, error)
