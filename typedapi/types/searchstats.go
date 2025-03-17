@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SearchStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Stats.ts#L252-L271
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Stats.ts#L255-L274
 type SearchStats struct {
 	FetchCurrent        int64                  `json:"fetch_current"`
 	FetchTime           Duration               `json:"fetch_time,omitempty"`
@@ -259,8 +259,10 @@ func (s *SearchStats) UnmarshalJSON(data []byte) error {
 // NewSearchStats returns a SearchStats.
 func NewSearchStats() *SearchStats {
 	r := &SearchStats{
-		Groups: make(map[string]SearchStats, 0),
+		Groups: make(map[string]SearchStats),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GeoLineAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/metric.ts#L121-L146
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/metric.ts#L124-L149
 type GeoLineAggregation struct {
 	// IncludeSort When `true`, returns an additional array of the sort values in the feature
 	// properties.
@@ -122,4 +122,14 @@ func NewGeoLineAggregation() *GeoLineAggregation {
 	r := &GeoLineAggregation{}
 
 	return r
+}
+
+// true
+
+type GeoLineAggregationVariant interface {
+	GeoLineAggregationCaster() *GeoLineAggregation
+}
+
+func (s *GeoLineAggregation) GeoLineAggregationCaster() *GeoLineAggregation {
+	return s
 }

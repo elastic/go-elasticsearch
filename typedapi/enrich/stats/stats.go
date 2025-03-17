@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Get enrich stats.
 // Returns enrich coordinator statistics and information about enrich policies
@@ -276,6 +276,14 @@ func (r Stats) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the Stats headers map.
 func (r *Stats) Header(key, value string) *Stats {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *Stats) MasterTimeout(duration string) *Stats {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

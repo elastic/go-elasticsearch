@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RemoveAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/update_aliases/types.ts#L97-L122
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/update_aliases/types.ts#L97-L122
 type RemoveAction struct {
 	// Alias Alias for the action.
 	// Index alias names support date math.
@@ -130,4 +130,14 @@ func NewRemoveAction() *RemoveAction {
 	r := &RemoveAction{}
 
 	return r
+}
+
+// true
+
+type RemoveActionVariant interface {
+	RemoveActionCaster() *RemoveAction
+}
+
+func (s *RemoveAction) RemoveActionCaster() *RemoveAction {
+	return s
 }

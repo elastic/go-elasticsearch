@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package deletebyquery
 
@@ -29,12 +29,12 @@ import (
 
 // Request holds the request body struct for the package deletebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L210
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/delete_by_query/DeleteByQueryRequest.ts#L36-L310
 type Request struct {
 
 	// MaxDocs The maximum number of documents to delete.
 	MaxDocs *int64 `json:"max_docs,omitempty"`
-	// Query Specifies the documents to delete using the Query DSL.
+	// Query The documents to delete specified with Query DSL.
 	Query *types.Query `json:"query,omitempty"`
 	// Slice Slice the request manually using the provided slice ID and total number of
 	// slices.

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Retriever.ts#L58-L71
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Retriever.ts#L64-L82
 type KnnRetriever struct {
 	// Field The name of the vector field to search against.
 	Field string `json:"field"`
@@ -39,6 +39,9 @@ type KnnRetriever struct {
 	Filter []Query `json:"filter,omitempty"`
 	// K Number of nearest neighbors to return as top hits.
 	K int `json:"k"`
+	// MinScore Minimum _score for matching documents. Documents with a lower _score are not
+	// included in the top documents.
+	MinScore *float32 `json:"min_score,omitempty"`
 	// NumCandidates Number of nearest neighbor candidates to consider per shard.
 	NumCandidates int `json:"num_candidates"`
 	// QueryVector Query vector. Must have the same number of dimensions as the vector field you
@@ -47,6 +50,8 @@ type KnnRetriever struct {
 	QueryVector []float32 `json:"query_vector,omitempty"`
 	// QueryVectorBuilder Defines a model to build a query vector.
 	QueryVectorBuilder *QueryVectorBuilder `json:"query_vector_builder,omitempty"`
+	// RescoreVector Apply oversampling and rescoring to quantized vectors *
+	RescoreVector *RescoreVector `json:"rescore_vector,omitempty"`
 	// Similarity The minimum similarity required for a document to be considered a match.
 	Similarity *float32 `json:"similarity,omitempty"`
 }
@@ -110,6 +115,22 @@ func (s *KnnRetriever) UnmarshalJSON(data []byte) error {
 				s.K = f
 			}
 
+		case "min_score":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseFloat(v, 32)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MinScore", err)
+				}
+				f := float32(value)
+				s.MinScore = &f
+			case float64:
+				f := float32(v)
+				s.MinScore = &f
+			}
+
 		case "num_candidates":
 
 			var tmp any
@@ -134,6 +155,11 @@ func (s *KnnRetriever) UnmarshalJSON(data []byte) error {
 		case "query_vector_builder":
 			if err := dec.Decode(&s.QueryVectorBuilder); err != nil {
 				return fmt.Errorf("%s | %w", "QueryVectorBuilder", err)
+			}
+
+		case "rescore_vector":
+			if err := dec.Decode(&s.RescoreVector); err != nil {
+				return fmt.Errorf("%s | %w", "RescoreVector", err)
 			}
 
 		case "similarity":
@@ -162,4 +188,14 @@ func NewKnnRetriever() *KnnRetriever {
 	r := &KnnRetriever{}
 
 	return r
+}
+
+// true
+
+type KnnRetrieverVariant interface {
+	KnnRetrieverCaster() *KnnRetriever
+}
+
+func (s *KnnRetriever) KnnRetrieverCaster() *KnnRetriever {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // BucketKsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/pipeline.ts#L94-L127
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/pipeline.ts#L103-L137
 type BucketKsAggregation struct {
 	// Alternative A list of string values indicating which K-S test alternative to calculate.
 	// The valid values
@@ -114,4 +114,14 @@ func NewBucketKsAggregation() *BucketKsAggregation {
 	r := &BucketKsAggregation{}
 
 	return r
+}
+
+// true
+
+type BucketKsAggregationVariant interface {
+	BucketKsAggregationCaster() *BucketKsAggregation
+}
+
+func (s *BucketKsAggregation) BucketKsAggregationCaster() *BucketKsAggregation {
+	return s
 }

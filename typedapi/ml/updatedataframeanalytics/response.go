@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package updatedataframeanalytics
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package updatedataframeanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/update_data_frame_analytics/MlUpdateDataFrameAnalyticsResponse.ts#L30-L45
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/update_data_frame_analytics/MlUpdateDataFrameAnalyticsResponse.ts#L30-L45
 type Response struct {
 	AllowLazyStart   bool                                   `json:"allow_lazy_start"`
 	Analysis         types.DataframeAnalysisContainer       `json:"analysis"`

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IcuTokenizer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/icu-plugin.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/icu-plugin.ts#L30-L33
 type IcuTokenizer struct {
 	RuleFiles string  `json:"rule_files"`
 	Type      string  `json:"type,omitempty"`
@@ -99,4 +99,14 @@ func NewIcuTokenizer() *IcuTokenizer {
 	r := &IcuTokenizer{}
 
 	return r
+}
+
+// true
+
+type IcuTokenizerVariant interface {
+	IcuTokenizerCaster() *IcuTokenizer
+}
+
+func (s *IcuTokenizer) IcuTokenizerCaster() *IcuTokenizer {
+	return s
 }

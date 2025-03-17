@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ElisionTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L189-L194
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/token_filters.ts#L188-L193
 type ElisionTokenFilter struct {
 	Articles     []string           `json:"articles,omitempty"`
 	ArticlesCase Stringifiedboolean `json:"articles_case,omitempty"`
@@ -113,4 +113,14 @@ func NewElisionTokenFilter() *ElisionTokenFilter {
 	r := &ElisionTokenFilter{}
 
 	return r
+}
+
+// true
+
+type ElisionTokenFilterVariant interface {
+	ElisionTokenFilterCaster() *ElisionTokenFilter
+}
+
+func (s *ElisionTokenFilter) ElisionTokenFilterCaster() *ElisionTokenFilter {
+	return s
 }

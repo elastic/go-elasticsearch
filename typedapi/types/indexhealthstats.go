@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,17 +33,18 @@ import (
 
 // IndexHealthStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/cluster/health/types.ts#L24-L34
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/cluster/health/types.ts#L24-L35
 type IndexHealthStats struct {
-	ActivePrimaryShards int                         `json:"active_primary_shards"`
-	ActiveShards        int                         `json:"active_shards"`
-	InitializingShards  int                         `json:"initializing_shards"`
-	NumberOfReplicas    int                         `json:"number_of_replicas"`
-	NumberOfShards      int                         `json:"number_of_shards"`
-	RelocatingShards    int                         `json:"relocating_shards"`
-	Shards              map[string]ShardHealthStats `json:"shards,omitempty"`
-	Status              healthstatus.HealthStatus   `json:"status"`
-	UnassignedShards    int                         `json:"unassigned_shards"`
+	ActivePrimaryShards     int                         `json:"active_primary_shards"`
+	ActiveShards            int                         `json:"active_shards"`
+	InitializingShards      int                         `json:"initializing_shards"`
+	NumberOfReplicas        int                         `json:"number_of_replicas"`
+	NumberOfShards          int                         `json:"number_of_shards"`
+	RelocatingShards        int                         `json:"relocating_shards"`
+	Shards                  map[string]ShardHealthStats `json:"shards,omitempty"`
+	Status                  healthstatus.HealthStatus   `json:"status"`
+	UnassignedPrimaryShards int                         `json:"unassigned_primary_shards"`
+	UnassignedShards        int                         `json:"unassigned_shards"`
 }
 
 func (s *IndexHealthStats) UnmarshalJSON(data []byte) error {
@@ -170,6 +171,22 @@ func (s *IndexHealthStats) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Status", err)
 			}
 
+		case "unassigned_primary_shards":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "UnassignedPrimaryShards", err)
+				}
+				s.UnassignedPrimaryShards = value
+			case float64:
+				f := int(v)
+				s.UnassignedPrimaryShards = f
+			}
+
 		case "unassigned_shards":
 
 			var tmp any
@@ -194,8 +211,10 @@ func (s *IndexHealthStats) UnmarshalJSON(data []byte) error {
 // NewIndexHealthStats returns a IndexHealthStats.
 func NewIndexHealthStats() *IndexHealthStats {
 	r := &IndexHealthStats{
-		Shards: make(map[string]ShardHealthStats, 0),
+		Shards: make(map[string]ShardHealthStats),
 	}
 
 	return r
 }
+
+// false

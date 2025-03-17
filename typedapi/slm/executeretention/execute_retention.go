@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Deletes any snapshots that are expired according to the policy's retention
-// rules.
+// Run a retention policy.
+// Manually apply the retention policy to force immediate removal of snapshots
+// that are expired according to the snapshot lifecycle policy retention rules.
+// The retention policy is normally applied according to its schedule.
 package executeretention
 
 import (
@@ -69,8 +71,10 @@ func NewExecuteRetentionFunc(tp elastictransport.Interface) NewExecuteRetention 
 	}
 }
 
-// Deletes any snapshots that are expired according to the policy's retention
-// rules.
+// Run a retention policy.
+// Manually apply the retention policy to force immediate removal of snapshots
+// that are expired according to the snapshot lifecycle policy retention rules.
+// The retention policy is normally applied according to its schedule.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-retention.html
 func New(tp elastictransport.Interface) *ExecuteRetention {
@@ -274,6 +278,26 @@ func (r ExecuteRetention) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the ExecuteRetention headers map.
 func (r *ExecuteRetention) Header(key, value string) *ExecuteRetention {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *ExecuteRetention) MasterTimeout(duration string) *ExecuteRetention {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: timeout
+func (r *ExecuteRetention) Timeout(duration string) *ExecuteRetention {
+	r.values.Set("timeout", duration)
 
 	return r
 }

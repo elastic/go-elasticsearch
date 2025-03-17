@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // IndicesShardStores type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/shard_stores/types.ts#L26-L28
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/shard_stores/types.ts#L25-L27
 type IndicesShardStores struct {
 	Shards map[string]ShardStoreWrapper `json:"shards"`
 }
@@ -30,8 +30,10 @@ type IndicesShardStores struct {
 // NewIndicesShardStores returns a IndicesShardStores.
 func NewIndicesShardStores() *IndicesShardStores {
 	r := &IndicesShardStores{
-		Shards: make(map[string]ShardStoreWrapper, 0),
+		Shards: make(map[string]ShardStoreWrapper),
 	}
 
 	return r
 }
+
+// false

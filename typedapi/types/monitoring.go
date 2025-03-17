@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Monitoring type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/xpack/usage/types.ts#L381-L384
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/xpack/usage/types.ts#L391-L394
 type Monitoring struct {
 	Available         bool             `json:"available"`
 	CollectionEnabled bool             `json:"collection_enabled"`
@@ -112,8 +112,10 @@ func (s *Monitoring) UnmarshalJSON(data []byte) error {
 // NewMonitoring returns a Monitoring.
 func NewMonitoring() *Monitoring {
 	r := &Monitoring{
-		EnabledExporters: make(map[string]int64, 0),
+		EnabledExporters: make(map[string]int64),
 	}
 
 	return r
 }
+
+// false

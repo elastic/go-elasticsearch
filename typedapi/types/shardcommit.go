@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardCommit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/stats/types.ts#L112-L117
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/stats/types.ts#L112-L117
 type ShardCommit struct {
 	Generation int               `json:"generation"`
 	Id         string            `json:"id"`
@@ -106,8 +106,10 @@ func (s *ShardCommit) UnmarshalJSON(data []byte) error {
 // NewShardCommit returns a ShardCommit.
 func NewShardCommit() *ShardCommit {
 	r := &ShardCommit{
-		UserData: make(map[string]string, 0),
+		UserData: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

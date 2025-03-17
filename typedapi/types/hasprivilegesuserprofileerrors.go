@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HasPrivilegesUserProfileErrors type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/has_privileges_user_profile/types.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/has_privileges_user_profile/types.ts#L39-L42
 type HasPrivilegesUserProfileErrors struct {
 	Count   int64                 `json:"count"`
 	Details map[string]ErrorCause `json:"details"`
@@ -83,8 +83,10 @@ func (s *HasPrivilegesUserProfileErrors) UnmarshalJSON(data []byte) error {
 // NewHasPrivilegesUserProfileErrors returns a HasPrivilegesUserProfileErrors.
 func NewHasPrivilegesUserProfileErrors() *HasPrivilegesUserProfileErrors {
 	r := &HasPrivilegesUserProfileErrors{
-		Details: make(map[string]ErrorCause, 0),
+		Details: make(map[string]ErrorCause),
 	}
 
 	return r
 }
+
+// false

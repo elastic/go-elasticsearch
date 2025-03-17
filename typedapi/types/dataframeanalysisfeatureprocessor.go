@@ -16,14 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // DataframeAnalysisFeatureProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeAnalytics.ts#L246-L258
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/DataframeAnalytics.ts#L246-L258
 type DataframeAnalysisFeatureProcessor struct {
+	AdditionalDataframeAnalysisFeatureProcessorProperty map[string]json.RawMessage `json:"-"`
 	// FrequencyEncoding The configuration information necessary to perform frequency encoding.
 	FrequencyEncoding *DataframeAnalysisFeatureProcessorFrequencyEncoding `json:"frequency_encoding,omitempty"`
 	// MultiEncoding The configuration information necessary to perform multi encoding. It allows
@@ -41,9 +47,50 @@ type DataframeAnalysisFeatureProcessor struct {
 	TargetMeanEncoding *DataframeAnalysisFeatureProcessorTargetMeanEncoding `json:"target_mean_encoding,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s DataframeAnalysisFeatureProcessor) MarshalJSON() ([]byte, error) {
+	type opt DataframeAnalysisFeatureProcessor
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalDataframeAnalysisFeatureProcessorProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalDataframeAnalysisFeatureProcessorProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewDataframeAnalysisFeatureProcessor returns a DataframeAnalysisFeatureProcessor.
 func NewDataframeAnalysisFeatureProcessor() *DataframeAnalysisFeatureProcessor {
-	r := &DataframeAnalysisFeatureProcessor{}
+	r := &DataframeAnalysisFeatureProcessor{
+		AdditionalDataframeAnalysisFeatureProcessorProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type DataframeAnalysisFeatureProcessorVariant interface {
+	DataframeAnalysisFeatureProcessorCaster() *DataframeAnalysisFeatureProcessor
+}
+
+func (s *DataframeAnalysisFeatureProcessor) DataframeAnalysisFeatureProcessorCaster() *DataframeAnalysisFeatureProcessor {
+	return s
 }

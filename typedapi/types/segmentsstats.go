@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SegmentsStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Stats.ts#L273-L366
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Stats.ts#L276-L369
 type SegmentsStats struct {
 	// Count Total number of segments across all shards assigned to selected nodes.
 	Count int `json:"count"`
@@ -381,8 +381,10 @@ func (s *SegmentsStats) UnmarshalJSON(data []byte) error {
 // NewSegmentsStats returns a SegmentsStats.
 func NewSegmentsStats() *SegmentsStats {
 	r := &SegmentsStats{
-		FileSizes: make(map[string]ShardFileSizeInfo, 0),
+		FileSizes: make(map[string]ShardFileSizeInfo),
 	}
 
 	return r
 }
+
+// false

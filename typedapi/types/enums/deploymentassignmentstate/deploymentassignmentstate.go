@@ -16,22 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Package deploymentassignmentstate
 package deploymentassignmentstate
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L304-L309
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/TrainedModel.ts#L345-L362
 type DeploymentAssignmentState struct {
 	Name string
 }
 
 var (
-	Starting = DeploymentAssignmentState{"starting"}
-
 	Started = DeploymentAssignmentState{"started"}
+
+	Starting = DeploymentAssignmentState{"starting"}
 
 	Stopping = DeploymentAssignmentState{"stopping"}
 
@@ -45,10 +45,10 @@ func (d DeploymentAssignmentState) MarshalText() (text []byte, err error) {
 func (d *DeploymentAssignmentState) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "starting":
-		*d = Starting
 	case "started":
 		*d = Started
+	case "starting":
+		*d = Starting
 	case "stopping":
 		*d = Stopping
 	case "failed":

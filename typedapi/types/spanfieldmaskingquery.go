@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,17 +31,17 @@ import (
 
 // SpanFieldMaskingQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/span.ts#L38-L41
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/span.ts#L41-L47
 type SpanFieldMaskingQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
 	// Boost values are relative to the default value of 1.0.
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
-	Boost      *float32   `json:"boost,omitempty"`
-	Field      string     `json:"field"`
-	Query      *SpanQuery `json:"query,omitempty"`
-	QueryName_ *string    `json:"_name,omitempty"`
+	Boost      *float32  `json:"boost,omitempty"`
+	Field      string    `json:"field"`
+	Query      SpanQuery `json:"query"`
+	QueryName_ *string   `json:"_name,omitempty"`
 }
 
 func (s *SpanFieldMaskingQuery) UnmarshalJSON(data []byte) error {
@@ -107,4 +107,14 @@ func NewSpanFieldMaskingQuery() *SpanFieldMaskingQuery {
 	r := &SpanFieldMaskingQuery{}
 
 	return r
+}
+
+// true
+
+type SpanFieldMaskingQueryVariant interface {
+	SpanFieldMaskingQueryCaster() *SpanFieldMaskingQuery
+}
+
+func (s *SpanFieldMaskingQuery) SpanFieldMaskingQueryCaster() *SpanFieldMaskingQuery {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CommonTermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/fulltext.ts#L34-L44
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/fulltext.ts#L34-L44
 type CommonTermsQuery struct {
 	Analyzer *string `json:"analyzer,omitempty"`
 	// Boost Floating point number used to decrease or increase the relevance scores of
@@ -170,4 +170,14 @@ func NewCommonTermsQuery() *CommonTermsQuery {
 	r := &CommonTermsQuery{}
 
 	return r
+}
+
+// true
+
+type CommonTermsQueryVariant interface {
+	CommonTermsQueryCaster() *CommonTermsQuery
+}
+
+func (s *CommonTermsQuery) CommonTermsQueryCaster() *CommonTermsQuery {
+	return s
 }

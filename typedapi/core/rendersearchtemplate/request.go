@@ -16,26 +16,36 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package rendersearchtemplate
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"strconv"
 )
 
 // Request holds the request body struct for the package rendersearchtemplate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/render_search_template/RenderSearchTemplateRequest.ts#L25-L55
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/render_search_template/RenderSearchTemplateRequest.ts#L25-L76
 type Request struct {
 	File *string `json:"file,omitempty"`
+	// Id The ID of the search template to render.
+	// If no `source` is specified, this or the `<template-id>` request path
+	// parameter is required.
+	// If you specify both this parameter and the `<template-id>` parameter, the API
+	// uses only `<template-id>`.
+	Id *string `json:"id,omitempty"`
 	// Params Key-value pairs used to replace Mustache variables in the template.
 	// The key is the variable name.
 	// The value is the variable value.
 	Params map[string]json.RawMessage `json:"params,omitempty"`
 	// Source An inline search template.
-	// Supports the same parameters as the search API's request body.
+	// It supports the same parameters as the search API's request body.
 	// These parameters also support Mustache variables.
 	// If no `id` or `<templated-id>` is specified, this parameter is required.
 	Source *string `json:"source,omitempty"`
@@ -60,4 +70,60 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "file":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "File", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.File = &o
+
+		case "id":
+			if err := dec.Decode(&s.Id); err != nil {
+				return fmt.Errorf("%s | %w", "Id", err)
+			}
+
+		case "params":
+			if s.Params == nil {
+				s.Params = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.Params); err != nil {
+				return fmt.Errorf("%s | %w", "Params", err)
+			}
+
+		case "source":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Source", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Source = &o
+
+		}
+	}
+	return nil
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // NodeTasks type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/tasks/_types/TaskListResponseBase.ts#L49-L57
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/tasks/_types/TaskListResponseBase.ts#L49-L57
 type NodeTasks struct {
 	Attributes       map[string]string   `json:"attributes,omitempty"`
 	Host             *string             `json:"host,omitempty"`
@@ -105,9 +105,11 @@ func (s *NodeTasks) UnmarshalJSON(data []byte) error {
 // NewNodeTasks returns a NodeTasks.
 func NewNodeTasks() *NodeTasks {
 	r := &NodeTasks{
-		Attributes: make(map[string]string, 0),
-		Tasks:      make(map[string]TaskInfo, 0),
+		Attributes: make(map[string]string),
+		Tasks:      make(map[string]TaskInfo),
 	}
 
 	return r
 }
+
+// false

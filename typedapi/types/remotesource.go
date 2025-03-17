@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,18 +30,18 @@ import (
 
 // RemoteSource type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/reindex/types.ts#L99-L125
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/reindex/types.ts#L112-L140
 type RemoteSource struct {
 	// ConnectTimeout The remote connection timeout.
-	// Defaults to 30 seconds.
 	ConnectTimeout Duration `json:"connect_timeout,omitempty"`
 	// Headers An object containing the headers of the request.
 	Headers map[string]string `json:"headers,omitempty"`
 	// Host The URL for the remote instance of Elasticsearch that you want to index from.
+	// This information is required when you're indexing from remote.
 	Host string `json:"host"`
 	// Password The password to use for authentication with the remote host.
 	Password *string `json:"password,omitempty"`
-	// SocketTimeout The remote socket read timeout. Defaults to 30 seconds.
+	// SocketTimeout The remote socket read timeout.
 	SocketTimeout Duration `json:"socket_timeout,omitempty"`
 	// Username The username to use for authentication with the remote host.
 	Username *string `json:"username,omitempty"`
@@ -103,8 +103,18 @@ func (s *RemoteSource) UnmarshalJSON(data []byte) error {
 // NewRemoteSource returns a RemoteSource.
 func NewRemoteSource() *RemoteSource {
 	r := &RemoteSource{
-		Headers: make(map[string]string, 0),
+		Headers: make(map[string]string),
 	}
 
 	return r
+}
+
+// true
+
+type RemoteSourceVariant interface {
+	RemoteSourceCaster() *RemoteSource
+}
+
+func (s *RemoteSource) RemoteSourceCaster() *RemoteSource {
+	return s
 }

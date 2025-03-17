@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoBoundingBoxQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/geo.ts#L32-L53
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/geo.ts#L35-L57
 type GeoBoundingBoxQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -172,8 +172,18 @@ func (s GeoBoundingBoxQuery) MarshalJSON() ([]byte, error) {
 // NewGeoBoundingBoxQuery returns a GeoBoundingBoxQuery.
 func NewGeoBoundingBoxQuery() *GeoBoundingBoxQuery {
 	r := &GeoBoundingBoxQuery{
-		GeoBoundingBoxQuery: make(map[string]GeoBounds, 0),
+		GeoBoundingBoxQuery: make(map[string]GeoBounds),
 	}
 
 	return r
+}
+
+// true
+
+type GeoBoundingBoxQueryVariant interface {
+	GeoBoundingBoxQueryCaster() *GeoBoundingBoxQuery
+}
+
+func (s *GeoBoundingBoxQuery) GeoBoundingBoxQueryCaster() *GeoBoundingBoxQuery {
+	return s
 }

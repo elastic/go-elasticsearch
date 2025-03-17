@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelPrefixStrings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/TrainedModel.ts#L428-L437
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/TrainedModel.ts#L486-L495
 type TrainedModelPrefixStrings struct {
 	// Ingest String prepended to input at ingest
 	Ingest *string `json:"ingest,omitempty"`
@@ -88,4 +88,14 @@ func NewTrainedModelPrefixStrings() *TrainedModelPrefixStrings {
 	r := &TrainedModelPrefixStrings{}
 
 	return r
+}
+
+// true
+
+type TrainedModelPrefixStringsVariant interface {
+	TrainedModelPrefixStringsCaster() *TrainedModelPrefixStrings
+}
+
+func (s *TrainedModelPrefixStrings) TrainedModelPrefixStringsCaster() *TrainedModelPrefixStrings {
+	return s
 }

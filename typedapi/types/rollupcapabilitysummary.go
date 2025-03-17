@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RollupCapabilitySummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/rollup/get_rollup_caps/types.ts#L29-L34
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/rollup/get_rollup_caps/types.ts#L31-L36
 type RollupCapabilitySummary struct {
 	Fields       map[string][]RollupFieldSummary `json:"fields"`
 	IndexPattern string                          `json:"index_pattern"`
@@ -106,8 +106,10 @@ func (s *RollupCapabilitySummary) UnmarshalJSON(data []byte) error {
 // NewRollupCapabilitySummary returns a RollupCapabilitySummary.
 func NewRollupCapabilitySummary() *RollupCapabilitySummary {
 	r := &RollupCapabilitySummary{
-		Fields: make(map[string][]RollupFieldSummary, 0),
+		Fields: make(map[string][]RollupFieldSummary),
 	}
 
 	return r
 }
+
+// false

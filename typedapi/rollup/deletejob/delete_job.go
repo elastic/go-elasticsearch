@@ -16,9 +16,39 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Deletes an existing rollup job.
+// Delete a rollup job.
+//
+// A job must be stopped before it can be deleted.
+// If you attempt to delete a started job, an error occurs.
+// Similarly, if you attempt to delete a nonexistent job, an exception occurs.
+//
+// IMPORTANT: When you delete a job, you remove only the process that is
+// actively monitoring and rolling up data.
+// The API does not delete any previously rolled up data.
+// This is by design; a user may wish to roll up a static data set.
+// Because the data set is static, after it has been fully rolled up there is no
+// need to keep the indexing rollup job around (as there will be no new data).
+// Thus the job can be deleted, leaving behind the rolled up data for analysis.
+// If you wish to also remove the rollup data and the rollup index contains the
+// data for only a single job, you can delete the whole rollup index.
+// If the rollup index stores data from several jobs, you must issue a
+// delete-by-query that targets the rollup job's identifier in the rollup index.
+// For example:
+//
+// ```
+// POST my_rollup_index/_delete_by_query
+//
+//	{
+//	  "query": {
+//	    "term": {
+//	      "_rollup.id": "the_rollup_job_id"
+//	    }
+//	  }
+//	}
+//
+// ```
 package deletejob
 
 import (
@@ -76,7 +106,37 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 	}
 }
 
-// Deletes an existing rollup job.
+// Delete a rollup job.
+//
+// A job must be stopped before it can be deleted.
+// If you attempt to delete a started job, an error occurs.
+// Similarly, if you attempt to delete a nonexistent job, an exception occurs.
+//
+// IMPORTANT: When you delete a job, you remove only the process that is
+// actively monitoring and rolling up data.
+// The API does not delete any previously rolled up data.
+// This is by design; a user may wish to roll up a static data set.
+// Because the data set is static, after it has been fully rolled up there is no
+// need to keep the indexing rollup job around (as there will be no new data).
+// Thus the job can be deleted, leaving behind the rolled up data for analysis.
+// If you wish to also remove the rollup data and the rollup index contains the
+// data for only a single job, you can delete the whole rollup index.
+// If the rollup index stores data from several jobs, you must issue a
+// delete-by-query that targets the rollup job's identifier in the rollup index.
+// For example:
+//
+// ```
+// POST my_rollup_index/_delete_by_query
+//
+//	{
+//	  "query": {
+//	    "term": {
+//	      "_rollup.id": "the_rollup_job_id"
+//	    }
+//	  }
+//	}
+//
+// ```
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/rollup-delete-job.html
 func New(tp elastictransport.Interface) *DeleteJob {

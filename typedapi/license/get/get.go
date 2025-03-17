@@ -16,13 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Get license information.
-// Returns information about your Elastic license, including its type, its
-// status, when it was issued, and when it expires.
-// For more information about the different types of licenses, refer to [Elastic
-// Stack subscriptions](https://www.elastic.co/subscriptions).
+//
+// Get information about your Elastic license including its type, its status,
+// when it was issued, and when it expires.
+//
+// >info
+// > If the master node is generating a new cluster state, the get license API
+// may return a `404 Not Found` response.
+// > If you receive an unexpected 404 response after cluster startup, wait a
+// short period and retry the request.
 package get
 
 import (
@@ -73,10 +78,15 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 }
 
 // Get license information.
-// Returns information about your Elastic license, including its type, its
-// status, when it was issued, and when it expires.
-// For more information about the different types of licenses, refer to [Elastic
-// Stack subscriptions](https://www.elastic.co/subscriptions).
+//
+// Get information about your Elastic license including its type, its status,
+// when it was issued, and when it expires.
+//
+// >info
+// > If the master node is generating a new cluster state, the get license API
+// may return a `404 Not Found` response.
+// > If you receive an unexpected 404 response after cluster startup, wait a
+// short period and retry the request.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-license.html
 func New(tp elastictransport.Interface) *Get {

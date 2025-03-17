@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanTermQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/span.ts#L113-L116
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/span.ts#L134-L140
 type SpanTermQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -120,4 +120,14 @@ func NewSpanTermQuery() *SpanTermQuery {
 	r := &SpanTermQuery{}
 
 	return r
+}
+
+// true
+
+type SpanTermQueryVariant interface {
+	SpanTermQueryCaster() *SpanTermQuery
+}
+
+func (s *SpanTermQuery) SpanTermQueryCaster() *SpanTermQuery {
+	return s
 }

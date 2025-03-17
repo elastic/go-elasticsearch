@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UppercaseProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L1142-L1158
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ingest/_types/Processors.ts#L1543-L1559
 type UppercaseProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -159,4 +159,14 @@ func NewUppercaseProcessor() *UppercaseProcessor {
 	r := &UppercaseProcessor{}
 
 	return r
+}
+
+// true
+
+type UppercaseProcessorVariant interface {
+	UppercaseProcessorCaster() *UppercaseProcessor
+}
+
+func (s *UppercaseProcessor) UppercaseProcessorCaster() *UppercaseProcessor {
+	return s
 }

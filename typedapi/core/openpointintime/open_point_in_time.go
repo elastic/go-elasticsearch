@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// A search request by default executes against the most recent visible data of
-// the target indices,
+// Open a point in time.
+//
+// A search request by default runs against the most recent visible data of the
+// target indices,
 // which is called point in time. Elasticsearch pit (point in time) is a
 // lightweight view into the
 // state of the data as it existed when initiated. In some cases, it’s preferred
@@ -29,9 +31,60 @@
 // `search_after` requests, then the results of those requests might not be
 // consistent as changes happening
 // between searches are only visible to the more recent point in time.
+//
+// A point in time must be opened explicitly before being used in search
+// requests.
+//
+// A subsequent search request with the `pit` parameter must not specify
+// `index`, `routing`, or `preference` values as these parameters are copied
+// from the point in time.
+//
+// Just like regular searches, you can use `from` and `size` to page through
+// point in time search results, up to the first 10,000 hits.
+// If you want to retrieve more hits, use PIT with `search_after`.
+//
+// IMPORTANT: The open point in time request and each subsequent search request
+// can return different identifiers; always use the most recently received ID
+// for the next search request.
+//
+// When a PIT that contains shard failures is used in a search request, the
+// missing are always reported in the search response as a
+// `NoShardAvailableActionException` exception.
+// To get rid of these exceptions, a new PIT needs to be created so that shards
+// missing from the previous PIT can be handled, assuming they become available
+// in the meantime.
+//
+// **Keeping point in time alive**
+//
+// The `keep_alive` parameter, which is passed to a open point in time request
+// and search request, extends the time to live of the corresponding point in
+// time.
+// The value does not need to be long enough to process all data — it just needs
+// to be long enough for the next request.
+//
+// Normally, the background merge process optimizes the index by merging
+// together smaller segments to create new, bigger segments.
+// Once the smaller segments are no longer needed they are deleted.
+// However, open point-in-times prevent the old segments from being deleted
+// since they are still in use.
+//
+// TIP: Keeping older segments alive means that more disk space and file handles
+// are needed.
+// Ensure that you have configured your nodes to have ample free file handles.
+//
+// Additionally, if a segment contains deleted or updated documents then the
+// point in time must keep track of whether each document in the segment was
+// live at the time of the initial search request.
+// Ensure that your nodes have sufficient heap space if you have many open
+// point-in-times on an index that is subject to ongoing deletes or updates.
+// Note that a point-in-time doesn't prevent its associated indices from being
+// deleted.
+// You can check how many point-in-times (that is, search contexts) are open
+// with the nodes stats API.
 package openpointintime
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -63,6 +116,10 @@ type OpenPointInTime struct {
 
 	raw io.Reader
 
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
+
 	paramSet int
 
 	index string
@@ -87,8 +144,10 @@ func NewOpenPointInTimeFunc(tp elastictransport.Interface) NewOpenPointInTime {
 	}
 }
 
-// A search request by default executes against the most recent visible data of
-// the target indices,
+// Open a point in time.
+//
+// A search request by default runs against the most recent visible data of the
+// target indices,
 // which is called point in time. Elasticsearch pit (point in time) is a
 // lightweight view into the
 // state of the data as it existed when initiated. In some cases, it’s preferred
@@ -99,12 +158,64 @@ func NewOpenPointInTimeFunc(tp elastictransport.Interface) NewOpenPointInTime {
 // consistent as changes happening
 // between searches are only visible to the more recent point in time.
 //
+// A point in time must be opened explicitly before being used in search
+// requests.
+//
+// A subsequent search request with the `pit` parameter must not specify
+// `index`, `routing`, or `preference` values as these parameters are copied
+// from the point in time.
+//
+// Just like regular searches, you can use `from` and `size` to page through
+// point in time search results, up to the first 10,000 hits.
+// If you want to retrieve more hits, use PIT with `search_after`.
+//
+// IMPORTANT: The open point in time request and each subsequent search request
+// can return different identifiers; always use the most recently received ID
+// for the next search request.
+//
+// When a PIT that contains shard failures is used in a search request, the
+// missing are always reported in the search response as a
+// `NoShardAvailableActionException` exception.
+// To get rid of these exceptions, a new PIT needs to be created so that shards
+// missing from the previous PIT can be handled, assuming they become available
+// in the meantime.
+//
+// **Keeping point in time alive**
+//
+// The `keep_alive` parameter, which is passed to a open point in time request
+// and search request, extends the time to live of the corresponding point in
+// time.
+// The value does not need to be long enough to process all data — it just needs
+// to be long enough for the next request.
+//
+// Normally, the background merge process optimizes the index by merging
+// together smaller segments to create new, bigger segments.
+// Once the smaller segments are no longer needed they are deleted.
+// However, open point-in-times prevent the old segments from being deleted
+// since they are still in use.
+//
+// TIP: Keeping older segments alive means that more disk space and file handles
+// are needed.
+// Ensure that you have configured your nodes to have ample free file handles.
+//
+// Additionally, if a segment contains deleted or updated documents then the
+// point in time must keep track of whether each document in the segment was
+// live at the time of the initial search request.
+// Ensure that your nodes have sufficient heap space if you have many open
+// point-in-times on an index that is subject to ongoing deletes or updates.
+// Note that a point-in-time doesn't prevent its associated indices from being
+// deleted.
+// You can check how many point-in-times (that is, search contexts) are open
+// with the nodes stats API.
+//
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/point-in-time-api.html
 func New(tp elastictransport.Interface) *OpenPointInTime {
 	r := &OpenPointInTime{
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -112,6 +223,21 @@ func New(tp elastictransport.Interface) *OpenPointInTime {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *OpenPointInTime) Raw(raw io.Reader) *OpenPointInTime {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *OpenPointInTime) Request(req *Request) *OpenPointInTime {
+	r.req = req
 
 	return r
 }
@@ -124,6 +250,31 @@ func (r *OpenPointInTime) HttpRequest(ctx context.Context) (*http.Request, error
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for OpenPointInTime: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -269,45 +420,6 @@ func (r OpenPointInTime) Do(providedCtx context.Context) (*Response, error) {
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r OpenPointInTime) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "open_point_in_time")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the OpenPointInTime query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
 // Header set a key, value pair in the OpenPointInTime headers map.
 func (r *OpenPointInTime) Header(key, value string) *OpenPointInTime {
 	r.headers.Set(key, value)
@@ -325,7 +437,7 @@ func (r *OpenPointInTime) _index(index string) *OpenPointInTime {
 	return r
 }
 
-// KeepAlive Extends the time to live of the corresponding point in time.
+// KeepAlive Extend the length of time that the point in time persists.
 // API name: keep_alive
 func (r *OpenPointInTime) KeepAlive(duration string) *OpenPointInTime {
 	r.values.Set("keep_alive", duration)
@@ -342,8 +454,8 @@ func (r *OpenPointInTime) IgnoreUnavailable(ignoreunavailable bool) *OpenPointIn
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference The node or shard the operation should be performed on.
+// By default, it is random.
 // API name: preference
 func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
 	r.values.Set("preference", preference)
@@ -351,7 +463,7 @@ func (r *OpenPointInTime) Preference(preference string) *OpenPointInTime {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing A custom value that is used to route operations to a specific shard.
 // API name: routing
 func (r *OpenPointInTime) Routing(routing string) *OpenPointInTime {
 	r.values.Set("routing", routing)
@@ -359,10 +471,10 @@ func (r *OpenPointInTime) Routing(routing string) *OpenPointInTime {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
+// ExpandWildcards The type of index that wildcard patterns can match.
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
-// Supports comma-separated values, such as `open,hidden`. Valid values are:
+// It supports comma-separated values, such as `open,hidden`. Valid values are:
 // `all`, `open`, `closed`, `hidden`, `none`.
 // API name: expand_wildcards
 func (r *OpenPointInTime) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *OpenPointInTime {
@@ -371,6 +483,19 @@ func (r *OpenPointInTime) ExpandWildcards(expandwildcards ...expandwildcard.Expa
 		tmp = append(tmp, item.String())
 	}
 	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// AllowPartialSearchResults Indicates whether the point in time tolerates unavailable shards or shard
+// failures when initially creating the PIT.
+// If `false`, creating a point in time request when a shard is missing or
+// unavailable will throw an exception.
+// If `true`, the point in time will contain all the shards that are available
+// at the time of the request.
+// API name: allow_partial_search_results
+func (r *OpenPointInTime) AllowPartialSearchResults(allowpartialsearchresults bool) *OpenPointInTime {
+	r.values.Set("allow_partial_search_results", strconv.FormatBool(allowpartialsearchresults))
 
 	return r
 }
@@ -415,6 +540,19 @@ func (r *OpenPointInTime) Human(human bool) *OpenPointInTime {
 // API name: pretty
 func (r *OpenPointInTime) Pretty(pretty bool) *OpenPointInTime {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// Filter indices if the provided query rewrites to `match_none` on every shard.
+// API name: index_filter
+func (r *OpenPointInTime) IndexFilter(indexfilter types.QueryVariant) *OpenPointInTime {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IndexFilter = indexfilter.QueryCaster()
 
 	return r
 }

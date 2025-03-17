@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NerInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/inference.ts#L404-L409
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/inference.ts#L392-L397
 type NerInferenceUpdateOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
@@ -82,4 +82,14 @@ func NewNerInferenceUpdateOptions() *NerInferenceUpdateOptions {
 	r := &NerInferenceUpdateOptions{}
 
 	return r
+}
+
+// true
+
+type NerInferenceUpdateOptionsVariant interface {
+	NerInferenceUpdateOptionsCaster() *NerInferenceUpdateOptions
+}
+
+func (s *NerInferenceUpdateOptions) NerInferenceUpdateOptionsCaster() *NerInferenceUpdateOptions {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DateIndexNameProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L502-L540
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ingest/_types/Processors.ts#L729-L767
 type DateIndexNameProcessor struct {
 	// DateFormats An array of the expected date formats for parsing dates / timestamps in the
 	// document being preprocessed.
@@ -223,4 +223,14 @@ func NewDateIndexNameProcessor() *DateIndexNameProcessor {
 	r := &DateIndexNameProcessor{}
 
 	return r
+}
+
+// true
+
+type DateIndexNameProcessorVariant interface {
+	DateIndexNameProcessorCaster() *DateIndexNameProcessor
+}
+
+func (s *DateIndexNameProcessor) DateIndexNameProcessorCaster() *DateIndexNameProcessor {
+	return s
 }

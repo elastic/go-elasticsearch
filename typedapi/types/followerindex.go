@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -32,13 +32,19 @@ import (
 
 // FollowerIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ccr/follow_info/types.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ccr/follow_info/types.ts#L24-L35
 type FollowerIndex struct {
-	FollowerIndex string                                  `json:"follower_index"`
-	LeaderIndex   string                                  `json:"leader_index"`
-	Parameters    *FollowerIndexParameters                `json:"parameters,omitempty"`
-	RemoteCluster string                                  `json:"remote_cluster"`
-	Status        followerindexstatus.FollowerIndexStatus `json:"status"`
+	// FollowerIndex The name of the follower index.
+	FollowerIndex string `json:"follower_index"`
+	// LeaderIndex The name of the index in the leader cluster that is followed.
+	LeaderIndex string `json:"leader_index"`
+	// Parameters An object that encapsulates cross-cluster replication parameters. If the
+	// follower index's status is paused, this object is omitted.
+	Parameters *FollowerIndexParameters `json:"parameters,omitempty"`
+	// RemoteCluster The remote cluster that contains the leader index.
+	RemoteCluster string `json:"remote_cluster"`
+	// Status The status of the index following: `active` or `paused`.
+	Status followerindexstatus.FollowerIndexStatus `json:"status"`
 }
 
 func (s *FollowerIndex) UnmarshalJSON(data []byte) error {
@@ -92,3 +98,5 @@ func NewFollowerIndex() *FollowerIndex {
 
 	return r
 }
+
+// false

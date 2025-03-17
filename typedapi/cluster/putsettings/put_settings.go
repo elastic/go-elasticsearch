@@ -16,9 +16,41 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Updates the cluster settings.
+// Update the cluster settings.
+//
+// Configure and update dynamic settings on a running cluster.
+// You can also configure dynamic settings locally on an unstarted or shut down
+// node in `elasticsearch.yml`.
+//
+// Updates made with this API can be persistent, which apply across cluster
+// restarts, or transient, which reset after a cluster restart.
+// You can also reset transient or persistent settings by assigning them a null
+// value.
+//
+// If you configure the same setting using multiple methods, Elasticsearch
+// applies the settings in following order of precedence: 1) Transient setting;
+// 2) Persistent setting; 3) `elasticsearch.yml` setting; 4) Default setting
+// value.
+// For example, you can apply a transient setting to override a persistent
+// setting or `elasticsearch.yml` setting.
+// However, a change to an `elasticsearch.yml` setting will not override a
+// defined transient or persistent setting.
+//
+// TIP: In Elastic Cloud, use the user settings feature to configure all cluster
+// settings. This method automatically rejects unsafe settings that could break
+// your cluster.
+// If you run Elasticsearch on your own hardware, use this API to configure
+// dynamic cluster settings.
+// Only use `elasticsearch.yml` for static cluster settings and node settings.
+// The API doesn’t require a restart and ensures a setting’s value is the same
+// on all nodes.
+//
+// WARNING: Transient cluster settings are no longer recommended. Use persistent
+// cluster settings instead.
+// If a cluster becomes unstable, transient settings can clear unexpectedly,
+// resulting in a potentially undesired cluster configuration.
 package putsettings
 
 import (
@@ -73,7 +105,39 @@ func NewPutSettingsFunc(tp elastictransport.Interface) NewPutSettings {
 	}
 }
 
-// Updates the cluster settings.
+// Update the cluster settings.
+//
+// Configure and update dynamic settings on a running cluster.
+// You can also configure dynamic settings locally on an unstarted or shut down
+// node in `elasticsearch.yml`.
+//
+// Updates made with this API can be persistent, which apply across cluster
+// restarts, or transient, which reset after a cluster restart.
+// You can also reset transient or persistent settings by assigning them a null
+// value.
+//
+// If you configure the same setting using multiple methods, Elasticsearch
+// applies the settings in following order of precedence: 1) Transient setting;
+// 2) Persistent setting; 3) `elasticsearch.yml` setting; 4) Default setting
+// value.
+// For example, you can apply a transient setting to override a persistent
+// setting or `elasticsearch.yml` setting.
+// However, a change to an `elasticsearch.yml` setting will not override a
+// defined transient or persistent setting.
+//
+// TIP: In Elastic Cloud, use the user settings feature to configure all cluster
+// settings. This method automatically rejects unsafe settings that could break
+// your cluster.
+// If you run Elasticsearch on your own hardware, use this API to configure
+// dynamic cluster settings.
+// Only use `elasticsearch.yml` for static cluster settings and node settings.
+// The API doesn’t require a restart and ensures a setting’s value is the same
+// on all nodes.
+//
+// WARNING: Transient cluster settings are no longer recommended. Use persistent
+// cluster settings instead.
+// If a cluster becomes unstable, transient settings can clear unexpectedly,
+// resulting in a potentially undesired cluster configuration.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-update-settings.html
 func New(tp elastictransport.Interface) *PutSettings {
@@ -83,8 +147,6 @@ func New(tp elastictransport.Interface) *PutSettings {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -362,16 +424,58 @@ func (r *PutSettings) Pretty(pretty bool) *PutSettings {
 
 // API name: persistent
 func (r *PutSettings) Persistent(persistent map[string]json.RawMessage) *PutSettings {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Persistent = persistent
+	return r
+}
 
+func (r *PutSettings) AddPersistent(key string, value json.RawMessage) *PutSettings {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Persistent == nil {
+		r.req.Persistent = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Persistent
+	}
+
+	tmp[key] = value
+
+	r.req.Persistent = tmp
 	return r
 }
 
 // API name: transient
 func (r *PutSettings) Transient(transient map[string]json.RawMessage) *PutSettings {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Transient = transient
+	return r
+}
 
+func (r *PutSettings) AddTransient(key string, value json.RawMessage) *PutSettings {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Transient == nil {
+		r.req.Transient = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Transient
+	}
+
+	tmp[key] = value
+
+	r.req.Transient = tmp
 	return r
 }

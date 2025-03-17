@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package putbehavioralanalytics
 
 // Response holds the response body struct for the package putbehavioralanalytics
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/search_application/put_behavioral_analytics/BehavioralAnalyticsPutResponse.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/search_application/put_behavioral_analytics/BehavioralAnalyticsPutResponse.ts#L23-L25
 type Response struct {
 
 	// Acknowledged For a successful response, this value is always true. On failure, an

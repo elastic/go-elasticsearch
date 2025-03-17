@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // ScriptScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/compound.ts#L124-L129
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/compound.ts#L137-L142
 type ScriptScoreFunction struct {
 	// Script A script that computes a score.
 	Script Script `json:"script"`
@@ -33,4 +33,14 @@ func NewScriptScoreFunction() *ScriptScoreFunction {
 	r := &ScriptScoreFunction{}
 
 	return r
+}
+
+// true
+
+type ScriptScoreFunctionVariant interface {
+	ScriptScoreFunctionCaster() *ScriptScoreFunction
+}
+
+func (s *ScriptScoreFunction) ScriptScoreFunctionCaster() *ScriptScoreFunction {
+	return s
 }

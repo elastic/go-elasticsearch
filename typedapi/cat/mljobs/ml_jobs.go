@@ -16,16 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Get anomaly detection jobs.
-// Returns configuration and usage information for anomaly detection jobs.
+//
+// Get configuration and usage information for anomaly detection jobs.
 // This API returns a maximum of 10,000 jobs.
 // If the Elasticsearch security features are enabled, you must have
 // `monitor_ml`,
 // `monitor`, `manage_ml`, or `manage` cluster privileges to use this API.
 //
-// CAT APIs are only intended for human consumption using the Kibana
+// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get anomaly detection job statistics API.
 package mljobs
@@ -87,13 +88,14 @@ func NewMlJobsFunc(tp elastictransport.Interface) NewMlJobs {
 }
 
 // Get anomaly detection jobs.
-// Returns configuration and usage information for anomaly detection jobs.
+//
+// Get configuration and usage information for anomaly detection jobs.
 // This API returns a maximum of 10,000 jobs.
 // If the Elasticsearch security features are enabled, you must have
 // `monitor_ml`,
 // `monitor`, `manage_ml`, or `manage` cluster privileges to use this API.
 //
-// CAT APIs are only intended for human consumption using the Kibana
+// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get anomaly detection job statistics API.
 //
@@ -402,25 +404,6 @@ func (r *MlJobs) Format(format string) *MlJobs {
 // API name: help
 func (r *MlJobs) Help(help bool) *MlJobs {
 	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *MlJobs) Local(local bool) *MlJobs {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *MlJobs) MasterTimeout(duration string) *MlJobs {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

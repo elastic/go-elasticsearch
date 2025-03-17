@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MatrixStatsFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L770-L779
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/Aggregate.ts#L875-L884
 type MatrixStatsFields struct {
 	Correlation map[string]Float64 `json:"correlation"`
 	Count       int64              `json:"count"`
@@ -166,9 +166,11 @@ func (s *MatrixStatsFields) UnmarshalJSON(data []byte) error {
 // NewMatrixStatsFields returns a MatrixStatsFields.
 func NewMatrixStatsFields() *MatrixStatsFields {
 	r := &MatrixStatsFields{
-		Correlation: make(map[string]Float64, 0),
-		Covariance:  make(map[string]Float64, 0),
+		Correlation: make(map[string]Float64),
+		Covariance:  make(map[string]Float64),
 	}
 
 	return r
 }
+
+// false

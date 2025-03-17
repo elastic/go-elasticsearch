@@ -16,9 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Evicts tokens from the service account token caches.
+// Clear service account token caches.
+//
+// Evict a subset of all entries from the service account token caches.
+// Two separate caches exist for service account tokens: one cache for tokens
+// backed by the `service_tokens` file, and another for tokens backed by the
+// `.security` index.
+// This API clears matching entries from both caches.
+//
+// The cache for service account tokens backed by the `.security` index is
+// cleared automatically on state changes of the security index.
+// The cache for tokens backed by the `service_tokens` file is cleared
+// automatically on file changes.
 package clearcachedservicetokens
 
 import (
@@ -86,7 +97,18 @@ func NewClearCachedServiceTokensFunc(tp elastictransport.Interface) NewClearCach
 	}
 }
 
-// Evicts tokens from the service account token caches.
+// Clear service account token caches.
+//
+// Evict a subset of all entries from the service account token caches.
+// Two separate caches exist for service account tokens: one cache for tokens
+// backed by the `service_tokens` file, and another for tokens backed by the
+// `.security` index.
+// This API clears matching entries from both caches.
+//
+// The cache for service account tokens backed by the `.security` index is
+// cleared automatically on state changes of the security index.
+// The cache for tokens backed by the `service_tokens` file is cleared
+// automatically on file changes.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-service-token-caches.html
 func New(tp elastictransport.Interface) *ClearCachedServiceTokens {
@@ -318,7 +340,7 @@ func (r *ClearCachedServiceTokens) Header(key, value string) *ClearCachedService
 	return r
 }
 
-// Namespace An identifier for the namespace
+// Namespace The namespace, which is a top-level grouping of service accounts.
 // API Name: namespace
 func (r *ClearCachedServiceTokens) _namespace(namespace string) *ClearCachedServiceTokens {
 	r.paramSet |= namespaceMask
@@ -327,7 +349,7 @@ func (r *ClearCachedServiceTokens) _namespace(namespace string) *ClearCachedServ
 	return r
 }
 
-// Service An identifier for the service name
+// Service The name of the service, which must be unique within its namespace.
 // API Name: service
 func (r *ClearCachedServiceTokens) _service(service string) *ClearCachedServiceTokens {
 	r.paramSet |= serviceMask
@@ -336,7 +358,10 @@ func (r *ClearCachedServiceTokens) _service(service string) *ClearCachedServiceT
 	return r
 }
 
-// Name A comma-separated list of service token names
+// Name A comma-separated list of token names to evict from the service account token
+// caches.
+// Use a wildcard (`*`) to evict all tokens that belong to a service account.
+// It does not support other wildcard patterns.
 // API Name: name
 func (r *ClearCachedServiceTokens) _name(name string) *ClearCachedServiceTokens {
 	r.paramSet |= nameMask

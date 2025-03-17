@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Update data stream lifecycles.
 // Update the data stream lifecycle of the specified data streams.
@@ -86,7 +86,7 @@ func NewPutDataLifecycleFunc(tp elastictransport.Interface) NewPutDataLifecycle 
 // Update data stream lifecycles.
 // Update the data stream lifecycle of the specified data streams.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-put-lifecycle.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-put-data-lifecycle
 func New(tp elastictransport.Interface) *PutDataLifecycle {
 	r := &PutDataLifecycle{
 		transport: tp,
@@ -94,8 +94,6 @@ func New(tp elastictransport.Interface) *PutDataLifecycle {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -188,6 +186,12 @@ func (r *PutDataLifecycle) HttpRequest(ctx context.Context) (*http.Request, erro
 	}
 
 	req.Header = r.headers.Clone()
+
+	if req.Header.Get("Content-Type") == "" {
+		if r.raw != nil {
+			req.Header.Set("Content-Type", "application/vnd.elasticsearch+json;compatible-with=8")
+		}
+	}
 
 	if req.Header.Get("Accept") == "" {
 		req.Header.Set("Accept", "application/vnd.elasticsearch+json;compatible-with=8")
@@ -392,24 +396,47 @@ func (r *PutDataLifecycle) Pretty(pretty bool) *PutDataLifecycle {
 	return r
 }
 
-// DataRetention If defined, every document added to this data stream will be stored at least
+// If defined, every document added to this data stream will be stored at least
 // for this time frame.
 // Any time after this duration the document could be deleted.
 // When empty, every document in this data stream will be stored indefinitely.
 // API name: data_retention
-func (r *PutDataLifecycle) DataRetention(duration types.Duration) *PutDataLifecycle {
-	r.req.DataRetention = duration
+func (r *PutDataLifecycle) DataRetention(duration types.DurationVariant) *PutDataLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.DataRetention = *duration.DurationCaster()
 
 	return r
 }
 
-// Downsampling If defined, every backing index will execute the configured downsampling
-// configuration after the backing
-// index is not the data stream write index anymore.
+// The downsampling configuration to execute for the managed backing index after
+// rollover.
 // API name: downsampling
-func (r *PutDataLifecycle) Downsampling(downsampling *types.DataStreamLifecycleDownsampling) *PutDataLifecycle {
+func (r *PutDataLifecycle) Downsampling(downsampling types.DataStreamLifecycleDownsamplingVariant) *PutDataLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Downsampling = downsampling
+	r.req.Downsampling = downsampling.DataStreamLifecycleDownsamplingCaster()
+
+	return r
+}
+
+// If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+// data stream. A data stream lifecycle
+// that's disabled (enabled: `false`) will have no effect on the data stream.
+// API name: enabled
+func (r *PutDataLifecycle) Enabled(enabled bool) *PutDataLifecycle {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Enabled = &enabled
 
 	return r
 }

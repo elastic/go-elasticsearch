@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SoftDeletes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L50-L63
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/_types/IndexSettings.ts#L51-L64
 type SoftDeletes struct {
 	// Enabled Indicates whether soft deletes are enabled on the index.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -89,4 +89,14 @@ func NewSoftDeletes() *SoftDeletes {
 	r := &SoftDeletes{}
 
 	return r
+}
+
+// true
+
+type SoftDeletesVariant interface {
+	SoftDeletesCaster() *SoftDeletes
+}
+
+func (s *SoftDeletes) SoftDeletesCaster() *SoftDeletes {
+	return s
 }

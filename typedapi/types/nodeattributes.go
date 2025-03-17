@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -26,25 +26,20 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strconv"
-
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/noderole"
 )
 
 // NodeAttributes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Node.ts#L41-L58
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Node.ts#L41-L52
 type NodeAttributes struct {
 	// Attributes Lists node attributes.
 	Attributes map[string]string `json:"attributes"`
 	// EphemeralId The ephemeral ID of the node.
-	EphemeralId string  `json:"ephemeral_id"`
-	ExternalId  *string `json:"external_id,omitempty"`
+	EphemeralId string `json:"ephemeral_id"`
 	// Id The unique identifier of the node.
 	Id *string `json:"id,omitempty"`
 	// Name The unique identifier of the node.
-	Name  string              `json:"name"`
-	Roles []noderole.NodeRole `json:"roles,omitempty"`
+	Name string `json:"name"`
 	// TransportAddress The host and port where transport HTTP connections are accepted.
 	TransportAddress string `json:"transport_address"`
 }
@@ -77,18 +72,6 @@ func (s *NodeAttributes) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "EphemeralId", err)
 			}
 
-		case "external_id":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "ExternalId", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.ExternalId = &o
-
 		case "id":
 			if err := dec.Decode(&s.Id); err != nil {
 				return fmt.Errorf("%s | %w", "Id", err)
@@ -97,11 +80,6 @@ func (s *NodeAttributes) UnmarshalJSON(data []byte) error {
 		case "name":
 			if err := dec.Decode(&s.Name); err != nil {
 				return fmt.Errorf("%s | %w", "Name", err)
-			}
-
-		case "roles":
-			if err := dec.Decode(&s.Roles); err != nil {
-				return fmt.Errorf("%s | %w", "Roles", err)
 			}
 
 		case "transport_address":
@@ -117,8 +95,10 @@ func (s *NodeAttributes) UnmarshalJSON(data []byte) error {
 // NewNodeAttributes returns a NodeAttributes.
 func NewNodeAttributes() *NodeAttributes {
 	r := &NodeAttributes{
-		Attributes: make(map[string]string, 0),
+		Attributes: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

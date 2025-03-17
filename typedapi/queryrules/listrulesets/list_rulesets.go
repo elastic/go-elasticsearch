@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns summarized information about existing query rulesets.
+// Get all query rulesets.
+// Get summarized information about the query rulesets.
 package listrulesets
 
 import (
@@ -68,7 +69,8 @@ func NewListRulesetsFunc(tp elastictransport.Interface) NewListRulesets {
 	}
 }
 
-// Returns summarized information about existing query rulesets.
+// Get all query rulesets.
+// Get summarized information about the query rulesets.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/list-query-rulesets.html
 func New(tp elastictransport.Interface) *ListRulesets {
@@ -274,7 +276,7 @@ func (r *ListRulesets) Header(key, value string) *ListRulesets {
 	return r
 }
 
-// From Starting offset (default: 0)
+// From The offset from the first result to fetch.
 // API name: from
 func (r *ListRulesets) From(from int) *ListRulesets {
 	r.values.Set("from", strconv.Itoa(from))
@@ -282,7 +284,7 @@ func (r *ListRulesets) From(from int) *ListRulesets {
 	return r
 }
 
-// Size specifies a max number of results to get
+// Size The maximum number of results to retrieve.
 // API name: size
 func (r *ListRulesets) Size(size int) *ListRulesets {
 	r.values.Set("size", strconv.Itoa(size))

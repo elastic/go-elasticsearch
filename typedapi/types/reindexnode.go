@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // ReindexNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/reindex_rethrottle/types.ts#L33-L35
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/reindex_rethrottle/types.ts#L33-L35
 type ReindexNode struct {
 	Attributes       map[string]string      `json:"attributes"`
 	Host             string                 `json:"host"`
@@ -107,9 +107,11 @@ func (s *ReindexNode) UnmarshalJSON(data []byte) error {
 // NewReindexNode returns a ReindexNode.
 func NewReindexNode() *ReindexNode {
 	r := &ReindexNode{
-		Attributes: make(map[string]string, 0),
-		Tasks:      make(map[string]ReindexTask, 0),
+		Attributes: make(map[string]string),
+		Tasks:      make(map[string]ReindexTask),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DatafeedConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Datafeed.ts#L59-L116
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/Datafeed.ts#L63-L120
 type DatafeedConfig struct {
 	// Aggregations If set, the datafeed performs aggregation searches. Support for aggregations
 	// is limited and should be used only with low cardinality data.
@@ -233,9 +233,19 @@ func (s *DatafeedConfig) UnmarshalJSON(data []byte) error {
 // NewDatafeedConfig returns a DatafeedConfig.
 func NewDatafeedConfig() *DatafeedConfig {
 	r := &DatafeedConfig{
-		Aggregations: make(map[string]Aggregations, 0),
-		ScriptFields: make(map[string]ScriptField, 0),
+		Aggregations: make(map[string]Aggregations),
+		ScriptFields: make(map[string]ScriptField),
 	}
 
 	return r
+}
+
+// true
+
+type DatafeedConfigVariant interface {
+	DatafeedConfigCaster() *DatafeedConfig
+}
+
+func (s *DatafeedConfig) DatafeedConfigCaster() *DatafeedConfig {
+	return s
 }

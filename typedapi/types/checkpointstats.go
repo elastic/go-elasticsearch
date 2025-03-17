@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CheckpointStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/transform/get_transform_stats/types.ts#L76-L83
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/transform/get_transform_stats/types.ts#L76-L83
 type CheckpointStats struct {
 	Checkpoint           int64              `json:"checkpoint"`
 	CheckpointProgress   *TransformProgress `json:"checkpoint_progress,omitempty"`
@@ -107,3 +107,5 @@ func NewCheckpointStats() *CheckpointStats {
 
 	return r
 }
+
+// false

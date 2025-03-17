@@ -16,23 +16,26 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package testgrokpattern
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 )
 
 // Request holds the request body struct for the package testgrokpattern
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/text_structure/test_grok_pattern/TestGrokPatternRequest.ts#L22-L43
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/text_structure/test_grok_pattern/TestGrokPatternRequest.ts#L23-L59
 type Request struct {
 
-	// GrokPattern Grok pattern to run on the text.
+	// GrokPattern The Grok pattern to run on the text.
 	GrokPattern string `json:"grok_pattern"`
-	// Text Lines of text to run the Grok pattern on.
+	// Text The lines of text to run the Grok pattern on.
 	Text []string `json:"text"`
 }
 
@@ -53,4 +56,33 @@ func (r *Request) FromJSON(data string) (*Request, error) {
 	}
 
 	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "grok_pattern":
+			if err := dec.Decode(&s.GrokPattern); err != nil {
+				return fmt.Errorf("%s | %w", "GrokPattern", err)
+			}
+
+		case "text":
+			if err := dec.Decode(&s.Text); err != nil {
+				return fmt.Errorf("%s | %w", "Text", err)
+			}
+
+		}
+	}
+	return nil
 }

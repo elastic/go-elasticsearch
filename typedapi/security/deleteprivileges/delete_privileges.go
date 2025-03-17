@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Removes application privileges.
+// Delete application privileges.
+//
+// To use this API, you must have one of the following privileges:
+//
+// * The `manage_security` cluster privilege (or a greater privilege such as
+// `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
 package deleteprivileges
 
 import (
@@ -82,7 +89,14 @@ func NewDeletePrivilegesFunc(tp elastictransport.Interface) NewDeletePrivileges 
 	}
 }
 
-// Removes application privileges.
+// Delete application privileges.
+//
+// To use this API, you must have one of the following privileges:
+//
+// * The `manage_security` cluster privilege (or a greater privilege such as
+// `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html
 func New(tp elastictransport.Interface) *DeletePrivileges {
@@ -302,7 +316,8 @@ func (r *DeletePrivileges) Header(key, value string) *DeletePrivileges {
 	return r
 }
 
-// Application Application name
+// Application The name of the application.
+// Application privileges are always associated with exactly one application.
 // API Name: application
 func (r *DeletePrivileges) _application(application string) *DeletePrivileges {
 	r.paramSet |= applicationMask
@@ -311,7 +326,7 @@ func (r *DeletePrivileges) _application(application string) *DeletePrivileges {
 	return r
 }
 
-// Name Privilege name
+// Name The name of the privilege.
 // API Name: name
 func (r *DeletePrivileges) _name(name string) *DeletePrivileges {
 	r.paramSet |= nameMask

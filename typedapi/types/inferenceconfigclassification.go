@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceConfigClassification type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L773-L799
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ingest/_types/Processors.ts#L1075-L1101
 type InferenceConfigClassification struct {
 	// NumTopClasses Specifies the number of top class predictions to return.
 	NumTopClasses *int `json:"num_top_classes,omitempty"`
@@ -126,4 +126,14 @@ func NewInferenceConfigClassification() *InferenceConfigClassification {
 	r := &InferenceConfigClassification{}
 
 	return r
+}
+
+// true
+
+type InferenceConfigClassificationVariant interface {
+	InferenceConfigClassificationCaster() *InferenceConfigClassification
+}
+
+func (s *InferenceConfigClassification) InferenceConfigClassificationCaster() *InferenceConfigClassification {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ExploreControls type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/graph/_types/ExploreControls.ts#L24-L49
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/graph/_types/ExploreControls.ts#L24-L49
 type ExploreControls struct {
 	// SampleDiversity To avoid the top-matching documents sample being dominated by a single source
 	// of results, it is sometimes necessary to request diversity in the sample.
@@ -122,4 +122,14 @@ func NewExploreControls() *ExploreControls {
 	r := &ExploreControls{}
 
 	return r
+}
+
+// true
+
+type ExploreControlsVariant interface {
+	ExploreControlsCaster() *ExploreControls
+}
+
+func (s *ExploreControls) ExploreControlsCaster() *ExploreControls {
+	return s
 }

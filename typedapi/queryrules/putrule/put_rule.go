@@ -16,9 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Creates or updates a query rule within a query ruleset.
+// Create or update a query rule.
+// Create or update a query rule within a query ruleset.
+//
+// IMPORTANT: Due to limitations within pinned queries, you can only pin
+// documents using ids or docs, but cannot use both in single rule.
+// It is advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits.
+// If multiple matching rules pin more than 100 documents, only the first 100
+// documents are pinned in the order they are specified in the ruleset.
 package putrule
 
 import (
@@ -87,7 +95,15 @@ func NewPutRuleFunc(tp elastictransport.Interface) NewPutRule {
 	}
 }
 
-// Creates or updates a query rule within a query ruleset.
+// Create or update a query rule.
+// Create or update a query rule within a query ruleset.
+//
+// IMPORTANT: Due to limitations within pinned queries, you can only pin
+// documents using ids or docs, but cannot use both in single rule.
+// It is advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits.
+// If multiple matching rules pin more than 100 documents, only the first 100
+// documents are pinned in the order they are specified in the ruleset.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/put-query-rule.html
 func New(tp elastictransport.Interface) *PutRule {
@@ -97,8 +113,6 @@ func New(tp elastictransport.Interface) *PutRule {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -319,7 +333,7 @@ func (r *PutRule) Header(key, value string) *PutRule {
 }
 
 // RulesetId The unique identifier of the query ruleset containing the rule to be created
-// or updated
+// or updated.
 // API Name: rulesetid
 func (r *PutRule) _rulesetid(rulesetid string) *PutRule {
 	r.paramSet |= rulesetidMask
@@ -329,7 +343,7 @@ func (r *PutRule) _rulesetid(rulesetid string) *PutRule {
 }
 
 // RuleId The unique identifier of the query rule within the specified ruleset to be
-// created or updated
+// created or updated.
 // API Name: ruleid
 func (r *PutRule) _ruleid(ruleid string) *PutRule {
 	r.paramSet |= ruleidMask
@@ -382,31 +396,56 @@ func (r *PutRule) Pretty(pretty bool) *PutRule {
 	return r
 }
 
+// The actions to take when the rule is matched.
+// The format of this action depends on the rule type.
 // API name: actions
-func (r *PutRule) Actions(actions *types.QueryRuleActions) *PutRule {
+func (r *PutRule) Actions(actions types.QueryRuleActionsVariant) *PutRule {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Actions = *actions
+	r.req.Actions = *actions.QueryRuleActionsCaster()
 
 	return r
 }
 
+// The criteria that must be met for the rule to be applied.
+// If multiple criteria are specified for a rule, all criteria must be met for
+// the rule to be applied.
 // API name: criteria
-func (r *PutRule) Criteria(criteria ...types.QueryRuleCriteria) *PutRule {
-	r.req.Criteria = criteria
+func (r *PutRule) Criteria(criteria ...types.QueryRuleCriteriaVariant) *PutRule {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Criteria = make([]types.QueryRuleCriteria, len(criteria))
+	for i, v := range criteria {
+		r.req.Criteria[i] = *v.QueryRuleCriteriaCaster()
+	}
 
 	return r
 }
 
 // API name: priority
 func (r *PutRule) Priority(priority int) *PutRule {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Priority = &priority
 
 	return r
 }
 
+// The type of rule.
 // API name: type
 func (r *PutRule) Type(type_ queryruletype.QueryRuleType) *PutRule {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Type = type_
-
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package querywatches
 
@@ -26,9 +26,13 @@ import (
 
 // Response holds the response body struct for the package querywatches
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/query_watches/WatcherQueryWatchesResponse.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/query_watches/WatcherQueryWatchesResponse.ts#L23-L34
 type Response struct {
-	Count   int                `json:"count"`
+
+	// Count The total number of watches found.
+	Count int `json:"count"`
+	// Watches A list of watches based on the `from`, `size`, or `search_after` request body
+	// parameters.
 	Watches []types.QueryWatch `json:"watches"`
 }
 

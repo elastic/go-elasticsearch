@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalysisLimits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Analysis.ts#L161-L172
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/Analysis.ts#L161-L172
 type AnalysisLimits struct {
 	// CategorizationExamplesLimit The maximum number of examples stored per category in memory and in the
 	// results data store. If you increase this value, more examples are available,
@@ -55,7 +55,7 @@ type AnalysisLimits struct {
 	// `xpack.ml.max_model_memory_limit` setting, an error occurs when you try to
 	// create jobs that have `model_memory_limit` values greater than that setting
 	// value.
-	ModelMemoryLimit *string `json:"model_memory_limit,omitempty"`
+	ModelMemoryLimit ByteSize `json:"model_memory_limit,omitempty"`
 }
 
 func (s *AnalysisLimits) UnmarshalJSON(data []byte) error {
@@ -89,16 +89,9 @@ func (s *AnalysisLimits) UnmarshalJSON(data []byte) error {
 			}
 
 		case "model_memory_limit":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.ModelMemoryLimit); err != nil {
 				return fmt.Errorf("%s | %w", "ModelMemoryLimit", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.ModelMemoryLimit = &o
 
 		}
 	}
@@ -110,4 +103,14 @@ func NewAnalysisLimits() *AnalysisLimits {
 	r := &AnalysisLimits{}
 
 	return r
+}
+
+// true
+
+type AnalysisLimitsVariant interface {
+	AnalysisLimitsCaster() *AnalysisLimits
+}
+
+func (s *AnalysisLimits) AnalysisLimitsCaster() *AnalysisLimits {
+	return s
 }

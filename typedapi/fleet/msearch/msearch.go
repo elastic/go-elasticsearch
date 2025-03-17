@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Executes several [fleet
 // searches](https://www.elastic.co/guide/en/elasticsearch/reference/current/fleet-search.html)
@@ -94,6 +94,8 @@ func NewMsearchFunc(tp elastictransport.Interface) NewMsearch {
 // search](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html)
 // API. However, similar to the fleet search API, it
 // supports the wait_for_checkpoints parameter.
+//
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/fleet-multi-search.html
 func New(tp elastictransport.Interface) *Msearch {
 	r := &Msearch{
 		transport: tp,

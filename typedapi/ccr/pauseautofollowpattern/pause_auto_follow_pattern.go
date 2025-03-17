@@ -16,9 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Pauses an auto-follow pattern
+// Pause an auto-follow pattern.
+//
+// Pause a cross-cluster replication auto-follow pattern.
+// When the API returns, the auto-follow pattern is inactive.
+// New indices that are created on the remote cluster and match the auto-follow
+// patterns are ignored.
+//
+// You can resume auto-following with the resume auto-follow pattern API.
+// When it resumes, the auto-follow pattern is active again and automatically
+// configures follower indices for newly created indices on the remote cluster
+// that match its patterns.
+// Remote indices that were created while the pattern was paused will also be
+// followed, unless they have been deleted or closed in the interim.
 package pauseautofollowpattern
 
 import (
@@ -76,7 +88,19 @@ func NewPauseAutoFollowPatternFunc(tp elastictransport.Interface) NewPauseAutoFo
 	}
 }
 
-// Pauses an auto-follow pattern
+// Pause an auto-follow pattern.
+//
+// Pause a cross-cluster replication auto-follow pattern.
+// When the API returns, the auto-follow pattern is inactive.
+// New indices that are created on the remote cluster and match the auto-follow
+// patterns are ignored.
+//
+// You can resume auto-following with the resume auto-follow pattern API.
+// When it resumes, the auto-follow pattern is active again and automatically
+// configures follower indices for newly created indices on the remote cluster
+// that match its patterns.
+// Remote indices that were created while the pattern was paused will also be
+// followed, unless they have been deleted or closed in the interim.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-pause-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *PauseAutoFollowPattern {
@@ -292,12 +316,22 @@ func (r *PauseAutoFollowPattern) Header(key, value string) *PauseAutoFollowPatte
 	return r
 }
 
-// Name The name of the auto follow pattern that should pause discovering new indices
-// to follow.
+// Name The name of the auto-follow pattern to pause.
 // API Name: name
 func (r *PauseAutoFollowPattern) _name(name string) *PauseAutoFollowPattern {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
+// API name: master_timeout
+func (r *PauseAutoFollowPattern) MasterTimeout(duration string) *PauseAutoFollowPattern {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

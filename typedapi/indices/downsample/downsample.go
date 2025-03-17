@@ -16,11 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Aggregates a time series (TSDS) index and stores pre-computed statistical
+// Downsample an index.
+// Aggregate a time series (TSDS) index and store pre-computed statistical
 // summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
 // field grouped by a configured time interval.
+// For example, a TSDS index that contains metrics sampled every 10 seconds can
+// be downsampled to an hourly index.
+// All documents within an hour interval are summarized and stored as a single
+// document in the downsample index.
+//
+// NOTE: Only indices in a time series data stream are supported.
+// Neither field nor document level security can be defined on the source index.
+// The source index must be read only (`index.blocks.write: true`).
 package downsample
 
 import (
@@ -88,9 +97,18 @@ func NewDownsampleFunc(tp elastictransport.Interface) NewDownsample {
 	}
 }
 
-// Aggregates a time series (TSDS) index and stores pre-computed statistical
+// Downsample an index.
+// Aggregate a time series (TSDS) index and store pre-computed statistical
 // summaries (`min`, `max`, `sum`, `value_count` and `avg`) for each metric
 // field grouped by a configured time interval.
+// For example, a TSDS index that contains metrics sampled every 10 seconds can
+// be downsampled to an hourly index.
+// All documents within an hour interval are summarized and stored as a single
+// document in the downsample index.
+//
+// NOTE: Only indices in a time series data stream are supported.
+// Neither field nor document level security can be defined on the source index.
+// The source index must be read only (`index.blocks.write: true`).
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-downsample-data-stream.html
 func New(tp elastictransport.Interface) *Downsample {
@@ -100,8 +118,6 @@ func New(tp elastictransport.Interface) *Downsample {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -381,9 +397,14 @@ func (r *Downsample) Pretty(pretty bool) *Downsample {
 	return r
 }
 
-// FixedInterval The interval at which to aggregate the original time series index.
+// The interval at which to aggregate the original time series index.
 // API name: fixed_interval
 func (r *Downsample) FixedInterval(durationlarge string) *Downsample {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.FixedInterval = durationlarge
 
 	return r

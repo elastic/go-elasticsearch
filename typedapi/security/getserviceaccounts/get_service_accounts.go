@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// This API returns a list of service accounts that match the provided path
-// parameter(s).
+// Get service accounts.
+//
+// Get a list of service accounts that match the provided path parameters.
+//
+// NOTE: Currently, only the `elastic/fleet-server` service account is
+// available.
 package getserviceaccounts
 
 import (
@@ -78,8 +82,12 @@ func NewGetServiceAccountsFunc(tp elastictransport.Interface) NewGetServiceAccou
 	}
 }
 
-// This API returns a list of service accounts that match the provided path
-// parameter(s).
+// Get service accounts.
+//
+// Get a list of service accounts that match the provided path parameters.
+//
+// NOTE: Currently, only the `elastic/fleet-server` service account is
+// available.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-service-accounts.html
 func New(tp elastictransport.Interface) *GetServiceAccounts {
@@ -319,9 +327,9 @@ func (r *GetServiceAccounts) Header(key, value string) *GetServiceAccounts {
 	return r
 }
 
-// Namespace Name of the namespace. Omit this parameter to retrieve information about all
-// service accounts. If you omit this parameter, you must also omit the
-// `service` parameter.
+// Namespace The name of the namespace.
+// Omit this parameter to retrieve information about all service accounts.
+// If you omit this parameter, you must also omit the `service` parameter.
 // API Name: namespace
 func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 	r.paramSet |= namespaceMask
@@ -330,8 +338,9 @@ func (r *GetServiceAccounts) Namespace(namespace string) *GetServiceAccounts {
 	return r
 }
 
-// Service Name of the service name. Omit this parameter to retrieve information about
-// all service accounts that belong to the specified `namespace`.
+// Service The service name.
+// Omit this parameter to retrieve information about all service accounts that
+// belong to the specified `namespace`.
 // API Name: service
 func (r *GetServiceAccounts) Service(service string) *GetServiceAccounts {
 	r.paramSet |= serviceMask

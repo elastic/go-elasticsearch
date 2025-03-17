@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TermsQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/term.ts#L235-L240
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/term.ts#L257-L263
 type TermsQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -136,8 +136,18 @@ func (s TermsQuery) MarshalJSON() ([]byte, error) {
 // NewTermsQuery returns a TermsQuery.
 func NewTermsQuery() *TermsQuery {
 	r := &TermsQuery{
-		TermsQuery: make(map[string]TermsQueryField, 0),
+		TermsQuery: make(map[string]TermsQueryField),
 	}
 
 	return r
+}
+
+// true
+
+type TermsQueryVariant interface {
+	TermsQueryCaster() *TermsQuery
+}
+
+func (s *TermsQuery) TermsQueryCaster() *TermsQuery {
+	return s
 }

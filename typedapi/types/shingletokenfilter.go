@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShingleTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L87-L95
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/token_filters.ts#L86-L94
 type ShingleTokenFilter struct {
 	FillerToken                *string `json:"filler_token,omitempty"`
 	MaxShingleSize             string  `json:"max_shingle_size,omitempty"`
@@ -173,4 +173,14 @@ func NewShingleTokenFilter() *ShingleTokenFilter {
 	r := &ShingleTokenFilter{}
 
 	return r
+}
+
+// true
+
+type ShingleTokenFilterVariant interface {
+	ShingleTokenFilterCaster() *ShingleTokenFilter
+}
+
+func (s *ShingleTokenFilter) ShingleTokenFilterCaster() *ShingleTokenFilter {
+	return s
 }

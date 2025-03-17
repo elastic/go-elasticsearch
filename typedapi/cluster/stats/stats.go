@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns cluster statistics.
-// It returns basic index metrics (shard numbers, store size, memory usage) and
+// Get cluster statistics.
+// Get basic index metrics (shard numbers, store size, memory usage) and
 // information about the current nodes that form the cluster (number, roles, os,
 // jvm versions, memory usage, cpu and installed plugins).
 package stats
@@ -77,8 +77,8 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 	}
 }
 
-// Returns cluster statistics.
-// It returns basic index metrics (shard numbers, store size, memory usage) and
+// Get cluster statistics.
+// Get basic index metrics (shard numbers, store size, memory usage) and
 // information about the current nodes that form the cluster (number, roles, os,
 // jvm versions, memory usage, cpu and installed plugins).
 //
@@ -313,10 +313,10 @@ func (r *Stats) NodeId(nodeid string) *Stats {
 	return r
 }
 
-// FlatSettings If `true`, returns settings in flat format.
-// API name: flat_settings
-func (r *Stats) FlatSettings(flatsettings bool) *Stats {
-	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
+// IncludeRemotes Include remote cluster data into the response
+// API name: include_remotes
+func (r *Stats) IncludeRemotes(includeremotes bool) *Stats {
+	r.values.Set("include_remotes", strconv.FormatBool(includeremotes))
 
 	return r
 }

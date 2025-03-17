@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -26,19 +26,22 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // ScheduleContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Schedule.ts#L80-L91
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/_types/Schedule.ts#L80-L92
 type ScheduleContainer struct {
-	Cron     *string         `json:"cron,omitempty"`
-	Daily    *DailySchedule  `json:"daily,omitempty"`
-	Hourly   *HourlySchedule `json:"hourly,omitempty"`
-	Interval Duration        `json:"interval,omitempty"`
-	Monthly  []TimeOfMonth   `json:"monthly,omitempty"`
-	Weekly   []TimeOfWeek    `json:"weekly,omitempty"`
-	Yearly   []TimeOfYear    `json:"yearly,omitempty"`
+	AdditionalScheduleContainerProperty map[string]json.RawMessage `json:"-"`
+	Cron                                *string                    `json:"cron,omitempty"`
+	Daily                               *DailySchedule             `json:"daily,omitempty"`
+	Hourly                              *HourlySchedule            `json:"hourly,omitempty"`
+	Interval                            Duration                   `json:"interval,omitempty"`
+	Monthly                             []TimeOfMonth              `json:"monthly,omitempty"`
+	Timezone                            *string                    `json:"timezone,omitempty"`
+	Weekly                              []TimeOfWeek               `json:"weekly,omitempty"`
+	Yearly                              []TimeOfYear               `json:"yearly,omitempty"`
 }
 
 func (s *ScheduleContainer) UnmarshalJSON(data []byte) error {
@@ -92,6 +95,18 @@ func (s *ScheduleContainer) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "timezone":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "Timezone", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.Timezone = &o
+
 		case "weekly":
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
@@ -124,14 +139,68 @@ func (s *ScheduleContainer) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalScheduleContainerProperty == nil {
+					s.AdditionalScheduleContainerProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalScheduleContainerProperty", err)
+				}
+				s.AdditionalScheduleContainerProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ScheduleContainer) MarshalJSON() ([]byte, error) {
+	type opt ScheduleContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalScheduleContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalScheduleContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewScheduleContainer returns a ScheduleContainer.
 func NewScheduleContainer() *ScheduleContainer {
-	r := &ScheduleContainer{}
+	r := &ScheduleContainer{
+		AdditionalScheduleContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type ScheduleContainerVariant interface {
+	ScheduleContainerCaster() *ScheduleContainer
+}
+
+func (s *ScheduleContainer) ScheduleContainerCaster() *ScheduleContainer {
+	return s
 }

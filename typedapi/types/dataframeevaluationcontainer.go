@@ -16,14 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // DataframeEvaluationContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeEvaluation.ts#L25-L33
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/DataframeEvaluation.ts#L25-L33
 type DataframeEvaluationContainer struct {
+	AdditionalDataframeEvaluationContainerProperty map[string]json.RawMessage `json:"-"`
 	// Classification Classification evaluation evaluates the results of a classification analysis
 	// which outputs a prediction that identifies to which of the classes each
 	// document belongs.
@@ -36,9 +42,50 @@ type DataframeEvaluationContainer struct {
 	Regression *DataframeEvaluationRegression `json:"regression,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s DataframeEvaluationContainer) MarshalJSON() ([]byte, error) {
+	type opt DataframeEvaluationContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalDataframeEvaluationContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalDataframeEvaluationContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewDataframeEvaluationContainer returns a DataframeEvaluationContainer.
 func NewDataframeEvaluationContainer() *DataframeEvaluationContainer {
-	r := &DataframeEvaluationContainer{}
+	r := &DataframeEvaluationContainer{
+		AdditionalDataframeEvaluationContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type DataframeEvaluationContainerVariant interface {
+	DataframeEvaluationContainerCaster() *DataframeEvaluationContainer
+}
+
+func (s *DataframeEvaluationContainer) DataframeEvaluationContainerCaster() *DataframeEvaluationContainer {
+	return s
 }

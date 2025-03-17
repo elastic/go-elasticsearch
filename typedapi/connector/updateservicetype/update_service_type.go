@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Updates the service type of the connector
+// Update the connector service type.
 package updateservicetype
 
 import (
@@ -81,7 +81,7 @@ func NewUpdateServiceTypeFunc(tp elastictransport.Interface) NewUpdateServiceTyp
 	}
 }
 
-// Updates the service type of the connector
+// Update the connector service type.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-service-type-api.html
 func New(tp elastictransport.Interface) *UpdateServiceType {
@@ -91,8 +91,6 @@ func New(tp elastictransport.Interface) *UpdateServiceType {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -361,6 +359,10 @@ func (r *UpdateServiceType) Pretty(pretty bool) *UpdateServiceType {
 
 // API name: service_type
 func (r *UpdateServiceType) ServiceType(servicetype string) *UpdateServiceType {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.ServiceType = servicetype
 

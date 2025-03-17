@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Deletes users from the native realm.
+// Delete users.
+//
+// Delete users from the native realm.
 package deleteuser
 
 import (
@@ -77,7 +79,9 @@ func NewDeleteUserFunc(tp elastictransport.Interface) NewDeleteUser {
 	}
 }
 
-// Deletes users from the native realm.
+// Delete users.
+//
+// Delete users from the native realm.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-user.html
 func New(tp elastictransport.Interface) *DeleteUser {
@@ -291,7 +295,7 @@ func (r *DeleteUser) Header(key, value string) *DeleteUser {
 	return r
 }
 
-// Username username
+// Username An identifier for the user.
 // API Name: username
 func (r *DeleteUser) _username(username string) *DeleteUser {
 	r.paramSet |= usernameMask

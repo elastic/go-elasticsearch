@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Gets configured auto-follow patterns. Returns the specified auto-follow
-// pattern collection.
+// Get auto-follow patterns.
+//
+// Get cross-cluster replication auto-follow patterns.
 package getautofollowpattern
 
 import (
@@ -75,8 +76,9 @@ func NewGetAutoFollowPatternFunc(tp elastictransport.Interface) NewGetAutoFollow
 	}
 }
 
-// Gets configured auto-follow patterns. Returns the specified auto-follow
-// pattern collection.
+// Get auto-follow patterns.
+//
+// Get cross-cluster replication auto-follow patterns.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-auto-follow-pattern.html
 func New(tp elastictransport.Interface) *GetAutoFollowPattern {
@@ -297,12 +299,24 @@ func (r *GetAutoFollowPattern) Header(key, value string) *GetAutoFollowPattern {
 	return r
 }
 
-// Name Specifies the auto-follow pattern collection that you want to retrieve. If
-// you do not specify a name, the API returns information for all collections.
+// Name The auto-follow pattern collection that you want to retrieve.
+// If you do not specify a name, the API returns information for all
+// collections.
 // API Name: name
 func (r *GetAutoFollowPattern) Name(name string) *GetAutoFollowPattern {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
+// API name: master_timeout
+func (r *GetAutoFollowPattern) MasterTimeout(duration string) *GetAutoFollowPattern {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

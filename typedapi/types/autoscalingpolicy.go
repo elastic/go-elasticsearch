@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -26,9 +26,9 @@ import (
 
 // AutoscalingPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/autoscaling/_types/AutoscalingPolicy.ts#L23-L27
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/autoscaling/_types/AutoscalingPolicy.ts#L23-L30
 type AutoscalingPolicy struct {
-	// Deciders Decider settings
+	// Deciders Decider settings.
 	Deciders map[string]json.RawMessage `json:"deciders"`
 	Roles    []string                   `json:"roles"`
 }
@@ -36,8 +36,18 @@ type AutoscalingPolicy struct {
 // NewAutoscalingPolicy returns a AutoscalingPolicy.
 func NewAutoscalingPolicy() *AutoscalingPolicy {
 	r := &AutoscalingPolicy{
-		Deciders: make(map[string]json.RawMessage, 0),
+		Deciders: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type AutoscalingPolicyVariant interface {
+	AutoscalingPolicyCaster() *AutoscalingPolicy
+}
+
+func (s *AutoscalingPolicy) AutoscalingPolicyCaster() *AutoscalingPolicy {
+	return s
 }

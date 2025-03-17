@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves overall bucket results that summarize the bucket results of
+// Get overall bucket results.
+//
+// Retrievs overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
 //
 // The `overall_score` is calculated by combining the scores of all the
@@ -97,7 +99,9 @@ func NewGetOverallBucketsFunc(tp elastictransport.Interface) NewGetOverallBucket
 	}
 }
 
-// Retrieves overall bucket results that summarize the bucket results of
+// Get overall bucket results.
+//
+// Retrievs overall bucket results that summarize the bucket results of
 // multiple anomaly detection jobs.
 //
 // The `overall_score` is calculated by combining the scores of all the
@@ -123,8 +127,6 @@ func New(tp elastictransport.Interface) *GetOverallBuckets {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -400,57 +402,92 @@ func (r *GetOverallBuckets) Pretty(pretty bool) *GetOverallBuckets {
 	return r
 }
 
-// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
+// Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
 func (r *GetOverallBuckets) AllowNoMatch(allownomatch bool) *GetOverallBuckets {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// BucketSpan Refer to the description for the `bucket_span` query parameter.
+// Refer to the description for the `bucket_span` query parameter.
 // API name: bucket_span
-func (r *GetOverallBuckets) BucketSpan(duration types.Duration) *GetOverallBuckets {
-	r.req.BucketSpan = duration
+func (r *GetOverallBuckets) BucketSpan(duration types.DurationVariant) *GetOverallBuckets {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.BucketSpan = *duration.DurationCaster()
 
 	return r
 }
 
-// End Refer to the description for the `end` query parameter.
+// Refer to the description for the `end` query parameter.
 // API name: end
-func (r *GetOverallBuckets) End(datetime types.DateTime) *GetOverallBuckets {
-	r.req.End = datetime
+func (r *GetOverallBuckets) End(datetime types.DateTimeVariant) *GetOverallBuckets {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.End = *datetime.DateTimeCaster()
 
 	return r
 }
 
-// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
+// Refer to the description for the `exclude_interim` query parameter.
 // API name: exclude_interim
 func (r *GetOverallBuckets) ExcludeInterim(excludeinterim bool) *GetOverallBuckets {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ExcludeInterim = &excludeinterim
 
 	return r
 }
 
-// OverallScore Refer to the description for the `overall_score` query parameter.
+// Refer to the description for the `overall_score` query parameter.
 // API name: overall_score
 func (r *GetOverallBuckets) OverallScore(overallscore string) *GetOverallBuckets {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.OverallScore = overallscore
 
 	return r
 }
 
-// Start Refer to the description for the `start` query parameter.
+// Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetOverallBuckets) Start(datetime types.DateTime) *GetOverallBuckets {
-	r.req.Start = datetime
+func (r *GetOverallBuckets) Start(datetime types.DateTimeVariant) *GetOverallBuckets {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Start = *datetime.DateTimeCaster()
 
 	return r
 }
 
-// TopN Refer to the description for the `top_n` query parameter.
+// Refer to the description for the `top_n` query parameter.
 // API name: top_n
 func (r *GetOverallBuckets) TopN(topn int) *GetOverallBuckets {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.TopN = &topn
 
 	return r

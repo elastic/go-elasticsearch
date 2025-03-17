@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns information about ongoing and completed shard recoveries.
+// Get shard recovery information.
+//
+// Get information about ongoing and completed shard recoveries.
 // Shard recovery is the process of initializing a shard copy, such as restoring
 // a primary shard from a snapshot or syncing a replica shard from a primary
 // shard. When a shard recovery completes, the recovered shard is available for
@@ -44,6 +46,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -84,7 +87,9 @@ func NewRecoveryFunc(tp elastictransport.Interface) NewRecovery {
 	}
 }
 
-// Returns information about ongoing and completed shard recoveries.
+// Get shard recovery information.
+//
+// Get information about ongoing and completed shard recoveries.
 // Shard recovery is the process of initializing a shard copy, such as restoring
 // a primary shard from a snapshot or syncing a replica shard from a primary
 // shard. When a shard recovery completes, the recovered shard is available for
@@ -350,47 +355,10 @@ func (r *Recovery) Detailed(detailed bool) *Recovery {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Recovery) Format(format string) *Recovery {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Recovery) H(names ...string) *Recovery {
 	r.values.Set("h", strings.Join(names, ","))
-
-	return r
-}
-
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Recovery) Help(help bool) *Recovery {
-	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *Recovery) Local(local bool) *Recovery {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *Recovery) MasterTimeout(duration string) *Recovery {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -401,6 +369,32 @@ func (r *Recovery) MasterTimeout(duration string) *Recovery {
 // API name: s
 func (r *Recovery) S(names ...string) *Recovery {
 	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// Time Unit used to display time values.
+// API name: time
+func (r *Recovery) Time(time timeunit.TimeUnit) *Recovery {
+	r.values.Set("time", time.String())
+
+	return r
+}
+
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Recovery) Format(format string) *Recovery {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Recovery) Help(help bool) *Recovery {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

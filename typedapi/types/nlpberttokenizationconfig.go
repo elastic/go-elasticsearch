@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NlpBertTokenizationConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/inference.ts#L131-L158
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/inference.ts#L161-L162
 type NlpBertTokenizationConfig struct {
 	// DoLowerCase Should the tokenizer lower case the text
 	DoLowerCase *bool `json:"do_lower_case,omitempty"`
@@ -139,4 +139,14 @@ func NewNlpBertTokenizationConfig() *NlpBertTokenizationConfig {
 	r := &NlpBertTokenizationConfig{}
 
 	return r
+}
+
+// true
+
+type NlpBertTokenizationConfigVariant interface {
+	NlpBertTokenizationConfigCaster() *NlpBertTokenizationConfig
+}
+
+func (s *NlpBertTokenizationConfig) NlpBertTokenizationConfigCaster() *NlpBertTokenizationConfig {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InferenceFeatureImportance type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L685-L689
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/Aggregate.ts#L778-L782
 type InferenceFeatureImportance struct {
 	Classes     []InferenceClassImportance `json:"classes,omitempty"`
 	FeatureName string                     `json:"feature_name"`
@@ -97,3 +97,5 @@ func NewInferenceFeatureImportance() *InferenceFeatureImportance {
 
 	return r
 }
+
+// false

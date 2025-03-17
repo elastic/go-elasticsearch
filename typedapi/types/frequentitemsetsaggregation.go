@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FrequentItemSetsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L1167-L1191
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/bucket.ts#L1240-L1267
 type FrequentItemSetsAggregation struct {
 	// Fields Fields to analyze.
 	Fields []FrequentItemSetsField `json:"fields"`
@@ -128,4 +128,14 @@ func NewFrequentItemSetsAggregation() *FrequentItemSetsAggregation {
 	r := &FrequentItemSetsAggregation{}
 
 	return r
+}
+
+// true
+
+type FrequentItemSetsAggregationVariant interface {
+	FrequentItemSetsAggregationCaster() *FrequentItemSetsAggregation
+}
+
+func (s *FrequentItemSetsAggregation) FrequentItemSetsAggregationCaster() *FrequentItemSetsAggregation {
+	return s
 }

@@ -16,25 +16,77 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // RetrieverContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Retriever.ts#L26-L36
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Retriever.ts#L28-L42
 type RetrieverContainer struct {
+	AdditionalRetrieverContainerProperty map[string]json.RawMessage `json:"-"`
 	// Knn A retriever that replaces the functionality  of a knn search.
 	Knn *KnnRetriever `json:"knn,omitempty"`
 	// Rrf A retriever that produces top documents from reciprocal rank fusion (RRF).
 	Rrf *RRFRetriever `json:"rrf,omitempty"`
+	// Rule A retriever that replaces the functionality of a rule query.
+	Rule *RuleRetriever `json:"rule,omitempty"`
 	// Standard A retriever that replaces the functionality of a traditional query.
 	Standard *StandardRetriever `json:"standard,omitempty"`
+	// TextSimilarityReranker A retriever that reranks the top documents based on a reranking model using
+	// the InferenceAPI
+	TextSimilarityReranker *TextSimilarityReranker `json:"text_similarity_reranker,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s RetrieverContainer) MarshalJSON() ([]byte, error) {
+	type opt RetrieverContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalRetrieverContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalRetrieverContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewRetrieverContainer returns a RetrieverContainer.
 func NewRetrieverContainer() *RetrieverContainer {
-	r := &RetrieverContainer{}
+	r := &RetrieverContainer{
+		AdditionalRetrieverContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type RetrieverContainerVariant interface {
+	RetrieverContainerCaster() *RetrieverContainer
+}
+
+func (s *RetrieverContainer) RetrieverContainerCaster() *RetrieverContainer {
+	return s
 }

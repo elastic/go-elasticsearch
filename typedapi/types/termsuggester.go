@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // TermSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/suggester.ts#L506-L568
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/search/_types/suggester.ts#L506-L568
 type TermSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with.
 	// Defaults to the search analyzer of the suggest field.
@@ -299,4 +299,14 @@ func NewTermSuggester() *TermSuggester {
 	r := &TermSuggester{}
 
 	return r
+}
+
+// true
+
+type TermSuggesterVariant interface {
+	TermSuggesterCaster() *TermSuggester
+}
+
+func (s *TermSuggester) TermSuggesterCaster() *TermSuggester {
+	return s
 }

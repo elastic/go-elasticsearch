@@ -24,6 +24,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/esqlformat"
 )
 
 type metadata struct {
@@ -41,7 +43,7 @@ type esqlResponse struct {
 func Helper[T any](ctx context.Context, esqlQuery *Query) ([]T, error) {
 	response, err := esqlQuery.
 		Columnar(false).
-		Format("json").
+		Format(esqlformat.Json).
 		Header("x-elastic-client-meta", "h=qo").
 		Do(ctx)
 	if err != nil {
@@ -142,7 +144,7 @@ func (d iterator[T]) Next() (*T, error) {
 func NewIteratorHelper[T any](ctx context.Context, query *Query) (EsqlIterator[T], error) {
 	response, err := query.
 		Columnar(false).
-		Format("json").
+		Format(esqlformat.Json).
 		Header("x-elastic-client-meta", "h=qo").
 		Perform(ctx)
 	if err != nil {

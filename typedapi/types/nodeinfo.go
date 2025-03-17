@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NodeInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/info/types.ts#L31-L67
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/nodes/info/types.ts#L31-L67
 type NodeInfo struct {
 	Aggregations map[string]NodeInfoAggregation `json:"aggregations,omitempty"`
 	Attributes   map[string]string              `json:"attributes"`
@@ -254,10 +254,12 @@ func (s *NodeInfo) UnmarshalJSON(data []byte) error {
 // NewNodeInfo returns a NodeInfo.
 func NewNodeInfo() *NodeInfo {
 	r := &NodeInfo{
-		Aggregations: make(map[string]NodeInfoAggregation, 0),
-		Attributes:   make(map[string]string, 0),
-		ThreadPool:   make(map[string]NodeThreadPoolInfo, 0),
+		Aggregations: make(map[string]NodeInfoAggregation),
+		Attributes:   make(map[string]string),
+		ThreadPool:   make(map[string]NodeThreadPoolInfo),
 	}
 
 	return r
 }
+
+// false

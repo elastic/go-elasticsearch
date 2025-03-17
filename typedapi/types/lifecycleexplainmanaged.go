@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LifecycleExplainManaged type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/explain_lifecycle/types.ts#L26-L52
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ilm/explain_lifecycle/types.ts#L27-L57
 type LifecycleExplainManaged struct {
 	Action                  *string                         `json:"action,omitempty"`
 	ActionTime              DateTime                        `json:"action_time,omitempty"`
@@ -39,7 +39,7 @@ type LifecycleExplainManaged struct {
 	Age                     Duration                        `json:"age,omitempty"`
 	FailedStep              *string                         `json:"failed_step,omitempty"`
 	FailedStepRetryCount    *int                            `json:"failed_step_retry_count,omitempty"`
-	Index                   *string                         `json:"index,omitempty"`
+	Index                   string                          `json:"index"`
 	IndexCreationDate       DateTime                        `json:"index_creation_date,omitempty"`
 	IndexCreationDateMillis *int64                          `json:"index_creation_date_millis,omitempty"`
 	IsAutoRetryableError    *bool                           `json:"is_auto_retryable_error,omitempty"`
@@ -50,7 +50,11 @@ type LifecycleExplainManaged struct {
 	PhaseExecution          *LifecycleExplainPhaseExecution `json:"phase_execution,omitempty"`
 	PhaseTime               DateTime                        `json:"phase_time,omitempty"`
 	PhaseTimeMillis         *int64                          `json:"phase_time_millis,omitempty"`
-	Policy                  string                          `json:"policy"`
+	Policy                  *string                         `json:"policy,omitempty"`
+	PreviousStepInfo        map[string]json.RawMessage      `json:"previous_step_info,omitempty"`
+	RepositoryName          *string                         `json:"repository_name,omitempty"`
+	ShrinkIndexName         *string                         `json:"shrink_index_name,omitempty"`
+	SnapshotName            *string                         `json:"snapshot_name,omitempty"`
 	Step                    *string                         `json:"step,omitempty"`
 	StepInfo                map[string]json.RawMessage      `json:"step_info,omitempty"`
 	StepTime                DateTime                        `json:"step_time,omitempty"`
@@ -183,6 +187,50 @@ func (s *LifecycleExplainManaged) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Policy", err)
 			}
 
+		case "previous_step_info":
+			if s.PreviousStepInfo == nil {
+				s.PreviousStepInfo = make(map[string]json.RawMessage, 0)
+			}
+			if err := dec.Decode(&s.PreviousStepInfo); err != nil {
+				return fmt.Errorf("%s | %w", "PreviousStepInfo", err)
+			}
+
+		case "repository_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "RepositoryName", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.RepositoryName = &o
+
+		case "shrink_index_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "ShrinkIndexName", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.ShrinkIndexName = &o
+
+		case "snapshot_name":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "SnapshotName", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.SnapshotName = &o
+
 		case "step":
 			if err := dec.Decode(&s.Step); err != nil {
 				return fmt.Errorf("%s | %w", "Step", err)
@@ -238,6 +286,10 @@ func (s LifecycleExplainManaged) MarshalJSON() ([]byte, error) {
 		PhaseTime:               s.PhaseTime,
 		PhaseTimeMillis:         s.PhaseTimeMillis,
 		Policy:                  s.Policy,
+		PreviousStepInfo:        s.PreviousStepInfo,
+		RepositoryName:          s.RepositoryName,
+		ShrinkIndexName:         s.ShrinkIndexName,
+		SnapshotName:            s.SnapshotName,
 		Step:                    s.Step,
 		StepInfo:                s.StepInfo,
 		StepTime:                s.StepTime,
@@ -253,8 +305,11 @@ func (s LifecycleExplainManaged) MarshalJSON() ([]byte, error) {
 // NewLifecycleExplainManaged returns a LifecycleExplainManaged.
 func NewLifecycleExplainManaged() *LifecycleExplainManaged {
 	r := &LifecycleExplainManaged{
-		StepInfo: make(map[string]json.RawMessage, 0),
+		PreviousStepInfo: make(map[string]json.RawMessage),
+		StepInfo:         make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

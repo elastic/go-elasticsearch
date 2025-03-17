@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardStoreNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/shard_stores/types.ts#L39-L46
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/shard_stores/types.ts#L38-L45
 type ShardStoreNode struct {
 	Attributes       map[string]string `json:"attributes"`
 	EphemeralId      *string           `json:"ephemeral_id,omitempty"`
@@ -111,8 +111,10 @@ func (s *ShardStoreNode) UnmarshalJSON(data []byte) error {
 // NewShardStoreNode returns a ShardStoreNode.
 func NewShardStoreNode() *ShardStoreNode {
 	r := &ShardStoreNode{
-		Attributes: make(map[string]string, 0),
+		Attributes: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

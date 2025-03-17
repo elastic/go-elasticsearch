@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,10 +31,10 @@ import (
 
 // IlmPolicyStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/xpack/usage/types.ts#L157-L160
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/xpack/usage/types.ts#L167-L170
 type IlmPolicyStatistics struct {
-	IndicesManaged int    `json:"indices_managed"`
-	Phases         Phases `json:"phases"`
+	IndicesManaged int         `json:"indices_managed"`
+	Phases         UsagePhases `json:"phases"`
 }
 
 func (s *IlmPolicyStatistics) UnmarshalJSON(data []byte) error {
@@ -84,3 +84,5 @@ func NewIlmPolicyStatistics() *IlmPolicyStatistics {
 
 	return r
 }
+
+// false

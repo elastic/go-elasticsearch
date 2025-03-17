@@ -16,10 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Changes the number of requests per second for a particular Delete By Query
+// Throttle a delete by query operation.
+//
+// Change the number of requests per second for a particular delete by query
 // operation.
+// Rethrottling that speeds up the query takes effect immediately but
+// rethrotting that slows down the query takes effect after completing the
+// current batch to prevent scroll timeouts.
 package deletebyqueryrethrottle
 
 import (
@@ -77,10 +82,15 @@ func NewDeleteByQueryRethrottleFunc(tp elastictransport.Interface) NewDeleteByQu
 	}
 }
 
-// Changes the number of requests per second for a particular Delete By Query
-// operation.
+// Throttle a delete by query operation.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html
+// Change the number of requests per second for a particular delete by query
+// operation.
+// Rethrottling that speeds up the query takes effect immediately but
+// rethrotting that slows down the query takes effect after completing the
+// current batch to prevent scroll timeouts.
+//
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html#docs-delete-by-query-rethrottle
 func New(tp elastictransport.Interface) *DeleteByQueryRethrottle {
 	r := &DeleteByQueryRethrottle{
 		transport: tp,
@@ -302,6 +312,7 @@ func (r *DeleteByQueryRethrottle) _taskid(taskid string) *DeleteByQueryRethrottl
 }
 
 // RequestsPerSecond The throttle for this request in sub-requests per second.
+// To disable throttling, set it to `-1`.
 // API name: requests_per_second
 func (r *DeleteByQueryRethrottle) RequestsPerSecond(requestspersecond string) *DeleteByQueryRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)

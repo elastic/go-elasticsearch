@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // FilteringRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L170-L179
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/connector/_types/Connector.ts#L170-L179
 type FilteringRule struct {
 	CreatedAt DateTime                            `json:"created_at,omitempty"`
 	Field     string                              `json:"field"`
@@ -129,4 +129,14 @@ func NewFilteringRule() *FilteringRule {
 	r := &FilteringRule{}
 
 	return r
+}
+
+// true
+
+type FilteringRuleVariant interface {
+	FilteringRuleCaster() *FilteringRule
+}
+
+func (s *FilteringRule) FilteringRuleCaster() *FilteringRule {
+	return s
 }

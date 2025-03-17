@@ -16,25 +16,74 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // TokenizationConfigContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/inference.ts#L110-L129
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ml/_types/inference.ts#L110-L131
 type TokenizationConfigContainer struct {
+	AdditionalTokenizationConfigContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bert Indicates BERT tokenization and its options
 	Bert *NlpBertTokenizationConfig `json:"bert,omitempty"`
+	// BertJa Indicates BERT Japanese tokenization and its options
+	BertJa *NlpBertTokenizationConfig `json:"bert_ja,omitempty"`
 	// Mpnet Indicates MPNET tokenization and its options
 	Mpnet *NlpBertTokenizationConfig `json:"mpnet,omitempty"`
 	// Roberta Indicates RoBERTa tokenization and its options
 	Roberta *NlpRobertaTokenizationConfig `json:"roberta,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s TokenizationConfigContainer) MarshalJSON() ([]byte, error) {
+	type opt TokenizationConfigContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalTokenizationConfigContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalTokenizationConfigContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewTokenizationConfigContainer returns a TokenizationConfigContainer.
 func NewTokenizationConfigContainer() *TokenizationConfigContainer {
-	r := &TokenizationConfigContainer{}
+	r := &TokenizationConfigContainer{
+		AdditionalTokenizationConfigContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type TokenizationConfigContainerVariant interface {
+	TokenizationConfigContainerCaster() *TokenizationConfigContainer
+}
+
+func (s *TokenizationConfigContainer) TokenizationConfigContainerCaster() *TokenizationConfigContainer {
+	return s
 }

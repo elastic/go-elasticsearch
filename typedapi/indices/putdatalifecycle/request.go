@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package putdatalifecycle
 
@@ -26,13 +26,14 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L76
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L93
 type Request struct {
 
 	// DataRetention If defined, every document added to this data stream will be stored at least
@@ -40,10 +41,13 @@ type Request struct {
 	// Any time after this duration the document could be deleted.
 	// When empty, every document in this data stream will be stored indefinitely.
 	DataRetention types.Duration `json:"data_retention,omitempty"`
-	// Downsampling If defined, every backing index will execute the configured downsampling
-	// configuration after the backing
-	// index is not the data stream write index anymore.
+	// Downsampling The downsampling configuration to execute for the managed backing index after
+	// rollover.
 	Downsampling *types.DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+	// data stream. A data stream lifecycle
+	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	Enabled *bool `json:"enabled,omitempty"`
 }
 
 // NewRequest returns a Request
@@ -87,6 +91,20 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "downsampling":
 			if err := dec.Decode(&s.Downsampling); err != nil {
 				return fmt.Errorf("%s | %w", "Downsampling", err)
+			}
+
+		case "enabled":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Enabled", err)
+				}
+				s.Enabled = &value
+			case bool:
+				s.Enabled = &v
 			}
 
 		}

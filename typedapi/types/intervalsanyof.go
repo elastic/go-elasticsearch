@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
 // IntervalsAnyOf type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/fulltext.ts#L72-L81
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/fulltext.ts#L72-L81
 type IntervalsAnyOf struct {
 	// Filter Rule used to filter returned intervals.
 	Filter *IntervalsFilter `json:"filter,omitempty"`
@@ -35,4 +35,14 @@ func NewIntervalsAnyOf() *IntervalsAnyOf {
 	r := &IntervalsAnyOf{}
 
 	return r
+}
+
+// true
+
+type IntervalsAnyOfVariant interface {
+	IntervalsAnyOfCaster() *IntervalsAnyOf
+}
+
+func (s *IntervalsAnyOf) IntervalsAnyOfCaster() *IntervalsAnyOf {
+	return s
 }

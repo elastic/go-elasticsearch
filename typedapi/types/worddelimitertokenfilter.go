@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // WordDelimiterTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L134-L149
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/analysis/token_filters.ts#L133-L148
 type WordDelimiterTokenFilter struct {
 	CatenateAll           *bool              `json:"catenate_all,omitempty"`
 	CatenateNumbers       *bool              `json:"catenate_numbers,omitempty"`
@@ -262,4 +262,14 @@ func NewWordDelimiterTokenFilter() *WordDelimiterTokenFilter {
 	r := &WordDelimiterTokenFilter{}
 
 	return r
+}
+
+// true
+
+type WordDelimiterTokenFilterVariant interface {
+	WordDelimiterTokenFilterCaster() *WordDelimiterTokenFilter
+}
+
+func (s *WordDelimiterTokenFilter) WordDelimiterTokenFilterCaster() *WordDelimiterTokenFilter {
+	return s
 }

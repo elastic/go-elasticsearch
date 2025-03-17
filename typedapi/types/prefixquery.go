@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PrefixQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/term.ts#L88-L107
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/query_dsl/term.ts#L98-L120
 type PrefixQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -147,4 +147,14 @@ func NewPrefixQuery() *PrefixQuery {
 	r := &PrefixQuery{}
 
 	return r
+}
+
+// true
+
+type PrefixQueryVariant interface {
+	PrefixQueryCaster() *PrefixQuery
+}
+
+func (s *PrefixQuery) PrefixQueryCaster() *PrefixQuery {
+	return s
 }

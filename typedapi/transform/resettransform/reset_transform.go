@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Reset a transform.
-// Resets a transform.
+//
 // Before you can reset it, you must stop it; alternatively, use the `force`
 // query parameter.
 // If the destination index was created by the transform, it is deleted.
@@ -81,7 +81,7 @@ func NewResetTransformFunc(tp elastictransport.Interface) NewResetTransform {
 }
 
 // Reset a transform.
-// Resets a transform.
+//
 // Before you can reset it, you must stop it; alternatively, use the `force`
 // query parameter.
 // If the destination index was created by the transform, it is deleted.
@@ -316,6 +316,15 @@ func (r *ResetTransform) _transformid(transformid string) *ResetTransform {
 // API name: force
 func (r *ResetTransform) Force(force bool) *ResetTransform {
 	r.values.Set("force", strconv.FormatBool(force))
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *ResetTransform) Timeout(duration string) *ResetTransform {
+	r.values.Set("timeout", duration)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,8 +30,10 @@ import (
 
 // IlmPolicy type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/_types/Policy.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ilm/_types/Policy.ts#L23-L29
 type IlmPolicy struct {
+	// Meta_ Arbitrary metadata that is not automatically generated or used by
+	// Elasticsearch.
 	Meta_  Metadata `json:"_meta,omitempty"`
 	Phases Phases   `json:"phases"`
 }
@@ -71,4 +73,14 @@ func NewIlmPolicy() *IlmPolicy {
 	r := &IlmPolicy{}
 
 	return r
+}
+
+// true
+
+type IlmPolicyVariant interface {
+	IlmPolicyCaster() *IlmPolicy
+}
+
+func (s *IlmPolicy) IlmPolicyCaster() *IlmPolicy {
+	return s
 }

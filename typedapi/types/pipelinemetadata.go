@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PipelineMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/logstash/_types/Pipeline.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/logstash/_types/Pipeline.ts#L23-L26
 type PipelineMetadata struct {
 	Type    string `json:"type"`
 	Version string `json:"version"`
@@ -86,4 +86,14 @@ func NewPipelineMetadata() *PipelineMetadata {
 	r := &PipelineMetadata{}
 
 	return r
+}
+
+// true
+
+type PipelineMetadataVariant interface {
+	PipelineMetadataCaster() *PipelineMetadata
+}
+
+func (s *PipelineMetadata) PipelineMetadataCaster() *PipelineMetadata {
+	return s
 }

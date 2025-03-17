@@ -16,9 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Stops an existing, started rollup job.
+// Stop rollup jobs.
+// If you try to stop a job that does not exist, an exception occurs.
+// If you try to stop a job that is already stopped, nothing happens.
+//
+// Since only a stopped job can be deleted, it can be useful to block the API
+// until the indexer has fully stopped.
+// This is accomplished with the `wait_for_completion` query parameter, and
+// optionally a timeout. For example:
+//
+// ```
+// POST _rollup/job/sensor/_stop?wait_for_completion=true&timeout=10s
+// ```
+// The parameter blocks the API call from returning until either the job has
+// moved to STOPPED or the specified time has elapsed.
+// If the specified time elapses without the job moving to STOPPED, a timeout
+// exception occurs.
 package stopjob
 
 import (
@@ -76,7 +91,22 @@ func NewStopJobFunc(tp elastictransport.Interface) NewStopJob {
 	}
 }
 
-// Stops an existing, started rollup job.
+// Stop rollup jobs.
+// If you try to stop a job that does not exist, an exception occurs.
+// If you try to stop a job that is already stopped, nothing happens.
+//
+// Since only a stopped job can be deleted, it can be useful to block the API
+// until the indexer has fully stopped.
+// This is accomplished with the `wait_for_completion` query parameter, and
+// optionally a timeout. For example:
+//
+// ```
+// POST _rollup/job/sensor/_stop?wait_for_completion=true&timeout=10s
+// ```
+// The parameter blocks the API call from returning until either the job has
+// moved to STOPPED or the specified time has elapsed.
+// If the specified time elapses without the job moving to STOPPED, a timeout
+// exception occurs.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/rollup-stop-job.html
 func New(tp elastictransport.Interface) *StopJob {
@@ -304,6 +334,10 @@ func (r *StopJob) _id(id string) *StopJob {
 // Timeout If `wait_for_completion` is `true`, the API blocks for (at maximum) the
 // specified duration while waiting for the job to stop.
 // If more than `timeout` time has passed, the API throws a timeout exception.
+// NOTE: Even if a timeout occurs, the stop request is still processing and
+// eventually moves the job to STOPPED.
+// The timeout simply means the API call itself timed out while waiting for the
+// status change.
 // API name: timeout
 func (r *StopJob) Timeout(duration string) *StopJob {
 	r.values.Set("timeout", duration)

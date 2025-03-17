@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RerouteProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L975-L1003
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ingest/_types/Processors.ts#L1374-L1402
 type RerouteProcessor struct {
 	// Dataset Field references or a static value for the dataset part of the data stream
 	// name.
@@ -202,4 +202,14 @@ func NewRerouteProcessor() *RerouteProcessor {
 	r := &RerouteProcessor{}
 
 	return r
+}
+
+// true
+
+type RerouteProcessorVariant interface {
+	RerouteProcessorCaster() *RerouteProcessor
+}
+
+func (s *RerouteProcessor) RerouteProcessorCaster() *RerouteProcessor {
+	return s
 }

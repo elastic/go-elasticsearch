@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves anomaly detection job results for one or more categories.
+// Get anomaly detection job results for categories.
 package getcategories
 
 import (
@@ -84,7 +84,7 @@ func NewGetCategoriesFunc(tp elastictransport.Interface) NewGetCategories {
 	}
 }
 
-// Retrieves anomaly detection job results for one or more categories.
+// Get anomaly detection job results for categories.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-category.html
 func New(tp elastictransport.Interface) *GetCategories {
@@ -94,8 +94,6 @@ func New(tp elastictransport.Interface) *GetCategories {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -426,12 +424,16 @@ func (r *GetCategories) Pretty(pretty bool) *GetCategories {
 	return r
 }
 
-// Page Configures pagination.
+// Configures pagination.
 // This parameter has the `from` and `size` properties.
 // API name: page
-func (r *GetCategories) Page(page *types.Page) *GetCategories {
+func (r *GetCategories) Page(page types.PageVariant) *GetCategories {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Page = page
+	r.req.Page = page.PageCaster()
 
 	return r
 }

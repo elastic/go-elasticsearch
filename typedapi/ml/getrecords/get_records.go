@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves anomaly records for an anomaly detection job.
+// Get anomaly records for an anomaly detection job.
 // Records contain the detailed analytical results. They describe the anomalous
 // activity that has been identified in the input data based on the detector
 // configuration.
@@ -91,7 +91,7 @@ func NewGetRecordsFunc(tp elastictransport.Interface) NewGetRecords {
 	}
 }
 
-// Retrieves anomaly records for an anomaly detection job.
+// Get anomaly records for an anomaly detection job.
 // Records contain the detailed analytical results. They describe the anomalous
 // activity that has been identified in the input data based on the detector
 // configuration.
@@ -111,8 +111,6 @@ func New(tp elastictransport.Interface) *GetRecords {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -399,59 +397,92 @@ func (r *GetRecords) Pretty(pretty bool) *GetRecords {
 	return r
 }
 
-// Desc Refer to the description for the `desc` query parameter.
+// Refer to the description for the `desc` query parameter.
 // API name: desc
 func (r *GetRecords) Desc(desc bool) *GetRecords {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Desc = &desc
 
 	return r
 }
 
-// End Refer to the description for the `end` query parameter.
+// Refer to the description for the `end` query parameter.
 // API name: end
-func (r *GetRecords) End(datetime types.DateTime) *GetRecords {
-	r.req.End = datetime
+func (r *GetRecords) End(datetime types.DateTimeVariant) *GetRecords {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.End = *datetime.DateTimeCaster()
 
 	return r
 }
 
-// ExcludeInterim Refer to the description for the `exclude_interim` query parameter.
+// Refer to the description for the `exclude_interim` query parameter.
 // API name: exclude_interim
 func (r *GetRecords) ExcludeInterim(excludeinterim bool) *GetRecords {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ExcludeInterim = &excludeinterim
 
 	return r
 }
 
 // API name: page
-func (r *GetRecords) Page(page *types.Page) *GetRecords {
+func (r *GetRecords) Page(page types.PageVariant) *GetRecords {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Page = page
+	r.req.Page = page.PageCaster()
 
 	return r
 }
 
-// RecordScore Refer to the description for the `record_score` query parameter.
+// Refer to the description for the `record_score` query parameter.
 // API name: record_score
 func (r *GetRecords) RecordScore(recordscore types.Float64) *GetRecords {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.RecordScore = &recordscore
 
 	return r
 }
 
-// Sort Refer to the description for the `sort` query parameter.
+// Refer to the description for the `sort` query parameter.
 // API name: sort
 func (r *GetRecords) Sort(field string) *GetRecords {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Sort = &field
 
 	return r
 }
 
-// Start Refer to the description for the `start` query parameter.
+// Refer to the description for the `start` query parameter.
 // API name: start
-func (r *GetRecords) Start(datetime types.DateTime) *GetRecords {
-	r.req.Start = datetime
+func (r *GetRecords) Start(datetime types.DateTimeVariant) *GetRecords {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Start = *datetime.DateTimeCaster()
 
 	return r
 }

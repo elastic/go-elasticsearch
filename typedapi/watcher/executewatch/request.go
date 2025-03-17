@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package executewatch
 
@@ -30,7 +30,7 @@ import (
 
 // Request holds the request body struct for the package executewatch
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L79
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/watcher/execute_watch/WatcherExecuteWatchRequest.ts#L28-L105
 type Request struct {
 
 	// ActionModes Determines how to handle the watch actions as part of the watch execution.
@@ -42,16 +42,18 @@ type Request struct {
 	// also be specified as an HTTP parameter.
 	IgnoreCondition *bool `json:"ignore_condition,omitempty"`
 	// RecordExecution When set to `true`, the watch record representing the watch execution result
-	// is persisted to the `.watcher-history` index for the current time. In
-	// addition, the status of the watch is updated, possibly throttling subsequent
-	// executions. This can also be specified as an HTTP parameter.
+	// is persisted to the `.watcher-history` index for the current time.
+	// In addition, the status of the watch is updated, possibly throttling
+	// subsequent runs.
+	// This can also be specified as an HTTP parameter.
 	RecordExecution  *bool                   `json:"record_execution,omitempty"`
 	SimulatedActions *types.SimulatedActions `json:"simulated_actions,omitempty"`
 	// TriggerData This structure is parsed as the data of the trigger event that will be used
-	// during the watch execution
+	// during the watch execution.
 	TriggerData *types.ScheduleTriggerEvent `json:"trigger_data,omitempty"`
 	// Watch When present, this watch is used instead of the one specified in the request.
-	// This watch is not persisted to the index and record_execution cannot be set.
+	// This watch is not persisted to the index and `record_execution` cannot be
+	// set.
 	Watch *types.Watch `json:"watch,omitempty"`
 }
 

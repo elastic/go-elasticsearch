@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MigrateAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/_types/Phase.ts#L144-L146
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ilm/_types/Phase.ts#L141-L143
 type MigrateAction struct {
 	Enabled *bool `json:"enabled,omitempty"`
 }
@@ -75,4 +75,14 @@ func NewMigrateAction() *MigrateAction {
 	r := &MigrateAction{}
 
 	return r
+}
+
+// true
+
+type MigrateActionVariant interface {
+	MigrateActionCaster() *MigrateAction
+}
+
+func (s *MigrateAction) MigrateActionCaster() *MigrateAction {
+	return s
 }

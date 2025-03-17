@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -38,7 +38,7 @@ import (
 
 // Highlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/highlighting.ts#L153-L156
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/search/_types/highlighting.ts#L152-L155
 type Highlight struct {
 	// BoundaryChars A string that contains each boundary character.
 	BoundaryChars *string `json:"boundary_chars,omitempty"`
@@ -378,9 +378,19 @@ func (s *Highlight) UnmarshalJSON(data []byte) error {
 // NewHighlight returns a Highlight.
 func NewHighlight() *Highlight {
 	r := &Highlight{
-		Fields:  make(map[string]HighlightField, 0),
-		Options: make(map[string]json.RawMessage, 0),
+		Fields:  make(map[string]HighlightField),
+		Options: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type HighlightVariant interface {
+	HighlightCaster() *Highlight
+}
+
+func (s *Highlight) HighlightCaster() *Highlight {
+	return s
 }

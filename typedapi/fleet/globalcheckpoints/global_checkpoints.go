@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Returns the current global checkpoints for an index. This API is design for
-// internal use by the fleet server project.
+// Get global checkpoints.
+//
+// Get the current global checkpoints for an index.
+// This API is designed for internal use by the Fleet server project.
 package globalcheckpoints
 
 import (
@@ -77,8 +79,10 @@ func NewGlobalCheckpointsFunc(tp elastictransport.Interface) NewGlobalCheckpoint
 	}
 }
 
-// Returns the current global checkpoints for an index. This API is design for
-// internal use by the fleet server project.
+// Get global checkpoints.
+//
+// Get the current global checkpoints for an index.
+// This API is designed for internal use by the Fleet server project.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/get-global-checkpoints.html
 func New(tp elastictransport.Interface) *GlobalCheckpoints {

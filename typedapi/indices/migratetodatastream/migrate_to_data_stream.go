@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 // Convert an index alias to a data stream.
 // Converts an index alias to a data stream.
@@ -102,7 +102,7 @@ func NewMigrateToDataStreamFunc(tp elastictransport.Interface) NewMigrateToDataS
 // The indices for the alias become hidden backing indices for the stream.
 // The write index for the alias becomes the write index for the stream.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/v8/operation/operation-indices-migrate-to-data-stream
 func New(tp elastictransport.Interface) *MigrateToDataStream {
 	r := &MigrateToDataStream{
 		transport: tp,
@@ -319,6 +319,24 @@ func (r *MigrateToDataStream) Header(key, value string) *MigrateToDataStream {
 func (r *MigrateToDataStream) _name(name string) *MigrateToDataStream {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
+// API name: master_timeout
+func (r *MigrateToDataStream) MasterTimeout(duration string) *MigrateToDataStream {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *MigrateToDataStream) Timeout(duration string) *MigrateToDataStream {
+	r.values.Set("timeout", duration)
 
 	return r
 }

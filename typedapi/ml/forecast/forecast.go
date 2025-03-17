@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Predicts the future behavior of a time series by using its historical
-// behavior.
+// Predict future behavior of a time series.
 //
 // Forecasts are not supported for jobs that perform population analysis; an
 // error occurs if you try to create a forecast for a job that has an
-// `over_field_name` in its configuration.
+// `over_field_name` in its configuration. Forcasts predict future behavior
+// based on historical data.
 package forecast
 
 import (
@@ -86,12 +86,12 @@ func NewForecastFunc(tp elastictransport.Interface) NewForecast {
 	}
 }
 
-// Predicts the future behavior of a time series by using its historical
-// behavior.
+// Predict future behavior of a time series.
 //
 // Forecasts are not supported for jobs that perform population analysis; an
 // error occurs if you try to create a forecast for a job that has an
-// `over_field_name` in its configuration.
+// `over_field_name` in its configuration. Forcasts predict future behavior
+// based on historical data.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-forecast.html
 func New(tp elastictransport.Interface) *Forecast {
@@ -101,8 +101,6 @@ func New(tp elastictransport.Interface) *Forecast {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -372,25 +370,39 @@ func (r *Forecast) Pretty(pretty bool) *Forecast {
 	return r
 }
 
-// Duration Refer to the description for the `duration` query parameter.
+// Refer to the description for the `duration` query parameter.
 // API name: duration
-func (r *Forecast) Duration(duration types.Duration) *Forecast {
-	r.req.Duration = duration
+func (r *Forecast) Duration(duration types.DurationVariant) *Forecast {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Duration = *duration.DurationCaster()
 
 	return r
 }
 
-// ExpiresIn Refer to the description for the `expires_in` query parameter.
+// Refer to the description for the `expires_in` query parameter.
 // API name: expires_in
-func (r *Forecast) ExpiresIn(duration types.Duration) *Forecast {
-	r.req.ExpiresIn = duration
+func (r *Forecast) ExpiresIn(duration types.DurationVariant) *Forecast {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ExpiresIn = *duration.DurationCaster()
 
 	return r
 }
 
-// MaxModelMemory Refer to the description for the `max_model_memory` query parameter.
+// Refer to the description for the `max_model_memory` query parameter.
 // API name: max_model_memory
 func (r *Forecast) MaxModelMemory(maxmodelmemory string) *Forecast {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxModelMemory = &maxmodelmemory
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FielddataStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Stats.ts#L111-L116
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/Stats.ts#L114-L119
 type FielddataStats struct {
 	Evictions         *int64                      `json:"evictions,omitempty"`
 	Fields            map[string]FieldMemoryUsage `json:"fields,omitempty"`
@@ -105,8 +105,10 @@ func (s *FielddataStats) UnmarshalJSON(data []byte) error {
 // NewFielddataStats returns a FielddataStats.
 func NewFielddataStats() *FielddataStats {
 	r := &FielddataStats{
-		Fields: make(map[string]FieldMemoryUsage, 0),
+		Fields: make(map[string]FieldMemoryUsage),
 	}
 
 	return r
 }
+
+// false

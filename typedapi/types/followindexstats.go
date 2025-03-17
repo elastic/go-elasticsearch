@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -30,9 +30,11 @@ import (
 
 // FollowIndexStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ccr/_types/FollowIndexStats.ts#L30-L33
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/ccr/_types/FollowIndexStats.ts#L30-L35
 type FollowIndexStats struct {
-	Index  string          `json:"index"`
+	// Index The name of the follower index.
+	Index string `json:"index"`
+	// Shards An array of shard-level following task statistics.
 	Shards []CcrShardStats `json:"shards"`
 }
 
@@ -72,3 +74,5 @@ func NewFollowIndexStats() *FollowIndexStats {
 
 	return r
 }
+
+// false

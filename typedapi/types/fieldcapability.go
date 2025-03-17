@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // FieldCapability type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/field_caps/types.ts#L23-L81
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_global/field_caps/types.ts#L23-L81
 type FieldCapability struct {
 	// Aggregatable Whether this field can be aggregated on all indices.
 	Aggregatable bool `json:"aggregatable"`
@@ -231,3 +231,5 @@ func NewFieldCapability() *FieldCapability {
 
 	return r
 }
+
+// false

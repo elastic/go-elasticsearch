@@ -16,10 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Retrieves information about all follower indices, including parameters and
-// status for each follower index
+// Get follower information.
+//
+// Get information about all cross-cluster replication follower indices.
+// For example, the results include follower index names, leader index names,
+// replication options, and whether the follower indices are active or paused.
 package followinfo
 
 import (
@@ -77,8 +80,11 @@ func NewFollowInfoFunc(tp elastictransport.Interface) NewFollowInfo {
 	}
 }
 
-// Retrieves information about all follower indices, including parameters and
-// status for each follower index
+// Get follower information.
+//
+// Get information about all cross-cluster replication follower indices.
+// For example, the results include follower index names, leader index names,
+// replication options, and whether the follower indices are active or paused.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-get-follow-info.html
 func New(tp elastictransport.Interface) *FollowInfo {
@@ -292,12 +298,22 @@ func (r *FollowInfo) Header(key, value string) *FollowInfo {
 	return r
 }
 
-// Index A comma-separated list of index patterns; use `_all` to perform the operation
-// on all indices
+// Index A comma-delimited list of follower index patterns.
 // API Name: index
 func (r *FollowInfo) _index(index string) *FollowInfo {
 	r.paramSet |= indexMask
 	r.index = index
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
+// API name: master_timeout
+func (r *FollowInfo) MasterTimeout(duration string) *FollowInfo {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

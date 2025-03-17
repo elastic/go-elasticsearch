@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package grantapikey
 
@@ -34,19 +34,19 @@ import (
 
 // Request holds the request body struct for the package grantapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L75
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/security/grant_api_key/SecurityGrantApiKeyRequest.ts#L24-L92
 type Request struct {
 
-	// AccessToken The user’s access token.
+	// AccessToken The user's access token.
 	// If you specify the `access_token` grant type, this parameter is required.
 	// It is not valid with other grant types.
 	AccessToken *string `json:"access_token,omitempty"`
-	// ApiKey Defines the API key.
+	// ApiKey The API key.
 	ApiKey types.GrantApiKey `json:"api_key"`
 	// GrantType The type of grant. Supported grant types are: `access_token`, `password`.
 	GrantType apikeygranttype.ApiKeyGrantType `json:"grant_type"`
-	// Password The user’s password. If you specify the `password` grant type, this parameter
-	// is required.
+	// Password The user's password.
+	// If you specify the `password` grant type, this parameter is required.
 	// It is not valid with other grant types.
 	Password *string `json:"password,omitempty"`
 	// RunAs The name of the user to be impersonated.

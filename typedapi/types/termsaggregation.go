@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package types
 
@@ -36,7 +36,7 @@ import (
 
 // TermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L912-L977
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/_types/aggregations/bucket.ts#L963-L1031
 type TermsAggregation struct {
 	// CollectMode Determines how child aggregations should be calculated: breadth-first or
 	// depth-first.
@@ -325,4 +325,14 @@ func NewTermsAggregation() *TermsAggregation {
 	r := &TermsAggregation{}
 
 	return r
+}
+
+// true
+
+type TermsAggregationVariant interface {
+	TermsAggregationCaster() *TermsAggregation
+}
+
+func (s *TermsAggregation) TermsAggregationCaster() *TermsAggregation {
+	return s
 }

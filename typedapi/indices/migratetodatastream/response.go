@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
 package migratetodatastream
 
 // Response holds the response body struct for the package migratetodatastream
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/migrate_to_data_stream/IndicesMigrateToDataStreamResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/0f6f3696eb685db8b944feefb6a209ad7e385b9c/specification/indices/migrate_to_data_stream/IndicesMigrateToDataStreamResponse.ts#L22-L24
 type Response struct {
 
 	// Acknowledged For a successful response, this value is always true. On failure, an

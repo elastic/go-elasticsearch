@@ -16,10 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/0f6f3696eb685db8b944feefb6a209ad7e385b9c
 
-// Changes the number of requests per second for a particular Update By Query
+// Throttle an update by query operation.
+//
+// Change the number of requests per second for a particular update by query
 // operation.
+// Rethrottling that speeds up the query takes effect immediately but
+// rethrotting that slows down the query takes effect after completing the
+// current batch to prevent scroll timeouts.
 package updatebyqueryrethrottle
 
 import (
@@ -77,10 +82,15 @@ func NewUpdateByQueryRethrottleFunc(tp elastictransport.Interface) NewUpdateByQu
 	}
 }
 
-// Changes the number of requests per second for a particular Update By Query
-// operation.
+// Throttle an update by query operation.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
+// Change the number of requests per second for a particular update by query
+// operation.
+// Rethrottling that speeds up the query takes effect immediately but
+// rethrotting that slows down the query takes effect after completing the
+// current batch to prevent scroll timeouts.
+//
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html#docs-update-by-query-rethrottle
 func New(tp elastictransport.Interface) *UpdateByQueryRethrottle {
 	r := &UpdateByQueryRethrottle{
 		transport: tp,
@@ -302,6 +312,7 @@ func (r *UpdateByQueryRethrottle) _taskid(taskid string) *UpdateByQueryRethrottl
 }
 
 // RequestsPerSecond The throttle for this request in sub-requests per second.
+// To turn off throttling, set it to `-1`.
 // API name: requests_per_second
 func (r *UpdateByQueryRethrottle) RequestsPerSecond(requestspersecond string) *UpdateByQueryRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)
