@@ -16,17 +16,79 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+)
+
 // ReplicationAccess type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/_types/Privileges.ts#L380-L385
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/_types/Privileges.ts#L442-L452
 type ReplicationAccess struct {
+	// AllowRestrictedIndices This needs to be set to true if the patterns in the names field should cover
+	// system indices.
+	AllowRestrictedIndices *bool `json:"allow_restricted_indices,omitempty"`
 	// Names A list of indices (or index name patterns) to which the permissions in this
 	// entry apply.
 	Names []string `json:"names"`
+}
+
+func (s *ReplicationAccess) UnmarshalJSON(data []byte) error {
+
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "allow_restricted_indices":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AllowRestrictedIndices", err)
+				}
+				s.AllowRestrictedIndices = &value
+			case bool:
+				s.AllowRestrictedIndices = &v
+			}
+
+		case "names":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Names", err)
+				}
+
+				s.Names = append(s.Names, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Names); err != nil {
+					return fmt.Errorf("%s | %w", "Names", err)
+				}
+			}
+
+		}
+	}
+	return nil
 }
 
 // NewReplicationAccess returns a ReplicationAccess.
@@ -34,4 +96,14 @@ func NewReplicationAccess() *ReplicationAccess {
 	r := &ReplicationAccess{}
 
 	return r
+}
+
+// true
+
+type ReplicationAccessVariant interface {
+	ReplicationAccessCaster() *ReplicationAccess
+}
+
+func (s *ReplicationAccess) ReplicationAccessCaster() *ReplicationAccess {
+	return s
 }

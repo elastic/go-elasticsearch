@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GeoIpProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Processors.ts#L438-L472
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ingest/_types/Processors.ts#L443-L477
 type GeoIpProcessor struct {
 	// DatabaseFile The database filename referring to a database the module ships with
 	// (GeoLite2-City.mmdb, GeoLite2-Country.mmdb, or GeoLite2-ASN.mmdb) or a custom
@@ -51,7 +51,7 @@ type GeoIpProcessor struct {
 	// field contains an array.
 	FirstOnly *bool `json:"first_only,omitempty"`
 	// If Conditionally execute the processor.
-	If *string `json:"if,omitempty"`
+	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// IgnoreMissing If `true` and `field` does not exist, the processor quietly exits without
@@ -143,16 +143,9 @@ func (s *GeoIpProcessor) UnmarshalJSON(data []byte) error {
 			}
 
 		case "if":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.If); err != nil {
 				return fmt.Errorf("%s | %w", "If", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.If = &o
 
 		case "ignore_failure":
 			var tmp any
@@ -219,4 +212,14 @@ func NewGeoIpProcessor() *GeoIpProcessor {
 	r := &GeoIpProcessor{}
 
 	return r
+}
+
+// true
+
+type GeoIpProcessorVariant interface {
+	GeoIpProcessorCaster() *GeoIpProcessor
+}
+
+func (s *GeoIpProcessor) GeoIpProcessorCaster() *GeoIpProcessor {
+	return s
 }

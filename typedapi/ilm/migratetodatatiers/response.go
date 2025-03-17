@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package migratetodatatiers
 
@@ -31,15 +31,25 @@ import (
 
 // Response holds the response body struct for the package migratetodatatiers
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L32
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ilm/migrate_to_data_tiers/Response.ts#L22-L51
 type Response struct {
-	DryRun                      bool     `json:"dry_run"`
-	MigratedComponentTemplates  []string `json:"migrated_component_templates"`
+	DryRun bool `json:"dry_run"`
+	// MigratedComponentTemplates The component templates that were updated to not contain custom routing
+	// settings for the provided data attribute.
+	MigratedComponentTemplates []string `json:"migrated_component_templates"`
+	// MigratedComposableTemplates The composable index templates that were updated to not contain custom
+	// routing settings for the provided data attribute.
 	MigratedComposableTemplates []string `json:"migrated_composable_templates"`
-	MigratedIlmPolicies         []string `json:"migrated_ilm_policies"`
-	MigratedIndices             []string `json:"migrated_indices"`
-	MigratedLegacyTemplates     []string `json:"migrated_legacy_templates"`
-	RemovedLegacyTemplate       string   `json:"removed_legacy_template"`
+	// MigratedIlmPolicies The ILM policies that were updated.
+	MigratedIlmPolicies []string `json:"migrated_ilm_policies"`
+	// MigratedIndices The indices that were migrated to tier preference routing.
+	MigratedIndices []string `json:"migrated_indices"`
+	// MigratedLegacyTemplates The legacy index templates that were updated to not contain custom routing
+	// settings for the provided data attribute.
+	MigratedLegacyTemplates []string `json:"migrated_legacy_templates"`
+	// RemovedLegacyTemplate The name of the legacy index template that was deleted.
+	// This information is missing if no legacy index templates were deleted.
+	RemovedLegacyTemplate string `json:"removed_legacy_template"`
 }
 
 // NewResponse returns a Response

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // OverallBucket type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Bucket.ts#L129-L144
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Bucket.ts#L129-L144
 type OverallBucket struct {
 	// BucketSpan The length of the bucket in seconds. Matches the job with the longest
 	// bucket_span value.
@@ -48,7 +48,7 @@ type OverallBucket struct {
 	// Timestamp The start time of the bucket for which these results were calculated.
 	Timestamp int64 `json:"timestamp"`
 	// TimestampString The start time of the bucket for which these results were calculated.
-	TimestampString DateTime `json:"timestamp_string"`
+	TimestampString DateTime `json:"timestamp_string,omitempty"`
 }
 
 func (s *OverallBucket) UnmarshalJSON(data []byte) error {
@@ -139,3 +139,5 @@ func NewOverallBucket() *OverallBucket {
 
 	return r
 }
+
+// false

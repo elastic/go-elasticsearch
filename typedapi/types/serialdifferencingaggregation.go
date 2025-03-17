@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SerialDifferencingAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/pipeline.ts#L399-L408
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/aggregations/pipeline.ts#L399-L408
 type SerialDifferencingAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -111,4 +111,14 @@ func NewSerialDifferencingAggregation() *SerialDifferencingAggregation {
 	r := &SerialDifferencingAggregation{}
 
 	return r
+}
+
+// true
+
+type SerialDifferencingAggregationVariant interface {
+	SerialDifferencingAggregationCaster() *SerialDifferencingAggregation
+}
+
+func (s *SerialDifferencingAggregation) SerialDifferencingAggregationCaster() *SerialDifferencingAggregation {
+	return s
 }

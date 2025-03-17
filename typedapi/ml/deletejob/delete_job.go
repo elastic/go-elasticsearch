@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Delete an anomaly detection job.
+//
 // All job configuration, model state and results are deleted.
 // It is not currently possible to delete multiple jobs using wildcards or a
 // comma separated list. If you delete a job that has a datafeed, the request
@@ -83,6 +84,7 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 }
 
 // Delete an anomaly detection job.
+//
 // All job configuration, model state and results are deleted.
 // It is not currently possible to delete multiple jobs using wildcards or a
 // comma separated list. If you delete a job that has a datafeed, the request
@@ -90,7 +92,7 @@ func NewDeleteJobFunc(tp elastictransport.Interface) NewDeleteJob {
 // the delete datafeed API with the same timeout and force parameters as the
 // delete job request.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-job.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-job
 func New(tp elastictransport.Interface) *DeleteJob {
 	r := &DeleteJob{
 		transport: tp,

@@ -16,20 +16,27 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package updatetrainedmodeldeployment
 
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package updatetrainedmodeldeployment
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/update_trained_model_deployment/MlUpdateTrainedModelDeploymentRequest.ts#L24-L63
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/update_trained_model_deployment/MlUpdateTrainedModelDeploymentRequest.ts#L25-L78
 type Request struct {
 
+	// AdaptiveAllocations Adaptive allocations configuration. When enabled, the number of allocations
+	// is set based on the current load.
+	// If adaptive_allocations is enabled, do not set the number of allocations
+	// manually.
+	AdaptiveAllocations *types.AdaptiveAllocationsSettings `json:"adaptive_allocations,omitempty"`
 	// NumberOfAllocations The number of model allocations on each node where the model is deployed.
 	// All allocations on a node share the same copy of the model in memory but use
 	// a separate set of threads to evaluate the model.
@@ -37,6 +44,8 @@ type Request struct {
 	// If this setting is greater than the number of hardware threads
 	// it will automatically be changed to a value less than the number of hardware
 	// threads.
+	// If adaptive_allocations is enabled, do not set this value, because it’s
+	// automatically set.
 	NumberOfAllocations *int `json:"number_of_allocations,omitempty"`
 }
 

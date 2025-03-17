@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,12 +31,13 @@ import (
 
 // DatafeedTimingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Datafeed.ts#L173-L198
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Datafeed.ts#L174-L202
 type DatafeedTimingStats struct {
 	// AverageSearchTimePerBucketMs The average search time per bucket, in milliseconds.
 	AverageSearchTimePerBucketMs Float64 `json:"average_search_time_per_bucket_ms,omitempty"`
 	// BucketCount The number of buckets processed.
-	BucketCount int64 `json:"bucket_count"`
+	BucketCount                          int64                                 `json:"bucket_count"`
+	ExponentialAverageCalculationContext *ExponentialAverageCalculationContext `json:"exponential_average_calculation_context,omitempty"`
 	// ExponentialAverageSearchTimePerHourMs The exponential average search time per hour, in milliseconds.
 	ExponentialAverageSearchTimePerHourMs Float64 `json:"exponential_average_search_time_per_hour_ms"`
 	// JobId Identifier for the anomaly detection job.
@@ -82,6 +83,11 @@ func (s *DatafeedTimingStats) UnmarshalJSON(data []byte) error {
 				s.BucketCount = f
 			}
 
+		case "exponential_average_calculation_context":
+			if err := dec.Decode(&s.ExponentialAverageCalculationContext); err != nil {
+				return fmt.Errorf("%s | %w", "ExponentialAverageCalculationContext", err)
+			}
+
 		case "exponential_average_search_time_per_hour_ms":
 			if err := dec.Decode(&s.ExponentialAverageSearchTimePerHourMs); err != nil {
 				return fmt.Errorf("%s | %w", "ExponentialAverageSearchTimePerHourMs", err)
@@ -123,3 +129,5 @@ func NewDatafeedTimingStats() *DatafeedTimingStats {
 
 	return r
 }
+
+// false

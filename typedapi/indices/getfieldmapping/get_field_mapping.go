@@ -16,12 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get mapping definitions.
 // Retrieves mapping definitions for one or more fields.
 // For data streams, the API retrieves field mappings for the stream’s backing
 // indices.
+//
+// This API is useful if you don't need a complete mapping or if an index
+// mapping contains a large number of fields.
 package getfieldmapping
 
 import (
@@ -88,7 +91,10 @@ func NewGetFieldMappingFunc(tp elastictransport.Interface) NewGetFieldMapping {
 // For data streams, the API retrieves field mappings for the stream’s backing
 // indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html
+// This API is useful if you don't need a complete mapping or if an index
+// mapping contains a large number of fields.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-mapping
 func New(tp elastictransport.Interface) *GetFieldMapping {
 	r := &GetFieldMapping{
 		transport: tp,
@@ -321,6 +327,7 @@ func (r *GetFieldMapping) Header(key, value string) *GetFieldMapping {
 
 // Fields Comma-separated list or wildcard expression of fields used to limit returned
 // information.
+// Supports wildcards (`*`).
 // API Name: fields
 func (r *GetFieldMapping) _fields(fields string) *GetFieldMapping {
 	r.paramSet |= fieldsMask
@@ -381,14 +388,6 @@ func (r *GetFieldMapping) IgnoreUnavailable(ignoreunavailable bool) *GetFieldMap
 // API name: include_defaults
 func (r *GetFieldMapping) IncludeDefaults(includedefaults bool) *GetFieldMapping {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
-
-	return r
-}
-
-// Local If `true`, the request retrieves information from the local node only.
-// API name: local
-func (r *GetFieldMapping) Local(local bool) *GetFieldMapping {
-	r.values.Set("local", strconv.FormatBool(local))
 
 	return r
 }

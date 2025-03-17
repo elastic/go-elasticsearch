@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,13 +33,13 @@ import (
 
 // IndexSettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/IndexSettings.ts#L69-L169
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/IndexSettings.ts#L70-L176
 type IndexSettings struct {
 	Analysis *IndexSettingsAnalysis `json:"analysis,omitempty"`
 	// Analyze Settings to define analyzers, tokenizers, token filters and character
 	// filters.
 	Analyze            *SettingsAnalyze                         `json:"analyze,omitempty"`
-	AutoExpandReplicas *string                                  `json:"auto_expand_replicas,omitempty"`
+	AutoExpandReplicas any                                      `json:"auto_expand_replicas,omitempty"`
 	Blocks             *IndexSettingBlocks                      `json:"blocks,omitempty"`
 	CheckOnStartup     *indexcheckonstartup.IndexCheckOnStartup `json:"check_on_startup,omitempty"`
 	Codec              *string                                  `json:"codec,omitempty"`
@@ -128,16 +128,9 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 			}
 
 		case "auto_expand_replicas":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.AutoExpandReplicas); err != nil {
 				return fmt.Errorf("%s | %w", "AutoExpandReplicas", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.AutoExpandReplicas = &o
 
 		case "blocks":
 			if err := dec.Decode(&s.Blocks); err != nil {
@@ -572,55 +565,55 @@ func (s *IndexSettings) UnmarshalJSON(data []byte) error {
 				case "BM25":
 					oo := NewSettingsSimilarityBm25()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				case "boolean":
 					oo := NewSettingsSimilarityBoolean()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				case "DFI":
 					oo := NewSettingsSimilarityDfi()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				case "DFR":
 					oo := NewSettingsSimilarityDfr()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				case "IB":
 					oo := NewSettingsSimilarityIb()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				case "LMDirichlet":
 					oo := NewSettingsSimilarityLmd()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				case "LMJelinekMercer":
 					oo := NewSettingsSimilarityLmj()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				case "scripted":
 					oo := NewSettingsSimilarityScripted()
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("Similarity | %w", err)
 					}
 					s.Similarity[key] = oo
 				default:
 					oo := new(SettingsSimilarity)
 					if err := localDec.Decode(&oo); err != nil {
-						return err
+						return fmt.Errorf("new(SettingsSimilarity) | %w", err)
 					}
 					s.Similarity[key] = oo
 				}
@@ -739,9 +732,19 @@ func (s IndexSettings) MarshalJSON() ([]byte, error) {
 // NewIndexSettings returns a IndexSettings.
 func NewIndexSettings() *IndexSettings {
 	r := &IndexSettings{
-		IndexSettings: make(map[string]json.RawMessage, 0),
-		Similarity:    make(map[string]SettingsSimilarity, 0),
+		IndexSettings: make(map[string]json.RawMessage),
+		Similarity:    make(map[string]SettingsSimilarity),
 	}
 
 	return r
+}
+
+// true
+
+type IndexSettingsVariant interface {
+	IndexSettingsCaster() *IndexSettings
+}
+
+func (s *IndexSettings) IndexSettingsCaster() *IndexSettings {
+	return s
 }

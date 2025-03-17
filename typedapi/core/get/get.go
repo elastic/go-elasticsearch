@@ -16,10 +16,82 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get a document by its ID.
-// Retrieves the document with the specified ID from an index.
+//
+// Get a document and its source or stored fields from an index.
+//
+// By default, this API is realtime and is not affected by the refresh rate of
+// the index (when data will become visible for search).
+// In the case where stored fields are requested with the `stored_fields`
+// parameter and the document has been updated but is not yet refreshed, the API
+// will have to parse and analyze the source to extract the stored fields.
+// To turn off realtime behavior, set the `realtime` parameter to false.
+//
+// **Source filtering**
+//
+// By default, the API returns the contents of the `_source` field unless you
+// have used the `stored_fields` parameter or the `_source` field is turned off.
+// You can turn off `_source` retrieval by using the `_source` parameter:
+//
+// ```
+// GET my-index-000001/_doc/0?_source=false
+// ```
+//
+// If you only need one or two fields from the `_source`, use the
+// `_source_includes` or `_source_excludes` parameters to include or filter out
+// particular fields.
+// This can be helpful with large documents where partial retrieval can save on
+// network overhead
+// Both parameters take a comma separated list of fields or wildcard
+// expressions.
+// For example:
+//
+// ```
+// GET my-index-000001/_doc/0?_source_includes=*.id&_source_excludes=entities
+// ```
+//
+// If you only want to specify includes, you can use a shorter notation:
+//
+// ```
+// GET my-index-000001/_doc/0?_source=*.id
+// ```
+//
+// **Routing**
+//
+// If routing is used during indexing, the routing value also needs to be
+// specified to retrieve a document.
+// For example:
+//
+// ```
+// GET my-index-000001/_doc/2?routing=user1
+// ```
+//
+// This request gets the document with ID 2, but it is routed based on the user.
+// The document is not fetched if the correct routing is not specified.
+//
+// **Distributed**
+//
+// The GET operation is hashed into a specific shard ID.
+// It is then redirected to one of the replicas within that shard ID and returns
+// the result.
+// The replicas are the primary shard and its replicas within that shard ID
+// group.
+// This means that the more replicas you have, the better your GET scaling will
+// be.
+//
+// **Versioning support**
+//
+// You can use the `version` parameter to retrieve the document only if its
+// current version is equal to the specified one.
+//
+// Internally, Elasticsearch has marked the old document as deleted and added an
+// entirely new document.
+// The old version of the document doesn't disappear immediately, although you
+// won't be able to access it.
+// Elasticsearch cleans up deleted documents in the background as you continue
+// to index more data.
 package get
 
 import (
@@ -85,9 +157,81 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 }
 
 // Get a document by its ID.
-// Retrieves the document with the specified ID from an index.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
+// Get a document and its source or stored fields from an index.
+//
+// By default, this API is realtime and is not affected by the refresh rate of
+// the index (when data will become visible for search).
+// In the case where stored fields are requested with the `stored_fields`
+// parameter and the document has been updated but is not yet refreshed, the API
+// will have to parse and analyze the source to extract the stored fields.
+// To turn off realtime behavior, set the `realtime` parameter to false.
+//
+// **Source filtering**
+//
+// By default, the API returns the contents of the `_source` field unless you
+// have used the `stored_fields` parameter or the `_source` field is turned off.
+// You can turn off `_source` retrieval by using the `_source` parameter:
+//
+// ```
+// GET my-index-000001/_doc/0?_source=false
+// ```
+//
+// If you only need one or two fields from the `_source`, use the
+// `_source_includes` or `_source_excludes` parameters to include or filter out
+// particular fields.
+// This can be helpful with large documents where partial retrieval can save on
+// network overhead
+// Both parameters take a comma separated list of fields or wildcard
+// expressions.
+// For example:
+//
+// ```
+// GET my-index-000001/_doc/0?_source_includes=*.id&_source_excludes=entities
+// ```
+//
+// If you only want to specify includes, you can use a shorter notation:
+//
+// ```
+// GET my-index-000001/_doc/0?_source=*.id
+// ```
+//
+// **Routing**
+//
+// If routing is used during indexing, the routing value also needs to be
+// specified to retrieve a document.
+// For example:
+//
+// ```
+// GET my-index-000001/_doc/2?routing=user1
+// ```
+//
+// This request gets the document with ID 2, but it is routed based on the user.
+// The document is not fetched if the correct routing is not specified.
+//
+// **Distributed**
+//
+// The GET operation is hashed into a specific shard ID.
+// It is then redirected to one of the replicas within that shard ID and returns
+// the result.
+// The replicas are the primary shard and its replicas within that shard ID
+// group.
+// This means that the more replicas you have, the better your GET scaling will
+// be.
+//
+// **Versioning support**
+//
+// You can use the `version` parameter to retrieve the document only if its
+// current version is equal to the specified one.
+//
+// Internally, Elasticsearch has marked the old document as deleted and added an
+// entirely new document.
+// The old version of the document doesn't disappear immediately, although you
+// won't be able to access it.
+// Elasticsearch cleans up deleted documents in the background as you continue
+// to index more data.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -339,7 +483,7 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// Id Unique identifier of the document.
+// Id A unique document identifier.
 // API Name: id
 func (r *Get) _id(id string) *Get {
 	r.paramSet |= idMask
@@ -348,7 +492,7 @@ func (r *Get) _id(id string) *Get {
 	return r
 }
 
-// Index Name of the index that contains the document.
+// Index The name of the index that contains the document.
 // API Name: index
 func (r *Get) _index(index string) *Get {
 	r.paramSet |= indexMask
@@ -357,11 +501,11 @@ func (r *Get) _index(index string) *Get {
 	return r
 }
 
-// ForceSyntheticSource Should this request force synthetic _source?
-// Use this to test if the mapping supports synthetic _source and to get a sense
-// of the worst case performance.
-// Fetches with this enabled will be slower the enabling synthetic source
-// natively in the index.
+// ForceSyntheticSource Indicates whether the request forces synthetic `_source`.
+// Use this paramater to test if the mapping supports synthetic `_source` and to
+// get a sense of the worst case performance.
+// Fetches with this parameter enabled will be slower than enabling synthetic
+// source natively in the index.
 // API name: force_synthetic_source
 func (r *Get) ForceSyntheticSource(forcesyntheticsource bool) *Get {
 	r.values.Set("force_synthetic_source", strconv.FormatBool(forcesyntheticsource))
@@ -369,8 +513,16 @@ func (r *Get) ForceSyntheticSource(forcesyntheticsource bool) *Get {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on. Random by
-// default.
+// Preference The node or shard the operation should be performed on.
+// By default, the operation is randomized between the shard replicas.
+//
+// If it is set to `_local`, the operation will prefer to be run on a local
+// allocated shard when possible.
+// If it is set to a custom value, the value is used to guarantee that the same
+// shards will be used for the same custom value.
+// This can help with "jumping values" when hitting different shards in
+// different refresh states.
+// A sample value can be something like the web session ID or the user name.
 // API name: preference
 func (r *Get) Preference(preference string) *Get {
 	r.values.Set("preference", preference)
@@ -386,8 +538,10 @@ func (r *Get) Realtime(realtime bool) *Get {
 	return r
 }
 
-// Refresh If true, Elasticsearch refreshes the affected shards to make this operation
-// visible to search. If false, do nothing with refreshes.
+// Refresh If `true`, the request refreshes the relevant shards before retrieving the
+// document.
+// Setting it to `true` should be done after careful thought and verification
+// that this does not cause a heavy load on the system (and slow down indexing).
 // API name: refresh
 func (r *Get) Refresh(refresh bool) *Get {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -395,7 +549,7 @@ func (r *Get) Refresh(refresh bool) *Get {
 	return r
 }
 
-// Routing Target the specified primary shard.
+// Routing A custom value used to route operations to a specific shard.
 // API name: routing
 func (r *Get) Routing(routing string) *Get {
 	r.values.Set("routing", routing)
@@ -403,8 +557,8 @@ func (r *Get) Routing(routing string) *Get {
 	return r
 }
 
-// Source_ True or false to return the _source field or not, or a list of fields to
-// return.
+// Source_ Indicates whether to return the `_source` field (`true` or `false`) or lists
+// the fields to return.
 // API name: _source
 func (r *Get) Source_(sourceconfigparam string) *Get {
 	r.values.Set("_source", sourceconfigparam)
@@ -412,7 +566,10 @@ func (r *Get) Source_(sourceconfigparam string) *Get {
 	return r
 }
 
-// SourceExcludes_ A comma-separated list of source fields to exclude in the response.
+// SourceExcludes_ A comma-separated list of source fields to exclude from the response.
+// You can also use this parameter to exclude fields from the subset specified
+// in `_source_includes` query parameter.
+// If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_excludes
 func (r *Get) SourceExcludes_(fields ...string) *Get {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
@@ -421,6 +578,10 @@ func (r *Get) SourceExcludes_(fields ...string) *Get {
 }
 
 // SourceIncludes_ A comma-separated list of source fields to include in the response.
+// If this parameter is specified, only these source fields are returned.
+// You can exclude fields from this subset using the `_source_excludes` query
+// parameter.
+// If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_includes
 func (r *Get) SourceIncludes_(fields ...string) *Get {
 	r.values.Set("_source_includes", strings.Join(fields, ","))
@@ -428,9 +589,11 @@ func (r *Get) SourceIncludes_(fields ...string) *Get {
 	return r
 }
 
-// StoredFields List of stored fields to return as part of a hit.
+// StoredFields A comma-separated list of stored fields to return as part of a hit.
 // If no fields are specified, no stored fields are included in the response.
-// If this field is specified, the `_source` parameter defaults to false.
+// If this field is specified, the `_source` parameter defaults to `false`.
+// Only leaf fields can be retrieved with the `stored_field` option.
+// Object fields can't be returned;​if specified, the request fails.
 // API name: stored_fields
 func (r *Get) StoredFields(fields ...string) *Get {
 	r.values.Set("stored_fields", strings.Join(fields, ","))
@@ -438,8 +601,8 @@ func (r *Get) StoredFields(fields ...string) *Get {
 	return r
 }
 
-// Version Explicit version number for concurrency control. The specified version must
-// match the current version of the document for the request to succeed.
+// Version The version number for concurrency control.
+// It must match the current version of the document for the request to succeed.
 // API name: version
 func (r *Get) Version(versionnumber string) *Get {
 	r.values.Set("version", versionnumber)
@@ -447,7 +610,7 @@ func (r *Get) Version(versionnumber string) *Get {
 	return r
 }
 
-// VersionType Specific version type: internal, external, external_gte.
+// VersionType The version type.
 // API name: version_type
 func (r *Get) VersionType(versiontype versiontype.VersionType) *Get {
 	r.values.Set("version_type", versiontype.String())

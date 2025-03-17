@@ -16,12 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get trained models.
-// Returns configuration and usage information about inference trained models.
 //
-// CAT APIs are only intended for human consumption using the Kibana
+// Get configuration and usage information about inference trained models.
+//
+// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get trained models statistics API.
 package mltrainedmodels
@@ -41,6 +42,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/cattrainedmodelscolumn"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -82,13 +84,14 @@ func NewMlTrainedModelsFunc(tp elastictransport.Interface) NewMlTrainedModels {
 }
 
 // Get trained models.
-// Returns configuration and usage information about inference trained models.
 //
-// CAT APIs are only intended for human consumption using the Kibana
+// Get configuration and usage information about inference trained models.
+//
+// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get trained models statistics API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-trained-model.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-ml-trained-models
 func New(tp elastictransport.Interface) *MlTrainedModels {
 	r := &MlTrainedModels{
 		transport: tp,
@@ -383,6 +386,14 @@ func (r *MlTrainedModels) Size(size int) *MlTrainedModels {
 	return r
 }
 
+// Time Unit used to display time values.
+// API name: time
+func (r *MlTrainedModels) Time(time timeunit.TimeUnit) *MlTrainedModels {
+	r.values.Set("time", time.String())
+
+	return r
+}
+
 // Format Specifies the format to return the columnar data in, can be set to
 // `text`, `json`, `cbor`, `yaml`, or `smile`.
 // API name: format
@@ -397,25 +408,6 @@ func (r *MlTrainedModels) Format(format string) *MlTrainedModels {
 // API name: help
 func (r *MlTrainedModels) Help(help bool) *MlTrainedModels {
 	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *MlTrainedModels) Local(local bool) *MlTrainedModels {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *MlTrainedModels) MasterTimeout(duration string) *MlTrainedModels {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

@@ -16,13 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Refresh an index.
 // A refresh makes recent operations performed on one or more indices available
 // for search.
 // For data streams, the API runs the refresh operation on the stream’s backing
 // indices.
+//
+// By default, Elasticsearch periodically refreshes indices every second, but
+// only on indices that have received one search request or more in the last 30
+// seconds.
+// You can change this default interval with the `index.refresh_interval`
+// setting.
+//
+// Refresh requests are synchronous and do not return a response until the
+// refresh operation completes.
+//
+// Refreshes are resource-intensive.
+// To ensure good cluster performance, it's recommended to wait for
+// Elasticsearch's periodic refresh rather than performing an explicit refresh
+// when possible.
+//
+// If your application workflow indexes documents and then runs a search to
+// retrieve the indexed document, it's recommended to use the index API's
+// `refresh=wait_for` query parameter option.
+// This option ensures the indexing operation waits for a periodic refresh
+// before running the search.
 package refresh
 
 import (
@@ -85,7 +105,27 @@ func NewRefreshFunc(tp elastictransport.Interface) NewRefresh {
 // For data streams, the API runs the refresh operation on the stream’s backing
 // indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-refresh.html
+// By default, Elasticsearch periodically refreshes indices every second, but
+// only on indices that have received one search request or more in the last 30
+// seconds.
+// You can change this default interval with the `index.refresh_interval`
+// setting.
+//
+// Refresh requests are synchronous and do not return a response until the
+// refresh operation completes.
+//
+// Refreshes are resource-intensive.
+// To ensure good cluster performance, it's recommended to wait for
+// Elasticsearch's periodic refresh rather than performing an explicit refresh
+// when possible.
+//
+// If your application workflow indexes documents and then runs a search to
+// retrieve the indexed document, it's recommended to use the index API's
+// `refresh=wait_for` query parameter option.
+// This option ensures the indexing operation waits for a periodic refresh
+// before running the search.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-refresh
 func New(tp elastictransport.Interface) *Refresh {
 	r := &Refresh{
 		transport: tp,

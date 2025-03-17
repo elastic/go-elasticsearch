@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get enrich stats.
 // Returns enrich coordinator statistics and information about enrich policies
@@ -74,7 +74,7 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 // Returns enrich coordinator statistics and information about enrich policies
 // that are currently executing.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/enrich-stats-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-stats
 func New(tp elastictransport.Interface) *Stats {
 	r := &Stats{
 		transport: tp,
@@ -276,6 +276,14 @@ func (r Stats) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the Stats headers map.
 func (r *Stats) Header(key, value string) *Stats {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *Stats) MasterTimeout(duration string) *Stats {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

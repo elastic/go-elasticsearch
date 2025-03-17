@@ -16,11 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Enable a user profile.
 //
 // Enable user profiles to make them visible in user profile searches.
+//
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
+//
+// When you activate a user profile, it's automatically enabled and visible in
+// user profile searches.
+// If you later disable the user profile, you can use the enable user profile
+// API to make the profile visible in these searches again.
 package enableuserprofile
 
 import (
@@ -83,7 +94,18 @@ func NewEnableUserProfileFunc(tp elastictransport.Interface) NewEnableUserProfil
 //
 // Enable user profiles to make them visible in user profile searches.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user-profile.html
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
+//
+// When you activate a user profile, it's automatically enabled and visible in
+// user profile searches.
+// If you later disable the user profile, you can use the enable user profile
+// API to make the profile visible in these searches again.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user-profile
 func New(tp elastictransport.Interface) *EnableUserProfile {
 	r := &EnableUserProfile{
 		transport: tp,
@@ -297,7 +319,7 @@ func (r *EnableUserProfile) Header(key, value string) *EnableUserProfile {
 	return r
 }
 
-// Uid Unique identifier for the user profile.
+// Uid A unique identifier for the user profile.
 // API Name: uid
 func (r *EnableUserProfile) _uid(uid string) *EnableUserProfile {
 	r.paramSet |= uidMask
@@ -307,9 +329,10 @@ func (r *EnableUserProfile) _uid(uid string) *EnableUserProfile {
 }
 
 // Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
-// visible to search, if 'wait_for' then wait for a refresh to make this
-// operation
-// visible to search, if 'false' do nothing with refreshes.
+// visible to search.
+// If 'wait_for', it waits for a refresh to make this operation visible to
+// search.
+// If 'false', nothing is done with refreshes.
 // API name: refresh
 func (r *EnableUserProfile) Refresh(refresh refresh.Refresh) *EnableUserProfile {
 	r.values.Set("refresh", refresh.String())

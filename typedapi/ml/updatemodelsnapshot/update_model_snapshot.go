@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Update a snapshot.
 // Updates certain properties of a snapshot.
@@ -90,7 +90,7 @@ func NewUpdateModelSnapshotFunc(tp elastictransport.Interface) NewUpdateModelSna
 // Update a snapshot.
 // Updates certain properties of a snapshot.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-update-snapshot.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-update-model-snapshot
 func New(tp elastictransport.Interface) *UpdateModelSnapshot {
 	r := &UpdateModelSnapshot{
 		transport: tp,
@@ -98,8 +98,6 @@ func New(tp elastictransport.Interface) *UpdateModelSnapshot {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -385,20 +383,29 @@ func (r *UpdateModelSnapshot) Pretty(pretty bool) *UpdateModelSnapshot {
 	return r
 }
 
-// Description A description of the model snapshot.
+// A description of the model snapshot.
 // API name: description
 func (r *UpdateModelSnapshot) Description(description string) *UpdateModelSnapshot {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// Retain If `true`, this snapshot will not be deleted during automatic cleanup of
+// If `true`, this snapshot will not be deleted during automatic cleanup of
 // snapshots older than `model_snapshot_retention_days`. However, this
 // snapshot will be deleted when the job is deleted.
 // API name: retain
 func (r *UpdateModelSnapshot) Retain(retain bool) *UpdateModelSnapshot {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Retain = &retain
 
 	return r

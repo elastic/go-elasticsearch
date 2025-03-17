@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HasParentQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/joining.ts#L81-L110
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/joining.ts#L81-L110
 type HasParentQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -51,7 +51,7 @@ type HasParentQuery struct {
 	// Query Query you wish to run on parent documents of the `parent_type` field.
 	// If a parent document matches the search, the query returns its child
 	// documents.
-	Query      *Query  `json:"query,omitempty"`
+	Query      Query   `json:"query"`
 	QueryName_ *string `json:"_name,omitempty"`
 	// Score Indicates whether the relevance score of a matching parent document is
 	// aggregated into its child documents.
@@ -154,4 +154,14 @@ func NewHasParentQuery() *HasParentQuery {
 	r := &HasParentQuery{}
 
 	return r
+}
+
+// true
+
+type HasParentQueryVariant interface {
+	HasParentQueryCaster() *HasParentQuery
+}
+
+func (s *HasParentQuery) HasParentQueryCaster() *HasParentQuery {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SearchTransform type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Transform.ts#L46-L49
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Transform.ts#L46-L49
 type SearchTransform struct {
 	Request SearchInputRequestDefinition `json:"request"`
 	Timeout Duration                     `json:"timeout"`
@@ -71,4 +71,14 @@ func NewSearchTransform() *SearchTransform {
 	r := &SearchTransform{}
 
 	return r
+}
+
+// true
+
+type SearchTransformVariant interface {
+	SearchTransformCaster() *SearchTransform
+}
+
+func (s *SearchTransform) SearchTransformCaster() *SearchTransform {
+	return s
 }

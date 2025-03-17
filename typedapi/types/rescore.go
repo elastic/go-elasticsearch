@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,11 +31,12 @@ import (
 
 // Rescore type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/rescoring.ts#L25-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/search/_types/rescoring.ts#L25-L38
 type Rescore struct {
-	LearningToRank *LearningToRank `json:"learning_to_rank,omitempty"`
-	Query          *RescoreQuery   `json:"query,omitempty"`
-	WindowSize     *int            `json:"window_size,omitempty"`
+	AdditionalRescoreProperty map[string]json.RawMessage `json:"-"`
+	LearningToRank            *LearningToRank            `json:"learning_to_rank,omitempty"`
+	Query                     *RescoreQuery              `json:"query,omitempty"`
+	WindowSize                *int                       `json:"window_size,omitempty"`
 }
 
 func (s *Rescore) UnmarshalJSON(data []byte) error {
@@ -79,14 +80,68 @@ func (s *Rescore) UnmarshalJSON(data []byte) error {
 				s.WindowSize = &f
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalRescoreProperty == nil {
+					s.AdditionalRescoreProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalRescoreProperty", err)
+				}
+				s.AdditionalRescoreProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s Rescore) MarshalJSON() ([]byte, error) {
+	type opt Rescore
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalRescoreProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalRescoreProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewRescore returns a Rescore.
 func NewRescore() *Rescore {
-	r := &Rescore{}
+	r := &Rescore{
+		AdditionalRescoreProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type RescoreVariant interface {
+	RescoreCaster() *Rescore
+}
+
+func (s *Rescore) RescoreCaster() *Rescore {
+	return s
 }

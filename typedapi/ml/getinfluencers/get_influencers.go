@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get anomaly detection job results for influencers.
 // Influencers are the entities that have contributed to, or are to blame for,
@@ -89,7 +89,7 @@ func NewGetInfluencersFunc(tp elastictransport.Interface) NewGetInfluencers {
 // the anomalies. Influencer results are available only if an
 // `influencer_field_name` is specified in the job configuration.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-influencer.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-influencers
 func New(tp elastictransport.Interface) *GetInfluencers {
 	r := &GetInfluencers{
 		transport: tp,
@@ -97,8 +97,6 @@ func New(tp elastictransport.Interface) *GetInfluencers {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -439,12 +437,16 @@ func (r *GetInfluencers) Pretty(pretty bool) *GetInfluencers {
 	return r
 }
 
-// Page Configures pagination.
+// Configures pagination.
 // This parameter has the `from` and `size` properties.
 // API name: page
-func (r *GetInfluencers) Page(page *types.Page) *GetInfluencers {
+func (r *GetInfluencers) Page(page types.PageVariant) *GetInfluencers {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Page = page
+	r.req.Page = page.PageCaster()
 
 	return r
 }

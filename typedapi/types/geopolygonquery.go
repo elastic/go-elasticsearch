@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GeoPolygonQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/geo.ts#L99-L111
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/geo.ts#L109-L121
 type GeoPolygonQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -159,8 +159,18 @@ func (s GeoPolygonQuery) MarshalJSON() ([]byte, error) {
 // NewGeoPolygonQuery returns a GeoPolygonQuery.
 func NewGeoPolygonQuery() *GeoPolygonQuery {
 	r := &GeoPolygonQuery{
-		GeoPolygonQuery: make(map[string]GeoPolygonPoints, 0),
+		GeoPolygonQuery: make(map[string]GeoPolygonPoints),
 	}
 
 	return r
+}
+
+// true
+
+type GeoPolygonQueryVariant interface {
+	GeoPolygonQueryCaster() *GeoPolygonQuery
+}
+
+func (s *GeoPolygonQuery) GeoPolygonQueryCaster() *GeoPolygonQuery {
+	return s
 }

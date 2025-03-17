@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ModelPlotConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/ModelPlot.ts#L23-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/ModelPlot.ts#L23-L42
 type ModelPlotConfig struct {
 	// AnnotationsEnabled If true, enables calculation and storage of the model change annotations for
 	// each entity that is being analyzed.
@@ -104,4 +104,14 @@ func NewModelPlotConfig() *ModelPlotConfig {
 	r := &ModelPlotConfig{}
 
 	return r
+}
+
+// true
+
+type ModelPlotConfigVariant interface {
+	ModelPlotConfigCaster() *ModelPlotConfig
+}
+
+func (s *ModelPlotConfig) ModelPlotConfigCaster() *ModelPlotConfig {
+	return s
 }

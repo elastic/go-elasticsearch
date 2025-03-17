@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Explain a document match result.
-// Returns information about why a specific document matches, or doesn’t match,
-// a query.
+// Get information about why a specific document matches, or doesn't match, a
+// query.
+// It computes a score explanation for a query and a specific document.
 package explain
 
 import (
@@ -90,10 +91,11 @@ func NewExplainFunc(tp elastictransport.Interface) NewExplain {
 }
 
 // Explain a document match result.
-// Returns information about why a specific document matches, or doesn’t match,
-// a query.
+// Get information about why a specific document matches, or doesn't match, a
+// query.
+// It computes a score explanation for a query and a specific document.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-explain.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-explain
 func New(tp elastictransport.Interface) *Explain {
 	r := &Explain{
 		transport: tp,
@@ -101,8 +103,6 @@ func New(tp elastictransport.Interface) *Explain {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -320,7 +320,7 @@ func (r *Explain) Header(key, value string) *Explain {
 	return r
 }
 
-// Id Defines the document ID.
+// Id The document identifier.
 // API Name: id
 func (r *Explain) _id(id string) *Explain {
 	r.paramSet |= idMask
@@ -329,7 +329,7 @@ func (r *Explain) _id(id string) *Explain {
 	return r
 }
 
-// Index Index names used to limit the request.
+// Index Index names that are used to limit the request.
 // Only a single index name can be provided to this parameter.
 // API Name: index
 func (r *Explain) _index(index string) *Explain {
@@ -339,8 +339,8 @@ func (r *Explain) _index(index string) *Explain {
 	return r
 }
 
-// Analyzer Analyzer to use for the query string.
-// This parameter can only be used when the `q` query string parameter is
+// Analyzer The analyzer to use for the query string.
+// This parameter can be used only when the `q` query string parameter is
 // specified.
 // API name: analyzer
 func (r *Explain) Analyzer(analyzer string) *Explain {
@@ -350,6 +350,8 @@ func (r *Explain) Analyzer(analyzer string) *Explain {
 }
 
 // AnalyzeWildcard If `true`, wildcard and prefix queries are analyzed.
+// This parameter can be used only when the `q` query string parameter is
+// specified.
 // API name: analyze_wildcard
 func (r *Explain) AnalyzeWildcard(analyzewildcard bool) *Explain {
 	r.values.Set("analyze_wildcard", strconv.FormatBool(analyzewildcard))
@@ -358,6 +360,8 @@ func (r *Explain) AnalyzeWildcard(analyzewildcard bool) *Explain {
 }
 
 // DefaultOperator The default operator for query string query: `AND` or `OR`.
+// This parameter can be used only when the `q` query string parameter is
+// specified.
 // API name: default_operator
 func (r *Explain) DefaultOperator(defaultoperator operator.Operator) *Explain {
 	r.values.Set("default_operator", defaultoperator.String())
@@ -365,7 +369,10 @@ func (r *Explain) DefaultOperator(defaultoperator operator.Operator) *Explain {
 	return r
 }
 
-// Df Field to use as default where no field prefix is given in the query string.
+// Df The field to use as default where no field prefix is given in the query
+// string.
+// This parameter can be used only when the `q` query string parameter is
+// specified.
 // API name: df
 func (r *Explain) Df(df string) *Explain {
 	r.values.Set("df", df)
@@ -375,6 +382,8 @@ func (r *Explain) Df(df string) *Explain {
 
 // Lenient If `true`, format-based query failures (such as providing text to a numeric
 // field) in the query string will be ignored.
+// This parameter can be used only when the `q` query string parameter is
+// specified.
 // API name: lenient
 func (r *Explain) Lenient(lenient bool) *Explain {
 	r.values.Set("lenient", strconv.FormatBool(lenient))
@@ -382,8 +391,8 @@ func (r *Explain) Lenient(lenient bool) *Explain {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference The node or shard the operation should be performed on.
+// It is random by default.
 // API name: preference
 func (r *Explain) Preference(preference string) *Explain {
 	r.values.Set("preference", preference)
@@ -391,7 +400,7 @@ func (r *Explain) Preference(preference string) *Explain {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing A custom value used to route operations to a specific shard.
 // API name: routing
 func (r *Explain) Routing(routing string) *Explain {
 	r.values.Set("routing", routing)
@@ -399,7 +408,7 @@ func (r *Explain) Routing(routing string) *Explain {
 	return r
 }
 
-// Source_ True or false to return the `_source` field or not, or a list of fields to
+// Source_ `True` or `false` to return the `_source` field or not or a list of fields to
 // return.
 // API name: _source
 func (r *Explain) Source_(sourceconfigparam string) *Explain {
@@ -409,6 +418,9 @@ func (r *Explain) Source_(sourceconfigparam string) *Explain {
 }
 
 // SourceExcludes_ A comma-separated list of source fields to exclude from the response.
+// You can also use this parameter to exclude fields from the subset specified
+// in `_source_includes` query parameter.
+// If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_excludes
 func (r *Explain) SourceExcludes_(fields ...string) *Explain {
 	r.values.Set("_source_excludes", strings.Join(fields, ","))
@@ -417,6 +429,10 @@ func (r *Explain) SourceExcludes_(fields ...string) *Explain {
 }
 
 // SourceIncludes_ A comma-separated list of source fields to include in the response.
+// If this parameter is specified, only these source fields are returned.
+// You can exclude fields from this subset using the `_source_excludes` query
+// parameter.
+// If the `_source` parameter is `false`, this parameter is ignored.
 // API name: _source_includes
 func (r *Explain) SourceIncludes_(fields ...string) *Explain {
 	r.values.Set("_source_includes", strings.Join(fields, ","))
@@ -432,7 +448,7 @@ func (r *Explain) StoredFields(fields ...string) *Explain {
 	return r
 }
 
-// Q Query in the Lucene query string syntax.
+// Q The query in the Lucene query string syntax.
 // API name: q
 func (r *Explain) Q(q string) *Explain {
 	r.values.Set("q", q)
@@ -484,11 +500,15 @@ func (r *Explain) Pretty(pretty bool) *Explain {
 	return r
 }
 
-// Query Defines the search definition using the Query DSL.
+// Defines the search definition using the Query DSL.
 // API name: query
-func (r *Explain) Query(query *types.Query) *Explain {
+func (r *Explain) Query(query types.QueryVariant) *Explain {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Query = query
+	r.req.Query = query.QueryCaster()
 
 	return r
 }

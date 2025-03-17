@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,30 +31,23 @@ import (
 
 // SpanTermQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/span.ts#L134-L140
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/span.ts#L134-L141
 type SpanTermQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
 	// Boost values are relative to the default value of 1.0.
 	// A boost value between 0 and 1.0 decreases the relevance score.
 	// A value greater than 1.0 increases the relevance score.
-	Boost      *float32 `json:"boost,omitempty"`
-	QueryName_ *string  `json:"_name,omitempty"`
-	Value      string   `json:"value"`
+	Boost      *float32   `json:"boost,omitempty"`
+	QueryName_ *string    `json:"_name,omitempty"`
+	Value      FieldValue `json:"value"`
 }
 
 func (s *SpanTermQuery) UnmarshalJSON(data []byte) error {
 
 	if !bytes.HasPrefix(data, []byte(`{`)) {
-		if !bytes.HasPrefix(data, []byte(`"`)) {
-			data = append([]byte{'"'}, data...)
-			data = append(data, []byte{'"'}...)
-		}
 		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Value)
-		if err != nil {
-			return err
-		}
-		return nil
+		return err
 	}
 
 	dec := json.NewDecoder(bytes.NewReader(data))
@@ -98,17 +91,10 @@ func (s *SpanTermQuery) UnmarshalJSON(data []byte) error {
 			}
 			s.QueryName_ = &o
 
-		case "value":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+		case "value", "term":
+			if err := dec.Decode(&s.Value); err != nil {
 				return fmt.Errorf("%s | %w", "Value", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Value = o
 
 		}
 	}
@@ -120,4 +106,14 @@ func NewSpanTermQuery() *SpanTermQuery {
 	r := &SpanTermQuery{}
 
 	return r
+}
+
+// true
+
+type SpanTermQueryVariant interface {
+	SpanTermQueryCaster() *SpanTermQuery
+}
+
+func (s *SpanTermQuery) SpanTermQueryCaster() *SpanTermQuery {
+	return s
 }

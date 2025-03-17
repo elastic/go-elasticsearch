@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // QuestionAnsweringInferenceOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/inference.ts#L282-L292
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/inference.ts#L270-L280
 type QuestionAnsweringInferenceOptions struct {
 	// MaxAnswerLength The maximum answer length to consider
 	MaxAnswerLength *int `json:"max_answer_length,omitempty"`
@@ -118,4 +118,14 @@ func NewQuestionAnsweringInferenceOptions() *QuestionAnsweringInferenceOptions {
 	r := &QuestionAnsweringInferenceOptions{}
 
 	return r
+}
+
+// true
+
+type QuestionAnsweringInferenceOptionsVariant interface {
+	QuestionAnsweringInferenceOptionsCaster() *QuestionAnsweringInferenceOptions
+}
+
+func (s *QuestionAnsweringInferenceOptions) QuestionAnsweringInferenceOptionsCaster() *QuestionAnsweringInferenceOptions {
+	return s
 }

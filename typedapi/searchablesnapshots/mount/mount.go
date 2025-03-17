@@ -16,9 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Mount a snapshot as a searchable index.
+// Mount a snapshot.
+// Mount a snapshot as a searchable snapshot index.
+// Do not use this API for snapshots managed by index lifecycle management
+// (ILM).
+// Manually mounting ILM-managed snapshots can interfere with ILM processes.
 package mount
 
 import (
@@ -86,9 +90,13 @@ func NewMountFunc(tp elastictransport.Interface) NewMount {
 	}
 }
 
-// Mount a snapshot as a searchable index.
+// Mount a snapshot.
+// Mount a snapshot as a searchable snapshot index.
+// Do not use this API for snapshots managed by index lifecycle management
+// (ILM).
+// Manually mounting ILM-managed snapshots can interfere with ILM processes.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-api-mount-snapshot.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-mount
 func New(tp elastictransport.Interface) *Mount {
 	r := &Mount{
 		transport: tp,
@@ -96,8 +104,6 @@ func New(tp elastictransport.Interface) *Mount {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -317,7 +323,7 @@ func (r *Mount) Header(key, value string) *Mount {
 	return r
 }
 
-// Repository The name of the repository containing the snapshot of the index to mount
+// Repository The name of the repository containing the snapshot of the index to mount.
 // API Name: repository
 func (r *Mount) _repository(repository string) *Mount {
 	r.paramSet |= repositoryMask
@@ -326,7 +332,7 @@ func (r *Mount) _repository(repository string) *Mount {
 	return r
 }
 
-// Snapshot The name of the snapshot of the index to mount
+// Snapshot The name of the snapshot of the index to mount.
 // API Name: snapshot
 func (r *Mount) _snapshot(snapshot string) *Mount {
 	r.paramSet |= snapshotMask
@@ -335,7 +341,10 @@ func (r *Mount) _snapshot(snapshot string) *Mount {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Mount) MasterTimeout(duration string) *Mount {
 	r.values.Set("master_timeout", duration)
@@ -343,7 +352,7 @@ func (r *Mount) MasterTimeout(duration string) *Mount {
 	return r
 }
 
-// WaitForCompletion Should this request wait until the operation has completed before returning
+// WaitForCompletion If true, the request blocks until the operation is complete.
 // API name: wait_for_completion
 func (r *Mount) WaitForCompletion(waitforcompletion bool) *Mount {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
@@ -351,8 +360,7 @@ func (r *Mount) WaitForCompletion(waitforcompletion bool) *Mount {
 	return r
 }
 
-// Storage Selects the kind of local storage used to accelerate searches. Experimental,
-// and defaults to `full_copy`
+// Storage The mount option for the searchable snapshot index.
 // API name: storage
 func (r *Mount) Storage(storage string) *Mount {
 	r.values.Set("storage", storage)
@@ -404,30 +412,75 @@ func (r *Mount) Pretty(pretty bool) *Mount {
 	return r
 }
 
+// The names of settings that should be removed from the index when it is
+// mounted.
 // API name: ignore_index_settings
 func (r *Mount) IgnoreIndexSettings(ignoreindexsettings ...string) *Mount {
-	r.req.IgnoreIndexSettings = ignoreindexsettings
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range ignoreindexsettings {
 
+		r.req.IgnoreIndexSettings = append(r.req.IgnoreIndexSettings, v)
+
+	}
 	return r
 }
 
+// The name of the index contained in the snapshot whose data is to be mounted.
+// If no `renamed_index` is specified, this name will also be used to create the
+// new index.
 // API name: index
 func (r *Mount) Index(indexname string) *Mount {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Index = indexname
 
 	return r
 }
 
+// The settings that should be added to the index when it is mounted.
 // API name: index_settings
 func (r *Mount) IndexSettings(indexsettings map[string]json.RawMessage) *Mount {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.IndexSettings = indexsettings
-
 	return r
 }
 
+func (r *Mount) AddIndexSetting(key string, value json.RawMessage) *Mount {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.IndexSettings == nil {
+		r.req.IndexSettings = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.IndexSettings
+	}
+
+	tmp[key] = value
+
+	r.req.IndexSettings = tmp
+	return r
+}
+
+// The name of the index that will be created.
 // API name: renamed_index
 func (r *Mount) RenamedIndex(indexname string) *Mount {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.RenamedIndex = &indexname
 
 	return r

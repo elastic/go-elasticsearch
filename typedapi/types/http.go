@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Http type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/_types/Stats.ts#L669-L688
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/nodes/_types/Stats.ts#L669-L688
 type Http struct {
 	// Clients Information on current and recently-closed HTTP client connections.
 	// Clients that have been closed longer than the
@@ -113,8 +113,10 @@ func (s *Http) UnmarshalJSON(data []byte) error {
 // NewHttp returns a Http.
 func NewHttp() *Http {
 	r := &Http{
-		Routes: make(map[string]HttpRoute, 0),
+		Routes: make(map[string]HttpRoute),
 	}
 
 	return r
 }
+
+// false

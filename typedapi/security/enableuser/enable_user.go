@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Enable users.
 //
 // Enable users in the native realm.
+// By default, when you create users, they are enabled.
 package enableuser
 
 import (
@@ -82,8 +83,9 @@ func NewEnableUserFunc(tp elastictransport.Interface) NewEnableUser {
 // Enable users.
 //
 // Enable users in the native realm.
+// By default, when you create users, they are enabled.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-enable-user.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-enable-user
 func New(tp elastictransport.Interface) *EnableUser {
 	r := &EnableUser{
 		transport: tp,
@@ -297,7 +299,7 @@ func (r *EnableUser) Header(key, value string) *EnableUser {
 	return r
 }
 
-// Username The username of the user to enable
+// Username An identifier for the user.
 // API Name: username
 func (r *EnableUser) _username(username string) *EnableUser {
 	r.paramSet |= usernameMask

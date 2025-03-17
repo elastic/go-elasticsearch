@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 // Pivot type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/transform/_types/Transform.ts#L54-L68
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/transform/_types/Transform.ts#L54-L68
 type Pivot struct {
 	// Aggregations Defines how to aggregate the grouped data. The following aggregations are
 	// currently supported: average, bucket
@@ -41,9 +41,19 @@ type Pivot struct {
 // NewPivot returns a Pivot.
 func NewPivot() *Pivot {
 	r := &Pivot{
-		Aggregations: make(map[string]Aggregations, 0),
-		GroupBy:      make(map[string]PivotGroupByContainer, 0),
+		Aggregations: make(map[string]Aggregations),
+		GroupBy:      make(map[string]PivotGroupByContainer),
 	}
 
 	return r
+}
+
+// true
+
+type PivotVariant interface {
+	PivotCaster() *Pivot
+}
+
+func (s *Pivot) PivotCaster() *Pivot {
+	return s
 }

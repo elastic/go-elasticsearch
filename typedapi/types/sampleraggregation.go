@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SamplerAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L771-L780
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/aggregations/bucket.ts#L771-L780
 type SamplerAggregation struct {
 	// ShardSize Limits how many top-scoring documents are collected in the sample processed
 	// on each shard.
@@ -79,4 +79,14 @@ func NewSamplerAggregation() *SamplerAggregation {
 	r := &SamplerAggregation{}
 
 	return r
+}
+
+// true
+
+type SamplerAggregationVariant interface {
+	SamplerAggregationCaster() *SamplerAggregation
+}
+
+func (s *SamplerAggregation) SamplerAggregationCaster() *SamplerAggregation {
+	return s
 }

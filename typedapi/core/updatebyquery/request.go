@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package updatebyquery
 
@@ -30,14 +30,15 @@ import (
 
 // Request holds the request body struct for the package updatebyquery
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L227
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/update_by_query/UpdateByQueryRequest.ts#L37-L336
 type Request struct {
 
-	// Conflicts What to do if update by query hits version conflicts: `abort` or `proceed`.
+	// Conflicts The preferred behavior when update by query hits version conflicts: `abort`
+	// or `proceed`.
 	Conflicts *conflicts.Conflicts `json:"conflicts,omitempty"`
 	// MaxDocs The maximum number of documents to update.
 	MaxDocs *int64 `json:"max_docs,omitempty"`
-	// Query Specifies the documents to update using the Query DSL.
+	// Query The documents to update using the Query DSL.
 	Query *types.Query `json:"query,omitempty"`
 	// Script The script to run to update the document source or metadata when updating.
 	Script *types.Script `json:"script,omitempty"`

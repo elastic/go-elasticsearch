@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KuromojiReadingFormTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/kuromoji-plugin.ts#L42-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/kuromoji-plugin.ts#L42-L45
 type KuromojiReadingFormTokenFilter struct {
 	Type      string  `json:"type,omitempty"`
 	UseRomaji bool    `json:"use_romaji"`
@@ -101,4 +101,14 @@ func NewKuromojiReadingFormTokenFilter() *KuromojiReadingFormTokenFilter {
 	r := &KuromojiReadingFormTokenFilter{}
 
 	return r
+}
+
+// true
+
+type KuromojiReadingFormTokenFilterVariant interface {
+	KuromojiReadingFormTokenFilterCaster() *KuromojiReadingFormTokenFilter
+}
+
+func (s *KuromojiReadingFormTokenFilter) KuromojiReadingFormTokenFilterCaster() *KuromojiReadingFormTokenFilter {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // GeoDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/compound.ts#L210-L213
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/compound.ts#L210-L213
 type GeoDecayFunction struct {
 	DecayFunctionBaseGeoLocationDistance map[string]DecayPlacementGeoLocationDistance `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
@@ -69,8 +69,18 @@ func (s GeoDecayFunction) MarshalJSON() ([]byte, error) {
 // NewGeoDecayFunction returns a GeoDecayFunction.
 func NewGeoDecayFunction() *GeoDecayFunction {
 	r := &GeoDecayFunction{
-		DecayFunctionBaseGeoLocationDistance: make(map[string]DecayPlacementGeoLocationDistance, 0),
+		DecayFunctionBaseGeoLocationDistance: make(map[string]DecayPlacementGeoLocationDistance),
 	}
 
 	return r
+}
+
+// true
+
+type GeoDecayFunctionVariant interface {
+	GeoDecayFunctionCaster() *GeoDecayFunction
+}
+
+func (s *GeoDecayFunction) GeoDecayFunctionCaster() *GeoDecayFunction {
+	return s
 }

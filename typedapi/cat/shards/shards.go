@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns information about the shards in a cluster.
+// Get shard information.
+//
+// Get information about the shards in a cluster.
 // For data streams, the API returns information about the backing indices.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
@@ -38,6 +40,7 @@ import (
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/bytes"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 const (
@@ -78,12 +81,14 @@ func NewShardsFunc(tp elastictransport.Interface) NewShards {
 	}
 }
 
-// Returns information about the shards in a cluster.
+// Get shard information.
+//
+// Get information about the shards in a cluster.
 // For data streams, the API returns information about the backing indices.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-shards.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-shards
 func New(tp elastictransport.Interface) *Shards {
 	r := &Shards{
 		transport: tp,
@@ -323,15 +328,6 @@ func (r *Shards) Bytes(bytes bytes.Bytes) *Shards {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Shards) Format(format string) *Shards {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Shards) H(names ...string) *Shards {
@@ -340,22 +336,12 @@ func (r *Shards) H(names ...string) *Shards {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Shards) Help(help bool) *Shards {
-	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *Shards) Local(local bool) *Shards {
-	r.values.Set("local", strconv.FormatBool(local))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Shards) S(names ...string) *Shards {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -368,12 +354,28 @@ func (r *Shards) MasterTimeout(duration string) *Shards {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Shards) S(names ...string) *Shards {
-	r.values.Set("s", strings.Join(names, ","))
+// Time Unit used to display time values.
+// API name: time
+func (r *Shards) Time(time timeunit.TimeUnit) *Shards {
+	r.values.Set("time", time.String())
+
+	return r
+}
+
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Shards) Format(format string) *Shards {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Shards) Help(help bool) *Shards {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

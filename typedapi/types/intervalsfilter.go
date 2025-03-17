@@ -16,14 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // IntervalsFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/fulltext.ts#L112-L152
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/fulltext.ts#L112-L152
 type IntervalsFilter struct {
+	AdditionalIntervalsFilterProperty map[string]json.RawMessage `json:"-"`
 	// After Query used to return intervals that follow an interval from the `filter`
 	// rule.
 	After *Intervals `json:"after,omitempty"`
@@ -53,9 +59,50 @@ type IntervalsFilter struct {
 	Script *Script `json:"script,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s IntervalsFilter) MarshalJSON() ([]byte, error) {
+	type opt IntervalsFilter
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalIntervalsFilterProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalIntervalsFilterProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewIntervalsFilter returns a IntervalsFilter.
 func NewIntervalsFilter() *IntervalsFilter {
-	r := &IntervalsFilter{}
+	r := &IntervalsFilter{
+		AdditionalIntervalsFilterProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type IntervalsFilterVariant interface {
+	IntervalsFilterCaster() *IntervalsFilter
+}
+
+func (s *IntervalsFilter) IntervalsFilterCaster() *IntervalsFilter {
+	return s
 }

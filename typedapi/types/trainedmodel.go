@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 // TrainedModel type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/put_trained_model/types.ts#L60-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/put_trained_model/types.ts#L60-L72
 type TrainedModel struct {
 	// Ensemble The definition for an ensemble model
 	Ensemble *Ensemble `json:"ensemble,omitempty"`
@@ -41,4 +41,14 @@ func NewTrainedModel() *TrainedModel {
 	r := &TrainedModel{}
 
 	return r
+}
+
+// true
+
+type TrainedModelVariant interface {
+	TrainedModelCaster() *TrainedModel
+}
+
+func (s *TrainedModel) TrainedModelCaster() *TrainedModel {
+	return s
 }

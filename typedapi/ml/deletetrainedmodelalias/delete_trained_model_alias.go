@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Delete a trained model alias.
+//
 // This API deletes an existing model alias that refers to a trained model. If
 // the model alias is missing or refers to a model other than the one identified
 // by the `model_id`, this API returns an error.
@@ -85,11 +86,12 @@ func NewDeleteTrainedModelAliasFunc(tp elastictransport.Interface) NewDeleteTrai
 }
 
 // Delete a trained model alias.
+//
 // This API deletes an existing model alias that refers to a trained model. If
 // the model alias is missing or refers to a model other than the one identified
 // by the `model_id`, this API returns an error.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-trained-models-aliases.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-trained-model-alias
 func New(tp elastictransport.Interface) *DeleteTrainedModelAlias {
 	r := &DeleteTrainedModelAlias{
 		transport: tp,

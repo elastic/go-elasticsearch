@@ -16,14 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // ProcessorContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Processors.ts#L27-L297
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ingest/_types/Processors.ts#L28-L302
 type ProcessorContainer struct {
+	AdditionalProcessorContainerProperty map[string]json.RawMessage `json:"-"`
 	// Append Appends one or more values to an existing array if the field already exists
 	// and it is an array.
 	// Converts a scalar to an array and appends one or more values to it if the
@@ -116,6 +122,8 @@ type ProcessorContainer struct {
 	// language processing tasks to infer against the data that is being ingested in
 	// the pipeline.
 	Inference *InferenceProcessor `json:"inference,omitempty"`
+	// IpLocation Currently an undocumented alias for GeoIP Processor.
+	IpLocation *IpLocationProcessor `json:"ip_location,omitempty"`
 	// Join Joins each element of an array into a single string using a separator
 	// character between each element.
 	// Throws an error when the field is not an array.
@@ -209,9 +217,50 @@ type ProcessorContainer struct {
 	UserAgent *UserAgentProcessor `json:"user_agent,omitempty"`
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s ProcessorContainer) MarshalJSON() ([]byte, error) {
+	type opt ProcessorContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalProcessorContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalProcessorContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewProcessorContainer returns a ProcessorContainer.
 func NewProcessorContainer() *ProcessorContainer {
-	r := &ProcessorContainer{}
+	r := &ProcessorContainer{
+		AdditionalProcessorContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type ProcessorContainerVariant interface {
+	ProcessorContainerCaster() *ProcessorContainer
+}
+
+func (s *ProcessorContainer) ProcessorContainerCaster() *ProcessorContainer {
+	return s
 }

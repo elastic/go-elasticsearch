@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DatafeedRunningState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Datafeed.ts#L200-L214
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Datafeed.ts#L210-L224
 type DatafeedRunningState struct {
 	// RealTimeConfigured Indicates if the datafeed is "real-time"; meaning that the datafeed has no
 	// configured `end` time.
@@ -104,3 +104,5 @@ func NewDatafeedRunningState() *DatafeedRunningState {
 
 	return r
 }
+
+// false

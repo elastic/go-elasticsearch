@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,11 +31,13 @@ import (
 
 // Limits type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/info/types.ts#L34-L38
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/info/types.ts#L34-L40
 type Limits struct {
-	EffectiveMaxModelMemoryLimit string  `json:"effective_max_model_memory_limit"`
-	MaxModelMemoryLimit          *string `json:"max_model_memory_limit,omitempty"`
-	TotalMlMemory                string  `json:"total_ml_memory"`
+	EffectiveMaxModelMemoryLimit ByteSize `json:"effective_max_model_memory_limit,omitempty"`
+	MaxModelMemoryLimit          ByteSize `json:"max_model_memory_limit,omitempty"`
+	MaxSingleMlNodeProcessors    *int     `json:"max_single_ml_node_processors,omitempty"`
+	TotalMlMemory                ByteSize `json:"total_ml_memory"`
+	TotalMlProcessors            *int     `json:"total_ml_processors,omitempty"`
 }
 
 func (s *Limits) UnmarshalJSON(data []byte) error {
@@ -54,40 +56,51 @@ func (s *Limits) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "effective_max_model_memory_limit":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.EffectiveMaxModelMemoryLimit); err != nil {
 				return fmt.Errorf("%s | %w", "EffectiveMaxModelMemoryLimit", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.EffectiveMaxModelMemoryLimit = o
 
 		case "max_model_memory_limit":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.MaxModelMemoryLimit); err != nil {
 				return fmt.Errorf("%s | %w", "MaxModelMemoryLimit", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+
+		case "max_single_ml_node_processors":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxSingleMlNodeProcessors", err)
+				}
+				s.MaxSingleMlNodeProcessors = &value
+			case float64:
+				f := int(v)
+				s.MaxSingleMlNodeProcessors = &f
 			}
-			s.MaxModelMemoryLimit = &o
 
 		case "total_ml_memory":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.TotalMlMemory); err != nil {
 				return fmt.Errorf("%s | %w", "TotalMlMemory", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
+
+		case "total_ml_processors":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "TotalMlProcessors", err)
+				}
+				s.TotalMlProcessors = &value
+			case float64:
+				f := int(v)
+				s.TotalMlProcessors = &f
 			}
-			s.TotalMlMemory = o
 
 		}
 	}
@@ -100,3 +113,5 @@ func NewLimits() *Limits {
 
 	return r
 }
+
+// false

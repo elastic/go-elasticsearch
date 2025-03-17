@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns information about a snapshot.
+// Get snapshot information.
+//
+// NOTE: The `after` parameter and `next` field enable you to iterate through
+// snapshots with some consistency guarantees regarding concurrent creation or
+// deletion of snapshots.
+// It is guaranteed that any snapshot that exists at the beginning of the
+// iteration and is not concurrently deleted will be seen during the iteration.
+// Snapshots concurrently created may be seen during an iteration.
 package get
 
 import (
@@ -83,9 +90,16 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 	}
 }
 
-// Returns information about a snapshot.
+// Get snapshot information.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// NOTE: The `after` parameter and `next` field enable you to iterate through
+// snapshots with some consistency guarantees regarding concurrent creation or
+// deletion of snapshots.
+// It is guaranteed that any snapshot that exists at the beginning of the
+// iteration and is not concurrently deleted will be seen during the iteration.
+// Snapshots concurrently created may be seen during an iteration.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -301,8 +315,9 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// Repository Comma-separated list of snapshot repository names used to limit the request.
-// Wildcard (*) expressions are supported.
+// Repository A comma-separated list of snapshot repository names used to limit the
+// request.
+// Wildcard (`*`) expressions are supported.
 // API Name: repository
 func (r *Get) _repository(repository string) *Get {
 	r.paramSet |= repositoryMask
@@ -311,12 +326,13 @@ func (r *Get) _repository(repository string) *Get {
 	return r
 }
 
-// Snapshot Comma-separated list of snapshot names to retrieve. Also accepts wildcards
-// (*).
-// - To get information about all snapshots in a registered repository, use a
-// wildcard (*) or _all.
-// - To get information about any snapshots that are currently running, use
-// _current.
+// Snapshot A comma-separated list of snapshot names to retrieve
+// Wildcards (`*`) are supported.
+//
+// * To get information about all snapshots in a registered repository, use a
+// wildcard (`*`) or `_all`.
+// * To get information about any snapshots that are currently running, use
+// `_current`.
 // API Name: snapshot
 func (r *Get) _snapshot(snapshot string) *Get {
 	r.paramSet |= snapshotMask
@@ -325,7 +341,28 @@ func (r *Get) _snapshot(snapshot string) *Get {
 	return r
 }
 
-// IgnoreUnavailable If false, the request returns an error for any snapshots that are
+// After An offset identifier to start pagination from as returned by the next field
+// in the response body.
+// API name: after
+func (r *Get) After(after string) *Get {
+	r.values.Set("after", after)
+
+	return r
+}
+
+// FromSortValue The value of the current sort column at which to start retrieval.
+// It can be a string `snapshot-` or a repository name when sorting by snapshot
+// or repository name.
+// It can be a millisecond time value or a number when sorting by `index-` or
+// shard count.
+// API name: from_sort_value
+func (r *Get) FromSortValue(fromsortvalue string) *Get {
+	r.values.Set("from_sort_value", fromsortvalue)
+
+	return r
+}
+
+// IgnoreUnavailable If `false`, the request returns an error for any snapshots that are
 // unavailable.
 // API name: ignore_unavailable
 func (r *Get) IgnoreUnavailable(ignoreunavailable bool) *Get {
@@ -334,29 +371,11 @@ func (r *Get) IgnoreUnavailable(ignoreunavailable bool) *Get {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
-// API name: master_timeout
-func (r *Get) MasterTimeout(duration string) *Get {
-	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// Verbose If true, returns additional information about each snapshot such as the
-// version of Elasticsearch which took the snapshot, the start and end times of
-// the snapshot, and the number of shards snapshotted.
-// API name: verbose
-func (r *Get) Verbose(verbose bool) *Get {
-	r.values.Set("verbose", strconv.FormatBool(verbose))
-
-	return r
-}
-
-// IndexDetails If true, returns additional information about each index in the snapshot
-// comprising the number of shards in the index, the total size of the index in
-// bytes, and the maximum number of segments per shard in the index. Defaults to
-// false, meaning that this information is omitted.
+// IndexDetails If `true`, the response includes additional information about each index in
+// the snapshot comprising the number of shards in the index, the total size of
+// the index in bytes, and the maximum number of segments per shard in the
+// index.
+// The default is `false`, meaning that this information is omitted.
 // API name: index_details
 func (r *Get) IndexDetails(indexdetails bool) *Get {
 	r.values.Set("index_details", strconv.FormatBool(indexdetails))
@@ -364,7 +383,7 @@ func (r *Get) IndexDetails(indexdetails bool) *Get {
 	return r
 }
 
-// IndexNames If true, returns the name of each index in each snapshot.
+// IndexNames If `true`, the response includes the name of each index in each snapshot.
 // API name: index_names
 func (r *Get) IndexNames(indexnames bool) *Get {
 	r.values.Set("index_names", strconv.FormatBool(indexnames))
@@ -372,7 +391,7 @@ func (r *Get) IndexNames(indexnames bool) *Get {
 	return r
 }
 
-// IncludeRepository If true, returns the repository name in each snapshot.
+// IncludeRepository If `true`, the response includes the repository name in each snapshot.
 // API name: include_repository
 func (r *Get) IncludeRepository(includerepository bool) *Get {
 	r.values.Set("include_repository", strconv.FormatBool(includerepository))
@@ -380,38 +399,22 @@ func (r *Get) IncludeRepository(includerepository bool) *Get {
 	return r
 }
 
-// Sort Allows setting a sort order for the result. Defaults to start_time, i.e.
-// sorting by snapshot start time stamp.
-// API name: sort
-func (r *Get) Sort(sort snapshotsort.SnapshotSort) *Get {
-	r.values.Set("sort", sort.String())
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *Get) MasterTimeout(duration string) *Get {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
 
-// Size Maximum number of snapshots to return. Defaults to 0 which means return all
-// that match the request without limit.
-// API name: size
-func (r *Get) Size(size int) *Get {
-	r.values.Set("size", strconv.Itoa(size))
-
-	return r
-}
-
-// Order Sort order. Valid values are asc for ascending and desc for descending order.
-// Defaults to asc, meaning ascending order.
+// Order The sort order.
+// Valid values are `asc` for ascending and `desc` for descending order.
+// The default behavior is ascending order.
 // API name: order
 func (r *Get) Order(order sortorder.SortOrder) *Get {
 	r.values.Set("order", order.String())
-
-	return r
-}
-
-// After Offset identifier to start pagination from as returned by the next field in
-// the response body.
-// API name: after
-func (r *Get) After(after string) *Get {
-	r.values.Set("after", after)
 
 	return r
 }
@@ -426,25 +429,55 @@ func (r *Get) Offset(offset int) *Get {
 	return r
 }
 
-// FromSortValue Value of the current sort column at which to start retrieval. Can either be a
-// string snapshot- or repository name when sorting by snapshot or repository
-// name, a millisecond time value or a number when sorting by index- or shard
-// count.
-// API name: from_sort_value
-func (r *Get) FromSortValue(fromsortvalue string) *Get {
-	r.values.Set("from_sort_value", fromsortvalue)
+// Size The maximum number of snapshots to return.
+// The default is 0, which means to return all that match the request without
+// limit.
+// API name: size
+func (r *Get) Size(size int) *Get {
+	r.values.Set("size", strconv.Itoa(size))
 
 	return r
 }
 
-// SlmPolicyFilter Filter snapshots by a comma-separated list of SLM policy names that snapshots
-// belong to. Also accepts wildcards (*) and combinations of wildcards followed
-// by exclude patterns starting with -. To include snapshots not created by an
-// SLM policy you can use the special pattern _none that will match all
-// snapshots without an SLM policy.
+// SlmPolicyFilter Filter snapshots by a comma-separated list of snapshot lifecycle management
+// (SLM) policy names that snapshots belong to.
+//
+// You can use wildcards (`*`) and combinations of wildcards followed by exclude
+// patterns starting with `-`.
+// For example, the pattern `*,-policy-a-\*` will return all snapshots except
+// for those that were created by an SLM policy with a name starting with
+// `policy-a-`.
+// Note that the wildcard pattern `*` matches all snapshots created by an SLM
+// policy but not those snapshots that were not created by an SLM policy.
+// To include snapshots that were not created by an SLM policy, you can use the
+// special pattern `_none` that will match all snapshots without an SLM policy.
 // API name: slm_policy_filter
 func (r *Get) SlmPolicyFilter(name string) *Get {
 	r.values.Set("slm_policy_filter", name)
+
+	return r
+}
+
+// Sort The sort order for the result.
+// The default behavior is sorting by snapshot start time stamp.
+// API name: sort
+func (r *Get) Sort(sort snapshotsort.SnapshotSort) *Get {
+	r.values.Set("sort", sort.String())
+
+	return r
+}
+
+// Verbose If `true`, returns additional information about each snapshot such as the
+// version of Elasticsearch which took the snapshot, the start and end times of
+// the snapshot, and the number of shards snapshotted.
+//
+// NOTE: The parameters `size`, `order`, `after`, `from_sort_value`, `offset`,
+// `slm_policy_filter`, and `sort` are not supported when you set
+// `verbose=false` and the sort order for requests with `verbose=false` is
+// undefined.
+// API name: verbose
+func (r *Get) Verbose(verbose bool) *Get {
+	r.values.Set("verbose", strconv.FormatBool(verbose))
 
 	return r
 }

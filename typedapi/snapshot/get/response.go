@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package get
 
@@ -26,16 +26,20 @@ import (
 
 // Response holds the response body struct for the package get
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/get/SnapshotGetResponse.ts#L25-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/snapshot/get/SnapshotGetResponse.ts#L25-L47
 type Response struct {
 
+	// Next If the request contained a size limit and there might be more results, a
+	// `next` field will be added to the response.
+	// It can be used as the `after` query parameter to fetch additional results.
+	Next *string `json:"next,omitempty"`
 	// Remaining The number of remaining snapshots that were not returned due to size limits
-	// and that can be fetched by additional requests using the next field value.
+	// and that can be fetched by additional requests using the `next` field value.
 	Remaining int                          `json:"remaining"`
 	Responses []types.SnapshotResponseItem `json:"responses,omitempty"`
 	Snapshots []types.SnapshotInfo         `json:"snapshots,omitempty"`
-	// Total The total number of snapshots that match the request when ignoring size limit
-	// or after query parameter.
+	// Total The total number of snapshots that match the request when ignoring the size
+	// limit or `after` query parameter.
 	Total int `json:"total"`
 }
 

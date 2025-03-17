@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // FilteringAdvancedSnippet type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/connector/_types/Connector.ts#L192-L196
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/connector/_types/Connector.ts#L192-L196
 type FilteringAdvancedSnippet struct {
 	CreatedAt DateTime        `json:"created_at,omitempty"`
 	UpdatedAt DateTime        `json:"updated_at,omitempty"`
@@ -77,4 +77,14 @@ func NewFilteringAdvancedSnippet() *FilteringAdvancedSnippet {
 	r := &FilteringAdvancedSnippet{}
 
 	return r
+}
+
+// true
+
+type FilteringAdvancedSnippetVariant interface {
+	FilteringAdvancedSnippetCaster() *FilteringAdvancedSnippet
+}
+
+func (s *FilteringAdvancedSnippet) FilteringAdvancedSnippetCaster() *FilteringAdvancedSnippet {
+	return s
 }

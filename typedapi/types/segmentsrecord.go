@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SegmentsRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cat/segments/types.ts#L22-L107
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cat/segments/types.ts#L22-L107
 type SegmentsRecord struct {
 	// Committed If `true`, the segment is synced to disk.
 	// Segments that are synced can survive a hard reboot.
@@ -259,3 +259,5 @@ func NewSegmentsRecord() *SegmentsRecord {
 
 	return r
 }
+
+// false

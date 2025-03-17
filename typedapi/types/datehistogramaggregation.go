@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // DateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L202-L260
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/aggregations/bucket.ts#L202-L260
 type DateHistogramAggregation struct {
 	// CalendarInterval Calendar-aware interval.
 	// Can be specified using the unit name, such as `month`, or as a single unit
@@ -220,8 +220,18 @@ func (s *DateHistogramAggregation) UnmarshalJSON(data []byte) error {
 // NewDateHistogramAggregation returns a DateHistogramAggregation.
 func NewDateHistogramAggregation() *DateHistogramAggregation {
 	r := &DateHistogramAggregation{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type DateHistogramAggregationVariant interface {
+	DateHistogramAggregationCaster() *DateHistogramAggregation
+}
+
+func (s *DateHistogramAggregation) DateHistogramAggregationCaster() *DateHistogramAggregation {
+	return s
 }

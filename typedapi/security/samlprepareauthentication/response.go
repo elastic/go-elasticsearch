@@ -16,16 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package samlprepareauthentication
 
 // Response holds the response body struct for the package samlprepareauthentication
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/saml_prepare_authentication/Response.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/saml_prepare_authentication/Response.ts#L22-L37
 type Response struct {
-	Id       string `json:"id"`
-	Realm    string `json:"realm"`
+
+	// Id A unique identifier for the SAML Request to be stored by the caller of the
+	// API.
+	Id string `json:"id"`
+	// Realm The name of the Elasticsearch realm that was used to construct the
+	// authentication request.
+	Realm string `json:"realm"`
+	// Redirect The URL to redirect the user to.
 	Redirect string `json:"redirect"`
 }
 

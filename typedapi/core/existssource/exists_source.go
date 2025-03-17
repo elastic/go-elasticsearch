@@ -16,10 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Check for a document source.
-// Checks if a document's `_source` is stored.
+//
+// Check whether a document source exists in an index.
+// For example:
+//
+// ```
+// HEAD my-index-000001/_source/1
+// ```
+//
+// A document's source is not available if it is disabled in the mapping.
 package existssource
 
 import (
@@ -82,9 +90,17 @@ func NewExistsSourceFunc(tp elastictransport.Interface) NewExistsSource {
 }
 
 // Check for a document source.
-// Checks if a document's `_source` is stored.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-get.html
+// Check whether a document source exists in an index.
+// For example:
+//
+// ```
+// HEAD my-index-000001/_source/1
+// ```
+//
+// A document's source is not available if it is disabled in the mapping.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get
 func New(tp elastictransport.Interface) *ExistsSource {
 	r := &ExistsSource{
 		transport: tp,
@@ -251,7 +267,7 @@ func (r *ExistsSource) Header(key, value string) *ExistsSource {
 	return r
 }
 
-// Id Identifier of the document.
+// Id A unique identifier for the document.
 // API Name: id
 func (r *ExistsSource) _id(id string) *ExistsSource {
 	r.paramSet |= idMask
@@ -260,8 +276,8 @@ func (r *ExistsSource) _id(id string) *ExistsSource {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases.
-// Supports wildcards (`*`).
+// Index A comma-separated list of data streams, indices, and aliases.
+// It supports wildcards (`*`).
 // API Name: index
 func (r *ExistsSource) _index(index string) *ExistsSource {
 	r.paramSet |= indexMask
@@ -270,8 +286,8 @@ func (r *ExistsSource) _index(index string) *ExistsSource {
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference The node or shard the operation should be performed on.
+// By default, the operation is randomized between the shard replicas.
 // API name: preference
 func (r *ExistsSource) Preference(preference string) *ExistsSource {
 	r.values.Set("preference", preference)
@@ -279,7 +295,7 @@ func (r *ExistsSource) Preference(preference string) *ExistsSource {
 	return r
 }
 
-// Realtime If true, the request is real-time as opposed to near-real-time.
+// Realtime If `true`, the request is real-time as opposed to near-real-time.
 // API name: realtime
 func (r *ExistsSource) Realtime(realtime bool) *ExistsSource {
 	r.values.Set("realtime", strconv.FormatBool(realtime))
@@ -287,8 +303,10 @@ func (r *ExistsSource) Realtime(realtime bool) *ExistsSource {
 	return r
 }
 
-// Refresh If `true`, Elasticsearch refreshes all shards involved in the delete by query
-// after the request completes.
+// Refresh If `true`, the request refreshes the relevant shards before retrieving the
+// document.
+// Setting it to `true` should be done after careful thought and verification
+// that this does not cause a heavy load on the system (and slow down indexing).
 // API name: refresh
 func (r *ExistsSource) Refresh(refresh bool) *ExistsSource {
 	r.values.Set("refresh", strconv.FormatBool(refresh))
@@ -296,7 +314,7 @@ func (r *ExistsSource) Refresh(refresh bool) *ExistsSource {
 	return r
 }
 
-// Routing Target the specified primary shard.
+// Routing A custom value used to route operations to a specific shard.
 // API name: routing
 func (r *ExistsSource) Routing(routing string) *ExistsSource {
 	r.values.Set("routing", routing)
@@ -304,8 +322,8 @@ func (r *ExistsSource) Routing(routing string) *ExistsSource {
 	return r
 }
 
-// Source_ `true` or `false` to return the `_source` field or not, or a list of fields
-// to return.
+// Source_ Indicates whether to return the `_source` field (`true` or `false`) or lists
+// the fields to return.
 // API name: _source
 func (r *ExistsSource) Source_(sourceconfigparam string) *ExistsSource {
 	r.values.Set("_source", sourceconfigparam)
@@ -329,9 +347,8 @@ func (r *ExistsSource) SourceIncludes_(fields ...string) *ExistsSource {
 	return r
 }
 
-// Version Explicit version number for concurrency control.
-// The specified version must match the current version of the document for the
-// request to succeed.
+// Version The version number for concurrency control.
+// It must match the current version of the document for the request to succeed.
 // API name: version
 func (r *ExistsSource) Version(versionnumber string) *ExistsSource {
 	r.values.Set("version", versionnumber)
@@ -339,7 +356,7 @@ func (r *ExistsSource) Version(versionnumber string) *ExistsSource {
 	return r
 }
 
-// VersionType Specific version type: `external`, `external_gte`.
+// VersionType The version type.
 // API name: version_type
 func (r *ExistsSource) VersionType(versiontype versiontype.VersionType) *ExistsSource {
 	r.values.Set("version_type", versiontype.String())

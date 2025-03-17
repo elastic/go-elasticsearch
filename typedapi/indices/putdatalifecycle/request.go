@@ -16,22 +16,98 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package putdatalifecycle
 
 import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // Request holds the request body struct for the package putdatalifecycle
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L67
-type Request = types.DataStreamLifecycle
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/put_data_lifecycle/IndicesPutDataLifecycleRequest.ts#L25-L93
+type Request struct {
+
+	// DataRetention If defined, every document added to this data stream will be stored at least
+	// for this time frame.
+	// Any time after this duration the document could be deleted.
+	// When empty, every document in this data stream will be stored indefinitely.
+	DataRetention types.Duration `json:"data_retention,omitempty"`
+	// Downsampling The downsampling configuration to execute for the managed backing index after
+	// rollover.
+	Downsampling *types.DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+	// data stream. A data stream lifecycle
+	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	Enabled *bool `json:"enabled,omitempty"`
+}
 
 // NewRequest returns a Request
 func NewRequest() *Request {
-	r := types.NewDataStreamLifecycle()
+	r := &Request{}
 
 	return r
+}
+
+// FromJSON allows to load an arbitrary json into the request structure
+func (r *Request) FromJSON(data string) (*Request, error) {
+	var req Request
+	err := json.Unmarshal([]byte(data), &req)
+
+	if err != nil {
+		return nil, fmt.Errorf("could not deserialise json into Putdatalifecycle request: %w", err)
+	}
+
+	return &req, nil
+}
+
+func (s *Request) UnmarshalJSON(data []byte) error {
+	dec := json.NewDecoder(bytes.NewReader(data))
+
+	for {
+		t, err := dec.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+			return err
+		}
+
+		switch t {
+
+		case "data_retention":
+			if err := dec.Decode(&s.DataRetention); err != nil {
+				return fmt.Errorf("%s | %w", "DataRetention", err)
+			}
+
+		case "downsampling":
+			if err := dec.Decode(&s.Downsampling); err != nil {
+				return fmt.Errorf("%s | %w", "Downsampling", err)
+			}
+
+		case "enabled":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Enabled", err)
+				}
+				s.Enabled = &value
+			case bool:
+				s.Enabled = &v
+			}
+
+		}
+	}
+	return nil
 }

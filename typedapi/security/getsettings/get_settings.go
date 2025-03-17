@@ -16,21 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Retrieve settings for the security system indices
+// Get security index settings.
+//
+// Get the user-configurable settings for the security internal index
+// (`.security` and associated indices).
+// Only a subset of the index settings — those that are user-configurable—will
+// be shown.
+// This includes:
+//
+// * `index.auto_expand_replicas`
+// * `index.number_of_replicas`
 package getsettings
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -65,9 +77,18 @@ func NewGetSettingsFunc(tp elastictransport.Interface) NewGetSettings {
 	}
 }
 
-// Retrieve settings for the security system indices
+// Get security index settings.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-settings.html
+// Get the user-configurable settings for the security internal index
+// (`.security` and associated indices).
+// Only a subset of the index settings — those that are user-configurable—will
+// be shown.
+// This includes:
+//
+// * `index.auto_expand_replicas`
+// * `index.number_of_replicas`
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-settings
 func New(tp elastictransport.Interface) *GetSettings {
 	r := &GetSettings{
 		transport: tp,
@@ -180,8 +201,57 @@ func (r GetSettings) Perform(providedCtx context.Context) (*http.Response, error
 }
 
 // Do runs the request through the transport, handle the response and returns a getsettings.Response
-func (r GetSettings) Do(ctx context.Context) (bool, error) {
-	return r.IsSuccess(ctx)
+func (r GetSettings) Do(providedCtx context.Context) (*Response, error) {
+	var ctx context.Context
+	r.spanStarted = true
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		ctx = instrument.Start(providedCtx, "security.get_settings")
+		defer instrument.Close(ctx)
+	}
+	if ctx == nil {
+		ctx = providedCtx
+	}
+
+	response := NewResponse()
+
+	res, err := r.Perform(ctx)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode < 299 {
+		err = json.NewDecoder(res.Body).Decode(response)
+		if err != nil {
+			if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+				instrument.RecordError(ctx, err)
+			}
+			return nil, err
+		}
+
+		return response, nil
+	}
+
+	errorResponse := types.NewElasticsearchError()
+	err = json.NewDecoder(res.Body).Decode(errorResponse)
+	if err != nil {
+		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+			instrument.RecordError(ctx, err)
+		}
+		return nil, err
+	}
+
+	if errorResponse.Status == 0 {
+		errorResponse.Status = res.StatusCode
+	}
+
+	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
+		instrument.RecordError(ctx, errorResponse)
+	}
+	return nil, errorResponse
 }
 
 // IsSuccess allows to run a query with a context and retrieve the result as a boolean.
@@ -226,6 +296,60 @@ func (r GetSettings) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the GetSettings headers map.
 func (r *GetSettings) Header(key, value string) *GetSettings {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *GetSettings) MasterTimeout(duration string) *GetSettings {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
+// when they occur.
+// API name: error_trace
+func (r *GetSettings) ErrorTrace(errortrace bool) *GetSettings {
+	r.values.Set("error_trace", strconv.FormatBool(errortrace))
+
+	return r
+}
+
+// FilterPath Comma-separated list of filters in dot notation which reduce the response
+// returned by Elasticsearch.
+// API name: filter_path
+func (r *GetSettings) FilterPath(filterpaths ...string) *GetSettings {
+	tmp := []string{}
+	for _, item := range filterpaths {
+		tmp = append(tmp, fmt.Sprintf("%v", item))
+	}
+	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *GetSettings) Human(human bool) *GetSettings {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *GetSettings) Pretty(pretty bool) *GetSettings {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

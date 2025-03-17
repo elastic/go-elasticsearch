@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -29,47 +29,51 @@ import (
 	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/deploymentassignmentstate"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/trainingpriority"
 )
 
 // TrainedModelDeploymentStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/TrainedModel.ts#L61-L101
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/TrainedModel.ts#L62-L107
 type TrainedModelDeploymentStats struct {
+	AdaptiveAllocations *AdaptiveAllocationsSettings `json:"adaptive_allocations,omitempty"`
 	// AllocationStatus The detailed allocation status for the deployment.
-	AllocationStatus TrainedModelDeploymentAllocationStatus `json:"allocation_status"`
-	CacheSize        ByteSize                               `json:"cache_size,omitempty"`
+	AllocationStatus *TrainedModelDeploymentAllocationStatus `json:"allocation_status,omitempty"`
+	CacheSize        ByteSize                                `json:"cache_size,omitempty"`
 	// DeploymentId The unique identifier for the trained model deployment.
 	DeploymentId string `json:"deployment_id"`
 	// ErrorCount The sum of `error_count` for all nodes in the deployment.
-	ErrorCount int `json:"error_count"`
+	ErrorCount *int `json:"error_count,omitempty"`
 	// InferenceCount The sum of `inference_count` for all nodes in the deployment.
-	InferenceCount int `json:"inference_count"`
+	InferenceCount *int `json:"inference_count,omitempty"`
 	// ModelId The unique identifier for the trained model.
 	ModelId string `json:"model_id"`
 	// Nodes The deployment stats for each node that currently has the model allocated.
 	// In serverless, stats are reported for a single unnamed virtual node.
 	Nodes []TrainedModelDeploymentNodesStats `json:"nodes"`
 	// NumberOfAllocations The number of allocations requested.
-	NumberOfAllocations int `json:"number_of_allocations"`
+	NumberOfAllocations     *int                              `json:"number_of_allocations,omitempty"`
+	PeakThroughputPerMinute int64                             `json:"peak_throughput_per_minute"`
+	Priority                trainingpriority.TrainingPriority `json:"priority"`
 	// QueueCapacity The number of inference requests that can be queued before new requests are
 	// rejected.
-	QueueCapacity int `json:"queue_capacity"`
+	QueueCapacity *int `json:"queue_capacity,omitempty"`
 	// Reason The reason for the current deployment state. Usually only populated when
 	// the model is not deployed to a node.
-	Reason string `json:"reason"`
+	Reason *string `json:"reason,omitempty"`
 	// RejectedExecutionCount The sum of `rejected_execution_count` for all nodes in the deployment.
 	// Individual nodes reject an inference request if the inference queue is full.
 	// The queue size is controlled by the `queue_capacity` setting in the start
 	// trained model deployment API.
-	RejectedExecutionCount int `json:"rejected_execution_count"`
+	RejectedExecutionCount *int `json:"rejected_execution_count,omitempty"`
 	// StartTime The epoch timestamp when the deployment started.
 	StartTime int64 `json:"start_time"`
 	// State The overall state of the deployment.
-	State deploymentassignmentstate.DeploymentAssignmentState `json:"state"`
+	State *deploymentassignmentstate.DeploymentAssignmentState `json:"state,omitempty"`
 	// ThreadsPerAllocation The number of threads used be each allocation during inference.
-	ThreadsPerAllocation int `json:"threads_per_allocation"`
+	ThreadsPerAllocation *int `json:"threads_per_allocation,omitempty"`
 	// TimeoutCount The sum of `timeout_count` for all nodes in the deployment.
-	TimeoutCount int `json:"timeout_count"`
+	TimeoutCount *int `json:"timeout_count,omitempty"`
 }
 
 func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
@@ -86,6 +90,11 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "adaptive_allocations":
+			if err := dec.Decode(&s.AdaptiveAllocations); err != nil {
+				return fmt.Errorf("%s | %w", "AdaptiveAllocations", err)
+			}
 
 		case "allocation_status":
 			if err := dec.Decode(&s.AllocationStatus); err != nil {
@@ -112,10 +121,10 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "ErrorCount", err)
 				}
-				s.ErrorCount = value
+				s.ErrorCount = &value
 			case float64:
 				f := int(v)
-				s.ErrorCount = f
+				s.ErrorCount = &f
 			}
 
 		case "inference_count":
@@ -128,10 +137,10 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "InferenceCount", err)
 				}
-				s.InferenceCount = value
+				s.InferenceCount = &value
 			case float64:
 				f := int(v)
-				s.InferenceCount = f
+				s.InferenceCount = &f
 			}
 
 		case "model_id":
@@ -154,10 +163,30 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "NumberOfAllocations", err)
 				}
-				s.NumberOfAllocations = value
+				s.NumberOfAllocations = &value
 			case float64:
 				f := int(v)
-				s.NumberOfAllocations = f
+				s.NumberOfAllocations = &f
+			}
+
+		case "peak_throughput_per_minute":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseInt(v, 10, 64)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "PeakThroughputPerMinute", err)
+				}
+				s.PeakThroughputPerMinute = value
+			case float64:
+				f := int64(v)
+				s.PeakThroughputPerMinute = f
+			}
+
+		case "priority":
+			if err := dec.Decode(&s.Priority); err != nil {
+				return fmt.Errorf("%s | %w", "Priority", err)
 			}
 
 		case "queue_capacity":
@@ -170,10 +199,10 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "QueueCapacity", err)
 				}
-				s.QueueCapacity = value
+				s.QueueCapacity = &value
 			case float64:
 				f := int(v)
-				s.QueueCapacity = f
+				s.QueueCapacity = &f
 			}
 
 		case "reason":
@@ -186,7 +215,7 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Reason = o
+			s.Reason = &o
 
 		case "rejected_execution_count":
 
@@ -198,10 +227,10 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "RejectedExecutionCount", err)
 				}
-				s.RejectedExecutionCount = value
+				s.RejectedExecutionCount = &value
 			case float64:
 				f := int(v)
-				s.RejectedExecutionCount = f
+				s.RejectedExecutionCount = &f
 			}
 
 		case "start_time":
@@ -224,10 +253,10 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "ThreadsPerAllocation", err)
 				}
-				s.ThreadsPerAllocation = value
+				s.ThreadsPerAllocation = &value
 			case float64:
 				f := int(v)
-				s.ThreadsPerAllocation = f
+				s.ThreadsPerAllocation = &f
 			}
 
 		case "timeout_count":
@@ -240,10 +269,10 @@ func (s *TrainedModelDeploymentStats) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "TimeoutCount", err)
 				}
-				s.TimeoutCount = value
+				s.TimeoutCount = &value
 			case float64:
 				f := int(v)
-				s.TimeoutCount = f
+				s.TimeoutCount = &f
 			}
 
 		}
@@ -257,3 +286,5 @@ func NewTrainedModelDeploymentStats() *TrainedModelDeploymentStats {
 
 	return r
 }
+
+// false

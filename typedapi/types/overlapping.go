@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // Overlapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L39-L42
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/simulate_template/IndicesSimulateTemplateResponse.ts#L39-L42
 type Overlapping struct {
 	IndexPatterns []string `json:"index_patterns"`
 	Name          string   `json:"name"`
@@ -72,3 +72,5 @@ func NewOverlapping() *Overlapping {
 
 	return r
 }
+
+// false

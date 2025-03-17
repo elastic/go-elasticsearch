@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package queryrole
 
@@ -33,12 +33,13 @@ import (
 
 // Request holds the request body struct for the package queryrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/query_role/QueryRolesRequest.ts#L25-L69
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/query_role/QueryRolesRequest.ts#L25-L85
 type Request struct {
 
-	// From Starting document offset.
-	// By default, you cannot page through more than 10,000 hits using the from and
-	// size parameters.
+	// From The starting document offset.
+	// It must not be negative.
+	// By default, you cannot page through more than 10,000 hits using the `from`
+	// and `size` parameters.
 	// To page through more hits, use the `search_after` parameter.
 	From *int `json:"from,omitempty"`
 	// Query A query to filter which roles to return.
@@ -48,17 +49,19 @@ type Request struct {
 	// `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
 	// You can query the following information associated with roles: `name`,
 	// `description`, `metadata`,
-	// `applications.application`, `applications.privileges`,
+	// `applications.application`, `applications.privileges`, and
 	// `applications.resources`.
 	Query *types.RoleQueryContainer `json:"query,omitempty"`
-	// SearchAfter Search after definition
+	// SearchAfter The search after definition.
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
 	// Size The number of hits to return.
+	// It must not be negative.
 	// By default, you cannot page through more than 10,000 hits using the `from`
 	// and `size` parameters.
 	// To page through more hits, use the `search_after` parameter.
 	Size *int `json:"size,omitempty"`
-	// Sort All public fields of a role are eligible for sorting.
+	// Sort The sort definition.
+	// You can sort on `username`, `roles`, or `enabled`.
 	// In addition, sort can also be applied to the `_doc` field to sort by index
 	// order.
 	Sort []types.SortCombinations `json:"sort,omitempty"`

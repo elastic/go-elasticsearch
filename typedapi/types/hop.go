@@ -16,20 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 // Hop type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/graph/_types/Hop.ts#L23-L36
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/graph/_types/Hop.ts#L23-L36
 type Hop struct {
 	// Connections Specifies one or more fields from which you want to extract terms that are
 	// associated with the specified vertices.
 	Connections *Hop `json:"connections,omitempty"`
 	// Query An optional guiding query that constrains the Graph API as it explores
 	// connected terms.
-	Query Query `json:"query"`
+	Query *Query `json:"query,omitempty"`
 	// Vertices Contains the fields you are interested in.
 	Vertices []VertexDefinition `json:"vertices"`
 }
@@ -39,4 +39,14 @@ func NewHop() *Hop {
 	r := &Hop{}
 
 	return r
+}
+
+// true
+
+type HopVariant interface {
+	HopCaster() *Hop
+}
+
+func (s *Hop) HopCaster() *Hop {
+	return s
 }

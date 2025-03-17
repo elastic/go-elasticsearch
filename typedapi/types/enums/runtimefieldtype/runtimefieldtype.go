@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Package runtimefieldtype
 package runtimefieldtype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/mapping/RuntimeFields.ts#L62-L72
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/mapping/RuntimeFields.ts#L62-L73
 type RuntimeFieldType struct {
 	Name string
 }
@@ -38,6 +38,8 @@ var (
 	Double = RuntimeFieldType{"double"}
 
 	Geopoint = RuntimeFieldType{"geo_point"}
+
+	Geoshape = RuntimeFieldType{"geo_shape"}
 
 	Ip = RuntimeFieldType{"ip"}
 
@@ -65,6 +67,8 @@ func (r *RuntimeFieldType) UnmarshalText(text []byte) error {
 		*r = Double
 	case "geo_point":
 		*r = Geopoint
+	case "geo_shape":
+		*r = Geoshape
 	case "ip":
 		*r = Ip
 	case "keyword":

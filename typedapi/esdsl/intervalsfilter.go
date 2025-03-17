@@ -1,0 +1,132 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+
+package esdsl
+
+import (
+	"encoding/json"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+)
+
+type _intervalsFilter struct {
+	v *types.IntervalsFilter
+}
+
+func NewIntervalsFilter() *_intervalsFilter {
+	return &_intervalsFilter{v: types.NewIntervalsFilter()}
+}
+
+// AdditionalIntervalsFilterProperty is a single key dictionnary.
+// It will replace the current value on each call.
+func (s *_intervalsFilter) AdditionalIntervalsFilterProperty(key string, value json.RawMessage) *_intervalsFilter {
+
+	tmp := make(map[string]json.RawMessage)
+
+	tmp[key] = value
+
+	s.v.AdditionalIntervalsFilterProperty = tmp
+	return s
+}
+
+// Query used to return intervals that follow an interval from the `filter`
+// rule.
+func (s *_intervalsFilter) After(after types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.After = after.IntervalsCaster()
+
+	return s
+}
+
+// Query used to return intervals that occur before an interval from the
+// `filter` rule.
+func (s *_intervalsFilter) Before(before types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.Before = before.IntervalsCaster()
+
+	return s
+}
+
+// Query used to return intervals contained by an interval from the `filter`
+// rule.
+func (s *_intervalsFilter) ContainedBy(containedby types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.ContainedBy = containedby.IntervalsCaster()
+
+	return s
+}
+
+// Query used to return intervals that contain an interval from the `filter`
+// rule.
+func (s *_intervalsFilter) Containing(containing types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.Containing = containing.IntervalsCaster()
+
+	return s
+}
+
+// Query used to return intervals that are **not** contained by an interval from
+// the `filter` rule.
+func (s *_intervalsFilter) NotContainedBy(notcontainedby types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.NotContainedBy = notcontainedby.IntervalsCaster()
+
+	return s
+}
+
+// Query used to return intervals that do **not** contain an interval from the
+// `filter` rule.
+func (s *_intervalsFilter) NotContaining(notcontaining types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.NotContaining = notcontaining.IntervalsCaster()
+
+	return s
+}
+
+// Query used to return intervals that do **not** overlap with an interval from
+// the `filter` rule.
+func (s *_intervalsFilter) NotOverlapping(notoverlapping types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.NotOverlapping = notoverlapping.IntervalsCaster()
+
+	return s
+}
+
+// Query used to return intervals that overlap with an interval from the
+// `filter` rule.
+func (s *_intervalsFilter) Overlapping(overlapping types.IntervalsVariant) *_intervalsFilter {
+
+	s.v.Overlapping = overlapping.IntervalsCaster()
+
+	return s
+}
+
+// Script used to return matching documents.
+// This script must return a boolean value: `true` or `false`.
+func (s *_intervalsFilter) Script(script types.ScriptVariant) *_intervalsFilter {
+
+	s.v.Script = script.ScriptCaster()
+
+	return s
+}
+
+func (s *_intervalsFilter) IntervalsFilterCaster() *types.IntervalsFilter {
+	return s.v
+}

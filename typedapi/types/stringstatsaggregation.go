@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StringStatsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/metric.ts#L293-L299
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/aggregations/metric.ts#L293-L299
 type StringStatsAggregation struct {
 	// Field The field on which to run the aggregation.
 	Field *string `json:"field,omitempty"`
@@ -97,4 +97,14 @@ func NewStringStatsAggregation() *StringStatsAggregation {
 	r := &StringStatsAggregation{}
 
 	return r
+}
+
+// true
+
+type StringStatsAggregationVariant interface {
+	StringStatsAggregationCaster() *StringStatsAggregation
+}
+
+func (s *StringStatsAggregation) StringStatsAggregationCaster() *StringStatsAggregation {
+	return s
 }

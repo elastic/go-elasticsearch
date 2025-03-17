@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ScheduleTriggerEvent type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Schedule.ts#L93-L96
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/_types/Schedule.ts#L94-L97
 type ScheduleTriggerEvent struct {
 	ScheduledTime DateTime `json:"scheduled_time"`
 	TriggeredTime DateTime `json:"triggered_time,omitempty"`
@@ -71,4 +71,14 @@ func NewScheduleTriggerEvent() *ScheduleTriggerEvent {
 	r := &ScheduleTriggerEvent{}
 
 	return r
+}
+
+// true
+
+type ScheduleTriggerEventVariant interface {
+	ScheduleTriggerEventCaster() *ScheduleTriggerEvent
+}
+
+func (s *ScheduleTriggerEvent) ScheduleTriggerEventCaster() *ScheduleTriggerEvent {
+	return s
 }

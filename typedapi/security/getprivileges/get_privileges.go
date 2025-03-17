@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get application privileges.
+//
+// To use this API, you must have one of the following privileges:
+//
+// * The `read_security` cluster privilege (or a greater privilege such as
+// `manage_security` or `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
 package getprivileges
 
 import (
@@ -79,7 +86,14 @@ func NewGetPrivilegesFunc(tp elastictransport.Interface) NewGetPrivileges {
 
 // Get application privileges.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-privileges.html
+// To use this API, you must have one of the following privileges:
+//
+// * The `read_security` cluster privilege (or a greater privilege such as
+// `manage_security` or `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-privileges
 func New(tp elastictransport.Interface) *GetPrivileges {
 	r := &GetPrivileges{
 		transport: tp,
@@ -317,7 +331,10 @@ func (r *GetPrivileges) Header(key, value string) *GetPrivileges {
 	return r
 }
 
-// Application Application name
+// Application The name of the application.
+// Application privileges are always associated with exactly one application.
+// If you do not specify this parameter, the API returns information about all
+// privileges for all applications.
 // API Name: application
 func (r *GetPrivileges) Application(application string) *GetPrivileges {
 	r.paramSet |= applicationMask
@@ -326,7 +343,9 @@ func (r *GetPrivileges) Application(application string) *GetPrivileges {
 	return r
 }
 
-// Name Privilege name
+// Name The name of the privilege.
+// If you do not specify this parameter, the API returns information about all
+// privileges for the requested application.
 // API Name: name
 func (r *GetPrivileges) Name(name string) *GetPrivileges {
 	r.paramSet |= nameMask

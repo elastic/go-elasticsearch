@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // Script type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Scripting.ts#L73-L97
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Scripting.ts#L75-L99
 type Script struct {
 	// Id The `id` for a stored script.
 	Id *string `json:"id,omitempty"`
@@ -120,9 +120,19 @@ func (s *Script) UnmarshalJSON(data []byte) error {
 // NewScript returns a Script.
 func NewScript() *Script {
 	r := &Script{
-		Options: make(map[string]string, 0),
-		Params:  make(map[string]json.RawMessage, 0),
+		Options: make(map[string]string),
+		Params:  make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type ScriptVariant interface {
+	ScriptCaster() *Script
+}
+
+func (s *Script) ScriptCaster() *Script {
+	return s
 }

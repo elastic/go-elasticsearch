@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Creates the enrich index for an existing enrich policy.
+// Run an enrich policy.
+// Create the enrich index for an existing enrich policy.
 package executepolicy
 
 import (
@@ -76,9 +77,10 @@ func NewExecutePolicyFunc(tp elastictransport.Interface) NewExecutePolicy {
 	}
 }
 
-// Creates the enrich index for an existing enrich policy.
+// Run an enrich policy.
+// Create the enrich index for an existing enrich policy.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/execute-enrich-policy-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-enrich-execute-policy
 func New(tp elastictransport.Interface) *ExecutePolicy {
 	r := &ExecutePolicy{
 		transport: tp,
@@ -297,6 +299,14 @@ func (r *ExecutePolicy) Header(key, value string) *ExecutePolicy {
 func (r *ExecutePolicy) _name(name string) *ExecutePolicy {
 	r.paramSet |= nameMask
 	r.name = name
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *ExecutePolicy) MasterTimeout(duration string) *ExecutePolicy {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

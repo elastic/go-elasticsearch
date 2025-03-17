@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Throttle a delete by query operation.
 //
@@ -90,7 +90,7 @@ func NewDeleteByQueryRethrottleFunc(tp elastictransport.Interface) NewDeleteByQu
 // rethrotting that slows down the query takes effect after completing the
 // current batch to prevent scroll timeouts.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-delete-by-query-rethrottle
 func New(tp elastictransport.Interface) *DeleteByQueryRethrottle {
 	r := &DeleteByQueryRethrottle{
 		transport: tp,
@@ -312,6 +312,7 @@ func (r *DeleteByQueryRethrottle) _taskid(taskid string) *DeleteByQueryRethrottl
 }
 
 // RequestsPerSecond The throttle for this request in sub-requests per second.
+// To disable throttling, set it to `-1`.
 // API name: requests_per_second
 func (r *DeleteByQueryRethrottle) RequestsPerSecond(requestspersecond string) *DeleteByQueryRethrottle {
 	r.values.Set("requests_per_second", requestspersecond)

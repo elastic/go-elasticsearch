@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CommandCancelAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/reroute/types.ts#L45-L50
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cluster/reroute/types.ts#L45-L50
 type CommandCancelAction struct {
 	AllowPrimary *bool  `json:"allow_primary,omitempty"`
 	Index        string `json:"index"`
@@ -111,4 +111,14 @@ func NewCommandCancelAction() *CommandCancelAction {
 	r := &CommandCancelAction{}
 
 	return r
+}
+
+// true
+
+type CommandCancelActionVariant interface {
+	CommandCancelActionCaster() *CommandCancelAction
+}
+
+func (s *CommandCancelAction) CommandCancelActionCaster() *CommandCancelAction {
+	return s
 }

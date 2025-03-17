@@ -16,29 +16,32 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package postdata
 
 // Response holds the response body struct for the package postdata
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/post_data/MlPostJobDataResponse.ts#L23-L41
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/post_data/MlPostJobDataResponse.ts#L24-L45
 type Response struct {
-	BucketCount              int64  `json:"bucket_count"`
-	EarliestRecordTimestamp  int64  `json:"earliest_record_timestamp"`
-	EmptyBucketCount         int64  `json:"empty_bucket_count"`
-	InputBytes               int64  `json:"input_bytes"`
-	InputFieldCount          int64  `json:"input_field_count"`
-	InputRecordCount         int64  `json:"input_record_count"`
-	InvalidDateCount         int64  `json:"invalid_date_count"`
-	JobId                    string `json:"job_id"`
-	LastDataTime             int    `json:"last_data_time"`
-	LatestRecordTimestamp    int64  `json:"latest_record_timestamp"`
-	MissingFieldCount        int64  `json:"missing_field_count"`
-	OutOfOrderTimestampCount int64  `json:"out_of_order_timestamp_count"`
-	ProcessedFieldCount      int64  `json:"processed_field_count"`
-	ProcessedRecordCount     int64  `json:"processed_record_count"`
-	SparseBucketCount        int64  `json:"sparse_bucket_count"`
+	BucketCount                 int64  `json:"bucket_count"`
+	EarliestRecordTimestamp     *int64 `json:"earliest_record_timestamp,omitempty"`
+	EmptyBucketCount            int64  `json:"empty_bucket_count"`
+	InputBytes                  int64  `json:"input_bytes"`
+	InputFieldCount             int64  `json:"input_field_count"`
+	InputRecordCount            int64  `json:"input_record_count"`
+	InvalidDateCount            int64  `json:"invalid_date_count"`
+	JobId                       string `json:"job_id"`
+	LastDataTime                *int64 `json:"last_data_time,omitempty"`
+	LatestEmptyBucketTimestamp  *int64 `json:"latest_empty_bucket_timestamp,omitempty"`
+	LatestRecordTimestamp       *int64 `json:"latest_record_timestamp,omitempty"`
+	LatestSparseBucketTimestamp *int64 `json:"latest_sparse_bucket_timestamp,omitempty"`
+	LogTime                     *int64 `json:"log_time,omitempty"`
+	MissingFieldCount           int64  `json:"missing_field_count"`
+	OutOfOrderTimestampCount    int64  `json:"out_of_order_timestamp_count"`
+	ProcessedFieldCount         int64  `json:"processed_field_count"`
+	ProcessedRecordCount        int64  `json:"processed_record_count"`
+	SparseBucketCount           int64  `json:"sparse_bucket_count"`
 }
 
 // NewResponse returns a Response

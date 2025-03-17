@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,11 +30,13 @@ import (
 
 // AzureRepository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/SnapshotRepository.ts#L40-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/snapshot/_types/SnapshotRepository.ts#L40-L50
 type AzureRepository struct {
-	Settings AzureRepositorySettings `json:"settings"`
-	Type     string                  `json:"type,omitempty"`
-	Uuid     *string                 `json:"uuid,omitempty"`
+	// Settings The repository settings.
+	Settings *AzureRepositorySettings `json:"settings,omitempty"`
+	// Type The Azure repository type.
+	Type string  `json:"type,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
 }
 
 func (s *AzureRepository) UnmarshalJSON(data []byte) error {
@@ -91,4 +93,14 @@ func NewAzureRepository() *AzureRepository {
 	r := &AzureRepository{}
 
 	return r
+}
+
+// true
+
+type AzureRepositoryVariant interface {
+	AzureRepositoryCaster() *AzureRepository
+}
+
+func (s *AzureRepository) AzureRepositoryCaster() *AzureRepository {
+	return s
 }

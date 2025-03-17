@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -29,12 +29,13 @@ import (
 	"strconv"
 
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/healthstatus"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexmode"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/managedby"
 )
 
 // DataStream type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/DataStream.ts#L45-L127
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/DataStream.ts#L53-L139
 type DataStream struct {
 	// AllowCustomRouting If `true`, the data stream allows custom routing on write request.
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
@@ -54,6 +55,9 @@ type DataStream struct {
 	// policies. To retrieve the lifecycle policy for individual backing indices,
 	// use the get index settings API.
 	IlmPolicy *string `json:"ilm_policy,omitempty"`
+	// IndexMode The index mode for the data stream that will be used for newly created
+	// backing indices.
+	IndexMode *indexmode.IndexMode `json:"index_mode,omitempty"`
 	// Indices Array of objects containing information about the data stream’s backing
 	// indices.
 	// The last item in this array contains information about the stream’s current
@@ -164,6 +168,11 @@ func (s *DataStream) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "IlmPolicy", err)
 			}
 
+		case "index_mode":
+			if err := dec.Decode(&s.IndexMode); err != nil {
+				return fmt.Errorf("%s | %w", "IndexMode", err)
+			}
+
 		case "indices":
 			if err := dec.Decode(&s.Indices); err != nil {
 				return fmt.Errorf("%s | %w", "Indices", err)
@@ -271,3 +280,5 @@ func NewDataStream() *DataStream {
 
 	return r
 }
+
+// false

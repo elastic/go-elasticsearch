@@ -16,12 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get tokens from text analysis.
-// The analyze API performs
-// [analysis](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html)
-// on a text string and returns the resulting tokens.
+// The analyze API performs analysis on a text string and returns the resulting
+// tokens.
+//
+// Generating excessive amount of tokens may cause a node to run out of memory.
+// The `index.analyze.max_token_count` setting enables you to limit the number
+// of tokens that can be produced.
+// If more than this limit of tokens gets generated, an error occurs.
+// The `_analyze` endpoint without a specified index will always use `10000` as
+// its limit.
 package analyze
 
 import (
@@ -83,11 +89,17 @@ func NewAnalyzeFunc(tp elastictransport.Interface) NewAnalyze {
 }
 
 // Get tokens from text analysis.
-// The analyze API performs
-// [analysis](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html)
-// on a text string and returns the resulting tokens.
+// The analyze API performs analysis on a text string and returns the resulting
+// tokens.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-analyze.html
+// Generating excessive amount of tokens may cause a node to run out of memory.
+// The `index.analyze.max_token_count` setting enables you to limit the number
+// of tokens that can be produced.
+// If more than this limit of tokens gets generated, an error occurs.
+// The `_analyze` endpoint without a specified index will always use `10000` as
+// its limit.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-analyze
 func New(tp elastictransport.Interface) *Analyze {
 	r := &Analyze{
 		transport: tp,
@@ -95,8 +107,6 @@ func New(tp elastictransport.Interface) *Analyze {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -369,83 +379,132 @@ func (r *Analyze) Pretty(pretty bool) *Analyze {
 	return r
 }
 
-// Analyzer The name of the analyzer that should be applied to the provided `text`.
+// The name of the analyzer that should be applied to the provided `text`.
 // This could be a built-in analyzer, or an analyzer that’s been configured in
 // the index.
 // API name: analyzer
 func (r *Analyze) Analyzer(analyzer string) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Analyzer = &analyzer
 
 	return r
 }
 
-// Attributes Array of token attributes used to filter the output of the `explain`
+// Array of token attributes used to filter the output of the `explain`
 // parameter.
 // API name: attributes
 func (r *Analyze) Attributes(attributes ...string) *Analyze {
-	r.req.Attributes = attributes
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range attributes {
 
+		r.req.Attributes = append(r.req.Attributes, v)
+
+	}
 	return r
 }
 
-// CharFilter Array of character filters used to preprocess characters before the
+// Array of character filters used to preprocess characters before the
 // tokenizer.
 // API name: char_filter
-func (r *Analyze) CharFilter(charfilters ...types.CharFilter) *Analyze {
-	r.req.CharFilter = charfilters
+func (r *Analyze) CharFilter(charfilters ...types.CharFilterVariant) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range charfilters {
 
+		r.req.CharFilter = append(r.req.CharFilter, *v.CharFilterCaster())
+
+	}
 	return r
 }
 
-// Explain If `true`, the response includes token attributes and additional details.
+// If `true`, the response includes token attributes and additional details.
 // API name: explain
 func (r *Analyze) Explain(explain bool) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Explain = &explain
 
 	return r
 }
 
-// Field Field used to derive the analyzer.
+// Field used to derive the analyzer.
 // To use this parameter, you must specify an index.
 // If specified, the `analyzer` parameter overrides this value.
 // API name: field
 func (r *Analyze) Field(field string) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Field = &field
 
 	return r
 }
 
-// Filter Array of token filters used to apply after the tokenizer.
+// Array of token filters used to apply after the tokenizer.
 // API name: filter
-func (r *Analyze) Filter(filters ...types.TokenFilter) *Analyze {
-	r.req.Filter = filters
+func (r *Analyze) Filter(filters ...types.TokenFilterVariant) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range filters {
 
+		r.req.Filter = append(r.req.Filter, *v.TokenFilterCaster())
+
+	}
 	return r
 }
 
-// Normalizer Normalizer to use to convert text into a single token.
+// Normalizer to use to convert text into a single token.
 // API name: normalizer
 func (r *Analyze) Normalizer(normalizer string) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Normalizer = &normalizer
 
 	return r
 }
 
-// Text Text to analyze.
+// Text to analyze.
 // If an array of strings is provided, it is analyzed as a multi-value field.
 // API name: text
 func (r *Analyze) Text(texttoanalyzes ...string) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Text = texttoanalyzes
 
 	return r
 }
 
-// Tokenizer Tokenizer to use to convert text into tokens.
+// Tokenizer to use to convert text into tokens.
 // API name: tokenizer
-func (r *Analyze) Tokenizer(tokenizer types.Tokenizer) *Analyze {
-	r.req.Tokenizer = tokenizer
+func (r *Analyze) Tokenizer(tokenizer types.TokenizerVariant) *Analyze {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Tokenizer = *tokenizer.TokenizerCaster()
 
 	return r
 }

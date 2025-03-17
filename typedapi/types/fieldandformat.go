@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // FieldAndFormat type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/abstractions.ts#L528-L542
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/abstractions.ts#L535-L549
 type FieldAndFormat struct {
-	// Field Wildcard pattern. The request returns values for field names matching this
+	// Field A wildcard pattern. The request returns values for field names matching this
 	// pattern.
 	Field string `json:"field"`
-	// Format Format in which the values are returned.
+	// Format The format in which the values are returned.
 	Format          *string `json:"format,omitempty"`
 	IncludeUnmapped *bool   `json:"include_unmapped,omitempty"`
 }
@@ -109,4 +109,14 @@ func NewFieldAndFormat() *FieldAndFormat {
 	r := &FieldAndFormat{}
 
 	return r
+}
+
+// true
+
+type FieldAndFormatVariant interface {
+	FieldAndFormatCaster() *FieldAndFormat
+}
+
+func (s *FieldAndFormat) FieldAndFormatCaster() *FieldAndFormat {
+	return s
 }

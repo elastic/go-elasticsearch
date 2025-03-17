@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -26,15 +26,17 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // ComponentTemplateNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/_types/ComponentTemplate.ts#L32-L37
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cluster/_types/ComponentTemplate.ts#L32-L41
 type ComponentTemplateNode struct {
-	Meta_    Metadata                 `json:"_meta,omitempty"`
-	Template ComponentTemplateSummary `json:"template"`
-	Version  *int64                   `json:"version,omitempty"`
+	Deprecated *bool                    `json:"deprecated,omitempty"`
+	Meta_      Metadata                 `json:"_meta,omitempty"`
+	Template   ComponentTemplateSummary `json:"template"`
+	Version    *int64                   `json:"version,omitempty"`
 }
 
 func (s *ComponentTemplateNode) UnmarshalJSON(data []byte) error {
@@ -51,6 +53,20 @@ func (s *ComponentTemplateNode) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "deprecated":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Deprecated", err)
+				}
+				s.Deprecated = &value
+			case bool:
+				s.Deprecated = &v
+			}
 
 		case "_meta":
 			if err := dec.Decode(&s.Meta_); err != nil {
@@ -77,4 +93,14 @@ func NewComponentTemplateNode() *ComponentTemplateNode {
 	r := &ComponentTemplateNode{}
 
 	return r
+}
+
+// true
+
+type ComponentTemplateNodeVariant interface {
+	ComponentTemplateNodeCaster() *ComponentTemplateNode
+}
+
+func (s *ComponentTemplateNode) ComponentTemplateNodeCaster() *ComponentTemplateNode {
+	return s
 }

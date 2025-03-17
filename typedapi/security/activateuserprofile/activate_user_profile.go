@@ -16,11 +16,32 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Activate a user profile.
 //
 // Create or update a user profile on behalf of another user.
+//
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// The calling application must have either an `access_token` or a combination
+// of `username` and `password` for the user that the profile document is
+// intended for.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
+//
+// This API creates or updates a profile document for end users with information
+// that is extracted from the user's authentication object including `username`,
+// `full_name,` `roles`, and the authentication realm.
+// For example, in the JWT `access_token` case, the profile user's `username` is
+// extracted from the JWT token claim pointed to by the `claims.principal`
+// setting of the JWT realm that authenticated the token.
+//
+// When updating a profile document, the API enables the document if it was
+// disabled.
+// Any updates do not change existing content for either the `labels` or `data`
+// fields.
 package activateuserprofile
 
 import (
@@ -80,7 +101,28 @@ func NewActivateUserProfileFunc(tp elastictransport.Interface) NewActivateUserPr
 //
 // Create or update a user profile on behalf of another user.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-activate-user-profile.html
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// The calling application must have either an `access_token` or a combination
+// of `username` and `password` for the user that the profile document is
+// intended for.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
+//
+// This API creates or updates a profile document for end users with information
+// that is extracted from the user's authentication object including `username`,
+// `full_name,` `roles`, and the authentication realm.
+// For example, in the JWT `access_token` case, the profile user's `username` is
+// extracted from the JWT token claim pointed to by the `claims.principal`
+// setting of the JWT realm that authenticated the token.
+//
+// When updating a profile document, the API enables the document if it was
+// disabled.
+// Any updates do not change existing content for either the `labels` or `data`
+// fields.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-activate-user-profile
 func New(tp elastictransport.Interface) *ActivateUserProfile {
 	r := &ActivateUserProfile{
 		transport: tp,
@@ -88,8 +130,6 @@ func New(tp elastictransport.Interface) *ActivateUserProfile {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -343,31 +383,58 @@ func (r *ActivateUserProfile) Pretty(pretty bool) *ActivateUserProfile {
 	return r
 }
 
+// The user's Elasticsearch access token or JWT.
+// Both `access` and `id` JWT token types are supported and they depend on the
+// underlying JWT realm configuration.
+// If you specify the `access_token` grant type, this parameter is required.
+// It is not valid with other grant types.
 // API name: access_token
 func (r *ActivateUserProfile) AccessToken(accesstoken string) *ActivateUserProfile {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.AccessToken = &accesstoken
 
 	return r
 }
 
+// The type of grant.
 // API name: grant_type
 func (r *ActivateUserProfile) GrantType(granttype granttype.GrantType) *ActivateUserProfile {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.GrantType = granttype
-
 	return r
 }
 
+// The user's password.
+// If you specify the `password` grant type, this parameter is required.
+// It is not valid with other grant types.
 // API name: password
 func (r *ActivateUserProfile) Password(password string) *ActivateUserProfile {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Password = &password
 
 	return r
 }
 
+// The username that identifies the user.
+// If you specify the `password` grant type, this parameter is required.
+// It is not valid with other grant types.
 // API name: username
 func (r *ActivateUserProfile) Username(username string) *ActivateUserProfile {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Username = &username
 

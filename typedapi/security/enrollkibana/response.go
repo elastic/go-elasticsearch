@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package enrollkibana
 
@@ -26,8 +26,13 @@ import (
 
 // Response holds the response body struct for the package enrollkibana
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/enroll_kibana/Response.ts#L20-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/enroll_kibana/Response.ts#L20-L29
 type Response struct {
+
+	// HttpCa The CA certificate used to sign the node certificates that Elasticsearch uses
+	// for TLS on the HTTP layer.
+	// The certificate is returned as a Base64 encoded string of the ASN.1 DER
+	// encoding of the certificate.
 	HttpCa string            `json:"http_ca"`
 	Token  types.KibanaToken `json:"token"`
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexRoutingAllocationDisk type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/IndexRouting.ts#L62-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/IndexRouting.ts#L62-L64
 type IndexRoutingAllocationDisk struct {
 	ThresholdEnabled string `json:"threshold_enabled,omitempty"`
 }
@@ -73,4 +73,14 @@ func NewIndexRoutingAllocationDisk() *IndexRoutingAllocationDisk {
 	r := &IndexRoutingAllocationDisk{}
 
 	return r
+}
+
+// true
+
+type IndexRoutingAllocationDiskVariant interface {
+	IndexRoutingAllocationDiskCaster() *IndexRoutingAllocationDisk
+}
+
+func (s *IndexRoutingAllocationDisk) IndexRoutingAllocationDiskCaster() *IndexRoutingAllocationDisk {
+	return s
 }

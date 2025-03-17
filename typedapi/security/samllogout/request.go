@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package samllogout
 
@@ -27,7 +27,7 @@ import (
 
 // Request holds the request body struct for the package samllogout
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/saml_logout/Request.ts#L22-L43
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/saml_logout/Request.ts#L22-L57
 type Request struct {
 
 	// RefreshToken The refresh token that was returned as a response to calling the SAML
@@ -38,7 +38,7 @@ type Request struct {
 	// Token The access token that was returned as a response to calling the SAML
 	// authenticate API.
 	// Alternatively, the most recent token that was received after refreshing the
-	// original one by using a refresh_token.
+	// original one by using a `refresh_token`.
 	Token string `json:"token"`
 }
 

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package invalidateapikey
 
@@ -26,12 +26,18 @@ import (
 
 // Response holds the response body struct for the package invalidateapikey
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/invalidate_api_key/SecurityInvalidateApiKeyResponse.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/invalidate_api_key/SecurityInvalidateApiKeyResponse.ts#L23-L46
 type Response struct {
-	ErrorCount                   int                `json:"error_count"`
-	ErrorDetails                 []types.ErrorCause `json:"error_details,omitempty"`
-	InvalidatedApiKeys           []string           `json:"invalidated_api_keys"`
-	PreviouslyInvalidatedApiKeys []string           `json:"previously_invalidated_api_keys"`
+
+	// ErrorCount The number of errors that were encountered when invalidating the API keys.
+	ErrorCount int `json:"error_count"`
+	// ErrorDetails Details about the errors.
+	// This field is not present in the response when `error_count` is `0`.
+	ErrorDetails []types.ErrorCause `json:"error_details,omitempty"`
+	// InvalidatedApiKeys The IDs of the API keys that were invalidated as part of this request.
+	InvalidatedApiKeys []string `json:"invalidated_api_keys"`
+	// PreviouslyInvalidatedApiKeys The IDs of the API keys that were already invalidated.
+	PreviouslyInvalidatedApiKeys []string `json:"previously_invalidated_api_keys"`
 }
 
 // NewResponse returns a Response

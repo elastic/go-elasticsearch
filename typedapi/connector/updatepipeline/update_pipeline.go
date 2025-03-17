@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Update the connector pipeline.
 //
@@ -89,7 +89,7 @@ func NewUpdatePipelineFunc(tp elastictransport.Interface) NewUpdatePipeline {
 // When you create a new connector, the configuration of an ingest pipeline is
 // populated with default settings.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-pipeline-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-pipeline
 func New(tp elastictransport.Interface) *UpdatePipeline {
 	r := &UpdatePipeline{
 		transport: tp,
@@ -97,8 +97,6 @@ func New(tp elastictransport.Interface) *UpdatePipeline {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -366,9 +364,13 @@ func (r *UpdatePipeline) Pretty(pretty bool) *UpdatePipeline {
 }
 
 // API name: pipeline
-func (r *UpdatePipeline) Pipeline(pipeline *types.IngestPipelineParams) *UpdatePipeline {
+func (r *UpdatePipeline) Pipeline(pipeline types.IngestPipelineParamsVariant) *UpdatePipeline {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Pipeline = *pipeline
+	r.req.Pipeline = *pipeline.IngestPipelineParamsCaster()
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TargetMeanEncodingPreprocessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/put_trained_model/types.ts#L49-L54
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/put_trained_model/types.ts#L49-L54
 type TargetMeanEncodingPreprocessor struct {
 	DefaultValue Float64            `json:"default_value"`
 	FeatureName  string             `json:"feature_name"`
@@ -110,8 +110,18 @@ func (s *TargetMeanEncodingPreprocessor) UnmarshalJSON(data []byte) error {
 // NewTargetMeanEncodingPreprocessor returns a TargetMeanEncodingPreprocessor.
 func NewTargetMeanEncodingPreprocessor() *TargetMeanEncodingPreprocessor {
 	r := &TargetMeanEncodingPreprocessor{
-		TargetMap: make(map[string]Float64, 0),
+		TargetMap: make(map[string]Float64),
 	}
 
 	return r
+}
+
+// true
+
+type TargetMeanEncodingPreprocessorVariant interface {
+	TargetMeanEncodingPreprocessorCaster() *TargetMeanEncodingPreprocessor
+}
+
+func (s *TargetMeanEncodingPreprocessor) TargetMeanEncodingPreprocessorCaster() *TargetMeanEncodingPreprocessor {
+	return s
 }

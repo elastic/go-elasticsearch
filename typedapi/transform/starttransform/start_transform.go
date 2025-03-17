@@ -16,10 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Start a transform.
-// Starts a transform.
 //
 // When you start a transform, it creates the destination index if it does not
 // already exist. The `number_of_shards` is
@@ -105,7 +104,6 @@ func NewStartTransformFunc(tp elastictransport.Interface) NewStartTransform {
 }
 
 // Start a transform.
-// Starts a transform.
 //
 // When you start a transform, it creates the destination index if it does not
 // already exist. The `number_of_shards` is
@@ -134,7 +132,7 @@ func NewStartTransformFunc(tp elastictransport.Interface) NewStartTransform {
 // destination indices, the transform fails when it attempts unauthorized
 // operations.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/start-transform.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-start-transform
 func New(tp elastictransport.Interface) *StartTransform {
 	r := &StartTransform{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Create a behavioral analytics collection.
 package putbehavioralanalytics
@@ -78,7 +78,7 @@ func NewPutBehavioralAnalyticsFunc(tp elastictransport.Interface) NewPutBehavior
 
 // Create a behavioral analytics collection.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-analytics-collection.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-put-behavioral-analytics
 func New(tp elastictransport.Interface) *PutBehavioralAnalytics {
 	r := &PutBehavioralAnalytics{
 		transport: tp,

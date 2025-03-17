@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,11 +31,19 @@ import (
 
 // StandardAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/analyzers.ts#L341-L345
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/analyzers.ts#L382-L402
 type StandardAnalyzer struct {
-	MaxTokenLength *int     `json:"max_token_length,omitempty"`
-	Stopwords      []string `json:"stopwords,omitempty"`
-	Type           string   `json:"type,omitempty"`
+	// MaxTokenLength The maximum token length. If a token is seen that exceeds this length then it
+	// is split at `max_token_length` intervals.
+	// Defaults to `255`.
+	MaxTokenLength *int `json:"max_token_length,omitempty"`
+	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
+	// of stop words.
+	// Defaults to `_none_`.
+	Stopwords []string `json:"stopwords,omitempty"`
+	// StopwordsPath The path to a file containing stop words.
+	StopwordsPath *string `json:"stopwords_path,omitempty"`
+	Type          string  `json:"type,omitempty"`
 }
 
 func (s *StandardAnalyzer) UnmarshalJSON(data []byte) error {
@@ -85,6 +93,18 @@ func (s *StandardAnalyzer) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "stopwords_path":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "StopwordsPath", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.StopwordsPath = &o
+
 		case "type":
 			if err := dec.Decode(&s.Type); err != nil {
 				return fmt.Errorf("%s | %w", "Type", err)
@@ -101,6 +121,7 @@ func (s StandardAnalyzer) MarshalJSON() ([]byte, error) {
 	tmp := innerStandardAnalyzer{
 		MaxTokenLength: s.MaxTokenLength,
 		Stopwords:      s.Stopwords,
+		StopwordsPath:  s.StopwordsPath,
 		Type:           s.Type,
 	}
 
@@ -114,4 +135,14 @@ func NewStandardAnalyzer() *StandardAnalyzer {
 	r := &StandardAnalyzer{}
 
 	return r
+}
+
+// true
+
+type StandardAnalyzerVariant interface {
+	StandardAnalyzerCaster() *StandardAnalyzer
+}
+
+func (s *StandardAnalyzer) StandardAnalyzerCaster() *StandardAnalyzer {
+	return s
 }

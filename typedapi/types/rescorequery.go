@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RescoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/rescoring.ts#L40-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/search/_types/rescoring.ts#L40-L62
 type RescoreQuery struct {
 	// Query The query to use for rescoring.
 	// This query is only run on the Top-K results returned by the `query` and
@@ -114,4 +114,14 @@ func NewRescoreQuery() *RescoreQuery {
 	r := &RescoreQuery{}
 
 	return r
+}
+
+// true
+
+type RescoreQueryVariant interface {
+	RescoreQueryCaster() *RescoreQuery
+}
+
+func (s *RescoreQuery) RescoreQueryCaster() *RescoreQuery {
+	return s
 }

@@ -16,10 +16,21 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns the capabilities of any rollup jobs that have been configured for a
+// Get the rollup job capabilities.
+// Get the capabilities of any rollup jobs that have been configured for a
 // specific index or index pattern.
+//
+// This API is useful because a rollup job is often configured to rollup only a
+// subset of fields from the source index.
+// Furthermore, only certain aggregations can be configured for various fields,
+// leading to a limited subset of functionality depending on that configuration.
+// This API enables you to inspect an index and determine:
+//
+// 1. Does this index have associated rollup data somewhere in the cluster?
+// 2. If yes to the first question, what fields were rolled up, what
+// aggregations can be performed, and where does the data live?
 package getrollupcaps
 
 import (
@@ -75,10 +86,21 @@ func NewGetRollupCapsFunc(tp elastictransport.Interface) NewGetRollupCaps {
 	}
 }
 
-// Returns the capabilities of any rollup jobs that have been configured for a
+// Get the rollup job capabilities.
+// Get the capabilities of any rollup jobs that have been configured for a
 // specific index or index pattern.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/rollup-get-rollup-caps.html
+// This API is useful because a rollup job is often configured to rollup only a
+// subset of fields from the source index.
+// Furthermore, only certain aggregations can be configured for various fields,
+// leading to a limited subset of functionality depending on that configuration.
+// This API enables you to inspect an index and determine:
+//
+// 1. Does this index have associated rollup data somewhere in the cluster?
+// 2. If yes to the first question, what fields were rolled up, what
+// aggregations can be performed, and where does the data live?
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-rollup-get-rollup-caps
 func New(tp elastictransport.Interface) *GetRollupCaps {
 	r := &GetRollupCaps{
 		transport: tp,

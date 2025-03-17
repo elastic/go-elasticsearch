@@ -16,16 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Schedule a transform to start now.
-// Instantly runs a transform to process data.
 //
-// If you _schedule_now a transform, it will process the new data instantly,
-// without waiting for the configured frequency interval. After _schedule_now
-// API is called,
-// the transform will be processed again at now + frequency unless _schedule_now
-// API
+// Instantly run a transform to process data.
+// If you run this API, the transform will process the new data instantly,
+// without waiting for the configured frequency interval. After the API is
+// called,
+// the transform will be processed again at `now + frequency` unless the API
 // is called again in the meantime.
 package schedulenowtransform
 
@@ -85,16 +84,15 @@ func NewScheduleNowTransformFunc(tp elastictransport.Interface) NewScheduleNowTr
 }
 
 // Schedule a transform to start now.
-// Instantly runs a transform to process data.
 //
-// If you _schedule_now a transform, it will process the new data instantly,
-// without waiting for the configured frequency interval. After _schedule_now
-// API is called,
-// the transform will be processed again at now + frequency unless _schedule_now
-// API
+// Instantly run a transform to process data.
+// If you run this API, the transform will process the new data instantly,
+// without waiting for the configured frequency interval. After the API is
+// called,
+// the transform will be processed again at `now + frequency` unless the API
 // is called again in the meantime.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/schedule-now-transform.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-transform-schedule-now-transform
 func New(tp elastictransport.Interface) *ScheduleNowTransform {
 	r := &ScheduleNowTransform{
 		transport: tp,

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -28,15 +28,18 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/indexmode"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/managedby"
 )
 
 // DataStreamIndex type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/DataStream.ts#L136-L157
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/DataStream.ts#L148-L173
 type DataStreamIndex struct {
 	// IlmPolicy Name of the current ILM lifecycle policy configured for this backing index.
 	IlmPolicy *string `json:"ilm_policy,omitempty"`
+	// IndexMode The index mode of this backing index of the data stream.
+	IndexMode *indexmode.IndexMode `json:"index_mode,omitempty"`
 	// IndexName Name of the backing index.
 	IndexName string `json:"index_name"`
 	// IndexUuid Universally unique identifier (UUID) for the index.
@@ -66,6 +69,11 @@ func (s *DataStreamIndex) UnmarshalJSON(data []byte) error {
 		case "ilm_policy":
 			if err := dec.Decode(&s.IlmPolicy); err != nil {
 				return fmt.Errorf("%s | %w", "IlmPolicy", err)
+			}
+
+		case "index_mode":
+			if err := dec.Decode(&s.IndexMode); err != nil {
+				return fmt.Errorf("%s | %w", "IndexMode", err)
 			}
 
 		case "index_name":
@@ -108,3 +116,5 @@ func NewDataStreamIndex() *DataStreamIndex {
 
 	return r
 }
+
+// false

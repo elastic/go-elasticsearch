@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Update the connector configuration.
 //
@@ -87,7 +87,7 @@ func NewUpdateConfigurationFunc(tp elastictransport.Interface) NewUpdateConfigur
 //
 // Update the configuration field in the connector document.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-configuration-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-configuration
 func New(tp elastictransport.Interface) *UpdateConfiguration {
 	r := &UpdateConfiguration{
 		transport: tp,
@@ -95,8 +95,6 @@ func New(tp elastictransport.Interface) *UpdateConfiguration {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -364,16 +362,42 @@ func (r *UpdateConfiguration) Pretty(pretty bool) *UpdateConfiguration {
 }
 
 // API name: configuration
-func (r *UpdateConfiguration) Configuration(connectorconfiguration types.ConnectorConfiguration) *UpdateConfiguration {
-	r.req.Configuration = connectorconfiguration
+func (r *UpdateConfiguration) Configuration(connectorconfiguration types.ConnectorConfigurationVariant) *UpdateConfiguration {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Configuration = *connectorconfiguration.ConnectorConfigurationCaster()
 
 	return r
 }
 
 // API name: values
 func (r *UpdateConfiguration) Values(values map[string]json.RawMessage) *UpdateConfiguration {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Values = values
+	return r
+}
 
+func (r *UpdateConfiguration) AddValue(key string, value json.RawMessage) *UpdateConfiguration {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Values == nil {
+		r.req.Values = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Values
+	}
+
+	tmp[key] = value
+
+	r.req.Values = tmp
 	return r
 }

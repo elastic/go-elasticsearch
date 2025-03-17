@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeEvaluationRegressionMetricsHuber type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeEvaluation.ts#L117-L120
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/DataframeEvaluation.ts#L117-L120
 type DataframeEvaluationRegressionMetricsHuber struct {
 	// Delta Approximates 1/2 (prediction - actual)2 for values much less than delta and
 	// approximates a straight line with slope delta for values much larger than
@@ -80,4 +80,14 @@ func NewDataframeEvaluationRegressionMetricsHuber() *DataframeEvaluationRegressi
 	r := &DataframeEvaluationRegressionMetricsHuber{}
 
 	return r
+}
+
+// true
+
+type DataframeEvaluationRegressionMetricsHuberVariant interface {
+	DataframeEvaluationRegressionMetricsHuberCaster() *DataframeEvaluationRegressionMetricsHuber
+}
+
+func (s *DataframeEvaluationRegressionMetricsHuber) DataframeEvaluationRegressionMetricsHuberCaster() *DataframeEvaluationRegressionMetricsHuber {
+	return s
 }

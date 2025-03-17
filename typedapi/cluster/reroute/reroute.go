@@ -16,9 +16,37 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Allows to manually change the allocation of individual shards in the cluster.
+// Reroute the cluster.
+// Manually change the allocation of individual shards in the cluster.
+// For example, a shard can be moved from one node to another explicitly, an
+// allocation can be canceled, and an unassigned shard can be explicitly
+// allocated to a specific node.
+//
+// It is important to note that after processing any reroute commands
+// Elasticsearch will perform rebalancing as normal (respecting the values of
+// settings such as `cluster.routing.rebalance.enable`) in order to remain in a
+// balanced state.
+// For example, if the requested allocation includes moving a shard from node1
+// to node2 then this may cause a shard to be moved from node2 back to node1 to
+// even things out.
+//
+// The cluster can be set to disable allocations using the
+// `cluster.routing.allocation.enable` setting.
+// If allocations are disabled then the only allocations that will be performed
+// are explicit ones given using the reroute command, and consequent allocations
+// due to rebalancing.
+//
+// The cluster will attempt to allocate a shard a maximum of
+// `index.allocation.max_retries` times in a row (defaults to `5`), before
+// giving up and leaving the shard unallocated.
+// This scenario can be caused by structural problems such as having an analyzer
+// which refers to a stopwords file which doesn’t exist on all nodes.
+//
+// Once the problem has been corrected, allocation can be manually retried by
+// calling the reroute API with the `?retry_failed` URI query parameter, which
+// will attempt a single retry round for these shards.
 package reroute
 
 import (
@@ -73,9 +101,37 @@ func NewRerouteFunc(tp elastictransport.Interface) NewReroute {
 	}
 }
 
-// Allows to manually change the allocation of individual shards in the cluster.
+// Reroute the cluster.
+// Manually change the allocation of individual shards in the cluster.
+// For example, a shard can be moved from one node to another explicitly, an
+// allocation can be canceled, and an unassigned shard can be explicitly
+// allocated to a specific node.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.html
+// It is important to note that after processing any reroute commands
+// Elasticsearch will perform rebalancing as normal (respecting the values of
+// settings such as `cluster.routing.rebalance.enable`) in order to remain in a
+// balanced state.
+// For example, if the requested allocation includes moving a shard from node1
+// to node2 then this may cause a shard to be moved from node2 back to node1 to
+// even things out.
+//
+// The cluster can be set to disable allocations using the
+// `cluster.routing.allocation.enable` setting.
+// If allocations are disabled then the only allocations that will be performed
+// are explicit ones given using the reroute command, and consequent allocations
+// due to rebalancing.
+//
+// The cluster will attempt to allocate a shard a maximum of
+// `index.allocation.max_retries` times in a row (defaults to `5`), before
+// giving up and leaving the shard unallocated.
+// This scenario can be caused by structural problems such as having an analyzer
+// which refers to a stopwords file which doesn’t exist on all nodes.
+//
+// Once the problem has been corrected, allocation can be manually retried by
+// calling the reroute API with the `?retry_failed` URI query parameter, which
+// will attempt a single retry round for these shards.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-reroute
 func New(tp elastictransport.Interface) *Reroute {
 	r := &Reroute{
 		transport: tp,
@@ -83,8 +139,6 @@ func New(tp elastictransport.Interface) *Reroute {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -292,8 +346,11 @@ func (r *Reroute) Header(key, value string) *Reroute {
 	return r
 }
 
-// DryRun If true, then the request simulates the operation only and returns the
-// resulting state.
+// DryRun If true, then the request simulates the operation.
+// It will calculate the result of applying the commands to the current cluster
+// state and return the resulting cluster state after the commands (and
+// rebalancing) have been applied; it will not actually perform the requested
+// changes.
 // API name: dry_run
 func (r *Reroute) DryRun(dryrun bool) *Reroute {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))
@@ -302,7 +359,7 @@ func (r *Reroute) DryRun(dryrun bool) *Reroute {
 }
 
 // Explain If true, then the response contains an explanation of why the commands can or
-// cannot be executed.
+// cannot run.
 // API name: explain
 func (r *Reroute) Explain(explain bool) *Reroute {
 	r.values.Set("explain", strconv.FormatBool(explain))
@@ -389,10 +446,17 @@ func (r *Reroute) Pretty(pretty bool) *Reroute {
 	return r
 }
 
-// Commands Defines the commands to perform.
+// Defines the commands to perform.
 // API name: commands
-func (r *Reroute) Commands(commands ...types.Command) *Reroute {
-	r.req.Commands = commands
+func (r *Reroute) Commands(commands ...types.CommandVariant) *Reroute {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range commands {
 
+		r.req.Commands = append(r.req.Commands, *v.CommandCaster())
+
+	}
 	return r
 }

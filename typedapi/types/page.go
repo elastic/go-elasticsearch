@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Page type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Page.ts#L22-L33
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Page.ts#L22-L33
 type Page struct {
 	// From Skips the specified number of items.
 	From *int `json:"from,omitempty"`
@@ -96,4 +96,14 @@ func NewPage() *Page {
 	r := &Page{}
 
 	return r
+}
+
+// true
+
+type PageVariant interface {
+	PageCaster() *Page
+}
+
+func (s *Page) PageCaster() *Page {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SizeField type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/mapping/meta-fields.ts#L54-L56
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/mapping/meta-fields.ts#L54-L56
 type SizeField struct {
 	Enabled bool `json:"enabled"`
 }
@@ -75,4 +75,14 @@ func NewSizeField() *SizeField {
 	r := &SizeField{}
 
 	return r
+}
+
+// true
+
+type SizeFieldVariant interface {
+	SizeFieldCaster() *SizeField
+}
+
+func (s *SizeField) SizeFieldCaster() *SizeField {
+	return s
 }

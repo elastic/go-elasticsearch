@@ -16,9 +16,73 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Verifies the integrity of the contents of a snapshot repository
+// Verify the repository integrity.
+// Verify the integrity of the contents of a snapshot repository.
+//
+// This API enables you to perform a comprehensive check of the contents of a
+// repository, looking for any anomalies in its data or metadata which might
+// prevent you from restoring snapshots from the repository or which might cause
+// future snapshot create or delete operations to fail.
+//
+// If you suspect the integrity of the contents of one of your snapshot
+// repositories, cease all write activity to this repository immediately, set
+// its `read_only` option to `true`, and use this API to verify its integrity.
+// Until you do so:
+//
+// * It may not be possible to restore some snapshots from this repository.
+// * Searchable snapshots may report errors when searched or may have unassigned
+// shards.
+// * Taking snapshots into this repository may fail or may appear to succeed but
+// have created a snapshot which cannot be restored.
+// * Deleting snapshots from this repository may fail or may appear to succeed
+// but leave the underlying data on disk.
+// * Continuing to write to the repository while it is in an invalid state may
+// causing additional damage to its contents.
+//
+// If the API finds any problems with the integrity of the contents of your
+// repository, Elasticsearch will not be able to repair the damage.
+// The only way to bring the repository back into a fully working state after
+// its contents have been damaged is by restoring its contents from a repository
+// backup which was taken before the damage occurred.
+// You must also identify what caused the damage and take action to prevent it
+// from happening again.
+//
+// If you cannot restore a repository backup, register a new repository and use
+// this for all future snapshot operations.
+// In some cases it may be possible to recover some of the contents of a damaged
+// repository, either by restoring as many of its snapshots as needed and taking
+// new snapshots of the restored data, or by using the reindex API to copy data
+// from any searchable snapshots mounted from the damaged repository.
+//
+// Avoid all operations which write to the repository while the verify
+// repository integrity API is running.
+// If something changes the repository contents while an integrity verification
+// is running then Elasticsearch may incorrectly report having detected some
+// anomalies in its contents due to the concurrent writes.
+// It may also incorrectly fail to report some anomalies that the concurrent
+// writes prevented it from detecting.
+//
+// NOTE: This API is intended for exploratory use by humans. You should expect
+// the request parameters and the response format to vary in future versions.
+//
+// NOTE: This API may not work correctly in a mixed-version cluster.
+//
+// The default values for the parameters of this API are designed to limit the
+// impact of the integrity verification on other activities in your cluster.
+// For instance, by default it will only use at most half of the `snapshot_meta`
+// threads to verify the integrity of each snapshot, allowing other snapshot
+// operations to use the other half of this thread pool.
+// If you modify these parameters to speed up the verification process, you risk
+// disrupting other snapshot-related operations in your cluster.
+// For large repositories, consider setting up a separate single-node
+// Elasticsearch cluster just for running the integrity verification API.
+//
+// The response exposes implementation details of the analysis which may change
+// from version to version.
+// The response body format is therefore not considered stable and may be
+// different in newer versions.
 package repositoryverifyintegrity
 
 import (
@@ -76,9 +140,73 @@ func NewRepositoryVerifyIntegrityFunc(tp elastictransport.Interface) NewReposito
 	}
 }
 
-// Verifies the integrity of the contents of a snapshot repository
+// Verify the repository integrity.
+// Verify the integrity of the contents of a snapshot repository.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// This API enables you to perform a comprehensive check of the contents of a
+// repository, looking for any anomalies in its data or metadata which might
+// prevent you from restoring snapshots from the repository or which might cause
+// future snapshot create or delete operations to fail.
+//
+// If you suspect the integrity of the contents of one of your snapshot
+// repositories, cease all write activity to this repository immediately, set
+// its `read_only` option to `true`, and use this API to verify its integrity.
+// Until you do so:
+//
+// * It may not be possible to restore some snapshots from this repository.
+// * Searchable snapshots may report errors when searched or may have unassigned
+// shards.
+// * Taking snapshots into this repository may fail or may appear to succeed but
+// have created a snapshot which cannot be restored.
+// * Deleting snapshots from this repository may fail or may appear to succeed
+// but leave the underlying data on disk.
+// * Continuing to write to the repository while it is in an invalid state may
+// causing additional damage to its contents.
+//
+// If the API finds any problems with the integrity of the contents of your
+// repository, Elasticsearch will not be able to repair the damage.
+// The only way to bring the repository back into a fully working state after
+// its contents have been damaged is by restoring its contents from a repository
+// backup which was taken before the damage occurred.
+// You must also identify what caused the damage and take action to prevent it
+// from happening again.
+//
+// If you cannot restore a repository backup, register a new repository and use
+// this for all future snapshot operations.
+// In some cases it may be possible to recover some of the contents of a damaged
+// repository, either by restoring as many of its snapshots as needed and taking
+// new snapshots of the restored data, or by using the reindex API to copy data
+// from any searchable snapshots mounted from the damaged repository.
+//
+// Avoid all operations which write to the repository while the verify
+// repository integrity API is running.
+// If something changes the repository contents while an integrity verification
+// is running then Elasticsearch may incorrectly report having detected some
+// anomalies in its contents due to the concurrent writes.
+// It may also incorrectly fail to report some anomalies that the concurrent
+// writes prevented it from detecting.
+//
+// NOTE: This API is intended for exploratory use by humans. You should expect
+// the request parameters and the response format to vary in future versions.
+//
+// NOTE: This API may not work correctly in a mixed-version cluster.
+//
+// The default values for the parameters of this API are designed to limit the
+// impact of the integrity verification on other activities in your cluster.
+// For instance, by default it will only use at most half of the `snapshot_meta`
+// threads to verify the integrity of each snapshot, allowing other snapshot
+// operations to use the other half of this thread pool.
+// If you modify these parameters to speed up the verification process, you risk
+// disrupting other snapshot-related operations in your cluster.
+// For large repositories, consider setting up a separate single-node
+// Elasticsearch cluster just for running the integrity verification API.
+//
+// The response exposes implementation details of the analysis which may change
+// from version to version.
+// The response body format is therefore not considered stable and may be
+// different in newer versions.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-repository-verify-integrity
 func New(tp elastictransport.Interface) *RepositoryVerifyIntegrity {
 	r := &RepositoryVerifyIntegrity{
 		transport: tp,
@@ -290,7 +418,7 @@ func (r *RepositoryVerifyIntegrity) Header(key, value string) *RepositoryVerifyI
 	return r
 }
 
-// Repository A repository name
+// Repository The name of the snapshot repository.
 // API Name: repository
 func (r *RepositoryVerifyIntegrity) _repository(repository string) *RepositoryVerifyIntegrity {
 	r.paramSet |= repositoryMask
@@ -299,15 +427,8 @@ func (r *RepositoryVerifyIntegrity) _repository(repository string) *RepositoryVe
 	return r
 }
 
-// MetaThreadPoolConcurrency Number of threads to use for reading metadata
-// API name: meta_thread_pool_concurrency
-func (r *RepositoryVerifyIntegrity) MetaThreadPoolConcurrency(metathreadpoolconcurrency int) *RepositoryVerifyIntegrity {
-	r.values.Set("meta_thread_pool_concurrency", strconv.Itoa(metathreadpoolconcurrency))
-
-	return r
-}
-
-// BlobThreadPoolConcurrency Number of threads to use for reading blob contents
+// BlobThreadPoolConcurrency If `verify_blob_contents` is `true`, this parameter specifies how many blobs
+// to verify at once.
 // API name: blob_thread_pool_concurrency
 func (r *RepositoryVerifyIntegrity) BlobThreadPoolConcurrency(blobthreadpoolconcurrency int) *RepositoryVerifyIntegrity {
 	r.values.Set("blob_thread_pool_concurrency", strconv.Itoa(blobthreadpoolconcurrency))
@@ -315,23 +436,8 @@ func (r *RepositoryVerifyIntegrity) BlobThreadPoolConcurrency(blobthreadpoolconc
 	return r
 }
 
-// SnapshotVerificationConcurrency Number of snapshots to verify concurrently
-// API name: snapshot_verification_concurrency
-func (r *RepositoryVerifyIntegrity) SnapshotVerificationConcurrency(snapshotverificationconcurrency int) *RepositoryVerifyIntegrity {
-	r.values.Set("snapshot_verification_concurrency", strconv.Itoa(snapshotverificationconcurrency))
-
-	return r
-}
-
-// IndexVerificationConcurrency Number of indices to verify concurrently
-// API name: index_verification_concurrency
-func (r *RepositoryVerifyIntegrity) IndexVerificationConcurrency(indexverificationconcurrency int) *RepositoryVerifyIntegrity {
-	r.values.Set("index_verification_concurrency", strconv.Itoa(indexverificationconcurrency))
-
-	return r
-}
-
-// IndexSnapshotVerificationConcurrency Number of snapshots to verify concurrently within each index
+// IndexSnapshotVerificationConcurrency The maximum number of index snapshots to verify concurrently within each
+// index verification.
 // API name: index_snapshot_verification_concurrency
 func (r *RepositoryVerifyIntegrity) IndexSnapshotVerificationConcurrency(indexsnapshotverificationconcurrency int) *RepositoryVerifyIntegrity {
 	r.values.Set("index_snapshot_verification_concurrency", strconv.Itoa(indexsnapshotverificationconcurrency))
@@ -339,7 +445,28 @@ func (r *RepositoryVerifyIntegrity) IndexSnapshotVerificationConcurrency(indexsn
 	return r
 }
 
-// MaxFailedShardSnapshots Maximum permitted number of failed shard snapshots
+// IndexVerificationConcurrency The number of indices to verify concurrently.
+// The default behavior is to use the entire `snapshot_meta` thread pool.
+// API name: index_verification_concurrency
+func (r *RepositoryVerifyIntegrity) IndexVerificationConcurrency(indexverificationconcurrency int) *RepositoryVerifyIntegrity {
+	r.values.Set("index_verification_concurrency", strconv.Itoa(indexverificationconcurrency))
+
+	return r
+}
+
+// MaxBytesPerSec If `verify_blob_contents` is `true`, this parameter specifies the maximum
+// amount of data that Elasticsearch will read from the repository every second.
+// API name: max_bytes_per_sec
+func (r *RepositoryVerifyIntegrity) MaxBytesPerSec(maxbytespersec string) *RepositoryVerifyIntegrity {
+	r.values.Set("max_bytes_per_sec", maxbytespersec)
+
+	return r
+}
+
+// MaxFailedShardSnapshots The number of shard snapshot failures to track during integrity verification,
+// in order to avoid excessive resource usage.
+// If your repository contains more than this number of shard snapshot failures,
+// the verification will fail.
 // API name: max_failed_shard_snapshots
 func (r *RepositoryVerifyIntegrity) MaxFailedShardSnapshots(maxfailedshardsnapshots int) *RepositoryVerifyIntegrity {
 	r.values.Set("max_failed_shard_snapshots", strconv.Itoa(maxfailedshardsnapshots))
@@ -347,18 +474,33 @@ func (r *RepositoryVerifyIntegrity) MaxFailedShardSnapshots(maxfailedshardsnapsh
 	return r
 }
 
-// VerifyBlobContents Whether to verify the contents of individual blobs
-// API name: verify_blob_contents
-func (r *RepositoryVerifyIntegrity) VerifyBlobContents(verifyblobcontents bool) *RepositoryVerifyIntegrity {
-	r.values.Set("verify_blob_contents", strconv.FormatBool(verifyblobcontents))
+// MetaThreadPoolConcurrency The maximum number of snapshot metadata operations to run concurrently.
+// The default behavior is to use at most half of the `snapshot_meta` thread
+// pool at once.
+// API name: meta_thread_pool_concurrency
+func (r *RepositoryVerifyIntegrity) MetaThreadPoolConcurrency(metathreadpoolconcurrency int) *RepositoryVerifyIntegrity {
+	r.values.Set("meta_thread_pool_concurrency", strconv.Itoa(metathreadpoolconcurrency))
 
 	return r
 }
 
-// MaxBytesPerSec Rate limit for individual blob verification
-// API name: max_bytes_per_sec
-func (r *RepositoryVerifyIntegrity) MaxBytesPerSec(maxbytespersec string) *RepositoryVerifyIntegrity {
-	r.values.Set("max_bytes_per_sec", maxbytespersec)
+// SnapshotVerificationConcurrency The number of snapshots to verify concurrently.
+// The default behavior is to use at most half of the `snapshot_meta` thread
+// pool at once.
+// API name: snapshot_verification_concurrency
+func (r *RepositoryVerifyIntegrity) SnapshotVerificationConcurrency(snapshotverificationconcurrency int) *RepositoryVerifyIntegrity {
+	r.values.Set("snapshot_verification_concurrency", strconv.Itoa(snapshotverificationconcurrency))
+
+	return r
+}
+
+// VerifyBlobContents Indicates whether to verify the checksum of every data blob in the
+// repository.
+// If this feature is enabled, Elasticsearch will read the entire repository
+// contents, which may be extremely slow and expensive.
+// API name: verify_blob_contents
+func (r *RepositoryVerifyIntegrity) VerifyBlobContents(verifyblobcontents bool) *RepositoryVerifyIntegrity {
+	r.values.Set("verify_blob_contents", strconv.FormatBool(verifyblobcontents))
 
 	return r
 }

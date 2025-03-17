@@ -16,17 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package samlinvalidate
 
 // Response holds the response body struct for the package samlinvalidate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/saml_invalidate/Response.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/saml_invalidate/Response.ts#L22-L37
 type Response struct {
-	Invalidated int    `json:"invalidated"`
-	Realm       string `json:"realm"`
-	Redirect    string `json:"redirect"`
+
+	// Invalidated The number of tokens that were invalidated as part of this logout.
+	Invalidated int `json:"invalidated"`
+	// Realm The realm name of the SAML realm in Elasticsearch that authenticated the
+	// user.
+	Realm string `json:"realm"`
+	// Redirect A SAML logout response as a parameter so that the user can be redirected back
+	// to the SAML IdP.
+	Redirect string `json:"redirect"`
 }
 
 // NewResponse returns a Response

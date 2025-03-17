@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package getasync
 
@@ -28,35 +28,36 @@ import (
 
 // Response holds the response body struct for the package getasync
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/sql/get_async/SqlGetAsyncResponse.ts#L23-L60
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/sql/get_async/SqlGetAsyncResponse.ts#L23-L60
 type Response struct {
 
 	// Columns Column headings for the search results. Each object is a column.
 	Columns []types.Column `json:"columns,omitempty"`
-	// Cursor Cursor for the next set of paginated results. For CSV, TSV, and
-	// TXT responses, this value is returned in the `Cursor` HTTP header.
+	// Cursor The cursor for the next set of paginated results.
+	// For CSV, TSV, and TXT responses, this value is returned in the `Cursor` HTTP
+	// header.
 	Cursor *string `json:"cursor,omitempty"`
-	// Id Identifier for the search. This value is only returned for async and saved
-	// synchronous searches. For CSV, TSV, and TXT responses, this value is returned
-	// in the `Async-ID` HTTP header.
+	// Id Identifier for the search.
+	// This value is returned only for async and saved synchronous searches.
+	// For CSV, TSV, and TXT responses, this value is returned in the `Async-ID`
+	// HTTP header.
 	Id string `json:"id"`
-	// IsPartial If `true`, the response does not contain complete search results. If
-	// `is_partial`
-	// is `true` and `is_running` is `true`, the search is still running. If
-	// `is_partial`
-	// is `true` but `is_running` is `false`, the results are partial due to a
-	// failure or
-	// timeout. This value is only returned for async and saved synchronous
-	// searches.
+	// IsPartial If `true`, the response does not contain complete search results.
+	// If `is_partial` is `true` and `is_running` is `true`, the search is still
+	// running.
+	// If `is_partial` is `true` but `is_running` is `false`, the results are
+	// partial due to a failure or timeout.
+	// This value is returned only for async and saved synchronous searches.
 	// For CSV, TSV, and TXT responses, this value is returned in the
 	// `Async-partial` HTTP header.
 	IsPartial bool `json:"is_partial"`
-	// IsRunning If `true`, the search is still running. If false, the search has finished.
-	// This value is only returned for async and saved synchronous searches. For
-	// CSV, TSV, and TXT responses, this value is returned in the `Async-partial`
-	// HTTP header.
+	// IsRunning If `true`, the search is still running.
+	// If `false`, the search has finished.
+	// This value is returned only for async and saved synchronous searches.
+	// For CSV, TSV, and TXT responses, this value is returned in the
+	// `Async-partial` HTTP header.
 	IsRunning bool `json:"is_running"`
-	// Rows Values for the search results.
+	// Rows The values for the search results.
 	Rows [][]json.RawMessage `json:"rows"`
 }
 

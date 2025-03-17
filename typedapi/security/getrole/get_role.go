@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get roles.
 //
 // Get roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The get roles API cannot retrieve roles that are defined in roles files.
 package getrole
 
 import (
@@ -79,8 +82,11 @@ func NewGetRoleFunc(tp elastictransport.Interface) NewGetRole {
 // Get roles.
 //
 // Get roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The get roles API cannot retrieve roles that are defined in roles files.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-role.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-role
 func New(tp elastictransport.Interface) *GetRole {
 	r := &GetRole{
 		transport: tp,
@@ -299,9 +305,10 @@ func (r *GetRole) Header(key, value string) *GetRole {
 	return r
 }
 
-// Name The name of the role. You can specify multiple roles as a comma-separated
-// list. If you do not specify this parameter, the API returns information about
-// all roles.
+// Name The name of the role.
+// You can specify multiple roles as a comma-separated list.
+// If you do not specify this parameter, the API returns information about all
+// roles.
 // API Name: name
 func (r *GetRole) Name(name string) *GetRole {
 	r.paramSet |= nameMask

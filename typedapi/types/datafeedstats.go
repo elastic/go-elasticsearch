@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // DatafeedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Datafeed.ts#L142-L171
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Datafeed.ts#L143-L172
 type DatafeedStats struct {
 	// AssignmentExplanation For started datafeeds only, contains messages relating to the selection of a
 	// node.
@@ -45,7 +45,7 @@ type DatafeedStats struct {
 	DatafeedId string `json:"datafeed_id"`
 	// Node For started datafeeds only, this information pertains to the node upon which
 	// the datafeed is started.
-	Node *DiscoveryNode `json:"node,omitempty"`
+	Node *DiscoveryNodeCompact `json:"node,omitempty"`
 	// RunningState An object containing the running state for this datafeed.
 	// It is only provided if the datafeed is started.
 	RunningState *DatafeedRunningState `json:"running_state,omitempty"`
@@ -54,7 +54,7 @@ type DatafeedStats struct {
 	State datafeedstate.DatafeedState `json:"state"`
 	// TimingStats An object that provides statistical information about timing aspect of this
 	// datafeed.
-	TimingStats DatafeedTimingStats `json:"timing_stats"`
+	TimingStats *DatafeedTimingStats `json:"timing_stats,omitempty"`
 }
 
 func (s *DatafeedStats) UnmarshalJSON(data []byte) error {
@@ -120,3 +120,5 @@ func NewDatafeedStats() *DatafeedStats {
 
 	return r
 }
+
+// false

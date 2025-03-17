@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,12 +31,22 @@ import (
 
 // ParentTaskInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/tasks/_types/TaskListResponseBase.ts#L45-L47
 type ParentTaskInfo struct {
-	Action             string            `json:"action"`
-	Cancellable        bool              `json:"cancellable"`
-	Cancelled          *bool             `json:"cancelled,omitempty"`
-	Children           []TaskInfo        `json:"children,omitempty"`
+	Action      string     `json:"action"`
+	Cancellable bool       `json:"cancellable"`
+	Cancelled   *bool      `json:"cancelled,omitempty"`
+	Children    []TaskInfo `json:"children,omitempty"`
+	// Description Human readable text that identifies the particular request that the task is
+	// performing.
+	// For example, it might identify the search request being performed by a search
+	// task.
+	// Other kinds of tasks have different descriptions, like `_reindex` which has
+	// the source and the destination, or `_bulk` which just has the number of
+	// requests and the destination indices.
+	// Many requests will have only an empty description because more detailed
+	// information about the request is not easily available or particularly helpful
+	// in identifying the request.
 	Description        *string           `json:"description,omitempty"`
 	Headers            map[string]string `json:"headers"`
 	Id                 int64             `json:"id"`
@@ -45,7 +55,13 @@ type ParentTaskInfo struct {
 	RunningTime        Duration          `json:"running_time,omitempty"`
 	RunningTimeInNanos int64             `json:"running_time_in_nanos"`
 	StartTimeInMillis  int64             `json:"start_time_in_millis"`
-	// Status Task status information can vary wildly from task to task.
+	// Status The internal status of the task, which varies from task to task.
+	// The format also varies.
+	// While the goal is to keep the status for a particular task consistent from
+	// version to version, this is not always possible because sometimes the
+	// implementation changes.
+	// Fields might be removed from the status for a particular request so any
+	// parsing you do of the status might break in minor releases.
 	Status json.RawMessage `json:"status,omitempty"`
 	Type   string          `json:"type"`
 }
@@ -195,8 +211,10 @@ func (s *ParentTaskInfo) UnmarshalJSON(data []byte) error {
 // NewParentTaskInfo returns a ParentTaskInfo.
 func NewParentTaskInfo() *ParentTaskInfo {
 	r := &ParentTaskInfo{
-		Headers: make(map[string]string, 0),
+		Headers: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

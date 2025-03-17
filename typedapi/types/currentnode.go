@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // CurrentNode type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/allocation_explain/types.ts#L79-L90
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cluster/allocation_explain/types.ts#L79-L90
 type CurrentNode struct {
 	Attributes       map[string]string   `json:"attributes"`
 	Id               string              `json:"id"`
@@ -110,8 +110,10 @@ func (s *CurrentNode) UnmarshalJSON(data []byte) error {
 // NewCurrentNode returns a CurrentNode.
 func NewCurrentNode() *CurrentNode {
 	r := &CurrentNode{
-		Attributes: make(map[string]string, 0),
+		Attributes: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package usage
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package usage
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/xpack/usage/XPackUsageResponse.ts#L43-L79
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/xpack/usage/XPackUsageResponse.ts#L42-L77
 type Response struct {
 	AggregateMetric     types.Base                    `json:"aggregate_metric"`
 	Analytics           types.Analytics               `json:"analytics"`
@@ -39,7 +39,6 @@ type Response struct {
 	Enrich              *types.Base                   `json:"enrich,omitempty"`
 	Eql                 types.Eql                     `json:"eql"`
 	Flattened           *types.Flattened              `json:"flattened,omitempty"`
-	FrozenIndices       types.FrozenIndices           `json:"frozen_indices"`
 	Graph               types.Base                    `json:"graph"`
 	HealthApi           *types.HealthStatistics       `json:"health_api,omitempty"`
 	Ilm                 types.Ilm                     `json:"ilm"`

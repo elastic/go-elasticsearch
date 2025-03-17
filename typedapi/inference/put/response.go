@@ -16,21 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package put
 
 import (
 	"encoding/json"
 
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/tasktype"
 )
 
 // Response holds the response body struct for the package put
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/inference/put/PutResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/inference/put/PutResponse.ts#L22-L24
 type Response struct {
 
+	// ChunkingSettings Chunking configuration object
+	ChunkingSettings *types.InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// InferenceId The inference Id
 	InferenceId string `json:"inference_id"`
 	// Service The service type

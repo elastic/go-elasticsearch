@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // IndexHealthStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/health/types.ts#L24-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cluster/health/types.ts#L24-L35
 type IndexHealthStats struct {
 	ActivePrimaryShards     int                         `json:"active_primary_shards"`
 	ActiveShards            int                         `json:"active_shards"`
@@ -211,8 +211,10 @@ func (s *IndexHealthStats) UnmarshalJSON(data []byte) error {
 // NewIndexHealthStats returns a IndexHealthStats.
 func NewIndexHealthStats() *IndexHealthStats {
 	r := &IndexHealthStats{
-		Shards: make(map[string]ShardHealthStats, 0),
+		Shards: make(map[string]ShardHealthStats),
 	}
 
 	return r
 }
+
+// false

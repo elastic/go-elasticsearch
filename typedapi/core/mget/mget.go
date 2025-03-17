@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get multiple documents.
 //
@@ -25,6 +25,23 @@
 // document IDs in the request body.
 // To ensure fast responses, this multi get (mget) API responds with partial
 // results if one or more shards fail.
+//
+// **Filter source fields**
+//
+// By default, the `_source` field is returned for every document (if stored).
+// Use the `_source` and `_source_include` or `source_exclude` attributes to
+// filter what fields are returned for a particular document.
+// You can include the `_source`, `_source_includes`, and `_source_excludes`
+// query parameters in the request URI to specify the defaults to use when there
+// are no per-document instructions.
+//
+// **Get stored fields**
+//
+// Use the `stored_fields` attribute to specify the set of stored fields you
+// want to retrieve.
+// Any requested fields that are not stored are ignored.
+// You can include the `stored_fields` query parameter in the request URI to
+// specify the defaults to use when there are no per-document instructions.
 package mget
 
 import (
@@ -93,7 +110,24 @@ func NewMgetFunc(tp elastictransport.Interface) NewMget {
 // To ensure fast responses, this multi get (mget) API responds with partial
 // results if one or more shards fail.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-multi-get.html
+// **Filter source fields**
+//
+// By default, the `_source` field is returned for every document (if stored).
+// Use the `_source` and `_source_include` or `source_exclude` attributes to
+// filter what fields are returned for a particular document.
+// You can include the `_source`, `_source_includes`, and `_source_excludes`
+// query parameters in the request URI to specify the defaults to use when there
+// are no per-document instructions.
+//
+// **Get stored fields**
+//
+// Use the `stored_fields` attribute to specify the set of stored fields you
+// want to retrieve.
+// Any requested fields that are not stored are ignored.
+// You can include the `stored_fields` query parameter in the request URI to
+// specify the defaults to use when there are no per-document instructions.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
 func New(tp elastictransport.Interface) *Mget {
 	r := &Mget{
 		transport: tp,
@@ -101,8 +135,6 @@ func New(tp elastictransport.Interface) *Mget {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -458,19 +490,31 @@ func (r *Mget) Pretty(pretty bool) *Mget {
 	return r
 }
 
-// Docs The documents you want to retrieve. Required if no index is specified in the
+// The documents you want to retrieve. Required if no index is specified in the
 // request URI.
 // API name: docs
-func (r *Mget) Docs(docs ...types.MgetOperation) *Mget {
-	r.req.Docs = docs
+func (r *Mget) Docs(docs ...types.MgetOperationVariant) *Mget {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range docs {
 
+		r.req.Docs = append(r.req.Docs, *v.MgetOperationCaster())
+
+	}
 	return r
 }
 
-// Ids The IDs of the documents you want to retrieve. Allowed when the index is
+// The IDs of the documents you want to retrieve. Allowed when the index is
 // specified in the request URI.
 // API name: ids
 func (r *Mget) Ids(ids ...string) *Mget {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Ids = ids
 
 	return r

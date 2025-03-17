@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RareTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L706-L739
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/aggregations/bucket.ts#L706-L739
 type RareTermsAggregation struct {
 	// Exclude Terms that should be excluded from the aggregation.
 	Exclude []string `json:"exclude,omitempty"`
@@ -180,4 +180,14 @@ func NewRareTermsAggregation() *RareTermsAggregation {
 	r := &RareTermsAggregation{}
 
 	return r
+}
+
+// true
+
+type RareTermsAggregationVariant interface {
+	RareTermsAggregationCaster() *RareTermsAggregation
+}
+
+func (s *RareTermsAggregation) RareTermsAggregationCaster() *RareTermsAggregation {
+	return s
 }

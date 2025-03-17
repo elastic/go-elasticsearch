@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 // XpackFeatures type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/xpack/info/types.ts#L42-L83
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/xpack/info/types.ts#L42-L82
 type XpackFeatures struct {
 	AggregateMetric     XpackFeature  `json:"aggregate_metric"`
 	Analytics           XpackFeature  `json:"analytics"`
@@ -34,7 +34,6 @@ type XpackFeatures struct {
 	EnterpriseSearch    XpackFeature  `json:"enterprise_search"`
 	Eql                 XpackFeature  `json:"eql"`
 	Esql                XpackFeature  `json:"esql"`
-	FrozenIndices       XpackFeature  `json:"frozen_indices"`
 	Graph               XpackFeature  `json:"graph"`
 	Ilm                 XpackFeature  `json:"ilm"`
 	Logsdb              XpackFeature  `json:"logsdb"`
@@ -60,3 +59,5 @@ func NewXpackFeatures() *XpackFeatures {
 
 	return r
 }
+
+// false

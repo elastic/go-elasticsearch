@@ -16,13 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get license information.
-// Returns information about your Elastic license, including its type, its
-// status, when it was issued, and when it expires.
-// For more information about the different types of licenses, refer to [Elastic
-// Stack subscriptions](https://www.elastic.co/subscriptions).
+//
+// Get information about your Elastic license including its type, its status,
+// when it was issued, and when it expires.
+//
+// >info
+// > If the master node is generating a new cluster state, the get license API
+// may return a `404 Not Found` response.
+// > If you receive an unexpected 404 response after cluster startup, wait a
+// short period and retry the request.
 package get
 
 import (
@@ -73,12 +78,17 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 }
 
 // Get license information.
-// Returns information about your Elastic license, including its type, its
-// status, when it was issued, and when it expires.
-// For more information about the different types of licenses, refer to [Elastic
-// Stack subscriptions](https://www.elastic.co/subscriptions).
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-license.html
+// Get information about your Elastic license including its type, its status,
+// when it was issued, and when it expires.
+//
+// >info
+// > If the master node is generating a new cluster state, the get license API
+// may return a `404 Not Found` response.
+// > If you receive an unexpected 404 response after cluster startup, wait a
+// short period and retry the request.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,

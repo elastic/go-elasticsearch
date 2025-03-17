@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get the status for a data stream lifecycle.
-// Retrieves information about an index or data stream’s current data stream
-// lifecycle status, such as time since index creation, time since rollover, the
-// lifecycle configuration managing the index, or any errors encountered during
-// lifecycle execution.
+// Get information about an index or data stream's current data stream lifecycle
+// status, such as time since index creation, time since rollover, the lifecycle
+// configuration managing the index, or any errors encountered during lifecycle
+// execution.
 package explaindatalifecycle
 
 import (
@@ -81,12 +81,12 @@ func NewExplainDataLifecycleFunc(tp elastictransport.Interface) NewExplainDataLi
 }
 
 // Get the status for a data stream lifecycle.
-// Retrieves information about an index or data stream’s current data stream
-// lifecycle status, such as time since index creation, time since rollover, the
-// lifecycle configuration managing the index, or any errors encountered during
-// lifecycle execution.
+// Get information about an index or data stream's current data stream lifecycle
+// status, such as time since index creation, time since rollover, the lifecycle
+// configuration managing the index, or any errors encountered during lifecycle
+// execution.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-explain-lifecycle.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-explain-data-lifecycle
 func New(tp elastictransport.Interface) *ExplainDataLifecycle {
 	r := &ExplainDataLifecycle{
 		transport: tp,
