@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.18.0: DO NOT EDIT
 
 package esapi
 
@@ -62,6 +62,7 @@ type AsyncSearchSubmitRequest struct {
 	Analyzer                   string
 	AnalyzeWildcard            *bool
 	BatchedReduceSize          *int
+	CcsMinimizeRoundtrips      *bool
 	DefaultOperator            string
 	Df                         string
 	DocvalueFields             []string
@@ -77,6 +78,7 @@ type AsyncSearchSubmitRequest struct {
 	Preference                 string
 	Query                      string
 	RequestCache               *bool
+	RestTotalHitsAsInt         *bool
 	Routing                    []string
 	SearchType                 string
 	SeqNoPrimaryTerm           *bool
@@ -164,6 +166,10 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 		params["batched_reduce_size"] = strconv.FormatInt(int64(*r.BatchedReduceSize), 10)
 	}
 
+	if r.CcsMinimizeRoundtrips != nil {
+		params["ccs_minimize_roundtrips"] = strconv.FormatBool(*r.CcsMinimizeRoundtrips)
+	}
+
 	if r.DefaultOperator != "" {
 		params["default_operator"] = r.DefaultOperator
 	}
@@ -222,6 +228,10 @@ func (r AsyncSearchSubmitRequest) Do(providedCtx context.Context, transport Tran
 
 	if r.RequestCache != nil {
 		params["request_cache"] = strconv.FormatBool(*r.RequestCache)
+	}
+
+	if r.RestTotalHitsAsInt != nil {
+		params["rest_total_hits_as_int"] = strconv.FormatBool(*r.RestTotalHitsAsInt)
 	}
 
 	if len(r.Routing) > 0 {
@@ -442,6 +452,13 @@ func (f AsyncSearchSubmit) WithBatchedReduceSize(v int) func(*AsyncSearchSubmitR
 	}
 }
 
+// WithCcsMinimizeRoundtrips - when doing a cross-cluster search, setting it to true may improve overall search latency, particularly when searching clusters with a large number of shards. however, when set to true, the progress of searches on the remote clusters will not be received until the search finishes on all clusters..
+func (f AsyncSearchSubmit) WithCcsMinimizeRoundtrips(v bool) func(*AsyncSearchSubmitRequest) {
+	return func(r *AsyncSearchSubmitRequest) {
+		r.CcsMinimizeRoundtrips = &v
+	}
+}
+
 // WithDefaultOperator - the default operator for query string query (and or or).
 func (f AsyncSearchSubmit) WithDefaultOperator(v string) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
@@ -544,6 +561,13 @@ func (f AsyncSearchSubmit) WithQuery(v string) func(*AsyncSearchSubmitRequest) {
 func (f AsyncSearchSubmit) WithRequestCache(v bool) func(*AsyncSearchSubmitRequest) {
 	return func(r *AsyncSearchSubmitRequest) {
 		r.RequestCache = &v
+	}
+}
+
+// WithRestTotalHitsAsInt - indicates whether hits.total should be rendered as an integer or an object in the rest search response.
+func (f AsyncSearchSubmit) WithRestTotalHitsAsInt(v bool) func(*AsyncSearchSubmitRequest) {
+	return func(r *AsyncSearchSubmitRequest) {
+		r.RestTotalHitsAsInt = &v
 	}
 }
 

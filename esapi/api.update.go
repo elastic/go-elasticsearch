@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.18.0: DO NOT EDIT
 
 package esapi
 
@@ -57,18 +57,19 @@ type UpdateRequest struct {
 
 	Body io.Reader
 
-	IfPrimaryTerm       *int
-	IfSeqNo             *int
-	Lang                string
-	Refresh             string
-	RequireAlias        *bool
-	RetryOnConflict     *int
-	Routing             string
-	Source              []string
-	SourceExcludes      []string
-	SourceIncludes      []string
-	Timeout             time.Duration
-	WaitForActiveShards string
+	IfPrimaryTerm        *int
+	IfSeqNo              *int
+	IncludeSourceOnError *bool
+	Lang                 string
+	Refresh              string
+	RequireAlias         *bool
+	RetryOnConflict      *int
+	Routing              string
+	Source               []string
+	SourceExcludes       []string
+	SourceIncludes       []string
+	Timeout              time.Duration
+	WaitForActiveShards  string
 
 	Pretty     bool
 	Human      bool
@@ -124,6 +125,10 @@ func (r UpdateRequest) Do(providedCtx context.Context, transport Transport) (*Re
 
 	if r.IfSeqNo != nil {
 		params["if_seq_no"] = strconv.FormatInt(int64(*r.IfSeqNo), 10)
+	}
+
+	if r.IncludeSourceOnError != nil {
+		params["include_source_on_error"] = strconv.FormatBool(*r.IncludeSourceOnError)
 	}
 
 	if r.Lang != "" {
@@ -262,6 +267,13 @@ func (f Update) WithIfPrimaryTerm(v int) func(*UpdateRequest) {
 func (f Update) WithIfSeqNo(v int) func(*UpdateRequest) {
 	return func(r *UpdateRequest) {
 		r.IfSeqNo = &v
+	}
+}
+
+// WithIncludeSourceOnError - true or false if to include the document source in the error message in case of parsing errors. defaults to true..
+func (f Update) WithIncludeSourceOnError(v bool) func(*UpdateRequest) {
+	return func(r *UpdateRequest) {
+		r.IncludeSourceOnError = &v
 	}
 }
 
