@@ -16,12 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Retrieves information about the index’s current lifecycle state, such as the
-// currently executing phase, action, and step. Shows when the index entered
-// each one, the definition of the running phase, and information about any
-// failures.
+// Explain the lifecycle state.
+// Get the current lifecycle status for one or more indices.
+// For data streams, the API retrieves the current lifecycle status for the
+// stream's backing indices.
+//
+// The response indicates when the index entered each lifecycle state, provides
+// the definition of the running phase, and information about any failures.
 package explainlifecycle
 
 import (
@@ -79,12 +82,15 @@ func NewExplainLifecycleFunc(tp elastictransport.Interface) NewExplainLifecycle 
 	}
 }
 
-// Retrieves information about the index’s current lifecycle state, such as the
-// currently executing phase, action, and step. Shows when the index entered
-// each one, the definition of the running phase, and information about any
-// failures.
+// Explain the lifecycle state.
+// Get the current lifecycle status for one or more indices.
+// For data streams, the API retrieves the current lifecycle status for the
+// stream's backing indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-explain-lifecycle.html
+// The response indicates when the index entered each lifecycle state, provides
+// the definition of the running phase, and information about any failures.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-explain-lifecycle
 func New(tp elastictransport.Interface) *ExplainLifecycle {
 	r := &ExplainLifecycle{
 		transport: tp,
@@ -330,15 +336,6 @@ func (r *ExplainLifecycle) OnlyManaged(onlymanaged bool) *ExplainLifecycle {
 // API name: master_timeout
 func (r *ExplainLifecycle) MasterTimeout(duration string) *ExplainLifecycle {
 	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and returns an error.
-// API name: timeout
-func (r *ExplainLifecycle) Timeout(duration string) *ExplainLifecycle {
-	r.values.Set("timeout", duration)
 
 	return r
 }

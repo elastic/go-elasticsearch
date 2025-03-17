@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Start datafeeds.
 //
@@ -121,7 +121,7 @@ func NewStartDatafeedFunc(tp elastictransport.Interface) NewStartDatafeed {
 // authorization headers when you created or updated the datafeed, those
 // credentials are used instead.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-start-datafeed.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-start-datafeed
 func New(tp elastictransport.Interface) *StartDatafeed {
 	r := &StartDatafeed{
 		transport: tp,
@@ -129,8 +129,6 @@ func New(tp elastictransport.Interface) *StartDatafeed {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -403,26 +401,41 @@ func (r *StartDatafeed) Pretty(pretty bool) *StartDatafeed {
 	return r
 }
 
-// End Refer to the description for the `end` query parameter.
+// Refer to the description for the `end` query parameter.
 // API name: end
-func (r *StartDatafeed) End(datetime types.DateTime) *StartDatafeed {
-	r.req.End = datetime
+func (r *StartDatafeed) End(datetime types.DateTimeVariant) *StartDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.End = *datetime.DateTimeCaster()
 
 	return r
 }
 
-// Start Refer to the description for the `start` query parameter.
+// Refer to the description for the `start` query parameter.
 // API name: start
-func (r *StartDatafeed) Start(datetime types.DateTime) *StartDatafeed {
-	r.req.Start = datetime
+func (r *StartDatafeed) Start(datetime types.DateTimeVariant) *StartDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Start = *datetime.DateTimeCaster()
 
 	return r
 }
 
-// Timeout Refer to the description for the `timeout` query parameter.
+// Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *StartDatafeed) Timeout(duration types.Duration) *StartDatafeed {
-	r.req.Timeout = duration
+func (r *StartDatafeed) Timeout(duration types.DurationVariant) *StartDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Timeout = *duration.DurationCaster()
 
 	return r
 }

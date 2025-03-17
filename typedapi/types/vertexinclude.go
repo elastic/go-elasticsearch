@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,13 +31,25 @@ import (
 
 // VertexInclude type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/graph/_types/Vertex.ts#L61-L64
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/graph/_types/Vertex.ts#L61-L65
 type VertexInclude struct {
-	Boost Float64 `json:"boost"`
-	Term  string  `json:"term"`
+	Boost *Float64 `json:"boost,omitempty"`
+	Term  string   `json:"term"`
 }
 
 func (s *VertexInclude) UnmarshalJSON(data []byte) error {
+
+	if !bytes.HasPrefix(data, []byte(`{`)) {
+		if !bytes.HasPrefix(data, []byte(`"`)) {
+			data = append([]byte{'"'}, data...)
+			data = append(data, []byte{'"'}...)
+		}
+		err := json.NewDecoder(bytes.NewReader(data)).Decode(&s.Term)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
 
 	dec := json.NewDecoder(bytes.NewReader(data))
 
@@ -62,10 +74,10 @@ func (s *VertexInclude) UnmarshalJSON(data []byte) error {
 					return fmt.Errorf("%s | %w", "Boost", err)
 				}
 				f := Float64(value)
-				s.Boost = f
+				s.Boost = &f
 			case float64:
 				f := Float64(v)
-				s.Boost = f
+				s.Boost = &f
 			}
 
 		case "term":
@@ -90,4 +102,14 @@ func NewVertexInclude() *VertexInclude {
 	r := &VertexInclude{}
 
 	return r
+}
+
+// true
+
+type VertexIncludeVariant interface {
+	VertexIncludeCaster() *VertexInclude
+}
+
+func (s *VertexInclude) VertexIncludeCaster() *VertexInclude {
+	return s
 }

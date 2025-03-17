@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package deletesynonymrule
 
@@ -27,13 +27,13 @@ import (
 
 // Response holds the response body struct for the package deletesynonymrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/synonyms/delete_synonym_rule/SynonymRuleDeleteResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/synonyms/delete_synonym_rule/SynonymRuleDeleteResponse.ts#L22-L24
 type Response struct {
 
 	// ReloadAnalyzersDetails Updating synonyms in a synonym set reloads the associated analyzers.
-	// This is the analyzers reloading result
+	// This information is the analyzers reloading result.
 	ReloadAnalyzersDetails types.ReloadResult `json:"reload_analyzers_details"`
-	// Result Update operation result
+	// Result The update operation result.
 	Result result.Result `json:"result"`
 }
 

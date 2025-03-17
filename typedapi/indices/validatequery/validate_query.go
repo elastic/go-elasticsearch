@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Validate a query.
 // Validates a query without running it.
@@ -85,7 +85,7 @@ func NewValidateQueryFunc(tp elastictransport.Interface) NewValidateQuery {
 // Validate a query.
 // Validates a query without running it.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-validate.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-validate-query
 func New(tp elastictransport.Interface) *ValidateQuery {
 	r := &ValidateQuery{
 		transport: tp,
@@ -93,8 +93,6 @@ func New(tp elastictransport.Interface) *ValidateQuery {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -486,11 +484,15 @@ func (r *ValidateQuery) Pretty(pretty bool) *ValidateQuery {
 	return r
 }
 
-// Query Query in the Lucene query string syntax.
+// Query in the Lucene query string syntax.
 // API name: query
-func (r *ValidateQuery) Query(query *types.Query) *ValidateQuery {
+func (r *ValidateQuery) Query(query types.QueryVariant) *ValidateQuery {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Query = query
+	r.req.Query = query.QueryCaster()
 
 	return r
 }

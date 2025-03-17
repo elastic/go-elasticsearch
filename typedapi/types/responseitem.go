@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -27,38 +27,43 @@ import (
 	"fmt"
 	"io"
 	"strconv"
+
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/failurestorestatus"
 )
 
 // ResponseItem type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/bulk/types.ts#L37-L81
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/bulk/types.ts#L37-L84
 type ResponseItem struct {
-	// Error Contains additional information about the failed operation.
-	// The parameter is only returned for failed operations.
-	Error         *ErrorCause               `json:"error,omitempty"`
-	ForcedRefresh *bool                     `json:"forced_refresh,omitempty"`
-	Get           *InlineGetDictUserDefined `json:"get,omitempty"`
+	// Error Additional information about the failed operation.
+	// The property is returned only for failed operations.
+	Error         *ErrorCause                            `json:"error,omitempty"`
+	FailureStore  *failurestorestatus.FailureStoreStatus `json:"failure_store,omitempty"`
+	ForcedRefresh *bool                                  `json:"forced_refresh,omitempty"`
+	Get           *InlineGetDictUserDefined              `json:"get,omitempty"`
 	// Id_ The document ID associated with the operation.
 	Id_ *string `json:"_id,omitempty"`
-	// Index_ Name of the index associated with the operation.
+	// Index_ The name of the index associated with the operation.
 	// If the operation targeted a data stream, this is the backing index into which
 	// the document was written.
 	Index_ string `json:"_index"`
 	// PrimaryTerm_ The primary term assigned to the document for the operation.
+	// This property is returned only for successful operations.
 	PrimaryTerm_ *int64 `json:"_primary_term,omitempty"`
-	// Result Result of the operation.
+	// Result The result of the operation.
 	// Successful values are `created`, `deleted`, and `updated`.
 	Result *string `json:"result,omitempty"`
 	// SeqNo_ The sequence number assigned to the document for the operation.
-	// Sequence numbers are used to ensure an older version of a document doesn’t
+	// Sequence numbers are used to ensure an older version of a document doesn't
 	// overwrite a newer version.
 	SeqNo_ *int64 `json:"_seq_no,omitempty"`
-	// Shards_ Contains shard information for the operation.
+	// Shards_ Shard information for the operation.
 	Shards_ *ShardStatistics `json:"_shards,omitempty"`
-	// Status HTTP status code returned for the operation.
+	// Status The HTTP status code returned for the operation.
 	Status int `json:"status"`
 	// Version_ The document version associated with the operation.
 	// The document version is incremented each time the document is updated.
+	// This property is returned only for successful actions.
 	Version_ *int64 `json:"_version,omitempty"`
 }
 
@@ -80,6 +85,11 @@ func (s *ResponseItem) UnmarshalJSON(data []byte) error {
 		case "error":
 			if err := dec.Decode(&s.Error); err != nil {
 				return fmt.Errorf("%s | %w", "Error", err)
+			}
+
+		case "failure_store":
+			if err := dec.Decode(&s.FailureStore); err != nil {
+				return fmt.Errorf("%s | %w", "FailureStore", err)
 			}
 
 		case "forced_refresh":
@@ -194,3 +204,5 @@ func NewResponseItem() *ResponseItem {
 
 	return r
 }
+
+// false

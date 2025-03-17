@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Executes an ES|QL request
+// Run an ES|QL query.
+// Get search results for an ES|QL (Elasticsearch query language) query.
 package query
 
 import (
@@ -74,7 +75,8 @@ func NewQueryFunc(tp elastictransport.Interface) NewQuery {
 	}
 }
 
-// Executes an ES|QL request
+// Run an ES|QL query.
+// Get search results for an ES|QL (Elasticsearch query language) query.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/esql-rest.html
 func New(tp elastictransport.Interface) *Query {
@@ -84,8 +86,6 @@ func New(tp elastictransport.Interface) *Query {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -363,46 +363,83 @@ func (r *Query) Pretty(pretty bool) *Query {
 	return r
 }
 
-// Columnar By default, ES|QL returns results as rows. For example, FROM returns each
+// By default, ES|QL returns results as rows. For example, FROM returns each
 // individual document as one row. For the JSON, YAML, CBOR and smile formats,
 // ES|QL can return the results in a columnar fashion where one row represents
 // all the values of a certain column in the results.
 // API name: columnar
 func (r *Query) Columnar(columnar bool) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Columnar = &columnar
 
 	return r
 }
 
-// Filter Specify a Query DSL query in the filter parameter to filter the set of
+// Specify a Query DSL query in the filter parameter to filter the set of
 // documents that an ES|QL query runs on.
 // API name: filter
-func (r *Query) Filter(filter *types.Query) *Query {
+func (r *Query) Filter(filter types.QueryVariant) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Filter = filter
+	r.req.Filter = filter.QueryCaster()
+
+	return r
+}
+
+// When set to `true` and performing a cross-cluster query, the response will
+// include an extra `_clusters`
+// object with information about the clusters that participated in the search
+// along with info such as shards
+// count.
+// API name: include_ccs_metadata
+func (r *Query) IncludeCcsMetadata(includeccsmetadata bool) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.IncludeCcsMetadata = &includeccsmetadata
 
 	return r
 }
 
 // API name: locale
 func (r *Query) Locale(locale string) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Locale = &locale
 
 	return r
 }
 
-// Params To avoid any attempts of hacking or code injection, extract the values in a
+// To avoid any attempts of hacking or code injection, extract the values in a
 // separate list of parameters. Use question mark placeholders (?) in the query
 // string for each of the parameters.
 // API name: params
-func (r *Query) Params(params ...types.FieldValue) *Query {
-	r.req.Params = params
+func (r *Query) Params(params ...types.FieldValueVariant) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range params {
 
+		r.req.Params = append(r.req.Params, *v.FieldValueCaster())
+
+	}
 	return r
 }
 
-// Profile If provided and `true` the response will include an extra `profile` object
+// If provided and `true` the response will include an extra `profile` object
 // with information on how the query was executed. This information is for human
 // debugging
 // and its format can change at any time but it can give some insight into the
@@ -410,27 +447,38 @@ func (r *Query) Params(params ...types.FieldValue) *Query {
 // of each part of the query.
 // API name: profile
 func (r *Query) Profile(profile bool) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Profile = &profile
 
 	return r
 }
 
-// Query The ES|QL query API accepts an ES|QL query string in the query parameter,
+// The ES|QL query API accepts an ES|QL query string in the query parameter,
 // runs it, and returns the results.
 // API name: query
 func (r *Query) Query(query string) *Query {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Query = query
 
 	return r
 }
 
-// Tables Tables to use with the LOOKUP operation. The top level key is the table
+// Tables to use with the LOOKUP operation. The top level key is the table
 // name and the next level key is the column name.
 // API name: tables
 func (r *Query) Tables(tables map[string]map[string]types.TableValuesContainer) *Query {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Tables = tables
-
 	return r
 }

@@ -16,10 +16,20 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Stops the following task associated with a follower index and removes index
-// metadata and settings associated with cross-cluster replication.
+// Unfollow an index.
+//
+// Convert a cross-cluster replication follower index to a regular index.
+// The API stops the following task associated with a follower index and removes
+// index metadata and settings associated with cross-cluster replication.
+// The follower index must be paused and closed before you call the unfollow
+// API.
+//
+// > info
+// > Currently cross-cluster replication does not support converting an existing
+// regular index to a follower index. Converting a follower index to a regular
+// index is an irreversible operation.
 package unfollow
 
 import (
@@ -77,10 +87,20 @@ func NewUnfollowFunc(tp elastictransport.Interface) NewUnfollow {
 	}
 }
 
-// Stops the following task associated with a follower index and removes index
-// metadata and settings associated with cross-cluster replication.
+// Unfollow an index.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-unfollow.html
+// Convert a cross-cluster replication follower index to a regular index.
+// The API stops the following task associated with a follower index and removes
+// index metadata and settings associated with cross-cluster replication.
+// The follower index must be paused and closed before you call the unfollow
+// API.
+//
+// > info
+// > Currently cross-cluster replication does not support converting an existing
+// regular index to a follower index. Converting a follower index to a regular
+// index is an irreversible operation.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-unfollow
 func New(tp elastictransport.Interface) *Unfollow {
 	r := &Unfollow{
 		transport: tp,
@@ -292,11 +312,22 @@ func (r *Unfollow) Header(key, value string) *Unfollow {
 	return r
 }
 
-// Index The name of the follower index that should be turned into a regular index.
+// Index The name of the follower index.
 // API Name: index
 func (r *Unfollow) _index(index string) *Unfollow {
 	r.paramSet |= indexMask
 	r.index = index
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// It can also be set to `-1` to indicate that the request should never timeout.
+// API name: master_timeout
+func (r *Unfollow) MasterTimeout(duration string) *Unfollow {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // RoleQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/query_role/types.ts#L37-L101
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/query_role/types.ts#L37-L101
 type RoleQueryContainer struct {
+	AdditionalRoleQueryContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches roles matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
 	// Exists Returns roles that contain an indexed value for a field.
@@ -159,20 +160,73 @@ func (s *RoleQueryContainer) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Wildcard", err)
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalRoleQueryContainerProperty == nil {
+					s.AdditionalRoleQueryContainerProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalRoleQueryContainerProperty", err)
+				}
+				s.AdditionalRoleQueryContainerProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s RoleQueryContainer) MarshalJSON() ([]byte, error) {
+	type opt RoleQueryContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalRoleQueryContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalRoleQueryContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewRoleQueryContainer returns a RoleQueryContainer.
 func NewRoleQueryContainer() *RoleQueryContainer {
 	r := &RoleQueryContainer{
-		Match:    make(map[string]MatchQuery, 0),
-		Prefix:   make(map[string]PrefixQuery, 0),
-		Range:    make(map[string]RangeQuery, 0),
-		Term:     make(map[string]TermQuery, 0),
-		Wildcard: make(map[string]WildcardQuery, 0),
+		AdditionalRoleQueryContainerProperty: make(map[string]json.RawMessage),
+		Match:                                make(map[string]MatchQuery),
+		Prefix:                               make(map[string]PrefixQuery),
+		Range:                                make(map[string]RangeQuery),
+		Term:                                 make(map[string]TermQuery),
+		Wildcard:                             make(map[string]WildcardQuery),
 	}
 
 	return r
+}
+
+// true
+
+type RoleQueryContainerVariant interface {
+	RoleQueryContainerCaster() *RoleQueryContainer
+}
+
+func (s *RoleQueryContainer) RoleQueryContainerCaster() *RoleQueryContainer {
+	return s
 }

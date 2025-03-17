@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Configuration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/slm/_types/SnapshotLifecycle.ts#L99-L129
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/slm/_types/SnapshotLifecycle.ts#L109-L139
 type Configuration struct {
 	// FeatureStates A list of feature states to be included in this snapshot. A list of features
 	// available for inclusion in the snapshot and their descriptions be can be
@@ -157,4 +157,14 @@ func NewConfiguration() *Configuration {
 	r := &Configuration{}
 
 	return r
+}
+
+// true
+
+type ConfigurationVariant interface {
+	ConfigurationCaster() *Configuration
+}
+
+func (s *Configuration) ConfigurationCaster() *Configuration {
+	return s
 }

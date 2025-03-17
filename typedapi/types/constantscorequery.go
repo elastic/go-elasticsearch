@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ConstantScoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/compound.ts#L76-L86
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/query_dsl/compound.ts#L76-L86
 type ConstantScoreQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -43,7 +43,7 @@ type ConstantScoreQuery struct {
 	// Filter queries do not calculate relevance scores.
 	// To speed up performance, Elasticsearch automatically caches frequently used
 	// filter queries.
-	Filter     *Query  `json:"filter,omitempty"`
+	Filter     Query   `json:"filter"`
 	QueryName_ *string `json:"_name,omitempty"`
 }
 
@@ -105,4 +105,14 @@ func NewConstantScoreQuery() *ConstantScoreQuery {
 	r := &ConstantScoreQuery{}
 
 	return r
+}
+
+// true
+
+type ConstantScoreQueryVariant interface {
+	ConstantScoreQueryCaster() *ConstantScoreQuery
+}
+
+func (s *ConstantScoreQuery) ConstantScoreQueryCaster() *ConstantScoreQuery {
+	return s
 }

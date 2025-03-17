@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TransformDestination type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/transform/_types/Transform.ts#L34-L45
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/transform/_types/Transform.ts#L34-L45
 type TransformDestination struct {
 	// Index The destination index for the transform. The mappings of the destination
 	// index are deduced based on the source
@@ -85,4 +85,14 @@ func NewTransformDestination() *TransformDestination {
 	r := &TransformDestination{}
 
 	return r
+}
+
+// true
+
+type TransformDestinationVariant interface {
+	TransformDestinationCaster() *TransformDestination
+}
+
+func (s *TransformDestination) TransformDestinationCaster() *TransformDestination {
+	return s
 }

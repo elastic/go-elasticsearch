@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TemplateMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/TemplateMapping.ts#L27-L34
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/_types/TemplateMapping.ts#L27-L34
 type TemplateMapping struct {
 	Aliases       map[string]Alias           `json:"aliases"`
 	IndexPatterns []string                   `json:"index_patterns"`
@@ -111,9 +111,11 @@ func (s *TemplateMapping) UnmarshalJSON(data []byte) error {
 // NewTemplateMapping returns a TemplateMapping.
 func NewTemplateMapping() *TemplateMapping {
 	r := &TemplateMapping{
-		Aliases:  make(map[string]Alias, 0),
-		Settings: make(map[string]json.RawMessage, 0),
+		Aliases:  make(map[string]Alias),
+		Settings: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

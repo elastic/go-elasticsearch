@@ -16,10 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Check existence of index templates.
-// Returns information about whether a particular index template exists.
+// Get information about whether index templates exist.
+// Index templates define settings, mappings, and aliases that can be applied
+// automatically to new indices.
+//
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
 package existstemplate
 
 import (
@@ -76,9 +82,15 @@ func NewExistsTemplateFunc(tp elastictransport.Interface) NewExistsTemplate {
 }
 
 // Check existence of index templates.
-// Returns information about whether a particular index template exists.
+// Get information about whether index templates exist.
+// Index templates define settings, mappings, and aliases that can be applied
+// automatically to new indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-template-exists-v1.html
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-exists-template
 func New(tp elastictransport.Interface) *ExistsTemplate {
 	r := &ExistsTemplate{
 		transport: tp,
@@ -239,7 +251,8 @@ func (r *ExistsTemplate) Header(key, value string) *ExistsTemplate {
 	return r
 }
 
-// Name The comma separated names of the index templates
+// Name A comma-separated list of index template names used to limit the request.
+// Wildcard (`*`) expressions are supported.
 // API Name: name
 func (r *ExistsTemplate) _name(name string) *ExistsTemplate {
 	r.paramSet |= nameMask
@@ -248,7 +261,7 @@ func (r *ExistsTemplate) _name(name string) *ExistsTemplate {
 	return r
 }
 
-// FlatSettings Return settings in flat format (default: false)
+// FlatSettings Indicates whether to use a flat format for the response.
 // API name: flat_settings
 func (r *ExistsTemplate) FlatSettings(flatsettings bool) *ExistsTemplate {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
@@ -256,8 +269,7 @@ func (r *ExistsTemplate) FlatSettings(flatsettings bool) *ExistsTemplate {
 	return r
 }
 
-// Local Return local information, do not retrieve the state from master node
-// (default: false)
+// Local Indicates whether to get information from the local node only.
 // API name: local
 func (r *ExistsTemplate) Local(local bool) *ExistsTemplate {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -265,7 +277,10 @@ func (r *ExistsTemplate) Local(local bool) *ExistsTemplate {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *ExistsTemplate) MasterTimeout(duration string) *ExistsTemplate {
 	r.values.Set("master_timeout", duration)

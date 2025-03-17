@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,16 +31,28 @@ import (
 
 // CertificateInformation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ssl/certificates/types.ts#L22-L31
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ssl/certificates/types.ts#L22-L57
 type CertificateInformation struct {
-	Alias         *string  `json:"alias,omitempty"`
-	Expiry        DateTime `json:"expiry"`
-	Format        string   `json:"format"`
-	HasPrivateKey bool     `json:"has_private_key"`
-	Issuer        *string  `json:"issuer,omitempty"`
-	Path          string   `json:"path"`
-	SerialNumber  string   `json:"serial_number"`
-	SubjectDn     string   `json:"subject_dn"`
+	// Alias If the path refers to a container file (a jks keystore, or a PKCS#12 file),
+	// it is the alias of the certificate.
+	// Otherwise, it is null.
+	Alias *string `json:"alias,omitempty"`
+	// Expiry The ISO formatted date of the certificate's expiry (not-after) date.
+	Expiry DateTime `json:"expiry"`
+	// Format The format of the file.
+	// Valid values include `jks`, `PKCS12`, and `PEM`.
+	Format string `json:"format"`
+	// HasPrivateKey Indicates whether Elasticsearch has access to the private key for this
+	// certificate.
+	HasPrivateKey bool `json:"has_private_key"`
+	// Issuer The Distinguished Name of the certificate's issuer.
+	Issuer *string `json:"issuer,omitempty"`
+	// Path The path to the certificate, as configured in the `elasticsearch.yml` file.
+	Path string `json:"path"`
+	// SerialNumber The hexadecimal representation of the certificate's serial number.
+	SerialNumber string `json:"serial_number"`
+	// SubjectDn The Distinguished Name of the certificate's subject.
+	SubjectDn string `json:"subject_dn"`
 }
 
 func (s *CertificateInformation) UnmarshalJSON(data []byte) error {
@@ -160,3 +172,5 @@ func NewCertificateInformation() *CertificateInformation {
 
 	return r
 }
+
+// false

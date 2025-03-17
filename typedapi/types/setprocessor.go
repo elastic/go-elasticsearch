@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SetProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Processors.ts#L1386-L1420
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ingest/_types/Processors.ts#L1427-L1461
 type SetProcessor struct {
 	// CopyFrom The origin field which will be copied to `field`, cannot set `value`
 	// simultaneously.
@@ -45,7 +45,7 @@ type SetProcessor struct {
 	// Supports template snippets.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
-	If *string `json:"if,omitempty"`
+	If *Script `json:"if,omitempty"`
 	// IgnoreEmptyValue If `true` and `value` is a template snippet that evaluates to `null` or the
 	// empty string, the processor quietly exits without modifying the document.
 	IgnoreEmptyValue *bool `json:"ignore_empty_value,omitempty"`
@@ -109,16 +109,9 @@ func (s *SetProcessor) UnmarshalJSON(data []byte) error {
 			}
 
 		case "if":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.If); err != nil {
 				return fmt.Errorf("%s | %w", "If", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.If = &o
 
 		case "ignore_empty_value":
 			var tmp any
@@ -206,4 +199,14 @@ func NewSetProcessor() *SetProcessor {
 	r := &SetProcessor{}
 
 	return r
+}
+
+// true
+
+type SetProcessorVariant interface {
+	SetProcessorCaster() *SetProcessor
+}
+
+func (s *SetProcessor) SetProcessorCaster() *SetProcessor {
+	return s
 }

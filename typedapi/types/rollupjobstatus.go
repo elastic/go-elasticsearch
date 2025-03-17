@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // RollupJobStatus type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/rollup/get_jobs/types.ts#L60-L64
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/rollup/get_jobs/types.ts#L71-L75
 type RollupJobStatus struct {
 	CurrentPosition map[string]json.RawMessage        `json:"current_position,omitempty"`
 	JobState        indexingjobstate.IndexingJobState `json:"job_state"`
@@ -90,8 +90,10 @@ func (s *RollupJobStatus) UnmarshalJSON(data []byte) error {
 // NewRollupJobStatus returns a RollupJobStatus.
 func NewRollupJobStatus() *RollupJobStatus {
 	r := &RollupJobStatus{
-		CurrentPosition: make(map[string]json.RawMessage, 0),
+		CurrentPosition: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

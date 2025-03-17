@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package gettoken
 
@@ -33,14 +33,34 @@ import (
 
 // Request holds the request body struct for the package gettoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L42
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/get_token/GetUserAccessTokenRequest.ts#L25-L90
 type Request struct {
-	GrantType      *accesstokengranttype.AccessTokenGrantType `json:"grant_type,omitempty"`
-	KerberosTicket *string                                    `json:"kerberos_ticket,omitempty"`
-	Password       *string                                    `json:"password,omitempty"`
-	RefreshToken   *string                                    `json:"refresh_token,omitempty"`
-	Scope          *string                                    `json:"scope,omitempty"`
-	Username       *string                                    `json:"username,omitempty"`
+
+	// GrantType The type of grant.
+	// Supported grant types are: `password`, `_kerberos`, `client_credentials`, and
+	// `refresh_token`.
+	GrantType *accesstokengranttype.AccessTokenGrantType `json:"grant_type,omitempty"`
+	// KerberosTicket The base64 encoded kerberos ticket.
+	// If you specify the `_kerberos` grant type, this parameter is required.
+	// This parameter is not valid with any other supported grant type.
+	KerberosTicket *string `json:"kerberos_ticket,omitempty"`
+	// Password The user's password.
+	// If you specify the `password` grant type, this parameter is required.
+	// This parameter is not valid with any other supported grant type.
+	Password *string `json:"password,omitempty"`
+	// RefreshToken The string that was returned when you created the token, which enables you to
+	// extend its life.
+	// If you specify the `refresh_token` grant type, this parameter is required.
+	// This parameter is not valid with any other supported grant type.
+	RefreshToken *string `json:"refresh_token,omitempty"`
+	// Scope The scope of the token.
+	// Currently tokens are only issued for a scope of FULL regardless of the value
+	// sent with the request.
+	Scope *string `json:"scope,omitempty"`
+	// Username The username that identifies the user.
+	// If you specify the `password` grant type, this parameter is required.
+	// This parameter is not valid with any other supported grant type.
+	Username *string `json:"username,omitempty"`
 }
 
 // NewRequest returns a Request

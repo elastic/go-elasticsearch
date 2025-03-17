@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,12 +31,16 @@ import (
 
 // StopAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/analyzers.ts#L347-L352
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/analysis/analyzers.ts#L404-L419
 type StopAnalyzer struct {
-	Stopwords     []string `json:"stopwords,omitempty"`
-	StopwordsPath *string  `json:"stopwords_path,omitempty"`
-	Type          string   `json:"type,omitempty"`
-	Version       *string  `json:"version,omitempty"`
+	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
+	// of stop words.
+	// Defaults to `_none_`.
+	Stopwords []string `json:"stopwords,omitempty"`
+	// StopwordsPath The path to a file containing stop words.
+	StopwordsPath *string `json:"stopwords_path,omitempty"`
+	Type          string  `json:"type,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
 func (s *StopAnalyzer) UnmarshalJSON(data []byte) error {
@@ -117,4 +121,14 @@ func NewStopAnalyzer() *StopAnalyzer {
 	r := &StopAnalyzer{}
 
 	return r
+}
+
+// true
+
+type StopAnalyzerVariant interface {
+	StopAnalyzerCaster() *StopAnalyzer
+}
+
+func (s *StopAnalyzer) StopAnalyzerCaster() *StopAnalyzer {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package translate
 
@@ -33,16 +33,16 @@ import (
 
 // Request holds the request body struct for the package translate
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/sql/translate/TranslateSqlRequest.ts#L25-L54
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/sql/translate/TranslateSqlRequest.ts#L25-L65
 type Request struct {
 
 	// FetchSize The maximum number of rows (or entries) to return in one response.
 	FetchSize *int `json:"fetch_size,omitempty"`
-	// Filter Elasticsearch query DSL for additional filtering.
+	// Filter The Elasticsearch query DSL for additional filtering.
 	Filter *types.Query `json:"filter,omitempty"`
-	// Query SQL query to run.
+	// Query The SQL query to run.
 	Query string `json:"query"`
-	// TimeZone ISO-8601 time zone ID for the search.
+	// TimeZone The ISO-8601 time zone ID for the search.
 	TimeZone *string `json:"time_zone,omitempty"`
 }
 

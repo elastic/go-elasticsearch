@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // MlInferenceIngestProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/xpack/usage/types.ts#L206-L211
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/xpack/usage/types.ts#L218-L223
 type MlInferenceIngestProcessor struct {
 	NumDocsProcessed MlInferenceIngestProcessorCount `json:"num_docs_processed"`
 	NumFailures      MlInferenceIngestProcessorCount `json:"num_failures"`
@@ -36,3 +36,5 @@ func NewMlInferenceIngestProcessor() *MlInferenceIngestProcessor {
 
 	return r
 }
+
+// false

@@ -16,10 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Delete indices.
-// Deletes one or more indices.
+// Deleting an index deletes its documents, shards, and metadata.
+// It does not delete related Kibana components, such as data views,
+// visualizations, or dashboards.
+//
+// You cannot delete the current write index of a data stream.
+// To delete the index, you must roll over the data stream so a new write index
+// is created.
+// You can then use the delete index API to delete the previous write index.
 package delete
 
 import (
@@ -79,9 +86,16 @@ func NewDeleteFunc(tp elastictransport.Interface) NewDelete {
 }
 
 // Delete indices.
-// Deletes one or more indices.
+// Deleting an index deletes its documents, shards, and metadata.
+// It does not delete related Kibana components, such as data views,
+// visualizations, or dashboards.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html
+// You cannot delete the current write index of a data stream.
+// To delete the index, you must roll over the data stream so a new write index
+// is created.
+// You can then use the delete index API to delete the previous write index.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete
 func New(tp elastictransport.Interface) *Delete {
 	r := &Delete{
 		transport: tp,

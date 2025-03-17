@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DownsamplingRound type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/DownsamplingRound.ts#L23-L32
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/_types/DownsamplingRound.ts#L23-L32
 type DownsamplingRound struct {
 	// After The duration since rollover when this downsampling round should execute
 	After Duration `json:"after"`
@@ -73,4 +73,14 @@ func NewDownsamplingRound() *DownsamplingRound {
 	r := &DownsamplingRound{}
 
 	return r
+}
+
+// true
+
+type DownsamplingRoundVariant interface {
+	DownsamplingRoundCaster() *DownsamplingRound
+}
+
+func (s *DownsamplingRound) DownsamplingRoundCaster() *DownsamplingRound {
+	return s
 }

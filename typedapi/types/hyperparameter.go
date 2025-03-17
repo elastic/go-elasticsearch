@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // Hyperparameter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/TrainedModel.ts#L216-L230
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/TrainedModel.ts#L273-L287
 type Hyperparameter struct {
 	// AbsoluteImportance A positive number showing how much the parameter influences the variation of
 	// the loss function. For hyperparameters with values that are not specified by
@@ -144,3 +144,5 @@ func NewHyperparameter() *Hyperparameter {
 
 	return r
 }
+
+// false

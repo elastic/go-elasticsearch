@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Update data streams.
 // Performs one or more data stream modification actions in a single atomic
@@ -79,7 +79,7 @@ func NewModifyDataStreamFunc(tp elastictransport.Interface) NewModifyDataStream 
 // Performs one or more data stream modification actions in a single atomic
 // operation.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-modify-data-stream
 func New(tp elastictransport.Interface) *ModifyDataStream {
 	r := &ModifyDataStream{
 		transport: tp,
@@ -87,8 +87,6 @@ func New(tp elastictransport.Interface) *ModifyDataStream {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -340,10 +338,17 @@ func (r *ModifyDataStream) Pretty(pretty bool) *ModifyDataStream {
 	return r
 }
 
-// Actions Actions to perform.
+// Actions to perform.
 // API name: actions
-func (r *ModifyDataStream) Actions(actions ...types.IndicesModifyAction) *ModifyDataStream {
-	r.req.Actions = actions
+func (r *ModifyDataStream) Actions(actions ...types.IndicesModifyActionVariant) *ModifyDataStream {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range actions {
 
+		r.req.Actions = append(r.req.Actions, *v.IndicesModifyActionCaster())
+
+	}
 	return r
 }

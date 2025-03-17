@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Run a knn search.
 //
@@ -35,6 +35,15 @@
 //
 // The kNN search API supports restricting the search using a filter.
 // The search will return the top k documents that also match the filter query.
+//
+// A kNN search response has the exact same structure as a search API response.
+// However, certain sections have a meaning specific to kNN search:
+//
+// * The document `_score` is determined by the similarity between the query and
+// document vector.
+// * The `hits.total` object contains the total number of nearest neighbor
+// candidates considered, which is `num_candidates * num_shards`. The
+// `hits.total.relation` will always be `eq`, indicating an exact value.
 package knnsearch
 
 import (
@@ -115,7 +124,16 @@ func NewKnnSearchFunc(tp elastictransport.Interface) NewKnnSearch {
 // The kNN search API supports restricting the search using a filter.
 // The search will return the top k documents that also match the filter query.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html
+// A kNN search response has the exact same structure as a search API response.
+// However, certain sections have a meaning specific to kNN search:
+//
+// * The document `_score` is determined by the similarity between the query and
+// document vector.
+// * The `hits.total` object contains the total number of nearest neighbor
+// candidates considered, which is `num_candidates * num_shards`. The
+// `hits.total.relation` will always be `eq`, indicating an exact value.
+//
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search-api.html
 func New(tp elastictransport.Interface) *KnnSearch {
 	r := &KnnSearch{
 		transport: tp,
@@ -123,8 +141,6 @@ func New(tp elastictransport.Interface) *KnnSearch {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -337,7 +353,7 @@ func (r *KnnSearch) Header(key, value string) *KnnSearch {
 }
 
 // Index A comma-separated list of index names to search;
-// use `_all` or to perform the operation on all indices
+// use `_all` or to perform the operation on all indices.
 // API Name: index
 func (r *KnnSearch) _index(index string) *KnnSearch {
 	r.paramSet |= indexMask
@@ -346,7 +362,7 @@ func (r *KnnSearch) _index(index string) *KnnSearch {
 	return r
 }
 
-// Routing A comma-separated list of specific routing values
+// Routing A comma-separated list of specific routing values.
 // API name: routing
 func (r *KnnSearch) Routing(routing string) *KnnSearch {
 	r.values.Set("routing", routing)
@@ -398,63 +414,99 @@ func (r *KnnSearch) Pretty(pretty bool) *KnnSearch {
 	return r
 }
 
-// DocvalueFields The request returns doc values for field names matching these patterns
-// in the hits.fields property of the response. Accepts wildcard (*) patterns.
+// The request returns doc values for field names matching these patterns
+// in the `hits.fields` property of the response.
+// It accepts wildcard (`*`) patterns.
 // API name: docvalue_fields
-func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormat) *KnnSearch {
-	r.req.DocvalueFields = docvaluefields
+func (r *KnnSearch) DocvalueFields(docvaluefields ...types.FieldAndFormatVariant) *KnnSearch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range docvaluefields {
 
+		r.req.DocvalueFields = append(r.req.DocvalueFields, *v.FieldAndFormatCaster())
+
+	}
 	return r
 }
 
-// Fields The request returns values for field names matching these patterns
-// in the hits.fields property of the response. Accepts wildcard (*) patterns.
+// The request returns values for field names matching these patterns
+// in the `hits.fields` property of the response.
+// It accepts wildcard (`*`) patterns.
 // API name: fields
 func (r *KnnSearch) Fields(fields ...string) *KnnSearch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Fields = fields
 
 	return r
 }
 
-// Filter Query to filter the documents that can match. The kNN search will return the
-// top
+// A query to filter the documents that can match. The kNN search will return
+// the top
 // `k` documents that also match this filter. The value can be a single query or
 // a
 // list of queries. If `filter` isn't provided, all documents are allowed to
 // match.
 // API name: filter
-func (r *KnnSearch) Filter(filters ...types.Query) *KnnSearch {
-	r.req.Filter = filters
+func (r *KnnSearch) Filter(filters ...types.QueryVariant) *KnnSearch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Filter = make([]types.Query, len(filters))
+	for i, v := range filters {
+		r.req.Filter[i] = *v.QueryCaster()
+	}
 
 	return r
 }
 
-// Knn kNN query to execute
+// The kNN query to run.
 // API name: knn
-func (r *KnnSearch) Knn(knn *types.CoreKnnQuery) *KnnSearch {
+func (r *KnnSearch) Knn(knn types.CoreKnnQueryVariant) *KnnSearch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Knn = *knn
+	r.req.Knn = *knn.CoreKnnQueryCaster()
 
 	return r
 }
 
-// Source_ Indicates which source fields are returned for matching documents. These
-// fields are returned in the hits._source property of the search response.
+// Indicates which source fields are returned for matching documents. These
+// fields are returned in the `hits._source` property of the search response.
 // API name: _source
-func (r *KnnSearch) Source_(sourceconfig types.SourceConfig) *KnnSearch {
-	r.req.Source_ = sourceconfig
+func (r *KnnSearch) Source_(sourceconfig types.SourceConfigVariant) *KnnSearch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Source_ = *sourceconfig.SourceConfigCaster()
 
 	return r
 }
 
-// StoredFields List of stored fields to return as part of a hit. If no fields are specified,
+// A list of stored fields to return as part of a hit. If no fields are
+// specified,
 // no stored fields are included in the response. If this field is specified,
-// the _source
-// parameter defaults to false. You can pass _source: true to return both source
-// fields
+// the `_source`
+// parameter defaults to `false`. You can pass `_source: true` to return both
+// source fields
 // and stored fields in the search response.
 // API name: stored_fields
 func (r *KnnSearch) StoredFields(fields ...string) *KnnSearch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.StoredFields = fields
 
 	return r

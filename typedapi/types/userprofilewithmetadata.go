@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // UserProfileWithMetadata type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/_types/UserProfile.ts#L49-L52
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/_types/UserProfile.ts#L49-L52
 type UserProfileWithMetadata struct {
 	Data             map[string]json.RawMessage `json:"data"`
 	Doc_             UserProfileHitMetadata     `json:"_doc"`
@@ -125,9 +125,11 @@ func (s *UserProfileWithMetadata) UnmarshalJSON(data []byte) error {
 // NewUserProfileWithMetadata returns a UserProfileWithMetadata.
 func NewUserProfileWithMetadata() *UserProfileWithMetadata {
 	r := &UserProfileWithMetadata{
-		Data:   make(map[string]json.RawMessage, 0),
-		Labels: make(map[string]json.RawMessage, 0),
+		Data:   make(map[string]json.RawMessage),
+		Labels: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Package tasktype
 package tasktype
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/inference/_types/TaskType.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/inference/_types/TaskType.ts#L20-L29
 type TaskType struct {
 	Name string
 }
@@ -36,6 +36,8 @@ var (
 	Rerank = TaskType{"rerank"}
 
 	Completion = TaskType{"completion"}
+
+	Chatcompletion = TaskType{"chat_completion"}
 )
 
 func (t TaskType) MarshalText() (text []byte, err error) {
@@ -53,6 +55,8 @@ func (t *TaskType) UnmarshalText(text []byte) error {
 		*t = Rerank
 	case "completion":
 		*t = Completion
+	case "chat_completion":
+		*t = Chatcompletion
 	default:
 		*t = TaskType{string(text)}
 	}

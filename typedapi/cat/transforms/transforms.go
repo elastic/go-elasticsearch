@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Get transforms.
-// Returns configuration and usage information about transforms.
+// Get transform information.
+//
+// Get configuration and usage information about transforms.
 //
 // CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
@@ -81,14 +82,15 @@ func NewTransformsFunc(tp elastictransport.Interface) NewTransforms {
 	}
 }
 
-// Get transforms.
-// Returns configuration and usage information about transforms.
+// Get transform information.
+//
+// Get configuration and usage information about transforms.
 //
 // CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get transform statistics API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-transforms.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-transforms
 func New(tp elastictransport.Interface) *Transforms {
 	r := &Transforms{
 		transport: tp,
@@ -396,25 +398,6 @@ func (r *Transforms) Format(format string) *Transforms {
 // API name: help
 func (r *Transforms) Help(help bool) *Transforms {
 	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *Transforms) Local(local bool) *Transforms {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *Transforms) MasterTimeout(duration string) *Transforms {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

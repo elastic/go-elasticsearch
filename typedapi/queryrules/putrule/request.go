@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package putrule
 
@@ -34,12 +34,19 @@ import (
 
 // Request holds the request body struct for the package putrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/query_rules/put_rule/QueryRulePutRequest.ts#L28-L56
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/query_rules/put_rule/QueryRulePutRequest.ts#L28-L79
 type Request struct {
-	Actions  types.QueryRuleActions      `json:"actions"`
-	Criteria []types.QueryRuleCriteria   `json:"criteria"`
-	Priority *int                        `json:"priority,omitempty"`
-	Type     queryruletype.QueryRuleType `json:"type"`
+
+	// Actions The actions to take when the rule is matched.
+	// The format of this action depends on the rule type.
+	Actions types.QueryRuleActions `json:"actions"`
+	// Criteria The criteria that must be met for the rule to be applied.
+	// If multiple criteria are specified for a rule, all criteria must be met for
+	// the rule to be applied.
+	Criteria []types.QueryRuleCriteria `json:"criteria"`
+	Priority *int                      `json:"priority,omitempty"`
+	// Type The type of rule.
+	Type queryruletype.QueryRuleType `json:"type"`
 }
 
 // NewRequest returns a Request

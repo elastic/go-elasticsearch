@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // QueryRole type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/query_role/types.ts#L103-L109
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/query_role/types.ts#L103-L109
 type QueryRole struct {
 	// Applications A list of application privilege entries
 	Applications []ApplicationPrivileges `json:"applications,omitempty"`
@@ -53,9 +53,17 @@ type QueryRole struct {
 	Metadata Metadata `json:"metadata,omitempty"`
 	// Name Name of the role.
 	Name string `json:"name"`
-	// RunAs A list of users that the API keys can impersonate. *Note*: in Serverless, the
-	// run-as feature is disabled. For API compatibility, you can still specify an
-	// empty `run_as` field, but a non-empty list will be rejected.
+	// RemoteCluster A list of cluster permissions for remote clusters.
+	// NOTE: This is limited a subset of the cluster permissions.
+	RemoteCluster []RemoteClusterPrivileges `json:"remote_cluster,omitempty"`
+	// RemoteIndices A list of indices permissions for remote clusters.
+	RemoteIndices []RemoteIndicesPrivileges `json:"remote_indices,omitempty"`
+	// Restriction Restriction for when the role descriptor is allowed to be effective.
+	Restriction *Restriction `json:"restriction,omitempty"`
+	// RunAs A list of users that the API keys can impersonate.
+	// NOTE: In Elastic Cloud Serverless, the run-as feature is disabled.
+	// For API compatibility, you can still specify an empty `run_as` field, but a
+	// non-empty list will be rejected.
 	RunAs             []string                   `json:"run_as,omitempty"`
 	Sort_             []FieldValue               `json:"_sort,omitempty"`
 	TransientMetadata map[string]json.RawMessage `json:"transient_metadata,omitempty"`
@@ -136,6 +144,21 @@ func (s *QueryRole) UnmarshalJSON(data []byte) error {
 			}
 			s.Name = o
 
+		case "remote_cluster":
+			if err := dec.Decode(&s.RemoteCluster); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
+			}
+
+		case "remote_indices":
+			if err := dec.Decode(&s.RemoteIndices); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteIndices", err)
+			}
+
+		case "restriction":
+			if err := dec.Decode(&s.Restriction); err != nil {
+				return fmt.Errorf("%s | %w", "Restriction", err)
+			}
+
 		case "run_as":
 			if err := dec.Decode(&s.RunAs); err != nil {
 				return fmt.Errorf("%s | %w", "RunAs", err)
@@ -162,8 +185,10 @@ func (s *QueryRole) UnmarshalJSON(data []byte) error {
 // NewQueryRole returns a QueryRole.
 func NewQueryRole() *QueryRole {
 	r := &QueryRole{
-		TransientMetadata: make(map[string]json.RawMessage, 0),
+		TransientMetadata: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

@@ -16,11 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Disable a user profile.
 //
 // Disable user profiles so that they are not visible in user profile searches.
+//
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
+//
+// When you activate a user profile, its automatically enabled and visible in
+// user profile searches. You can use the disable user profile API to disable a
+// user profile so it’s not visible in these searches.
+// To re-enable a disabled user profile, use the enable user profile API .
 package disableuserprofile
 
 import (
@@ -83,7 +94,18 @@ func NewDisableUserProfileFunc(tp elastictransport.Interface) NewDisableUserProf
 //
 // Disable user profiles so that they are not visible in user profile searches.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-disable-user-profile.html
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
+//
+// When you activate a user profile, its automatically enabled and visible in
+// user profile searches. You can use the disable user profile API to disable a
+// user profile so it’s not visible in these searches.
+// To re-enable a disabled user profile, use the enable user profile API .
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user-profile
 func New(tp elastictransport.Interface) *DisableUserProfile {
 	r := &DisableUserProfile{
 		transport: tp,
@@ -307,9 +329,10 @@ func (r *DisableUserProfile) _uid(uid string) *DisableUserProfile {
 }
 
 // Refresh If 'true', Elasticsearch refreshes the affected shards to make this operation
-// visible to search, if 'wait_for' then wait for a refresh to make this
-// operation
-// visible to search, if 'false' do nothing with refreshes.
+// visible to search.
+// If 'wait_for', it waits for a refresh to make this operation visible to
+// search.
+// If 'false', it does nothing with refreshes.
 // API name: refresh
 func (r *DisableUserProfile) Refresh(refresh refresh.Refresh) *DisableUserProfile {
 	r.values.Set("refresh", refresh.String())

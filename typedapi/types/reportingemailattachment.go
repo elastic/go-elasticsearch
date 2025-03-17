@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ReportingEmailAttachment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Actions.ts#L224-L232
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/_types/Actions.ts#L224-L232
 type ReportingEmailAttachment struct {
 	Inline   *bool                       `json:"inline,omitempty"`
 	Interval Duration                    `json:"interval,omitempty"`
@@ -117,4 +117,14 @@ func NewReportingEmailAttachment() *ReportingEmailAttachment {
 	r := &ReportingEmailAttachment{}
 
 	return r
+}
+
+// true
+
+type ReportingEmailAttachmentVariant interface {
+	ReportingEmailAttachmentCaster() *ReportingEmailAttachment
+}
+
+func (s *ReportingEmailAttachment) ReportingEmailAttachmentCaster() *ReportingEmailAttachment {
+	return s
 }

@@ -1,0 +1,141 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
+
+package esdsl
+
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+
+type _ilmActions struct {
+	v *types.IlmActions
+}
+
+func NewIlmActions() *_ilmActions {
+
+	return &_ilmActions{v: types.NewIlmActions()}
+
+}
+
+// Phases allowed: warm, cold.
+func (s *_ilmActions) Allocate(allocate types.AllocateActionVariant) *_ilmActions {
+
+	s.v.Allocate = allocate.AllocateActionCaster()
+
+	return s
+}
+
+// Phases allowed: delete.
+func (s *_ilmActions) Delete(delete types.DeleteActionVariant) *_ilmActions {
+
+	s.v.Delete = delete.DeleteActionCaster()
+
+	return s
+}
+
+// Phases allowed: hot, warm, cold.
+func (s *_ilmActions) Downsample(downsample types.DownsampleActionVariant) *_ilmActions {
+
+	s.v.Downsample = downsample.DownsampleActionCaster()
+
+	return s
+}
+
+// Phases allowed: hot, warm.
+func (s *_ilmActions) Forcemerge(forcemerge types.ForceMergeActionVariant) *_ilmActions {
+
+	s.v.Forcemerge = forcemerge.ForceMergeActionCaster()
+
+	return s
+}
+
+// The freeze action is a noop in 8.x
+func (s *_ilmActions) Freeze(freeze types.EmptyObjectVariant) *_ilmActions {
+
+	s.v.Freeze = freeze.EmptyObjectCaster()
+
+	return s
+}
+
+// Phases allowed: warm, cold.
+func (s *_ilmActions) Migrate(migrate types.MigrateActionVariant) *_ilmActions {
+
+	s.v.Migrate = migrate.MigrateActionCaster()
+
+	return s
+}
+
+// Phases allowed: hot, warm, cold.
+func (s *_ilmActions) Readonly(readonly types.EmptyObjectVariant) *_ilmActions {
+
+	s.v.Readonly = readonly.EmptyObjectCaster()
+
+	return s
+}
+
+// Phases allowed: hot.
+func (s *_ilmActions) Rollover(rollover types.RolloverActionVariant) *_ilmActions {
+
+	s.v.Rollover = rollover.RolloverActionCaster()
+
+	return s
+}
+
+// Phases allowed: hot, cold, frozen.
+func (s *_ilmActions) SearchableSnapshot(searchablesnapshot types.SearchableSnapshotActionVariant) *_ilmActions {
+
+	s.v.SearchableSnapshot = searchablesnapshot.SearchableSnapshotActionCaster()
+
+	return s
+}
+
+// Phases allowed: hot, warm, cold.
+func (s *_ilmActions) SetPriority(setpriority types.SetPriorityActionVariant) *_ilmActions {
+
+	s.v.SetPriority = setpriority.SetPriorityActionCaster()
+
+	return s
+}
+
+// Phases allowed: hot, warm.
+func (s *_ilmActions) Shrink(shrink types.ShrinkActionVariant) *_ilmActions {
+
+	s.v.Shrink = shrink.ShrinkActionCaster()
+
+	return s
+}
+
+// Phases allowed: hot, warm, cold, frozen.
+func (s *_ilmActions) Unfollow(unfollow types.EmptyObjectVariant) *_ilmActions {
+
+	s.v.Unfollow = unfollow.EmptyObjectCaster()
+
+	return s
+}
+
+// Phases allowed: delete.
+func (s *_ilmActions) WaitForSnapshot(waitforsnapshot types.WaitForSnapshotActionVariant) *_ilmActions {
+
+	s.v.WaitForSnapshot = waitforsnapshot.WaitForSnapshotActionCaster()
+
+	return s
+}
+
+func (s *_ilmActions) IlmActionsCaster() *types.IlmActions {
+	return s.v
+}

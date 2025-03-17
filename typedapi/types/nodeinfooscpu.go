@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoOSCPU type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/info/types.ts#L347-L356
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/nodes/info/types.ts#L347-L356
 type NodeInfoOSCPU struct {
 	CacheSize        string `json:"cache_size"`
 	CacheSizeInBytes int    `json:"cache_size_in_bytes"`
@@ -185,3 +185,5 @@ func NewNodeInfoOSCPU() *NodeInfoOSCPU {
 
 	return r
 }
+
+// false

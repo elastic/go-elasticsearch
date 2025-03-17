@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Delete forecasts from a job.
+//
 // By default, forecasts are retained for 14 days. You can specify a
 // different retention period with the `expires_in` parameter in the forecast
 // jobs API. The delete forecast API enables you to delete one or more
@@ -84,12 +85,13 @@ func NewDeleteForecastFunc(tp elastictransport.Interface) NewDeleteForecast {
 }
 
 // Delete forecasts from a job.
+//
 // By default, forecasts are retained for 14 days. You can specify a
 // different retention period with the `expires_in` parameter in the forecast
 // jobs API. The delete forecast API enables you to delete one or more
 // forecasts before they expire.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-forecast.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-forecast
 func New(tp elastictransport.Interface) *DeleteForecast {
 	r := &DeleteForecast{
 		transport: tp,

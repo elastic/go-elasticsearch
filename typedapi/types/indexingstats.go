@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexingStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Stats.ts#L143-L159
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/Stats.ts#L146-L162
 type IndexingStats struct {
 	DeleteCurrent        int64                    `json:"delete_current"`
 	DeleteTime           Duration                 `json:"delete_time,omitempty"`
@@ -231,8 +231,10 @@ func (s *IndexingStats) UnmarshalJSON(data []byte) error {
 // NewIndexingStats returns a IndexingStats.
 func NewIndexingStats() *IndexingStats {
 	r := &IndexingStats{
-		Types: make(map[string]IndexingStats, 0),
+		Types: make(map[string]IndexingStats),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Stop datafeeds.
 // A datafeed that is stopped ceases to retrieve data from Elasticsearch. A
@@ -89,7 +89,7 @@ func NewStopDatafeedFunc(tp elastictransport.Interface) NewStopDatafeed {
 // datafeed can be started and stopped
 // multiple times throughout its lifecycle.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-stop-datafeed.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-datafeed
 func New(tp elastictransport.Interface) *StopDatafeed {
 	r := &StopDatafeed{
 		transport: tp,
@@ -97,8 +97,6 @@ func New(tp elastictransport.Interface) *StopDatafeed {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -371,26 +369,41 @@ func (r *StopDatafeed) Pretty(pretty bool) *StopDatafeed {
 	return r
 }
 
-// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.
+// Refer to the description for the `allow_no_match` query parameter.
 // API name: allow_no_match
 func (r *StopDatafeed) AllowNoMatch(allownomatch bool) *StopDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.AllowNoMatch = &allownomatch
 
 	return r
 }
 
-// Force Refer to the description for the `force` query parameter.
+// Refer to the description for the `force` query parameter.
 // API name: force
 func (r *StopDatafeed) Force(force bool) *StopDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Force = &force
 
 	return r
 }
 
-// Timeout Refer to the description for the `timeout` query parameter.
+// Refer to the description for the `timeout` query parameter.
 // API name: timeout
-func (r *StopDatafeed) Timeout(duration types.Duration) *StopDatafeed {
-	r.req.Timeout = duration
+func (r *StopDatafeed) Timeout(duration types.DurationVariant) *StopDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Timeout = *duration.DurationCaster()
 
 	return r
 }

@@ -16,9 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Creates or updates a query ruleset.
+// Create or update a query ruleset.
+// There is a limit of 100 rules per ruleset.
+// This limit can be increased by using the
+// `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
+//
+// IMPORTANT: Due to limitations within pinned queries, you can only select
+// documents using `ids` or `docs`, but cannot use both in single rule.
+// It is advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits.
+// If multiple matching rules pin more than 100 documents, only the first 100
+// documents are pinned in the order they are specified in the ruleset.
 package putruleset
 
 import (
@@ -81,9 +91,19 @@ func NewPutRulesetFunc(tp elastictransport.Interface) NewPutRuleset {
 	}
 }
 
-// Creates or updates a query ruleset.
+// Create or update a query ruleset.
+// There is a limit of 100 rules per ruleset.
+// This limit can be increased by using the
+// `xpack.applications.rules.max_rules_per_ruleset` cluster setting.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-query-ruleset.html
+// IMPORTANT: Due to limitations within pinned queries, you can only select
+// documents using `ids` or `docs`, but cannot use both in single rule.
+// It is advised to use one or the other in query rulesets, to avoid errors.
+// Additionally, pinned queries have a maximum limit of 100 pinned hits.
+// If multiple matching rules pin more than 100 documents, only the first 100
+// documents are pinned in the order they are specified in the ruleset.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-query-rules-put-ruleset
 func New(tp elastictransport.Interface) *PutRuleset {
 	r := &PutRuleset{
 		transport: tp,
@@ -91,8 +111,6 @@ func New(tp elastictransport.Interface) *PutRuleset {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -304,7 +322,7 @@ func (r *PutRuleset) Header(key, value string) *PutRuleset {
 	return r
 }
 
-// RulesetId The unique identifier of the query ruleset to be created or updated
+// RulesetId The unique identifier of the query ruleset to be created or updated.
 // API Name: rulesetid
 func (r *PutRuleset) _rulesetid(rulesetid string) *PutRuleset {
 	r.paramSet |= rulesetidMask
@@ -358,8 +376,15 @@ func (r *PutRuleset) Pretty(pretty bool) *PutRuleset {
 }
 
 // API name: rules
-func (r *PutRuleset) Rules(rules ...types.QueryRule) *PutRuleset {
-	r.req.Rules = rules
+func (r *PutRuleset) Rules(rules ...types.QueryRuleVariant) *PutRuleset {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Rules = make([]types.QueryRule, len(rules))
+	for i, v := range rules {
+		r.req.Rules[i] = *v.QueryRuleCaster()
+	}
 
 	return r
 }

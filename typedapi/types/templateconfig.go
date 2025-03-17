@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,12 +31,12 @@ import (
 
 // TemplateConfig type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/msearch_template/types.ts#L28-L54
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/msearch_template/types.ts#L28-L54
 type TemplateConfig struct {
 	// Explain If `true`, returns detailed information about score calculation as part of
 	// each hit.
 	Explain *bool `json:"explain,omitempty"`
-	// Id ID of the search template to use. If no source is specified,
+	// Id The ID of the search template to use. If no `source` is specified,
 	// this parameter is required.
 	Id *string `json:"id,omitempty"`
 	// Params Key-value pairs used to replace Mustache variables in the template.
@@ -46,7 +46,8 @@ type TemplateConfig struct {
 	// Profile If `true`, the query execution is profiled.
 	Profile *bool `json:"profile,omitempty"`
 	// Source An inline search template. Supports the same parameters as the search API's
-	// request body. Also supports Mustache variables. If no id is specified, this
+	// request body. It also supports Mustache variables. If no `id` is specified,
+	// this
 	// parameter is required.
 	Source *string `json:"source,omitempty"`
 }
@@ -127,8 +128,18 @@ func (s *TemplateConfig) UnmarshalJSON(data []byte) error {
 // NewTemplateConfig returns a TemplateConfig.
 func NewTemplateConfig() *TemplateConfig {
 	r := &TemplateConfig{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type TemplateConfigVariant interface {
+	TemplateConfigCaster() *TemplateConfig
+}
+
+func (s *TemplateConfig) TemplateConfigCaster() *TemplateConfig {
+	return s
 }

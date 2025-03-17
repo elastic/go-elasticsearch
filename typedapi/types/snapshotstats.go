@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,13 +30,22 @@ import (
 
 // SnapshotStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/SnapshotStats.ts#L23-L29
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/snapshot/_types/SnapshotStats.ts#L23-L42
 type SnapshotStats struct {
-	Incremental       FileCountSnapshotStats `json:"incremental"`
-	StartTimeInMillis int64                  `json:"start_time_in_millis"`
-	Time              Duration               `json:"time,omitempty"`
-	TimeInMillis      int64                  `json:"time_in_millis"`
-	Total             FileCountSnapshotStats `json:"total"`
+	// Incremental The number and size of files that still need to be copied as part of the
+	// incremental snapshot.
+	// For completed snapshots, this property indicates the number and size of files
+	// that were not already in the repository and were copied as part of the
+	// incremental snapshot.
+	Incremental FileCountSnapshotStats `json:"incremental"`
+	// StartTimeInMillis The time, in milliseconds, when the snapshot creation process started.
+	StartTimeInMillis int64    `json:"start_time_in_millis"`
+	Time              Duration `json:"time,omitempty"`
+	// TimeInMillis The total time, in milliseconds, that it took for the snapshot process to
+	// complete.
+	TimeInMillis int64 `json:"time_in_millis"`
+	// Total The total number and size of files that are referenced by the snapshot.
+	Total FileCountSnapshotStats `json:"total"`
 }
 
 func (s *SnapshotStats) UnmarshalJSON(data []byte) error {
@@ -90,3 +99,5 @@ func NewSnapshotStats() *SnapshotStats {
 
 	return r
 }
+
+// false

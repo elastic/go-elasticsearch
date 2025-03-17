@@ -16,10 +16,32 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Adds a node to be shut down. Designed for indirect use by ECE/ESS and ECK.
-// Direct use is not supported.
+// Prepare a node to be shut down.
+//
+// NOTE: This feature is designed for indirect use by Elastic Cloud, Elastic
+// Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
+//
+// If you specify a node that is offline, it will be prepared for shut down when
+// it rejoins the cluster.
+//
+// If the operator privileges feature is enabled, you must be an operator to use
+// this API.
+//
+// The API migrates ongoing tasks and index shards to other nodes as needed to
+// prepare a node to be restarted or shut down and removed from the cluster.
+// This ensures that Elasticsearch can be stopped safely with minimal disruption
+// to the cluster.
+//
+// You must specify the type of shutdown: `restart`, `remove`, or `replace`.
+// If a node is already being prepared for shutdown, you can use this API to
+// change the shutdown type.
+//
+// IMPORTANT: This API does NOT terminate the Elasticsearch process.
+// Monitor the node shutdown status to determine when it is safe to stop
+// Elasticsearch.
 package putnode
 
 import (
@@ -84,10 +106,32 @@ func NewPutNodeFunc(tp elastictransport.Interface) NewPutNode {
 	}
 }
 
-// Adds a node to be shut down. Designed for indirect use by ECE/ESS and ECK.
-// Direct use is not supported.
+// Prepare a node to be shut down.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current
+// NOTE: This feature is designed for indirect use by Elastic Cloud, Elastic
+// Cloud Enterprise, and Elastic Cloud on Kubernetes. Direct use is not
+// supported.
+//
+// If you specify a node that is offline, it will be prepared for shut down when
+// it rejoins the cluster.
+//
+// If the operator privileges feature is enabled, you must be an operator to use
+// this API.
+//
+// The API migrates ongoing tasks and index shards to other nodes as needed to
+// prepare a node to be restarted or shut down and removed from the cluster.
+// This ensures that Elasticsearch can be stopped safely with minimal disruption
+// to the cluster.
+//
+// You must specify the type of shutdown: `restart`, `remove`, or `replace`.
+// If a node is already being prepared for shutdown, you can use this API to
+// change the shutdown type.
+//
+// IMPORTANT: This API does NOT terminate the Elasticsearch process.
+// Monitor the node shutdown status to determine when it is safe to stop
+// Elasticsearch.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-shutdown-put-node
 func New(tp elastictransport.Interface) *PutNode {
 	r := &PutNode{
 		transport: tp,
@@ -95,8 +139,6 @@ func New(tp elastictransport.Interface) *PutNode {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -310,7 +352,10 @@ func (r *PutNode) Header(key, value string) *PutNode {
 	return r
 }
 
-// NodeId The node id of node to be shut down
+// NodeId The node identifier.
+// This parameter is not validated against the cluster's active nodes.
+// This enables you to register a node for shut down while it is offline.
+// No error is thrown if you specify an invalid node ID.
 // API Name: nodeid
 func (r *PutNode) _nodeid(nodeid string) *PutNode {
 	r.paramSet |= nodeidMask
@@ -319,8 +364,9 @@ func (r *PutNode) _nodeid(nodeid string) *PutNode {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: master_timeout
 func (r *PutNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *PutNode {
 	r.values.Set("master_timeout", mastertimeout.String())
@@ -328,8 +374,9 @@ func (r *PutNode) MasterTimeout(mastertimeout timeunit.TimeUnit) *PutNode {
 	return r
 }
 
-// Timeout Period to wait for a response. If no response is received before the timeout
-// expires, the request fails and returns an error.
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *PutNode) Timeout(timeout timeunit.TimeUnit) *PutNode {
 	r.values.Set("timeout", timeout.String())
@@ -381,7 +428,7 @@ func (r *PutNode) Pretty(pretty bool) *PutNode {
 	return r
 }
 
-// AllocationDelay Only valid if type is restart.
+// Only valid if type is restart.
 // Controls how long Elasticsearch will wait for the node to restart and join
 // the cluster before reassigning its shards to other nodes.
 // This works the same as delaying allocation with the
@@ -390,24 +437,32 @@ func (r *PutNode) Pretty(pretty bool) *PutNode {
 // delay, the longer of the two is used.
 // API name: allocation_delay
 func (r *PutNode) AllocationDelay(allocationdelay string) *PutNode {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.AllocationDelay = &allocationdelay
 
 	return r
 }
 
-// Reason A human-readable reason that the node is being shut down.
+// A human-readable reason that the node is being shut down.
 // This field provides information for other cluster operators; it does not
 // affect the shut down process.
 // API name: reason
 func (r *PutNode) Reason(reason string) *PutNode {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Reason = reason
 
 	return r
 }
 
-// TargetNodeName Only valid if type is replace.
+// Only valid if type is replace.
 // Specifies the name of the node that is replacing the node being shut down.
 // Shards from the shut down node are only allowed to be allocated to the target
 // node, and no other data will be allocated to the target node.
@@ -415,13 +470,17 @@ func (r *PutNode) Reason(reason string) *PutNode {
 // watermarks or user attribute filtering rules.
 // API name: target_node_name
 func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.TargetNodeName = &targetnodename
 
 	return r
 }
 
-// Type Valid values are restart, remove, or replace.
+// Valid values are restart, remove, or replace.
 // Use restart when you need to temporarily shut down a node to perform an
 // upgrade, make configuration changes, or perform other maintenance.
 // Because the node is expected to rejoin the cluster, data is not migrated off
@@ -435,7 +494,10 @@ func (r *PutNode) TargetNodeName(targetnodename string) *PutNode {
 // unassigned shards, and shrink may fail until the replacement is complete.
 // API name: type
 func (r *PutNode) Type(type_ type_.Type) *PutNode {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Type = type_
-
 	return r
 }

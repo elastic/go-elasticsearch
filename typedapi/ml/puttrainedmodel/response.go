@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package puttrainedmodel
 
@@ -34,7 +34,7 @@ import (
 
 // Response holds the response body struct for the package puttrainedmodel
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/put_trained_model/MlPutTrainedModelResponse.ts#L22-L24
 type Response struct {
 	CompressedDefinition *string `json:"compressed_definition,omitempty"`
 	// CreateTime The time when the trained model was created.
@@ -65,8 +65,9 @@ type Response struct {
 	// created by data frame analytics contain analysis_config and input objects.
 	Metadata *types.TrainedModelConfigMetadata `json:"metadata,omitempty"`
 	// ModelId Identifier for the trained model.
-	ModelId        string         `json:"model_id"`
-	ModelSizeBytes types.ByteSize `json:"model_size_bytes,omitempty"`
+	ModelId        string                    `json:"model_id"`
+	ModelPackage   *types.ModelPackageConfig `json:"model_package,omitempty"`
+	ModelSizeBytes types.ByteSize            `json:"model_size_bytes,omitempty"`
 	// ModelType The model type
 	ModelType     *trainedmodeltype.TrainedModelType `json:"model_type,omitempty"`
 	PrefixStrings *types.TrainedModelPrefixStrings   `json:"prefix_strings,omitempty"`
@@ -229,6 +230,11 @@ func (s *Response) UnmarshalJSON(data []byte) error {
 		case "model_id":
 			if err := dec.Decode(&s.ModelId); err != nil {
 				return fmt.Errorf("%s | %w", "ModelId", err)
+			}
+
+		case "model_package":
+			if err := dec.Decode(&s.ModelPackage); err != nil {
+				return fmt.Errorf("%s | %w", "ModelPackage", err)
 			}
 
 		case "model_size_bytes":

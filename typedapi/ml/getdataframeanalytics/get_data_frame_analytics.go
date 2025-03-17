@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get data frame analytics job configuration info.
 // You can get information for multiple data frame analytics jobs in a single
@@ -82,7 +82,7 @@ func NewGetDataFrameAnalyticsFunc(tp elastictransport.Interface) NewGetDataFrame
 // API request by using a comma-separated list of data frame analytics jobs or a
 // wildcard expression.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-dfanalytics.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-get-data-frame-analytics
 func New(tp elastictransport.Interface) *GetDataFrameAnalytics {
 	r := &GetDataFrameAnalytics{
 		transport: tp,

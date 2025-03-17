@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
 // NodeInfoXpackSecurityAuthcRealms type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/info/types.ts#L266-L270
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/nodes/info/types.ts#L266-L270
 type NodeInfoXpackSecurityAuthcRealms struct {
 	File   map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"file,omitempty"`
 	Native map[string]NodeInfoXpackSecurityAuthcRealmsStatus `json:"native,omitempty"`
@@ -32,10 +32,12 @@ type NodeInfoXpackSecurityAuthcRealms struct {
 // NewNodeInfoXpackSecurityAuthcRealms returns a NodeInfoXpackSecurityAuthcRealms.
 func NewNodeInfoXpackSecurityAuthcRealms() *NodeInfoXpackSecurityAuthcRealms {
 	r := &NodeInfoXpackSecurityAuthcRealms{
-		File:   make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
-		Native: make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
-		Pki:    make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus, 0),
+		File:   make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus),
+		Native: make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus),
+		Pki:    make(map[string]NodeInfoXpackSecurityAuthcRealmsStatus),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // SearchInput type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Input.ts#L112-L116
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/_types/Input.ts#L112-L116
 type SearchInput struct {
 	Extract []string                     `json:"extract,omitempty"`
 	Request SearchInputRequestDefinition `json:"request"`
@@ -77,4 +77,14 @@ func NewSearchInput() *SearchInput {
 	r := &SearchInput{}
 
 	return r
+}
+
+// true
+
+type SearchInputVariant interface {
+	SearchInputCaster() *SearchInput
+}
+
+func (s *SearchInput) SearchInputCaster() *SearchInput {
+	return s
 }

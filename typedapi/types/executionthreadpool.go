@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,9 +31,12 @@ import (
 
 // ExecutionThreadPool type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Execution.ts#L94-L97
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/_types/Execution.ts#L94-L103
 type ExecutionThreadPool struct {
-	MaxSize   int64 `json:"max_size"`
+	// MaxSize The largest size of the execution thread pool, which indicates the largest
+	// number of concurrent running watches.
+	MaxSize int64 `json:"max_size"`
+	// QueueSize The number of watches that were triggered and are currently queued.
 	QueueSize int64 `json:"queue_size"`
 }
 
@@ -93,3 +96,5 @@ func NewExecutionThreadPool() *ExecutionThreadPool {
 
 	return r
 }
+
+// false

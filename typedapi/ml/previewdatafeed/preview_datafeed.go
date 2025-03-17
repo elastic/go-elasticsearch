@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Preview a datafeed.
 // This API returns the first "page" of search results from a datafeed.
@@ -107,7 +107,7 @@ func NewPreviewDatafeedFunc(tp elastictransport.Interface) NewPreviewDatafeed {
 // datafeed, use the appropriate credentials.
 // You can also use secondary authorization headers to supply the credentials.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-preview-datafeed.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-preview-datafeed
 func New(tp elastictransport.Interface) *PreviewDatafeed {
 	r := &PreviewDatafeed{
 		transport: tp,
@@ -115,8 +115,6 @@ func New(tp elastictransport.Interface) *PreviewDatafeed {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -416,16 +414,20 @@ func (r *PreviewDatafeed) Pretty(pretty bool) *PreviewDatafeed {
 	return r
 }
 
-// DatafeedConfig The datafeed definition to preview.
+// The datafeed definition to preview.
 // API name: datafeed_config
-func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig *types.DatafeedConfig) *PreviewDatafeed {
+func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig types.DatafeedConfigVariant) *PreviewDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.DatafeedConfig = datafeedconfig
+	r.req.DatafeedConfig = datafeedconfig.DatafeedConfigCaster()
 
 	return r
 }
 
-// JobConfig The configuration details for the anomaly detection job that is associated
+// The configuration details for the anomaly detection job that is associated
 // with the datafeed. If the
 // `datafeed_config` object does not include a `job_id` that references an
 // existing anomaly detection job, you must
@@ -434,9 +436,13 @@ func (r *PreviewDatafeed) DatafeedConfig(datafeedconfig *types.DatafeedConfig) *
 // used. You cannot specify a `job_config` object unless you also supply a
 // `datafeed_config` object.
 // API name: job_config
-func (r *PreviewDatafeed) JobConfig(jobconfig *types.JobConfig) *PreviewDatafeed {
+func (r *PreviewDatafeed) JobConfig(jobconfig types.JobConfigVariant) *PreviewDatafeed {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.JobConfig = jobconfig
+	r.req.JobConfig = jobconfig.JobConfigCaster()
 
 	return r
 }

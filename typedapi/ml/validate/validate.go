@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Validates an anomaly detection job.
+// Validate an anomaly detection job.
 package validate
 
 import (
@@ -73,7 +73,7 @@ func NewValidateFunc(tp elastictransport.Interface) NewValidate {
 	}
 }
 
-// Validates an anomaly detection job.
+// Validate an anomaly detection job.
 //
 // https://www.elastic.co/guide/en/machine-learning/current/ml-jobs.html
 func New(tp elastictransport.Interface) *Validate {
@@ -83,8 +83,6 @@ func New(tp elastictransport.Interface) *Validate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -339,31 +337,47 @@ func (r *Validate) Pretty(pretty bool) *Validate {
 }
 
 // API name: analysis_config
-func (r *Validate) AnalysisConfig(analysisconfig *types.AnalysisConfig) *Validate {
+func (r *Validate) AnalysisConfig(analysisconfig types.AnalysisConfigVariant) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.AnalysisConfig = analysisconfig
+	r.req.AnalysisConfig = analysisconfig.AnalysisConfigCaster()
 
 	return r
 }
 
 // API name: analysis_limits
-func (r *Validate) AnalysisLimits(analysislimits *types.AnalysisLimits) *Validate {
+func (r *Validate) AnalysisLimits(analysislimits types.AnalysisLimitsVariant) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.AnalysisLimits = analysislimits
+	r.req.AnalysisLimits = analysislimits.AnalysisLimitsCaster()
 
 	return r
 }
 
 // API name: data_description
-func (r *Validate) DataDescription(datadescription *types.DataDescription) *Validate {
+func (r *Validate) DataDescription(datadescription types.DataDescriptionVariant) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.DataDescription = datadescription
+	r.req.DataDescription = datadescription.DataDescriptionCaster()
 
 	return r
 }
 
 // API name: description
 func (r *Validate) Description(description string) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
@@ -372,21 +386,35 @@ func (r *Validate) Description(description string) *Validate {
 
 // API name: job_id
 func (r *Validate) JobId(id string) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.JobId = &id
 
 	return r
 }
 
 // API name: model_plot
-func (r *Validate) ModelPlot(modelplot *types.ModelPlotConfig) *Validate {
+func (r *Validate) ModelPlot(modelplot types.ModelPlotConfigVariant) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.ModelPlot = modelplot
+	r.req.ModelPlot = modelplot.ModelPlotConfigCaster()
 
 	return r
 }
 
 // API name: model_snapshot_id
 func (r *Validate) ModelSnapshotId(id string) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ModelSnapshotId = &id
 
 	return r
@@ -394,6 +422,10 @@ func (r *Validate) ModelSnapshotId(id string) *Validate {
 
 // API name: model_snapshot_retention_days
 func (r *Validate) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.ModelSnapshotRetentionDays = &modelsnapshotretentiondays
 
@@ -402,6 +434,11 @@ func (r *Validate) ModelSnapshotRetentionDays(modelsnapshotretentiondays int64) 
 
 // API name: results_index_name
 func (r *Validate) ResultsIndexName(indexname string) *Validate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.ResultsIndexName = &indexname
 
 	return r

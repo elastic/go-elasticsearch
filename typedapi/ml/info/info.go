@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Return ML defaults and limits.
-// Returns defaults and limits used by machine learning.
+// Get machine learning information.
+// Get defaults and limits used by machine learning.
 // This endpoint is designed to be used by a user interface that needs to fully
 // understand machine learning configurations where some options are not
 // specified, meaning that the defaults should be used. This endpoint may be
@@ -75,8 +75,8 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Return ML defaults and limits.
-// Returns defaults and limits used by machine learning.
+// Get machine learning information.
+// Get defaults and limits used by machine learning.
 // This endpoint is designed to be used by a user interface that needs to fully
 // understand machine learning configurations where some options are not
 // specified, meaning that the defaults should be used. This endpoint may be
@@ -84,7 +84,7 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 // the maximum size of machine learning jobs that could run in the current
 // cluster configuration.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-ml-info.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-info
 func New(tp elastictransport.Interface) *Info {
 	r := &Info{
 		transport: tp,

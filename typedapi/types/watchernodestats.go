@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,14 +33,35 @@ import (
 
 // WatcherNodeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/stats/types.ts#L33-L40
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/stats/types.ts#L33-L61
 type WatcherNodeStats struct {
-	CurrentWatches      []WatchRecordStats        `json:"current_watches,omitempty"`
-	ExecutionThreadPool ExecutionThreadPool       `json:"execution_thread_pool"`
-	NodeId              string                    `json:"node_id"`
-	QueuedWatches       []WatchRecordQueuedStats  `json:"queued_watches,omitempty"`
-	WatchCount          int64                     `json:"watch_count"`
-	WatcherState        watcherstate.WatcherState `json:"watcher_state"`
+	// CurrentWatches The current executing watches metric gives insight into the watches that are
+	// currently being executed by Watcher.
+	// Additional information is shared per watch that is currently executing.
+	// This information includes the `watch_id`, the time its execution started and
+	// its current execution phase.
+	// To include this metric, the `metric` option should be set to
+	// `current_watches` or `_all`.
+	// In addition you can also specify the `emit_stacktraces=true` parameter, which
+	// adds stack traces for each watch that is being run.
+	// These stack traces can give you more insight into an execution of a watch.
+	CurrentWatches      []WatchRecordStats  `json:"current_watches,omitempty"`
+	ExecutionThreadPool ExecutionThreadPool `json:"execution_thread_pool"`
+	NodeId              string              `json:"node_id"`
+	// QueuedWatches Watcher moderates the execution of watches such that their execution won't
+	// put too much pressure on the node and its resources.
+	// If too many watches trigger concurrently and there isn't enough capacity to
+	// run them all, some of the watches are queued, waiting for the current running
+	// watches to finish.s
+	// The queued watches metric gives insight on these queued watches.
+	//
+	// To include this metric, the `metric` option should include `queued_watches`
+	// or `_all`.
+	QueuedWatches []WatchRecordQueuedStats `json:"queued_watches,omitempty"`
+	// WatchCount The number of watches currently registered.
+	WatchCount int64 `json:"watch_count"`
+	// WatcherState The current state of Watcher.
+	WatcherState watcherstate.WatcherState `json:"watcher_state"`
 }
 
 func (s *WatcherNodeStats) UnmarshalJSON(data []byte) error {
@@ -109,3 +130,5 @@ func NewWatcherNodeStats() *WatcherNodeStats {
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,9 +31,11 @@ import (
 
 // Retries type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Retries.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/Retries.ts#L22-L31
 type Retries struct {
-	Bulk   int64 `json:"bulk"`
+	// Bulk The number of bulk actions retried.
+	Bulk int64 `json:"bulk"`
+	// Search The number of search actions retried.
 	Search int64 `json:"search"`
 }
 
@@ -93,3 +95,5 @@ func NewRetries() *Retries {
 
 	return r
 }
+
+// false

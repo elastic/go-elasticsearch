@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // PagerDutyContext type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Actions.ts#L61-L65
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/watcher/_types/Actions.ts#L61-L65
 type PagerDutyContext struct {
 	Href *string                                   `json:"href,omitempty"`
 	Src  *string                                   `json:"src,omitempty"`
@@ -94,4 +94,14 @@ func NewPagerDutyContext() *PagerDutyContext {
 	r := &PagerDutyContext{}
 
 	return r
+}
+
+// true
+
+type PagerDutyContextVariant interface {
+	PagerDutyContextCaster() *PagerDutyContext
+}
+
+func (s *PagerDutyContext) PagerDutyContextCaster() *PagerDutyContext {
+	return s
 }

@@ -16,10 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Delete a dangling index.
-//
 // If Elasticsearch encounters index data that is absent from the current
 // cluster state, those indices are considered to be dangling.
 // For example, this can happen if you delete more than
@@ -83,14 +82,13 @@ func NewDeleteDanglingIndexFunc(tp elastictransport.Interface) NewDeleteDangling
 }
 
 // Delete a dangling index.
-//
 // If Elasticsearch encounters index data that is absent from the current
 // cluster state, those indices are considered to be dangling.
 // For example, this can happen if you delete more than
 // `cluster.indices.tombstones.size` indices while an Elasticsearch node is
 // offline.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway-dangling-indices.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-dangling-indices-delete-dangling-index
 func New(tp elastictransport.Interface) *DeleteDanglingIndex {
 	r := &DeleteDanglingIndex{
 		transport: tp,

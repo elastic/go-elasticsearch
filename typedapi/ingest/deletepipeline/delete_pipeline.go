@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Deletes one or more existing ingest pipeline.
+// Delete pipelines.
+// Delete one or more ingest pipelines.
 package deletepipeline
 
 import (
@@ -76,9 +77,10 @@ func NewDeletePipelineFunc(tp elastictransport.Interface) NewDeletePipeline {
 	}
 }
 
-// Deletes one or more existing ingest pipeline.
+// Delete pipelines.
+// Delete one or more ingest pipelines.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-pipeline-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ingest-delete-pipeline
 func New(tp elastictransport.Interface) *DeletePipeline {
 	r := &DeletePipeline{
 		transport: tp,

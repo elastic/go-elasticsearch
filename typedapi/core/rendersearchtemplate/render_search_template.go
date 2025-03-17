@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Render a search template.
 //
@@ -37,10 +37,6 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
-
-const (
-	idMask = iota + 1
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -85,7 +81,7 @@ func NewRenderSearchTemplateFunc(tp elastictransport.Interface) NewRenderSearchT
 //
 // Render a search template as a search request body.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/render-search-template-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-render-search-template
 func New(tp elastictransport.Interface) *RenderSearchTemplate {
 	r := &RenderSearchTemplate{
 		transport: tp,
@@ -93,8 +89,6 @@ func New(tp elastictransport.Interface) *RenderSearchTemplate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -163,19 +157,6 @@ func (r *RenderSearchTemplate) HttpRequest(ctx context.Context) (*http.Request, 
 		path.WriteString("_render")
 		path.WriteString("/")
 		path.WriteString("template")
-
-		method = http.MethodPost
-	case r.paramSet == idMask:
-		path.WriteString("/")
-		path.WriteString("_render")
-		path.WriteString("/")
-		path.WriteString("template")
-		path.WriteString("/")
-
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordPathPart(ctx, "id", r.id)
-		}
-		path.WriteString(r.id)
 
 		method = http.MethodPost
 	}
@@ -315,17 +296,6 @@ func (r *RenderSearchTemplate) Header(key, value string) *RenderSearchTemplate {
 	return r
 }
 
-// Id ID of the search template to render.
-// If no `source` is specified, this or the `id` request body parameter is
-// required.
-// API Name: id
-func (r *RenderSearchTemplate) Id(id string) *RenderSearchTemplate {
-	r.paramSet |= idMask
-	r.id = id
-
-	return r
-}
-
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -372,29 +342,75 @@ func (r *RenderSearchTemplate) Pretty(pretty bool) *RenderSearchTemplate {
 
 // API name: file
 func (r *RenderSearchTemplate) File(file string) *RenderSearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.File = &file
 
 	return r
 }
 
-// Params Key-value pairs used to replace Mustache variables in the template.
-// The key is the variable name.
-// The value is the variable value.
-// API name: params
-func (r *RenderSearchTemplate) Params(params map[string]json.RawMessage) *RenderSearchTemplate {
+// The ID of the search template to render.
+// If no `source` is specified, this or the `<template-id>` request path
+// parameter is required.
+// If you specify both this parameter and the `<template-id>` parameter, the API
+// uses only `<template-id>`.
+// API name: id
+func (r *RenderSearchTemplate) Id(id string) *RenderSearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Params = params
+	r.req.Id = &id
 
 	return r
 }
 
-// Source An inline search template.
-// Supports the same parameters as the search API's request body.
+// Key-value pairs used to replace Mustache variables in the template.
+// The key is the variable name.
+// The value is the variable value.
+// API name: params
+func (r *RenderSearchTemplate) Params(params map[string]json.RawMessage) *RenderSearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	r.req.Params = params
+	return r
+}
+
+func (r *RenderSearchTemplate) AddParam(key string, value json.RawMessage) *RenderSearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Params == nil {
+		r.req.Params = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Params
+	}
+
+	tmp[key] = value
+
+	r.req.Params = tmp
+	return r
+}
+
+// An inline search template.
+// It supports the same parameters as the search API's request body.
 // These parameters also support Mustache variables.
 // If no `id` or `<templated-id>` is specified, this parameter is required.
 // API name: source
 func (r *RenderSearchTemplate) Source(source string) *RenderSearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Source = &source
 

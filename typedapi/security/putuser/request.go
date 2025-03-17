@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package putuser
 
@@ -33,16 +33,40 @@ import (
 
 // Request holds the request body struct for the package putuser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/put_user/SecurityPutUserRequest.ts#L23-L48
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/put_user/SecurityPutUserRequest.ts#L23-L101
 type Request struct {
-	Email        *string        `json:"email,omitempty"`
-	Enabled      *bool          `json:"enabled,omitempty"`
-	FullName     *string        `json:"full_name,omitempty"`
-	Metadata     types.Metadata `json:"metadata,omitempty"`
-	Password     *string        `json:"password,omitempty"`
-	PasswordHash *string        `json:"password_hash,omitempty"`
-	Roles        []string       `json:"roles,omitempty"`
-	Username     *string        `json:"username,omitempty"`
+
+	// Email The email of the user.
+	Email *string `json:"email,omitempty"`
+	// Enabled Specifies whether the user is enabled.
+	Enabled *bool `json:"enabled,omitempty"`
+	// FullName The full name of the user.
+	FullName *string `json:"full_name,omitempty"`
+	// Metadata Arbitrary metadata that you want to associate with the user.
+	Metadata types.Metadata `json:"metadata,omitempty"`
+	// Password The user's password.
+	// Passwords must be at least 6 characters long.
+	// When adding a user, one of `password` or `password_hash` is required.
+	// When updating an existing user, the password is optional, so that other
+	// fields on the user (such as their roles) may be updated without modifying the
+	// user's password
+	Password *string `json:"password,omitempty"`
+	// PasswordHash A hash of the user's password.
+	// This must be produced using the same hashing algorithm as has been configured
+	// for password storage.
+	// For more details, see the explanation of the
+	// `xpack.security.authc.password_hashing.algorithm` setting in the user cache
+	// and password hash algorithm documentation.
+	// Using this parameter allows the client to pre-hash the password for
+	// performance and/or confidentiality reasons.
+	// The `password` parameter and the `password_hash` parameter cannot be used in
+	// the same request.
+	PasswordHash *string `json:"password_hash,omitempty"`
+	// Roles A set of roles the user has.
+	// The roles determine the user's access permissions.
+	// To create a user without any roles, specify an empty list (`[]`).
+	Roles    []string `json:"roles,omitempty"`
+	Username *string  `json:"username,omitempty"`
 }
 
 // NewRequest returns a Request

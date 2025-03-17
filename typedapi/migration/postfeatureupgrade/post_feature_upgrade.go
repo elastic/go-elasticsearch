@@ -16,9 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Begin upgrades for system features
+// Start the feature migration.
+// Version upgrades sometimes require changes to how features store
+// configuration information and data in system indices.
+// This API starts the automatic migration process.
+//
+// Some functionality might be temporarily unavailable during the migration
+// process.
+//
+// TIP: The API is designed for indirect use by the Upgrade Assistant. We
+// strongly recommend you use the Upgrade Assistant.
 package postfeatureupgrade
 
 import (
@@ -68,9 +77,18 @@ func NewPostFeatureUpgradeFunc(tp elastictransport.Interface) NewPostFeatureUpgr
 	}
 }
 
-// Begin upgrades for system features
+// Start the feature migration.
+// Version upgrades sometimes require changes to how features store
+// configuration information and data in system indices.
+// This API starts the automatic migration process.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/migration-api-feature-upgrade.html
+// Some functionality might be temporarily unavailable during the migration
+// process.
+//
+// TIP: The API is designed for indirect use by the Upgrade Assistant. We
+// strongly recommend you use the Upgrade Assistant.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-migration-get-feature-upgrade-status
 func New(tp elastictransport.Interface) *PostFeatureUpgrade {
 	r := &PostFeatureUpgrade{
 		transport: tp,

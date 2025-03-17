@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get all connectors.
 //
@@ -74,7 +74,7 @@ func NewListFunc(tp elastictransport.Interface) NewList {
 //
 // Get information about all connectors.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/list-connector-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-list
 func New(tp elastictransport.Interface) *List {
 	r := &List{
 		transport: tp,
@@ -316,6 +316,15 @@ func (r *List) ConnectorName(names ...string) *List {
 // API name: service_type
 func (r *List) ServiceType(names ...string) *List {
 	r.values.Set("service_type", strings.Join(names, ","))
+
+	return r
+}
+
+// IncludeDeleted A flag to indicate if the desired connector should be fetched, even if it was
+// soft-deleted.
+// API name: include_deleted
+func (r *List) IncludeDeleted(includedeleted bool) *List {
+	r.values.Set("include_deleted", strconv.FormatBool(includedeleted))
 
 	return r
 }

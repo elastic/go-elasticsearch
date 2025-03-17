@@ -16,11 +16,31 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get a token.
 //
 // Create a bearer token for access without requiring basic authentication.
+// The tokens are created by the Elasticsearch Token Service, which is
+// automatically enabled when you configure TLS on the HTTP interface.
+// Alternatively, you can explicitly enable the
+// `xpack.security.authc.token.enabled` setting.
+// When you are running in production mode, a bootstrap check prevents you from
+// enabling the token service unless you also enable TLS on the HTTP interface.
+//
+// The get token API takes the same parameters as a typical OAuth 2.0 token API
+// except for the use of a JSON request body.
+//
+// A successful get token API call returns a JSON structure that contains the
+// access token, the amount of time (seconds) that the token expires in, the
+// type, and the scope if available.
+//
+// The tokens returned by the get token API have a finite period of time for
+// which they are valid and after that time period, they can no longer be used.
+// That time period is defined by the `xpack.security.authc.token.timeout`
+// setting.
+// If you want to invalidate a token immediately, you can do so by using the
+// invalidate token API.
 package gettoken
 
 import (
@@ -79,8 +99,28 @@ func NewGetTokenFunc(tp elastictransport.Interface) NewGetToken {
 // Get a token.
 //
 // Create a bearer token for access without requiring basic authentication.
+// The tokens are created by the Elasticsearch Token Service, which is
+// automatically enabled when you configure TLS on the HTTP interface.
+// Alternatively, you can explicitly enable the
+// `xpack.security.authc.token.enabled` setting.
+// When you are running in production mode, a bootstrap check prevents you from
+// enabling the token service unless you also enable TLS on the HTTP interface.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-token.html
+// The get token API takes the same parameters as a typical OAuth 2.0 token API
+// except for the use of a JSON request body.
+//
+// A successful get token API call returns a JSON structure that contains the
+// access token, the amount of time (seconds) that the token expires in, the
+// type, and the scope if available.
+//
+// The tokens returned by the get token API have a finite period of time for
+// which they are valid and after that time period, they can no longer be used.
+// That time period is defined by the `xpack.security.authc.token.timeout`
+// setting.
+// If you want to invalidate a token immediately, you can do so by using the
+// invalidate token API.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-token
 func New(tp elastictransport.Interface) *GetToken {
 	r := &GetToken{
 		transport: tp,
@@ -88,8 +128,6 @@ func New(tp elastictransport.Interface) *GetToken {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -343,46 +381,90 @@ func (r *GetToken) Pretty(pretty bool) *GetToken {
 	return r
 }
 
+// The type of grant.
+// Supported grant types are: `password`, `_kerberos`, `client_credentials`, and
+// `refresh_token`.
 // API name: grant_type
 func (r *GetToken) GrantType(granttype accesstokengranttype.AccessTokenGrantType) *GetToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.GrantType = &granttype
-
 	return r
 }
 
+// The base64 encoded kerberos ticket.
+// If you specify the `_kerberos` grant type, this parameter is required.
+// This parameter is not valid with any other supported grant type.
 // API name: kerberos_ticket
 func (r *GetToken) KerberosTicket(kerberosticket string) *GetToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.KerberosTicket = &kerberosticket
 
 	return r
 }
 
+// The user's password.
+// If you specify the `password` grant type, this parameter is required.
+// This parameter is not valid with any other supported grant type.
 // API name: password
 func (r *GetToken) Password(password string) *GetToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Password = &password
 
 	return r
 }
 
+// The string that was returned when you created the token, which enables you to
+// extend its life.
+// If you specify the `refresh_token` grant type, this parameter is required.
+// This parameter is not valid with any other supported grant type.
 // API name: refresh_token
 func (r *GetToken) RefreshToken(refreshtoken string) *GetToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.RefreshToken = &refreshtoken
 
 	return r
 }
 
+// The scope of the token.
+// Currently tokens are only issued for a scope of FULL regardless of the value
+// sent with the request.
 // API name: scope
 func (r *GetToken) Scope(scope string) *GetToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Scope = &scope
 
 	return r
 }
 
+// The username that identifies the user.
+// If you specify the `password` grant type, this parameter is required.
+// This parameter is not valid with any other supported grant type.
 // API name: username
 func (r *GetToken) Username(username string) *GetToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Username = &username
 
 	return r

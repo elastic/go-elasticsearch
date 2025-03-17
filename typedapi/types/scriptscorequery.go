@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ScriptScoreQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/specialized.ts#L348-L365
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/query_dsl/specialized.ts#L348-L365
 type ScriptScoreQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -43,7 +43,7 @@ type ScriptScoreQuery struct {
 	// from the search results.
 	MinScore *float32 `json:"min_score,omitempty"`
 	// Query Query used to return documents.
-	Query      *Query  `json:"query,omitempty"`
+	Query      Query   `json:"query"`
 	QueryName_ *string `json:"_name,omitempty"`
 	// Script Script used to compute the score of documents returned by the query.
 	// Important: final relevance scores from the `script_score` query cannot be
@@ -130,4 +130,14 @@ func NewScriptScoreQuery() *ScriptScoreQuery {
 	r := &ScriptScoreQuery{}
 
 	return r
+}
+
+// true
+
+type ScriptScoreQueryVariant interface {
+	ScriptScoreQueryCaster() *ScriptScoreQuery
+}
+
+func (s *ScriptScoreQuery) ScriptScoreQueryCaster() *ScriptScoreQuery {
+	return s
 }

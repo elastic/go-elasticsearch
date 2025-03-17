@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Triggers the review of a snapshot repository’s contents and deletes any stale
-// data not referenced by existing snapshots.
+// Clean up the snapshot repository.
+// Trigger the review of the contents of a snapshot repository and delete any
+// stale data not referenced by existing snapshots.
 package cleanuprepository
 
 import (
@@ -77,10 +78,11 @@ func NewCleanupRepositoryFunc(tp elastictransport.Interface) NewCleanupRepositor
 	}
 }
 
-// Triggers the review of a snapshot repository’s contents and deletes any stale
-// data not referenced by existing snapshots.
+// Clean up the snapshot repository.
+// Trigger the review of the contents of a snapshot repository and delete any
+// stale data not referenced by existing snapshots.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/clean-up-snapshot-repo-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-cleanup-repository
 func New(tp elastictransport.Interface) *CleanupRepository {
 	r := &CleanupRepository{
 		transport: tp,
@@ -292,7 +294,7 @@ func (r *CleanupRepository) Header(key, value string) *CleanupRepository {
 	return r
 }
 
-// Repository Snapshot repository to clean up.
+// Repository The name of the snapshot repository to clean up.
 // API Name: repository
 func (r *CleanupRepository) _repository(repository string) *CleanupRepository {
 	r.paramSet |= repositoryMask
@@ -301,7 +303,10 @@ func (r *CleanupRepository) _repository(repository string) *CleanupRepository {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`
 // API name: master_timeout
 func (r *CleanupRepository) MasterTimeout(duration string) *CleanupRepository {
 	r.values.Set("master_timeout", duration)
@@ -309,7 +314,12 @@ func (r *CleanupRepository) MasterTimeout(duration string) *CleanupRepository {
 	return r
 }
 
-// Timeout Period to wait for a response.
+// Timeout The period to wait for a response from all relevant nodes in the cluster
+// after updating the cluster metadata.
+// If no response is received before the timeout expires, the cluster metadata
+// update still applies but the response will indicate that it was not
+// completely acknowledged.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: timeout
 func (r *CleanupRepository) Timeout(duration string) *CleanupRepository {
 	r.values.Set("timeout", duration)

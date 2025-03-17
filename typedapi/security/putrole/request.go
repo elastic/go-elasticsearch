@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package putrole
 
@@ -34,7 +34,7 @@ import (
 
 // Request holds the request body struct for the package putrole
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/put_role/SecurityPutRoleRequest.ts#L31-L95
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/put_role/SecurityPutRoleRequest.ts#L32-L111
 type Request struct {
 
 	// Applications A list of application privilege entries.
@@ -53,7 +53,14 @@ type Request struct {
 	// Metadata Optional metadata. Within the metadata object, keys that begin with an
 	// underscore (`_`) are reserved for system use.
 	Metadata types.Metadata `json:"metadata,omitempty"`
+	// RemoteCluster A list of remote cluster permissions entries.
+	RemoteCluster []types.RemoteClusterPrivileges `json:"remote_cluster,omitempty"`
 	// RemoteIndices A list of remote indices permissions entries.
+	//
+	// NOTE: Remote indices are effective for remote clusters configured with the
+	// API key based model.
+	// They have no effect for remote clusters configured with the certificate based
+	// model.
 	RemoteIndices []types.RemoteIndicesPrivileges `json:"remote_indices,omitempty"`
 	// RunAs A list of users that the owners of this role can impersonate. *Note*: in
 	// Serverless, the run-as feature is disabled. For API compatibility, you can
@@ -142,6 +149,11 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		case "metadata":
 			if err := dec.Decode(&s.Metadata); err != nil {
 				return fmt.Errorf("%s | %w", "Metadata", err)
+			}
+
+		case "remote_cluster":
+			if err := dec.Decode(&s.RemoteCluster); err != nil {
+				return fmt.Errorf("%s | %w", "RemoteCluster", err)
 			}
 
 		case "remote_indices":

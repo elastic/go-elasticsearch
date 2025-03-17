@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MachineLearning type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/xpack/usage/types.ts#L370-L377
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/xpack/usage/types.ts#L378-L385
 type MachineLearning struct {
 	Available              bool                     `json:"available"`
 	DataFrameAnalyticsJobs MlDataFrameAnalyticsJobs `json:"data_frame_analytics_jobs"`
@@ -137,9 +137,11 @@ func (s *MachineLearning) UnmarshalJSON(data []byte) error {
 // NewMachineLearning returns a MachineLearning.
 func NewMachineLearning() *MachineLearning {
 	r := &MachineLearning{
-		Datafeeds: make(map[string]XpackDatafeed, 0),
-		Jobs:      make(map[string]JobUsage, 0),
+		Datafeeds: make(map[string]XpackDatafeed),
+		Jobs:      make(map[string]JobUsage),
 	}
 
 	return r
 }
+
+// false

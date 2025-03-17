@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoDiscover type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/info/types.ts#L173-L182
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/nodes/info/types.ts#L173-L182
 type NodeInfoDiscover struct {
 	NodeInfoDiscover map[string]json.RawMessage `json:"-"`
 	SeedHosts        []string                   `json:"seed_hosts,omitempty"`
@@ -126,8 +126,10 @@ func (s NodeInfoDiscover) MarshalJSON() ([]byte, error) {
 // NewNodeInfoDiscover returns a NodeInfoDiscover.
 func NewNodeInfoDiscover() *NodeInfoDiscover {
 	r := &NodeInfoDiscover{
-		NodeInfoDiscover: make(map[string]json.RawMessage, 0),
+		NodeInfoDiscover: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

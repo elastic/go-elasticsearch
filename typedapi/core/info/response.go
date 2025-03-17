@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package info
 
@@ -26,13 +26,17 @@ import (
 
 // Response holds the response body struct for the package info
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/info/RootNodeInfoResponse.ts#L23-L31
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_global/info/RootNodeInfoResponse.ts#L23-L40
 type Response struct {
-	ClusterName string                         `json:"cluster_name"`
-	ClusterUuid string                         `json:"cluster_uuid"`
-	Name        string                         `json:"name"`
-	Tagline     string                         `json:"tagline"`
-	Version     types.ElasticsearchVersionInfo `json:"version"`
+
+	// ClusterName The responding cluster's name.
+	ClusterName string `json:"cluster_name"`
+	ClusterUuid string `json:"cluster_uuid"`
+	// Name The responding node's name.
+	Name    string `json:"name"`
+	Tagline string `json:"tagline"`
+	// Version The running version of Elasticsearch.
+	Version types.ElasticsearchVersionInfo `json:"version"`
 }
 
 // NewResponse returns a Response

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PerPartitionCategorization type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Analysis.ts#L150-L159
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/_types/Analysis.ts#L150-L159
 type PerPartitionCategorization struct {
 	// Enabled To enable this setting, you must also set the `partition_field_name` property
 	// to the same value in every detector that uses the keyword `mlcategory`.
@@ -99,4 +99,14 @@ func NewPerPartitionCategorization() *PerPartitionCategorization {
 	r := &PerPartitionCategorization{}
 
 	return r
+}
+
+// true
+
+type PerPartitionCategorizationVariant interface {
+	PerPartitionCategorizationCaster() *PerPartitionCategorization
+}
+
+func (s *PerPartitionCategorization) PerPartitionCategorizationCaster() *PerPartitionCategorization {
+	return s
 }

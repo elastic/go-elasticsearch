@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/info/types.ts#L289-L292
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/nodes/info/types.ts#L289-L292
 type NodeInfoScript struct {
 	AllowedTypes               string  `json:"allowed_types"`
 	DisableMaxCompilationsRate *string `json:"disable_max_compilations_rate,omitempty"`
@@ -87,3 +87,5 @@ func NewNodeInfoScript() *NodeInfoScript {
 
 	return r
 }
+
+// false

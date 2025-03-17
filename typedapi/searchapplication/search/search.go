@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Run a search application search.
 // Generate and run an Elasticsearch query that uses the specified query
@@ -93,7 +93,7 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 // Unspecified template parameters are assigned their default values if
 // applicable.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-application-search.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-search
 func New(tp elastictransport.Interface) *Search {
 	r := &Search{
 		transport: tp,
@@ -101,8 +101,6 @@ func New(tp elastictransport.Interface) *Search {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -382,12 +380,33 @@ func (r *Search) Pretty(pretty bool) *Search {
 	return r
 }
 
-// Params Query parameters specific to this request, which will override any defaults
+// Query parameters specific to this request, which will override any defaults
 // specified in the template.
 // API name: params
 func (r *Search) Params(params map[string]json.RawMessage) *Search {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Params = params
+	return r
+}
 
+func (r *Search) AddParam(key string, value json.RawMessage) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Params == nil {
+		r.req.Params = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Params
+	}
+
+	tmp[key] = value
+
+	r.req.Params = tmp
 	return r
 }

@@ -16,15 +16,22 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// The start basic API enables you to initiate an indefinite basic license,
-// which gives access to all the basic features. If the basic license does not
-// support all of the features that are available with your current license,
-// however, you are notified in the response. You must then re-submit the API
-// request with the acknowledge parameter set to true.
-// To check the status of your basic license, use the following API: [Get basic
-// status](https://www.elastic.co/guide/en/elasticsearch/reference/current/get-basic-status.html).
+// Start a basic license.
+//
+// Start an indefinite basic license, which gives access to all the basic
+// features.
+//
+// NOTE: In order to start a basic license, you must not currently have a basic
+// license.
+//
+// If the basic license does not support all of the features that are available
+// with your current license, however, you are notified in the response.
+// You must then re-submit the API request with the `acknowledge` parameter set
+// to `true`.
+//
+// To check the status of your basic license, use the get basic license API.
 package poststartbasic
 
 import (
@@ -74,15 +81,22 @@ func NewPostStartBasicFunc(tp elastictransport.Interface) NewPostStartBasic {
 	}
 }
 
-// The start basic API enables you to initiate an indefinite basic license,
-// which gives access to all the basic features. If the basic license does not
-// support all of the features that are available with your current license,
-// however, you are notified in the response. You must then re-submit the API
-// request with the acknowledge parameter set to true.
-// To check the status of your basic license, use the following API: [Get basic
-// status](https://www.elastic.co/guide/en/elasticsearch/reference/current/get-basic-status.html).
+// Start a basic license.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/start-basic.html
+// Start an indefinite basic license, which gives access to all the basic
+// features.
+//
+// NOTE: In order to start a basic license, you must not currently have a basic
+// license.
+//
+// If the basic license does not support all of the features that are available
+// with your current license, however, you are notified in the response.
+// You must then re-submit the API request with the `acknowledge` parameter set
+// to `true`.
+//
+// To check the status of your basic license, use the get basic license API.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-basic
 func New(tp elastictransport.Interface) *PostStartBasic {
 	r := &PostStartBasic{
 		transport: tp,
@@ -292,6 +306,23 @@ func (r *PostStartBasic) Header(key, value string) *PostStartBasic {
 // API name: acknowledge
 func (r *PostStartBasic) Acknowledge(acknowledge bool) *PostStartBasic {
 	r.values.Set("acknowledge", strconv.FormatBool(acknowledge))
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *PostStartBasic) MasterTimeout(duration string) *PostStartBasic {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *PostStartBasic) Timeout(duration string) *PostStartBasic {
+	r.values.Set("timeout", duration)
 
 	return r
 }

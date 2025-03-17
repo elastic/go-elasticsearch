@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // CompositeDateHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L187-L195
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/bucket.ts#L187-L195
 type CompositeDateHistogramAggregation struct {
 	// CalendarInterval Either `calendar_interval` or `fixed_interval` must be present
 	CalendarInterval *string `json:"calendar_interval,omitempty"`
@@ -150,4 +150,14 @@ func NewCompositeDateHistogramAggregation() *CompositeDateHistogramAggregation {
 	r := &CompositeDateHistogramAggregation{}
 
 	return r
+}
+
+// true
+
+type CompositeDateHistogramAggregationVariant interface {
+	CompositeDateHistogramAggregationCaster() *CompositeDateHistogramAggregation
+}
+
+func (s *CompositeDateHistogramAggregation) CompositeDateHistogramAggregationCaster() *CompositeDateHistogramAggregation {
+	return s
 }

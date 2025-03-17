@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package invalidatetoken
 
@@ -31,12 +31,23 @@ import (
 
 // Request holds the request body struct for the package invalidatetoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/invalidate_token/SecurityInvalidateTokenRequest.ts#L23-L43
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/security/invalidate_token/SecurityInvalidateTokenRequest.ts#L23-L71
 type Request struct {
-	RealmName    *string `json:"realm_name,omitempty"`
+
+	// RealmName The name of an authentication realm.
+	// This parameter cannot be used with either `refresh_token` or `token`.
+	RealmName *string `json:"realm_name,omitempty"`
+	// RefreshToken A refresh token.
+	// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
+	// `username` are used.
 	RefreshToken *string `json:"refresh_token,omitempty"`
-	Token        *string `json:"token,omitempty"`
-	Username     *string `json:"username,omitempty"`
+	// Token An access token.
+	// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
+	// `username` are used.
+	Token *string `json:"token,omitempty"`
+	// Username The username of a user.
+	// This parameter cannot be used with either `refresh_token` or `token`.
+	Username *string `json:"username,omitempty"`
 }
 
 // NewRequest returns a Request

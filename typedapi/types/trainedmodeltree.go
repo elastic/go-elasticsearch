@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelTree type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/put_trained_model/types.ts#L74-L79
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/ml/put_trained_model/types.ts#L74-L79
 type TrainedModelTree struct {
 	ClassificationLabels []string               `json:"classification_labels,omitempty"`
 	FeatureNames         []string               `json:"feature_names"`
@@ -91,4 +91,14 @@ func NewTrainedModelTree() *TrainedModelTree {
 	r := &TrainedModelTree{}
 
 	return r
+}
+
+// true
+
+type TrainedModelTreeVariant interface {
+	TrainedModelTreeCaster() *TrainedModelTree
+}
+
+func (s *TrainedModelTree) TrainedModelTreeCaster() *TrainedModelTree {
+	return s
 }

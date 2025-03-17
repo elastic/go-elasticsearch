@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Invalidate a token.
 //
@@ -30,6 +30,12 @@
 // They can also be used exactly once.
 // If you want to invalidate one or more access or refresh tokens immediately,
 // use this invalidate token API.
+//
+// NOTE: While all parameters are optional, at least one of them is required.
+// More specifically, either one of `token` or `refresh_token` parameters is
+// required.
+// If none of these two are specified, then `realm_name` and/or `username` need
+// to be specified.
 package invalidatetoken
 
 import (
@@ -97,7 +103,13 @@ func NewInvalidateTokenFunc(tp elastictransport.Interface) NewInvalidateToken {
 // If you want to invalidate one or more access or refresh tokens immediately,
 // use this invalidate token API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-invalidate-token.html
+// NOTE: While all parameters are optional, at least one of them is required.
+// More specifically, either one of `token` or `refresh_token` parameters is
+// required.
+// If none of these two are specified, then `realm_name` and/or `username` need
+// to be specified.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-invalidate-token
 func New(tp elastictransport.Interface) *InvalidateToken {
 	r := &InvalidateToken{
 		transport: tp,
@@ -105,8 +117,6 @@ func New(tp elastictransport.Interface) *InvalidateToken {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -360,31 +370,59 @@ func (r *InvalidateToken) Pretty(pretty bool) *InvalidateToken {
 	return r
 }
 
+// The name of an authentication realm.
+// This parameter cannot be used with either `refresh_token` or `token`.
 // API name: realm_name
 func (r *InvalidateToken) RealmName(name string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.RealmName = &name
 
 	return r
 }
 
+// A refresh token.
+// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
+// `username` are used.
 // API name: refresh_token
 func (r *InvalidateToken) RefreshToken(refreshtoken string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.RefreshToken = &refreshtoken
 
 	return r
 }
 
+// An access token.
+// This parameter cannot be used if any of `refresh_token`, `realm_name`, or
+// `username` are used.
 // API name: token
 func (r *InvalidateToken) Token(token string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Token = &token
 
 	return r
 }
 
+// The username of a user.
+// This parameter cannot be used with either `refresh_token` or `token`.
 // API name: username
 func (r *InvalidateToken) Username(username string) *InvalidateToken {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Username = &username
 
 	return r

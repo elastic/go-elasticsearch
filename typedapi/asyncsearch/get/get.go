@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Get async search results.
 //
@@ -88,7 +88,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 // a specific async search is restricted to the user or API key that submitted
 // it.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/async-search.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-async-search-submit
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -309,7 +309,7 @@ func (r *Get) _id(id string) *Get {
 	return r
 }
 
-// KeepAlive Specifies how long the async search should be available in the cluster.
+// KeepAlive The length of time that the async search should be available in the cluster.
 // When not specified, the `keep_alive` set with the corresponding submit async
 // request will be used.
 // Otherwise, it is possible to override the value and extend the validity of

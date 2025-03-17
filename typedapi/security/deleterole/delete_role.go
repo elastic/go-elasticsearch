@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Delete roles.
 //
 // Delete roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The delete roles API cannot remove roles that are defined in roles files.
 package deleterole
 
 import (
@@ -82,8 +85,11 @@ func NewDeleteRoleFunc(tp elastictransport.Interface) NewDeleteRole {
 // Delete roles.
 //
 // Delete roles in the native realm.
+// The role management APIs are generally the preferred way to manage roles,
+// rather than using file-based role management.
+// The delete roles API cannot remove roles that are defined in roles files.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-role.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-role
 func New(tp elastictransport.Interface) *DeleteRole {
 	r := &DeleteRole{
 		transport: tp,
@@ -295,7 +301,7 @@ func (r *DeleteRole) Header(key, value string) *DeleteRole {
 	return r
 }
 
-// Name Role name
+// Name The name of the role.
 // API Name: name
 func (r *DeleteRole) _name(name string) *DeleteRole {
 	r.paramSet |= nameMask

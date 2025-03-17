@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ExplainAnalyzeToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/analyze/types.ts#L52-L67
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/indices/analyze/types.ts#L52-L67
 type ExplainAnalyzeToken struct {
 	Bytes               string                     `json:"bytes"`
 	EndOffset           int64                      `json:"end_offset"`
@@ -235,8 +235,10 @@ func (s ExplainAnalyzeToken) MarshalJSON() ([]byte, error) {
 // NewExplainAnalyzeToken returns a ExplainAnalyzeToken.
 func NewExplainAnalyzeToken() *ExplainAnalyzeToken {
 	r := &ExplainAnalyzeToken{
-		ExplainAnalyzeToken: make(map[string]json.RawMessage, 0),
+		ExplainAnalyzeToken: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

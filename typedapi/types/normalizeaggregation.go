@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // NormalizeAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/pipeline.ts#L351-L359
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/pipeline.ts#L351-L359
 type NormalizeAggregation struct {
 	// BucketsPath Path to the buckets that contain one set of values to correlate.
 	BucketsPath BucketsPath `json:"buckets_path,omitempty"`
@@ -100,4 +100,14 @@ func NewNormalizeAggregation() *NormalizeAggregation {
 	r := &NormalizeAggregation{}
 
 	return r
+}
+
+// true
+
+type NormalizeAggregationVariant interface {
+	NormalizeAggregationCaster() *NormalizeAggregation
+}
+
+func (s *NormalizeAggregation) NormalizeAggregationCaster() *NormalizeAggregation {
+	return s
 }

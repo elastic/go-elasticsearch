@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 // Add anomaly detection job to calendar.
 package putcalendarjob
@@ -83,7 +83,7 @@ func NewPutCalendarJobFunc(tp elastictransport.Interface) NewPutCalendarJob {
 
 // Add anomaly detection job to calendar.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-put-calendar-job.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-calendar-job
 func New(tp elastictransport.Interface) *PutCalendarJob {
 	r := &PutCalendarJob{
 		transport: tp,

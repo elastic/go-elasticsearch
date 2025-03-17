@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // NodeInfoPath type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/info/types.ts#L158-L163
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/nodes/info/types.ts#L158-L163
 type NodeInfoPath struct {
 	Data []string `json:"data,omitempty"`
 	Home *string  `json:"home,omitempty"`
@@ -55,8 +55,19 @@ func (s *NodeInfoPath) UnmarshalJSON(data []byte) error {
 		switch t {
 
 		case "data":
-			if err := dec.Decode(&s.Data); err != nil {
-				return fmt.Errorf("%s | %w", "Data", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Data", err)
+				}
+
+				s.Data = append(s.Data, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Data); err != nil {
+					return fmt.Errorf("%s | %w", "Data", err)
+				}
 			}
 
 		case "home":
@@ -99,3 +110,5 @@ func NewNodeInfoPath() *NodeInfoPath {
 
 	return r
 }
+
+// false

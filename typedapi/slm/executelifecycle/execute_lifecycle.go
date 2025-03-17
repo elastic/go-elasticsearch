@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Immediately creates a snapshot according to the lifecycle policy, without
-// waiting for the scheduled time.
+// Run a policy.
+// Immediately create a snapshot according to the snapshot lifecycle policy
+// without waiting for the scheduled time.
+// The snapshot policy is normally applied according to its schedule, but you
+// might want to manually run a policy before performing an upgrade or other
+// maintenance.
 package executelifecycle
 
 import (
@@ -77,10 +81,14 @@ func NewExecuteLifecycleFunc(tp elastictransport.Interface) NewExecuteLifecycle 
 	}
 }
 
-// Immediately creates a snapshot according to the lifecycle policy, without
-// waiting for the scheduled time.
+// Run a policy.
+// Immediately create a snapshot according to the snapshot lifecycle policy
+// without waiting for the scheduled time.
+// The snapshot policy is normally applied according to its schedule, but you
+// might want to manually run a policy before performing an upgrade or other
+// maintenance.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/slm-api-execute-lifecycle.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-slm-execute-lifecycle
 func New(tp elastictransport.Interface) *ExecuteLifecycle {
 	r := &ExecuteLifecycle{
 		transport: tp,
@@ -299,6 +307,26 @@ func (r *ExecuteLifecycle) Header(key, value string) *ExecuteLifecycle {
 func (r *ExecuteLifecycle) _policyid(policyid string) *ExecuteLifecycle {
 	r.paramSet |= policyidMask
 	r.policyid = policyid
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: master_timeout
+func (r *ExecuteLifecycle) MasterTimeout(duration string) *ExecuteLifecycle {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
+// Timeout The period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: timeout
+func (r *ExecuteLifecycle) Timeout(duration string) *ExecuteLifecycle {
+	r.values.Set("timeout", duration)
 
 	return r
 }

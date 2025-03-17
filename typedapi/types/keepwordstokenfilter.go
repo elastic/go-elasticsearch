@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KeepWordsTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/token_filters.ts#L225-L230
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/analysis/token_filters.ts#L225-L230
 type KeepWordsTokenFilter struct {
 	KeepWords     []string `json:"keep_words,omitempty"`
 	KeepWordsCase *bool    `json:"keep_words_case,omitempty"`
@@ -122,4 +122,14 @@ func NewKeepWordsTokenFilter() *KeepWordsTokenFilter {
 	r := &KeepWordsTokenFilter{}
 
 	return r
+}
+
+// true
+
+type KeepWordsTokenFilterVariant interface {
+	KeepWordsTokenFilterCaster() *KeepWordsTokenFilter
+}
+
+func (s *KeepWordsTokenFilter) KeepWordsTokenFilterCaster() *KeepWordsTokenFilter {
+	return s
 }

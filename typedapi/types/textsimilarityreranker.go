@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TextSimilarityReranker type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Retriever.ts#L88-L99
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/Retriever.ts#L93-L104
 type TextSimilarityReranker struct {
 	// Field The document field to be used for text similarity comparisons. This field
 	// should contain the text that will be evaluated against the inference_text
@@ -50,7 +50,7 @@ type TextSimilarityReranker struct {
 	RankWindowSize *int `json:"rank_window_size,omitempty"`
 	// Retriever The nested retriever which will produce the first-level results, that will
 	// later be used for reranking.
-	Retriever *RetrieverContainer `json:"retriever,omitempty"`
+	Retriever RetrieverContainer `json:"retriever"`
 }
 
 func (s *TextSimilarityReranker) UnmarshalJSON(data []byte) error {
@@ -167,4 +167,14 @@ func NewTextSimilarityReranker() *TextSimilarityReranker {
 	r := &TextSimilarityReranker{}
 
 	return r
+}
+
+// true
+
+type TextSimilarityRerankerVariant interface {
+	TextSimilarityRerankerCaster() *TextSimilarityReranker
+}
+
+func (s *TextSimilarityReranker) TextSimilarityRerankerCaster() *TextSimilarityReranker {
+	return s
 }

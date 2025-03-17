@@ -16,9 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
-// Resets the internal state of features, usually by deleting system indices
+// Reset the features.
+// Clear all of the state information stored in system indices by Elasticsearch
+// features, including the security and machine learning indices.
+//
+// WARNING: Intended for development and testing use only. Do not reset features
+// on a production cluster.
+//
+// Return a cluster to the same state as a new installation by resetting the
+// feature state for all Elasticsearch features.
+// This deletes all state information stored in system indices.
+//
+// The response code is HTTP 200 if the state is successfully reset for all
+// features.
+// It is HTTP 500 if the reset operation failed for any feature.
+//
+// Note that select features might provide a way to reset particular system
+// indices.
+// Using this API resets all features, both those that are built-in and
+// implemented as plugins.
+//
+// To list the features that will be affected, use the get features API.
+//
+// IMPORTANT: The features installed on the node you submit this request to are
+// the features that will be reset. Run on the master node if you have any
+// doubts about which plugins are installed on individual nodes.
 package resetfeatures
 
 import (
@@ -68,9 +92,33 @@ func NewResetFeaturesFunc(tp elastictransport.Interface) NewResetFeatures {
 	}
 }
 
-// Resets the internal state of features, usually by deleting system indices
+// Reset the features.
+// Clear all of the state information stored in system indices by Elasticsearch
+// features, including the security and machine learning indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// WARNING: Intended for development and testing use only. Do not reset features
+// on a production cluster.
+//
+// Return a cluster to the same state as a new installation by resetting the
+// feature state for all Elasticsearch features.
+// This deletes all state information stored in system indices.
+//
+// The response code is HTTP 200 if the state is successfully reset for all
+// features.
+// It is HTTP 500 if the reset operation failed for any feature.
+//
+// Note that select features might provide a way to reset particular system
+// indices.
+// Using this API resets all features, both those that are built-in and
+// implemented as plugins.
+//
+// To list the features that will be affected, use the get features API.
+//
+// IMPORTANT: The features installed on the node you submit this request to are
+// the features that will be reset. Run on the master node if you have any
+// doubts about which plugins are installed on individual nodes.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-features-reset-features
 func New(tp elastictransport.Interface) *ResetFeatures {
 	r := &ResetFeatures{
 		transport: tp,
@@ -272,6 +320,14 @@ func (r ResetFeatures) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the ResetFeatures headers map.
 func (r *ResetFeatures) Header(key, value string) *ResetFeatures {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *ResetFeatures) MasterTimeout(duration string) *ResetFeatures {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/c75a0abec670d027d13eb8d6f23374f86621c76b
 
 package types
 
@@ -35,7 +35,7 @@ import (
 
 // CompositeTermsAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L181-L181
+// https://github.com/elastic/elasticsearch-specification/blob/c75a0abec670d027d13eb8d6f23374f86621c76b/specification/_types/aggregations/bucket.ts#L181-L181
 type CompositeTermsAggregation struct {
 	// Field Either `field` or `script` must be present
 	Field         *string                    `json:"field,omitempty"`
@@ -111,4 +111,14 @@ func NewCompositeTermsAggregation() *CompositeTermsAggregation {
 	r := &CompositeTermsAggregation{}
 
 	return r
+}
+
+// true
+
+type CompositeTermsAggregationVariant interface {
+	CompositeTermsAggregationCaster() *CompositeTermsAggregation
+}
+
+func (s *CompositeTermsAggregation) CompositeTermsAggregationCaster() *CompositeTermsAggregation {
+	return s
 }
