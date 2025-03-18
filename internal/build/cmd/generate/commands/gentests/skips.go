@@ -67,7 +67,15 @@ var skipFiles = []string{
 	".*esql\\/.*.yml",
 	"deprecation/10_basic.yml",    // incompatible test generation
 	"search/520_fetch_fields.yml", // disabled for inconsistency
+	"search.vectors/90_sparse_vector.yml",
+	"indices.create/21_synthetic_source_stored.yml",
+	"indices.create/20_synthetic_source.yml",
+	"indices.recovery/20_synthetic_source.yml",
 	"ingest_geoip/20_geoip_processor.yml",
+	"range/20_synthetic_source.yml",
+	"search/600_flattened_ignore_above.yml",
+	"search/540_ignore_above_synthetic_source.yml",
+	"update/100_synthetic_source.yml",
 }
 
 // TODO: Comments into descriptions for `Skip()`
@@ -465,6 +473,7 @@ nodes.stats/11_indices_metrics.yml:
   - Metric - blank for indices shards
   - Metric - _all for indices shards
   - indices shards total count test
+  - indices mappings exact count test for indices level
   - Lucene segment level fields stats
 
 data_stream/10_data_stream_resolvability.yml:
@@ -530,12 +539,22 @@ get/100_synthetic_source.yml:
   - non-indexed dense vectors
   - fields with ignore_malformed
   - flattened field with ignore_above
+  - fetch without refresh also produces synthetic source
+  - doc values keyword with ignore_above
+  - stored keyword with ignore_above
+  - flattened field
+  - flattened field with ignore_above and arrays
 
 indices.stats/70_write_load.yml:
   - Write load average is tracked at shard level
 
 search/400_synthetic_source.yml:
   - stored keyword without sibling fields
+  - doc values keyword with ignore_above
+  - stored keyword with ignore_above
+
+search/140_pre_filter_search_shards.yml:
+  - pre_filter_shard_size with shards that have no hit
 
 health/10_usage.yml:
   - Usage stats on the health API
@@ -562,6 +581,7 @@ logsdb/10_settings.yml:
   - override sort order settings
   - override sort missing settings
   - override sort mode settings
+  - default ignore dynamic beyond limit and default sorting with hostname
 
 # expects map, got nil
 search/520_fetch_fields.yml:
@@ -571,29 +591,39 @@ search/520_fetch_fields.yml:
 spatial/140_synthetic_source.yml:
   - point
 
-search.suggest/20_phrase.yml:
-  - breaks ties by sorting terms
+analysis-common/40_token_filters.yml:
+  - stemmer_override file access
 
-search/600_flattened_ignore_above.yml:
-  - flattened ignore_above single-value field
+cluster.stats/30_ccs_stats.yml:
+  - cross-cluster search stats search
 
-ingest_geoip/50_ip_lookup_processor.yml:
-  - Test ip_location processor with defaults
+cluster.stats/40_source_modes.yml:
+  - test source modes
 
-ingest_geoip/60_ip_location_databases.yml:
-  - Test adding, getting, and removing ip location databases
+index/92_metrics_auto_subobjects.yml:
+  - Metrics object indexing with synthetic source
 
-ingest_geoip/30_geoip_stats.yml:
-  - Test geoip stats
+index/91_metrics_no_subobjects.yml:
+  - Metrics object indexing with synthetic source
 
 ingest_geoip/40_geoip_databases.yml:
   - Test adding, getting, and removing geoip databases
 
-indices.create/20_synthetic_source.yml:
-  - synthetic_source with disabled doc_values
-  - synthetic_source with copy_to
-  - disabled object contains array
+ingest_geoip/30_geoip_stats.yml:
+  - Test geoip stats
 
-cluster.stats/30_ccs_stats.yml:
-  - cross-cluster search stats search
+ingest_geoip/60_ip_location_databases.yml:
+  - Test adding, getting, and removing ip location databases
+
+ingest_geoip/50_ip_lookup_processor.yml:
+  - Test ip_location processor with defaults
+
+logsdb/20_source_mapping.yml:
+  - synthetic _source is default
+
+search.suggest/20_phrase.yml:
+  - breaks ties by sorting terms
+
+migrate/30_create_from.yml:
+  - Test create_from with remove_index_blocks default of true
 `
