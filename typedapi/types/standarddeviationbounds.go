@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // StandardDeviationBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L260-L267
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L281-L288
 type StandardDeviationBounds struct {
 	Lower           *Float64 `json:"lower,omitempty"`
 	LowerPopulation *Float64 `json:"lower_population,omitempty"`
@@ -96,3 +96,5 @@ func NewStandardDeviationBounds() *StandardDeviationBounds {
 
 	return r
 }
+
+// false

@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Updates the draft filtering validation info for a connector.
+// Update the connector draft filtering validation.
+//
+// Update the draft filtering validation info for a connector.
 package updatefilteringvalidation
 
 import (
@@ -81,7 +83,9 @@ func NewUpdateFilteringValidationFunc(tp elastictransport.Interface) NewUpdateFi
 	}
 }
 
-// Updates the draft filtering validation info for a connector.
+// Update the connector draft filtering validation.
+//
+// Update the draft filtering validation info for a connector.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-filtering-validation-api.html
 func New(tp elastictransport.Interface) *UpdateFilteringValidation {
@@ -91,8 +95,6 @@ func New(tp elastictransport.Interface) *UpdateFilteringValidation {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -362,9 +364,13 @@ func (r *UpdateFilteringValidation) Pretty(pretty bool) *UpdateFilteringValidati
 }
 
 // API name: validation
-func (r *UpdateFilteringValidation) Validation(validation *types.FilteringRulesValidation) *UpdateFilteringValidation {
+func (r *UpdateFilteringValidation) Validation(validation types.FilteringRulesValidationVariant) *UpdateFilteringValidation {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Validation = *validation
+	r.req.Validation = *validation.FilteringRulesValidationCaster()
 
 	return r
 }

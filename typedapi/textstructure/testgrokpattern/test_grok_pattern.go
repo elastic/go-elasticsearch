@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Tests a Grok pattern on some text.
+// Test a Grok pattern.
+// Test a Grok pattern on one or more lines of text.
+// The API indicates whether the lines match the pattern together with the
+// offsets and lengths of the matched substrings.
 package testgrokpattern
 
 import (
@@ -73,7 +76,10 @@ func NewTestGrokPatternFunc(tp elastictransport.Interface) NewTestGrokPattern {
 	}
 }
 
-// Tests a Grok pattern on some text.
+// Test a Grok pattern.
+// Test a Grok pattern on one or more lines of text.
+// The API indicates whether the lines match the pattern together with the
+// offsets and lengths of the matched substrings.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/test-grok-pattern.html
 func New(tp elastictransport.Interface) *TestGrokPattern {
@@ -83,8 +89,6 @@ func New(tp elastictransport.Interface) *TestGrokPattern {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -292,8 +296,10 @@ func (r *TestGrokPattern) Header(key, value string) *TestGrokPattern {
 	return r
 }
 
-// EcsCompatibility The mode of compatibility with ECS compliant Grok patterns (disabled or v1,
-// default: disabled).
+// EcsCompatibility The mode of compatibility with ECS compliant Grok patterns.
+// Use this parameter to specify whether to use ECS Grok patterns instead of
+// legacy ones when the structure finder creates a Grok pattern.
+// Valid values are `disabled` and `v1`.
 // API name: ecs_compatibility
 func (r *TestGrokPattern) EcsCompatibility(ecscompatibility string) *TestGrokPattern {
 	r.values.Set("ecs_compatibility", ecscompatibility)
@@ -345,19 +351,30 @@ func (r *TestGrokPattern) Pretty(pretty bool) *TestGrokPattern {
 	return r
 }
 
-// GrokPattern Grok pattern to run on the text.
+// The Grok pattern to run on the text.
 // API name: grok_pattern
 func (r *TestGrokPattern) GrokPattern(grokpattern string) *TestGrokPattern {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.GrokPattern = grokpattern
 
 	return r
 }
 
-// Text Lines of text to run the Grok pattern on.
+// The lines of text to run the Grok pattern on.
 // API name: text
 func (r *TestGrokPattern) Text(texts ...string) *TestGrokPattern {
-	r.req.Text = texts
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range texts {
 
+		r.req.Text = append(r.req.Text, v)
+
+	}
 	return r
 }

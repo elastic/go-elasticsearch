@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ThrottleState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Action.ts#L126-L129
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Action.ts#L120-L123
 type ThrottleState struct {
 	Reason    string   `json:"reason"`
 	Timestamp DateTime `json:"timestamp"`
@@ -79,4 +79,14 @@ func NewThrottleState() *ThrottleState {
 	r := &ThrottleState{}
 
 	return r
+}
+
+// true
+
+type ThrottleStateVariant interface {
+	ThrottleStateCaster() *ThrottleState
+}
+
+func (s *ThrottleState) ThrottleStateCaster() *ThrottleState {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package suggestuserprofiles
 
@@ -33,23 +33,27 @@ import (
 
 // Request holds the request body struct for the package suggestuserprofiles
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/suggest_user_profiles/Request.ts#L24-L66
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/suggest_user_profiles/Request.ts#L24-L81
 type Request struct {
 
-	// Data List of filters for the `data` field of the profile document.
-	// To return all content use `data=*`. To return a subset of content
-	// use `data=<key>` to retrieve content nested under the specified `<key>`.
-	// By default returns no `data` content.
+	// Data A comma-separated list of filters for the `data` field of the profile
+	// document.
+	// To return all content use `data=*`.
+	// To return a subset of content, use `data=<key>` to retrieve content nested
+	// under the specified `<key>`.
+	// By default, the API returns no `data` content.
+	// It is an error to specify `data` as both the query parameter and the request
+	// body field.
 	Data []string `json:"data,omitempty"`
 	// Hint Extra search criteria to improve relevance of the suggestion result.
 	// Profiles matching the spcified hint are ranked higher in the response.
-	// Profiles not matching the hint don't exclude the profile from the response
-	// as long as the profile matches the `name` field query.
+	// Profiles not matching the hint aren't excluded from the response as long as
+	// the profile matches the `name` field query.
 	Hint *types.Hint `json:"hint,omitempty"`
-	// Name Query string used to match name-related fields in user profile documents.
+	// Name A query string used to match name-related fields in user profile documents.
 	// Name-related fields are the user's `username`, `full_name`, and `email`.
 	Name *string `json:"name,omitempty"`
-	// Size Number of profiles to return.
+	// Size The number of profiles to return.
 	Size *int64 `json:"size,omitempty"`
 }
 

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // TermVector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/termvectors/types.ts#L23-L26
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/termvectors/types.ts#L23-L26
 type TermVector struct {
 	FieldStatistics *FieldStatistics `json:"field_statistics,omitempty"`
 	Terms           map[string]Term  `json:"terms"`
@@ -31,8 +31,10 @@ type TermVector struct {
 // NewTermVector returns a TermVector.
 func NewTermVector() *TermVector {
 	r := &TermVector{
-		Terms: make(map[string]Term, 0),
+		Terms: make(map[string]Term),
 	}
 
 	return r
 }
+
+// false

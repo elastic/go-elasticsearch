@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // TypeFieldMappings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/get_field_mapping/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/get_field_mapping/types.ts#L24-L26
 type TypeFieldMappings struct {
 	Mappings map[string]FieldMapping `json:"mappings"`
 }
@@ -30,8 +30,10 @@ type TypeFieldMappings struct {
 // NewTypeFieldMappings returns a TypeFieldMappings.
 func NewTypeFieldMappings() *TypeFieldMappings {
 	r := &TypeFieldMappings{
-		Mappings: make(map[string]FieldMapping, 0),
+		Mappings: make(map[string]FieldMapping),
 	}
 
 	return r
 }
+
+// false

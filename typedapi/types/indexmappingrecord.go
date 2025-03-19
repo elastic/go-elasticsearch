@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // IndexMappingRecord type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/get_mapping/IndicesGetMappingResponse.ts#L29-L32
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/get_mapping/IndicesGetMappingResponse.ts#L29-L32
 type IndexMappingRecord struct {
 	Item     *TypeMapping `json:"item,omitempty"`
 	Mappings TypeMapping  `json:"mappings"`
@@ -34,3 +34,5 @@ func NewIndexMappingRecord() *IndexMappingRecord {
 
 	return r
 }
+
+// false

@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Get data stream lifecycles.
-// Retrieves the data stream lifecycle configuration of one or more data
-// streams.
+//
+// Get the data stream lifecycle configuration of one or more data streams.
 package getdatalifecycle
 
 import (
@@ -80,8 +80,8 @@ func NewGetDataLifecycleFunc(tp elastictransport.Interface) NewGetDataLifecycle 
 }
 
 // Get data stream lifecycles.
-// Retrieves the data stream lifecycle configuration of one or more data
-// streams.
+//
+// Get the data stream lifecycle configuration of one or more data streams.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams-get-lifecycle.html
 func New(tp elastictransport.Interface) *GetDataLifecycle {
@@ -324,6 +324,15 @@ func (r *GetDataLifecycle) ExpandWildcards(expandwildcards ...expandwildcard.Exp
 // API name: include_defaults
 func (r *GetDataLifecycle) IncludeDefaults(includedefaults bool) *GetDataLifecycle {
 	r.values.Set("include_defaults", strconv.FormatBool(includedefaults))
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node. If no response is
+// received before the timeout expires, the request fails and returns an error.
+// API name: master_timeout
+func (r *GetDataLifecycle) MasterTimeout(duration string) *GetDataLifecycle {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

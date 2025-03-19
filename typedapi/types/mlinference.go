@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // MlInference type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/xpack/usage/types.ts#L198-L206
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/xpack/usage/types.ts#L208-L216
 type MlInference struct {
 	Deployments      *MlInferenceDeployments               `json:"deployments,omitempty"`
 	IngestProcessors map[string]MlInferenceIngestProcessor `json:"ingest_processors"`
@@ -32,8 +32,10 @@ type MlInference struct {
 // NewMlInference returns a MlInference.
 func NewMlInference() *MlInference {
 	r := &MlInference{
-		IngestProcessors: make(map[string]MlInferenceIngestProcessor, 0),
+		IngestProcessors: make(map[string]MlInferenceIngestProcessor),
 	}
 
 	return r
 }
+
+// false

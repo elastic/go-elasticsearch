@@ -16,14 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// The field capabilities API returns the information about the capabilities of
-// fields among multiple indices.
-// The field capabilities API returns runtime fields like any other field. For
-// example, a runtime field with a type
-// of keyword is returned as any other field that belongs to the `keyword`
-// family.
+// Get the field capabilities.
+//
+// Get information about the capabilities of fields among multiple indices.
+//
+// For data streams, the API returns field capabilities among the stream’s
+// backing indices.
+// It returns runtime fields like any other field.
+// For example, a runtime field with a type of keyword is returned the same as
+// any other field that belongs to the `keyword` family.
 package fieldcaps
 
 import (
@@ -85,12 +88,15 @@ func NewFieldCapsFunc(tp elastictransport.Interface) NewFieldCaps {
 	}
 }
 
-// The field capabilities API returns the information about the capabilities of
-// fields among multiple indices.
-// The field capabilities API returns runtime fields like any other field. For
-// example, a runtime field with a type
-// of keyword is returned as any other field that belongs to the `keyword`
-// family.
+// Get the field capabilities.
+//
+// Get information about the capabilities of fields among multiple indices.
+//
+// For data streams, the API returns field capabilities among the stream’s
+// backing indices.
+// It returns runtime fields like any other field.
+// For example, a runtime field with a type of keyword is returned the same as
+// any other field that belongs to the `keyword` family.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-field-caps.html
 func New(tp elastictransport.Interface) *FieldCaps {
@@ -100,8 +106,6 @@ func New(tp elastictransport.Interface) *FieldCaps {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -318,9 +322,9 @@ func (r *FieldCaps) Header(key, value string) *FieldCaps {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and aliases used to limit the
-// request. Supports wildcards (*). To target all data streams and indices, omit
-// this parameter or use * or _all.
+// Index A comma-separated list of data streams, indices, and aliases used to limit
+// the request. Supports wildcards (*). To target all data streams and indices,
+// omit this parameter or use * or _all.
 // API Name: index
 func (r *FieldCaps) Index(index string) *FieldCaps {
 	r.paramSet |= indexMask
@@ -342,7 +346,7 @@ func (r *FieldCaps) AllowNoIndices(allownoindices bool) *FieldCaps {
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match. If the request can target
+// ExpandWildcards The type of index that wildcard patterns can match. If the request can target
 // data streams, this argument determines whether wildcard expressions match
 // hidden data streams. Supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
@@ -372,8 +376,7 @@ func (r *FieldCaps) IncludeUnmapped(includeunmapped bool) *FieldCaps {
 	return r
 }
 
-// Filters An optional set of filters: can include
-// +metadata,-metadata,-nested,-multifield,-parent
+// Filters A comma-separated list of filters to apply to the response.
 // API name: filters
 func (r *FieldCaps) Filters(filters string) *FieldCaps {
 	r.values.Set("filters", filters)
@@ -381,7 +384,10 @@ func (r *FieldCaps) Filters(filters string) *FieldCaps {
 	return r
 }
 
-// Types Only return results for fields that have one of the types in the list
+// Types A comma-separated list of field types to include.
+// Any fields that do not match one of these types will be excluded from the
+// results.
+// It defaults to empty, meaning that all field types are returned.
 // API name: types
 func (r *FieldCaps) Types(types ...string) *FieldCaps {
 	tmp := []string{}
@@ -445,32 +451,54 @@ func (r *FieldCaps) Pretty(pretty bool) *FieldCaps {
 	return r
 }
 
-// Fields List of fields to retrieve capabilities for. Wildcard (`*`) expressions are
+// A list of fields to retrieve capabilities for. Wildcard (`*`) expressions are
 // supported.
 // API name: fields
 func (r *FieldCaps) Fields(fields ...string) *FieldCaps {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Fields = fields
 
 	return r
 }
 
-// IndexFilter Allows to filter indices if the provided query rewrites to match_none on
-// every shard.
+// Filter indices if the provided query rewrites to `match_none` on every shard.
+//
+// IMPORTANT: The filtering is done on a best-effort basis, it uses index
+// statistics and mappings to rewrite queries to `match_none` instead of fully
+// running the request.
+// For instance a range query over a date field can rewrite to `match_none` if
+// all documents within a shard (including deleted documents) are outside of the
+// provided range.
+// However, not all queries can rewrite to `match_none` so this API may return
+// an index even if the provided filter matches no document.
 // API name: index_filter
-func (r *FieldCaps) IndexFilter(indexfilter *types.Query) *FieldCaps {
+func (r *FieldCaps) IndexFilter(indexfilter types.QueryVariant) *FieldCaps {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.IndexFilter = indexfilter
+	r.req.IndexFilter = indexfilter.QueryCaster()
 
 	return r
 }
 
-// RuntimeMappings Defines ad-hoc runtime fields in the request similar to the way it is done in
+// Define ad-hoc runtime fields in the request similar to the way it is done in
 // search requests.
 // These fields exist only as part of the query and take precedence over fields
 // defined with the same name in the index mappings.
 // API name: runtime_mappings
-func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFields) *FieldCaps {
-	r.req.RuntimeMappings = runtimefields
+func (r *FieldCaps) RuntimeMappings(runtimefields types.RuntimeFieldsVariant) *FieldCaps {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.RuntimeMappings = *runtimefields.RuntimeFieldsCaster()
 
 	return r
 }

@@ -16,9 +16,47 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Creates and updates role mappings.
+// Create or update role mappings.
+//
+// Role mappings define which roles are assigned to each user.
+// Each mapping has rules that identify users and a list of roles that are
+// granted to those users.
+// The role mapping APIs are generally the preferred way to manage role mappings
+// rather than using role mapping files. The create or update role mappings API
+// cannot update role mappings that are defined in role mapping files.
+//
+// NOTE: This API does not create roles. Rather, it maps users to existing
+// roles.
+// Roles can be created by using the create or update roles API or roles files.
+//
+// **Role templates**
+//
+// The most common use for role mappings is to create a mapping from a known
+// value on the user to a fixed role name.
+// For example, all users in the `cn=admin,dc=example,dc=com` LDAP group should
+// be given the superuser role in Elasticsearch.
+// The `roles` field is used for this purpose.
+//
+// For more complex needs, it is possible to use Mustache templates to
+// dynamically determine the names of the roles that should be granted to the
+// user.
+// The `role_templates` field is used for this purpose.
+//
+// NOTE: To use role templates successfully, the relevant scripting feature must
+// be enabled.
+// Otherwise, all attempts to create a role mapping with role templates fail.
+//
+// All of the user fields that are available in the role mapping rules are also
+// available in the role templates.
+// Thus it is possible to assign a user to a role that reflects their username,
+// their groups, or the name of the realm to which they authenticated.
+//
+// By default a template is evaluated to produce a single string that is the
+// name of the role which should be assigned to the user.
+// If the format of the template is set to "json" then the template is expected
+// to produce a JSON string or an array of JSON strings for the role names.
 package putrolemapping
 
 import (
@@ -82,7 +120,45 @@ func NewPutRoleMappingFunc(tp elastictransport.Interface) NewPutRoleMapping {
 	}
 }
 
-// Creates and updates role mappings.
+// Create or update role mappings.
+//
+// Role mappings define which roles are assigned to each user.
+// Each mapping has rules that identify users and a list of roles that are
+// granted to those users.
+// The role mapping APIs are generally the preferred way to manage role mappings
+// rather than using role mapping files. The create or update role mappings API
+// cannot update role mappings that are defined in role mapping files.
+//
+// NOTE: This API does not create roles. Rather, it maps users to existing
+// roles.
+// Roles can be created by using the create or update roles API or roles files.
+//
+// **Role templates**
+//
+// The most common use for role mappings is to create a mapping from a known
+// value on the user to a fixed role name.
+// For example, all users in the `cn=admin,dc=example,dc=com` LDAP group should
+// be given the superuser role in Elasticsearch.
+// The `roles` field is used for this purpose.
+//
+// For more complex needs, it is possible to use Mustache templates to
+// dynamically determine the names of the roles that should be granted to the
+// user.
+// The `role_templates` field is used for this purpose.
+//
+// NOTE: To use role templates successfully, the relevant scripting feature must
+// be enabled.
+// Otherwise, all attempts to create a role mapping with role templates fail.
+//
+// All of the user fields that are available in the role mapping rules are also
+// available in the role templates.
+// Thus it is possible to assign a user to a role that reflects their username,
+// their groups, or the name of the realm to which they authenticated.
+//
+// By default a template is evaluated to produce a single string that is the
+// name of the role which should be assigned to the user.
+// If the format of the template is set to "json" then the template is expected
+// to produce a JSON string or an array of JSON strings for the role names.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-role-mapping.html
 func New(tp elastictransport.Interface) *PutRoleMapping {
@@ -92,8 +168,6 @@ func New(tp elastictransport.Interface) *PutRoleMapping {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -307,7 +381,9 @@ func (r *PutRoleMapping) Header(key, value string) *PutRoleMapping {
 	return r
 }
 
-// Name Role-mapping name
+// Name The distinct name that identifies the role mapping.
+// The name is used solely as an identifier to facilitate interaction via the
+// API; it does not affect the behavior of the mapping in any way.
 // API Name: name
 func (r *PutRoleMapping) _name(name string) *PutRoleMapping {
 	r.paramSet |= nameMask
@@ -370,45 +446,93 @@ func (r *PutRoleMapping) Pretty(pretty bool) *PutRoleMapping {
 	return r
 }
 
+// Mappings that have `enabled` set to `false` are ignored when role mapping is
+// performed.
 // API name: enabled
 func (r *PutRoleMapping) Enabled(enabled bool) *PutRoleMapping {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Enabled = &enabled
 
 	return r
 }
 
+// Additional metadata that helps define which roles are assigned to each user.
+// Within the metadata object, keys beginning with `_` are reserved for system
+// usage.
 // API name: metadata
-func (r *PutRoleMapping) Metadata(metadata types.Metadata) *PutRoleMapping {
-	r.req.Metadata = metadata
+func (r *PutRoleMapping) Metadata(metadata types.MetadataVariant) *PutRoleMapping {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Metadata = *metadata.MetadataCaster()
 
 	return r
 }
 
+// A list of Mustache templates that will be evaluated to determine the roles
+// names that should granted to the users that match the role mapping rules.
+// Exactly one of `roles` or `role_templates` must be specified.
 // API name: role_templates
-func (r *PutRoleMapping) RoleTemplates(roletemplates ...types.RoleTemplate) *PutRoleMapping {
-	r.req.RoleTemplates = roletemplates
+func (r *PutRoleMapping) RoleTemplates(roletemplates ...types.RoleTemplateVariant) *PutRoleMapping {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range roletemplates {
 
+		r.req.RoleTemplates = append(r.req.RoleTemplates, *v.RoleTemplateCaster())
+
+	}
 	return r
 }
 
+// A list of role names that are granted to the users that match the role
+// mapping rules.
+// Exactly one of `roles` or `role_templates` must be specified.
 // API name: roles
 func (r *PutRoleMapping) Roles(roles ...string) *PutRoleMapping {
-	r.req.Roles = roles
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range roles {
 
+		r.req.Roles = append(r.req.Roles, v)
+
+	}
 	return r
 }
 
+// The rules that determine which users should be matched by the mapping.
+// A rule is a logical condition that is expressed by using a JSON DSL.
 // API name: rules
-func (r *PutRoleMapping) Rules(rules *types.RoleMappingRule) *PutRoleMapping {
+func (r *PutRoleMapping) Rules(rules types.RoleMappingRuleVariant) *PutRoleMapping {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Rules = rules
+	r.req.Rules = rules.RoleMappingRuleCaster()
 
 	return r
 }
 
 // API name: run_as
 func (r *PutRoleMapping) RunAs(runas ...string) *PutRoleMapping {
-	r.req.RunAs = runas
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+	for _, v := range runas {
 
+		r.req.RunAs = append(r.req.RunAs, v)
+
+	}
 	return r
 }

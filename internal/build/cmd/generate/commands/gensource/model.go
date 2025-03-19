@@ -43,7 +43,6 @@ func init() {
 }
 
 // NewEndpoint creates a new API endpoint.
-//
 func NewEndpoint(f io.Reader) (*Endpoint, error) {
 	var endpoint Endpoint
 	var spec map[string]Endpoint
@@ -99,6 +98,20 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 		endpoint = e
 		endpoint.Name = name
 		endpoint.URL.Params = endpoint.Params
+	}
+
+	// These are implemented statically.
+	paramSkipList := map[string]bool{
+		"human":       true,
+		"pretty":      true,
+		"error_trace": true,
+		"filter_path": true,
+	}
+	for name, _ := range endpoint.Params {
+		// remove from endpoint if it's in the skip list
+		if _, ok := paramSkipList[name]; ok {
+			delete(endpoint.Params, name)
+		}
 	}
 
 	if fpath, ok := f.(*os.File); ok {
@@ -221,7 +234,6 @@ func NewEndpoint(f io.Reader) (*Endpoint, error) {
 }
 
 // Endpoint represents an API endpoint.
-//
 type Endpoint struct {
 	Name string `json:"-"`
 	Type string `json:"-"`
@@ -239,7 +251,6 @@ type Endpoint struct {
 }
 
 // URL represents API endpoint URL.
-//
 type URL struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -268,7 +279,6 @@ type Path struct {
 }
 
 // Part represents part of the API endpoint URL.
-//
 type Part struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -283,7 +293,6 @@ type Part struct {
 }
 
 // Param represents API endpoint parameter.
-//
 type Param struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -297,7 +306,6 @@ type Param struct {
 }
 
 // Body represents API endpoint body.
-//
 type Body struct {
 	Endpoint *Endpoint `json:"-"`
 
@@ -307,7 +315,6 @@ type Body struct {
 }
 
 // MethodArgument represents a method argument for API endpoint.
-//
 type MethodArgument struct {
 	Endpoint *Endpoint
 
@@ -320,14 +327,12 @@ type MethodArgument struct {
 }
 
 // Namespace returns the API endpoint namespace.
-//
 func (e *Endpoint) Namespace() string {
 	ep := strings.Split(e.Name, ".")
 	return utils.NameToGo(ep[0])
 }
 
 // MethodName returns the API endpoint method name.
-//
 func (e *Endpoint) MethodName() string {
 	ep := strings.Split(e.Name, ".")
 	ep = append(ep[:0], ep[1:]...)
@@ -344,13 +349,11 @@ func (e *Endpoint) MethodName() string {
 }
 
 // MethodWithNamespace returns the API endpoint method name with namespace.
-//
 func (e *Endpoint) MethodWithNamespace() string {
 	return utils.APIToGo(e.Name)
 }
 
 // HumanMethodWithNamespace returns the API endpoint method name in humanized form.
-//
 func (e *Endpoint) HumanMethodWithNamespace() string {
 	var (
 		src = e.MethodWithNamespace()
@@ -371,7 +374,6 @@ func (e *Endpoint) HumanMethodWithNamespace() string {
 }
 
 // RequiredArguments return the list of required method arguments.
-//
 func (e *Endpoint) RequiredArguments() []MethodArgument {
 	var args = make([]MethodArgument, 0)
 	var prominentArgs = []string{
@@ -468,7 +470,6 @@ func (e *Endpoint) RequiredArguments() []MethodArgument {
 }
 
 // GoName returns a Go name for part.
-//
 func (p *Part) GoName() string {
 	switch {
 	case p.Name == "context":
@@ -479,13 +480,11 @@ func (p *Part) GoName() string {
 }
 
 // GoType returns a Go type for part.
-//
 func (p *Part) GoType(comment ...bool) string {
 	return utils.TypeToGo(p.Type)
 }
 
 // GoName returns a Go name for parameter.
-//
 func (p *Param) GoName() string {
 	switch {
 	case p.Name == "context":
@@ -498,7 +497,6 @@ func (p *Param) GoName() string {
 }
 
 // GoType returns a Go type for parameter.
-//
 func (p *Param) GoType(comment ...bool) string {
 	if f := (&Generator{Endpoint: p.Endpoint}).GetOverride("polymorphic-param", p.Endpoint.Name); f != nil {
 		if out := f(p.Endpoint, p.Name); out != "" {
@@ -509,13 +507,11 @@ func (p *Param) GoType(comment ...bool) string {
 }
 
 // GoName returns a Go name for method argument.
-//
 func (p *MethodArgument) GoName() string {
 	return utils.NameToGo(p.Name, p.Endpoint.MethodWithNamespace())
 }
 
 // GoType returns a Go type for method argument.
-//
 func (p *MethodArgument) GoType(comment ...bool) string {
 	return utils.TypeToGo(p.Type)
 }

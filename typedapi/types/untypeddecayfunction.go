@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // UntypedDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/compound.ts#L191-L194
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/compound.ts#L204-L207
 type UntypedDecayFunction struct {
 	DecayFunctionBase map[string]DecayPlacement `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
@@ -69,8 +69,18 @@ func (s UntypedDecayFunction) MarshalJSON() ([]byte, error) {
 // NewUntypedDecayFunction returns a UntypedDecayFunction.
 func NewUntypedDecayFunction() *UntypedDecayFunction {
 	r := &UntypedDecayFunction{
-		DecayFunctionBase: make(map[string]DecayPlacement, 0),
+		DecayFunctionBase: make(map[string]DecayPlacement),
 	}
 
 	return r
+}
+
+// true
+
+type UntypedDecayFunctionVariant interface {
+	UntypedDecayFunctionCaster() *UntypedDecayFunction
+}
+
+func (s *UntypedDecayFunction) UntypedDecayFunctionCaster() *UntypedDecayFunction {
+	return s
 }

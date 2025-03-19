@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.18.0: DO NOT EDIT
 
 package esapi
 
@@ -56,6 +56,7 @@ type BulkRequest struct {
 
 	Body io.Reader
 
+	IncludeSourceOnError  *bool
 	ListExecutedPipelines *bool
 	Pipeline              string
 	Refresh               string
@@ -113,6 +114,10 @@ func (r BulkRequest) Do(providedCtx context.Context, transport Transport) (*Resp
 	path.WriteString("_bulk")
 
 	params = make(map[string]string)
+
+	if r.IncludeSourceOnError != nil {
+		params["include_source_on_error"] = strconv.FormatBool(*r.IncludeSourceOnError)
+	}
 
 	if r.ListExecutedPipelines != nil {
 		params["list_executed_pipelines"] = strconv.FormatBool(*r.ListExecutedPipelines)
@@ -251,6 +256,13 @@ func (f Bulk) WithContext(v context.Context) func(*BulkRequest) {
 func (f Bulk) WithIndex(v string) func(*BulkRequest) {
 	return func(r *BulkRequest) {
 		r.Index = v
+	}
+}
+
+// WithIncludeSourceOnError - true or false if to include the document source in the error message in case of parsing errors. defaults to true..
+func (f Bulk) WithIncludeSourceOnError(v bool) func(*BulkRequest) {
+	return func(r *BulkRequest) {
+		r.IncludeSourceOnError = &v
 	}
 }
 

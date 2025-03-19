@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AnalysisConfigRead type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/Analysis.ts#L79-L148
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/Analysis.ts#L79-L148
 type AnalysisConfigRead struct {
 	// BucketSpan The size of the interval that the analysis is aggregated into, typically
 	// between `5m` and `1h`.
@@ -221,3 +221,5 @@ func NewAnalysisConfigRead() *AnalysisConfigRead {
 
 	return r
 }
+
+// false

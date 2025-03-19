@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // EmailAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Actions.ts#L252-L252
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Actions.ts#L252-L252
 type EmailAction struct {
 	Attachments map[string]EmailAttachmentContainer `json:"attachments,omitempty"`
 	Bcc         []string                            `json:"bcc,omitempty"`
@@ -72,8 +72,19 @@ func (s *EmailAction) UnmarshalJSON(data []byte) error {
 			}
 
 		case "bcc":
-			if err := dec.Decode(&s.Bcc); err != nil {
-				return fmt.Errorf("%s | %w", "Bcc", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Bcc", err)
+				}
+
+				s.Bcc = append(s.Bcc, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Bcc); err != nil {
+					return fmt.Errorf("%s | %w", "Bcc", err)
+				}
 			}
 
 		case "body":
@@ -82,8 +93,19 @@ func (s *EmailAction) UnmarshalJSON(data []byte) error {
 			}
 
 		case "cc":
-			if err := dec.Decode(&s.Cc); err != nil {
-				return fmt.Errorf("%s | %w", "Cc", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "Cc", err)
+				}
+
+				s.Cc = append(s.Cc, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.Cc); err != nil {
+					return fmt.Errorf("%s | %w", "Cc", err)
+				}
 			}
 
 		case "from":
@@ -109,8 +131,19 @@ func (s *EmailAction) UnmarshalJSON(data []byte) error {
 			}
 
 		case "reply_to":
-			if err := dec.Decode(&s.ReplyTo); err != nil {
-				return fmt.Errorf("%s | %w", "ReplyTo", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "ReplyTo", err)
+				}
+
+				s.ReplyTo = append(s.ReplyTo, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.ReplyTo); err != nil {
+					return fmt.Errorf("%s | %w", "ReplyTo", err)
+				}
 			}
 
 		case "sent_date":
@@ -131,8 +164,19 @@ func (s *EmailAction) UnmarshalJSON(data []byte) error {
 			s.Subject = o
 
 		case "to":
-			if err := dec.Decode(&s.To); err != nil {
-				return fmt.Errorf("%s | %w", "To", err)
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "To", err)
+				}
+
+				s.To = append(s.To, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.To); err != nil {
+					return fmt.Errorf("%s | %w", "To", err)
+				}
 			}
 
 		}
@@ -143,8 +187,18 @@ func (s *EmailAction) UnmarshalJSON(data []byte) error {
 // NewEmailAction returns a EmailAction.
 func NewEmailAction() *EmailAction {
 	r := &EmailAction{
-		Attachments: make(map[string]EmailAttachmentContainer, 0),
+		Attachments: make(map[string]EmailAttachmentContainer),
 	}
 
 	return r
+}
+
+// true
+
+type EmailActionVariant interface {
+	EmailActionCaster() *EmailAction
+}
+
+func (s *EmailAction) EmailActionCaster() *EmailAction {
+	return s
 }

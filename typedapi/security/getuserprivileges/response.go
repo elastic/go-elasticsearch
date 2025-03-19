@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package getuserprivileges
 
@@ -26,13 +26,15 @@ import (
 
 // Response holds the response body struct for the package getuserprivileges
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/get_user_privileges/SecurityGetUserPrivilegesResponse.ts#L27-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/get_user_privileges/SecurityGetUserPrivilegesResponse.ts#L28-L38
 type Response struct {
-	Applications []types.ApplicationPrivileges `json:"applications"`
-	Cluster      []string                      `json:"cluster"`
-	Global       []types.GlobalPrivilege       `json:"global"`
-	Indices      []types.UserIndicesPrivileges `json:"indices"`
-	RunAs        []string                      `json:"run_as"`
+	Applications  []types.ApplicationPrivileges       `json:"applications"`
+	Cluster       []string                            `json:"cluster"`
+	Global        []types.GlobalPrivilege             `json:"global"`
+	Indices       []types.UserIndicesPrivileges       `json:"indices"`
+	RemoteCluster []types.RemoteClusterPrivileges     `json:"remote_cluster,omitempty"`
+	RemoteIndices []types.RemoteUserIndicesPrivileges `json:"remote_indices,omitempty"`
+	RunAs         []string                            `json:"run_as"`
 }
 
 // NewResponse returns a Response

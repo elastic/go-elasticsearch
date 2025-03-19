@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // GeoDistanceAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L382-L405
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/bucket.ts#L396-L419
 type GeoDistanceAggregation struct {
 	// DistanceType The distance calculation type.
 	DistanceType *geodistancetype.GeoDistanceType `json:"distance_type,omitempty"`
@@ -137,4 +137,14 @@ func NewGeoDistanceAggregation() *GeoDistanceAggregation {
 	r := &GeoDistanceAggregation{}
 
 	return r
+}
+
+// true
+
+type GeoDistanceAggregationVariant interface {
+	GeoDistanceAggregationCaster() *GeoDistanceAggregation
+}
+
+func (s *GeoDistanceAggregation) GeoDistanceAggregationCaster() *GeoDistanceAggregation {
+	return s
 }

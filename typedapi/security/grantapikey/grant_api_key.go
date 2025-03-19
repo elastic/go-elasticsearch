@@ -16,16 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Creates an API key on behalf of another user.
-// This API is similar to Create API keys, however it creates the API key for a
-// user that is different than the user that runs the API.
-// The caller must have authentication credentials (either an access token, or a
-// username and password) for the user on whose behalf the API key will be
-// created.
-// It is not possible to use this API to create an API key without that user’s
+// Grant an API key.
+//
+// Create an API key on behalf of another user.
+// This API is similar to the create API keys API, however it creates the API
+// key for a user that is different than the user that runs the API.
+// The caller must have authentication credentials for the user on whose behalf
+// the API key will be created.
+// It is not possible to use this API to create an API key without that user's
 // credentials.
+// The supported user authentication credential types are:
+//
+// * username and password
+// * Elasticsearch access tokens
+// * JWTs
+//
 // The user, for whom the authentication credentials is provided, can optionally
 // "run as" (impersonate) another user.
 // In this case, the API key will be created on behalf of the impersonated user.
@@ -33,6 +40,8 @@
 // This API is intended be used by applications that need to create and manage
 // API keys for end users, but cannot guarantee that those users have permission
 // to create API keys on their own behalf.
+// The API keys are created by the Elasticsearch API key service, which is
+// automatically enabled.
 //
 // A successful grant API key API call returns a JSON structure that contains
 // the API key, its unique id, and its name.
@@ -96,14 +105,21 @@ func NewGrantApiKeyFunc(tp elastictransport.Interface) NewGrantApiKey {
 	}
 }
 
-// Creates an API key on behalf of another user.
-// This API is similar to Create API keys, however it creates the API key for a
-// user that is different than the user that runs the API.
-// The caller must have authentication credentials (either an access token, or a
-// username and password) for the user on whose behalf the API key will be
-// created.
-// It is not possible to use this API to create an API key without that user’s
+// Grant an API key.
+//
+// Create an API key on behalf of another user.
+// This API is similar to the create API keys API, however it creates the API
+// key for a user that is different than the user that runs the API.
+// The caller must have authentication credentials for the user on whose behalf
+// the API key will be created.
+// It is not possible to use this API to create an API key without that user's
 // credentials.
+// The supported user authentication credential types are:
+//
+// * username and password
+// * Elasticsearch access tokens
+// * JWTs
+//
 // The user, for whom the authentication credentials is provided, can optionally
 // "run as" (impersonate) another user.
 // In this case, the API key will be created on behalf of the impersonated user.
@@ -111,6 +127,8 @@ func NewGrantApiKeyFunc(tp elastictransport.Interface) NewGrantApiKey {
 // This API is intended be used by applications that need to create and manage
 // API keys for end users, but cannot guarantee that those users have permission
 // to create API keys on their own behalf.
+// The API keys are created by the Elasticsearch API key service, which is
+// automatically enabled.
 //
 // A successful grant API key API call returns a JSON structure that contains
 // the API key, its unique id, and its name.
@@ -128,8 +146,6 @@ func New(tp elastictransport.Interface) *GrantApiKey {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -383,57 +399,83 @@ func (r *GrantApiKey) Pretty(pretty bool) *GrantApiKey {
 	return r
 }
 
-// AccessToken The user’s access token.
+// The user's access token.
 // If you specify the `access_token` grant type, this parameter is required.
 // It is not valid with other grant types.
 // API name: access_token
 func (r *GrantApiKey) AccessToken(accesstoken string) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.AccessToken = &accesstoken
 
 	return r
 }
 
-// ApiKey Defines the API key.
+// The API key.
 // API name: api_key
-func (r *GrantApiKey) ApiKey(apikey *types.GrantApiKey) *GrantApiKey {
+func (r *GrantApiKey) ApiKey(apikey types.GrantApiKeyVariant) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.ApiKey = *apikey
+	r.req.ApiKey = *apikey.GrantApiKeyCaster()
 
 	return r
 }
 
-// GrantType The type of grant. Supported grant types are: `access_token`, `password`.
+// The type of grant. Supported grant types are: `access_token`, `password`.
 // API name: grant_type
 func (r *GrantApiKey) GrantType(granttype apikeygranttype.ApiKeyGrantType) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.GrantType = granttype
-
 	return r
 }
 
-// Password The user’s password. If you specify the `password` grant type, this parameter
-// is required.
+// The user's password.
+// If you specify the `password` grant type, this parameter is required.
 // It is not valid with other grant types.
 // API name: password
 func (r *GrantApiKey) Password(password string) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Password = &password
 
 	return r
 }
 
-// RunAs The name of the user to be impersonated.
+// The name of the user to be impersonated.
 // API name: run_as
 func (r *GrantApiKey) RunAs(username string) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.RunAs = &username
 
 	return r
 }
 
-// Username The user name that identifies the user.
+// The user name that identifies the user.
 // If you specify the `password` grant type, this parameter is required.
 // It is not valid with other grant types.
 // API name: username
 func (r *GrantApiKey) Username(username string) *GrantApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Username = &username
 
 	return r

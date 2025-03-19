@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ApiKeyFiltersAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/query_api_keys/types.ts#L208-L228
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/query_api_keys/types.ts#L207-L227
 type ApiKeyFiltersAggregation struct {
 	// Filters Collection of queries from which to build buckets.
 	Filters BucketsApiKeyQueryContainer `json:"filters,omitempty"`
@@ -131,4 +131,14 @@ func NewApiKeyFiltersAggregation() *ApiKeyFiltersAggregation {
 	r := &ApiKeyFiltersAggregation{}
 
 	return r
+}
+
+// true
+
+type ApiKeyFiltersAggregationVariant interface {
+	ApiKeyFiltersAggregationCaster() *ApiKeyFiltersAggregation
+}
+
+func (s *ApiKeyFiltersAggregation) ApiKeyFiltersAggregationCaster() *ApiKeyFiltersAggregation {
+	return s
 }

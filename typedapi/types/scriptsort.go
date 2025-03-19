@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -28,7 +28,7 @@ import (
 
 // ScriptSort type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/sort.ts#L73-L79
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/sort.ts#L72-L78
 type ScriptSort struct {
 	Mode   *sortmode.SortMode             `json:"mode,omitempty"`
 	Nested *NestedSortValue               `json:"nested,omitempty"`
@@ -42,4 +42,14 @@ func NewScriptSort() *ScriptSort {
 	r := &ScriptSort{}
 
 	return r
+}
+
+// true
+
+type ScriptSortVariant interface {
+	ScriptSortCaster() *ScriptSort
+}
+
+func (s *ScriptSort) ScriptSortCaster() *ScriptSort {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ExtendedBoundsdouble type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L491-L500
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/bucket.ts#L508-L517
 type ExtendedBoundsdouble struct {
 	// Max Maximum value for the bound.
 	Max *Float64 `json:"max,omitempty"`
@@ -96,4 +96,14 @@ func NewExtendedBoundsdouble() *ExtendedBoundsdouble {
 	r := &ExtendedBoundsdouble{}
 
 	return r
+}
+
+// true
+
+type ExtendedBoundsdoubleVariant interface {
+	ExtendedBoundsdoubleCaster() *ExtendedBoundsdouble
+}
+
+func (s *ExtendedBoundsdouble) ExtendedBoundsdoubleCaster() *ExtendedBoundsdouble {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // PassThroughInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/inference.ts#L385-L390
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/inference.ts#L373-L378
 type PassThroughInferenceUpdateOptions struct {
 	// ResultsField The field that is added to incoming documents to contain the inference
 	// prediction. Defaults to predicted_value.
@@ -82,4 +82,14 @@ func NewPassThroughInferenceUpdateOptions() *PassThroughInferenceUpdateOptions {
 	r := &PassThroughInferenceUpdateOptions{}
 
 	return r
+}
+
+// true
+
+type PassThroughInferenceUpdateOptionsVariant interface {
+	PassThroughInferenceUpdateOptionsCaster() *PassThroughInferenceUpdateOptions
+}
+
+func (s *PassThroughInferenceUpdateOptions) PassThroughInferenceUpdateOptionsCaster() *PassThroughInferenceUpdateOptions {
+	return s
 }

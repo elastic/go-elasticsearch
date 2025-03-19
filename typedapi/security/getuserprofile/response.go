@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package getuserprofile
 
@@ -26,9 +26,15 @@ import (
 
 // Response holds the response body struct for the package getuserprofile
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/get_user_profile/Response.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/get_user_profile/Response.ts#L23-L33
 type Response struct {
-	Errors   *types.GetUserProfileErrors     `json:"errors,omitempty"`
+	Errors *types.GetUserProfileErrors `json:"errors,omitempty"`
+	// Profiles A successful call returns the JSON representation of the user profile and its
+	// internal versioning numbers.
+	// The API returns an empty object if no profile document is found for the
+	// provided `uid`.
+	// The content of the data field is not returned by default to avoid
+	// deserializing a potential large payload.
 	Profiles []types.UserProfileWithMetadata `json:"profiles"`
 }
 

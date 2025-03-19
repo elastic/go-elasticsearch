@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // Query type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/abstractions.ts#L102-L427
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/abstractions.ts#L103-L434
 type Query struct {
+	AdditionalQueryProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches documents matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
 	// Boosting Returns documents matching a `positive` query while reducing the relevance
@@ -68,7 +69,10 @@ type Query struct {
 	// GeoDistance Matches `geo_point` and `geo_shape` values within a given distance of a
 	// geopoint.
 	GeoDistance *GeoDistanceQuery `json:"geo_distance,omitempty"`
-	GeoPolygon  *GeoPolygonQuery  `json:"geo_polygon,omitempty"`
+	// GeoGrid Matches `geo_point` and `geo_shape` values that intersect a grid cell from a
+	// GeoGrid aggregation.
+	GeoGrid    map[string]GeoGridQuery `json:"geo_grid,omitempty"`
+	GeoPolygon *GeoPolygonQuery        `json:"geo_polygon,omitempty"`
 	// GeoShape Filter documents indexed using either the `geo_shape` or the `geo_point`
 	// type.
 	GeoShape *GeoShapeQuery `json:"geo_shape,omitempty"`
@@ -288,6 +292,14 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 		case "geo_distance":
 			if err := dec.Decode(&s.GeoDistance); err != nil {
 				return fmt.Errorf("%s | %w", "GeoDistance", err)
+			}
+
+		case "geo_grid":
+			if s.GeoGrid == nil {
+				s.GeoGrid = make(map[string]GeoGridQuery, 0)
+			}
+			if err := dec.Decode(&s.GeoGrid); err != nil {
+				return fmt.Errorf("%s | %w", "GeoGrid", err)
 			}
 
 		case "geo_polygon":
@@ -583,31 +595,85 @@ func (s *Query) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Wrapper", err)
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalQueryProperty == nil {
+					s.AdditionalQueryProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalQueryProperty", err)
+				}
+				s.AdditionalQueryProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s Query) MarshalJSON() ([]byte, error) {
+	type opt Query
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalQueryProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalQueryProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewQuery returns a Query.
 func NewQuery() *Query {
 	r := &Query{
-		Common:            make(map[string]CommonTermsQuery, 0),
-		Fuzzy:             make(map[string]FuzzyQuery, 0),
-		Intervals:         make(map[string]IntervalsQuery, 0),
-		Match:             make(map[string]MatchQuery, 0),
-		MatchBoolPrefix:   make(map[string]MatchBoolPrefixQuery, 0),
-		MatchPhrase:       make(map[string]MatchPhraseQuery, 0),
-		MatchPhrasePrefix: make(map[string]MatchPhrasePrefixQuery, 0),
-		Prefix:            make(map[string]PrefixQuery, 0),
-		Range:             make(map[string]RangeQuery, 0),
-		Regexp:            make(map[string]RegexpQuery, 0),
-		SpanTerm:          make(map[string]SpanTermQuery, 0),
-		Term:              make(map[string]TermQuery, 0),
-		TermsSet:          make(map[string]TermsSetQuery, 0),
-		TextExpansion:     make(map[string]TextExpansionQuery, 0),
-		WeightedTokens:    make(map[string]WeightedTokensQuery, 0),
-		Wildcard:          make(map[string]WildcardQuery, 0),
+		AdditionalQueryProperty: make(map[string]json.RawMessage),
+		Common:                  make(map[string]CommonTermsQuery),
+		Fuzzy:                   make(map[string]FuzzyQuery),
+		GeoGrid:                 make(map[string]GeoGridQuery),
+		Intervals:               make(map[string]IntervalsQuery),
+		Match:                   make(map[string]MatchQuery),
+		MatchBoolPrefix:         make(map[string]MatchBoolPrefixQuery),
+		MatchPhrase:             make(map[string]MatchPhraseQuery),
+		MatchPhrasePrefix:       make(map[string]MatchPhrasePrefixQuery),
+		Prefix:                  make(map[string]PrefixQuery),
+		Range:                   make(map[string]RangeQuery),
+		Regexp:                  make(map[string]RegexpQuery),
+		SpanTerm:                make(map[string]SpanTermQuery),
+		Term:                    make(map[string]TermQuery),
+		TermsSet:                make(map[string]TermsSetQuery),
+		TextExpansion:           make(map[string]TextExpansionQuery),
+		WeightedTokens:          make(map[string]WeightedTokensQuery),
+		Wildcard:                make(map[string]WildcardQuery),
 	}
 
 	return r
+}
+
+// true
+
+type QueryVariant interface {
+	QueryCaster() *Query
+}
+
+func (s *Query) QueryCaster() *Query {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,11 +31,11 @@ import (
 
 // NodeInfoXpackSecurity type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/info/types.ts#L245-L250
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/nodes/info/types.ts#L246-L251
 type NodeInfoXpackSecurity struct {
 	Authc     *NodeInfoXpackSecurityAuthc `json:"authc,omitempty"`
 	Enabled   string                      `json:"enabled"`
-	Http      NodeInfoXpackSecuritySsl    `json:"http"`
+	Http      *NodeInfoXpackSecuritySsl   `json:"http,omitempty"`
 	Transport *NodeInfoXpackSecuritySsl   `json:"transport,omitempty"`
 }
 
@@ -92,3 +92,5 @@ func NewNodeInfoXpackSecurity() *NodeInfoXpackSecurity {
 
 	return r
 }
+
+// false

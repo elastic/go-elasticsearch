@@ -16,15 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Get component templates.
-// Returns information about component templates in a cluster.
+//
+// Get information about component templates in a cluster.
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
 //
-// CAT APIs are only intended for human consumption using the command line or
-// Kibana console.
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
+// line or Kibana console.
 // They are not intended for use by applications. For application consumption,
 // use the get component template API.
 package componenttemplates
@@ -83,12 +84,13 @@ func NewComponentTemplatesFunc(tp elastictransport.Interface) NewComponentTempla
 }
 
 // Get component templates.
-// Returns information about component templates in a cluster.
+//
+// Get information about component templates in a cluster.
 // Component templates are building blocks for constructing index templates that
 // specify index mappings, settings, and aliases.
 //
-// CAT APIs are only intended for human consumption using the command line or
-// Kibana console.
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
+// line or Kibana console.
 // They are not intended for use by applications. For application consumption,
 // use the get component template API.
 //
@@ -311,21 +313,13 @@ func (r *ComponentTemplates) Header(key, value string) *ComponentTemplates {
 	return r
 }
 
-// Name The name of the component template. Accepts wildcard expressions. If omitted,
-// all component templates are returned.
+// Name The name of the component template.
+// It accepts wildcard expressions.
+// If it is omitted, all component templates are returned.
 // API Name: name
 func (r *ComponentTemplates) Name(name string) *ComponentTemplates {
 	r.paramSet |= nameMask
 	r.name = name
-
-	return r
-}
-
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *ComponentTemplates) Format(format string) *ComponentTemplates {
-	r.values.Set("format", format)
 
 	return r
 }
@@ -338,11 +332,12 @@ func (r *ComponentTemplates) H(names ...string) *ComponentTemplates {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *ComponentTemplates) Help(help bool) *ComponentTemplates {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *ComponentTemplates) S(names ...string) *ComponentTemplates {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -358,7 +353,7 @@ func (r *ComponentTemplates) Local(local bool) *ComponentTemplates {
 	return r
 }
 
-// MasterTimeout Period to wait for a connection to the master node.
+// MasterTimeout The period to wait for a connection to the master node.
 // API name: master_timeout
 func (r *ComponentTemplates) MasterTimeout(duration string) *ComponentTemplates {
 	r.values.Set("master_timeout", duration)
@@ -366,12 +361,20 @@ func (r *ComponentTemplates) MasterTimeout(duration string) *ComponentTemplates 
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *ComponentTemplates) S(names ...string) *ComponentTemplates {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *ComponentTemplates) Format(format string) *ComponentTemplates {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *ComponentTemplates) Help(help bool) *ComponentTemplates {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

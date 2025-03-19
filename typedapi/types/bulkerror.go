@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // BulkError type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/_types/Bulk.ts#L24-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/_types/Bulk.ts#L24-L33
 type BulkError struct {
 	// Count The number of errors
 	Count int `json:"count"`
@@ -86,8 +86,10 @@ func (s *BulkError) UnmarshalJSON(data []byte) error {
 // NewBulkError returns a BulkError.
 func NewBulkError() *BulkError {
 	r := &BulkError{
-		Details: make(map[string]ErrorCause, 0),
+		Details: make(map[string]ErrorCause),
 	}
 
 	return r
 }
+
+// false

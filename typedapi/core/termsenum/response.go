@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package termsenum
 
@@ -26,8 +26,13 @@ import (
 
 // Response holds the response body struct for the package termsenum
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/terms_enum/TermsEnumResponse.ts#L22-L28
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/terms_enum/TermsEnumResponse.ts#L22-L32
 type Response struct {
+
+	// Complete If `false`, the returned terms set may be incomplete and should be treated as
+	// approximate.
+	// This can occur due to a few reasons, such as a request timeout or a node
+	// error.
 	Complete bool                  `json:"complete"`
 	Shards_  types.ShardStatistics `json:"_shards"`
 	Terms    []string              `json:"terms"`

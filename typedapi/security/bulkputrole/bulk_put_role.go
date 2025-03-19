@@ -16,8 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
+// Bulk create or update roles.
+//
 // The role management APIs are generally the preferred way to manage roles,
 // rather than using file-based role management.
 // The bulk create or update roles API cannot update roles that are defined in
@@ -77,6 +79,8 @@ func NewBulkPutRoleFunc(tp elastictransport.Interface) NewBulkPutRole {
 	}
 }
 
+// Bulk create or update roles.
+//
 // The role management APIs are generally the preferred way to manage roles,
 // rather than using file-based role management.
 // The bulk create or update roles API cannot update roles that are defined in
@@ -90,8 +94,6 @@ func New(tp elastictransport.Interface) *BulkPutRole {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -353,11 +355,32 @@ func (r *BulkPutRole) Pretty(pretty bool) *BulkPutRole {
 	return r
 }
 
-// Roles A dictionary of role name to RoleDescriptor objects to add or update
+// A dictionary of role name to RoleDescriptor objects to add or update
 // API name: roles
 func (r *BulkPutRole) Roles(roles map[string]types.RoleDescriptor) *BulkPutRole {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Roles = roles
+	return r
+}
 
+func (r *BulkPutRole) AddRole(key string, value types.RoleDescriptorVariant) *BulkPutRole {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]types.RoleDescriptor
+	if r.req.Roles == nil {
+		r.req.Roles = make(map[string]types.RoleDescriptor)
+	} else {
+		tmp = r.req.Roles
+	}
+
+	tmp[key] = *value.RoleDescriptorCaster()
+
+	r.req.Roles = tmp
 	return r
 }

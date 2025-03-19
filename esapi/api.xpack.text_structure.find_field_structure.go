@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.18.0: DO NOT EDIT
 
 package esapi
 
@@ -28,7 +28,7 @@ import (
 )
 
 func newTextStructureFindFieldStructureFunc(t Transport) TextStructureFindFieldStructure {
-	return func(index string, field string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error) {
+	return func(field string, index string, o ...func(*TextStructureFindFieldStructureRequest)) (*Response, error) {
 		var r = TextStructureFindFieldStructureRequest{Index: index, Field: field}
 		for _, f := range o {
 			f(&r)

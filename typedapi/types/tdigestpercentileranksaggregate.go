@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // TDigestPercentileRanksAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L175-L176
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L177-L178
 type TDigestPercentileRanksAggregate struct {
 	Meta   Metadata    `json:"meta,omitempty"`
 	Values Percentiles `json:"values"`
@@ -64,7 +64,7 @@ func (s *TDigestPercentileRanksAggregate) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
 			case '{':
-				o := make(KeyedPercentiles, 0)
+				o := make(map[string]string, 0)
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Values", err)
 				}
@@ -88,3 +88,5 @@ func NewTDigestPercentileRanksAggregate() *TDigestPercentileRanksAggregate {
 
 	return r
 }
+
+// false

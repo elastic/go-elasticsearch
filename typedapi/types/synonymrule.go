@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,12 +30,13 @@ import (
 
 // SynonymRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/synonyms/_types/SynonymRule.ts#L26-L35
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/synonyms/_types/SynonymRule.ts#L26-L37
 type SynonymRule struct {
-	// Id Synonym Rule identifier
+	// Id The identifier for the synonym rule.
+	// If you do not specify a synonym rule ID when you create a rule, an identifier
+	// is created automatically by Elasticsearch.
 	Id *string `json:"id,omitempty"`
-	// Synonyms Synonyms, in Solr format, that conform the synonym rule. See
-	// https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-synonym-graph-tokenfilter.html#_solr_synonyms_2
+	// Synonyms The synonyms that conform the synonym rule in Solr format.
 	Synonyms string `json:"synonyms"`
 }
 
@@ -74,4 +75,14 @@ func NewSynonymRule() *SynonymRule {
 	r := &SynonymRule{}
 
 	return r
+}
+
+// true
+
+type SynonymRuleVariant interface {
+	SynonymRuleCaster() *SynonymRule
+}
+
+func (s *SynonymRule) SynonymRuleCaster() *SynonymRule {
+	return s
 }

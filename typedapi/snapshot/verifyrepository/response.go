@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package verifyrepository
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package verifyrepository
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L23-L25
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/snapshot/verify_repository/SnapshotVerifyRepositoryResponse.ts#L23-L25
 type Response struct {
 	Nodes map[string]types.CompactNodeInfo `json:"nodes"`
 }

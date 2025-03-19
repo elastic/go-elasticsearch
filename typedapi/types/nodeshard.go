@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // NodeShard type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Node.ts#L60-L71
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/Node.ts#L54-L65
 type NodeShard struct {
 	AllocationId          map[string]string                   `json:"allocation_id,omitempty"`
 	Index                 string                              `json:"index"`
@@ -146,9 +146,11 @@ func (s *NodeShard) UnmarshalJSON(data []byte) error {
 // NewNodeShard returns a NodeShard.
 func NewNodeShard() *NodeShard {
 	r := &NodeShard{
-		AllocationId:   make(map[string]string, 0),
-		RecoverySource: make(map[string]string, 0),
+		AllocationId:   make(map[string]string),
+		RecoverySource: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

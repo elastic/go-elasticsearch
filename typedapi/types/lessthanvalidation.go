@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LessThanValidation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L58-L61
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/connector/_types/Connector.ts#L58-L61
 type LessThanValidation struct {
 	Constraint Float64 `json:"constraint"`
 	Type       string  `json:"type,omitempty"`
@@ -96,4 +96,14 @@ func NewLessThanValidation() *LessThanValidation {
 	r := &LessThanValidation{}
 
 	return r
+}
+
+// true
+
+type LessThanValidationVariant interface {
+	LessThanValidationCaster() *LessThanValidation
+}
+
+func (s *LessThanValidation) LessThanValidationCaster() *LessThanValidation {
+	return s
 }

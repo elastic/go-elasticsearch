@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexSettingsLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L276-L309
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/IndexSettings.ts#L284-L323
 type IndexSettingsLifecycle struct {
 	// IndexingComplete Indicates whether or not the index has been rolled over. Automatically set to
 	// true when ILM completes the rollover action.
@@ -55,6 +55,10 @@ type IndexSettingsLifecycle struct {
 	// for example logs-2016.10.31-000002). If the index name doesn’t match the
 	// pattern, index creation fails.
 	ParseOriginationDate *bool `json:"parse_origination_date,omitempty"`
+	// PreferIlm Preference for the system that manages a data stream backing index
+	// (preferring ILM when both ILM and DLM are
+	// applicable for an index).
+	PreferIlm string `json:"prefer_ilm,omitempty"`
 	// RolloverAlias The index alias to update when the index rolls over. Specify when using a
 	// policy that contains a rollover action.
 	// When the index rolls over, the alias is updated to reflect that the index is
@@ -118,6 +122,18 @@ func (s *IndexSettingsLifecycle) UnmarshalJSON(data []byte) error {
 				s.ParseOriginationDate = &v
 			}
 
+		case "prefer_ilm":
+			var tmp json.RawMessage
+			if err := dec.Decode(&tmp); err != nil {
+				return fmt.Errorf("%s | %w", "PreferIlm", err)
+			}
+			o := string(tmp[:])
+			o, err = strconv.Unquote(o)
+			if err != nil {
+				o = string(tmp[:])
+			}
+			s.PreferIlm = o
+
 		case "rollover_alias":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -145,4 +161,14 @@ func NewIndexSettingsLifecycle() *IndexSettingsLifecycle {
 	r := &IndexSettingsLifecycle{}
 
 	return r
+}
+
+// true
+
+type IndexSettingsLifecycleVariant interface {
+	IndexSettingsLifecycleCaster() *IndexSettingsLifecycle
+}
+
+func (s *IndexSettingsLifecycle) IndexSettingsLifecycleCaster() *IndexSettingsLifecycle {
+	return s
 }

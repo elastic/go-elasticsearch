@@ -16,16 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Get datafeeds.
-// Returns configuration and usage information about datafeeds.
+//
+// Get configuration and usage information about datafeeds.
 // This API returns a maximum of 10,000 datafeeds.
 // If the Elasticsearch security features are enabled, you must have
 // `monitor_ml`, `monitor`, `manage_ml`, or `manage`
 // cluster privileges to use this API.
 //
-// CAT APIs are only intended for human consumption using the Kibana
+// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get datafeed statistics API.
 package mldatafeeds
@@ -86,13 +87,14 @@ func NewMlDatafeedsFunc(tp elastictransport.Interface) NewMlDatafeeds {
 }
 
 // Get datafeeds.
-// Returns configuration and usage information about datafeeds.
+//
+// Get configuration and usage information about datafeeds.
 // This API returns a maximum of 10,000 datafeeds.
 // If the Elasticsearch security features are enabled, you must have
 // `monitor_ml`, `monitor`, `manage_ml`, or `manage`
 // cluster privileges to use this API.
 //
-// CAT APIs are only intended for human consumption using the Kibana
+// IMPORTANT: CAT APIs are only intended for human consumption using the Kibana
 // console or command line. They are not intended for use by applications. For
 // application consumption, use the get datafeed statistics API.
 //
@@ -393,25 +395,6 @@ func (r *MlDatafeeds) Format(format string) *MlDatafeeds {
 // API name: help
 func (r *MlDatafeeds) Help(help bool) *MlDatafeeds {
 	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *MlDatafeeds) Local(local bool) *MlDatafeeds {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *MlDatafeeds) MasterTimeout(duration string) *MlDatafeeds {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

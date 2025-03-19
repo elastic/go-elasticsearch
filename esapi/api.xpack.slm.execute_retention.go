@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.18.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newSlmExecuteRetentionFunc(t Transport) SlmExecuteRetention {
@@ -49,6 +50,9 @@ type SlmExecuteRetention func(o ...func(*SlmExecuteRetentionRequest)) (*Response
 
 // SlmExecuteRetentionRequest configures the Slm Execute Retention API request.
 type SlmExecuteRetentionRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r SlmExecuteRetentionRequest) Do(providedCtx context.Context, transport Tr
 	path.WriteString("/_slm/_execute_retention")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r SlmExecuteRetentionRequest) Do(providedCtx context.Context, transport Tr
 func (f SlmExecuteRetention) WithContext(v context.Context) func(*SlmExecuteRetentionRequest) {
 	return func(r *SlmExecuteRetentionRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f SlmExecuteRetention) WithMasterTimeout(v time.Duration) func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f SlmExecuteRetention) WithTimeout(v time.Duration) func(*SlmExecuteRetentionRequest) {
+	return func(r *SlmExecuteRetentionRequest) {
+		r.Timeout = v
 	}
 }
 

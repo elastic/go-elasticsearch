@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 8.18.0: DO NOT EDIT
 
 package esapi
 
@@ -23,6 +23,7 @@ import (
 	"context"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newSlmGetStatusFunc(t Transport) SlmGetStatus {
@@ -49,6 +50,9 @@ type SlmGetStatus func(o ...func(*SlmGetStatusRequest)) (*Response, error)
 
 // SlmGetStatusRequest configures the Slm Get Status API request.
 type SlmGetStatusRequest struct {
+	MasterTimeout time.Duration
+	Timeout       time.Duration
+
 	Pretty     bool
 	Human      bool
 	ErrorTrace bool
@@ -85,6 +89,14 @@ func (r SlmGetStatusRequest) Do(providedCtx context.Context, transport Transport
 	path.WriteString("/_slm/status")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -161,6 +173,20 @@ func (r SlmGetStatusRequest) Do(providedCtx context.Context, transport Transport
 func (f SlmGetStatus) WithContext(v context.Context) func(*SlmGetStatusRequest) {
 	return func(r *SlmGetStatusRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f SlmGetStatus) WithMasterTimeout(v time.Duration) func(*SlmGetStatusRequest) {
+	return func(r *SlmGetStatusRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f SlmGetStatus) WithTimeout(v time.Duration) func(*SlmGetStatusRequest) {
+	return func(r *SlmGetStatusRequest) {
+		r.Timeout = v
 	}
 }
 

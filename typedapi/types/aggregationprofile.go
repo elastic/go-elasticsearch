@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // AggregationProfile type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/profile.ts#L77-L84
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/profile.ts#L85-L92
 type AggregationProfile struct {
 	Breakdown   AggregationBreakdown     `json:"breakdown"`
 	Children    []AggregationProfile     `json:"children,omitempty"`
@@ -111,3 +111,5 @@ func NewAggregationProfile() *AggregationProfile {
 
 	return r
 }
+
+// false

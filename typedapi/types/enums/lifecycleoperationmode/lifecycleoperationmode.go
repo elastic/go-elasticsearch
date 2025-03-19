@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Package lifecycleoperationmode
 package lifecycleoperationmode
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Lifecycle.ts#L20-L24
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/Lifecycle.ts#L20-L24
 type LifecycleOperationMode struct {
 	Name string
 }
@@ -43,11 +43,11 @@ func (l LifecycleOperationMode) MarshalText() (text []byte, err error) {
 func (l *LifecycleOperationMode) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "RUNNING":
+	case "running":
 		*l = RUNNING
-	case "STOPPING":
+	case "stopping":
 		*l = STOPPING
-	case "STOPPED":
+	case "stopped":
 		*l = STOPPED
 	default:
 		*l = LifecycleOperationMode{string(text)}

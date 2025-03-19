@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SettingsHighlight type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L230-L233
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/IndexSettings.ts#L238-L241
 type SettingsHighlight struct {
 	MaxAnalyzedOffset *int `json:"max_analyzed_offset,omitempty"`
 }
@@ -77,4 +77,14 @@ func NewSettingsHighlight() *SettingsHighlight {
 	r := &SettingsHighlight{}
 
 	return r
+}
+
+// true
+
+type SettingsHighlightVariant interface {
+	SettingsHighlightCaster() *SettingsHighlight
+}
+
+func (s *SettingsHighlight) SettingsHighlightCaster() *SettingsHighlight {
+	return s
 }

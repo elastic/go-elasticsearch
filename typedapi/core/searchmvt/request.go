@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package searchmvt
 
@@ -35,65 +35,80 @@ import (
 
 // Request holds the request body struct for the package searchmvt
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L190
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search_mvt/SearchMvtRequest.ts#L33-L373
 type Request struct {
 
 	// Aggs Sub-aggregations for the geotile_grid.
 	//
-	// Supports the following aggregation types:
-	// - avg
-	// - cardinality
-	// - max
-	// - min
-	// - sum
+	// It supports the following aggregation types:
+	//
+	// - `avg`
+	// - `boxplot`
+	// - `cardinality`
+	// - `extended stats`
+	// - `max`
+	// - `median absolute deviation`
+	// - `min`
+	// - `percentile`
+	// - `percentile-rank`
+	// - `stats`
+	// - `sum`
+	// - `value count`
+	//
+	// The aggregation names can't start with `_mvt_`. The `_mvt_` prefix is
+	// reserved for internal aggregations.
 	Aggs map[string]types.Aggregations `json:"aggs,omitempty"`
-	// Buffer Size, in pixels, of a clipping buffer outside the tile. This allows renderers
+	// Buffer The size, in pixels, of a clipping buffer outside the tile. This allows
+	// renderers
 	// to avoid outline artifacts from geometries that extend past the extent of the
 	// tile.
 	Buffer *int `json:"buffer,omitempty"`
-	// ExactBounds If false, the meta layer’s feature is the bounding box of the tile.
-	// If true, the meta layer’s feature is a bounding box resulting from a
-	// geo_bounds aggregation. The aggregation runs on <field> values that intersect
-	// the <zoom>/<x>/<y> tile with wrap_longitude set to false. The resulting
+	// ExactBounds If `false`, the meta layer's feature is the bounding box of the tile.
+	// If `true`, the meta layer's feature is a bounding box resulting from a
+	// `geo_bounds` aggregation. The aggregation runs on <field> values that
+	// intersect
+	// the `<zoom>/<x>/<y>` tile with `wrap_longitude` set to `false`. The resulting
 	// bounding box may be larger than the vector tile.
 	ExactBounds *bool `json:"exact_bounds,omitempty"`
-	// Extent Size, in pixels, of a side of the tile. Vector tiles are square with equal
-	// sides.
+	// Extent The size, in pixels, of a side of the tile. Vector tiles are square with
+	// equal sides.
 	Extent *int `json:"extent,omitempty"`
-	// Fields Fields to return in the `hits` layer. Supports wildcards (`*`).
+	// Fields The fields to return in the `hits` layer.
+	// It supports wildcards (`*`).
 	// This parameter does not support fields with array values. Fields with array
 	// values may return inconsistent results.
 	Fields []string `json:"fields,omitempty"`
-	// GridAgg Aggregation used to create a grid for the `field`.
+	// GridAgg The aggregation used to create a grid for the `field`.
 	GridAgg *gridaggregationtype.GridAggregationType `json:"grid_agg,omitempty"`
 	// GridPrecision Additional zoom levels available through the aggs layer. For example, if
-	// <zoom> is 7
-	// and grid_precision is 8, you can zoom in up to level 15. Accepts 0-8. If 0,
-	// results
-	// don’t include the aggs layer.
+	// `<zoom>` is `7`
+	// and `grid_precision` is `8`, you can zoom in up to level 15. Accepts 0-8. If
+	// 0, results
+	// don't include the aggs layer.
 	GridPrecision *int `json:"grid_precision,omitempty"`
 	// GridType Determines the geometry type for features in the aggs layer. In the aggs
 	// layer,
-	// each feature represents a geotile_grid cell. If 'grid' each feature is a
-	// Polygon
-	// of the cells bounding box. If 'point' each feature is a Point that is the
+	// each feature represents a `geotile_grid` cell. If `grid, each feature is a
+	// polygon
+	// of the cells bounding box. If `point`, each feature is a Point that is the
 	// centroid
 	// of the cell.
 	GridType *gridtype.GridType `json:"grid_type,omitempty"`
-	// Query Query DSL used to filter documents for the search.
+	// Query The query DSL used to filter documents for the search.
 	Query *types.Query `json:"query,omitempty"`
 	// RuntimeMappings Defines one or more runtime fields in the search request. These fields take
 	// precedence over mapped fields with the same name.
 	RuntimeMappings types.RuntimeFields `json:"runtime_mappings,omitempty"`
-	// Size Maximum number of features to return in the hits layer. Accepts 0-10000.
-	// If 0, results don’t include the hits layer.
+	// Size The maximum number of features to return in the hits layer. Accepts 0-10000.
+	// If 0, results don't include the hits layer.
 	Size *int `json:"size,omitempty"`
-	// Sort Sorts features in the hits layer. By default, the API calculates a bounding
-	// box for each feature. It sorts features based on this box’s diagonal length,
+	// Sort Sort the features in the hits layer. By default, the API calculates a
+	// bounding
+	// box for each feature. It sorts features based on this box's diagonal length,
 	// from longest to shortest.
 	Sort []types.SortCombinations `json:"sort,omitempty"`
-	// TrackTotalHits Number of hits matching the query to count accurately. If `true`, the exact
-	// number
+	// TrackTotalHits The number of hits matching the query to count accurately. If `true`, the
+	// exact number
 	// of hits is returned at the cost of some performance. If `false`, the response
 	// does
 	// not include the total number of hits matching the query.
@@ -101,6 +116,20 @@ type Request struct {
 	// WithLabels If `true`, the hits and aggs layers will contain additional point features
 	// representing
 	// suggested label positions for the original features.
+	//
+	// * `Point` and `MultiPoint` features will have one of the points selected.
+	// * `Polygon` and `MultiPolygon` features will have a single point generated,
+	// either the centroid, if it is within the polygon, or another point within the
+	// polygon selected from the sorted triangle-tree.
+	// * `LineString` features will likewise provide a roughly central point
+	// selected from the triangle-tree.
+	// * The aggregation results will provide one central point for each aggregation
+	// bucket.
+	//
+	// All attributes from the original features will also be copied to the new
+	// label features.
+	// In addition, the new features will be distinguishable using the tag
+	// `_mvt_label_position`.
 	WithLabels *bool `json:"with_labels,omitempty"`
 }
 

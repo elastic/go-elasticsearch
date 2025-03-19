@@ -16,11 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Retrieves store information about replica shards in one or more indices.
-// For data streams, the API retrieves store information for the stream’s
+// Get index shard stores.
+// Get store information about replica shards in one or more indices.
+// For data streams, the API retrieves store information for the stream's
 // backing indices.
+//
+// The index shard stores API returns the following information:
+//
+// * The node on which each replica shard exists.
+// * The allocation ID for each replica shard.
+// * A unique ID for each replica shard.
+// * Any errors encountered while opening the shard index or from an earlier
+// failure.
+//
+// By default, the API returns store information only for primary shards that
+// are unassigned or have one or more unassigned replica shards.
 package shardstores
 
 import (
@@ -78,9 +90,21 @@ func NewShardStoresFunc(tp elastictransport.Interface) NewShardStores {
 	}
 }
 
-// Retrieves store information about replica shards in one or more indices.
-// For data streams, the API retrieves store information for the stream’s
+// Get index shard stores.
+// Get store information about replica shards in one or more indices.
+// For data streams, the API retrieves store information for the stream's
 // backing indices.
+//
+// The index shard stores API returns the following information:
+//
+// * The node on which each replica shard exists.
+// * The allocation ID for each replica shard.
+// * A unique ID for each replica shard.
+// * Any errors encountered while opening the shard index or from an earlier
+// failure.
+//
+// By default, the API returns store information only for primary shards that
+// are unassigned or have one or more unassigned replica shards.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-shards-stores.html
 func New(tp elastictransport.Interface) *ShardStores {

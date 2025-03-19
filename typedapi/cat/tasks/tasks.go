@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns information about tasks currently executing in the cluster.
+// Get task information.
+//
+// Get information about tasks currently running in the cluster.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the task management API.
@@ -37,6 +39,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -71,12 +74,14 @@ func NewTasksFunc(tp elastictransport.Interface) NewTasks {
 	}
 }
 
-// Returns information about tasks currently executing in the cluster.
+// Get task information.
+//
+// Get information about tasks currently running in the cluster.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the task management API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-tasks.html
 func New(tp elastictransport.Interface) *Tasks {
 	r := &Tasks{
 		transport: tp,
@@ -302,14 +307,14 @@ func (r *Tasks) Detailed(detailed bool) *Tasks {
 	return r
 }
 
-// NodeId Unique node identifiers, which are used to limit the response.
-// API name: node_id
-func (r *Tasks) NodeId(nodeids ...string) *Tasks {
+// Nodes Unique node identifiers, which are used to limit the response.
+// API name: nodes
+func (r *Tasks) Nodes(nodes ...string) *Tasks {
 	tmp := []string{}
-	for _, item := range nodeids {
+	for _, item := range nodes {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
 	}
-	r.values.Set("node_id", strings.Join(tmp, ","))
+	r.values.Set("nodes", strings.Join(tmp, ","))
 
 	return r
 }
@@ -318,6 +323,50 @@ func (r *Tasks) NodeId(nodeids ...string) *Tasks {
 // API name: parent_task_id
 func (r *Tasks) ParentTaskId(parenttaskid string) *Tasks {
 	r.values.Set("parent_task_id", parenttaskid)
+
+	return r
+}
+
+// H List of columns to appear in the response. Supports simple wildcards.
+// API name: h
+func (r *Tasks) H(names ...string) *Tasks {
+	r.values.Set("h", strings.Join(names, ","))
+
+	return r
+}
+
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Tasks) S(names ...string) *Tasks {
+	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// Time Unit used to display time values.
+// API name: time
+func (r *Tasks) Time(time timeunit.TimeUnit) *Tasks {
+	r.values.Set("time", time.String())
+
+	return r
+}
+
+// Timeout Period to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
+// API name: timeout
+func (r *Tasks) Timeout(duration string) *Tasks {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
+// WaitForCompletion If `true`, the request blocks until the task has completed.
+// API name: wait_for_completion
+func (r *Tasks) WaitForCompletion(waitforcompletion bool) *Tasks {
+	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))
 
 	return r
 }
@@ -331,48 +380,11 @@ func (r *Tasks) Format(format string) *Tasks {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
-// API name: h
-func (r *Tasks) H(names ...string) *Tasks {
-	r.values.Set("h", strings.Join(names, ","))
-
-	return r
-}
-
 // Help When set to `true` will output available columns. This option
 // can't be combined with any other query string option.
 // API name: help
 func (r *Tasks) Help(help bool) *Tasks {
 	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *Tasks) Local(local bool) *Tasks {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *Tasks) MasterTimeout(duration string) *Tasks {
-	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Tasks) S(names ...string) *Tasks {
-	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }

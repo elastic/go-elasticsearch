@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // Cgroup type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L461-L474
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/nodes/_types/Stats.ts#L497-L510
 type Cgroup struct {
 	// Cpu Contains statistics about `cpu` control group for the node.
 	Cpu *CgroupCpu `json:"cpu,omitempty"`
@@ -38,3 +38,5 @@ func NewCgroup() *Cgroup {
 
 	return r
 }
+
+// false

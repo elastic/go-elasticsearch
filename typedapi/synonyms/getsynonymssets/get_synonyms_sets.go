@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Retrieves a summary of all defined synonym sets
+// Get all synonym sets.
+// Get a summary of all defined synonym sets.
 package getsynonymssets
 
 import (
@@ -68,9 +69,10 @@ func NewGetSynonymsSetsFunc(tp elastictransport.Interface) NewGetSynonymsSets {
 	}
 }
 
-// Retrieves a summary of all defined synonym sets
+// Get all synonym sets.
+// Get a summary of all defined synonym sets.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/list-synonyms-sets.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-synonyms-set.html
 func New(tp elastictransport.Interface) *GetSynonymsSets {
 	r := &GetSynonymsSets{
 		transport: tp,
@@ -274,7 +276,7 @@ func (r *GetSynonymsSets) Header(key, value string) *GetSynonymsSets {
 	return r
 }
 
-// From Starting offset
+// From The starting offset for synonyms sets to retrieve.
 // API name: from
 func (r *GetSynonymsSets) From(from int) *GetSynonymsSets {
 	r.values.Set("from", strconv.Itoa(from))
@@ -282,7 +284,7 @@ func (r *GetSynonymsSets) From(from int) *GetSynonymsSets {
 	return r
 }
 
-// Size specifies a max number of results to get
+// Size The maximum number of synonyms sets to retrieve.
 // API name: size
 func (r *GetSynonymsSets) Size(size int) *GetSynonymsSets {
 	r.values.Set("size", strconv.Itoa(size))

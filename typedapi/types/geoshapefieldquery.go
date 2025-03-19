@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // GeoShapeFieldQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/geo.ts#L115-L126
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/geo.ts#L128-L139
 type GeoShapeFieldQuery struct {
 	// IndexedShape Query using an indexed shape retrieved from the the specified document and
 	// path.
@@ -82,4 +82,14 @@ func NewGeoShapeFieldQuery() *GeoShapeFieldQuery {
 	r := &GeoShapeFieldQuery{}
 
 	return r
+}
+
+// true
+
+type GeoShapeFieldQueryVariant interface {
+	GeoShapeFieldQueryCaster() *GeoShapeFieldQuery
+}
+
+func (s *GeoShapeFieldQuery) GeoShapeFieldQueryCaster() *GeoShapeFieldQuery {
+	return s
 }

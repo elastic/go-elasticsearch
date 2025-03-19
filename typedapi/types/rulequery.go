@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RuleQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/specialized.ts#L381-L385
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/specialized.ts#L398-L405
 type RuleQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -40,7 +40,7 @@ type RuleQuery struct {
 	// A value greater than 1.0 increases the relevance score.
 	Boost         *float32        `json:"boost,omitempty"`
 	MatchCriteria json.RawMessage `json:"match_criteria,omitempty"`
-	Organic       *Query          `json:"organic,omitempty"`
+	Organic       Query           `json:"organic"`
 	QueryName_    *string         `json:"_name,omitempty"`
 	RulesetIds    []string        `json:"ruleset_ids"`
 }
@@ -113,4 +113,14 @@ func NewRuleQuery() *RuleQuery {
 	r := &RuleQuery{}
 
 	return r
+}
+
+// true
+
+type RuleQueryVariant interface {
+	RuleQueryCaster() *RuleQuery
+}
+
+func (s *RuleQuery) RuleQueryCaster() *RuleQuery {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -70,5 +70,9 @@ package types
 //	PhoneticTokenFilter
 //	DictionaryDecompounderTokenFilter
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L350-L402
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/token_filters.ts#L352-L404
 type TokenFilterDefinition any
+
+type TokenFilterDefinitionVariant interface {
+	TokenFilterDefinitionCaster() *TokenFilterDefinition
+}

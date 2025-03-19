@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CompletionSuggestOption type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/suggester.ts#L73-L84
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/suggester.ts#L73-L84
 type CompletionSuggestOption struct {
 	CollateMatch *bool                      `json:"collate_match,omitempty"`
 	Contexts     map[string][]Context       `json:"contexts,omitempty"`
@@ -169,9 +169,11 @@ func (s *CompletionSuggestOption) UnmarshalJSON(data []byte) error {
 // NewCompletionSuggestOption returns a CompletionSuggestOption.
 func NewCompletionSuggestOption() *CompletionSuggestOption {
 	r := &CompletionSuggestOption{
-		Contexts: make(map[string][]Context, 0),
-		Fields:   make(map[string]json.RawMessage, 0),
+		Contexts: make(map[string][]Context),
+		Fields:   make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

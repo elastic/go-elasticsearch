@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // HyphenationDecompounderTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L58-L60
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/token_filters.ts#L57-L59
 type HyphenationDecompounderTokenFilter struct {
 	HyphenationPatternsPath *string  `json:"hyphenation_patterns_path,omitempty"`
 	MaxSubwordSize          *int     `json:"max_subword_size,omitempty"`
@@ -190,4 +190,14 @@ func NewHyphenationDecompounderTokenFilter() *HyphenationDecompounderTokenFilter
 	r := &HyphenationDecompounderTokenFilter{}
 
 	return r
+}
+
+// true
+
+type HyphenationDecompounderTokenFilterVariant interface {
+	HyphenationDecompounderTokenFilterCaster() *HyphenationDecompounderTokenFilter
+}
+
+func (s *HyphenationDecompounderTokenFilter) HyphenationDecompounderTokenFilterCaster() *HyphenationDecompounderTokenFilter {
+	return s
 }

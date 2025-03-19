@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,24 +31,23 @@ import (
 
 // LogstashPipeline type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/logstash/_types/Pipeline.ts#L60-L92
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/logstash/_types/Pipeline.ts#L60-L91
 type LogstashPipeline struct {
-	// Description Description of the pipeline.
+	// Description A description of the pipeline.
 	// This description is not used by Elasticsearch or Logstash.
 	Description string `json:"description"`
-	// LastModified Date the pipeline was last updated.
-	// Must be in the `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
+	// LastModified The date the pipeline was last updated.
+	// It must be in the `yyyy-MM-dd'T'HH:mm:ss.SSSZZ` strict_date_time format.
 	LastModified DateTime `json:"last_modified"`
-	// Pipeline Configuration for the pipeline.
+	// Pipeline The configuration for the pipeline.
 	Pipeline string `json:"pipeline"`
-	// PipelineMetadata Optional metadata about the pipeline.
-	// May have any contents.
+	// PipelineMetadata Optional metadata about the pipeline, which can have any contents.
 	// This metadata is not generated or used by Elasticsearch or Logstash.
 	PipelineMetadata PipelineMetadata `json:"pipeline_metadata"`
 	// PipelineSettings Settings for the pipeline.
-	// Supports only flat keys in dot notation.
+	// It supports only flat keys in dot notation.
 	PipelineSettings PipelineSettings `json:"pipeline_settings"`
-	// Username User who last updated the pipeline.
+	// Username The user who last updated the pipeline.
 	Username string `json:"username"`
 }
 
@@ -128,4 +127,14 @@ func NewLogstashPipeline() *LogstashPipeline {
 	r := &LogstashPipeline{}
 
 	return r
+}
+
+// true
+
+type LogstashPipelineVariant interface {
+	LogstashPipelineCaster() *LogstashPipeline
+}
+
+func (s *LogstashPipeline) LogstashPipelineCaster() *LogstashPipeline {
+	return s
 }

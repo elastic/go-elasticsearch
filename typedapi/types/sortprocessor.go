@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SortProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ingest/_types/Processors.ts#L1079-L1095
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ingest/_types/Processors.ts#L1478-L1494
 type SortProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -152,4 +152,14 @@ func NewSortProcessor() *SortProcessor {
 	r := &SortProcessor{}
 
 	return r
+}
+
+// true
+
+type SortProcessorVariant interface {
+	SortProcessorCaster() *SortProcessor
+}
+
+func (s *SortProcessor) SortProcessorCaster() *SortProcessor {
+	return s
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldCollapse type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/FieldCollapse.ts#L24-L38
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/FieldCollapse.ts#L24-L41
 type FieldCollapse struct {
 	Collapse *FieldCollapse `json:"collapse,omitempty"`
 	// Field The field to collapse the result set on
@@ -110,4 +110,14 @@ func NewFieldCollapse() *FieldCollapse {
 	r := &FieldCollapse{}
 
 	return r
+}
+
+// true
+
+type FieldCollapseVariant interface {
+	FieldCollapseCaster() *FieldCollapse
+}
+
+func (s *FieldCollapse) FieldCollapseCaster() *FieldCollapse {
+	return s
 }

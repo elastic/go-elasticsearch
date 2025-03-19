@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Package shardsstatsstage
 package shardsstatsstage
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/snapshot/_types/SnapshotShardsStatsStage.ts#L20-L31
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/snapshot/_types/SnapshotShardsStatsStage.ts#L20-L31
 type ShardsStatsStage struct {
 	Name string
 }
@@ -47,15 +47,15 @@ func (s ShardsStatsStage) MarshalText() (text []byte, err error) {
 func (s *ShardsStatsStage) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "DONE":
+	case "done":
 		*s = DONE
-	case "FAILURE":
+	case "failure":
 		*s = FAILURE
-	case "FINALIZE":
+	case "finalize":
 		*s = FINALIZE
-	case "INIT":
+	case "init":
 		*s = INIT
-	case "STARTED":
+	case "started":
 		*s = STARTED
 	default:
 		*s = ShardsStatsStage{string(text)}

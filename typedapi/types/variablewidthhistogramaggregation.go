@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // VariableWidthHistogramAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L1022-L1043
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/bucket.ts#L1091-L1115
 type VariableWidthHistogramAggregation struct {
 	// Buckets The target number of buckets.
 	Buckets *int `json:"buckets,omitempty"`
@@ -131,4 +131,14 @@ func NewVariableWidthHistogramAggregation() *VariableWidthHistogramAggregation {
 	r := &VariableWidthHistogramAggregation{}
 
 	return r
+}
+
+// true
+
+type VariableWidthHistogramAggregationVariant interface {
+	VariableWidthHistogramAggregationCaster() *VariableWidthHistogramAggregation
+}
+
+func (s *VariableWidthHistogramAggregation) VariableWidthHistogramAggregationCaster() *VariableWidthHistogramAggregation {
+	return s
 }

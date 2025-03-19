@@ -16,10 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Get task information.
-// Returns information about the tasks currently executing in the cluster.
+// Get information about a task currently running in the cluster.
+//
+// WARNING: The task management API is new and should still be considered a beta
+// feature.
+// The API may change in ways that are not backwards compatible.
+//
+// If the task identifier is not found, a 404 response code indicates that there
+// are no resources that match the request.
 package get
 
 import (
@@ -78,7 +85,14 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 }
 
 // Get task information.
-// Returns information about the tasks currently executing in the cluster.
+// Get information about a task currently running in the cluster.
+//
+// WARNING: The task management API is new and should still be considered a beta
+// feature.
+// The API may change in ways that are not backwards compatible.
+//
+// If the task identifier is not found, a 404 response code indicates that there
+// are no resources that match the request.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html
 func New(tp elastictransport.Interface) *Get {
@@ -290,7 +304,7 @@ func (r *Get) Header(key, value string) *Get {
 	return r
 }
 
-// TaskId ID of the task.
+// TaskId The task identifier.
 // API Name: taskid
 func (r *Get) _taskid(taskid string) *Get {
 	r.paramSet |= taskidMask
@@ -299,7 +313,7 @@ func (r *Get) _taskid(taskid string) *Get {
 	return r
 }
 
-// Timeout Period to wait for a response.
+// Timeout The period to wait for a response.
 // If no response is received before the timeout expires, the request fails and
 // returns an error.
 // API name: timeout

@@ -16,9 +16,28 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Cancels a task, if it can be cancelled through an API.
+// Cancel a task.
+//
+// WARNING: The task management API is new and should still be considered a beta
+// feature.
+// The API may change in ways that are not backwards compatible.
+//
+// A task may continue to run for some time after it has been cancelled because
+// it may not be able to safely stop its current activity straight away.
+// It is also possible that Elasticsearch must complete its work on other tasks
+// before it can process the cancellation.
+// The get task information API will continue to list these cancelled tasks
+// until they complete.
+// The cancelled flag in the response indicates that the cancellation command
+// has been processed and the task will stop as soon as possible.
+//
+// To troubleshoot why a cancelled task does not complete promptly, use the get
+// task information API with the `?detailed` parameter to identify the other
+// tasks the system is running.
+// You can also use the node hot threads API to obtain detailed information
+// about the work the system is doing instead of completing the cancelled task.
 package cancel
 
 import (
@@ -74,7 +93,26 @@ func NewCancelFunc(tp elastictransport.Interface) NewCancel {
 	}
 }
 
-// Cancels a task, if it can be cancelled through an API.
+// Cancel a task.
+//
+// WARNING: The task management API is new and should still be considered a beta
+// feature.
+// The API may change in ways that are not backwards compatible.
+//
+// A task may continue to run for some time after it has been cancelled because
+// it may not be able to safely stop its current activity straight away.
+// It is also possible that Elasticsearch must complete its work on other tasks
+// before it can process the cancellation.
+// The get task information API will continue to list these cancelled tasks
+// until they complete.
+// The cancelled flag in the response indicates that the cancellation command
+// has been processed and the task will stop as soon as possible.
+//
+// To troubleshoot why a cancelled task does not complete promptly, use the get
+// task information API with the `?detailed` parameter to identify the other
+// tasks the system is running.
+// You can also use the node hot threads API to obtain detailed information
+// about the work the system is doing instead of completing the cancelled task.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/tasks.html
 func New(tp elastictransport.Interface) *Cancel {
@@ -295,7 +333,7 @@ func (r *Cancel) Header(key, value string) *Cancel {
 	return r
 }
 
-// TaskId ID of the task.
+// TaskId The task identifier.
 // API Name: taskid
 func (r *Cancel) TaskId(taskid string) *Cancel {
 	r.paramSet |= taskidMask
@@ -304,8 +342,8 @@ func (r *Cancel) TaskId(taskid string) *Cancel {
 	return r
 }
 
-// Actions Comma-separated list or wildcard expression of actions used to limit the
-// request.
+// Actions A comma-separated list or wildcard expression of actions that is used to
+// limit the request.
 // API name: actions
 func (r *Cancel) Actions(actions ...string) *Cancel {
 	tmp := []string{}
@@ -317,7 +355,8 @@ func (r *Cancel) Actions(actions ...string) *Cancel {
 	return r
 }
 
-// Nodes Comma-separated list of node IDs or names used to limit the request.
+// Nodes A comma-separated list of node IDs or names that is used to limit the
+// request.
 // API name: nodes
 func (r *Cancel) Nodes(nodes ...string) *Cancel {
 	tmp := []string{}
@@ -329,7 +368,7 @@ func (r *Cancel) Nodes(nodes ...string) *Cancel {
 	return r
 }
 
-// ParentTaskId Parent task ID used to limit the tasks.
+// ParentTaskId A parent task ID that is used to limit the tasks.
 // API name: parent_task_id
 func (r *Cancel) ParentTaskId(parenttaskid string) *Cancel {
 	r.values.Set("parent_task_id", parenttaskid)
@@ -337,8 +376,7 @@ func (r *Cancel) ParentTaskId(parenttaskid string) *Cancel {
 	return r
 }
 
-// WaitForCompletion Should the request block until the cancellation of the task and its
-// descendant tasks is completed. Defaults to false
+// WaitForCompletion If true, the request blocks until all found tasks are complete.
 // API name: wait_for_completion
 func (r *Cancel) WaitForCompletion(waitforcompletion bool) *Cancel {
 	r.values.Set("wait_for_completion", strconv.FormatBool(waitforcompletion))

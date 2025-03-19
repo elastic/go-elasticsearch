@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package putsynonymrule
 
@@ -30,8 +30,10 @@ import (
 
 // Request holds the request body struct for the package putsynonymrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/synonyms/put_synonym_rule/SynonymRulePutRequest.ts#L23-L47
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/synonyms/put_synonym_rule/SynonymRulePutRequest.ts#L23-L60
 type Request struct {
+
+	// Synonyms The synonym rule information definition, which must be in Solr format.
 	Synonyms string `json:"synonyms"`
 }
 

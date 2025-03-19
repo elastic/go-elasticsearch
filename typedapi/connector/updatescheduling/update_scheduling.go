@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Updates the scheduling field in the connector document
+// Update the connector scheduling.
 package updatescheduling
 
 import (
@@ -81,7 +81,7 @@ func NewUpdateSchedulingFunc(tp elastictransport.Interface) NewUpdateScheduling 
 	}
 }
 
-// Updates the scheduling field in the connector document
+// Update the connector scheduling.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/update-connector-scheduling-api.html
 func New(tp elastictransport.Interface) *UpdateScheduling {
@@ -91,8 +91,6 @@ func New(tp elastictransport.Interface) *UpdateScheduling {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -360,9 +358,13 @@ func (r *UpdateScheduling) Pretty(pretty bool) *UpdateScheduling {
 }
 
 // API name: scheduling
-func (r *UpdateScheduling) Scheduling(scheduling *types.SchedulingConfiguration) *UpdateScheduling {
+func (r *UpdateScheduling) Scheduling(scheduling types.SchedulingConfigurationVariant) *UpdateScheduling {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Scheduling = *scheduling
+	r.req.Scheduling = *scheduling.SchedulingConfigurationCaster()
 
 	return r
 }

@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // GarbageCollector type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/nodes/_types/Stats.ts#L923-L928
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/nodes/_types/Stats.ts#L994-L999
 type GarbageCollector struct {
 	// Collectors Contains statistics about JVM garbage collectors for the node.
 	Collectors map[string]GarbageCollectorTotal `json:"collectors,omitempty"`
@@ -31,8 +31,10 @@ type GarbageCollector struct {
 // NewGarbageCollector returns a GarbageCollector.
 func NewGarbageCollector() *GarbageCollector {
 	r := &GarbageCollector{
-		Collectors: make(map[string]GarbageCollectorTotal, 0),
+		Collectors: make(map[string]GarbageCollectorTotal),
 	}
 
 	return r
 }
+
+// false

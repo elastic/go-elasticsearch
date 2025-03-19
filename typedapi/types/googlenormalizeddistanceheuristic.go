@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GoogleNormalizedDistanceHeuristic type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L748-L753
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/bucket.ts#L793-L798
 type GoogleNormalizedDistanceHeuristic struct {
 	// BackgroundIsSuperset Set to `false` if you defined a custom background filter that represents a
 	// different set of documents that you want to compare to.
@@ -77,4 +77,14 @@ func NewGoogleNormalizedDistanceHeuristic() *GoogleNormalizedDistanceHeuristic {
 	r := &GoogleNormalizedDistanceHeuristic{}
 
 	return r
+}
+
+// true
+
+type GoogleNormalizedDistanceHeuristicVariant interface {
+	GoogleNormalizedDistanceHeuristicCaster() *GoogleNormalizedDistanceHeuristic
+}
+
+func (s *GoogleNormalizedDistanceHeuristic) GoogleNormalizedDistanceHeuristicCaster() *GoogleNormalizedDistanceHeuristic {
+	return s
 }

@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Starts Watcher if it is not already running.
+// Start the watch service.
+// Start the Watcher service if it is not already running.
 package start
 
 import (
@@ -68,7 +69,8 @@ func NewStartFunc(tp elastictransport.Interface) NewStart {
 	}
 }
 
-// Starts Watcher if it is not already running.
+// Start the watch service.
+// Start the Watcher service if it is not already running.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-start.html
 func New(tp elastictransport.Interface) *Start {
@@ -272,6 +274,14 @@ func (r Start) IsSuccess(providedCtx context.Context) (bool, error) {
 // Header set a key, value pair in the Start headers map.
 func (r *Start) Header(key, value string) *Start {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *Start) MasterTimeout(duration string) *Start {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

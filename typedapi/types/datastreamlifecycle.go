@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -26,14 +26,25 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strconv"
 )
 
 // DataStreamLifecycle type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/DataStreamLifecycle.ts#L25-L31
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/DataStreamLifecycle.ts#L25-L45
 type DataStreamLifecycle struct {
-	DataRetention Duration                         `json:"data_retention,omitempty"`
-	Downsampling  *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	// DataRetention If defined, every document added to this data stream will be stored at least
+	// for this time frame.
+	// Any time after this duration the document could be deleted.
+	// When empty, every document in this data stream will be stored indefinitely.
+	DataRetention Duration `json:"data_retention,omitempty"`
+	// Downsampling The downsampling configuration to execute for the managed backing index after
+	// rollover.
+	Downsampling *DataStreamLifecycleDownsampling `json:"downsampling,omitempty"`
+	// Enabled If defined, it turns data stream lifecycle on/off (`true`/`false`) for this
+	// data stream. A data stream lifecycle
+	// that's disabled (enabled: `false`) will have no effect on the data stream.
+	Enabled *bool `json:"enabled,omitempty"`
 }
 
 func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
@@ -61,6 +72,20 @@ func (s *DataStreamLifecycle) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Downsampling", err)
 			}
 
+		case "enabled":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Enabled", err)
+				}
+				s.Enabled = &value
+			case bool:
+				s.Enabled = &v
+			}
+
 		}
 	}
 	return nil
@@ -71,4 +96,14 @@ func NewDataStreamLifecycle() *DataStreamLifecycle {
 	r := &DataStreamLifecycle{}
 
 	return r
+}
+
+// true
+
+type DataStreamLifecycleVariant interface {
+	DataStreamLifecycleCaster() *DataStreamLifecycle
+}
+
+func (s *DataStreamLifecycle) DataStreamLifecycleCaster() *DataStreamLifecycle {
+	return s
 }

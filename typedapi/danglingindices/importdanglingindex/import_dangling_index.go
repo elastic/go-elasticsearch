@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Imports the specified dangling index
+// Import a dangling index.
+//
+// If Elasticsearch encounters index data that is absent from the current
+// cluster state, those indices are considered to be dangling.
+// For example, this can happen if you delete more than
+// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
+// offline.
 package importdanglingindex
 
 import (
@@ -76,9 +82,15 @@ func NewImportDanglingIndexFunc(tp elastictransport.Interface) NewImportDangling
 	}
 }
 
-// Imports the specified dangling index
+// Import a dangling index.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway-dangling-indices.html
+// If Elasticsearch encounters index data that is absent from the current
+// cluster state, those indices are considered to be dangling.
+// For example, this can happen if you delete more than
+// `cluster.indices.tombstones.size` indices while an Elasticsearch node is
+// offline.
+//
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/dangling-index-import.html
 func New(tp elastictransport.Interface) *ImportDanglingIndex {
 	r := &ImportDanglingIndex{
 		transport: tp,
@@ -288,7 +300,8 @@ func (r *ImportDanglingIndex) Header(key, value string) *ImportDanglingIndex {
 	return r
 }
 
-// IndexUuid The UUID of the dangling index
+// IndexUuid The UUID of the index to import. Use the get dangling indices API to locate
+// the UUID.
 // API Name: indexuuid
 func (r *ImportDanglingIndex) _indexuuid(indexuuid string) *ImportDanglingIndex {
 	r.paramSet |= indexuuidMask
@@ -297,7 +310,11 @@ func (r *ImportDanglingIndex) _indexuuid(indexuuid string) *ImportDanglingIndex 
 	return r
 }
 
-// AcceptDataLoss Must be set to true in order to import the dangling index
+// AcceptDataLoss This parameter must be set to true to import a dangling index.
+// Because Elasticsearch cannot know where the dangling index data came from or
+// determine which shard copies are fresh and which are stale, it cannot
+// guarantee that the imported data represents the latest state of the index
+// when it was last in the cluster.
 // API name: accept_data_loss
 func (r *ImportDanglingIndex) AcceptDataLoss(acceptdataloss bool) *ImportDanglingIndex {
 	r.values.Set("accept_data_loss", strconv.FormatBool(acceptdataloss))

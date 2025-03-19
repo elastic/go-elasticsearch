@@ -16,9 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Adds or updates application privileges.
+// Create or update application privileges.
+//
+// To use this API, you must have one of the following privileges:
+//
+// * The `manage_security` cluster privilege (or a greater privilege such as
+// `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
+//
+// Application names are formed from a prefix, with an optional suffix that
+// conform to the following rules:
+//
+// * The prefix must begin with a lowercase ASCII letter.
+// * The prefix must contain only ASCII letters or digits.
+// * The prefix must be at least 3 characters long.
+// * If the suffix exists, it must begin with either a dash `-` or `_`.
+// * The suffix cannot contain any of the following characters: `\`, `/`, `*`,
+// `?`, `"`, `<`, `>`, `|`, `,`, `*`.
+// * No part of the name can contain whitespace.
+//
+// Privilege names must begin with a lowercase ASCII letter and must contain
+// only ASCII letters and digits along with the characters `_`, `-`, and `.`.
+//
+// Action names can contain any number of printable ASCII characters and must
+// contain at least one of the following characters: `/`, `*`, `:`.
 package putprivileges
 
 import (
@@ -74,7 +98,31 @@ func NewPutPrivilegesFunc(tp elastictransport.Interface) NewPutPrivileges {
 	}
 }
 
-// Adds or updates application privileges.
+// Create or update application privileges.
+//
+// To use this API, you must have one of the following privileges:
+//
+// * The `manage_security` cluster privilege (or a greater privilege such as
+// `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
+//
+// Application names are formed from a prefix, with an optional suffix that
+// conform to the following rules:
+//
+// * The prefix must begin with a lowercase ASCII letter.
+// * The prefix must contain only ASCII letters or digits.
+// * The prefix must be at least 3 characters long.
+// * If the suffix exists, it must begin with either a dash `-` or `_`.
+// * The suffix cannot contain any of the following characters: `\`, `/`, `*`,
+// `?`, `"`, `<`, `>`, `|`, `,`, `*`.
+// * No part of the name can contain whitespace.
+//
+// Privilege names must begin with a lowercase ASCII letter and must contain
+// only ASCII letters and digits along with the characters `_`, `-`, and `.`.
+//
+// Action names can contain any number of printable ASCII characters and must
+// contain at least one of the following characters: `/`, `*`, `:`.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-put-privileges.html
 func New(tp elastictransport.Interface) *PutPrivileges {
@@ -84,8 +132,6 @@ func New(tp elastictransport.Interface) *PutPrivileges {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {

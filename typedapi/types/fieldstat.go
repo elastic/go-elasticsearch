@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FieldStat type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/text_structure/find_structure/types.ts#L23-L33
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/text_structure/_types/Structure.ts#L23-L33
 type FieldStat struct {
 	Cardinality int      `json:"cardinality"`
 	Count       int      `json:"count"`
@@ -195,3 +195,5 @@ func NewFieldStat() *FieldStat {
 
 	return r
 }
+
+// false

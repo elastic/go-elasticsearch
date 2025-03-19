@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalyticsSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/DataframeAnalytics.ts#L306-L322
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/DataframeAnalytics.ts#L306-L323
 type DataframeAnalyticsSummary struct {
 	AllowLazyStart *bool                            `json:"allow_lazy_start,omitempty"`
 	Analysis       DataframeAnalysisContainer       `json:"analysis"`
@@ -45,6 +45,7 @@ type DataframeAnalyticsSummary struct {
 	Dest             DataframeAnalyticsDestination    `json:"dest"`
 	Id               string                           `json:"id"`
 	MaxNumThreads    *int                             `json:"max_num_threads,omitempty"`
+	Meta_            Metadata                         `json:"_meta,omitempty"`
 	ModelMemoryLimit *string                          `json:"model_memory_limit,omitempty"`
 	Source           DataframeAnalyticsSource         `json:"source"`
 	Version          *string                          `json:"version,omitempty"`
@@ -137,6 +138,11 @@ func (s *DataframeAnalyticsSummary) UnmarshalJSON(data []byte) error {
 				s.MaxNumThreads = &f
 			}
 
+		case "_meta":
+			if err := dec.Decode(&s.Meta_); err != nil {
+				return fmt.Errorf("%s | %w", "Meta_", err)
+			}
+
 		case "model_memory_limit":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -170,3 +176,5 @@ func NewDataframeAnalyticsSummary() *DataframeAnalyticsSummary {
 
 	return r
 }
+
+// false

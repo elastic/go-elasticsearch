@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StringTermsAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/Aggregate.ts#L386-L391
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/Aggregate.ts#L424-L429
 type StringTermsAggregate struct {
 	Buckets                 BucketsStringTermsBucket `json:"buckets"`
 	DocCountErrorUpperBound *int64                   `json:"doc_count_error_upper_bound,omitempty"`
@@ -121,3 +121,5 @@ func NewStringTermsAggregate() *StringTermsAggregate {
 
 	return r
 }
+
+// false

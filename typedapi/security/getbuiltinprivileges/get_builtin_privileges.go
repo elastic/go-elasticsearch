@@ -16,10 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Retrieves the list of cluster privileges and index privileges that are
-// available in this version of Elasticsearch.
+// Get builtin privileges.
+//
+// Get the list of cluster privileges and index privileges that are available in
+// this version of Elasticsearch.
 package getbuiltinprivileges
 
 import (
@@ -69,8 +71,10 @@ func NewGetBuiltinPrivilegesFunc(tp elastictransport.Interface) NewGetBuiltinPri
 	}
 }
 
-// Retrieves the list of cluster privileges and index privileges that are
-// available in this version of Elasticsearch.
+// Get builtin privileges.
+//
+// Get the list of cluster privileges and index privileges that are available in
+// this version of Elasticsearch.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-builtin-privileges.html
 func New(tp elastictransport.Interface) *GetBuiltinPrivileges {

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // BucketCorrelationFunctionCountCorrelationIndicator type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/pipeline.ts#L149-L167
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/pipeline.ts#L160-L178
 type BucketCorrelationFunctionCountCorrelationIndicator struct {
 	// DocCount The total number of documents that initially created the expectations. It’s
 	// required to be greater
@@ -103,4 +103,14 @@ func NewBucketCorrelationFunctionCountCorrelationIndicator() *BucketCorrelationF
 	r := &BucketCorrelationFunctionCountCorrelationIndicator{}
 
 	return r
+}
+
+// true
+
+type BucketCorrelationFunctionCountCorrelationIndicatorVariant interface {
+	BucketCorrelationFunctionCountCorrelationIndicatorCaster() *BucketCorrelationFunctionCountCorrelationIndicator
+}
+
+func (s *BucketCorrelationFunctionCountCorrelationIndicator) BucketCorrelationFunctionCountCorrelationIndicatorCaster() *BucketCorrelationFunctionCountCorrelationIndicator {
+	return s
 }

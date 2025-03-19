@@ -16,11 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Get index settings.
-// Returns setting information for one or more indices. For data streams,
-// returns setting information for the stream’s backing indices.
+// Get setting information for one or more indices.
+// For data streams, it returns setting information for the stream's backing
+// indices.
 package getsettings
 
 import (
@@ -81,8 +82,9 @@ func NewGetSettingsFunc(tp elastictransport.Interface) NewGetSettings {
 }
 
 // Get index settings.
-// Returns setting information for one or more indices. For data streams,
-// returns setting information for the stream’s backing indices.
+// Get setting information for one or more indices.
+// For data streams, it returns setting information for the stream's backing
+// indices.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-settings.html
 func New(tp elastictransport.Interface) *GetSettings {

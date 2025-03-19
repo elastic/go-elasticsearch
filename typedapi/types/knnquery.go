@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Knn.ts#L54-L67
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/Knn.ts#L64-L87
 type KnnQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -43,6 +43,8 @@ type KnnQuery struct {
 	Field string `json:"field"`
 	// Filter Filters for the kNN search query
 	Filter []Query `json:"filter,omitempty"`
+	// K The final number of nearest neighbors to return as top hits
+	K *int `json:"k,omitempty"`
 	// NumCandidates The number of nearest neighbor candidates to consider per shard
 	NumCandidates *int    `json:"num_candidates,omitempty"`
 	QueryName_    *string `json:"_name,omitempty"`
@@ -51,6 +53,8 @@ type KnnQuery struct {
 	// QueryVectorBuilder The query vector builder. You must provide a query_vector_builder or
 	// query_vector, but not both.
 	QueryVectorBuilder *QueryVectorBuilder `json:"query_vector_builder,omitempty"`
+	// RescoreVector Apply oversampling and rescoring to quantized vectors *
+	RescoreVector *RescoreVector `json:"rescore_vector,omitempty"`
 	// Similarity The minimum similarity for a vector to be considered a match
 	Similarity *float32 `json:"similarity,omitempty"`
 }
@@ -107,6 +111,22 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 				}
 			}
 
+		case "k":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "K", err)
+				}
+				s.K = &value
+			case float64:
+				f := int(v)
+				s.K = &f
+			}
+
 		case "num_candidates":
 
 			var tmp any
@@ -145,6 +165,11 @@ func (s *KnnQuery) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "QueryVectorBuilder", err)
 			}
 
+		case "rescore_vector":
+			if err := dec.Decode(&s.RescoreVector); err != nil {
+				return fmt.Errorf("%s | %w", "RescoreVector", err)
+			}
+
 		case "similarity":
 			var tmp any
 			dec.Decode(&tmp)
@@ -171,4 +196,14 @@ func NewKnnQuery() *KnnQuery {
 	r := &KnnQuery{}
 
 	return r
+}
+
+// true
+
+type KnnQueryVariant interface {
+	KnnQueryCaster() *KnnQuery
+}
+
+func (s *KnnQuery) KnnQueryCaster() *KnnQuery {
+	return s
 }

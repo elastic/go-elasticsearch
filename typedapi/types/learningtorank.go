@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LearningToRank type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_global/search/_types/rescoring.ts#L88-L97
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_global/search/_types/rescoring.ts#L88-L97
 type LearningToRank struct {
 	// ModelId The unique identifier of the trained model uploaded to Elasticsearch
 	ModelId string `json:"model_id"`
@@ -82,8 +82,18 @@ func (s *LearningToRank) UnmarshalJSON(data []byte) error {
 // NewLearningToRank returns a LearningToRank.
 func NewLearningToRank() *LearningToRank {
 	r := &LearningToRank{
-		Params: make(map[string]json.RawMessage, 0),
+		Params: make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type LearningToRankVariant interface {
+	LearningToRankCaster() *LearningToRank
+}
+
+func (s *LearningToRank) LearningToRankCaster() *LearningToRank {
+	return s
 }

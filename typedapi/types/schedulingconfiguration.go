@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // SchedulingConfiguration type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L231-L235
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/connector/_types/Connector.ts#L246-L250
 type SchedulingConfiguration struct {
 	AccessControl *ConnectorScheduling `json:"access_control,omitempty"`
 	Full          *ConnectorScheduling `json:"full,omitempty"`
@@ -34,4 +34,14 @@ func NewSchedulingConfiguration() *SchedulingConfiguration {
 	r := &SchedulingConfiguration{}
 
 	return r
+}
+
+// true
+
+type SchedulingConfigurationVariant interface {
+	SchedulingConfigurationCaster() *SchedulingConfiguration
+}
+
+func (s *SchedulingConfiguration) SchedulingConfigurationCaster() *SchedulingConfiguration {
+	return s
 }

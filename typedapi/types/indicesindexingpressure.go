@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // IndicesIndexingPressure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/_types/IndexSettings.ts#L550-L552
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/_types/IndexSettings.ts#L575-L577
 type IndicesIndexingPressure struct {
 	Memory IndicesIndexingPressureMemory `json:"memory"`
 }
@@ -32,4 +32,14 @@ func NewIndicesIndexingPressure() *IndicesIndexingPressure {
 	r := &IndicesIndexingPressure{}
 
 	return r
+}
+
+// true
+
+type IndicesIndexingPressureVariant interface {
+	IndicesIndexingPressureCaster() *IndicesIndexingPressure
+}
+
+func (s *IndicesIndexingPressure) IndicesIndexingPressureCaster() *IndicesIndexingPressure {
+	return s
 }

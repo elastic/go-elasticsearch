@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Returns cluster nodes information.
+// Get node information.
+//
+// By default, the API returns all attributes and core settings for cluster
+// nodes.
 package info
 
 import (
@@ -77,7 +80,10 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Returns cluster nodes information.
+// Get node information.
+//
+// By default, the API returns all attributes and core settings for cluster
+// nodes.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
 func New(tp elastictransport.Interface) *Info {
@@ -345,15 +351,6 @@ func (r *Info) Metric(metric string) *Info {
 // API name: flat_settings
 func (r *Info) FlatSettings(flatsettings bool) *Info {
 	r.values.Set("flat_settings", strconv.FormatBool(flatsettings))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node. If no response is
-// received before the timeout expires, the request fails and returns an error.
-// API name: master_timeout
-func (r *Info) MasterTimeout(duration string) *Info {
-	r.values.Set("master_timeout", duration)
 
 	return r
 }

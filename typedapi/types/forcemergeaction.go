@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ForceMergeAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/_types/Phase.ts#L126-L129
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ilm/_types/Phase.ts#L123-L126
 type ForceMergeAction struct {
 	IndexCodec     *string `json:"index_codec,omitempty"`
 	MaxNumSegments int     `json:"max_num_segments"`
@@ -90,4 +90,14 @@ func NewForceMergeAction() *ForceMergeAction {
 	r := &ForceMergeAction{}
 
 	return r
+}
+
+// true
+
+type ForceMergeActionVariant interface {
+	ForceMergeActionCaster() *ForceMergeAction
+}
+
+func (s *ForceMergeAction) ForceMergeActionCaster() *ForceMergeAction {
+	return s
 }

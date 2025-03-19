@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // StemmerOverrideTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/analysis/token_filters.ts#L316-L320
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/analysis/token_filters.ts#L315-L319
 type StemmerOverrideTokenFilter struct {
 	Rules     []string `json:"rules,omitempty"`
 	RulesPath *string  `json:"rules_path,omitempty"`
@@ -106,4 +106,14 @@ func NewStemmerOverrideTokenFilter() *StemmerOverrideTokenFilter {
 	r := &StemmerOverrideTokenFilter{}
 
 	return r
+}
+
+// true
+
+type StemmerOverrideTokenFilterVariant interface {
+	StemmerOverrideTokenFilterCaster() *StemmerOverrideTokenFilter
+}
+
+func (s *StemmerOverrideTokenFilter) StemmerOverrideTokenFilterCaster() *StemmerOverrideTokenFilter {
+	return s
 }

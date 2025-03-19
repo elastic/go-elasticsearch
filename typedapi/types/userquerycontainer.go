@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,8 +30,9 @@ import (
 
 // UserQueryContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/query_user/types.ts#L37-L101
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/query_user/types.ts#L37-L101
 type UserQueryContainer struct {
+	AdditionalUserQueryContainerProperty map[string]json.RawMessage `json:"-"`
 	// Bool matches users matching boolean combinations of other queries.
 	Bool *BoolQuery `json:"bool,omitempty"`
 	// Exists Returns users that contain an indexed value for a field.
@@ -159,20 +160,73 @@ func (s *UserQueryContainer) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "Wildcard", err)
 			}
 
+		default:
+
+			if key, ok := t.(string); ok {
+				if s.AdditionalUserQueryContainerProperty == nil {
+					s.AdditionalUserQueryContainerProperty = make(map[string]json.RawMessage, 0)
+				}
+				raw := new(json.RawMessage)
+				if err := dec.Decode(&raw); err != nil {
+					return fmt.Errorf("%s | %w", "AdditionalUserQueryContainerProperty", err)
+				}
+				s.AdditionalUserQueryContainerProperty[key] = *raw
+			}
+
 		}
 	}
 	return nil
 }
 
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s UserQueryContainer) MarshalJSON() ([]byte, error) {
+	type opt UserQueryContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalUserQueryContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalUserQueryContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // NewUserQueryContainer returns a UserQueryContainer.
 func NewUserQueryContainer() *UserQueryContainer {
 	r := &UserQueryContainer{
-		Match:    make(map[string]MatchQuery, 0),
-		Prefix:   make(map[string]PrefixQuery, 0),
-		Range:    make(map[string]RangeQuery, 0),
-		Term:     make(map[string]TermQuery, 0),
-		Wildcard: make(map[string]WildcardQuery, 0),
+		AdditionalUserQueryContainerProperty: make(map[string]json.RawMessage),
+		Match:                                make(map[string]MatchQuery),
+		Prefix:                               make(map[string]PrefixQuery),
+		Range:                                make(map[string]RangeQuery),
+		Term:                                 make(map[string]TermQuery),
+		Wildcard:                             make(map[string]WildcardQuery),
 	}
 
 	return r
+}
+
+// true
+
+type UserQueryContainerVariant interface {
+	UserQueryContainerCaster() *UserQueryContainer
+}
+
+func (s *UserQueryContainer) UserQueryContainerCaster() *UserQueryContainer {
+	return s
 }

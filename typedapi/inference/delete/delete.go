@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Delete an inference endpoint
 package delete
@@ -317,7 +317,7 @@ func (r *Delete) TaskType(tasktype string) *Delete {
 	return r
 }
 
-// InferenceId The inference Id
+// InferenceId The inference identifier.
 // API Name: inferenceid
 func (r *Delete) _inferenceid(inferenceid string) *Delete {
 	r.paramSet |= inferenceidMask
@@ -326,8 +326,8 @@ func (r *Delete) _inferenceid(inferenceid string) *Delete {
 	return r
 }
 
-// DryRun When true, the endpoint is not deleted, and a list of ingest processors which
-// reference this endpoint is returned
+// DryRun When true, the endpoint is not deleted and a list of ingest processors which
+// reference this endpoint is returned.
 // API name: dry_run
 func (r *Delete) DryRun(dryrun bool) *Delete {
 	r.values.Set("dry_run", strconv.FormatBool(dryrun))
@@ -336,7 +336,7 @@ func (r *Delete) DryRun(dryrun bool) *Delete {
 }
 
 // Force When true, the inference endpoint is forcefully deleted even if it is still
-// being used by ingest processors or semantic text fields
+// being used by ingest processors or semantic text fields.
 // API name: force
 func (r *Delete) Force(force bool) *Delete {
 	r.values.Set("force", strconv.FormatBool(force))

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,14 +31,16 @@ import (
 
 // InferenceEndpoint type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/inference/_types/Services.ts#L23-L39
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/inference/_types/Services.ts#L24-L44
 type InferenceEndpoint struct {
+	// ChunkingSettings Chunking configuration object
+	ChunkingSettings *InferenceChunkingSettings `json:"chunking_settings,omitempty"`
 	// Service The service type
 	Service string `json:"service"`
 	// ServiceSettings Settings specific to the service
 	ServiceSettings json.RawMessage `json:"service_settings"`
 	// TaskSettings Task settings specific to the service and task type
-	TaskSettings json.RawMessage `json:"task_settings"`
+	TaskSettings json.RawMessage `json:"task_settings,omitempty"`
 }
 
 func (s *InferenceEndpoint) UnmarshalJSON(data []byte) error {
@@ -55,6 +57,11 @@ func (s *InferenceEndpoint) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "chunking_settings":
+			if err := dec.Decode(&s.ChunkingSettings); err != nil {
+				return fmt.Errorf("%s | %w", "ChunkingSettings", err)
+			}
 
 		case "service":
 			var tmp json.RawMessage
@@ -88,4 +95,14 @@ func NewInferenceEndpoint() *InferenceEndpoint {
 	r := &InferenceEndpoint{}
 
 	return r
+}
+
+// true
+
+type InferenceEndpointVariant interface {
+	InferenceEndpointCaster() *InferenceEndpoint
+}
+
+func (s *InferenceEndpoint) InferenceEndpointCaster() *InferenceEndpoint {
+	return s
 }

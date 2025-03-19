@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RandomScoreFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/query_dsl/compound.ts#L131-L134
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/query_dsl/compound.ts#L144-L147
 type RandomScoreFunction struct {
 	Field *string `json:"field,omitempty"`
 	Seed  string  `json:"seed,omitempty"`
@@ -79,4 +79,14 @@ func NewRandomScoreFunction() *RandomScoreFunction {
 	r := &RandomScoreFunction{}
 
 	return r
+}
+
+// true
+
+type RandomScoreFunctionVariant interface {
+	RandomScoreFunctionCaster() *RandomScoreFunction
+}
+
+func (s *RandomScoreFunction) RandomScoreFunctionCaster() *RandomScoreFunction {
+	return s
 }

@@ -16,9 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Perform a search against a search application.
+// Run a search application search.
+// Generate and run an Elasticsearch query that uses the specified query
+// parameteter and the search template associated with the search application or
+// default template.
+// Unspecified template parameters are assigned their default values if
+// applicable.
 package search
 
 import (
@@ -81,7 +86,12 @@ func NewSearchFunc(tp elastictransport.Interface) NewSearch {
 	}
 }
 
-// Perform a search against a search application.
+// Run a search application search.
+// Generate and run an Elasticsearch query that uses the specified query
+// parameteter and the search template associated with the search application or
+// default template.
+// Unspecified template parameters are assigned their default values if
+// applicable.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/search-application-search.html
 func New(tp elastictransport.Interface) *Search {
@@ -91,8 +101,6 @@ func New(tp elastictransport.Interface) *Search {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -372,12 +380,33 @@ func (r *Search) Pretty(pretty bool) *Search {
 	return r
 }
 
-// Params Query parameters specific to this request, which will override any defaults
+// Query parameters specific to this request, which will override any defaults
 // specified in the template.
 // API name: params
 func (r *Search) Params(params map[string]json.RawMessage) *Search {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Params = params
+	return r
+}
 
+func (r *Search) AddParam(key string, value json.RawMessage) *Search {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Params == nil {
+		r.req.Params = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Params
+	}
+
+	tmp[key] = value
+
+	r.req.Params = tmp
 	return r
 }

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Retrieves configuration information for calendars.
+// Get calendar configuration info.
 package getcalendars
 
 import (
@@ -79,7 +79,7 @@ func NewGetCalendarsFunc(tp elastictransport.Interface) NewGetCalendars {
 	}
 }
 
-// Retrieves configuration information for calendars.
+// Get calendar configuration info.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-get-calendar.html
 func New(tp elastictransport.Interface) *GetCalendars {
@@ -89,8 +89,6 @@ func New(tp elastictransport.Interface) *GetCalendars {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -385,11 +383,15 @@ func (r *GetCalendars) Pretty(pretty bool) *GetCalendars {
 	return r
 }
 
-// Page This object is supported only when you omit the calendar identifier.
+// This object is supported only when you omit the calendar identifier.
 // API name: page
-func (r *GetCalendars) Page(page *types.Page) *GetCalendars {
+func (r *GetCalendars) Page(page types.PageVariant) *GetCalendars {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Page = page
+	r.req.Page = page.PageCaster()
 
 	return r
 }

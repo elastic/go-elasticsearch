@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Retrieves pipelines used for Logstash Central Management.
+// Get Logstash pipelines.
+// Get pipelines that are used for Logstash Central Management.
 package getpipeline
 
 import (
@@ -74,7 +75,8 @@ func NewGetPipelineFunc(tp elastictransport.Interface) NewGetPipeline {
 	}
 }
 
-// Retrieves pipelines used for Logstash Central Management.
+// Get Logstash pipelines.
+// Get pipelines that are used for Logstash Central Management.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-get-pipeline.html
 func New(tp elastictransport.Interface) *GetPipeline {
@@ -295,7 +297,7 @@ func (r *GetPipeline) Header(key, value string) *GetPipeline {
 	return r
 }
 
-// Id Comma-separated list of pipeline identifiers.
+// Id A comma-separated list of pipeline identifiers.
 // API Name: id
 func (r *GetPipeline) Id(id string) *GetPipeline {
 	r.paramSet |= idMask

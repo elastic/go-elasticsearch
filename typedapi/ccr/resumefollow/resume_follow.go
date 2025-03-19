@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Resumes a follower index that has been paused
+// Resume a follower.
+// Resume a cross-cluster replication follower index that was paused.
+// The follower index could have been paused with the pause follower API.
+// Alternatively it could be paused due to replication that cannot be retried
+// due to failures during following tasks.
+// When this API returns, the follower index will resume fetching operations
+// from the leader index.
 package resumefollow
 
 import (
@@ -81,7 +87,13 @@ func NewResumeFollowFunc(tp elastictransport.Interface) NewResumeFollow {
 	}
 }
 
-// Resumes a follower index that has been paused
+// Resume a follower.
+// Resume a cross-cluster replication follower index that was paused.
+// The follower index could have been paused with the pause follower API.
+// Alternatively it could be paused due to replication that cannot be retried
+// due to failures during following tasks.
+// When this API returns, the follower index will resume fetching operations
+// from the leader index.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-resume-follow.html
 func New(tp elastictransport.Interface) *ResumeFollow {
@@ -91,8 +103,6 @@ func New(tp elastictransport.Interface) *ResumeFollow {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -315,6 +325,14 @@ func (r *ResumeFollow) _index(index string) *ResumeFollow {
 	return r
 }
 
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *ResumeFollow) MasterTimeout(duration string) *ResumeFollow {
+	r.values.Set("master_timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -361,6 +379,10 @@ func (r *ResumeFollow) Pretty(pretty bool) *ResumeFollow {
 
 // API name: max_outstanding_read_requests
 func (r *ResumeFollow) MaxOutstandingReadRequests(maxoutstandingreadrequests int64) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxOutstandingReadRequests = &maxoutstandingreadrequests
 
@@ -369,6 +391,10 @@ func (r *ResumeFollow) MaxOutstandingReadRequests(maxoutstandingreadrequests int
 
 // API name: max_outstanding_write_requests
 func (r *ResumeFollow) MaxOutstandingWriteRequests(maxoutstandingwriterequests int64) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxOutstandingWriteRequests = &maxoutstandingwriterequests
 
@@ -377,6 +403,10 @@ func (r *ResumeFollow) MaxOutstandingWriteRequests(maxoutstandingwriterequests i
 
 // API name: max_read_request_operation_count
 func (r *ResumeFollow) MaxReadRequestOperationCount(maxreadrequestoperationcount int64) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxReadRequestOperationCount = &maxreadrequestoperationcount
 
@@ -385,6 +415,10 @@ func (r *ResumeFollow) MaxReadRequestOperationCount(maxreadrequestoperationcount
 
 // API name: max_read_request_size
 func (r *ResumeFollow) MaxReadRequestSize(maxreadrequestsize string) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxReadRequestSize = &maxreadrequestsize
 
@@ -392,14 +426,23 @@ func (r *ResumeFollow) MaxReadRequestSize(maxreadrequestsize string) *ResumeFoll
 }
 
 // API name: max_retry_delay
-func (r *ResumeFollow) MaxRetryDelay(duration types.Duration) *ResumeFollow {
-	r.req.MaxRetryDelay = duration
+func (r *ResumeFollow) MaxRetryDelay(duration types.DurationVariant) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.MaxRetryDelay = *duration.DurationCaster()
 
 	return r
 }
 
 // API name: max_write_buffer_count
 func (r *ResumeFollow) MaxWriteBufferCount(maxwritebuffercount int64) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxWriteBufferCount = &maxwritebuffercount
 
@@ -408,6 +451,10 @@ func (r *ResumeFollow) MaxWriteBufferCount(maxwritebuffercount int64) *ResumeFol
 
 // API name: max_write_buffer_size
 func (r *ResumeFollow) MaxWriteBufferSize(maxwritebuffersize string) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxWriteBufferSize = &maxwritebuffersize
 
@@ -416,6 +463,10 @@ func (r *ResumeFollow) MaxWriteBufferSize(maxwritebuffersize string) *ResumeFoll
 
 // API name: max_write_request_operation_count
 func (r *ResumeFollow) MaxWriteRequestOperationCount(maxwriterequestoperationcount int64) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxWriteRequestOperationCount = &maxwriterequestoperationcount
 
@@ -424,6 +475,10 @@ func (r *ResumeFollow) MaxWriteRequestOperationCount(maxwriterequestoperationcou
 
 // API name: max_write_request_size
 func (r *ResumeFollow) MaxWriteRequestSize(maxwriterequestsize string) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.MaxWriteRequestSize = &maxwriterequestsize
 
@@ -431,8 +486,13 @@ func (r *ResumeFollow) MaxWriteRequestSize(maxwriterequestsize string) *ResumeFo
 }
 
 // API name: read_poll_timeout
-func (r *ResumeFollow) ReadPollTimeout(duration types.Duration) *ResumeFollow {
-	r.req.ReadPollTimeout = duration
+func (r *ResumeFollow) ReadPollTimeout(duration types.DurationVariant) *ResumeFollow {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.ReadPollTimeout = *duration.DurationCaster()
 
 	return r
 }

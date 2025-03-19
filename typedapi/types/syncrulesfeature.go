@@ -16,16 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // SyncRulesFeature type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L219-L222
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/connector/_types/Connector.ts#L219-L228
 type SyncRulesFeature struct {
+	// Advanced Indicates whether advanced sync rules are enabled.
 	Advanced *FeatureEnabled `json:"advanced,omitempty"`
-	Basic    *FeatureEnabled `json:"basic,omitempty"`
+	// Basic Indicates whether basic sync rules are enabled.
+	Basic *FeatureEnabled `json:"basic,omitempty"`
 }
 
 // NewSyncRulesFeature returns a SyncRulesFeature.
@@ -33,4 +35,14 @@ func NewSyncRulesFeature() *SyncRulesFeature {
 	r := &SyncRulesFeature{}
 
 	return r
+}
+
+// true
+
+type SyncRulesFeatureVariant interface {
+	SyncRulesFeatureCaster() *SyncRulesFeature
+}
+
+func (s *SyncRulesFeature) SyncRulesFeatureCaster() *SyncRulesFeature {
+	return s
 }

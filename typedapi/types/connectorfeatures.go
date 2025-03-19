@@ -16,16 +16,19 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // ConnectorFeatures type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L224-L229
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/connector/_types/Connector.ts#L230-L244
 type ConnectorFeatures struct {
-	DocumentLevelSecurity  *FeatureEnabled   `json:"document_level_security,omitempty"`
-	IncrementalSync        *FeatureEnabled   `json:"incremental_sync,omitempty"`
+	// DocumentLevelSecurity Indicates whether document-level security is enabled.
+	DocumentLevelSecurity *FeatureEnabled `json:"document_level_security,omitempty"`
+	// IncrementalSync Indicates whether incremental syncs are enabled.
+	IncrementalSync *FeatureEnabled `json:"incremental_sync,omitempty"`
+	// NativeConnectorApiKeys Indicates whether managed connector API keys are enabled.
 	NativeConnectorApiKeys *FeatureEnabled   `json:"native_connector_api_keys,omitempty"`
 	SyncRules              *SyncRulesFeature `json:"sync_rules,omitempty"`
 }
@@ -35,4 +38,14 @@ func NewConnectorFeatures() *ConnectorFeatures {
 	r := &ConnectorFeatures{}
 
 	return r
+}
+
+// true
+
+type ConnectorFeaturesVariant interface {
+	ConnectorFeaturesCaster() *ConnectorFeatures
+}
+
+func (s *ConnectorFeatures) ConnectorFeaturesCaster() *ConnectorFeatures {
+	return s
 }

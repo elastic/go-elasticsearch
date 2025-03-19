@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,20 +31,20 @@ import (
 
 // ResolveClusterInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/indices/resolve_cluster/ResolveClusterResponse.ts#L29-L55
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/indices/resolve_cluster/ResolveClusterResponse.ts#L29-L55
 type ResolveClusterInfo struct {
 	// Connected Whether the remote cluster is connected to the local (querying) cluster.
 	Connected bool `json:"connected"`
 	// Error Provides error messages that are likely to occur if you do a search with this
 	// index expression
-	// on the specified cluster (e.g., lack of security privileges to query an
-	// index).
+	// on the specified cluster (for example, lack of security privileges to query
+	// an index).
 	Error *string `json:"error,omitempty"`
 	// MatchingIndices Whether the index expression provided in the request matches any indices,
 	// aliases or data streams
 	// on the cluster.
 	MatchingIndices *bool `json:"matching_indices,omitempty"`
-	// SkipUnavailable The skip_unavailable setting for a remote cluster.
+	// SkipUnavailable The `skip_unavailable` setting for a remote cluster.
 	SkipUnavailable bool `json:"skip_unavailable"`
 	// Version Provides version information about the cluster.
 	Version *ElasticsearchVersionMinInfo `json:"version,omitempty"`
@@ -135,3 +135,5 @@ func NewResolveClusterInfo() *ResolveClusterInfo {
 
 	return r
 }
+
+// false

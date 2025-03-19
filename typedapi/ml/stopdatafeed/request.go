@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package stopdatafeed
 
@@ -33,7 +33,7 @@ import (
 
 // Request holds the request body struct for the package stopdatafeed
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/stop_datafeed/MlStopDatafeedRequest.ts#L24-L78
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/stop_datafeed/MlStopDatafeedRequest.ts#L24-L86
 type Request struct {
 
 	// AllowNoMatch Refer to the description for the `allow_no_match` query parameter.

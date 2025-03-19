@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,13 +31,12 @@ import (
 
 // BulkIndexByScrollFailure type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/Errors.ts#L60-L66
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/Errors.ts#L60-L65
 type BulkIndexByScrollFailure struct {
 	Cause  ErrorCause `json:"cause"`
 	Id     string     `json:"id"`
 	Index  string     `json:"index"`
 	Status int        `json:"status"`
-	Type   string     `json:"type"`
 }
 
 func (s *BulkIndexByScrollFailure) UnmarshalJSON(data []byte) error {
@@ -86,18 +85,6 @@ func (s *BulkIndexByScrollFailure) UnmarshalJSON(data []byte) error {
 				s.Status = f
 			}
 
-		case "type":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
-				return fmt.Errorf("%s | %w", "Type", err)
-			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.Type = o
-
 		}
 	}
 	return nil
@@ -109,3 +96,5 @@ func NewBulkIndexByScrollFailure() *BulkIndexByScrollFailure {
 
 	return r
 }
+
+// false

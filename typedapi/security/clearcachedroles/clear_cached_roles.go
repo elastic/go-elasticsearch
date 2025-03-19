@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Evicts roles from the native role cache.
+// Clear the roles cache.
+//
+// Evict roles from the native role cache.
 package clearcachedroles
 
 import (
@@ -76,7 +78,9 @@ func NewClearCachedRolesFunc(tp elastictransport.Interface) NewClearCachedRoles 
 	}
 }
 
-// Evicts roles from the native role cache.
+// Clear the roles cache.
+//
+// Evict roles from the native role cache.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-role-cache.html
 func New(tp elastictransport.Interface) *ClearCachedRoles {
@@ -292,7 +296,9 @@ func (r *ClearCachedRoles) Header(key, value string) *ClearCachedRoles {
 	return r
 }
 
-// Name Role name
+// Name A comma-separated list of roles to evict from the role cache.
+// To evict all roles, use an asterisk (`*`).
+// It does not support other wildcard patterns.
 // API Name: name
 func (r *ClearCachedRoles) _name(name string) *ClearCachedRoles {
 	r.paramSet |= nameMask

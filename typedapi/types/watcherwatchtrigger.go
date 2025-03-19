@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
 // WatcherWatchTrigger type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/xpack/usage/types.ts#L407-L410
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/xpack/usage/types.ts#L417-L420
 type WatcherWatchTrigger struct {
 	All_     Counter                      `json:"_all"`
 	Schedule *WatcherWatchTriggerSchedule `json:"schedule,omitempty"`
@@ -34,3 +34,5 @@ func NewWatcherWatchTrigger() *WatcherWatchTrigger {
 
 	return r
 }
+
+// false

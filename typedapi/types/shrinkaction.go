@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShrinkAction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ilm/_types/Phase.ts#L120-L124
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ilm/_types/Phase.ts#L117-L121
 type ShrinkAction struct {
 	AllowWriteAfterShrink *bool    `json:"allow_write_after_shrink,omitempty"`
 	MaxPrimaryShardSize   ByteSize `json:"max_primary_shard_size,omitempty"`
@@ -98,4 +98,14 @@ func NewShrinkAction() *ShrinkAction {
 	r := &ShrinkAction{}
 
 	return r
+}
+
+// true
+
+type ShrinkActionVariant interface {
+	ShrinkActionCaster() *ShrinkAction
+}
+
+func (s *ShrinkAction) ShrinkActionCaster() *ShrinkAction {
+	return s
 }

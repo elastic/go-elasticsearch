@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Sends data to an anomaly detection job for analysis.
+// Send data to an anomaly detection job for analysis.
 //
 // IMPORTANT: For each job, data can be accepted from only a single connection
 // at a time.
@@ -86,7 +86,7 @@ func NewPostDataFunc(tp elastictransport.Interface) NewPostData {
 	}
 }
 
-// Sends data to an anomaly detection job for analysis.
+// Send data to an anomaly detection job for analysis.
 //
 // IMPORTANT: For each job, data can be accepted from only a single connection
 // at a time.
@@ -101,8 +101,6 @@ func New(tp elastictransport.Interface) *PostData {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {

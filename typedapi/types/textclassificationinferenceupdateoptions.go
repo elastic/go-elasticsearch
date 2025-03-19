@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TextClassificationInferenceUpdateOptions type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/ml/_types/inference.ts#L363-L372
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/ml/_types/inference.ts#L351-L360
 type TextClassificationInferenceUpdateOptions struct {
 	// ClassificationLabels Classification labels to apply other than the stored labels. Must have the
 	// same deminsions as the default configured labels
@@ -108,4 +108,14 @@ func NewTextClassificationInferenceUpdateOptions() *TextClassificationInferenceU
 	r := &TextClassificationInferenceUpdateOptions{}
 
 	return r
+}
+
+// true
+
+type TextClassificationInferenceUpdateOptionsVariant interface {
+	TextClassificationInferenceUpdateOptionsCaster() *TextClassificationInferenceUpdateOptions
+}
+
+func (s *TextClassificationInferenceUpdateOptions) TextClassificationInferenceUpdateOptionsCaster() *TextClassificationInferenceUpdateOptions {
+	return s
 }

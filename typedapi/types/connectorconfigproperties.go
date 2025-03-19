@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // ConnectorConfigProperties type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/connector/_types/Connector.ts#L83-L99
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/connector/_types/Connector.ts#L83-L99
 type ConnectorConfigProperties struct {
 	Category       *string                                `json:"category,omitempty"`
 	DefaultValue   ScalarValue                            `json:"default_value"`
@@ -207,37 +207,37 @@ func (s *ConnectorConfigProperties) UnmarshalJSON(data []byte) error {
 				case "less_than":
 					o := NewLessThanValidation()
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "less_than", err)
 					}
 					s.Validations = append(s.Validations, *o)
 				case "greater_than":
 					o := NewGreaterThanValidation()
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "greater_than", err)
 					}
 					s.Validations = append(s.Validations, *o)
 				case "list_type":
 					o := NewListTypeValidation()
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "list_type", err)
 					}
 					s.Validations = append(s.Validations, *o)
 				case "included_in":
 					o := NewIncludedInValidation()
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "included_in", err)
 					}
 					s.Validations = append(s.Validations, *o)
 				case "regex":
 					o := NewRegexValidation()
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("%s | %w", "regex", err)
 					}
 					s.Validations = append(s.Validations, *o)
 				default:
 					o := new(any)
 					if err := localDec.Decode(&o); err != nil {
-						return err
+						return fmt.Errorf("Validations | %w", err)
 					}
 					s.Validations = append(s.Validations, *o)
 				}
@@ -258,4 +258,14 @@ func NewConnectorConfigProperties() *ConnectorConfigProperties {
 	r := &ConnectorConfigProperties{}
 
 	return r
+}
+
+// true
+
+type ConnectorConfigPropertiesVariant interface {
+	ConnectorConfigPropertiesCaster() *ConnectorConfigProperties
+}
+
+func (s *ConnectorConfigProperties) ConnectorConfigPropertiesCaster() *ConnectorConfigProperties {
+	return s
 }

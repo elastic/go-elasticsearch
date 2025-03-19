@@ -16,10 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Deletes an async SQL search or a stored synchronous SQL search. If the search
-// is still running, the API cancels it.
+// Delete an async SQL search.
+// Delete an async SQL search or a stored synchronous SQL search.
+// If the search is still running, the API cancels it.
+//
+// If the Elasticsearch security features are enabled, only the following users
+// can use this API to delete a search:
+//
+// * Users with the `cancel_task` cluster privilege.
+// * The user who first submitted the search.
 package deleteasync
 
 import (
@@ -77,8 +84,15 @@ func NewDeleteAsyncFunc(tp elastictransport.Interface) NewDeleteAsync {
 	}
 }
 
-// Deletes an async SQL search or a stored synchronous SQL search. If the search
-// is still running, the API cancels it.
+// Delete an async SQL search.
+// Delete an async SQL search or a stored synchronous SQL search.
+// If the search is still running, the API cancels it.
+//
+// If the Elasticsearch security features are enabled, only the following users
+// can use this API to delete a search:
+//
+// * Users with the `cancel_task` cluster privilege.
+// * The user who first submitted the search.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-async-sql-search-api.html
 func New(tp elastictransport.Interface) *DeleteAsync {
@@ -294,7 +308,7 @@ func (r *DeleteAsync) Header(key, value string) *DeleteAsync {
 	return r
 }
 
-// Id Identifier for the search.
+// Id The identifier for the search.
 // API Name: id
 func (r *DeleteAsync) _id(id string) *DeleteAsync {
 	r.paramSet |= idMask

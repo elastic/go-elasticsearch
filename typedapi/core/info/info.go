@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Get cluster info.
-// Returns basic information about the cluster.
+// Get basic build, version, and cluster information.
 package info
 
 import (
@@ -70,9 +70,9 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 }
 
 // Get cluster info.
-// Returns basic information about the cluster.
+// Get basic build, version, and cluster information.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-api-root.html
 func New(tp elastictransport.Interface) *Info {
 	r := &Info{
 		transport: tp,

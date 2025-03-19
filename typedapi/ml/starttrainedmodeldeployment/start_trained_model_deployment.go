@@ -16,13 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
-// Starts a trained model deployment, which allocates the model to every machine
-// learning node.
+// Start a trained model deployment.
+// It allocates the model to every machine learning node.
 package starttrainedmodeldeployment
 
 import (
+	gobytes "bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -55,6 +56,10 @@ type StartTrainedModelDeployment struct {
 
 	raw io.Reader
 
+	req      *Request
+	deferred []func(request *Request) error
+	buf      *gobytes.Buffer
+
 	paramSet int
 
 	modelid string
@@ -79,8 +84,8 @@ func NewStartTrainedModelDeploymentFunc(tp elastictransport.Interface) NewStartT
 	}
 }
 
-// Starts a trained model deployment, which allocates the model to every machine
-// learning node.
+// Start a trained model deployment.
+// It allocates the model to every machine learning node.
 //
 // https://www.elastic.co/guide/en/elasticsearch/reference/current/start-trained-model-deployment.html
 func New(tp elastictransport.Interface) *StartTrainedModelDeployment {
@@ -88,6 +93,8 @@ func New(tp elastictransport.Interface) *StartTrainedModelDeployment {
 		transport: tp,
 		values:    make(url.Values),
 		headers:   make(http.Header),
+
+		buf: gobytes.NewBuffer(nil),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -95,6 +102,21 @@ func New(tp elastictransport.Interface) *StartTrainedModelDeployment {
 			r.instrument = instrument
 		}
 	}
+
+	return r
+}
+
+// Raw takes a json payload as input which is then passed to the http.Request
+// If specified Raw takes precedence on Request method.
+func (r *StartTrainedModelDeployment) Raw(raw io.Reader) *StartTrainedModelDeployment {
+	r.raw = raw
+
+	return r
+}
+
+// Request allows to set the request property with the appropriate payload.
+func (r *StartTrainedModelDeployment) Request(req *Request) *StartTrainedModelDeployment {
+	r.req = req
 
 	return r
 }
@@ -107,6 +129,31 @@ func (r *StartTrainedModelDeployment) HttpRequest(ctx context.Context) (*http.Re
 	var req *http.Request
 
 	var err error
+
+	if len(r.deferred) > 0 {
+		for _, f := range r.deferred {
+			deferredErr := f(r.req)
+			if deferredErr != nil {
+				return nil, deferredErr
+			}
+		}
+	}
+
+	if r.raw == nil && r.req != nil {
+
+		data, err := json.Marshal(r.req)
+
+		if err != nil {
+			return nil, fmt.Errorf("could not serialise request for StartTrainedModelDeployment: %w", err)
+		}
+
+		r.buf.Write(data)
+
+	}
+
+	if r.buf.Len() > 0 {
+		r.raw = r.buf
+	}
 
 	r.path.Scheme = "http"
 
@@ -258,45 +305,6 @@ func (r StartTrainedModelDeployment) Do(providedCtx context.Context) (*Response,
 	return nil, errorResponse
 }
 
-// IsSuccess allows to run a query with a context and retrieve the result as a boolean.
-// This only exists for endpoints without a request payload and allows for quick control flow.
-func (r StartTrainedModelDeployment) IsSuccess(providedCtx context.Context) (bool, error) {
-	var ctx context.Context
-	r.spanStarted = true
-	if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-		ctx = instrument.Start(providedCtx, "ml.start_trained_model_deployment")
-		defer instrument.Close(ctx)
-	}
-	if ctx == nil {
-		ctx = providedCtx
-	}
-
-	res, err := r.Perform(ctx)
-
-	if err != nil {
-		return false, err
-	}
-	io.Copy(io.Discard, res.Body)
-	err = res.Body.Close()
-	if err != nil {
-		return false, err
-	}
-
-	if res.StatusCode >= 200 && res.StatusCode < 300 {
-		return true, nil
-	}
-
-	if res.StatusCode != 404 {
-		err := fmt.Errorf("an error happened during the StartTrainedModelDeployment query execution, status code: %d", res.StatusCode)
-		if instrument, ok := r.instrument.(elastictransport.Instrumentation); ok {
-			instrument.RecordError(ctx, err)
-		}
-		return false, err
-	}
-
-	return false, nil
-}
-
 // Header set a key, value pair in the StartTrainedModelDeployment headers map.
 func (r *StartTrainedModelDeployment) Header(key, value string) *StartTrainedModelDeployment {
 	r.headers.Set(key, value)
@@ -341,6 +349,8 @@ func (r *StartTrainedModelDeployment) DeploymentId(deploymentid string) *StartTr
 // If this setting is greater than the number of hardware threads
 // it will automatically be changed to a value less than the number of hardware
 // threads.
+// If adaptive_allocations is enabled, do not set this value, because it’s
+// automatically set.
 // API name: number_of_allocations
 func (r *StartTrainedModelDeployment) NumberOfAllocations(numberofallocations int) *StartTrainedModelDeployment {
 	r.values.Set("number_of_allocations", strconv.Itoa(numberofallocations))
@@ -439,6 +449,22 @@ func (r *StartTrainedModelDeployment) Human(human bool) *StartTrainedModelDeploy
 // API name: pretty
 func (r *StartTrainedModelDeployment) Pretty(pretty bool) *StartTrainedModelDeployment {
 	r.values.Set("pretty", strconv.FormatBool(pretty))
+
+	return r
+}
+
+// Adaptive allocations configuration. When enabled, the number of allocations
+// is set based on the current load.
+// If adaptive_allocations is enabled, do not set the number of allocations
+// manually.
+// API name: adaptive_allocations
+func (r *StartTrainedModelDeployment) AdaptiveAllocations(adaptiveallocations types.AdaptiveAllocationsSettingsVariant) *StartTrainedModelDeployment {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.AdaptiveAllocations = adaptiveallocations.AdaptiveAllocationsSettingsCaster()
 
 	return r
 }

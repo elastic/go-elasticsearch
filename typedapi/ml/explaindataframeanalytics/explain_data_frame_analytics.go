@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 // Explain data frame analytics config.
+//
 // This API provides explanations for a data frame analytics config that either
 // exists already or one that has not been created yet. The following
 // explanations are provided:
@@ -88,6 +89,7 @@ func NewExplainDataFrameAnalyticsFunc(tp elastictransport.Interface) NewExplainD
 }
 
 // Explain data frame analytics config.
+//
 // This API provides explanations for a data frame analytics config that either
 // exists already or one that has not been created yet. The following
 // explanations are provided:
@@ -97,7 +99,7 @@ func NewExplainDataFrameAnalyticsFunc(tp elastictransport.Interface) NewExplainD
 // If you have object fields or fields that are excluded via source filtering,
 // they are not included in the explanation.
 //
-// http://www.elastic.co/guide/en/elasticsearch/reference/current/explain-dfanalytics.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/explain-dfanalytics.html
 func New(tp elastictransport.Interface) *ExplainDataFrameAnalytics {
 	r := &ExplainDataFrameAnalytics{
 		transport: tp,
@@ -105,8 +107,6 @@ func New(tp elastictransport.Interface) *ExplainDataFrameAnalytics {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -390,88 +390,122 @@ func (r *ExplainDataFrameAnalytics) Pretty(pretty bool) *ExplainDataFrameAnalyti
 	return r
 }
 
-// AllowLazyStart Specifies whether this job can start when there is insufficient machine
+// Specifies whether this job can start when there is insufficient machine
 // learning node capacity for it to be immediately assigned to a node.
 // API name: allow_lazy_start
 func (r *ExplainDataFrameAnalytics) AllowLazyStart(allowlazystart bool) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.AllowLazyStart = &allowlazystart
 
 	return r
 }
 
-// Analysis The analysis configuration, which contains the information necessary to
+// The analysis configuration, which contains the information necessary to
 // perform one of the following types of analysis: classification, outlier
 // detection, or regression.
 // API name: analysis
-func (r *ExplainDataFrameAnalytics) Analysis(analysis *types.DataframeAnalysisContainer) *ExplainDataFrameAnalytics {
+func (r *ExplainDataFrameAnalytics) Analysis(analysis types.DataframeAnalysisContainerVariant) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Analysis = analysis
+	r.req.Analysis = analysis.DataframeAnalysisContainerCaster()
 
 	return r
 }
 
-// AnalyzedFields Specify includes and/or excludes patterns to select which fields will be
+// Specify includes and/or excludes patterns to select which fields will be
 // included in the analysis. The patterns specified in excludes are applied
 // last, therefore excludes takes precedence. In other words, if the same
 // field is specified in both includes and excludes, then the field will not
 // be included in the analysis.
 // API name: analyzed_fields
-func (r *ExplainDataFrameAnalytics) AnalyzedFields(analyzedfields *types.DataframeAnalysisAnalyzedFields) *ExplainDataFrameAnalytics {
+func (r *ExplainDataFrameAnalytics) AnalyzedFields(analyzedfields types.DataframeAnalysisAnalyzedFieldsVariant) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.AnalyzedFields = analyzedfields
+	r.req.AnalyzedFields = analyzedfields.DataframeAnalysisAnalyzedFieldsCaster()
 
 	return r
 }
 
-// Description A description of the job.
+// A description of the job.
 // API name: description
 func (r *ExplainDataFrameAnalytics) Description(description string) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Description = &description
 
 	return r
 }
 
-// Dest The destination configuration, consisting of index and optionally
+// The destination configuration, consisting of index and optionally
 // results_field (ml by default).
 // API name: dest
-func (r *ExplainDataFrameAnalytics) Dest(dest *types.DataframeAnalyticsDestination) *ExplainDataFrameAnalytics {
+func (r *ExplainDataFrameAnalytics) Dest(dest types.DataframeAnalyticsDestinationVariant) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Dest = dest
+	r.req.Dest = dest.DataframeAnalyticsDestinationCaster()
 
 	return r
 }
 
-// MaxNumThreads The maximum number of threads to be used by the analysis. Using more
+// The maximum number of threads to be used by the analysis. Using more
 // threads may decrease the time necessary to complete the analysis at the
 // cost of using more CPU. Note that the process may use additional threads
 // for operational functionality other than the analysis itself.
 // API name: max_num_threads
 func (r *ExplainDataFrameAnalytics) MaxNumThreads(maxnumthreads int) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.MaxNumThreads = &maxnumthreads
 
 	return r
 }
 
-// ModelMemoryLimit The approximate maximum amount of memory resources that are permitted for
+// The approximate maximum amount of memory resources that are permitted for
 // analytical processing. If your `elasticsearch.yml` file contains an
 // `xpack.ml.max_model_memory_limit` setting, an error occurs when you try to
 // create data frame analytics jobs that have `model_memory_limit` values
 // greater than that setting.
 // API name: model_memory_limit
 func (r *ExplainDataFrameAnalytics) ModelMemoryLimit(modelmemorylimit string) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.ModelMemoryLimit = &modelmemorylimit
 
 	return r
 }
 
-// Source The configuration of how to source the analysis data. It requires an
+// The configuration of how to source the analysis data. It requires an
 // index. Optionally, query and _source may be specified.
 // API name: source
-func (r *ExplainDataFrameAnalytics) Source(source *types.DataframeAnalyticsSource) *ExplainDataFrameAnalytics {
+func (r *ExplainDataFrameAnalytics) Source(source types.DataframeAnalyticsSourceVariant) *ExplainDataFrameAnalytics {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Source = source
+	r.req.Source = source.DataframeAnalyticsSourceCaster()
 
 	return r
 }

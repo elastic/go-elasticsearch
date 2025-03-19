@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // MissingAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/_types/aggregations/bucket.ts#L576-L582
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/_types/aggregations/bucket.ts#L593-L599
 type MissingAggregation struct {
 	// Field The name of the field.
 	Field   *string `json:"field,omitempty"`
@@ -72,4 +72,14 @@ func NewMissingAggregation() *MissingAggregation {
 	r := &MissingAggregation{}
 
 	return r
+}
+
+// true
+
+type MissingAggregationVariant interface {
+	MissingAggregationCaster() *MissingAggregation
+}
+
+func (s *MissingAggregation) MissingAggregationCaster() *MissingAggregation {
+	return s
 }

@@ -16,23 +16,70 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // RoleMappingRule type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/_types/RoleMappingRule.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/_types/RoleMappingRule.ts#L22-L33
 type RoleMappingRule struct {
-	All    []RoleMappingRule `json:"all,omitempty"`
-	Any    []RoleMappingRule `json:"any,omitempty"`
-	Except *RoleMappingRule  `json:"except,omitempty"`
-	Field  *FieldRule        `json:"field,omitempty"`
+	AdditionalRoleMappingRuleProperty map[string]json.RawMessage `json:"-"`
+	All                               []RoleMappingRule          `json:"all,omitempty"`
+	Any                               []RoleMappingRule          `json:"any,omitempty"`
+	Except                            *RoleMappingRule           `json:"except,omitempty"`
+	Field                             *FieldRule                 `json:"field,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s RoleMappingRule) MarshalJSON() ([]byte, error) {
+	type opt RoleMappingRule
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalRoleMappingRuleProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalRoleMappingRuleProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewRoleMappingRule returns a RoleMappingRule.
 func NewRoleMappingRule() *RoleMappingRule {
-	r := &RoleMappingRule{}
+	r := &RoleMappingRule{
+		AdditionalRoleMappingRuleProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type RoleMappingRuleVariant interface {
+	RoleMappingRuleCaster() *RoleMappingRule
+}
+
+func (s *RoleMappingRule) RoleMappingRuleCaster() *RoleMappingRule {
+	return s
 }

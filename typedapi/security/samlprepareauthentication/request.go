@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package samlprepareauthentication
 
@@ -27,20 +27,20 @@ import (
 
 // Request holds the request body struct for the package samlprepareauthentication
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/security/saml_prepare_authentication/Request.ts#L22-L46
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/security/saml_prepare_authentication/Request.ts#L22-L67
 type Request struct {
 
 	// Acs The Assertion Consumer Service URL that matches the one of the SAML realms in
 	// Elasticsearch.
 	// The realm is used to generate the authentication request. You must specify
-	// either this parameter or the realm parameter.
+	// either this parameter or the `realm` parameter.
 	Acs *string `json:"acs,omitempty"`
 	// Realm The name of the SAML realm in Elasticsearch for which the configuration is
 	// used to generate the authentication request.
-	// You must specify either this parameter or the acs parameter.
+	// You must specify either this parameter or the `acs` parameter.
 	Realm *string `json:"realm,omitempty"`
 	// RelayState A string that will be included in the redirect URL that this API returns as
-	// the RelayState query parameter.
+	// the `RelayState` query parameter.
 	// If the Authentication Request is signed, this value is used as part of the
 	// signature computation.
 	RelayState *string `json:"relay_state,omitempty"`

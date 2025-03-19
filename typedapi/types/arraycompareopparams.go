@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/8e91c0692c0235474a0c21bb7e9716a8430e8533
+// https://github.com/elastic/elasticsearch-specification/tree/3ea9ce260df22d3244bff5bace485dd97ff4046d
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // ArrayCompareOpParams type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/8e91c0692c0235474a0c21bb7e9716a8430e8533/specification/watcher/_types/Conditions.ts#L27-L30
+// https://github.com/elastic/elasticsearch-specification/blob/3ea9ce260df22d3244bff5bace485dd97ff4046d/specification/watcher/_types/Conditions.ts#L27-L30
 type ArrayCompareOpParams struct {
 	Quantifier quantifier.Quantifier `json:"quantifier"`
 	Value      FieldValue            `json:"value"`
@@ -73,4 +73,14 @@ func NewArrayCompareOpParams() *ArrayCompareOpParams {
 	r := &ArrayCompareOpParams{}
 
 	return r
+}
+
+// true
+
+type ArrayCompareOpParamsVariant interface {
+	ArrayCompareOpParamsCaster() *ArrayCompareOpParams
+}
+
+func (s *ArrayCompareOpParams) ArrayCompareOpParamsCaster() *ArrayCompareOpParams {
+	return s
 }
