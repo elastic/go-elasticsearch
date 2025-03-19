@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MemStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/get_memory_stats/types.ts#L65-L88
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/get_memory_stats/types.ts#L65-L88
 type MemStats struct {
 	// AdjustedTotal If the amount of physical memory has been overridden using the
 	// es.total_memory_bytes system property
@@ -124,3 +124,5 @@ func NewMemStats() *MemStats {
 
 	return r
 }
+
+// false

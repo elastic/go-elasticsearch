@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // MappingLimitSettingsDepth type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/IndexSettings.ts#L445-L452
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/IndexSettings.ts#L460-L467
 type MappingLimitSettingsDepth struct {
 	// Limit The maximum depth for a field, which is measured as the number of inner
 	// objects. For instance, if all fields are defined
@@ -80,4 +80,14 @@ func NewMappingLimitSettingsDepth() *MappingLimitSettingsDepth {
 	r := &MappingLimitSettingsDepth{}
 
 	return r
+}
+
+// true
+
+type MappingLimitSettingsDepthVariant interface {
+	MappingLimitSettingsDepthCaster() *MappingLimitSettingsDepth
+}
+
+func (s *MappingLimitSettingsDepth) MappingLimitSettingsDepthCaster() *MappingLimitSettingsDepth {
+	return s
 }

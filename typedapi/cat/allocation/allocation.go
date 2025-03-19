@@ -16,11 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Provides a snapshot of the number of shards allocated to each data node and
-// their disk space.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
+// Get shard allocation information.
+//
+// Get a snapshot of the number of shards allocated to each data node and their
+// disk space.
+//
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
 package allocation
 
@@ -78,12 +81,15 @@ func NewAllocationFunc(tp elastictransport.Interface) NewAllocation {
 	}
 }
 
-// Provides a snapshot of the number of shards allocated to each data node and
-// their disk space.
-// IMPORTANT: cat APIs are only intended for human consumption using the command
+// Get shard allocation information.
+//
+// Get a snapshot of the number of shards allocated to each data node and their
+// disk space.
+//
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-allocation.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-allocation
 func New(tp elastictransport.Interface) *Allocation {
 	r := &Allocation{
 		transport: tp,
@@ -302,8 +308,8 @@ func (r *Allocation) Header(key, value string) *Allocation {
 	return r
 }
 
-// NodeId Comma-separated list of node identifiers or names used to limit the returned
-// information.
+// NodeId A comma-separated list of node identifiers or names used to limit the
+// returned information.
 // API Name: nodeid
 func (r *Allocation) NodeId(nodeid string) *Allocation {
 	r.paramSet |= nodeidMask
@@ -320,15 +326,6 @@ func (r *Allocation) Bytes(bytes bytes.Bytes) *Allocation {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Allocation) Format(format string) *Allocation {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Allocation) H(names ...string) *Allocation {
@@ -337,11 +334,12 @@ func (r *Allocation) H(names ...string) *Allocation {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Allocation) Help(help bool) *Allocation {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Allocation) S(names ...string) *Allocation {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -365,12 +363,20 @@ func (r *Allocation) MasterTimeout(duration string) *Allocation {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Allocation) S(names ...string) *Allocation {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Allocation) Format(format string) *Allocation {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Allocation) Help(help bool) *Allocation {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -55,7 +55,6 @@ type IndicesSegmentsRequest struct {
 	AllowNoIndices    *bool
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
-	Verbose           *bool
 
 	Pretty     bool
 	Human      bool
@@ -112,10 +111,6 @@ func (r IndicesSegmentsRequest) Do(providedCtx context.Context, transport Transp
 
 	if r.IgnoreUnavailable != nil {
 		params["ignore_unavailable"] = strconv.FormatBool(*r.IgnoreUnavailable)
-	}
-
-	if r.Verbose != nil {
-		params["verbose"] = strconv.FormatBool(*r.Verbose)
 	}
 
 	if r.Pretty {
@@ -221,13 +216,6 @@ func (f IndicesSegments) WithExpandWildcards(v string) func(*IndicesSegmentsRequ
 func (f IndicesSegments) WithIgnoreUnavailable(v bool) func(*IndicesSegmentsRequest) {
 	return func(r *IndicesSegmentsRequest) {
 		r.IgnoreUnavailable = &v
-	}
-}
-
-// WithVerbose - includes detailed memory usage by lucene..
-func (f IndicesSegments) WithVerbose(v bool) func(*IndicesSegmentsRequest) {
-	return func(r *IndicesSegmentsRequest) {
-		r.Verbose = &v
 	}
 }
 

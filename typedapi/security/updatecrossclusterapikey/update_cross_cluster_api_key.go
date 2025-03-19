@@ -16,12 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Update a cross-cluster API key.
 //
 // Update the attributes of an existing cross-cluster API key, which is used for
 // API key based remote cluster access.
+//
+// To use this API, you must have at least the `manage_security` cluster
+// privilege.
+// Users can only update API keys that they created.
+// To update another user's API key, use the `run_as` feature to submit a
+// request on behalf of another user.
+//
+// IMPORTANT: It's not possible to use an API key as the authentication
+// credential for this API.
+// To update an API key, the owner user's credentials are required.
+//
+// It's not possible to update expired API keys, or API keys that have been
+// invalidated by the invalidate API key API.
+//
+// This API supports updates to an API key's access scope, metadata, and
+// expiration.
+// The owner user's information, such as the `username` and `realm`, is also
+// updated automatically on every call.
+//
+// NOTE: This API cannot update REST API keys, which should be updated by either
+// the update API key or bulk update API keys API.
 package updatecrossclusterapikey
 
 import (
@@ -89,7 +110,28 @@ func NewUpdateCrossClusterApiKeyFunc(tp elastictransport.Interface) NewUpdateCro
 // Update the attributes of an existing cross-cluster API key, which is used for
 // API key based remote cluster access.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-update-cross-cluster-api-key.html
+// To use this API, you must have at least the `manage_security` cluster
+// privilege.
+// Users can only update API keys that they created.
+// To update another user's API key, use the `run_as` feature to submit a
+// request on behalf of another user.
+//
+// IMPORTANT: It's not possible to use an API key as the authentication
+// credential for this API.
+// To update an API key, the owner user's credentials are required.
+//
+// It's not possible to update expired API keys, or API keys that have been
+// invalidated by the invalidate API key API.
+//
+// This API supports updates to an API key's access scope, metadata, and
+// expiration.
+// The owner user's information, such as the `username` and `realm`, is also
+// updated automatically on every call.
+//
+// NOTE: This API cannot update REST API keys, which should be updated by either
+// the update API key or bulk update API keys API.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-update-cross-cluster-api-key
 func New(tp elastictransport.Interface) *UpdateCrossClusterApiKey {
 	r := &UpdateCrossClusterApiKey{
 		transport: tp,
@@ -97,8 +139,6 @@ func New(tp elastictransport.Interface) *UpdateCrossClusterApiKey {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -367,39 +407,53 @@ func (r *UpdateCrossClusterApiKey) Pretty(pretty bool) *UpdateCrossClusterApiKey
 	return r
 }
 
-// Access The access to be granted to this API key.
+// The access to be granted to this API key.
 // The access is composed of permissions for cross cluster search and cross
 // cluster replication.
 // At least one of them must be specified.
 // When specified, the new access assignment fully replaces the previously
 // assigned access.
 // API name: access
-func (r *UpdateCrossClusterApiKey) Access(access *types.Access) *UpdateCrossClusterApiKey {
+func (r *UpdateCrossClusterApiKey) Access(access types.AccessVariant) *UpdateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Access = *access
+	r.req.Access = *access.AccessCaster()
 
 	return r
 }
 
-// Expiration Expiration time for the API key.
+// The expiration time for the API key.
 // By default, API keys never expire. This property can be omitted to leave the
 // value unchanged.
 // API name: expiration
-func (r *UpdateCrossClusterApiKey) Expiration(duration types.Duration) *UpdateCrossClusterApiKey {
-	r.req.Expiration = duration
+func (r *UpdateCrossClusterApiKey) Expiration(duration types.DurationVariant) *UpdateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Expiration = *duration.DurationCaster()
 
 	return r
 }
 
-// Metadata Arbitrary metadata that you want to associate with the API key.
+// Arbitrary metadata that you want to associate with the API key.
 // It supports nested data structure.
 // Within the metadata object, keys beginning with `_` are reserved for system
 // usage.
 // When specified, this information fully replaces metadata previously
 // associated with the API key.
 // API name: metadata
-func (r *UpdateCrossClusterApiKey) Metadata(metadata types.Metadata) *UpdateCrossClusterApiKey {
-	r.req.Metadata = metadata
+func (r *UpdateCrossClusterApiKey) Metadata(metadata types.MetadataVariant) *UpdateCrossClusterApiKey {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Metadata = *metadata.MetadataCaster()
 
 	return r
 }

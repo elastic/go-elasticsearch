@@ -15,13 +15,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
 import (
 	"context"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -52,6 +53,8 @@ type ConnectorGet func(connector_id string, o ...func(*ConnectorGetRequest)) (*R
 // ConnectorGetRequest configures the Connector Get API request.
 type ConnectorGetRequest struct {
 	ConnectorID string
+
+	IncludeDeleted *bool
 
 	Pretty     bool
 	Human      bool
@@ -95,6 +98,10 @@ func (r ConnectorGetRequest) Do(providedCtx context.Context, transport Transport
 	}
 
 	params = make(map[string]string)
+
+	if r.IncludeDeleted != nil {
+		params["include_deleted"] = strconv.FormatBool(*r.IncludeDeleted)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -171,6 +178,13 @@ func (r ConnectorGetRequest) Do(providedCtx context.Context, transport Transport
 func (f ConnectorGet) WithContext(v context.Context) func(*ConnectorGetRequest) {
 	return func(r *ConnectorGetRequest) {
 		r.ctx = v
+	}
+}
+
+// WithIncludeDeleted - a flag indicating whether to return connectors that have been soft-deleted..
+func (f ConnectorGet) WithIncludeDeleted(v bool) func(*ConnectorGetRequest) {
+	return func(r *ConnectorGetRequest) {
+		r.IncludeDeleted = &v
 	}
 }
 

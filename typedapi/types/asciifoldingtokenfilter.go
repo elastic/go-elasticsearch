@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // AsciiFoldingTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/token_filters.ts#L169-L172
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/token_filters.ts#L169-L172
 type AsciiFoldingTokenFilter struct {
 	PreserveOriginal Stringifiedboolean `json:"preserve_original,omitempty"`
 	Type             string             `json:"type,omitempty"`
@@ -91,4 +91,14 @@ func NewAsciiFoldingTokenFilter() *AsciiFoldingTokenFilter {
 	r := &AsciiFoldingTokenFilter{}
 
 	return r
+}
+
+// true
+
+type AsciiFoldingTokenFilterVariant interface {
+	AsciiFoldingTokenFilterCaster() *AsciiFoldingTokenFilter
+}
+
+func (s *AsciiFoldingTokenFilter) AsciiFoldingTokenFilterCaster() *AsciiFoldingTokenFilter {
+	return s
 }

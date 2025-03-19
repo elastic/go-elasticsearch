@@ -16,14 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package putuser
 
 // Response holds the response body struct for the package putuser
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/put_user/SecurityPutUserResponse.ts#L20-L22
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/put_user/SecurityPutUserResponse.ts#L20-L28
 type Response struct {
+
+	// Created A successful call returns a JSON structure that shows whether the user has
+	// been created or updated.
+	// When an existing user is updated, `created` is set to `false`.
 	Created bool `json:"created"`
 }
 

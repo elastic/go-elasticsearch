@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,19 +33,21 @@ import (
 
 // TrainedModelAssignmentTaskParameters type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/TrainedModel.ts#L312-L345
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/TrainedModel.ts#L369-L405
 type TrainedModelAssignmentTaskParameters struct {
 	// CacheSize The size of the trained model cache.
-	CacheSize ByteSize `json:"cache_size"`
+	CacheSize ByteSize `json:"cache_size,omitempty"`
 	// DeploymentId The unique identifier for the trained model deployment.
 	DeploymentId string `json:"deployment_id"`
 	// ModelBytes The size of the trained model in bytes.
-	ModelBytes int `json:"model_bytes"`
+	ModelBytes ByteSize `json:"model_bytes"`
 	// ModelId The unique identifier for the trained model.
 	ModelId string `json:"model_id"`
 	// NumberOfAllocations The total number of allocations this model is assigned across ML nodes.
-	NumberOfAllocations int                               `json:"number_of_allocations"`
-	Priority            trainingpriority.TrainingPriority `json:"priority"`
+	NumberOfAllocations      int                               `json:"number_of_allocations"`
+	PerAllocationMemoryBytes ByteSize                          `json:"per_allocation_memory_bytes"`
+	PerDeploymentMemoryBytes ByteSize                          `json:"per_deployment_memory_bytes"`
+	Priority                 trainingpriority.TrainingPriority `json:"priority"`
 	// QueueCapacity Number of inference requests are allowed in the queue at a time.
 	QueueCapacity int `json:"queue_capacity"`
 	// ThreadsPerAllocation Number of threads per allocation.
@@ -78,19 +80,8 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 			}
 
 		case "model_bytes":
-
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.Atoi(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "ModelBytes", err)
-				}
-				s.ModelBytes = value
-			case float64:
-				f := int(v)
-				s.ModelBytes = f
+			if err := dec.Decode(&s.ModelBytes); err != nil {
+				return fmt.Errorf("%s | %w", "ModelBytes", err)
 			}
 
 		case "model_id":
@@ -112,6 +103,16 @@ func (s *TrainedModelAssignmentTaskParameters) UnmarshalJSON(data []byte) error 
 			case float64:
 				f := int(v)
 				s.NumberOfAllocations = f
+			}
+
+		case "per_allocation_memory_bytes":
+			if err := dec.Decode(&s.PerAllocationMemoryBytes); err != nil {
+				return fmt.Errorf("%s | %w", "PerAllocationMemoryBytes", err)
+			}
+
+		case "per_deployment_memory_bytes":
+			if err := dec.Decode(&s.PerDeploymentMemoryBytes); err != nil {
+				return fmt.Errorf("%s | %w", "PerDeploymentMemoryBytes", err)
 			}
 
 		case "priority":
@@ -162,3 +163,5 @@ func NewTrainedModelAssignmentTaskParameters() *TrainedModelAssignmentTaskParame
 
 	return r
 }
+
+// false

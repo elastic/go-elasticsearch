@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -56,9 +56,11 @@ type EqlSearchRequest struct {
 
 	Body io.Reader
 
-	KeepAlive                time.Duration
-	KeepOnCompletion         *bool
-	WaitForCompletionTimeout time.Duration
+	AllowPartialSearchResults   *bool
+	AllowPartialSequenceResults *bool
+	KeepAlive                   time.Duration
+	KeepOnCompletion            *bool
+	WaitForCompletionTimeout    time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -104,6 +106,14 @@ func (r EqlSearchRequest) Do(providedCtx context.Context, transport Transport) (
 	path.WriteString("search")
 
 	params = make(map[string]string)
+
+	if r.AllowPartialSearchResults != nil {
+		params["allow_partial_search_results"] = strconv.FormatBool(*r.AllowPartialSearchResults)
+	}
+
+	if r.AllowPartialSequenceResults != nil {
+		params["allow_partial_sequence_results"] = strconv.FormatBool(*r.AllowPartialSequenceResults)
+	}
 
 	if r.KeepAlive != 0 {
 		params["keep_alive"] = formatDuration(r.KeepAlive)
@@ -199,6 +209,20 @@ func (r EqlSearchRequest) Do(providedCtx context.Context, transport Transport) (
 func (f EqlSearch) WithContext(v context.Context) func(*EqlSearchRequest) {
 	return func(r *EqlSearchRequest) {
 		r.ctx = v
+	}
+}
+
+// WithAllowPartialSearchResults - control whether the query should keep running in case of shard failures, and return partial results.
+func (f EqlSearch) WithAllowPartialSearchResults(v bool) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.AllowPartialSearchResults = &v
+	}
+}
+
+// WithAllowPartialSequenceResults - control whether a sequence query should return partial results or no results at all in case of shard failures. this option has effect only if [allow_partial_search_results] is true..
+func (f EqlSearch) WithAllowPartialSequenceResults(v bool) func(*EqlSearchRequest) {
+	return func(r *EqlSearchRequest) {
+		r.AllowPartialSequenceResults = &v
 	}
 }
 

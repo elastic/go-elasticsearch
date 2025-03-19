@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -190,7 +190,7 @@ func (f EnrichGetPolicy) WithName(v ...string) func(*EnrichGetPolicyRequest) {
 	}
 }
 
-// WithMasterTimeout - timeout for processing on master node.
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
 func (f EnrichGetPolicy) WithMasterTimeout(v time.Duration) func(*EnrichGetPolicyRequest) {
 	return func(r *EnrichGetPolicyRequest) {
 		r.MasterTimeout = v

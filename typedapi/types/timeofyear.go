@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -26,7 +26,7 @@ import (
 
 // TimeOfYear type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Schedule.ts#L120-L124
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/_types/Schedule.ts#L121-L125
 type TimeOfYear struct {
 	At  []string      `json:"at"`
 	Int []month.Month `json:"int"`
@@ -38,4 +38,14 @@ func NewTimeOfYear() *TimeOfYear {
 	r := &TimeOfYear{}
 
 	return r
+}
+
+// true
+
+type TimeOfYearVariant interface {
+	TimeOfYearCaster() *TimeOfYear
+}
+
+func (s *TimeOfYear) TimeOfYearCaster() *TimeOfYear {
+	return s
 }

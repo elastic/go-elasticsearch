@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get user privileges.
+//
+// Get the security privileges for the logged in user.
+// All users can use this API, but only to determine their own privileges.
+// To check the privileges of other users, you must use the run as feature.
+// To check whether a user has a specific list of privileges, use the has
+// privileges API.
 package getuserprivileges
 
 import (
@@ -70,7 +76,13 @@ func NewGetUserPrivilegesFunc(tp elastictransport.Interface) NewGetUserPrivilege
 
 // Get user privileges.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-privileges.html
+// Get the security privileges for the logged in user.
+// All users can use this API, but only to determine their own privileges.
+// To check the privileges of other users, you must use the run as feature.
+// To check whether a user has a specific list of privileges, use the has
+// privileges API.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-privileges
 func New(tp elastictransport.Interface) *GetUserPrivileges {
 	r := &GetUserPrivileges{
 		transport: tp,

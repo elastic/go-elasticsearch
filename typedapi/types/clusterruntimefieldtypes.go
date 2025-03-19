@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterRuntimeFieldTypes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/stats/types.ts#L169-L226
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cluster/stats/types.ts#L169-L226
 type ClusterRuntimeFieldTypes struct {
 	// CharsMax Maximum number of characters for a single runtime field script.
 	CharsMax int `json:"chars_max"`
@@ -296,3 +296,5 @@ func NewClusterRuntimeFieldTypes() *ClusterRuntimeFieldTypes {
 
 	return r
 }
+
+// false

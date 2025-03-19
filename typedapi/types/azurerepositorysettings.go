@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,17 +31,74 @@ import (
 
 // AzureRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/SnapshotRepository.ts#L77-L83
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/snapshot/_types/SnapshotRepository.ts#L145-L196
 type AzureRepositorySettings struct {
-	BasePath               *string  `json:"base_path,omitempty"`
-	ChunkSize              ByteSize `json:"chunk_size,omitempty"`
-	Client                 *string  `json:"client,omitempty"`
-	Compress               *bool    `json:"compress,omitempty"`
-	Container              *string  `json:"container,omitempty"`
-	LocationMode           *string  `json:"location_mode,omitempty"`
-	MaxRestoreBytesPerSec  ByteSize `json:"max_restore_bytes_per_sec,omitempty"`
+	// BasePath The path to the repository data within the container.
+	// It defaults to the root directory.
+	//
+	// NOTE: Don't set `base_path` when configuring a snapshot repository for
+	// Elastic Cloud Enterprise.
+	// Elastic Cloud Enterprise automatically generates the `base_path` for each
+	// deployment so that multiple deployments can share the same bucket.
+	BasePath *string `json:"base_path,omitempty"`
+	// ChunkSize Big files can be broken down into multiple smaller blobs in the blob store
+	// during snapshotting.
+	// It is not recommended to change this value from its default unless there is
+	// an explicit reason for limiting the size of blobs in the repository.
+	// Setting a value lower than the default can result in an increased number of
+	// API calls to the blob store during snapshot create and restore operations
+	// compared to using the default value and thus make both operations slower and
+	// more costly.
+	// Specify the chunk size as a byte unit, for example: `10MB`, `5KB`, 500B.
+	// The default varies by repository type.
+	ChunkSize ByteSize `json:"chunk_size,omitempty"`
+	// Client The name of the Azure repository client to use.
+	Client *string `json:"client,omitempty"`
+	// Compress When set to `true`, metadata files are stored in compressed format.
+	// This setting doesn't affect index files that are already compressed by
+	// default.
+	Compress *bool `json:"compress,omitempty"`
+	// Container The Azure container.
+	Container *string `json:"container,omitempty"`
+	// DeleteObjectsMaxSize The maxmimum batch size, between 1 and 256, used for `BlobBatch` requests.
+	// Defaults to 256 which is the maximum number supported by the Azure blob batch
+	// API.
+	DeleteObjectsMaxSize *int `json:"delete_objects_max_size,omitempty"`
+	// LocationMode Either `primary_only` or `secondary_only`.
+	// Note that if you set it to `secondary_only`, it will force `readonly` to
+	// `true`.
+	LocationMode *string `json:"location_mode,omitempty"`
+	// MaxConcurrentBatchDeletes The maximum number of concurrent batch delete requests that will be submitted
+	// for any individual bulk delete with `BlobBatch`.
+	// Note that the effective number of concurrent deletes is further limited by
+	// the Azure client connection and event loop thread limits.
+	// Defaults to 10, minimum is 1, maximum is 100.
+	MaxConcurrentBatchDeletes *int `json:"max_concurrent_batch_deletes,omitempty"`
+	// MaxRestoreBytesPerSec The maximum snapshot restore rate per node.
+	// It defaults to unlimited.
+	// Note that restores are also throttled through recovery settings.
+	MaxRestoreBytesPerSec ByteSize `json:"max_restore_bytes_per_sec,omitempty"`
+	// MaxSnapshotBytesPerSec The maximum snapshot creation rate per node.
+	// It defaults to 40mb per second.
+	// Note that if the recovery settings for managed services are set, then it
+	// defaults to unlimited, and the rate is additionally throttled through
+	// recovery settings.
 	MaxSnapshotBytesPerSec ByteSize `json:"max_snapshot_bytes_per_sec,omitempty"`
-	Readonly               *bool    `json:"readonly,omitempty"`
+	// Readonly If `true`, the repository is read-only.
+	// The cluster can retrieve and restore snapshots from the repository but not
+	// write to the repository or create snapshots in it.
+	//
+	// Only a cluster with write access can create snapshots in the repository.
+	// All other clusters connected to the repository should have the `readonly`
+	// parameter set to `true`.
+	// If `false`, the cluster can write to the repository and create snapshots in
+	// it.
+	//
+	// IMPORTANT: If you register the same snapshot repository with multiple
+	// clusters, only one cluster should have write access to the repository.
+	// Having multiple clusters write to the repository at the same time risks
+	// corrupting the contents of the repository.
+	Readonly *bool `json:"readonly,omitempty"`
 }
 
 func (s *AzureRepositorySettings) UnmarshalJSON(data []byte) error {
@@ -114,6 +171,22 @@ func (s *AzureRepositorySettings) UnmarshalJSON(data []byte) error {
 			}
 			s.Container = &o
 
+		case "delete_objects_max_size":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "DeleteObjectsMaxSize", err)
+				}
+				s.DeleteObjectsMaxSize = &value
+			case float64:
+				f := int(v)
+				s.DeleteObjectsMaxSize = &f
+			}
+
 		case "location_mode":
 			var tmp json.RawMessage
 			if err := dec.Decode(&tmp); err != nil {
@@ -125,6 +198,22 @@ func (s *AzureRepositorySettings) UnmarshalJSON(data []byte) error {
 				o = string(tmp[:])
 			}
 			s.LocationMode = &o
+
+		case "max_concurrent_batch_deletes":
+
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.Atoi(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "MaxConcurrentBatchDeletes", err)
+				}
+				s.MaxConcurrentBatchDeletes = &value
+			case float64:
+				f := int(v)
+				s.MaxConcurrentBatchDeletes = &f
+			}
 
 		case "max_restore_bytes_per_sec":
 			if err := dec.Decode(&s.MaxRestoreBytesPerSec); err != nil {
@@ -160,4 +249,14 @@ func NewAzureRepositorySettings() *AzureRepositorySettings {
 	r := &AzureRepositorySettings{}
 
 	return r
+}
+
+// true
+
+type AzureRepositorySettingsVariant interface {
+	AzureRepositorySettingsCaster() *AzureRepositorySettings
+}
+
+func (s *AzureRepositorySettings) AzureRepositorySettingsCaster() *AzureRepositorySettings {
+	return s
 }

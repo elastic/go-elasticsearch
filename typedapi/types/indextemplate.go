@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // IndexTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/IndexTemplate.ts#L28-L67
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/IndexTemplate.ts#L28-L81
 type IndexTemplate struct {
 	AllowAutoCreate *bool `json:"allow_auto_create,omitempty"`
 	// ComposedOf An ordered list of component template names.
@@ -43,6 +43,13 @@ type IndexTemplate struct {
 	// Supports an empty object.
 	// Data streams require a matching index template with a `data_stream` object.
 	DataStream *IndexTemplateDataStreamConfiguration `json:"data_stream,omitempty"`
+	// Deprecated Marks this index template as deprecated.
+	// When creating or updating a non-deprecated index template that uses
+	// deprecated components,
+	// Elasticsearch will emit a deprecation warning.
+	Deprecated *bool `json:"deprecated,omitempty"`
+	// IgnoreMissingComponentTemplates A list of component template names that are allowed to be absent.
+	IgnoreMissingComponentTemplates []string `json:"ignore_missing_component_templates,omitempty"`
 	// IndexPatterns Name of the index template.
 	IndexPatterns []string `json:"index_patterns"`
 	// Meta_ Optional user metadata about the index template. May have any contents.
@@ -103,6 +110,36 @@ func (s *IndexTemplate) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "DataStream", err)
 			}
 
+		case "deprecated":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "Deprecated", err)
+				}
+				s.Deprecated = &value
+			case bool:
+				s.Deprecated = &v
+			}
+
+		case "ignore_missing_component_templates":
+			rawMsg := json.RawMessage{}
+			dec.Decode(&rawMsg)
+			if !bytes.HasPrefix(rawMsg, []byte("[")) {
+				o := new(string)
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&o); err != nil {
+					return fmt.Errorf("%s | %w", "IgnoreMissingComponentTemplates", err)
+				}
+
+				s.IgnoreMissingComponentTemplates = append(s.IgnoreMissingComponentTemplates, *o)
+			} else {
+				if err := json.NewDecoder(bytes.NewReader(rawMsg)).Decode(&s.IgnoreMissingComponentTemplates); err != nil {
+					return fmt.Errorf("%s | %w", "IgnoreMissingComponentTemplates", err)
+				}
+			}
+
 		case "index_patterns":
 			rawMsg := json.RawMessage{}
 			dec.Decode(&rawMsg)
@@ -159,4 +196,14 @@ func NewIndexTemplate() *IndexTemplate {
 	r := &IndexTemplate{}
 
 	return r
+}
+
+// true
+
+type IndexTemplateVariant interface {
+	IndexTemplateCaster() *IndexTemplate
+}
+
+func (s *IndexTemplate) IndexTemplateCaster() *IndexTemplate {
+	return s
 }

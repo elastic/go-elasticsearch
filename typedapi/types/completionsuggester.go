@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CompletionSuggester type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/suggester.ts#L163-L181
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/search/_types/suggester.ts#L163-L181
 type CompletionSuggester struct {
 	// Analyzer The analyzer to analyze the suggest text with.
 	// Defaults to the search analyzer of the suggest field.
@@ -158,8 +158,18 @@ func (s *CompletionSuggester) UnmarshalJSON(data []byte) error {
 // NewCompletionSuggester returns a CompletionSuggester.
 func NewCompletionSuggester() *CompletionSuggester {
 	r := &CompletionSuggester{
-		Contexts: make(map[string][]CompletionContext, 0),
+		Contexts: make(map[string][]CompletionContext),
 	}
 
 	return r
+}
+
+// true
+
+type CompletionSuggesterVariant interface {
+	CompletionSuggesterCaster() *CompletionSuggester
+}
+
+func (s *CompletionSuggester) CompletionSuggesterCaster() *CompletionSuggester {
+	return s
 }

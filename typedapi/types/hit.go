@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,28 +31,28 @@ import (
 
 // Hit type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/hits.ts#L41-L66
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/search/_types/hits.ts#L40-L65
 type Hit struct {
-	Explanation_       *Explanation               `json:"_explanation,omitempty"`
-	Fields             map[string]json.RawMessage `json:"fields,omitempty"`
-	Highlight          map[string][]string        `json:"highlight,omitempty"`
-	Id_                *string                    `json:"_id,omitempty"`
-	IgnoredFieldValues map[string][]FieldValue    `json:"ignored_field_values,omitempty"`
-	Ignored_           []string                   `json:"_ignored,omitempty"`
-	Index_             string                     `json:"_index"`
-	InnerHits          map[string]InnerHitsResult `json:"inner_hits,omitempty"`
-	MatchedQueries     any                        `json:"matched_queries,omitempty"`
-	Nested_            *NestedIdentity            `json:"_nested,omitempty"`
-	Node_              *string                    `json:"_node,omitempty"`
-	PrimaryTerm_       *int64                     `json:"_primary_term,omitempty"`
-	Rank_              *int                       `json:"_rank,omitempty"`
-	Routing_           *string                    `json:"_routing,omitempty"`
-	Score_             *Float64                   `json:"_score,omitempty"`
-	SeqNo_             *int64                     `json:"_seq_no,omitempty"`
-	Shard_             *string                    `json:"_shard,omitempty"`
-	Sort               []FieldValue               `json:"sort,omitempty"`
-	Source_            json.RawMessage            `json:"_source,omitempty"`
-	Version_           *int64                     `json:"_version,omitempty"`
+	Explanation_       *Explanation                 `json:"_explanation,omitempty"`
+	Fields             map[string]json.RawMessage   `json:"fields,omitempty"`
+	Highlight          map[string][]string          `json:"highlight,omitempty"`
+	Id_                *string                      `json:"_id,omitempty"`
+	IgnoredFieldValues map[string][]json.RawMessage `json:"ignored_field_values,omitempty"`
+	Ignored_           []string                     `json:"_ignored,omitempty"`
+	Index_             string                       `json:"_index"`
+	InnerHits          map[string]InnerHitsResult   `json:"inner_hits,omitempty"`
+	MatchedQueries     any                          `json:"matched_queries,omitempty"`
+	Nested_            *NestedIdentity              `json:"_nested,omitempty"`
+	Node_              *string                      `json:"_node,omitempty"`
+	PrimaryTerm_       *int64                       `json:"_primary_term,omitempty"`
+	Rank_              *int                         `json:"_rank,omitempty"`
+	Routing_           *string                      `json:"_routing,omitempty"`
+	Score_             *Float64                     `json:"_score,omitempty"`
+	SeqNo_             *int64                       `json:"_seq_no,omitempty"`
+	Shard_             *string                      `json:"_shard,omitempty"`
+	Sort               []FieldValue                 `json:"sort,omitempty"`
+	Source_            json.RawMessage              `json:"_source,omitempty"`
+	Version_           *int64                       `json:"_version,omitempty"`
 }
 
 func (s *Hit) UnmarshalJSON(data []byte) error {
@@ -98,7 +98,7 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 
 		case "ignored_field_values":
 			if s.IgnoredFieldValues == nil {
-				s.IgnoredFieldValues = make(map[string][]FieldValue, 0)
+				s.IgnoredFieldValues = make(map[string][]json.RawMessage, 0)
 			}
 			if err := dec.Decode(&s.IgnoredFieldValues); err != nil {
 				return fmt.Errorf("%s | %w", "IgnoredFieldValues", err)
@@ -248,11 +248,13 @@ func (s *Hit) UnmarshalJSON(data []byte) error {
 // NewHit returns a Hit.
 func NewHit() *Hit {
 	r := &Hit{
-		Fields:             make(map[string]json.RawMessage, 0),
-		Highlight:          make(map[string][]string, 0),
-		IgnoredFieldValues: make(map[string][]FieldValue, 0),
-		InnerHits:          make(map[string]InnerHitsResult, 0),
+		Fields:             make(map[string]json.RawMessage),
+		Highlight:          make(map[string][]string),
+		IgnoredFieldValues: make(map[string][]json.RawMessage),
+		InnerHits:          make(map[string]InnerHitsResult),
 	}
 
 	return r
 }
+
+// false

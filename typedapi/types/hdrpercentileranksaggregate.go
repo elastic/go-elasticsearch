@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // HdrPercentileRanksAggregate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/Aggregate.ts#L171-L172
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/aggregations/Aggregate.ts#L171-L172
 type HdrPercentileRanksAggregate struct {
 	Meta   Metadata    `json:"meta,omitempty"`
 	Values Percentiles `json:"values"`
@@ -64,7 +64,7 @@ func (s *HdrPercentileRanksAggregate) UnmarshalJSON(data []byte) error {
 			localDec := json.NewDecoder(source)
 			switch rawMsg[0] {
 			case '{':
-				o := make(KeyedPercentiles, 0)
+				o := make(map[string]string, 0)
 				if err := localDec.Decode(&o); err != nil {
 					return fmt.Errorf("%s | %w", "Values", err)
 				}
@@ -88,3 +88,5 @@ func NewHdrPercentileRanksAggregate() *HdrPercentileRanksAggregate {
 
 	return r
 }
+
+// false

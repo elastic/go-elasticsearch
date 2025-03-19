@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,15 +31,15 @@ import (
 
 // CatComponentTemplate type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cat/component_templates/types.ts#L20-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cat/component_templates/types.ts#L20-L28
 type CatComponentTemplate struct {
-	AliasCount    string `json:"alias_count"`
-	IncludedIn    string `json:"included_in"`
-	MappingCount  string `json:"mapping_count"`
-	MetadataCount string `json:"metadata_count"`
-	Name          string `json:"name"`
-	SettingsCount string `json:"settings_count"`
-	Version       string `json:"version"`
+	AliasCount    string  `json:"alias_count"`
+	IncludedIn    string  `json:"included_in"`
+	MappingCount  string  `json:"mapping_count"`
+	MetadataCount string  `json:"metadata_count"`
+	Name          string  `json:"name"`
+	SettingsCount string  `json:"settings_count"`
+	Version       *string `json:"version,omitempty"`
 }
 
 func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
@@ -139,7 +139,7 @@ func (s *CatComponentTemplate) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Version = o
+			s.Version = &o
 
 		}
 	}
@@ -152,3 +152,5 @@ func NewCatComponentTemplate() *CatComponentTemplate {
 
 	return r
 }
+
+// false

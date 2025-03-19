@@ -16,9 +16,12 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Deletes a pipeline used for Logstash Central Management.
+// Delete a Logstash pipeline.
+// Delete a pipeline that is used for Logstash Central Management.
+// If the request succeeds, you receive an empty response with an appropriate
+// status code.
 package deletepipeline
 
 import (
@@ -74,9 +77,12 @@ func NewDeletePipelineFunc(tp elastictransport.Interface) NewDeletePipeline {
 	}
 }
 
-// Deletes a pipeline used for Logstash Central Management.
+// Delete a Logstash pipeline.
+// Delete a pipeline that is used for Logstash Central Management.
+// If the request succeeds, you receive an empty response with an appropriate
+// status code.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/logstash-api-delete-pipeline.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-logstash-delete-pipeline
 func New(tp elastictransport.Interface) *DeletePipeline {
 	r := &DeletePipeline{
 		transport: tp,
@@ -239,7 +245,7 @@ func (r *DeletePipeline) Header(key, value string) *DeletePipeline {
 	return r
 }
 
-// Id Identifier for the pipeline.
+// Id An identifier for the pipeline.
 // API Name: id
 func (r *DeletePipeline) _id(id string) *DeletePipeline {
 	r.paramSet |= idMask

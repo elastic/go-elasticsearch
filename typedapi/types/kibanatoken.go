@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,9 +31,12 @@ import (
 
 // KibanaToken type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/enroll_kibana/Response.ts#L27-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/enroll_kibana/Response.ts#L31-L41
 type KibanaToken struct {
-	Name  string `json:"name"`
+	// Name The name of the bearer token for the `elastic/kibana` service account.
+	Name string `json:"name"`
+	// Value The value of the bearer token for the `elastic/kibana` service account.
+	// Use this value to authenticate the service account with Elasticsearch.
 	Value string `json:"value"`
 }
 
@@ -87,3 +90,5 @@ func NewKibanaToken() *KibanaToken {
 
 	return r
 }
+
+// false

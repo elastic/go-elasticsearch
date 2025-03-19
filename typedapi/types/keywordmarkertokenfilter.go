@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KeywordMarkerTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/token_filters.ts#L232-L238
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/token_filters.ts#L232-L238
 type KeywordMarkerTokenFilter struct {
 	IgnoreCase      *bool    `json:"ignore_case,omitempty"`
 	Keywords        []string `json:"keywords,omitempty"`
@@ -147,4 +147,14 @@ func NewKeywordMarkerTokenFilter() *KeywordMarkerTokenFilter {
 	r := &KeywordMarkerTokenFilter{}
 
 	return r
+}
+
+// true
+
+type KeywordMarkerTokenFilterVariant interface {
+	KeywordMarkerTokenFilterCaster() *KeywordMarkerTokenFilter
+}
+
+func (s *KeywordMarkerTokenFilter) KeywordMarkerTokenFilterCaster() *KeywordMarkerTokenFilter {
+	return s
 }

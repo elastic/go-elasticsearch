@@ -16,20 +16,67 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // TriggerContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Trigger.ts#L23-L28
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/_types/Trigger.ts#L23-L28
 type TriggerContainer struct {
-	Schedule *ScheduleContainer `json:"schedule,omitempty"`
+	AdditionalTriggerContainerProperty map[string]json.RawMessage `json:"-"`
+	Schedule                           *ScheduleContainer         `json:"schedule,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s TriggerContainer) MarshalJSON() ([]byte, error) {
+	type opt TriggerContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalTriggerContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalTriggerContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewTriggerContainer returns a TriggerContainer.
 func NewTriggerContainer() *TriggerContainer {
-	r := &TriggerContainer{}
+	r := &TriggerContainer{
+		AdditionalTriggerContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type TriggerContainerVariant interface {
+	TriggerContainerCaster() *TriggerContainer
+}
+
+func (s *TriggerContainer) TriggerContainerCaster() *TriggerContainer {
+	return s
 }

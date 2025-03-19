@@ -16,18 +16,24 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// The cluster health API returns a simple status on the health of the cluster.
+// Get the cluster health status.
+//
 // You can also use the API to get the health status of only specified data
-// streams and indices. For data streams, the API retrieves the health status of
-// the stream’s backing indices.
-// The cluster health status is: green, yellow or red. On the shard level, a red
-// status indicates that the specific shard is not allocated in the cluster,
-// yellow means that the primary shard is allocated but replicas are not, and
-// green means that all shards are allocated. The index level status is
-// controlled by the worst shard status. The cluster status is controlled by the
-// worst index status.
+// streams and indices.
+// For data streams, the API retrieves the health status of the stream’s backing
+// indices.
+//
+// The cluster health status is: green, yellow or red.
+// On the shard level, a red status indicates that the specific shard is not
+// allocated in the cluster. Yellow means that the primary shard is allocated
+// but replicas are not. Green means that all shards are allocated.
+// The index level status is controlled by the worst shard status.
+//
+// One of the main benefits of the API is the ability to wait until the cluster
+// reaches a certain high watermark health level.
+// The cluster status is controlled by the worst index status.
 package health
 
 import (
@@ -88,18 +94,24 @@ func NewHealthFunc(tp elastictransport.Interface) NewHealth {
 	}
 }
 
-// The cluster health API returns a simple status on the health of the cluster.
-// You can also use the API to get the health status of only specified data
-// streams and indices. For data streams, the API retrieves the health status of
-// the stream’s backing indices.
-// The cluster health status is: green, yellow or red. On the shard level, a red
-// status indicates that the specific shard is not allocated in the cluster,
-// yellow means that the primary shard is allocated but replicas are not, and
-// green means that all shards are allocated. The index level status is
-// controlled by the worst shard status. The cluster status is controlled by the
-// worst index status.
+// Get the cluster health status.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
+// You can also use the API to get the health status of only specified data
+// streams and indices.
+// For data streams, the API retrieves the health status of the stream’s backing
+// indices.
+//
+// The cluster health status is: green, yellow or red.
+// On the shard level, a red status indicates that the specific shard is not
+// allocated in the cluster. Yellow means that the primary shard is allocated
+// but replicas are not. Green means that all shards are allocated.
+// The index level status is controlled by the worst shard status.
+//
+// One of the main benefits of the API is the ability to wait until the cluster
+// reaches a certain high watermark health level.
+// The cluster status is controlled by the worst index status.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-health
 func New(tp elastictransport.Interface) *Health {
 	r := &Health{
 		transport: tp,

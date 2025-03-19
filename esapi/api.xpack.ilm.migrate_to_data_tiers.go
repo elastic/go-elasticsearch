@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newILMMigrateToDataTiersFunc(t Transport) ILMMigrateToDataTiers {
@@ -53,7 +54,8 @@ type ILMMigrateToDataTiers func(o ...func(*ILMMigrateToDataTiersRequest)) (*Resp
 type ILMMigrateToDataTiersRequest struct {
 	Body io.Reader
 
-	DryRun *bool
+	DryRun        *bool
+	MasterTimeout time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -94,6 +96,10 @@ func (r ILMMigrateToDataTiersRequest) Do(providedCtx context.Context, transport 
 
 	if r.DryRun != nil {
 		params["dry_run"] = strconv.FormatBool(*r.DryRun)
+	}
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if r.Pretty {
@@ -192,6 +198,13 @@ func (f ILMMigrateToDataTiers) WithBody(v io.Reader) func(*ILMMigrateToDataTiers
 func (f ILMMigrateToDataTiers) WithDryRun(v bool) func(*ILMMigrateToDataTiersRequest) {
 	return func(r *ILMMigrateToDataTiersRequest) {
 		r.DryRun = &v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ILMMigrateToDataTiers) WithMasterTimeout(v time.Duration) func(*ILMMigrateToDataTiersRequest) {
+	return func(r *ILMMigrateToDataTiersRequest) {
+		r.MasterTimeout = v
 	}
 }
 

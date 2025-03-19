@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Deletes a legacy index template.
+// Delete a legacy index template.
 package deletetemplate
 
 import (
@@ -76,9 +76,9 @@ func NewDeleteTemplateFunc(tp elastictransport.Interface) NewDeleteTemplate {
 	}
 }
 
-// Deletes a legacy index template.
+// Delete a legacy index template.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-template-v1.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-delete-template
 func New(tp elastictransport.Interface) *DeleteTemplate {
 	r := &DeleteTemplate{
 		transport: tp,

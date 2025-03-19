@@ -16,9 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Delete application privileges.
+//
+// To use this API, you must have one of the following privileges:
+//
+// * The `manage_security` cluster privilege (or a greater privilege such as
+// `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
 package deleteprivileges
 
 import (
@@ -84,7 +91,14 @@ func NewDeletePrivilegesFunc(tp elastictransport.Interface) NewDeletePrivileges 
 
 // Delete application privileges.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-delete-privilege.html
+// To use this API, you must have one of the following privileges:
+//
+// * The `manage_security` cluster privilege (or a greater privilege such as
+// `all`).
+// * The "Manage Application Privileges" global privilege for the application
+// being referenced in the request.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-privileges
 func New(tp elastictransport.Interface) *DeletePrivileges {
 	r := &DeletePrivileges{
 		transport: tp,
@@ -302,7 +316,8 @@ func (r *DeletePrivileges) Header(key, value string) *DeletePrivileges {
 	return r
 }
 
-// Application Application name
+// Application The name of the application.
+// Application privileges are always associated with exactly one application.
 // API Name: application
 func (r *DeletePrivileges) _application(application string) *DeletePrivileges {
 	r.paramSet |= applicationMask
@@ -311,7 +326,7 @@ func (r *DeletePrivileges) _application(application string) *DeletePrivileges {
 	return r
 }
 
-// Name Privilege name
+// Name The name of the privilege.
 // API Name: name
 func (r *DeletePrivileges) _name(name string) *DeletePrivileges {
 	r.paramSet |= nameMask

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RRFRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Retriever.ts#L79-L86
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Retriever.ts#L84-L91
 type RRFRetriever struct {
 	// Filter Query to filter the documents that can match.
 	Filter []Query `json:"filter,omitempty"`
@@ -142,4 +142,14 @@ func NewRRFRetriever() *RRFRetriever {
 	r := &RRFRetriever{}
 
 	return r
+}
+
+// true
+
+type RRFRetrieverVariant interface {
+	RRFRetrieverCaster() *RRFRetriever
+}
+
+func (s *RRFRetriever) RRFRetrieverCaster() *RRFRetriever {
+	return s
 }

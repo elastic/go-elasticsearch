@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Clears cluster voting config exclusions.
+// Clear cluster voting config exclusions.
+// Remove master-eligible nodes from the voting configuration exclusion list.
 package deletevotingconfigexclusions
 
 import (
@@ -66,9 +67,10 @@ func NewDeleteVotingConfigExclusionsFunc(tp elastictransport.Interface) NewDelet
 	}
 }
 
-// Clears cluster voting config exclusions.
+// Clear cluster voting config exclusions.
+// Remove master-eligible nodes from the voting configuration exclusion list.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/voting-config-exclusions.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cluster-post-voting-config-exclusions
 func New(tp elastictransport.Interface) *DeleteVotingConfigExclusions {
 	r := &DeleteVotingConfigExclusions{
 		transport: tp,
@@ -221,6 +223,14 @@ func (r DeleteVotingConfigExclusions) IsSuccess(providedCtx context.Context) (bo
 // Header set a key, value pair in the DeleteVotingConfigExclusions headers map.
 func (r *DeleteVotingConfigExclusions) Header(key, value string) *DeleteVotingConfigExclusions {
 	r.headers.Set(key, value)
+
+	return r
+}
+
+// MasterTimeout Period to wait for a connection to the master node.
+// API name: master_timeout
+func (r *DeleteVotingConfigExclusions) MasterTimeout(duration string) *DeleteVotingConfigExclusions {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }

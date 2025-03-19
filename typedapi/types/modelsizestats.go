@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // ModelSizeStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/Model.ts#L59-L81
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/Model.ts#L59-L82
 type ModelSizeStats struct {
 	AssignmentMemoryBasis         *string                                   `json:"assignment_memory_basis,omitempty"`
 	BucketAllocationFailuresCount int64                                     `json:"bucket_allocation_failures_count"`
@@ -49,6 +49,7 @@ type ModelSizeStats struct {
 	ModelBytes                    ByteSize                                  `json:"model_bytes"`
 	ModelBytesExceeded            ByteSize                                  `json:"model_bytes_exceeded,omitempty"`
 	ModelBytesMemoryLimit         ByteSize                                  `json:"model_bytes_memory_limit,omitempty"`
+	OutputMemoryAllocatorBytes    ByteSize                                  `json:"output_memory_allocator_bytes,omitempty"`
 	PeakModelBytes                ByteSize                                  `json:"peak_model_bytes,omitempty"`
 	RareCategoryCount             int                                       `json:"rare_category_count"`
 	ResultType                    string                                    `json:"result_type"`
@@ -200,6 +201,11 @@ func (s *ModelSizeStats) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "ModelBytesMemoryLimit", err)
 			}
 
+		case "output_memory_allocator_bytes":
+			if err := dec.Decode(&s.OutputMemoryAllocatorBytes); err != nil {
+				return fmt.Errorf("%s | %w", "OutputMemoryAllocatorBytes", err)
+			}
+
 		case "peak_model_bytes":
 			if err := dec.Decode(&s.PeakModelBytes); err != nil {
 				return fmt.Errorf("%s | %w", "PeakModelBytes", err)
@@ -320,3 +326,5 @@ func NewModelSizeStats() *ModelSizeStats {
 
 	return r
 }
+
+// false

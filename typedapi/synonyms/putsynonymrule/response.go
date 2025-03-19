@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package putsynonymrule
 
@@ -27,13 +27,13 @@ import (
 
 // Response holds the response body struct for the package putsynonymrule
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/synonyms/put_synonym_rule/SynonymRulePutResponse.ts#L22-L24
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/synonyms/put_synonym_rule/SynonymRulePutResponse.ts#L22-L24
 type Response struct {
 
 	// ReloadAnalyzersDetails Updating synonyms in a synonym set reloads the associated analyzers.
-	// This is the analyzers reloading result
+	// This information is the analyzers reloading result.
 	ReloadAnalyzersDetails types.ReloadResult `json:"reload_analyzers_details"`
-	// Result Update operation result
+	// Result The update operation result.
 	Result result.Result `json:"result"`
 }
 

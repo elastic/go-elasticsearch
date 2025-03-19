@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package querywatches
 
@@ -33,18 +33,21 @@ import (
 
 // Request holds the request body struct for the package querywatches
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/query_watches/WatcherQueryWatchesRequest.ts#L25-L48
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/query_watches/WatcherQueryWatchesRequest.ts#L25-L70
 type Request struct {
 
-	// From The offset from the first result to fetch. Needs to be non-negative.
+	// From The offset from the first result to fetch.
+	// It must be non-negative.
 	From *int `json:"from,omitempty"`
-	// Query Optional, query filter watches to be returned.
+	// Query A query that filters the watches to be returned.
 	Query *types.Query `json:"query,omitempty"`
-	// SearchAfter Optional search After to do pagination using last hit’s sort values.
+	// SearchAfter Retrieve the next page of hits using a set of sort values from the previous
+	// page.
 	SearchAfter []types.FieldValue `json:"search_after,omitempty"`
-	// Size The number of hits to return. Needs to be non-negative.
+	// Size The number of hits to return.
+	// It must be non-negative.
 	Size *int `json:"size,omitempty"`
-	// Sort Optional sort definition.
+	// Sort One or more fields used to sort the search results.
 	Sort []types.SortCombinations `json:"sort,omitempty"`
 }
 

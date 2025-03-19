@@ -1,0 +1,81 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+// Code generated from the elasticsearch-specification DO NOT EDIT.
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
+
+package esdsl
+
+import "github.com/elastic/go-elasticsearch/v8/typedapi/types"
+
+type _adjacencyMatrixAggregation struct {
+	v *types.AdjacencyMatrixAggregation
+}
+
+// A bucket aggregation returning a form of adjacency matrix.
+// The request provides a collection of named filter expressions, similar to the
+// `filters` aggregation.
+// Each bucket in the response represents a non-empty cell in the matrix of
+// intersecting filters.
+func NewAdjacencyMatrixAggregation() *_adjacencyMatrixAggregation {
+
+	return &_adjacencyMatrixAggregation{v: types.NewAdjacencyMatrixAggregation()}
+
+}
+
+// Filters used to create buckets.
+// At least one filter is required.
+func (s *_adjacencyMatrixAggregation) Filters(filters map[string]types.Query) *_adjacencyMatrixAggregation {
+
+	s.v.Filters = filters
+	return s
+}
+
+func (s *_adjacencyMatrixAggregation) AddFilter(key string, value types.QueryVariant) *_adjacencyMatrixAggregation {
+
+	var tmp map[string]types.Query
+	if s.v.Filters == nil {
+		s.v.Filters = make(map[string]types.Query)
+	} else {
+		tmp = s.v.Filters
+	}
+
+	tmp[key] = *value.QueryCaster()
+
+	s.v.Filters = tmp
+	return s
+}
+
+// Separator used to concatenate filter names. Defaults to &.
+func (s *_adjacencyMatrixAggregation) Separator(separator string) *_adjacencyMatrixAggregation {
+
+	s.v.Separator = &separator
+
+	return s
+}
+
+func (s *_adjacencyMatrixAggregation) AggregationsCaster() *types.Aggregations {
+	container := types.NewAggregations()
+
+	container.AdjacencyMatrix = s.v
+
+	return container
+}
+
+func (s *_adjacencyMatrixAggregation) AdjacencyMatrixAggregationCaster() *types.AdjacencyMatrixAggregation {
+	return s.v
+}

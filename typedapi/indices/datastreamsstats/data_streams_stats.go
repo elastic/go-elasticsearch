@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get data stream stats.
-// Retrieves statistics for one or more data streams.
+//
+// Get statistics for one or more data streams.
 package datastreamsstats
 
 import (
@@ -77,9 +78,10 @@ func NewDataStreamsStatsFunc(tp elastictransport.Interface) NewDataStreamsStats 
 }
 
 // Get data stream stats.
-// Retrieves statistics for one or more data streams.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/data-streams.html
+// Get statistics for one or more data streams.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-data-streams-stats-1
 func New(tp elastictransport.Interface) *DataStreamsStats {
 	r := &DataStreamsStats{
 		transport: tp,

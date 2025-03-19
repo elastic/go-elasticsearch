@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns cluster-level changes that have not yet been executed.
+// Get pending task information.
+//
+// Get information about cluster-level changes that have not yet taken effect.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the pending cluster tasks API.
@@ -37,6 +39,7 @@ import (
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
+	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/timeunit"
 )
 
 // ErrBuildPath is returned in case of missing parameters within the build of the request.
@@ -71,12 +74,14 @@ func NewPendingTasksFunc(tp elastictransport.Interface) NewPendingTasks {
 	}
 }
 
-// Returns cluster-level changes that have not yet been executed.
+// Get pending task information.
+//
+// Get information about cluster-level changes that have not yet taken effect.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the pending cluster tasks API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-pending-tasks.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-pending-tasks
 func New(tp elastictransport.Interface) *PendingTasks {
 	r := &PendingTasks{
 		transport: tp,
@@ -282,15 +287,6 @@ func (r *PendingTasks) Header(key, value string) *PendingTasks {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *PendingTasks) Format(format string) *PendingTasks {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *PendingTasks) H(names ...string) *PendingTasks {
@@ -299,11 +295,12 @@ func (r *PendingTasks) H(names ...string) *PendingTasks {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *PendingTasks) Help(help bool) *PendingTasks {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *PendingTasks) S(names ...string) *PendingTasks {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -327,12 +324,28 @@ func (r *PendingTasks) MasterTimeout(duration string) *PendingTasks {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *PendingTasks) S(names ...string) *PendingTasks {
-	r.values.Set("s", strings.Join(names, ","))
+// Time Unit used to display time values.
+// API name: time
+func (r *PendingTasks) Time(time timeunit.TimeUnit) *PendingTasks {
+	r.values.Set("time", time.String())
+
+	return r
+}
+
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *PendingTasks) Format(format string) *PendingTasks {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *PendingTasks) Help(help bool) *PendingTasks {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

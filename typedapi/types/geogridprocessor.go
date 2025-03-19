@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -34,7 +34,7 @@ import (
 
 // GeoGridProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Processors.ts#L384-L425
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ingest/_types/Processors.ts#L389-L430
 type GeoGridProcessor struct {
 	// ChildrenField If specified and children tiles exist, save those tile addresses to this
 	// field as an array of strings.
@@ -46,7 +46,7 @@ type GeoGridProcessor struct {
 	// The field format is determined by the `tile_type`.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
-	If *string `json:"if,omitempty"`
+	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// IgnoreMissing If `true` and `field` does not exist, the processor quietly exits without
@@ -118,16 +118,9 @@ func (s *GeoGridProcessor) UnmarshalJSON(data []byte) error {
 			s.Field = o
 
 		case "if":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.If); err != nil {
 				return fmt.Errorf("%s | %w", "If", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.If = &o
 
 		case "ignore_failure":
 			var tmp any
@@ -214,4 +207,14 @@ func NewGeoGridProcessor() *GeoGridProcessor {
 	r := &GeoGridProcessor{}
 
 	return r
+}
+
+// true
+
+type GeoGridProcessorVariant interface {
+	GeoGridProcessorCaster() *GeoGridProcessor
+}
+
+func (s *GeoGridProcessor) GeoGridProcessorCaster() *GeoGridProcessor {
+	return s
 }

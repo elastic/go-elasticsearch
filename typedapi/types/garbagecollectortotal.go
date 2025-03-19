@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GarbageCollectorTotal type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/_types/Stats.ts#L1001-L1014
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/nodes/_types/Stats.ts#L1001-L1014
 type GarbageCollectorTotal struct {
 	// CollectionCount Total number of JVM garbage collectors that collect objects.
 	CollectionCount *int64 `json:"collection_count,omitempty"`
@@ -109,3 +109,5 @@ func NewGarbageCollectorTotal() *GarbageCollectorTotal {
 
 	return r
 }
+
+// false

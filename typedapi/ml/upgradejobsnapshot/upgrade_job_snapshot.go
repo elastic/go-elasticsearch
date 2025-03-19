@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Upgrade a snapshot.
-// Upgrades an anomaly detection model snapshot to the latest major version.
+// Upgrade an anomaly detection model snapshot to the latest major version.
 // Over time, older snapshot formats are deprecated and removed. Anomaly
 // detection jobs support only snapshots that are from the current or previous
 // major version.
@@ -91,7 +91,7 @@ func NewUpgradeJobSnapshotFunc(tp elastictransport.Interface) NewUpgradeJobSnaps
 }
 
 // Upgrade a snapshot.
-// Upgrades an anomaly detection model snapshot to the latest major version.
+// Upgrade an anomaly detection model snapshot to the latest major version.
 // Over time, older snapshot formats are deprecated and removed. Anomaly
 // detection jobs support only snapshots that are from the current or previous
 // major version.
@@ -101,7 +101,7 @@ func NewUpgradeJobSnapshotFunc(tp elastictransport.Interface) NewUpgradeJobSnaps
 // upgraded snapshot cannot be the current snapshot of the anomaly detection
 // job.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-upgrade-job-model-snapshot.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-upgrade-job-snapshot
 func New(tp elastictransport.Interface) *UpgradeJobSnapshot {
 	r := &UpgradeJobSnapshot{
 		transport: tp,

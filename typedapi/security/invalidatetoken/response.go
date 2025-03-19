@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package invalidatetoken
 
@@ -26,12 +26,18 @@ import (
 
 // Response holds the response body struct for the package invalidatetoken
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/invalidate_token/SecurityInvalidateTokenResponse.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/invalidate_token/SecurityInvalidateTokenResponse.ts#L23-L46
 type Response struct {
-	ErrorCount                  int64              `json:"error_count"`
-	ErrorDetails                []types.ErrorCause `json:"error_details,omitempty"`
-	InvalidatedTokens           int64              `json:"invalidated_tokens"`
-	PreviouslyInvalidatedTokens int64              `json:"previously_invalidated_tokens"`
+
+	// ErrorCount The number of errors that were encountered when invalidating the tokens.
+	ErrorCount int64 `json:"error_count"`
+	// ErrorDetails Details about the errors.
+	// This field is not present in the response when `error_count` is `0`.
+	ErrorDetails []types.ErrorCause `json:"error_details,omitempty"`
+	// InvalidatedTokens The number of the tokens that were invalidated as part of this request.
+	InvalidatedTokens int64 `json:"invalidated_tokens"`
+	// PreviouslyInvalidatedTokens The number of tokens that were already invalidated.
+	PreviouslyInvalidatedTokens int64 `json:"previously_invalidated_tokens"`
 }
 
 // NewResponse returns a Response

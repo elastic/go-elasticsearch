@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,11 +30,20 @@ import (
 
 // S3Repository type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/SnapshotRepository.ts#L50-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/snapshot/_types/SnapshotRepository.ts#L64-L78
 type S3Repository struct {
+	// Settings The repository settings.
+	//
+	// NOTE: In addition to the specified settings, you can also use all non-secure
+	// client settings in the repository settings.
+	// In this case, the client settings found in the repository settings will be
+	// merged with those of the named client used by the repository.
+	// Conflicts between client and repository settings are resolved by the
+	// repository settings taking precedence over client settings.
 	Settings S3RepositorySettings `json:"settings"`
-	Type     string               `json:"type,omitempty"`
-	Uuid     *string              `json:"uuid,omitempty"`
+	// Type The S3 repository type.
+	Type string  `json:"type,omitempty"`
+	Uuid *string `json:"uuid,omitempty"`
 }
 
 func (s *S3Repository) UnmarshalJSON(data []byte) error {
@@ -91,4 +100,14 @@ func NewS3Repository() *S3Repository {
 	r := &S3Repository{}
 
 	return r
+}
+
+// true
+
+type S3RepositoryVariant interface {
+	S3RepositoryCaster() *S3Repository
+}
+
+func (s *S3Repository) S3RepositoryCaster() *S3Repository {
+	return s
 }

@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -59,7 +59,6 @@ type IndicesGetFieldMappingRequest struct {
 	ExpandWildcards   string
 	IgnoreUnavailable *bool
 	IncludeDefaults   *bool
-	Local             *bool
 
 	Pretty     bool
 	Human      bool
@@ -131,10 +130,6 @@ func (r IndicesGetFieldMappingRequest) Do(providedCtx context.Context, transport
 
 	if r.IncludeDefaults != nil {
 		params["include_defaults"] = strconv.FormatBool(*r.IncludeDefaults)
-	}
-
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
 	}
 
 	if r.Pretty {
@@ -247,13 +242,6 @@ func (f IndicesGetFieldMapping) WithIgnoreUnavailable(v bool) func(*IndicesGetFi
 func (f IndicesGetFieldMapping) WithIncludeDefaults(v bool) func(*IndicesGetFieldMappingRequest) {
 	return func(r *IndicesGetFieldMappingRequest) {
 		r.IncludeDefaults = &v
-	}
-}
-
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-func (f IndicesGetFieldMapping) WithLocal(v bool) func(*IndicesGetFieldMappingRequest) {
-	return func(r *IndicesGetFieldMappingRequest) {
-		r.Local = &v
 	}
 }
 

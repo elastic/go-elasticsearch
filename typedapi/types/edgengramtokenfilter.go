@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // EdgeNGramTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/token_filters.ts#L78-L84
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/token_filters.ts#L78-L84
 type EdgeNGramTokenFilter struct {
 	MaxGram          *int                         `json:"max_gram,omitempty"`
 	MinGram          *int                         `json:"min_gram,omitempty"`
@@ -137,4 +137,14 @@ func NewEdgeNGramTokenFilter() *EdgeNGramTokenFilter {
 	r := &EdgeNGramTokenFilter{}
 
 	return r
+}
+
+// true
+
+type EdgeNGramTokenFilterVariant interface {
+	EdgeNGramTokenFilterCaster() *EdgeNGramTokenFilter
+}
+
+func (s *EdgeNGramTokenFilter) EdgeNGramTokenFilterCaster() *EdgeNGramTokenFilter {
+	return s
 }

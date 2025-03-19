@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package search
 
@@ -34,9 +34,23 @@ import (
 
 // Request holds the request body struct for the package search
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/eql/search/EqlSearchRequest.ts#L28-L125
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/eql/search/EqlSearchRequest.ts#L28-L161
 type Request struct {
-	CaseSensitive *bool `json:"case_sensitive,omitempty"`
+
+	// AllowPartialSearchResults Allow query execution also in case of shard failures.
+	// If true, the query will keep running and will return results based on the
+	// available shards.
+	// For sequences, the behavior can be further refined using
+	// allow_partial_sequence_results
+	AllowPartialSearchResults *bool `json:"allow_partial_search_results,omitempty"`
+	// AllowPartialSequenceResults This flag applies only to sequences and has effect only if
+	// allow_partial_search_results=true.
+	// If true, the sequence query will return results based on the available
+	// shards, ignoring the others.
+	// If false, the sequence query will return successfully, but will always have
+	// empty results.
+	AllowPartialSequenceResults *bool `json:"allow_partial_sequence_results,omitempty"`
+	CaseSensitive               *bool `json:"case_sensitive,omitempty"`
 	// EventCategoryField Field containing the event classification, such as process, file, or network.
 	EventCategoryField *string `json:"event_category_field,omitempty"`
 	// FetchSize Maximum number of events to search at a time for sequence queries.
@@ -101,6 +115,34 @@ func (s *Request) UnmarshalJSON(data []byte) error {
 		}
 
 		switch t {
+
+		case "allow_partial_search_results":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AllowPartialSearchResults", err)
+				}
+				s.AllowPartialSearchResults = &value
+			case bool:
+				s.AllowPartialSearchResults = &v
+			}
+
+		case "allow_partial_sequence_results":
+			var tmp any
+			dec.Decode(&tmp)
+			switch v := tmp.(type) {
+			case string:
+				value, err := strconv.ParseBool(v)
+				if err != nil {
+					return fmt.Errorf("%s | %w", "AllowPartialSequenceResults", err)
+				}
+				s.AllowPartialSequenceResults = &value
+			case bool:
+				s.AllowPartialSequenceResults = &v
+			}
 
 		case "case_sensitive":
 			var tmp any

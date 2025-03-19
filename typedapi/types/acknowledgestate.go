@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // AcknowledgeState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Action.ts#L109-L112
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/_types/Action.ts#L109-L112
 type AcknowledgeState struct {
 	State     acknowledgementoptions.AcknowledgementOptions `json:"state"`
 	Timestamp DateTime                                      `json:"timestamp"`
@@ -73,4 +73,14 @@ func NewAcknowledgeState() *AcknowledgeState {
 	r := &AcknowledgeState{}
 
 	return r
+}
+
+// true
+
+type AcknowledgeStateVariant interface {
+	AcknowledgeStateCaster() *AcknowledgeState
+}
+
+func (s *AcknowledgeState) AcknowledgeStateCaster() *AcknowledgeState {
+	return s
 }

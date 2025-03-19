@@ -16,31 +16,75 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 import (
+	"encoding/json"
+	"fmt"
+
 	"github.com/elastic/go-elasticsearch/v8/typedapi/types/enums/conditionop"
 )
 
 // WatcherCondition type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Conditions.ts#L50-L62
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/_types/Conditions.ts#L50-L62
 type WatcherCondition struct {
-	Always       *AlwaysCondition                                  `json:"always,omitempty"`
-	ArrayCompare map[string]ArrayCompareCondition                  `json:"array_compare,omitempty"`
-	Compare      map[string]map[conditionop.ConditionOp]FieldValue `json:"compare,omitempty"`
-	Never        *NeverCondition                                   `json:"never,omitempty"`
-	Script       *ScriptCondition                                  `json:"script,omitempty"`
+	AdditionalWatcherConditionProperty map[string]json.RawMessage                        `json:"-"`
+	Always                             *AlwaysCondition                                  `json:"always,omitempty"`
+	ArrayCompare                       map[string]ArrayCompareCondition                  `json:"array_compare,omitempty"`
+	Compare                            map[string]map[conditionop.ConditionOp]FieldValue `json:"compare,omitempty"`
+	Never                              *NeverCondition                                   `json:"never,omitempty"`
+	Script                             *ScriptCondition                                  `json:"script,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s WatcherCondition) MarshalJSON() ([]byte, error) {
+	type opt WatcherCondition
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalWatcherConditionProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalWatcherConditionProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewWatcherCondition returns a WatcherCondition.
 func NewWatcherCondition() *WatcherCondition {
 	r := &WatcherCondition{
-		ArrayCompare: make(map[string]ArrayCompareCondition, 0),
-		Compare:      make(map[string]map[conditionop.ConditionOp]FieldValue, 0),
+		AdditionalWatcherConditionProperty: make(map[string]json.RawMessage),
+		ArrayCompare:                       make(map[string]ArrayCompareCondition),
+		Compare:                            make(map[string]map[conditionop.ConditionOp]FieldValue),
 	}
 
 	return r
+}
+
+// true
+
+type WatcherConditionVariant interface {
+	WatcherConditionCaster() *WatcherCondition
+}
+
+func (s *WatcherCondition) WatcherConditionCaster() *WatcherCondition {
+	return s
 }

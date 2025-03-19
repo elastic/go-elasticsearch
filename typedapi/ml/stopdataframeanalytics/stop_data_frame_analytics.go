@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Stop data frame analytics jobs.
 // A data frame analytics job can be started and stopped multiple times
@@ -82,7 +82,7 @@ func NewStopDataFrameAnalyticsFunc(tp elastictransport.Interface) NewStopDataFra
 // A data frame analytics job can be started and stopped multiple times
 // throughout its lifecycle.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/stop-dfanalytics.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-stop-data-frame-analytics
 func New(tp elastictransport.Interface) *StopDataFrameAnalytics {
 	r := &StopDataFrameAnalytics{
 		transport: tp,

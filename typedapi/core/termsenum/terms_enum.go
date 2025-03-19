@@ -16,20 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get terms in an index.
 //
 // Discover terms that match a partial string in an index.
-// This "terms enum" API is designed for low-latency look-ups used in
-// auto-complete scenarios.
+// This API is designed for low-latency look-ups used in auto-complete
+// scenarios.
 //
-// If the `complete` property in the response is false, the returned terms set
-// may be incomplete and should be treated as approximate.
-// This can occur due to a few reasons, such as a request timeout or a node
-// error.
-//
-// NOTE: The terms enum API may return terms from deleted documents. Deleted
+// > info
+// > The terms enum API may return terms from deleted documents. Deleted
 // documents are initially only marked as deleted. It is not until their
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
@@ -98,20 +94,16 @@ func NewTermsEnumFunc(tp elastictransport.Interface) NewTermsEnum {
 // Get terms in an index.
 //
 // Discover terms that match a partial string in an index.
-// This "terms enum" API is designed for low-latency look-ups used in
-// auto-complete scenarios.
+// This API is designed for low-latency look-ups used in auto-complete
+// scenarios.
 //
-// If the `complete` property in the response is false, the returned terms set
-// may be incomplete and should be treated as approximate.
-// This can occur due to a few reasons, such as a request timeout or a node
-// error.
-//
-// NOTE: The terms enum API may return terms from deleted documents. Deleted
+// > info
+// > The terms enum API may return terms from deleted documents. Deleted
 // documents are initially only marked as deleted. It is not until their
 // segments are merged that documents are actually deleted. Until that happens,
 // the terms enum API will return terms from these documents.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-terms-enum.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-terms-enum
 func New(tp elastictransport.Interface) *TermsEnum {
 	r := &TermsEnum{
 		transport: tp,
@@ -119,8 +111,6 @@ func New(tp elastictransport.Interface) *TermsEnum {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -332,8 +322,10 @@ func (r *TermsEnum) Header(key, value string) *TermsEnum {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices, and index aliases to search.
-// Wildcard (*) expressions are supported.
+// Index A comma-separated list of data streams, indices, and index aliases to search.
+// Wildcard (`*`) expressions are supported.
+// To search all data streams or indices, omit this parameter or use `*`  or
+// `_all`.
 // API Name: index
 func (r *TermsEnum) _index(index string) *TermsEnum {
 	r.paramSet |= indexMask
@@ -386,66 +378,104 @@ func (r *TermsEnum) Pretty(pretty bool) *TermsEnum {
 	return r
 }
 
-// CaseInsensitive When true the provided search string is matched against index terms without
-// case sensitivity.
+// When `true`, the provided search string is matched against index terms
+// without case sensitivity.
 // API name: case_insensitive
 func (r *TermsEnum) CaseInsensitive(caseinsensitive bool) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.CaseInsensitive = &caseinsensitive
 
 	return r
 }
 
-// Field The string to match at the start of indexed terms. If not provided, all terms
+// The string to match at the start of indexed terms. If not provided, all terms
 // in the field are considered.
 // API name: field
 func (r *TermsEnum) Field(field string) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Field = field
 
 	return r
 }
 
-// IndexFilter Allows to filter an index shard if the provided query rewrites to match_none.
+// Filter an index shard if the provided query rewrites to `match_none`.
 // API name: index_filter
-func (r *TermsEnum) IndexFilter(indexfilter *types.Query) *TermsEnum {
+func (r *TermsEnum) IndexFilter(indexfilter types.QueryVariant) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.IndexFilter = indexfilter
+	r.req.IndexFilter = indexfilter.QueryCaster()
 
 	return r
 }
 
+// The string after which terms in the index should be returned.
+// It allows for a form of pagination if the last result from one request is
+// passed as the `search_after` parameter for a subsequent request.
 // API name: search_after
 func (r *TermsEnum) SearchAfter(searchafter string) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.SearchAfter = &searchafter
 
 	return r
 }
 
-// Size How many matching terms to return.
+// The number of matching terms to return.
 // API name: size
 func (r *TermsEnum) Size(size int) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Size = &size
 
 	return r
 }
 
-// String The string after which terms in the index should be returned. Allows for a
-// form of pagination if the last result from one request is passed as the
-// search_after parameter for a subsequent request.
+// The string to match at the start of indexed terms.
+// If it is not provided, all terms in the field are considered.
+//
+// > info
+// > The prefix string cannot be larger than the largest possible keyword value,
+// which is Lucene's term byte-length limit of 32766.
 // API name: string
 func (r *TermsEnum) String(string string) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.String = &string
 
 	return r
 }
 
-// Timeout The maximum length of time to spend collecting results. Defaults to "1s" (one
-// second). If the timeout is exceeded the complete flag set to false in the
-// response and the results may be partial or empty.
+// The maximum length of time to spend collecting results.
+// If the timeout is exceeded the `complete` flag set to `false` in the response
+// and the results may be partial or empty.
 // API name: timeout
-func (r *TermsEnum) Timeout(duration types.Duration) *TermsEnum {
-	r.req.Timeout = duration
+func (r *TermsEnum) Timeout(duration types.DurationVariant) *TermsEnum {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Timeout = *duration.DurationCaster()
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Retriever.ts#L64-L77
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Retriever.ts#L64-L82
 type KnnRetriever struct {
 	// Field The name of the vector field to search against.
 	Field string `json:"field"`
@@ -50,6 +50,8 @@ type KnnRetriever struct {
 	QueryVector []float32 `json:"query_vector,omitempty"`
 	// QueryVectorBuilder Defines a model to build a query vector.
 	QueryVectorBuilder *QueryVectorBuilder `json:"query_vector_builder,omitempty"`
+	// RescoreVector Apply oversampling and rescoring to quantized vectors *
+	RescoreVector *RescoreVector `json:"rescore_vector,omitempty"`
 	// Similarity The minimum similarity required for a document to be considered a match.
 	Similarity *float32 `json:"similarity,omitempty"`
 }
@@ -155,6 +157,11 @@ func (s *KnnRetriever) UnmarshalJSON(data []byte) error {
 				return fmt.Errorf("%s | %w", "QueryVectorBuilder", err)
 			}
 
+		case "rescore_vector":
+			if err := dec.Decode(&s.RescoreVector); err != nil {
+				return fmt.Errorf("%s | %w", "RescoreVector", err)
+			}
+
 		case "similarity":
 			var tmp any
 			dec.Decode(&tmp)
@@ -181,4 +188,14 @@ func NewKnnRetriever() *KnnRetriever {
 	r := &KnnRetriever{}
 
 	return r
+}
+
+// true
+
+type KnnRetrieverVariant interface {
+	KnnRetrieverCaster() *KnnRetriever
+}
+
+func (s *KnnRetriever) KnnRetrieverCaster() *KnnRetriever {
+	return s
 }

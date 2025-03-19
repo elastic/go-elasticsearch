@@ -16,16 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get aliases.
-// Retrieves the cluster’s index aliases, including filter and routing
-// information.
-// The API does not return data stream aliases.
 //
-// CAT APIs are only intended for human consumption using the command line or
-// the Kibana console. They are not intended for use by applications. For
-// application consumption, use the aliases API.
+// Get the cluster's index aliases, including filter and routing information.
+// This API does not return data stream aliases.
+//
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
+// line or the Kibana console. They are not intended for use by applications.
+// For application consumption, use the aliases API.
 package aliases
 
 import (
@@ -83,15 +83,15 @@ func NewAliasesFunc(tp elastictransport.Interface) NewAliases {
 }
 
 // Get aliases.
-// Retrieves the cluster’s index aliases, including filter and routing
-// information.
-// The API does not return data stream aliases.
 //
-// CAT APIs are only intended for human consumption using the command line or
-// the Kibana console. They are not intended for use by applications. For
-// application consumption, use the aliases API.
+// Get the cluster's index aliases, including filter and routing information.
+// This API does not return data stream aliases.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-alias.html
+// IMPORTANT: CAT APIs are only intended for human consumption using the command
+// line or the Kibana console. They are not intended for use by applications.
+// For application consumption, use the aliases API.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-aliases
 func New(tp elastictransport.Interface) *Aliases {
 	r := &Aliases{
 		transport: tp,
@@ -320,8 +320,28 @@ func (r *Aliases) Name(name string) *Aliases {
 	return r
 }
 
-// ExpandWildcards Whether to expand wildcard expression to concrete indices that are open,
-// closed or both.
+// H List of columns to appear in the response. Supports simple wildcards.
+// API name: h
+func (r *Aliases) H(names ...string) *Aliases {
+	r.values.Set("h", strings.Join(names, ","))
+
+	return r
+}
+
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Aliases) S(names ...string) *Aliases {
+	r.values.Set("s", strings.Join(names, ","))
+
+	return r
+}
+
+// ExpandWildcards The type of index that wildcard patterns can match.
+// If the request can target data streams, this argument determines whether
+// wildcard expressions match hidden data streams.
+// It supports comma-separated values, such as `open,hidden`.
 // API name: expand_wildcards
 func (r *Aliases) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildcard) *Aliases {
 	tmp := []string{}
@@ -329,6 +349,17 @@ func (r *Aliases) ExpandWildcards(expandwildcards ...expandwildcard.ExpandWildca
 		tmp = append(tmp, item.String())
 	}
 	r.values.Set("expand_wildcards", strings.Join(tmp, ","))
+
+	return r
+}
+
+// MasterTimeout The period to wait for a connection to the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicated that the request should never timeout, you can set it to `-1`.
+// API name: master_timeout
+func (r *Aliases) MasterTimeout(duration string) *Aliases {
+	r.values.Set("master_timeout", duration)
 
 	return r
 }
@@ -342,48 +373,11 @@ func (r *Aliases) Format(format string) *Aliases {
 	return r
 }
 
-// H List of columns to appear in the response. Supports simple wildcards.
-// API name: h
-func (r *Aliases) H(names ...string) *Aliases {
-	r.values.Set("h", strings.Join(names, ","))
-
-	return r
-}
-
 // Help When set to `true` will output available columns. This option
 // can't be combined with any other query string option.
 // API name: help
 func (r *Aliases) Help(help bool) *Aliases {
 	r.values.Set("help", strconv.FormatBool(help))
-
-	return r
-}
-
-// Local If `true`, the request computes the list of selected nodes from the
-// local cluster state. If `false` the list of selected nodes are computed
-// from the cluster state of the master node. In both cases the coordinating
-// node will send requests for further information to each selected node.
-// API name: local
-func (r *Aliases) Local(local bool) *Aliases {
-	r.values.Set("local", strconv.FormatBool(local))
-
-	return r
-}
-
-// MasterTimeout Period to wait for a connection to the master node.
-// API name: master_timeout
-func (r *Aliases) MasterTimeout(duration string) *Aliases {
-	r.values.Set("master_timeout", duration)
-
-	return r
-}
-
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Aliases) S(names ...string) *Aliases {
-	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }

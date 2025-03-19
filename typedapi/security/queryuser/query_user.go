@@ -16,12 +16,16 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Find users with a query.
 //
 // Get information for users in a paginated manner.
 // You can optionally filter the results with a query.
+//
+// NOTE: As opposed to the get user API, built-in users are excluded from the
+// result.
+// This API is only for native users.
 package queryuser
 
 import (
@@ -81,7 +85,11 @@ func NewQueryUserFunc(tp elastictransport.Interface) NewQueryUser {
 // Get information for users in a paginated manner.
 // You can optionally filter the results with a query.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-query-user.html
+// NOTE: As opposed to the get user API, built-in users are excluded from the
+// result.
+// This API is only for native users.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-query-user
 func New(tp elastictransport.Interface) *QueryUser {
 	r := &QueryUser{
 		transport: tp,
@@ -89,8 +97,6 @@ func New(tp elastictransport.Interface) *QueryUser {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -300,8 +306,8 @@ func (r *QueryUser) Header(key, value string) *QueryUser {
 	return r
 }
 
-// WithProfileUid If true will return the User Profile ID for the users in the query result, if
-// any.
+// WithProfileUid Determines whether to retrieve the user profile UID, if it exists, for the
+// users.
 // API name: with_profile_uid
 func (r *QueryUser) WithProfileUid(withprofileuid bool) *QueryUser {
 	r.values.Set("with_profile_uid", strconv.FormatBool(withprofileuid))
@@ -353,57 +359,88 @@ func (r *QueryUser) Pretty(pretty bool) *QueryUser {
 	return r
 }
 
-// From Starting document offset.
-// By default, you cannot page through more than 10,000 hits using the from and
-// size parameters.
+// The starting document offset.
+// It must not be negative.
+// By default, you cannot page through more than 10,000 hits using the `from`
+// and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: from
 func (r *QueryUser) From(from int) *QueryUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.From = &from
 
 	return r
 }
 
-// Query A query to filter which users to return.
+// A query to filter which users to return.
 // If the query parameter is missing, it is equivalent to a `match_all` query.
 // The query supports a subset of query types, including `match_all`, `bool`,
 // `term`, `terms`, `match`,
 // `ids`, `prefix`, `wildcard`, `exists`, `range`, and `simple_query_string`.
 // You can query the following information associated with user: `username`,
-// `roles`, `enabled`
+// `roles`, `enabled`, `full_name`, and `email`.
 // API name: query
-func (r *QueryUser) Query(query *types.UserQueryContainer) *QueryUser {
+func (r *QueryUser) Query(query types.UserQueryContainerVariant) *QueryUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Query = query
+	r.req.Query = query.UserQueryContainerCaster()
 
 	return r
 }
 
-// SearchAfter Search after definition
+// The search after definition
 // API name: search_after
-func (r *QueryUser) SearchAfter(sortresults ...types.FieldValue) *QueryUser {
-	r.req.SearchAfter = sortresults
+func (r *QueryUser) SearchAfter(sortresults ...types.FieldValueVariant) *QueryUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	for _, v := range sortresults {
+		r.req.SearchAfter = append(r.req.SearchAfter, *v.FieldValueCaster())
+	}
 
 	return r
 }
 
-// Size The number of hits to return.
+// The number of hits to return.
+// It must not be negative.
 // By default, you cannot page through more than 10,000 hits using the `from`
 // and `size` parameters.
 // To page through more hits, use the `search_after` parameter.
 // API name: size
 func (r *QueryUser) Size(size int) *QueryUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Size = &size
 
 	return r
 }
 
-// Sort Fields eligible for sorting are: username, roles, enabled
+// The sort definition.
+// Fields eligible for sorting are: `username`, `roles`, `enabled`.
 // In addition, sort can also be applied to the `_doc` field to sort by index
 // order.
 // API name: sort
-func (r *QueryUser) Sort(sorts ...types.SortCombinations) *QueryUser {
-	r.req.Sort = sorts
+func (r *QueryUser) Sort(sorts ...types.SortCombinationsVariant) *QueryUser {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	for _, v := range sorts {
+		r.req.Sort = append(r.req.Sort, *v.SortCombinationsCaster())
+	}
 
 	return r
 }

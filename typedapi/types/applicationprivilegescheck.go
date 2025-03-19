@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,15 +31,15 @@ import (
 
 // ApplicationPrivilegesCheck type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/has_privileges/types.ts#L24-L31
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/has_privileges/types.ts#L24-L32
 type ApplicationPrivilegesCheck struct {
 	// Application The name of the application.
 	Application string `json:"application"`
 	// Privileges A list of the privileges that you want to check for the specified resources.
-	// May be either application privilege names, or the names of actions that are
+	// It may be either application privilege names or the names of actions that are
 	// granted by those privileges
 	Privileges []string `json:"privileges"`
-	// Resources A list of resource names against which the privileges should be checked
+	// Resources A list of resource names against which the privileges should be checked.
 	Resources []string `json:"resources"`
 }
 
@@ -90,4 +90,14 @@ func NewApplicationPrivilegesCheck() *ApplicationPrivilegesCheck {
 	r := &ApplicationPrivilegesCheck{}
 
 	return r
+}
+
+// true
+
+type ApplicationPrivilegesCheckVariant interface {
+	ApplicationPrivilegesCheckCaster() *ApplicationPrivilegesCheck
+}
+
+func (s *ApplicationPrivilegesCheck) ApplicationPrivilegesCheckCaster() *ApplicationPrivilegesCheck {
+	return s
 }

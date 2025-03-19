@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // KnnQueryProfileResult type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search/_types/profile.ts#L188-L196
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/search/_types/profile.ts#L188-L196
 type KnnQueryProfileResult struct {
 	Breakdown   KnnQueryProfileBreakdown   `json:"breakdown"`
 	Children    []KnnQueryProfileResult    `json:"children,omitempty"`
@@ -117,8 +117,10 @@ func (s *KnnQueryProfileResult) UnmarshalJSON(data []byte) error {
 // NewKnnQueryProfileResult returns a KnnQueryProfileResult.
 func NewKnnQueryProfileResult() *KnnQueryProfileResult {
 	r := &KnnQueryProfileResult{
-		Debug: make(map[string]json.RawMessage, 0),
+		Debug: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Run a search with a search template.
 package searchtemplate
@@ -83,7 +83,7 @@ func NewSearchTemplateFunc(tp elastictransport.Interface) NewSearchTemplate {
 
 // Run a search with a search template.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/search-template.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-template
 func New(tp elastictransport.Interface) *SearchTemplate {
 	r := &SearchTemplate{
 		transport: tp,
@@ -91,8 +91,6 @@ func New(tp elastictransport.Interface) *SearchTemplate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -315,8 +313,8 @@ func (r *SearchTemplate) Header(key, value string) *SearchTemplate {
 	return r
 }
 
-// Index Comma-separated list of data streams, indices,
-// and aliases to search. Supports wildcards (*).
+// Index A comma-separated list of data streams, indices, and aliases to search.
+// It supports wildcards (`*`).
 // API Name: index
 func (r *SearchTemplate) Index(index string) *SearchTemplate {
 	r.paramSet |= indexMask
@@ -346,7 +344,7 @@ func (r *SearchTemplate) CcsMinimizeRoundtrips(ccsminimizeroundtrips bool) *Sear
 	return r
 }
 
-// ExpandWildcards Type of index that wildcard patterns can match.
+// ExpandWildcards The type of index that wildcard patterns can match.
 // If the request can target data streams, this argument determines whether
 // wildcard expressions match hidden data streams.
 // Supports comma-separated values, such as `open,hidden`.
@@ -380,8 +378,8 @@ func (r *SearchTemplate) IgnoreUnavailable(ignoreunavailable bool) *SearchTempla
 	return r
 }
 
-// Preference Specifies the node or shard the operation should be performed on.
-// Random by default.
+// Preference The node or shard the operation should be performed on.
+// It is random by default.
 // API name: preference
 func (r *SearchTemplate) Preference(preference string) *SearchTemplate {
 	r.values.Set("preference", preference)
@@ -389,7 +387,7 @@ func (r *SearchTemplate) Preference(preference string) *SearchTemplate {
 	return r
 }
 
-// Routing Custom value used to route operations to a specific shard.
+// Routing A custom value used to route operations to a specific shard.
 // API name: routing
 func (r *SearchTemplate) Routing(routing string) *SearchTemplate {
 	r.values.Set("routing", routing)
@@ -414,7 +412,8 @@ func (r *SearchTemplate) SearchType(searchtype searchtype.SearchType) *SearchTem
 	return r
 }
 
-// RestTotalHitsAsInt If true, hits.total are rendered as an integer in the response.
+// RestTotalHitsAsInt If `true`, `hits.total` is rendered as an integer in the response.
+// If `false`, it is rendered as an object.
 // API name: rest_total_hits_as_int
 func (r *SearchTemplate) RestTotalHitsAsInt(resttotalhitsasint bool) *SearchTemplate {
 	r.values.Set("rest_total_hits_as_int", strconv.FormatBool(resttotalhitsasint))
@@ -475,48 +474,91 @@ func (r *SearchTemplate) Pretty(pretty bool) *SearchTemplate {
 	return r
 }
 
-// Explain If `true`, returns detailed information about score calculation as part of
+// If `true`, returns detailed information about score calculation as part of
 // each hit.
+// If you specify both this and the `explain` query parameter, the API uses only
+// the query parameter.
 // API name: explain
 func (r *SearchTemplate) Explain(explain bool) *SearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Explain = &explain
 
 	return r
 }
 
-// Id ID of the search template to use. If no source is specified,
+// The ID of the search template to use. If no `source` is specified,
 // this parameter is required.
 // API name: id
 func (r *SearchTemplate) Id(id string) *SearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Id = &id
 
 	return r
 }
 
-// Params Key-value pairs used to replace Mustache variables in the template.
+// Key-value pairs used to replace Mustache variables in the template.
 // The key is the variable name.
 // The value is the variable value.
 // API name: params
 func (r *SearchTemplate) Params(params map[string]json.RawMessage) *SearchTemplate {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.Params = params
-
 	return r
 }
 
-// Profile If `true`, the query execution is profiled.
+func (r *SearchTemplate) AddParam(key string, value json.RawMessage) *SearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.Params == nil {
+		r.req.Params = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.Params
+	}
+
+	tmp[key] = value
+
+	r.req.Params = tmp
+	return r
+}
+
+// If `true`, the query execution is profiled.
 // API name: profile
 func (r *SearchTemplate) Profile(profile bool) *SearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Profile = &profile
 
 	return r
 }
 
-// Source An inline search template. Supports the same parameters as the search API's
-// request body. Also supports Mustache variables. If no id is specified, this
+// An inline search template. Supports the same parameters as the search API's
+// request body. It also supports Mustache variables. If no `id` is specified,
+// this
 // parameter is required.
 // API name: source
 func (r *SearchTemplate) Source(source string) *SearchTemplate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Source = &source
 

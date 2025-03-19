@@ -16,10 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Clones indices from one snapshot into another snapshot in the same
-// repository.
+// Clone a snapshot.
+// Clone part of all of a snapshot into another snapshot in the same repository.
 package clone
 
 import (
@@ -92,10 +92,10 @@ func NewCloneFunc(tp elastictransport.Interface) NewClone {
 	}
 }
 
-// Clones indices from one snapshot into another snapshot in the same
-// repository.
+// Clone a snapshot.
+// Clone part of all of a snapshot into another snapshot in the same repository.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-clone
 func New(tp elastictransport.Interface) *Clone {
 	r := &Clone{
 		transport: tp,
@@ -103,8 +103,6 @@ func New(tp elastictransport.Interface) *Clone {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -330,7 +328,8 @@ func (r *Clone) Header(key, value string) *Clone {
 	return r
 }
 
-// Repository A repository name
+// Repository The name of the snapshot repository that both source and target snapshot
+// belong to.
 // API Name: repository
 func (r *Clone) _repository(repository string) *Clone {
 	r.paramSet |= repositoryMask
@@ -339,7 +338,7 @@ func (r *Clone) _repository(repository string) *Clone {
 	return r
 }
 
-// Snapshot The name of the snapshot to clone from
+// Snapshot The source snapshot name.
 // API Name: snapshot
 func (r *Clone) _snapshot(snapshot string) *Clone {
 	r.paramSet |= snapshotMask
@@ -348,7 +347,7 @@ func (r *Clone) _snapshot(snapshot string) *Clone {
 	return r
 }
 
-// TargetSnapshot The name of the cloned snapshot to create
+// TargetSnapshot The target snapshot name.
 // API Name: targetsnapshot
 func (r *Clone) _targetsnapshot(targetsnapshot string) *Clone {
 	r.paramSet |= targetsnapshotMask
@@ -357,7 +356,10 @@ func (r *Clone) _targetsnapshot(targetsnapshot string) *Clone {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *Clone) MasterTimeout(duration string) *Clone {
 	r.values.Set("master_timeout", duration)
@@ -365,6 +367,9 @@ func (r *Clone) MasterTimeout(duration string) *Clone {
 	return r
 }
 
+// Timeout The period of time to wait for a response.
+// If no response is received before the timeout expires, the request fails and
+// returns an error.
 // API name: timeout
 func (r *Clone) Timeout(duration string) *Clone {
 	r.values.Set("timeout", duration)
@@ -416,8 +421,14 @@ func (r *Clone) Pretty(pretty bool) *Clone {
 	return r
 }
 
+// A comma-separated list of indices to include in the snapshot.
+// Multi-target syntax is supported.
 // API name: indices
 func (r *Clone) Indices(indices string) *Clone {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Indices = indices
 

@@ -16,11 +16,23 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns statistics for one or more indices.
-// For data streams, the API retrieves statistics for the stream’s backing
+// Get index statistics.
+// For data streams, the API retrieves statistics for the stream's backing
 // indices.
+//
+// By default, the returned statistics are index-level with `primaries` and
+// `total` aggregations.
+// `primaries` are the values for only the primary shards.
+// `total` are the accumulated values for both primary and replica shards.
+//
+// To get shard-level statistics, set the `level` parameter to `shards`.
+//
+// NOTE: When moving to another node, the shard-level statistics for a shard are
+// cleared.
+// Although the shard is no longer part of the node, that node retains any
+// node-level statistics to which the shard contributed.
 package stats
 
 import (
@@ -81,11 +93,23 @@ func NewStatsFunc(tp elastictransport.Interface) NewStats {
 	}
 }
 
-// Returns statistics for one or more indices.
-// For data streams, the API retrieves statistics for the stream’s backing
+// Get index statistics.
+// For data streams, the API retrieves statistics for the stream's backing
 // indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html
+// By default, the returned statistics are index-level with `primaries` and
+// `total` aggregations.
+// `primaries` are the values for only the primary shards.
+// `total` are the accumulated values for both primary and replica shards.
+//
+// To get shard-level statistics, set the `level` parameter to `shards`.
+//
+// NOTE: When moving to another node, the shard-level statistics for a shard are
+// cleared.
+// Although the shard is no longer part of the node, that node retains any
+// node-level statistics to which the shard contributed.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-stats
 func New(tp elastictransport.Interface) *Stats {
 	r := &Stats{
 		transport: tp,

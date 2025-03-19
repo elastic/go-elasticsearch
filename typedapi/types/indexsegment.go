@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 // IndexSegment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/segments/types.ts#L24-L26
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/segments/types.ts#L24-L26
 type IndexSegment struct {
 	Shards map[string][]ShardsSegment `json:"shards"`
 }
@@ -30,8 +30,10 @@ type IndexSegment struct {
 // NewIndexSegment returns a IndexSegment.
 func NewIndexSegment() *IndexSegment {
 	r := &IndexSegment{
-		Shards: make(map[string][]ShardsSegment, 0),
+		Shards: make(map[string][]ShardsSegment),
 	}
 
 	return r
 }
+
+// false

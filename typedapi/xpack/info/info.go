@@ -16,9 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Provides general information about the installed X-Pack features.
+// Get information.
+// The information provided by the API includes:
+//
+// * Build information including the build number and timestamp.
+// * License information about the currently installed license.
+// * Feature information for the features that are currently enabled and
+// available under the current license.
 package info
 
 import (
@@ -69,9 +75,15 @@ func NewInfoFunc(tp elastictransport.Interface) NewInfo {
 	}
 }
 
-// Provides general information about the installed X-Pack features.
+// Get information.
+// The information provided by the API includes:
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/info-api.html
+// * Build information including the build number and timestamp.
+// * License information about the currently installed license.
+// * Feature information for the features that are currently enabled and
+// available under the current license.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-info
 func New(tp elastictransport.Interface) *Info {
 	r := &Info{
 		transport: tp,
@@ -276,7 +288,8 @@ func (r *Info) Header(key, value string) *Info {
 }
 
 // Categories A comma-separated list of the information categories to include in the
-// response. For example, `build,license,features`.
+// response.
+// For example, `build,license,features`.
 // API name: categories
 func (r *Info) Categories(categories ...xpackcategory.XPackCategory) *Info {
 	tmp := []string{}
@@ -297,7 +310,8 @@ func (r *Info) AcceptEnterprise(acceptenterprise bool) *Info {
 }
 
 // Human Defines whether additional human-readable information is included in the
-// response. In particular, it adds descriptions and a tag line.
+// response.
+// In particular, it adds descriptions and a tag line.
 // API name: human
 func (r *Info) Human(human bool) *Info {
 	r.values.Set("human", strconv.FormatBool(human))

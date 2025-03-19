@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Package unassignedinformationreason
 package unassignedinformationreason
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/allocation_explain/types.ts#L138-L157
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cluster/allocation_explain/types.ts#L138-L157
 type UnassignedInformationReason struct {
 	Name string
 }
@@ -67,35 +67,35 @@ func (u UnassignedInformationReason) MarshalText() (text []byte, err error) {
 func (u *UnassignedInformationReason) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "INDEX_CREATED":
+	case "index_created":
 		*u = INDEXCREATED
-	case "CLUSTER_RECOVERED":
+	case "cluster_recovered":
 		*u = CLUSTERRECOVERED
-	case "INDEX_REOPENED":
+	case "index_reopened":
 		*u = INDEXREOPENED
-	case "DANGLING_INDEX_IMPORTED":
+	case "dangling_index_imported":
 		*u = DANGLINGINDEXIMPORTED
-	case "NEW_INDEX_RESTORED":
+	case "new_index_restored":
 		*u = NEWINDEXRESTORED
-	case "EXISTING_INDEX_RESTORED":
+	case "existing_index_restored":
 		*u = EXISTINGINDEXRESTORED
-	case "REPLICA_ADDED":
+	case "replica_added":
 		*u = REPLICAADDED
-	case "ALLOCATION_FAILED":
+	case "allocation_failed":
 		*u = ALLOCATIONFAILED
-	case "NODE_LEFT":
+	case "node_left":
 		*u = NODELEFT
-	case "REROUTE_CANCELLED":
+	case "reroute_cancelled":
 		*u = REROUTECANCELLED
-	case "REINITIALIZED":
+	case "reinitialized":
 		*u = REINITIALIZED
-	case "REALLOCATED_REPLICA":
+	case "reallocated_replica":
 		*u = REALLOCATEDREPLICA
-	case "PRIMARY_FAILED":
+	case "primary_failed":
 		*u = PRIMARYFAILED
-	case "FORCED_EMPTY_PRIMARY":
+	case "forced_empty_primary":
 		*u = FORCEDEMPTYPRIMARY
-	case "MANUAL_ALLOCATION":
+	case "manual_allocation":
 		*u = MANUALALLOCATION
 	default:
 		*u = UnassignedInformationReason{string(text)}

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // GsubProcessor type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ingest/_types/Processors.ts#L943-L967
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ingest/_types/Processors.ts#L984-L1008
 type GsubProcessor struct {
 	// Description Description of the processor.
 	// Useful for describing the purpose of the processor or its configuration.
@@ -39,7 +39,7 @@ type GsubProcessor struct {
 	// Field The field to apply the replacement to.
 	Field string `json:"field"`
 	// If Conditionally execute the processor.
-	If *string `json:"if,omitempty"`
+	If *Script `json:"if,omitempty"`
 	// IgnoreFailure Ignore failures for the processor.
 	IgnoreFailure *bool `json:"ignore_failure,omitempty"`
 	// IgnoreMissing If `true` and `field` does not exist or is `null`, the processor quietly
@@ -92,16 +92,9 @@ func (s *GsubProcessor) UnmarshalJSON(data []byte) error {
 			}
 
 		case "if":
-			var tmp json.RawMessage
-			if err := dec.Decode(&tmp); err != nil {
+			if err := dec.Decode(&s.If); err != nil {
 				return fmt.Errorf("%s | %w", "If", err)
 			}
-			o := string(tmp[:])
-			o, err = strconv.Unquote(o)
-			if err != nil {
-				o = string(tmp[:])
-			}
-			s.If = &o
 
 		case "ignore_failure":
 			var tmp any
@@ -187,4 +180,14 @@ func NewGsubProcessor() *GsubProcessor {
 	r := &GsubProcessor{}
 
 	return r
+}
+
+// true
+
+type GsubProcessorVariant interface {
+	GsubProcessorCaster() *GsubProcessor
+}
+
+func (s *GsubProcessor) GsubProcessorCaster() *GsubProcessor {
+	return s
 }

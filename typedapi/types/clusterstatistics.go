@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ClusterStatistics type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Stats.ts#L27-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Stats.ts#L27-L35
 type ClusterStatistics struct {
 	Details    map[string]ClusterDetails `json:"details,omitempty"`
 	Failed     int                       `json:"failed"`
@@ -169,8 +169,10 @@ func (s *ClusterStatistics) UnmarshalJSON(data []byte) error {
 // NewClusterStatistics returns a ClusterStatistics.
 func NewClusterStatistics() *ClusterStatistics {
 	r := &ClusterStatistics{
-		Details: make(map[string]ClusterDetails, 0),
+		Details: make(map[string]ClusterDetails),
 	}
 
 	return r
 }
+
+// false

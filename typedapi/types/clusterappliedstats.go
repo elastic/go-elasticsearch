@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 // ClusterAppliedStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/nodes/_types/Stats.ts#L221-L223
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/nodes/_types/Stats.ts#L221-L223
 type ClusterAppliedStats struct {
 	Recordings []Recording `json:"recordings,omitempty"`
 }
@@ -33,3 +33,5 @@ func NewClusterAppliedStats() *ClusterAppliedStats {
 
 	return r
 }
+
+// false

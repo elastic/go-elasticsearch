@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // CoordsGeoBounds type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Geo.ts#L154-L159
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Geo.ts#L154-L159
 type CoordsGeoBounds struct {
 	Bottom Float64 `json:"bottom"`
 	Left   Float64 `json:"left"`
@@ -128,4 +128,14 @@ func NewCoordsGeoBounds() *CoordsGeoBounds {
 	r := &CoordsGeoBounds{}
 
 	return r
+}
+
+// true
+
+type CoordsGeoBoundsVariant interface {
+	CoordsGeoBoundsCaster() *CoordsGeoBounds
+}
+
+func (s *CoordsGeoBounds) CoordsGeoBoundsCaster() *CoordsGeoBounds {
+	return s
 }

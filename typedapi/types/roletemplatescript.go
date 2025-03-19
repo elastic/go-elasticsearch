@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -32,7 +32,7 @@ import (
 
 // RoleTemplateScript type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/_types/Privileges.ts#L301-L319
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/_types/Privileges.ts#L363-L381
 type RoleTemplateScript struct {
 	// Id The `id` for a stored script.
 	Id *string `json:"id,omitempty"`
@@ -109,7 +109,7 @@ func (s *RoleTemplateScript) UnmarshalJSON(data []byte) error {
 
 				switch t {
 
-				case "bool", "boosting", "combined_fields", "common", "constant_score", "dis_max", "distance_feature", "exists", "function_score", "fuzzy", "geo_bounding_box", "geo_distance", "geo_polygon", "geo_shape", "has_child", "has_parent", "ids", "intervals", "knn", "match", "match_all", "match_bool_prefix", "match_none", "match_phrase", "match_phrase_prefix", "more_like_this", "multi_match", "nested", "parent_id", "percolate", "pinned", "prefix", "query_string", "range", "rank_feature", "regexp", "rule", "script", "script_score", "semantic", "shape", "simple_query_string", "span_containing", "span_field_masking", "span_first", "span_multi", "span_near", "span_not", "span_or", "span_term", "span_within", "sparse_vector", "term", "terms", "terms_set", "text_expansion", "type", "weighted_tokens", "wildcard", "wrapper":
+				case "AdditionalQueryProperty", "bool", "boosting", "combined_fields", "common", "constant_score", "dis_max", "distance_feature", "exists", "function_score", "fuzzy", "geo_bounding_box", "geo_distance", "geo_grid", "geo_polygon", "geo_shape", "has_child", "has_parent", "ids", "intervals", "knn", "match", "match_all", "match_bool_prefix", "match_none", "match_phrase", "match_phrase_prefix", "more_like_this", "multi_match", "nested", "parent_id", "percolate", "pinned", "prefix", "query_string", "range", "rank_feature", "regexp", "rule", "script", "script_score", "semantic", "shape", "simple_query_string", "span_containing", "span_field_masking", "span_first", "span_multi", "span_near", "span_not", "span_or", "span_term", "span_within", "sparse_vector", "term", "terms", "terms_set", "text_expansion", "type", "weighted_tokens", "wildcard", "wrapper":
 					o := NewQuery()
 					localDec := json.NewDecoder(bytes.NewReader(message))
 					if err := localDec.Decode(&o); err != nil {
@@ -135,9 +135,19 @@ func (s *RoleTemplateScript) UnmarshalJSON(data []byte) error {
 // NewRoleTemplateScript returns a RoleTemplateScript.
 func NewRoleTemplateScript() *RoleTemplateScript {
 	r := &RoleTemplateScript{
-		Options: make(map[string]string, 0),
-		Params:  make(map[string]json.RawMessage, 0),
+		Options: make(map[string]string),
+		Params:  make(map[string]json.RawMessage),
 	}
 
 	return r
+}
+
+// true
+
+type RoleTemplateScriptVariant interface {
+	RoleTemplateScriptCaster() *RoleTemplateScript
+}
+
+func (s *RoleTemplateScript) RoleTemplateScriptCaster() *RoleTemplateScript {
+	return s
 }

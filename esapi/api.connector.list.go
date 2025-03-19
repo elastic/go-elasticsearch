@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -52,12 +52,13 @@ type ConnectorList func(o ...func(*ConnectorListRequest)) (*Response, error)
 
 // ConnectorListRequest configures the Connector List API request.
 type ConnectorListRequest struct {
-	ConnectorName []string
-	From          *int
-	IndexName     []string
-	Query         string
-	ServiceType   []string
-	Size          *int
+	ConnectorName  []string
+	From           *int
+	IncludeDeleted *bool
+	IndexName      []string
+	Query          string
+	ServiceType    []string
+	Size           *int
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +103,10 @@ func (r ConnectorListRequest) Do(providedCtx context.Context, transport Transpor
 
 	if r.From != nil {
 		params["from"] = strconv.FormatInt(int64(*r.From), 10)
+	}
+
+	if r.IncludeDeleted != nil {
+		params["include_deleted"] = strconv.FormatBool(*r.IncludeDeleted)
 	}
 
 	if len(r.IndexName) > 0 {
@@ -209,6 +214,13 @@ func (f ConnectorList) WithConnectorName(v ...string) func(*ConnectorListRequest
 func (f ConnectorList) WithFrom(v int) func(*ConnectorListRequest) {
 	return func(r *ConnectorListRequest) {
 		r.From = &v
+	}
+}
+
+// WithIncludeDeleted - a flag indicating whether to return connectors that have been soft-deleted..
+func (f ConnectorList) WithIncludeDeleted(v bool) func(*ConnectorListRequest) {
+	return func(r *ConnectorListRequest) {
+		r.IncludeDeleted = &v
 	}
 }
 

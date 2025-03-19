@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamVisibility type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/_types/DataStream.ts#L159-L162
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/_types/DataStream.ts#L175-L178
 type DataStreamVisibility struct {
 	AllowCustomRouting *bool `json:"allow_custom_routing,omitempty"`
 	Hidden             *bool `json:"hidden,omitempty"`
@@ -90,4 +90,14 @@ func NewDataStreamVisibility() *DataStreamVisibility {
 	r := &DataStreamVisibility{}
 
 	return r
+}
+
+// true
+
+type DataStreamVisibilityVariant interface {
+	DataStreamVisibilityCaster() *DataStreamVisibility
+}
+
+func (s *DataStreamVisibility) DataStreamVisibilityCaster() *DataStreamVisibility {
+	return s
 }

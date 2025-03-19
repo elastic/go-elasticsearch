@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,17 +31,28 @@ import (
 
 // ElasticsearchVersionInfo type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Base.ts#L54-L64
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Base.ts#L76-L115
 type ElasticsearchVersionInfo struct {
-	BuildDate                        DateTime `json:"build_date"`
-	BuildFlavor                      string   `json:"build_flavor"`
-	BuildHash                        string   `json:"build_hash"`
-	BuildSnapshot                    bool     `json:"build_snapshot"`
-	BuildType                        string   `json:"build_type"`
-	Int                              string   `json:"number"`
-	LuceneVersion                    string   `json:"lucene_version"`
-	MinimumIndexCompatibilityVersion string   `json:"minimum_index_compatibility_version"`
-	MinimumWireCompatibilityVersion  string   `json:"minimum_wire_compatibility_version"`
+	// BuildDate The Elasticsearch Git commit's date.
+	BuildDate DateTime `json:"build_date"`
+	// BuildFlavor The build flavor. For example, `default`.
+	BuildFlavor string `json:"build_flavor"`
+	// BuildHash The Elasticsearch Git commit's SHA hash.
+	BuildHash string `json:"build_hash"`
+	// BuildSnapshot Indicates whether the Elasticsearch build was a snapshot.
+	BuildSnapshot bool `json:"build_snapshot"`
+	// BuildType The build type that corresponds to how Elasticsearch was installed.
+	// For example, `docker`, `rpm`, or `tar`.
+	BuildType string `json:"build_type"`
+	// Int The Elasticsearch version number.
+	Int string `json:"number"`
+	// LuceneVersion The version number of Elasticsearch's underlying Lucene software.
+	LuceneVersion string `json:"lucene_version"`
+	// MinimumIndexCompatibilityVersion The minimum index version with which the responding node can read from disk.
+	MinimumIndexCompatibilityVersion string `json:"minimum_index_compatibility_version"`
+	// MinimumWireCompatibilityVersion The minimum node version with which the responding node can communicate.
+	// Also the minimum version from which you can perform a rolling upgrade.
+	MinimumWireCompatibilityVersion string `json:"minimum_wire_compatibility_version"`
 }
 
 func (s *ElasticsearchVersionInfo) UnmarshalJSON(data []byte) error {
@@ -152,3 +163,5 @@ func NewElasticsearchVersionInfo() *ElasticsearchVersionInfo {
 
 	return r
 }
+
+// false

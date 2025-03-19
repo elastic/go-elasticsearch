@@ -16,11 +16,17 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get a user profile.
 //
 // Get a user's profile using the unique profile ID.
+//
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
 package getuserprofile
 
 import (
@@ -82,7 +88,13 @@ func NewGetUserProfileFunc(tp elastictransport.Interface) NewGetUserProfile {
 //
 // Get a user's profile using the unique profile ID.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-get-user-profile.html
+// NOTE: The user profile feature is designed only for use by Kibana and
+// Elastic's Observability, Enterprise Search, and Elastic Security solutions.
+// Individual users and external applications should not call this API directly.
+// Elastic reserves the right to change or remove this feature in future
+// releases without prior notice.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-get-user-profile
 func New(tp elastictransport.Interface) *GetUserProfile {
 	r := &GetUserProfile{
 		transport: tp,
@@ -303,9 +315,11 @@ func (r *GetUserProfile) _uid(uids ...string) *GetUserProfile {
 	return r
 }
 
-// Data List of filters for the `data` field of the profile document.
-// To return all content use `data=*`. To return a subset of content
-// use `data=<key>` to retrieve content nested under the specified `<key>`.
+// Data A comma-separated list of filters for the `data` field of the profile
+// document.
+// To return all content use `data=*`.
+// To return a subset of content use `data=<key>` to retrieve content nested
+// under the specified `<key>`.
 // By default returns no `data` content.
 // API name: data
 func (r *GetUserProfile) Data(data ...string) *GetUserProfile {

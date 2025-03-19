@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // InProgress type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/slm/_types/SnapshotLifecycle.ts#L131-L136
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/slm/_types/SnapshotLifecycle.ts#L141-L146
 type InProgress struct {
 	Name            string `json:"name"`
 	StartTimeMillis int64  `json:"start_time_millis"`
@@ -92,3 +92,5 @@ func NewInProgress() *InProgress {
 
 	return r
 }
+
+// false

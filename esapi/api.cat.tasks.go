@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newCatTasksFunc(t Transport) CatTasks {
@@ -52,16 +53,18 @@ type CatTasks func(o ...func(*CatTasksRequest)) (*Response, error)
 
 // CatTasksRequest configures the Cat Tasks API request.
 type CatTasksRequest struct {
-	Actions      []string
-	Detailed     *bool
-	Format       string
-	H            []string
-	Help         *bool
-	Nodes        []string
-	ParentTaskID string
-	S            []string
-	Time         string
-	V            *bool
+	Actions           []string
+	Detailed          *bool
+	Format            string
+	H                 []string
+	Help              *bool
+	Nodes             []string
+	ParentTaskID      string
+	S                 []string
+	Time              string
+	Timeout           time.Duration
+	V                 *bool
+	WaitForCompletion *bool
 
 	Pretty     bool
 	Human      bool
@@ -136,8 +139,16 @@ func (r CatTasksRequest) Do(providedCtx context.Context, transport Transport) (*
 		params["time"] = r.Time
 	}
 
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
+
 	if r.V != nil {
 		params["v"] = strconv.FormatBool(*r.V)
+	}
+
+	if r.WaitForCompletion != nil {
+		params["wait_for_completion"] = strconv.FormatBool(*r.WaitForCompletion)
 	}
 
 	if r.Pretty {
@@ -281,10 +292,24 @@ func (f CatTasks) WithTime(v string) func(*CatTasksRequest) {
 	}
 }
 
+// WithTimeout - period to wait for a response. if no response is received before the timeout expires, the request fails and returns an error..
+func (f CatTasks) WithTimeout(v time.Duration) func(*CatTasksRequest) {
+	return func(r *CatTasksRequest) {
+		r.Timeout = v
+	}
+}
+
 // WithV - verbose mode. display column headers.
 func (f CatTasks) WithV(v bool) func(*CatTasksRequest) {
 	return func(r *CatTasksRequest) {
 		r.V = &v
+	}
+}
+
+// WithWaitForCompletion - if `true`, the request blocks until the task has completed..
+func (f CatTasks) WithWaitForCompletion(v bool) func(*CatTasksRequest) {
+	return func(r *CatTasksRequest) {
+		r.WaitForCompletion = &v
 	}
 }
 

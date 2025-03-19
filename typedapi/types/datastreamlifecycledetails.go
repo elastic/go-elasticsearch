@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataStreamLifecycleDetails type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/health_report/types.ts#L152-L156
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/health_report/types.ts#L153-L157
 type DataStreamLifecycleDetails struct {
 	StagnatingBackingIndices      []StagnatingBackingIndices `json:"stagnating_backing_indices,omitempty"`
 	StagnatingBackingIndicesCount int                        `json:"stagnating_backing_indices_count"`
@@ -101,3 +101,5 @@ func NewDataStreamLifecycleDetails() *DataStreamLifecycleDetails {
 
 	return r
 }
+
+// false

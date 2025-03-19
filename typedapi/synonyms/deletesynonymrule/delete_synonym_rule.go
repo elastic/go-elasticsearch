@@ -16,9 +16,10 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Deletes a synonym rule in a synonym set
+// Delete a synonym rule.
+// Delete a synonym rule from a synonym set.
 package deletesynonymrule
 
 import (
@@ -81,9 +82,10 @@ func NewDeleteSynonymRuleFunc(tp elastictransport.Interface) NewDeleteSynonymRul
 	}
 }
 
-// Deletes a synonym rule in a synonym set
+// Delete a synonym rule.
+// Delete a synonym rule from a synonym set.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-synonym-rule.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym-rule
 func New(tp elastictransport.Interface) *DeleteSynonymRule {
 	r := &DeleteSynonymRule{
 		transport: tp,
@@ -305,7 +307,7 @@ func (r *DeleteSynonymRule) Header(key, value string) *DeleteSynonymRule {
 	return r
 }
 
-// SetId The id of the synonym set to be updated
+// SetId The ID of the synonym set to update.
 // API Name: setid
 func (r *DeleteSynonymRule) _setid(setid string) *DeleteSynonymRule {
 	r.paramSet |= setidMask
@@ -314,7 +316,7 @@ func (r *DeleteSynonymRule) _setid(setid string) *DeleteSynonymRule {
 	return r
 }
 
-// RuleId The id of the synonym rule to be deleted
+// RuleId The ID of the synonym rule to delete.
 // API Name: ruleid
 func (r *DeleteSynonymRule) _ruleid(ruleid string) *DeleteSynonymRule {
 	r.paramSet |= ruleidMask

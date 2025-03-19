@@ -16,15 +16,15 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// You can use the cluster repositories metering API to retrieve repositories
-// metering information in a cluster.
-// This API exposes monotonically non-decreasing counters and it’s expected that
-// clients would durably store the
-// information needed to compute aggregations over a period of time.
-// Additionally, the information exposed by this
-// API is volatile, meaning that it won’t be present after node restarts.
+// Get cluster repositories metering.
+// Get repositories metering information for a cluster.
+// This API exposes monotonically non-decreasing counters and it is expected
+// that clients would durably store the information needed to compute
+// aggregations over a period of time.
+// Additionally, the information exposed by this API is volatile, meaning that
+// it will not be present after node restarts.
 package getrepositoriesmeteringinfo
 
 import (
@@ -82,15 +82,15 @@ func NewGetRepositoriesMeteringInfoFunc(tp elastictransport.Interface) NewGetRep
 	}
 }
 
-// You can use the cluster repositories metering API to retrieve repositories
-// metering information in a cluster.
-// This API exposes monotonically non-decreasing counters and it’s expected that
-// clients would durably store the
-// information needed to compute aggregations over a period of time.
-// Additionally, the information exposed by this
-// API is volatile, meaning that it won’t be present after node restarts.
+// Get cluster repositories metering.
+// Get repositories metering information for a cluster.
+// This API exposes monotonically non-decreasing counters and it is expected
+// that clients would durably store the information needed to compute
+// aggregations over a period of time.
+// Additionally, the information exposed by this API is volatile, meaning that
+// it will not be present after node restarts.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-repositories-metering-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-nodes-get-repositories-metering-info
 func New(tp elastictransport.Interface) *GetRepositoriesMeteringInfo {
 	r := &GetRepositoriesMeteringInfo{
 		transport: tp,

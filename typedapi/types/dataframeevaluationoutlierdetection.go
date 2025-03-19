@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // DataframeEvaluationOutlierDetection type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeEvaluation.ts#L46-L53
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/DataframeEvaluation.ts#L46-L53
 type DataframeEvaluationOutlierDetection struct {
 	// ActualField The field of the index which contains the ground truth. The data type of this
 	// field can be boolean or integer. If the data type is integer, the value has
@@ -84,4 +84,14 @@ func NewDataframeEvaluationOutlierDetection() *DataframeEvaluationOutlierDetecti
 	r := &DataframeEvaluationOutlierDetection{}
 
 	return r
+}
+
+// true
+
+type DataframeEvaluationOutlierDetectionVariant interface {
+	DataframeEvaluationOutlierDetectionCaster() *DataframeEvaluationOutlierDetection
+}
+
+func (s *DataframeEvaluationOutlierDetection) DataframeEvaluationOutlierDetectionCaster() *DataframeEvaluationOutlierDetection {
+	return s
 }

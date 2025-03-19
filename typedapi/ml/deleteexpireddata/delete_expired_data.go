@@ -16,17 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Delete expired ML data.
-// Deletes all job results, model snapshots and forecast data that have exceeded
+//
+// Delete all job results, model snapshots and forecast data that have exceeded
 // their retention days period. Machine learning state documents that are not
 // associated with any job are also deleted.
 // You can limit the request to a single or set of anomaly detection jobs by
 // using a job identifier, a group name, a comma-separated list of jobs, or a
 // wildcard expression. You can delete expired data for all anomaly detection
-// jobs by using _all, by specifying * as the <job_id>, or by omitting the
-// <job_id>.
+// jobs by using `_all`, by specifying `*` as the `<job_id>`, or by omitting the
+// `<job_id>`.
 package deleteexpireddata
 
 import (
@@ -88,16 +89,17 @@ func NewDeleteExpiredDataFunc(tp elastictransport.Interface) NewDeleteExpiredDat
 }
 
 // Delete expired ML data.
-// Deletes all job results, model snapshots and forecast data that have exceeded
+//
+// Delete all job results, model snapshots and forecast data that have exceeded
 // their retention days period. Machine learning state documents that are not
 // associated with any job are also deleted.
 // You can limit the request to a single or set of anomaly detection jobs by
 // using a job identifier, a group name, a comma-separated list of jobs, or a
 // wildcard expression. You can delete expired data for all anomaly detection
-// jobs by using _all, by specifying * as the <job_id>, or by omitting the
-// <job_id>.
+// jobs by using `_all`, by specifying `*` as the `<job_id>`, or by omitting the
+// `<job_id>`.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ml-delete-expired-data.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-delete-expired-data
 func New(tp elastictransport.Interface) *DeleteExpiredData {
 	r := &DeleteExpiredData{
 		transport: tp,
@@ -105,8 +107,6 @@ func New(tp elastictransport.Interface) *DeleteExpiredData {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -381,20 +381,29 @@ func (r *DeleteExpiredData) Pretty(pretty bool) *DeleteExpiredData {
 	return r
 }
 
-// RequestsPerSecond The desired requests per second for the deletion processes. The default
+// The desired requests per second for the deletion processes. The default
 // behavior is no throttling.
 // API name: requests_per_second
 func (r *DeleteExpiredData) RequestsPerSecond(requestspersecond float32) *DeleteExpiredData {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.RequestsPerSecond = &requestspersecond
 
 	return r
 }
 
-// Timeout How long can the underlying delete processes run until they are canceled.
+// How long can the underlying delete processes run until they are canceled.
 // API name: timeout
-func (r *DeleteExpiredData) Timeout(duration types.Duration) *DeleteExpiredData {
-	r.req.Timeout = duration
+func (r *DeleteExpiredData) Timeout(duration types.DurationVariant) *DeleteExpiredData {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	r.req.Timeout = *duration.DurationCaster()
 
 	return r
 }

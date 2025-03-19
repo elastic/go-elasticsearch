@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package gettrainedmodels
 
@@ -26,7 +26,7 @@ import (
 
 // Response holds the response body struct for the package gettrainedmodels
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/get_trained_models/MlGetTrainedModelResponse.ts#L23-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/get_trained_models/MlGetTrainedModelResponse.ts#L23-L34
 type Response struct {
 	Count int `json:"count"`
 	// TrainedModelConfigs An array of trained model resources, which are sorted by the model_id value

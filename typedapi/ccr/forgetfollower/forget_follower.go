@@ -16,9 +16,33 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Removes the follower retention leases from the leader.
+// Forget a follower.
+// Remove the cross-cluster replication follower retention leases from the
+// leader.
+//
+// A following index takes out retention leases on its leader index.
+// These leases are used to increase the likelihood that the shards of the
+// leader index retain the history of operations that the shards of the
+// following index need to run replication.
+// When a follower index is converted to a regular index by the unfollow API
+// (either by directly calling the API or by index lifecycle management tasks),
+// these leases are removed.
+// However, removal of the leases can fail, for example when the remote cluster
+// containing the leader index is unavailable.
+// While the leases will eventually expire on their own, their extended
+// existence can cause the leader index to hold more history than necessary and
+// prevent index lifecycle management from performing some operations on the
+// leader index.
+// This API exists to enable manually removing the leases when the unfollow API
+// is unable to do so.
+//
+// NOTE: This API does not stop replication by a following index. If you use
+// this API with a follower index that is still actively following, the
+// following index will add back retention leases on the leader.
+// The only purpose of this API is to handle the case of failure to remove the
+// following retention leases after the unfollow API is invoked.
 package forgetfollower
 
 import (
@@ -81,9 +105,33 @@ func NewForgetFollowerFunc(tp elastictransport.Interface) NewForgetFollower {
 	}
 }
 
-// Removes the follower retention leases from the leader.
+// Forget a follower.
+// Remove the cross-cluster replication follower retention leases from the
+// leader.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ccr-post-forget-follower.html
+// A following index takes out retention leases on its leader index.
+// These leases are used to increase the likelihood that the shards of the
+// leader index retain the history of operations that the shards of the
+// following index need to run replication.
+// When a follower index is converted to a regular index by the unfollow API
+// (either by directly calling the API or by index lifecycle management tasks),
+// these leases are removed.
+// However, removal of the leases can fail, for example when the remote cluster
+// containing the leader index is unavailable.
+// While the leases will eventually expire on their own, their extended
+// existence can cause the leader index to hold more history than necessary and
+// prevent index lifecycle management from performing some operations on the
+// leader index.
+// This API exists to enable manually removing the leases when the unfollow API
+// is unable to do so.
+//
+// NOTE: This API does not stop replication by a following index. If you use
+// this API with a follower index that is still actively following, the
+// following index will add back retention leases on the leader.
+// The only purpose of this API is to handle the case of failure to remove the
+// following retention leases after the unfollow API is invoked.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ccr-forget-follower
 func New(tp elastictransport.Interface) *ForgetFollower {
 	r := &ForgetFollower{
 		transport: tp,
@@ -91,8 +139,6 @@ func New(tp elastictransport.Interface) *ForgetFollower {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -316,6 +362,15 @@ func (r *ForgetFollower) _index(index string) *ForgetFollower {
 	return r
 }
 
+// Timeout Period to wait for a response. If no response is received before the timeout
+// expires, the request fails and returns an error.
+// API name: timeout
+func (r *ForgetFollower) Timeout(duration string) *ForgetFollower {
+	r.values.Set("timeout", duration)
+
+	return r
+}
+
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -362,6 +417,10 @@ func (r *ForgetFollower) Pretty(pretty bool) *ForgetFollower {
 
 // API name: follower_cluster
 func (r *ForgetFollower) FollowerCluster(followercluster string) *ForgetFollower {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.FollowerCluster = &followercluster
 
@@ -370,6 +429,11 @@ func (r *ForgetFollower) FollowerCluster(followercluster string) *ForgetFollower
 
 // API name: follower_index
 func (r *ForgetFollower) FollowerIndex(indexname string) *ForgetFollower {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.FollowerIndex = &indexname
 
 	return r
@@ -377,6 +441,11 @@ func (r *ForgetFollower) FollowerIndex(indexname string) *ForgetFollower {
 
 // API name: follower_index_uuid
 func (r *ForgetFollower) FollowerIndexUuid(uuid string) *ForgetFollower {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.FollowerIndexUuid = &uuid
 
 	return r
@@ -384,6 +453,10 @@ func (r *ForgetFollower) FollowerIndexUuid(uuid string) *ForgetFollower {
 
 // API name: leader_remote_cluster
 func (r *ForgetFollower) LeaderRemoteCluster(leaderremotecluster string) *ForgetFollower {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.LeaderRemoteCluster = &leaderremotecluster
 

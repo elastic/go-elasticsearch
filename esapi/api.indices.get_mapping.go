@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -237,7 +237,7 @@ func (f IndicesGetMapping) WithLocal(v bool) func(*IndicesGetMappingRequest) {
 	}
 }
 
-// WithMasterTimeout - specify timeout for connection to master.
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
 func (f IndicesGetMapping) WithMasterTimeout(v time.Duration) func(*IndicesGetMappingRequest) {
 	return func(r *IndicesGetMappingRequest) {
 		r.MasterTimeout = v

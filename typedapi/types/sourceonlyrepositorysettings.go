@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,15 +31,57 @@ import (
 
 // SourceOnlyRepositorySettings type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/SnapshotRepository.ts#L117-L124
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/snapshot/_types/SnapshotRepository.ts#L414-L441
 type SourceOnlyRepositorySettings struct {
-	ChunkSize              ByteSize `json:"chunk_size,omitempty"`
-	Compress               *bool    `json:"compress,omitempty"`
-	DelegateType           *string  `json:"delegate_type,omitempty"`
-	MaxNumberOfSnapshots   *int     `json:"max_number_of_snapshots,omitempty"`
-	MaxRestoreBytesPerSec  ByteSize `json:"max_restore_bytes_per_sec,omitempty"`
+	// ChunkSize Big files can be broken down into multiple smaller blobs in the blob store
+	// during snapshotting.
+	// It is not recommended to change this value from its default unless there is
+	// an explicit reason for limiting the size of blobs in the repository.
+	// Setting a value lower than the default can result in an increased number of
+	// API calls to the blob store during snapshot create and restore operations
+	// compared to using the default value and thus make both operations slower and
+	// more costly.
+	// Specify the chunk size as a byte unit, for example: `10MB`, `5KB`, 500B.
+	// The default varies by repository type.
+	ChunkSize ByteSize `json:"chunk_size,omitempty"`
+	// Compress When set to `true`, metadata files are stored in compressed format.
+	// This setting doesn't affect index files that are already compressed by
+	// default.
+	Compress *bool `json:"compress,omitempty"`
+	// DelegateType The delegated repository type. For valid values, refer to the `type`
+	// parameter.
+	// Source repositories can use `settings` properties for its delegated
+	// repository type.
+	DelegateType *string `json:"delegate_type,omitempty"`
+	// MaxNumberOfSnapshots The maximum number of snapshots the repository can contain.
+	// The default is `Integer.MAX_VALUE`, which is 2^31-1 or `2147483647`.
+	MaxNumberOfSnapshots *int `json:"max_number_of_snapshots,omitempty"`
+	// MaxRestoreBytesPerSec The maximum snapshot restore rate per node.
+	// It defaults to unlimited.
+	// Note that restores are also throttled through recovery settings.
+	MaxRestoreBytesPerSec ByteSize `json:"max_restore_bytes_per_sec,omitempty"`
+	// MaxSnapshotBytesPerSec The maximum snapshot creation rate per node.
+	// It defaults to 40mb per second.
+	// Note that if the recovery settings for managed services are set, then it
+	// defaults to unlimited, and the rate is additionally throttled through
+	// recovery settings.
 	MaxSnapshotBytesPerSec ByteSize `json:"max_snapshot_bytes_per_sec,omitempty"`
-	ReadOnly               *bool    `json:"read_only,omitempty"`
+	// ReadOnly If `true`, the repository is read-only.
+	// The cluster can retrieve and restore snapshots from the repository but not
+	// write to the repository or create snapshots in it.
+	//
+	// Only a cluster with write access can create snapshots in the repository.
+	// All other clusters connected to the repository should have the `readonly`
+	// parameter set to `true`.
+	//
+	// If `false`, the cluster can write to the repository and create snapshots in
+	// it.
+	//
+	// IMPORTANT: If you register the same snapshot repository with multiple
+	// clusters, only one cluster should have write access to the repository.
+	// Having multiple clusters write to the repository at the same time risks
+	// corrupting the contents of the repository.
+	ReadOnly *bool `json:"read_only,omitempty"`
 }
 
 func (s *SourceOnlyRepositorySettings) UnmarshalJSON(data []byte) error {
@@ -138,4 +180,14 @@ func NewSourceOnlyRepositorySettings() *SourceOnlyRepositorySettings {
 	r := &SourceOnlyRepositorySettings{}
 
 	return r
+}
+
+// true
+
+type SourceOnlyRepositorySettingsVariant interface {
+	SourceOnlyRepositorySettingsCaster() *SourceOnlyRepositorySettings
+}
+
+func (s *SourceOnlyRepositorySettings) SourceOnlyRepositorySettingsCaster() *SourceOnlyRepositorySettings {
+	return s
 }

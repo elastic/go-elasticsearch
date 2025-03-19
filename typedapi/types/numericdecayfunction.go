@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -29,7 +29,7 @@ import (
 
 // NumericDecayFunction type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/compound.ts#L208-L208
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/compound.ts#L208-L208
 type NumericDecayFunction struct {
 	DecayFunctionBasedoubledouble map[string]DecayPlacementdoubledouble `json:"-"`
 	// MultiValueMode Determines how the distance is calculated when a field used for computing the
@@ -69,8 +69,18 @@ func (s NumericDecayFunction) MarshalJSON() ([]byte, error) {
 // NewNumericDecayFunction returns a NumericDecayFunction.
 func NewNumericDecayFunction() *NumericDecayFunction {
 	r := &NumericDecayFunction{
-		DecayFunctionBasedoubledouble: make(map[string]DecayPlacementdoubledouble, 0),
+		DecayFunctionBasedoubledouble: make(map[string]DecayPlacementdoubledouble),
 	}
 
 	return r
+}
+
+// true
+
+type NumericDecayFunctionVariant interface {
+	NumericDecayFunctionCaster() *NumericDecayFunction
+}
+
+func (s *NumericDecayFunction) NumericDecayFunctionCaster() *NumericDecayFunction {
+	return s
 }

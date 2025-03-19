@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get a connector.
 //
@@ -82,7 +82,7 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 //
 // Get the details about a connector.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-connector-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,
@@ -297,6 +297,15 @@ func (r *Get) Header(key, value string) *Get {
 func (r *Get) _connectorid(connectorid string) *Get {
 	r.paramSet |= connectoridMask
 	r.connectorid = connectorid
+
+	return r
+}
+
+// IncludeDeleted A flag to indicate if the desired connector should be fetched, even if it was
+// soft-deleted.
+// API name: include_deleted
+func (r *Get) IncludeDeleted(includedeleted bool) *Get {
+	r.values.Set("include_deleted", strconv.FormatBool(includedeleted))
 
 	return r
 }

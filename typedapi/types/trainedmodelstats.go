@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // TrainedModelStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/TrainedModel.ts#L41-L59
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/TrainedModel.ts#L42-L60
 type TrainedModelStats struct {
 	// DeploymentStats A collection of deployment stats, which is present when the models are
 	// deployed.
@@ -117,8 +117,10 @@ func (s *TrainedModelStats) UnmarshalJSON(data []byte) error {
 // NewTrainedModelStats returns a TrainedModelStats.
 func NewTrainedModelStats() *TrainedModelStats {
 	r := &TrainedModelStats{
-		Ingest: make(map[string]json.RawMessage, 0),
+		Ingest: make(map[string]json.RawMessage),
 	}
 
 	return r
 }
+
+// false

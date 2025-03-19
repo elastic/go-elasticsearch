@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // LatvianAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/analyzers.ts#L223-L228
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/analyzers.ts#L234-L239
 type LatvianAnalyzer struct {
 	StemExclusion []string `json:"stem_exclusion,omitempty"`
 	Stopwords     []string `json:"stopwords,omitempty"`
@@ -117,4 +117,14 @@ func NewLatvianAnalyzer() *LatvianAnalyzer {
 	r := &LatvianAnalyzer{}
 
 	return r
+}
+
+// true
+
+type LatvianAnalyzerVariant interface {
+	LatvianAnalyzerCaster() *LatvianAnalyzer
+}
+
+func (s *LatvianAnalyzer) LatvianAnalyzerCaster() *LatvianAnalyzer {
+	return s
 }

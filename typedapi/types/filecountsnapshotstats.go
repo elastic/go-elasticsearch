@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FileCountSnapshotStats type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/snapshot/_types/FileCountSnapshotStats.ts#L22-L25
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/snapshot/_types/FileCountSnapshotStats.ts#L22-L25
 type FileCountSnapshotStats struct {
 	FileCount   int   `json:"file_count"`
 	SizeInBytes int64 `json:"size_in_bytes"`
@@ -94,3 +94,5 @@ func NewFileCountSnapshotStats() *FileCountSnapshotStats {
 
 	return r
 }
+
+// false

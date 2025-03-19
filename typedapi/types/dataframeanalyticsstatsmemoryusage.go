@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeAnalyticsStatsMemoryUsage type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeAnalytics.ts#L352-L361
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/DataframeAnalytics.ts#L354-L363
 type DataframeAnalyticsStatsMemoryUsage struct {
 	// MemoryReestimateBytes This value is present when the status is hard_limit and it is a new estimate
 	// of how much memory the job needs.
@@ -117,3 +117,5 @@ func NewDataframeAnalyticsStatsMemoryUsage() *DataframeAnalyticsStatsMemoryUsage
 
 	return r
 }
+
+// false

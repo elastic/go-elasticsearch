@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,15 +31,23 @@ import (
 
 // FingerprintAnalyzer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/analyzers.ts#L37-L45
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/analyzers.ts#L37-L64
 type FingerprintAnalyzer struct {
-	MaxOutputSize    int      `json:"max_output_size"`
-	PreserveOriginal bool     `json:"preserve_original"`
-	Separator        string   `json:"separator"`
-	Stopwords        []string `json:"stopwords,omitempty"`
-	StopwordsPath    *string  `json:"stopwords_path,omitempty"`
-	Type             string   `json:"type,omitempty"`
-	Version          *string  `json:"version,omitempty"`
+	// MaxOutputSize The maximum token size to emit. Tokens larger than this size will be
+	// discarded.
+	// Defaults to `255`
+	MaxOutputSize *int `json:"max_output_size,omitempty"`
+	// Separator The character to use to concatenate the terms.
+	// Defaults to a space.
+	Separator *string `json:"separator,omitempty"`
+	// Stopwords A pre-defined stop words list like `_english_` or an array containing a list
+	// of stop words.
+	// Defaults to `_none_`.
+	Stopwords []string `json:"stopwords,omitempty"`
+	// StopwordsPath The path to a file containing stop words.
+	StopwordsPath *string `json:"stopwords_path,omitempty"`
+	Type          string  `json:"type,omitempty"`
+	Version       *string `json:"version,omitempty"`
 }
 
 func (s *FingerprintAnalyzer) UnmarshalJSON(data []byte) error {
@@ -67,24 +75,10 @@ func (s *FingerprintAnalyzer) UnmarshalJSON(data []byte) error {
 				if err != nil {
 					return fmt.Errorf("%s | %w", "MaxOutputSize", err)
 				}
-				s.MaxOutputSize = value
+				s.MaxOutputSize = &value
 			case float64:
 				f := int(v)
-				s.MaxOutputSize = f
-			}
-
-		case "preserve_original":
-			var tmp any
-			dec.Decode(&tmp)
-			switch v := tmp.(type) {
-			case string:
-				value, err := strconv.ParseBool(v)
-				if err != nil {
-					return fmt.Errorf("%s | %w", "PreserveOriginal", err)
-				}
-				s.PreserveOriginal = value
-			case bool:
-				s.PreserveOriginal = v
+				s.MaxOutputSize = &f
 			}
 
 		case "separator":
@@ -97,7 +91,7 @@ func (s *FingerprintAnalyzer) UnmarshalJSON(data []byte) error {
 			if err != nil {
 				o = string(tmp[:])
 			}
-			s.Separator = o
+			s.Separator = &o
 
 		case "stopwords":
 			rawMsg := json.RawMessage{}
@@ -146,13 +140,12 @@ func (s *FingerprintAnalyzer) UnmarshalJSON(data []byte) error {
 func (s FingerprintAnalyzer) MarshalJSON() ([]byte, error) {
 	type innerFingerprintAnalyzer FingerprintAnalyzer
 	tmp := innerFingerprintAnalyzer{
-		MaxOutputSize:    s.MaxOutputSize,
-		PreserveOriginal: s.PreserveOriginal,
-		Separator:        s.Separator,
-		Stopwords:        s.Stopwords,
-		StopwordsPath:    s.StopwordsPath,
-		Type:             s.Type,
-		Version:          s.Version,
+		MaxOutputSize: s.MaxOutputSize,
+		Separator:     s.Separator,
+		Stopwords:     s.Stopwords,
+		StopwordsPath: s.StopwordsPath,
+		Type:          s.Type,
+		Version:       s.Version,
 	}
 
 	tmp.Type = "fingerprint"
@@ -165,4 +158,14 @@ func NewFingerprintAnalyzer() *FingerprintAnalyzer {
 	r := &FingerprintAnalyzer{}
 
 	return r
+}
+
+// true
+
+type FingerprintAnalyzerVariant interface {
+	FingerprintAnalyzerCaster() *FingerprintAnalyzer
+}
+
+func (s *FingerprintAnalyzer) FingerprintAnalyzerCaster() *FingerprintAnalyzer {
+	return s
 }

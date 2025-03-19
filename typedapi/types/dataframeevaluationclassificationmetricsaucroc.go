@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // DataframeEvaluationClassificationMetricsAucRoc type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeEvaluation.ts#L85-L90
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/DataframeEvaluation.ts#L85-L90
 type DataframeEvaluationClassificationMetricsAucRoc struct {
 	// ClassName Name of the only class that is treated as positive during AUC ROC
 	// calculation. Other classes are treated as negative ("one-vs-all" strategy).
@@ -87,4 +87,14 @@ func NewDataframeEvaluationClassificationMetricsAucRoc() *DataframeEvaluationCla
 	r := &DataframeEvaluationClassificationMetricsAucRoc{}
 
 	return r
+}
+
+// true
+
+type DataframeEvaluationClassificationMetricsAucRocVariant interface {
+	DataframeEvaluationClassificationMetricsAucRocCaster() *DataframeEvaluationClassificationMetricsAucRoc
+}
+
+func (s *DataframeEvaluationClassificationMetricsAucRoc) DataframeEvaluationClassificationMetricsAucRocCaster() *DataframeEvaluationClassificationMetricsAucRoc {
+	return s
 }

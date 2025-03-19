@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Package clusterprivilege
 package clusterprivilege
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/security/_types/Privileges.ts#L42-L195
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/security/_types/Privileges.ts#L42-L199
 type ClusterPrivilege struct {
 	Name string
 }
@@ -116,6 +116,8 @@ var (
 	Monitorrollup = ClusterPrivilege{"monitor_rollup"}
 
 	Monitorsnapshot = ClusterPrivilege{"monitor_snapshot"}
+
+	Monitorstats = ClusterPrivilege{"monitor_stats"}
 
 	Monitortextstructure = ClusterPrivilege{"monitor_text_structure"}
 
@@ -241,6 +243,8 @@ func (c *ClusterPrivilege) UnmarshalText(text []byte) error {
 		*c = Monitorrollup
 	case "monitor_snapshot":
 		*c = Monitorsnapshot
+	case "monitor_stats":
+		*c = Monitorstats
 	case "monitor_text_structure":
 		*c = Monitortextstructure
 	case "monitor_transform":

@@ -16,11 +16,25 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Invalidate SAML.
 //
-// Submits a SAML LogoutRequest message to Elasticsearch for consumption.
+// Submit a SAML LogoutRequest message to Elasticsearch for consumption.
+//
+// NOTE: This API is intended for use by custom web applications other than
+// Kibana.
+// If you are using Kibana, refer to the documentation for configuring SAML
+// single-sign-on on the Elastic Stack.
+//
+// The logout request comes from the SAML IdP during an IdP initiated Single
+// Logout.
+// The custom web application can use this API to have Elasticsearch process the
+// `LogoutRequest`.
+// After successful validation of the request, Elasticsearch invalidates the
+// access token and refresh token that corresponds to that specific SAML
+// principal and provides a URL that contains a SAML LogoutResponse message.
+// Thus the user can be redirected back to their IdP.
 package samlinvalidate
 
 import (
@@ -77,9 +91,23 @@ func NewSamlInvalidateFunc(tp elastictransport.Interface) NewSamlInvalidate {
 
 // Invalidate SAML.
 //
-// Submits a SAML LogoutRequest message to Elasticsearch for consumption.
+// Submit a SAML LogoutRequest message to Elasticsearch for consumption.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-saml-invalidate.html
+// NOTE: This API is intended for use by custom web applications other than
+// Kibana.
+// If you are using Kibana, refer to the documentation for configuring SAML
+// single-sign-on on the Elastic Stack.
+//
+// The logout request comes from the SAML IdP during an IdP initiated Single
+// Logout.
+// The custom web application can use this API to have Elasticsearch process the
+// `LogoutRequest`.
+// After successful validation of the request, Elasticsearch invalidates the
+// access token and refresh token that corresponds to that specific SAML
+// principal and provides a URL that contains a SAML LogoutResponse message.
+// Thus the user can be redirected back to their IdP.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-saml-invalidate
 func New(tp elastictransport.Interface) *SamlInvalidate {
 	r := &SamlInvalidate{
 		transport: tp,
@@ -87,8 +115,6 @@ func New(tp elastictransport.Interface) *SamlInvalidate {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -342,41 +368,53 @@ func (r *SamlInvalidate) Pretty(pretty bool) *SamlInvalidate {
 	return r
 }
 
-// Acs The Assertion Consumer Service URL that matches the one of the SAML realm in
+// The Assertion Consumer Service URL that matches the one of the SAML realm in
 // Elasticsearch that should be used. You must specify either this parameter or
-// the realm parameter.
+// the `realm` parameter.
 // API name: acs
 func (r *SamlInvalidate) Acs(acs string) *SamlInvalidate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Acs = &acs
 
 	return r
 }
 
-// QueryString The query part of the URL that the user was redirected to by the SAML IdP to
+// The query part of the URL that the user was redirected to by the SAML IdP to
 // initiate the Single Logout.
-// This query should include a single parameter named SAMLRequest that contains
-// a SAML logout request that is deflated and Base64 encoded.
+// This query should include a single parameter named `SAMLRequest` that
+// contains a SAML logout request that is deflated and Base64 encoded.
 // If the SAML IdP has signed the logout request, the URL should include two
-// extra parameters named SigAlg and Signature that contain the algorithm used
-// for the signature and the signature value itself.
-// In order for Elasticsearch to be able to verify the IdP’s signature, the
-// value of the query_string field must be an exact match to the string provided
-// by the browser.
+// extra parameters named `SigAlg` and `Signature` that contain the algorithm
+// used for the signature and the signature value itself.
+// In order for Elasticsearch to be able to verify the IdP's signature, the
+// value of the `query_string` field must be an exact match to the string
+// provided by the browser.
 // The client application must not attempt to parse or process the string in any
 // way.
 // API name: query_string
 func (r *SamlInvalidate) QueryString(querystring string) *SamlInvalidate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.QueryString = querystring
 
 	return r
 }
 
-// Realm The name of the SAML realm in Elasticsearch the configuration. You must
-// specify either this parameter or the acs parameter.
+// The name of the SAML realm in Elasticsearch the configuration. You must
+// specify either this parameter or the `acs` parameter.
 // API name: realm
 func (r *SamlInvalidate) Realm(realm string) *SamlInvalidate {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Realm = &realm
 

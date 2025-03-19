@@ -16,15 +16,32 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
+// Run a watch.
 // This API can be used to force execution of the watch outside of its
 // triggering logic or to simulate the watch execution for debugging purposes.
+//
 // For testing and debugging purposes, you also have fine-grained control on how
-// the watch runs. You can execute the watch without executing all of its
-// actions or alternatively by simulating them. You can also force execution by
-// ignoring the watch condition and control whether a watch record would be
-// written to the watch history after execution.
+// the watch runs.
+// You can run the watch without running all of its actions or alternatively by
+// simulating them.
+// You can also force execution by ignoring the watch condition and control
+// whether a watch record would be written to the watch history after it runs.
+//
+// You can use the run watch API to run watches that are not yet registered by
+// specifying the watch definition inline.
+// This serves as great tool for testing and debugging your watches prior to
+// adding them to Watcher.
+//
+// When Elasticsearch security features are enabled on your cluster, watches are
+// run with the privileges of the user that stored the watches.
+// If your user is allowed to read index `a`, but not index `b`, then the exact
+// same set of rules will apply during execution of a watch.
+//
+// When using the run watch API, the authorization data of the user that called
+// the API will be used as a base, instead of the information who stored the
+// watch.
 package executewatch
 
 import (
@@ -86,15 +103,32 @@ func NewExecuteWatchFunc(tp elastictransport.Interface) NewExecuteWatch {
 	}
 }
 
+// Run a watch.
 // This API can be used to force execution of the watch outside of its
 // triggering logic or to simulate the watch execution for debugging purposes.
-// For testing and debugging purposes, you also have fine-grained control on how
-// the watch runs. You can execute the watch without executing all of its
-// actions or alternatively by simulating them. You can also force execution by
-// ignoring the watch condition and control whether a watch record would be
-// written to the watch history after execution.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api-execute-watch.html
+// For testing and debugging purposes, you also have fine-grained control on how
+// the watch runs.
+// You can run the watch without running all of its actions or alternatively by
+// simulating them.
+// You can also force execution by ignoring the watch condition and control
+// whether a watch record would be written to the watch history after it runs.
+//
+// You can use the run watch API to run watches that are not yet registered by
+// specifying the watch definition inline.
+// This serves as great tool for testing and debugging your watches prior to
+// adding them to Watcher.
+//
+// When Elasticsearch security features are enabled on your cluster, watches are
+// run with the privileges of the user that stored the watches.
+// If your user is allowed to read index `a`, but not index `b`, then the exact
+// same set of rules will apply during execution of a watch.
+//
+// When using the run watch API, the authorization data of the user that called
+// the API will be used as a base, instead of the information who stored the
+// watch.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-watcher-execute-watch
 func New(tp elastictransport.Interface) *ExecuteWatch {
 	r := &ExecuteWatch{
 		transport: tp,
@@ -102,8 +136,6 @@ func New(tp elastictransport.Interface) *ExecuteWatch {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -328,7 +360,7 @@ func (r *ExecuteWatch) Header(key, value string) *ExecuteWatch {
 	return r
 }
 
-// Id Identifier for the watch.
+// Id The watch identifier.
 // API Name: id
 func (r *ExecuteWatch) Id(id string) *ExecuteWatch {
 	r.paramSet |= idMask
@@ -389,69 +421,135 @@ func (r *ExecuteWatch) Pretty(pretty bool) *ExecuteWatch {
 	return r
 }
 
-// ActionModes Determines how to handle the watch actions as part of the watch execution.
+// Determines how to handle the watch actions as part of the watch execution.
 // API name: action_modes
 func (r *ExecuteWatch) ActionModes(actionmodes map[string]actionexecutionmode.ActionExecutionMode) *ExecuteWatch {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.ActionModes = actionmodes
-
 	return r
 }
 
-// AlternativeInput When present, the watch uses this object as a payload instead of executing
+func (r *ExecuteWatch) AddActionMode(key string, value actionexecutionmode.ActionExecutionMode) *ExecuteWatch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]actionexecutionmode.ActionExecutionMode
+	if r.req.ActionModes == nil {
+		r.req.ActionModes = make(map[string]actionexecutionmode.ActionExecutionMode)
+	} else {
+		tmp = r.req.ActionModes
+	}
+
+	tmp[key] = value
+
+	r.req.ActionModes = tmp
+	return r
+}
+
+// When present, the watch uses this object as a payload instead of executing
 // its own input.
 // API name: alternative_input
 func (r *ExecuteWatch) AlternativeInput(alternativeinput map[string]json.RawMessage) *ExecuteWatch {
-
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 	r.req.AlternativeInput = alternativeinput
-
 	return r
 }
 
-// IgnoreCondition When set to `true`, the watch execution uses the always condition. This can
+func (r *ExecuteWatch) AddAlternativeInput(key string, value json.RawMessage) *ExecuteWatch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
+	var tmp map[string]json.RawMessage
+	if r.req.AlternativeInput == nil {
+		r.req.AlternativeInput = make(map[string]json.RawMessage)
+	} else {
+		tmp = r.req.AlternativeInput
+	}
+
+	tmp[key] = value
+
+	r.req.AlternativeInput = tmp
+	return r
+}
+
+// When set to `true`, the watch execution uses the always condition. This can
 // also be specified as an HTTP parameter.
 // API name: ignore_condition
 func (r *ExecuteWatch) IgnoreCondition(ignorecondition bool) *ExecuteWatch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.IgnoreCondition = &ignorecondition
 
 	return r
 }
 
-// RecordExecution When set to `true`, the watch record representing the watch execution result
-// is persisted to the `.watcher-history` index for the current time. In
-// addition, the status of the watch is updated, possibly throttling subsequent
-// executions. This can also be specified as an HTTP parameter.
+// When set to `true`, the watch record representing the watch execution result
+// is persisted to the `.watcher-history` index for the current time.
+// In addition, the status of the watch is updated, possibly throttling
+// subsequent runs.
+// This can also be specified as an HTTP parameter.
 // API name: record_execution
 func (r *ExecuteWatch) RecordExecution(recordexecution bool) *ExecuteWatch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.RecordExecution = &recordexecution
 
 	return r
 }
 
 // API name: simulated_actions
-func (r *ExecuteWatch) SimulatedActions(simulatedactions *types.SimulatedActions) *ExecuteWatch {
+func (r *ExecuteWatch) SimulatedActions(simulatedactions types.SimulatedActionsVariant) *ExecuteWatch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.SimulatedActions = simulatedactions
+	r.req.SimulatedActions = simulatedactions.SimulatedActionsCaster()
 
 	return r
 }
 
-// TriggerData This structure is parsed as the data of the trigger event that will be used
-// during the watch execution
+// This structure is parsed as the data of the trigger event that will be used
+// during the watch execution.
 // API name: trigger_data
-func (r *ExecuteWatch) TriggerData(triggerdata *types.ScheduleTriggerEvent) *ExecuteWatch {
+func (r *ExecuteWatch) TriggerData(triggerdata types.ScheduleTriggerEventVariant) *ExecuteWatch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.TriggerData = triggerdata
+	r.req.TriggerData = triggerdata.ScheduleTriggerEventCaster()
 
 	return r
 }
 
-// Watch When present, this watch is used instead of the one specified in the request.
-// This watch is not persisted to the index and record_execution cannot be set.
+// When present, this watch is used instead of the one specified in the request.
+// This watch is not persisted to the index and `record_execution` cannot be
+// set.
 // API name: watch
-func (r *ExecuteWatch) Watch(watch *types.Watch) *ExecuteWatch {
+func (r *ExecuteWatch) Watch(watch types.WatchVariant) *ExecuteWatch {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
-	r.req.Watch = watch
+	r.req.Watch = watch.WatchCaster()
 
 	return r
 }

@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package deprecations
 
@@ -26,18 +26,39 @@ import (
 
 // Response holds the response body struct for the package deprecations
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/migration/deprecations/DeprecationInfoResponse.ts#L23-L30
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/migration/deprecations/DeprecationInfoResponse.ts#L23-L54
 type Response struct {
+
+	// ClusterSettings Cluster-level deprecation warnings.
 	ClusterSettings []types.Deprecation            `json:"cluster_settings"`
-	IndexSettings   map[string][]types.Deprecation `json:"index_settings"`
-	MlSettings      []types.Deprecation            `json:"ml_settings"`
-	NodeSettings    []types.Deprecation            `json:"node_settings"`
+	DataStreams     map[string][]types.Deprecation `json:"data_streams"`
+	// IlmPolicies ILM policy warnings are sectioned off per policy.
+	IlmPolicies map[string][]types.Deprecation `json:"ilm_policies"`
+	// IndexSettings Index warnings are sectioned off per index and can be filtered using an
+	// index-pattern in the query.
+	// This section includes warnings for the backing indices of data streams
+	// specified in the request path.
+	IndexSettings map[string][]types.Deprecation `json:"index_settings"`
+	// MlSettings Machine learning-related deprecation warnings.
+	MlSettings []types.Deprecation `json:"ml_settings"`
+	// NodeSettings Node-level deprecation warnings.
+	// Since only a subset of your nodes might incorporate these settings, it is
+	// important to read the details section for more information about which nodes
+	// are affected.
+	NodeSettings []types.Deprecation `json:"node_settings"`
+	// Templates Template warnings are sectioned off per template and include deprecations for
+	// both component templates and
+	// index templates.
+	Templates map[string][]types.Deprecation `json:"templates"`
 }
 
 // NewResponse returns a Response
 func NewResponse() *Response {
 	r := &Response{
+		DataStreams:   make(map[string][]types.Deprecation, 0),
+		IlmPolicies:   make(map[string][]types.Deprecation, 0),
 		IndexSettings: make(map[string][]types.Deprecation, 0),
+		Templates:     make(map[string][]types.Deprecation, 0),
 	}
 	return r
 }

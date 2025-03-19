@@ -16,11 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get index information.
-// Returns information about one or more indices. For data streams, the API
-// returns information about the
+// Get information about one or more indices. For data streams, the API returns
+// information about the
 // stream’s backing indices.
 package get
 
@@ -82,11 +82,11 @@ func NewGetFunc(tp elastictransport.Interface) NewGet {
 }
 
 // Get index information.
-// Returns information about one or more indices. For data streams, the API
-// returns information about the
+// Get information about one or more indices. For data streams, the API returns
+// information about the
 // stream’s backing indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get
 func New(tp elastictransport.Interface) *Get {
 	r := &Get{
 		transport: tp,

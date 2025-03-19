@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,7 +30,7 @@ import (
 
 // ComponentTemplateSummary type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cluster/_types/ComponentTemplate.ts#L39-L51
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cluster/_types/ComponentTemplate.ts#L43-L55
 type ComponentTemplateSummary struct {
 	Aliases   map[string]AliasDefinition       `json:"aliases,omitempty"`
 	Lifecycle *DataStreamLifecycleWithRollover `json:"lifecycle,omitempty"`
@@ -99,9 +99,19 @@ func (s *ComponentTemplateSummary) UnmarshalJSON(data []byte) error {
 // NewComponentTemplateSummary returns a ComponentTemplateSummary.
 func NewComponentTemplateSummary() *ComponentTemplateSummary {
 	r := &ComponentTemplateSummary{
-		Aliases:  make(map[string]AliasDefinition, 0),
-		Settings: make(map[string]IndexSettings, 0),
+		Aliases:  make(map[string]AliasDefinition),
+		Settings: make(map[string]IndexSettings),
 	}
 
 	return r
+}
+
+// true
+
+type ComponentTemplateSummaryVariant interface {
+	ComponentTemplateSummaryCaster() *ComponentTemplateSummary
+}
+
+func (s *ComponentTemplateSummary) ComponentTemplateSummaryCaster() *ComponentTemplateSummary {
+	return s
 }

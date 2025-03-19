@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Get index templates.
-// Retrieves information about one or more index templates.
+// Get information about one or more index templates.
+//
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
 package gettemplate
 
 import (
@@ -76,9 +80,13 @@ func NewGetTemplateFunc(tp elastictransport.Interface) NewGetTemplate {
 }
 
 // Get index templates.
-// Retrieves information about one or more index templates.
+// Get information about one or more index templates.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-template-v1.html
+// IMPORTANT: This documentation is about legacy index templates, which are
+// deprecated and will be replaced by the composable templates introduced in
+// Elasticsearch 7.8.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-get-template
 func New(tp elastictransport.Interface) *GetTemplate {
 	r := &GetTemplate{
 		transport: tp,

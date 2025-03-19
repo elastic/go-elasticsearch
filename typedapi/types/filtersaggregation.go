@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // FiltersAggregation type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/aggregations/bucket.ts#L374-L394
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/aggregations/bucket.ts#L374-L394
 type FiltersAggregation struct {
 	// Filters Collection of queries from which to build buckets.
 	Filters BucketsQuery `json:"filters,omitempty"`
@@ -131,4 +131,14 @@ func NewFiltersAggregation() *FiltersAggregation {
 	r := &FiltersAggregation{}
 
 	return r
+}
+
+// true
+
+type FiltersAggregationVariant interface {
+	FiltersAggregationCaster() *FiltersAggregation
+}
+
+func (s *FiltersAggregation) FiltersAggregationCaster() *FiltersAggregation {
+	return s
 }

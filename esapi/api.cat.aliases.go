@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func newCatAliasesFunc(t Transport) CatAliases {
@@ -56,7 +57,7 @@ type CatAliasesRequest struct {
 	Format          string
 	H               []string
 	Help            *bool
-	Local           *bool
+	MasterTimeout   time.Duration
 	S               []string
 	V               *bool
 
@@ -123,8 +124,8 @@ func (r CatAliasesRequest) Do(providedCtx context.Context, transport Transport) 
 		params["help"] = strconv.FormatBool(*r.Help)
 	}
 
-	if r.Local != nil {
-		params["local"] = strconv.FormatBool(*r.Local)
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
 	}
 
 	if len(r.S) > 0 {
@@ -248,10 +249,10 @@ func (f CatAliases) WithHelp(v bool) func(*CatAliasesRequest) {
 	}
 }
 
-// WithLocal - return local information, do not retrieve the state from master node (default: false).
-func (f CatAliases) WithLocal(v bool) func(*CatAliasesRequest) {
+// WithMasterTimeout - timeout for waiting for new cluster state in case it is blocked.
+func (f CatAliases) WithMasterTimeout(v time.Duration) func(*CatAliasesRequest) {
 	return func(r *CatAliasesRequest) {
-		r.Local = &v
+		r.MasterTimeout = v
 	}
 }
 

@@ -16,10 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Creates a lifecycle policy. If the specified policy exists, the policy is
-// replaced and the policy version is incremented.
+// Create or update a lifecycle policy.
+// If the specified policy exists, it is replaced and the policy version is
+// incremented.
+//
+// NOTE: Only the latest version of the policy is stored, you cannot revert to
+// previous versions.
 package putlifecycle
 
 import (
@@ -82,10 +86,14 @@ func NewPutLifecycleFunc(tp elastictransport.Interface) NewPutLifecycle {
 	}
 }
 
-// Creates a lifecycle policy. If the specified policy exists, the policy is
-// replaced and the policy version is incremented.
+// Create or update a lifecycle policy.
+// If the specified policy exists, it is replaced and the policy version is
+// incremented.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-put-lifecycle.html
+// NOTE: Only the latest version of the policy is stored, you cannot revert to
+// previous versions.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ilm-put-lifecycle
 func New(tp elastictransport.Interface) *PutLifecycle {
 	r := &PutLifecycle{
 		transport: tp,
@@ -93,8 +101,6 @@ func New(tp elastictransport.Interface) *PutLifecycle {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {

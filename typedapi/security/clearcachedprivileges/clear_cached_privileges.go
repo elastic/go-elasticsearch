@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Clear the privileges cache.
 //
@@ -86,7 +86,7 @@ func NewClearCachedPrivilegesFunc(tp elastictransport.Interface) NewClearCachedP
 // The cache is also automatically cleared for applications that have their
 // privileges updated.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-clear-privilege-cache.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clear-cached-privileges
 func New(tp elastictransport.Interface) *ClearCachedPrivileges {
 	r := &ClearCachedPrivileges{
 		transport: tp,
@@ -300,7 +300,9 @@ func (r *ClearCachedPrivileges) Header(key, value string) *ClearCachedPrivileges
 	return r
 }
 
-// Application A comma-separated list of application names
+// Application A comma-separated list of applications.
+// To clear all applications, use an asterism (`*`).
+// It does not support other wildcard patterns.
 // API Name: application
 func (r *ClearCachedPrivileges) _application(application string) *ClearCachedPrivileges {
 	r.paramSet |= applicationMask

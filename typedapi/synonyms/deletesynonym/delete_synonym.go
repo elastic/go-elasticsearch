@@ -16,9 +16,34 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Deletes a synonym set
+// Delete a synonym set.
+//
+// You can only delete a synonyms set that is not in use by any index analyzer.
+//
+// Synonyms sets can be used in synonym graph token filters and synonym token
+// filters.
+// These synonym filters can be used as part of search analyzers.
+//
+// Analyzers need to be loaded when an index is restored (such as when a node
+// starts, or the index becomes open).
+// Even if the analyzer is not used on any field mapping, it still needs to be
+// loaded on the index recovery phase.
+//
+// If any analyzers cannot be loaded, the index becomes unavailable and the
+// cluster status becomes red or yellow as index shards are not available.
+// To prevent that, synonyms sets that are used in analyzers can't be deleted.
+// A delete request in this case will return a 400 response code.
+//
+// To remove a synonyms set, you must first remove all indices that contain
+// analyzers using it.
+// You can migrate an index by creating a new index that does not contain the
+// token filter with the synonyms set, and use the reindex API in order to copy
+// over the index data.
+// Once finished, you can delete the index.
+// When the synonyms set is not used in analyzers, you will be able to delete
+// it.
 package deletesynonym
 
 import (
@@ -76,9 +101,34 @@ func NewDeleteSynonymFunc(tp elastictransport.Interface) NewDeleteSynonym {
 	}
 }
 
-// Deletes a synonym set
+// Delete a synonym set.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/delete-synonyms-set.html
+// You can only delete a synonyms set that is not in use by any index analyzer.
+//
+// Synonyms sets can be used in synonym graph token filters and synonym token
+// filters.
+// These synonym filters can be used as part of search analyzers.
+//
+// Analyzers need to be loaded when an index is restored (such as when a node
+// starts, or the index becomes open).
+// Even if the analyzer is not used on any field mapping, it still needs to be
+// loaded on the index recovery phase.
+//
+// If any analyzers cannot be loaded, the index becomes unavailable and the
+// cluster status becomes red or yellow as index shards are not available.
+// To prevent that, synonyms sets that are used in analyzers can't be deleted.
+// A delete request in this case will return a 400 response code.
+//
+// To remove a synonyms set, you must first remove all indices that contain
+// analyzers using it.
+// You can migrate an index by creating a new index that does not contain the
+// token filter with the synonyms set, and use the reindex API in order to copy
+// over the index data.
+// Once finished, you can delete the index.
+// When the synonyms set is not used in analyzers, you will be able to delete
+// it.
+//
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-synonyms-delete-synonym
 func New(tp elastictransport.Interface) *DeleteSynonym {
 	r := &DeleteSynonym{
 		transport: tp,
@@ -288,7 +338,7 @@ func (r *DeleteSynonym) Header(key, value string) *DeleteSynonym {
 	return r
 }
 
-// Id The id of the synonyms set to be deleted
+// Id The synonyms set identifier to delete.
 // API Name: id
 func (r *DeleteSynonym) _id(id string) *DeleteSynonym {
 	r.paramSet |= idMask

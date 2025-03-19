@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Create part of a trained model definition.
 package puttrainedmodeldefinitionpart
@@ -88,7 +88,7 @@ func NewPutTrainedModelDefinitionPartFunc(tp elastictransport.Interface) NewPutT
 
 // Create part of a trained model definition.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/put-trained-model-definition-part.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-put-trained-model-definition-part
 func New(tp elastictransport.Interface) *PutTrainedModelDefinitionPart {
 	r := &PutTrainedModelDefinitionPart{
 		transport: tp,
@@ -96,8 +96,6 @@ func New(tp elastictransport.Interface) *PutTrainedModelDefinitionPart {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -384,27 +382,40 @@ func (r *PutTrainedModelDefinitionPart) Pretty(pretty bool) *PutTrainedModelDefi
 	return r
 }
 
-// Definition The definition part for the model. Must be a base64 encoded string.
+// The definition part for the model. Must be a base64 encoded string.
 // API name: definition
 func (r *PutTrainedModelDefinitionPart) Definition(definition string) *PutTrainedModelDefinitionPart {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.Definition = definition
 
 	return r
 }
 
-// TotalDefinitionLength The total uncompressed definition length in bytes. Not base64 encoded.
+// The total uncompressed definition length in bytes. Not base64 encoded.
 // API name: total_definition_length
 func (r *PutTrainedModelDefinitionPart) TotalDefinitionLength(totaldefinitionlength int64) *PutTrainedModelDefinitionPart {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.TotalDefinitionLength = totaldefinitionlength
 
 	return r
 }
 
-// TotalParts The total number of parts that will be uploaded. Must be greater than 0.
+// The total number of parts that will be uploaded. Must be greater than 0.
 // API name: total_parts
 func (r *PutTrainedModelDefinitionPart) TotalParts(totalparts int) *PutTrainedModelDefinitionPart {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.TotalParts = totalparts
 
 	return r

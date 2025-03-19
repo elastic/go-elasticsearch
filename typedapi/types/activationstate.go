@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ActivationState type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/watcher/_types/Activation.ts#L24-L27
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/watcher/_types/Activation.ts#L24-L27
 type ActivationState struct {
 	Active    bool     `json:"active"`
 	Timestamp DateTime `json:"timestamp"`
@@ -81,4 +81,14 @@ func NewActivationState() *ActivationState {
 	r := &ActivationState{}
 
 	return r
+}
+
+// true
+
+type ActivationStateVariant interface {
+	ActivationStateCaster() *ActivationState
+}
+
+func (s *ActivationState) ActivationStateCaster() *ActivationState {
+	return s
 }

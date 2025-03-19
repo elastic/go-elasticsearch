@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // SpanNotQuery type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/query_dsl/span.ts#L95-L122
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/query_dsl/span.ts#L95-L122
 type SpanNotQuery struct {
 	// Boost Floating point number used to decrease or increase the relevance scores of
 	// the query.
@@ -44,9 +44,9 @@ type SpanNotQuery struct {
 	// Equivalent to setting both `pre` and `post`.
 	Dist *int `json:"dist,omitempty"`
 	// Exclude Span query whose matches must not overlap those returned.
-	Exclude *SpanQuery `json:"exclude,omitempty"`
+	Exclude SpanQuery `json:"exclude"`
 	// Include Span query whose matches are filtered.
-	Include *SpanQuery `json:"include,omitempty"`
+	Include SpanQuery `json:"include"`
 	// Post The number of tokens after the include span that can’t have overlap with the
 	// exclude span.
 	Post *int `json:"post,omitempty"`
@@ -167,4 +167,14 @@ func NewSpanNotQuery() *SpanNotQuery {
 	r := &SpanNotQuery{}
 
 	return r
+}
+
+// true
+
+type SpanNotQueryVariant interface {
+	SpanNotQueryCaster() *SpanNotQuery
+}
+
+func (s *SpanNotQuery) SpanNotQueryCaster() *SpanNotQuery {
+	return s
 }

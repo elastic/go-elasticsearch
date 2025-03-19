@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newShutdownPutNodeFunc(t Transport) ShutdownPutNode {
@@ -53,6 +54,9 @@ type ShutdownPutNodeRequest struct {
 	Body io.Reader
 
 	NodeID string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -98,6 +102,14 @@ func (r ShutdownPutNodeRequest) Do(providedCtx context.Context, transport Transp
 	path.WriteString("shutdown")
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -181,6 +193,20 @@ func (r ShutdownPutNodeRequest) Do(providedCtx context.Context, transport Transp
 func (f ShutdownPutNode) WithContext(v context.Context) func(*ShutdownPutNodeRequest) {
 	return func(r *ShutdownPutNodeRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f ShutdownPutNode) WithMasterTimeout(v time.Duration) func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f ShutdownPutNode) WithTimeout(v time.Duration) func(*ShutdownPutNodeRequest) {
+	return func(r *ShutdownPutNodeRequest) {
+		r.Timeout = v
 	}
 }
 

@@ -16,22 +16,69 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // TransformContainer type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Transform.ts#L27-L34
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Transform.ts#L27-L34
 type TransformContainer struct {
-	Chain  []TransformContainer `json:"chain,omitempty"`
-	Script *ScriptTransform     `json:"script,omitempty"`
-	Search *SearchTransform     `json:"search,omitempty"`
+	AdditionalTransformContainerProperty map[string]json.RawMessage `json:"-"`
+	Chain                                []TransformContainer       `json:"chain,omitempty"`
+	Script                               *ScriptTransform           `json:"script,omitempty"`
+	Search                               *SearchTransform           `json:"search,omitempty"`
+}
+
+// MarhsalJSON overrides marshalling for types with additional properties
+func (s TransformContainer) MarshalJSON() ([]byte, error) {
+	type opt TransformContainer
+	// We transform the struct to a map without the embedded additional properties map
+	tmp := make(map[string]any, 0)
+
+	data, err := json.Marshal(opt(s))
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(data, &tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	// We inline the additional fields from the underlying map
+	for key, value := range s.AdditionalTransformContainerProperty {
+		tmp[fmt.Sprintf("%s", key)] = value
+	}
+	delete(tmp, "AdditionalTransformContainerProperty")
+
+	data, err = json.Marshal(tmp)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // NewTransformContainer returns a TransformContainer.
 func NewTransformContainer() *TransformContainer {
-	r := &TransformContainer{}
+	r := &TransformContainer{
+		AdditionalTransformContainerProperty: make(map[string]json.RawMessage),
+	}
 
 	return r
+}
+
+// true
+
+type TransformContainerVariant interface {
+	TransformContainerCaster() *TransformContainer
+}
+
+func (s *TransformContainer) TransformContainerCaster() *TransformContainer {
+	return s
 }

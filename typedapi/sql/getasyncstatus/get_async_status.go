@@ -16,10 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns the current status of an async SQL search or a stored synchronous SQL
-// search
+// Get the async SQL search status.
+// Get the current status of an async SQL search or a stored synchronous SQL
+// search.
 package getasyncstatus
 
 import (
@@ -77,10 +78,11 @@ func NewGetAsyncStatusFunc(tp elastictransport.Interface) NewGetAsyncStatus {
 	}
 }
 
-// Returns the current status of an async SQL search or a stored synchronous SQL
-// search
+// Get the async SQL search status.
+// Get the current status of an async SQL search or a stored synchronous SQL
+// search.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/get-async-sql-search-status-api.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-sql-get-async-status
 func New(tp elastictransport.Interface) *GetAsyncStatus {
 	r := &GetAsyncStatus{
 		transport: tp,
@@ -294,7 +296,7 @@ func (r *GetAsyncStatus) Header(key, value string) *GetAsyncStatus {
 	return r
 }
 
-// Id Identifier for the search.
+// Id The identifier for the search.
 // API Name: id
 func (r *GetAsyncStatus) _id(id string) *GetAsyncStatus {
 	r.paramSet |= idMask

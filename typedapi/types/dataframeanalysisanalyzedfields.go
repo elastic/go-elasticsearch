@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -30,15 +30,15 @@ import (
 
 // DataframeAnalysisAnalyzedFields type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/ml/_types/DataframeAnalytics.ts#L237-L243
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/ml/_types/DataframeAnalytics.ts#L238-L244
 type DataframeAnalysisAnalyzedFields struct {
 	// Excludes An array of strings that defines the fields that will be included in the
 	// analysis.
-	Excludes []string `json:"excludes"`
+	Excludes []string `json:"excludes,omitempty"`
 	// Includes An array of strings that defines the fields that will be excluded from the
 	// analysis. You do not need to add fields with unsupported data types to
 	// excludes, these fields are excluded from the analysis automatically.
-	Includes []string `json:"includes"`
+	Includes []string `json:"includes,omitempty"`
 }
 
 func (s *DataframeAnalysisAnalyzedFields) UnmarshalJSON(data []byte) error {
@@ -86,4 +86,14 @@ func NewDataframeAnalysisAnalyzedFields() *DataframeAnalysisAnalyzedFields {
 	r := &DataframeAnalysisAnalyzedFields{}
 
 	return r
+}
+
+// true
+
+type DataframeAnalysisAnalyzedFieldsVariant interface {
+	DataframeAnalysisAnalyzedFieldsCaster() *DataframeAnalysisAnalyzedFields
+}
+
+func (s *DataframeAnalysisAnalyzedFields) DataframeAnalysisAnalyzedFieldsCaster() *DataframeAnalysisAnalyzedFields {
+	return s
 }

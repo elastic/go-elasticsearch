@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Change passwords.
 //
@@ -86,7 +86,7 @@ func NewChangePasswordFunc(tp elastictransport.Interface) NewChangePassword {
 //
 // Change the passwords of users in the native realm and built-in users.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-change-password.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-change-password
 func New(tp elastictransport.Interface) *ChangePassword {
 	r := &ChangePassword{
 		transport: tp,
@@ -94,8 +94,6 @@ func New(tp elastictransport.Interface) *ChangePassword {
 		headers:   make(http.Header),
 
 		buf: gobytes.NewBuffer(nil),
-
-		req: NewRequest(),
 	}
 
 	if instrumented, ok := r.transport.(elastictransport.Instrumented); ok {
@@ -384,21 +382,30 @@ func (r *ChangePassword) Pretty(pretty bool) *ChangePassword {
 	return r
 }
 
-// Password The new password value. Passwords must be at least 6 characters long.
+// The new password value. Passwords must be at least 6 characters long.
 // API name: password
 func (r *ChangePassword) Password(password string) *ChangePassword {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
+
 	r.req.Password = &password
 
 	return r
 }
 
-// PasswordHash A hash of the new password value. This must be produced using the same
+// A hash of the new password value. This must be produced using the same
 // hashing algorithm as has been configured for password storage. For more
 // details,
 // see the explanation of the `xpack.security.authc.password_hashing.algorithm`
 // setting.
 // API name: password_hash
 func (r *ChangePassword) PasswordHash(passwordhash string) *ChangePassword {
+	// Initialize the request if it is not already initialized
+	if r.req == nil {
+		r.req = NewRequest()
+	}
 
 	r.req.PasswordHash = &passwordhash
 

@@ -16,9 +16,9 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns information about a repository.
+// Get snapshot repository information.
 package getrepository
 
 import (
@@ -74,9 +74,9 @@ func NewGetRepositoryFunc(tp elastictransport.Interface) NewGetRepository {
 	}
 }
 
-// Returns information about a repository.
+// Get snapshot repository information.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-snapshot-get-repository
 func New(tp elastictransport.Interface) *GetRepository {
 	r := &GetRepository{
 		transport: tp,
@@ -291,7 +291,13 @@ func (r *GetRepository) Header(key, value string) *GetRepository {
 	return r
 }
 
-// Repository A comma-separated list of repository names
+// Repository A comma-separated list of snapshot repository names used to limit the
+// request.
+// Wildcard (`*`) expressions are supported including combining wildcards with
+// exclude patterns starting with `-`.
+//
+// To get information about all snapshot repositories registered in the cluster,
+// omit this parameter or use `*` or `_all`.
 // API Name: repository
 func (r *GetRepository) Repository(repository string) *GetRepository {
 	r.paramSet |= repositoryMask
@@ -300,8 +306,8 @@ func (r *GetRepository) Repository(repository string) *GetRepository {
 	return r
 }
 
-// Local Return local information, do not retrieve the state from master node
-// (default: false)
+// Local If `true`, the request gets information from the local node only.
+// If `false`, the request gets information from the master node.
 // API name: local
 func (r *GetRepository) Local(local bool) *GetRepository {
 	r.values.Set("local", strconv.FormatBool(local))
@@ -309,7 +315,10 @@ func (r *GetRepository) Local(local bool) *GetRepository {
 	return r
 }
 
-// MasterTimeout Explicit operation timeout for connection to master node
+// MasterTimeout The period to wait for the master node.
+// If the master node is not available before the timeout expires, the request
+// fails and returns an error.
+// To indicate that the request should never timeout, set it to `-1`.
 // API name: master_timeout
 func (r *GetRepository) MasterTimeout(duration string) *GetRepository {
 	r.values.Set("master_timeout", duration)

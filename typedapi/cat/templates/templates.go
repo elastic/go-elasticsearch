@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Returns information about index templates in a cluster.
+// Get index template information.
+//
+// Get information about the index templates in a cluster.
 // You can use index templates to apply index settings and field mappings to new
 // indices at creation.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
@@ -79,14 +81,16 @@ func NewTemplatesFunc(tp elastictransport.Interface) NewTemplates {
 	}
 }
 
-// Returns information about index templates in a cluster.
+// Get index template information.
+//
+// Get information about the index templates in a cluster.
 // You can use index templates to apply index settings and field mappings to new
 // indices at creation.
 // IMPORTANT: cat APIs are only intended for human consumption using the command
 // line or Kibana console. They are not intended for use by applications. For
 // application consumption, use the get index template API.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/cat-templates.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-templates
 func New(tp elastictransport.Interface) *Templates {
 	r := &Templates{
 		transport: tp,
@@ -315,15 +319,6 @@ func (r *Templates) Name(name string) *Templates {
 	return r
 }
 
-// Format Specifies the format to return the columnar data in, can be set to
-// `text`, `json`, `cbor`, `yaml`, or `smile`.
-// API name: format
-func (r *Templates) Format(format string) *Templates {
-	r.values.Set("format", format)
-
-	return r
-}
-
 // H List of columns to appear in the response. Supports simple wildcards.
 // API name: h
 func (r *Templates) H(names ...string) *Templates {
@@ -332,11 +327,12 @@ func (r *Templates) H(names ...string) *Templates {
 	return r
 }
 
-// Help When set to `true` will output available columns. This option
-// can't be combined with any other query string option.
-// API name: help
-func (r *Templates) Help(help bool) *Templates {
-	r.values.Set("help", strconv.FormatBool(help))
+// S List of columns that determine how the table should be sorted.
+// Sorting defaults to ascending and can be changed by setting `:asc`
+// or `:desc` as a suffix to the column name.
+// API name: s
+func (r *Templates) S(names ...string) *Templates {
+	r.values.Set("s", strings.Join(names, ","))
 
 	return r
 }
@@ -360,12 +356,20 @@ func (r *Templates) MasterTimeout(duration string) *Templates {
 	return r
 }
 
-// S List of columns that determine how the table should be sorted.
-// Sorting defaults to ascending and can be changed by setting `:asc`
-// or `:desc` as a suffix to the column name.
-// API name: s
-func (r *Templates) S(names ...string) *Templates {
-	r.values.Set("s", strings.Join(names, ","))
+// Format Specifies the format to return the columnar data in, can be set to
+// `text`, `json`, `cbor`, `yaml`, or `smile`.
+// API name: format
+func (r *Templates) Format(format string) *Templates {
+	r.values.Set("format", format)
+
+	return r
+}
+
+// Help When set to `true` will output available columns. This option
+// can't be combined with any other query string option.
+// API name: help
+func (r *Templates) Help(help bool) *Templates {
+	r.values.Set("help", strconv.FormatBool(help))
 
 	return r
 }

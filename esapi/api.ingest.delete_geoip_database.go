@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-// Code generated from specification version 8.16.0: DO NOT EDIT
+// Code generated from specification version 9.1.0: DO NOT EDIT
 
 package esapi
 
@@ -24,6 +24,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"time"
 )
 
 func newIngestDeleteGeoipDatabaseFunc(t Transport) IngestDeleteGeoipDatabase {
@@ -51,6 +52,9 @@ type IngestDeleteGeoipDatabase func(id []string, o ...func(*IngestDeleteGeoipDat
 // IngestDeleteGeoipDatabaseRequest configures the Ingest Delete Geoip Database API request.
 type IngestDeleteGeoipDatabaseRequest struct {
 	DocumentID []string
+
+	MasterTimeout time.Duration
+	Timeout       time.Duration
 
 	Pretty     bool
 	Human      bool
@@ -102,6 +106,14 @@ func (r IngestDeleteGeoipDatabaseRequest) Do(providedCtx context.Context, transp
 	}
 
 	params = make(map[string]string)
+
+	if r.MasterTimeout != 0 {
+		params["master_timeout"] = formatDuration(r.MasterTimeout)
+	}
+
+	if r.Timeout != 0 {
+		params["timeout"] = formatDuration(r.Timeout)
+	}
 
 	if r.Pretty {
 		params["pretty"] = "true"
@@ -178,6 +190,20 @@ func (r IngestDeleteGeoipDatabaseRequest) Do(providedCtx context.Context, transp
 func (f IngestDeleteGeoipDatabase) WithContext(v context.Context) func(*IngestDeleteGeoipDatabaseRequest) {
 	return func(r *IngestDeleteGeoipDatabaseRequest) {
 		r.ctx = v
+	}
+}
+
+// WithMasterTimeout - explicit operation timeout for connection to master node.
+func (f IngestDeleteGeoipDatabase) WithMasterTimeout(v time.Duration) func(*IngestDeleteGeoipDatabaseRequest) {
+	return func(r *IngestDeleteGeoipDatabaseRequest) {
+		r.MasterTimeout = v
+	}
+}
+
+// WithTimeout - explicit operation timeout.
+func (f IngestDeleteGeoipDatabase) WithTimeout(v time.Duration) func(*IngestDeleteGeoipDatabaseRequest) {
+	return func(r *IngestDeleteGeoipDatabaseRequest) {
+		r.Timeout = v
 	}
 }
 

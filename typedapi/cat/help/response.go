@@ -16,22 +16,18 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package help
 
-import (
-	"github.com/elastic/go-elasticsearch/v8/typedapi/types"
-)
-
 // Response holds the response body struct for the package help
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/cat/help/CatHelpResponse.ts#L22-L24
-
-type Response []types.HelpRecord
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/cat/help/CatHelpResponse.ts#L20-L25
+type Response struct {
+}
 
 // NewResponse returns a Response
-func NewResponse() Response {
-	r := Response{}
+func NewResponse() *Response {
+	r := &Response{}
 	return r
 }

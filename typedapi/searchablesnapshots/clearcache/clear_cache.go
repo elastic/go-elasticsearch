@@ -16,9 +16,11 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
-// Clear the cache of searchable snapshots.
+// Clear the cache.
+// Clear indices and data streams from the shared cache for partially mounted
+// indices.
 package clearcache
 
 import (
@@ -75,9 +77,11 @@ func NewClearCacheFunc(tp elastictransport.Interface) NewClearCache {
 	}
 }
 
-// Clear the cache of searchable snapshots.
+// Clear the cache.
+// Clear indices and data streams from the shared cache for partially mounted
+// indices.
 //
-// https://www.elastic.co/guide/en/elasticsearch/reference/current/searchable-snapshots-apis.html
+// https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-searchable-snapshots-clear-cache
 func New(tp elastictransport.Interface) *ClearCache {
 	r := &ClearCache{
 		transport: tp,
@@ -300,7 +304,9 @@ func (r *ClearCache) Header(key, value string) *ClearCache {
 	return r
 }
 
-// Index A comma-separated list of index names
+// Index A comma-separated list of data streams, indices, and aliases to clear from
+// the cache.
+// It supports wildcards (`*`).
 // API Name: index
 func (r *ClearCache) Index(index string) *ClearCache {
 	r.paramSet |= indexMask
@@ -340,20 +346,6 @@ func (r *ClearCache) IgnoreUnavailable(ignoreunavailable bool) *ClearCache {
 	return r
 }
 
-// API name: pretty
-func (r *ClearCache) Pretty(pretty bool) *ClearCache {
-	r.values.Set("pretty", strconv.FormatBool(pretty))
-
-	return r
-}
-
-// API name: human
-func (r *ClearCache) Human(human bool) *ClearCache {
-	r.values.Set("human", strconv.FormatBool(human))
-
-	return r
-}
-
 // ErrorTrace When set to `true` Elasticsearch will include the full stack trace of errors
 // when they occur.
 // API name: error_trace
@@ -372,6 +364,28 @@ func (r *ClearCache) FilterPath(filterpaths ...string) *ClearCache {
 		tmp = append(tmp, fmt.Sprintf("%v", item))
 	}
 	r.values.Set("filter_path", strings.Join(tmp, ","))
+
+	return r
+}
+
+// Human When set to `true` will return statistics in a format suitable for humans.
+// For example `"exists_time": "1h"` for humans and
+// `"eixsts_time_in_millis": 3600000` for computers. When disabled the human
+// readable values will be omitted. This makes sense for responses being
+// consumed
+// only by machines.
+// API name: human
+func (r *ClearCache) Human(human bool) *ClearCache {
+	r.values.Set("human", strconv.FormatBool(human))
+
+	return r
+}
+
+// Pretty If set to `true` the returned JSON will be "pretty-formatted". Only use
+// this option for debugging only.
+// API name: pretty
+func (r *ClearCache) Pretty(pretty bool) *ClearCache {
+	r.values.Set("pretty", strconv.FormatBool(pretty))
 
 	return r
 }

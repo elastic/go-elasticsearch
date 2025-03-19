@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SearchShardsNodeAttributes type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_global/search_shards/SearchShardsResponse.ts#L42-L60
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_global/search_shards/SearchShardsResponse.ts#L42-L60
 type SearchShardsNodeAttributes struct {
 	// Attributes Lists node attributes.
 	Attributes map[string]string `json:"attributes"`
@@ -150,8 +150,10 @@ func (s *SearchShardsNodeAttributes) UnmarshalJSON(data []byte) error {
 // NewSearchShardsNodeAttributes returns a SearchShardsNodeAttributes.
 func NewSearchShardsNodeAttributes() *SearchShardsNodeAttributes {
 	r := &SearchShardsNodeAttributes{
-		Attributes: make(map[string]string, 0),
+		Attributes: make(map[string]string),
 	}
 
 	return r
 }
+
+// false

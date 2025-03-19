@@ -16,13 +16,13 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
 // IndexTemplateMapping type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L121-L143
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/put_index_template/IndicesPutIndexTemplateRequest.ts#L159-L181
 type IndexTemplateMapping struct {
 	// Aliases Aliases to add.
 	// If the index template includes a `data_stream` object, these are data stream
@@ -43,8 +43,18 @@ type IndexTemplateMapping struct {
 // NewIndexTemplateMapping returns a IndexTemplateMapping.
 func NewIndexTemplateMapping() *IndexTemplateMapping {
 	r := &IndexTemplateMapping{
-		Aliases: make(map[string]Alias, 0),
+		Aliases: make(map[string]Alias),
 	}
 
 	return r
+}
+
+// true
+
+type IndexTemplateMappingVariant interface {
+	IndexTemplateMappingCaster() *IndexTemplateMapping
+}
+
+func (s *IndexTemplateMapping) IndexTemplateMappingCaster() *IndexTemplateMapping {
+	return s
 }

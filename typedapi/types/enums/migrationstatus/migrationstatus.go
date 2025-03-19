@@ -16,14 +16,14 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 // Package migrationstatus
 package migrationstatus
 
 import "strings"
 
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L30-L35
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/migration/get_feature_upgrade_status/GetFeatureUpgradeStatusResponse.ts#L30-L35
 type MigrationStatus struct {
 	Name string
 }
@@ -45,13 +45,13 @@ func (m MigrationStatus) MarshalText() (text []byte, err error) {
 func (m *MigrationStatus) UnmarshalText(text []byte) error {
 	switch strings.ReplaceAll(strings.ToLower(string(text)), "\"", "") {
 
-	case "NO_MIGRATION_NEEDED":
+	case "no_migration_needed":
 		*m = NOMIGRATIONNEEDED
-	case "MIGRATION_NEEDED":
+	case "migration_needed":
 		*m = MIGRATIONNEEDED
-	case "IN_PROGRESS":
+	case "in_progress":
 		*m = INPROGRESS
-	case "ERROR":
+	case "error":
 		*m = ERROR
 	default:
 		*m = MigrationStatus{string(text)}

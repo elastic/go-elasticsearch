@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -33,7 +33,7 @@ import (
 
 // SynonymGraphTokenFilter type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/analysis/token_filters.ts#L109-L119
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/analysis/token_filters.ts#L109-L119
 type SynonymGraphTokenFilter struct {
 	Expand       *bool                        `json:"expand,omitempty"`
 	Format       *synonymformat.SynonymFormat `json:"format,omitempty"`
@@ -191,4 +191,14 @@ func NewSynonymGraphTokenFilter() *SynonymGraphTokenFilter {
 	r := &SynonymGraphTokenFilter{}
 
 	return r
+}
+
+// true
+
+type SynonymGraphTokenFilterVariant interface {
+	SynonymGraphTokenFilterCaster() *SynonymGraphTokenFilter
+}
+
+func (s *SynonymGraphTokenFilter) SynonymGraphTokenFilterCaster() *SynonymGraphTokenFilter {
+	return s
 }

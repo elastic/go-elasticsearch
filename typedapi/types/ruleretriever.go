@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // RuleRetriever type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/_types/Retriever.ts#L101-L110
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/_types/Retriever.ts#L106-L115
 type RuleRetriever struct {
 	// Filter Query to filter the documents that can match.
 	Filter []Query `json:"filter,omitempty"`
@@ -44,7 +44,7 @@ type RuleRetriever struct {
 	// RankWindowSize This value determines the size of the individual result set.
 	RankWindowSize *int `json:"rank_window_size,omitempty"`
 	// Retriever The retriever whose results rules should be applied to.
-	Retriever *RetrieverContainer `json:"retriever,omitempty"`
+	Retriever RetrieverContainer `json:"retriever"`
 	// RulesetIds The ruleset IDs containing the rules this retriever is evaluating against.
 	RulesetIds []string `json:"ruleset_ids"`
 }
@@ -137,4 +137,14 @@ func NewRuleRetriever() *RuleRetriever {
 	r := &RuleRetriever{}
 
 	return r
+}
+
+// true
+
+type RuleRetrieverVariant interface {
+	RuleRetrieverCaster() *RuleRetriever
+}
+
+func (s *RuleRetriever) RuleRetrieverCaster() *RuleRetriever {
+	return s
 }

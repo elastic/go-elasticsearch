@@ -16,7 +16,7 @@
 // under the License.
 
 // Code generated from the elasticsearch-specification DO NOT EDIT.
-// https://github.com/elastic/elasticsearch-specification/tree/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827
+// https://github.com/elastic/elasticsearch-specification/tree/ea991724f4dd4f90c496eff547d3cc2e6529f509
 
 package types
 
@@ -31,7 +31,7 @@ import (
 
 // ShardsSegment type.
 //
-// https://github.com/elastic/elasticsearch-specification/blob/48e2d9de9de2911b8cb1cf715e4bc0a2b1f4b827/specification/indices/segments/types.ts#L46-L51
+// https://github.com/elastic/elasticsearch-specification/blob/ea991724f4dd4f90c496eff547d3cc2e6529f509/specification/indices/segments/types.ts#L46-L51
 type ShardsSegment struct {
 	NumCommittedSegments int                 `json:"num_committed_segments"`
 	NumSearchSegments    int                 `json:"num_search_segments"`
@@ -107,8 +107,10 @@ func (s *ShardsSegment) UnmarshalJSON(data []byte) error {
 // NewShardsSegment returns a ShardsSegment.
 func NewShardsSegment() *ShardsSegment {
 	r := &ShardsSegment{
-		Segments: make(map[string]Segment, 0),
+		Segments: make(map[string]Segment),
 	}
 
 	return r
 }
+
+// false
